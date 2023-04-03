@@ -57,7 +57,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
-    "prettier": "^2.4.1",
+    "prettier": "^2.8.7",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.1",
