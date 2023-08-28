@@ -1,0 +1,38 @@
+name: Build Frontend
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Compile frontends
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+      - name: Create env.js from example
+        run: cp env.example.js env.js
+      - name: Build
+        run: npm run build
+
+      - name: Check artifacts
+        run: ls
+
+      - name: Check path
+        run: pwd
+
+      - name: Check dist arts
+        run: ls
+        working-directory: dist
+
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Dist
+          path: dist/*
+          retention-days: 1
