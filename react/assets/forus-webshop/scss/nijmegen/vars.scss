@@ -1,0 +1,91 @@
+@import "../general/vars.scss";
+
+/*==========  Style Sheet - Vars  ==========*/
+$fonts: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700",
+    "https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,400i,600,700";
+
+$primaryColor: #157c68;
+$primaryColorLight: #30a08b;
+
+:root {
+    // navbar
+    --bg-nav: #a80a2d;
+    --tc-nav: #fff;
+    --tc-nav-hov: #fff;
+    --logo-padding: 20px 0px;
+    --logo-height: 50px;
+
+    // navbar (auth)
+    --tc-auth-menu: #fff;
+    --tc-auth-btn: #157c68;
+    --btn-auth-bg: #fff;
+    --btn-auth-border: #30a08b;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #157c68;
+    --btn-start-btn: #157c68;
+    --btn-start-border: transparent;
+
+    // sign up
+    --sign_up_accent_color: #197e6a;
+    --sign_up_accent_color_light: #9bddd0;
+
+    // header background
+    --bg-values: url("../img/splash-top-b.png") no-repeat 100% 0;
+
+    // base font
+    --base-font: "Source Sans Pro", sans-serif;
+
+    // base font
+    --hf: "Oranda", "Source Serif Pro", sans-serif;
+
+    // text color
+    --tc: #353535;
+    --htc: #a80a2d;
+    --tc-var: inherit;
+    --tc-link: var(--bg-nav);
+
+    // base color
+    --bc: var(--bg-nav);
+
+    // background color
+    --bg: #fff;
+
+    --bg_2: none;
+
+    // text formatting
+    --text_format: uppercase;
+
+    // footer color
+    --footer_background_color: #3a3a3a;
+    --footer_color: #fff;
+
+    --footer_color_link: #fff;
+
+    // displayed or not
+    --footer_display: block;
+
+    // product image
+    --product-image-padding: 0px;
+
+    // placeholder text color
+    --placeholder_text_color: #515152;
+
+    --border-color: #ececec;
+
+    --border-radius: 2px;
+    --box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.05);
+
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
+
+    --color-default: #017f96;
+    --color-default-light: #017f96;
+
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}

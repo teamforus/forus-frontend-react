@@ -1,0 +1,30 @@
+.block {    
+    &.block-validators {
+        margin-bottom: 30px;
+
+        .block-card {
+            box-shadow: var(--box-shadow);
+            border-radius: 2px;
+        }
+
+        .validator-item {
+            .validator-state {
+                .validator-send {
+                    color: #297c68;
+
+                    .mdi {
+                        color: #297c68;
+                    }
+
+                    &:hover {
+                        color: #30a08b;
+
+                        .mdi {
+                            color: #30a08b;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

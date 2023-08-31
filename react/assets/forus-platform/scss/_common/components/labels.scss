@@ -1,0 +1,115 @@
+.label {
+    font: 600 11px/20px var(--base-font);
+    display: inline-flex;
+    padding: 0 7.5px;
+    border-radius: calc(var(--border-radius) / 2);
+    cursor: default;
+
+    .mdi {
+        font-size: 1.5em;
+        float: right;
+        color: inherit;
+        line-height: 24px;
+
+        &.icon-start {
+            margin-left: -5px;
+            margin-right: 5px;
+        }
+
+        &.icon-end {
+            margin-left: 5px;
+            margin-right: -5px;
+        }
+    }
+
+    .label-close {
+        color: inherit;
+        float: left;
+        font-size: 14px;
+        margin: 0 2.5px 0 -2.5px;
+        cursor: pointer;
+
+        &:last-child {
+            float: right;
+            margin: 0 -2.5px 0 2.5px;
+        }
+    }
+
+    &.label-success {
+        background: #2cc6ab;
+        color: #fff;
+    }
+
+    &.label-warning {
+        background: #ffae42;
+        color: #fff;
+    }
+
+    &.label-danger {
+        background: #de1442;
+        color: #fff;
+    }
+
+    &.label-danger-light {
+        background: #f8e7eb;
+        color: #de1442;
+    }
+
+    &.label-default {
+        background: #8ca3a6;
+        color: #fff;
+    }
+
+    &.label-primary {
+        background: var(--color-primary);
+        color: #fff;
+    }
+
+    &.label-primary-light {
+        background: #e1efff;
+        color: var(--color-primary);
+    }
+
+    &.label-primary-variant {
+        background: var(--color-primary-light);
+        color: #fff;
+    }
+
+    &.label-sm {
+        padding: 0 5px;
+        line-height: 18px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    &.label-lg {
+        padding: 4px 10px;
+        line-height: 18px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    &.label-round {
+        border-radius: 30px;
+    }
+
+    &.label-tag {
+        font: 600 12px/25px var(--base-font);
+        padding: 0 10px;
+    }
+
+    &:not(:last-child):not(:last-of-type) {
+        margin: 0 5px 5px 0;
+    }
+
+    &[ng-click] {
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .label {
+        padding: 0 10px;
+        font: 700 11px/22px var(--base-font);
+    }
+}

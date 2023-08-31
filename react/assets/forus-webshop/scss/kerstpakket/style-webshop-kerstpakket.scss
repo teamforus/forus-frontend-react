@@ -1,0 +1,17 @@
+@import './vars';
+@import '../_common/webshop';
+
+// COMPONENTS
+@import 'components/_buttons.scss';
+
+// LAYOUTS
+@import 'layout/_header.scss',
+'layout/_footer.scss';
+
+// SECTIONS
+@import 'sections/faq.scss',
+'sections/steps.scss',
+'sections/map.scss';
+
+// BLOCKS
+@import 'sections/blocks/products.scss';

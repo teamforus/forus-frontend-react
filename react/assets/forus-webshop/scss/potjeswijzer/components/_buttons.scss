@@ -1,0 +1,51 @@
+.button {
+    border-radius: 5px;
+
+    &.button-default {
+        background-color: var(--login-button-background);
+        border-color: var(--color-default);
+        color: #666;
+
+        .mdi {
+            color: #666;
+        }
+
+        &:hover {
+            background-color: var(--color-default-light);
+            border-color: var(--color-default-light);
+            color: #666;
+
+            .mdi {
+                color: #666;
+            }
+        }
+    }
+
+    &.button-primary {
+        color: #666;
+        background: var(--color-primary);
+        border: var(--color-primary);
+        text-shadow: none;
+        
+        &:hover {
+            color: #666;
+            background: var(--color-primary-light);
+            background-color: var(--color-primary-light);
+        }
+    }
+
+    &.button-primary-outline {
+        color: #fff;
+        border: 1px solid #498fb4;
+        background: #498fb4;
+
+        &:hover {
+            background: transparent;
+            color: #498fb4;
+        }
+    }
+    
+    &[disabled], &.disabled {
+        color: #999;
+    }
+}

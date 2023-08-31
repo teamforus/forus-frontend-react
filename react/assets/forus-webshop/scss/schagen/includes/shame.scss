@@ -1,0 +1,467 @@
+.block {
+    &.block-navbar {
+        .block-auth {
+            .button {
+                &.button-primary {
+                    &:hover {
+                        background-color: #a21522;
+                    }
+                }
+
+                &.button-default {
+                    &:hover {
+                        background-color: #074e7d;
+                    }
+                }
+            }
+        }
+
+        .block-subnav {
+            background-color: #ffffff;
+        }
+
+        .navbar-list {
+            .navbar-item-wrapper {
+                .navbar-item {
+                    &:hover {
+                        &:before {
+                            background: #ffffff;
+                        }
+                    }
+
+                    &.active {
+                        &:before {
+                            top: auto;
+                            bottom: 0;
+                        }
+                    }
+                }
+
+                .navbar-item.active:before {
+                    top: auto;
+                    bottom: 0;
+                    background: #ffffff;
+                }
+
+                .navbar-item.hover:before {
+                    top: auto;
+                    bottom: 0;
+                    background: #ffffff;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        &.block-navbar {
+            .navbar-inner {
+                order: 2;
+            }
+
+            .block-navbar-search {
+                max-width: 760px;
+
+                .search-form.form {
+                    .form-control {
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+
+        &.block-products {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .block-subnav {
+        background-color: #77b431;
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            position: sticky;
+            background-color: #0071B8;
+            
+            .navbar-inner {
+                background-color: var(--bg_2);
+            }
+
+            .navbar-logo {
+                img {
+                    display: none;
+
+                    &.hover {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-products {
+        .product-item {
+            width: 100%;
+
+            .product-item-inner {
+                box-shadow: none;
+                border: solid 1px #e4e4e4;
+            }
+        }
+    }
+
+    &.block-products-list {
+        .product-item {
+            box-shadow: none;
+            border: solid 1px #e4e4e4;
+        }
+    }
+
+
+    &.block-showcase {
+        .showcase-layout {
+            .showcase-aside {
+                .showcase-aside-block {
+                    box-shadow: none;
+                    padding: 0;
+                }
+                
+                .button.button-primary-outline {
+                    background-color: var(--color-primary);
+                    color: #fff;
+
+                    &:hover {
+                        background: var(--color-primary-light);
+                    }
+                }
+            }
+        }
+
+        &.block-showcase-fullscreen {
+            .showcase-layout {
+                .showcase-aside {
+                    .showcase-aside-block {
+                        padding: 20px;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .showcase-wrapper {
+                .showcase-layout {
+                    .showcase-aside {
+                        .showcase-aside-block {
+                            padding: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-profile {
+        .profile-aside {
+            .profile-menu {
+                .profile-menu-item {
+                    box-shadow: none;
+                    border: solid 1px #e4e4e4;
+                }
+            }
+        }
+    }
+
+    &.block-cms-funds {
+        display: auto;
+
+        .fund-item {
+            display: inline-block;
+            width: 50%;
+            border: none;
+
+            .fund-media {
+                img {
+                    width: auto;
+                    display: block;
+                }
+            }
+
+            .fund-information {
+                width: auto;
+                padding-left: 0;
+                text-align: left;
+                display: block;
+
+                .fund-title {
+                    color: var(--tc);
+                }
+            }
+        }
+    }
+
+    &.block-organizations {
+        .organization-item {
+            .organization-pane {
+                box-shadow: none;
+                border: 1px solid #e4e4e4;
+
+                &.active {
+                    border: 1px solid #e4e4e4;
+                }
+            }
+
+            .organization-offices {
+                .block-offices {
+                    box-shadow: none;
+                    border: 1px solid #e4e4e4;
+                }
+            }
+        }
+    }
+
+    &.block-funds-list {
+        .fund-item {
+            box-shadow: none;
+            border: 1px solid #e4e4e4;
+        }
+    }
+
+    &.block-fund {
+        .fund-content {
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+
+            .fund-card {
+                background: none;
+                box-shadow: none;
+
+                .fund-details {
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    &.block-pane {
+        box-shadow: none;
+        border: 1px solid #e4e4e4;
+    }
+
+    &.block-markdown {
+        a:not(.button) {
+            text-decoration: underline;
+            color: #0071B8;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    &.block-voucher {
+        .base-card {
+            box-shadow: none;
+            border: 1px solid #e4e4e4;
+
+            &.base-card-voucher {
+                box-shadow: none;
+                border: 1px solid #e4e4e4;
+            }
+        }
+    }
+
+    &.block-vouchers {
+        .voucher-item {
+            box-shadow: none;
+            border: 1px solid #e4e4e4;
+        }
+    }
+
+    &.block-map_card {
+        box-shadow: none;
+        border: 1px solid #e4e4e4;
+    }
+
+    &.block-search-results {
+        .search-item {
+            box-shadow: none;
+            border: 1px solid #e4e4e4;
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        &.block-products {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+    }
+}
+
+.form {
+    .form-control:not([type="radio"]):not([type="checkbox"]) {
+        background-color: #ffffff;
+        border: 1px solid #e4e4e4;
+    }
+}
+
+.section {
+    &.section-header {
+        background-position: top center;
+        padding: 50px 0;
+        margin: 0 auto;
+        max-width: 100%;
+
+        .header-content {
+            text-align: center;
+
+            .header-description p {
+                text-align: center !important;
+            }
+        }
+    }
+
+    &.section-fund {
+        .wrapper {
+            padding-top: 20px;
+            width: 1000px;
+        }
+    }
+
+    &.section-faq {
+        .faq {
+            width: auto;
+            margin: 0;
+        }
+    }
+
+    &.section-footer {
+        margin-top: 0;
+        padding-top: 30px;
+        color: #fff;
+    }
+
+    @media screen and (min-width: 1000px) {
+        &.section-header {
+            height: 500px;
+            padding: 75px 0;
+
+            .header-content {
+                text-align: left;
+                padding: 50px 50px;
+                margin-left: 50px;
+                background-color: #ffffff;
+                text-align: left;
+
+                .header-description p {
+                    text-align: left !important;
+                }
+            }
+        }
+
+        &.section-products {
+            width: 100vw;
+            background: #f4f5f7;
+            left: calc(-50vw + 50%);
+            padding: 30px 0 30px 0;
+            margin: 0;
+
+            .section-title {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+.block {
+    &.block-footer {
+        .block {
+
+            .footer-nav {
+                .footer-nav-item {
+                    a {
+                        color: #fff;
+                        font: 500 16px/24px var(--base-font);
+                    }
+                }
+            }
+
+            &.block-markdown {
+                a:not(.button) {
+                    color: #fff;
+                }
+            }
+        }
+
+        .footer-label {
+            color: #fff;
+        }
+
+        .footer-schedule {
+            .schedule-label {
+                color: #fff;
+            }
+
+            .schedule-value {
+                color: #fff;
+            }
+        }
+
+        .footer-subscribe {
+            .button {
+                margin: 0;
+                border-radius: var(--border-radius);
+
+                .mdi {
+                    float: none;
+                }
+            }
+        }
+    }
+
+    &.block-copyrights {
+        border: none;
+        background-color: var(--footer_background_color);
+        color: #fff;
+        font-size: 1rem;
+        padding: 25px 0;
+
+        .copyrights {
+            color: #fff;
+        }
+
+        .links {
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
+
+// MOVE TO LAYOUT FOOTER FILE
+.block.block-footer .footer-nav .footer-nav-item a {
+    font: 400 14px/24px var(--base-font);
+    color: #ffffff;
+}
+
+@media screen and (max-width: 1000px) {
+    .block.block-footer .footer-nav .footer-nav-item a {
+        color: #ffffff;
+    }
+}
+
+@media screen and (max-width: 1700px) {
+    .block.block-footer .footer-nav .footer-nav-item a {
+        color: #ffffff;
+    }
+}
+
+.block {
+    &.block-copyrights {
+        .links {
+            a {
+                color: #ffffff;
+            }
+        }
+    }
+}

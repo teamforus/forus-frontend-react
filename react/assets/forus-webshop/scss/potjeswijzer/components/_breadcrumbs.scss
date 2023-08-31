@@ -1,0 +1,13 @@
+.block {
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #4F4F4F;
+
+            &:not(.active) {
+                &:hover {
+                    color: darken($color: #4F4F4F, $amount: 10);
+                }
+            }
+        }
+    }
+}

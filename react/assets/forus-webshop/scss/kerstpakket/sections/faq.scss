@@ -1,0 +1,29 @@
+.section {
+    &.section-faq {
+        .faq {
+            .faq-item {
+                .faq-item-header {
+                    .faq-item-chevron-up {
+                        color: #6dad50;
+                    }
+                    &.active {
+                        color: #6dad50;
+                    }
+                }
+                border: 1px solid #e6ecf0;
+                &:hover:not(.active) {
+                    .faq-item-header {
+                        color: var(--color-primary);
+
+                        .faq-item-chevron-up {
+                            color: #6dad50;
+                        }
+                        .faq-item-chevron-down {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

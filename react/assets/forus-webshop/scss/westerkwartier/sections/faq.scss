@@ -1,0 +1,18 @@
+.section {
+    &.section-faq {
+        .faq {
+            .faq-item {
+                &:hover:not(.active) {
+                    .faq-item-header {
+                        color: #b9ca2f;
+
+                        .faq-item-chevron-up,
+                        .faq-item-chevron-down {
+                            color: #b9ca2f;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,53 @@
+.skiplinks {
+    a {
+        text-decoration: underline;
+        color: #2b2bff;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        &.active, &:focus, &:hover {
+            background-color: #e6e6e6;
+            color: #4447f5;
+            display: block;
+            font-size: 1em;
+            left: 0;
+            margin-bottom: .5em;
+            padding: .5em;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            -webkit-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            -moz-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            -o-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px;
+        }
+    }
+}
+
+.sr-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    
+    &.sr-only-focusable {
+        &.active, &:focus {
+            clip: auto;
+            height: auto;
+            margin: 0;
+            overflow: visible;
+            position: static;
+            width: auto;
+        }
+    }
+}

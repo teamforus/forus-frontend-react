@@ -1,0 +1,93 @@
+&.block-voucher-records {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .record-item {
+        display: flex;
+        margin-bottom: 10px;
+
+        .record-key {
+            color: #848484;
+            display: flex;
+            flex-basis: 180px;
+
+            font: 400 13px/18px var(--base-font);
+        }
+
+        .record-value {
+            display: flex;
+            flex-grow: 1;
+            font: 600 13px/18px var(--base-font);
+            flex: 1;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &.block-voucher-records-toggle {
+        .records-toggle {
+            font: 600 12px/30px var(--base-font);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    
+        .records-pane {
+            background-color: #fbfbfb;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+        }
+    }
+
+    &.block-voucher-records-compact {
+        .record-item {
+            margin-bottom: 5px;
+
+            .record-key,
+            .record-value {
+                font: 600 11px/18px var(--base-font);
+            }
+
+            .record-key {
+                flex-basis: 130px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .record-item {
+            display: flex;
+            flex-direction: column;
+            padding: 5px 0;
+            position: relative;
+
+            .record-key,
+            .record-value {
+                flex-basis: initial;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        &.block-voucher-records-compact {
+            .record-item {
+                .record-key,
+                .record-value {
+                    flex-basis: initial;
+                    text-align: start;
+                    justify-content: start;
+                }
+            }
+
+        }
+    }
+}

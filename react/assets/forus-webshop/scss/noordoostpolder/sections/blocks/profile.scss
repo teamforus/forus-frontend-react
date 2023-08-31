@@ -1,0 +1,41 @@
+.block {
+    &.block-profile {
+        .profile-aside {
+            .profile-card {
+                .profile-details {
+                    .profile-heading {
+                        color: var(--bc);
+                    }
+                }
+
+                .profile-actions {
+                    .profile-action {
+                        color: var(--tc-var);
+
+                        .mdi {
+                            color: var(--color-primary);
+                        }
+
+                        &:hover {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+
+            .profile-menu {
+                .profile-menu-item {
+                    color: var(--color-primary);
+
+                    .mdi {
+                        color: var(--color-primary);
+                    }
+
+                    &.active {
+                        background-color: var(--color-primary);
+                    }
+                }
+            }
+        }
+    }
+}

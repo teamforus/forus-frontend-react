@@ -1,0 +1,36 @@
+.block {    
+    &.block-records {
+        .record-item {
+            border-radius: 2px;
+            box-shadow: var(--box-shadow);
+
+            .record-details {
+                .record-type {
+                    color: #297c68;
+                }
+            }
+
+            .record-validations {
+                .record-validation-count {
+                    color: #30a08b;
+                }
+
+                .record-validation-request {
+                    color: #297c68;
+
+                    .mdi {
+                        background: #297c68;
+                    }
+
+                    &:hover {
+                        color: #30a08b;
+
+                        .mdi {
+                            background: #30a08b;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

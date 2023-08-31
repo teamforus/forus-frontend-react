@@ -1,0 +1,47 @@
+@import './vars';
+@import '../_common/webshop';
+
+@font-face { 
+    font-family: Oranda; 
+    src: local("Oranda BT Roman"), 
+    url("https://media.forus.io/assets/fonts/oranda_bt.bde3d05f.woff2") format("woff2"), 
+    url("https://media.forus.io/assets/fonts/oranda_bt.05235f9a.woff") format("woff");
+    font-style: normal; 
+    font-weight: 400; 
+    font-display: swap; 
+}
+
+// LAYOUTS
+@import 'layout/_footer.scss',
+'layout/_navigation.scss',
+'layout/_header.scss';
+
+// COMPONENTS
+@import 'components/_breadcrumbs.scss',
+'components/_buttons.scss',
+'components/_form.scss',
+'components/_modals.scss';
+
+// SECTIONS
+@import 'sections/faq.scss',
+'sections/steps.scss',
+'sections/funds.scss';
+
+// BLOCKS
+@import 'sections/blocks/apply_fund.scss',
+ 'sections/blocks/empty.scss',
+ 'sections/blocks/fund_criteria.scss',
+ 'sections/blocks/funds.scss',
+ 'sections/blocks/popups.scss',
+ 'sections/blocks/products.scss',
+ 'sections/blocks/profile.scss',
+ 'sections/blocks/record_categories.scss',
+ 'sections/blocks/records_create.scss',
+ 'sections/blocks/records.scss',
+ 'sections/blocks/shops_map.scss',
+ 'sections/blocks/transactions.scss',
+ 'sections/blocks/block-fund.scss',
+ 'sections/blocks/block-cms-funds-compact.scss',
+ 'sections/funds.scss',
+ 'sections/blocks/validations.scss',
+ 'sections/blocks/validators.scss';

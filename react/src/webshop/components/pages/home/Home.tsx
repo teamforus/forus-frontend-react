@@ -14,13 +14,16 @@ export const Home = ({ envData }: { envData: EnvDataProp }) => {
             <div className="square"></div>
             <br />
             <h4>Environment data</h4>
-            <pre style={{
-                width: '50%',
-                backgroundColor: 'silver',
-                margin: 'auto',
-                padding: '10px',
-                textAlign: 'left',
-            }}>{JSON.stringify(envData, null, '    ')}</pre>
+            <pre
+                style={{
+                    width: '50%',
+                    backgroundColor: 'silver',
+                    margin: 'auto',
+                    padding: '10px',
+                    textAlign: 'left',
+                }}>
+                {JSON.stringify(envData, null, '    ')}
+            </pre>
         </div>
     );
 };

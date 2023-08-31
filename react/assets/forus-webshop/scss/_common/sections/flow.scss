@@ -1,0 +1,274 @@
+.section {
+    &.section-flow {
+        margin-bottom: 100px;
+
+        &.wide-70 {
+            width: 50%;
+            margin-left: 12%;
+        }
+
+        .section-sprite {
+            position: absolute;
+            right: 100px;
+            width: 50%;
+            height: 50%;
+            background: url('../img/sprite-steps.png') no-repeat;
+            background-position: 100% 0%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .section-description {
+            font: 400 22px/32px var(--base-font);
+            color: #646f79;
+            text-align: center;
+            padding: 0 50px;
+            margin-bottom: 10px;
+        }
+
+        .section-scheme {
+            display: block;
+            margin: 0 auto 40px;
+            max-width: 100%;
+        }
+
+    }
+
+    &.section-flow {
+        margin-bottom: 100px;
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .section-description {
+            font: 400 22px/32px var(--base-font);
+            color: #646f79;
+            text-align: center;
+            padding: 0 50px;
+            margin-bottom: 10px;
+        }
+
+        .section-scheme {
+            display: block;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .scheme {
+            position: relative;
+            max-width: 100%;
+            width: 1400px;
+            margin: 0 auto;
+
+            .scheme-img {
+                visibility: hidden;
+                display: block;
+                margin: 0 auto 40px;
+                max-width: 100%;
+            }
+
+            .scheme-points-preset {
+                @include fill_parent();
+            }
+
+            .scheme-point {
+                .scheme-point-text {
+                    position: absolute;
+                    left: 12.15%;
+                    top: 11.55%;
+                    width: 30%;
+
+                    h4 {
+                        color: #00122a;
+                        font: 500 28px/38px var(--base-font);
+                        margin: 0 0 10px;
+                    }
+
+                    p {
+                        color: #646f79;
+                        font: 400 15px/24px var(--base-font);
+                        margin: 0 0 10px;
+                    }
+                }
+
+                .scheme-point-image {
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 55.5%;
+                    padding: 40px;
+                    border-radius: 1000px;
+                    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 100%);
+                }
+
+                &:nth-child(2) {
+                    .scheme-point-text {
+                        top: 35.6%;
+                        left: 57.4%;
+                    }
+
+                    .scheme-point-image {
+                        left: 0;
+                        top: 24%;
+                    }
+                }
+
+                &:nth-child(3) {
+                    .scheme-point-text {
+                        top: 59.1%;
+                    }
+
+                    .scheme-point-image {
+                        top: 47.4%;
+                    }
+                }
+
+                &:nth-child(4) {
+                    .scheme-point-text {
+                        top: 82.6%;
+                        left: 57.4%;
+                    }
+
+                    .scheme-point-image {
+                        left: 0;
+                        top: auto;
+                        bottom: 0.1%;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1500px) {
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.section-flow {
+            margin: 0 0 30px;
+
+            .section-title {
+                padding: 0;
+                font: 700 18px/32px var(--hf);
+            }
+
+            .section-description {
+                padding: 0;
+                font: 400 15px/26px var(--base-font);
+                margin: 0 0 30px;
+            }
+
+            .section-scheme {
+                margin: 0;
+            }
+        }
+
+        &.section-flow {
+            &.wide-70 {
+                width: 100%;
+                margin: 0;
+            }
+
+            .wrapper {
+                .section-sprite {
+                    display: none;
+                }
+            }
+        }
+
+        &.section-flow {
+            margin: 0 0 30px;
+
+            .section-title {
+                padding: 0;
+                font: 700 20px/28px var(--hf);
+                margin-bottom: 15px;
+            }
+
+            .section-description {
+                padding: 0;
+                font: 400 14px/22px var(--base-font);
+                margin: 0 0 30px;
+                color: #353b46;
+            }
+
+            .scheme {
+                margin: 0;
+            }
+
+            &.responsive {
+                display: block;
+
+                .scheme {
+                    .scheme-img {
+                        display: none;
+                    }
+
+                    .scheme-points-preset {
+                        position: initial;
+                    }
+
+                    .scheme-point {
+                        width: 100%;
+                        text-align: center;
+                        margin: 0 0 30px;
+
+                        .scheme-point-text {
+                            position: initial;
+                            width: 100%;
+                        }
+
+                        .scheme-point-image {
+                            position: initial;
+                            width: 100%;
+                            padding: 0;
+                            border-radius: 0;
+                            margin-bottom: -30px;
+                            margin-top: -30px;
+                        }
+
+                        h4 {
+                            font: 600 16px/28px var(--base-font);
+                        }
+
+                        p {
+                            font: 400 13px/20px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

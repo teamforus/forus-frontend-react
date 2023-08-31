@@ -1,0 +1,72 @@
+.usp {
+    padding: 20px 0px;
+    height: 100%;
+    @media screen and (min-width: 992px) {
+        padding: 20px 50px 10px 50px;
+        min-height: 200px;
+        &:before {
+            content: "";
+            position: absolute;
+            margin-top: -32px;
+            left: -30px;
+            height: 70px;
+            width: 70px;
+            background-repeat: no-repeat;
+            background-image: url("../img/icon-usp.svg");
+        }
+        /*&__sp-1 {
+            &:before {
+                background-image: url("../img/icon-usp.svg");
+            }       
+        }
+        &__sp-2 {
+            &:before {
+                background-image: url("../img/icon-privacy.svg");
+            }       
+        }
+        &__sp-3 {
+            &:before {
+              background-image: url("../img/icon-toegankelijkheid.svg");
+            }       
+        }
+        &__sp-4 {
+            &:before {
+                background-image: url("../img/icon-economie.svg");
+            }       
+        }
+        &__sp-5 {
+            &:before {
+                background-image: url("../img/icon-managementinformatie.svg");
+            }       
+        }
+        &__sp-6 {
+            &:before {
+                background-image: url("../img/icon-huisstijl.svg");
+            }       
+        }
+        &__sp-7 {
+            &:before {
+                background-image: url("../img/icon-support.svg");
+            }       
+        }
+        &__sp-8 {
+            &:before {
+                background-image: url("../img/icon-samenwerking.svg");
+            }       
+        }*/   
+    }
+}
+.phone-m {
+    width: 170px;
+    padding: 5%;
+    margin: 0 auto;
+    display: block;
+}
+@media screen and (min-width: 992px) {
+    .cont-p {
+        padding: 35px 100px 100px;
+    }
+    .cont-b {
+        padding: 35px 150px 100px;
+    }
+}

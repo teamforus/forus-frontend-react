@@ -1,0 +1,110 @@
+&.block-pane {
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+    border-radius: var(--border-radius);
+    cursor: default;
+
+    .pane-head,
+    .pane-section {
+        display: flex;
+        border-bottom: 1px solid var(--border-color);
+
+        &:first-child {
+            border-top-left-radius: var(--border-radius);
+            border-top-right-radius: var(--border-radius);
+        }
+
+        &:last-child {
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            border-bottom-width: 0;
+        }
+    }
+
+    .pane-head {
+        background: #ffffff;
+        padding: 20px 25px;
+        font: 700 22px/30px var(--hf);
+        color: var(--tc);
+        margin: 0 0 0;
+
+        .pane-head-title {
+            font: inherit;
+            margin: 0;
+        }
+
+        .pane-head-count {
+            height: 30px;
+            min-width: 30px;
+            text-align: center;
+            background-color: var(--color-primary);
+            color: #fff;
+            font: 700 16px/30px var(--base-font);
+            border-radius: 30px;
+        }
+
+        .pane-head-more {
+            font: 600 14px/20px var(--base-font);
+            color: #083f49;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            margin-left: 5px;
+            flex-grow: 1;
+            display: flex;
+            padding-top: 7.5px;
+
+            .mdi {
+                position: relative;
+                margin-left: 5px;
+                display: block;
+                transition: 0.4s;
+                font-size: 1.4em;
+                transform: translate(0, 0);
+                line-height: 20px;
+                height: 20px;
+            }
+
+            &:hover {
+                .mdi {
+                    transform: translate(5px, 0);
+                }
+            }
+        }
+    }
+
+    .pane-section {
+        background: #ffffff;
+        padding: 25px;
+        font: 400 14px/20px var(--base-font);
+
+        &.pane-section-compact-vertical {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        &.pane-section-collapsed {
+            padding: 0;
+        }
+    }
+
+    .pane-body .block.block-organizations .organization-item .organization-pane {
+        box-shadow: none;
+    }
+
+    &.last-child,
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .pane-head {
+            padding: 15px 20px;
+            font: 700 16px/20px var(--base-font);
+        }
+
+        .pane-section {
+            padding: 20px;
+        }
+    }
+}

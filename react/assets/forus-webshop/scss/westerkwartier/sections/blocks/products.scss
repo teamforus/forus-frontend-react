@@ -1,0 +1,42 @@
+.block {
+    &.block-products {
+        .product-item {
+            .product-item-inner {
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+
+                .product-name {
+                    color: #8b9911
+                }
+
+                &:hover {
+                    .product-name {
+                        color: #91b845;
+                    }
+                }
+            }
+
+            .product-discount {
+                color: #4990b5;
+            }
+        }
+    }
+}
+
+.section {
+    &.section-products {
+        &products-component {
+            .section-title {
+                text-align: left;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            &.section-products {
+                .section-title {
+                    color: var(--tc);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,242 @@
+&.block-organizations {
+    margin-bottom: 30px;
+
+    .organization-item {
+        margin-bottom: 15px;
+
+        .organization-pane {
+            background: #ffffff;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: row;
+            box-shadow: var(--box-shadow);
+            transition: box-shadow .4s;
+            border: 1px solid transparent;
+
+            .organization-pane-info {
+                padding: 20px 15px;
+                align-items: center;
+                display: flex;
+                flex: 1;
+
+                .organization-logo {
+                    margin: -10px 15px -10px 0;
+    
+                    .organization-logo-img {
+                        display: block;
+                        width: 50px;
+                        border-radius: var(--border-radius);
+                    }
+                }
+                
+                .organization-title {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    font: 600 16px/20px var(--hf);
+                    text-align: left;
+    
+                    .organization-title-value {
+                        vertical-align: middle;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        font: inherit;
+                        margin-bottom: 5px;
+                    }
+    
+                    .organization-title-count {
+                        min-width: 30px;
+                        text-align: center;
+                        padding: 0 5px;
+                        height: 30px;
+                        text-align: center;
+                        font: inherit;
+                        line-height: 30px;
+                        color: #fff;
+                        background: var(--color-primary);
+                        border-radius: calc(var(--border-radius) / 2);
+                        margin-left: 10px;
+                    }
+
+                    .organization-page-link {
+                        display: flex;
+                        font: 600 12px/14px var(--base-font);
+                        color: #595959;
+
+                        .mdi {
+                            font-size: 18px;
+                            line-height: 14px;
+                        }
+                    }
+                }
+            }
+
+            .organization-pane-collapse {
+                align-items: center;
+                border-left: 1px solid #d7d7d7;
+                padding: 25px;
+                margin: 0;
+                display: flex;
+
+                .organization-total-offices, 
+                .organization-total-offices-count {
+                    font: 600 14px/20px var(--base-font);
+                    color: #595959;
+                }
+
+                .organization-total-offices-count {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 15px;
+                    min-width: 20px;
+                    line-height: 20px;
+                    border-radius: 50%;
+                    font-size: 13px;
+                    text-align: center;
+                    background: #E5E5E5;
+                    color: #303030;
+
+                    &.active {
+                        color: #fff;
+                        background: #000;
+                    }
+                }
+
+                .organization-chevron {
+                    line-height: 20px;
+                    height: 20px;
+                    font-size: 20px;
+                    color: #595959;
+                    cursor: pointer;
+                    transition: .4s;
+                    margin-right: 10px;
+    
+                    .mdi {
+                        font-size: inherit;
+                        color: inherit;
+                    }
+    
+                    &:hover {
+                        color: var(--color-primary);
+                    }
+                }
+            }
+
+            &.active {
+                border: 1px solid #b1b1b1;
+            }
+
+            &:hover {
+                box-shadow: var(--box-shadow);
+            }
+        }
+
+        .organization-offices {
+            padding-left: 50px;
+
+            .block-offices {
+                margin-top: 15px;
+                background: #fff;
+                border-radius: var(--border-radius);
+                box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+                transition: box-shadow .4s;
+                
+                .office-item {
+                    margin-bottom: 0;
+                    position: relative;
+
+                    .office-item-map-icon {
+                        background: var(--color-primary);
+                        position: absolute;
+                        left: -40px;
+                        width: 26px;
+                        height: 26px;
+                        text-align: center;
+                        color: #fff;
+                        line-height: 26px;
+                        font-size: 18px;
+                        border-radius: calc(var(--border-radius) / 2);
+                        top: 20px;
+                    }
+    
+                    .office-pane {
+                        background: #fff;
+                        box-shadow: none;
+                        border-bottom: 1px solid var(--border-color);
+
+                        .office-chevron {
+                            font-size: 30px;
+                            margin-top: auto;
+                            margin-bottom: auto;
+                            margin-left: auto;
+                            color: #646F79;
+                        }
+                    }
+
+                    &:before {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        background: #d2d2c7;
+                        width: 2px;
+                        height: 100%;
+                        top: -15px;
+                        bottom: 0;
+                        left: -27px;
+                        transform: translate(-50%);
+                    }
+
+                    &:last-child {
+                        .office-pane {
+                            border-bottom: none;
+                        }
+
+                        &:before {
+                            bottom: auto;
+                            height: 60px
+                        }
+                    }
+                }
+
+                &:hover {
+                    box-shadow: var(--box-shadow);
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 15px;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .organization-item {
+            .organization-pane {
+                .organization-pane-info {
+                    padding: 15px 10px;
+                }
+
+                .organization-pane-collapse {
+                    padding: 15px 10px;
+
+                    .organization-chevron {
+                        margin-right: 0;
+                    }
+
+                    .organization-total-offices {
+                        display: none;
+                    }
+
+                    .organization-total-offices-count {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

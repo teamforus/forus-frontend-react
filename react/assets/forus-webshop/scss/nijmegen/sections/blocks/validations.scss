@@ -1,0 +1,55 @@
+.block {    
+    &.block-validations {
+        .validation-record-details {
+            box-shadow: var(--box-shadow);
+            border-radius: 2px;
+
+            .record-type {
+                color: #297c68;
+            }
+
+            .record-validation-count {
+                color: #30a08b;
+            }
+
+            .button {
+                font: 600 17px/24px "Source Sans Pro", sans-serif;
+                padding: .84rem 2.14rem;
+                -webkit-transition: all 0.2s ease-in-out;
+                transition: all 0.2s ease-in-out;
+                margin: .375rem;
+                border-radius: .125rem;
+                cursor: pointer;
+                text-transform: uppercase;
+                white-space: normal;
+                word-wrap: break-word;
+                font-size: 18px;
+                letter-spacing: 0.7px;
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+                background-color: #fff;
+                border: 1px solid var(--border-color);
+                color: #157c68;
+
+                &:hover,
+                &:focus {
+                    background-color: #efefef;
+                    border-color: #ababab;
+                    color: #17564a;
+                }
+            }
+        }
+
+        .validation-card {
+            box-shadow: var(--box-shadow);
+            border-radius: 2px;
+        }
+
+        .validation-item {
+            .validation-date {
+                color: #297c68;
+            }
+        }
+    }
+}

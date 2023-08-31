@@ -1,0 +1,18 @@
+// these items have  section as parent class, while other implementatios have block as parent
+
+.section {
+    .section-title {
+        text-align: center;
+    }
+
+    &.section-profile {
+        .section-title {
+            text-align: left;
+            color: #fff;
+        }
+    }
+}
+
+body {
+    background: #ececec;
+}

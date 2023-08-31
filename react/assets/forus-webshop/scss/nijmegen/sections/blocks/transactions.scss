@@ -1,0 +1,16 @@
+.block {
+    &.block-transactions {
+        border-radius: 2px;
+
+        .transactions-list {
+            .transactions-item {
+                &.transactions-item-out {
+                    .transactions-item-amount .transactions-item-value,
+                    .transactions-item-icon {
+                        color: #297c68;
+                    }
+                }
+            }
+        }
+    }
+}

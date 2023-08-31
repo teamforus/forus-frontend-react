@@ -1,0 +1,143 @@
+.role {
+    cursor: pointer;
+    p {
+        flex: auto;
+        font-size: 14px;
+        display: none;
+        @media screen and (min-width: 768px) { 
+            display: block;
+        }
+        @media screen and (min-width: 1280px) { 
+            font-size: 16px;
+        }
+
+    }
+    .play_btn_link {
+        @media screen and (min-width: 768px) { 
+            display: flex;
+        }
+        p { 
+            flex: 0 1 auto;
+            display: block;
+        }
+    }
+}
+.roles {
+    display: table;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
+}
+
+.role_content {
+    padding: 15px 15px;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    @media screen and (min-width: 768px) {
+        min-height: 250px;
+        padding: 15px 15px;
+        
+    }
+    @media screen and (min-width: 992px) {
+        padding: 20px 25px;
+        min-height: 240px;
+    }
+}
+
+.play_roles {
+    .nav {
+        text-align: center;
+        border: 0;
+        display: table;
+        margin: 0 auto;
+        li{
+            display: table-cell;
+            vertical-align: top;
+            float: left;
+            border: 0;
+            padding: 0;
+            position: relative;
+            text-align: center;
+            @media screen and (min-width: 768px) { 
+                text-align: left;
+            }
+            &:after{
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                bottom: 0;
+                left: 0;
+                border-bottom: 3px solid transparent;
+                @include transition();
+            }
+            a{
+                line-height: 25px;
+                width: 100%;
+                border-radius: 4px 4px 0 0;
+                color: #222530;
+                padding: 0;
+                & > *{
+                    @include transition();
+                }
+            }
+            &:hover, &:focus, &:active, &.active{
+                border-color: transparent!important;
+                background-color: #fafbfd;
+            }
+            &>a:active, &>a:focus, &>a:hover{
+                border-color: transparent!important;
+                background-color: transparent!important;
+            }
+            &.active{
+                &>a, &>a:focus, &>a:hover{
+                    background-color: transparent!important;
+                }
+            }
+            &.active{
+                &:after{
+                    @include transition();
+                    border-bottom: 3px solid var(--border-color);
+                    width: 100%;
+                }
+                @include transition();
+                a{
+                    
+                    border: 0;
+                }
+            }
+        }
+    }
+}
+.tab-content{
+    margin: 40px 0;
+    .tab-pane{
+        .tab_video {
+            video{
+                width: 100%;
+            }
+        }
+    }
+}
+.play_roles {
+    .roles{
+        box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.09);
+        background-color: #ffffff;
+        .role{
+            position: relative;
+            width: 50%;
+            @media screen and (min-width: 768px) {
+                width: 25%;
+            }
+            .role_content{
+                @media screen and (min-width: 768px) {
+                    text-align: left;
+                }
+                .title{
+                    display: block;
+                    margin-bottom: 7px;
+                    position: relative;
+                }
+            }
+        }
+    }
+}

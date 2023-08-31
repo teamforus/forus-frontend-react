@@ -1,0 +1,47 @@
+&.modal-file-preview {
+    .modal-window {
+        display: flex;
+        flex-direction: column;
+        max-height: 80vh;
+    }
+
+    .modal-content {
+        display: flex;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .file-image {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        background-color: #000;
+
+        img {
+            height: 100%;
+            display: block;
+        }
+    }
+
+    .file-pdf {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        height: initial;
+        width: 100%;
+        background-color: black;
+
+        canvas {
+            display: block;
+            width: 70%;
+            height: auto;
+            margin: 0 auto;
+        }
+    }
+
+    @media screen and (max-width: 1500px) {
+        .modal-content {
+            width: 100%;
+        }
+    }
+}

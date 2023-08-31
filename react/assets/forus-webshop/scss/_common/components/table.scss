@@ -1,0 +1,158 @@
+table.table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 0 20px;
+
+    tr {
+        text-align: left;
+
+        td,
+        th {
+            padding: 15px 15px;
+            cursor: default;
+            border-bottom: 1px solid #d4d9dd;
+            background: #fff;
+            transition: 0.3s;
+
+            &>a {
+                font: inherit;
+            }
+
+            &.cell-chevron,
+            &.cell-chevron {
+                width: 1px;
+                padding: 10px 10px;
+                padding-left: 15px;
+                padding-right: 0;
+            }
+        }
+
+        th {
+            color: #646f79;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font: 700 12px/20px var(--base-font);
+
+            &:first-child {
+                padding-left: 25px;
+            }
+
+            &:last-child {
+                padding-right: 25px;
+            }
+        }
+
+        td {
+            background: #fff;
+            color: #444a4f;
+            font: 500 16px/20px var(--base-font);
+
+            .td-menu-icon {
+                display: inline-block;
+                font-size: 26px;
+                line-height: 20px;
+                color: inherit;
+            }
+
+            .button {
+                &.button-icon {
+                    padding: 4px 10px;
+                    font-size: 12px;
+                    margin-right: 8px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+
+            .tag {
+                margin-bottom: 0;
+            }
+
+            .td-icon {
+                color: var(--color-primary);
+                transition: .4s;
+                font-size: 20px;
+
+                &:hover {
+                    color: var(--color-primary-light);
+                }
+            }
+
+            .td-boolean {
+                color: #646f79;
+                font: 500 13px/20px var(--base-font);
+
+                .mdi {
+                    font-size: 16px;
+                    line-height: 20px;
+                    margin-right: 5px;
+                    float: left;
+                }
+            }
+
+            &.td-narrow {
+                width: 1%;
+            }
+
+            &:first-child {
+                padding-left: 25px;
+            }
+
+            &:last-child {
+                padding-right: 25px;
+            }
+        }
+
+        &.dim {
+            td {
+                background: #f6f9fc;
+            }
+        }
+
+        &[ng-click]:hover {
+            td,
+            th {
+                background: #f6f8f9;
+            }
+        }
+
+        &:last-child {
+            td {
+                border-bottom: none;
+            }
+        }
+    }
+
+    &.borderless-end {
+        &>tr,
+        &>thead:last-child>tr,
+        &>tbody:last-child>tr {
+            &:last-child {
+                td,
+                th {
+                    border-bottom: 0;
+                }
+            }
+        }
+    }
+
+    &.collapse-sides {
+        tr {
+            td, th {
+                &:first-child {
+                    padding-left: 0;
+                }
+    
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

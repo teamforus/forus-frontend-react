@@ -1,0 +1,118 @@
+&.block-2fa-restriction {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 20px;
+    color: #595959;
+    hyphens: auto;
+    cursor: default;
+
+    .restriction-hero,
+    .restriction-reasons {
+        margin: 0 0 20px;
+        padding: 25px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: #fff;
+        display: flex;
+        box-shadow: var(--box-shadow);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .restriction-hero {
+        flex-direction: row;
+
+        .restriction-hero-media {
+            display: flex;
+            padding-right: 20px;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            img {
+                display: block;
+                width: 80px;
+            }
+        }
+
+        .restriction-hero-details {
+            display: flex;
+            flex-direction: column;
+
+            .restriction-hero-title {
+                font: 700 22px/32px var(--base-font);
+                margin: 0 0 10px;
+            }
+
+            .restriction-hero-description {
+                font: 400 14px/21px var(--base-font);
+                margin: 0 0 20px;
+            }
+        }
+    }
+
+    .restriction-reasons {
+        padding: 20px;
+        flex-direction: column;
+
+        .restriction-title {
+            font: 700 16px/24px var(--base-font);
+            margin: 0 0 0;
+        }
+
+        .restriction-description {
+            font: 400 13px/18px var(--base-font);
+            margin: 0 0 10px;
+        }
+
+        .restriction-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+
+            .restriction-item-media {
+                height: 25px;
+                padding-right: 10px;
+
+                img {
+                    display: block;
+                    height: 100%;
+                    border: 1px solid var(--border-color);
+                    border-radius: calc(var(--border-radius) / 1.5);
+                }
+            }
+
+            .restriction-item-name {
+                font: 600 14px/25px var(--base-font);
+                color: #282B39;
+            }
+
+            &:last-child {
+                border-bottom: none;
+                margin-bottom: -10px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .restriction-hero {
+            flex-direction: column;
+
+            .restriction-hero-media {
+                padding: 0;
+                justify-content: center;
+                flex-direction: row;
+                margin: 0 0 10px;
+            }
+
+            .restriction-hero-details {
+                text-align: center;
+
+                .button-group {
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

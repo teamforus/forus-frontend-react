@@ -1,0 +1,35 @@
+&.block-app_links {
+    display: flex;
+    margin: 0 0 20px;
+    flex-direction: row;
+
+    .download-link {
+        margin-right: 15px;
+        display: flex;
+
+        img {
+            height: 42px !important;
+            display: block;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.block-app_links-lg {
+        .download-link {
+            img {
+                height: 50px !important;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        justify-content: center;
+    }
+}

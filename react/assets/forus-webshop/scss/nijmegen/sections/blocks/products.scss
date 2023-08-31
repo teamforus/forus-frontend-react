@@ -1,0 +1,19 @@
+.block {       
+    @media screen and (max-width: 1000px) {
+        &.block-products {
+            .product-item {
+                .product-item-inner {
+                    .product-image {
+                        height: 100%;
+                        background-size: cover;
+                        background-position: 50%;
+                    }
+                    
+                    .product-details {
+                        padding: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,130 @@
+// clear Fix - for floating blocks
+@mixin cf(){
+    *zoom: 1;
+
+    &:before, &:after{
+        content: " ";
+        display: table;
+    }
+
+    &:after{
+        clear: both;
+    }
+}
+
+// fill parrent block
+@mixin fill_parent($offset: 0px, $position: absolute){
+    position: $position;
+    top: $offset;
+    right: $offset;
+    bottom: $offset;
+    left: $offset;
+}
+
+// ellipsis text
+@mixin ellipsis {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// transition
+@mixin transition($sec: 0.3s, $type: linear)
+{
+    transition: all $sec $type;
+    -webkit-transition: all $sec $type;
+    -moz-transition: all $sec $type;
+    -o-transition: all $sec $type;
+}
+
+@mixin list_check(){
+    ul {
+        li {
+            position: relative;
+            margin-bottom: 10px;
+            &:before {
+                content: url("../img/svg/check.svg");
+                position: absolute;
+                width: 26px;
+                height: 27px;
+                left: -35px;
+                top: 3px;
+            }
+        }
+    }
+    @media (max-width: 767px) {
+        ul {
+            li {
+
+                &:before {
+                    content: url("../img/svg/check_m.svg");
+                    width: 19px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+
+@mixin slideRight{
+
+    animation-name: slideRight;
+    -webkit-animation-name: slideRight;
+
+    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.3s;
+
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
+
+    visibility: visible !important;
+
+}
+
+@keyframes slideRight {
+
+    0% {
+        transform: translateX(-150%);
+    }
+    50%{
+        transform: translateX(8%);
+    }
+    65%{
+        transform: translateX(-4%);
+    }
+    80%{
+        transform: translateX(4%);
+    }
+    95%{
+        transform: translateX(-2%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+
+}
+
+@-webkit-keyframes slideRight {
+
+    0% {
+        -webkit-transform: translateX(-150%);
+    }
+    50%{
+        -webkit-transform: translateX(8%);
+    }
+    65%{
+        -webkit-transform: translateX(-4%);
+    }
+    80%{
+        -webkit-transform: translateX(4%);
+    }
+    95%{
+        -webkit-transform: translateX(-2%);
+    }
+    100% {
+        -webkit-transform: translateX(0%);
+        opacity: 1;
+    }
+
+}

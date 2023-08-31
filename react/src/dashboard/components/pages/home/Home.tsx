@@ -1,17 +1,15 @@
-import React from 'react';
-import EnvDataProp from '../../../../props/EnvData';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getStateRouteUrl } from '../../../modules/state_router/Router';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
 
-export const Home = ({ envData }: { envData: EnvDataProp }) => {
-    return (
-        <div className="wrapper">
-            <h2>
-                Welcome to <strong>{envData.name}</strong>!
-            </h2>
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque facere nostrum quo error quod
-                perspiciatis nihil placeat asperiores unde aliquid blanditiis, ipsum quidem maiores, sed ducimus
-                deleniti alias porro eaque fuga deserunt.
-            </p>
-        </div>
-    );
-};
+export default function Home() {
+    const navigate = useNavigate();
+    const authIdentity = useAuthIdentity();
+
+    useEffect(() => {
+        navigate(getStateRouteUrl(authIdentity ? 'organizations' : 'sign-in'));
+    }, [authIdentity, navigate]);
+
+    return <></>;
+}

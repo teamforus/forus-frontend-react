@@ -1,0 +1,140 @@
+.block {
+
+    &.block-validations {
+        margin-bottom: 30px;
+
+        .validation-record-details {
+            padding: 20px 25px;
+            background: #fff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 15px;
+
+            .record-type {
+                font: 500 13px/20px var(--base-font);
+                color: var(--color-default);
+                margin-top: -5px;
+            }
+
+            .record-value {
+                font: 700 16px/30px var(--base-font);
+                color: #282b39;
+                margin-bottom: 10px;
+            }
+
+            .record-validation-count {
+                color: #00d291;
+                font: 400 13px var(--base-font);
+                text-align: center;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+
+                strong {
+                    display: block;
+                    font-weight: 700;    
+                }
+            }
+
+            .button {
+                padding-top: 7px;
+                padding-bottom: 7px;
+                text-align: center;
+            }
+        }
+
+        .validation-card {
+            background: #fff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .validation-header {
+            border-bottom: 1px solid #d4d9dd;
+            padding: 20px 25px;
+            font: 700 22px var(--base-font);
+            color: #282b39;
+            position: relative;
+        }
+
+        .validation-body {
+            padding: 0 25px;
+            width: 100%;
+            display: block;
+            position: relative;
+            transition: box-shadow .4s;
+        }
+
+        .validation-item {
+            border-bottom: 1px solid #d4d9dd;
+            background: #fff;
+            margin: 0 -25px;
+            padding: 20px 25px;
+            @include cf();
+
+            .validation-image {
+                float: left;
+                width: 50px;
+                height: 50px;
+                border-radius: 50px;
+                overflow: hidden;
+                border: 1px solid #d5e7ff;
+                margin-right: 15px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .validation-name {
+                padding: 10px 0;
+                font: 700 18px/30px var(--base-font);
+                color: #282b39;
+                float: left;
+            }
+
+            .validation-date {
+                color: var(--color-primary);
+                font: 700 14px/30px var(--base-font);
+                padding: 10px 0;
+                float: right;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-validations {
+            .validation-header {
+                font: 700 16px var(--base-font);
+                padding: 15px 20px;
+            }
+
+            .validation-body {
+                padding: 0 20px;
+            }
+
+            .validation-item {
+                margin: 0 -20px 0;
+                padding: 20px;
+
+                .validation-name {
+                    font: 700 16px/30px var(--base-font);
+                    @include ellipsis();   
+                }
+
+                .validation-date {
+                    width: 100%;
+                    text-align: center;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

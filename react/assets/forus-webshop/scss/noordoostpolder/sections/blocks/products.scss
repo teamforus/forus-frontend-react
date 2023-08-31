@@ -1,0 +1,27 @@
+.block-products {
+    margin-top: 40px;
+
+    .product-item {
+        padding: 0 30px;
+        .product-item-inner {
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;  
+            
+            .product-name {
+                color:var(--color-default);
+            }
+            .product-image {
+                border-radius: 0px;
+            }
+            &:hover {
+                .product-name {
+                    color: var(--color-default-light);
+                }
+            }
+        }
+
+        .product-discount {
+            color: var(--color-primary);
+        }
+    }
+}

@@ -1,0 +1,149 @@
+.block.block-fund-add-records {
+    padding: 0 30px;
+    cursor: default;
+
+    .block-title {
+        font: 500 36px/36px var(--base-font);
+        margin: 0 0 30px;
+        text-align: center;
+        color: #191A1C;
+    }
+
+    .block-icon {
+        text-align: center;
+        font-size: 96px;
+        padding: 40px 0 30px;
+        color: var(--color-primary);
+    }
+
+    .block-description {
+        font: 400 18px/26px var(--base-font);
+        text-align: center;
+        color: #191A1C;
+        margin: 0 0 40px;
+
+        strong, a {
+            font-weight: 600;
+        }
+
+        a {
+            color: #3561FF;
+            text-decoration: underline;
+        }
+    }
+
+    .request-progress {
+        width: 100%;
+        display: flex;
+        margin: 0 0 30px;
+
+        .request-step {
+            flex-grow: 1;
+            text-align: right;
+            border-top: 6px solid #EBEDF0;
+            font: 500 14px/30px var(--base-font);
+            color: #DADADA;
+
+            &.request-step-active {
+                border-top-color: #BDCBFF;
+                color: #315EFD;
+            }
+
+            &.request-step-done {
+                border-top-color: #3561FF;
+                color: #3561FF;
+            }
+        }
+    }
+
+    .request-pane {
+        background: #FFFFFF;
+        border: 1px solid #EBEDF0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        
+        .request-pane-header {
+            border-bottom: 1px solid #EBEDF0;
+            font: 500 18px/34px var(--base-font);
+            padding: 15px 40px;
+            text-align: center;
+        }
+
+        .request-pane-body {
+            padding: 30px 30px;
+
+            .request-pane-heading {
+                font: 500 21px/30px var(--base-font);   
+                margin: 0 0 20px;
+            }
+
+            .request-pane-text {
+                font: 400 16px/28px var(--base-font);
+                margin: 0 0 20px;
+            }
+
+            .request-pane-list {
+                margin: 0 0 20px;
+
+                li {
+                    font: 400 16px/28px var(--base-font);
+                    vertical-align: middle;
+                    position: relative;
+                    padding-left: 15px;
+                    
+                    &:before {
+                        content: '';
+                        display: inline-block;
+                        width: 6px;
+                        height: 6px;
+                        background: #007377;
+                        border-radius: 6px;
+                        line-height: 26px;
+                        position: absolute;
+                        left: 0;
+                        top: 10px;
+                    }
+                }
+            }
+
+            .request-pane-heading,
+            .request-pane-text,
+            .request-pane-list {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .request-pane-info {
+                border: 1px solid #EBEDF0;
+                padding: 15px 20px;
+                border-radius: 8px;
+                background: #f4f5f7;
+
+                .request-pane-text {
+                    margin-bottom: 0;
+                    font: 400 14px/24px var(--base-font);
+                }
+
+                .request-pane-list {
+                    margin-bottom: 0;
+                    
+                    li {
+                        font: 400 14px/24px var(--base-font);
+                    }   
+                }
+            }
+        }
+
+        .request-pane-footer {
+            padding: 15px 40px;
+        }
+    }
+
+    
+    .block-wrapper {
+        width: 750px;
+        max-width: 100%;
+        margin: 0 auto 40px;
+    }
+}

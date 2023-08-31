@@ -1,0 +1,19 @@
+&.block-action-card {
+    .block-card-details {
+        .block-card-title {
+            color: #000;
+        }
+
+        .block-card-description {
+            color: #292F2E;
+        }
+    }
+
+    .block-card-actions {
+        .button {
+            .mdi {
+                display: none;
+            }
+        }
+    }
+}

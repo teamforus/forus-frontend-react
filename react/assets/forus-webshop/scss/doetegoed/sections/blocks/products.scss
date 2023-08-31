@@ -1,0 +1,23 @@
+.section {
+    &.section-products {
+        .section-title {
+            margin: 70px 0;
+        }
+
+        .product-item {
+            .product-item-inner {
+                .product-details {
+                    .product-name {
+                        color: var(--tc);
+                        font: 500 18px/24px var(--base-font);
+                    }
+
+                    .product-organization, .product-provider {
+                        font-weight: 500;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

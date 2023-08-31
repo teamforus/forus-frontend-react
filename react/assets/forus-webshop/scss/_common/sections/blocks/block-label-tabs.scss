@@ -1,0 +1,193 @@
+&.block-label-tabs {
+    display: flex;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    margin-right: 20px;
+
+    .label-tab {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-right: none;
+        font: 600 11px/20px var(--base-font);
+        color: #272525;
+        padding: 9px 10px;
+        transition: color .4s, border-color .4s, background-color .4s, box-shadow .4s;
+        cursor: pointer;
+        outline: none;
+        border-radius: 0;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+
+        .mdi {
+            font-size: 1.1em;
+            line-height: 20px;
+            float: left;
+            color: #6f747e;
+            transition: color .4s;
+            margin-bottom: -1.5px;
+
+            &.icon-start {
+                margin-right: 5px;
+            }
+
+            &.icon-end {
+                margin-left: 5px;
+            }
+        }
+
+        .label-tab-icon-start {
+            margin-right: 4px;
+        }
+
+        .label-tab-icon-end {
+            margin-left: 4px;
+        }
+
+        &:first-child {
+            border-top-left-radius: var(--border-radius);
+            border-bottom-left-radius: var(--border-radius);
+        }
+
+        &:last-child {
+            border-top-right-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            border-right: 1px solid var(--border-color);
+        }
+
+        &:hover:not(.active) {
+            color: #fff;
+            background-color: var(--color-primary-light);
+            border-color: var(--color-primary-light);
+
+            .mdi {
+                color: #fff;
+            }
+        }
+
+        &.label-tab-text {
+            border: none;
+            box-shadow: none;
+            background: transparent;
+
+            &:hover {
+                color: var(--color-primary-light);
+                box-shadow: none;
+
+                .mdi {
+                    color: var(--color-primary-light);
+                }
+            }
+        }
+
+        &.label-tab-primary {
+            color: var(--color-primary);
+        }
+
+        &.label-tab-disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        &.label-tab-primary-light {
+            color: var(--color-primary-light);
+
+            &:hover {
+                color: #fff;
+            }
+        }
+
+        &.label-tab-sm {
+            padding: 4px 8px;
+            font: 500 11px/20px var(--base-font);
+            transition: all 0.3s ease;
+
+            &:first-child {
+                border-top-left-radius: calc(var(--border-radius) / 2);
+                border-bottom-left-radius: calc(var(--border-radius) / 2);
+            }
+    
+            &:last-child {
+                border-top-right-radius: calc(var(--border-radius) / 2);
+                border-bottom-right-radius: calc(var(--border-radius) / 2);
+            }
+
+            &:focus {
+                background-color: var(--color-primary-light);
+                color: white; 
+                border-color: black;
+                outline: 5px;
+
+                .mdi {
+                    color: white;
+                }  
+            }
+        }
+
+        &.active, &:active, &:focus {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #fff;
+
+            .mdi {
+                color: #fff;
+            }
+
+            .label-tab-dropdown, 
+            .label-tab-dropdown .mdi {
+                color: var(--tc);
+            }
+        }
+
+        &.disabled {
+            cursor: default;
+            pointer-events: none;
+        }
+    }
+
+    .label-tab-set {
+        margin-right: 10px;
+        display: flex;
+        border-radius: inherit;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.label-tab-set-borderless {
+            .label-tab {
+                &:hover {
+                    box-shadow: none;
+                }
+    
+                &:not(:last-child) {
+                    border-right: none;
+                }
+    
+                &:not(:first-child) {
+                    border-left: none;
+                }
+            }
+        }
+
+        &.label-tab-set-shadowless {
+            box-shadow: none;
+        }
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &.block-label-tabs-fill {
+        width: 100%;
+
+        .label-tab {
+            flex-grow: 1;
+            text-align: center;
+        }
+    }
+}

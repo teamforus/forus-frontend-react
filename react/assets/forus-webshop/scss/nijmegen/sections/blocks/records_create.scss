@@ -1,0 +1,45 @@
+.block {    
+    &.block-record_create {
+        .categories-list {
+            .categories-item {
+                .categories-item-inner {
+                    border-radius: 2px;
+                    box-shadow: var(--box-shadow);
+
+                    .categories-radio {
+                        border: 2px solid #297c68;
+                    }
+                }
+            }
+        }
+
+        .record_types-list {
+            .record_type-item {
+                box-shadow: var(--box-shadow);
+                border-radius: 2px;
+
+                .record_type-radio {
+                    border: 2px solid #297c68;
+                }
+
+                &.active,
+                &:hover {
+                    .record_type-name {
+                        color: #297c68;
+                    }
+                }
+
+                &.active {
+                    .record_type-radio {
+                        background: #297c68;
+                    }
+                }
+            }
+        }
+
+        .record_types-form {
+            box-shadow: var(--box-shadow);
+            border-radius: 2px;
+        }
+    }
+}

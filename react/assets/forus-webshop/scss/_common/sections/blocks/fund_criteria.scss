@@ -1,0 +1,135 @@
+.block {
+
+    &.block-fund_criteria {
+        .criteria-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: block;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, .05);
+            cursor: default;
+
+            .criteria-header {
+                font: 700 13px/30px var(--base-font);
+                background-color: #8ca3a6;
+                color: #fff;
+                padding: 10px 20px;
+            }
+
+            .criteria-body {
+                background-color: #fff;
+
+                .criteria-section {
+                    padding: 20px;
+                    border-bottom: 1px solid #d4d9dd;
+                    @include cf();
+                    position: relative;
+
+                    .criteria-details {
+                        float: left;
+                    }
+
+                    .criteria-label {
+                        font: 400 13px/13px var(--base-font);
+                        color: var(--color-default);
+                        @include ellipsis();
+                        margin-bottom: 6px;
+                    }
+
+                    .criteria-value {
+                        font: 700 16px/20px var(--base-font);
+                        color: #282b39;
+                        @include ellipsis();
+                    }
+
+                    .criteria-value-empty {
+                        font: 400 16px/20px var(--base-font);
+                        color: #9ca6af;
+                        @include ellipsis();
+                    }
+
+                    .criteria-validations {
+                        float: right;
+                        position: absolute;
+                        right: 20px;
+                        top: 50%;
+                        transform: translate(0, -50%);
+
+                        .criteria-validation-validate {
+                            font: 600 13px var(--base-font);
+                            color: orange;
+                            transition: .4s;
+                            
+                            .mdi {
+                                background: none;
+                                color: orange;
+                                font-size: 1.5em;
+                            }
+
+                            &:hover {
+                                color: lighten(orange, 20);
+
+                                .mdi {
+                                    background: none;
+                                    color: lighten(orange, 20);
+                                }
+                            }
+                        }
+
+                        .criteria-validation-add {
+                            font: 600 13px var(--base-font);
+                            color: var(--color-default);
+                            transition: .4s;
+                            
+                            .mdi {
+                                background: var(--color-default);
+                            }
+
+                            &:hover {
+                                color: var(--color-primary-light);
+
+                                .mdi {
+                                    background: var(--color-primary-light);
+                                }
+                            }
+                        }
+
+                        .criteria-validation-valid {
+                            font: 600 13px var(--base-font);
+                            color: var(--color-default);
+                            transition: .4s;
+
+                            .mdi {
+                                background: #00d291;
+                            }
+                        }
+
+                        .mdi {
+                            margin-right: 5px;
+                            color: #fff;
+                            width: 18px;
+                            height: 18px;
+                            border-radius: 18px;
+                            float: left;
+                            display: block;
+                            text-align: center;
+                            line-height: 18px;
+                            font-weight: 700;   
+                            transition: .4s;
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+
+            &.active {
+                .criteria-header {
+                    background-color: #305dfa;
+                }
+            }
+        }
+    }
+}

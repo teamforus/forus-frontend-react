@@ -1,0 +1,376 @@
+&.modal-product-reserve {
+    cursor: default;
+    z-index: 99;
+
+    .modal-title {
+        font: 700 22px/30px var(--base-font);
+        margin: 0 0 5px;
+        color: #222;
+    }
+
+    .modal-subtitle {
+        font: 400 14px/21px var(--base-font);
+        color: #595959;
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .modal-window {
+        background: #fff;
+        width: 820px;
+    }
+
+    .modal-header {
+        padding: 25px 25px 20px;
+        text-align: center;
+    }
+
+    .modal-body {
+        overflow: auto;
+        @include webkit_scrollbar();
+    }
+
+    .modal-content {
+        overflow: visible;
+        box-shadow: none;
+        background: none;
+
+        .modal-section {
+            overflow: visible;
+            padding: 25px;
+
+            &.modal-section-narrow {
+                padding: 15px 20px;
+            }
+        }
+
+        .description {
+            font: 400 14px/22px var(--base-font);
+            margin-bottom: 15px;
+            padding: 0;
+            color: #595959;
+
+            a {
+                color: var(--color-primary);
+                text-decoration: underline;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .block {
+            &.block-vouchers {
+                padding: 15px;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                background-color: rgb(250, 250, 250);
+                max-height: 360px;
+                overflow: auto;
+                @include webkit_scrollbar();
+
+                .voucher-item {
+                    .voucher-image {
+                        padding: 16px;
+                    }
+
+                    .voucher-details {
+                        text-align: left;
+                    }
+                }
+
+                &.block-vouchers-compact {
+                    padding: 0;
+                    border: none;
+                    background: none;
+                    overflow: visible;
+
+                    .voucher-item {
+                        box-shadow: var(--box-shadow);
+
+                        .voucher-image {
+                            padding: 16px;
+                        }
+
+                        .voucher-details {
+                            text-align: left;
+
+                            .voucher-name {
+                                font: 700 24px/32px var(--base-font);
+                            }
+
+                            .voucher-organization {
+                                font: 500 14px/22px var(--base-font);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .reservation-progress {
+        width: 50%;
+        display: flex;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 15px;
+
+        .reservation-step {
+            display: flex;
+            flex-grow: 1;
+            text-align: right;
+            font: 500 14px/30px var(--base-font);
+            color: #525252;
+            border: none;
+            position: relative;
+            flex-basis: 1;
+
+            .reservation-step-border {
+                flex-grow: 1;
+                background: #ebedf0;
+                height: 4px;
+                border-radius: var(--border-radius);
+                transition: background-color .4s;
+
+                &:before {
+                    content: "";
+                    display: block;
+                    border-radius: inherit;
+                    background: #ebedf0;
+                    @include fill_parent();
+                }
+            }
+
+            .reservation-step-separator {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: -4px;
+                width: 12px;
+                height: 12px;
+                border-radius: 12px;
+                transform: translate(0, -50%);
+                background-color: #dbdcdb;
+                border: 2.5px solid #fff;
+                z-index: 1;
+                transition: background-color .4s;
+            }
+
+            &:first-child {
+                flex-basis: .75;
+            }
+
+            &:last-child {
+                flex-basis: .75;
+
+                .reservation-step-separator {
+                    display: none;
+                }
+            }
+
+            &.reservation-step-info {
+                width: 40px;
+                max-width: 40px;
+                text-align: center;
+                font-size: 24px;
+
+                .mdi {
+                    color: var(--sign_up_accent_color);
+                }
+            }
+
+            &.reservation-step-active {
+                color: #cdced2;
+
+                .reservation-step-border {
+                    &:before {
+                        content: "";
+                        display: block;
+                        @include fill_parent();
+                        background-color: #cdced2;
+                    }
+                }
+
+                .reservation-step-separator {
+                    background-color: #282b39;
+                }
+            }
+
+            &.reservation-step-done {
+                .reservation-step-border {
+                    &:before {
+                        background-color: var(--color-primary);
+                    }
+                }
+
+                .reservation-step-separator {
+                    background-color: var(--color-primary);
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .reservation-overview {
+        .overview-item {
+            margin: 0 0 10px;
+
+            .overview-item-label {
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            .overview-item-value {
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .reservation-success {
+        text-align: center;
+        padding: 40px 0;
+
+        .reservation-success-media {
+            margin-bottom: 20px;
+            text-align: center;
+
+            svg {
+                display: block;
+                margin: auto;
+            }
+        }
+
+        .reservation-success-title {
+            font: 700 16px/24px var(--base-font);
+            margin: 0 0 5px;
+        }
+
+        .reservation-success-subtitle {
+            font: 400 14px/20px var(--base-font);
+            margin: 0 0 30px;
+        }
+    }
+
+    .form {
+        .form-label {
+            color: #595959;
+            font: 600 11px/16px var(--base-font);
+        }
+    }
+
+    &.modal-sm {
+        .modal-window {
+            width: 800px;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        overflow: scroll;
+        border-radius: 0;
+
+        .modal-window {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0;
+        }
+
+        .modal-header {
+            border-radius: 0;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .modal-content {
+            flex-grow: 1;
+            padding: 0;
+            flex-direction: column;
+            overflow: auto;
+
+            .block.block-vouchers {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                max-height: initial;
+                height: auto;
+            }
+
+            .modal-section {
+                min-height: 100%;
+                flex-grow: 1;
+                justify-content: center;
+                padding: 20px;
+
+                .block-vouchers {
+                    margin: 0;
+                    border-radius: 0;
+
+                    .voucher-item {
+                        display: flex;
+
+                        .voucher-image {
+                            padding: 0 5px 0 10px;
+                            min-width: 60px;
+                            max-width: 60px;
+                        }
+
+                        .voucher-details {
+                            overflow: hidden;
+
+                            .voucher-records {
+                                .block-voucher-records {
+                                    overflow: scroll;
+
+                                    .records-pane {
+                                        overflow: scroll;
+                                        padding: 8px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .voucher-overview {
+                            width: auto;
+                            padding: 10px;
+                        }
+
+                        &.voucher-item-compact {
+                            padding-top: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .modal-footer {
+            padding: 12px 15px;
+
+            .button {
+                font: 700 13px/18px var(--base-font);
+            }
+        }
+
+        .reservation-progress {
+            width: 100%;
+            padding: 0 30px;
+        }
+    }
+}

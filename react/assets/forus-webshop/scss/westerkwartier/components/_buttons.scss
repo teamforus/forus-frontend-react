@@ -1,0 +1,39 @@
+.button {
+    &.button-default {
+        background-color: var(--login-button-background);
+        border: var(--color-primary-light);
+        color: #666;
+
+        .mdi {
+            color: #666;
+        }
+
+        &:hover {
+            background-color: var(--color-default);
+            border-color: var(--color-default-light);
+            color: #666;
+
+            .mdi {
+                color: #666;
+            }
+        }
+    }
+
+    &.button-primary {
+        color: #666;
+        background: var(--color-primary);
+        border: var(--color-primary);
+        box-shadow: 0 10px 15px -6px #969696;
+        text-shadow: none;
+        
+        &:hover {
+            color: #666;
+            background: var(--color-default);
+            background-color: var(--color-default-light);
+        }
+    }
+    
+    &[disabled], &.disabled {
+        color: #999;
+    }
+}

@@ -1,0 +1,81 @@
+.button {
+    border-radius: 0;
+
+    &:hover {
+        box-shadow: none;
+    }
+
+    &.button-default {
+        background-color: var(--color-primary);
+        border: 1px solid transparent;
+        color: var(--tc-var);
+
+        .mdi {
+            color: var(--tc);
+        }
+
+        &:hover {
+            background-color: #fff;
+            border: 1px solid var(--color-primary);
+            color:  var(--tc);
+            text-decoration: underline;
+            box-shadow: none;
+            .mdi {
+                color: var(--tc);
+            }
+        }
+    }
+
+    &.button-primary {
+        color: var(--tc-var);
+        background: var(--color-default);
+        text-shadow: none;
+        border: 1px solid transparent;
+        
+        &:hover {
+            color: var(--color-default);
+            text-decoration: underline;
+            background-color: var(--bg);
+            box-shadow: none;
+            border: 1px solid var(--color-default);
+        }
+    }
+
+    &.button-two-spans{
+        display: flex !important;
+        padding: 7px !important;
+        align-items: center !important;
+
+        .icon-me {
+            mask: url('../img/icon-me.svg');
+            background: var(--color-default);
+            transition: background-color 0.5s ease;
+            display: inline-block;
+            mask-size: cover;
+            height: 30px;
+            width: 30px;
+            margin: 0 7px 0px 0px;
+            border: 1px;
+        }
+
+        .first-line-button {
+            line-height: 10px;
+            font-size: 16px;
+            height: 100%;
+            text-align: right;
+            flex: 1;
+        }
+        
+        .second-line-button {
+            display: none;
+        }
+
+        &:hover {
+            .icon-me {
+                mask: url('../img/icon-me.svg');
+                background: #157c68;
+                mask-size: cover;
+            }
+        }
+    }
+}

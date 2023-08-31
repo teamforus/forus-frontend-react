@@ -1,0 +1,60 @@
+@import './vars';
+@import '../_common/webshop';
+
+// SHAME
+@import 'includes/shame';
+
+// LAYOUTS
+@import 'layout/_footer.scss',
+'layout/_header.scss';
+
+// COMPONENTS
+@import 'components/_breadcrumbs.scss',
+'components/_buttons.scss',
+'components/_modals.scss';
+
+// SECTIONS
+@import 'sections/faq.scss',
+'sections/steps.scss',
+'sections/vouchers.scss';
+
+// BLOCKS
+@import 'sections/blocks/products.scss',
+'sections/blocks/profile.scss',
+'sections/blocks/shops_map.scss',
+'sections/blocks/transactions.scss',
+'sections/blocks/voucher.scss',
+'sections/blocks/vouchers.scss';
+
+.page {
+    display: flex;
+    flex-direction: column;
+
+    &.page-voucher {
+        &>.section.section-products {
+            order: 2;
+        }
+
+        &>.block.block-map_card {
+            order: 1;
+        }
+    }
+
+    &.page-home {
+        &>.block-products {
+            order: 2;
+        }
+
+        &>.section.section-map {
+            order: 1;
+        }
+
+        &>.section.section-steps {
+            order: 3;
+        }
+
+        &>.section.section-faq {
+            order: 3;
+        }
+    }
+} 

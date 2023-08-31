@@ -1,0 +1,153 @@
+&.block-pincode {
+    margin: 0 auto 20px;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    @include cf();
+
+    .hidden-input {
+        opacity: 0;
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        top: 0px;
+        border: none;
+        background: none;
+        z-index: -100;
+    }
+
+    .pincode-group {
+        display: flex;
+    }
+
+    .pincode-number {
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        border: 1px solid var(--border-color-form);
+        background: #fff;
+        border-radius: 4px;
+        margin-right: 6px;
+        padding: 9px 0;
+        font: 600 18px/38px "Open Sans", arial, sans-serif;
+        text-align: center;
+        cursor: default;
+        position: relative;
+
+        &:before {
+            width: 2px;
+            height: 20px;
+            border-radius: 6px;
+            background: var(--color-primary);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+            display: block;
+            transform: translate(0, -50%);
+            @include anim_blink();
+            transition: opacity .4s;
+        }
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+
+        &.active {
+            color: transparent;
+
+            &:before {
+                content: ' ';
+            }
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.pincode-number-divider {
+            position: relative;
+            border: none;
+            background: transparent;
+            width: 4px;
+            margin: 0 7.5px !important;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #b7bfc6;
+                width: 7px;
+                height: 2px;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.block-phone-number{
+        width: calc(60px * 10 + 10px * 9);
+        margin: 25px auto;
+    }
+
+    @media screen and (max-width: 1700px) {
+        margin-bottom: 10px;
+
+        .pincode-number {
+            font: 600 22px/60px var(--base-font)
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        width: calc(60px * 6 + 10px * 5);
+        
+        .pincode-number {
+            height: 60px;
+            width: 60px;
+            font: 600 22px/70px var(--base-font)
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        width: auto;
+        margin: 0 -5px;
+
+        .pincode-number {
+            height: 35px;
+            width: 32px;
+            line-height: 38px;
+            font-size: 18px;
+            margin-right: 4px;
+            font: 600 20px/24px var(--base-font);
+        }
+
+        &.block-pincode-phone {
+            margin: 0 auto;
+
+            .pincode-number {
+                width: 23px !important;
+                padding: 0;
+                margin-right: 2px;
+
+                &:focus {
+                    outline: var(--color-primary) auto 1px;
+                }
+
+                &.pincode-number-divider {
+                    margin: 0 !important;
+                    width: 10px !important;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}

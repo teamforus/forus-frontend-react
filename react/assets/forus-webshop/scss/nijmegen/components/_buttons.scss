@@ -1,0 +1,87 @@
+.button {
+    font: 600 18px/20px var(--base-font);
+    padding: 14px 20px;
+    transition: all 0.2s ease-in-out;
+    border: 0;
+    white-space: normal;
+    color: #fff;
+    word-wrap: break-word;
+    letter-spacing: 0.7px;
+    box-shadow: none;
+    outline: none;
+
+    &.button-primary {
+        &:hover {
+            background-color: #30a08b;
+            border-color: #30a08b;
+        }
+    }
+
+    &.button-default {
+        .mdi {
+            color: #fff;
+        }
+
+        &:hover {
+            background-color: #30a08b;
+            border-color: #30a08b;
+            box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+
+            .mdi {
+                color: #fff;
+            }
+        }
+    }
+
+    &.button-two-spans{
+        display: flex !important;
+        padding: 7px !important;
+        align-items: center !important;
+        .icon-me {
+            mask: url('../img/icon-me.svg');
+            background: var(--color-default);
+            transition: background-color 0.5s ease;
+            display: inline-block;
+            mask-size: cover;
+            height: 30px;
+            width: 30px;
+            margin: 0 7px 0px 0px;
+            border: 1px;
+        }
+        .first-line-button {
+            line-height: 10px;
+            font-size: 16px;
+            height: 100%;
+            text-align: right;
+            flex: 1;
+        }
+        
+        .second-line-button {
+            display: none;
+        }
+        &:hover {
+            .icon-me {
+                mask: url('../img/icon-me.svg');
+                background: #157c68;
+                mask-size: cover;
+            }
+        }
+    }
+
+    &.button-dark {
+        background-color: #fff;
+        border: 1px solid var(--border-color);
+        color: #157c68;
+
+        &:hover {
+            background-color: #efefef;
+            border-color: #ababab;
+            color: #17564a;
+        }
+    }
+}
+.block {
+    &.block-show-more {
+        text-align: center;
+    }
+}

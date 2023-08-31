@@ -1,0 +1,16 @@
+.form {
+    .form-control:not([type="radio"]):not([type="checkbox"]) {
+        border-radius: 25px;
+    }
+
+    .select-control-input.options .form-control:not([type="radio"]):not([type="checkbox"]) {
+        border-radius: 25px;
+    }
+
+    .select-control-input .select-control-options {
+        border-top: 1px solid var(--border-color);
+        border-color: var(--border-color);
+        border-radius: var(--border-radius);
+        margin-top: 2px;
+    }
+}

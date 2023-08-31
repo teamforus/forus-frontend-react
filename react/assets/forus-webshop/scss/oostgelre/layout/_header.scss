@@ -1,0 +1,17 @@
+.section {
+    &.section-header {
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+
+            .header-title {
+                font-size: 40px;
+            }
+
+            .header-description {
+                font-size: 18px;
+            }
+        }
+    }
+}

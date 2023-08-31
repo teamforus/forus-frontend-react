@@ -1,0 +1,17 @@
+.block {
+    &.block-funds {
+        .fund-item {
+            border-radius: 2px;
+
+            .fund-details {
+                .fund-name {
+                    color: #a92b2d;
+                }
+                
+                .fund-organization {
+                    color: #297c68;
+                }
+            }
+        }
+    }
+}

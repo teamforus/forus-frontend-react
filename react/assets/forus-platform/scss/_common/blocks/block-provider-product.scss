@@ -1,0 +1,190 @@
+&.block-provider-product {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 20px;
+    background: #fff;
+    border-radius: calc(var(--border-radius) / 2);
+    box-shadow: var(--box-shadow);
+
+    .product-overview {
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: row;
+        
+        .product-media {
+            border-top-left-radius: calc(var(--border-radius) / 2);
+            overflow: hidden;
+
+            .product-media-img {
+                display: block;
+                width: 190px;
+            }
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 25px 25px;
+
+            .product-name {
+                font: 500 16px/26px var(--base-font);
+                color: #151B26;
+                margin: 0 0 15px;
+            }
+
+            .product-properties {
+                display: flex;
+                flex-direction: row;
+
+                .product-property {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 25px;
+                    border-right: 1px solid var(--border-color);
+
+                    .product-property-label {
+                        font: 500 13px/14px var(--base-font);
+                        margin: 0 0 10px;
+                        color: #646F79;
+                    }
+
+                    .product-property-value {
+                        font: 500 16px/20px var(--base-font);
+                        margin: 0 0 5px;
+                        color: #151B26;
+                    }
+
+                    &:first-child {
+                        padding-left: 0;
+                    }
+
+                    &:last-child {
+                        padding-right: 0;
+                        border-right: none;
+                    }
+                }
+            }
+        }
+
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            padding: 25px 25px 25px 0;
+
+            .product-price {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                font: 600 18px/24px var(--base-font);
+                color: #151B26;
+                text-align: right;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: row;
+                align-self: flex-end;
+                justify-self: flex-end;
+
+                &.form-group-inline {
+                    .form-label {
+                        margin: 0;
+                        width: auto;
+                        padding: 0 10px 0 0;
+                        line-height: 24px;
+                    }
+                }
+            }
+
+            .form-toggle {
+                width: auto;
+            }
+        }
+    }
+
+    .product-description {
+        .description-header {
+            background-color: #f6f9fc;
+            border-bottom: 1px solid var(--border-color);
+            padding: 25px;
+            font: 600 16px/28px var(--base-font);
+            color: #282B39;
+            @include cf();
+
+            .description-header-action {
+                display: flex;
+                flex-direction: row;
+                float: right;
+                font: 600 12px/28px var(--base-font);
+
+                .button {
+                    margin: -4px 0 -4px 10px;
+                }
+            }
+        }
+
+        .description-body {
+            padding: 25px;
+            font: 500 14px/20px var(--base-font);
+            color: #646F79;
+            border-bottom: 1px solid var(--border-color);
+            cursor: default;
+            position: relative;
+
+            .arrow-box {
+                left: 70px;
+            }
+
+            ul, ol, li, p {
+                font: 400 14px/20px var(--base-font);
+                margin: 0 0 10px;
+            }
+
+            strong, b {
+                font: 600 14px/22px var(--base-font);
+            }
+
+            em, i {
+                font: 600 14px/22px var(--base-font);
+            }
+
+            ul {
+                li {
+                    margin: 0 0 5px;
+
+                    &:before {
+                        content: '•';
+                        float: left;
+                        display: block;
+                        width: 15px;
+                        padding-left: 0px;
+                        padding-right: 10px;
+                        font-size: 2em;
+                        line-height: 18px;
+                    }
+
+                    &:last-child {
+                        margin: 0 0 0;
+                    }
+                }
+            }
+
+            ol {
+                padding-left: 15px;
+                
+                li {
+                    margin: 0 0 5px;
+
+                    &:last-child {
+                        margin: 0 0 0;
+                    }
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}

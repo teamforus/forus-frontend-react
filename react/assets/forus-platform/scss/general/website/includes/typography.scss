@@ -1,0 +1,49 @@
+body {color: #131313;}
+h1 {font: 600 28px var(--base-font);}
+h2 {font: 400 22px var(--base-font);}
+h3 {font: 400 18px var(--base-font);}
+h5 {font: 700 16px var(--base-font);}
+p {font: 400 14px var(--base-font);
+
+}
+.pt-large {font: 460 16px/1.5em var(--base-font);}
+
+
+@media screen and (max-width: 991px) {
+    .tc-m {
+        text-align: center;
+    }
+}
+@media screen and (min-width: 768px) {
+    h1 {font: 500 36px/1.5em var(--base-font);}
+    h2 {font: 400 28px/1.5em var(--base-font);}
+    h3 {font: 400 22px/1.5em var(--base-font);}
+    p { 
+        font: 400 16px/1.5em var(--base-font);
+    }
+    .pt-large {font: 400 24px/1.5em var(--base-font);}
+    
+    h1, h2, h3, h4, h5 {
+        margin-top: 0;
+    }
+    .no-mar-t {margin-top: 0px}
+    .no-mar-b {margin-bottom: 0px}
+    .no-pad-b {padding-bottom: 0px;}
+}
+
+@media screen and (min-width: 992px) {
+    h1 {font: 600 46px/1.5em var(--base-font);}
+    h2 {font: 400 36px/1.5em var(--base-font);}
+    h3 {font: 400 24px/1.5em var(--base-font);}
+    p { 
+        font: 400 16px/1.5em var(--base-font);
+    }
+    .pt-large {font: 400 24px/1.5em var(--base-font);}
+    
+    h1, h2, h3, h4, h5 {
+        margin-top: 0;
+    }
+    
+    .no-mar-t {margin-top: 0px}
+    .no-mar-b {margin-bottom: 0px}
+}

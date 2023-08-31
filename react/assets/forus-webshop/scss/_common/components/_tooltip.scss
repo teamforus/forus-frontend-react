@@ -1,0 +1,104 @@
+.tooltip-block {
+    position: relative;
+    display: inline-block;
+    vertical-align: text-bottom;
+
+    .tooltip-icon {
+        width: 16px;
+        height: 16px;
+        background: url('../img/Info.png') no-repeat 50% 50%;
+        background-size: contain;
+        cursor: pointer;
+    }
+
+    .tooltip {
+        position: absolute;
+        width: 300px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        background: #fff;
+        z-index: 5;
+        border-radius: 4px;
+        font: 500 14px/20px var(--base-font);
+        text-transform: none;
+        color: #45535e;
+        display: none;
+
+        &:not(.tooltip-bottom) {
+            left: 24px;
+            top: 8px;
+            transform: translate(0, -50%);
+            
+            &:after,
+            &:before {
+                right: 100%;
+                top: 50%;
+                border: solid transparent;
+                content: ' ';
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+    
+            &:after {
+                border-color: rgba(255, 255, 255, 0);
+                border-right-color: #fff;
+                border-width: 10px;
+                margin-top: -10px;
+            }
+    
+            &:before {
+                border-color: rgba(210, 230, 255, 0);
+                border-right-color: #d2e6ff;
+                border-width: 11px;
+                margin-top: -11px;
+            }
+        }
+
+        &.tooltip-bottom {
+            left: 100%;
+            top: 100%;
+            left: 8px;
+            margin-top: 10px;
+            transform: translate(-50%, 0);
+    
+            &:before, &:after {
+                content: '';
+                left: 50%;
+                transform: translate(-50%);
+                position: absolute;
+                top: -10px;
+                display: inline-block;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 10px 10px 10px;
+                border-color: transparent transparent #ffffff transparent;
+            }   
+
+            &:before {
+                top: -11.5px;
+                border-color: transparent transparent var(--border-color) transparent;
+            }
+        }
+    }
+
+    &:hover {
+        .tooltip-icon {
+            background-image: url('../img/Info_hover.png');
+        }
+
+        .tooltip {
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .tooltip {
+            left: 0%;
+            width: 250px;
+        }
+    }
+}

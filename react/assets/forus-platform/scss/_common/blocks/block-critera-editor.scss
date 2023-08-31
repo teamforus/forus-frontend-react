@@ -1,0 +1,183 @@
+&.block-criteria-editor {
+    display: flex;
+    flex-direction: column;
+
+    .criterion-item {
+        display: flex;
+        margin: 0 0 10px;
+        background: #FFFFFF;
+        border: 1px solid var(--border-color);
+        box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
+        border-radius: calc(var(--border-radius) / 2);
+        padding: 20px 25px;
+        position: relative;
+        flex-direction: column;
+
+        .criterion-title {
+            font: 600 16px/36px var(--base-font);
+            margin: 0 0 10px;
+            transition: line-height .4s;
+            @include ellipsis();
+
+            &.criterion-title-large {
+                margin: 0 0 0;
+            }
+        }
+
+        .criterion-subtitle {
+            font: 600 14px/24px var(--base-font);
+            margin: 0 0 10px;
+            @include ellipsis();
+        }
+
+        .criterion-actions {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .criterion-section {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+
+            .checkbox {
+                margin-bottom: -5px;
+
+                .checkbox-label {
+                    margin-bottom: 0;
+                }
+            }
+
+            &:first-child {
+                padding-top: 0;
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+        }
+
+        .criterion-organizations-list {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            @include cf();
+
+            .criterion-organization {
+                width: 190px;
+                float: left;
+
+                .criterion-organization-icon {
+                    margin-right: 5px;
+                    float: left;
+
+                    .mdi {
+                        color: #959595;
+                        font-size: 18px;
+                        line-height: 25px;
+                        transition: color .4s;
+
+                        &:hover {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+
+                .criterion-organization-name {
+                    color: #292b39;
+                    float: left;
+                    font: 600 13px/25px var(--base-font);
+                    @include ellipsis();
+                    max-width: 150px;
+                }
+
+                &.active {
+                    .criterion-organization-icon {
+                        .mdi {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .criterion-organizations-root {
+            margin-bottom: 10px;
+
+            .criterion-organizations {
+                box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
+                border-radius: calc(var(--border-radius) / 2);
+                border: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+
+                .criterion-organization {
+                    background: #ffff;
+                    border-bottom: 1px solid var(--border-color);
+                    padding: 5px 10px;
+                    @include cf();
+                    cursor: default;
+
+                    .criterion-organization-icon {
+                        margin-right: 15px;
+                        float: left;
+
+                        .mdi {
+                            color: #496F96;
+                            font-size: 18px;
+                            line-height: 25px;
+                            transition: color .4s;
+
+                            &:hover {
+                                color: var(--color-primary);
+                            }
+                        }
+                    }
+
+                    .criterion-organization-name {
+                        color: #292b39;
+                        float: left;
+                        font: 600 13px/25px var(--base-font);
+                        @include ellipsis();
+                        max-width: 225px;
+                    }
+
+                    .criterion-organization-actions {
+                        float: right;
+
+                        .mdi {
+                            color: #646f79;
+                            font-size: 20px;
+                            line-height: 25px;
+                            cursor: pointer;
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .criteria-editor-actions {
+        &:first-child {
+            padding: 0 0 0;
+        }
+    }
+}

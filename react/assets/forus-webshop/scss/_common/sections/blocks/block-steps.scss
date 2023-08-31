@@ -1,0 +1,20 @@
+&.block-steps {
+    .block-steps-description {
+        font: 400 16px/28px var(--base-font);
+        text-align: center;
+        color: #191A1C;
+        width: 820px;
+        max-width: 100%;
+        padding-top: 40px;
+        margin: 0 0 30px;
+    }
+
+    .block-markdown {
+        font: 400 16px/28px var(--base-font);
+
+        a:not(.button) {
+            text-decoration: underline;
+            color: var(--color-primary);
+        }
+    }
+}

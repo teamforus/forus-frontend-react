@@ -1,0 +1,13 @@
+&.block-map {
+    .block-content {
+        .block-title {
+            font: 500 50px/68px var(--base-font);
+        }
+
+        .button {
+            &:hover {
+                background-color: #FFCE59;
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.section {
+    &.section-products {
+        min-height: 500px;
+        position: unset;
+        top: 650px;
+
+        @media screen and (min-width: 1024px) {
+            &:before {
+                position: absolute;
+                left:0;
+                top: 550px;
+                width: 360px;
+                height: 100%;
+                background-image: url("../img/giftbox.png");
+                background-repeat: no-repeat;
+                z-index: -1;
+                content: " ";
+            }
+        }
+    }
+}

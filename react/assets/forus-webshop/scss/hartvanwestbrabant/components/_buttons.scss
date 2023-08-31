@@ -1,0 +1,15 @@
+.block {
+    &.block-show-more, &.block-map {
+        .button {
+            border: 2px solid #24A1A1;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #24A1A1;
+
+            &:hover {
+                background-color: #24A1A1;
+                color: #FFFFFF;
+            }
+        }
+    }
+}

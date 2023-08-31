@@ -1,0 +1,36 @@
+&.block-bi-info {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 20px;
+
+    .bi-info-icon {
+        display: flex;
+        padding-right: 20px;
+
+        svg {
+            display: block;
+        }
+    }
+
+    .bi-info-content {
+        display: flex;
+        flex-grow: 1;
+
+        .block.block-markdown {
+            font: 400 14px/20px var(--base-font) !important;
+            color: #282B39;
+
+            h1, h2, h3, h4, h5, h6, ul, p {
+                margin-bottom: 10px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+    
+            h4 {
+                font: 500 16px/28px var(--base-font);
+            }
+        }
+    }
+}

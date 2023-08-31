@@ -1,0 +1,90 @@
+@import "../general/vars.scss";
+
+/*==========  Style Sheet - Vars  ==========*/
+$fonts: [];
+$primaryColor: #000;
+$primaryColorLight: #e60204;
+
+:root {
+    // navbar
+    --bg-nav: #191818;
+    --tc-nav-hov: #ececec;
+    --tc-nav: #b3b3b3;
+    --logo-padding: 20px 0px;
+    --logo-height: 50px;
+    // navbar (auth)
+    --tc-auth-menu: #fff;
+    --tc-auth-btn: #282b39;
+    --btn-auth-bg: #fff;
+    --btn-auth-border: #191818;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #e60103;
+    --btn-start-btn: #e60103;
+    --btn-start-border: #282B39;
+
+    // sign up
+    --sign_up_accent_color: #191a1c;
+    --sign_up_accent_color_light: #45535e;
+    --sign_up_link_color: #e60004;
+    --sign_up_step_btns_color: #e60004;
+    --sign_up_digid_btn_bkg: #fff;
+    --sign_up_digid_btn_text: #191818;
+    --sign_up_digid_btn_border: 1px solid #191818;
+    --sign_up_digid_btn_border_radius: 0;
+
+    --bg-values: none;
+
+    // base font
+    --base-font: Verdana, arial;
+
+    // text color
+    --tc: #1a1919;
+    --tc-var: #fff;
+    --tc-link: #2b2bff;
+
+    // base color
+    --bc: #e60003;
+
+    // background color
+    --bg: #fff;
+
+    --bg_2: none;
+
+    // text formatting
+    --text_format: inherit;
+
+    // footer color
+    --footer_background_color: #e60004;
+    --footer_color: #fff;
+    --footer_color_link: #fff;
+    --footer_color_link_hover: #fff;
+
+    // displayed or not
+    --footer_display: block;
+
+    // product image
+    --product-image-padding: 0px;
+
+    // placeholder text color
+    --placeholder_text_color: #515152;
+
+    --border-color: #dce0e0;
+
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
+
+    --color-default: #e60204;
+
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // Login button
+
+    --login-button-background: #fff;
+}

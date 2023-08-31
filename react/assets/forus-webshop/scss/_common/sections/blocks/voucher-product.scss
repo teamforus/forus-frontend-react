@@ -1,0 +1,111 @@
+.block {
+    &.block-voucher-product {
+        position: relative;
+        z-index: 1;
+
+        .product-card {
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            height: 150px;
+            cursor: default;
+            @include cf();
+            position: relative;
+            display: block;
+            overflow: hidden;
+
+            .product-photo {
+                width: 200px;
+                float: left;
+
+                img { 
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .product-details {
+                float: left;
+                padding: 35px 30px 45px;
+
+                .product-name {
+                    color: #00122a;
+                    font: 700 26px/30px var(--base-font);
+                    margin-bottom: 10px;
+
+                    .label {
+                        margin-top: 6px;
+                        float: right;
+                        margin-left: 10px;
+                    }
+                }
+
+                .product-price {
+                    vertical-align: middle;
+                    @include cf();
+
+                    .product-price-new {
+                        font: 700 24px/30px var(--base-font);
+                        color: #151b26;
+                        float: left;
+                        margin-right: 4px;
+                    }
+
+                    .product-price-old {
+                        font: 400 18px/26px var(--base-font);
+                        color: #646f79;
+                        text-decoration: line-through;
+                        float: left;
+                        padding-top: 4px;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-voucher-product {
+            .product-card {
+                height: auto;
+                border-radius: 10px;
+
+                .product-photo {
+                    width: 100%;
+                    max-width: 100%;
+                    height: 200px;
+                    border-top-right-radius: inherit;
+                    border-bottom-left-radius: 0;
+
+                    img {
+                        border-top-right-radius: inherit;
+                    }
+
+                }
+                .product-details {
+                    padding: 25px;
+                    width: 100%;
+
+                    .product-name {
+                        margin: 0 0 20px;
+                        display: inline-block;
+                        color: var(--bc);
+                    }
+
+                    .product-price {
+                        margin: 0 0 15px;
+
+                        .product-price-new {
+                            font: 700 20px/20px var(--base-font);
+                            margin: 0 0 0;
+                            width: 100%;
+                        }
+
+                        .product-price-old {
+                            font: 400 15px/15px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

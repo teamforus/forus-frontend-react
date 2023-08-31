@@ -1,0 +1,259 @@
+.block {
+    &.block-funds {
+        margin: 20px -15px 0;
+        flex-wrap: wrap;
+
+        .fund-item {
+            margin: 0 0 30px;
+            padding: 0 15px;
+            display: inline-block;
+            max-width: 33.333%;
+            min-width: 33.333%;
+
+            .fund-item-inner {
+                box-shadow: var(--box-shadow);
+                border-radius: var(--border-radius);
+                background-color: rgba(255, 255, 255, .9);
+                display: block;
+                flex: 1;
+                @include cf();
+
+                &:hover {
+                    .fund-name {
+                        color: var(--tc);
+                    }
+
+                    .fund-image {
+                        transform: translate(0, -6px);
+                        box-shadow: 0 15px 50px rgba(0, 0, 0, .15);
+
+                        &:after {
+                            opacity: .5;
+                            ;
+                        }
+                    }
+                }
+            }
+
+            .fund-image {
+                width: 100%;
+                overflow: hidden;
+                display: block;
+                position: relative;
+                transform: translate(0, 0);
+                transition: .4s;
+                box-shadow: 0 0 0 rgba(0, 0, 0, .05);
+                border: 1px solid #ececec;
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+                background-size: cover;
+                background-position: 50% 50%;
+    
+                img {
+                    display: block;
+                    width: 100%;
+                }
+    
+                &:after {
+                    content: '';
+                    background: #394260;
+                    opacity: 0;
+                    @include fill_parent();
+                    transition: opacity .4s;
+                }
+            }
+    
+            .fund-details {
+                padding: 20px;
+                background: #ffffff;
+                display: block;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                @include cf();
+            }
+
+            .fund-organization {
+                font: 400 14px/18px var(--base-font);
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #353535;
+            }
+
+            .fund-name {
+                color: var(--bc);
+                font: 700 18px/21px var(--base-font);
+                margin: 10px 0 5px;
+                transition: .4s;
+                color: var(--tc);
+            }
+        }
+    }
+    
+    @media screen and (max-width: 1700px) {
+        &.block-products {
+            margin: 0 -20px 0;
+
+            .product-item {
+                padding: 0 20px;
+                margin: 0 0 40px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1300px) {
+        &.block-products {
+            margin: 0 -15px 0;
+
+            .product-item {
+                padding: 0 15px;
+                margin: 0 0 20px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-products {
+            margin: 0 -10px 30px;
+            padding: 0;
+
+            .section-title {
+                text-align: center;
+            }
+
+            .product-item {
+                padding: 0 10px;
+                margin: 0 0 10px;
+                width: calc(100% / 3);
+                max-width: none;
+
+                .product-item-inner {
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+
+                    .product-image {
+                        margin: 0 0;
+                        width: 100%;
+                        float: left;
+                        border-radius: var(--border-radius) var(--border-radius) 0 0;
+
+                        img {
+                            width: 100%;
+                            display: block;
+                            border-radius: var(--border-radius) var(--border-radius) 0 0;
+                        }
+                    }
+
+                    .product-details {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                    }
+
+                    .product-discount {
+                        text-align: left;
+                        float: left;
+                        width: auto;
+                        color: #FFF;
+                        font-weight: 700;
+                        font-size: 12px;
+                        padding: 0 5px;
+                        margin: 0 5px 5px 0;
+                        background-color: #d91d46;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        border-radius: calc(var(--border-radius) / 2) 0 0 0;
+
+                        br {
+                            display: none;
+                        }
+                    }
+
+                    .product-price {
+                        width: 100%;
+                        text-align: right;
+                        order: 2;
+                        font: 700 16px var(--base-font);
+
+                        small {
+                            color: #646f79;
+                            margin-bottom: 5px;
+                            font: 600 12px var(--base-font);
+                        }
+                    }
+
+                    .product-name {
+                        font: 700 16px/26px var(--base-font);
+                        margin: 0 0 5px;
+                        width: 100%;
+                        color: #00122a;
+                        order: 0;
+                    }
+
+                    &:last-of-type {
+                        margin-bottom: 0;
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        .product-image {
+                            transform: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        &.block-funds {
+            padding: 0;
+
+            .fund-item {
+                width: 50%;
+                margin: 0 0 30px;
+                max-width: none;
+
+                .fund-item-inner {
+                    .fund-details {
+                        padding: 10px 15px;
+
+                        .fund-organization {
+                            font: 700 14px/20px var(--base-font);
+                        }
+
+                        .fund-name {
+                            font: 700 18px/32px var(--base-font);
+                        }
+
+                        .fund-price {
+                            font: 700 18px/20px var(--base-font);
+
+                            small {
+                                font: 600 14px/26px var(--base-font);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        &.block-funds {
+            margin: 0 0 0 0;
+
+            .section-title {
+                text-align: center;
+            }
+
+            .fund-item {
+                width: 100%;
+                padding: 0 0 0 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,88 @@
+&.block-offices {
+    .office-item {
+        margin-bottom: 15px;
+        display: block;
+        
+        .office-pane {
+            background: #ffffff;
+            box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+            display: flex;
+            flex-direction: column;
+
+            .office-pane-block {
+                display: flex;
+                flex-direction: row;
+                padding: 15px 15px;
+                border-bottom: 1px solid var(--border-color);
+
+                .office-logo-offset,
+                .office-logo {
+                    margin: 0 15px 0 0;
+                    width: 40px;
+
+                    .office-logo-img {
+                        display: block;
+                        width: 100%;
+                        border-radius: var(--border-radius);
+                    }
+                }
+
+                .office-details {
+                    .office-title {
+                        font: 700 14px/20px var(--base-font);
+                        color: #272525;
+                        margin: 0 0 5px;
+                    }
+
+                    .office-labels {
+                        margin: 0 0 5px;
+
+                        .label {
+                            line-height: 18px;
+                            padding: 0 5px;
+                        }
+                    }
+
+                    // .office-rate {}
+                }
+
+                .office-info {
+                    font: 600 12px/20px var(--base-font);
+                    display: flex;
+
+                    .mdi {
+                        float: left;
+                        font-size: 15px;
+                        margin: -1px 5px -1px 0;
+                    }
+
+                    &.office-info-inline {
+                        display: inline-flex;
+                    }
+
+                    &:not(:last-child) {
+                        margin-right: 20px;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        &:first-child {
+            .office-pane {
+                border-top-left-radius: var(--border-radius);
+                border-top-right-radius: var(--border-radius);
+            }
+        }
+
+        &:last-child {
+            .office-pane {
+                border-bottom-left-radius: var(--border-radius);
+                border-bottom-right-radius: var(--border-radius);
+            }
+        }
+    }
+}

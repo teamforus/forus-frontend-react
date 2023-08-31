@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('../fonts/Century Gothic.ttf');
+}
+
+@import './vars';
+@import '../_common/webshop';
+
+// INCLUDES
+@import 'includes/shame.scss';

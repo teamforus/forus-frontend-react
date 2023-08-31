@@ -1,0 +1,67 @@
+&.modal-2fa-setup {
+    .modal-content {
+        width: 820px;
+        overflow: visible;
+    }
+
+    .modal-section {
+        padding: 25px;
+        overflow: visible;
+
+        &.modal-section-collapsed {
+            border-top: 1px solid var(--border-color);
+        }
+    }
+
+    .modal-body {
+        .modal-heading {
+            font: 700 18px/24px var(--base-font);
+            margin: 0 0 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .modal-text {
+            font: 500 14px/20px var(--base-font);
+            margin: 0 0 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .form-label {
+            font: 600 13px/20px var(--base-font);
+            margin: 0 0 5px;
+        }
+
+        .phone-control {
+            margin-bottom: 10px;
+        }
+    }
+
+    .modal-window {
+        background-color: #fff;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .modal-content {
+            padding: 0;
+
+            .modal-section {
+                .modal-section-column {
+                    width: 100%;
+                    border: none;
+                    margin: 0 0 20px;
+                    padding: 0;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

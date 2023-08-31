@@ -1,0 +1,25 @@
+&.block-profile {
+    .profile-aside {
+        .profile-menu {
+            .profile-menu-item {
+                &.active {
+                    background-color: #492638;
+                }
+            }
+        }
+    }
+
+    .profile-content {
+        .block-actions {
+            .button-light, .button-primary, .button-default, .button-primary-outline {
+                background-color: #492638;
+                color: #fff;
+            }
+        }
+        
+        .button-light, .button-primary, .button-default, .button-primary-outline {
+            background-color: #492638;
+            color: #fff;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+.block {
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            .navbar-logo {
+                img {
+                    display: none;
+
+                    &.hover {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 1600px) {
+    .nav-var {
+        &.block {
+            &.block-navbar {
+                border: none;
+
+                .block-subnav {
+                    .subnav-inner {
+                        padding-top: 27.5px;
+                        padding-bottom: 27.5px;
+                    }
+
+                    .navbar-logo {
+                        img {
+                            height: 140px;
+                            position: absolute;
+                            left: 60px;
+                            margin-top: -50px;
+        
+                            &.hover {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

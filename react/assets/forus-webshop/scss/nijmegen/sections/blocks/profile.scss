@@ -1,0 +1,57 @@
+.block {    
+    &.block-profile {
+        .profile-aside {
+            .profile-card {
+                border-radius: 2px;
+
+                .profile-details {
+                    .profile-heading {
+                        color: #297c68;
+                    }
+                }
+
+                .profile-actions {
+                    .profile-action {
+                        color: #297c68;
+                        text-transform: uppercase;
+
+                        &:hover {
+                            color: #30a08b;
+                        }
+                    }
+                }
+            }
+
+            .profile-menu {
+                .profile-menu-item {
+                    font: 600 17px/24px "Source Sans Pro", sans-serif;
+                    padding: .84rem 2.14rem;
+                    -webkit-transition: all 0.2s ease-in-out;
+                    transition: all 0.2s ease-in-out;
+                    border-color: none;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    white-space: normal;
+                    word-wrap: break-word;
+                    font-size: 18px;
+                    letter-spacing: 0.7px;
+                    display: inline-block;
+                    width: 100%;
+                    text-align: left;
+                    color: #157c68;
+                    position: relative;
+
+                    .mdi {
+                        color: #157c68;
+                    }
+
+                    &.active,
+                    &:hover {
+                        background-color: #157c68;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

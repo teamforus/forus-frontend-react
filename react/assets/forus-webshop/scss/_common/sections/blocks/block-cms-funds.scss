@@ -1,0 +1,232 @@
+&.block-cms-funds {
+    width: 100%;
+
+    .fund-item {
+        width: 100%;
+        padding: 0 15px;
+        display: flex;
+        margin: 0 0 60px;
+        padding: 0 0 60px;
+        border-bottom: 1px solid var(--border-color);
+
+        .fund-media {
+            width: 52%;
+            order: 1;
+    
+            img {
+                width: 100%;
+                display: block;
+            }
+        }
+    
+        .fund-information {
+            width: 50%;
+            padding-left: 100px;
+            text-align: left;
+            order: 2;
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            cursor: default;
+    
+            .fund-label {
+                margin: 0 0 5px;
+            }
+    
+            .fund-title {
+                font: 400 24px/36px var(--base-font);
+                margin-top: 5px;
+                color: var(--htc);
+                margin: 0 0 20px;
+            }
+    
+            .fund-description {
+                font: 400 18px/28px var(--base-font);
+                margin: 0 0 20px;
+            }
+    
+            .fund-button {
+                text-align: left;
+
+                .fund-button-link {
+                    display: none;
+                }
+            }
+        }
+    
+        &:nth-of-type(2n) {
+            .fund-media {
+                order: 2;
+                padding-right: 0;
+                text-align: right;
+            }
+    
+            .fund-information {
+                order: 1;
+                padding-left: 0;
+                padding-right: 100px;
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        &.block-cms-funds-compact {
+            --padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -20px 0;
+            width: fit-content;
+    
+            .fund-item {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                width: calc(calc(100% / 3) - var(--padding));
+                border: 1px solid var(--border-color);
+                background: #FFF;
+                box-shadow: var(--box-shadow);
+                margin: 0 calc(var(--padding) / 2) 40px;
+                border-radius: var(--border-radius);
+                position: relative;
+                padding: 0;
+                overflow: hidden;
+    
+                .fund-media {
+                    width: 100%;
+                    border-bottom: 1px solid var(--border-color);
+                }
+    
+                .fund-information {
+                    width: 100%;
+                    padding: 25px;
+                    display: flex;
+                    flex-grow: 1;
+                    flex-direction: column;
+    
+                    .fund-label {
+                        margin: 0 0 15px;
+    
+                        .label {
+                            font-size: 12px;
+                        }
+                    }
+    
+                    .fund-title {
+                        font: 400 24px/36px var(--base-font);
+                        margin: 0 0 15px;
+                    }
+    
+                    .fund-description {
+                        margin: 0 0 0;
+                        display: flex;
+                        flex-grow: 1;
+    
+                        .block.block-markdown ul, .block.block-markdown p {
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+    
+                    .fund-button {
+                        text-align: right;
+                        padding-top: 15px;
+    
+                        .fund-button-link {
+                            padding: 0;
+                            display: inline-block;
+                            text-decoration: underline;
+                            color: var(--color-primary);
+                            font: 600 18px/20px var(--base-font);
+                        }
+
+                        .fund-button-button {
+                            display: none;
+                        }
+                    }
+                }
+        
+                &:nth-of-type(2n) {
+                    .fund-media {
+                        order: 1;
+                    }
+            
+                    .fund-information {
+                        order: 2;
+                    }
+                }
+        
+                &:nth-of-type(3n) {
+                    margin-right: 0;
+                }
+    
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+    
+            &.block-cms-funds-2-in-row {
+                .fund-item {
+                    width: calc(calc(100% / 2) - var(--padding));
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .fund-item {
+            padding: 0 0 30px;
+            margin: 0 0 30px;
+            flex-direction: column;
+
+            .fund-media {
+                width: 100%;
+                margin: 0 0 20px;
+            }
+
+            .fund-information {
+                width: 100%;
+                padding: 0;
+
+                .fund-title {
+                    font: 400 20px/26px var(--base-font);
+                    margin: 0 0 10px;
+                }
+
+                .fund-description {
+                    margin: 0 0 10px;
+                }
+
+                .fund-button {
+                    width: 100%;
+
+                    .fund-button-link {
+                        display: none;
+                    }
+
+                    .fund-button-button {
+                        display: inline-block;
+                        width: 100%;
+                    }
+                }
+            }
+
+            &:nth-of-type(2n) {
+                .fund-media {
+                    order: 1;
+                    margin: 0 0 20px;
+                }
+    
+                .fund-information {
+                    order: 2;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

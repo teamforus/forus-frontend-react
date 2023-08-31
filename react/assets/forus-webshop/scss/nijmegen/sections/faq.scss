@@ -1,0 +1,13 @@
+.section {
+    &.section-faq {
+        .section-splash {
+            display: none;
+        }
+        
+        .faq {
+            &.faq-fund {
+                width: 100%;
+            }
+        }
+    }
+}

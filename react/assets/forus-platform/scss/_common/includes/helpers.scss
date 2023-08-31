@@ -1,0 +1,138 @@
+// clear Fix - for floating blocks
+@mixin cf(){
+    *zoom: 1;
+
+    &:before, &:after{
+        content: " ";
+        display: table;
+    }
+
+    &:after{
+        clear: both;
+    }
+}
+
+// fill parrent block
+@mixin fill_parent($offset: 0px, $position: absolute){
+    position: $position;
+    top: $offset;
+    right: $offset;
+    bottom: $offset;
+    left: $offset;
+}
+
+@mixin float_parent() {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// ellipsis text
+@mixin ellipsis {
+    flex: 1;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin visible_on_hover($item, $timeout: .3s) {
+    #{$item}, #{$item} * {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity calc($timeout / 3), visibility calc($timeout / 3) linear;
+    }
+
+    &:hover {
+        #{$item}, #{$item} * {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity $timeout, visibility $timeout linear;
+        }
+    }
+}
+
+@mixin visible_on_toggle($item, $class, $timeout: .3s) {
+    #{$item}, #{$item} {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity calc($timeout / 3), visibility calc($timeout / 3) linear;
+    }
+
+    &#{$class} {
+        #{$item} {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+@mixin webkit_scrollbar($color: var(--color-primary-light), $trak-border: 1px solid transparent) {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f3f4f5;
+        border: $trak-border;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        height: 6px;
+        border: 2px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        background-color: $color;
+        box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+    }
+}
+
+@mixin webkit_scrollbar_gray($color: #9E9FA1) {
+    @include webkit_scrollbar($color);
+}
+
+@mixin anim_blink() {
+    @keyframes blink {
+        0% {
+            opacity: 0.0;
+        }
+
+        30% {
+            opacity: 1.0;
+        }
+
+        70% {
+            opacity: 1.0;
+        }
+
+        100% {
+            opacity: 0.0;
+        }
+    }
+
+    @-webkit-keyframes blink {
+        0% {
+            opacity: 0.0;
+        }
+
+        30% {
+            opacity: 1.0;
+        }
+
+        70% {
+            opacity: 1.0;
+        }
+
+        100% {
+            opacity: 0.0;
+        }
+    }
+
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@function assetUrl($url) {
+    @return if(variable-exists(buildReact), url('./assets/' + $url), url('../' + $url));
+}

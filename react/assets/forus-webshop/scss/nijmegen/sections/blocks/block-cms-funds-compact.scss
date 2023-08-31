@@ -1,0 +1,25 @@
+.block.block-cms-funds {
+    &.block-cms-funds-compact {
+        --padding: 30px;
+
+        .fund-item {
+            .fund-information {
+                .fund-title {
+                    font: 400 32px/40px var(--base-font);
+                }
+
+                .fund-description {
+                    .block.block-markdown {
+                        font-size: 18px;
+                    }
+                }
+
+                .fund-button {
+                    .button-text {
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+}

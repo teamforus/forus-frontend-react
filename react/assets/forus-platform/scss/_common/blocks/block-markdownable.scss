@@ -1,0 +1,199 @@
+&.block-markdownable {
+    .note-editor {
+        border: none;
+
+        .note-toolbar {
+            padding: 0;
+            background: transparent;
+            border: none;
+            display: flex;
+
+            .mdi {
+                display: block;
+                width: 32px;
+                text-align: center;
+                line-height: 32px;
+                font-size: 20px;
+            }
+
+            .dropdown-style {
+                @extend .block, .block-markdown;
+
+                .note-dropdown-item {
+                    * {
+                        margin: 0px !important;
+                    }
+                }
+            }
+
+            .note-dropdown-item {
+                text-decoration: none !important;
+                color: var(--text-color) !important;
+                margin: 0px !important;
+                padding: 5px 10px;
+                display: flex;
+                flex-direction: row;
+
+                .note-dropdown-label {
+                    font: 400 14px/28px var(--base-font);
+                }
+
+                .mdi {
+                    line-height: 28px;
+                    float: left;
+                    width: 28px;
+                    height: 28px;
+                    text-align: center;
+                    margin-left: -5px;
+                    margin-right: 5px;
+                }
+            }
+
+            .note-dropdown-menu {
+                min-width: 200px;
+                padding: 0;
+            }
+
+            .note-btn-group {
+                margin: 0 0 5px;
+                display: flex;
+
+                .note-btn {
+                    transition: 0.4s;
+                    display: block;
+                    float: left;
+                    padding: 0px;
+                    color: #000000;
+                    background: none;
+                    border: 1px solid var(--border-color);
+                    height: 34px;
+                    cursor: pointer;
+                    opacity: 0.7;
+                    text-align: center;
+                    margin: 0 5px 0 0;
+                    background: lighten($color: #eee, $amount: 3);
+                    box-shadow: 2px 2px 10px rgba($color: #000000, $alpha: 0.01);
+                    border-radius: calc(var(--border-radius) / 2);
+                    position: relative;
+
+                    &.dropdown-toggle {
+                        width: 50px;
+
+                        .mdi-menu-down {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: 20px;
+                        }
+                    }
+
+                    &.active {
+                        box-shadow: inset 0 0 2px rgba(0, 0, 0, .5);
+                        background: #ebebeb;
+                    }
+
+                    &.disabled {
+                        cursor: default;
+                        pointer-events: none;
+                        background-color: #595d60;
+                        border-color: #595d60;
+                        color: #fff;
+                        opacity: 1;
+                    }
+                }
+
+                &:last-child {
+                    .note-btn {
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .note-editing-area {
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            background-color: #ffffff;
+
+            .note-placeholder {
+                color: var(--placeholder-color);
+                font: 400 14px/24px var(--base-font);
+            }
+
+            .note-editing-code {
+                top: 0;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                border: none;
+                padding: 10px;
+                outline: none;
+                font: 600 14px/24px monospace;
+            }
+        }
+
+        .note-editable {
+            @extend .block, .block-markdown;
+            @include webkit_scrollbar_gray();
+
+            table {
+                thead {
+                    display: none;
+                }
+            }
+        }
+
+        &.fullscreen {
+            background-color: #fff;
+            border-radius: 0;
+
+            .note-toolbar {
+                border-radius: 0;
+                padding: 10px 10px 0;
+                background-color: #fff;
+                width: 100%;
+                max-width: 1200px;
+                margin: auto;
+                border-left: 1px solid var(--border-color);
+                border-right: 1px solid var(--border-color);
+            }
+
+            .note-editing-area {
+                padding: 10px 0;
+                border-radius: 0;
+                background-color: #fff;
+                width: 100%;
+                max-width: 1200px;
+                margin: auto;
+            }
+        }
+    }
+
+    &.block-markdownable-left {
+        .note-editable {
+            * {
+                text-align: left !important;
+            }
+        }
+    }
+
+    &.block-markdownable-center {
+        .note-editable {
+            * {
+                text-align: center !important;
+            }
+        }
+    }
+
+    &.block-markdownable-right {
+        .note-editable {
+            * {
+                text-align: right !important;
+            }
+        }
+    }
+}

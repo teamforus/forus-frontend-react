@@ -1,0 +1,79 @@
+&.block-fund {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 20px;
+    background: #fff;
+    border-radius: calc(var(--border-radius) / 2);
+    box-shadow: var(--box-shadow);
+
+    .fund-overview {
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: row;
+        
+        .fund-media {
+            display: flex;
+            border-top-left-radius: calc(var(--border-radius) / 2);
+            overflow: hidden;
+            width: 190px;
+
+            .fund-media-img {
+                display: block;
+                width: 190px;
+            }
+        }
+
+        .fund-details {
+            display: flex;
+            flex-direction: column;
+            padding: 25px 25px;
+            flex: 1 0;
+
+            .fund-name {
+                font: 600 16px/20px var(--base-font);
+                color: #151B26;
+                margin: 0 0 15px;
+            }
+
+            .fund-description-short {
+                display: flex;
+                flex-direction: row;
+                font: 500 14px/20px var(--base-font);
+                color: #646F79;
+            }
+        }
+    }
+
+    .fund-description {
+        .description-header {
+            background-color: #f6f9fc;
+            border-bottom: 1px solid var(--border-color);
+            padding: 25px;
+            font: 600 16px/28px var(--base-font);
+            color: #282B39;
+            @include cf();
+
+            .description-header-action {
+                display: flex;
+                flex-direction: row;
+                float: right;
+                font: 600 12px/28px var(--base-font);
+
+                .button {
+                    margin: -4px 0 -4px 10px;
+                }
+            }
+        }
+
+        .description-body {
+            font: 500 14px/24px var(--base-font);
+            padding: 20px 25px;
+            display: block;
+            color: #626262;
+
+            .block-markdown {
+                color: #282B39;
+            }
+        }
+    }
+}

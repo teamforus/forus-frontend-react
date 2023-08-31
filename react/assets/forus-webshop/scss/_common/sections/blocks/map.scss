@@ -1,0 +1,75 @@
+.block {
+    &.block-map {
+        @include cf();
+        background: url('../img/sprite-map.png') no-repeat;
+        background-position: 100% 50%;
+        background-size: auto 710px;
+
+        .block-content {
+            padding: 130px 0;
+            width: 50%;
+            float: left;
+
+            .block-title {
+                font: 700 40px var(--hf);
+                margin: 0 0 20px;
+            }
+
+            .block-description {
+                font: 400 22px/36px var(--base-font);
+                margin: 0 0 40px;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        &.block-map { 
+            padding: 120px 0 240px;
+        }
+    }
+
+    @media screen and (max-width: 1700px) {
+        &.block-map {
+            .block-content {
+                .block-title {
+                    margin: 0 0 15px;
+                }
+
+                .block-description {
+                    margin: 0 0 30px;
+                }
+            }
+        }
+    }
+    
+    @media screen and (max-width: 1000px) {
+        &.block-map {
+            padding: 0px 0 30px;
+            background-size: contain;
+            margin: 0 0 20px;
+            background: none;
+
+            .block-content {
+                text-align: center;
+                width: 100%;
+                padding: 0;
+
+                .block-title {
+                    font: 700 22px/36px var(--base-font);
+                    margin: 0 0 20px;
+                }
+
+                .block-description {
+                    font: 400 16px/28px var(--base-font);
+                    margin: 0 0 20px;
+                }
+
+                .button {
+                    width: 100%;
+                    padding-left: 30px;
+                    padding-right: 30px;
+                }
+            }
+        }
+    }
+}

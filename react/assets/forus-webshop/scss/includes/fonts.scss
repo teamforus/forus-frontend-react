@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-LightItalic.eot');
+    src: local('Grandis Extended Light Italic'), local('GrandisExtended-LightItalic'),
+        url('../fonts/GrandisExtended-LightItalic.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Light.eot');
+    src: local('Grandis Extended Light'), local('GrandisExtended-Light'),
+        url('../fonts/GrandisExtended-Light.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Medium.eot');
+    src: local('Grandis Extended Medium'), local('GrandisExtended-Medium'),
+        url('../fonts/GrandisExtended-Medium.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-MediumItalic.eot');
+    src: local('Grandis Extended Medium Italic'), local('GrandisExtended-MediumItalic'),
+        url('../fonts/GrandisExtended-MediumItalic.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Regular.eot');
+    src: local('Grandis Extended Regular'), local('GrandisExtended-Regular'),
+        url('../fonts/GrandisExtended-Regular.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-RegularItalic.eot');
+    src: local('Grandis Extended Regular Italic'), local('GrandisExtended-RegularItalic'),
+        url('../fonts/GrandisExtended-RegularItalic.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-RegularItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-BoldItalic.eot');
+    src: local('Grandis Extended Bold Italic'), local('GrandisExtended-BoldItalic'),
+        url('../fonts/GrandisExtended-BoldItalic.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-BoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Bold.eot');
+    src: local('Grandis Extended Bold'), local('GrandisExtended-Bold'),
+        url('../fonts/GrandisExtended-Bold.woff2') format('woff2'),
+        url('../fonts/GrandisExtended-Bold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OrandaBT-Bold'; 
+    src: url("../fonts/Oranda-BT-Bold.woff2") format("woff2"),
+        url("../fonts/Oranda-BT-Bold.woff") format("woff"),
+        url("../fonts/Oranda-BT-Bold.ttf") format("truetype");
+    font-weight: 600;
+}

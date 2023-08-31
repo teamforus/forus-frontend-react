@@ -1,0 +1,169 @@
+$footer_base_font: 'Open Sans', arial, sans-serif;
+
+&.block-sticky-footer {
+    bottom: 0px;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    max-width: 100%;
+    transition: transform 0.2s;
+    
+    &.scrolled {
+        transform: translateY(100%);
+    }
+
+    ul {
+        display: flex;
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0 0 20px rgba(0,0,0,0.075);
+        align-items: center;
+        justify-content: center;
+        height: 62px;
+    }
+
+    svg {
+        display: block;
+        margin: 0 auto;
+    }
+
+    li {
+        font: 400 14px/1.5em $footer_base_font;
+        text-align: center;
+        padding: 10px 20px;
+        width: 100%;
+        border-right: 1px solid #dbdcdb;
+        height: 100%;
+
+        button {
+            background: inherit;
+            border: none;
+        }
+
+        .sticky-footer-item-wrapper, .sticky-footer-item {
+            font: 500 11px/13px $footer_base_font;
+            color: #4F4F4F;
+        }
+
+        &.sticky-footer-dropdown {
+            background-color: #4F4F4F;
+
+            .sticky-footer-item-wrapper {
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+
+                .mdi {
+                    font-size: 40px;
+                    display: flex;
+                    flex-direction: column;
+
+                    &:before {
+                        display: flex;
+                        align-items: center;
+                        align-self: center;
+                        height: 34px;
+                    }
+                }
+            }
+
+            .sticky-footer-dropwdown-subitems {
+                overflow: scroll;
+                position: absolute;
+                bottom: 70px;
+                width: 90%;
+                text-align: left;
+                left: 6%;
+                right: 4%;
+                background-color: #fff;
+                border: 1px solid #E6E6E6;
+                box-shadow: 0px 72px 90px rgba(25, 39, 52, 0.2), 0px 0px 50px rgba(25, 39, 52, 0.12), 0px 12px 30px rgba(25, 39, 52, 0.18);
+                border-radius: 3px;
+
+                .sticky-footer-dropwdown-subitem {
+                    font: 700 13px/15px var(--base-font);
+                    border-top: 1px solid #EBEDF0;
+
+                    span {
+                        margin-left: 13px;
+                    }
+
+                    .mdi {
+                        font-size: 23px;
+                    }
+
+                    &.active {
+                        background-color: var(--color-primary);
+                        color: #FFFFFF;
+                    }
+
+                    &:hover {
+                        background-color: #4a9586;
+                    }
+                }
+
+                .sticky-footer-dropwdown-subitem, .sticky-footer-dropwdown-info {
+                    display: flex;
+                    padding: 15px;
+                    color: #4F4F4F;
+                }
+
+                .sticky-footer-dropwdown-info {
+                    .sticky-footer-dropwdown-title {
+                        font: 700 18px/26px var(--base-font);
+                    }
+                }
+            }
+        }
+
+        &.button {
+            font: 400 14px/1.5em $footer_base_font;
+        }
+
+        &.active, &:focus {
+            color: var(--color-default);
+
+            a {
+                color: var(--color-default);
+            }
+
+            path {
+                fill: var(--color-default);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    &.block-sticky-footer {
+        ul {
+            li { 
+                font: 400 12px/26px $footer_base_font;
+                padding: 5px;
+
+                a {
+                    display: block;
+                }
+
+                &.sticky-footer-dropdown {
+                    .sticky-footer-dropwdown-subitems {
+                        bottom: 62px;
+                        right: 0;
+                        left: 0;
+                        width: 100%;
+                        height: calc(100vh - 122px);
+                        border-left: none;
+                        border-right: none;
+                        box-shadow: none;
+
+                        .sticky-footer-dropwdown-subitem {
+                            &:hover {
+                                background-color: #FBFBFB;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+.section-benefits {
+    background-color: #f4f5f7;
+    padding: 70px 0;
+    position: relative;
+    &:after{
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -15%;
+        width: 60%;
+        height: 100%;
+        background: url("../img/pb.png") no-repeat;
+        background-position: right bottom;
+        background-size: contain;
+    }
+    @include list_check();
+    ul{
+        padding-left: 45px;
+        li{
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.56;
+            letter-spacing: normal;
+            color: #191a1c;
+            margin-bottom: 28px;
+            &:before{
+                top: 0;
+            }
+        }
+    }
+}

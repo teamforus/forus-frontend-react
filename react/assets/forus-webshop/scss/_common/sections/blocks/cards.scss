@@ -1,0 +1,148 @@
+.block {
+    &.block-cards {
+        position: relative;
+        z-index: 3;
+        width: calc(100% + 30px);
+        margin: 0 -16px 70px;
+        @include cf();
+        float: left;
+
+        .card-item {
+            width: 50%;
+            padding: 0 15px;
+            margin-bottom: 20px;
+            float: left;
+
+            .card-item-inner {
+                border-radius: 6px;
+                overflow: hidden;
+                box-shadow: 0 10px 50px rgba(0, 0, 0, .2);
+                background-color: #ffffff;
+                position: relative;
+                height: 200px;
+                transform: translate(0, 0);
+                transition: transform .4s;
+                cursor: pointer;
+                display: block;
+
+                .card-icon {
+                    position: absolute;
+                    width: 340px;
+                    height: 340px;
+                    background: #f9fbf0;
+                    border-radius: 340px;
+                    left: 0px;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+
+                    img {
+                        display: block;
+                        width: 110px;
+                        height: 110px;
+                        position: absolute;
+                        top: 50%;
+                        right: 30px;
+                        transform: translate(0, -50%);
+                    }
+                }
+
+                .card-content {
+                    position: absolute;
+                    left: 200px;
+                    right: 100px;
+                    top: 50%;
+                    transform: translate(0, -50%);
+                }
+
+                .card-title {
+                    font: 700 18px/24px var(--base-font);
+                    color: #282b39;
+                    margin-bottom: 5px;
+
+                    .mdi {
+                        font-size: 1em;
+                        line-height: inherit;
+                        color: var(--color-default);
+                        vertical-align: baseline;
+                        position: relative;
+                        margin-left: 0;
+                        transition: .4s;
+                    }
+                }
+
+                .card-description {
+                    font: 600 14px/25px var(--base-font);
+                    color: #646f79;
+                }
+
+                &:hover {
+                    transform: translate(0, -10px);
+                    
+                    .card-title {
+                        .mdi {
+                            margin-left: 10px;
+                            color: #4697fd;
+                        }
+                    }
+                }
+            }
+
+            &:nth-child(even) {
+                .card-item-inner {
+                    .card-icon {
+                        background: #f2fafd;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1700px) {
+        &.block-cards {
+            margin: 0 -16px 0;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-cards {
+            padding: 0 25px;
+            width: 100%;
+            margin: 0 0 30px;
+
+            .card-item {
+                width: 100%;
+                padding: 0;
+
+                .card-item-inner {
+                    height: 160px;
+
+                    .card-icon {
+                        width: 320px;
+                        height: 320px;
+                        margin-left: -40px;
+
+                        img {
+                            width: 70px;
+                            height: 70px;
+                        }
+                    }
+
+                    .card-content {
+                        left: 145px;
+                        right: 30px;
+
+                        .card-title {
+                            font: 700 14px/22px var(--base-font);
+                        }
+
+                        .card-description {
+                            font: 600 12px/20px var(--base-font);
+                        }
+                    }
+                }
+
+                &:last-child {
+                    margin: 0 0 0;
+                }
+            }
+        }
+    }
+}

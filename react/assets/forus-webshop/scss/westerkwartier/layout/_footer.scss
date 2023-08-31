@@ -1,0 +1,101 @@
+.section {
+    &.section-footer {
+        background-color: var(--footer_display);
+        position: relative;
+
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 300px;
+            height: 275px;
+            background-size: contain;
+        }
+
+        &:before {
+            left: 0;
+            bottom: 100%;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12vw 0 0 12vw;
+            border-color: transparent transparent transparent #b9cb18;
+            -webkit-transform:rotate(360deg);
+        }
+
+        &:after {
+            right: 0;
+            bottom: 0;
+            background-image: url('../img/footer-triangle-b.png');
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 12vw 12vw;
+            border-color: transparent transparent #72BDEA transparent;
+            -webkit-transform:rotate(360deg);
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.section.section-footer {
+            padding: 40px 0 0;
+
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+    }
+}
+.block {
+    &.block-footer {
+        a {
+            color: var(--footer_color_link);
+
+            &:hover {
+                color: var(--footer_color_link_hover);
+                text-decoration: none;
+            }
+        }
+        .footer-label {
+            color: #fff;
+        }
+        
+        .footer-schedule {
+            .schedule-title,
+            .schedule-label,
+            .schedule-value {
+                color: #fff;
+            }
+        }
+
+        .footer-nav {
+            .footer-nav-item {
+                a {
+                    color: #fff;
+
+                    &:hover {
+                        color: #b9ca2f;
+                    }
+                }
+            }
+        }
+    }
+    &.block-copyrights {
+        border-top: 1px solid #666666;
+        
+        .copyrights {
+            color: #fff;
+        }
+
+        .links {
+            a {
+                color: #fff;
+
+                &:hover {
+                    color: #b9ca2f;
+                }
+            }
+        }
+    }
+}

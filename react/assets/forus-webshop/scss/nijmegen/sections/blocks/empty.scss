@@ -1,0 +1,29 @@
+.block {    
+    &.block.block-empty {
+        box-shadow: var(--box-shadow);
+        border-radius: 2px;
+
+        .block-title {
+            color: #a80a2d;
+        }
+
+        .block-description {
+            color: #212121;
+        }
+
+        .block-link {
+            color: #297c68;
+
+            .mdi {
+                color: #297c68;
+                float: none;
+            }
+
+            &:hover {
+                .mdi {
+                    margin-left: initial;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@import './vars';
+@import '../_common/webshop'; 
+@import '../includes/fonts';
+
+// INCLUDES
+@import 'includes/shame.scss';
+
+#main-content {
+    padding-top: 80px;
+
+    @media screen and (max-width: 1000px) {
+        padding-top: 0;
+    }
+}
+
+// BLOCKS
+.block {
+    @import 'sections/blocks/block-sign_up.scss';
+    @import 'sections/blocks/block-organization-info.scss';
+    @import 'sections/blocks/block-cms-funds.scss';
+    @import 'sections/blocks/block-navbar-search-results.scss';
+}

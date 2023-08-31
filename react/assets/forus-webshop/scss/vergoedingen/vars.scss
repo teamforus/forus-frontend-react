@@ -1,0 +1,99 @@
+@import "../general/vars.scss";
+
+/*==========  Style Sheet - Vars  ==========*/
+$fonts: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700",
+"https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,400i,600,700";
+$primaryColor: #176B55;
+$primaryColorLight: #2F7F6B;
+
+@font-face { 
+    font-family: Oranda; 
+    src: local("Oranda BT Roman"), 
+    url("https://media.forus.io/assets/fonts/oranda_bt.bde3d05f.woff2") format("woff2"), 
+    url("https://media.forus.io/assets/fonts/oranda_bt.05235f9a.woff") format("woff");
+    font-style: normal; 
+    font-weight: 400; 
+    font-display: swap; 
+}
+
+:root {
+    // navbar
+    --bg-nav: #fff;
+    --tc-nav: #212121;
+    --tc-nav-hov: #176B55;
+    --logo-padding: 20px 0px;
+    --logo-height: 45px;
+
+    // navbar (auth)
+    --tc-auth-menu: #176B55;
+    --tc-auth-btn: #ffffff;
+    --btn-auth-bg: transparent;
+    --btn-auth-border: #0000;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: transparent;
+    --btn-start-btn: transparent;
+    --btn-start-border: transparent;
+
+    // header attributes
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat 100% 0;
+
+    // base font
+    --base-font: "Source Sans Pro", "Arial", sans-serif;
+
+    --hf: var(--base-font);
+
+    // text color
+    --tc: #212121;
+    --tc-var: #fff;
+    --tc-link: inherit;
+
+    // base color
+    --bc: #000;
+
+    // background color
+    --bg: #f7f9fc;
+
+    --bg_2: #ffffff;
+
+    // text formatting
+    --text_format: uppercase;
+
+    // footer color
+    --footer_background_color: #3a3a3a;
+    --footer_color: #fff;
+
+    --footer_color_link: #fff;
+
+    // Displayed or not
+    --footer_display: block;
+
+    // product image
+    --product-image-padding: 10px 0 0 10px;
+
+    // placeholder text color
+    --placeholder_text_color: #515152;
+
+    --border-color: #E5E5E5;
+
+    --border-radius: 3px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
+
+    --color-default: #176B55;
+    --color-default-light: #23a783;
+
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // Login button
+    --login-button-background: #fff;
+
+    // Nav item line position
+    --nav-line-top: auto;
+    --nav-line-bottom: 0;
+}

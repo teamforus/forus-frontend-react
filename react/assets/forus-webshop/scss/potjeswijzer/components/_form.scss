@@ -1,0 +1,11 @@
+.form {
+    .form-error {
+        color: #d13b3b;
+    }
+
+    .form-control-checked {
+        .mdi {
+            color: var(--color-primary);
+        }
+    }
+}

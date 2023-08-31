@@ -1,0 +1,98 @@
+&.block-export-options {
+    .export-section {
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+
+        .export-section-label {
+            font: 600 11px/13px var(--base-font);
+            margin-bottom: 10px;
+
+            .form-label {
+                margin: 0;
+            }
+        }
+
+        .export-options {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            &>table {
+                width: 100%;
+            }
+
+            .export-option {
+                display: flex;
+                width: 100%;
+                padding: 0;
+                margin-right: 20px;
+
+                .export-option-label {
+                    display: flex;
+                    background: #fff;
+                    border: 1px solid #d4d9dd;
+                    border-radius: calc(var(--border-radius) / 2);
+                    padding: 10px 10px;
+                    font: 600 13px/16px var(--base-font);
+                    position: relative;
+                    width: 100%;
+                    cursor: pointer;
+                    box-shadow: 0px 1px 2px 0px rgba($color: #000000, $alpha: .05);
+                    transition: .4s;
+
+                    .export-option-icon {
+                        font-size: 22px;
+                        margin-right: 5px;
+                        color: #464646;
+                    }
+
+                    .export-option-circle {
+                        display: block;
+                        margin-right: 0;
+                        border: 1px solid #d4d9dd;
+                        width: 18px;
+                        height: 18px;
+                        position: absolute;
+                        border-radius: 20px;
+                        right: 10px;
+                        top: 50%;
+                        transform: translate(0, -50%);
+            
+                        &::before {
+                            content: '';
+                            @include fill_parent(2px);
+                            border: none;
+                            border-radius: inherit;
+                            opacity: 0;
+                            transition: 0.4s;
+                            background: #009df3;
+                        }
+                    }
+                }
+
+                &>input[type=radio] {
+                    display: none;
+                }
+
+                &>input[type=radio]:checked+.export-option-label {
+                    box-shadow: 1px 2px 6px 0px rgba($color: #000000, $alpha: .25);
+
+                    .export-option-circle {
+                        &::before {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

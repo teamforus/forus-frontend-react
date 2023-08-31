@@ -1,0 +1,9 @@
+.rate {
+    display: flex;
+    flex-direction: row;
+
+    .rate-item {
+        color: var(--color-primary);
+        font-size: 20px;
+    }
+}

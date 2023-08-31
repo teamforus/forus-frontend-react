@@ -1,0 +1,11 @@
+.label {
+    &.label-default {
+        background: #20b6ea;
+        color: #fff;
+    }
+
+    &.label-danger {
+        background: #549104;
+        color: #fff;
+    }
+}

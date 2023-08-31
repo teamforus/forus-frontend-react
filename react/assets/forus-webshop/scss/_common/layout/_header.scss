@@ -1,0 +1,166 @@
+.section {
+    .section-title {
+        font: 700 40px/60px var(--hf);
+        margin: 0 0 20px;
+        text-align: center;
+    }
+
+    .section-description {
+        font: 600 16px/24px var(--base-font);
+        margin: 0 0 30px;
+        position: relative;
+        color: var(--tc);
+    }
+
+    &.section-header {
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        cursor: default;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        padding: 50px 0;
+        margin-bottom: 40px;
+        @include cf();
+
+        .header-overlay {
+            z-index: 1;
+            opacity: 0;
+            background-color: rgba($color: #000000, $alpha: 0.8);
+            @include fill_parent();
+
+            &.header-overlay-pattern {
+                background-size: 10px;
+                background-color: transparent;
+            }
+        }
+
+        .header-note {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            color: #fff;
+            font: 400 16px/32px var(--base-font);
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-body {
+            @include cf();
+            position: relative;
+        }
+
+        .header-content {
+            padding: 50px 0;
+            max-width: 650px;
+            text-align: left;
+            color: #fff;
+            text-shadow: 1px 2px 2px rgba($color: #dfb1b1, $alpha: 0.15);
+
+            .header-title {
+                color: inherit;
+                font: 700 48px/1.3em var(--hf);
+                margin: 0 0 20px;
+                text-shadow: inherit;
+            }
+
+            .header-description {
+                color: inherit;
+                font: 400 21px/1.5em var(--base-font);
+                text-shadow: inherit;
+                text-align: inherit;
+                margin: 0 0 20px;
+    
+                p,
+                ul,
+                ol,
+                li,
+                ol,
+                .block-markdown {
+                    color: inherit;
+                    font: inherit !important;
+                    margin: 0 0 10px;
+                    text-shadow: inherit;
+                    text-align: inherit;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .header-how-it-works {
+                text-decoration: underline;
+                cursor: pointer;
+                margin: 0 0 20px;
+                font: 400 15px/1.5em var(--base-font);
+                font-style: italic;
+                transition: 0.4s;
+                color: inherit;
+                display: inline-block;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        &:before,
+        &:after {
+            position: relative;
+            z-index: 2;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.section-header-dark {
+            .header-title,
+            .header-description,
+            .header-how-it-works {
+                text-shadow: none;
+                color: var(--tc);
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            padding: 30px 0 0;
+            background-image: none !important;
+            margin-bottom: 30px;
+
+            .header-overlay {
+                display: none;
+            }
+
+            .header-content {
+                text-align: center;
+                max-width: 100%;
+                padding: 0;
+                color: var(--tc);
+
+                .header-title {
+                    font: 700 28px/1.5em var(--hf);
+                    margin: 0 0 15px;
+                }
+
+                .header-description {
+                    font: 300 16px/1.5em var(--base-font);
+                    margin: 0 0 10px;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

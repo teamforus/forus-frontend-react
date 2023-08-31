@@ -1,0 +1,11 @@
+.block {
+    &.block-navbar {
+        .block-auth {
+            .button {
+                &:hover {
+                    background-color: #1B7272;
+                }
+            }
+        }
+    }
+}        

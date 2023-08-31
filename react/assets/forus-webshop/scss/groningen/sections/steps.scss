@@ -1,0 +1,35 @@
+.section {
+    &.section-steps {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        background: #fff;
+        .section-splash{
+            display:none;
+        }
+        .section-sprite{
+            display:none;
+        }
+        .steps {
+            background: none;
+            .step-item {
+                min-height: 140px;
+                margin-bottom: 30px !important;
+                .step-item-content {
+                    &:before {
+                        position: absolute;
+                        content: '';
+                        left: unset;
+                        height: 118px;
+                        width: 118px;
+                        display: block;
+                        right: 115%;
+                        top: 25%;
+                    }
+                }
+                h4 {
+                    color: var(--tc);
+                }
+            }
+        }
+    }
+}

@@ -3,6 +3,8 @@
 /.idea
 /.vscode
 env.js
+env.*.js
+env.js.*
 
 # Compiled source #
 ###################

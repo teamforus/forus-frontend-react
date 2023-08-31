@@ -1,0 +1,19 @@
+.block {
+    &.block-vouchers {
+        .voucher-item {
+            .voucher-details {
+                .voucher-organization {
+                    color: #4c91b3;
+                }
+            }
+
+            .voucher-overview {
+                .voucher-overview-item {
+                    .voucher-overview-label {
+                        color: #4c91b3;
+                    }
+                }
+            }
+        }
+    }
+}

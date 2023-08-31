@@ -1,0 +1,22 @@
+&.block-system-notification-editor {
+    .editor-variables {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: calc(var(--border-radius) / 2);
+        border: 1px solid rgba(var(--border-color), $alpha: .5);
+
+        .variables-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .button {
+                margin: 0 5px 5px;
+                margin-left: 0;
+            }
+        }
+    }
+}

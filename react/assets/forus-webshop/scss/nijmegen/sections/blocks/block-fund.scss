@@ -1,0 +1,17 @@
+.block {
+    &.block-fund {
+        .fund-content {
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+
+            .fund-card {
+                background: none;
+                box-shadow: none;
+
+                .fund-details {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

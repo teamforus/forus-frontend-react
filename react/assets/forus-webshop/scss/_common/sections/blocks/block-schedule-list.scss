@@ -1,0 +1,43 @@
+&.block-schedule-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .schedule-item {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px dashed #dbdcdb;
+
+        .schedule-day {
+            width: 50%;
+            flex-grow: 1;
+            color: #646f79;
+            font: 600 13px/40px var(--base-font);
+            text-align: left;
+        }
+        
+        .schedule-hours {
+            width: 50%;
+            flex-grow: 1;
+            color: #2b333b;
+            text-align: right;
+            font: 600 13px/40px var(--base-font);
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .schedule-item {
+            .schedule-day {
+                font: 600 12px/36px var(--base-font);
+            }
+
+            .schedule-hours {
+                font: 600 12px/36px var(--base-font);
+            }
+        }
+    }
+}

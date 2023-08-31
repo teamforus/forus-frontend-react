@@ -1,0 +1,34 @@
+&.modal-voucher-transaction {
+    .modal-body {
+        .modal-section {
+            .block.block-compact-datalist {
+                .datalist-row {
+                    border: none;
+
+                    .datalist-key {
+                        font-size: 13px;
+                        padding: 5px 15px 5px 0;
+                    }
+
+                    .datalist-value {
+                        font-size: 13px;
+                        color: #282B39;
+                        padding: 5px 0;
+                    }
+                }
+            }
+
+            .modal-text {
+                &.bordered {
+                    border-top: 1px solid #d4d9dd;
+                    margin-top: 20px;
+                    padding-top: 25px;
+                }
+            }
+
+            .modal-heading {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

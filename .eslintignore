@@ -5,7 +5,6 @@
 packages/react-art/npm/lib
 
 # Build products
-src
 dist
 .eslintrc.js
 .prettierrc

@@ -1,0 +1,68 @@
+.table-pagination {
+    cursor: default;
+    @include cf();
+
+    .table-pagination-counter {
+        float: left;
+        color: #282b39;
+        font: 600 13px/36px var(--base-font);
+    }
+
+    .table-pagination-navigation {
+        float: right;
+
+        .button {
+            padding: 5px 10px;
+            min-width: 40px;
+            font: 600 13px/24px var(--base-font);
+            outline: none;
+
+            &:not(:last-of-type) {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        display: flex;
+        flex-direction: column;
+
+        .table-pagination-counter {
+            font: 600 13px/26px var(--base-font);
+            margin: 0 0 5px;
+        }
+
+        .table-pagination-navigation {
+            width: 100%;
+            display: flex;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: calc(var(--border-radius) / 2);
+    
+            .button {
+                padding: 5px 5px;
+                min-width: 30px;
+                font: 700 13px/20px var(--base-font);
+                flex-grow: 1;
+                border-radius: 0;
+                box-shadow: none;
+
+                &:not([disabled]):not(.disabled) {
+                    box-shadow: none;
+                }
+
+                &:not(:last-of-type) {
+                    margin-right: 0;
+                    border-right: none;
+                }
+
+                &:last-child {
+                    border-radius: 0 calc(var(--border-radius) / 2) calc(var(--border-radius) / 2) 0;
+                }
+
+                &:first-child {
+                    border-radius: calc(var(--border-radius) / 2) 0 0 calc(var(--border-radius) / 2);
+                }
+            }
+        }
+    }
+}

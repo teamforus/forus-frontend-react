@@ -1,0 +1,40 @@
+&.block-data-list {
+    display: table;
+    border-collapse: collapse;
+
+    .data-list-row {
+        display: table-row;
+
+        .mdi {
+            margin-right: 5px;
+        }
+
+        .data-list-key {
+            display: table-cell;
+            width: 215px;
+            font: 600 14px/24px var(--base-font);
+            color: #646f79;
+            padding: 5px 0;
+        }
+
+        .data-list-value {
+            display: table-cell;
+            padding: 5px 0;
+            font: 600 14px/24px var(--base-font);
+            color: #2b333b;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        .data-list-row {
+            .data-list-key {
+                width: 120px;
+                font: 600 12px/20px var(--base-font);
+            }
+
+            .data-list-value {
+                font: 600 12px/20px var(--base-font);
+            }
+        }
+    }
+}

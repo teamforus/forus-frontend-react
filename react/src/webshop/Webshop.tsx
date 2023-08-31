@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes as SwitchRoutes } from 'react-router-dom';
 import { Home } from './components/pages/home/Home';
 import { Layout } from './elements/Layout';
-import EnvDataProp from "../props/EnvData";
+import EnvDataProp from '../props/EnvData';
 
 function Webshop({ envData }: { envData: EnvDataProp }) {
     const base = document.querySelector('base').getAttribute('href');

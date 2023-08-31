@@ -1,0 +1,23 @@
+&.block-product {
+    .product-card {
+        .product-details {
+            .product-name {
+                color: #000;
+            }
+
+            .organization-name {
+                color: #292f2e;
+                font-weight: 500;
+            }
+
+            .product-properties {
+                .product-property {
+                    .product-property-label {
+                        color: #403A60;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}

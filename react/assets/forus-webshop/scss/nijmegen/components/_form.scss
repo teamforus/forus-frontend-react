@@ -1,0 +1,47 @@
+.form {
+    .form-label {
+        color: #878787;
+        width: 100%;
+        transition: 0.2s ease-out;
+        cursor: text;
+        font: 600 16px/26px var(--base-font);
+        z-index: 2;
+    }
+
+    .form-control:not([type="radio"]):not([type="checkbox"]) {
+        transition: all 0.3s;
+        outline: none;
+        box-shadow: none;
+        border: none;
+        border-bottom: 1px solid #ced4da;
+        background-color: transparent;
+        color: #212121;
+        font: 500 16px/20px var(--base-font);
+        padding: 15px 14px 15px 15px;
+        display: block;
+        z-index: 1;
+
+        &:active,
+        &:focus {
+            border: none;
+            border-bottom: 1px solid #00b593;
+            box-shadow: 0 1px 0 0 #00b593;
+        }
+
+        &.form-control-fancy {
+            padding: 10px 15px;
+        }
+    }
+
+    .form-control-checked+.form-control {
+        padding-left: 35px;
+    }
+
+    .form-control-checked {
+        .mdi {
+            line-height: 42px;
+            padding: 0 15px 0 3px;
+            color: #297c68;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+.section {
+    &.section-faq {
+        .faq {
+            .faq-item {
+                .faq-item-content{
+                    a{
+                        color: var(--bc);
+                        font-size: 14px;
+                        text-decoration: underline;
+                    
+                        &:hover{
+                            color: var(--bc);
+                            text-decoration: none;
+                        }
+                    }
+                }
+                &:hover:not(.active) {
+                    .faq-item-header {
+                        color: #de286a;
+                        box-shadow: 5px 15px 45px rgba(0,0,0,0.15);
+
+                        .faq-item-chevron-up,
+                        .faq-item-chevron-down {
+                            color: #de286a;
+                        }
+                    }
+                }
+                &.active {
+                    .faq-item-header {
+                        .faq-item-chevron-up {
+                            color: #de286a;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

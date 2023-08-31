@@ -1,0 +1,30 @@
+&.block-card-toggleable {
+    display: flex;
+    flex-direction: column;
+
+    .block-title {
+        font: 500 13px var(--base-font);
+        color: #646f79;
+        margin: 0 0 5px;
+    }
+
+    .card-toggleable {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+        padding: 10px 0;
+
+        .card-toggleable-label {
+            display: flex;
+            flex-grow: 1;
+            font: 500 16px/24px var(--base-font);
+        }
+
+        .button {
+            margin: -4px 0;
+            font: 500 12px/20px var(--base-font);
+            padding: 5px 10px;
+        }
+    }
+}

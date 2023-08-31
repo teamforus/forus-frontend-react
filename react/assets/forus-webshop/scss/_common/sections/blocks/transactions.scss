@@ -1,0 +1,198 @@
+.block {
+
+    &.block-transactions {
+        border-radius: var(--border-radius);
+        box-shadow: 0 10px 35px rgba(0, 0, 0, .05);
+        background: #fff;
+        margin-bottom: 50px;
+
+        .transactions-header {
+            display: flex;
+            align-items: center;
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+            padding: 25px;
+            border-bottom: 1px solid #d4d9dd;
+
+            .transactions-title {
+                color: #282b39;
+                font: 700 22px/24px var(--base-font);
+                margin: 0 5px 0 0;
+            }
+        }
+
+        .transactions-body {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+            position: relative;
+        }
+
+        .transactions-list {
+            .transactions-item {
+                border-bottom: 1px solid #d4d9dd;
+                padding: 20px;
+                @include cf();
+                display: flex;
+                
+                .transactions-item-icon {
+                    background: #ededed;
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 35px;
+                    text-align: center;
+                    line-height: 35px;
+                    margin: 5px 15px 5px 0;
+                    color: #000000;
+
+                    .mdi {
+                        font-size: 18px;
+                        color: inherit;
+                    }
+                }
+
+                .transactions-item-details {
+                    flex-grow: 1;
+
+                    .transactions-item-empty {
+                        font: 400 16px var(--base-font);
+                        text-align: center;
+                        color: #282b39;
+                        margin-bottom: 5px;
+                    }
+
+                    .transactions-item-counterpart {
+                        font: 700 16px var(--base-font);
+                        color: #282b39;
+                        margin-bottom: 5px;
+                    }
+
+                    .transactions-item-date {
+                        font: 400 13px var(--base-font);
+                        color: #646f79;
+                    }
+                }
+
+                .transactions-item-amount {
+                    text-align: right;
+                    padding-left: 15px;
+
+                    .transactions-item-value {
+                        font: 700 16px var(--base-font);
+                        color: #282b39;
+                        margin-bottom: 5px;
+                        white-space: nowrap;
+                    }
+
+                    .transactions-item-type {
+                        font: 400 13px var(--base-font);
+                        color: #646f79;
+                    }
+                }
+
+                &.transactions-item-out {
+                    .transactions-item-amount .transactions-item-value,
+                    .transactions-item-icon {
+                        color: #335ffc;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1700px) {
+
+        &.block-transactions {
+            .transactions-header {
+                padding: 15px 25px;
+
+                .transactions-title {
+                    font: 700 16px/22px var(--base-font);
+                }
+            }
+
+            .transactions-list {
+                .transactions-item {
+                    padding: 15px 20px;
+
+                    .transactions-item-icon {
+                        margin: 0 15px 0 0;
+                    }
+
+                    .transactions-item-details {
+                        .transactions-item-counterpart {
+                            font: 700 14px/20px var(--base-font);
+                            margin: 0;
+                        }
+
+                        .transactions-item-date {
+                            font: 400 12px/15px var(--base-font);
+                            margin: 0;
+                        }
+                    }
+
+                    .transactions-item-amount {
+                        .transactions-item-value {
+                            font: 700 14px/20px var(--base-font);
+                            margin: 0;
+                        }
+
+                        .transactions-item-type {
+                            font: 400 12px/15px var(--base-font);
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-transactions {
+            margin-bottom: 30px;
+            border: 1px solid #ddecff;
+            
+            .transactions-header {
+                padding: 15px 20px;
+                border-color: #ddecff;
+                
+                .transactions-title {
+                    font: 700 14px var(--base-font);
+                }
+            }
+
+            .transactions-list {
+                .transactions-item {
+                    padding: 10px 15px;
+                    border-color: #ddecff;
+
+                    .transactions-item-icon {
+                        width: 30px;
+                        height: 30px;
+                        min-width: 30px;
+                        line-height: 30px;
+                        margin-right: 10px;
+                    }
+
+                    .transactions-item-details {
+                        .transactions-item-counterpart {
+                            padding: 4px 0;
+                            font: 700 12px/16px var(--base-font);
+                            margin-bottom: 0;
+                        }
+
+                        .transactions-item-date {
+                            font: 400 10px/14px var(--base-font);
+                        }
+                    }
+
+                    &.transactions-item-out .transactions-item-amount .transactions-item-value,
+                    &.transactions-item-out .transactions-item-amount .transactions-item-type {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

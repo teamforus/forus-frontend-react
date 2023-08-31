@@ -1,0 +1,80 @@
+@import "../general/vars.scss";
+
+/*==========  Style Sheet - Vars  ==========*/
+$fonts: "https://fonts.googleapis.com/css?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400";
+$primaryColor: #24a1a1;
+$primaryColorLight: #24a1a1;
+
+:root {
+    // navbar
+    --bg-nav: #5d646f;
+    --tc-nav-hov: #c7c7c7;
+    --tc-nav: #ffffff;
+    --logo-padding: 30px 0px;
+    --logo-height: 75px;
+
+    // navbar (auth)
+    --tc-auth-menu: #24a1a1;
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #24a1a1;
+    --btn-auth-border: #fff;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #24a1a1;
+    --btn-start-btn: #24a1a1;
+    --btn-start-border: transparent;
+
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
+
+    // base font
+    --base-font: "Montserrat", Arial, Verdana;
+
+    // text color
+    --tc: #1a1919;
+    --tc-var: #fff;
+    --tc-link: inherit;
+
+    // base color
+    --bc: #24a1a1;
+
+    // background color
+    --bg: #fff;
+
+    --bg_2: none;
+
+    // text formatting
+    --text_format: inherit;
+
+    // footer color
+    --footer_background_color: #24a1a1;
+    --footer_color: #ffffff;
+    --footer_color_link: #ffffff;
+
+    // displayed or not
+    --footer_display: block;
+
+    // product image
+    --product-image-padding: 0px;
+
+    // placeholder text color
+    --placeholder_text_color: #515152;
+
+    --border-color: #dce0e0;
+
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
+
+    --color-default: #24a1a1;
+    --color-default-light: #24a1a1;
+
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // Login button
+    --login-button-background: #fff;
+}

@@ -1,0 +1,256 @@
+$borderRadius: 5px;
+$borderColor: #e4e8ec;
+$borderColorActive: #d4d7da;
+$bf: 'SF Pro Display', 'Roboto', arial, sans-serif;
+$boxShadow: 1px 3px 8px 2px rgba(0, 0, 0, 0.1);
+$boxShadowFocus: 1px 5px 10px 2px rgba(0, 0, 0, 0.075);
+$colorPrimary: #2164f4;
+$colorPrimaryHover: #2252bb;
+
+*,
+:after,
+:before {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.ui-select {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    position: relative;
+
+    .ui-select-input,
+    .ui-select-value {
+        position: relative;
+        border: 1px solid $borderColor;
+        border-radius: $borderRadius;
+        width: 100%;
+        font: 500 14px/25px $bf;
+        padding: 4px 10px;
+        outline: none;
+        transition: border-color 0.4s;
+
+        &:not(:last-child) {
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+    }
+
+    .ui-select-value {
+        display: flex;
+        flex-direction: row;
+
+        .ui-select-value-label {
+            .ui-select-value-label-box {
+                display: inline-flex;
+                width: 10px;
+                height: 10px;
+                border-radius: 3px;
+                margin-right: 10px;
+            }
+        }
+
+        &.ui-select-value-placeholder {
+            color: #828596;
+        }
+    }
+
+    .ui-select-input {
+        &:focus {
+            border-color: $borderColorActive;
+        }
+    }
+
+    .ui-select-icon {
+        display: flex;
+        width: 25px;
+        height: 35px;
+        position: absolute;
+        padding-right: 5px;
+        top: 0;
+        right: 0;
+        color: #414451;
+    }
+
+    .ui-select-options {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        overflow: auto;
+        max-height: 220px;
+
+        .ui-select-option {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            border-bottom: 1px solid $borderColor;
+            border-top: none;
+            font: 500 14px/25px $bf;
+            cursor: pointer;
+            color: #414451;
+
+            .ui-select-selection {
+                font-weight: 700;
+                color: black;
+            }
+
+            & > .ui-select-options {
+                border: none;
+                border-top: 1px solid $borderColor;
+
+                & > .ui-select-option {
+                    & > .ui-select-option-wrapper {
+                        padding-left: 20px;
+                    }
+                }
+            }
+
+            .ui-select-option-wrapper {
+                font: inherit;
+                color: inherit;
+                display: flex;
+                background-color: #ffffff;
+                padding: 5px 10px;
+                transition: background-color 0.3s;
+                border-radius: inherit;
+                flex-direction: row;
+                white-space: pre;
+
+                strong {
+                    font-weight: 700;
+                    color: #000;
+                }
+
+                .ui-select-option-collapse {
+                    display: inline-flex;
+                    width: 20px;
+                    margin-left: -10px;
+
+                    .ui-select-option-collapse-icon {
+                        width: 20px;
+                        height: 25px;
+                        fill: #414451;
+                    }
+                }
+
+                .ui-select-option-label {
+                    .ui-select-option-label-box {
+                        display: inline-flex;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 3px;
+                        margin-right: 10px;
+                    }
+                }
+
+                &:hover {
+                    background-color: #f1f3f6;
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &.active {
+                & > .ui-select-option-wrapper {
+                    background-color: $colorPrimary;
+                    color: #fff;
+                    white-space: pre;
+
+                    & > .ui-select-selection {
+                        font-weight: 700;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        &:not(:first-child) {
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+        }
+    }
+
+    .ui-select-btn-create {
+        width: 20px;
+        height: 35px;
+        right: 25px;
+        top: 0;
+        position: absolute;
+        color: #c4c3c3;
+        transition: color 0.4s;
+        cursor: pointer;
+
+        &:hover {
+            color: #949494;
+        }
+    }
+
+    .ui-select-btn-submit {
+        right: 0;
+        top: 0;
+        position: absolute;
+        color: #c4c3c3;
+        transition: color 0.4s;
+        cursor: pointer;
+        padding: 6px 6px 6px 0;
+        z-index: 1;
+
+        .ui-select-btn-submit-button {
+            padding: 4px 10px;
+            font: 600 12px/15px $bf;
+            color: #fff;
+            background-color: $colorPrimary;
+            border-radius: $borderRadius;
+
+            &:hover {
+                background-color: $colorPrimaryHover;
+            }
+        }
+    }
+
+    & > .ui-select-icon {
+        & > .ui-select-option {
+            &:first-child {
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: inherit;
+                border-bottom-right-radius: inherit;
+                border-bottom: none;
+            }
+        }
+    }
+
+    & > .ui-select-wrapper {
+        & > .menu-dropdown {
+            & > .ui-select-options {
+                position: absolute;
+                left: 0;
+                top: 100%;
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                border: 1px solid $borderColor;
+                border-radius: $borderRadius;
+                border-top: none;
+                box-shadow: $boxShadowFocus;
+                z-index: 2;
+            }
+        }
+    }
+
+    &.disabled,
+    &.ui-select-disabled {
+        pointer-events: none;
+        filter: grayscale(0.8);
+        user-select: none;
+    }
+}

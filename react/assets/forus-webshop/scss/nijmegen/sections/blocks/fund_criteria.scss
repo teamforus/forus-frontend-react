@@ -1,0 +1,37 @@
+.block {    
+    &.block-fund_criteria {
+        .criteria-item {
+            .criteria-header {
+                background-color: #297c6869;
+            }
+
+            .criteria-body {
+                .criteria-section {
+                    .criteria-validations {
+                        .criteria-validation-add {
+                            color: #297c68;
+
+                            .mdi {
+                                background: #297c68;
+                            }
+
+                            &:hover {
+                                color: #30a08b;
+
+                                .mdi {
+                                    background: #30a08b;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.active {
+                .criteria-header {
+                    background-color: #297c68;
+                }
+            }
+        }
+    }
+}

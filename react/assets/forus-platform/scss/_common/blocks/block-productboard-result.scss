@@ -1,0 +1,20 @@
+&.block-productboard-result {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .productboard-result-icon {
+        height: 72px;
+        width: 72px;
+        margin-bottom: 15px;
+    }
+
+    .productboard-result-title {
+        font: 600 18px/27px var(--base-font);
+        color: #252325;
+    }
+
+    .productboard-result-info {
+        font: 500 13px/18px var(--base-font);
+        color: #646F79;
+    }
+}

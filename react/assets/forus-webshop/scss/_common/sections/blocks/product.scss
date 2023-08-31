@@ -1,0 +1,366 @@
+.block.block-product {
+    position: relative;
+
+    .product-card {
+        background-color: #fff;
+        border-radius: var(--border-radius);
+        margin-bottom: 30px;
+        box-shadow: var(--box-shadow);
+        cursor: default;
+        @include cf();
+        position: relative;
+        min-height: 300px;
+        display: flex;
+
+        .product-photo {
+            width: 70%;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
+            max-height: 400px;
+
+            img {
+                width: 100%;
+                border-top-left-radius: inherit;
+                border-bottom-left-radius: inherit;
+                display: block;
+            }
+        }
+
+        .product-details {
+            padding: 30px;
+            width: 100%;
+            position: relative;
+            background: #fff;
+            border-radius: var(--border-radius);
+            border-top-right-radius: inherit;
+            border-bottom-right-radius: inherit;
+
+            .product-name {
+                color: var(--tc);
+                font: 700 22px/28px var(--hf);
+                padding-right: 30px;
+                margin: 0 0 5px;
+                word-wrap: break-word;
+                hyphens: auto;
+
+                .label {
+                    margin-top: 6px;
+                    float: right;
+                    margin-left: 10px;
+                }
+            }
+
+            .organization-name {
+                color: #646f79;
+                font: 700 14px/24px var(--base-font);
+                margin: 0px 0px 20px;
+            }
+
+            .product-properties {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 0px 0px 20px;
+                margin: 0px 0px 20px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+                .product-property {
+                    min-width: 250px;
+
+                    .product-property-label {
+                        display: flex;
+                        font: 600 12px/16px var(--base-font);
+                        color: #646f79;
+                        margin-bottom: 10px;
+                    }
+
+                    .product-property-value {
+                        color: #282b39;
+                        font: 600 16px/18px var(--base-font);
+
+                        p:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    &.product-property-full {
+                        width: 100%;
+                        max-width: 100%;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+
+        .block-bookmark-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+    }
+
+    .product-funds-list {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        cursor: default;
+
+        .fund-item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+
+            .fund-item-section {
+                border-right: 1px solid var(--border-color);
+                padding: 15px 25px;
+                min-width: 175px;
+                display: flex;
+                flex-direction: column;
+
+                .fund-item-section-label {
+                    display: flex;
+                    font: 700 12px/20px var(--base-font);
+                    color: #646F79;
+                    justify-content: flex-end;
+                }
+                
+                .flex-start {
+                    justify-content: flex-start;
+                }
+
+                .fund-item-section-value {
+                    display: flex;
+                    font: 700 22px/30px var(--base-font);
+                    justify-content: flex-end;
+
+                    &.fund-item-section-value-sm {
+                        font: 700 16px/30px var(--base-font);
+                    }
+                }
+
+                &.fund-item-section-details {
+                    padding-left: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-grow: 1;
+                    border-right: 1px solid var(--border-color);
+                    border-right: 0;
+
+                    .fund-item-media {
+                        width: 80px;
+                        padding: 0 15px;
+        
+                        .fund-item-media-img {
+                            width: 100%;
+                            display: block;
+                            border-radius: var(--border-radius);
+                        }
+                    }
+
+                    .fund-item-content {
+                        display: flex;
+                        flex-direction: column;
+
+                        .fund-item-title {
+                            font: 700 18px/25px var(--base-font);
+                            color: #303030;
+                        }
+            
+                        .fund-item-subtitle {
+                            font: 400 14px/25px var(--base-font);
+                            color: #303030;
+                        }
+                    }
+                }
+            
+                &:last-child {
+                    border-right: 0;
+                    min-width: 270px;
+                }
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    &.block-product-sm {
+        .product-card {
+            .product-details {
+                .product-name {
+                    font-size: 16px;
+                }
+
+                .product-categories {
+                    font-size: 13px;
+                    margin-bottom: 15px;
+                }
+            }
+
+            .product-funds {
+                margin-bottom: 10px;
+
+                .product-fund-label {
+                    font-size: 10px;
+                    margin: 0;
+                }
+
+                .product-fund-list {
+                    font-size: 15px;
+                }
+            }
+
+            .product-price {
+                width: 100%;
+                margin-bottom: 10px;
+                @include cf();
+
+                .product-price-new {
+                    float: left;
+                    margin: 0;
+                }
+
+                .product-price-old {
+                    float: left;
+                    margin-top: 8px;
+                    margin-left: 5px;
+                }
+            }
+
+            .product-expire {
+                .expire-label {
+                    font-size: 10px;
+                }
+
+                .expire-value {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1200px) {
+        .product-funds-list {
+            .fund-item {
+                .fund-item-section {
+                    padding: 10px;
+                    .fund-item-section-value {
+                        &.fund-item-section-value-sm {
+                            font: 700 14px/32px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .product-card {
+            flex-direction: column;
+
+            .product-photo {
+                width: 100%;
+                min-width: 100%;
+                max-width: 100%;
+                background: none;
+                border-radius: var(--border-radius);
+                max-height: inherit;
+
+                img {
+                    display: block;
+                    border-radius: var(--border-radius);
+                    border-top-left-radius: inherit;
+                    border-top-right-radius: inherit;
+                }
+            }
+
+            .product-details {
+                padding: 25px;
+                border-radius: var(--border-radius);
+                border-bottom-left-radius: inherit;
+                border-bottom-right-radius: inherit;
+
+                .product-properties {
+                    flex-direction: column;
+
+                    .product-property {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        margin: 0 0 10px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-funds-list {
+            .fund-item {
+                flex-direction: column;
+
+                .fund-item-section {
+                    padding: 15px;
+                    border: none;
+                    display: flex;
+                    flex-direction: row;
+                    border-bottom: 1px solid var(--border-color);
+
+                    .button {
+                        width: 100%;
+                    }
+                    .fund-item-section-label,
+                    .fund-item-section-value {
+                        width: 50%;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                    }
+
+                    .fund-item-content {
+                        .fund-item-section-value {
+                            width: 100%;
+                        }
+                    }
+
+                    .fund-item-section-label {
+                        text-align: left;
+                        align-items: flex-start;
+                        flex-direction: row;
+                    }
+
+                    .fund-item-section-value {
+                        text-align: right;
+                        align-items: flex-end;
+                        font-size: 13px;
+                        line-height: 20px;
+
+                        &.fund-item-section-value-sm {
+                            font-size: 13px;
+                            line-height: 20px;
+                        }
+                    }
+
+                    &.fund-item-section-details {
+                        padding: 15px;
+
+                        .fund-item-media {
+                            padding-left: 0;
+                            width: 65px;
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+.block {
+    &.block-sitemap {
+        font: 400 16px/28px var(--base-font);
+        color: #191A1C;
+        margin: 0 0 30px;
+
+        h1 {
+            font: 600 28px/34px var(--hf);
+            color: var(--tc);
+        }
+
+        a {
+            color: #004D93;
+            text-decoration: underline;
+            transition: color 0.4s;
+
+            &:hover {
+                color: #349aff;
+                text-decoration: none;
+            }
+        }
+        
+        ul {
+            display: block;
+            list-style-type: disc;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+
+            li {
+                display: list-item;
+            }
+        }
+    }
+}

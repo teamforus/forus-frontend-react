@@ -1,0 +1,23 @@
+.section {
+    &.section-steps {
+        .wrapper {
+            .section-sprite {
+                display: none;
+            }
+            .section-splash {
+                display: none;
+            }
+        }
+    }
+    @media screen and (max-width: 1500px) {
+        &.section-steps {
+            .section-splash {
+                height: 600px;
+            }
+
+            .section-sprite {
+                height: 200px;
+            }
+        }
+    }
+}

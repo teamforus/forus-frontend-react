@@ -1,0 +1,105 @@
+&.block-fund_types {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 15px;
+    flex-direction: row;
+
+    .fund_type-item {
+        margin-right: 20px;
+        margin-bottom: 20px;
+        flex-grow: 1;
+        flex-basis: 0;
+        text-align: center;
+
+        &:last-of-type {
+            margin-bottom: 0;
+            margin-right: 0;
+        }
+
+        .fund_type-item-inner {
+            padding: 20px 20px;
+            background-color: #f6f9fc;
+            border: 1px solid var(--border-color);
+            border-radius: calc(var(--border-radius) / 2);
+            transition: .4s;
+            position: relative;
+            box-shadow: 0 0 0 transparent;
+            cursor: pointer;
+            
+            .fund_type-media {
+                margin-bottom: 10px;
+    
+                .fund_type-media-img {
+                    display: block;
+                    margin: auto;
+                }
+            }
+    
+            .fund_type-name {
+                font: 500 14px var(--base-font);
+                margin: 0 0 -5px;
+            }
+    
+            .fund_type-check {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background-color: #646F79;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                border-radius: 20px;
+                font-size: 16px;
+                color: #fff;
+                opacity: 0;
+                transition: .4s;
+            }
+
+            &:hover {
+                background-color: #fff;
+                border-color: #fff;
+                box-shadow: 0 7.5px 15px rgba($color: #000000, $alpha: .15);
+            }
+        }
+
+        &.fund_type-item-read {
+            .fund_type-item-inner {
+                display: flex;
+                flex-direction: row;
+                padding: 10px;
+                background-color: #fff;
+                border: 1px dashed var(--border-color);
+                cursor: default;
+
+                .fund_type-media {
+                    margin-bottom: 0;
+                    margin-right: 5px;
+                }
+
+                &:hover {
+                    background-color: #fff;
+                    border: 1px dashed var(--border-color);
+                    box-shadow: none;
+                }
+            }
+        }
+
+        &.active {
+            .fund_type-item-inner {
+                background-color: #fff;
+                border-color: #fff;
+                box-shadow: 0 2.5px 5px 2px rgba($color: #000000, $alpha: .2);
+                
+                .fund_type-check {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}

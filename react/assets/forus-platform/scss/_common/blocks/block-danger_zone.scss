@@ -1,0 +1,58 @@
+&.block-danger_zone {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-danger);
+    border-radius: 3px;
+    background: #fff;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: default;
+
+    .danger_zone-title {
+        display: flex;
+        flex-direction: row;
+        font: 600 16px/20px var(--base-font);
+        padding: 15px;
+        color: var(--color-danger);
+        width: 100%;
+        text-align: center;
+
+        .mdi {
+            display: flex;
+            color: var(--color-danger);
+            font-size: 20px;
+            line-height: 20px;
+            margin: 0 10px 0 0;
+            vertical-align: bottom;
+
+            &:before {
+                line-height: inherit;
+            }
+        }
+    }
+
+    .danger_zone-description {
+        font: 500 14px/20px var(--base-font);
+        color: #646F79;
+        border-top: 1px solid #D4D9DD;
+        width: 100%;
+        padding: 15px;
+        text-align: center;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.block-danger_zone-success {
+        border-color: var(--color-primary);
+
+        .danger_zone-title {
+            color: var(--color-primary);
+
+            .mdi {
+                color: rgba($color: #000000, $alpha: .4);
+            }
+        }
+    }
+}

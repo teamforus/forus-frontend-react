@@ -1,0 +1,49 @@
+.block {
+    &.block-navbar {
+        .block-subnav {
+            background: url(../img/city-skyline.svg) no-repeat bottom center;
+            background-size: 50% 50%;
+            background-color: #E4E4E4;
+
+            @media screen and (min-width: 1200px) { 
+                .subnav-inner {
+                    .navbar-logo {
+                        img {
+                            height: 90px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .block-auth {
+            .button {
+                margin: 0px 10px;
+
+                &.button-primary {
+                    border: none;
+                }
+            }
+        }
+
+        .button {
+            &.button-default {
+                color: #282B39;
+
+                svg {
+                    path {
+                        fill: #282B39;
+                    }
+                }
+
+                &:hover {
+                    svg {
+                        path {
+                            fill: #282B39;  
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.section {
+    &.section-steps {
+        .section-splash{
+            display:none;
+        }
+        .section-sprite{
+            display:none;
+        }
+        .steps {
+            background: none;
+
+            .step-item {
+                min-height: 140px;
+                margin-bottom: 30px !important;
+
+                h4 {
+                    color: var(--tc);
+                }
+            }
+        }
+    }
+}

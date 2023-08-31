@@ -1,0 +1,71 @@
+.section {
+    &.section-header {
+        padding: 80px 0;
+
+        .header-content {
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            text-align: center;
+            z-index: 2;
+            height: 100%;
+            max-width: 650px;
+
+            .header-title {
+                font-size: 40px;
+            }
+
+            .header-description {
+                font-size: 18px;
+            }
+
+            .header-how-it-works {
+                color: var(--tc-var);
+                font-style: normal;
+
+                &:hover {
+                    color: #f5ffc4;
+                }
+            }
+
+            .button {
+                &:hover {
+                    background-color: #fff;
+                    color: var(--bc);
+                }
+            }
+        }
+
+        &:before,
+        &:after {
+            position: absolute;
+            display: block;
+            width: 100%;
+            top: -2px;
+            bottom: -2px;
+            z-index: 1;
+            content: " ";
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+        }
+
+        &:before {
+            left: -2px;
+            background-image: url("../img/left-leaf.png");
+            background-position: top left;
+        }
+
+        &:after {
+            right: -2px;
+            background-image: url("../img/splash-top-b.png");
+            background-position: top right;
+        }
+
+        @media screen and (max-width: 1000px) {
+            &:before,
+            &:after {
+                content: none;
+            }
+        }
+    }
+}

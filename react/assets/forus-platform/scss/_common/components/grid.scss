@@ -1,0 +1,57 @@
+$pad: 10px;
+$columns: 12;
+$media_md: 1600px;
+$media_sm: 1300px;
+$media_xs: 1000px;
+
+.row {
+    margin-left: -$pad;
+    margin-right: -$pad;
+    display: block;
+    @include cf();
+}
+
+@mixin make-col($i, $columns) {
+    width: calc(100% / $columns) * $i;
+    float: left;
+    padding-left: $pad;
+    padding-right: $pad;
+}
+
+@mixin make-col-offset($i, $columns) {
+    margin-left: calc(100% / $columns) * $i;
+}
+
+@mixin col($media) {
+    @for $i from 1 through $columns {
+        .col-#{$media}-#{$i} {
+            @include make-col($i, $columns);
+        }
+    }
+}
+
+@mixin col-offset($media) {
+    @for $i from 1 through $columns {
+        .col-offset-#{$media}-#{$i} {
+            @include make-col-offset($i, $columns);
+        }
+    }
+}
+
+@include col('lg');
+@include col-offset('lg');
+
+@media screen and (max-width: $media_md) {
+    @include col('md');
+    @include col-offset('md');
+}
+
+@media screen and (max-width: $media_sm) {
+    @include col('sm');
+    @include col-offset('sm');
+}
+
+@media screen and (max-width: $media_xs) {
+    @include col('xs');
+    @include col-offset('xs');
+}

@@ -1,0 +1,277 @@
+html {
+    height: 100vh;
+}
+
+ui-view {
+    background-color: #ffffff;
+}
+
+@media screen and (min-width: 1000px) {
+    body {
+        transform-origin: top center;
+        transform: scale(0.8);
+        background-color: #f3f3f3;
+    }
+}
+
+.block {
+    @media screen and (min-width: 1000px) {
+        &.block-navbar {
+            border-bottom: 0;
+
+            .navbar-inner {
+                order: 2;
+            }
+
+            .navbar-list {
+                .navbar-item-wrapper {
+                    padding-right: 40px;
+
+                    .navbar-item {
+                        font: 400 18px/26px var(--base-font);
+                    }
+
+                    &::after {
+                        right: 20px;
+                    }
+
+                    &.navbar-item-wrapper_sign-out {
+                        padding-right: 0;
+                    }
+
+                    &:hover {
+                        background-color: #354B89;
+                    }
+
+                    .navbar-item {
+                        &:hover {
+                            color: #FFFFFF;
+                        }
+
+                        &.active {
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.block-app_links {
+            img {
+                max-width: none !important;
+                height: none !important;
+            }
+        }
+
+        &.block-cms-funds {
+            display: auto;
+
+            .fund-item {
+                display: inline-block;
+                width: 50%;
+                border: none;
+                margin: 0 auto;
+                padding: 20px 10px 0px 10px;
+
+                .fund-media {
+                    width: 100%;
+
+                    img {
+                        width: 100%;
+                        display: block;
+                        max-height: 250px;
+                        object-fit: cover;                        
+                    }
+                }
+
+                .fund-information {
+                    width: auto;
+                    padding-left: 0;
+                    text-align: left;
+
+                    .fund-title {
+                        color: var(--tc);
+                        margin: 0 0 0px;
+                    }
+
+                    .fund-description {
+                        margin: 0 0 0px;
+                    }
+                }
+            }
+            
+            .fund-item:nth-of-type(2n) { 
+                .fund-information {
+                    padding-right: 0;
+                }    
+            }
+        }
+    }
+}
+
+.section {
+    &.section-header {
+        padding: 50px 0;
+        margin: 0 auto;
+        width: 1280px;
+        max-width: 100%;
+
+        .header-content {
+            text-align: center;
+            padding: 50px 50px;
+            background-color: #ffffff;
+
+            .header-title {
+                font: 700 32px/1.3em var(--base-font);
+            }
+
+            .header-description p {
+                text-align: center !important;
+                font: 400 16px/1.5em var(--base-font) !important;
+            }
+        }
+    }
+
+    &.section-fund {
+        .wrapper {
+            padding-top: 20px;
+            width: 1000px;
+        }
+    }
+
+    &.section-faq {
+        .faq {
+            width: auto;
+            margin: 0;
+        }
+    }
+
+    &.section-footer {
+        margin-top: 0;
+        padding-top: 30px;
+        color: #fff;
+    }
+
+    @media screen and (min-width: 1000px) { 
+        &.section-header { 
+            height: auto;
+            padding: 30px 0;
+        
+            .header-content {
+                text-align: left;
+                padding: 30px 50px;
+                margin-left: 50px;
+                background-color: #3558A2;
+        
+                .header-description p {
+                    text-align: left !important;
+                }
+            }
+        }   
+    }
+}
+
+.block.block-footer .footer-nav .footer-nav-item a {
+    font: 400 14px/24px var(--base-font);
+    color: #ffffff;
+}
+
+@media screen and (max-width: 1000px) {
+    .block.block-footer .footer-nav .footer-nav-item a {
+        color: #ffffff;
+    }
+}
+
+@media screen and (max-width: 1700px) {
+    .block.block-footer .footer-nav .footer-nav-item a {
+        color: #ffffff;
+    }
+}
+.block {
+    &.block-copyrights{
+        .links{
+            a {
+                color: #ffffff;
+            }
+        } 
+    }
+}
+
+.block {
+    &.block-sign_up {
+        .sign_up-row {
+            padding-top: 0px;
+        }
+
+        .sign_up-pane {
+            .sign_up-pane-body {
+                .sign_up-pane-text {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &.block-copyrights {
+        padding: 20px 0;
+    }
+
+    &.block-footer {
+
+        p {
+            text-align: left;
+            font: 400 16px/1.5em var(--base-font);
+        }
+
+        a {
+            font: 400 16px/1.5em var(--base-font);
+            color: var(--footer_color);
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+                color: var(--footer_color);
+            }
+        }
+
+        .footer-schedule {
+            a {
+                font: 400 16px/1.5em var(--base-font);
+                color: var(--tc-var);
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                    color: var(--tc-var);
+                }
+            }
+        
+            .schedule-label,
+            .schedule-value {
+                font: 400 16px/1.5em var(--base-font);
+                color: var(--tc-var);
+            }
+        }
+
+        .footer-nav {
+            .footer-nav-item {
+                a {
+                    font: 400 16px/1.5em var(--base-font);
+                    color: var(--tc-var);
+                    text-decoration: underline;
+
+                    &:hover {
+                        text-decoration: none;
+                        color: var(--tc-var);
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: 1000px) {
+            p {
+                margin: 0 auto;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

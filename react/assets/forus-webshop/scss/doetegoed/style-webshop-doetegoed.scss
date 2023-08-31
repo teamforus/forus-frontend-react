@@ -1,0 +1,91 @@
+@import './vars';
+@import '../_common/webshop';
+@import '../includes/fonts';
+
+// LAYOUTS
+@import 'layout/_navigation.scss';
+@import 'layout/_header.scss';
+
+// INCLUDES
+@import 'includes/form.scss';
+@import 'includes/buttons.scss';
+@import 'includes/pagination.scss';
+
+// COMPONENTS
+@import 'components/_labels.scss';
+@import 'components/_buttons.scss';
+
+// BLOCKS
+@import 'sections/blocks/products.scss';
+
+body {
+    @media screen and (max-width: 1000px) {
+        padding-bottom: 0;
+    }
+}
+
+.block {
+    &.block-pane,
+    &.block-empty,
+    &.block-offices,
+    &.block-map_card,
+    &.block-action-card,
+    &.block-funds-list .fund-item,
+    &.block-product .product-card,
+    &.block-products-list .product-item,
+    &.block.block-subsidies-list .product-item,
+    &.block-search-results .search-item,
+    &.block-user_emails .user_email-item,
+    &.block-vouchers .voucher-item,
+    &.block-reservations .reservation-item,
+    &.block-organizations .organization-item,
+    &.block-reimbursements .reimbursement-item,
+    &.block-profile .profile-aside .profile-menu .profile-menu-item,
+    &.block-products .product-item .product-item-inner,
+    &.block-subsidies .product-item .product-item-inner {
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+    }
+
+    &.block-office .office-content .block-organizations .organization-item,
+    &.block-provider .provider-content .block-organizations .organization-item {
+        border: none;
+    }
+
+    &.block-funds-list .fund-item,
+    &.block-search-results .search-item,
+    &.block-products .product-item .product-item-inner {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06);
+        transition: .4s;
+
+        &:hover {
+            box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    &.block-show-more .button, &.block-map .button {
+        background-color: #FF9E1B;
+        border: 1px solid #f8c178;
+
+        .mdi {
+            display: none;
+        }
+    }
+
+    @import 'sections/blocks/block-cms.scss';
+    @import 'sections/blocks/block-navbar.scss';
+    @import 'sections/blocks/block-footer.scss';
+    @import 'sections/blocks/block-product.scss';
+    @import 'sections/blocks/block-sign_up.scss';
+    @import 'sections/blocks/block-showcase.scss';
+    @import 'sections/blocks/block-cms-funds.scss';
+    @import 'sections/blocks/block-copyrights.scss';
+    @import 'sections/blocks/block-label-tabs.scss';
+    @import 'sections/blocks/block-breadcrumbs.scss';
+    @import 'sections/blocks/block-action-card.scss';
+    @import 'sections/blocks/block-organizations.scss';
+    @import 'sections/blocks/block-map.scss';
+    @import 'sections/blocks/block-markdown.scss';
+    @import 'sections/blocks/block-profile.scss';
+    @import 'sections/blocks/block-empty.scss';
+}

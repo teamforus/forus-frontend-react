@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Forus test app" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,600,700">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
     <!-- <title>Forus test app</title> -->
     <title><%= title %></title>
     <base href="<%= base %>">
@@ -14,9 +16,7 @@
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-        var env_data = JSON.parse('<%= env_data %>');
-    </script>
+    <script>var env_data = JSON.parse('<%= env_data %>');</script>
     <script src="<%= script %>"></script>
 </body>
 

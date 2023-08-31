@@ -1,0 +1,17 @@
+.section {
+    &.section-funds {
+        margin-bottom: 30px;
+        
+        .section-title, .section-subtitle {
+            text-align: left;
+        }
+        
+        .section-subtitle {
+            font: 400 17px/20px var(--base-font);
+        }
+    }
+
+    &.section-fund {
+        position: relative;
+    }
+}

@@ -1,0 +1,223 @@
+.block {
+    &.block-shops_map {
+        max-height: 100%;
+        min-height: 500px;
+        height: 90vh;
+        border-radius: var(--border-radius);
+        background-color: #fefefe;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
+        .shop_map-header {
+            bottom: auto;
+            border-bottom: 1px solid #cee2fb;
+            padding: 25px;
+            width: 100%;
+
+            .shop_map-title {
+                font: 700 22px/28px var(--base-font);
+                color: #282b39;
+            }
+
+            .shop_map-subtitle {
+                font: 400 16px/24px var(--base-font);
+                color: #646f79;
+                margin-bottom: 10px;
+            }
+        }
+
+        .shop_map-body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .shop_map-sidebar {
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            width: 40%;
+        }
+
+        .shop_map-content {
+            // width: 60%;
+            flex-grow: 1;
+            position: relative;
+            padding: 30px;
+
+            iframe {
+                display: flex;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .shops {
+            .shop-item {
+                padding: 20px;
+                border-bottom: 1px solid var(--border-color);
+                border-right: 4px solid transparent;
+                cursor: pointer;
+                transition: .4s;
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+
+                .shop-details {
+                    padding-left: 75px;
+                    padding-bottom: 20px;
+                    position: relative;
+
+                    .shop-image {
+                        position: absolute;
+                        width: 60px;
+                        height: 60px;
+                        float: left;
+                        border-radius: 60px;
+                        border: 1px solid #eaeaea;
+                        overflow: hidden;
+                        left: 0;
+                        top: 5px;
+
+                        img {
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+
+                    .shop-name {
+                        font: 700 16px var(--base-font);
+                        color: #151b26;
+                        margin-bottom: 10px;
+                    }
+
+                    .shop-details-label {
+                        font: 400 10px/20px var(--base-font);
+                        color: #646f79;
+                    }
+
+                    .shop-details-value {
+                        font: 700 12px var(--base-font);
+                        color: #282b39;
+                    }
+                }
+
+                .shop-schedule {
+                    border-top: 1px solid var(--border-color);
+                    padding-top: 20px;
+
+                    .shop-schedule-label {
+                        color: #646f79;
+                        font: 400 10px/20px var(--base-font);
+                    }
+
+                    .shop-schedule-value {
+                        color: #282b39;
+                        font: 400 12px/20px var(--base-font);
+
+                        strong {
+                            font: inherit;
+                            font-weight: 700;
+                        }
+
+                        span {
+                            &:after {
+                                content: ', ';
+                            }
+
+                            &:last-child,
+                            &:last-of-type {
+                                &:after {
+                                    content: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    background: #f6f9fc;
+                }
+
+                &.active {
+                    position: relative;
+                    z-index: 1;
+                    background: #fff;
+                    box-shadow: 0 0 50px rgba(0, 0, 0, .2);
+                    border-right-color: #2987fd;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-shops_map {
+            height: 100vh;
+
+            .shop_map-header {
+                padding: 25px 25px;
+
+                .shop_map-title {
+                    font: 700 20px/30px var(--base-font);
+                    @include ellipsis();
+                }
+
+                .shop_map-subtitle {
+                    font: 400 13px/25px var(--base-font);
+                    margin: 0 0 15px;
+                }
+            }
+
+            .shop_map-sidebar {
+                width: 100%;
+            }
+
+            .shop_map-content {
+                width: 50%;
+                left: 50%;
+                display: none;
+            }
+
+            .shops {
+                .shop-item {
+                    .shop-details {
+                        padding: 0;
+                        margin: 0 0 10px;
+
+                        .shop-image {
+                            position: relative;
+                            float: right;
+
+                            img {
+                                display: block;
+                            }
+                        }
+
+                        .shop-details-label {
+                            font: 400 9px/16px var(--base-font);
+                            margin: 0 0 0;
+                        }
+
+                        .shop-details-value {
+                            font: 700 12px/20px var(--base-font);
+                            margin: 0 0 10px;
+                        }
+
+                        .shop-name {
+                            font: 700 13px var(--base-font);
+                            margin: 0 0 10px;
+                            color: var(--bc);
+                        }
+                    }
+
+                    .shop-schedule {
+                        border: none;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,357 @@
+&.block-action-card {
+    display: flex;
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 30px;
+    position: relative;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    cursor: default;
+    flex-direction: row;
+
+    .block-card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin: -25px;
+
+        .block-card-section {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            padding: 25px;
+
+            &:not(:first-child) {
+                border-top: 1px solid var(--border-color);
+            }
+        }
+    }
+
+    .block-card-logo {
+        margin: 0 25px 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        img {
+            display: block;
+            max-width: 230px;
+            margin-left: -20px;
+            margin-bottom: -10px;
+        }
+
+        svg {
+            .fill-color-primary {
+                fill: var(--color-primary);
+            }
+        }
+
+        &.block-card-logo-background {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            background-color: rgba($color: var(--color-primary), $alpha: .075);
+
+            svg {
+                margin: auto;
+            }
+        }
+    }
+
+    .block-card-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+
+        .block-card-title {
+            font: 700 22px/25px var(--base-font);
+            color: var(--tc);
+            margin: 0 0;
+
+            &.block-card-title-sm {
+                font: 400 13px/20px var(--base-font);
+            }
+
+            &.block-card-title-lg {
+                font: 400 18px/25px var(--base-font);
+            }
+        }
+
+        .block-card-description {
+            font: 700 14px/25px var(--base-font);
+            color: rgba($color: var(--tc), $alpha: .8);
+            margin: 0 0;
+        }
+
+        .block-card-code {
+            font: 700 18px/21px var(--base-font);
+            color: var(--tc);
+        }
+    }
+
+    .block-card-actions {
+        display: flex;
+        align-items: center;
+        
+        .button {
+            font-size: 14px;
+            display: inline-flex;
+            white-space: nowrap;
+        }
+    }
+    
+    .block-card-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+    }
+
+    &.block-action-card-compact {
+        padding: 20px;
+
+        .block-card-body {
+            margin: -20px;
+
+            .block-card-section {
+                padding: 20px;
+            }
+        }
+
+        .block-card-logo {
+            margin: 0 20px 0 0;
+        }
+
+        .block-card-details {
+            .block-card-title {
+                font: 700 18px/25px var(--base-font);
+
+                &.block-card-title-sm {
+                    font: 400 13px/20px var(--base-font);
+                }
+    
+                &.block-card-title-lg {
+                    font: 400 18px/25px var(--base-font);
+                }
+            }
+        }
+    }
+
+    &.block-action-card-expandable {
+        flex-wrap: wrap;
+        padding: 0;
+        border: 1px solid #ebedf0;
+
+        .block-card-logo {
+            display: flex;
+            margin: 0 16px 0 0;
+            align-items: center;
+            text-align: center;
+
+            .mdi {
+                width: 48px;
+                height: 48px;
+                color: #151b26;
+                font-size: 24px;
+                line-height: 48px;
+                background-color: #F5F5F5;
+                border-radius: var(--border-radius);
+            }
+        }
+
+        .block-card-details {
+            .block-card-title {
+                font: 700 18px/27px var(--base-font);
+            }
+
+            .block-card-description {
+                font: 400 13px/18px var(--base-font);
+            }
+        }
+
+        .block-card-actions {
+            .button {
+                display: flex;
+                align-items: center;
+                color: #004d93;
+                font: 600 13px/13px var(--base-font);
+
+                &.button-text {
+                    .icon-right {
+                        margin: 0;
+                        font-size: 22px;
+                        color: #DBDCDB;
+                    }
+                }
+            }
+
+            &.bottom {
+                width: 100%;
+                padding: 8px 65px 0;
+
+                .button {
+                    padding: 0;
+                }
+            }
+        }
+
+        .block-action-card-main {
+            width: 100%;
+            flex-wrap: wrap;
+            padding: 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .block-action-card-details {
+            padding: 8px 0;
+
+            .block-action-card-details-item {
+                display: flex;
+                padding: 8px 20px 8px 16px;
+
+                .block-card-logo {
+                    background: none;
+        
+                    .mdi {
+                        color: var(--tc)
+                    }
+                }
+
+                .block-card-title {
+                    font: 700 16px/24px var(--base-font);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .block-card-body {
+            display: flex;
+            flex-direction: column;
+    
+            .block-card-section {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        .block-card-logo {
+            margin: 0 auto 10px;
+            
+            img, svg {
+                max-width: 200px;
+                transform: rotate(0deg);
+                margin: 0 auto 0;
+                display: block;
+            }
+        }
+
+        .block-card-details {
+            .block-card-title {
+                font: 600 14px/20px var(--base-font);
+                margin: 0 0 15px;
+
+                &.block-card-title-sm {
+                    margin-bottom: 0;
+                }
+            }
+
+            .block-card-description {
+                font: 600 11px/18px var(--base-font);
+                margin: 0 0 20px;
+            }
+
+            .block-card-code {
+                font: 700 13px/19px var(--base-font);
+                margin: 0 0 20px;
+            }
+        }
+
+        .block-card-actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        &.block-action-card-compact {
+            .block-card-logo {
+                margin: 0 0 10px;
+            }
+
+            .block-card-details {
+                .block-card-title {
+                    font-size: 14px;
+                    line-height: 20px;
+
+                    &.block-card-title-lg {
+                        font-size: 16px;
+                        line-height: 24px;
+                    }
+                }
+            }
+        }
+
+        &.block-action-card-expandable {
+            .block-card-logo {
+                width: 100%;
+                margin: 0 0 10px;
+            }
+
+            .block-card-details {
+                .block-card-title {
+                    padding: 5px 0 5px;
+                    margin: 0 0;
+                }
+
+                .block-card-description {
+                    line-height: 22px;
+                }
+            }
+
+            .block-card-actions {
+                width: 100%;
+                text-align: center;
+
+                .button.button-text {
+                    padding: 0;
+                }
+            }
+
+            .block-action-card-main {
+                padding: 20px 15px;
+
+                .block-card-details {
+                    .block-card-title {
+                        margin: 0 0 5px;
+                        font: 700 16px/22px var(--base-font)
+                    }
+                }
+            }
+
+            .block-action-card-details {
+                padding: 8px 0;
+    
+                .block-action-card-details-item {
+                    text-align: left;
+
+                    .block-card-logo {
+                        width: 55px;
+                        justify-content: flex-start;
+                        padding-right: 15px;
+
+                        .mdi {
+                            width: 40px;
+                            height: 40px;
+                            line-height: 40px;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

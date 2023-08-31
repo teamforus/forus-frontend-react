@@ -1,0 +1,28 @@
+.block {
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #b9ca2f;
+
+            &:hover {
+                color: #c3d24e;
+            }
+
+            &.active {
+                color: #4e4d40;
+            }
+        }
+
+        +.section-title {
+            margin-top: -20px;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-breadcrumbs {
+            .breadcrumb-item {
+                &.active {
+                    color: var(--tc);
+                }
+            }
+        }
+    }
+}

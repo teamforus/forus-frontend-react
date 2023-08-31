@@ -1,0 +1,287 @@
+&.modal-physical-cards {
+    .modal-window {
+        width: 800px;
+
+        .modal-section {
+            border-bottom: 1px solid var(--border-color);
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    .modal-header {
+        background-color: #ffffff;
+    }
+
+    .modal-content {
+        .physical-card-title {
+            font: 700 18px/24px var(--base-font);
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--tc);
+        }
+
+        .physical-card-description {
+            font: 700 14px/21px var(--base-font);
+            text-align: center;
+            margin-bottom: 15px;
+            color: #646f79;
+
+            .physical-card-order {
+                display: inline-block;
+                text-decoration: underline;
+            }
+
+            & > .label {
+                font: inherit;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+        .physical-card-media {
+            img,
+            svg {
+                display: block;
+                height: 200px;
+                margin: 0 auto 20px;
+            }
+
+            svg {
+                height: auto;
+            }
+
+            .mdi {
+                font-size: 100px;
+                display: flex;
+                justify-content: center;
+            }
+
+            &.physical-card-media-sm {
+                img {
+                    height: 130px;
+                    padding: 20px;
+                    margin: 0 auto;
+                }
+            }
+        }
+
+        .physical-card-icon {
+            background: #134478;
+            text-align: center;
+            width: 96px;
+            height: 96px;
+            border-radius: 96px;
+            border: 3px solid #fff;
+            line-height: 90px;
+            font-size: 45px;
+            color: #fff;
+            margin: 0 auto 20px;
+            box-shadow: 2px 4px 10px rgba($color: #000000, $alpha: 0.1);
+        }
+
+        .physical-card-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 0 0 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .physical-card-item {
+            position: relative;
+            margin-right: 0px;
+            padding: 15px 20px;
+            width: 190px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            cursor: default;
+
+            .physical-card-item-title {
+                font: 700 16px/20px var(--base-font);
+                margin: 0 -10px 0;
+                color: var(--tc);
+            }
+
+            .physical-card-item-icon {
+                width: 100px;
+                height: 100px;
+                background-color: transparent;
+                border-radius: var(--border-radius);
+                margin: 0 auto 10px;
+                border: 1px dashed #767676;
+                transition: 0.4s;
+
+                .mdi {
+                    color: #626161;
+                    line-height: 100px;
+                    font-size: 70px;
+                }
+            }
+
+            .physical-card-item-description {
+                margin: 0 -10px 0;
+                font: 400 12px/16px var(--base-font);
+                text-align: center;
+                color: var(--tc);
+                padding-top: 15px;
+            }
+
+            .physical-card-item-details {
+                display: flex;
+                flex-direction: column;
+
+                & > .physical-card-item-title {
+                    display: none;
+                }
+            }
+
+            &:hover {
+                .physical-card-item-icon {
+                    border-color: #303030;
+                    background-color: #303030;
+
+                    em {
+                        &:before {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .modal-window {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            border-radius: 0;
+        }
+
+        .modal-content {
+            flex-grow: 1;
+            padding: 0;
+            flex-direction: column;
+
+            .modal-section {
+                min-height: 100%;
+                flex-grow: 1;
+                justify-content: center;
+                padding: 25px 25px 25px;
+            }
+
+            .physical-card-result {
+                flex-direction: column;
+                justify-content: center;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                padding: 50px 0;
+            }
+
+            .physical-card-row {
+                flex-direction: column;
+                margin: 0 0 20px;
+
+                .physical-card-item {
+                    margin: 0 0 20px;
+                    width: 100%;
+                    border: 2px solid #767676;
+                    border-radius: var(--border-radius);
+                    flex-direction: row;
+                    padding: 0;
+                    text-align: left;
+
+                    .physical-card-item-inner {
+                        .physical-card-item-icon {
+                            border: none;
+                            width: 90px;
+                            height: 90px;
+                            margin: 0 0;
+                        }
+                    }
+
+                    .physical-card-item-title {
+                        display: none;
+                        margin: 0 0 5px;
+                        font: 700 13px/16px var(--base-font);
+                        width: 100%;
+                    }
+
+                    .physical-card-item-description {
+                        font: 400 11px/16px var(--base-font);
+                        margin: 0 0 0;
+                        width: 100%;
+                        padding: 0;
+                        text-align: left;
+                    }
+
+                    .physical-card-item-details {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        border-left: 2px solid #767676;
+                        padding: 15px 20px;
+                        flex-grow: 1;
+
+                        & > .physical-card-item-title {
+                            display: block;
+                        }
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &.physical-card-item-sm {
+                        margin: 0 0 5px;
+
+                        .physical-card-item-inner {
+                            .physical-card-item-icon {
+                                width: 40px;
+                                height: 40px;
+                                margin: -2px 0;
+
+                                .mdi {
+                                    color: #000;
+                                    &:before {
+                                        position: absolute;
+                                        margin: 0;
+                                        top: 15%;
+                                        left: 6px;
+                                        font: normal normal normal 26px/1 "Material Design Icons";
+                                    }
+                                }
+                            }
+                        }
+
+                        .physical-card-item-title {
+                            font: 700 16px/18px var(--base-font);
+                            margin: 0 0 0;
+                        }
+
+                        .physical-card-item-details {
+                            border-left: none;
+                            padding: 5px 20px 5px 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

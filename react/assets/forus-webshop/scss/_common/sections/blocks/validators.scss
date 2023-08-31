@@ -1,0 +1,128 @@
+.block {
+
+    &.block-validators {
+        margin-bottom: 30px;
+
+        .block-card {
+            background: #fff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .block-header {
+            border-bottom: 1px solid #d4d9dd;
+            padding: 20px 25px;
+            font: 700 22px var(--hf);
+            color: var(--tc);
+            position: relative;
+        }
+
+        .block-body {
+            padding: 0 25px;
+            width: 100%;
+            display: block;
+            position: relative;
+            transition: box-shadow .4s;
+        }
+
+        .validator-item {
+            border-bottom: 1px solid #d4d9dd;
+            background: #fff;
+            margin: 0 -25px;
+            padding: 20px 25px;
+            @include cf();
+
+            .validator-image {
+                float: left;
+                width: 50px;
+                height: 50px;
+                border-radius: 50px;
+                overflow: hidden;
+                border: 1px solid #d5e7ff;
+                margin-right: 15px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .validator-name {
+                padding: 10px 0;
+                font: 700 18px/30px var(--base-font);
+                color: #282b39;
+                float: left;
+            }
+
+            .validator-state {
+                float: right;
+                padding: 13px 0;
+
+                .validator-send {
+                    font: 600 13px/24px var(--base-font);
+                    color: var(--color-default);
+                    display: block;
+                    cursor: pointer;
+
+                    .mdi {
+                        line-height: 24px;
+                        font-size: 1.6em;
+                        float: right;
+                        color: #2987fd;
+                        margin-left: 5px;
+                        position: relative;
+                        transform: translate(0);
+                        transition: .4s;
+                    }
+
+                    &:hover {
+                        .mdi {
+                            transform: translate(5px);
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-validators {
+            .block-header {
+                font: 700 16px var(--hf);
+                padding: 15px 20px;
+            }
+
+            .block-body {
+                padding: 0 20px;
+                
+                .validator-item {
+                    margin: 0 -20px 0;
+                    padding: 20px;
+                    border-bottom: 1px solid #eee;
+
+                    .validator-name {
+                        font: 700 16px/30px var(--base-font);
+                        @include ellipsis();
+                    }
+
+                    .validator-state {
+                        padding: 0 20px 0;
+                        float: left;
+                        width: calc(100% + 40px);
+                        margin: 0 -20px;
+                        text-align: center;
+
+                        .validator-send {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

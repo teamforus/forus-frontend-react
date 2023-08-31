@@ -1,0 +1,29 @@
+.block {
+    &.block-breadcrumbs {
+        .breadcrumb-item {
+            color: #4F4F4F;
+            text-decoration: underline;
+
+            &:hover {
+                color: #4F4F4F;
+            }
+
+            &.active {
+                color: #4F4F4F;
+            }
+        }
+
+        +.section-title {
+            margin-top: -20px;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block-breadcrumbs {
+            .breadcrumb-item {
+                &.active {
+                    color: var(--tc);
+                }
+            }
+        }
+    }
+}

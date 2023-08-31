@@ -1,0 +1,134 @@
+.block {
+
+    &.block-records {
+        margin-bottom: 30px;
+
+        .record-item {
+            border-radius: var(--border-radius);
+            background: #fff;
+            padding: 20px;
+            width: 100%;
+            display: block;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: box-shadow .4s;
+            @include cf();
+
+            .record-details {
+                float: left;
+
+                .record-type {
+                    font: 400 13px var(--base-font);
+                    color: var(--color-default);
+                }
+                
+                .record-value {
+                    font: 700 16px var(--base-font);
+                    color: #282b39;
+                }
+            }
+
+            .record-validations {
+                float: right;
+                @include cf();
+
+                .record-validation-count {
+                    height: 80px;
+                    margin: -20px 0;
+                    padding: 20px;
+                    border-right: 1px solid #d4d9dd;
+                    color: #00d291;
+                    font: 400 13px var(--base-font);
+                    text-align: center;
+                    float: left;
+
+                    strong {
+                        display: block;
+                        font-weight: 700;    
+                    }
+                }
+
+                .record-validation-request {
+                    float: right;
+                    display: block;
+                    padding: 10px 0px 10px 20px;
+                    color: var(--color-default);
+                    font: 600 13px/20px var(--base-font);
+                    transition: .4s;
+
+                    .mdi {
+                        color: #fff;
+                        display: block;
+                        width: 20px;
+                        height: 20px;
+                        float: left;
+                        background: #00d291;
+                        border-radius: 20px;
+                        margin-right: 5px;
+                        text-align: center;
+                        font-size: 1.2em;
+                    }
+
+                    &:hover {
+                        color: var(--color-primary-light);
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        &.block.block-records {
+            .record-item {
+                .record-details {
+                    width: calc(100% + 40px);
+                    float: left;
+                    margin: -20px -20px 0;
+                    padding: 20px;
+                    border-bottom: 1px solid #eee;
+
+                    .record-value {
+                        @include ellipsis();
+                    }
+                }
+
+                .record-validations {
+                    width: 100%;
+                    margin: 0 -20px -20px;
+                    padding: 10px 20px;
+                    width: calc(100% + 40px);
+                    
+                    .record-validation-count {
+                        width: calc(50% + 20px);
+                        margin: 0;
+                        padding: 20px;
+                        height: auto;
+                        margin: -10px 0 -10px -20px;
+
+                        strong {
+                            display: inline;
+                            margin-right: 3px;
+                        }
+                    }
+
+                    .record-validation-request {
+                        padding: 20px;
+                        text-align: center;
+                        height: auto;
+                        width: calc(50% + 20px);
+                        margin: -10px -20px -10px 0;
+                        font: 600 13px/20px var(--base-font);
+
+                        .mdi {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    }
+}

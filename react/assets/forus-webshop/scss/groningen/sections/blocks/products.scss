@@ -1,0 +1,28 @@
+.block {
+    
+    &.block-products {
+
+        .product-item {
+
+            .product-item-inner {
+                box-shadow: none;
+
+                .product-organization {
+                    font: 700 18px/1.5em var(--base-font);
+                }
+
+                .product-image {
+                    border-radius: 0;
+                }
+
+                .product-name {
+                    color: #626161;
+                }
+
+                .product-discount {
+                    color: var(--color-default);
+                }
+            }
+        }
+    }
+}

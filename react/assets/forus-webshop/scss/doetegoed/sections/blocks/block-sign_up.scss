@@ -1,0 +1,15 @@
+&.block-sign_up {
+    .sign_up-pane {
+        .sign_up-pane-footer {
+            .button {
+                &.button-text {
+                    color: var(--color-primary);
+
+                    .mdi {
+                        color: inherit;
+                    }
+                }
+            }
+        }
+    }
+}

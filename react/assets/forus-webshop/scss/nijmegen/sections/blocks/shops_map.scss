@@ -1,0 +1,30 @@
+.block {
+    &.block-shops_map {
+        border-radius: 2px;
+
+        .shop_map-header {
+            .shop_map-categories {
+                .shop_map-category-item {
+                    .shop_map-category-item-inner {
+                        background: #157c68;
+                        background: linear-gradient(to bottom, #157c68 0%, #30a08b 100%);
+                        border-radius: 2px;
+                        box-shadow: var(--box-shadow);
+
+                        &:hover {
+                            background: linear-gradient(to bottom, #30a08b 0%, #157c68 100%);
+
+                            .shop_map-category-arrow {
+                                border-color: #157c68 transparent transparent transparent;
+                            }
+                        }
+                    }
+
+                    .shop_map-category-arrow {
+                        border-color: #30a08b transparent transparent transparent;
+                    }
+                }
+            }
+        }
+    }
+}

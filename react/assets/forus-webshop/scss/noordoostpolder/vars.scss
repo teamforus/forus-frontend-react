@@ -1,0 +1,82 @@
+@import "../general/vars.scss";
+
+/*==========  Style Sheet - Vars  ==========*/
+$fonts: [];
+$primaryColor: #de286b;
+$primaryColorLight: #fd5392;
+
+:root {
+    // navbar
+    --bg-nav: #f5f5f5;
+    --tc-nav: #282b39;
+    --tc-nav-hov: #de286b;
+    --logo-padding: 0;
+    --logo-height: 105px;
+
+    // navbar (auth)
+    --tc-auth-menu: #fff;
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #6d5ea7;
+    --btn-auth-border: #ececec;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #de286b;
+    --btn-start-btn: #de286b;
+    --btn-start-border: transparent;
+
+    // header attributes
+    --bg-values: url("../img/splash-top-b.png") no-repeat 100% 0;
+
+    // base font
+    --base-font: Arial, Helvetica, sans-serif;
+
+    // text color
+    --tc: #595959;
+    --tc-var: #fff;
+    --tc-link: inherit;
+
+    // base color
+    --bc: #de286b;
+
+    // background color
+    --bg: #de286b;
+
+    --bg_2: none;
+
+    // text formatting
+    --text_format: inherit;
+
+    // footer color
+    --footer_background_color: #fff;
+    --footer_color: #282b39;
+    --footer_color_link: #de286b;
+    --footer_color_link_hover: #fd5392;
+
+    // Displayed or not
+    --footer_display: block;
+
+    // product image
+    --product-image-padding: 10px 0 0 10px;
+
+    // placeholder text color
+    --placeholder_text_color: #515152;
+
+    --border-color: #ebedf0;
+
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
+
+    --color-default: #c1c71e;
+    --color-default-light: #eef525;
+
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // Login button
+    --login-button-background: #fff;
+}

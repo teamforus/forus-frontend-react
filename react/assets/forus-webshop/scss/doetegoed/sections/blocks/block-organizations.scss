@@ -1,0 +1,17 @@
+&.block-organizations {
+    .organization-item {
+        .organization-pane {
+            .organization-pane-info {
+                .organization-title {
+                    .organization-title-value {
+                        color: #000000;
+                    }
+
+                    .organization-page-link {
+                        color: var(--tc);
+                    }
+                }
+            }
+        }
+    }
+}

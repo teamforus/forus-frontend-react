@@ -1,0 +1,54 @@
+&.block-implementation-blocks-editor {
+    display: flex;
+    flex-direction: column;
+
+    .block-item {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 10px;
+        background: #FFFFFF;
+        border: 1px solid var(--border-color);
+        box-shadow: 0px 0px 5px rgba(25, 39, 52, 0.22);
+        border-radius: calc(var(--border-radius) / 2);
+        position: relative;
+
+        .block-header {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 10px 10px 20px;
+
+            .block-title {
+                flex-grow: 1;
+                font: 700 14px/30px var(--base-font);
+                margin: 0 0;
+                transition: line-height .4s;
+                @include ellipsis();
+            }
+
+            .block-actions {
+                display: flex;
+                padding-left: 20px;
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+
+        .block-body {
+            display: block;
+            padding-right: 90px;
+            padding: 30px 30px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .block-actions {
+        &:first-child {
+            padding: 0 0 0;
+        }
+    }
+}

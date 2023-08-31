@@ -1,0 +1,153 @@
+&.block-providers {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .provider-item {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        position: relative;
+        background: #fff;
+        margin: 0 0 20px;
+        border-radius: calc(var(--border-radius) / 2);
+        box-shadow: var(--box-shadow);
+        cursor: default;
+
+        .provider-overview {
+            display: flex;
+            flex-direction: row;
+            padding: 20px;
+        }
+
+        .provider-media {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            .provider-media-img {
+                width: 50px;
+                height: 50px;
+                display: block;
+                border-radius: 50px;
+                border: 1px solid var(--border-color);
+            }
+        }
+
+        .provider-details {
+            padding-left: 20px;
+            padding-top: 5px;
+            flex-grow: 1;
+            @include ellipsis();
+
+            .provider-title {
+                color: #151B26;
+                font: 500 16px/24px var(--base-font);
+                @include ellipsis();
+            }
+
+            .provider-subtitle {
+                font: 600 11px/16px var(--base-font);   
+                color: #134478;
+                @include ellipsis();
+                margin: 0 0 10px;
+
+                .tag {
+                    margin-right: 0;
+                }
+
+                .provider-activity {
+                    font: 500 11px/13px var(--base-font);
+                    color: #151B26;
+
+                    &:before {
+                        content: '|';
+                        color: #D4D9DD;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .provider-funds {
+                .provider-fund {
+                    margin: 0 0 5px;
+                    position: relative;
+                    padding-left: 10px;
+                    font: 600 13px/16px var(--base-font);
+                    color: #666;
+
+                    &:before {
+                        content: '';
+                        width: 4px;
+                        height: 4px;
+                        background-color: #666;
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        transform: translate(0, -2px);
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &.active {
+                        color: var(--color-primary);
+                        
+                        &:before {
+                            background-color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+        }
+
+        .provider-actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+
+            .provider-action-item {
+                position: relative;
+                padding: 0 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                &:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    width: 1px;
+                    top: 15px;
+                    bottom: 15px;
+                    background: var(--border-color);
+                }
+
+                &:last-child {
+                    padding-right: 0;
+
+                    &:before {
+                        content: none;
+                    }
+                }
+            }
+        }
+
+        .provider-funds {
+            max-width: 100%;
+            border-top: 1px solid #d2e6ff;
+        }
+
+        &:last-child {
+            border-bottom: none;
+            margin: 0 0 0;
+        }
+    }
+}

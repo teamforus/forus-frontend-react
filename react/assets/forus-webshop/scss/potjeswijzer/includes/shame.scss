@@ -1,0 +1,187 @@
+.text-primary {
+    color: #666 !important;
+}
+
+.block {
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            .navbar-logo {
+                img {
+                    display: none;
+
+                    &.hover {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.section {
+    &.section-fund {
+        .wrapper {
+            width: 1000px;
+        }
+    }
+
+    &.section-faq {
+        .faq {
+            margin: 0;
+
+            .faq-item {
+                .faq-item-header {
+                    color: #4990B5 !important;
+
+                    .faq-item-title {
+                        color: #666;
+                    }
+
+                    .faq-item-chevron-up,
+                    .faq-item-chevron-down {
+                        color: #4990B5 !important;
+                    }
+                }
+
+                &:hover:not(.active) {
+                    .faq-item-header {
+                        color: #4990B5 !important;
+
+                        .faq-item-chevron-up,
+                        .faq-item-chevron-down {
+                            color: #4990B5 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.block {
+    &.block-markdown {
+        margin-bottom: 50px;
+    }
+
+    &.block-fund {
+        margin: 0 0 50px;
+        border-bottom: 1px solid #ececec;
+
+        .fund-card {
+            box-shadow: none;
+        }
+
+        .fund-content {
+            padding-bottom: 50px;
+            border-bottom: 1px solid #ececec;
+
+            .fund-details {
+                padding: 0;
+
+            }
+        }
+    }
+
+    &.block-showcase {
+        .showcase-layout {
+            .showcase-content {
+                .showcase-content-header {
+                    .showcase-filters-title {
+                        .showcase-filters-title-count {
+                            color: #666;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-steps {    
+        .block-markdown {
+            a:not(.button) {
+                text-decoration: underline;
+                color: var(--color-primary);
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    &.block-organizations {
+        .organization-item {
+            .organization-offices {
+                .block-offices {
+                    .office-item {
+                        .office-item-map-icon {
+                            color: #666;
+                        }
+                    }
+                }
+            }
+
+            .organization-pane {
+                .organization-title {
+                    .organization-title-count {
+                        color: #666;
+                    }
+                }
+            }
+        }
+    }
+
+    &.block-pane {    
+        .pane-head {
+            .pane-head-count {
+                color: #666;
+            }
+        }
+    }
+
+    .block-label-tabs {
+        .label-tab {
+            &.active, &:active, &:focus {
+                color: #272525;
+    
+                .mdi {
+                    color: #272525;
+                }
+    
+                .label-tab-dropdown, 
+                .label-tab-dropdown .mdi {
+                    color: var(--tc);
+                }
+            }
+
+            &:hover:not(.active) {
+                color: #272525;
+                background-color: var(--color-primary-light);
+                border-color: var(--color-primary-light);
+
+                .mdi {
+                    color: #272525;
+                }
+            }
+
+            &.label-tab-sm {
+                &:focus {
+                    color: #272525; 
+                    border: none;
+                    
+                    .mdi {
+                        color: #272525;
+                    }  
+                }
+            }
+
+            &.label-tab-primary-light {
+                color: #272525;
+    
+                &:hover {
+                    color: #272525;
+                }
+            }
+        }
+    }
+}

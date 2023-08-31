@@ -1,0 +1,32 @@
+&.block-breadcrumbs {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 15px;
+
+    .breadcrumb-item {
+        color: #134478;
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        font: 600 13px/20px var(--base-font);
+        margin-right: 5px;
+
+        &:after {
+            color: #8CA3A6;
+            margin-left: 5px;
+            display: flex;
+            content: '»';
+        }
+
+        &.breadcrumb-item-active, &.active {
+            color: #646F79;
+            cursor: default;
+        }
+
+        &:last-child {
+            &:after {
+                content: none;
+            }
+        }
+    }
+}

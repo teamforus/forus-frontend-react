@@ -1,0 +1,37 @@
+@import './vars';
+@import '../_common/dashboard';
+
+.landing-root {
+    background-color: #f7f9fc;
+    background: linear-gradient(to bottom, #f7f9fc 0%, #ffffff 100%);
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    height: 100%;
+    @import '../_common/landing';
+
+    .section {
+        &.section-header {
+            background: url(../img/landing/splash-top-b.png) no-repeat 100% 0;
+            background-size: contain;
+            background-position: center center;
+
+            .header-content {
+                color: var(--text-color);
+            }
+        }
+    }
+
+    .app.app-container {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        flex: 1 0 auto;
+        min-height: 85vh;
+    }
+}
+
+.landing-style {
+    @import '../_common/landing';
+}

@@ -1,0 +1,17 @@
+&.block-sign_up {
+    .sign_up-restore {
+        padding: 20px 10px;
+        font: 400 12px/20px var(--base-font);
+    }
+
+    .sign_up-restore-chevron {
+        color: #dbdcdb;
+        font-size: 18px;
+    }
+
+    @media (max-width: 991px) {
+        .sign_up-restore {
+            font: 400 12px/20px var(--base-font);
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.section {
+    &.section-header {
+        @media screen and (min-width: 1024px) {
+            .wrapper {
+                    background-image: url(../img/header-bg-element.svg);
+                    background-repeat: no-repeat;
+                    background-position: right;
+            }
+
+            .header-content {
+                .header-title {
+                    font-size: 32px;
+                }
+
+                .header-description {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}

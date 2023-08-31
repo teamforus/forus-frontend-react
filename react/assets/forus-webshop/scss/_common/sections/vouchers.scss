@@ -1,0 +1,22 @@
+.section {
+    &.section-voucher-details {
+        position: relative;
+    }
+
+    &.section-profile {
+        margin-bottom: 30px;
+
+        .section-title {
+            margin-bottom: 0px;
+        }
+    }
+    
+    @media screen and (max-width: 1000px) {
+        &.section-profile {
+            .section-title {
+                font: 700 24px/36px var(--base-font);
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

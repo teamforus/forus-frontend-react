@@ -1,0 +1,125 @@
+body {
+    &.printable-only {
+        @media screen {
+            &>printables-root {
+                display: none;
+            }
+        }
+
+        @media print {
+            &>*:not(printables-root) {
+                display: none !important;
+            }
+        }
+    }
+}
+
+@media print {
+    .printable {
+        text-align: center;
+        -webkit-print-color-adjust: exact !important;
+
+        &.printable-voucher-qr_code {
+            .printable-main-info {
+                border: 1px solid #EBEDF0;
+                box-sizing: border-box;
+                position: relative;
+                padding: 50px 14px 0px 14px;
+                margin-bottom: 30px;
+
+                .printable-usage-info {
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    text-align: left;
+                    font: 400 12px/15px var(--base-font);
+                }
+
+                .printable-logo {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    width: 80px;
+                    
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .printable-title {
+                    font: 500 24px/29px var(--base-font);
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+    
+                .printable-description {
+                    font: 400 12px var(--base-font);
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+    
+                .block-qr-code {
+                    margin: 0 auto 20px;
+    
+                    .qr_code {
+                        margin: 0 auto;
+                        width: 240px;
+                        height: auto;
+                    }
+    
+                    img, canvas {
+                        padding: 10px;
+                        margin: 0 auto;
+                        width: 100%;
+                        border: 1px solid silver;
+                        background: #fff;
+                    }
+                }
+            }
+
+            .printable-additional-info {
+                margin-bottom: 40px;
+                text-align: center;
+
+                .notice {
+                    font: 400 13px/17px var(--base-font);
+                    margin-bottom: 20px;
+                }
+
+                .description {
+                    font: 400 15px/21px var(--base-font);
+                }
+
+                .reference {
+                    font: 500 21px/52px var(--base-font);
+                }
+            }
+
+            .printable-organization-info {
+                background: #F5F5F5;
+                border-radius: 5px;
+                padding: 20px;
+                margin-left: 70px;
+                margin-right: 70px;
+                font: 400 13px/21px var(--base-font);
+                text-align: left;
+                position: relative;
+
+                .contact {
+                    margin-bottom: 14px;
+                }
+
+                .general-logo {
+                    position: absolute;
+                    bottom: 20px;
+                    right: 20px;
+                    width: 50px;
+
+                    img {
+                        width: 50px;
+                    }
+                }
+            }
+        }
+    }
+}

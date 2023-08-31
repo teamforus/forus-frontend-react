@@ -1,0 +1,17 @@
+.section {
+    &.section-map {
+        @media screen and (min-width: 1024px) {
+            &:before {
+                position: absolute;
+                right:0;
+                bottom: 0;
+                width: 263px;
+                height: 100%;
+                background-image: url("../img/right_leaf.png");
+                background-repeat: no-repeat;
+                z-index: -1;
+                content: " ";
+            }
+        }
+    }
+}

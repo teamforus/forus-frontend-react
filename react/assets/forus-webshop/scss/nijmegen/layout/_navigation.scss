@@ -1,0 +1,26 @@
+.block {
+    @media screen and (max-width: 1000px) {
+        &.block-navbar {
+            position: sticky;
+            background-color: var(--bg-nav);
+
+            .navbar-logo {
+                img {
+                    display: none;
+
+                    &.hover {
+                        display: block;
+                    }
+                }
+            }
+
+            .button {
+                svg {
+                    path {
+                        fill: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

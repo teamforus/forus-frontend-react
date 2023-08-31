@@ -1,0 +1,40 @@
+&.block-permissions-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    .permission-item {
+        display: flex;
+        flex-basis: 50%;
+        width: 50%;
+        flex-wrap: wrap;
+        min-width: 0px;
+
+        .checkbox {
+            max-width: 100%;
+
+            .checkbox-label {
+                display: flex;
+                max-width: 100%;
+
+                .checkbox-box {
+                    margin-top: 2px;
+                }
+
+                &>* {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .permission-name {
+            overflow: hidden;
+        }
+
+        .block-form_tooltip {
+            margin-top: -3px;
+            margin-left: 5px;
+        }
+    }
+}

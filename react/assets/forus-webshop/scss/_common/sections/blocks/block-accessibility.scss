@@ -1,0 +1,25 @@
+&.block-accessibility {
+    max-width: 800px;
+    .block-text {
+        margin-bottom: 40px;
+        font: 400 16px/22px var(--base-font);
+
+        a {
+            color: blue;
+            font: 400 16px/22px var(--base-font);
+        }
+
+        ul {
+            list-style-type: square;
+            margin-left: 20px;
+        }
+
+        .title {
+            font: 600 18px/27px var(--base-font);
+        }
+
+        .description {
+            font: 400 16px/22px var(--base-font);
+        }
+    }
+}

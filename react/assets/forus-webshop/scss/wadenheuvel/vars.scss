@@ -1,0 +1,73 @@
+@import '../general/vars.scss';
+
+/*==========  Style Sheet - Vars  ==========*/
+:root {
+    // navbar
+    --bg-nav:            #ececec;
+    --tc-nav-hov:        #e8edff;
+    --tc-nav:            #ffffff;
+    --logo-padding:      30px 0px;
+    --logo-height:       75px;
+
+    // navbar (auth)
+    --tc-auth-menu:      #ffffff;
+    --tc-auth-btn:       #171E5F;
+    --btn-auth-bg:       #ffffff;
+    --btn-auth-border:   #171E5F;
+
+    // navbar (start modal primary)
+    --tc-start-btn:       #fff;
+    --btn-start-bg:       #3561FF;
+    --btn-start-btn:      #3561FF;
+    --btn-start-border:   transparent;
+
+    --bg-values:          url("../img/splash-top-b.jpg") no-repeat center 100%;
+
+    // base font
+    --bf:                Montserrat, Arial, Verdana;
+
+    // text color
+    --tc:                #1a1919;
+    --tc-var:            #EE4E34;
+    --tc-link:           inherit;
+
+    // base color
+    --bc:                #003B3B;
+
+    // background color
+    --bg:                #fff;
+
+    --bg_2:              none;
+
+    // text formatting
+    --tf:                inherit;
+
+    // footer color
+    --fbc:                #171E5F;
+    --fc:                #FFFFFF;
+
+    // displayed or not
+    --fd:                block;
+
+    // product image
+    --pi:                0px;
+
+    // placeholder text color
+    --ptc:               #515152;
+
+    --border_color:      #dce0e0;
+
+    --border_radius:     3px;
+    --base_shadow:       0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+
+    --color_primary:         #3561FF;
+    --color_primary_light:   #3561FF;
+
+    --color_default:         #3561FF;
+    --color_default_light:   #3561FF;
+
+    // Login button
+
+    --lb:                #fff;
+
+}

@@ -3,15 +3,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { DefinePlugin, ProvidePlugin } = require('webpack');
-const timestamp = (new Date()).getTime();
+const timestamp = new Date().getTime();
 const isDevServer = process.env.WEBPACK_SERVE;
 const CopyPlugin = require('copy-webpack-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const { fronts, enableOnly = null } = require('./env.js');
 
 const configs = Object.keys(fronts)
     .filter((key) => !enableOnly || enableOnly.includes(key))
-    .map(((key) => ({ out: key, ...fronts[key] })));
+    .map((key) => ({ out: key, ...fronts[key] }));
 
 module.exports = (env, argv) => {
     const { mode = 'development' } = argv;
@@ -23,31 +23,39 @@ module.exports = (env, argv) => {
     }, {});
 
     const outPlugins = configs.map((item) => {
+        const webRoot = item?.webRoot ? `/${item?.webRoot.replace(/^\/+/, '')}` : '';
+
         return new HtmlWebpackPlugin({
             template: `../../react/public/index.ejs`,
             templateParameters: {
                 title: `Forus ${item.client_type} app`,
-                script: isDevServer ? `/${item.out}/${scriptPath}` : `/${scriptPath}`,
-                base: isDevServer ? `/${item.out}/` : `/`,
-                env_data: JSON.stringify({ webRoot: isDevServer ? item.out : '', ...item }),
+                script: isDevServer ? `/${item.out}/${scriptPath}` : `${webRoot}/${scriptPath}`,
+                base: isDevServer ? `/${item.out}/` : `${webRoot}/`,
+                env_data: JSON.stringify({
+                    ...item,
+                    webRoot: (isDevServer ? item.out : webRoot).replace(/^\/+/, ''),
+                }),
             },
             filename: item.out + '/index.html',
             inject: false,
         });
-    })
+    });
 
     const copyPlugins = configs.map((item) => {
+        const isDashboard = ['sponsor', 'provider', 'validator'].includes(item.client_type);
+        const platform = isDashboard ? 'platform' : 'webshop';
+
         return new CopyPlugin({
             patterns: [
                 {
-                    context: `../assets/${item.client_type}/resources/_common`,
+                    context: `../assets/forus-${platform}/resources/_${platform}-common/assets`,
                     from: `**/**.*`,
                     to: path.resolve(__dirname, `${distPath}/${item.out}/assets`),
                     noErrorOnMissing: true,
                     force: true,
                 },
                 {
-                    context: `../assets/${item.client_type}/resources/${item.client_key}`,
+                    context: `../assets/forus-${platform}/resources/${platform}-${item.client_key}/assets`,
                     from: `**/**.*`,
                     to: path.resolve(__dirname, `${distPath}/${item.out}/assets`),
                     noErrorOnMissing: true,
@@ -58,7 +66,7 @@ module.exports = (env, argv) => {
                 concurrency: 100,
             },
         });
-    })
+    });
 
     return {
         mode: mode,
@@ -68,8 +76,10 @@ module.exports = (env, argv) => {
             static: {
                 directory: path.resolve(__dirname, `${distPath}`),
             },
-            // publicPath: '/',
-            // historyApiFallback: true,
+            devMiddleware: {
+                writeToDisk: true,
+            },
+            historyApiFallback: true,
             compress: true,
             port: 5000,
         },
@@ -103,11 +113,12 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.(png|jpe?g|gif)$/i,
-                    type: 'asset/resource'
+                    type: 'asset/resource',
                 },
                 {
-                    test: /\.(svg)$/i,
-                    loader: 'url-loader',
+                    test: /\.svg$/i,
+                    issuer: /\.[jt]sx?$/,
+                    use: ['@svgr/webpack'],
                 },
                 {
                     test: /\.s[ac]ss$/i,
@@ -117,27 +128,34 @@ module.exports = (env, argv) => {
                             loader: 'style-loader',
                             options: {
                                 esModule: false,
-                            }
+                            },
                         },
                         {
                             // Translates CSS into CommonJS
                             loader: 'css-loader',
                             options: {
+                                url: false,
                                 sourceMap: true,
                             },
                         },
-                        {
+                        /*{
                             loader: 'resolve-url-loader',
                             options: {
                                 webpackImporter: false,
                             },
-                        },
+                        },*/
                         {
                             // Compiles Sass to CSS
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
-                                additionalData: "$buildReact: true;",
+                                implementation: require('sass'),
+                                additionalData: '$buildReact: true;',
+                                webpackImporter: true,
+                                warnRuleAsWarning: false,
+                                sassOptions: {
+                                    quietDeps: true,
+                                },
                             },
                         },
                     ],
@@ -182,11 +200,9 @@ module.exports = (env, argv) => {
 
         optimization: {
             minimize: true,
-            minimizer: [
-                new TerserPlugin({ extractComments: false }),
-            ],
+            minimizer: [new TerserPlugin({ extractComments: false })],
         },
 
-        devtool: mode === 'development' ? 'cheap-module-source-map' : false,
+        devtool: mode === 'development' ? 'eval-source-map' : false,
     };
 };

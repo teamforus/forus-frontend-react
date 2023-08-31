@@ -1,0 +1,90 @@
+&.block-map_card {
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background: #fff;
+    margin-bottom: 30px;
+    cursor: default;
+
+    .map_card-header,
+    .map_card-footer {
+        padding: 15px 25px;
+        border-bottom: 1px solid var(--border-color);
+        background: #ffffff;
+        padding: 20px 25px;
+        font: 700 22px/30px var(--hf);
+        color: var(--tc);
+        margin: 0 0 0;
+
+        .map_card-title {
+            font: inherit;
+            margin: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .map_card-subtitle {
+            color: #646f79;
+            font: 400 16px var(--base-font);
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &:last-child {
+            border-bottom-width: 0;
+        }
+    }
+
+    .map_card-header {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+    }
+
+    .map_card-footer {
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
+    }
+
+    .map_card-iframe {
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+        height: 550px;
+        overflow: hidden;
+
+        iframe {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+            @include fill_parent();
+            width: 100%;
+            height: 100%;
+        }
+
+        .map {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+            @include fill_parent();
+            width: 100%;
+            height: 100%;
+        }
+
+        &:last-child {
+            border-bottom-width: 0;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .map_card-header {
+            padding: 15px 20px;
+
+            .map_card-title {
+                font-size: 16px;
+            }
+        }
+    }
+}

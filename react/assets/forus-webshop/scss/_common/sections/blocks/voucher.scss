@@ -1,0 +1,691 @@
+.block {
+    &.block-voucher {
+        position: relative;
+        display: flex;
+        margin-bottom: 30px;
+
+        .base-card {
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            cursor: default;
+            @include cf();
+            position: relative;
+            overflow: hidden;
+            flex-direction: row;
+            display: flex;
+            min-height: 200px;
+
+            .label {
+                margin-bottom: 10px;
+                border-radius: 5px;
+                padding: 0px 10px;
+            }
+
+            .card-inner {
+                flex-direction: column;
+                flex: 1;
+                display: flex;
+                min-height: 200px;
+            }
+
+            .card-actions {
+                display: flex;
+                flex: 1;
+
+                .action-col {
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+
+                    .action-item {
+                        flex-direction: column;
+                        text-align: center;
+                        display: inline-flex;
+                        color: var(--bc);
+                        align-items: center;
+
+                        .action-item-icon {
+                            width: 40px;
+                            height: 40px;
+                            line-height: 40px;
+                            text-align: center;
+                            border: 1px solid var(--color-primary);
+                            background: transparent;
+                            text-transform: var(--text_format);
+                            color: var(--color-primary);
+                            font-size: 20px;
+                            transition: 0.4s;
+                            cursor: pointer;
+                            position: relative;
+                            margin-bottom: 7.5px;
+
+                            .action-item-tooltip {
+                                opacity: 0;
+                                user-select: none;
+                                visibility: hidden;
+                                position: absolute;
+                                background: #fff;
+                                border: 1px solid #dbdcdb;
+                                padding: 4px 10px;
+                                font: 600 13px/20px var(--base-font);
+                                color: var(--bc);
+                                border-radius: 5px;
+                                white-space: nowrap;
+                                top: 100%;
+                                margin-top: 5px;
+                                left: 50%;
+                                transform: translate3d(-50%, 0, 0) scale3d(0, 0, 0);
+                                box-shadow: 2px 5px 35px rgba(0, 0, 0, 0.15);
+                                transition: 0.5s;
+
+                                &:after {
+                                    left: 50%;
+                                    position: absolute;
+                                    display: block;
+                                    content: "";
+                                    @extend .triangle;
+                                    bottom: 100%;
+                                    border-color: transparent transparent #fff transparent;
+                                    transform: translate3d(-50%, 4px, 0);
+                                }
+                            }
+                        }
+
+                        .action-item-name {
+                            color: #000;
+                            font: 600 12px var(--base-font);
+                            transition: color 0.4s;
+                            margin: 0 3px;
+                        }
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        &:hover {
+                            .action-item-icon {
+                                background-color: var(--color-primary);
+                                border: 1px solid var(--color-primary);
+                                color: #fff;
+
+                                .action-item-tooltip {
+                                    opacity: 1;
+                                    visibility: visible;
+                                    transform: translate3d(-50%, 0, 0) scale3d(1, 1, 1);
+                                }
+                            }
+
+                            .action-item-name {
+                                color: var(--color-primary);
+                            }
+                        }
+                    }
+
+                    &.card-actions-center {
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .card-label {
+                color: var(--tc);
+                font: 400 14px/16px var(--base-font);
+
+                a {
+                    color: #646f79;
+                    text-decoration: underline;
+                }
+            }
+
+            .block-link {
+                font: 600 13px/22px var(--base-font);
+                color: var(--color-default);
+                display: inline-block;
+
+                .mdi {
+                    color: var(--color-default);
+                    font-size: 1.3em;
+                    float: right;
+                    margin-left: 5px;
+                    transition: 0.4s;
+                    line-height: 22px;
+                    float: right;
+                }
+
+                &:hover {
+                    .mdi {
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+            .card-value {
+                font: 700 14px/16px var(--base-font);
+                color: var(--tc);
+                margin-top: 10px;
+
+                &.card-value-sm {
+                    font-weight: 400;
+                    font-size: 14px;
+                }
+
+                &:last-child {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .card-value.euro {
+                font-size: 25px;
+            }
+
+            .card-label.euro {
+                font-size: 15px;
+            }
+
+            .card-qr_code {
+                width: 200px;
+                padding: 15px 15px;
+                background: #efefef;
+                text-align: center;
+
+                img {
+                    display: block;
+                    width: 150px;
+                    margin-bottom: 20px;
+                    padding: 5px;
+                    background: #fff;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+                }
+
+                .card-qr_code-desc {
+                    color: #272525;
+                    font: 500 12px var(--base-font);
+                    margin: 0 -10px 10px -10px;
+                }
+            }
+
+            .card-body {
+                position: relative;
+                background: #fff;
+                display: flex;
+
+                .card-photo {
+                    padding: 20px 0 20px 20px;
+
+                    img {
+                        width: 100px;
+                        display: block;
+                        border-radius: 5px;
+                    }
+                }
+
+                .card-section {
+                    padding: 20px;
+                    flex: 1;
+                }
+
+                .card-title {
+                    color: #272525;
+                    font: 700 16px var(--base-font);
+                    margin: 0 0 5px;
+                }
+
+                .card-subtitle {
+                    color: #272525;
+                    font: 500 14px var(--base-font);
+                    margin: 0 0 5px;
+                }
+
+                .card-description {
+                    font: 400 13px/18px var(--base-font);
+                    color: #272525;
+                }
+
+                .card-price {
+                    color: #646f79;
+                    font: 400 16px var(--base-font);
+
+                    strong {
+                        color: #083f49;
+                        font: 700 24px var(--base-font);
+                    }
+                }
+            }
+
+            .card-footer {
+                width: 100%;
+                height: 100%;
+                background: #fcfcfc;
+                padding: 20px 25px;
+                border-top: 1px solid var(--border-color);
+                position: relative;
+                display: flex;
+                flex-direction: column;
+            }
+
+            &.base-card-sponsor {
+                width: 38%;
+            }
+
+            &.base-card-voucher {
+                width: 62%;
+                margin-right: 30px;
+
+                .block-qr-code {
+                    width: 100%;
+                    padding-bottom: 10px;
+
+                    .qr_code {
+                        width: 100px;
+                        height: 100px;
+                        padding: 0px;
+                        background: unset;
+                        margin: auto;
+                        border-radius: 0px;
+                        box-shadow: unset;
+
+                        img, canvas {
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .card-body {
+                    .card-title {
+                        font: 600 24px var(--base-font);
+                        color: #272525;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+
+        &.block-voucher-regular {
+            .base-card {
+                &.base-card-sponsor {
+                    width: 50%;
+                    margin-left: 15px;
+                }
+
+                &.base-card-voucher {
+                    width: 50%;
+                    margin-right: 15px;
+                }
+            }
+        }
+
+        &.block-voucher-combined {
+            .base-card {
+                &.base-card-voucher {
+                    width: 100%;
+                    margin-right: 0;
+
+                    .card-footer {
+                        .card-section {
+                            margin-bottom: 20px;
+
+                            .card-title {
+                                margin: 0 0 10px;
+                                font: 600 15px/22px var(--base-font);
+                            }
+
+                            .card-description {
+                                font: 400 14px/20px var(--base-font);
+
+                                .card-description-link {
+                                    font: 400 14px/20px var(--base-font);
+                                    color: #0000CD;
+                                    text-decoration: underline;
+
+                                    &:hover {
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: 1700px) {
+        &.block-voucher {
+            .base-card {
+                .label {
+                    margin-bottom: 5px;
+                    font-size: 11px;
+                    line-height: 20px;
+                }
+
+                .card-label {
+                    font: 400 14px/16px var(--base-font);
+                }
+
+                .card-value {
+                    font: 700 16px var(--base-font);
+
+                    &.card-value-sm {
+                        font-weight: 400;
+                    }
+                }
+
+                .card-body {
+                    .card-photo {
+                        img {
+                            width: 100px;
+                        }
+                    }
+
+                    .card-read_more {
+                        font: 600 12px/18px var(--base-font);
+                    }
+
+                    .card-description {
+                        font-size: 14px;
+                    }
+                }
+
+                .card-actions {
+                    .action-item {
+                        margin-right: 15px;
+                    }
+                }
+
+                &.base-card-voucher {
+                    .card-body {
+                        .card-title {
+                            font: 700 24px var(--base-font);
+                        }
+                    }
+                }
+            }
+
+            .card-inner {
+                min-height: 300px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-voucher {
+            flex-direction: column;
+            margin: auto;
+            width: 100%;
+
+            .base-card {
+                overflow: visible;
+                box-shadow: 2px 2px 20px rgba($color: #000000, $alpha: 0.05);
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                width: 100%;
+                margin-left: 0;
+
+                .card-inner {
+                    text-align: center;
+                }
+
+                .card-label {
+                    font: 600 10px/16px var(--base-font);
+                    margin: 0 0 5px;
+                    color: #646f79;
+                    text-transform: uppercase;
+
+                    &.euro {
+                        font-size: 10px;
+                        margin: 0;
+                    }
+                }
+
+                .card-value {
+                    color: #282b39;
+                    font: 700 16px/24px var(--base-font);
+                    margin: 0 0 15px;
+
+                    &.card-value-sm {
+                        font: 400 12px var(--base-font);
+                        color: #134478;
+
+                        strong {
+                            display: block;
+                            font: 700 15px var(--base-font);
+                            color: #282b39;
+                        }
+                    }
+
+                    &.euro {
+                        font-size: 20px;
+                    }
+                }
+
+                .card-qr_code {
+                    width: 100%;
+                    background: #fff;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
+
+                    img {
+                        margin: 0 auto 20px;
+                        background: #fff;
+                        padding: 10px;
+                        border-radius: 5px;
+                        width: 200px;
+                        max-width: 100%;
+                        box-shadow: 5px 5px 20px rgba($color: #000000, $alpha: 0.1);
+                    }
+                }
+
+                .card-body {
+                    flex-direction: column;
+                    padding-top: 30px;
+                    border: 1px solid #ddecff;
+                    border-bottom: 0;
+                    border-top-left-radius: 6px;
+                    border-top-right-radius: 6px;
+                    min-height: auto;
+
+                    .card-photo {
+                        padding: 0;
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: #fff;
+                        border-radius: 60px;
+
+                        img {
+                            margin: auto;
+                            width: 60px;
+                            max-width: 100%;
+                            border-radius: 60px;
+                            box-shadow: 2px 3px 20px rgba($color: #000000, $alpha: 0.1);
+                            background: #fff;
+                        }
+                    }
+
+                    .card-section {
+                        width: auto;
+                        max-width: 100%;
+                        margin: 0 auto;
+                    }
+
+                    .card-title {
+                        font: 700 17.5px var(--base-font);
+                        color: #00122a;
+                    }
+
+                    .card-description {
+                        font: 400 12px/18px var(--base-font);
+                        color: #00122a;
+                    }
+                }
+
+                .card-footer {
+                    border: 1px solid #ddecff;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                    min-height: auto;
+                }
+
+                &.base-card-sponsor,
+                &.base-card-voucher {
+                    width: 100%;
+                    margin: 0 0 30px;
+                    flex-direction: column-reverse;
+                }
+
+                &.base-card-voucher {
+                    margin: 0 0 30px;
+                    margin-left: 0;
+
+                    .card-body {
+                        padding: 0;
+                        flex-direction: column-reverse;
+
+                        .card-qr_code {
+                            width: 100%;
+                            padding: 20px;
+                            border: none;
+                            background: linear-gradient(to right, #eff0ef, #fefefe);
+
+                            .card-qr_code-desc {
+                                font: 400 12px/16px var(--base-font);
+                            }
+
+                            .qr_code {
+                                width: 140px;
+                                height: 140px;
+
+                                img, canvas {
+                                    border-radius: 0;
+                                    padding: 0;
+                                    box-shadow: none;
+                                    margin: 0 0 10px;
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        .card-photo {
+                            display: none;
+                        }
+
+                        .label {
+                            margin-bottom: 10px;
+                        }
+
+                        .card-title {
+                            margin: 0 0 5px;
+                            font: 700 14px var(--base-font);
+                        }
+
+                        .card-section {
+                            text-align: center;
+                        }
+                    }
+
+                    .card-footer {
+                        padding: 15px;
+                        flex-direction: column;
+                        justify-content: center;
+                        justify-items: center;
+
+                        .card-section {
+                            margin: 0;
+                            width: auto;
+                            justify-content: center;
+                        }
+
+                        .card-actions {
+                            margin: 0;
+                            flex-flow: column;
+                            flex-grow: 1;
+                            max-width: 100%;
+
+                            .action-col {
+                                width: 100%;
+                                margin: 0 0 10px;
+
+                                .action-item {
+                                    background: #f4f5f7;
+                                    border-radius: 20px;
+                                    padding: 10px;
+                                    text-align: center;
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    flex-direction: unset;
+                                    width: 100%;
+
+                                    .action-item-icon {
+                                        background-color: unset;
+                                        width: 30px;
+                                        height: 30px;
+                                        line-height: 30px;
+                                        border-radius: 40px;
+                                        margin: 0 10px 0 0;
+                                    }
+
+                                    &:hover {
+                                        .action-item-icon {
+                                            color: #fff;
+                                            background-color: #000;
+                                        }
+                                    }
+                                }
+
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+
+                    .card-inner:first-child {
+                        .card-body {
+                            border-top-left-radius: 0;
+                            border-top-right-radius: 0;
+                        }
+                    }
+                }
+            }
+
+            &.block-voucher-regular {
+                .base-card {
+                    &.base-card-sponsor,
+                    &.base-card-voucher {
+                        width: 100%;
+                        margin: 0 0 30px;
+                        flex-direction: column-reverse;
+                    }
+                }
+            }
+
+            &.block-voucher-combined {
+                .base-card {
+                    &.base-card-voucher {
+                        .card-footer {
+                            .card-section {
+                                .card-title {
+                                    margin: 0 0 5px;
+                                    font: 600 12px/18px var(--base-font);
+                                }
+    
+                                .card-description {
+                                    font: 400 12px/16px var(--base-font);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

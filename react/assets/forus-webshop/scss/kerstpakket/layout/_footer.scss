@@ -1,0 +1,11 @@
+.section {
+    &.section-footer {
+        .block-footer {
+            background-image: url("../img/footer-bg.png");
+            background-repeat: no-repeat;
+            background-size: cover; 
+            margin: 0px;
+            min-height: 300px;
+        }
+    }
+}

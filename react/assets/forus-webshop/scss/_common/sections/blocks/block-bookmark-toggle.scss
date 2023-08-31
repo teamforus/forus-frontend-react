@@ -1,0 +1,21 @@
+&.block-bookmark-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 80px;
+    background: #ffff;
+    font: 500 22px/42px arial;
+    text-align: center;
+    color: #b7bfc6;
+    margin-bottom: 10px;
+    z-index: 1;
+    transition: color .4s, background-color .4s;
+    border: 1px solid var(--border-color);
+
+    &:hover {
+        color: rgba($color: #df0c2d, $alpha: .3);
+    }
+
+    &.active {
+        color: #df0c2d;
+    }
+}

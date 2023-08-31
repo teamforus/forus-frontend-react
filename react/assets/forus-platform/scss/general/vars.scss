@@ -1,0 +1,37 @@
+/*==========  Style Sheet - Vars  ==========*/
+:root {
+    // base font
+    --base-font: "Montserrat", arial, sans-serif;
+    --base-font-landing: "Montserrat", arial, sans-serif;
+
+    --text-color: #353535;
+
+    --base-color: #305dfb;
+    --base-color-hover: #fff;
+
+    --placeholder-color: #9b9b9b;
+
+    --border-color: #ddd;
+    --border-color-light: #eee;
+    --border-radius: 8px;
+
+    --color-primary: #134478;
+    --color-primary-light: #305dfb;
+
+    --color-danger: #e63b3b;
+
+    --color-default: #134478;
+    --color-default-light: #2987fd;
+
+    --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
+
+    // sign up
+    --sign_up_accent_color: #305dfb;
+    --sign_up_accent_color_light: #bdcbff;
+    --sign_up_link_color: #e60003;
+    --sign_up_step_btns_color: #305dfb;
+    --sign_up_digid_btn_bkg: #e1e7ff;
+    --sign_up_digid_btn_text: #4b71ff;
+    --sign_up_digid_btn_border: none;
+    --sign_up_digid_btn_border_radius: 5px;
+}

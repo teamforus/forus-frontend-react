@@ -1,0 +1,29 @@
+.section {
+    &.section-header {
+        background: var(--bg-values);
+        background-size: contain;
+        background-position: right top;
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-self: center;
+
+            .header-title {
+                font-family: var(--base-font)_2;
+            }
+        }
+
+        @media screen and (max-width: 1600px) { 
+            .wrapper {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .header-content {
+                text-align: center;
+            }
+        }
+    }
+}

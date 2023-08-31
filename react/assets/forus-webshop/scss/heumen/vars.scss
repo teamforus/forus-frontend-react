@@ -1,0 +1,80 @@
+@import "../general/vars.scss";
+
+/*==========  Style Sheet - Vars  ==========*/
+$fonts: "https://fonts.googleapis.com/css?family=Verdana";
+$primaryColor: #22398e;
+$primaryColorLight: #22398e;
+
+:root {
+    // navbar
+    --bg-nav: #ececec;
+    --tc-nav-hov: #4a60b3;
+    --tc-nav: #22398e;
+    --logo-padding: 30px 0px;
+    --logo-height: 75px;
+
+    // navbar (auth)
+    --tc-auth-menu: #22398e;
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #22398e;
+    --btn-auth-border: #fff;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #61ba90;
+    --btn-start-btn: #61ba90;
+    --btn-start-border: transparent;
+
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
+
+    // base font
+    --base-font: Arial, Verdana;
+
+    // text color
+    --tc: #1a1919;
+    --tc-var: #fff;
+    --tc-link: inherit;
+
+    // base color
+    --bc: #22398e;
+
+    // background color
+    --bg: #fff;
+
+    --bg_2: none;
+
+    // text formatting
+    --text_format: inherit;
+
+    // footer color
+    --footer_background_color: #22398e;
+    --footer_color: #ffffff;
+    --footer_color_link: #ffffff;
+
+    // displayed or not
+    --footer_display: block;
+
+    // product image
+    --product-image-padding: 0px;
+
+    // placeholder text color
+    --placeholder_text_color: #515152;
+
+    --border-color: #dce0e0;
+
+    --border-radius: 0px;
+    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
+
+    --color-default: #{$primaryColor};
+    --color-default-light: #{$primaryColor};
+
+    --color-search-icon-medium: #{$primaryColor};
+    --color-search-icon-dark: #{darken($primaryColor, 10%)};
+    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // Login button
+    --login-button-background: #fff;
+}

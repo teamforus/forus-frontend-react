@@ -1,0 +1,90 @@
+.block {
+    &.block-footer {
+        padding: 20px 0;
+        p {
+            text-align: left;
+            font: 400 16px/1.5em var(--base-font);
+        }
+
+        a {
+            font: 400 16px/1.5em var(--base-font);
+            color: var(--footer_color);
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+                color: var(--footer_color);
+            }
+        }
+
+        .block-markdown {
+            a {
+                color: var(--footer_color);
+            }
+        }
+              
+        .footer-label {
+            color: var(--tc-var);
+            margin-bottom: 15px;
+            
+            img {
+                height: 40px;
+            }
+        }
+
+        .footer-schedule {
+
+            a {
+                font: 400 16px/1.5em var(--base-font);
+                color: var(--tc-var);
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                    color: var(--tc-var);
+                }
+            }
+        
+            .schedule-label,
+            .schedule-value {
+                font: 400 16px/1.5em var(--base-font);
+                color: var(--tc-var);
+            }
+        }
+
+        .footer-nav {
+            .footer-nav-item {
+                a {
+                    font: 400 16px/1.5em var(--base-font);
+                    color: var(--tc-var);
+                    text-decoration: underline;
+
+                    &:hover {
+                        text-decoration: none;
+                        color: var(--tc-var);
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: 1000px) {
+            p {
+                margin: 0 auto;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    &.block-copyrights {
+        background-color: #ffff;
+
+        .links {
+            a {
+                color: #000;
+                &:hover {
+                    color: #000;
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,22 @@
+&.block-navbar-search-results {
+    .search-form {
+        .search-result {
+            .search-result-sidebar {
+                .search-result-sidebar-item {
+                    &.active {
+                        background-color: var(--color-default);
+                        color: var(--tc-start-btn);
+                    }
+                }
+            }
+            
+            .search-result-content {
+                .search-result-actions {
+                    .button {
+                        background-color: var(--color-default);
+                    }
+                }
+            }
+        }
+    }
+}

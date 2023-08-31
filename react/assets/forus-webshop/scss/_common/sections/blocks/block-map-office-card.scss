@@ -1,0 +1,60 @@
+&.block-map-office-card {
+    border-radius: var(--border-radius);
+    box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+    background: #fff;
+    width: 580px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background: #ffffff;
+    z-index: 1;
+
+    .map-office-photo {
+        width: 120px;
+        min-width: 120px;
+        max-width: 120px;
+        height: 120px;
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+
+    img { 
+        width: 120px;
+        min-width: 120px;
+        max-width: 120px;
+        height: 120px;
+    }
+
+    .map-office-details {
+        padding: 15px;
+
+        .map-office-title {
+            font: 700 14px/20px var(--base-font);
+            color: #282b39;
+            margin: 0 0 5px;
+        }
+
+        .map-office-info {
+            font: 600 12px/22px var(--base-font);
+            display: flex;
+
+            .mdi {
+                float: left;
+                font-size: 15px;
+                margin: -1px 5px -1px 0;
+            }
+
+            &.map-office-info-inline {
+                display: inline-flex;
+            }
+
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+        }
+    }
+}

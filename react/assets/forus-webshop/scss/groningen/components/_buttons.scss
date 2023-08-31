@@ -1,0 +1,100 @@
+.button {
+    border-radius: 0;
+    font: 700 16px/1.5em var(--base-font);
+
+    &:hover {
+        box-shadow: none;
+    }
+
+    &.button-default {
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-color: #000;
+        color: #000;
+
+        .mdi {
+            color: #000;
+        }
+
+        &:hover {
+            background-color: #ff0031;
+            border: 1px solid #470000;
+            color: #fff;
+            text-decoration: underline;
+            box-shadow: none;
+
+            .mdi {
+                color: #fff;
+            }
+        }
+    }
+
+    &.button-primary {
+        color: var(--tc-var);
+        background: var(--color-default);
+        text-shadow: none;
+        border: 1px solid transparent;
+        box-shadow: none;
+
+        &:hover {
+            color: var(--color-default);
+            text-decoration: underline;
+            background-color: var(--bg);
+            box-shadow: none;
+            border: 1px solid var(--color-default);
+        }
+    }
+
+    &.button-disabled {
+        color: var(--placeholder_text_color);
+        border: 1px solid var(--placeholder_text_color);
+    }
+
+    &.button-wide {
+        background-color: #fff;
+        color: #000;
+        border-color: #000;
+    }
+
+    &.button-two-spans {
+        display: flex !important;
+        padding: 7px !important;
+        align-items: center !important;
+
+        .icon-me {
+            mask: url("../img/icon-me.svg");
+            background: var(--color-default);
+            transition: background-color 0.5s ease;
+            display: inline-block;
+            mask-size: cover;
+            height: 30px;
+            width: 30px;
+            margin: 0 7px 0px 0px;
+            border: 1px;
+        }
+
+        .first-line-button {
+            line-height: 10px;
+            font-size: 16px;
+            height: 100%;
+            text-align: right;
+            flex: 1;
+            text-transform: lowercase;
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+
+        .second-line-button {
+            display: none;
+        }
+
+        &:hover {
+            .icon-me {
+                mask: url("../img/icon-me.svg");
+                background: #157c68;
+                mask-size: cover;
+            }
+        }
+    }
+}

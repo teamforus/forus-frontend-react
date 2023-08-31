@@ -1,0 +1,44 @@
+/* Reset styles */
+html,
+body,
+form,
+input,
+textarea,
+select {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+
+/* General styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+    ul {
+        li {
+            font: inherit;
+        }
+    }
+}
+
+.wrap_cs__2 {
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.wrap_cs__2 h2 {
+  font: 400 36px/1.5em var(--base-font);
+  margin-bottom: 20px;
+}
+
+.wrap_cs__2 p {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,199 @@
+&.block-reimbursement {
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+
+    .reimbursement-section {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 30px;
+        width: 100%;
+
+        .reimbursement-heading {
+            font: 700 16px/24px var(--base-font);
+            margin: 0 0 10px;
+        }
+
+        .reimbursement-text {
+            font: 400 14px/20px var(--base-font);
+            margin: 0 0 15px;
+        }
+
+        .reimbursement-media {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-right: 30px;
+            flex-basis: 40%;
+            width: 40%;
+
+            .media-preview {
+                display: flex;
+                margin-bottom: 10px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .media-pagination {
+                display: flex;
+                flex-direction: row;
+
+                .media-pagination-prev,
+                .media-pagination-next {
+                    display: row;
+                    flex-direction: column;
+                    width: 26px;
+                    height: 26px;
+                    flex-basis: 26px;
+                    border: 1px solid var(--border-color);
+                    text-align: center;
+                    justify-content: center;
+                    background: #FFFFFF;
+                    color: #595959;
+                    transition: border-color .4s, background-color .4s, color .4s;
+                    cursor: pointer;
+                    border-radius: calc(var(--border-radius) / 3);
+
+                    .mdi {
+                        display: inline-flex;
+                        line-height: 24px;
+                        font-size: 22px;
+                    }
+
+                    &:hover {
+                        color: #FFFFFF;
+                        background: #595959;
+                        border-color: #595959;
+                    }
+                }
+
+                .media-pagination-nav {
+                    display: flex;
+                    justify-content: center;
+                    flex-grow: 1;
+
+                    .media-pagination-counter {
+                        display: flex;
+                        font: 700 13px/26px var(--base-font);
+                        padding-right: 10px;
+                    }
+
+                    .media-pagination-list {
+                        display: flex;
+    
+                        .media-pagination-item {
+                            width: 18px;
+                            height: 26px;
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            cursor: pointer;
+
+                            &:after {
+                                content: '';
+                                display: block;
+                                width: 8px;
+                                height: 8px;
+                                border-radius: 8px;
+                                background-color: #d4d9dd;
+                                margin: auto;
+                            }
+
+                            &:hover {
+                                &:after {
+                                    background-color: rgba(var(--color-primary), .5);
+                                }
+                            }
+
+                            &.active {
+                                &:after {
+                                    background-color: var(--color-primary);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .reimbursement-description {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reimbursement-props {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex-basis: 60%;
+            flex-grow: 1;
+
+            .reimbursement-title {
+                display: flex;
+                flex-direction: row;
+                margin: 0 0 15px;
+                font: 700 20px/28px var(--base-font);
+            }
+
+            .reimbursement-prop {
+                display: flex;
+                flex-direction: row;
+                margin: 0 0 15px;
+
+                .reimbursement-prop-label,
+                .reimbursement-prop-value {
+                    display: block;
+                    width: 40%;
+                    font: 700 14px/20px var(--base-font);
+                }
+
+                .reimbursement-prop-label {
+                    color: #646F79;
+                }
+
+                .reimbursement-prop-value {
+                    color: #303030;
+                    width: 60%;
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: 1300px) {
+        .reimbursement-section {
+            .reimbursement-media {
+                .media-pagination {
+                    .media-pagination-nav {
+                        .media-pagination-list {
+                            .media-pagination-item {
+                                width: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .reimbursement-section {
+            display: flex;
+            flex-direction: column;
+            margin: 0 0 20px;
+
+            .reimbursement-media {
+                width: 100%;
+                flex-basis: 100%;
+                margin: 0 0 20px;
+            }
+        }
+    }
+}

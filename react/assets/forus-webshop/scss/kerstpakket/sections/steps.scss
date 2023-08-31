@@ -1,0 +1,35 @@
+.section {
+    &.section-steps {
+        @media screen and (min-width: 1024px) {
+            &:before {
+                position: absolute;
+                left:0;
+                bottom: 0;
+                width: 360px;
+                height: 100%;
+                background-image: url("../img/small_leaf.png");
+                background-repeat: no-repeat;
+                z-index: -1;
+                content: " ";
+            }
+        }
+        .section-splash{
+            display: none !important;
+        }
+        .section-sprite{
+            display: none !important;
+        }
+        .steps {
+            background: none;
+
+            .step-item {
+                min-height: 140px;
+                margin-bottom: 30px !important;
+
+                h4 {
+                    color: var(--tc);
+                }
+            }
+        }
+    }
+}

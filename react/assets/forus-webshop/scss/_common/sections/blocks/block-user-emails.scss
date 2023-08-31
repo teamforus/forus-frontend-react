@@ -1,0 +1,158 @@
+.block {
+    &.block-user_emails {
+        display: flex;
+        flex-direction: column;
+    
+        .user_email-item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid #d4d9dd;
+    
+            .user_email-icon {
+                padding: 20px 0 20px 20px;
+    
+                .mdi {
+                    font-size: 26px;
+                    margin-left: 5px;
+                    margin-right: -5px;
+                    color: #8ca3a6;
+                }
+            }
+    
+            .user_email-details {
+                padding: 20px;
+                flex-grow: 1;
+    
+                .user_email-address,
+                .user_email-options {
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+    
+                .user_email-address {
+                    font: 600 18px/26px var(--hf);
+                    color: var(--tc);
+                    margin: 0 0 5px;
+                }
+    
+                .user_email-options {
+                    margin: 0 0 10px;
+    
+                    .user_email-option {
+                        font: 500 14px/27px var(--base-font);
+                        color: var(--tc);
+                        margin: 0 0 5px;
+                        padding-left: 15px;
+                        position: relative;
+    
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            display: block;
+                            width: 4px;
+                            height: 4px;
+                            border-radius: 5px;
+                            background: var(--color-primary-light);
+                            left: 0;
+                            top: 50%;
+                            transform: translate(0, -50%);
+                        }
+    
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+    
+            .user_email-actions {
+                padding: 20px;
+    
+                .button, .label {
+                    margin-left: 10px;
+                    align-self: center;
+
+                    .mdi {
+                        font-size: 1.7em;
+                    }
+                }
+
+                .label {
+                    white-space: nowrap;
+                }
+            }
+    
+            &:last-child {
+                border-bottom: none;  
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        &.block-user_emails {
+            .user_email-item {
+                .user_email-icon {
+                    padding-left: 10px;
+
+                    .mdi {
+                        font-size: 20px;
+                    }
+                }
+
+                .user_email-details {
+                    padding-right: 0;
+                    width: 100%;
+
+                    .user_email-address {
+                        font: 600 14px/16px var(--hf);
+                    }
+
+                    .user_email-options {
+                        .user_email-option {
+                            font: 500 11px/13px var(--hf);
+                        }
+                    }
+
+                    .button {
+                        font-size: 14px;
+                        text-align: left;
+                        padding: 0 0 0 30px;
+
+                        .mdi {
+                            font-size: 16px;
+                            margin-left: -20px;
+                            margin-right: 0;
+                        }
+                    }
+                }
+
+                .user_email-actions {
+                    margin-top: -2px;
+                    padding-left: 0;
+                    padding-right: 10px;
+
+                    .label {
+                        margin: 0 0 10px;
+                    }
+
+                    .flex-row {
+                        flex-direction: column;
+                        
+                        .flex-col {
+                            flex-direction: row;
+                            justify-content: flex-end;
+                        }
+                    }
+
+                    .button {
+                        &.button-icon {
+                            padding: 7.5px 12.5px;
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
