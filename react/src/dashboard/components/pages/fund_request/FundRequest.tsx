@@ -33,6 +33,8 @@ import Employee from '../../../props/models/Employee';
 import FundRequestRecordTabs from './elements/FundRequestRecordTabs';
 import FundRequestPerson from './elements/FundRequestPerson';
 
+type FundRequestRecordLocal = FundRequestRecord & { shown?: boolean; hasContent?: boolean };
+
 type FundRequestLocal = {
     is_assigned?: boolean;
     is_assignable?: boolean;
@@ -45,7 +47,7 @@ type FundRequestLocal = {
     can_add_partner_bsn?: boolean;
     hasContent?: boolean;
     collapsed?: boolean;
-    records?: Array<FundRequestRecord & { shown?: boolean; hasContent?: boolean }>;
+    records?: Array<FundRequestRecordLocal>;
     bsn_expanded?: boolean;
 } & FundRequest;
 
@@ -524,6 +526,14 @@ export default function FundRequest() {
         [activeOrganization?.id, fundRequest?.id, fundRequestService],
     );
 
+    const fundRequestRecord = useCallback((record: FundRequestRecordLocal, values: Partial<FundRequestRecordLocal>) => {
+        setFundRequest((request) => {
+            Object.assign(request.records?.find((item) => item.id == record.id) || {}, values);
+
+            return { ...request };
+        });
+    }, []);
+
     useEffect(() => {
         fetchEmployees();
     }, [fetchEmployees]);
@@ -842,6 +852,9 @@ export default function FundRequest() {
                                                             className={`mdi mdi-menu-${
                                                                 record.shown ? 'up' : 'down'
                                                             } td-menu-icon`}
+                                                            onClick={() =>
+                                                                fundRequestRecord(record, { shown: !record?.shown })
+                                                            }
                                                             data-ng-click="record.shown = !record.shown"
                                                         />
                                                     )}

@@ -140,13 +140,14 @@ export default function ModalPhotoUploader({
                                         <span className="checkbox-box">
                                             <span className="mdi mdi-check" />
                                         </span>
-                                        Ik beschik over
+                                        Ik beschik over&nbsp;
                                         <a
                                             target="_blank"
                                             rel="noreferrer"
                                             href="https://www.rijksoverheid.nl/onderwerpen/intellectueel-eigendom/vraag-en-antwoord/mag-ik-teksten-muziek-of-foto-s-van-anderen-gebruiken">
-                                            de rechten] van de afbeelding.
+                                            de rechten
                                         </a>
+                                        &nbsp;van de afbeelding.
                                     </span>
                                 </label>
                             </div>

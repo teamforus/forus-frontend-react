@@ -68,6 +68,7 @@ export default function ModalExportTypeLegacy({
                                 },
                                 ...buttonSubmit,
                             }}
+                            submit={true}
                             text="Bevestigen"
                             type="primary"
                         />

@@ -64,7 +64,7 @@ export default function ModalNotification({
                     {buttonSubmit && <ModalButton button={buttonSubmit} text="Bevestigen" type="primary" />}
 
                     {buttons?.map((button, index) => (
-                        <ModalButton key={index} button={button} text={''} type="default" />
+                        <ModalButton key={index} button={button} text={''} type="default" submit={true} />
                     ))}
                 </div>
             </div>

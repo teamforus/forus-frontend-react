@@ -13,7 +13,7 @@ export default function StateNavLink({
     children: ReactElement | Array<ReactElement> | string;
 }) {
     return (
-        <NavLink className={className} to={getStateRouteUrl(name, params)}>
+        <NavLink className={() => className} to={getStateRouteUrl(name, params)}>
             {children}
         </NavLink>
     );

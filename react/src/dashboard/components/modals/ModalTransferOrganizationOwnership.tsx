@@ -110,6 +110,7 @@ export default function ModalTransferOrganizationOwnership({
                         button={{ onClick: form.submit }}
                         text={t('modals.modal_transfer_organization_ownership.buttons.submit')}
                         type="primary"
+                        submit={true}
                     />
                 </div>
             </form>

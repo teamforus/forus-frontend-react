@@ -10,9 +10,20 @@ export type ModalButton = {
     className?: string;
 };
 
-export function ModalButton({ button, type, text }: { button: ModalButton; type: string; text: string }) {
+export function ModalButton({
+    submit,
+    button,
+    type,
+    text,
+}: {
+    submit?: boolean;
+    button: ModalButton;
+    type: string;
+    text: string;
+}) {
     return (
         <button
+            type={submit ? 'submit' : 'button'}
             className={classList([`button`, `button-${button.type || type}`, button.className || null])}
             onClick={button.onClick}>
             {button.icon && !button.iconEnd && <em className={`mdi mdi-${button.icon} icon-start`} />}

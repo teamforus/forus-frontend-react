@@ -37,7 +37,7 @@ export default function ModalAddNote({
                     modal.close();
                 },
                 (res: ResponseError) => {
-                    form.setErrors.data.errors;
+                    form.setErrors(res?.data?.errors);
                     form.setIsLocked(false);
                     pushDanger('Error!', res?.data?.message);
                 },

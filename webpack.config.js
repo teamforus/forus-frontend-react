@@ -31,6 +31,7 @@ module.exports = (env, argv) => {
                 title: `Forus ${item.client_type} app`,
                 script: isDevServer ? `/${item.out}/${scriptPath}` : `${webRoot}/${scriptPath}`,
                 base: isDevServer ? `/${item.out}/` : `${webRoot}/`,
+                favicon: isDevServer ? `/${item.out}/assets/img/favicon.ico` : `${webRoot}/assets/img/favicon.ico`,
                 env_data: JSON.stringify({
                     ...item,
                     webRoot: (isDevServer ? item.out : webRoot).replace(/^\/+/, ''),

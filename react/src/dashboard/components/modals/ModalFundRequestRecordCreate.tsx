@@ -70,7 +70,7 @@ export default function ModalFundRequestRecordCreate({
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
-                <a className="mdi mdi-close modal-close" onSubmit={modal.close} role="button" />
+                <a className="mdi mdi-close modal-close" onClick={modal.close} role="button" />
                 <div className="modal-header">
                     {verificationRequested ? 'Gegevens controleren' : 'Relatie toevoegen'}
                 </div>
@@ -138,7 +138,7 @@ export default function ModalFundRequestRecordCreate({
                     </div>
                 ) : (
                     <div className="modal-footer text-center">
-                        <button className="button button-default" type="button" onSubmit={modal.close} id="close">
+                        <button className="button button-default" type="button" onClick={modal.close} id="close">
                             Sluiten
                         </button>
                         <button className="button button-primary" type="submit">

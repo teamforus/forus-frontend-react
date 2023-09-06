@@ -10,6 +10,7 @@ import { useEmployeeService } from '../../services/EmployeeService';
 import { ModalButton } from './elements/ModalButton';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import Role from '../../props/models/Role';
+import { ResponseError } from '../../props/ApiResponses';
 
 export default function ModalEmployeeEdit({
     modal,
@@ -49,7 +50,9 @@ export default function ModalEmployeeEdit({
                         onSubmit();
                         modal.close();
                     },
-                    (res) => form.setErrors(res.status == '429' ? { email: [res.data.message] } : res.data.errors),
+                    (res: ResponseError) => {
+                        form.setErrors(res.status == 429 ? { email: [res.data.message] } : res.data.errors);
+                    },
                 )
                 .finally(() => form.setIsLocked(false));
         },
@@ -129,8 +132,8 @@ export default function ModalEmployeeEdit({
                 </div>
 
                 <div className="modal-footer text-center">
-                    <ModalButton button={{ onClick: modal.close, ...cancelButton }} text={'Sluiten'} type="default" />
-                    <ModalButton button={{ onClick: form.submit }} text={'Bevestig'} type="primary" />
+                    <ModalButton type="default" button={{ onClick: modal.close, ...cancelButton }} text={'Sluiten'} />
+                    <ModalButton type="primary" button={{ onClick: form.submit }} text={'Bevestig'} submit={true} />
                 </div>
             </form>
         </div>

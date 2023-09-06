@@ -207,10 +207,12 @@ export default class ApiRequestService<T = null> {
 
         props.forEach((prop: string) => {
             if (Array.isArray(data[prop])) {
-                data[prop].forEach((element: unknown) => queryParams.push(prop + '[]=' + element));
+                data[prop].forEach((element: unknown) =>
+                    queryParams.push(prop + '[]=' + encodeURIComponent(element?.toString())),
+                );
             } else {
                 if (data[prop] !== null) {
-                    queryParams.push(prop + '=' + data[prop]);
+                    queryParams.push(prop + '=' + encodeURIComponent(data[prop]));
                 }
             }
         });

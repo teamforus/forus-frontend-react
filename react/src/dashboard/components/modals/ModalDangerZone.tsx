@@ -53,7 +53,7 @@ export default function ModalDangerZone({
                     {buttonSubmit && <ModalButton button={buttonSubmit} text="Bevestigen" type="danger" />}
 
                     {buttons?.map((button, index) => (
-                        <ModalButton key={index} button={button} text={''} type="default" />
+                        <ModalButton key={index} button={button} text={''} type="default" submit={true} />
                     ))}
                 </div>
             </div>

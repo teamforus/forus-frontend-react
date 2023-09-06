@@ -196,6 +196,10 @@ datepicker[input-visible=true] {
                     color: #fff;
                 }
 
+                &.react-datepicker__day--selected {
+                    color: #fff;
+                }
+
                 // &.react-datepicker__day--today {}
                 // &.react-datepicker__day--weekend {}
             }

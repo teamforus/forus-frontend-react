@@ -23,7 +23,7 @@ import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
 import { useFileService } from '../../../services/FileService';
 import Employee from '../../../props/models/Employee';
 import useEnvData from '../../../hooks/useEnvData';
-import  useAppConfigs  from '../../../hooks/useAppConfigs';
+import useAppConfigs from '../../../hooks/useAppConfigs';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePushDanger from '../../../hooks/usePushDanger';

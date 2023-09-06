@@ -81,7 +81,12 @@ export default function Employees() {
                     onSubmit={() => {
                         fetchAdminEmployees();
                         filter.update({ page: employee ? employees.meta.current_page : employees.meta.last_page });
-                        pushSuccess('Gelukt!', 'Nieuwe medewerker toegevoegd.');
+
+                        if (!employee) {
+                            pushSuccess('Gelukt!', 'Nieuwe medewerker toegevoegd.');
+                        } else {
+                            pushSuccess('Gelukt!', 'Employee updated.');
+                        }
                     }}
                 />
             ));
@@ -235,116 +240,128 @@ export default function Employees() {
                 </div>
             </div>
 
-            <div className="card-section">
-                <div className="card-block card-block-table">
-                    <div className="table-wrapper">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>{t('organization_employees.labels.email')}</th>
-                                    <th>{t('organization_employees.labels.roles')}</th>
-                                    <th>{t('organization_employees.labels.auth_2fa')}</th>
-                                    <th className={'text-right'}>{t('organization_employees.labels.actions')}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {employees?.data.map((employee: Employee) => (
-                                    <tr key={employee.id}>
-                                        <td
-                                            id={'employee_email'}
-                                            data-dusk={'employeeEmail'}
-                                            className={'text-primary-light'}>
-                                            {employee.email || strLimit(employee.identity_address, 32)}
-                                        </td>
-                                        {activeOrganization.identity_address != employee.identity_address && (
+            {employees?.meta.total > 0 && (
+                <div className="card-section">
+                    <div className="card-block card-block-table">
+                        <div className="table-wrapper">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>{t('organization_employees.labels.email')}</th>
+                                        <th>{t('organization_employees.labels.roles')}</th>
+                                        <th>{t('organization_employees.labels.auth_2fa')}</th>
+                                        <th className={'text-right'}>{t('organization_employees.labels.actions')}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {employees?.data.map((employee: Employee) => (
+                                        <tr key={employee.id}>
                                             <td
-                                                className={classList([
-                                                    'nowrap',
-                                                    employee.roles.length > 0 ? '' : 'text-muted',
-                                                ])}>
-                                                {rolesList(employee)}
+                                                id={'employee_email'}
+                                                data-dusk={'employeeEmail'}
+                                                className={'text-primary-light'}>
+                                                {employee.email || strLimit(employee.identity_address, 32)}
                                             </td>
-                                        )}
-                                        {activeOrganization.identity_address == employee.identity_address && (
-                                            <td className={classList(['nowrap'])}>
-                                                <div className="text-primary">
-                                                    {t('organization_employees.labels.owner')}
-                                                </div>
-                                            </td>
-                                        )}
-                                        <td>
-                                            {employee.is_2fa_configured && (
-                                                <div className="td-state-2fa">
-                                                    <div className="state-2fa-icon">
-                                                        <em className="mdi mdi-shield-check-outline text-primary" />
-                                                    </div>
-                                                    <div className="state-2fa-label">Actief</div>
-                                                </div>
-                                            )}
-
-                                            {!employee.is_2fa_configured && (
-                                                <div className="td-state-2fa">
-                                                    <div className="state-2fa-icon">
-                                                        <em className="mdi mdi-shield-off-outline text-muted" />
-                                                    </div>
-                                                    <div className="state-2fa-label">Nee</div>
-                                                </div>
-                                            )}
-                                        </td>
-
-                                        <td className={'text-right'}>
                                             {activeOrganization.identity_address != employee.identity_address && (
-                                                <Fragment>
-                                                    <a
-                                                        className="text-primary-light"
-                                                        data-dusk={'btnEmployeeEdit'}
-                                                        onClick={() => editEmployee(employee)}>
-                                                        {t('organization_employees.buttons.adjust')}
-                                                    </a>
-                                                    {authIdentity.address !== employee.identity_address && (
-                                                        <Fragment>
-                                                            &nbsp;&nbsp;
-                                                            <a
-                                                                className="text-danger"
-                                                                data-dusk={'btnEmployeeDelete'}
-                                                                onClick={() => deleteEmployee(employee)}>
-                                                                {t('organization_employees.buttons.delete')}
-                                                            </a>
-                                                        </Fragment>
-                                                    )}
-                                                </Fragment>
+                                                <td
+                                                    className={classList([
+                                                        'nowrap',
+                                                        employee.roles.length > 0 ? '' : 'text-muted',
+                                                    ])}>
+                                                    {rolesList(employee)}
+                                                </td>
                                             )}
-
                                             {activeOrganization.identity_address == employee.identity_address && (
-                                                <Fragment>
-                                                    {adminEmployees.length > 0 &&
-                                                    authIdentity.address === activeOrganization.identity_address ? (
+                                                <td className={classList(['nowrap'])}>
+                                                    <div className="text-primary">
+                                                        {t('organization_employees.labels.owner')}
+                                                    </div>
+                                                </td>
+                                            )}
+                                            <td>
+                                                {employee.is_2fa_configured && (
+                                                    <div className="td-state-2fa">
+                                                        <div className="state-2fa-icon">
+                                                            <em className="mdi mdi-shield-check-outline text-primary" />
+                                                        </div>
+                                                        <div className="state-2fa-label">Actief</div>
+                                                    </div>
+                                                )}
+
+                                                {!employee.is_2fa_configured && (
+                                                    <div className="td-state-2fa">
+                                                        <div className="state-2fa-icon">
+                                                            <em className="mdi mdi-shield-off-outline text-muted" />
+                                                        </div>
+                                                        <div className="state-2fa-label">Nee</div>
+                                                    </div>
+                                                )}
+                                            </td>
+
+                                            <td className={'text-right'}>
+                                                {activeOrganization.identity_address != employee.identity_address && (
+                                                    <Fragment>
                                                         <a
                                                             className="text-primary-light"
-                                                            onClick={() => transferOwnership(adminEmployees)}>
-                                                            {t('organization_employees.buttons.transfer_ownership')}
+                                                            data-dusk={'btnEmployeeEdit'}
+                                                            onClick={() => editEmployee(employee)}>
+                                                            {t('organization_employees.buttons.adjust')}
                                                         </a>
-                                                    ) : (
-                                                        <span className={'text-muted'}>
-                                                            {t('organization_employees.labels.owner')}
-                                                        </span>
-                                                    )}
-                                                </Fragment>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                                        {authIdentity.address !== employee.identity_address && (
+                                                            <Fragment>
+                                                                &nbsp;&nbsp;
+                                                                <a
+                                                                    className="text-danger"
+                                                                    data-dusk={'btnEmployeeDelete'}
+                                                                    onClick={() => deleteEmployee(employee)}>
+                                                                    {t('organization_employees.buttons.delete')}
+                                                                </a>
+                                                            </Fragment>
+                                                        )}
+                                                    </Fragment>
+                                                )}
+
+                                                {activeOrganization.identity_address == employee.identity_address && (
+                                                    <Fragment>
+                                                        {adminEmployees.length > 0 &&
+                                                        authIdentity.address === activeOrganization.identity_address ? (
+                                                            <a
+                                                                className="text-primary-light"
+                                                                onClick={() => transferOwnership(adminEmployees)}>
+                                                                {t('organization_employees.buttons.transfer_ownership')}
+                                                            </a>
+                                                        ) : (
+                                                            <span className={'text-muted'}>
+                                                                {t('organization_employees.labels.owner')}
+                                                            </span>
+                                                        )}
+                                                    </Fragment>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
 
-            <div className="card-section" hidden={employees?.meta.last_page <= 1}>
-                {employees?.meta && (
-                    <Paginator meta={employees.meta} filters={filter.values} updateFilters={filter.update} />
-                )}
-            </div>
+            {employees?.meta.total > 0 && (
+                <div className="card-section" hidden={employees?.meta.last_page <= 1}>
+                    {employees?.meta && (
+                        <Paginator meta={employees.meta} filters={filter.values} updateFilters={filter.update} />
+                    )}
+                </div>
+            )}
+
+            {employees?.meta.total == 0 && (
+                <div className="card-section">
+                    <div className="block block-empty text-center">
+                        <div className="empty-title">Geen medewerkers gevonden</div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

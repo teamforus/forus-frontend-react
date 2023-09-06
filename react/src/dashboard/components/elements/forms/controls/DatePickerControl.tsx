@@ -7,12 +7,14 @@ export default function DatePickerControl({
     value,
     onChange,
     placeholder,
+    minYear = 1900,
 }: {
     value: Date | null;
     onChange: (value: Date) => void;
     placeholder?: string;
+    minYear?: number;
 }) {
-    const years = range(1990, getYear(new Date()) + 1, 1);
+    const years = range(minYear, getYear(new Date()) + 1, 1);
     const months = [
         'January',
         'February',

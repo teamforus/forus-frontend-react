@@ -147,7 +147,8 @@ export default function SelectControl<T>({
         (e) => {
             e.stopPropagation();
 
-            if (disabled) {
+            if (disabled || showOptions) {
+                setShowOptions(false);
                 return;
             }
 
@@ -159,7 +160,7 @@ export default function SelectControl<T>({
 
             buildSearchedOptions();
         },
-        [disabled, allowSearch, strict, modelValue, propValue, buildSearchedOptions],
+        [disabled, showOptions, allowSearch, strict, modelValue, propValue, buildSearchedOptions],
     );
 
     const selectOption = useCallback(

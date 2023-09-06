@@ -35,11 +35,14 @@ export default function PhotoSelector({
 
     const onPhotoChange = useCallback(
         (e) => {
+            const file = e.target.files[0];
+            e.target.value = null;
+
             openModal((modal) => (
                 <ModalPhotoUploader
                     type={type}
+                    file={file}
                     modal={modal}
-                    file={e.target.files[0]}
                     onSubmit={(file, presets) => {
                         const thumbnail = presets.find((preset) => preset.key == 'thumbnail');
 

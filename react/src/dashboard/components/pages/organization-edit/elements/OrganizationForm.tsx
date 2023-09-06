@@ -283,7 +283,7 @@ export default function OrganizationForm() {
                 </div>
 
                 <div className="form-group form-group-inline">
-                    <label htmlFor="website" className="form-label form-label-required">
+                    <label htmlFor="website" className="form-label">
                         {t('organization_edit.labels.website')}
                     </label>
                     <div className="form-offset">
