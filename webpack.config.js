@@ -62,6 +62,10 @@ module.exports = (env, argv) => {
                     noErrorOnMissing: true,
                     force: true,
                 },
+                {
+                    from: path.resolve(__dirname, `./node_modules/pdfjs-dist/build/pdf.worker.js`),
+                    to: path.resolve(__dirname, `${distPath}/${item.out}/app-${timestamp}.worker.js`),
+                },
             ],
             options: {
                 concurrency: 100,

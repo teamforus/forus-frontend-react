@@ -13,7 +13,7 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 export default function SignIn() {
     const [timer, setTimer] = useState(null);
     const [qrValue, setQrValue] = useState(null);
-    const { identity, setToken } = useContext(authContext);
+    const { token, setToken } = useContext(authContext);
 
     const envData = useEnvData();
     const navigate = useNavigate();
@@ -56,10 +56,10 @@ export default function SignIn() {
     }, [timer]);
 
     useEffect(() => {
-        if (identity) {
+        if (token) {
             navigate(getStateRouteUrl('organizations'));
         }
-    }, [identity, navigate]);
+    }, [token, navigate]);
 
     return (
         <div className="block block-login">

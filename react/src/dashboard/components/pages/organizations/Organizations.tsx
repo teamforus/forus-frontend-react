@@ -1,17 +1,17 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { mainContext } from '../../../contexts/MainContext';
+import { authContext } from '../../../contexts/AuthContext';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import { useNavigate } from 'react-router-dom';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import Organization from '../../../props/models/Organization';
-import useAuthIdentity from '../../../hooks/useAuthIdentity';
 
 export default function Organizations() {
     const { envData, organizations } = useContext(mainContext);
+    const { token } = useContext(authContext);
     const [selected_organization_key] = useState('active_organization');
     const organizationService = useOrganizationService();
     const navigate = useNavigate();
-    const authIdentity = useAuthIdentity();
 
     const getLastUsedOrganization = useCallback(
         (organizations: Array<Organization>) => {
@@ -57,14 +57,14 @@ export default function Organizations() {
     );
 
     useEffect(() => {
-        if (!authIdentity) {
+        if (!token) {
             return navigate(getStateRouteUrl('home'));
         }
 
         if (envData && organizations) {
             autoSelectOrganization(organizations);
         }
-    }, [envData, navigate, organizations, authIdentity, autoSelectOrganization]);
+    }, [envData, navigate, organizations, token, autoSelectOrganization]);
 
     return <></>;
 }

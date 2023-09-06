@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { getDocument } from 'pdfjs-dist/webpack';
+import * as pdfJsLib from 'pdfjs-dist';
 
 export default function PdfPreview({ rawPdfFile }: { rawPdfFile?: Blob }) {
     const element = useRef(null);
@@ -7,21 +7,12 @@ export default function PdfPreview({ rawPdfFile }: { rawPdfFile?: Blob }) {
     useEffect(() => {
         new Response(rawPdfFile).arrayBuffer().then((data) => {
             // Asynchronous download of PDF
-            const loadingTask = getDocument({ data });
+            const loadingTask = pdfJsLib.getDocument({ data });
             let currPage = 1;
             let numPages = null;
 
             loadingTask.promise.then(
-                function (pdf: {
-                    numPages: number;
-                    getPage: (page: number) => Promise<{
-                        getViewport: (value: { scale: number }) => { height: number; width: number };
-                        render: (value: {
-                            canvasContext: CanvasRenderingContext2D;
-                            viewport: { height: number; width: number };
-                        }) => { promise: Promise<number> };
-                    }>;
-                }) {
+                function (pdf) {
                     // Fetch the first page
                     numPages = pdf.numPages;
 
