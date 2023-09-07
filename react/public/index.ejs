@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Forus test app" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,500,600,700">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
-    <!-- <title>Forus test app</title> -->
+    <link href="<%= libs.mdi.css %>" rel="stylesheet">
+    <link href="<%= libs.summernote.css %>" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="<%= favicon %>">
     <title><%= title %></title>
     <base href="<%= base %>">
@@ -17,7 +17,9 @@
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>var env_data = JSON.parse('<%= env_data %>');</script>
+    <script>const env_data = JSON.parse('<%= env_data %>');</script>
+    <script src="<%= libs.jquery.js %>"></script>
+    <script src="<%= libs.summernote.js %>"></script>
     <script src="<%= script %>"></script>
 </body>
 

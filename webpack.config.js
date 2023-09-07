@@ -24,14 +24,29 @@ module.exports = (env, argv) => {
 
     const outPlugins = configs.map((item) => {
         const webRoot = item?.webRoot ? `/${item?.webRoot.replace(/^\/+/, '')}` : '';
+        const webPath = (path) => {
+            return isDevServer ? `/${item.out}${path}` : `${webRoot}${path}`;
+        };
 
         return new HtmlWebpackPlugin({
             template: `../../react/public/index.ejs`,
             templateParameters: {
                 title: `Forus ${item.client_type} app`,
-                script: isDevServer ? `/${item.out}/${scriptPath}` : `${webRoot}/${scriptPath}`,
-                base: isDevServer ? `/${item.out}/` : `${webRoot}/`,
-                favicon: isDevServer ? `/${item.out}/assets/img/favicon.ico` : `${webRoot}/assets/img/favicon.ico`,
+                script: webPath(`/${scriptPath}`),
+                base: webPath(`/`),
+                favicon: webPath(`/assets/img/favicon.ico`),
+                libs: {
+                    summernote: {
+                        js: webPath(`/assets/dist/js/summernote.${timestamp}.min.js`),
+                        css: webPath(`/assets/dist/js/summernote.${timestamp}.min.css`),
+                    },
+                    jquery: {
+                        js: webPath(`/assets/dist/js/jquery.${timestamp}.min.js`),
+                    },
+                    mdi: {
+                        css: webPath(`/assets/dist/css/materialdesignicons.min.css`),
+                    }
+                },
                 env_data: JSON.stringify({
                     ...item,
                     webRoot: (isDevServer ? item.out : webRoot).replace(/^\/+/, ''),
@@ -65,6 +80,30 @@ module.exports = (env, argv) => {
                 {
                     from: path.resolve(__dirname, `./node_modules/pdfjs-dist/build/pdf.worker.js`),
                     to: path.resolve(__dirname, `${distPath}/${item.out}/app-${timestamp}.worker.js`),
+                },
+                {
+                    from: path.resolve(__dirname, `./node_modules/summernote/dist/summernote-lite.min.js`),
+                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.js`),
+                },
+                {
+                    from: path.resolve(__dirname, `./node_modules/summernote/dist/summernote-lite.min.js`),
+                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.js`),
+                },
+                {
+                    from: path.resolve(__dirname, `./node_modules/summernote/dist/summernote-lite.min.css`),
+                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.css`),
+                },
+                {
+                    from: path.resolve(__dirname, `./node_modules/jquery/dist/jquery.min.js`),
+                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/js/jquery.${timestamp}.min.js`),
+                },
+                {
+                    from: path.resolve(__dirname, `./node_modules/@mdi/font/fonts`),
+                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/fonts`),
+                },
+                {
+                    from: path.resolve(__dirname, `./node_modules/@mdi/font/css/materialdesignicons.min.css`),
+                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/css/materialdesignicons.min.css`),
                 },
             ],
             options: {

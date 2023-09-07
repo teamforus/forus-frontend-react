@@ -19,6 +19,7 @@ import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
+import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 
 export default function OrganizationForm() {
     const { organizationId } = useParams();
@@ -90,6 +91,7 @@ export default function OrganizationForm() {
         website_public?: boolean;
         media_uid?: string;
         description?: string;
+        description_html?: string;
         kvk?: string;
         btw?: string;
         business_type_id?: number;
@@ -344,13 +346,10 @@ export default function OrganizationForm() {
                                 {t('organization_edit.labels.description')}
                             </label>
                             <div className="form-offset">
-                                <textarea
-                                    id="description"
-                                    className="form-control r-v"
-                                    disabled={true}
-                                    rows={8}
-                                    value={form.values?.description || ''}
-                                    onChange={(e) => form.update({ phone: e.target.value })}
+                                <MarkdownEditor
+                                    value={form.values?.description_html || ''}
+                                    onChange={(description) => form.update({ description })}
+                                    extendedOptions={true}
                                     placeholder={t('organization_edit.labels.description')}
                                 />
                                 <FormError error={form.errors?.description} />

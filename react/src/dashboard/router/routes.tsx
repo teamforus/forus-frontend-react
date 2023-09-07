@@ -73,10 +73,12 @@ router.state('organizations-view', <OrganizationView />, {
 router.state('organizations-create', <OrganizationCreate />, {
     path: `/organizations/create`,
     protected: false,
+    fallbackState: 'organizations',
 });
 
 router.state('organization-edit', <OrganizationEdit />, {
     path: `/organizations/:organizationId/edit`,
+    fallbackState: 'organizations',
 });
 
 router.state('organization-security', <OrganizationSecurity />, {
