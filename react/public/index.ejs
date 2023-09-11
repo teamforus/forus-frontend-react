@@ -17,10 +17,28 @@
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>const env_data = JSON.parse('<%= env_data %>');</script>
+    <script>const env_data = JSON.parse('<%= JSON.stringify(env_data) %>');</script>
     <script src="<%= libs.jquery.js %>"></script>
     <script src="<%= libs.summernote.js %>"></script>
     <script src="<%= script %>"></script>
+
+    <% if (env_data?.config?.chat_id) { %>
+        <script>
+            (() => {
+                window.$zoho = window.$zoho || {};
+                window.$zoho.salesiq = window.$zoho.salesiq || { widgetcode: `<%= env_data?.config?.chat_id %>`, values: {}, ready: function () { } };
+                const d = document;
+                const s = d.createElement("script");
+                s.type = "text/javascript";
+                s.id = "zsiqscript";
+                s.defer = true;
+                s.src = "https://salesiq.zoho.eu/widget";
+                const t = d.getElementsByTagName("script")[0];
+                t.parentNode.insertBefore(s, t);
+                d.write("<div id='zsiqwidget'></div>");
+            })();
+        </script>
+    <% } %>
 </body>
 
 </html>

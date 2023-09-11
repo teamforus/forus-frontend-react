@@ -45,12 +45,9 @@ module.exports = (env, argv) => {
                     },
                     mdi: {
                         css: webPath(`/assets/dist/css/materialdesignicons.min.css`),
-                    }
+                    },
                 },
-                env_data: JSON.stringify({
-                    ...item,
-                    webRoot: (isDevServer ? item.out : webRoot).replace(/^\/+/, ''),
-                }),
+                env_data: { ...item, webRoot: (isDevServer ? item.out : webRoot).replace(/^\/+/, '') },
             },
             filename: item.out + '/index.html',
             inject: false,
@@ -83,15 +80,24 @@ module.exports = (env, argv) => {
                 },
                 {
                     from: path.resolve(__dirname, `./node_modules/summernote/dist/summernote-lite.min.js`),
-                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.js`),
+                    to: path.resolve(
+                        __dirname,
+                        `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.js`,
+                    ),
                 },
                 {
                     from: path.resolve(__dirname, `./node_modules/summernote/dist/summernote-lite.min.js`),
-                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.js`),
+                    to: path.resolve(
+                        __dirname,
+                        `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.js`,
+                    ),
                 },
                 {
                     from: path.resolve(__dirname, `./node_modules/summernote/dist/summernote-lite.min.css`),
-                    to: path.resolve(__dirname, `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.css`),
+                    to: path.resolve(
+                        __dirname,
+                        `${distPath}/${item.out}/assets/dist/js/summernote.${timestamp}.min.css`,
+                    ),
                 },
                 {
                     from: path.resolve(__dirname, `./node_modules/jquery/dist/jquery.min.js`),
