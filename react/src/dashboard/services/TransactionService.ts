@@ -40,13 +40,13 @@ export class TransactionService<T = Transaction> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/${type}/transactions/${address}`);
     }
 
-    public storeBatch(organization_id: number, data: object = {}) {
+    public storeBatch(organization_id: number, data: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/sponsor/transactions/batch`, {
             ...data,
         });
     }
 
-    public storeBatchValidate(organization_id: number, data: object = {}) {
+    public storeBatchValidate(organization_id: number, data: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/sponsor/transactions/batch/validate`, {
             ...data,
         });

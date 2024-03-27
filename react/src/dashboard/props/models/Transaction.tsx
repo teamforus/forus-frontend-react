@@ -23,6 +23,8 @@ export default interface Transaction {
     cancelable: boolean;
     transaction_in?: number;
     attempts: number;
+    bulk_state?: 'draft' | 'error' | 'pending' | 'accepted' | 'rejected';
+    bulk_state_locale?: string;
     fund: {
         id: number;
         name: string;
@@ -52,4 +54,5 @@ export default interface Transaction {
     branch_number?: number;
     branch_name?: string;
     branch_id?: string;
+    non_cancelable_at_locale?: string;
 }

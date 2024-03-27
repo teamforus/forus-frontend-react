@@ -44,7 +44,7 @@ export default function ModalExportDataSelect({
     className,
     description,
     sections,
-    required,
+    required = true,
     onSuccess,
 }: {
     modal: ModalState;
@@ -74,28 +74,25 @@ export default function ModalExportDataSelect({
         [required],
     );
 
-    const updateSelectedFields = useCallback(
-        (localSections, section: ExportSectionPropLocal, checkUpdateIsValid = true) => {
-            section.selected = section.fields.filter((field: ExportFieldProp) => field.selected);
-            section.selectAll = section.selected.length === section.fields.length;
+    const updateSelectedFields = useCallback((section: ExportSectionPropLocal) => {
+        section.selected = section.fields.filter((field: ExportFieldProp) => field.selected);
+        section.selectAll = section.selected.length === section.fields.length;
 
-            if (checkUpdateIsValid) {
-                updateIsValid(localSections);
-            }
-
-            return section;
-        },
-        [updateIsValid],
-    );
+        return section;
+    }, []);
 
     const toggleAllFields = useCallback(
         (section: ExportSectionPropLocal, checked: boolean) => {
             section.selectAll = checked;
             section.fieldsView.forEach((row) => row.forEach((field) => (field.selected = section.selectAll)));
 
-            setLocalSections([...localSections]);
+            const localSections2 = localSections.map((section: ExportSectionPropLocal) =>
+                updateSelectedFields(section),
+            );
+
+            setLocalSections(localSections2);
         },
-        [localSections],
+        [localSections, updateSelectedFields],
     );
 
     const collapseSection = useCallback(
@@ -147,13 +144,16 @@ export default function ModalExportDataSelect({
             return section;
         });
 
-        const localSections2 = localSections.map((section: ExportSectionPropLocal) =>
-            updateSelectedFields(localSections, section, false),
-        );
+        const localSections2 = localSections.map((section: ExportSectionPropLocal) => updateSelectedFields(section));
 
         setLocalSections(localSections2);
-        updateIsValid(localSections2);
-    }, [sections, updateIsValid, updateSelectedFields]);
+    }, [sections, updateSelectedFields]);
+
+    useEffect(() => {
+        if (localSections) {
+            updateIsValid(localSections);
+        }
+    }, [localSections, updateIsValid]);
 
     return (
         <div
@@ -229,6 +229,7 @@ export default function ModalExportDataSelect({
                                                                         title={field.name}
                                                                         onChange={() => {
                                                                             field.selected = !field.selected;
+                                                                            updateSelectedFields(section);
                                                                             setLocalSections([...localSections]);
                                                                         }}
                                                                     />
@@ -254,6 +255,7 @@ export default function ModalExportDataSelect({
                                                         value={field.value}
                                                         onChange={(e) => {
                                                             section.value = e.target.value;
+                                                            updateSelectedFields(section);
                                                             setLocalSections([...localSections]);
                                                         }}
                                                     />

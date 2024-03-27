@@ -27,8 +27,8 @@ export class TransactionBulkService<T = TransactionBulk> {
     /**
      * Fetch list
      */
-    public show(organization_id: number, address: string): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/transaction-bulks/${address}`);
+    public show(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/transaction-bulks/${id}`);
     }
 
     public bulkNow(organization_id: number, filters = {}): Promise<ApiResponse<T>> {
@@ -69,7 +69,11 @@ export class TransactionBulkService<T = TransactionBulk> {
     }
 
     // export SEPA file
-    public exportSepa(organization_id: number, bulk_id: number, filters: object = {}) {
+    public exportSepa(
+        organization_id: number,
+        bulk_id: number,
+        filters: object = {},
+    ): Promise<ResponseSimple<ArrayBuffer>> {
         return this.apiRequest.get(
             `${this.prefix}/${organization_id}/sponsor/transaction-bulks/${bulk_id}/export-sepa`,
             filters,

@@ -9,11 +9,17 @@
         .table-scroll,
         .table-scroll-actions {
             tr {
+                th {
+                    height: 29px;
+                    white-space: nowrap;
+                }
+
                 td {
                     height: 41px !important;
                     padding-top: 10px;
                     padding-bottom: 10px;
                     line-height: 20px;
+                    white-space: nowrap;
                 }
             }
         }
@@ -41,8 +47,6 @@
                 td,
                 th {
                     position: relative;
-                    padding-left: 0 !important;
-                    padding-right: 17.5px !important;
                     width: 75px;
 
                     .actions {
@@ -65,13 +69,44 @@
                 th {
                     text-align: right;
                     background-color: transparent;
+                    padding: 0 0 !important;
+
+                    .table-th-actions {
+                        display: flex;
+                        flex: 0 0 auto;
+                        flex-direction: row;
+                        justify-content: flex-end;
+                        height: 100%;
+
+                        .table-th-action {
+                            display: flex;
+                            width: 28px;
+                            border-left: 1px solid var(--border-color);
+                            line-height: 28px;
+                            flex-direction: row;
+                            justify-content: center;
+                            background-color: #ffffff;
+                            font-size: 16px;
+
+                            &.active {
+                                border-color: var(--color-primary);
+                                background-color: var(--color-primary);
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+
+                td {
+                    padding-left: 0 !important;
+                    padding-right: 17.5px !important;
                 }
 
                 th:last-child {
                     background: linear-gradient(
                         90deg,
                         rgba(246, 249, 252, 0) 0%,
-                        rgba(246, 249, 252, 1) 25%,
+                        rgba(246, 249, 252, 1) 35%,
                         rgba(246, 249, 252, 1) 100%
                     );
                 }
@@ -135,8 +170,8 @@
             th {
                 color: #646f79;
                 background: #f6f9fc;
-                padding-top: 6px;
-                padding-bottom: 6px;
+                padding-top: 5px;
+                padding-bottom: 5px;
                 font: 500 12px/18px var(--base-font);
 
                 .th-sort {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useTranslation } from 'react-i18next';
 import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';
@@ -33,7 +33,9 @@ import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 import { hasPermission } from '../../../helpers/utils';
 import useTransactionBulkExportService from '../../../services/exports/useTransactionBulkExportService';
 import { dateFormat, dateParse } from '../../../helpers/dates';
+import ModalVoucherTransactionsUpload from '../../modals/ModalVoucherTransactionsUpload';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
+import ClickOutside from '../../elements/click-outside/ClickOutside';
 
 export default function Transactions() {
     const { t } = useTranslation();
@@ -68,6 +70,7 @@ export default function Transactions() {
     const [funds, setFunds] = useState(null);
     const [transactions, setTransactions] = useState<PaginationData<Transaction>>(null);
     const [transactionBulks, setTransactionBulks] = useState<PaginationData<TransactionBulk>>(null);
+    const [showActionMenu, setShowActionMenu] = useState(null);
 
     const hasDirectPayments = useMemo(() => {
         return funds?.filter((fund: Fund) => fund.allow_direct_payments).length > 0;
@@ -86,8 +89,8 @@ export default function Transactions() {
 
     const [bulkStates] = useState([
         { key: null, name: 'Alle' },
-        { key: 'draft', name: 'Draft' },
-        { key: 'error', name: 'Fout' },
+        { key: 'draft', name: 'In afwachting' },
+        { key: 'error', name: 'Mislukt' },
         { key: 'pending', name: 'In behandeling' },
         { key: 'accepted', name: 'Geaccepteerd' },
         { key: 'rejected', name: 'Geweigerd' },
@@ -115,6 +118,9 @@ export default function Transactions() {
             amount_max: null,
             transfer_in_min: null,
             transfer_in_max: null,
+            non_cancelable_from: null,
+            non_cancelable_to: null,
+            bulk_state: bulkStates[0].key,
             per_page: paginatorService.getPerPage(paginatorTransactionsKey),
             order_by: 'created_at',
             order_dir: 'desc',
@@ -207,13 +213,16 @@ export default function Transactions() {
     }, [fetchTransactions, filter.activeValues]);
 
     const uploadTransactions = useCallback(() => {
-        /*openModal((modal) => (
-            /*'voucherTransactionsUpload', {
-            organization: $ctrl.organization,
-            onCreated: () => $ctrl.onPageChange(),
-        }*/
-        // return <></>
-    }, []);
+        openModal((modal) => (
+            <ModalVoucherTransactionsUpload
+                modal={modal}
+                organization={activeOrganization}
+                onCreated={() => {
+                    fetchTransactions(filter.activeValues).then((res) => setTransactions(res.data));
+                }}
+            />
+        ));
+    }, [activeOrganization, fetchTransactions, filter.activeValues, openModal]);
 
     const confirmDangerAction = useCallback(
         (title, description_text, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
@@ -307,6 +316,12 @@ export default function Transactions() {
         updateHasPendingBulking,
         viewTypes,
     ]);
+
+    const hideActionMenu = useCallback((e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setShowActionMenu(null);
+    }, []);
 
     useEffect(() => {
         if (viewType.key === 'bulks') {
@@ -541,6 +556,42 @@ export default function Transactions() {
                                         </div>
                                     </FilterItemToggle>
 
+                                    {isSponsor && (
+                                        <Fragment>
+                                            <FilterItemToggle label={t('transactions.labels.non_cancelable_from')}>
+                                                <DatePickerControl
+                                                    value={dateParse(filter.values.non_cancelable_from)}
+                                                    placeholder={t('jjjj-MM-dd')}
+                                                    onChange={(from: Date) => {
+                                                        filter.update({ non_cancelable_from: dateFormat(from) });
+                                                    }}
+                                                />
+                                            </FilterItemToggle>
+
+                                            <FilterItemToggle label={t('transactions.labels.non_cancelable_to')}>
+                                                <DatePickerControl
+                                                    value={dateParse(filter.values.non_cancelable_to)}
+                                                    placeholder={t('jjjj-MM-dd')}
+                                                    onChange={(to: Date) => {
+                                                        filter.update({ non_cancelable_to: dateFormat(to) });
+                                                    }}
+                                                />
+                                            </FilterItemToggle>
+
+                                            <FilterItemToggle label={t('transactions.labels.bulk_state')}>
+                                                <SelectControl
+                                                    className="form-control"
+                                                    propKey={'key'}
+                                                    allowSearch={false}
+                                                    value={filter.values.bulk_state}
+                                                    options={bulkStates}
+                                                    optionsComponent={SelectControlOptions}
+                                                    onChange={(bulk_state: string) => filter.update({ bulk_state })}
+                                                />
+                                            </FilterItemToggle>
+                                        </Fragment>
+                                    )}
+
                                     <FilterItemToggle label={t('transactions.labels.fund_state')}>
                                         <SelectControl
                                             className="form-control"
@@ -688,221 +739,321 @@ export default function Transactions() {
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         <div className="table-wrapper">
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <ThSortable label={'ID'} value={'id'} filter={filter} />
-                                        {isSponsor && <ThSortable label={'UID'} value={'uid'} filter={filter} />}
-                                        <ThSortable
-                                            label={t('transactions.labels.price')}
-                                            value={'amount'}
-                                            filter={filter}
-                                        />
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={t('transactions.labels.method')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={t('transactions.labels.branch_name')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={t('transactions.labels.branch_number')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={t('transactions.labels.amount_extra')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        <ThSortable
-                                            label={t('transactions.labels.date')}
-                                            value={'created_at'}
-                                            filter={filter}
-                                        />
-                                        <ThSortable
-                                            label={t('transactions.labels.fund')}
-                                            value={'fund_name'}
-                                            filter={filter}
-                                        />
-                                        <ThSortable
-                                            label={t('transactions.labels.product_name')}
-                                            value={'product_name'}
-                                            filter={filter}
-                                        />
-                                        {isSponsor && (
-                                            <ThSortable
-                                                label={t('transactions.labels.provider')}
-                                                value={'provider_name'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isSponsor && (
-                                            <ThSortable
-                                                label={t('transactions.labels.bulk')}
-                                                value={'transaction_in'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        <ThSortable
-                                            label={t('transactions.labels.status')}
-                                            value={'state'}
-                                            filter={filter}
-                                        />
+                            <div className="table-container table-container-2">
+                                <div className="table-scroll">
+                                    <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <ThSortable label={'ID'} value={'id'} filter={filter} />
+                                                {isSponsor && (
+                                                    <ThSortable label={'UID'} value={'uid'} filter={filter} />
+                                                )}
+                                                <ThSortable
+                                                    label={t('transactions.labels.price')}
+                                                    value={'amount'}
+                                                    filter={filter}
+                                                />
+                                                {isProvider && (
+                                                    <ThSortable
+                                                        className={'nowrap'}
+                                                        label={t('transactions.labels.method')}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                {isProvider && (
+                                                    <ThSortable
+                                                        className={'nowrap'}
+                                                        label={t('transactions.labels.branch_name')}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                {isProvider && (
+                                                    <ThSortable
+                                                        className={'nowrap'}
+                                                        label={t('transactions.labels.branch_number')}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                {isProvider && (
+                                                    <ThSortable
+                                                        className={'nowrap'}
+                                                        label={t('transactions.labels.amount_extra')}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                <ThSortable
+                                                    label={t('transactions.labels.date')}
+                                                    value={'created_at'}
+                                                    filter={filter}
+                                                />
+                                                <ThSortable
+                                                    label={t('transactions.labels.fund')}
+                                                    value={'fund_name'}
+                                                    filter={filter}
+                                                />
+                                                <ThSortable
+                                                    label={t('transactions.labels.product_name')}
+                                                    value={'product_name'}
+                                                    filter={filter}
+                                                />
+                                                {isSponsor && (
+                                                    <ThSortable
+                                                        label={t('transactions.labels.provider')}
+                                                        value={'provider_name'}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                {isSponsor && (
+                                                    <ThSortable
+                                                        className="nowrap"
+                                                        label={t('transactions.labels.date_non_cancelable')}
+                                                        value={'date_non_cancelable'}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                {isSponsor && (
+                                                    <ThSortable
+                                                        label={t('transactions.labels.bulk')}
+                                                        value={'transaction_in'}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                {isSponsor && (
+                                                    <ThSortable
+                                                        label={t('transactions.labels.bulk_state')}
+                                                        value={'bulk_state'}
+                                                        filter={filter}
+                                                    />
+                                                )}
+                                                <ThSortable
+                                                    label={t('transactions.labels.status')}
+                                                    value={'state'}
+                                                    filter={filter}
+                                                />
 
-                                        <ThSortable
-                                            className="th-narrow text-right"
-                                            th-sortable="th-sortable"
-                                            filter={filter}
-                                            label={t('transactions.labels.action')}
-                                        />
-                                    </tr>
-                                    {transactions.data.map((transaction) => (
-                                        <tr key={transaction.id} data-dusk="transactionItem">
-                                            <td>{transaction.id}</td>
+                                                <ThSortable label="" />
+                                            </tr>
+                                            {transactions.data.map((transaction) => (
+                                                <tr key={transaction.id} data-dusk="transactionItem">
+                                                    <td>{transaction.id}</td>
 
-                                            {isSponsor && (
-                                                <td title={transaction.uid || '-'}>
-                                                    {strLimit(transaction.uid || '-', 32)}
-                                                </td>
-                                            )}
-                                            <td>
-                                                <StateNavLink
-                                                    name={'transaction'}
-                                                    params={{
-                                                        organizationId: activeOrganization.id,
-                                                        address: transaction.address,
-                                                    }}
-                                                    className="text-primary-light">
-                                                    {transaction.amount_locale}
-                                                </StateNavLink>
-                                            </td>
-                                            {isProvider && (
-                                                <td>
-                                                    {transaction?.reservation?.amount_extra > 0
-                                                        ? 'iDeal + Tegoed'
-                                                        : 'Tegoed'}
-                                                </td>
-                                            )}
-                                            {isProvider && (
-                                                <td>
-                                                    {transaction?.branch_name && (
-                                                        <div className="text-primary">{transaction?.branch_name}</div>
+                                                    {isSponsor && (
+                                                        <td title={transaction.uid || '-'}>
+                                                            {strLimit(transaction.uid || '-', 32)}
+                                                        </td>
                                                     )}
-
-                                                    {transaction?.branch_id && (
-                                                        <div>
-                                                            ID <strong>{transaction?.branch_id}</strong>
-                                                        </div>
+                                                    <td>
+                                                        <StateNavLink
+                                                            name={'transaction'}
+                                                            params={{
+                                                                organizationId: activeOrganization.id,
+                                                                address: transaction.address,
+                                                            }}
+                                                            className="text-primary-light">
+                                                            {transaction.amount_locale}
+                                                        </StateNavLink>
+                                                    </td>
+                                                    {isProvider && (
+                                                        <td>
+                                                            {transaction?.reservation?.amount_extra > 0
+                                                                ? 'iDeal + Tegoed'
+                                                                : 'Tegoed'}
+                                                        </td>
                                                     )}
+                                                    {isProvider && (
+                                                        <td>
+                                                            {transaction?.branch_name && (
+                                                                <div className="text-primary">
+                                                                    {transaction?.branch_name}
+                                                                </div>
+                                                            )}
 
-                                                    {!transaction.branch_id && !transaction.branch_name && (
-                                                        <div className={'text-muted'}>Geen...</div>
+                                                            {transaction?.branch_id && (
+                                                                <div>
+                                                                    ID <strong>{transaction?.branch_id}</strong>
+                                                                </div>
+                                                            )}
+
+                                                            {!transaction.branch_id && !transaction.branch_name && (
+                                                                <div className={'text-muted'}>Geen...</div>
+                                                            )}
+                                                        </td>
                                                     )}
-                                                </td>
-                                            )}
-                                            {isProvider && (
-                                                <td>
-                                                    <div className={transaction?.branch_number ? '' : 'text-muted'}>
-                                                        {strLimit(transaction.branch_number?.toString(), 32) ||
-                                                            'Geen...'}
-                                                    </div>
-                                                </td>
-                                            )}
-                                            {isProvider && (
-                                                <td>
-                                                    {transaction?.reservation?.amount_extra > 0
-                                                        ? transaction?.reservation?.amount_extra_locale
-                                                        : '-'}
-                                                </td>
-                                            )}
-                                            <td>
-                                                <div className={'text-medium text-primary'}>
-                                                    {transaction.created_at_locale.split(' - ')[0]}
-                                                </div>
-                                                <div className={'text-strong text-md text-muted-dark'}>
-                                                    {transaction.created_at_locale.split(' - ')[1]}
-                                                </div>
-                                            </td>
-                                            <td title={transaction.fund.name || ''}>
-                                                {strLimit(transaction.fund.name, 25)}
-                                            </td>
-                                            <td title={transaction.product?.name || '-'}>
-                                                {strLimit(transaction.product?.name || '-', 25)}
-                                            </td>
-                                            {isSponsor && (
-                                                <td
-                                                    title={transaction.organization?.name || '-'}
-                                                    className={transaction?.organization ? '' : 'text-muted'}>
-                                                    {strLimit(transaction.organization?.name || '-', 25)}
-                                                </td>
-                                            )}
-                                            {isSponsor && transaction.voucher_transaction_bulk_id && (
-                                                <td>
-                                                    <StateNavLink
-                                                        name={'transaction-bulk'}
-                                                        params={{
-                                                            organizationId: activeOrganization.id,
-                                                            id: transaction.voucher_transaction_bulk_id,
-                                                        }}
-                                                        className="text-primary-light">
-                                                        {'#' + transaction.voucher_transaction_bulk_id}
-                                                    </StateNavLink>
-                                                </td>
-                                            )}
-                                            {isSponsor && !transaction.voucher_transaction_bulk_id && (
-                                                <td>
-                                                    {transaction.transaction_in > 0 &&
-                                                    transaction.state == 'pending' &&
-                                                    transaction.attempts < 3 ? (
-                                                        <div>
-                                                            <div>In afwachting</div>
-                                                            <div className="text-sm text-muted-dark">
-                                                                <em className="mdi mdi-clock-outline"> </em>
-                                                                {transaction.transaction_in} dagen resterend
+                                                    {isProvider && (
+                                                        <td>
+                                                            <div
+                                                                className={
+                                                                    transaction?.branch_number ? '' : 'text-muted'
+                                                                }>
+                                                                {strLimit(transaction.branch_number?.toString(), 32) ||
+                                                                    'Geen...'}
                                                             </div>
-                                                        </div>
-                                                    ) : (
-                                                        <span>-</span>
+                                                        </td>
                                                     )}
-                                                </td>
-                                            )}
-                                            <td data-dusk="transactionState">
-                                                <div
-                                                    className={`label ${
-                                                        transaction.state == 'success'
-                                                            ? 'label-success'
-                                                            : 'label-default'
-                                                    }`}>
-                                                    {transaction.state_locale}
-                                                </div>
-                                            </td>
-                                            <td className="td-narrow text-right">
-                                                <StateNavLink
-                                                    name={'transaction'}
-                                                    className="button button-sm button-primary button-icon pull-right"
-                                                    params={{
-                                                        organizationId: activeOrganization.id,
-                                                        address: transaction.address,
-                                                    }}>
-                                                    <em className="mdi mdi-eye-outline icon-start" />
-                                                </StateNavLink>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                                    {isProvider && (
+                                                        <td>
+                                                            {transaction?.reservation?.amount_extra > 0
+                                                                ? transaction?.reservation?.amount_extra_locale
+                                                                : '-'}
+                                                        </td>
+                                                    )}
+                                                    <td>
+                                                        <div className={'text-medium text-primary'}>
+                                                            {transaction.created_at_locale.split(' - ')[0]}
+                                                        </div>
+                                                        <div className={'text-strong text-md text-muted-dark'}>
+                                                            {transaction.created_at_locale.split(' - ')[1]}
+                                                        </div>
+                                                    </td>
+                                                    <td title={transaction.fund.name || ''}>
+                                                        {strLimit(transaction.fund.name, 25)}
+                                                    </td>
+                                                    <td title={transaction.product?.name || '-'}>
+                                                        {strLimit(transaction.product?.name || '-', 25)}
+                                                    </td>
+                                                    {isSponsor && (
+                                                        <td
+                                                            title={transaction.organization?.name || '-'}
+                                                            className={transaction?.organization ? '' : 'text-muted'}>
+                                                            {strLimit(transaction.organization?.name || '-', 25)}
+                                                        </td>
+                                                    )}
+
+                                                    {isSponsor && (
+                                                        <Fragment>
+                                                            {transaction.non_cancelable_at_locale ? (
+                                                                <td>
+                                                                    <div className={'text-medium text-primary'}>
+                                                                        {transaction.non_cancelable_at_locale}
+                                                                    </div>
+                                                                </td>
+                                                            ) : (
+                                                                <td>-</td>
+                                                            )}
+                                                        </Fragment>
+                                                    )}
+
+                                                    {isSponsor && transaction.voucher_transaction_bulk_id && (
+                                                        <td>
+                                                            <StateNavLink
+                                                                name={'transaction-bulk'}
+                                                                params={{
+                                                                    organizationId: activeOrganization.id,
+                                                                    id: transaction.voucher_transaction_bulk_id,
+                                                                }}
+                                                                className="text-primary-light">
+                                                                {'#' + transaction.voucher_transaction_bulk_id}
+                                                            </StateNavLink>
+                                                        </td>
+                                                    )}
+                                                    {isSponsor && !transaction.voucher_transaction_bulk_id && (
+                                                        <td>
+                                                            {transaction.transaction_in > 0 &&
+                                                            transaction.state == 'pending' &&
+                                                            transaction.attempts < 3 ? (
+                                                                <div>
+                                                                    <div>In afwachting</div>
+                                                                    <div className="text-sm text-muted-dark">
+                                                                        <em className="mdi mdi-clock-outline"> </em>
+                                                                        {transaction.transaction_in} dagen resterend
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                <span>-</span>
+                                                            )}
+                                                        </td>
+                                                    )}
+                                                    {isSponsor && (
+                                                        <td data-dusk="transactionState">
+                                                            {(transaction.bulk_state == 'rejected' ||
+                                                                transaction.bulk_state == 'error') && (
+                                                                <div className="label label-danger">
+                                                                    {transaction.bulk_state_locale}
+                                                                </div>
+                                                            )}
+
+                                                            {(transaction.bulk_state == 'draft' ||
+                                                                transaction.bulk_state == 'pending') && (
+                                                                <div className="label label-default">
+                                                                    {transaction.bulk_state_locale}
+                                                                </div>
+                                                            )}
+
+                                                            {transaction.bulk_state == 'accepted' && (
+                                                                <div className="label label-success">
+                                                                    {transaction.bulk_state_locale}
+                                                                </div>
+                                                            )}
+                                                        </td>
+                                                    )}
+                                                    <td data-dusk="transactionState">
+                                                        <div
+                                                            className={`label ${
+                                                                transaction.state == 'success'
+                                                                    ? 'label-success'
+                                                                    : 'label-default'
+                                                            }`}>
+                                                            {transaction.state_locale}
+                                                        </div>
+                                                    </td>
+                                                    <td />
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div className="table-scroll-actions">
+                                    <table className="table">
+                                        <tbody>
+                                            <tr>
+                                                <th />
+                                            </tr>
+                                            {transactions.data.map((transaction) => (
+                                                <tr key={transaction.id}>
+                                                    <td>
+                                                        <div
+                                                            className={`actions ${
+                                                                showActionMenu === transaction.id ? 'active' : ''
+                                                            }`}>
+                                                            <button
+                                                                className="button button-text button-menu"
+                                                                type="button"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setShowActionMenu(transaction.id);
+                                                                }}>
+                                                                <em className="mdi mdi-dots-horizontal" />
+
+                                                                {showActionMenu === transaction.id && (
+                                                                    <ClickOutside onClickOutside={hideActionMenu}>
+                                                                        <div className="menu-dropdown">
+                                                                            <div className="menu-dropdown-arrow" />
+                                                                            <div className="dropdown dropdown-actions">
+                                                                                <StateNavLink
+                                                                                    name={'transaction'}
+                                                                                    className="dropdown-item"
+                                                                                    params={{
+                                                                                        organizationId:
+                                                                                            activeOrganization.id,
+                                                                                        address: transaction.address,
+                                                                                    }}>
+                                                                                    <em className="mdi mdi-eye icon-start" />{' '}
+                                                                                    Bekijken
+                                                                                </StateNavLink>
+                                                                            </div>
+                                                                        </div>
+                                                                    </ClickOutside>
+                                                                )}
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

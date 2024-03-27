@@ -50,6 +50,7 @@ import ExtraPaymentsView from '../components/pages/extra-payments-view/ExtraPaym
 import Features from '../components/pages/features/Features';
 import Feature from '../components/pages/feature/Feature';
 import EventLogs from '../components/pages/eventLogs/EventLogs';
+import TransactionBulksView from '../components/pages/transaction-bulks-view/TransactionBulksView';
 
 const router = new RouterBuilder();
 
@@ -226,7 +227,7 @@ router.state('transaction-settings', <TransactionSettings />, {
     path: `/organizations/:organizationId/transaction-settings`,
 });
 
-router.state('transaction-bulk', <WIP />, {
+router.state('transaction-bulk', <TransactionBulksView />, {
     path: `/organizations/:organizationId/transaction-bulks/:id`,
 });
 

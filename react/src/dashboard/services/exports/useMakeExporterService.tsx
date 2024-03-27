@@ -41,14 +41,22 @@ export default function useMakeExporterService() {
     );
 
     const saveExportedData = useCallback(
-        (data: { data_format: string; fields: string }, organization_id: number, res: ResponseSimple<ArrayBuffer>) => {
+        (
+            data: { data_format: string; fields: string },
+            organization_id: number,
+            res: ResponseSimple<ArrayBuffer>,
+            suffix = null,
+        ) => {
             pushSuccess('Gelukt!', 'The downloading should start shortly.');
 
             const fileName = [
                 envData.client_type,
                 organization_id,
+                suffix,
                 format(new Date(), 'yyyy-MM-dd HH:mm:ss') + '.' + data.data_format,
-            ].join('_');
+            ]
+                .filter((item) => item)
+                .join('_');
 
             fileService.downloadFile(fileName, res.data, res.headers['content-type']);
             setProgress(100);

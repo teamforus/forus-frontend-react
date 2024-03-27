@@ -188,7 +188,7 @@ export const LayoutHeader = () => {
                                         url={getStateRouteUrl('preferences-notifications')}
                                         icon={<IconNotifications />}
                                     />
-                                    {(activeOrganization.allow_2fa_restrictions || authIdentity2FAState.required) && (
+                                    {(activeOrganization?.allow_2fa_restrictions || authIdentity2FAState?.required) && (
                                         <IdentityMenuItem
                                             name="Beveiliging"
                                             url={getStateRouteUrl('security-2fa')}

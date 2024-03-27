@@ -5,7 +5,7 @@ export default function KeyValueItem({
     children,
 }: {
     label: string;
-    children: string | React.ReactElement | Array<React.ReactElement>;
+    children: number | string | React.ReactElement | Array<React.ReactElement>;
 }) {
     return (
         <div className="keyvalue-item">
