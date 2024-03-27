@@ -51,6 +51,16 @@ import ExtraPaymentsView from '../components/pages/extra-payments-view/ExtraPaym
 import Features from '../components/pages/features/Features';
 import Feature from '../components/pages/feature/Feature';
 import EventLogs from '../components/pages/eventLogs/EventLogs';
+import Implementations from '../components/pages/implementations/Implementations';
+import ImplementationsView from '../components/pages/implementations-view/ImplementationsView';
+import ImplementationsEmail from '../components/pages/implementations-email/ImplementationsEmail';
+import ImplementationsDigid from '../components/pages/implementations-digid/ImplementationsDigid';
+import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
+import ImplementationsCms from '../components/pages/implementations-cms/ImplementationsCms';
+import ImplementationsConfig from '../components/pages/implementations-config/ImplementationsConfig';
+import ImplementationsSocialMedia from '../components/pages/implementations-social-media/ImplementationsSocialMedia';
+import ImplementationsCmsPageEdit from '../components/pages/implementations-cms-page/ImplementationsCmsPageEdit';
+import ImplementationsCmsPageCreate from '../components/pages/implementations-cms-page/ImplementationsCmsPageCreate';
 
 const router = new RouterBuilder();
 
@@ -113,6 +123,11 @@ router.state('organization-funds', <WIP />, {
     fallbackState: 'organizations',
 });
 
+router.state('fund-backoffice-edit', <FundBackofficeEdit />, {
+    path: `/organizations/:organizationId/funds/:id/backoffice`,
+    fallbackState: 'organizations',
+});
+
 router.state('pre-check', <WIP title={'Pre-check'} />, {
     path: `/organizations/:organizationId/pre-check`,
     fallbackState: 'organizations',
@@ -167,8 +182,48 @@ router.state('extra-payments-show', <ExtraPaymentsView />, {
     fallbackState: 'organizations',
 });
 
-router.state('implementations', <WIP title={'Implementations'} />, {
+router.state('implementations', <Implementations />, {
     path: `/organizations/:organizationId/implementations`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-view', <ImplementationsView />, {
+    path: `/organizations/:organizationId/implementations/:id`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-cms', <ImplementationsCms />, {
+    path: `/organizations/:organizationId/implementations/:id/cms`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-cms-page-edit', <ImplementationsCmsPageEdit />, {
+    path: `/organizations/:organizationId/implementations/:implementationId/pages/:id`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-cms-page-create', <ImplementationsCmsPageCreate />, {
+    path: `/organizations/:organizationId/implementations/:implementationId/pages/create`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-config', <ImplementationsConfig />, {
+    path: `/organizations/:organizationId/implementations/:id/config`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-email', <ImplementationsEmail />, {
+    path: `/organizations/:organizationId/implementations/:id/email`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-digid', <ImplementationsDigid />, {
+    path: `/organizations/:organizationId/implementations/:id/digid`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-social-media', <ImplementationsSocialMedia />, {
+    path: `/organizations/:organizationId/implementations/:id/social-media`,
     fallbackState: 'organizations',
 });
 

@@ -1,4 +1,4 @@
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Fund from '../props/models/Fund';
@@ -24,8 +24,40 @@ export class FundService<T = Fund> {
         return this.apiRequest.get(`${this.prefix + company_id}/funds`, data);
     }
 
-    public delete(company_id: number, data: object = {}): Promise<null> {
-        return this.apiRequest.get<null>(`${this.prefix + company_id}/funds`, data);
+    /**
+     * Fetch by id
+     */
+    public read(company_id: number, id: number): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.get(`${this.prefix + company_id}/funds/${id}`);
+    }
+
+    /**
+     * Backoffice update
+     */
+    public backofficeUpdate(company_id: number, id: number, data: object): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(`${this.prefix + company_id}/funds/${id}/backoffice`, data);
+    }
+
+    /**
+     * Backoffice test
+     */
+    public backofficeTest(
+        company_id: number,
+        id: number,
+    ): Promise<
+        ResponseSimple<{
+            state: string;
+            response_code: number;
+        }>
+    > {
+        return this.apiRequest.post(`${this.prefix + company_id}/funds/${id}/backoffice-test`);
+    }
+
+    /**
+     * Delete
+     */
+    public destroy(company_id: number, id: number): Promise<ApiResponse<null>> {
+        return this.apiRequest.delete(`${this.prefix + company_id}/funds/${id}`);
     }
 
     public getProviderProduct(
