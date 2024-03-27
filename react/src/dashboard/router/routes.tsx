@@ -50,6 +50,8 @@ import ExtraPaymentsView from '../components/pages/extra-payments-view/ExtraPaym
 import Features from '../components/pages/features/Features';
 import Feature from '../components/pages/feature/Feature';
 import EventLogs from '../components/pages/eventLogs/EventLogs';
+import FinancialDashboard from '../components/pages/financial-dashboard/FinancialDashboard';
+import FinancialDashboardOverview from '../components/pages/financial-dashboard-overview/FinancialDashboardOverview';
 
 const router = new RouterBuilder();
 
@@ -132,14 +134,12 @@ router.state('bank-connections', <WIP title={'Bank connections'} />, {
     fallbackState: 'organizations',
 });
 
-router.state('financial-dashboard', <WIP title={'Financial dashboard'} />, {
+router.state('financial-dashboard', <FinancialDashboard />, {
     path: `/organizations/:organizationId/financial-dashboard`,
-    fallbackState: 'organizations',
 });
 
-router.state('financial-dashboard-overview', <WIP title={'Financial dashboard overview'} />, {
+router.state('financial-dashboard-overview', <FinancialDashboardOverview />, {
     path: `/organizations/:organizationId/financial-dashboard-overview`,
-    fallbackState: 'organizations',
 });
 
 router.state('vouchers', <WIP title={'Vouchers'} />, {
