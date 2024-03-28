@@ -1,6 +1,7 @@
 import Organization from './Organization';
 import Media from './Media';
 import Implementation from './Implementation';
+import FundCriterion from './FundCriterion';
 
 export default interface Fund {
     id: number;
@@ -24,4 +25,8 @@ export default interface Fund {
     archived?: boolean;
     expired?: boolean;
     implementation?: Implementation;
+    key: string;
+    csv_primary_key: string;
+    csv_required_keys: Array<string>;
+    criteria: Array<FundCriterion>;
 }

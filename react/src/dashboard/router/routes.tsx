@@ -307,7 +307,7 @@ router.state('feedback', <Feedback />, {
 });
 
 router.state('csv-validation', <CsvValidations />, {
-    path: `/csv-validation/funds/:fundId?`,
+    path: `/csv-validation/funds`,
 });
 
 router.state('csv-validation-redirect', <CsvValidationsRedirect />, {

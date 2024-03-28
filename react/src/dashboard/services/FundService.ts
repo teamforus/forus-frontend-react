@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Fund from '../props/models/Fund';
 import Product from '../props/models/Product';
+import Papa from 'papaparse';
 
 export class FundService<T = Fund> {
     /**
@@ -39,6 +40,24 @@ export class FundService<T = Fund> {
             `${this.prefix}${organization_id}/funds/${fund_id}/providers/${provider_id}/products/${product_id}`,
             query,
         );
+    }
+
+    public sampleCSV(fund: Fund): string {
+        return Papa.unparse([fund.csv_required_keys.filter((key) => key.indexOf('_eligible') == -1)]);
+    }
+
+    public getLastSelectedFundId(): number {
+        return parseInt(localStorage.getItem('selected_fund_id'));
+    }
+
+    public getLastSelectedFund(funds: Array<Fund> = []): Fund {
+        const lastSelectedId = this.getLastSelectedFundId();
+
+        return funds.find((fund) => fund.id == lastSelectedId) || funds[0] || null;
+    }
+
+    public setLastSelectedFund(fund: Fund) {
+        return localStorage.setItem('selected_fund_id', fund?.id.toString());
     }
 }
 
