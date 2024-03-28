@@ -125,7 +125,7 @@ export default function TransactionDetails({
                             <div className="flex flex-grow" />
                         </div>
                     </div>
-                    {transaction.notes.length != 0 && (
+                    {transaction.notes && transaction.notes.length != 0 && (
                         <div className="card-section">
                             <div className="card-block card-block-notes">
                                 {transaction.notes.map((note) => (

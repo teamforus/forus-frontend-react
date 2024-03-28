@@ -15,6 +15,7 @@ export default interface EnvDataProp {
         android_link?: string;
         single_record_validation?: boolean;
         features_hide?: boolean;
+        feedback_email?: string;
         features_contact_email?: string;
         features_contact_phone?: string;
         [key: string]: string | number | boolean;

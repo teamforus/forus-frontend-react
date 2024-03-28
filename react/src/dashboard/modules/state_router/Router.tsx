@@ -38,8 +38,8 @@ export const useNavigateState = () => {
     const navigate = useNavigate();
 
     return useCallback(
-        (name: string, params = {}) => {
-            navigate(getStateRouteUrl(name, params));
+        (name: string, params = {}, append?: string) => {
+            navigate(getStateRouteUrl(name, params) + (append || ''));
         },
         [navigate],
     );

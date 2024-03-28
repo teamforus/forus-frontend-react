@@ -979,18 +979,6 @@
         }
     }
 
-    &.modal-reimbursement-categories {
-        .card {
-            box-shadow: none;
-            border-bottom: 0;
-            margin-bottom: 0;
-
-            .table-pagination .table-pagination-counter {
-                line-height: 30px;
-            }
-        }
-    }
-
     &.modal-2fa-setup {
         .modal-section {
             overflow: visible;

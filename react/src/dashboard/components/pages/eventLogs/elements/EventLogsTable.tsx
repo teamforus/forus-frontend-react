@@ -203,13 +203,17 @@ export default function EventLogsTable({
                                     </tr>
                                     {logs.data.map((log) => (
                                         <tr key={log.id}>
-                                            <td>{log.created_at_locale}</td>
+                                            <td>
+                                                <div className="text-medium text-primary nowrap">
+                                                    {log.created_at_locale.split(' - ')[0]}
+                                                </div>
+                                                <div className="text-strong text-md text-muted-dark nowrap">
+                                                    {log.created_at_locale.split(' - ')[1]}
+                                                </div>
+                                            </td>
 
                                             {!hideEntity && (
-                                                <td
-                                                    className="nowrap"
-                                                    dangerouslySetInnerHTML={{ __html: log.loggable_locale }}
-                                                />
+                                                <td dangerouslySetInnerHTML={{ __html: log.loggable_locale }} />
                                             )}
 
                                             <td dangerouslySetInnerHTML={{ __html: log.event_locale }} />

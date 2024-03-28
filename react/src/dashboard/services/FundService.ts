@@ -40,6 +40,20 @@ export class FundService<T = Fund> {
             query,
         );
     }
+
+    public getLastSelectedFund(funds: Array<Fund> = []): Fund {
+        const lastSelectedId = this.getLastSelectedFundId();
+
+        return funds.find((fund) => fund.id == lastSelectedId) || funds?.[0] || null;
+    }
+
+    public getLastSelectedFundId(): number {
+        return parseInt(localStorage.getItem('selected_fund_id'));
+    }
+
+    public setLastSelectedFund(fund: Fund) {
+        return localStorage.setItem('selected_fund_id', fund?.id.toString());
+    }
 }
 
 export function useFundService(): FundService {

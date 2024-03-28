@@ -25,6 +25,10 @@ export const hasPermission = (organization: Organization, permissions: string | 
     );
 };
 
+/**
+ * @param classNames
+ * @deprecated
+ */
 export const classList = (classNames: Array<string> | HTMLAttributes<HTMLElement>['className'] | null) => {
     return (Array.isArray(classNames) ? classNames : [classNames])
         .filter((className) => className)

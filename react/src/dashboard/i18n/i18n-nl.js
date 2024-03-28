@@ -467,7 +467,7 @@ module.exports = {
             explanation: "Plaats hier de informatie voor inwoners. Deze tekst staat op de uitleg pagina. De algemene tekst is zichtbaar als beide opties uit staan.",
             accessibility: "Plaats een link naar de toegankelijkheidsverklaring of vul een eigen tekst in. De algemene tekst is zichtbaar als beide opties uit staan.",
             terms_and_conditions: "Wanneer dit veld leeg gelaten wordt, worden de standaard blokken van de pagina weergegeven.",
-        
+
             footer_contact_details: "Vul hier de contactinformatie van uw organisatie in. De tekst staat in de footer op de homepagina.",
             footer_opening_times: "Vul hier de openingstijden van uw organisatie in. De tekst staat in de footer op de homepagina.",
         },
@@ -1540,7 +1540,7 @@ module.exports = {
             note: "Notite",
             actions: "Acties",
         },
-    
+
         buttons: {
             add_new: 'Nieuwe aanmaken',
         },

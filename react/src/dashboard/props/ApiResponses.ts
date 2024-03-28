@@ -45,7 +45,8 @@ export interface ResponseErrorData {
     [key: string]: Array<string>;
 }
 
-export interface ResponseError<T = { message: string; errors: ResponseErrorData }> extends BaseResponse {
+export interface ResponseError<T = { title?: string; message: string; errors: ResponseErrorData }>
+    extends BaseResponse {
     data: T;
 }
 

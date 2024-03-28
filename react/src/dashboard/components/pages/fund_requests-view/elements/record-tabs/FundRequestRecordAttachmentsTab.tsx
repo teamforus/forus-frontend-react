@@ -2,24 +2,19 @@ import File from '../../../../../props/models/File';
 import { useFileService } from '../../../../../services/FileService';
 import { useFundRequestValidatorService } from '../../../../../services/FundRequestValidatorService';
 import React, { useCallback } from 'react';
-import useOpenModal from '../../../../../hooks/useOpenModal';
-import ModalImagePreview from '../../../../modals/ModalImagePreview';
-import ModalPdfPreview from '../../../../modals/ModalPdfPreview';
-import usePushDanger from '../../../../../hooks/usePushDanger';
+import useFilePreview from '../../../../../services/helpers/useFilePreview';
 
 export default function FundRequestRecordAttachmentsTab({
     attachments,
 }: {
-    attachments: Array<{
-        file: File;
-        date: string;
-    }>;
+    attachments: Array<{ file: File; date: string }>;
 }) {
+    const filePreview = useFilePreview();
+
     const fileService = useFileService();
     const fundRequestService = useFundRequestValidatorService();
+
     const hasFilePreview = useCallback((file) => fundRequestService.hasFilePreview(file), [fundRequestService]);
-    const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
 
     const downloadFile = useCallback(
         (e: React.MouseEvent<HTMLElement>, file: File) => {
@@ -39,16 +34,9 @@ export default function FundRequestRecordAttachmentsTab({
             e?.preventDefault();
             e?.stopPropagation();
 
-            if (file.ext == 'pdf') {
-                fileService.downloadBlob(file).then(
-                    (res) => openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />),
-                    (res) => pushDanger('Mislukt!', res.data?.message),
-                );
-            } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
-                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={file.url} />);
-            }
+            filePreview(file);
         },
-        [fileService, openModal, pushDanger],
+        [filePreview],
     );
 
     return (
