@@ -1,4 +1,5 @@
 import RecordType from '../../../dashboard/props/models/RecordType';
+import FundCriterionRule from './FundCriterionRule';
 
 export default interface FundCriterion {
     description: string;
@@ -13,7 +14,10 @@ export default interface FundCriterion {
     optional: boolean;
     record_type: RecordType;
     record_type_key: string;
+    order?: number;
     show_attachment: boolean;
+    fund_criteria_step_id?: number;
+    rules: Array<FundCriterionRule>;
     title: string;
     value: string;
 }

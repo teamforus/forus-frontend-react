@@ -104,7 +104,7 @@ export default function FundRequestRecordClarificationCard({
                                         <FileUploader
                                             type="fund_request_clarification_proof"
                                             files={clarification.files}
-                                            compact={true}
+                                            template={'compact'}
                                             readOnly={true}
                                             hideButtons={true}
                                         />
@@ -140,7 +140,7 @@ export default function FundRequestRecordClarificationCard({
                             <FileUploader
                                 type="fund_request_clarification_proof"
                                 files={[]}
-                                compact={true}
+                                template={'compact'}
                                 cropMedia={false}
                                 multiple={true}
                                 onFilesChange={({ files, fileItems }) => {

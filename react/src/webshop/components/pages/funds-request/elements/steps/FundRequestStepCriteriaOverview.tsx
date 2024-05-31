@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import Fund from '../../../../../props/models/Fund';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import FundRequestGoBackButton from '../FundRequestGoBackButton';
 import { LocalCriterion } from '../../FundRequest';
+import { groupBy, uniqBy } from 'lodash';
 
 export default function FundRequestStepCriteriaOverview({
     fund,
@@ -23,6 +24,10 @@ export default function FundRequestStepCriteriaOverview({
 }) {
     const translate = useTranslate();
 
+    const criteriaPerType = useMemo(() => {
+        return groupBy(pendingCriteria, 'record_type_key');
+    }, [pendingCriteria]);
+
     return (
         <Fragment>
             {progress}
@@ -38,10 +43,14 @@ export default function FundRequestStepCriteriaOverview({
                         })}
                     </p>
                     <ul className="sign_up-pane-list sign_up-pane-list-criteria">
-                        {pendingCriteria?.map((criterion) => (
+                        {uniqBy(pendingCriteria, 'record_type_key').map((criterion) => (
                             <li key={criterion.id}>
                                 <div className="item-icon item-icon-default" />
-                                <span>{criterion.title || criterion.title_default}</span>
+                                {criteriaPerType?.[criterion?.record_type_key].length > 1 ? (
+                                    <span>{criterion?.record_type?.name}</span>
+                                ) : (
+                                    <span>{criterion.title || criterion.title_default}</span>
+                                )}
                             </li>
                         ))}
                     </ul>

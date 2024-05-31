@@ -47,7 +47,7 @@ export default function FundRequestStepOverview({
                             <li key={criteria.id}>
                                 <div className="item-icon item-icon-default" />
                                 <span>
-                                    {criteria.title || criteria.record_type.name}{' '}
+                                    {criteria.title || criteria.record_type?.name}{' '}
                                     {criteria.operator != '=' && <span>is </span>}
                                 </span>
                                 <strong>
@@ -57,7 +57,7 @@ export default function FundRequestStepOverview({
 
                                     {['select', 'select_number'].includes(criteria.record_type.type) && (
                                         <span>
-                                            {criteria?.record_type_options?.[criteria?.input_value].name ||
+                                            {criteria?.record_type_options?.[criteria?.input_value]?.name ||
                                                 'Niet geselecteerd'}{' '}
                                         </span>
                                     )}

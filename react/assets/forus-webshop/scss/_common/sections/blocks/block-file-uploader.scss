@@ -1,5 +1,12 @@
 .block.block-file-uploader {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     .uploader-droparea {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
         width: 100%;
         background: #f8f8f8;
         padding: 25px 30px;
@@ -7,10 +14,9 @@
         border: 1px dashed #e5e6ec;
         border-radius: calc(var(--border-radius) / 2);
         color: #515152;
-        margin: 0 0 25px;
 
         .droparea-icon {
-            margin: 0 auto 20px;
+            margin: 0 auto;
             color: inherit;
             display: flex;
             justify-content: center;
@@ -18,7 +24,6 @@
             .mdi {
                 width: 50px;
                 height: 50px;
-                color: inherit;
                 font-size: 24px;
                 padding: 10px;
                 flex-direction: column;
@@ -31,8 +36,8 @@
 
         .droparea-title {
             font: 500 16px/26px var(--base-font);
+            justify-content: center;
             color: inherit;
-            margin: 0 0 15px;
 
             strong {
                 font-weight: 700;
@@ -44,10 +49,13 @@
         }
 
         .droparea-button {
-            margin: 0 auto 15px;
+            display: flex;
+            justify-content: center;
         }
 
         .droparea-size {
+            display: flex;
+            justify-content: center;
             font: 600 13px/18px var(--base-font);
             color: inherit;
         }
@@ -67,12 +75,28 @@
     }
 
     .uploader-files {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .uploader-files-title {
+            display: flex;
+            font: 700 16px/24px var(--base-font);
+            flex-direction: row;
+            padding: 0 0 5px;
+            gap: 6px;
+
+            .uploader-files-title-count {
+                padding: 2px 6px;
+                background: #e5e5e5;
+                border-radius: var(--border-radius);
+                font: 600 14px/20px var(--base-font);
+            }
+        }
 
         .file-item {
             display: flex;
             flex-direction: column;
-            margin: 0 0 10px;
 
             .file-item-container {
                 display: flex;
@@ -158,6 +182,9 @@
                 &.file-item-container-compact {
                     width: 450px;
                 }
+
+                &.file-item-container-inline {
+                }
             }
 
             .file-item-error {
@@ -189,36 +216,26 @@
         flex-direction: column-reverse;
         align-items: flex-start;
 
-        .droparea-icon {
-            display: none;
-        }
-
-        .droparea-title {
-            display: none;
-        }
-
+        .droparea-icon,
+        .droparea-title,
         .droparea-hidden-input {
             display: none;
         }
 
         .uploader-droparea {
             display: flex;
-            align-items: center;
             padding: 0;
             background: none;
             border: none;
-            margin: 0 0 0;
-
-            .droparea-button {
-                margin: 0 0 0;
-            }
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
 
             .droparea-max-limit {
                 color: #353535;
                 font-size: 11px;
                 font-weight: 400;
                 line-height: 11px;
-                margin-left: 12px;
 
                 &::before {
                     content: '*';
@@ -230,7 +247,6 @@
 
         .uploader-files {
             max-width: 100%;
-            margin-bottom: 10px;
 
             .file-item {
                 background: #ffffff;
@@ -247,6 +263,58 @@
         }
     }
 
+    &.block-file-uploader-inline {
+        max-width: 100%;
+        display: flex;
+
+        .droparea-icon,
+        .droparea-title,
+        .droparea-hidden-input {
+            display: none;
+        }
+
+        .uploader-droparea {
+            display: flex;
+            padding: 0;
+            background: none;
+            border: none;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            .droparea-max-limit {
+                color: #353535;
+                font-size: 11px;
+                font-weight: 400;
+                line-height: 11px;
+
+                &::before {
+                    content: '*';
+                    color: #ed133c;
+                    padding-right: 3px;
+                }
+            }
+        }
+
+        .uploader-files {
+            padding: 15px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            width: 100%;
+            flex-direction: column;
+            gap: 5px;
+            background-color: #fbfbfb;
+
+            .file-item {
+                background: #ffffff;
+
+                .file-item-container {
+                    padding: 5px 10px;
+                }
+            }
+        }
+    }
+
     @media (max-width: 991px) {
         .uploader-droparea {
             border: none;
@@ -256,10 +324,6 @@
             .droparea-icon,
             .droparea-title {
                 display: none;
-            }
-
-            .droparea-button {
-                margin: 0 0 10px;
             }
         }
     }
