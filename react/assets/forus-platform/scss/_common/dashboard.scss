@@ -3371,6 +3371,7 @@ body {
             transform: translate(0, -50%);
             z-index: 1;
             color: #151b26;
+            cursor: default;
 
             .tooltip-header {
                 font: 600 15px/28px var(--base-font);
@@ -4779,7 +4780,7 @@ body {
                         width: auto;
                     }
 
-                    & > .form-offset, & >.form-control {
+                    & > .form-offset, & >.form-control, & >.form-control {
                         width: auto;
                     }
                 }

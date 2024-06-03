@@ -12,7 +12,7 @@ import UIControlSearch from '../../../../dashboard/components/elements/forms/ui-
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import SelectControlOptions from '../../../../dashboard/components/elements/select-control/templates/SelectControlOptions';
 import { useFundService } from '../../../services/FundService';
-import { useTagService } from '../../../services/TagService';
+import { useTagService } from '../../../../dashboard/services/TagService';
 import useFilter from '../../../../dashboard/hooks/useFilter';
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';

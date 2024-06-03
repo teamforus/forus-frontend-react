@@ -51,6 +51,7 @@ export type SelectControlOptionsProp<T> = {
     setShowOptions: (show: boolean) => void;
     searchInputChanged: () => void;
     onOptionsScroll: (e: UIEvent<HTMLElement>) => void;
+    disabled?: boolean;
 };
 
 export default function SelectControl<T>({
@@ -245,5 +246,6 @@ export default function SelectControl<T>({
         onOptionsScroll,
         modelValue,
         className,
+        disabled,
     });
 }

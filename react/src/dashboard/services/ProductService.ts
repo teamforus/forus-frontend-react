@@ -35,7 +35,7 @@ export class ProductService<T = Product> {
      * Fetch list
      */
     public listAll(data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefixPublic}`, data);
+        return this.apiRequest.get(`${this.prefixPublic}/products`, data);
     }
 
     /**

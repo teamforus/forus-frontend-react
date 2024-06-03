@@ -15,7 +15,7 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import RecordType from '../../../../dashboard/props/models/RecordType';
 import { useRecordTypeService } from '../../../../dashboard/services/RecordTypeService';
-import { useTagService } from '../../../services/TagService';
+import { useTagService } from '../../../../dashboard/services/TagService';
 import Tag from '../../../../dashboard/props/models/Tag';
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
 import Organization from '../../../../dashboard/props/models/Organization';

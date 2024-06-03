@@ -16,7 +16,9 @@ export class ClipboardService {
                     document.body.removeChild(el);
                     resolve();
                 })
-                .catch((err) => console.error(err));
+                .catch((err) => {
+                    console.error(err);
+                });
         });
     }
 }
