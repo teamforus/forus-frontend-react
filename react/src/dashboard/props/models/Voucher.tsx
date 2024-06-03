@@ -9,7 +9,7 @@ export default interface Voucher {
     id: number;
     address?: string;
     fund_id: number;
-    expired: boolean;
+    expired?: boolean;
     fund: Fund;
     type?: 'regular' | 'product';
     state?: string;
@@ -38,6 +38,10 @@ export default interface Voucher {
         name: string;
         logo: Media;
     }>;
+    note?: string;
+    in_use?: boolean;
+    first_use_date_locale?: string | null;
+    amount?: string;
     history: Array<{
         id: number;
         event: string;
@@ -47,7 +51,6 @@ export default interface Voucher {
     }>;
     deactivated?: boolean;
     is_external: boolean;
-    amount?: string;
     amount_locale?: string;
     used: boolean;
     last_transaction_at?: string;
@@ -56,8 +59,8 @@ export default interface Voucher {
     returnable?: boolean;
     last_active_day_locale?: string;
     physical_card?: { id: null; code: string };
-    created_at: string;
-    created_at_locale: string;
+    created_at?: string;
+    created_at_locale?: string;
     identity_email?: string;
     expire_at?: string;
     expire_at_locale?: string;

@@ -1,7 +1,7 @@
+import { PaginationData } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import RecordType from '../props/models/RecordType';
-import { ResponseSimple } from '../props/ApiResponses';
 
 export class RecordTypeService<T = RecordType> {
     /**
@@ -19,8 +19,8 @@ export class RecordTypeService<T = RecordType> {
     /**
      * Fetch list
      */
-    public list(data: object = {}): Promise<ResponseSimple<Array<T>>> {
-        return this.apiRequest.get(`${this.prefix}`, data);
+    public list(filters: object = {}): Promise<PaginationData<T>> {
+        return this.apiRequest.get(`${this.prefix}`, filters);
     }
 }
 

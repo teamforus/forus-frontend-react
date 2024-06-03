@@ -55,6 +55,7 @@ export default interface Organization {
     auth_2fa_funds_restrict_emails: boolean;
     auth_2fa_funds_restrict_auth_sessions: boolean;
     auth_2fa_funds_restrict_reimbursements: boolean;
+    auth_2fa_restrict_bi_connections: boolean;
     tags: Array<Tag>;
     logo?: Media;
     business_type: BusinessType;

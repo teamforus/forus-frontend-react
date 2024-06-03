@@ -27,7 +27,8 @@ pre.code {
 
 // angularjsand ui-router directives
 [ui-sref],
-[ng-click] {
+[ng-click],
+.clickable {
     cursor: pointer;
 }
 

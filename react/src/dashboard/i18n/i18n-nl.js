@@ -554,6 +554,7 @@ module.exports = {
             base_card: {
                 header: {
                     description: "Beschrijving",
+                    formulas: "Rekenregels",
                     statistics: "Statistieken",
                     criteria: "Voorwaarden",
                 },

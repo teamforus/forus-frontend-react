@@ -19,7 +19,7 @@ export class FundProviderInvitationsService<T = FundProviderInvitation> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/funds/${fund_id}/provider-invitations`, query);
     }
 
-    public store(organization_id: number, fund_id: number, from_fund_id: number): Promise<ApiResponseSingle<T>> {
+    public store(organization_id: number, fund_id: number, from_fund_id: number): Promise<ApiResponse<T>> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/funds/${fund_id}/provider-invitations`, {
             fund_id: from_fund_id,
         });
