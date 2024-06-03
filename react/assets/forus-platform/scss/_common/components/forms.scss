@@ -236,15 +236,6 @@
         &.select-control {
             padding: 0;
             border: none;
-
-            &.disabled {
-                background-color: #f1f1f1;
-                pointer-events: none;
-
-                .select-control-search {
-                    background-color: #f1f1f1;
-                }
-            }
         }
 
         &.form-control-dashed {
@@ -502,7 +493,7 @@
             }
 
             &>.form-offset,
-            &>.form-control, &>.react-datepicker-wrapper {
+            &>.form-control {
                 width: calc(100% - 200px);
                 float: left;
 

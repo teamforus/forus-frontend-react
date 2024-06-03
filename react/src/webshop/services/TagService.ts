@@ -1,7 +1,7 @@
+import ApiResponse from '../../dashboard/props/ApiResponses';
 import { useState } from 'react';
-import ApiRequestService from './ApiRequestService';
-import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
-import Tag from '../props/models/Tag';
+import ApiRequestService from '../../dashboard/services/ApiRequestService';
+import Tag from '../../dashboard/props/models/Tag';
 
 export class TagService<T = Tag> {
     /**
@@ -21,13 +21,6 @@ export class TagService<T = Tag> {
      */
     public list(data: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.get(`${this.prefix}`, data);
-    }
-
-    /**
-     * Fetch list
-     */
-    public show(tagId: number, data: object = {}): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.get(`${this.prefix}/${tagId}`, data);
     }
 }
 

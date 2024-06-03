@@ -22,7 +22,6 @@ export default function SelectControlOptions<T>({
     setShowOptions,
     searchInputChanged,
     onOptionsScroll,
-    disabled,
 }: SelectControlOptionsProp<T>) {
     const [controlId] = useState('select_control_' + uniqueId());
     const input = useRef(null);
@@ -32,7 +31,7 @@ export default function SelectControlOptions<T>({
     return (
         <div
             id={id}
-            className={`select-control ${disabled ? 'disabled' : ''} ${className ? className : ''}`}
+            className={'select-control ' + (className ? className : '')}
             tabIndex={0}
             role="button"
             data-dusk={dusk}
