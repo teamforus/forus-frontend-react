@@ -1,35 +1,39 @@
 import React, { useCallback } from 'react';
 import ClickOutside from '../click-outside/ClickOutside';
 
-export default function TableRowActions<T = number>({
-    activeId,
-    setActiveId,
-    id,
-    children,
-}: {
-    activeId: T;
-    setActiveId: React.Dispatch<React.SetStateAction<T>>;
-    id: T;
+export default function TableRowActions(props: {
+    actions: Array<unknown>;
+    setActions: (actions: Array<unknown>) => void;
+    modelItem: { id: number };
     children: React.ReactElement;
 }) {
     const toggleActions = useCallback(
-        (e, id: T) => {
+        (e, item) => {
             e.stopPropagation();
-            setActiveId((activeId) => (activeId === id ? null : id));
+
+            if (props.actions.indexOf(item.id) !== -1) {
+                props.actions.splice(props.actions.indexOf(item.id), 1);
+            } else {
+                props.actions.push(item.id);
+            }
+
+            props.setActions([...props.actions]);
         },
-        [setActiveId],
+        [props],
     );
 
     return (
-        <div className="button button-text button-menu" onClick={(e) => toggleActions(e, id)}>
+        <div
+            className="button button-text button-icon button-menu pull-right active"
+            onClick={(e) => toggleActions(e, props.modelItem)}>
             <em className="mdi mdi-dots-horizontal" />
-            {id === activeId && (
+            {props.actions.indexOf(props.modelItem.id) !== -1 && (
                 <ClickOutside
-                    onClick={(e) => e.stopPropagation()}
-                    onClickOutside={(e) => toggleActions(e, id)}
+                    onClick={null}
+                    onClickOutside={(e) => toggleActions(e, props.modelItem)}
                     className="menu-dropdown">
-                    <div className="menu-dropdown-arrow" />
-                    {children}
+                    <div className="menu-dropdown-arrow"></div>
+                    {props.children}
                 </ClickOutside>
             )}
         </div>

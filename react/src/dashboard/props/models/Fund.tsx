@@ -1,10 +1,8 @@
 import Organization from './Organization';
 import Media from './Media';
 import Implementation from './Implementation';
-import Tag from './Tag';
-import Faq from './Faq';
+import FundCriterion from './FundCriterion';
 import FundFormula from '../../../webshop/props/models/FundFormula';
-import { FundCriterionLocal } from '../../components/elements/fund-criteria-editor/FundCriteriaEditor';
 
 interface FundVoucherStatistics {
     active_vouchers_amount?: string;
@@ -29,13 +27,12 @@ export default interface Fund {
     logo?: Media;
     description?: string;
     description_short?: string;
-    description_html: string;
     organization_id: number;
     organization?: Organization;
     products_count_all?: number;
     products_count_approved?: number;
     products_count_available?: number;
-    state?: 'pending' | 'active' | 'closed' | 'paused' | 'waiting';
+    state?: 'pending' | 'active' | 'closed' | 'waiting';
     state_locale?: string;
     start_date?: string;
     start_date_locale?: string;
@@ -50,37 +47,12 @@ export default interface Fund {
     request_btn_text?: string;
     external_link_url?: string;
     external_link_text?: string;
+    description_html?: string;
     description_position?: 'before' | 'after' | 'replace';
     implementation?: Implementation;
-    type_locale: string;
-    requester_count: number;
-    criteria: Array<FundCriterionLocal>;
-    criteria_editable: boolean;
-    provider_organizations_count: number;
-    provider_employees_count: number;
-    is_configured: boolean;
-    sponsor_count: number;
-    auth_2fa_policy?: 'global' | 'optional' | 'required' | 'restrict_features';
-    auth_2fa_remember_ip?: boolean;
-    auth_2fa_restrict_emails?: boolean;
-    auth_2fa_restrict_auth_sessions?: boolean;
-    auth_2fa_restrict_bi_connections?: boolean;
-    auth_2fa_restrict_reimbursements?: boolean;
-    organization_funds_2fa?: {
-        auth_2fa_policy: 'global' | 'optional' | 'required' | 'restrict_features';
-        auth_2fa_remember_ip?: boolean;
-        auth_2fa_restrict_emails?: boolean;
-        auth_2fa_restrict_auth_sessions?: boolean;
-        auth_2fa_restrict_reimbursements?: boolean;
-        auth_2fa_restrict_bi_connections?: boolean;
-    };
-    balance_provider: string;
-    allow_fund_requests?: boolean;
-    allow_prevalidations?: boolean;
-    tags: Array<Tag>;
-    faq?: Array<Faq>;
     csv_primary_key: string;
     csv_required_keys: Array<string>;
+    criteria: Array<FundCriterion>;
     formulas?: Array<FundFormula>;
     budget?: FundVoucherStatistics & {
         used_active_vouchers?: string;
@@ -95,6 +67,12 @@ export default interface Fund {
         transaction_costs_locale?: string;
     };
     product_vouchers: FundVoucherStatistics;
+    faq: Array<{
+        id: number;
+        title: string;
+        description: string;
+        description_html: string;
+    }>;
     faq_title?: string;
     allow_reimbursements?: boolean;
     allow_physical_cards?: boolean;

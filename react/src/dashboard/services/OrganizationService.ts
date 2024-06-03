@@ -111,7 +111,7 @@ export class OrganizationService<T = Organization> {
         });
     }
 
-    public readListValidators(id: number, data: object = {}): Promise<ApiResponse<T>> {
+    public readListValidators(id: number, data: object = {}) {
         return this.apiRequest.get(`${this.prefix}/${id}/validators`, data);
     }
 

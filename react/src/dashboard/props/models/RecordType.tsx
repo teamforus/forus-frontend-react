@@ -7,7 +7,6 @@ export default interface RecordType {
     type: 'number' | 'string' | 'select' | 'bool' | 'date' | 'iban' | 'email';
     system: boolean;
     name: string;
-    validations: Array<'date' | 'email' | 'iban' | 'min' | 'max'>;
     options: Array<RecordTypeOption>;
     operators?: Array<RecordTypeOperator>;
 }
