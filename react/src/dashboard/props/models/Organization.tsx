@@ -64,6 +64,7 @@ export default interface Organization {
     can_view_provider_extra_payments?: boolean;
     allow_extra_payments_by_sponsor?: boolean;
     can_receive_extra_payments?: boolean;
+    validator_organization_id?: number;
     bank_statement_details?: {
         bank_transaction_id?: boolean;
         bank_transaction_date?: boolean;

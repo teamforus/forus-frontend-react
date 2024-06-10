@@ -59,6 +59,7 @@ import TransactionBulksView from '../components/pages/transaction-bulks-view/Tra
 import ReimbursementCategories from '../components/pages/reimbursement-categories/ReimbursementCategories';
 import BiConnection from '../components/pages/bi-connection/BiConnection';
 import ThrowError from '../components/pages_system/ThrowError';
+import ExternalValidator from '../components/pages/external-validators/ExternalValidator';
 
 const router = new RouterBuilder();
 
@@ -126,7 +127,7 @@ router.state('pre-check', <WIP title={'Pre-check'} />, {
     fallbackState: 'organizations',
 });
 
-router.state('external-validators', <WIP title={'External validators'} />, {
+router.state('external-validators', <ExternalValidator />, {
     path: `/organizations/:organizationId/external-validators`,
     fallbackState: 'organizations',
 });

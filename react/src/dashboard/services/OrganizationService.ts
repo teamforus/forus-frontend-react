@@ -111,7 +111,7 @@ export class OrganizationService<T = Organization> {
         });
     }
 
-    public readListValidators(id: number, data: object = {}) {
+    public readListValidators(id: number, data: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.get(`${this.prefix}/${id}/validators`, data);
     }
 
@@ -122,11 +122,8 @@ export class OrganizationService<T = Organization> {
         });
     }
 
-    public removeExternalValidator(id: number, validator_organization_id: number, data = {}) {
-        return this.apiRequest.delete(`${this.prefix}/${id}/validators`, {
-            ...data,
-            organization_id: validator_organization_id,
-        });
+    public removeExternalValidator(id: number, validator_organization_id: number) {
+        return this.apiRequest.delete(`${this.prefix}/${id}/validators/${validator_organization_id}`);
     }
 
     public listProviders(id: number, data = {}): Promise<ApiResponse<T>> {
