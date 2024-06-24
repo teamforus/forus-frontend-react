@@ -87,7 +87,7 @@
     "@mdi/font": "^7.2.96",
     "@mdi/js": "^7.1.96",
     "@react-google-maps/api": "^2.19.2",
-    "aws-rum-web": "^1.17.2",
+    "aws-rum-web": "^1.18.0",
     "chart.js": "^4.4.1",
     "clean-webpack-plugin": "^4.0.0",
     "colors": "^1.4.0",
