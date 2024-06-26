@@ -67,7 +67,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                             fund?.logo?.sizes?.small ||
                             assetUrl('/assets/img/placeholders/fund-thumbnail.png')
                         }
-                        alt={`Dit is de afbeelding van ${fund?.name}`}
+                        alt={``}
                     />
                 </div>
                 <div className="fund-details">

@@ -134,8 +134,7 @@ export class ProductService<T = Product> {
     }
 
     public transformProductAlternativeText(product: Product): string {
-        const default_text =
-            'Dit is een afbeelding van het aanbod ' + product.name + ' van aanbieder ' + product.organization.name;
+        const default_text = 'logo aanbod ' + product.name;
         const provider_text = '.De aanbieder omschrijft het aanbod als volgt: ' + product.alternative_text;
 
         return default_text + (product.alternative_text ? provider_text : '');

@@ -64,7 +64,10 @@ export default function ReimbursementCard({
             params={{ id: reimbursement.id }}
             className="reimbursement-item"
             dataDusk={`reimbursementsItem${reimbursement.id}`}>
-            <div className={`reimbursement-image reimbursement-image-${reimbursement.state}`} role="img">
+            <div
+                className={`reimbursement-image reimbursement-image-${reimbursement.state}`}
+                role="img"
+                aria-hidden={!reimbursement?.files?.[0]?.preview}>
                 {!reimbursement?.files?.[0]?.preview ? (
                     <IconReimbursement />
                 ) : (

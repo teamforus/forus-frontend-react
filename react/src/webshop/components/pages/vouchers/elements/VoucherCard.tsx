@@ -58,14 +58,7 @@ export default function VoucherCard({
             className="voucher-item"
             dataDusk="voucherItem">
             <div className="voucher-image">
-                <img
-                    src={voucherCard.thumbnail}
-                    alt={`Dit is de afbeelding van ${
-                        voucherCard.type == 'product'
-                            ? 'product ' + voucherCard.product.name
-                            : 'fund ' + voucherCard.fund.name
-                    }`}
-                />
+                <img src={voucherCard.thumbnail} alt="" />
             </div>
             <div className="voucher-details">
                 <h2 className="voucher-name" data-dusk="voucherName">

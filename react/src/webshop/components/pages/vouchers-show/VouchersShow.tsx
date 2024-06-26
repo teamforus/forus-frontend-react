@@ -310,11 +310,7 @@ export default function VouchersShow() {
                                     <div className="card-inner">
                                         <div className="card-body">
                                             <div className="card-photo">
-                                                <img
-                                                    className="voucher-img"
-                                                    src={voucherCard.thumbnail}
-                                                    alt={voucherCard.title}
-                                                />
+                                                <img className="voucher-img" src={voucherCard.thumbnail} alt={''} />
                                             </div>
                                             <div className="card-section">
                                                 <h2 className="card-title" data-dusk="voucherTitle">
@@ -651,11 +647,7 @@ export default function VouchersShow() {
                                     <div className="card-inner">
                                         <div className="card-body">
                                             <div className="card-photo">
-                                                <img
-                                                    className="voucher-img"
-                                                    src={voucherCard.thumbnail}
-                                                    alt="{{voucherCard.title}}"
-                                                />
+                                                <img className="voucher-img" src={voucherCard.thumbnail} alt={''} />
                                             </div>
                                             <div className="card-section">
                                                 <h2 className="card-title">{strLimit(voucherCard.title, 40)}</h2>

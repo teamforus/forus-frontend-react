@@ -24,12 +24,12 @@ export default function EmptyBlock({
     return (
         <div className="block block-empty" data-dusk={dataDusk}>
             {svgIcon === 'reimbursements' && (
-                <div className="block-icon">
+                <div className="block-icon" aria-hidden="true">
                     <IconReimbursements />
                 </div>
             )}
             {svgIcon === 'fund-requests' && (
-                <div className="block-icon">
+                <div className="block-icon" aria-hidden="true">
                     <IconFundRequest />
                 </div>
             )}

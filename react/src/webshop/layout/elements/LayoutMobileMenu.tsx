@@ -99,7 +99,7 @@ export default function LayoutMobileMenu() {
                                     target={menuItem.target || '_blank'}
                                     activeExact={true}
                                     onClick={hideMobileMenu}>
-                                    <em className="mobile-menu-item-icon mdi mdi-arrow-right" />
+                                    <em className="mobile-menu-item-icon mdi mdi-arrow-right" aria-hidden="true" />
                                     {translate(
                                         menuItem.nameTranslate,
                                         {},
@@ -114,7 +114,7 @@ export default function LayoutMobileMenu() {
                                     href={menuItem.href}
                                     target={menuItem.target || '_blank'}
                                     onClick={hideMobileMenu}>
-                                    <em className="mobile-menu-item-icon mdi mdi-arrow-right" />
+                                    <em className="mobile-menu-item-icon mdi mdi-arrow-right" aria-hidden="true" />
                                     {translate(
                                         menuItem.nameTranslate,
                                         {},

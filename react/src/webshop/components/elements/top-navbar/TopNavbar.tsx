@@ -411,12 +411,15 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         {translate('topnavbar.items.menu')}
                     </div>
 
-                    <StateNavLink name={'home'} className="navbar-logo show-sm">
-                        <img src={assetUrl(`/assets/img/logo-normal${logoExtension}`)} alt="Terug naar hoofdpagina" />
+                    <StateNavLink name={'home'} className="navbar-logo show-sm" title={`Terug naar hoofdpagina`}>
+                        <img
+                            src={assetUrl(`/assets/img/logo-normal${logoExtension}`)}
+                            alt={translate(`logo_alt_text.${envData.client_key}`, {}, envData.client_key)}
+                        />
                         <img
                             className="hover"
                             src={assetUrl(`/assets/img/logo-hover${logoExtension}`)}
-                            alt="Terug naar hoofdpagina"
+                            alt={translate(`logo_alt_text.${envData.client_key}`, {}, envData.client_key)}
                         />
                     </StateNavLink>
 
@@ -472,6 +475,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                             <img
                                 src={assetUrl(`/assets/img/logo-normal${logoExtension}`)}
                                 alt={translate(`logo_alt_text.${envData.client_key}`, {}, envData.client_key)}
+                                title={`Naar de homepage van ${window.location.host}`}
                             />
                         </StateNavLink>
 

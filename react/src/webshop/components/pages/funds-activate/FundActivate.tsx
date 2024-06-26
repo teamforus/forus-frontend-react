@@ -584,7 +584,7 @@ export default function FundActivate() {
                                                     <img
                                                         className="sign_up-option-media-img"
                                                         src={assetUrl('/assets/img/icon-auth/icon-auth-digid.svg')}
-                                                        alt=""
+                                                        alt="logo DigiD"
                                                     />
                                                 </div>
                                                 <div className="sign_up-option-details">

@@ -104,7 +104,7 @@ export default function HeaderNotifications({ organization }: { organization: Or
                                 onClick={() => setShowNotifications(false)}
                                 className="notifications-menu-header-link">
                                 Bekijk alles
-                                <em className="mdi mdi-arrow-right" />
+                                <em className="mdi mdi-arrow-right" aria-hidden="true" />
                             </NavLink>
                         </div>
                         <div className="notifications-menu-body">

@@ -76,7 +76,7 @@ export default function ProvidersListItemList({
                                                     office?.photo?.sizes?.thumbnail ||
                                                     assetUrl('/assets/img/placeholders/office-thumbnail.png')
                                                 }
-                                                alt={`Vestiging ${office.organization?.name}`}
+                                                alt=""
                                             />
                                         </div>
                                         <div className="office-details">
