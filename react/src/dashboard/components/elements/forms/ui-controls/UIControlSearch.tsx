@@ -1,4 +1,7 @@
 import React, { useCallback, useRef } from 'react';
+import useCustomInputValidationMessage, {
+    InputValidationTexts,
+} from '../../../../hooks/useCustomInputValidationMessage';
 
 export default function UIControlSearch({
     id = '',
@@ -15,6 +18,7 @@ export default function UIControlSearch({
     ngKeyDown = null,
     onChangeValue = null,
     inputRef = null,
+    validationMessages = null,
 }: {
     id?: string;
     name?: string;
@@ -30,8 +34,10 @@ export default function UIControlSearch({
     ngKeyDown?: () => void;
     onChangeValue?: (value: string) => void;
     inputRef?: React.RefObject<HTMLInputElement>;
+    validationMessages?: InputValidationTexts;
 }) {
     const innerInputRef = useRef<HTMLInputElement>(null);
+    const customInputValidationMessage = useCustomInputValidationMessage();
 
     const reset = useCallback(() => {
         if (onChangeValue) {
@@ -52,6 +58,7 @@ export default function UIControlSearch({
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     onChange ? onChange(e) : null;
                     onChangeValue ? onChangeValue(e?.target?.value) : null;
+                    customInputValidationMessage?.(e, validationMessages);
                 }}
                 tabIndex={tabIndex}
                 onClick={onClick}

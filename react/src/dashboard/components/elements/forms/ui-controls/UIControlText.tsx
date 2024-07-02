@@ -1,4 +1,7 @@
 import React, { useCallback, useRef } from 'react';
+import useCustomInputValidationMessage, {
+    InputValidationTexts,
+} from '../../../../hooks/useCustomInputValidationMessage';
 
 export default function UIControlText({
     id = '',
@@ -16,6 +19,7 @@ export default function UIControlText({
     autoFocus = false,
     dataDusk = null,
     rows = 5,
+    validationMessages = null,
 }: {
     id?: string;
     name?: string;
@@ -32,8 +36,10 @@ export default function UIControlText({
     autoFocus?: boolean;
     dataDusk?: string;
     rows?: number;
+    validationMessages?: InputValidationTexts;
 }) {
     const innerInputRef = useRef<HTMLInputElement>(null);
+    const customInputValidationMessage = useCustomInputValidationMessage();
 
     const reset = useCallback(() => {
         (inputRef || innerInputRef).current.value = '';
@@ -49,8 +55,9 @@ export default function UIControlText({
                 id: id,
                 name: name,
                 onChange: (e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
-                    onChange ? onChange(e) : null;
-                    onChangeValue ? onChangeValue(e?.target?.value) : null;
+                    onChange?.(e);
+                    onChangeValue?.(e?.target?.value);
+                    customInputValidationMessage?.(e, validationMessages);
                 },
                 placeholder: placeholder,
                 disabled: disabled,

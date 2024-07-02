@@ -9,6 +9,9 @@ module.exports = {
         restore_header: '',
         start_email: 'Start aanvraag',
         signup_option: 'Maak een keuze om verder te gaan',
+        errors: {
+            email: 'Vul alstublieft een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.com',
+        },
         ede: {
             title: 'Inloggen',
             header: 'Hier logt u in',

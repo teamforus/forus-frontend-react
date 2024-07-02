@@ -1,4 +1,7 @@
 import React, { useCallback, useRef } from 'react';
+import useCustomInputValidationMessage, {
+    InputValidationTexts,
+} from '../../../../hooks/useCustomInputValidationMessage';
 
 export default function UIControlNumber({
     id = '',
@@ -19,6 +22,7 @@ export default function UIControlNumber({
     step = 0.01,
     dusk = null,
     precision = 2,
+    validationMessages = null,
 }: {
     id?: string;
     name?: string;
@@ -38,8 +42,10 @@ export default function UIControlNumber({
     step?: number;
     dusk?: string;
     precision?: number;
+    validationMessages?: InputValidationTexts;
 }) {
     const innerInputRef = useRef<HTMLInputElement>(null);
+    const customInputValidationMessage = useCustomInputValidationMessage();
 
     // todo: poc
     /*const [showClear, setShowClear] = useState(false);*/
@@ -70,6 +76,7 @@ export default function UIControlNumber({
                 onChange={(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
                     onChange ? onChange(e) : null;
                     onChangeValue ? onChangeValue(parseFloat(parseFloat(e?.target?.value).toFixed(precision))) : null;
+                    customInputValidationMessage?.(e, validationMessages);
                 }}
                 min={min}
                 max={max}

@@ -213,6 +213,7 @@ export default function Start() {
                             type={'email'}
                             value={authForm.values.email}
                             onChange={(e) => authForm.update({ email: e.target.value })}
+                            validationMessages={{ typeMismatch: translate('signup.items.errors.email') }}
                             placeholder={'e-mail@e-mail.nl'}
                             id={'email'}
                             name={'email'}
