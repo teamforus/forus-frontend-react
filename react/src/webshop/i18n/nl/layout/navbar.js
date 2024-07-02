@@ -9,7 +9,10 @@ module.exports = {
         identity: 'Profiel',
         signup: 'Uitleg aanbieders',
         search: 'Zoek',
-        menu: 'Meer',
+        menu: {
+            show: 'Meer',
+            close: 'Close',
+        },
         westerkwartier: {
             funds: 'Potjes',
         },

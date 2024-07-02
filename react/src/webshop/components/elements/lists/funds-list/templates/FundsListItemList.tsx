@@ -4,6 +4,7 @@ import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import { strLimit } from '../../../../../../dashboard/helpers/string';
 import FundsListItemModel from '../../../../../services/types/FundsListItemModel';
+import { uniqueId } from 'lodash';
 
 export default function FundsListItemList({
     fund,
@@ -17,6 +18,7 @@ export default function FundsListItemList({
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const [showMore, setShowMore] = useState(false);
+    const [showMoreId] = useState(uniqueId('fund_description_short_'));
 
     return (
         <Fragment>
@@ -65,7 +67,7 @@ export default function FundsListItemList({
 
                     {fund.description_short && (
                         <div className="fund-description">
-                            <span id="fund_description_short">
+                            <span id={showMoreId}>
                                 {showMore ? fund.description_short : strLimit(fund.description_short, 190)}
                             </span>
                             <br />
@@ -74,7 +76,7 @@ export default function FundsListItemList({
                                     className="button button-text button-xs"
                                     onClick={() => setShowMore(!showMore)}
                                     aria-expanded={showMore}
-                                    aria-controls="fund_description_short">
+                                    aria-controls={showMoreId}>
                                     {showMore ? 'Toon minder' : 'Toon meer'}
                                     <em
                                         className={`mdi ${showMore ? 'mdi-chevron-up' : 'mdi-chevron-down'} icon-right`}

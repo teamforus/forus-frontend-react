@@ -406,9 +406,12 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                 <div className="navbar-inner wrapper">
                     <div
                         className={`button navbar-menu-button show-sm ${mobileMenuOpened ? 'active' : ''}`}
+                        aria-expanded={mobileMenuOpened}
                         onClick={openMobileMenu}>
                         <em className={`mdi ${mobileMenuOpened ? 'mdi-close' : 'mdi-menu'}`} />
-                        {translate('topnavbar.items.menu')}
+                        {mobileMenuOpened
+                            ? translate('topnavbar.items.menu.close')
+                            : translate('topnavbar.items.menu.show')}
                     </div>
 
                     <StateNavLink name={'home'} className="navbar-logo show-sm">
@@ -424,6 +427,8 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         <div
                             className="button navbar-search-button show-sm"
                             onClick={(e) => toggleSearchBox(e)}
+                            aria-expanded={showSearchBox}
+                            aria-controls={'navbar-search'}
                             role="button">
                             <em className="mdi mdi-magnify" />
                             {translate('topnavbar.items.search')}
@@ -466,7 +471,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
             </div>
 
             {(showSearchBox || envData.config.flags.genericSearchUseToggle) && (
-                <div className={`block block-subnav ${showSearchBox ? 'search-shown' : ''}`}>
+                <div id="navbar-search" className={`block block-subnav ${showSearchBox ? 'search-shown' : ''}`}>
                     <div className="subnav-inner wrapper">
                         <StateNavLink name={'home'} className="navbar-logo hide-sm">
                             <img

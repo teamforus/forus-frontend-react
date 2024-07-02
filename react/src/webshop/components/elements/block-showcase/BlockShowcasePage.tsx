@@ -39,7 +39,12 @@ export default function BlockShowcasePage({
                         <div className="mobile-filters-count-value">{countFiltersApplied}</div>
                     </div>
                     <div className="mobile-filters-title">Filteren</div>
-                    <div className="mobile-filters-icon" onClick={toggleMobileMenu} aria-label="Filteren">
+                    <div
+                        className="mobile-filters-icon"
+                        onClick={toggleMobileMenu}
+                        aria-label="Filteren"
+                        aria-expanded={showModalFilters}
+                        aria-controls={'aside-mobile'}>
                         <em className="mdi mdi-filter-outline" />
                     </div>
                 </div>
@@ -47,7 +52,9 @@ export default function BlockShowcasePage({
                 {breadcrumbs}
 
                 <div className="showcase-layout">
-                    <div className={`showcase-aside form form-compact ${showModalFilters ? 'show-mobile' : ''}`}>
+                    <div
+                        className={`showcase-aside form form-compact ${showModalFilters ? 'show-mobile' : ''}`}
+                        id={'aside-mobile'}>
                         {aside || <BlockLoader />}
                     </div>
 

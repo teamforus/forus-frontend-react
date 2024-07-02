@@ -21,6 +21,12 @@
                 color: var(--color-primary);
             }
         }
+
+        &:focus {
+            &+.tooltip {
+                display: block;
+            }
+        }
     }
 
     .tooltip {

@@ -6,7 +6,7 @@ export default function Tooltip({ text, className }: { text: string; className?:
 
     return (
         <div className="tooltip-block">
-            <div className="tooltip-icon">
+            <div className="tooltip-icon" role="button" tabIndex={0}>
                 <em className="mdi mdi-information-variant-circle" />
             </div>
             <div className={`tooltip ${className}`}>{translate(text)}</div>

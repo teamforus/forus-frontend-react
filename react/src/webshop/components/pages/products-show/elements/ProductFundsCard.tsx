@@ -228,12 +228,13 @@ export default function ProductFundsCard({ product, vouchers = [] }: { product: 
 
                                     {fund.meta.isReservationAvailable && (
                                         <div className="fund-item-section">
-                                            <div
+                                            <button
+                                                type={'button'}
                                                 className="button button-dark button-flat"
                                                 onClick={() => reserveProduct(fund)}
                                                 data-dusk="reserveProduct">
                                                 {translate('product.buttons.buy')}
-                                            </div>
+                                            </button>
                                         </div>
                                     )}
                                     {fund.external_link_text && fund.external_link_url && (

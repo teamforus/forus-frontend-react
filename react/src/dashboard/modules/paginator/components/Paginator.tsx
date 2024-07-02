@@ -127,6 +127,7 @@ export default function Paginator({
                         onClick={() => setPage(page)}
                         onKeyDown={clickOnKeyEnter}
                         className={`button ${page === meta.current_page ? buttonClassActive : buttonClass}`}>
+                        <span className="wcag-hidden">{translate('paginator.buttons.wcag_page')} </span>
                         {page}
                     </div>
                 ))}

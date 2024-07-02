@@ -370,11 +370,10 @@ export default function FundsShow() {
                                                     }}
                                                     role="button"
                                                     aria-expanded={!!visibleFaq?.[question.id]}
-                                                    aria-controls={`faq_item_${question.id}`}>
+                                                    aria-controls={`faq_item_${question.id}`}
+                                                    tabIndex={0}>
                                                     <div className="faq-item-header">
-                                                        <h2 className="faq-item-title" role="button" tabIndex={0}>
-                                                            {question.title}
-                                                        </h2>
+                                                        <h2 className="faq-item-title">{question.title}</h2>
                                                         <em className="faq-item-chevron-down mdi mdi-chevron-down" />
                                                         <em className="faq-item-chevron-up mdi mdi-chevron-up" />
                                                     </div>
