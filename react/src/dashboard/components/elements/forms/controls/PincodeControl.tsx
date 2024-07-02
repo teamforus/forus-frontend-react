@@ -1,18 +1,6 @@
 import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { chunk } from 'lodash';
 
-interface CheckboxProps {
-    id?: string;
-    title?: string;
-    value?: string;
-    valueType?: 'alphaNum' | 'alpha' | 'num';
-    onChange: (value: string) => void;
-    blockSize?: number;
-    blockCount?: number;
-    cantDeleteSize?: number;
-    className?: string;
-}
-
 export default function PincodeControl({
     id,
     title,
@@ -22,8 +10,20 @@ export default function PincodeControl({
     blockSize = 6,
     blockCount = 1,
     cantDeleteSize = 0,
+    ariaLabel = null,
     className,
-}: CheckboxProps) {
+}: {
+    id?: string;
+    title?: string;
+    value?: string;
+    valueType?: 'alphaNum' | 'alpha' | 'num';
+    onChange: (value: string) => void;
+    blockSize?: number;
+    blockCount?: number;
+    cantDeleteSize?: number;
+    ariaLabel?: string;
+    className?: string;
+}) {
     const totalSize = blockSize * blockCount;
     const immutableSize = Math.min(cantDeleteSize, value.length);
 
@@ -104,6 +104,7 @@ export default function PincodeControl({
                                         autoComplete="off"
                                         autoCapitalize="off"
                                         spellCheck="false"
+                                        aria-label={ariaLabel}
                                         disabled={chars.indexOf(char) < immutableSize}
                                         ref={inputRefs[chars.indexOf(char)]}
                                         value={char.val}

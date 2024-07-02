@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useFundService } from '../../../services/FundService';
 import { useParams } from 'react-router-dom';
 import Fund from '../../../props/models/Fund';
@@ -14,10 +14,6 @@ import IconFundRequest from '../../../../../assets/forus-webshop/resources/_webs
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
 import useShowTakenByPartnerModal from '../../../services/helpers/useShowTakenByPartnerModal';
 import FundsListItemModel from '../../../services/types/FundsListItemModel';
-import BlockProducts from '../../elements/block-products/BlockProducts';
-import Product from '../../../props/models/Product';
-import { PaginationData } from '../../../../dashboard/props/ApiResponses';
-import { useProductService } from '../../../services/ProductService';
 import Markdown from '../../elements/markdown/Markdown';
 import BlockCard2FAWarning from '../../elements/block-card-2fa-warning/BlockCard2FAWarning';
 import useSetTitle from '../../../hooks/useSetTitle';
@@ -25,6 +21,8 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import BlockLoaderBreadcrumbs from '../../elements/block-loader/BlockLoaderBreadcrumbs';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
+import FundFaq from './elements/FundFaq';
+import FundProductsBlock from './elements/FundProductsBlock';
 
 export default function FundsShow() {
     const { id } = useParams();
@@ -42,13 +40,9 @@ export default function FundsShow() {
 
     const fundService = useFundService();
     const voucherService = useVoucherService();
-    const productService = useProductService();
     const recordTypesService = useRecordTypeService();
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
-    const [visibleFaq, setVisibleFaq] = useState({});
-    const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [subsidies, setSubsidies] = useState<PaginationData<Product>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
     const { searchParams } = useStateParams();
@@ -97,24 +91,6 @@ export default function FundsShow() {
             .finally(() => setProgress(100));
     }, [voucherService, setProgress]);
 
-    const fetchProducts = useCallback(() => {
-        setProgress(0);
-
-        if (fund?.type === 'budget') {
-            productService
-                .list({ fund_type: 'budget', sample: 1, per_page: 6, fund_id: fund?.id })
-                .then((res) => setProducts(res.data))
-                .finally(() => setProgress(100));
-        }
-
-        if (fund?.type === 'subsidies') {
-            productService
-                .list({ fund_type: 'subsidies', sample: 1, per_page: 6, fund_id: fund?.id })
-                .then((res) => setSubsidies(res.data))
-                .finally(() => setProgress(100));
-        }
-    }, [fund?.id, fund?.type, productService, setProgress]);
-
     const applyFund = useCallback(
         (e: React.MouseEvent, fund: Fund) => {
             e.preventDefault();
@@ -135,12 +111,6 @@ export default function FundsShow() {
     useEffect(() => {
         authIdentity ? fetchVouchers() : setVouchers([]);
     }, [authIdentity, fetchVouchers]);
-
-    useEffect(() => {
-        if (fund) {
-            fetchProducts();
-        }
-    }, [fund, fetchProducts]);
 
     useEffect(() => {
         if (fund && fund.id !== parseInt(id)) {
@@ -324,69 +294,28 @@ export default function FundsShow() {
                             </div>
                         </div>
 
-                        <div
-                            className={`flex flex-vertical ${
-                                fund.description_position == 'before' ? 'flex-vertical-reverse' : ''
-                            }`}>
+                        <div className={`flex flex-vertical`}>
                             {authIdentity && fund && <BlockCard2FAWarning fund={fund} />}
 
-                            {products && (!fund.description_html || fund.description_position !== 'replace') && (
-                                <BlockProducts
-                                    type={'budget'}
-                                    display={'grid'}
-                                    large={false}
-                                    products={products.data}
-                                    filters={{ fund_id: fund.id }}
-                                />
+                            {fund.description_position == 'before' ? (
+                                <Fragment>
+                                    <div>
+                                        {fund.description_html && <Markdown content={fund.description_html} />}
+                                        <FundFaq fund={fund} />
+                                    </div>
+
+                                    <FundProductsBlock fund={fund} />
+                                </Fragment>
+                            ) : (
+                                <Fragment>
+                                    <FundProductsBlock fund={fund} />
+
+                                    <div>
+                                        {fund.description_html && <Markdown content={fund.description_html} />}
+                                        <FundFaq fund={fund} />
+                                    </div>
+                                </Fragment>
                             )}
-
-                            {subsidies && (!fund.description_html || fund.description_position !== 'replace') && (
-                                <BlockProducts
-                                    type={'subsidies'}
-                                    display={'grid'}
-                                    large={false}
-                                    products={subsidies.data}
-                                    filters={{ fund_id: fund.id }}
-                                />
-                            )}
-
-                            <div>
-                                {fund.description_html && <Markdown content={fund.description_html} />}
-
-                                {fund.faq && (
-                                    <section className="section section-faq">
-                                        <div className="section-splash" />
-                                        {fund.faq_title && <h2 className="section-title">{fund.faq_title}</h2>}
-                                        <div className="faq faq-fund">
-                                            {fund.faq.map((question, index) => (
-                                                <div
-                                                    key={index}
-                                                    className={`faq-item ${visibleFaq?.[question.id] ? 'active' : ''}`}
-                                                    onClick={() => {
-                                                        setVisibleFaq((list) => ({
-                                                            ...list,
-                                                            [question.id]: !list?.[question.id],
-                                                        }));
-                                                    }}
-                                                    role="button"
-                                                    aria-expanded={!!visibleFaq?.[question.id]}
-                                                    aria-controls={`faq_item_${question.id}`}>
-                                                    <div className="faq-item-header">
-                                                        <h2 className="faq-item-title" role="button" tabIndex={0}>
-                                                            {question.title}
-                                                        </h2>
-                                                        <em className="faq-item-chevron-down mdi mdi-chevron-down" />
-                                                        <em className="faq-item-chevron-up mdi mdi-chevron-up" />
-                                                    </div>
-                                                    <div className="faq-item-content" id={`faq_item_${question.id}`}>
-                                                        <Markdown content={question.description_html} />
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </section>
-                                )}
-                            </div>
                         </div>
                     </div>
                 </section>
