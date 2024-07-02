@@ -41,6 +41,17 @@
             small {
                 font-size: 14px;
             }
+
+            &.droparea-title-required {
+                strong {
+                    &:after {
+                        content: "*";
+                        color: #ff5548;
+                        font: inherit;
+                        margin-left: 2px;
+                    }
+                }
+            }
         }
 
         .droparea-button {

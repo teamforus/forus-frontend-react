@@ -3,6 +3,7 @@ import Product from '../../../../../props/models/Product';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAuthIdentity from '../../../../../hooks/useAuthIdentity';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
+import { useProductService } from '../../../../../services/ProductService';
 
 export default function ProductsListItemList({
     price,
@@ -16,12 +17,14 @@ export default function ProductsListItemList({
     const assetUrl = useAssetUrl();
     const authIdentity = useAuthIdentity();
 
+    const productService = useProductService();
+
     return (
         <Fragment>
             <div className="product-photo">
                 <img
                     src={product.photo?.sizes?.thumbnail || assetUrl('/assets/img/placeholders/product-thumbnail.png')}
-                    alt={product.alternative_text}
+                    alt={productService.transformProductAlternativeText(product)}
                 />
             </div>
             <div className="product-content">

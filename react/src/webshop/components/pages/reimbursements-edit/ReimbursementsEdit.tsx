@@ -51,6 +51,7 @@ export default function ReimbursementsEdit() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [reimbursement, setReimbursement] = useState<Reimbursement>(null);
     const [skipEmail, setSkipEmail] = useState(false);
+    const [generalErrorMsg, setGeneralErrorMsg] = useState<string>(null);
 
     const form = useFormBuilder<
         {
@@ -105,6 +106,7 @@ export default function ReimbursementsEdit() {
                     form.setErrors(err.data.errors || null);
                     setFiles(setFilesErrors(files, form.errors));
                     pushDanger('Error!', err.data.message);
+                    setGeneralErrorMsg(err.data.message);
                 })
                 .finally(() => setProgress(100));
         },
@@ -294,6 +296,12 @@ export default function ReimbursementsEdit() {
                                     e?.preventDefault();
                                     submit(true);
                                 }}>
+                                {generalErrorMsg && (
+                                    <div className="card-section text-center">
+                                        <FormError error={generalErrorMsg} className={'text-semibold'} />
+                                    </div>
+                                )}
+
                                 <div className="card-section">
                                     <FileUploader
                                         type="reimbursement_proof"
@@ -303,6 +311,7 @@ export default function ReimbursementsEdit() {
                                         cropMedia={true}
                                         multiple={true}
                                         fileListCompact={false}
+                                        isRequired={true}
                                         onFilesChange={({ files }) => setFiles(files)}
                                     />
                                     {form.errors.files && (
@@ -360,7 +369,7 @@ export default function ReimbursementsEdit() {
                                     <div className="row">
                                         <div className="col col-xs-12 col-md-10">
                                             <div className="form-group form-group-inline">
-                                                <label className="form-label" htmlFor="title">
+                                                <label className="form-label form-label-required" htmlFor="title">
                                                     Titel van de declaratie
                                                 </label>
                                                 <input
@@ -368,7 +377,7 @@ export default function ReimbursementsEdit() {
                                                     id="title"
                                                     name="title"
                                                     type="text"
-                                                    value={form.values.title}
+                                                    value={form.values.title || ''}
                                                     onChange={(e) => form.update({ title: e.target.value })}
                                                     placeholder="Wat heeft u gekocht?"
                                                     maxLength={200}
@@ -376,7 +385,7 @@ export default function ReimbursementsEdit() {
                                                 <FormError error={form.errors.title} />
                                             </div>
                                             <div className="form-group form-group-inline">
-                                                <label className="form-label" htmlFor="amount">
+                                                <label className="form-label form-label-required" htmlFor="amount">
                                                     Bedrag €
                                                 </label>
                                                 <input
@@ -399,7 +408,7 @@ export default function ReimbursementsEdit() {
                                                 <textarea
                                                     className="form-control"
                                                     id="description"
-                                                    value={form.values.description}
+                                                    value={form.values.description || ''}
                                                     onChange={(e) => form.update({ description: e.target.value })}
                                                     name="description"
                                                     placeholder="Wilt u nog iets kwijt?"
@@ -409,7 +418,7 @@ export default function ReimbursementsEdit() {
                                                 <FormError error={form.errors.description} />
                                             </div>
                                             <div className="form-group form-group-inline">
-                                                <label className="form-label" htmlFor="iban">
+                                                <label className="form-label form-label-required" htmlFor="iban">
                                                     IBAN nummer
                                                 </label>
                                                 <input
@@ -417,7 +426,7 @@ export default function ReimbursementsEdit() {
                                                     id="iban"
                                                     type="text"
                                                     name="iban"
-                                                    value={form.values.iban}
+                                                    value={form.values.iban || ''}
                                                     onChange={(e) => form.update({ iban: e.target.value })}
                                                     placeholder="IBAN nummer"
                                                     maxLength={34}
@@ -425,7 +434,7 @@ export default function ReimbursementsEdit() {
                                                 <FormError error={form.errors.iban} />
                                             </div>
                                             <div className="form-group form-group-inline">
-                                                <label className="form-label" htmlFor="iban_name">
+                                                <label className="form-label form-label-required" htmlFor="iban_name">
                                                     Naam rekeninghouder
                                                 </label>
                                                 <input
@@ -433,7 +442,7 @@ export default function ReimbursementsEdit() {
                                                     id="iban_name"
                                                     type="text"
                                                     name="iban_name"
-                                                    value={form.values.iban_name}
+                                                    value={form.values.iban_name || ''}
                                                     onChange={(e) => form.update({ iban_name: e.target.value })}
                                                     placeholder="Op welke naam staat uw bankrekening?"
                                                     maxLength={45}

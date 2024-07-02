@@ -134,11 +134,16 @@ img {
 }
 
 .text-strong {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
+.text-semibold {
+    font-weight: 600 !important;
+}
+
+.text-medium,
 .text-strong-half {
-    font-weight: 500;
+    font-weight: 500 !important;
 }
 
 .hidden {

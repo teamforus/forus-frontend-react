@@ -231,6 +231,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     onClick={() => filterUpdate({ bookmarked: false })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
+                                    aria-pressed={!filterValues.bookmarked}
                                     role="button">
                                     <em className="mdi mdi-tag-multiple-outline" />
                                     Volledig aanbod
@@ -382,13 +383,16 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
                                 <div className="showcase-filters-item">
-                                    <label className="form-label">Sorteer</label>
+                                    <div className="form-label" id={'sort_by_label'}>
+                                        Sorteer
+                                    </div>
                                     <SelectControl
                                         id={'sort_by'}
                                         allowSearch={false}
                                         propKey={'id'}
                                         propValue={'label'}
                                         options={sortByOptions}
+                                        aria-labelledby="sort_by_label"
                                         value={
                                             sortByOptions.find(
                                                 (option) =>
