@@ -20,6 +20,7 @@ import MatomoScript from './modules/matomo/MatomoScript';
 import SiteImproveAnalytics from './modules/site_improve_analytics/SiteImproveAnalytics';
 import AwsRumScript from '../dashboard/modules/aws_rum/AwsRumScript';
 import StateHashPrefixRedirect from '../dashboard/modules/state_router/StateHashPrefixRedirect';
+import { TitleProvider } from './contexts/TitleContext';
 
 i18n.use(initReactI18next)
     .init({
@@ -101,12 +102,14 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                             <PrintableProvider>
                                 <ModalsProvider>
                                     <MainProvider>
-                                        <AuthProvider>
-                                            <QueryParamProvider adapter={ReactRouter6Adapter}>
-                                                <StateHashPrefixRedirect />
-                                                <RouterLayout envData={envData} />
-                                            </QueryParamProvider>
-                                        </AuthProvider>
+                                        <TitleProvider>
+                                            <AuthProvider>
+                                                <QueryParamProvider adapter={ReactRouter6Adapter}>
+                                                    <StateHashPrefixRedirect />
+                                                    <RouterLayout envData={envData} />
+                                                </QueryParamProvider>
+                                            </AuthProvider>
+                                        </TitleProvider>
                                     </MainProvider>
                                 </ModalsProvider>
                             </PrintableProvider>

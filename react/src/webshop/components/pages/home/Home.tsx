@@ -21,11 +21,13 @@ import { useNavigateState, useStateParams } from '../../../modules/state_router/
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import { modalsContext } from '../../../../dashboard/modules/modals/context/ModalContext';
 import ModalNotification from '../../modals/ModalNotification';
+import useSetTitle from '../../../hooks/useSetTitle';
 
 export default function Home() {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
 
+    const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
@@ -128,6 +130,10 @@ export default function Home() {
             closeModal(modal);
         };
     }, [closeModal, navigateState, openModal, stateParams?.session_expired, translate]);
+
+    useEffect(() => {
+        setTitle(translate('page_state_titles.home'));
+    }, [setTitle, translate]);
 
     return !funds ? (
         <Fragment>

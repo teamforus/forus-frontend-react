@@ -5,11 +5,8 @@ import EnvDataWebshopProp from '../../props/EnvDataWebshopProp';
 import useFilter from '../../dashboard/hooks/useFilter';
 import FilterScope from '../../dashboard/types/FilterScope';
 import { useStateRoutes } from '../modules/state_router/Router';
-import useTranslate from '../../dashboard/hooks/useTranslate';
 
 interface AuthMemoProps {
-    title: string;
-    setTitle?: React.Dispatch<React.SetStateAction<string>>;
     envData?: EnvDataWebshopProp;
     setEnvData?: React.Dispatch<React.SetStateAction<EnvDataWebshopProp>>;
     appConfigs?: AppConfigProp;
@@ -30,14 +27,12 @@ const { Provider } = mainContext;
 
 const MainProvider = ({ children }: { children: React.ReactElement }) => {
     const [envData, setEnvData] = useState<EnvDataWebshopProp>(null);
-    const [title, setTitle] = useState(null);
     const [appConfigs, setAppConfigs] = useState(null);
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [mobileMenuOpened, setMobileMenuOpened] = useState(false);
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const { route } = useStateRoutes();
 
-    const translate = useTranslate();
     const configService = useConfigService();
 
     const searchFilter = useFilter({
@@ -57,28 +52,12 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
     }, [configService, envData?.type]);
 
     useEffect(() => {
-        const props = { implementation: appConfigs?.implementation_name };
-
-        setTitle(
-            translate(
-                `page_state_loading_titles.${route?.state?.name}`,
-                props,
-                translate(`page_state_titles.${route?.state?.name}`, props, 'page_title'),
-            ),
-        );
-
         searchFilterUpdate({ q: '' });
-    }, [route.pathname, route?.state?.name, translate, appConfigs, searchFilterUpdate]);
-
-    useEffect(() => {
-        document.title = title;
-    }, [title]);
+    }, [route.pathname, route?.state?.name, searchFilterUpdate]);
 
     return (
         <Provider
             value={{
-                title,
-                setTitle,
                 envData,
                 setEnvData,
                 appConfigs,

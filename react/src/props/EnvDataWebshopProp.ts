@@ -60,6 +60,8 @@ export default interface EnvDataWebshopProp {
             showFooterSponsorLogo?: boolean;
             productDetailsOnlyAvailableFunds?: boolean;
 
+            wcagSuffix?: string;
+
             productsAlign?: 'left' | 'center' | 'right';
             logoExtension?: '.svg' | '.png';
 

@@ -122,9 +122,9 @@ export default function Funds() {
 
     useEffect(() => {
         if (envData?.client_key == 'vergoedingen') {
-            setTitle('Vergoedingen');
+            setTitle(translate('custom_page_state_titles.vergoedingen.funds'));
         }
-    }, [envData, setTitle]);
+    }, [envData, setTitle, translate]);
 
     return (
         <BlockShowcasePage
