@@ -670,13 +670,13 @@ export default function FundActivate() {
                         {state == 'digid' && !fetchingData && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
-                                    <h2 className="sign_up-pane-header-title">
+                                    <h1 className="sign_up-pane-header-title">
                                         {translate(
                                             `fund_activate.header.${envData.client_key}.title`,
                                             null,
                                             `fund_activate.header.title`,
                                         )}
-                                    </h2>
+                                    </h1>
                                 </div>
                                 <div className="sign_up-pane-body">
                                     <div className="form">

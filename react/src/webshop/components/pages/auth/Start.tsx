@@ -401,11 +401,11 @@ export default function Start() {
                                             ) : (
                                                 <div className="sign_up-row">
                                                     <div className="sign_up-col">
-                                                        <h3 className="sign_up-pane-text">
+                                                        <h2 className="sign_up-pane-text">
                                                             <div className="sign_up-pane-heading">
                                                                 Account aanmaken of een aanvraag starten?
                                                             </div>
-                                                        </h3>
+                                                        </h2>
                                                         <div className={`sign_up-options ${loading ? 'disabled' : ''}`}>
                                                             {appConfigs.digid &&
                                                                 !envData.config?.flags?.startPage
@@ -421,7 +421,7 @@ export default function Start() {
                                                         </div>
                                                     </div>
                                                     <div className="sign_up-col">
-                                                        <h3 className="sign_up-pane-text">
+                                                        <h2 className="sign_up-pane-text">
                                                             <div className="sign_up-pane-heading">
                                                                 {translate(
                                                                     `signup.items.${envData.client_key}.pane_text`,
@@ -429,7 +429,7 @@ export default function Start() {
                                                                     'signup.items.pane_text',
                                                                 )}
                                                             </div>
-                                                        </h3>
+                                                        </h2>
                                                         <div className={`sign_up-options ${loading ? 'disabled' : ''}`}>
                                                             {appConfigs.digid &&
                                                                 envData.config?.flags?.startPage
