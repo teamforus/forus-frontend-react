@@ -3,4 +3,10 @@
         margin-left: 0;
         margin-right: auto;
     }
+
+    @media screen and (max-width: 1000px) {
+        &.section-faq {
+            margin-right: 0;
+        }
+    }
 }

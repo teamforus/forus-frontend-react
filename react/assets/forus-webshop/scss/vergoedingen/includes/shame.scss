@@ -192,6 +192,22 @@ h6 {
         }
     }
 
+    @media screen and (max-width: 1200px) {
+        &.block-navbar {
+            .navbar-list {
+                .navbar-item-wrapper {
+                    padding-right: 20px;
+
+                    &.navbar-item-wrapper_sign-out {
+                        .subnav-search-button {
+                            padding: 12px 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @media screen and (min-width: 1000px) {
         &.block-navbar {
             position: fixed;

@@ -326,14 +326,9 @@ export default function Search() {
                 <Fragment>
                     <div className="showcase-content-header">
                         <div className="showcase-filters-title">
+                            Zoekresultaten
+                            {filterValuesActive.q && <Fragment> gevonden voor {`"${filterValuesActive.q}"`}</Fragment>}
                             <div className="showcase-filters-title-count">{searchItems?.meta?.total}</div>
-                            {filterValuesActive.q ? (
-                                <div className="ellipsis">
-                                    Zoekresultaten gevonden voor {`"${filterValuesActive.q}"`}
-                                </div>
-                            ) : (
-                                <div className="ellipsis">Zoekresultaten</div>
-                            )}
                         </div>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">

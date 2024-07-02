@@ -1,5 +1,4 @@
 .block {
-
     &.block-profile {
         @include cf();
 
@@ -161,12 +160,6 @@
                 z-index: 1;
                 margin-bottom: 15px;
 
-                .showcase-filters-title,
-                .showcase-filters-block {
-                    margin: 0 0 15px;
-                    @include cf();
-                }
-
                 .profile-content-title {
                     font: 700 22px/32px var(--hf);
                     color: var(--tc);
@@ -216,23 +209,6 @@
                 padding-left: 0;
             }
         }
-
-        .bookmarked-products {
-            .profile-content {
-                .showcase-content {
-                    padding-left: 0px;
-                    max-width: 100%;
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 600px) {
-        &.block-profile {
-            .profile-aside {
-                display: none;
-            }
-        }
     }
 
     @media screen and (max-width: 1000px) {
@@ -280,9 +256,12 @@
                 }
 
                 .profile-menu {
-                    margin-bottom: 20px;
+                    margin-bottom: 15px;
 
-                    .profile-men-item {
+                    .profile-menu-item {
+                        padding: 12px 20px;
+                        margin-bottom: 10px;
+
                         &:last-child {
                             margin: 0;
                         }

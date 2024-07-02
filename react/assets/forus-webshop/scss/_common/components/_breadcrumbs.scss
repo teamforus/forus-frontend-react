@@ -55,13 +55,14 @@
         padding: calc(var(--breadcrumb-padding) * .75) 0px;
 
         .breadcrumb-item {
-            font: 600 calc(var(--breadcrumb-size) - 2px) var(--base-font);
+            font: 600 calc(var(--breadcrumb-size) - 2px)/20px var(--base-font);
         }
     }
 
     @media screen and (max-width: 1000px) {
         padding: 10px 0;
-        margin: 0 0 5px;
+        overflow: visible;
+        white-space: normal;
 
         .breadcrumb-item {
             font-size: 13px;

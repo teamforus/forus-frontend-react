@@ -409,11 +409,14 @@
                     justify-content: center;
                     flex-direction: column;
                     gap: 5px;
+                    overflow: hidden;
 
                     .voucher-name {
                         font: 700 16px/20px var(--hf);
                         margin: 0 0 0;
                         order: 2;
+                        word-break: break-word;
+                        word-wrap: break-word;
                     }
 
                     .voucher-organization {
