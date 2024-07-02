@@ -13,6 +13,7 @@ import Toasts from '../modules/toasts/components/Toasts';
 import { Libraries, LoadScript } from '@react-google-maps/api';
 import useEnvData from '../hooks/useEnvData';
 import Printable from '../modules/printable/components/Printable';
+import ErrorBoundaryHandler from '../components/elements/error-boundary-handler/ErrorBoundaryHandler';
 
 export const Layout = ({ children }: { children: React.ReactElement }) => {
     const { modals } = useContext(modalsContext);
@@ -40,37 +41,47 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
 
     return (
         <LoadScript googleMapsApiKey={envData?.config?.google_maps_api_key} libraries={libraries}>
-            <div
-                className={`app ${route?.state?.name == 'sign-in' ? 'landing-root' : ''} ${
-                    [LayoutType.landingClearNew].includes(layout) ? 'signup-layout signup-layout-new' : ''
-                }`}
-                ref={pageScrollRef}
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'fixed',
-                    overflow: modals.length > 0 ? 'hidden' : 'auto',
-                }}>
-                <LoadingBar />
+            <ErrorBoundaryHandler type={'main'} front={'dashboard'}>
+                <div
+                    className={`app ${route?.state?.name == 'sign-in' ? 'landing-root' : ''} ${
+                        [LayoutType.landingClearNew].includes(layout) ? 'signup-layout signup-layout-new' : ''
+                    }`}
+                    ref={pageScrollRef}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'fixed',
+                        overflow: modals.length > 0 ? 'hidden' : 'auto',
+                    }}>
+                    <LoadingBar />
 
-                {[LayoutType.dashboard, LayoutType.landing].includes(layout) && <LayoutHeader />}
+                    {[LayoutType.dashboard, LayoutType.landing].includes(layout) && <LayoutHeader />}
 
-                <div className="app app-container">
-                    {layout == LayoutType.dashboard && activeOrganization && <LayoutAside />}
+                    <div className="app app-container">
+                        {layout == LayoutType.dashboard && activeOrganization && <LayoutAside />}
 
-                    {isReady && (
-                        <section className={`${layout == LayoutType.dashboard ? 'app app-content' : ''}`}>
-                            {children}
-                        </section>
-                    )}
+                        {isReady && (
+                            <section className={`${layout == LayoutType.dashboard ? 'app app-content' : ''}`}>
+                                <ErrorBoundaryHandler
+                                    type={
+                                        [LayoutType.landingClearNew, LayoutType.landingClear].includes(layout)
+                                            ? 'main'
+                                            : 'block'
+                                    }
+                                    front={'dashboard'}>
+                                    {children}
+                                </ErrorBoundaryHandler>
+                            </section>
+                        )}
+                    </div>
+
+                    <Modals />
+                    <PushNotifications />
+                    <Toasts />
                 </div>
 
-                <Modals />
-                <PushNotifications />
-                <Toasts />
-            </div>
-
-            <Printable />
+                <Printable />
+            </ErrorBoundaryHandler>
         </LoadScript>
     );
 };

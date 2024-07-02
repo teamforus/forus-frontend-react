@@ -3,6 +3,7 @@ import ProfileMenu from '../profile-menu/ProfileMenu';
 import BlockShowcase from './BlockShowcase';
 import BlockLoader from '../block-loader/BlockLoader';
 import BlockLoaderHeader from '../block-loader/BlockLoaderHeader';
+import ErrorBoundaryHandler from '../../../../dashboard/components/elements/error-boundary-handler/ErrorBoundaryHandler';
 
 export default function BlockShowcaseProfile({
     filters = null,
@@ -23,16 +24,21 @@ export default function BlockShowcaseProfile({
                 <div className="wrapper">
                     {breadcrumbs}
 
-                    <div className="block block-profile">
-                        <div className="profile-aside">
-                            <ProfileMenu />
-                            {filters}
+                    <ErrorBoundaryHandler>
+                        <div className="block block-profile">
+                            <div className="profile-aside">
+                                <ProfileMenu />
+                                {filters}
+                            </div>
+
+                            <div className="profile-content" data-dusk={contentDusk}>
+                                <ErrorBoundaryHandler>
+                                    {profileHeader || <BlockLoaderHeader />}
+                                    {children || <BlockLoader />}
+                                </ErrorBoundaryHandler>
+                            </div>
                         </div>
-                        <div className="profile-content" data-dusk={contentDusk}>
-                            {profileHeader || <BlockLoaderHeader />}
-                            {children || <BlockLoader />}
-                        </div>
-                    </div>
+                    </ErrorBoundaryHandler>
                 </div>
             </section>
         </BlockShowcase>

@@ -1,6 +1,7 @@
 import React, { CSSProperties, useCallback, useState } from 'react';
 import BlockShowcase from './BlockShowcase';
 import BlockLoader from '../block-loader/BlockLoader';
+import ErrorBoundaryHandler from '../../../../dashboard/components/elements/error-boundary-handler/ErrorBoundaryHandler';
 
 export default function BlockShowcasePage({
     aside = null,
@@ -46,15 +47,17 @@ export default function BlockShowcasePage({
 
                 {breadcrumbs}
 
-                <div className="showcase-layout">
-                    <div className={`showcase-aside form form-compact ${showModalFilters ? 'show-mobile' : ''}`}>
-                        {aside || <BlockLoader />}
-                    </div>
+                <ErrorBoundaryHandler>
+                    <div className="showcase-layout">
+                        <div className={`showcase-aside form form-compact ${showModalFilters ? 'show-mobile' : ''}`}>
+                            {aside || <BlockLoader />}
+                        </div>
 
-                    <div className="showcase-content" style={contentStyles}>
-                        {children || <BlockLoader />}
+                        <div className="showcase-content" style={contentStyles}>
+                            <ErrorBoundaryHandler>{children || <BlockLoader />}</ErrorBoundaryHandler>
+                        </div>
                     </div>
-                </div>
+                </ErrorBoundaryHandler>
             </div>
         </BlockShowcase>
     );

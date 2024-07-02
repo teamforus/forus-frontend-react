@@ -41,6 +41,7 @@
 }
 
 @import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
+@import '../../../forus-webshop/scss/_common/sections/blocks/block-exception';
 
 .block {
     @import 'blocks/block-fund_types';
@@ -2276,7 +2277,6 @@ body {
             }
 
             &.tooltip-bottom {
-                left: 100%;
                 top: 100%;
                 left: 8px;
                 margin-top: 10px;
@@ -2445,9 +2445,7 @@ body {
                     &.button-text {
                         font-weight: 500;
                         font-size: 16px;
-                        line-height: 20px;
                         color: #3561ff;
-
                         line-height: 30px;
 
                         .mdi {
@@ -4877,7 +4875,6 @@ body {
             .inline-filters-dropdown-content {
                 width: 260px;
                 min-height: 100px;
-                display: block;
                 position: absolute;
                 top: 100%;
                 margin-top: 15px;
@@ -5536,7 +5533,6 @@ body {
         z-index: 25;
 
         .notification {
-            background: #fff;
             box-shadow: 5px 10px 30px rgba(#000, 0.2);
             border-radius: 6px;
             margin: 0 0 -59px;
