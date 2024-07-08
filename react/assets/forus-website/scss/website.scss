@@ -1,3 +1,4 @@
+@import 'includes/fonts';
 @import 'includes/resetter';
 @import 'includes/helpers';
 @import 'includes/placeholders';
@@ -8,7 +9,7 @@
 // LAYOUTS
 // @import 'layout/footer';
 // @import 'layout/grid';
-// @import 'layout/header';
+@import 'layout/header';
 // @import 'layout/navigation';
 
 // COMPONENTS
@@ -19,6 +20,16 @@
 @import 'components/modals';
 @import 'components/layout';
 
+@import "blocks/block-page-list";
+@import "blocks/block-project";
+@import "blocks/block-social-impact";
+@import "blocks/block-social-domain";
+@import "blocks/block-platform-aspects";
+@import "blocks/block-strategy";
+@import "blocks/block-municipalities";
+@import "blocks/block-collaborations";
+@import "blocks/block-learn-more";
 @import "blocks/block-footer-apps";
 @import "blocks/block-footer-menu";
 @import "blocks/block-footer-copyright";
+@import "blocks/block-mobile-menu";

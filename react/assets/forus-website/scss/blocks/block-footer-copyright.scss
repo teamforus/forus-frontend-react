@@ -22,4 +22,28 @@
     .footer-copyright-privacy {
         font: 600 13px/20px var(--base-font);
     }
+
+    @media screen and (max-width: 992px) {
+        flex-direction: column;
+        padding: 24px 48px;
+        margin: 0;
+
+        .footer-copyright-wrapper {
+            flex: auto;
+            flex-direction: column;
+            align-items: center;
+
+            .footer-copyright-value {
+                flex-grow: 1;
+                order: 2;
+                font: 400 16px/24px var(--base-font);
+            }
+
+            .footer-copyright-privacy {
+                order: 1;
+                margin-bottom: 45px;
+                font: 500 16px/24px var(--base-font);
+            }
+        }
+    }
 }

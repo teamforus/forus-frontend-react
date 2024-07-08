@@ -1,0 +1,90 @@
+.block.block-platform-aspects {
+    width: 100%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+    .block-platform-aspects-title {
+        font: 900 56px/68px var(--base-font);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .block-platform-aspects-main {
+        display: flex;
+
+        .block-platform-aspects-list {
+            display: flex;
+            flex-direction: column;
+            align-items: baseline;
+            margin-right: 80px;
+
+            .block-platform-aspects-list-item {
+                display: flex;
+                justify-content: center;
+                padding: 20px;
+                font: 700 26px/36px var(--base-font);
+
+                .block-platform-aspects-list-item-image {
+                    display: flex;
+                    align-items: center;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .block-platform-aspects-image {
+            padding: 0 70px;
+            border-radius: 20px;
+            background: var(--Linear, linear-gradient(149deg, #F1F2F4 43.4%, rgba(241, 242, 244, 0.00) 100%));
+
+            img {
+                margin-top: 70px;
+                margin-bottom: -70px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0;
+        padding: 48px 0;
+
+        .block-platform-aspects-title {
+            font: 900 30px/40px var(--base-font);
+            margin-bottom: 30px;
+        }
+
+        .block-platform-aspects-main {
+            flex-direction: column;
+
+            .block-platform-aspects-list {
+                order: 2;
+                margin-bottom: 50px;
+                margin-right: 0;
+
+                .block-platform-aspects-list-item {
+                    font: 700 20px/27px var(--base-font);
+
+                    .block-platform-aspects-list-item-image {
+
+                    }
+                }
+            }
+
+            .block-platform-aspects-image {
+                order: 1;
+                margin-bottom: 45px;
+                width: 100%;
+
+                img {
+                    width: 100%;
+                    margin-top: 40px;
+                    margin-bottom: -40px;
+                }
+            }
+        }
+
+        .actions {
+            width: 100%;
+        }
+    }
+}

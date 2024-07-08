@@ -22,6 +22,16 @@ router.state('sign-out', <SignOut />, {
     protected: false,
 });
 
+router.state('basic-functions', <WIP />, {
+    path: `/basic-functions`,
+    protected: false,
+});
+
+router.state('roles', <WIP />, {
+    path: `/roles`,
+    protected: false,
+});
+
 router.state('platform', <WIP />, {
     path: `/platform`,
     protected: false,

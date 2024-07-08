@@ -1,0 +1,101 @@
+.block.block-project {
+    display: flex;
+    border-radius: 30px;
+    margin-bottom: 100px;
+
+    .block-project-main-content {
+        color: #fff;
+        padding: 50px;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        min-width: 380px;
+        position: relative;
+        background-color: #002A95;
+
+        .block-project-label {
+            width: fit-content;
+            font: 700 14px/21px var(--base-font);
+            color: #fff;
+            border-radius: 5px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.07) 100%);
+            padding: 10px;
+            margin-bottom: 50px;
+        }
+
+        .block-project-title {
+            font: 700 30px/40px var(--base-font);
+            margin-bottom: 25px;
+        }
+
+        .block-project-description {
+            font: 400 18px/28px var(--base-font);
+            margin-bottom: 50px;
+        }
+
+        .block-project-actions {
+            position: absolute;
+            bottom: 50px;
+        }
+    }
+
+    .block-project-image {
+        img {
+            height: 100%;
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        margin: 0;
+        padding: 48px 0;
+
+        .block-project-main-content {
+            order: 2;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 30px;
+            margin-top: -5px;
+            padding: 25px;
+
+            .block-project-label {
+                font: 700 13px/18px var(--base-font);
+                padding: 10px;
+                margin-bottom: 25px;
+            }
+
+            .block-project-title {
+                font: 700 20px/30px var(--base-font);
+                margin-bottom: 15px;
+            }
+
+            .block-project-description {
+                font: 400 14px/21px var(--base-font);
+                margin-bottom: 80px;
+            }
+
+            .block-project-actions {
+                position: absolute;
+                bottom: 25px;
+                width: calc(100% - 50px);
+
+                .button {
+                    width: 100%;
+                    display: inline-block;
+                    text-align: center;
+                }
+            }
+        }
+
+        .block-project-image {
+            order: 1;
+            width: 100%;
+
+            img {
+                width: 100%;
+                border-top-left-radius: 30px;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
+}

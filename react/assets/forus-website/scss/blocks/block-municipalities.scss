@@ -1,0 +1,85 @@
+.block.block-municipalities {
+    margin-bottom: 100px;
+    text-align: center;
+
+    .block-municipalities-title {
+        font: 900 56px/68px var(--base-font);
+        margin-bottom: 30px;
+    }
+
+    .block-municipalities-subtitle {
+        font: 400 26px/38px var(--base-font);
+        margin-bottom: 60px;
+    }
+
+    .block-municipalities-logo-list {
+        display: flex;
+        flex-wrap: wrap;
+
+        .block-municipalities-logo {
+            width: 25%;
+            margin-bottom: 60px;
+            text-align: left;
+            padding: 25px;
+            border: 1px solid transparent;
+            cursor: pointer;
+
+            .block-municipality-title {
+                font: 700 20px/29px var(--base-font);
+                color: #131313;
+            }
+
+            &:hover {
+                border-radius: 10px;
+                border: 1px solid var(--Basic-Separator-Light, #F4F4F4);
+                background: var(--Basic-White, #FFF);
+
+                box-shadow: 0 12px 30px 0 #E1E2E8;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0;
+        padding: 48px 0;
+        text-align: left;
+
+        .block-municipalities-title {
+            font: 900 30px/40px var(--base-font);
+            margin-bottom: 20px;
+        }
+
+        .block-municipalities-subtitle {
+            font: 400 14px/21px var(--base-font);
+            margin-bottom: 30px;
+        }
+
+        .block-municipalities-logo-list {
+            flex-direction: column;
+
+            .block-municipalities-logo {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 20px 25px;
+                margin-bottom: 15px;
+                background-color: #fff;
+                border-radius: 12px;
+                border: 1px solid #F4F4F4;
+                box-shadow: 0 2px 5px 0 #E1E2E8;
+
+                img {
+                    max-width: 90px;
+                }
+
+                .block-municipality-title {
+                    font: 700 16px/24px var(--base-font);
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

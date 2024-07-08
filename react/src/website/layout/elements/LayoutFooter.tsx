@@ -24,20 +24,22 @@ export default function LayoutFooter() {
 
                     <div className="footer-apps-details">
                         <div className="footer-apps-details-label">Download de Me-app</div>
-                        <a
-                            className="footer-apps-details-link"
-                            href={envData?.config?.ios_iphone_link}
-                            target={'_blank'}
-                            rel="noreferrer">
-                            <img src={assetUrl('/assets/img/icon-app-ios.svg')} alt={''} />
-                        </a>
-                        <a
-                            className="footer-apps-details-link"
-                            href={envData?.config?.android_link}
-                            target={'_blank'}
-                            rel="noreferrer">
-                            <img src={assetUrl('/assets/img/icon-app-android.svg')} alt={''} />
-                        </a>
+                        <div className="footer-apps-detail-links">
+                            <a
+                                className="footer-apps-details-link"
+                                href={envData?.config?.ios_iphone_link}
+                                target={'_blank'}
+                                rel="noreferrer">
+                                <img src={assetUrl('/assets/img/icon-app-ios.svg')} alt={''} />
+                            </a>
+                            <a
+                                className="footer-apps-details-link"
+                                href={envData?.config?.android_link}
+                                target={'_blank'}
+                                rel="noreferrer">
+                                <img src={assetUrl('/assets/img/icon-app-android.svg')} alt={''} />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,9 +51,11 @@ export default function LayoutFooter() {
                     <div className="footer-menu-col">
                         <div className="footer-menu-col-title">Contact</div>
                         <div className="footer-menu-col-item">
-                            <img src={assetUrl('/assets/img/footer-menu/footer-icon-location.svg')} alt={''} />
                             <div className="footer-menu-col-item-content">
-                                Adres
+                                <div className="footer-menu-col-item-title">
+                                    <img src={assetUrl('/assets/img/footer-menu/footer-icon-location.svg')} alt={''} />
+                                    Adres
+                                </div>
                                 <div className="footer-menu-col-item-subtitle">
                                     Verlengde Hereweg 161,
                                     <br />
@@ -60,9 +64,11 @@ export default function LayoutFooter() {
                             </div>
                         </div>
                         <div className="footer-menu-col-item">
-                            <img src={assetUrl('/assets/img/footer-menu/footer-icon-support.svg')} alt={''} />
                             <div className="footer-menu-col-item-content">
-                                Contactgegevens
+                                <div className="footer-menu-col-item-title">
+                                    <img src={assetUrl('/assets/img/footer-menu/footer-icon-support.svg')} alt={''} />
+                                    Contactgegevens
+                                </div>
                                 <div className="footer-menu-col-item-subtitle">
                                     info@forus.io
                                     <br />
@@ -73,11 +79,11 @@ export default function LayoutFooter() {
                     </div>
                     <div className="footer-menu-col">
                         <div className="footer-menu-col-title">Platform</div>
-                        <StateNavLink name={'platform'} className="footer-menu-col-item">
-                            Rollen
+                        <StateNavLink name={'basic-functions'} className="footer-menu-col-item">
+                            Basisfuncties
                         </StateNavLink>
-                        <StateNavLink name={'about'} className="footer-menu-col-item">
-                            Lees meer
+                        <StateNavLink name={'roles'} className="footer-menu-col-item">
+                            Rollen
                         </StateNavLink>
                     </div>
                     <div className="footer-menu-col">
@@ -94,15 +100,15 @@ export default function LayoutFooter() {
                     </div>
                     <div className="footer-menu-col">
                         <div className="footer-menu-col-title">Social</div>
-                        <a href="https://forus.io" className="footer-menu-col-item">
+                        <a href="https://nl.linkedin.com/company/stichtingforus" className="footer-menu-col-item">
                             <img src={assetUrl('/assets/img/footer-menu/footer-social-linkedin.svg')} alt={''} />
                             LinkedIn
                         </a>
-                        <a href="https://forus.io" className="footer-menu-col-item">
+                        <a href="https://github.com/teamforus" className="footer-menu-col-item">
                             <img src={assetUrl('/assets/img/footer-menu/footer-social-github.svg')} alt={''} />
                             Github
                         </a>
-                        <a href="https://forus.io" className="footer-menu-col-item">
+                        <a href="https://discord.forus.io" className="footer-menu-col-item">
                             <img src={assetUrl('/assets/img/footer-menu/footer-social-discord.svg')} alt={''} />
                             Discord
                         </a>

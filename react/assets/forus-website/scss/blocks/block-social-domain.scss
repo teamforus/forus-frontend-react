@@ -1,0 +1,98 @@
+.block.block-social-domain {
+    margin: 100px 0;
+
+    .block-social-domain-banner {
+        width: 100%;
+        height: 460px;
+        border-radius: 32px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url("./assets/img/social-domain.png");
+
+        .block-social-domain-banner-main {
+            height: 100%;
+            width: 100%;
+            padding: 70px 50px;
+            border-radius: 32px;
+            box-shadow: 0 20px 55px 0 rgba(115, 120, 145, 0.06);
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.00) 100%);
+            position: relative;
+
+            .block-social-domain-banner-info {
+                display: flex;
+                align-items: self-end;
+                position: absolute;
+                bottom: 70px;
+                width: calc(100% - 100px);
+
+                .block-social-domain-banner-subtitle {
+                    font: 400 48px/68px var(--base-font);
+                    color: #fff;
+                }
+
+                .block-social-domain-banner-title {
+                    font: 900 56px/58px var(--base-font);
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .block-social-domain-info {
+        padding: 70px 120px 0;
+        font: 400 20px/30px var(--base-font);
+
+        .block-social-domain-info-actions {
+            margin-top: 30px;
+
+            .button {
+                .mdi {
+                    float: right;
+                    margin-right: -10px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0;
+        padding: 48px 0;
+        text-align: left;
+
+        .block-social-domain-banner {
+            margin-bottom: 70px;
+
+            .block-social-domain-banner-main {
+                padding: 25px;
+
+                .block-social-domain-banner-info {
+                    flex-direction: column;
+                    text-align: left;
+                    padding: 24px;
+
+                    .block-social-domain-banner-title {
+                        font: 500 20px/30px var(--base-font);
+                    }
+
+                    .block-social-domain-banner-subtitle {
+                        font: 500 20px/30px var(--base-font);
+                    }
+
+                    .block-social-domain-banner-actions {
+                        margin-top: 30px;
+
+                        .button {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .block-social-domain-info {
+            padding: 0;
+        }
+    }
+}

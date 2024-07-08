@@ -9,6 +9,7 @@ import useEnvData from '../hooks/useEnvData';
 import useAppConfigs from '../hooks/useAppConfigs';
 import LayoutFooter from './elements/LayoutFooter';
 import LayoutHeader from './elements/LayoutHeader';
+import useActiveMenuDropdown from '../hooks/useActiveMenuDropdown';
 
 export const LayoutWebsite = ({ children }: { children: React.ReactElement }) => {
     const { route } = useStateRoutes();
@@ -16,9 +17,12 @@ export const LayoutWebsite = ({ children }: { children: React.ReactElement }) =>
 
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
+    const activeMenuDropdown = useActiveMenuDropdown();
 
     const authIdentity = useAuthIdentity();
     const pageScrollRef = useRef<HTMLDivElement>(null);
+    const bodyRef = useRef<HTMLDivElement>(null);
+    const footerRef = useRef<HTMLDivElement>(null);
 
     const isReady = useMemo(() => {
         return !!envData && !!appConfigs && (!route.state?.protected || authIdentity);
@@ -26,7 +30,12 @@ export const LayoutWebsite = ({ children }: { children: React.ReactElement }) =>
 
     useEffect(() => {
         pageScrollRef?.current?.scrollTo({ top: 0 });
-    }, [route?.pathname]);
+    }, [route, route.pathname]);
+
+    useEffect(() => {
+        bodyRef?.current?.style.setProperty('visibility', activeMenuDropdown ? 'hidden' : 'visible');
+        footerRef?.current?.style.setProperty('visibility', activeMenuDropdown ? 'hidden' : 'visible');
+    }, [activeMenuDropdown, route, route.pathname]);
 
     if (!envData?.config) {
         return null;
@@ -47,8 +56,12 @@ export const LayoutWebsite = ({ children }: { children: React.ReactElement }) =>
             {isReady && (
                 <Fragment>
                     <LayoutHeader />
-                    <div className="layout-body">{children}</div>
-                    <LayoutFooter />
+                    <div className="layout-body" ref={bodyRef}>
+                        {children}
+                    </div>
+                    <div ref={footerRef}>
+                        <LayoutFooter />
+                    </div>
                 </Fragment>
             )}
 
