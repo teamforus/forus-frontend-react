@@ -57,7 +57,6 @@ export default function UIControlCheckbox({
             <label
                 className="ui-checkbox-label"
                 htmlFor={innerId}
-                role="checkbox"
                 tabIndex={0}
                 aria-checked={inputRef?.current?.checked}
                 onKeyDown={toggleCheckbox}>
