@@ -6,6 +6,7 @@ import Note from '../props/models/Note';
 import File from '../props/models/File';
 import FundRequestRecord from '../props/models/FundRequestRecord';
 import FundRequestApiPerson from '../props/models/FundRequestApiPerson';
+import EmailLog from '../props/models/EmailLog';
 
 export class FundRequestValidatorService<T = FundRequest> {
     /**
@@ -114,6 +115,22 @@ export class FundRequestValidatorService<T = FundRequest> {
 
     public notes(organizationId: number, id: number, data: object = {}): Promise<ApiResponse<Note>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/notes`, data);
+    }
+
+    public emailLogs(organizationId: number, fundRequestId: number, data: object = {}): Promise<ApiResponse<EmailLog>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${fundRequestId}/email-logs`, data);
+    }
+
+    public emailLogExport(
+        organizationId: number,
+        fundRequestId: number,
+        id: number,
+    ): Promise<ResponseSimple<ArrayBuffer>> {
+        return this.apiRequest.post(
+            `${this.prefix}/${organizationId}/fund-requests/${fundRequestId}/email-logs/${id}/export`,
+            {},
+            { responseType: 'arraybuffer' },
+        );
     }
 
     public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {

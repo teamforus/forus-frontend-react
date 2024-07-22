@@ -1,0 +1,45 @@
+.block.block-email-log-preview {
+    .email-log-overview {
+        background: #fff;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+        display: flex;
+        padding: 10px 15px;
+        flex-direction: row;
+
+        .email-log-overview-col {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 33.333%;
+
+            .email-log-label {
+                margin: 0 0;
+                font: 700 12px/20px var(--base-font);
+            }
+
+            .email-log-value {
+                font: 600 12px/20px var(--base-font);
+            }
+        }
+    }
+
+    .email-log-preview {
+        height: auto !important;
+        padding: 15px !important;
+
+        iframe {
+            border: 0;
+            width: 100%;
+            display: block;
+        }
+    }
+
+    .email-log-field-subject {
+        font: 600 14px/24px var(--base-font);
+        margin: 0 0 10px;
+    }
+
+    .email-log-field-line {
+        font: 400 13px/24px var(--base-font);
+    }
+}

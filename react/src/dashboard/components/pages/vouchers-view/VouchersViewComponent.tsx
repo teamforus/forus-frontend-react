@@ -540,7 +540,7 @@ export default function VouchersViewComponent() {
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         <div className="table-wrapper">
-                            <table className="table table-fixed table-align-top">
+                            <table className="table table-fixed">
                                 <tbody>
                                     <tr>
                                         <td>

@@ -72,7 +72,7 @@ export default interface Fund {
         backoffice_ineligible_redirect_url?: string;
     };
     requester_count: number;
-    criteria: Array<FundCriterion>;
+    criteria?: Array<FundCriterion>;
     criteria_editable: boolean;
     provider_organizations_count: number;
     provider_employees_count: number;

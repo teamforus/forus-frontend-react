@@ -9,13 +9,13 @@ import { FileUploaderItem } from './FileUploader';
 
 export default function FileUploaderItemView({
     item,
-    compact,
+    template,
     buttons,
     readOnly,
     removeFile,
 }: {
     item: FileUploaderItem;
-    compact?: boolean;
+    template?: 'default' | 'compact' | 'inline';
     buttons?: boolean;
     readOnly?: boolean;
     removeFile?: (file: FileUploaderItem) => void;
@@ -62,7 +62,10 @@ export default function FileUploaderItemView({
 
     return (
         <div className={`file-item ${item.uploading ? 'file-item-uploading' : ''}`}>
-            <div className={`file-item-container ${compact ? 'file-item-container-compact' : ''}`}>
+            <div
+                className={`file-item-container ${template == 'compact' ? 'file-item-container-compact' : ''} ${
+                    template == 'inline' ? 'file-item-container-inline' : ''
+                }`}>
                 <div className="file-item-icon">
                     <img src={extension ? assetUrl(`/assets/img/file-icon-${extension}.svg`) : undefined} alt="" />
                 </div>

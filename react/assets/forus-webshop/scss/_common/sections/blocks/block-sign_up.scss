@@ -97,7 +97,7 @@
                 overflow: hidden;
 
                 &:before {
-                    content: "";
+                    content: '';
                     display: block;
                     @include fill_parent();
                 }
@@ -130,7 +130,7 @@
                 color: var(--color-primary);
 
                 .sign_up-step-border:before {
-                    content: "";
+                    content: '';
                     display: block;
                     @include fill_parent();
                     background-color: var(--color-primary);
@@ -175,8 +175,28 @@
             }
         }
 
+        .sign_up-pane-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .sign_up-pane-heading,
+            .sign_up-pane-text {
+                margin: 0 0 0 !important;
+
+                .block-markdown {
+                    margin: 0;
+                    font-size: 14px;
+
+                    & > *:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+    }
+
         .sign_up-pane-body {
-            padding: 30px;
+            padding: 25px;
             font: 400 16px/24px var(--base-font);
 
             h2 {
@@ -241,7 +261,7 @@
                 border-bottom: 1px solid var(--border-color);
                 margin: 0 0 30px;
             }
-                            
+
             .list-normal {
                 padding-left: 18px;
             }
@@ -290,11 +310,11 @@
                     width: 100%;
 
                     &.sign_up-pane-col-1 {
-                        width: calc(100%/3) * 1;
+                        width: calc(100% / 3) * 1;
                     }
 
                     &.sign_up-pane-col-2 {
-                        width: calc(100%/3) * 2;
+                        width: calc(100% / 3) * 2;
                     }
 
                     &:last-child {
@@ -333,7 +353,7 @@
                     }
 
                     &:before {
-                        content: "";
+                        content: '';
                         display: inline-block;
                         width: 10px;
                         height: 10px;
@@ -622,7 +642,7 @@
         }
 
         .form {
-            .form-control:not([type="radio"]):not([type="checkbox"]) {
+            .form-control:not([type='radio']):not([type='checkbox']) {
                 height: auto;
 
                 &:not(textarea):not(.phone-control-input) {
@@ -647,7 +667,7 @@
 
             .ui-control {
                 &.ui-control-currency {
-                    .form-control:not([type="radio"]):not([type="checkbox"]) {
+                    .form-control:not([type='radio']):not([type='checkbox']) {
                         padding-left: 40px;
                     }
                 }
@@ -706,8 +726,8 @@
             padding: 15px;
             cursor: pointer;
             background-color: #fff;
-            transition: background-color .4s, border-color .4s;
-            
+            transition: background-color 0.4s, border-color 0.4s;
+
             .sign_up-option-media {
                 display: flex;
                 flex-direction: column;
@@ -717,7 +737,7 @@
                 .sign_up-option-media-img {
                     width: 40px;
                     display: block;
-                }   
+                }
             }
 
             .sign_up-option-details {
@@ -757,7 +777,7 @@
             .sign_up-option {
                 cursor: default;
                 pointer-events: none;
-                filter: saturate(.7);
+                filter: saturate(0.7);
             }
         }
     }
@@ -930,7 +950,7 @@
                     }
 
                     &.ui-control-currency {
-                        .form-control:not([type="radio"]):not([type="checkbox"]) {
+                        .form-control:not([type='radio']):not([type='checkbox']) {
                             padding-left: 35px;
                         }
                     }
@@ -1035,7 +1055,7 @@
             &.sign_up-options-2fa {
                 .sign_up-option {
                     padding: 10px;
-    
+
                     .sign_up-option-media {
                         margin-right: 8px;
 
@@ -1043,17 +1063,17 @@
                             width: 40px;
                         }
                     }
-    
+
                     .sign_up-option-details {
                         .sign_up-option-title {
                             font: 700 14px/20px var(--base-font);
                         }
-    
+
                         .sign_up-option-details {
                             font: 700 12px/20px var(--base-font);
                         }
                     }
-    
+
                     .sign_up-option-button {
                         .button {
                             padding: 10px;

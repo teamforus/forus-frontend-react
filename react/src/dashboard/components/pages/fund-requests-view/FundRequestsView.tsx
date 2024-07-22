@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
@@ -10,7 +10,8 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
 import { strLimit } from '../../../helpers/string';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import BlockCardNote from '../../elements/block-card-note/BlockCardNote';
+import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
+import BlockCardEmails from '../../elements/block-card-emails/BlockCardEmails';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalNotification from '../../modals/ModalNotification';
 import FundRequestRecord from '../../../props/models/FundRequestRecord';
@@ -31,6 +32,9 @@ import Employee from '../../../props/models/Employee';
 import FundRequestRecordTabs from './elements/FundRequestRecordTabs';
 import FundRequestPerson from './elements/FundRequestPerson';
 import useTranslate from '../../../hooks/useTranslate';
+import EmailLog from '../../../props/models/EmailLog';
+import { useFileService } from '../../../services/FileService';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 type FundRequestRecordLocal = FundRequestRecord & { shown?: boolean; hasContent?: boolean };
 
@@ -60,15 +64,17 @@ export default function FundRequestsView() {
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
+    const fileService = useFileService();
     const employeeService = useEmployeeService();
     const activeOrganization = useActiveOrganization();
     const fundRequestService = useFundRequestValidatorService();
 
-    const [showCriteria, setShowCriteria] = useState(null);
-    const [fundRequest, setFundRequest] = useState<FundRequestLocal>(null);
     const [employees, setEmployees] = useState<PaginationData<Employee>>(null);
+    const [fundRequest, setFundRequest] = useState<FundRequestLocal>(null);
+    const [showCriteria, setShowCriteria] = useState(null);
 
     const isValidatorsSupervisor = useMemo(
         () => activeOrganization?.permissions.includes('manage_validators'),
@@ -90,6 +96,8 @@ export default function FundRequestsView() {
         approved_partly: 'circle-slice-4',
         disregarded: 'circle-outline',
     });
+
+    const fetchEmailsRef = useRef<() => void>(null);
 
     const showFundCriteria = useCallback((e) => {
         e.stopPropagation();
@@ -230,6 +238,8 @@ export default function FundRequestsView() {
                     },
                 }),
             );
+
+            fetchEmailsRef?.current?.();
         }, console.error);
     }, [activeOrganization.id, fundRequest, fundRequestService, mapRequestFlags]);
 
@@ -520,6 +530,24 @@ export default function FundRequestsView() {
     const fetchNotes = useCallback(
         (query = {}) => fundRequestService.notes(activeOrganization.id, fundRequest.id, query),
         [activeOrganization?.id, fundRequest?.id, fundRequestService],
+    );
+
+    const fetchEmailLogs = useCallback(
+        (query = {}) => fundRequestService.emailLogs(activeOrganization.id, fundRequest.id, query),
+        [activeOrganization?.id, fundRequest?.id, fundRequestService],
+    );
+
+    const exportEmailLog = useCallback(
+        (emailLog: EmailLog) => {
+            fundRequestService
+                .emailLogExport(activeOrganization.id, fundRequest.id, emailLog.id)
+                .then((res) => fileService.downloadFile(`email-log-${emailLog.id}.pdf`, res.data))
+                .catch(pushApiError)
+                .finally(() => setProgress(100));
+
+            setProgress(0);
+        },
+        [activeOrganization?.id, fileService, fundRequest?.id, fundRequestService, pushApiError, setProgress],
     );
 
     const deleteNote = useCallback(
@@ -819,18 +847,16 @@ export default function FundRequestsView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
+                    <div className="flex flex-horizontal">
+                        <div className="flex flex-vertical flex-center flex-grow">
                             <div className="card-title">{translate('validation_requests.labels.records')}</div>
                         </div>
                         {fundRequest.can_add_partner_bsn && (
-                            <div className="flex flex-self-start">
-                                <div className="flex-row">
-                                    <button className="button button-primary button-sm" onClick={appendRecord}>
-                                        <em className="mdi mdi-plus icon-start" />
-                                        {translate('validation_requests.buttons.add_partner_bsn')}
-                                    </button>
-                                </div>
+                            <div className="flex flex-row">
+                                <button className="button button-primary button-sm" onClick={appendRecord}>
+                                    <em className="mdi mdi-plus icon-start" />
+                                    {translate('validation_requests.buttons.add_partner_bsn')}
+                                </button>
                             </div>
                         )}
                     </div>
@@ -981,11 +1007,17 @@ export default function FundRequestsView() {
                     )}
             </div>
 
-            <BlockCardNote
+            <BlockCardNotes
                 isAssigned={fundRequest.is_assigned}
                 fetchNotes={fetchNotes}
                 deleteNote={deleteNote}
                 storeNote={storeNote}
+            />
+
+            <BlockCardEmails
+                fetchLogEmails={fetchEmailLogs}
+                onExportEmail={exportEmailLog}
+                fetchEmailsRef={fetchEmailsRef}
             />
         </Fragment>
     );

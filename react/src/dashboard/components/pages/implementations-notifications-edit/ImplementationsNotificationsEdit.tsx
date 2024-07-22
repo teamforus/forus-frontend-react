@@ -26,7 +26,9 @@ export default function ImplementationsNotificationsEdit() {
     const implementationService = useImplementationService();
     const implementationNotificationsService = useImplementationNotificationService();
 
+    const [fund, setFund] = useState<Partial<Fund>>(null);
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
+
     const [notification, setNotification] = useState<SystemNotification>(null);
     const [implementation, setImplementation] = useState<Implementation>(null);
 
@@ -44,11 +46,19 @@ export default function ImplementationsNotificationsEdit() {
         setProgress(0);
 
         implementationNotificationsService
-            .read(activeOrganization.id, parseInt(implementationId), parseInt(id))
+            .read(activeOrganization.id, parseInt(implementationId), parseInt(id), { fund_id: fund?.id })
             .then((res) => setNotification(res.data.data))
             .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
             .finally(() => setProgress(100));
-    }, [implementationNotificationsService, activeOrganization.id, implementationId, id, pushDanger, setProgress]);
+    }, [
+        id,
+        fund?.id,
+        pushDanger,
+        setProgress,
+        implementationId,
+        activeOrganization.id,
+        implementationNotificationsService,
+    ]);
 
     const fetchFunds = useCallback(() => {
         if (implementation.allow_per_fund_notification_templates) {
@@ -100,6 +110,8 @@ export default function ImplementationsNotificationsEdit() {
             </div>
 
             <SystemNotificationEditor
+                fund={fund}
+                setFund={setFund}
                 funds={funds}
                 organization={activeOrganization}
                 implementation={implementation}

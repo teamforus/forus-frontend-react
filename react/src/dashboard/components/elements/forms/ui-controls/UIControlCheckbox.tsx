@@ -7,6 +7,7 @@ export default function UIControlCheckbox({
     label = '',
     value = '',
     checked,
+    slim = false,
     className = '',
     disabled = false,
     onChange = null,
@@ -16,6 +17,7 @@ export default function UIControlCheckbox({
     name?: string;
     label?: string;
     value?: string;
+    slim?: boolean;
     checked?: boolean;
     className?: string;
     disabled?: boolean;
@@ -32,7 +34,10 @@ export default function UIControlCheckbox({
     }, []);
 
     return (
-        <span className={`ui-control ui-control-checkbox ${className} ${disabled ? 'disabled' : ''}`}>
+        <span
+            className={`ui-control ui-control-checkbox ${className} ${
+                slim ? 'ui-control-checkbox-slim' : ''
+            } ${className} ${disabled ? 'disabled' : ''}`}>
             <input
                 className="form-control"
                 hidden={true}
@@ -52,7 +57,6 @@ export default function UIControlCheckbox({
             <label
                 className="ui-checkbox-label"
                 htmlFor={innerId}
-                role="checkbox"
                 tabIndex={0}
                 aria-checked={inputRef?.current?.checked}
                 onKeyDown={toggleCheckbox}>

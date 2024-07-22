@@ -15,10 +15,10 @@ import LoadingCard from '../loading-card/LoadingCard';
 import ModalAddNote from '../../modals/ModalAddNote';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
-import EmptyCard from '../empty-card/EmptyCard';
 import useTranslate from '../../../hooks/useTranslate';
+import LoaderTableCard from '../loader-table-card/LoaderTableCard';
 
-export default function BlockCardNote({
+export default function BlockCardNotes({
     isAssigned,
     fetchNotes,
     deleteNote,
@@ -108,14 +108,14 @@ export default function BlockCardNote({
     return (
         <div className="card">
             <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex flex-grow">
+                <div className="flex flex-horizontal">
+                    <div className="flex flex-vertical flex-center flex-grow">
                         <div className="card-title">
                             {translate('notes.header.title')}&nbsp;
                             <span className="span-count">{notes.meta.total}</span>
                         </div>
                     </div>
-                    <div className="flex">
+                    <div className="flex flex-row">
                         <div className="block block-inline-filters">
                             {isAssigned && (
                                 <div className="button button-primary" onClick={onAddNote}>
@@ -127,7 +127,8 @@ export default function BlockCardNote({
                     </div>
                 </div>
             </div>
-            {notes.meta.total > 0 && (
+
+            <LoaderTableCard empty={!notes.meta.total} emptyTitle={'Geen notites'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         <div className="table-wrapper">
@@ -172,20 +173,18 @@ export default function BlockCardNote({
                         </div>
                     </div>
                 </div>
-            )}
 
-            {notes.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen notites'} />}
-
-            {notes?.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={notes.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                {notes?.meta && (
+                    <div className="card-section">
+                        <Paginator
+                            meta={notes.meta}
+                            filters={filter.values}
+                            updateFilters={filter.update}
+                            perPageKey={paginatorKey}
+                        />
+                    </div>
+                )}
+            </LoaderTableCard>
         </div>
     );
 }

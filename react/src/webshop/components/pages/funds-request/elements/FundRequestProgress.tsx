@@ -24,7 +24,7 @@ export default function FundRequestProgress({
                 <div
                     key={index}
                     className={`sign_up-step ${
-                        step == steps.indexOf(_) && steps.indexOf(_) != -1 ? 'sign_up-step-active' : ''
+                        step == steps.indexOf(_) && steps.includes(_) ? 'sign_up-step-active' : ''
                     }
                     ${step > steps.indexOf(_) ? 'sign_up-step-done' : ''}`}
                     aria-hidden="true">

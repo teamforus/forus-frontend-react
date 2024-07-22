@@ -13,7 +13,7 @@ import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import TransactionDetails from '../transactions-view/elements/TransactionDetails';
 import { hasPermission } from '../../../helpers/utils';
-import BlockCardNote from '../../elements/block-card-note/BlockCardNote';
+import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
 import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
 import ModalReimbursementResolve from '../../modals/ModalReimbursementResolve';
@@ -609,7 +609,7 @@ export default function ReimbursementsView() {
                 />
             )}
 
-            <BlockCardNote
+            <BlockCardNotes
                 isAssigned={reimbursement.employee?.identity_address === authIdentity.address}
                 fetchNotes={fetchNotes}
                 deleteNote={deleteNote}

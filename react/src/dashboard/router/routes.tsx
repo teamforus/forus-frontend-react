@@ -3,7 +3,8 @@ import RouterBuilder from '../modules/state_router/RouterBuilder';
 import SignIn from '../components/pages/auth/SignIn';
 import SignUp from '../components/pages/auth/SignUp';
 import SignOut from '../components/pages/auth/SignOut';
-import FundRequests from '../components/pages/fund_requests/FundRequests';
+import FundRequests from '../components/pages/fund-requests/FundRequests';
+import FundRequestsView from '../components/pages/fund-requests-view/FundRequestsView';
 import Home from '../components/pages/home/Home';
 import ExternalFunds from '../components/pages/external_funds/ExternalFunds';
 import Employees from '../components/pages/employees/Employees';
@@ -32,7 +33,6 @@ import ReservationsView from '../components/pages/reservations-view/Reservations
 import ProviderFunds from '../components/pages/provider-funds/ProviderFunds';
 import Feedback from '../components/pages/feedback/Feedback';
 import NotFound from '../components/pages_system/NotFound';
-import FundRequestsView from '../components/pages/fund_requests-view/FundRequestsView';
 import OrganizationsSecurity from '../components/pages/organizations-security/OrganizationsSecurity';
 import OrganizationsView from '../components/pages/organizations-view/OrganizationsView';
 import OrganizationsNotifications from '../components/pages/organizations-notifications/OrganizationsNotifications';

@@ -14,6 +14,8 @@ export default interface SystemNotification {
     enable_database?: boolean;
     variables?: Array<string>;
     channels?: Array<'database' | 'mail' | 'push'>;
+    last_sent_date?: string;
+    last_sent_date_locale?: string;
     templates?: Array<NotificationTemplate>;
     templates_default?: Array<NotificationTemplate>;
 }

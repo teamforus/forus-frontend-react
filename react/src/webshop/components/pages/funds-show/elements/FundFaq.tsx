@@ -1,5 +1,6 @@
 import Fund from '../../../../../dashboard/props/models/Fund';
 import Markdown from '../../../elements/markdown/Markdown';
+import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import React, { useState } from 'react';
 
 export default function FundFaq({ fund }: { fund: Fund }) {
@@ -22,6 +23,7 @@ export default function FundFaq({ fund }: { fund: Fund }) {
                                 [question.id]: !list?.[question.id],
                             }));
                         }}
+                        onKeyDown={clickOnKeyEnter}
                         role="button"
                         aria-expanded={!!visibleFaq?.[question.id]}
                         aria-controls={`faq_item_${question.id}`}

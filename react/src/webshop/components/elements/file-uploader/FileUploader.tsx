@@ -40,7 +40,7 @@ export default function FileUploader({
     type,
     title = 'Document slepen & neer zetten',
     files = null,
-    compact = false,
+    template = 'default',
     multiple = false,
     multipleSize = 15,
     cropMedia = true,
@@ -53,20 +53,18 @@ export default function FileUploader({
     onFileUploaded = null,
     onFilesChange = null,
     hideButtons = false,
-    fileListCompact = false,
     isRequired = false,
 }: {
     type: 'fund_request_clarification_proof' | 'reimbursement_proof' | 'fund_request_record_proof';
     title?: string;
     files?: Array<FileModel>;
-    compact?: boolean;
+    template?: 'default' | 'compact' | 'inline';
     multiple?: boolean;
     multipleSize?: number;
     cropMedia?: boolean;
     readOnly?: boolean;
     acceptedFiles?: Array<string>;
     hideButtons?: boolean;
-    fileListCompact?: boolean;
     isRequired?: boolean;
 } & FileItemEventsListener) {
     const fileService = useFileService();
@@ -150,7 +148,7 @@ export default function FileUploader({
 
                     updateItem(fileItem.id, (item) => ({
                         ...item,
-                        error: error || err?.data?.message ? [err?.data?.message] : [],
+                        error: error || err?.data?.message ? [err?.data?.message] : ['Onbekende fout!'],
                     }));
 
                     callbackRef?.current?.onFileError?.(makeFileEvent(filesRef?.current, fileItem));
@@ -278,7 +276,9 @@ export default function FileUploader({
 
     return (
         <div
-            className={`block block-file-uploader ${compact ? 'block-file-uploader-compact' : ''}`}
+            className={`block block-file-uploader ${template == 'compact' ? 'block-file-uploader-compact' : ''} ${
+                template == 'inline' ? 'block-file-uploader-inline' : ''
+            }`}
             data-dusk="fileUploader">
             <input
                 type="file"
@@ -293,6 +293,7 @@ export default function FileUploader({
                     e.target.value = null;
                 }}
             />
+
             {!readOnly && (
                 <div
                     className={`uploader-droparea ${isDragOver ? 'is-dragover' : ''}`}
@@ -314,28 +315,40 @@ export default function FileUploader({
                     </div>
                     <div className="droparea-button">
                         <button
-                            className={`button ${compact ? 'button-light button-xs' : 'button-primary'}`}
+                            className={`button ${template == 'compact' ? 'button-light button-xs' : ''} ${
+                                template == 'inline' ? 'button-primary button-sm' : ''
+                            } ${template == 'default' ? 'button-primary' : ''}`}
                             data-dusk="fileUploaderBtn"
                             type="button"
                             role="button"
                             disabled={multipleSize && multipleSize <= fileItems.length}
                             onClick={() => inputRef.current?.click()}>
-                            <em className={`mdi ${compact ? 'mdi-paperclip' : 'mdi-upload'}`} />
+                            <em className={`mdi ${template == 'compact' ? 'mdi-paperclip' : 'mdi-upload'}`} />
                             Upload een document
                         </button>
                     </div>
-                    {!compact && <div className="droparea-size">max. grootte 8Mb</div>}
-                    {compact && multipleSize && <div className="droparea-max-limit">Max. {multipleSize} files</div>}
+                    {template === 'default' && <div className="droparea-size">max. grootte 8Mb</div>}
+
+                    {template === 'inline' && multipleSize && (
+                        <div className="droparea-max-limit">Max. {multipleSize} files</div>
+                    )}
                 </div>
             )}
 
             {fileItems.length > 0 && (
                 <div className="uploader-files">
+                    {template === 'inline' && (
+                        <div className="uploader-files-title">
+                            Attachments
+                            <div className="uploader-files-title-count">{fileItems.length}</div>
+                        </div>
+                    )}
+
                     {fileItems?.map((file) => (
                         <FileUploaderItemView
                             key={file.id}
                             item={file}
-                            compact={fileListCompact}
+                            template={template}
                             buttons={!hideButtons}
                             readOnly={readOnly}
                             removeFile={removeFile}

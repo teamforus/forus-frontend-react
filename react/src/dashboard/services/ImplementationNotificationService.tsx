@@ -33,9 +33,15 @@ export class ImplementationNotificationService<T = SystemNotification> {
     /**
      * Fetch by id
      */
-    public read(organizationId: number, implementationId: number, id: number): Promise<ApiResponseSingle<T>> {
+    public read(
+        organizationId: number,
+        implementationId: number,
+        id: number,
+        query?: object,
+    ): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.get(
             `${this.prefix}/${organizationId}/implementations/${implementationId}/system-notifications/${id}`,
+            query,
         );
     }
 

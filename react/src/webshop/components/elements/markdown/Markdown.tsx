@@ -5,12 +5,14 @@ export default function Markdown({
     content,
     className = '',
     ariaLevel = null,
+    fontSize = undefined,
     role = null,
 }: {
     content: string;
     align?: 'left' | 'center' | 'right';
     className?: string;
     ariaLevel?: number;
+    fontSize?: number;
     role?: string;
 }) {
     const ref = useRef<HTMLDivElement>(null);
@@ -52,6 +54,7 @@ export default function Markdown({
             ref={ref}
             role={role}
             aria-level={ariaLevel}
+            style={{ fontSize: fontSize ? `${fontSize}px` : undefined }}
             className={`block block-markdown ${align ? 'block-markdown-' + align : ''} ${className}`}
             dangerouslySetInnerHTML={{ __html: content }}
         />

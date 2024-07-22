@@ -13,18 +13,23 @@ import Fund from '../../../../props/models/Fund';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function SystemNotificationEditor({
+    fund,
     funds,
-    implementation,
-    organization,
+    setFund,
     notification,
+    organization,
+    implementation,
     setNotifications,
 }: {
+    fund: Partial<Fund>;
     funds?: Array<Partial<Fund>>;
-    implementation: Implementation;
-    organization: Organization;
+    setFund?: React.Dispatch<React.SetStateAction<Partial<Fund>>>;
     notification: SystemNotification;
+    organization: Organization;
+    implementation: Implementation;
     setNotifications: React.Dispatch<React.SetStateAction<SystemNotification>>;
 }) {
     const translate = useTranslate();
@@ -32,8 +37,6 @@ export default function SystemNotificationEditor({
     const setProgress = useSetProgress();
 
     const implementationNotificationsService = useImplementationNotificationService();
-
-    const [fund, setFund] = useState<Partial<Fund>>(funds ? funds[0] : null);
 
     const [notificationToggleLabels] = useState({
         disabled: `Uitgezet, alle kanalen zijn uitgezet.`,
@@ -213,6 +216,17 @@ export default function SystemNotificationEditor({
                                 {implementation.informal_communication ? 'Je/jouw' : 'U/uw'}
                             </div>
                         </div>
+
+                        {notification.key === 'notifications_identities.voucher_expire_soon_budget' && (
+                            <div className="keyvalue-item">
+                                <div className="keyvalue-key text-right">
+                                    <div className="text-strong">Laatste datum</div>
+                                </div>
+                                <div className="keyvalue-value">
+                                    {notification?.last_sent_date_locale || <TableEmptyValue />}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -47,7 +47,8 @@ export default function CmsBlocks({ page }: { page: ImplementationPage }) {
                                                 <div className="fund-button">
                                                     <a
                                                         className="button button-primary fund-button-button"
-                                                        target="_{{ block.button_target_blank ? 'blank' : 'self' }}"
+                                                        target={block.button_target_blank ? '_blank' : '_self'}
+                                                        rel={block.button_target_blank ? 'noreferrer' : ''}
                                                         href={block.button_link}>
                                                         {block.button_text}
                                                         <div
@@ -58,7 +59,8 @@ export default function CmsBlocks({ page }: { page: ImplementationPage }) {
                                                     {page.blocks_per_row > 1 && (
                                                         <a
                                                             className="button button-text button-text-primary fund-button-link"
-                                                            target="_{{ block.button_target_blank ? 'blank' : 'self' }}"
+                                                            target={block.button_target_blank ? '_blank' : '_self'}
+                                                            rel={block.button_target_blank ? 'noreferrer' : ''}
                                                             href={block.button_link}
                                                             aria-label={block.button_link_label}>
                                                             {block.button_text}

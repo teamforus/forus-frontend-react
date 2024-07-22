@@ -30,25 +30,34 @@ import FundRequestStepDone from './elements/steps/FundRequestStepDone';
 import FundRequestStepOverview from './elements/steps/FundRequestStepOverview';
 import FundRequestStepContactInformation from './elements/steps/FundRequestStepContactInformation';
 import FundRequestStepConfirmCriteria from './elements/steps/FundRequestStepConfirmCriteria';
-import FundRequestStepCriteria from './elements/steps/FundRequestStepCriteria';
 import FundRequestBsnWarning from './elements/FundRequestBsnWarning';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useFetchAuthIdentity from '../../../hooks/useFetchAuthIdentity';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
+import FundCriteriaStep from '../../../../dashboard/props/models/FundCriteriaStep';
+import FundRequestStepCriteria from './elements/steps/FundRequestStepCriteria';
+import useShouldRequestRecord from './hooks/useShouldRequestRecord';
 import FundCriterion from '../../../../dashboard/props/models/FundCriterion';
+import { orderBy, sortBy } from 'lodash';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
     files_uid?: Array<string>;
     errors?: { [key: string]: string | string[] };
     files?: File[];
-    isUploadingFiles?: boolean;
     is_checked?: boolean;
     title_default?: string;
     label?: string;
     control_type?: string;
     record_type_options?: { [key: string]: RecordTypeOption };
+    requested?: boolean;
+};
+
+type FundCriteriaStepLocal = FundCriteriaStep & {
+    uid?: string;
+    uploaderTemplate: 'inline' | 'default';
+    criteria: Array<LocalCriterion>;
 };
 
 export default function FundRequest() {
@@ -73,7 +82,6 @@ export default function FundRequest() {
 
     const { from } = useStateParams<{ from?: string }>();
     const [step, setStep] = useState<number>(null);
-    const [pendingCriteria, setPendingCriteria] = useState<Array<LocalCriterion>>([]);
     const [submitInProgress, setSubmitInProgress] = useState(false);
     const [errorReason, setErrorReason] = useState<string>(null);
     const [finishError, setFinishError] = useState(false);
@@ -85,7 +93,9 @@ export default function FundRequest() {
     const [contactInformation, setContactInformation] = useState('');
     const [contactInformationError, setContactInformationError] = useState(null);
     const [steps, setSteps] = useState([]);
-    const [criteriaSteps, setCriteriaSteps] = useState([]);
+
+    const [criteriaStepKeys, setCriteriaStepKeys] = useState([]);
+    const [pendingCriteria, setPendingCriteria] = useState<Array<LocalCriterion>>([]);
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
@@ -107,6 +117,61 @@ export default function FundRequest() {
         () => shouldAddContactInfo && fund?.contact_info_required,
         [fund?.contact_info_required, shouldAddContactInfo],
     );
+
+    const recordTypesByKey = useMemo<{ [key: string]: RecordType }>(() => {
+        return recordTypes?.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});
+    }, [recordTypes]);
+
+    const recordValuesByType = useMemo<{ [key: string]: string }>(() => {
+        return pendingCriteria.reduce((list, item) => {
+            return { ...list, [item.record_type_key]: item.input_value };
+        }, {});
+    }, [pendingCriteria]);
+
+    const shouldRequestRecord = useShouldRequestRecord(recordTypesByKey, recordValuesByType);
+
+    const criteriaSteps = useMemo<Array<FundCriteriaStepLocal>>(() => {
+        if (!fund || !pendingCriteria || !recordTypesByKey) {
+            return null;
+        }
+
+        const fundSteps = fund.criteria_steps.map((step) => step.id);
+        const hasOrders = pendingCriteria.filter((item) => item.order !== null).length > 0;
+
+        const customSteps = fund.criteria_steps.map(
+            (step): FundCriteriaStepLocal => ({
+                ...step,
+                uid: `criteria_step_${step.id}`,
+                uploaderTemplate: 'inline',
+                criteria: orderBy(
+                    pendingCriteria
+                        .filter((criterion) => criterion.fund_criteria_step_id == step.id)
+                        .map((criterion) => ({ ...criterion, requested: shouldRequestRecord(criterion) })),
+                    'order',
+                ),
+            }),
+        );
+
+        const stepLessCriteria = (hasOrders ? orderBy(pendingCriteria, 'order') : pendingCriteria)
+            .filter((criterion) => {
+                return !criterion.fund_criteria_step_id || !fundSteps.includes(criterion.fund_criteria_step_id);
+            })
+            .map(
+                (criterion): FundCriteriaStepLocal => ({
+                    uid: `criteria_step_default_${criterion.id}`,
+                    title: criterion.title || `Bevestig uw ${recordTypesByKey?.[criterion?.record_type?.key]?.name}`,
+                    order: 1000,
+                    criteria: [{ ...criterion, requested: shouldRequestRecord(criterion) }],
+                    uploaderTemplate: 'default',
+                }),
+            );
+
+        const combinedSteps = [...customSteps, ...stepLessCriteria].filter(
+            (step) => step.criteria.filter((criterion) => criterion.requested).length > 0,
+        );
+
+        return sortBy(combinedSteps, 'order');
+    }, [fund, pendingCriteria, recordTypesByKey, shouldRequestRecord]);
 
     const setStepByName = useCallback(
         (stepName: string) => {
@@ -172,7 +237,7 @@ export default function FundRequest() {
         setSubmitInProgress(true);
 
         fundRequestService
-            .store(fund.id, formDataBuild(pendingCriteria))
+            .store(fund.id, formDataBuild(pendingCriteria.filter((criterion) => shouldRequestRecord(criterion))))
             .then(() => {
                 if (fund.auto_validation) {
                     return applyFund(fund);
@@ -194,7 +259,16 @@ export default function FundRequest() {
 
                 setStepByName('done');
             });
-    }, [applyFund, formDataBuild, fund, fundRequestService, pendingCriteria, setStepByName, submitInProgress]);
+    }, [
+        applyFund,
+        formDataBuild,
+        fund,
+        fundRequestService,
+        pendingCriteria,
+        setStepByName,
+        submitInProgress,
+        shouldRequestRecord,
+    ]);
 
     const criterionTitle = useCallback(
         (criterion: FundCriterion) => {
@@ -258,14 +332,14 @@ export default function FundRequest() {
     );
 
     const buildSteps = useCallback(() => {
-        if (!fund || !pendingCriteria) {
+        if (!fund || !criteriaSteps) {
             return null;
         }
 
-        const hideOverview = (pendingCriteria.length == 1 || fund.auto_validation) && !shouldAddContactInfo;
-        const criteriaStepsList = [...new Array(pendingCriteria.length).keys()].map((index) => `criteria_${index}`);
+        const hideOverview = fund.auto_validation && !shouldAddContactInfo;
+        const criteriaStepsList = criteriaSteps.map((step) => step.uid);
 
-        const criteriaSteps = [
+        const criteriaStepsKeys = [
             fund.auto_validation ? 'confirm_criteria' : null,
             ...(fund.auto_validation ? [] : criteriaStepsList),
             shouldAddContactInfo ? 'contact_information' : null,
@@ -275,13 +349,13 @@ export default function FundRequest() {
         const steps = [
             emailSetupShow ? 'email_setup' : null,
             !fund.auto_validation ? 'criteria' : null,
-            ...criteriaSteps.filter((step) => step),
+            ...criteriaStepsKeys.filter((step) => step),
             'done',
         ].filter((step) => step);
 
         setSteps(steps);
-        setCriteriaSteps(criteriaSteps);
-    }, [emailSetupShow, fund, pendingCriteria, shouldAddContactInfo]);
+        setCriteriaStepKeys(criteriaStepsKeys);
+    }, [emailSetupShow, fund, criteriaSteps, shouldAddContactInfo]);
 
     const getFirstActiveFundVoucher = useCallback((fund: Fund, vouchers: Array<Voucher>) => {
         return vouchers.find((voucher) => !voucher.expired && voucher.fund_id === fund.id);
@@ -324,7 +398,7 @@ export default function FundRequest() {
         setProgress(0);
 
         fundService
-            .read(parseInt(id))
+            .read(parseInt(id), { check_criteria: 1 })
             .then((res) => setFund(res.data.data))
             .finally(() => setProgress(100));
     }, [fundService, setProgress, id]);
@@ -422,8 +496,6 @@ export default function FundRequest() {
             return navigateState('fund-activate', { id: fund.id });
         }
 
-        setPendingCriteria(pendingCriteria.map((criterion) => transformInvalidCriteria(criterion)));
-
         // The user is not authenticated and have to go back to sign-up page
         if (fund.auto_validation && !bsnIsKnown) {
             return navigateState('start');
@@ -444,6 +516,8 @@ export default function FundRequest() {
             return goToActivationComponent();
         }
 
+        setPendingCriteria(pendingCriteria.map((criterion) => transformInvalidCriteria(criterion)));
+
         setAutoSubmit(
             digidAvailable &&
                 fund.auto_validation &&
@@ -463,6 +537,44 @@ export default function FundRequest() {
         navigateState,
         vouchers,
     ]);
+
+    useEffect(() => {
+        const removedData = {};
+
+        const criteria = pendingCriteria
+            .map((item) => {
+                const defaultValue = fundService.getCriterionControlDefaultValue(item.record_type, item.operator);
+
+                if (!shouldRequestRecord(item) && item.input_value != defaultValue) {
+                    removedData[item.record_type_key] = {
+                        input_value: item.input_value,
+                        files: item.files,
+                        files_uid: item.files_uid,
+                        errors: item.errors,
+                        is_checked: item.is_checked,
+                    };
+
+                    item.input_value = defaultValue;
+                    item.files = [];
+                    item.files_uid = [];
+                    delete item.errors;
+                    delete item.is_checked;
+                }
+
+                return { ...item };
+            })
+            .map((item) => {
+                if (shouldRequestRecord(item) && Object.keys(removedData).includes(item.record_type_key)) {
+                    return { ...item, ...removedData[item.record_type_key] };
+                }
+
+                return { ...item };
+            });
+
+        if (Object.keys(removedData).length > 0) {
+            setPendingCriteria([...criteria]);
+        }
+    }, [fundService, pendingCriteria, shouldRequestRecord]);
 
     useEffect(() => {
         if (autoSubmit && steps?.[step] == 'confirm_criteria' && !autoSubmitted) {
@@ -487,7 +599,7 @@ export default function FundRequest() {
                                 prevStep={prevStep}
                                 nextStep={nextStep}
                                 progress={
-                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaSteps} />
+                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                                 bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
                             />
@@ -499,32 +611,40 @@ export default function FundRequest() {
                                 step={step}
                                 onPrevStep={prevStep}
                                 onNextStep={nextStep}
-                                pendingCriteria={pendingCriteria}
+                                pendingCriteria={criteriaSteps.reduce((list, step) => {
+                                    return [...list, ...step.criteria];
+                                }, [])}
                                 progress={
-                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaSteps} />
+                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                                 bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
                             />
                         )}
 
-                        {pendingCriteria?.map(
-                            (criterion, index) =>
-                                steps[step] == `criteria_${index}` && (
+                        {criteriaSteps?.map(
+                            (criterionStep) =>
+                                steps[step] == criterionStep.uid && (
                                     <FundRequestStepCriteria
-                                        key={`criteria_${index}`}
+                                        key={criterionStep.uid}
                                         step={step}
                                         steps={steps}
                                         fund={fund}
-                                        setPendingCriteria={setPendingCriteria}
+                                        title={criterionStep.title}
                                         onPrevStep={prevStep}
                                         onNextStep={nextStep}
                                         submitInProgress={submitInProgress}
                                         setSubmitInProgress={setSubmitInProgress}
-                                        criterion={criterion}
+                                        criteria={criterionStep.criteria.filter((item) => item.requested)}
+                                        uploaderTemplate={criterionStep.uploaderTemplate}
                                         formDataBuild={formDataBuild}
-                                        setCriterion={(update) => {
+                                        setCriterion={(id, update) => {
                                             setPendingCriteria((criteria) => {
-                                                criteria[index] = { ...criteria[index], ...update };
+                                                const criterion = criteria.find((item) => item.id == id);
+
+                                                if (criterion) {
+                                                    Object.assign(criterion, update);
+                                                }
+
                                                 return [...criteria];
                                             });
                                         }}
@@ -533,7 +653,7 @@ export default function FundRequest() {
                                             <FundRequestProgress
                                                 step={step}
                                                 steps={steps}
-                                                criteriaSteps={criteriaSteps}
+                                                criteriaSteps={criteriaStepKeys}
                                             />
                                         }
                                         bsnWarning={
@@ -551,7 +671,7 @@ export default function FundRequest() {
                                 onPrevStep={prevStep}
                                 submitInProgress={submitInProgress}
                                 progress={
-                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaSteps} />
+                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                                 bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
                             />
@@ -567,7 +687,7 @@ export default function FundRequest() {
                                 onPrevStep={prevStep}
                                 shouldAddContactInfoRequired={shouldAddContactInfoRequired}
                                 progress={
-                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaSteps} />
+                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                                 bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
                             />
@@ -575,13 +695,13 @@ export default function FundRequest() {
 
                         {steps[step] == 'application_overview' && (
                             <FundRequestStepOverview
-                                pendingCriteria={pendingCriteria}
+                                pendingCriteria={pendingCriteria.filter((criteria) => shouldRequestRecord(criteria))}
                                 onSubmitRequest={submitRequest}
                                 contactInformation={contactInformation}
                                 emailSetupShow={emailSetupShow}
                                 onPrevStep={prevStep}
                                 progress={
-                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaSteps} />
+                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                                 bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
                             />
@@ -592,7 +712,7 @@ export default function FundRequest() {
                                 finishError={finishError}
                                 errorReason={errorReason}
                                 progress={
-                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaSteps} />
+                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
                             />
                         )}
@@ -603,7 +723,7 @@ export default function FundRequest() {
             {digiExpired && (
                 <div className="block block-sign_up">
                     <div className="block-wrapper form">
-                        <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaSteps} />
+                        <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
 
                         <div className="sign_up-pane">
                             <h1 className="sr-only">DigiD sessie verlopen</h1>

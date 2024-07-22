@@ -310,7 +310,6 @@ export default function ReimbursementsEdit() {
                                         acceptedFiles={['.pdf', '.png', '.jpg', '.jpeg']}
                                         cropMedia={true}
                                         multiple={true}
-                                        fileListCompact={false}
                                         isRequired={true}
                                         onFilesChange={({ files }) => setFiles(files)}
                                     />

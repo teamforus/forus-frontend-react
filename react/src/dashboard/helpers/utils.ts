@@ -23,3 +23,10 @@ export const hasPermission = (organization: Organization, permissions: string | 
         }).length > 0
     );
 };
+
+export const extractText = (html: string) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    return doc.body.textContent || '';
+};

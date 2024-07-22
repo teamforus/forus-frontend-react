@@ -33,8 +33,8 @@ export interface ApiResponse<T, M = object> extends BaseResponse {
     data: PaginationData<T, M>;
 }
 
-export interface ApiResponseSingle<T> extends BaseResponse {
-    data: { data: T };
+export interface ApiResponseSingle<T, M = unknown> extends BaseResponse {
+    data: { data: T } & M;
 }
 
 export interface ResponseProp<T> extends BaseResponse {
