@@ -29,7 +29,7 @@
     "@types/jest": "^29.5.0",
     "@types/jquery": "^3.5.18",
     "@types/lodash": "^4.14.192",
-    "@types/node": "^18.15.11",
+    "@types/node": "^20.14.11",
     "@types/papaparse": "^5.3.1",
     "@types/pdfjs-dist": "^2.10.378",
     "@types/qrcode": "^1.4.1",
