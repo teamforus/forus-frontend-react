@@ -1,7 +1,7 @@
 export default {
     // SIGNUP = sign-up.pug
     items: {
-        title: 'Inloggen{{pageTitleSuffix}}',
+        title: 'Inloggen',
         header: 'Hier logt u in',
         pane_text: 'Inloggen op een bestaand account',
         digid: 'Open het DigiD inlogscherm',
@@ -16,7 +16,7 @@ export default {
             },
         },
         ede: {
-            title: 'Inloggen{{pageTitleSuffix}}',
+            title: 'Inloggen',
             header: 'Hier logt u in',
             pane_text: '',
             signup: '',
@@ -25,7 +25,7 @@ export default {
             restore_header: '',
         },
         vergoedingen: {
-            title: 'Inloggen{{pageTitleSuffix}}',
+            title: 'Inloggen',
             restore_title: 'Account herstellen',
             signup_option: 'Log in met DigiD om verder te gaan',
         },
