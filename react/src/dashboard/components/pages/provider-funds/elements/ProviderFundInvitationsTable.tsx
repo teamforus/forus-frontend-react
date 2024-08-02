@@ -90,8 +90,8 @@ export default function ProviderFundInvitationsTable({
                               item.state == 'pending' && !item.expired
                                   ? 'tag-warning'
                                   : item.expired
-                                  ? 'tag-default'
-                                  : 'tag-success',
+                                    ? 'tag-default'
+                                    : 'tag-success',
                       }
                     : {
                           status_text: translate('provider_funds.status.closed'),

@@ -138,8 +138,8 @@ export default function ModalFundProviderChatSponsor({
                                                     (message.counterpart == 'system'
                                                         ? 'system'
                                                         : envData.client_type != message.counterpart
-                                                        ? 'in'
-                                                        : 'out')
+                                                          ? 'in'
+                                                          : 'out')
                                                 }`}>
                                                 <div className="chat-message-time">
                                                     {message.time}

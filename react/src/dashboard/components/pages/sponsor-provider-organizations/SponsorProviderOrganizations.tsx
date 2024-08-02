@@ -204,8 +204,8 @@ export default function SponsorProviderOrganizations() {
                             requestsExpired > 0
                                 ? 'card-block-requests-danger'
                                 : requestsPending > 0
-                                ? 'card-block-requests-warning'
-                                : ''
+                                  ? 'card-block-requests-warning'
+                                  : ''
                         }`}>
                         <StateNavLink
                             name={'sponsor-fund-unsubscriptions'}

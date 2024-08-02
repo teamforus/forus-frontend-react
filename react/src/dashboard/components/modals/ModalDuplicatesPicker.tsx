@@ -184,9 +184,7 @@ export default function ModalDuplicatesPicker({
                                                 <span>{item.value}</span>
                                             </td>
 
-                                            {item?.columns?.map((column, index) => (
-                                                <td key={index}>{column}</td>
-                                            ))}
+                                            {item?.columns?.map((column, index) => <td key={index}>{column}</td>)}
 
                                             {enableToggles && listShown.length > 1 && (
                                                 <td>

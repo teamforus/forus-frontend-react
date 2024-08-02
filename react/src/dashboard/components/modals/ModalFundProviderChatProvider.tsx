@@ -123,8 +123,8 @@ export default function ModalFundProviderChatProvider({
                                                     (message.counterpart == 'system'
                                                         ? 'system'
                                                         : panelType != message.counterpart
-                                                        ? 'in'
-                                                        : 'out')
+                                                          ? 'in'
+                                                          : 'out')
                                                 }`}>
                                                 <div className="chat-message-time">
                                                     {message.time}
