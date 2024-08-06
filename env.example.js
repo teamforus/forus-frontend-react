@@ -1,5 +1,5 @@
 const fronts = {};
-const api_url = 'http://localhost:8000/api/v1';
+const api_url = 'http://forus-backend-app/api/v1';
 
 const baseImplementationKey = 'general';
 const support_id = false;
@@ -34,6 +34,7 @@ fronts['webshop.general'] = {
     type: 'webshop',
     client_key: 'general',
     client_type: 'webshop',
+    webRoot: 'webshop.general',
     name: 'General webshop',
     default_title: 'General webshop',
     useHashRouter: use_hash_router,
@@ -70,7 +71,7 @@ fronts['dashboard.sponsor'] = {
     type: 'dashboard',
     client_key: 'general',
     client_type: 'sponsor',
-    // webRoot: 'dashboard.sponsor',
+    webRoot: 'dashboard.sponsor',
     name: 'Sponsor dashboard',
     default_title: 'Sponsor dashboard',
     useHashRouter: use_hash_router,
@@ -180,7 +181,7 @@ fronts['backend'] = {
 // eslint-disable-next-line no-undef
 module.exports = {
     fronts: fronts,
-    enableOnly: [/*'dashboard.sponsor', 'dashboard.provider', */ 'dashboard.validator'],
+    enableOnly: ['webshop.general', 'dashboard.sponsor', 'dashboard.provider', 'dashboard.validator'],
     httpsKey: null,
     httpsCert: null,
     buildGzipFiles: false,
