@@ -74,8 +74,8 @@
 
             &.subsidy-property-monetary {
                 margin: 0 0 10px;
-                @include cf();
                 flex-direction: row;
+                @include cf();
 
                 .subsidy-property-label {
                     color: #000;

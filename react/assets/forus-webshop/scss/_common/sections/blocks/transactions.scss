@@ -31,9 +31,9 @@
             .transactions-item {
                 border-bottom: 1px solid #d4d9dd;
                 padding: 20px;
-                @include cf();
                 display: flex;
-                
+                @include cf();
+
                 .transactions-item-icon {
                     background: #ededed;
                     width: 35px;

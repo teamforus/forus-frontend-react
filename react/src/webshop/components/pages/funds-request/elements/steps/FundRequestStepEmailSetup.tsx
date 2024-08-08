@@ -9,6 +9,10 @@ import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../../../hooks/useEnvData';
 import FundRequestGoBackButton from '../FundRequestGoBackButton';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
+import TranslateHtml from '../../../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import EmailProviderLink from '../../../../../../dashboard/components/pages/auth/elements/EmailProviderLink';
+import useAssetUrl from '../../../../../hooks/useAssetUrl';
+import useAppConfigs from '../../../../../hooks/useAppConfigs';
 
 export default function FundRequestStepEmailSetup({
     fund,
@@ -26,6 +30,8 @@ export default function FundRequestStepEmailSetup({
     bsnWarning: React.ReactElement;
 }) {
     const envData = useEnvData();
+    const assetUrl = useAssetUrl();
+    const appConfigs = useAppConfigs();
 
     const translate = useTranslate();
     const identityEmailsService = useIdentityEmailsService();
@@ -53,7 +59,35 @@ export default function FundRequestStepEmailSetup({
         <Fragment>
             {progress}
 
-            {!emailSubmitted && (
+            {emailSubmitted ? (
+                <div className="sign_up-pane">
+                    <h1 className="sr-only">Er is een e-mail te bevestiging verstuurd</h1>
+                    <h2 className="sign_up-pane-header">E-mail verstuurd</h2>
+
+                    <div className="sign_up-pane-body">
+                        <div className="sign_up-email_sent">
+                            <div className="sign_up-email_sent-icon">
+                                <img
+                                    className="sign_up-email_sent-icon-img"
+                                    src={assetUrl('/assets/img/modal/email_signup.svg')}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="sign_up-email_sent-title">
+                                {translate(`popup_auth.header.title_succes_${appConfigs?.communication_type}`)}
+                            </div>
+                            <TranslateHtml
+                                component={<div className="sign_up-email_sent-text" />}
+                                i18n={`popup_auth.header.subtitle_we_succes_${appConfigs?.communication_type}`}
+                                values={{ email: emailForm.values.email }}
+                            />
+                            <EmailProviderLink email={emailForm.values.email} />
+                        </div>
+                    </div>
+
+                    {bsnWarning}
+                </div>
+            ) : (
                 <div className="sign_up-pane">
                     <div className="sign_up-pane-header">
                         <h2 className="sign_up-pane-header-title">Aanmelden met e-mailadres</h2>

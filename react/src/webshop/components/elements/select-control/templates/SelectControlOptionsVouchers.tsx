@@ -149,13 +149,15 @@ export default function SelectControlOptionsVouchers<T>({
                             setShowOptions(false);
                         }}>
                         <div className="block block-vouchers block-vouchers-select">
-                            {optionsFiltered.slice(0, visibleCount)?.map((option) => (
-                                <SelectControlOptionItemVoucher
-                                    key={option.id}
-                                    option={option}
-                                    selectOption={selectOption}
-                                />
-                            ))}
+                            {optionsFiltered
+                                .slice(0, visibleCount)
+                                ?.map((option) => (
+                                    <SelectControlOptionItemVoucher
+                                        key={option.id}
+                                        option={option}
+                                        selectOption={selectOption}
+                                    />
+                                ))}
                         </div>
                     </ClickOutside>
                 )}

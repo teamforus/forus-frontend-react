@@ -217,7 +217,7 @@
 
     .form-control:not([type='radio']):not([type='checkbox']) {
         width: 100%;
-        border: 1px solid #d4d9dd;
+        border: 1px solid var(--border-color);
         background-color: #ffffff;
         padding: 4px 15px;
         height: 36px;

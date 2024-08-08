@@ -304,11 +304,11 @@
         }
 
         .navbar-inner {
-            @include cf();
             max-width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
+            @include cf();
 
             &.button {
                 font: 400 16px/1.5em Arial, Helvetica, sans-serif;

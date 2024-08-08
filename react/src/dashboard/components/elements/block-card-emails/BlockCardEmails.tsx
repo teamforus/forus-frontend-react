@@ -111,7 +111,7 @@ export default function BlockCardEmails({
                     </div>
                 </div>
             </div>
-            <LoaderTableCard empty={!emailLogs.meta.total} emptyTitle={'The emails list is empty'}>
+            <LoaderTableCard empty={!emailLogs.meta.total} emptyTitle={'De lijst van berichten is leeg'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         <div className="table-wrapper">

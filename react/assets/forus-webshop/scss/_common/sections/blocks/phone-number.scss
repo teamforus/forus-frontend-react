@@ -17,11 +17,12 @@
     }
     @media screen and (max-width: 1000px) {
         &.block-phone-number {
+            width: calc(30px * 10 + 10px * 1);
+
             .pincode-number {
                 margin-right: 5px;
                 width: 30px;
             }
-            width: calc(30px * 10 + 10px * 1);
         }
     }
 }

@@ -3,9 +3,9 @@
 
     .modal-body {
         overflow: auto;
-        @include webkit_scrollbar();
         box-shadow: none;
         background: none;
+        @include webkit_scrollbar();
 
         .payment-details {
             border: 1px solid var(--border-color);
@@ -41,7 +41,6 @@
 
         .reservation-progress {
             width: 50%;
-            display: flex;
             position: relative;
             display: flex;
             flex-direction: row;

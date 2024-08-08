@@ -10,8 +10,8 @@
         }
 
         .section-filters {
-            @include cf();
             margin-bottom: 40px;
+            @include cf();
 
             input[type="text"] {
                 background: url("../img/looking-glass.png") no-repeat;

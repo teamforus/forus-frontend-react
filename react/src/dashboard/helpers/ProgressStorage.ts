@@ -1,5 +1,8 @@
 export default class ProgressStorage {
-    constructor(protected namespace: string, protected storage = localStorage) {}
+    constructor(
+        protected namespace: string,
+        protected storage = localStorage,
+    ) {}
 
     set(key: string, value: string) {
         this.storage.setItem(this.makeKey(key), value);

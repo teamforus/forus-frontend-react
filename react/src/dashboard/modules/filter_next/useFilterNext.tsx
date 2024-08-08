@@ -129,17 +129,20 @@ export default function useFilterNext<T = FilterModel>(
 
     useEffect(
         function () {
-            const clear = setTimeout(() => {
-                const data = values;
-                const dataReady = Object.keys(data).filter(
-                    (key) => !filterParams || !filterParams.includes(key as keyof T),
-                );
-                const newValues = dataReady.reduce((obj, key) => ({ ...obj, [key]: data[key] }), {});
+            const clear = setTimeout(
+                () => {
+                    const data = values;
+                    const dataReady = Object.keys(data).filter(
+                        (key) => !filterParams || !filterParams.includes(key as keyof T),
+                    );
+                    const newValues = dataReady.reduce((obj, key) => ({ ...obj, [key]: data[key] }), {});
 
-                setActiveValues((oldValues) => {
-                    return isEqual(oldValues, newValues) ? oldValues : newValues;
-                });
-            }, getTimeout(values, prevFilters.current));
+                    setActiveValues((oldValues) => {
+                        return isEqual(oldValues, newValues) ? oldValues : newValues;
+                    });
+                },
+                getTimeout(values, prevFilters.current),
+            );
 
             return () => clearTimeout(clear);
         },

@@ -20,8 +20,8 @@
             padding-left: 10px;
             padding-right: 6px;
             width: 40px;
-            @include cf();
             float: left;
+            @include cf();
 
             & > img,
             & > svg {
@@ -55,8 +55,8 @@
             .select-control-search-clear {
                 padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 0;
                 display: block;
-                @include cf();
                 float: left;
+                @include cf();
 
                 .mdi,
                 img {
@@ -184,13 +184,13 @@
             border-radius: 3px;
 
             .select-control-options {
-                @include webkit_scrollbar(#009ef4, 3px solid #fff);
                 position: relative;
                 border: 0;
                 margin: 0;
                 padding: 8px 0;
                 max-height: calc(calc(var(--control-option-height) * 10) + 12px);
                 overflow: auto;
+                @include webkit_scrollbar(#009ef4, 3px solid #fff);
 
                 .select-control-option {
                     display: block;

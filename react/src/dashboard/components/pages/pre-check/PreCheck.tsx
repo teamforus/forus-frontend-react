@@ -8,7 +8,7 @@ import Media from '../../../props/models/Media';
 import FormError from '../../elements/forms/errors/FormError';
 import Fund from '../../../props/models/Fund';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
-import PreCheck from '../../../props/models/PreCheck';
+import type PreCheck from '../../../props/models/PreCheck';
 import PreCheckStepEditor from './elements/PreCheckStepEditor';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';

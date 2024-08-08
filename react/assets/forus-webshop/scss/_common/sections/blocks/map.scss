@@ -1,6 +1,5 @@
 .block {
     &.block-map {
-        @include cf();
         @if ($buildReact) {
             background: url(./assets/img/sprite-map.png) no-repeat;
         } @else {
@@ -8,6 +7,7 @@
         }
         background-position: 100% 50%;
         background-size: auto 710px;
+        @include cf();
 
         .block-content {
             padding: 130px 0;

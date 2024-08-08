@@ -155,6 +155,12 @@
                             height: 3px;
                             width: 100%;
 
+                            /* Get rid of default border in Firefox. */
+                            border: none;
+
+                            /* For IE10 */
+                            color: var(--color-primary);
+
                             &::-webkit-progress-bar {
                                 background-color: #ebedf0;
                             }
@@ -162,12 +168,6 @@
                             &::-webkit-progress-value {
                                 background-color: var(--color-primary);
                             }
-
-                            /* Get rid of default border in Firefox. */
-                            border: none;
-
-                            /* For IE10 */
-                            color: var(--color-primary);
                         }
                     }
                 }

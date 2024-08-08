@@ -9,12 +9,12 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             cursor: default;
-            @include cf();
             position: relative;
             overflow: hidden;
             flex-direction: row;
             display: flex;
             min-height: 200px;
+            @include cf();
 
             .label {
                 margin-bottom: 10px;

@@ -46,11 +46,10 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%);
             display: block;
             transform: translate(0, -50%);
-            @include anim_blink();
             transition: opacity 0.4s;
+            @include anim_blink();
         }
 
         &:last-of-type {

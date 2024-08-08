@@ -8,7 +8,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../services/FundService';
 import ProviderOrganizationOverview from '../sponsor-provider-organization/elements/ProviderOrganizationOverview';
-import FundProvider from '../../../props/models/FundProvider';
+import type FundProvider from '../../../props/models/FundProvider';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import SubsidyFundSponsorProducts from './elements/SubsidyFundSponsorProducts';
 import ExtraPaymentIcon from '../../../../../assets/forus-platform/resources/platform-general/assets/img/svg/mollie-connection-icon.svg';

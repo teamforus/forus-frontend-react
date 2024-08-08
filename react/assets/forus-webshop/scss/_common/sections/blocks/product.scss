@@ -7,10 +7,10 @@
         margin-bottom: 30px;
         box-shadow: var(--box-shadow);
         cursor: default;
-        @include cf();
         position: relative;
         min-height: 300px;
         display: flex;
+        @include cf();
 
         .product-photo {
             width: 70%;

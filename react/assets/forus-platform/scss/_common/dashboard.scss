@@ -141,9 +141,9 @@ body {
         width: 240px;
         border: 1px solid #f3f4f5;
         border-radius: 5px;
-        @include cf();
         box-shadow: 0 5px 25px rgba(#000, 0.15);
         padding: 5px 20px;
+        @include cf();
 
         .hover-actions-label {
             padding: 10px 20px;
@@ -424,10 +424,10 @@ body {
                 position: relative;
                 padding-bottom: 15px;
                 margin-bottom: -10px;
-                @include cf();
                 display: flex;
                 flex-direction: row;
                 cursor: pointer;
+                @include cf();
 
                 .auth-user-details {
                     display: flex;
@@ -878,16 +878,68 @@ body {
     }
 
     .card-header {
-        padding: 15px 25px;
+        padding: 15px 25px 14px;
         position: relative;
         @include cf();
 
-        .card-header-drown,
-        .block.block-label-tabs,
-        .form-control,
-        .button {
-            margin-top: -2px;
-            margin-bottom: -2px;
+        &:not(.card-header-next) {
+            .card-header-drown,
+            .block.block-label-tabs,
+            .form-control,
+            .button {
+                margin-top: -2px;
+                margin-bottom: -2px;
+            }
+        }
+
+        &.card-header-next {
+            display: flex;
+            flex-direction: row;
+
+            .card-header-filters {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
+                margin-right: -10px;
+
+                .block-inline-filters {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    align-items: center;
+
+                    .form-control:not(.select-control) {
+                        &:not([type='radio']):not([type='checkbox']) {
+                            height: 30px;
+                            margin: 0;
+                            padding: 0 10px;
+                            line-height: 28px;
+                        }
+                    }
+
+                    .form-group-inline > .form-label {
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                    }
+
+                    .select-control {
+                        height: auto;
+
+                        .form-control:not([type='radio']):not([type='checkbox']) {
+                            padding-right: 30px;
+                        }
+                    }
+
+                    & > * {
+                        margin: 0 0 0 0;
+                    }
+                }
+            }
+
+            .block-label-tabs {
+                margin-left: 0;
+            }
         }
 
         .card-header-drown {
@@ -1328,13 +1380,13 @@ body {
     }
 
     &.card-block-keyvalue {
-        @include cf();
         margin-bottom: 10px;
+        @include cf();
 
         .keyvalue-item {
-            @include cf();
             padding-bottom: 10px;
             float: left;
+            @include cf();
 
             .keyvalue-key {
                 float: left;
@@ -3883,10 +3935,10 @@ body {
     }
 
     &.block-auth-type {
-        @include cf();
         font-size: 0;
         padding: 0 0 20px;
         text-align: center;
+        @include cf();
 
         .auth_type-item {
             display: inline-block;
@@ -4471,8 +4523,8 @@ body {
     }
 
     &.block-choose-organization {
-        @include cf();
         margin: 0 -7.5px 0;
+        @include cf();
 
         .organization-heading {
             font: 500 18px var(--base-font);
@@ -5482,7 +5534,6 @@ body {
             margin-right: 10px;
             display: flex;
             border-radius: inherit;
-            box-shadow: var(--box-shadow);
 
             &:last-child {
                 margin-right: 0;

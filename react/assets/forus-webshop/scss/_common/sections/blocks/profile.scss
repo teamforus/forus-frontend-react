@@ -72,12 +72,12 @@
                     .profile-action {
                         font: 700 12px var(--base-font);
                         color: #2f5bf6;
-                        @include cf();
                         float: left;
                         margin-right: 30px;
                         margin-bottom: 20px;
                         transition: color .4s;
                         cursor: pointer;
+                        @include cf();
 
                         .mdi {
                             color: inherit;

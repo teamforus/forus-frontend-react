@@ -20,8 +20,8 @@
             .criteria-section {
                 padding: 20px;
                 border-bottom: 1px solid #d4d9dd;
-                @include cf();
                 position: relative;
+                @include cf();
 
                 .criteria-details {
                     float: left;

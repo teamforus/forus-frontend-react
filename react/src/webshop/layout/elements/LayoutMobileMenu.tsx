@@ -98,6 +98,7 @@ export default function LayoutMobileMenu() {
                                     params={menuItem.stateParams}
                                     target={menuItem.target || '_blank'}
                                     activeExact={true}
+                                    tabIndex={0}
                                     onClick={hideMobileMenu}>
                                     <em className="mobile-menu-item-icon mdi mdi-arrow-right" aria-hidden="true" />
                                     {translate(
@@ -113,6 +114,7 @@ export default function LayoutMobileMenu() {
                                     className="mobile-menu-item"
                                     href={menuItem.href}
                                     target={menuItem.target || '_blank'}
+                                    tabIndex={0}
                                     onClick={hideMobileMenu}>
                                     <em className="mobile-menu-item-icon mdi mdi-arrow-right" aria-hidden="true" />
                                     {translate(
@@ -296,7 +298,7 @@ export default function LayoutMobileMenu() {
                             role="button"
                             className="mobile-menu-item"
                             onClick={onSignOut}
-                            aria-label="{{ 'topnavbar.buttons.logout' | translate }}">
+                            aria-label={translate('topnavbar.buttons.logout')}>
                             <em className="mobile-menu-item-icon mdi mdi-logout" />
                             {translate('topnavbar.buttons.logout')}
                         </a>
@@ -308,6 +310,7 @@ export default function LayoutMobileMenu() {
                                 <button
                                     className="button button-primary-outline button-start button-sm"
                                     role="button"
+                                    aria-label={envData.config.flags.showStartButtonText || 'Start'}
                                     onClick={() => startFundRequest({ restore_with_email: 1 })}>
                                     <em className="mdi mdi-plus-circle icon-start" />
                                     {envData.config.flags.showStartButtonText || 'Start'}
@@ -318,7 +321,7 @@ export default function LayoutMobileMenu() {
                                 className="button button-primary button-sm"
                                 role="button"
                                 onClick={() => startFundRequest({})}
-                                aria-label="Inloggen"
+                                aria-label={translate('topnavbar.buttons.login')}
                                 id="login_mobile">
                                 <em className="mdi mdi-account icon-start" />
                                 {translate('topnavbar.buttons.login')}

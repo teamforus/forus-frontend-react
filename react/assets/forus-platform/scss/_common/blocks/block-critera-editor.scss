@@ -130,8 +130,8 @@
                     background: #ffff;
                     border-bottom: 1px solid var(--border-color);
                     padding: 5px 10px;
-                    @include cf();
                     cursor: default;
+                    @include cf();
 
                     .criterion-organization-icon {
                         margin-right: 15px;

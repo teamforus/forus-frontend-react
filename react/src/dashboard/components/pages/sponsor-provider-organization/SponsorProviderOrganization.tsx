@@ -12,7 +12,7 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import FundProviderTableItem from './elements/FundProviderTableItem';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import ProviderOrganizationOverview from './elements/ProviderOrganizationOverview';
-import { SponsorProviderOrganization } from '../../../props/models/Organization';
+import type { SponsorProviderOrganization } from '../../../props/models/Organization';
 import { strLimit } from '../../../helpers/string';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';

@@ -15,7 +15,7 @@ import { useVoucherService } from '../../../services/VoucherService';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { useParams } from 'react-router-dom';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import FundRequest from '../../../../dashboard/props/models/FundRequest';
+import type FundRequest from '../../../../dashboard/props/models/FundRequest';
 import RecordType from '../../../../dashboard/props/models/RecordType';
 import { useRecordTypeService } from '../../../../dashboard/services/RecordTypeService';
 import useAssetUrl from '../../../hooks/useAssetUrl';

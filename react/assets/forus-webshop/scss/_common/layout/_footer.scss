@@ -28,8 +28,8 @@
         font: 400 14px/30px var(--base-font);
 
         .wrapper {
-            @include cf();
             height: 30px;
+            @include cf();
         }
 
         .copyrights {

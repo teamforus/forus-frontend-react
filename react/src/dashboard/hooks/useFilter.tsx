@@ -48,9 +48,12 @@ export default function useFilter<T = FilterModel>(
 
     useEffect(
         function () {
-            const clear = setTimeout(() => {
-                setActiveValues(values);
-            }, getTimeout(values, prevFilters.current));
+            const clear = setTimeout(
+                () => {
+                    setActiveValues(values);
+                },
+                getTimeout(values, prevFilters.current),
+            );
 
             return () => clearTimeout(clear);
         },

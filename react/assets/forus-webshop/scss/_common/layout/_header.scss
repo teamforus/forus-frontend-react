@@ -50,8 +50,8 @@
         }
 
         .header-body {
-            @include cf();
             position: relative;
+            @include cf();
         }
 
         .header-content {

@@ -2,6 +2,8 @@
     &.section-faq {
         .faq {
             .faq-item {
+                border: 1px solid #e6ecf0;
+
                 .faq-item-header {
                     .faq-item-chevron-up {
                         color: #6dad50;
@@ -10,7 +12,7 @@
                         color: #6dad50;
                     }
                 }
-                border: 1px solid #e6ecf0;
+
                 &:hover:not(.active) {
                     .faq-item-header {
                         color: var(--color-primary);

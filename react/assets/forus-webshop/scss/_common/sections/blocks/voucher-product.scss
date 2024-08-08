@@ -10,10 +10,10 @@
             box-shadow: var(--box-shadow);
             height: 150px;
             cursor: default;
-            @include cf();
             position: relative;
             display: block;
             overflow: hidden;
+            @include cf();
 
             .product-photo {
                 width: 200px;

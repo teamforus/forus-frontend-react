@@ -44,7 +44,7 @@ export default function Accessibility() {
                     accessibility_link: 'https://www.geertruidenberg.nl/en/node/781',
                     telephone_numer: '14 0162',
                 },
-            }[envData.client_key]),
+            })[envData.client_key],
         [envData.client_key],
     );
 

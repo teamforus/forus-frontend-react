@@ -517,8 +517,8 @@ ui-view {
         }
 
         .header-body {
-            @include cf();
             position: relative;
+            @include cf();
 
             &.header-body-sprite-fill {
                 position: initial;
@@ -1179,10 +1179,10 @@ ui-view {
             border-radius: var(--border-radius);
             background-color: #ffffff;
             box-shadow: 0 10px 20px rgba(#000, 0.075);
-            @include cf();
             max-width: 100%;
             margin: 0 auto;
             display: flex;
+            @include cf();
         }
 
         .navbar-logo {
@@ -1590,16 +1590,15 @@ ui-view {
             }
 
             .blog-item-inner {
-                box-shadow: 0 20px 50px rgba(#000, 0.025);
                 transition: box-shadow 0.4s, transform 0.4s;
                 display: block;
                 background: #fff;
                 padding: 30px;
                 border-radius: 15px;
-                @include cf();
                 position: relative;
                 transform: translate(0, 0);
                 box-shadow: 0 10px 25px rgba(#000000, 0.05);
+                @include cf();
 
                 &:hover {
                     box-shadow: 0 25px 40px rgba(#000, 0.15);
@@ -1863,8 +1862,8 @@ ui-view {
         font: 400 14px/30px var(--base-font-landing);
 
         .wrapper {
-            @include cf();
             height: 30px;
+            @include cf();
         }
 
         .copyrights {
@@ -1927,10 +1926,10 @@ ui-view {
         position: relative;
         z-index: 3;
         margin: 0 0 70px;
-        @include cf();
         float: left;
         display: flex;
         width: 100%;
+        @include cf();
 
         .card-item {
             width: 50%;
@@ -2019,10 +2018,10 @@ ui-view {
     }
 
     &.block-auth-type {
-        @include cf();
         font-size: 0;
         padding: 0 0 20px;
         text-align: center;
+        @include cf();
 
         .auth_type-item {
             display: inline-block;

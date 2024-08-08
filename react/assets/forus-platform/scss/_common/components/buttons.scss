@@ -101,7 +101,7 @@
     &.button-default {
         background: #ffffff;
         color: #151b26;
-        border-color: #d4d9dd;
+        border-color: var(--border-color);
 
         & > .mdi {
             color: #646f79;
@@ -246,7 +246,7 @@
     }
 
     &.button-icon {
-        padding: 7px 15px;
+        padding: 7px 12px;
 
         & > .mdi {
             margin: 0 -5px;

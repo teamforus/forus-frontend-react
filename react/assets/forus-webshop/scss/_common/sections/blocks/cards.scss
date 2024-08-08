@@ -4,8 +4,8 @@
         z-index: 3;
         width: calc(100% + 30px);
         margin: 0 -16px 70px;
-        @include cf();
         float: left;
+        @include cf();
 
         .card-item {
             width: 50%;
