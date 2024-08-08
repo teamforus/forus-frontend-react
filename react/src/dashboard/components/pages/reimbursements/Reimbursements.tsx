@@ -401,7 +401,7 @@ export default function Reimbursements() {
                                                 key={reimbursement.id}
                                                 dataDusk={`reimbursement${reimbursement.id}`}
                                                 className={classNames(
-                                                    'clickable',
+                                                    'tr-clickable',
                                                     reimbursement.expired && 'tr-warning',
                                                 )}>
                                                 <td>

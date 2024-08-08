@@ -13,12 +13,12 @@ import VouchersTableNoFundsBlock from './elements/VouchersTableNoFundsBlock';
 import useVoucherTableOptions from './hooks/useVoucherTableOptions';
 import { VouchersTableFiltersProps } from './elements/VouchersTableFilters';
 import VouchersTableHeader from './elements/VouchersTableHeader';
-import VouchersTableRowActions from './elements/VouchersTableRowActions';
 import VouchersTableRow from './elements/VouchersTableRow';
 import { keyBy } from 'lodash';
 import useConfigurableTable from './hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { BooleanParam, createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function Vouchers() {
     const activeOrganization = useActiveOrganization();
@@ -52,7 +52,7 @@ export default function Vouchers() {
             has_payouts: null,
             count_per_identity_min: null,
             count_per_identity_max: null,
-            type: 'fund_voucher',
+            type: 'all',
             source: 'all',
             fund_id: null,
             implementation_id: null,
@@ -167,7 +167,6 @@ export default function Vouchers() {
                 funds={funds}
                 loading={loading}
                 fetchVouchers={fetchVouchers}
-                type={'vouchers'}
             />
 
             {!loading && vouchers.data.length > 0 && (
@@ -175,76 +174,51 @@ export default function Vouchers() {
                     <div className="card-block card-block-table">
                         {configsElement}
 
-                        <div className="table-wrapper">
-                            <div className="table-container table-container-2">
-                                <div className="table-scroll">
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                {columns.map((column, index: number) => (
-                                                    <th
-                                                        key={index}
-                                                        onMouseOver={() => showTableTooltip(column.tooltip.key)}
-                                                        onMouseLeave={() => hideTableTooltip()}>
-                                                        {translate(column.label)}
-                                                    </th>
-                                                ))}
+                        <TableTopScroller>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        {columns.map((column, index: number) => (
+                                            <th
+                                                key={index}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}>
+                                                {translate(column.label)}
+                                            </th>
+                                        ))}
 
-                                                <th>&nbsp;</th>
-                                            </tr>
-                                        </thead>
+                                        <th className="table-th-actions table-th-actions-with-list">
+                                            <div className="table-th-actions-list">
+                                                <div
+                                                    className={`table-th-action ${
+                                                        showTableConfig && tableConfigCategory == 'tooltips'
+                                                            ? 'active'
+                                                            : ''
+                                                    }`}
+                                                    onClick={() => displayTableConfig('tooltips')}>
+                                                    <em className="mdi mdi-information-variant-circle" />
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                                        <tbody>
-                                            {vouchers.data.map((voucher) => (
-                                                <VouchersTableRow
-                                                    key={voucher.id}
-                                                    voucher={voucher}
-                                                    organization={activeOrganization}
-                                                    columnKeys={columnKeys}
-                                                />
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div className="table-scroll-actions">
-                                    <table className="table">
-                                        <tbody>
-                                            <tr>
-                                                <th>
-                                                    <div className="table-th-actions">
-                                                        <div
-                                                            className={`table-th-action ${
-                                                                showTableConfig && tableConfigCategory == 'tooltips'
-                                                                    ? 'active'
-                                                                    : ''
-                                                            }`}
-                                                            onClick={() => displayTableConfig('tooltips')}>
-                                                            <em className="mdi mdi-information-variant-circle" />
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                            </tr>
-
-                                            {vouchers.data.map((voucher, index: number) => (
-                                                <tr data-dusk={`voucherItem${voucher.id}`} key={index}>
-                                                    <td>
-                                                        <VouchersTableRowActions
-                                                            fund={funds?.find((fund) => fund.id === voucher.fund_id)}
-                                                            voucher={voucher}
-                                                            organization={activeOrganization}
-                                                            fetchVouchers={fetchVouchers}
-                                                            shownVoucherMenuId={shownVoucherMenuId}
-                                                            setShownVoucherMenuId={setShownVoucherMenuId}
-                                                        />
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                <tbody>
+                                    {vouchers.data.map((voucher) => (
+                                        <VouchersTableRow
+                                            funds={funds}
+                                            key={voucher.id}
+                                            voucher={voucher}
+                                            fetchVouchers={fetchVouchers}
+                                            organization={activeOrganization}
+                                            columnKeys={columnKeys}
+                                            shownVoucherMenuId={shownVoucherMenuId}
+                                            setShownVoucherMenuId={setShownVoucherMenuId}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

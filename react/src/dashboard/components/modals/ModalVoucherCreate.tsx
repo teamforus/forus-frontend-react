@@ -20,21 +20,23 @@ import Record from '../../props/models/Record';
 import Product from '../../props/models/Product';
 import useProductService from '../../services/ProductService';
 import ModalNotification from './ModalNotification';
+import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
+import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 
 export default function ModalVoucherCreate({
-    fund,
+    funds,
     modal,
+    fundId,
     className,
     onCreated,
     organization,
-    type = 'vouchers',
 }: {
-    fund: Partial<Fund>;
+    funds: Array<Partial<Fund>>;
     modal: ModalState;
+    fundId?: number;
     className?: string;
     onCreated: () => void;
     organization: Organization;
-    type?: 'vouchers' | 'product_vouchers';
 }) {
     const translate = useTranslate();
     const openModal = useOpenModal();
@@ -58,7 +60,16 @@ export default function ModalVoucherCreate({
         [organization?.bsn_enabled],
     );
 
+    const creditTypes = useMemo(
+        () => [
+            { key: 'vouchers', name: 'Bedrag' },
+            { key: 'product_vouchers', name: 'Aanbod' },
+        ],
+        [],
+    );
+
     const [assignType, setAssignType] = useState(assignTypes[0]);
+    const [fund, setFund] = useState(funds.find((fund) => fund.id === fundId) || funds?.[0]);
 
     const form = useFormBuilder<{
         bsn?: string;
@@ -66,7 +77,7 @@ export default function ModalVoucherCreate({
         email?: string;
         amount: string;
         records?: Array<Record>;
-        fund_id: number;
+        type?: 'vouchers' | 'product_vouchers';
         expire_at: string;
         client_uid?: string;
         product_id?: number;
@@ -78,8 +89,8 @@ export default function ModalVoucherCreate({
             email: null,
             amount: null,
             records: [],
-            fund_id: fund.id,
-            expire_at: fund.end_date,
+            type: 'vouchers',
+            expire_at: fund?.end_date,
             client_uid: null,
             product_id: null,
             limit_multiplier: 1,
@@ -94,6 +105,7 @@ export default function ModalVoucherCreate({
                     bsn: { activate: 1, activation_code: 0 },
                     activation_code: { activate: 0, activation_code: 1 },
                 }[assignType.key],
+                fund_id: fund.id,
                 assign_by_type: assignType.key,
                 records: form.values.records.reduce(
                     (records, record) => ({ ...records, [record.key]: record.value }),
@@ -130,7 +142,7 @@ export default function ModalVoucherCreate({
                     if (assignType.key === 'email') {
                         voucherService
                             .index(organization.id, {
-                                type: type == 'vouchers' ? 'fund_voucher' : 'product_voucher',
+                                type: form.values.type == 'vouchers' ? 'fund_voucher' : 'product_voucher',
                                 email: form.values.email,
                                 fund_id: fund.id,
                                 source: 'all',
@@ -154,7 +166,7 @@ export default function ModalVoucherCreate({
                     if (assignType.key === 'bsn') {
                         voucherService
                             .index(organization.id, {
-                                type: type == 'vouchers' ? 'fund_voucher' : 'product_voucher',
+                                type: form.values.type == 'vouchers' ? 'fund_voucher' : 'product_voucher',
                                 bsn: form.values.bsn,
                                 fund_id: fund.id,
                                 source: 'all',
@@ -293,10 +305,10 @@ export default function ModalVoucherCreate({
     }, [assignType.key, formUpdate]);
 
     useEffect(() => {
-        if (type === 'product_vouchers') {
+        if (form.values.type === 'product_vouchers') {
             fetchProducts();
         }
-    }, [fetchProducts, type]);
+    }, [fetchProducts, form.values.type]);
 
     return (
         <div
@@ -308,8 +320,8 @@ export default function ModalVoucherCreate({
             <form className="modal-window form" onSubmit={form.submit}>
                 <a className="mdi mdi-close modal-close" onClick={modal.close} role="button" />
                 <div className="modal-header">
-                    {type == 'vouchers' && translate('modals.modal_voucher_create.title')}
-                    {type == 'product_vouchers' && translate('modals.modal_product_voucher_create.title')}
+                    {form.values.type == 'vouchers' && translate('modals.modal_voucher_create.title')}
+                    {form.values.type == 'product_vouchers' && translate('modals.modal_product_voucher_create.title')}
                 </div>
 
                 <div className="modal-body">
@@ -327,19 +339,116 @@ export default function ModalVoucherCreate({
                                     <div className="modal-fields-list">
                                         <div className="form-group form-group-inline form-group-inline-lg">
                                             <div className="form-label form-label-required">
+                                                {translate('modals.modal_voucher_create.labels.fund')}
+                                            </div>
+                                            <div className="form-offset">
+                                                <FormGroupInfo
+                                                    info={translate(
+                                                        'modals.modal_voucher_create.tooltips.assign_type',
+                                                    )}>
+                                                    <SelectControl
+                                                        className={'flex-grow'}
+                                                        value={fund.id}
+                                                        propKey={'id'}
+                                                        onChange={(fund_id: number) => {
+                                                            setFund(funds.find((fund) => fund.id === fund_id));
+                                                        }}
+                                                        options={funds}
+                                                        allowSearch={false}
+                                                        optionsComponent={SelectControlOptionsFund}
+                                                    />
+                                                    <FormError error={form.errors?.fund_id} />
+                                                </FormGroupInfo>
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group form-group-inline form-group-inline-lg">
+                                            <div className="form-label form-label-required">
+                                                {translate('modals.modal_voucher_create.labels.credit_type')}
+                                            </div>
+                                            <div className="form-offset">
+                                                <FormGroupInfo
+                                                    info={translate('modals.modal_voucher_create.tooltips.type')}>
+                                                    <SelectControl
+                                                        value={form.values.type}
+                                                        propKey={'key'}
+                                                        onChange={(type: 'vouchers' | 'product_vouchers') => {
+                                                            form.update({ type });
+                                                        }}
+                                                        options={creditTypes}
+                                                        allowSearch={false}
+                                                        optionsComponent={SelectControlOptions}
+                                                    />
+                                                    <FormError error={form.errors?.type} />
+                                                </FormGroupInfo>
+                                            </div>
+                                        </div>
+
+                                        {fund.type === 'budget' && form.values.type == 'vouchers' && (
+                                            <div className="form-group form-group-inline form-group-inline-lg">
+                                                <div className="form-label form-label-required">
+                                                    {translate('modals.modal_voucher_create.labels.amount')}
+                                                </div>
+                                                <div className="form-offset">
+                                                    <input
+                                                        type={'number'}
+                                                        className="form-control"
+                                                        placeholder={translate(
+                                                            'modals.modal_voucher_create.labels.amount',
+                                                        )}
+                                                        value={form.values.amount || ''}
+                                                        step=".01"
+                                                        min="0.01"
+                                                        max={fund.limit_per_voucher}
+                                                        onChange={(e) => form.update({ amount: e.target.value })}
+                                                    />
+                                                    {!form.errors?.amount && (
+                                                        <div className="form-hint">
+                                                            Limiet {fund.limit_per_voucher_locale}
+                                                        </div>
+                                                    )}
+                                                    <FormError error={form.errors?.amount} />
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {form.values.type == 'product_vouchers' && (
+                                            <div className="form-group form-group-inline form-group-inline-lg">
+                                                <div className="form-label">
+                                                    {translate('modals.modal_product_voucher_create.labels.product')}
+                                                </div>
+                                                <div className="form-offset">
+                                                    <SelectControl
+                                                        value={form.values.product_id}
+                                                        propKey={'id'}
+                                                        options={products}
+                                                        placeholder="Selecteer aanbod..."
+                                                        optionsComponent={SelectControlOptions}
+                                                        onChange={(product_id: number) => form.update({ product_id })}
+                                                    />
+                                                </div>
+                                                <FormError error={form.errors?.product_id} />
+                                            </div>
+                                        )}
+
+                                        <div className="form-group form-group-inline form-group-inline-lg">
+                                            <div className="form-label form-label-required">
                                                 {translate('modals.modal_voucher_create.labels.assign_by_type')}
                                             </div>
                                             <div className="form-offset">
-                                                <SelectControl
-                                                    value={assignType}
-                                                    propValue={'label'}
-                                                    onChange={setAssignType}
-                                                    options={assignTypes}
-                                                    allowSearch={false}
-                                                    optionsComponent={SelectControlOptions}
-                                                />
+                                                <FormGroupInfo
+                                                    info={translate('modals.modal_voucher_create.tooltips.funds')}>
+                                                    <SelectControl
+                                                        value={assignType}
+                                                        propValue={'label'}
+                                                        onChange={setAssignType}
+                                                        options={assignTypes}
+                                                        allowSearch={false}
+                                                        optionsComponent={SelectControlOptions}
+                                                    />
+                                                    <FormError error={form.errors?.assign_by_type} />
+                                                </FormGroupInfo>
                                             </div>
-                                            <FormError error={form.errors?.assign_by_type} />
                                         </div>
 
                                         {assignType.hasInput && (
@@ -374,53 +483,6 @@ export default function ModalVoucherCreate({
                                             />
                                             <FormError error={form.errors?.client_uid} />
                                         </div>
-
-                                        {fund.type === 'budget' && type == 'vouchers' && (
-                                            <div className="form-group form-group-inline form-group-inline-lg">
-                                                <div className="form-label form-label-required">
-                                                    {translate('modals.modal_voucher_create.labels.amount')}
-                                                </div>
-                                                <div className="form-offset">
-                                                    <input
-                                                        type={'number'}
-                                                        className="form-control"
-                                                        placeholder={translate(
-                                                            'modals.modal_voucher_create.labels.amount',
-                                                        )}
-                                                        value={form.values.amount || ''}
-                                                        step=".01"
-                                                        min="0.01"
-                                                        max={fund.limit_per_voucher}
-                                                        onChange={(e) => form.update({ amount: e.target.value })}
-                                                    />
-                                                    {!form.errors?.amount && (
-                                                        <div className="form-hint">
-                                                            Limiet {fund.limit_per_voucher_locale}
-                                                        </div>
-                                                    )}
-                                                    <FormError error={form.errors?.amount} />
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {type == 'product_vouchers' && (
-                                            <div className="form-group form-group-inline form-group-inline-lg">
-                                                <div className="form-label">
-                                                    {translate('modals.modal_product_voucher_create.labels.product')}
-                                                </div>
-                                                <div className="form-offset">
-                                                    <SelectControl
-                                                        value={form.values.product_id}
-                                                        propKey={'id'}
-                                                        options={products}
-                                                        placeholder="Selecteer aanbod..."
-                                                        optionsComponent={SelectControlOptions}
-                                                        onChange={(product_id: number) => form.update({ product_id })}
-                                                    />
-                                                </div>
-                                                <FormError error={form.errors?.product_id} />
-                                            </div>
-                                        )}
 
                                         <div className="form-group form-group-inline form-group-inline-lg">
                                             <div className="form-label">

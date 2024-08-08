@@ -15,6 +15,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import usePushDanger from '../../../../hooks/usePushDanger';
 import { ResponseError } from '../../../../props/ApiResponses';
 import { fileSize } from '../../../../helpers/string';
+import classNames from 'classnames';
 
 export default function CSVUpload({
     fund,
@@ -469,32 +470,34 @@ export default function CSVUpload({
                     </div>
                 )}
 
-                <div className="button-group flex-center">
-                    {csvProgress <= 1 && (
-                        <button
-                            id="add_single_prevalidation"
-                            className="button button-default"
-                            onClick={addSinglePrevalidation}>
-                            <em className="mdi mdi-plus icon-start" />
-                            Activatiecode aanmaken
-                        </button>
-                    )}
+                <div className="flex flex-vertical">
+                    <div className="button-group flex-center">
+                        {csvProgress <= 1 && (
+                            <button
+                                id="add_single_prevalidation"
+                                className="button button-default"
+                                onClick={addSinglePrevalidation}>
+                                <em className="mdi mdi-plus icon-start" />
+                                Activatiecode aanmaken
+                            </button>
+                        )}
 
-                    {csvProgress <= 1 && (
-                        <button className="button button-primary" onClick={() => inputRef.current.click()}>
-                            <em className="mdi mdi-upload icon-start" />
-                            {translate('csv_upload.labels.upload')}
-                        </button>
-                    )}
-                </div>
+                        {csvProgress <= 1 && (
+                            <button className="button button-primary" onClick={() => inputRef.current.click()}>
+                                <em className="mdi mdi-upload icon-start" />
+                                {translate('csv_upload.labels.upload')}
+                            </button>
+                        )}
+                    </div>
 
-                <div className="button-group flex-center">
-                    {csvProgress <= 1 && (
-                        <button className="button button-text button-text-muted" onClick={downloadSample}>
-                            <em className="mdi mdi-file-table-outline icon-start" />
-                            Download voorbeeld bestand
-                        </button>
-                    )}
+                    <div className="button-group flex-center">
+                        {csvProgress <= 1 && (
+                            <button className="button button-text button-text-muted" onClick={downloadSample}>
+                                <em className="mdi mdi-file-table-outline icon-start" />
+                                Download voorbeeld bestand
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 {csvProgress >= 2 && (
@@ -508,14 +511,22 @@ export default function CSVUpload({
                     </div>
                 )}
 
-                <div className="csv-upload-actions">
+                <div className="csv-upload-actions" hidden={!csvProgress && !csvFile && !csvWarnings && !csvErrors}>
                     {csvProgress <= 1 && (
-                        <div className="csv-file">
+                        <Fragment>
                             {csvFile && (
-                                <div className={`block block-file ${csvIsValid ? '' : 'has-error'}`}>
-                                    <div className="file-error mdi mdi-close-circle" />
-                                    <div className="file-name">{csvFile.name}</div>
-                                    <div className="file-size">{fileSize(csvFile.size)}</div>
+                                <div className={classNames(`block block-file`, !csvIsValid && 'has-error')}>
+                                    <div className="file-icon">
+                                        {csvIsValid ? (
+                                            <div className="mdi mdi-file-outline" />
+                                        ) : (
+                                            <div className="mdi mdi-close-circle" />
+                                        )}
+                                    </div>
+                                    <div className="file-details">
+                                        <div className="file-name">{csvFile.name}</div>
+                                        <div className="file-size">{fileSize(csvFile.size)}</div>
+                                    </div>
                                     <div className="file-remove mdi mdi-close" onClick={reset} />
                                 </div>
                             )}
@@ -539,7 +550,7 @@ export default function CSVUpload({
                                     ))}
                                 </Fragment>
                             )}
-                        </div>
+                        </Fragment>
                     )}
 
                     {csvProgress == 1 && csvIsValid && (

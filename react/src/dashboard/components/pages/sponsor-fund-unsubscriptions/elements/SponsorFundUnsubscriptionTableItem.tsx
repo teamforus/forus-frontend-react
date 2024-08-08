@@ -26,7 +26,7 @@ export default function SponsorFundUnsubscriptionTableItem({
     return (
         <StateNavLink
             customElement={'tr'}
-            className={'clickable'}
+            className={'tr-clickable'}
             name={'sponsor-provider-organization'}
             params={{ organizationId: organization.id, id: unsubscription.fund_provider.organization.id }}>
             <td>

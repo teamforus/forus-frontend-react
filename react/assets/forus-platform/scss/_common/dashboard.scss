@@ -4376,14 +4376,13 @@ body {
 
         .csv-inner {
             width: 540px;
-            padding: 160px 30px 60px;
+            padding: 160px 30px 40px;
             margin: 0 auto;
             text-align: center;
             background: assetUrl('img/upload-bg.png') no-repeat 50% 50px;
-
-            .button-group {
-                margin: 0 0 5px;
-            }
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .csv-upload-icon {
@@ -4406,7 +4405,6 @@ body {
 
         .csv-upload-btn {
             cursor: pointer;
-            margin-bottom: 20px;
 
             .csv-upload-text {
                 font: 500 16px var(--base-font);
@@ -4432,19 +4430,10 @@ body {
             }
         }
 
-        .csv-file {
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
         .csv-upload-actions {
-            padding-top: 15px;
-
-            .csv-file {
-                .block-file:not(:last-child) {
-                    margin-bottom: 10px;
-                }
-            }
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .csv-file-error {
@@ -4519,10 +4508,12 @@ body {
         }
 
         &.condensed {
+            border: none;
+
             .csv-inner {
-                padding: 100px 20px 20px;
+                padding: 100px 25px 25px;
                 background-position: 50% 20px;
-                background-size: 230px;
+                background-size: 200px;
             }
         }
 
@@ -4741,12 +4732,16 @@ body {
     &.block-file {
         width: 100%;
         border: 1px dashed #d4d9dd;
-        padding: 15px 55px 15px;
+        padding: 15px 15px 15px;
         background: no-repeat 25px 20px;
         position: relative;
         border-radius: 4px;
         text-align: left;
         cursor: default;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
 
         .file-error {
             display: none;
@@ -4770,21 +4765,41 @@ body {
             }
         }
 
-        .file-name {
-            font: 600 12px/20px var(--base-font);
-            color: var(--color-primary);
+        .file-icon {
+            display: flex;
+            flex: 0 0 40px;
+            justify-content: center;
+
+            .mdi {
+                height: 40px;
+                font-size: 22px;
+                line-height: 40px;
+            }
         }
 
-        .file-size {
-            font: 400 12px/20px var(--base-font);
+        .file-details {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+
+            .file-name {
+                font: 600 12px/20px var(--base-font);
+                color: var(--color-primary);
+            }
+
+            .file-size {
+                font: 400 12px/20px var(--base-font);
+            }
         }
 
         &.has-error {
             border-color: #e63b3b;
             background: none;
 
-            .file-error {
-                display: block;
+            .file-icon {
+                .mdi {
+                    color: #e63b3b;
+                }
             }
         }
     }

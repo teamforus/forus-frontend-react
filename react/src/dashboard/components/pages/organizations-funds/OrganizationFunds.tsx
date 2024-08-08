@@ -385,7 +385,7 @@ export default function OrganizationFunds() {
                                             name={'funds-show'}
                                             params={{ organizationId: activeOrganization.id, fundId: fund.id }}
                                             customElement={'tr'}
-                                            className={'cursor-pointer'}>
+                                            className={'tr-clickable'}>
                                             <td>
                                                 <div className="td-entity-main">
                                                     <div className="td-entity-main-media">

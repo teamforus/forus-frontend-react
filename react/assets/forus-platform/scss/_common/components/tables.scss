@@ -2,81 +2,57 @@
     @include webkit_scrollbar_gray();
 
     .table-container {
-        display: grid;
         width: 100%;
         position: relative;
 
-        .table-scroll,
-        .table-scroll-actions {
-            tr {
-                th {
-                    height: 29px;
-                    white-space: nowrap;
-                }
-
-                td {
-                    height: 41px !important;
-                    padding-top: 10px;
-                    padding-bottom: 10px;
-                    line-height: 20px;
-                    white-space: nowrap;
-                }
-            }
+        .table-scroll-top {
+            height: 24px;
+            overflow: auto;
+            overflow-y: hidden;
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            top: 28px;
+            @include webkit_scrollbar_table();
         }
 
         .table-scroll {
             overflow: auto;
             z-index: 1;
-            @include webkit_scrollbar_vertical();
+            @include webkit_scrollbar_table();
+
+            thead {
+                tr {
+                    background: #f6f9fc;
+
+                    th {
+                        transition: padding-bottom .1s linear;
+                    }
+                }
+            }
 
             tr {
                 th:last-child,
                 td:last-child {
                     min-width: 75px;
                 }
-            }
-        }
-
-        .table-scroll-actions {
-            position: absolute;
-            right: 0;
-            top: 0;
-            z-index: 1;
-
-            tr {
-                td,
-                th {
-                    position: relative;
-                    width: 75px;
-
-                    .actions {
-                        position: absolute;
-                        top: 50%;
-                        right: 20px;
-                        transform: translate(0, -50%);
-                        z-index: 1;
-
-                        .button.button-menu .menu-dropdown {
-                            z-index: initial;
-                        }
-
-                        &.active {
-                            z-index: 2;
-                        }
-                    }
-                }
 
                 th {
-                    text-align: right;
-                    background-color: transparent;
-                    padding: 0 0 !important;
+                    height: 29px;
+                    white-space: nowrap;
 
-                    .table-th-actions {
+                    .table-th-actions-list {
                         display: flex;
                         flex: 0 0 auto;
                         flex-direction: row;
                         justify-content: flex-end;
                         height: 100%;
+                        background: linear-gradient(
+                            90deg,
+                            rgba(246, 249, 252, 0) 0%,
+                            rgba(246, 249, 252, 1) 35%,
+                            rgba(246, 249, 252, 1) 100%
+                        );
 
                         .table-th-action {
                             display: flex;
@@ -96,39 +72,58 @@
                             }
                         }
                     }
+
+                    &.table-th-actions {
+                        position: sticky;
+                        right: 0;
+
+                        &.table-th-actions-with-list {
+                            padding-top: 0;
+                            padding-right: 0;
+                            padding-bottom: 0;
+                            background: transparent;
+                        }
+                    }
                 }
 
                 td {
-                    padding-left: 0 !important;
-                    padding-right: 17.5px !important;
+                    height: 41px !important;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    line-height: 20px;
+                    white-space: nowrap;
+
+                    &.table-td-actions {
+                        position: sticky;
+                        right: 0;
+                        z-index: 1;
+                        background: linear-gradient(
+                            90deg,
+                            rgba(255, 255, 255, 0) 0%,
+                            rgba(255, 255, 255, 1) 35%,
+                            rgba(255, 255, 255, 1) 100%
+                        );
+                    }
                 }
 
-                th:last-child {
-                    background: linear-gradient(
-                        90deg,
-                        rgba(246, 249, 252, 0) 0%,
-                        rgba(246, 249, 252, 1) 35%,
-                        rgba(246, 249, 252, 1) 100%
-                    );
-                }
-
-                td:last-child {
-                    background: linear-gradient(
-                        90deg,
-                        rgba(255, 255, 255, 0) 0%,
-                        rgba(255, 255, 255, 1) 35%,
-                        rgba(255, 255, 255, 1) 100%
-                    );
+                &.tr-clickable:hover {
+                    td.table-td-actions {
+                        background: linear-gradient(
+                            90deg,
+                            rgba(246, 249, 252, 0) 0%,
+                            rgba(246, 249, 252, 1) 35%,
+                            rgba(246, 249, 252, 1) 100%
+                        );
+                    }
                 }
             }
         }
 
-        &.table-container-2 {
-            .table-scroll,
-            .table-scroll-actions {
+        &.table-container-scroll-top {
+            thead {
                 tr {
-                    td {
-                        height: 61px !important;
+                    th {
+                        padding-bottom: 29px;
                     }
                 }
             }
@@ -141,14 +136,16 @@
 
         tr {
             text-align: left;
+            background: transparent;
+            transition: 0.4s background;
 
             td,
             th {
                 padding: 10px 12px;
                 cursor: default;
                 border-bottom: 1px solid #d4d9dd;
-                background: #fff;
-                transition: 0.3s;
+                background: transparent;
+                transition: 0.4s;
 
                 small {
                     display: inline-block;
@@ -264,9 +261,10 @@
             }
 
             td {
-                background: #fff;
                 color: #444a4f;
                 font: 500 13px/20px var(--base-font);
+                background: rgba(255, 255, 255, 0);
+                transition: background 0.4s;
 
                 .td-menu-icon {
                     display: inline-block;
@@ -347,7 +345,6 @@
                     .state-2fa-icon,
                     .state-2fa-label {
                         display: inline-flex;
-                        font-size: 20px;
                         font: 500 12px/20px var(--base-font);
 
                         .mdi {
@@ -480,53 +477,37 @@
                 }
             }
 
-            &.cursor-pointer:hover,
-            &.clickable:hover,
-            &[ng-click]:hover,
-            &[ui-sref]:hover {
+            &.tr-clickable:hover {
+                background: #f6f8f9;
+
                 td,
                 th {
-                    background: #f6f8f9;
                     cursor: pointer;
                 }
             }
 
             &.dim {
-                td {
-                    background: #f6f9fc;
-                }
+                background: #f6f9fc;
             }
 
             &.light {
-                td {
-                    background: #fff;
-                }
+                background: #fff;
             }
 
             &.tr-danger {
-                td {
-                    background-color: rgba(255, 150, 150, $alpha: 0.1);
-                }
+                background-color: rgba(255, 150, 150, $alpha: 0.1);
             }
 
             &.tr-warning {
-                td {
-                    background-color: rgba(#fcf2dd, $alpha: 0.3);
-                }
+                background-color: rgba(#fcf2dd, $alpha: 0.3);
 
-                &[ng-click]:hover,
-                &[ui-sref]:hover {
-                    td,
-                    th {
-                        background-color: rgba(#fcf2dd, $alpha: 0.5);
-                    }
+                &.tr-clickable:hover {
+                    background-color: rgba(#fcf2dd, $alpha: 0.5);
                 }
             }
 
             &.selected {
-                td {
-                    background: #f8fbf7;
-                }
+                background: #f8fbf7;
             }
         }
 
@@ -550,20 +531,17 @@
 
         &.table-highlight {
             tr:hover {
-                td {
-                    background-color: rgba(#fcf2dd, $alpha: 0.5);
-                }
+                background-color: rgba(#fcf2dd, $alpha: 0.5);
             }
         }
     }
 
     &.table-wrapper-scroll {
         overflow: auto;
-        @include webkit_scrollbar_vertical();
+        @include webkit_scrollbar_table();
     }
 
     @media screen and (max-width: 1000px) {
         overflow: auto;
     }
 }
-

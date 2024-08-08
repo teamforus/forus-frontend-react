@@ -15,6 +15,7 @@ import ModalDuplicatesPicker from './ModalDuplicatesPicker';
 import useTransactionService from '../../services/TransactionService';
 import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import useTranslate from '../../hooks/useTranslate';
+import classNames from 'classnames';
 
 export default function ModalVoucherTransactionsUpload({
     modal,
@@ -413,7 +414,7 @@ export default function ModalVoucherTransactionsUpload({
                         ref={fileInput}
                         data-dusk="inputUpload"
                     />
-                    <div className="modal-section form">
+                    <Fragment>
                         <div
                             ref={dropBlock}
                             className="block block-csv condensed"
@@ -476,38 +477,48 @@ export default function ModalVoucherTransactionsUpload({
                                         <CSVProgressBar status={progressStatus} progressBar={progressBar} />
                                     </div>
                                 )}
-                                <div className="csv-upload-actions">
-                                    {csvFile && progress < 2 && (
-                                        <div className="csv-file">
-                                            <div className={`block block-file ${isValid ? '' : 'has-error'}`}>
-                                                <div className="file-error mdi mdi-close-circle" />
-                                                <div className="file-name">{csvFile.name}</div>
-                                                <div className="file-size">{fileSize(csvFile.size)}</div>
-                                                <div className="file-remove mdi mdi-close" onClick={reset} />
-                                            </div>
-                                            {!isValid && error && (
-                                                <div className="text-center">
-                                                    <div className="form-error">{error}</div>
+
+                                {((csvFile && progress < 2) || (progress == 1 && isValid)) && (
+                                    <div className="csv-upload-actions">
+                                        {csvFile && progress < 2 && (
+                                            <Fragment>
+                                                <div
+                                                    className={classNames(`block block-file`, !isValid && 'has-error')}>
+                                                    <div className="file-icon">
+                                                        {isValid ? (
+                                                            <div className="mdi mdi-file-outline" />
+                                                        ) : (
+                                                            <div className="mdi mdi-close-circle" />
+                                                        )}
+                                                    </div>
+                                                    <div className="file-details">
+                                                        <div className="file-name">{csvFile.name}</div>
+                                                        <div className="file-size">{fileSize(csvFile.size)}</div>
+                                                    </div>
+                                                    <div className="file-remove mdi mdi-close" onClick={reset} />
                                                 </div>
-                                            )}
-                                        </div>
-                                    )}
-                                    {progress == 1 && isValid && (
-                                        <div className="text-center">
-                                            {!loading && (
-                                                <button
-                                                    className="button button-primary"
-                                                    onClick={uploadToServer}
-                                                    data-dusk="uploadFileButton">
-                                                    {translate('csv_upload.buttons.upload')}
-                                                </button>
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
+
+                                                {!isValid && error && <div className="form-error">{error}</div>}
+                                            </Fragment>
+                                        )}
+
+                                        {progress == 1 && isValid && (
+                                            <div className="text-center">
+                                                {!loading && (
+                                                    <button
+                                                        className="button button-primary"
+                                                        onClick={uploadToServer}
+                                                        data-dusk="uploadFileButton">
+                                                        {translate('csv_upload.buttons.upload')}
+                                                    </button>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
-                    </div>
+                    </Fragment>
                 </div>
                 <div className="modal-footer text-center">
                     <button

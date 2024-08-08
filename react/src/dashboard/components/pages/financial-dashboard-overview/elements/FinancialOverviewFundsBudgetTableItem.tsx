@@ -51,7 +51,7 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
     return (
         <tbody>
             <tr
-                className={`cursor-pointer ${collapsed ? 'table-highlight' : 'table-separator'}`}
+                className={`tr-clickable ${collapsed ? 'table-highlight' : 'table-separator'}`}
                 onClick={() => setCollapsed(!collapsed)}>
                 <td>
                     <div className="flex">

@@ -210,10 +210,14 @@ export class VoucherService<T = Voucher> {
                 tooltip: { key: 'source', title: 'Aangemaakt door', description: 'vouchers.tooltips.source' },
             },
             {
-                key: 'amount',
-                label: 'vouchers.labels.amount',
-                resourceType: 'budget',
-                tooltip: { key: 'amount', title: 'Bedrag', description: 'vouchers.tooltips.amount' },
+                key: 'type_voucher',
+                label: 'vouchers.labels.type_voucher',
+                tooltip: { key: 'type_voucher', title: 'Type', description: 'vouchers.tooltips.type_voucher' },
+            },
+            {
+                key: 'type_credit',
+                label: 'vouchers.labels.type_credit',
+                tooltip: { key: 'type_credit', title: 'Soort tegoed', description: 'vouchers.tooltips.type_credit' },
             },
             {
                 key: 'note',

@@ -49,7 +49,7 @@ export default function ProvidersTableItem({
         <tbody>
             <StateNavLink
                 name={'sponsor-provider-organization'}
-                className={'clickable'}
+                className={'tr-clickable'}
                 customElement={'tr'}
                 params={{
                     id: providerOrganization.id,

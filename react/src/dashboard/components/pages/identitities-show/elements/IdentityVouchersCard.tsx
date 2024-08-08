@@ -139,9 +139,7 @@ export default function IdentityVouchersCard({
                                                             ) : (
                                                                 <Fragment>
                                                                     <em className="mdi mdi-close" />
-                                                                    <strong>
-                                                                        {translate('product_vouchers.labels.no')}
-                                                                    </strong>
+                                                                    <strong>{translate('vouchers.labels.no')}</strong>
                                                                 </Fragment>
                                                             )}
                                                         </div>

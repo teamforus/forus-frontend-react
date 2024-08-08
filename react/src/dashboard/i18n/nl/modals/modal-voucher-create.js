@@ -9,6 +9,12 @@ export default {
         note: 'Notitie',
         expire_at: 'Geldig tot en met',
         client_uid: 'Uniek nummer',
+        credit_type: 'Soort',
+    },
+    tooltips: {
+        funds: 'Funds tooltip',
+        type: 'Voucher type tooltip',
+        assign_type: 'Voucher assign type tooltip',
     },
     modal_section: {
         choose_title: 'Selecteer op welke manier u een tegoed wilt aanmaken.',

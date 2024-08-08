@@ -32,14 +32,6 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 dusk={'vouchersPage'}
             />
             <LayoutAsideNavItem
-                name={'Aanbiedingsvouchers'}
-                icon={'product_voucher'}
-                route={'product-vouchers'}
-                routeParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, ['manage_vouchers', 'view_vouchers'])}
-                id={'product_vouchers'}
-            />
-            <LayoutAsideNavItem
                 name={'Declaraties'}
                 icon={'reimbursements'}
                 route={'reimbursements'}

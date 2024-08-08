@@ -1,5 +1,4 @@
 import vouchers from './pages/vouchers';
-import product_vouchers from './pages/product-vouchers';
 import voucher_printable from './pages/voucher-printable';
 import system_notifications from './pages/system-notifications';
 import event_logs from './pages/event-logs';
@@ -21,7 +20,6 @@ import extra_payments from './pages/extra-payments';
 
 export default {
     vouchers,
-    product_vouchers,
     voucher_printable,
     system_notifications,
     event_logs,

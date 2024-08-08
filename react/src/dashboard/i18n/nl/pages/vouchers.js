@@ -43,6 +43,9 @@ export default {
         expire_at: 'Geldig tot en met',
         in_use: 'In gebruik',
         has_payouts: 'Heeft uitbetalingen',
+        type_voucher: 'Type',
+        type_credit: 'Soort tegoed',
+        product: 'Aanbod',
     },
     events: {
         created_budget: 'Aangemaakt',
@@ -53,6 +56,7 @@ export default {
     buttons: {
         add_new: 'Aanmaken',
         upload_csv: 'Upload bulkbestand',
+        download_csv: 'Download voorbeeld bulkbestand',
         export: 'Export',
         clear_filter: 'Wis filter',
         physical_card_add: 'Plastic pas koppelen',
@@ -80,6 +84,16 @@ export default {
         source: [
             'Geeft aan welke soort gebruiker het tegoed heeft aangemaakt. ',
             'Een tegoed kan worden aangemaakt door een deelnemer zelf of door een medewerker.',
+        ].join(''),
+        type_voucher: [
+            'Lorem ipsum odor amet, consectetuer adipiscing elit.',
+            'At cursus duis, amet proin non scelerisque.',
+            'Praesent tristique consectetur diam tortor sit mauris nisi ad.',
+        ].join(''),
+        type_credit: [
+            'At phasellus enim sapien aptent erat metus etiam.',
+            'Ac taciti lectus in tristique quis.',
+            'Nisi laoreet facilisis pellentesque laoreet habitant.',
         ].join(''),
         amount: [
             'Het totaal toegekende bedrag op dit tegoed. ',

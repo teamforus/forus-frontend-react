@@ -1609,6 +1609,10 @@ export default {
             upload: 'Upload .csv bestand',
             done: 'Klaar',
         },
+        tooltips: {
+            funds: 'Funds tooltip',
+            type: 'Voucher type tooltip',
+        },
     },
 
     // EMPTY BLOCK = empty-block.pug

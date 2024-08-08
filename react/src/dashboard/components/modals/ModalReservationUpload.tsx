@@ -317,7 +317,7 @@ export default function ModalReservationUpload({
                 <div className="modal-header">Upload bulkbestand</div>
                 <div className="modal-body form">
                     <input type="file" accept={'.csv'} hidden={true} onChange={onFileChange} ref={fileInput} />
-                    <div className="modal-section form">
+                    <Fragment>
                         <div
                             ref={dropBlock}
                             className="block block-csv condensed"
@@ -377,11 +377,19 @@ export default function ModalReservationUpload({
                                 )}
                                 <div className="csv-upload-actions">
                                     {csvFile && progress < 2 && (
-                                        <div className="csv-file">
-                                            <div className={`block block-file ${isValid ? '' : 'has-error'}`}>
-                                                <div className="file-error mdi mdi-close-circle" />
-                                                <div className="file-name">{csvFile.name}</div>
-                                                <div className="file-size">{fileSize(csvFile.size)}</div>
+                                        <Fragment>
+                                            <div className={classNames(`block block-file`, !isValid && 'has-error')}>
+                                                <div className="file-icon">
+                                                    {isValid ? (
+                                                        <div className="mdi mdi-file-outline" />
+                                                    ) : (
+                                                        <div className="mdi mdi-close-circle" />
+                                                    )}
+                                                </div>
+                                                <div className="file-details">
+                                                    <div className="file-name">{csvFile.name}</div>
+                                                    <div className="file-size">{fileSize(csvFile.size)}</div>
+                                                </div>
                                                 <div className="file-remove mdi mdi-close" onClick={reset} />
                                             </div>
                                             {!isValid && (
@@ -407,7 +415,7 @@ export default function ModalReservationUpload({
                                                     )}
                                                 </div>
                                             )}
-                                        </div>
+                                        </Fragment>
                                     )}
                                     {progress == 1 && isValid && (
                                         <div className="text-center">
@@ -421,7 +429,7 @@ export default function ModalReservationUpload({
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Fragment>
                 </div>
                 <div className="modal-footer text-center">
                     <button className="button button-primary" onClick={closeModal} id="close">

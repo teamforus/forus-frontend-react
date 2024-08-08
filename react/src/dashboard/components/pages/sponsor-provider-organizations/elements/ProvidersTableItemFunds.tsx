@@ -39,7 +39,7 @@ export default function ProvidersTableItemFunds({
                                         organizationId: organization.id,
                                     }}
                                     key={fundProvider.id}
-                                    className={'clickable'}
+                                    className={'tr-clickable'}
                                     customElement={'tr'}>
                                     <td>
                                         <div className="td-collapsable">

@@ -10,7 +10,6 @@ import Fund from '../../../../props/models/Fund';
 import VouchersTableFilters, { VouchersTableFiltersProps } from './VouchersTableFilters';
 import SelectControlOptionsFund from '../../../elements/select-control/templates/SelectControlOptionsFund';
 import useOpenModal from '../../../../hooks/useOpenModal';
-import ModalFundSelect from '../../../modals/ModalFundSelect';
 import ModalVoucherCreate from '../../../modals/ModalVoucherCreate';
 import ModalVouchersUpload from '../../../modals/ModalVouchersUpload';
 
@@ -21,7 +20,6 @@ export default function VouchersTableHeader({
     funds,
     loading,
     fetchVouchers,
-    type = 'vouchers',
 }: {
     organization: Organization;
     vouchers: PaginationData<Voucher>;
@@ -29,7 +27,6 @@ export default function VouchersTableHeader({
     funds: Array<Partial<Fund>>;
     loading: boolean;
     fetchVouchers: () => void;
-    type?: 'vouchers' | 'product_vouchers';
 }) {
     const translate = useTranslate();
     const openModal = useOpenModal();
@@ -39,46 +36,22 @@ export default function VouchersTableHeader({
             const fundsList = funds.filter((fund) => fund.id);
 
             openModal((modal) => (
-                <ModalFundSelect
-                    modal={modal}
+                <ModalVoucherCreate
                     fundId={fundId || fundsList[0].id}
                     funds={fundsList}
-                    onSelect={(fund) => {
-                        openModal((modal) => (
-                            <ModalVoucherCreate
-                                fund={fund}
-                                type={type}
-                                modal={modal}
-                                onCreated={onCreate}
-                                organization={organization}
-                            />
-                        ));
-                    }}
+                    modal={modal}
+                    onCreated={onCreate}
+                    organization={organization}
                 />
             ));
         },
-        [openModal, organization, type],
+        [openModal, organization],
     );
 
     const uploadVouchers = useCallback(
-        (funds: Array<Partial<Fund>>, fundId?: number, onCreate?: () => void) => {
+        (funds: Array<Partial<Fund>>, onCreate?: () => void) => {
             openModal((modal) => (
-                <ModalFundSelect
-                    modal={modal}
-                    funds={funds}
-                    fundId={fundId}
-                    onSelect={(fund) => {
-                        openModal((modal) => (
-                            <ModalVouchersUpload
-                                modal={modal}
-                                fund={fund}
-                                funds={!fund?.id ? funds : funds.filter((item) => item.id === fund?.id)}
-                                organization={organization}
-                                onCompleted={onCreate}
-                            />
-                        ));
-                    }}
-                />
+                <ModalVouchersUpload modal={modal} funds={funds} organization={organization} onCompleted={onCreate} />
             ));
         },
         [openModal, organization],
@@ -88,17 +61,9 @@ export default function VouchersTableHeader({
         <div className={`card-header ${loading ? 'card-header-inactive' : ''}`}>
             <div className="flex">
                 <div className="flex flex-grow">
-                    {type == 'vouchers' && (
-                        <div className="card-title" data-dusk="vouchersTitle">
-                            {translate('vouchers.header.title')} ({vouchers?.meta?.total})
-                        </div>
-                    )}
-
-                    {type == 'product_vouchers' && (
-                        <div className="card-title" data-dusk="vouchersTitle">
-                            {translate('product_vouchers.header.title')} ({vouchers?.meta?.total})
-                        </div>
-                    )}
+                    <div className="card-title" data-dusk="vouchersTitle">
+                        {translate('vouchers.header.title')} ({vouchers?.meta?.total})
+                    </div>
                 </div>
 
                 <div className="flex">
@@ -118,7 +83,7 @@ export default function VouchersTableHeader({
                                     id="voucher_upload_csv"
                                     className="button button-primary"
                                     disabled={funds?.filter((fund) => fund.id)?.length < 1}
-                                    onClick={() => uploadVouchers(funds, filter.activeValues?.fund_id, fetchVouchers)}
+                                    onClick={() => uploadVouchers(funds, fetchVouchers)}
                                     data-dusk="uploadVouchersBatchButton">
                                     <em className="mdi mdi-upload icon-start" />
                                     {translate('vouchers.buttons.upload_csv')}
@@ -146,7 +111,6 @@ export default function VouchersTableHeader({
                             organization={organization}
                             vouchers={vouchers}
                             funds={funds}
-                            type={type}
                         />
                     </div>
                 </div>
