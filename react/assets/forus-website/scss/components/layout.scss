@@ -37,10 +37,15 @@
             .layout-header-menu-item {
                 display: flex;
                 flex: 0 0 auto;
-                padding: 20px 0;
+                padding: 30px 0;
                 position: relative;
-                font: 500 15px/40px var(--base-font);
+                font: 500 15px/23px var(--base-font);
                 cursor: pointer;
+                color: #2a2b2d;
+
+                &.active {
+                    color: var(--color-primary);
+                }
 
                 &:after {
                     content: '';
@@ -211,6 +216,16 @@
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
+
+        .layout-overlay {
+            width: calc(60% + 10px);
+            height: 100vh;
+            position: absolute;
+            top: 85px;
+            left: 0;
+            opacity: 1;
+            background: #fff;
+        }
     }
 
     .layout-footer {
@@ -223,7 +238,114 @@
         .layout-footer-separator {
             background: #d6d7db;
             height: 1px;
-            width: var(--wrapper-width);
+            width: 100%;
+            max-width: var(--wrapper-width);
+        }
+
+        .block-footer-apps {
+            .footer-apps-details {
+                .footer-apps-detail-links {
+                    display: flex;
+
+                    .footer-apps-details-link {
+                        margin-right: 10px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .layout-header {
+            position: sticky;
+            z-index: 999;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border-bottom: none;
+            flex-direction: column;
+
+            .layout-header-wrapper {
+                display: flex;
+                padding: 18px 24px;
+                background-color: #fff;
+                flex: auto;
+
+                .layout-header-logo {
+                    flex-grow: 1;
+
+                    img {
+                        width: 80px;
+                    }
+                }
+
+                .layout-header-menu {
+                    flex-grow: initial;
+                    align-items: center;
+                    gap: 0;
+
+                    .layout-header-identifier {
+                        font: 500 13px/18px var(--base-font);
+                        margin-right: 10px;
+                    }
+
+                    .layout-header-login-icon {
+                        margin-right: 5px;
+                    }
+
+                    .menu-icon-close,
+                    .menu-icon-toggle {
+                        font-size: 20px;
+                        line-height: 20px;
+                    }
+
+                    .button-login {
+                        padding: 0;
+                        margin-right: 20px;
+
+                        &.button-login {
+                            color: #273266;
+                            font: 500 14px/21px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
+
+        .layout-footer {
+            .wrapper {
+                padding: 0;
+            }
+
+            .block-footer-apps {
+                flex-direction: column;
+
+                .footer-apps-details {
+                    flex-direction: column;
+
+                    .footer-apps-details-label {
+                        margin-right: 0;
+                    }
+
+                    .footer-apps-detail-links {
+                        display: flex;
+
+                        .footer-apps-details-link {
+                            margin-right: 20px;
+                            flex-grow: 1;
+
+                            &:last-child {
+                                margin-right: 0;
+                                flex-grow: initial;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

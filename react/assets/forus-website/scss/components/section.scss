@@ -1,0 +1,209 @@
+.section {
+    text-align: center;
+    margin: 0 0 60px;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .section-icon {
+        margin-bottom: 50px;
+        width: 72px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .section-title {
+        font: 900 86px/96px var(--base-font);
+        margin: 0 0 30px 0;
+
+        &.section-title-sm {
+            font: 800 50px/68px var(--base-font);
+        }
+    }
+
+    .section-description {
+        font: 400 24px/36px var(--base-font);
+        margin: 0 0 30px;
+    }
+
+    .section-description-sm {
+        font: 400 18px/28px var(--base-font);
+        margin: 0 0 30px;
+
+        &:last-child {
+            margin: 0 0 0;
+        }
+    }
+
+    .section-subtitle {
+        font: 800 48px/64px var(--base-font);
+        margin: 0 0;
+    }
+
+    .section-banner {
+        width: 100%;
+        margin: 0 0 30px;
+
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+
+    .section-details-block {
+        width: 100%;
+        display: flex;
+        gap: 100px;
+        text-align: left;
+
+        .section-details-block-main {
+            font: 600 40px/52px var(--base-font);
+            width: 50%;
+        }
+
+        .section-details-block-description {
+            font: 400 18px/28px var(--base-font);
+            width: 50%;
+        }
+    }
+
+    &.section-banner-right {
+        display: flex;
+        flex-direction: row;
+        padding-top: 0;
+        margin-right: calc(-1 * (100vw - var(--wrapper-width)) / 2);
+        text-align: left;
+
+        .section-main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 40%;
+            padding: 20px 0;
+        }
+
+        .section-banner {
+            width: 60%;
+
+            img {
+                width: 100%;
+                display: block;
+            }
+        }
+
+        .section-details-block {
+            flex-direction: row-reverse;
+        }
+    }
+
+    &.section-overview {
+        margin-bottom: 60px;
+
+        .section-title {
+            text-align: left;
+        }
+
+        .section-description {
+            font: 400 18px/28px var(--base-font);
+            margin: 40px 0 45px;
+        }
+
+        .section-separator {
+            margin-top: 30px;
+            border: 2px dashed var(--border-color);
+            position: relative;
+
+            .line {
+                position: absolute;
+                height: 4px;
+                width: 50px;
+                background: #315efd;
+                left: 0;
+                top: -2px;
+                border-radius: var(--border-radius);
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0 0 30px;
+        gap: 10px;
+
+        .section-title {
+            font: 800 34px/44px var(--base-font);
+
+            &.section-title-sm {
+                font: 800 34px/44px var(--base-font);
+            }
+        }
+
+        .section-subtitle {
+            font: 800 30px/40px var(--base-font);
+        }
+
+        .section-description {
+            font: 400 16px/27px var(--base-font);
+        }
+
+        .section-details-block {
+            flex-direction: column;
+            gap: 20px;
+
+            .section-details-block-main,
+            .section-details-block-description {
+                width: 100%;
+            }
+
+            .section-details-block-main {
+                font: 700 20px/30px var(--base-font);
+            }
+
+            .section-details-block-description {
+                font: 400 14px/21px var(--base-font);
+                color: #333;
+            }
+        }
+
+        &.section-banner-right {
+            margin-right: 0;
+            border-radius: 35px;
+
+            .section-main {
+                padding: 0 24px;
+                order: 2;
+                width: 100%;
+                text-align: center;
+                position: relative;
+
+                .section-title {
+                    text-align: center;
+                    margin-top: 30px;
+                }
+
+                .section-icon {
+                    position: absolute;
+                    top: -65px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    z-index: 99;
+                    margin-bottom: 30px;
+                }
+            }
+
+            .section-details-block {
+                flex-direction: column;
+            }
+
+            .button-group {
+                flex-direction: column;
+
+                .button {
+                    display: block;
+                }
+            }
+        }
+    }
+}

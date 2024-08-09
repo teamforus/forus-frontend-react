@@ -22,6 +22,10 @@ interface AuthMemoProps {
     searchQuery?: string;
     setSearchQuery?: React.Dispatch<React.SetStateAction<string>>;
     searchFilter?: FilterScope<{ q: string }>;
+    showMobileMenu?: boolean;
+    setShowMobileMenu?: React.Dispatch<React.SetStateAction<boolean>>;
+    activeMenuDropdown?: string;
+    setActiveMenuDropdown?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const mainContext = createContext<AuthMemoProps>(null);
@@ -34,6 +38,8 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [mobileMenuOpened, setMobileMenuOpened] = useState(false);
     const [userMenuOpened, setUserMenuOpened] = useState(false);
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [activeMenuDropdown, setActiveMenuDropdown] = useState(null);
     const { route } = useStateRoutes();
 
     const configService = useConfigService();
@@ -78,6 +84,10 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
                 userMenuOpened,
                 setUserMenuOpened,
                 searchFilter,
+                showMobileMenu,
+                setShowMobileMenu,
+                activeMenuDropdown,
+                setActiveMenuDropdown,
             }}>
             {children}
         </Provider>

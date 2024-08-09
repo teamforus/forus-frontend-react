@@ -1,0 +1,109 @@
+.block.block-main-banner {
+    position: relative;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px 0 100px 0;
+    color: var(--forus-white);
+
+    .banner-content {
+        display: flex;
+        flex-direction: column;
+        padding: 115px 20px;
+        text-align: left;
+        text-shadow: 1px 2px 2px rgba(223, 177, 177, 0.15);
+        width: 100%;
+        max-width: calc(var(--wrapper-width) + 40px);
+        margin: auto;
+        gap: 50px;
+
+        .banner-info {
+            display: flex;
+            flex-direction: column;
+            max-width: 52%;
+            gap: 20px;
+
+            .banner-title {
+                font: 700 86px/96px var(--base-font);
+                margin: 0 0;
+            }
+
+            .banner-description {
+                font: 400 20px/30px var(--base-font);
+                margin: 0 0;
+            }
+        }
+
+        .banner-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        left: 50%;
+        top: 25px;
+        bottom: 100px;
+        right: 0;
+        pointer-events: none;
+        z-index: -1;
+        background-repeat: no-repeat no-repeat;
+    }
+
+    &:before {
+        background-size: cover;
+        background-position: top right;
+        background-image: url('./assets/img/main-banner.jpg');
+    }
+
+    &:after {
+        background-position: top left;
+        background-size: auto 100%;
+        background-image: url('./assets/img/main-banner-mask.svg');
+    }
+
+    @media screen and (max-width: 992px) {
+        padding: 300px 0 0;
+
+        .banner-content {
+            background: #fff;
+            padding: 40px 25px;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            gap: 40px;
+
+            .banner-info {
+                max-width: 100%;
+
+                .banner-title {
+                    font: 900 36px/44px var(--base-font);
+                }
+
+                .banner-description {
+                    font: 400 16px/27px var(--base-font);
+                }
+            }
+
+            .banner-actions {
+                flex-direction: column;
+            }
+        }
+
+        &:before {
+            top: 0;
+            left: 0;
+            bottom: auto;
+            height: 340px;
+        }
+
+        &:after {
+            display: none;
+        }
+    }
+}

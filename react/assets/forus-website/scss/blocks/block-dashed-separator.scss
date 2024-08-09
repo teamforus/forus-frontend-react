@@ -1,0 +1,35 @@
+.block.block-dashed-separator {
+    position: relative;
+    height: 124px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: -20px 0 20px;
+
+    &:before {
+        display: block;
+        content: '';
+        width: 100%;
+        left: 0;
+        top: 42px;
+        border-bottom: 2px dashed var(--border-color);
+        position: absolute;
+        z-index: -1;
+    }
+
+    img {
+        display: block;
+    }
+
+    &.block-dashed-separator-empty {
+        height: 60px;
+
+        &:before {
+            top: 40px;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0 0 -20px;
+    }
+}
