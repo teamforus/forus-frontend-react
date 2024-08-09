@@ -186,6 +186,7 @@ export default function OrganizationsFundsEdit() {
         contact_info_required?: boolean;
         contact_info_message_custom?: boolean;
         contact_info_message_text?: string;
+        voucher_amount_visible?: boolean;
     }>(
         {
             description_position: descriptionPositions[0]?.value,
@@ -205,6 +206,7 @@ export default function OrganizationsFundsEdit() {
             contact_info_required: true,
             contact_info_message_custom: false,
             contact_info_message_text: '',
+            voucher_amount_visible: false,
         },
         async (values) => {
             const data = JSON.parse(JSON.stringify(values));
@@ -518,6 +520,28 @@ export default function OrganizationsFundsEdit() {
                                     <div className="form-hint">Max. 500 tekens</div>
                                     <FormError error={form.errors?.description_short}></FormError>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-lg-9 col-xs-12">
+                            <div className="form-group form-group-inline tooltipped">
+                                <label className="form-label">Totaalbedrag tonen (Me-app)</label>
+                                <CheckboxControl
+                                    id={'voucher_amount_visible'}
+                                    checked={!!form.values.voucher_amount_visible}
+                                    onChange={(e) => form.update({ voucher_amount_visible: e.target.checked })}
+                                    title={'Inzicht in het totale bedrag gekoppeld aan de QR-code van de deelnemer.'}
+                                />
+                                <Tooltip
+                                    text={
+                                        'Door dit vakje aan te vinken, geeft u de aanbieder toestemming om het totale bedrag dat aan de QR-code van de deelnemer is gekoppeld, te bekijken in de Me-app.'
+                                    }
+                                />
+                                <FormError error={form.errors?.voucher_amount_visible} />
                             </div>
                         </div>
                     </div>
