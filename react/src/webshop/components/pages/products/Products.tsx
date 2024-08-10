@@ -85,8 +85,8 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
             distance: null,
             bookmarked: false,
             display_type: 'list',
-            order_by: sortByOptions[0]?.value.order_by,
-            order_dir: sortByOptions[0]?.value.order_dir,
+            order_by: sortByOptions[4]?.value.order_by,
+            order_dir: sortByOptions[4]?.value.order_dir,
         },
         {
             throttledValues: ['q'],
