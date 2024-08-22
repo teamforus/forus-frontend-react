@@ -3,12 +3,14 @@ import useAppConfigs from '../../hooks/useAppConfigs';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import StateNavLink from '../../modules/state_router/StateNavLink';
 import useEnvData from '../../hooks/useEnvData';
+import useSetActiveMenuDropdown from '../../hooks/useSetActiveMenuDropdown';
 
 export default function LayoutFooter() {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
 
     const assetUrl = useAssetUrl();
+    const setActiveMenuDropdown = useSetActiveMenuDropdown();
 
     if (!appConfigs) {
         return null;
@@ -18,7 +20,10 @@ export default function LayoutFooter() {
         <div className="layout-footer">
             <div className="wrapper">
                 <div className="block block-footer-apps">
-                    <StateNavLink name={'home'} className="footer-apps-logo">
+                    <StateNavLink
+                        name={'home'}
+                        className="footer-apps-logo"
+                        onClick={() => setActiveMenuDropdown(null)}>
                         <img src={assetUrl('/assets/img/logo.svg')} alt="" />
                     </StateNavLink>
 

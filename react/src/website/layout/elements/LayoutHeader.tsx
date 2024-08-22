@@ -48,7 +48,10 @@ export default function LayoutHeader() {
         <Fragment>
             <div className="layout-header">
                 <div className="layout-header-wrapper hide-sm">
-                    <StateNavLink name={'home'} className="layout-header-logo">
+                    <StateNavLink
+                        name={'home'}
+                        className="layout-header-logo"
+                        onClick={() => setActiveMenuDropdown(null)}>
                         <img src={assetUrl('/assets/img/logo.svg')} alt="" />
                     </StateNavLink>
                     <div className="layout-header-menu">
