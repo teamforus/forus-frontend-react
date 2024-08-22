@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useAppConfigs from '../../hooks/useAppConfigs';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import useAuthIdentity from '../../hooks/useAuthIdentity';
@@ -20,6 +21,7 @@ export default function LayoutHeader() {
     const appConfigs = useAppConfigs();
 
     const assetUrl = useAssetUrl();
+    const location = useLocation();
     const navigateState = useNavigateState();
     const activeMenuDropdown = useActiveMenuDropdown();
     const setActiveMenuDropdown = useSetActiveMenuDropdown();
@@ -29,6 +31,14 @@ export default function LayoutHeader() {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [shownMenuGroup, setShownMenuGroup] = useState('home');
     const [shownSubMenuGroup, setShownSubMenuGroup] = useState('basic-functions');
+    const [platformRoutes] = useState([
+        '/rollen',
+        '/rollen/deelnemer',
+        '/rollen/aanbieder',
+        '/rollen/sponsor',
+        '/rollen/beoordelaar',
+    ]);
+    const [aboutUsRoutes] = useState(['/ons-verhaal', '/project-innovatiebudget-2023']);
 
     if (!appConfigs) {
         return null;
@@ -50,7 +60,9 @@ export default function LayoutHeader() {
                             Home
                         </StateNavLink>
                         <div
-                            className="layout-header-menu-item"
+                            className={`layout-header-menu-item ${
+                                platformRoutes.includes(location.pathname) ? 'active' : ''
+                            }`}
                             onClick={() => {
                                 setActiveMenuDropdown(activeMenuDropdown == 'platform' ? null : 'platform');
                             }}>
@@ -58,7 +70,9 @@ export default function LayoutHeader() {
                             <em className={`mdi mdi-menu-${activeMenuDropdown === 'platform' ? 'up' : 'down'}`} />
                         </div>
                         <div
-                            className="layout-header-menu-item"
+                            className={`layout-header-menu-item ${
+                                aboutUsRoutes.includes(location.pathname) ? 'active' : ''
+                            }`}
                             onClick={() => {
                                 setActiveMenuDropdown(activeMenuDropdown == 'about' ? null : 'about');
                             }}>

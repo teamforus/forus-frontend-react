@@ -14,8 +14,8 @@ export default function RolesRequester() {
     const [bannerTitle] = useState('Aanvrager /Deelnemer');
     const [bannerDescription] = useState(
         [
-            "Binnen het Forus-systeem wordt iemand die een aanvraag voor een regeling indient, gezien als een 'aanvrager'.",
-            "Zodra deze aanvraag is goedgekeurd, verandert de status van deze persoon in het systeem naar 'deelnemer'.",
+            "Binnen het Forus-systeem wordt iemand die een aanvraag voor een regeling indient, gezien als een <i>'aanvrager'</i>. ",
+            "Zodra deze aanvraag is goedgekeurd, verandert de status van deze persoon in het systeem naar <i>'deelnemer'</i>.",
         ].join(''),
     );
 
@@ -162,6 +162,12 @@ export default function RolesRequester() {
                                         belastingen, zoals afvalstoffenheffing. Dit betekent dat deelnemers het
                                         volledige bedrag niet hoeven te betalen. We zoeken naar gemeenten om dit samen
                                         te implementeren.
+                                    </div>
+                                    <div className="block-with-image-list-item-actions">
+                                        <button className="button button-fill button-primary">
+                                            Ik wil meer weten
+                                            <em className="mdi mdi-arrow-right icon-end" />
+                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import useAssetUrl from '../../../../hooks/useAssetUrl';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
 
 export default function SocialImpact() {
     const assetUrl = useAssetUrl();
@@ -26,7 +27,9 @@ export default function SocialImpact() {
                 </div>
 
                 <div className="block-social-impact-actions">
-                    <div className="button button-primary">Meer informatie over de vier rollen</div>
+                    <StateNavLink name={'roles-main'} className="button button-primary">
+                        Meer informatie over de vier rollen
+                    </StateNavLink>
                 </div>
             </div>
 
@@ -44,10 +47,10 @@ export default function SocialImpact() {
                             <div className="block block-overview-list-item-description">
                                 Voor mensen die in aanmerking komen voor een regeling, fonds of potje.
                             </div>
-                            <div className="block block-overview-list-item-read-more">
+                            <StateNavLink name={'roles-requester'} className="block block-overview-list-item-read-more">
                                 Lees meer
                                 <em className={'mdi mdi-arrow-right'} />
-                            </div>
+                            </StateNavLink>
                         </div>
                     </div>
 
@@ -63,10 +66,10 @@ export default function SocialImpact() {
                             <div className="block block-overview-list-item-description">
                                 Voor medewerkers van organisaties die aanbod aanbieden in een webshop.
                             </div>
-                            <div className="block block-overview-list-item-read-more">
+                            <StateNavLink name={'roles-provider'} className="block block-overview-list-item-read-more">
                                 Lees meer
                                 <em className={'mdi mdi-arrow-right'} />
-                            </div>
+                            </StateNavLink>
                         </div>
                     </div>
 
@@ -82,10 +85,10 @@ export default function SocialImpact() {
                             <div className="block block-overview-list-item-description">
                                 Voor medewerkers van gemeenten en goede doelen die regelingen uitgeven.
                             </div>
-                            <div className="block block-overview-list-item-read-more">
+                            <StateNavLink name={'roles-sponsor'} className="block block-overview-list-item-read-more">
                                 Lees meer
                                 <em className={'mdi mdi-arrow-right'} />
-                            </div>
+                            </StateNavLink>
                         </div>
                     </div>
 
@@ -101,10 +104,10 @@ export default function SocialImpact() {
                             <div className="block block-overview-list-item-description">
                                 Voor medewerkers van gemeenten en goede doelen die aanvragen van regelingen beoordelen.
                             </div>
-                            <div className="block block-overview-list-item-read-more">
+                            <StateNavLink name={'roles-validator'} className="block block-overview-list-item-read-more">
                                 Lees meer
                                 <em className={'mdi mdi-arrow-right'} />
-                            </div>
+                            </StateNavLink>
                         </div>
                     </div>
                 </div>

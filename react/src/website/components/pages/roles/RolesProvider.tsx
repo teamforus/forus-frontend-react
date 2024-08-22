@@ -16,9 +16,9 @@ export default function RolesProvider() {
     const [bannerDescription] = useState(
         [
             'Een organisatie die producten of diensten aanbiedt in het Forus-systeem kan zowel een lokale',
-            'onderneming als een landelijke winkelketen zijn.',
-            'Het Forus-systeem is ontworpen om aanbieders in staat te stellen zelfstandig te werken. Door',
-            'toegang te bieden tot een beheeromgeving voor hun organisatie kunnen ze bijv. zelf aanbod',
+            'onderneming als een landelijke winkelketen zijn. ',
+            '<br /><br />Het Forus-systeem is ontworpen om aanbieders in staat te stellen zelfstandig te werken. Door ',
+            'toegang te bieden tot een beheeromgeving voor hun organisatie kunnen ze bijv. zelf aanbod ',
             'opstellen, transacties uitvoeren en monitoren.',
         ].join(''),
     );

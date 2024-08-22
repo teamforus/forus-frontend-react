@@ -4,6 +4,7 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import Slider from '../../elements/Slider';
 import BlockDashedSeparator from '../home/elements/BlockDashedSeparator';
 import useSetMetaDescription from '../../../hooks/useSetMetaDescription';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
 
 export default function AboutUs() {
     const setTitle = useSetTitle();
@@ -99,6 +100,9 @@ export default function AboutUs() {
             ].join('\n'),
             imgSrc: assetUrl('/assets/img/slider-logos/eemsdelta.png'),
             imgAlt: "Logo's van Gemeente Eemsdelta en Westerkwartier",
+            hasLink: true,
+            linkState: 'about-us-innovation',
+            linkText: 'Lees meer over ons project',
         },
     ];
 
@@ -119,7 +123,7 @@ export default function AboutUs() {
                     <h2 className="block-text-title">Ons verhaal</h2>
 
                     <div className="block-text-description">
-                        De reis naar het vinden vinden van best-practices om te verbinden en sociale impact te vergroten
+                        De reis naar het vinden van best-practices om te verbinden en sociale impact te vergroten
                     </div>
 
                     <div className="block-text-banner">
@@ -169,10 +173,10 @@ export default function AboutUs() {
                         </div>
 
                         <div className="block-social-initiatives-actions">
-                            <div className="button button-light">
+                            <StateNavLink name={'roles-main'} className="button button-light">
                                 Lees meer over de vier rollen
                                 <em className="mdi mdi-arrow-right icon-end" />
-                            </div>
+                            </StateNavLink>
                         </div>
 
                         <div className="block-social-initiatives-extra">
@@ -192,7 +196,10 @@ export default function AboutUs() {
                     </div>
 
                     <div className="block-social-initiatives-img">
-                        <img src={assetUrl('/assets/img/social-initiatives.svg')} alt="Social initiatives" />
+                        <img
+                            src={assetUrl('/assets/img/social-initiatives.svg')}
+                            alt="De verbindingen van sociale initiatieven via het Forus-platform"
+                        />
                     </div>
                 </div>
 
@@ -218,10 +225,17 @@ export default function AboutUs() {
                                 <div className="block-our-values-item-title">Transparantie</div>
                                 <div className="block-our-values-item-description">
                                     De ontwikkel filosofie van Forus is gebaseerd op het centraal stellen van de
-                                    eindgebruikers en het waarborgen van de transparantie van het systeem. De code van
-                                    het systeem is daarom voor iedereen publiek inzichtelijk (open source). Daarnaast
-                                    vinden we transparante communicatie met onze gebruikers ook erg belangrijk, waarbij
-                                    we processen, keuzes en mogelijke problemen openlijk bespreken.
+                                    eindgebruikers en het waarborgen van de transparantie van het systeem.{' '}
+                                    <a
+                                        className="block-our-values-item-description-link"
+                                        href="https://github.com/teamforus/"
+                                        target="_blank"
+                                        rel="noreferrer">
+                                        De code van het systeem
+                                    </a>{' '}
+                                    is daarom voor iedereen publiek inzichtelijk (open source). Daarnaast vinden we
+                                    transparante communicatie met onze gebruikers ook erg belangrijk, waarbij we
+                                    processen, keuzes en mogelijke problemen openlijk bespreken.
                                 </div>
                             </div>
                         </div>

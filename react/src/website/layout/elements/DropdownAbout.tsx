@@ -16,7 +16,7 @@ export default function DropdownAbout() {
                     <div className="block-page-list-main-description">
                         <div className="block-page-list-main-description-title">Over ons</div>
                         <div className="block-page-list-main-description-subtitle">
-                            Transparantie, vertrouwen en een gebruikersgerichte aanpak vormen de kern van Fours &apos
+                            Transparantie, vertrouwen en een gebruikersgerichte aanpak vormen de kern van Fours&apos;
                             waarden. Ontdek meer over onze organisatie.
                         </div>
                         <div className="block-page-list-main-description-details">

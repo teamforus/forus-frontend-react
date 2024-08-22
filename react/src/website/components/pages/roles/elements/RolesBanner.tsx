@@ -51,7 +51,10 @@ export default function RolesBanner({
                         </div>
                     )}
                     <h2 className="banner-title">{title}</h2>
-                    <div className="banner-description banner-description-sm">{description}</div>
+                    <div
+                        className="banner-description banner-description-sm"
+                        dangerouslySetInnerHTML={{ __html: description }}
+                    />
 
                     {showActions && (
                         <div className="banner-actions">

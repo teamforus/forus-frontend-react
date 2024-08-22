@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import StateNavLink from '../../modules/state_router/StateNavLink';
 
 export default function Slider({
     label,
@@ -13,7 +14,15 @@ export default function Slider({
     description?: string;
     showActionButton?: boolean;
     showBackgroundImage?: boolean;
-    elements: { title: string; description: string; imgSrc?: string; imgAlt?: string }[];
+    elements: {
+        title: string;
+        description: string;
+        imgSrc?: string;
+        imgAlt?: string;
+        hasLink?: boolean;
+        linkState?: string;
+        linkText?: string;
+    }[];
 }) {
     const $element = useRef<HTMLDivElement>(null);
     const [activeItem, setActiveItem] = useState(0);
@@ -63,14 +72,29 @@ export default function Slider({
                                 key={index}>
                                 <div className="block-slider-numeration">{index + 1}</div>
                                 <div className="block-slider-list-item-main">
-                                    <div className="block-slider-list-item-title">{element.title}</div>
-                                    <div className="block-slider-list-item-description">{element.description}</div>
-                                </div>
-                                {element.imgSrc && (
-                                    <div className="block-slider-list-item-image">
-                                        <img src={element.imgSrc} alt={element.imgAlt} />
+                                    <div className="block-slider-list-item-info-wrapper">
+                                        <div className="block-slider-list-item-info">
+                                            <div className="block-slider-list-item-title">{element.title}</div>
+                                            <div className="block-slider-list-item-description">
+                                                {element.description}
+                                            </div>
+                                        </div>
+                                        {element.imgSrc && (
+                                            <div className="block-slider-list-item-image">
+                                                <img src={element.imgSrc} alt={element.imgAlt} />
+                                            </div>
+                                        )}
                                     </div>
-                                )}
+
+                                    {element.hasLink && (
+                                        <StateNavLink
+                                            name={element.linkState}
+                                            className="block-slider-list-item-button">
+                                            {element.linkText}
+                                            <em className="mdi mdi-open-in-new" />
+                                        </StateNavLink>
+                                    )}
+                                </div>
                             </div>
                         ),
                 )}

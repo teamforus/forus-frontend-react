@@ -15,10 +15,10 @@ export default function RolesSponsor() {
     const [bannerTitle] = useState('Sponsor');
     const [bannerDescription] = useState(
         [
-            'Een organisatie die financiële middelen beschikbaar stelt voor deelnemers in het',
-            'Forus-systeem, zoals gemeenten of sociale ketenpartners.',
-            'Het Forus-platform is ontwikkeld om het volledige proces van regelingenuitgifte te',
-            'faciliteren, van de opzet van de regelingen en aanvraagprocedure tot het monitoren en',
+            'Een organisatie die financiële middelen beschikbaar stelt voor deelnemers in het ',
+            'Forus-systeem, zoals gemeenten of sociale ketenpartners. ',
+            '<br /><br />Het Forus-platform is ontwikkeld om het volledige proces van regelingenuitgifte te ',
+            'faciliteren, van de opzet van de regelingen en aanvraagprocedure tot het monitoren en ',
             'evalueren van de impact.',
         ].join(''),
     );
@@ -184,9 +184,8 @@ export default function RolesSponsor() {
                                 <div className="block-with-image-label block-with-image-label-sm">Stap 10</div>
                                 <div className="block-with-image-title">Toegang tot support en nieuws</div>
                                 <div className="block-with-image-description">
-                                    De sponsor monitort en evalueert de impact van de fondsen door gebruik te maken van
-                                    de statistiekenpagina in de beheeromgeving. Ook gebruikt de sponsor de website
-                                    analytics koppeling voor het monitoren en optimaliseren van de website.
+                                    Sponsors hebben toegang tot de support en het helpcenter van Forus, en worden op de
+                                    hoogte gehouden van alle nieuwe ontwikkelingen via onze nieuwsbrief.
                                 </div>
 
                                 <div className="block-with-image-list">

@@ -56,20 +56,20 @@
                     transition: 0.4s color, transform 0.4s;
                 }
 
-                &:hover {
+                &.hover {
                     color: var(--color-primary);
 
                     .block-platform-aspects-list-item-icon {
-                        color: var(--color-primary);
+                        color: #315EFD;
                         transform: translate(-10px, -50%);
                     }
                 }
 
-                &.block-platform-aspects-list-item-active {
+                &.active {
                     color: #2a2b2d;
 
                     .block-platform-aspects-list-item-icon {
-                        color: #2a2b2d;
+                        color: #315EFD;
                     }
                 }
             }

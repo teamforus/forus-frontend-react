@@ -142,11 +142,15 @@
                 padding: 10px 12px;
                 gap: 10px;
 
+                .layout-header-auth-menu-header {
+                    display: none;
+                }
+
                 .layout-header-auth-menu-item {
                     display: flex;
                     flex-direction: row;
                     gap: 8px;
-                    padding: 5px 11px;
+                    padding: 9px 11px;
                     cursor: pointer;
                     background-color: #fff;
                     font: 500 15px/20px var(--base-font);
@@ -342,9 +346,18 @@
             }
         }
 
-        .layout-header-auth-menu {
-            z-index: 999;
+        .layout-header-auth-menu-backdrop {
             position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            cursor: pointer;
+            background: rgba(25, 39, 52, .5);
+        }
+
+        .layout-header-auth-menu-wrapper {
+            z-index: 999;
             cursor: default;
             display: flex;
             flex-direction: column;
@@ -352,24 +365,47 @@
             box-shadow: var(--box-shadow);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 10px 12px;
             gap: 10px;
             width: calc(100% - 40px);
             right: 0;
             margin: 0 20px 0 20px;
             bottom: 20px;
+            position: fixed;
+
+            .layout-header-auth-menu-header {
+                display: flex;
+                padding: 16px 24px;
+                background: #F9F9F9;
+                box-shadow: 0px -1px 0px 0px #F4F4F4 inset;
+                border-top-right-radius: 16px;
+                border-top-left-radius: 16px;
+
+                .layout-header-auth-menu-header-title {
+                    font: 400 15px/23px var(--base-font);
+                }
+
+                .icon-close {
+                    font-weight: 600;
+                    font-size: 20px;
+                }
+            }
+
+            .layout-header-auth-menu-items {
+                padding: 16px 24px;
+            }
 
             .layout-header-auth-menu-item {
                 display: flex;
                 flex-direction: row;
                 gap: 8px;
-                padding: 5px 11px;
+                padding: 18px 0;
                 cursor: pointer;
                 background-color: #fff;
                 font: 500 15px/20px var(--base-font);
                 transition: 0.4s color, 0.4s background-color;
                 border-radius: var(--border-radius);
-                width: 200px;
+                box-shadow: 0px -1px 0px 0px #F4F4F4;
+                width: 100%;
 
                 .layout-header-auth-menu-item-icon {
                     display: flex;
@@ -408,6 +444,15 @@
                         fill: #315efd;
                         color: #315efd;
                     }
+                }
+
+                &:first-child {
+                    padding-top: 0;
+                    box-shadow: none;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
                 }
             }
 

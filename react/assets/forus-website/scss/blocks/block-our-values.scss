@@ -1,5 +1,5 @@
 .block.block-our-values {
-    margin: 0 0 60px;
+    margin: 0 0 100px;
 
     .block-our-values-header {
         font: 800 56px/68px var(--base-font);
@@ -50,6 +50,11 @@
                     font: 400 16px/24px var(--base-font);
                     margin: 0 0;
                     color: #55575e;
+
+                    .block-our-values-item-description-link {
+                        font: 400 16px/24px var(--base-font);
+                        text-decoration: underline;
+                    }
                 }
             }
         }

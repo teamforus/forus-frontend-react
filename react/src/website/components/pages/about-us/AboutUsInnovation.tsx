@@ -166,10 +166,7 @@ export default function AboutUsInnovation() {
                 <div className="block block-with-image block-with-image-background">
                     <div className="block-with-image-wrapper">
                         <div className="block-with-image-image">
-                            <img
-                                src={assetUrl('/assets/img/phases.jpg')}
-                                alt="Regelingen check functionaliteit stelt deelnemers in staat om te controleren of zij in aanmerking komen voor diverse regelingen"
-                            />
+                            <img src={assetUrl('/assets/img/phases.jpg')} alt="Gebruiksvriendelijk platform" />
                         </div>
                         <div className="block-with-image-info">
                             <div className="block-with-image-title">Vervolg fasen</div>

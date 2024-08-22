@@ -88,10 +88,10 @@ export default function LayoutFooter() {
                     </div>
                     <div className="footer-menu-col">
                         <div className="footer-menu-col-title">Over ons</div>
-                        <StateNavLink name={'platform'} className="footer-menu-col-item">
+                        <StateNavLink name={'about-us'} className="footer-menu-col-item">
                             Ons verhaal
                         </StateNavLink>
-                        <StateNavLink name={'about'} className="footer-menu-col-item">
+                        <StateNavLink name={'about-us-innovation'} className="footer-menu-col-item">
                             Project Innovatiebudget 2023
                         </StateNavLink>
                         <StateNavLink name={'contacts'} className="footer-menu-col-item">
@@ -100,15 +100,27 @@ export default function LayoutFooter() {
                     </div>
                     <div className="footer-menu-col">
                         <div className="footer-menu-col-title">Social</div>
-                        <a href="https://nl.linkedin.com/company/stichtingforus" className="footer-menu-col-item">
+                        <a
+                            href="https://nl.linkedin.com/company/stichtingforus"
+                            className="footer-menu-col-item"
+                            target="_blank"
+                            rel="noreferrer">
                             <img src={assetUrl('/assets/img/footer-menu/footer-social-linkedin.svg')} alt={''} />
                             LinkedIn
                         </a>
-                        <a href="https://github.com/teamforus" className="footer-menu-col-item">
+                        <a
+                            href="https://github.com/teamforus"
+                            className="footer-menu-col-item"
+                            target="_blank"
+                            rel="noreferrer">
                             <img src={assetUrl('/assets/img/footer-menu/footer-social-github.svg')} alt={''} />
                             Github
                         </a>
-                        <a href="https://discord.forus.io" className="footer-menu-col-item">
+                        <a
+                            href="https://discord.forus.io"
+                            className="footer-menu-col-item"
+                            target="_blank"
+                            rel="noreferrer">
                             <img src={assetUrl('/assets/img/footer-menu/footer-social-discord.svg')} alt={''} />
                             Discord
                         </a>
