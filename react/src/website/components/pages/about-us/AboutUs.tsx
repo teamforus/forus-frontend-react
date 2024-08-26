@@ -393,7 +393,7 @@ export default function AboutUs() {
                 </div>
             </div>
 
-            <BlockDashedSeparator image={false} />
+            <BlockDashedSeparator image={false} demoButton={true} />
             <br />
             <br />
             <br />

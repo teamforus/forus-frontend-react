@@ -32,17 +32,17 @@ export default function LayoutFooter() {
                         <div className="footer-apps-detail-links">
                             <a
                                 className="footer-apps-details-link"
-                                href={envData?.config?.ios_iphone_link}
-                                target={'_blank'}
-                                rel="noreferrer">
-                                <img src={assetUrl('/assets/img/icon-app-ios.svg')} alt={''} />
-                            </a>
-                            <a
-                                className="footer-apps-details-link"
                                 href={envData?.config?.android_link}
                                 target={'_blank'}
                                 rel="noreferrer">
                                 <img src={assetUrl('/assets/img/icon-app-android.svg')} alt={''} />
+                            </a>
+                            <a
+                                className="footer-apps-details-link"
+                                href={envData?.config?.ios_iphone_link}
+                                target={'_blank'}
+                                rel="noreferrer">
+                                <img src={assetUrl('/assets/img/icon-app-ios.svg')} alt={''} />
                             </a>
                         </div>
                     </div>

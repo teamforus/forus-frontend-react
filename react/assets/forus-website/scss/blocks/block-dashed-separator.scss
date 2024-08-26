@@ -29,6 +29,15 @@
         }
     }
 
+    &.block-dashed-separator-button {
+        height: 50px;
+        margin-bottom: 40px;
+
+        &:before {
+            top: 25px;
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         margin: 0 0 -20px;
     }

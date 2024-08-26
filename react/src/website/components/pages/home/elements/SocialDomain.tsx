@@ -31,14 +31,34 @@ export default function SocialDomain() {
                         ontbreekt en gefragmenteerd wordt aangeboden.
                         <br />
                         <br />
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                        alteration in some form, by injected humour, or randomised words which don&apos;t look even
-                        slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there
-                        isn&apos;t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on
-                        the Internet tend to repeat predefined chunks as necessary, making this the first true generator
-                        on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model
-                        sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum
-                        is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                        Bij Forus begrijpen we de complexe uitdagingen die organisaties binnen het sociaal domein
+                        dagelijks ervaren. Ons SaaS-platform is ontworpen om gemeenten en andere maatschappelijke
+                        organisaties te helpen hun taken effectiever en efficiënter uit te voeren. Dit doen we door
+                        beleid, organisaties, en technologie op elkaar aan te sluiten, zodat alle betrokken partijen
+                        beter kunnen samenwerken en meer impact kunnen maken.
+                        <br />
+                        <br />
+                        We blijven voortdurend op de hoogte van de nieuwste ontwikkelingen om onze dienstverlening
+                        optimaal af te stemmen op de behoeften van gemeenten. Toenemende ongelijkheid en samenhangende
+                        problemen zoals schulden, werkloosheid en psychische gezondheidskwesties, onderstrepen de
+                        noodzaak van een geïntegreerde en effectieve benadering. Het huidige ondersteuningssysteem
+                        schiet vaak tekort, wat leidt tot fragmentatie en een gebrek aan overzicht. Mensen die te maken
+                        hebben met financiële problemen ervaren vaak niet alleen stress, maar ook een gevoel van
+                        stigmatisering en uitsluiting. Bij Forus zetten we ons in om deze problemen aan te pakken door
+                        de bestaande barrières te doorbreken en een holistische aanpak mogelijk te maken.
+                        <br />
+                        <br />
+                        Onze oplossing voorziet gemeenten van de benodigde tools om deze complexe uitdagingen aan te
+                        pakken. We bieden maatwerkoplossingen die specifiek zijn afgestemd op de behoeften van kwetsbare
+                        groepen, met als doel een positieve impact te creëren in de samenleving.
+                        <br />
+                        <br />
+                        Bij Forus werken we samen met gemeenten, goede doelen, stichtingen en lokale initiatieven, om
+                        een geïntegreerd systeem te ontwikkelen dat inwoners een duidelijk overzicht biedt van
+                        beschikbare ondersteuning. Door ketenpartners te verbinden, zorgen we voor efficiëntere
+                        hulpverlening, snellere toegang tot voorzieningen, en maatwerk dat aansluit bij de specifieke
+                        behoeften van elke inwoner. Ons platform helpt barrières te doorbreken en maakt effectieve
+                        samenwerking mogelijk, zodat niemand buiten de boot valt.
                     </Fragment>
                 ) : (
                     <Fragment>
@@ -61,8 +81,8 @@ export default function SocialDomain() {
                                 e.stopPropagation();
                                 setShowMore(false);
                             }}>
-                            Lees meer
-                            <em className={'mdi mdi-chevron-down icon-right'} />
+                            Lees minder
+                            <em className={'mdi mdi-chevron-up icon-right'} />
                         </div>
                     ) : (
                         <div
@@ -72,8 +92,8 @@ export default function SocialDomain() {
                                 e.stopPropagation();
                                 setShowMore(true);
                             }}>
-                            Lees minder
-                            <em className={'mdi mdi-chevron-up icon-right'} onClick={() => setShowMore(true)} />
+                            Lees meer
+                            <em className={'mdi mdi-chevron-down icon-right'} onClick={() => setShowMore(true)} />
                         </div>
                     )}
                 </div>
