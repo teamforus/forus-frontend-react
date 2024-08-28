@@ -15,7 +15,16 @@
         .block-header {
             display: flex;
             flex-direction: row;
-            padding: 10px 10px 10px 20px;
+            padding: 10px;
+
+            .block-drag {
+                display: flex;
+                flex: 0 0 auto;
+                font-size: 15px;
+                line-height: 30px;
+                padding-right: 5px;
+                cursor: grab;
+            }
 
             .block-title {
                 flex-grow: 1;

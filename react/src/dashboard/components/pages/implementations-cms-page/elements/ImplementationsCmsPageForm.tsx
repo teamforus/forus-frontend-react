@@ -45,7 +45,9 @@ export default function ImplementationsCmsPageForm({
         page?.faq?.map((item) => ({ ...item, uid: uniqueId() })) || [],
     );
 
-    const [blocks, setBlocks] = useState<Array<ImplementationPageBlock>>(page?.blocks || []);
+    const [blocks, setBlocks] = useState<Array<ImplementationPageBlock & { uid: string }>>(
+        page?.blocks?.map((item) => ({ ...item, uid: uniqueId() })) || [],
+    );
 
     const [pageBlock, setPageBlock] = useState<ImplementationPage>(null);
 

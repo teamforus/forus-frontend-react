@@ -71,7 +71,13 @@ export default function VouchersTableFilters({
         voucherExportService.exportData(
             organization.id,
             keyBy(funds, 'id')[filter.activeValues.fund_id]?.allow_voucher_records,
-            { ...filter.activeValues, per_page: null },
+            {
+                ...filter.activeValues,
+                in_use: filter.activeValues.in_use == null ? null : filter.activeValues.in_use ? 1 : 0,
+                granted: filter.activeValues.granted == null ? null : filter.activeValues.granted ? 1 : 0,
+                has_payouts: filter.activeValues.has_payouts == null ? null : filter.activeValues.has_payouts ? 1 : 0,
+                per_page: null,
+            },
         );
     }, [organization.id, filter, funds, voucherExportService]);
 
