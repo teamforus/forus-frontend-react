@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import Voucher from '../../../../props/models/Voucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Organization from '../../../../props/models/Organization';
@@ -6,8 +6,10 @@ import { currencyFormat, strLimit } from '../../../../helpers/string';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import VouchersTableRowStatus from './VouchersTableRowStatus';
 import useTranslate from '../../../../hooks/useTranslate';
-import VouchersTableRowActions from './VouchersTableRowActions';
 import Fund from '../../../../props/models/Fund';
+import TableRowActions from '../../../elements/tables/TableRowActions';
+import { hasPermission } from '../../../../helpers/utils';
+import useShowVoucherQrCode from '../hooks/useShowVoucherQrCode';
 
 export default function VouchersTableRow({
     funds,
@@ -25,6 +27,17 @@ export default function VouchersTableRow({
     setShownVoucherMenuId?: React.Dispatch<React.SetStateAction<number>>;
 }) {
     const translate = useTranslate();
+    const showQrCode = useShowVoucherQrCode();
+
+    const onOpenAction = useCallback(
+        (e: React.MouseEvent) => {
+            e.preventDefault();
+            const fund = funds?.find((fund) => fund.id === voucher.fund_id);
+            setShownVoucherMenuId(null);
+            showQrCode(organization, voucher, fund, fetchVouchers);
+        },
+        [fetchVouchers, funds, organization, setShownVoucherMenuId, showQrCode, voucher],
+    );
 
     return (
         <StateNavLink
@@ -158,14 +171,40 @@ export default function VouchersTableRow({
             </td>
 
             <td className={'table-td-actions'} style={{ zIndex: shownVoucherMenuId === voucher.id ? 1 : 0 }}>
-                <VouchersTableRowActions
-                    fund={funds?.find((fund) => fund.id === voucher.fund_id)}
-                    voucher={voucher}
-                    organization={organization}
-                    fetchVouchers={fetchVouchers}
-                    shownVoucherMenuId={shownVoucherMenuId}
-                    setShownVoucherMenuId={setShownVoucherMenuId}
-                />
+                <div className={`actions ${shownVoucherMenuId == voucher.id ? 'active' : ''}`}>
+                    <TableRowActions id={voucher.id} activeId={shownVoucherMenuId} setActiveId={setShownVoucherMenuId}>
+                        <div className="dropdown dropdown-actions">
+                            <StateNavLink
+                                className="dropdown-item"
+                                name={'vouchers-show'}
+                                params={{ organizationId: organization.id, id: voucher.id }}>
+                                <em className={'mdi mdi-eye icon-start'} />
+                                Bekijken
+                            </StateNavLink>
+
+                            {hasPermission(organization, 'manage_vouchers') &&
+                                !voucher.is_granted &&
+                                !voucher.expired &&
+                                voucher.state != 'deactivated' && (
+                                    <Fragment>
+                                        <a
+                                            className={`dropdown-item ${voucher.state === 'active' ? 'disabled' : ''}`}
+                                            onClick={onOpenAction}>
+                                            <em className="mdi mdi-bookmark icon-start" />
+                                            Activeren
+                                        </a>
+
+                                        <a
+                                            className={`dropdown-item ${voucher.state === 'pending' ? 'disabled' : ''}`}
+                                            onClick={onOpenAction}>
+                                            <em className="mdi mdi-qrcode icon-start" />
+                                            QR-code
+                                        </a>
+                                    </Fragment>
+                                )}
+                        </div>
+                    </TableRowActions>
+                </div>
             </td>
         </StateNavLink>
     );

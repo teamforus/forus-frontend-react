@@ -678,7 +678,7 @@ export default function VouchersViewComponent() {
                 <Fragment>
                     <VoucherTransactions
                         organization={activeOrganization}
-                        blockTitle={'Transacties'}
+                        blockTitle={'Betaalopdrachten'}
                         filterValues={transactionsFilters.activeValues}
                         fetchTransactionsRef={transactionsBlock}
                     />

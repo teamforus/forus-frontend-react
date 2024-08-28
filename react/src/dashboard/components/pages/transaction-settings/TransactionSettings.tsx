@@ -72,7 +72,7 @@ export default function TransactionSettings() {
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
                     <div className="card-header">
-                        <div className="card-title">Transacties instellingen</div>
+                        <div className="card-title">Betaalopdrachten instellingen</div>
                     </div>
 
                     <div className="card-section card-section-primary">

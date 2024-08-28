@@ -1,7 +1,7 @@
 export default {
     header: {
-        title: 'Individuele transacties',
-        titleBulks: 'Bulktransacties',
+        title: 'Individuele betaalopdrachten',
+        titleBulks: 'Bulk betaalopdrachten',
     },
     labels: {
         id: 'ID',
@@ -51,6 +51,7 @@ export default {
         branch_name: 'Vestigingsnaam',
         branch_number: 'Vestigingsnummer',
         bulk_state: 'Bulk status',
+        payment_type: 'Soort',
     },
     buttons: {
         previous: 'Vorige',

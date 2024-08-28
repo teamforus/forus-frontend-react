@@ -24,7 +24,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                 id={'offices'}
             />
             <LayoutAsideNavItem
-                name={'Transacties'}
+                name={'Betaalopdrachten'}
                 icon={'transactions'}
                 route={'transactions'}
                 routeParams={{ organizationId: organization?.id }}
