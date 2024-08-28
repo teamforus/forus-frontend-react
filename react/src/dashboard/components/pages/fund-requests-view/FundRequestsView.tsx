@@ -34,6 +34,7 @@ import EmailLog from '../../../props/models/EmailLog';
 import { useFileService } from '../../../services/FileService';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
+import ModalApproveFundRequest from '../../modals/ModalApproveFundRequest';
 
 export default function FundRequestsView() {
     const authIdentity = useAuthIdentity();
@@ -182,16 +183,15 @@ export default function FundRequestsView() {
                 modal.close();
                 fundRequestService
                     .approveRecord(activeOrganization.id, requestRecord.fund_request_id, requestRecord.id)
-                    .then(
-                        () => {
-                            reloadRequest();
-                            pushSuccess('Gelukt!', 'Persoonsgegeven gevalideert.');
-                        },
-                        (res) =>
-                            showInfoModal(
-                                'Fout: U kunt deze persoonsgegeven op dit moment niet beoordelen.',
-                                res.data.message,
-                            ),
+                    .then(() => {
+                        reloadRequest();
+                        pushSuccess('Gelukt!', 'Persoonsgegeven gevalideert.');
+                    })
+                    .catch((err: ResponseError) =>
+                        showInfoModal(
+                            'Fout: U kunt deze persoonsgegeven op dit moment niet beoordelen.',
+                            err.data.message,
+                        ),
                     );
             };
 
@@ -260,28 +260,19 @@ export default function FundRequestsView() {
 
     const requestApprove = useCallback(() => {
         openModal((modal) => (
-            <ModalNotification
+            <ModalApproveFundRequest
                 modal={modal}
-                className={'modal-md'}
-                title={'Weet u zeker dat u deze persoonsgegeven wil goedkeuren?'}
-                description={
-                    'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.'
-                }
-                buttonCancel={{ onClick: modal.close }}
-                buttonSubmit={{
-                    onClick: () => {
-                        modal.close();
-                        fundRequestService
-                            .approve(activeOrganization.id, fundRequestMeta.id)
-                            .then(() => reloadRequest())
-                            .catch((err: ResponseError) => {
-                                showInfoModal('Validatie van persoonsgegeven mislukt.', `Reden: ${err.data.message}`);
-                            });
-                    },
+                fundRequest={fundRequest}
+                onError={(err: ResponseError) => {
+                    showInfoModal('Validatie van persoonsgegeven mislukt.', `Reden: ${err.data.message}`);
                 }}
+                onDone={() => {
+                    reloadRequest();
+                }}
+                activeOrganization={activeOrganization}
             />
         ));
-    }, [activeOrganization?.id, fundRequestMeta?.id, fundRequestService, openModal, reloadRequest, showInfoModal]);
+    }, [activeOrganization, fundRequest, openModal, reloadRequest, showInfoModal]);
 
     const requestDecline = useCallback(() => {
         openModal((modal) => (

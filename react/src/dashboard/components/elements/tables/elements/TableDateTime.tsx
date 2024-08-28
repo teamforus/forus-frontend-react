@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
+import TableEmptyValue from '../../table-empty-value/TableEmptyValue';
 
 export default function TableDateTime({ value }: { value: string }) {
     if (!value || typeof value !== 'string') {
-        return <div className={'text-muted'}>-</div>;
+        return <TableEmptyValue />;
     }
 
     return value.includes(' - ') ? (

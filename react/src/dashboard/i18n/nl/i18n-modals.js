@@ -1,3 +1,4 @@
+import modal_payout_create from './modals/modal-payout-create';
 import modal_voucher_create from './modals/modal-voucher-create';
 import modal_voucher_physical_card from './modals/modal-voucher-physical-card';
 import modal_product_voucher_create from './modals/modal-product-voucher-create';
@@ -16,6 +17,7 @@ import modal_feature_contact from './modals/modal-feature-contact';
 import modal_2fa_setup from './modals/modal-2fa-setup';
 
 export default {
+    modal_payout_create,
     modal_voucher_create,
     modal_voucher_physical_card,
     modal_product_voucher_create,

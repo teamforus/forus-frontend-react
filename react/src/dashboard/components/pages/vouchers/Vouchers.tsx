@@ -14,7 +14,6 @@ import useVoucherTableOptions from './hooks/useVoucherTableOptions';
 import { VouchersTableFiltersProps } from './elements/VouchersTableFilters';
 import VouchersTableHeader from './elements/VouchersTableHeader';
 import VouchersTableRow from './elements/VouchersTableRow';
-import { keyBy } from 'lodash';
 import useConfigurableTable from './hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { BooleanParam, createEnumParam, NumberParam, StringParam } from 'use-query-params';
@@ -100,26 +99,17 @@ export default function Vouchers() {
     );
 
     const columns = useMemo(() => {
-        return voucherService.getColumns().filter((column) => {
-            if (!filterValuesActive.fund_id && column.resourceType) {
-                return funds?.filter((fund) => fund.type === column.resourceType).length;
-            }
-
-            return (
-                !column.resourceType || keyBy(funds, 'id')?.[filterValuesActive?.fund_id]?.type === column.resourceType
-            );
-        });
-    }, [filterValuesActive?.fund_id, funds, voucherService]);
+        return voucherService.getColumns();
+    }, [voucherService]);
 
     const {
-        columnKeys,
         configsElement,
         showTableTooltip,
         hideTableTooltip,
         tableConfigCategory,
         showTableConfig,
         displayTableConfig,
-    } = useConfigurableTable(columns);
+    } = useConfigurableTable(voucherService.getColumns());
 
     const fetchVouchers = useCallback(() => {
         setProgress(0);
@@ -211,7 +201,6 @@ export default function Vouchers() {
                                             voucher={voucher}
                                             fetchVouchers={fetchVouchers}
                                             organization={activeOrganization}
-                                            columnKeys={columnKeys}
                                             shownVoucherMenuId={shownVoucherMenuId}
                                             setShownVoucherMenuId={setShownVoucherMenuId}
                                         />

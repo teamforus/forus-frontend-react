@@ -1,23 +1,12 @@
 import React, { useMemo } from 'react';
 import Tooltip from '../../tooltip/Tooltip';
 import { uniqueId } from 'lodash';
-
-interface CheckboxProps {
-    id?: string;
-    title?: string;
-    tooltip?: string;
-    checked: boolean;
-    value?: string;
-    disabled?: boolean;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>, checked?: boolean) => void;
-    className?: string;
-    customElement?: React.ReactElement;
-    children?: string | React.ReactNode | Array<React.ReactNode>;
-}
+import classNames from 'classnames';
 
 export default function CheckboxControl({
     id,
     title,
+    narrow = false,
     checked = false,
     value = '',
     disabled = false,
@@ -25,11 +14,26 @@ export default function CheckboxControl({
     onChange,
     className,
     children,
-}: CheckboxProps) {
+}: {
+    id?: string;
+    title?: string;
+    tooltip?: string;
+    narrow?: boolean;
+    checked: boolean;
+    value?: string;
+    disabled?: boolean;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>, checked?: boolean) => void;
+    className?: string;
+    customElement?: React.ReactElement;
+    children?: string | React.ReactNode | Array<React.ReactNode>;
+}) {
     const formId = useMemo(() => (id ? id : `checkbox_control_${uniqueId()}`), [id]);
 
     return (
-        <label htmlFor={formId} title={title} className={`checkbox ${className} ${disabled ? 'disabled' : ''}`}>
+        <label
+            htmlFor={formId}
+            title={title}
+            className={classNames('checkbox', className, disabled && 'disabled', narrow && 'checkbox-narrow')}>
             <input
                 type="checkbox"
                 value={value}

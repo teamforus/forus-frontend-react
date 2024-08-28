@@ -117,4 +117,11 @@ export default interface Fund {
     allow_reimbursements?: boolean;
     allow_physical_cards?: boolean;
     allow_blocking_vouchers?: boolean;
+    allow_custom_amounts?: boolean;
+    allow_preset_amounts?: boolean;
+    allow_custom_amounts_validator?: boolean;
+    allow_preset_amounts_validator?: boolean;
+    custom_amount_min?: string;
+    custom_amount_max?: string;
+    amount_presets?: Array<{ id?: number; name?: string; amount?: string; amount_locale?: string }>;
 }

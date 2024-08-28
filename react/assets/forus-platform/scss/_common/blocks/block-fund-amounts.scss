@@ -1,0 +1,43 @@
+.block.block-fund-amounts {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: #fff;
+
+    .fund-amounts-section {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 10px;
+        border-bottom: 1px solid var(--border-color);
+
+        .fund-amounts-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .fund-amounts-controls {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fund-amounts-title {
+            font: 600 14px/20px var(--base-font);
+        }
+
+        .fund-amounts-description {
+            font: 400 12px/16px var(--base-font);
+        }
+
+        .fund-amounts-separator {
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

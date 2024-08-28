@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { MouseEventHandler, useCallback } from 'react';
 import FilterScope from '../../../types/FilterScope';
 import FilterModel from '../../../types/FilterModel';
 
@@ -11,12 +11,16 @@ export default function ThSortable({
     label,
     value,
     filter = null,
+    onMouseOver,
+    onMouseLeave,
     disabled = false,
     className,
 }: {
     label: string;
     value?: string;
     filter?: FilterScope<FilterModel>;
+    onMouseOver?: MouseEventHandler<HTMLTableCellElement>;
+    onMouseLeave?: MouseEventHandler<HTMLTableCellElement>;
     disabled?: boolean;
     className?: string;
 }) {
@@ -38,7 +42,7 @@ export default function ThSortable({
     );
 
     return (
-        <th className={className || ''}>
+        <th className={className || ''} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
             {disabled || !value ? (
                 label
             ) : (

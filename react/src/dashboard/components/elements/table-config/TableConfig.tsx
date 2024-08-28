@@ -45,7 +45,7 @@ export default function TableConfig({
                                 }`}
                                 data-table-tooltip={tooltip.key}
                                 key={index}>
-                                <div className="table-settings-tooltip-item-title">{tooltip.title}</div>
+                                <div className="table-settings-tooltip-item-title">{translate(tooltip.title)}</div>
                                 <div
                                     className="table-settings-tooltip-item-description"
                                     dangerouslySetInnerHTML={{ __html: translate(tooltip.description) }}

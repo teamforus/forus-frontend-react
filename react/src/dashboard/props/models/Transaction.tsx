@@ -18,13 +18,19 @@ export default interface Transaction {
     iban_from?: string;
     iban_to?: string;
     amount: string;
+    amount_preset_id?: number;
     amount_locale: string;
     timestamp: number;
     cancelable: boolean;
-    transaction_in?: number;
     attempts: number;
     bulk_state?: 'draft' | 'error' | 'pending' | 'accepted' | 'rejected';
     bulk_state_locale?: string;
+    bulk_status_locale?: string;
+    employee?: {
+        id?: string;
+        email?: string;
+        address?: string;
+    };
     fund: {
         id: number;
         name: string;
@@ -42,13 +48,20 @@ export default interface Transaction {
     };
     created_at: string;
     created_at_locale: string;
+    transfer_at?: string;
+    transfer_at_locale?: string;
+    transfer_in?: number;
+    transfer_in_pending?: boolean;
     updated_at: string;
     updated_at_locale: string;
+    is_editable?: boolean;
+    is_cancelable?: boolean;
     voucher?: Voucher;
     voucher_transaction_bulk_id?: number;
     product_reservation?: Reservation;
     voucher_id?: number;
-    target?: 'provider' | 'iban' | 'top_up';
+    target?: 'provider' | 'iban' | 'top_up' | 'payout';
+    upload_batch_id?: number;
     transaction_cost?: string;
     transaction_cost_locale?: string;
     branch_number?: number;

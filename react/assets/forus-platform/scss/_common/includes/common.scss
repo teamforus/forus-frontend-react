@@ -302,6 +302,30 @@ img {
     padding-right: 10px;
 }
 
+.flex-gap-none {
+    gap: 0 !important;
+}
+
+.flex-gap-sm {
+    gap: 5px !important;
+}
+
+.flex-gap {
+    gap: 10px !important;
+}
+
+.flex-gap-lg {
+    gap: 15px !important;
+}
+
+.flex-gap-xl {
+    gap: 20px !important;
+}
+
+.flex-gap-xxl {
+    gap: 30px !important;
+}
+
 .span-count {
     display: inline;
 

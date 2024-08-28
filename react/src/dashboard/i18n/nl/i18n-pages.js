@@ -5,6 +5,7 @@ import event_logs from './pages/event-logs';
 import reimbursements from './pages/reimbursements';
 import identities from './pages/identities';
 import transactions from './pages/transactions';
+import payouts from './pages/payouts';
 import voucher_records from './pages/voucher-records';
 import financial_dashboard_transaction from './pages/transaction';
 import provider_funds from './pages/provider-funds';
@@ -26,6 +27,7 @@ export default {
     reimbursements,
     identities,
     transactions,
+    payouts,
     voucher_records,
     financial_dashboard_transaction,
     provider_funds,

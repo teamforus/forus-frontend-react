@@ -87,6 +87,7 @@ import ThrowError from '../components/pages_system/ThrowError';
 import Implementations from '../components/pages/implementations/Implementations';
 import SponsorFundUnsubscriptions from '../components/pages/sponsor-fund-unsubscriptions/SponsorFundUnsubscriptions';
 import OrganizationsContacts from '../components/pages/organizations-contacts/OrganizationsContacts';
+import Payouts from '../components/pages/payouts/Payouts';
 
 const router = new RouterBuilder();
 
@@ -190,6 +191,10 @@ router.state('sponsor-provider-organizations', <SponsorProviderOrganizations />,
 router.state('sponsor-provider-organization', <SponsorProviderOrganization />, {
     path: `/organizations/:organizationId/providers/:id`,
     fallbackState: 'organizations',
+});
+
+router.state('payouts', <Payouts />, {
+    path: `/organizations/:organizationId/payouts`,
 });
 
 router.state('fund-provider', <FundProvider />, {

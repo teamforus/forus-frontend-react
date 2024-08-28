@@ -145,7 +145,7 @@ export default function ModalDuplicatesPicker({
     }, [list, page, per_page]);
 
     return (
-        <div className={`modal modal-xl modal-animated ${modal.loading ? 'modal-loading' : ''} ${className || ''}`}>
+        <div className={`modal modal-lg modal-animated ${modal.loading ? 'modal-loading' : ''} ${className || ''}`}>
             <div className="modal-backdrop" onClick={cancel} />
             <div className="modal-window">
                 <div className="modal-body">

@@ -36,9 +36,7 @@ export default function SelectControlOptionsFund<T>({
     return (
         <div
             id={id}
-            className={`select-control select-control-funds ${disabled ? 'disabled' : ''} ${
-                className ? className : ''
-            }`}
+            className={classNames('select-control', 'select-control-funds', disabled && 'disabled', className)}
             tabIndex={0}
             role="button"
             data-dusk={dusk}

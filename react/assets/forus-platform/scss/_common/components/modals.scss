@@ -43,7 +43,6 @@
         width: 1200px;
         max-width: 100%;
         border-radius: calc(var(--border-radius));
-        display: inline-block;
         min-height: 100px;
         margin: 0 auto;
         max-height: 90vh;
@@ -88,7 +87,6 @@
                 width: 50px;
                 height: 50px;
                 line-height: 50px;
-                margin: 0 0 15px;
                 border-radius: 50%;
                 font-size: 24px;
                 position: relative;
@@ -506,82 +504,6 @@
         }
     }
 
-    &.modal-auth {
-        .modal-title {
-            color: #282b39;
-            font: 700 26px/40px var(--base-font);
-            text-align: center;
-            margin: 0 0 0;
-        }
-
-        .modal-subtitle {
-            color: #646f79;
-            font: 400 16px/24px var(--base-font);
-            text-align: center;
-            margin: 0 0 10px;
-
-            u {
-                cursor: pointer;
-            }
-
-            span {
-                cursor: auto;
-            }
-
-            a {
-                font: inherit;
-                color: rgb(100, 111, 121);
-            }
-        }
-
-        .modal-content {
-            .step-item {
-                .step-title {
-                    font: 700 20px/18px var(--base-font);
-                }
-
-                .step-description {
-                    margin: 0 0 10px;
-                    font: 400 14px/18px var(--base-font);
-                }
-            }
-
-            .form {
-                width: 480px;
-                margin: 0 auto;
-                padding: 10px 0;
-            }
-
-            &.button {
-                display: inline-block;
-            }
-        }
-
-        .with-instructions {
-            .modal-footer {
-                padding: 30px 200px;
-                margin: 30px -200px -30px;
-            }
-        }
-    }
-
-    &.modal-auth2 {
-        .modal-window {
-            width: 650px;
-            max-width: 100%;
-
-            .modal-content {
-                padding: 20px;
-            }
-        }
-    }
-
-    &.modal-shops_map {
-        .modal-content {
-            padding: 0;
-        }
-    }
-
     &.modal-voucher_qr {
         .modal-window {
             width: 540px;
@@ -726,19 +648,9 @@
         }
     }
 
-    &.modal-xl {
-        .modal-window {
-            width: 1000px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
-    }
-
     &.modal-lg {
         .modal-window {
-            width: 1000px;
+            width: 960px;
         }
 
         .modal-footer {
@@ -894,30 +806,6 @@
                 width: 100%;
                 flex-grow: 1;
                 overflow: auto;
-            }
-        }
-    }
-
-    &.modal-employee-add {
-        .modal-window {
-            width: 820px;
-            border-radius: 12px;
-
-            .modal-title {
-                font: 500 21px/29px var(--base-font);
-                text-align: center;
-                color: #191a1c;
-                margin-bottom: 10px;
-            }
-
-            .modal-description {
-                font: 400 15px/22px var(--base-font);
-                text-align: center;
-                color: #454545;
-            }
-
-            .modal-actions {
-                text-align: center;
             }
         }
     }

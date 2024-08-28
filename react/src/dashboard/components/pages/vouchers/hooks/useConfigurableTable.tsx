@@ -5,7 +5,7 @@ import useSetToast from '../../../../hooks/useSetToast';
 export type ConfigurableTableColumn = {
     key: string;
     label: string;
-    resourceType?: string;
+    value?: string;
     tooltip: { key: string; title: string; description: string };
 };
 

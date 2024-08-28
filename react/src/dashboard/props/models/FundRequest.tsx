@@ -12,6 +12,24 @@ export default interface FundRequest {
         has_person_bsn_api?: boolean;
         criteria: Array<FundCriterion>;
     };
+    formula: {
+        total_amount: string;
+        total_products: string;
+        items: Array<{
+            record: string;
+            type: string;
+            value: string;
+            count: string;
+            total: string;
+        }>;
+        products: Array<{
+            record: string;
+            type: string;
+            value: string;
+            count: string;
+            total: string;
+        }>;
+    };
     fund_id: number;
     lead_time_days: number;
     lead_time_locale: string;

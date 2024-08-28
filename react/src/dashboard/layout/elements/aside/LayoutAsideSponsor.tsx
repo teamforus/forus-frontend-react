@@ -8,7 +8,7 @@ import useTranslate from '../../../hooks/useTranslate';
 export default function LayoutAsideSponsor({ organization }: { organization: Organization }) {
     const envData = useEnvData();
     const translate = useTranslate();
-    const { allow_bi_connection, allow_2fa_restrictions, allow_pre_checks } = organization;
+    const { allow_bi_connection, allow_2fa_restrictions, allow_pre_checks, allow_payouts } = organization;
 
     return (
         <div className="sidebar-nav">
@@ -64,6 +64,14 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 routeParams={{ organizationId: organization?.id }}
                 show={hasPermission(organization, 'validate_records')}
                 id={'requesters'}
+            />
+            <LayoutAsideNavItem
+                name={'Uitbetalingen'}
+                icon={'payouts'}
+                route={'payouts'}
+                routeParams={{ organizationId: organization?.id }}
+                show={allow_payouts && hasPermission(organization, 'manage_payouts')}
+                id={'payouts'}
             />
             <LayoutAsideNavItem
                 name={'Bank integraties'}

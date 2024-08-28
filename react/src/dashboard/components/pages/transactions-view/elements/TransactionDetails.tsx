@@ -174,7 +174,7 @@ export default function TransactionDetails({
                                         Transactie details
                                     </StateNavLink>
                                 )}
-                                {transaction.voucher_id && isSponsor && (
+                                {transaction.voucher_id && transaction.target !== 'payout' && isSponsor && (
                                     <StateNavLink
                                         name={'vouchers-show'}
                                         params={{
@@ -229,6 +229,9 @@ export default function TransactionDetails({
                                         {['top_up'].includes(transaction.target) && (
                                             <div className="keyvalue-value">Top up</div>
                                         )}
+                                        {['payout'].includes(transaction.target) && (
+                                            <div className="keyvalue-value">Payout</div>
+                                        )}
                                     </div>
                                 )}
                                 {transaction.product && (
@@ -275,10 +278,10 @@ export default function TransactionDetails({
                                     <div className="keyvalue-key">Status</div>
                                     <div className="keyvalue-value">
                                         {transaction.state_locale}
-                                        {transaction.transaction_in > 0 && transaction.state == 'pending' && (
+                                        {transaction.transfer_in > 0 && transaction.state == 'pending' && (
                                             <div className="text-sm text-muted-dark">
                                                 <em className="mdi mdi-clock-outline"> </em>
-                                                {transaction.transaction_in} dagen resterend
+                                                {transaction.transfer_in} dagen resterend
                                             </div>
                                         )}
                                     </div>

@@ -554,6 +554,7 @@ export default {
                     formulas: 'Rekenregels',
                     statistics: 'Statistieken',
                     criteria: 'Voorwaarden',
+                    configs: 'Uitbetalingsinstellingen',
                 },
             },
             details_card: {

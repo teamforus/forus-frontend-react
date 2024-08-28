@@ -6,7 +6,11 @@
     padding: 7px 10px;
     box-shadow: var(--box-shadow);
     border: 1px solid transparent;
-    transition: color 0.3s, border-color 0.3s, background 0.3s, box-shadow 0.3s;
+    transition:
+        color 0.3s,
+        border-color 0.3s,
+        background 0.3s,
+        box-shadow 0.3s;
     text-align: center;
     justify-content: center;
     cursor: pointer;
@@ -246,7 +250,7 @@
     }
 
     &.button-icon {
-        padding: 7px 12px;
+        padding: 7px 14px;
 
         & > .mdi {
             margin: 0 -5px;
@@ -298,6 +302,10 @@
     &.button-xs {
         font: 500 12px/16px var(--base-font);
         padding: 2px 7px;
+    }
+
+    &.button-flat {
+        box-shadow: none;
     }
 
     &[disabled],

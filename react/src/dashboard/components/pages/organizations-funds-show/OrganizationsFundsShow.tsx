@@ -11,17 +11,8 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
 import useSetProgress from '../../../hooks/useSetProgress';
-import OrganizationsFundsShowFormulasCard from './elements/OrganizationsFundsShowFormulasCard';
-import OrganizationsFundsShowCriteriaCard from './elements/OrganizationsFundsShowCriteriaCard';
-import OrganizationsFundsShowStatisticsCard from './elements/OrganizationsFundsShowStatisticsCard';
-import OrganizationsFundsShowDescriptionCard from './elements/OrganizationsFundsShowDescriptionCard';
-import OrganizationsFundsShowTopUpsCard from './elements/OrganizationsFundsShowTopUpsCard';
-import OrganizationsFundsShowImplementationsCard from './elements/OrganizationsFundsShowImplementationsCard';
-import OrganizationsFundsShowIdentitiesCard from './elements/OrganizationsFundsShowIdentitiesCard';
-import { createEnumParam, useQueryParam, withDefault } from 'use-query-params';
-import { filter } from 'lodash';
-
-type TabType = 'top_ups' | 'identities' | 'implementations';
+import OrganizationsFundsShowDetailsCard from './elements/OrganizationsFundsShowDetailsCard';
+import OrganizationsFundsShowRelationsCard from './elements/OrganizationsFundsShowRelationsCard';
 
 export default function OrganizationsFundsShow() {
     const fundId = useParams().fundId;
@@ -36,61 +27,9 @@ export default function OrganizationsFundsShow() {
 
     const [fund, setFund] = useState<Fund>(null);
 
-    const [viewType, setViewType] = useQueryParam(
-        'view',
-        withDefault(createEnumParam(['description', 'formulas', 'statistics', 'criteria']), 'description'),
-        { removeDefaultsFromUrl: true },
-    );
-
     const canManageFunds = useMemo(() => {
         return hasPermission(activeOrganization, 'manage_funds');
     }, [activeOrganization]);
-
-    const canViewFinances = useMemo(() => {
-        return hasPermission(activeOrganization, 'view_finances');
-    }, [activeOrganization]);
-
-    const canViewIdentities = useMemo(() => {
-        return hasPermission(activeOrganization, ['manage_implementation_notifications', 'manage_vouchers']);
-    }, [activeOrganization]);
-
-    const canViewImplementation = useMemo(() => {
-        return hasPermission(activeOrganization, 'manage_implementation');
-    }, [activeOrganization]);
-
-    const availableViewTables = useMemo(() => {
-        return filter<TabType>([
-            canViewFinances ? 'top_ups' : null,
-            canViewIdentities ? 'identities' : null,
-            canViewImplementation ? 'implementations' : null,
-        ]);
-    }, [canViewImplementation, canViewFinances, canViewIdentities]);
-
-    const defaultViewTable = useMemo<TabType>(() => {
-        if (fund?.is_configured && availableViewTables.includes('top_ups')) {
-            return 'top_ups';
-        }
-
-        if (availableViewTables.includes('implementations')) {
-            return 'implementations';
-        }
-
-        return availableViewTables.includes('identities') ? 'identities' : null;
-    }, [availableViewTables, fund?.is_configured]);
-
-    const [viewTable, setViewTable] = useQueryParam(
-        'table_view',
-        withDefault(createEnumParam(availableViewTables), defaultViewTable),
-        { removeDefaultsFromUrl: true },
-    );
-
-    const viewTypes = useMemo(() => {
-        return filter<{ key: TabType; name: string }>([
-            fund?.is_configured && canViewFinances ? { key: 'top_ups', name: 'Bekijk aanvullingen' } : null,
-            canViewImplementation ? { key: 'implementations', name: 'Webshop' } : null,
-            canViewIdentities ? { key: 'identities', name: 'Aanvragers' } : null,
-        ]);
-    }, [canViewImplementation, canViewFinances, canViewIdentities, fund?.is_configured]);
 
     const fetchFund = useCallback(() => {
         setProgress(0);
@@ -218,101 +157,8 @@ export default function OrganizationsFundsShow() {
                 </div>
             </div>
 
-            <div className="card">
-                <div className="card-header">
-                    <div className="flex-row">
-                        <div className="flex-col">
-                            <div className="card-title">
-                                {translate(`funds_show.labels.base_card.header.${viewType}`)}
-                            </div>
-                        </div>
-
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                <div className="flex">
-                                    <div>
-                                        <div className="block block-label-tabs pull-right">
-                                            <div className="label-tab-set">
-                                                <div
-                                                    className={`label-tab label-tab-sm ${
-                                                        viewType == 'description' ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setViewType('description')}>
-                                                    Beschrijving
-                                                </div>
-
-                                                {canManageFunds && (
-                                                    <div
-                                                        className={`label-tab label-tab-sm ${
-                                                            viewType == 'formulas' ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setViewType('formulas')}>
-                                                        Rekenregels
-                                                    </div>
-                                                )}
-
-                                                {canViewFinances && (
-                                                    <div
-                                                        className={`label-tab label-tab-sm ${
-                                                            viewType == 'statistics' ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setViewType('statistics')}>
-                                                        Statistieken
-                                                    </div>
-                                                )}
-
-                                                {canManageFunds && (
-                                                    <div
-                                                        className={`label-tab label-tab-sm ${
-                                                            viewType == 'criteria' ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setViewType('criteria')}>
-                                                        Voorwaarden
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {viewType == 'description' && <OrganizationsFundsShowDescriptionCard fund={fund} />}
-                {viewType == 'formulas' && <OrganizationsFundsShowFormulasCard fund={fund} />}
-                {viewType == 'criteria' && <OrganizationsFundsShowCriteriaCard fund={fund} setFund={setFund} />}
-                {viewType == 'statistics' && (
-                    <OrganizationsFundsShowStatisticsCard fund={fund} organization={activeOrganization} />
-                )}
-            </div>
-
-            {viewTable === 'top_ups' && (
-                <OrganizationsFundsShowTopUpsCard
-                    fund={fund}
-                    viewType={viewTable}
-                    viewTypes={viewTypes}
-                    setViewType={setViewTable}
-                />
-            )}
-
-            {viewTable === 'implementations' && (
-                <OrganizationsFundsShowImplementationsCard
-                    fund={fund}
-                    viewType={viewTable}
-                    viewTypes={viewTypes}
-                    setViewType={setViewTable}
-                />
-            )}
-
-            {viewTable === 'identities' && (
-                <OrganizationsFundsShowIdentitiesCard
-                    fund={fund}
-                    viewType={viewTable}
-                    viewTypes={viewTypes}
-                    setViewType={setViewTable}
-                />
-            )}
+            <OrganizationsFundsShowDetailsCard organization={activeOrganization} fund={fund} setFund={setFund} />
+            <OrganizationsFundsShowRelationsCard organization={activeOrganization} fund={fund} />
         </Fragment>
     );
 }

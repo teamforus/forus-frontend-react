@@ -824,7 +824,7 @@ export default function Transactions() {
                                         {isSponsor && (
                                             <ThSortable
                                                 label={translate('transactions.labels.bulk')}
-                                                value={'transaction_in'}
+                                                value={'transfer_in'}
                                                 filter={filter}
                                             />
                                         )}
@@ -968,14 +968,14 @@ export default function Transactions() {
                                             )}
                                             {isSponsor && !transaction.voucher_transaction_bulk_id && (
                                                 <td>
-                                                    {transaction.transaction_in > 0 &&
+                                                    {transaction.transfer_in > 0 &&
                                                     transaction.state == 'pending' &&
                                                     transaction.attempts < 3 ? (
                                                         <div>
                                                             <div>In afwachting</div>
                                                             <div className="text-sm text-muted-dark">
                                                                 <em className="mdi mdi-clock-outline"> </em>
-                                                                {transaction.transaction_in} dagen resterend
+                                                                {transaction.transfer_in} dagen resterend
                                                             </div>
                                                         </div>
                                                     ) : (
