@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import ScrollEnd from '../elements/scroll-end/ScrollEnd';
 import ToggleControl from '../elements/forms/controls/ToggleControl';
+import { currencyFormat } from '../../helpers/string';
 
 type ItemProp = {
     value: string;
     blink?: boolean;
     model?: boolean;
+    isCurrencyValue?: boolean;
     columns?: Array<string>;
 };
 
@@ -181,7 +183,11 @@ export default function ModalDuplicatesPicker({
                                             }>
                                             <td>
                                                 <em className="mdi mdi-alert-outline text-warning switch-key-icon" />
-                                                <span>{item.value}</span>
+                                                <span>
+                                                    {item.isCurrencyValue
+                                                        ? currencyFormat(parseFloat(item.value))
+                                                        : item.value}
+                                                </span>
                                             </td>
 
                                             {item?.columns?.map((column, index) => <td key={index}>{column}</td>)}

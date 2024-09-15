@@ -270,6 +270,51 @@ export default function ModalVouchersUpload({
         [csvErrors, validateProductId],
     );
 
+    const confirmLowAmountsSkip = useCallback(
+        (lowAmounts: Array<number>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
+            const items = lowAmounts.map((amount: number) => ({
+                value: String(amount),
+                isCurrencyValue: true,
+                columns: [fund.name],
+            }));
+
+            return new Promise<Array<RowDataProp> | 'canceled'>((resolve) => {
+                if (items.length === 0) {
+                    return resolve(list);
+                }
+
+                openModal((modal) => (
+                    <ModalDuplicatesPicker
+                        modal={modal}
+                        hero_title={`Low amount values for "${fund.name}".`}
+                        hero_subtitle={[`There are ${items.length} with low amounts.`, 'Do you want to proceed?']}
+                        button_none={'Alle overslaan'}
+                        button_all={'Alle aanmaken'}
+                        enableToggles={true}
+                        label_on={'Aanmaken'}
+                        label_off={'Overslaan'}
+                        items={items}
+                        onConfirm={(items) => {
+                            const allowedAmounts = items.filter((item) => item.model).map((item) => item.value);
+
+                            resolve(
+                                list.filter(
+                                    (row) =>
+                                        !lowAmounts.includes(row.amount) || allowedAmounts.includes(String(row.amount)),
+                                ),
+                            );
+                        }}
+                        onCancel={() => {
+                            window.setTimeout(() => setHideModal(false), 300);
+                            resolve('canceled');
+                        }}
+                    />
+                ));
+            });
+        },
+        [openModal],
+    );
+
     const confirmEmailSkip = useCallback(
         (existingEmails: Array<string>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
             const items = existingEmails.map((email: string) => ({
@@ -434,6 +479,23 @@ export default function ModalVouchersUpload({
             type,
             voucherService,
         ],
+    );
+
+    const checkLowAmounts = useCallback(
+        async (fund: Partial<Fund>, list: Array<RowDataProp>) => {
+            const lowAmounts = list
+                .filter((csvRow: { amount: number }) => csvRow.amount <= 5)
+                .map((csvRow: { amount: number }) => csvRow.amount);
+
+            if (lowAmounts.length === 0) {
+                return list;
+            }
+
+            const listFromLowAmount = await confirmLowAmountsSkip(lowAmounts, fund, list);
+
+            return listFromLowAmount !== 'canceled' ? listFromLowAmount : 'canceled';
+        },
+        [confirmLowAmountsSkip],
     );
 
     const validateCsvData = useCallback(
@@ -786,6 +848,14 @@ export default function ModalVouchersUpload({
         ],
     );
 
+    const onUploadCancel = useCallback(() => {
+        pushSuccess('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
+        setLoadingBarProgress(0);
+        setHideModal(false);
+        setLoading(false);
+        return;
+    }, [pushSuccess, setLoadingBarProgress]);
+
     const uploadToServer = useCallback(async () => {
         if (!csvIsValid) {
             return false;
@@ -805,15 +875,18 @@ export default function ModalVouchersUpload({
 
         try {
             for (let i = 0; i < list.length; i++) {
-                const data = await findDuplicates(list[i].fund, list[i].list);
+                const duplicatesCheckData = await findDuplicates(list[i].fund, list[i].list);
 
-                if (data === 'canceled') {
-                    pushSuccess('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
-                    setLoadingBarProgress(0);
-                    setHideModal(false);
-                    setLoading(false);
-                    return;
+                if (duplicatesCheckData === 'canceled') {
+                    onUploadCancel();
                 } else {
+                    const data = await checkLowAmounts(list[i].fund, duplicatesCheckData);
+
+                    if (data === 'canceled') {
+                        onUploadCancel();
+                        return;
+                    }
+
                     listSelected.push(...data);
                 }
             }
@@ -835,11 +908,12 @@ export default function ModalVouchersUpload({
         setLoading(false);
     }, [
         availableFundsById,
+        checkLowAmounts,
         csvIsValid,
         data,
         findDuplicates,
+        onUploadCancel,
         pushDanger,
-        pushSuccess,
         setLoadingBarProgress,
         startUploading,
     ]);
