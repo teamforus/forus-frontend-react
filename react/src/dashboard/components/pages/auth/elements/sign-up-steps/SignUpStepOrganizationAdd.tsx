@@ -15,6 +15,7 @@ import { useMediaService } from '../../../../../services/MediaService';
 import ProgressStorage from '../../../../../helpers/ProgressStorage';
 import { useBusinessTypeService } from '../../../../../services/BusinessTypeService';
 import useTranslate from '../../../../../hooks/useTranslate';
+import SignUpFooter from '../../../../../../webshop/components/elements/sign-up/SignUpFooter';
 
 export default function SignUpStepOrganizationAdd({
     panelType,
@@ -321,25 +322,23 @@ export default function SignUpStepOrganizationAdd({
                     </div>
                 </div>
 
-                <div className="sign_up-pane-footer">
-                    <div className="row">
-                        <div className="col col-lg-6 text-left">
-                            <button
-                                type={'button'}
-                                className="button button-text button-text-padless"
-                                onClick={cancelAddOrganization}>
-                                <em className="mdi mdi-chevron-left icon-left" />
-                                {translate(`sign_up_${panelType}.buttons.back`)}
-                            </button>
-                        </div>
-                        <div className="col col-lg-6 text-right">
-                            <button type={'submit'} className="button button-text button-text-padless">
-                                {translate(`sign_up_${panelType}.buttons.next`)}
-                                <em className="mdi mdi-chevron-right icon-right" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <SignUpFooter
+                    startActions={
+                        <button
+                            type={'button'}
+                            className="button button-text button-text-padless"
+                            onClick={cancelAddOrganization}>
+                            <em className="mdi mdi-chevron-left icon-left" />
+                            {translate(`sign_up_${panelType}.buttons.back`)}
+                        </button>
+                    }
+                    endActions={
+                        <button type={'submit'} className="button button-text button-text-padless">
+                            {translate(`sign_up_${panelType}.buttons.next`)}
+                            <em className="mdi mdi-chevron-right icon-right" />
+                        </button>
+                    }
+                />
             </form>
         </div>
     );

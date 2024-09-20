@@ -12,7 +12,7 @@ export function useAuthService() {
     const voucherService = useVoucherService();
 
     const onAuthRedirect = useCallback(
-        async (defaultState = 'home', defaultStateParams = {}) => {
+        async (defaultState: false | string = 'home', defaultStateParams = {}) => {
             const funds = await fundService.list().then((res) => res.data.data);
             const vouchers = await voucherService.list({ per_page: 100 }).then((res) => res.data.data);
 

@@ -4,6 +4,7 @@ import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import FundRequestGoBackButton from '../FundRequestGoBackButton';
 import FundCriteriaCustomOverview from '../../../funds/elements/FundCriteriaCustomOverview';
 import UIControlCheckbox from '../../../../../../dashboard/components/elements/forms/ui-controls/UIControlCheckbox';
+import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 
 export default function FundRequestStepConfirmCriteria({
     fund,
@@ -80,23 +81,21 @@ export default function FundRequestStepConfirmCriteria({
                     </div>
                 )}
 
-                <div className="sign_up-pane-footer">
-                    <div className="flex-row">
-                        <FundRequestGoBackButton prevStep={onPrevStep} fund={fund} step={step} />
+                <SignUpFooter
+                    startActions={<FundRequestGoBackButton prevStep={onPrevStep} fund={fund} step={step} />}
+                    endActions={
+                        <button
+                            className="button button-text button-text-padless"
+                            disabled={!confirmCriteria || (fund.key == 'IIT' && !confirmCriteriaWarning)}
+                            onClick={onSubmitConfirmCriteria}
+                            type="button"
+                            role="button">
+                            {translate('fund_request.sign_up.pane.footer.next')}
+                            <em className="mdi mdi-chevron-right icon-right" />
+                        </button>
+                    }
+                />
 
-                        <div className="flex-col text-right">
-                            <button
-                                className="button button-text button-text-padless"
-                                disabled={!confirmCriteria || (fund.key == 'IIT' && !confirmCriteriaWarning)}
-                                onClick={onSubmitConfirmCriteria}
-                                type="button"
-                                role="button">
-                                {translate('fund_request.sign_up.pane.footer.next')}
-                                <div className="mdi mdi-chevron-right icon-right" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 {bsnWarning}
             </div>
         </Fragment>

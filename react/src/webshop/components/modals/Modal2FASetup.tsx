@@ -528,7 +528,7 @@ export default function Modal2FASetup({
                                     <button
                                         className="button button-text button-text-primary button-sm"
                                         type="button"
-                                        onClick={resendCode}
+                                        onClick={() => resendCode()}
                                         disabled={timer?.time > 0}>
                                         <div
                                             className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
@@ -622,7 +622,7 @@ export default function Modal2FASetup({
                                     <button
                                         className="button button-text button-text-primary button-sm"
                                         type="button"
-                                        onClick={resendCode}
+                                        onClick={() => resendCode()}
                                         disabled={timer?.time > 0}>
                                         <div
                                             className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}

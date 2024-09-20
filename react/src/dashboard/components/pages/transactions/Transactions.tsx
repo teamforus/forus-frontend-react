@@ -345,7 +345,7 @@ export default function Transactions() {
     ]);
 
     useEffect(() => {
-        fetchFunds({}).then((funds) => setFunds([{ id: null, name: 'Selecteer fond' }, ...funds]));
+        fetchFunds({}).then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
     }, [fetchFunds]);
 
     if (

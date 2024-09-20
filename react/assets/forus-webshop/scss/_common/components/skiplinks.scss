@@ -1,31 +1,46 @@
 .skiplinks {
     a {
-        text-decoration: underline;
-        color: #2b2bff;
+        &.sr-only-focusable {
+            text-decoration: underline;
+            color: #222;
 
-        &:hover {
-            text-decoration: none;
-        }
+            span {
+                font-weight: 600;
+                text-decoration: underline;
+                padding-left: 3px;
+                text-decoration-thickness: 0.3px;
+                text-underline-offset: 1px;
+            }
 
-        &.active, &:focus, &:hover {
-            background-color: #e6e6e6;
-            color: #4447f5;
-            display: block;
-            font-size: 1em;
-            left: 0;
-            margin-bottom: .5em;
-            padding: .5em;
-            position: absolute;
-            text-align: center;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-            -webkit-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
-            -moz-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
-            -o-transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
-            transition: color 2s, outline-color .7s ease-out, background-color .7s ease-out;
-            outline: 5px auto -webkit-focus-ring-color;
-            outline-offset: -2px;
+            &:hover {
+                text-decoration: none;
+            }
+
+            &.active, &:focus, &:hover {
+                position: fixed;
+                padding: 10px 0 12px;
+                background: #fff;
+                color: #222;
+                font: 400 16px/22px var(--base-font);
+                box-shadow: var(--box-shadow);
+                width: 100%;
+                text-decoration: none;
+                display: block;
+                left: 0;
+                text-align: center;
+                top: 0;
+                z-index: 100;
+                -webkit-transition: outline-color .7s ease-out;
+                -moz-transition: outline-color .7s ease-out;
+                -o-transition: outline-color .7s ease-out;
+                transition: outline-color .7s ease-out;
+                outline: 5px auto -webkit-focus-ring-color;
+                outline-offset: 1px;
+
+                @media screen and (max-width: 767px) {
+                    position: fixed;
+                }
+            }
         }
     }
 }

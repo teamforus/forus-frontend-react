@@ -124,7 +124,22 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     const [products, setProducts] = useState<PaginationData<Product>>(null);
 
     const buildQuery = useCallback(
-        (values = {}) => {
+        (
+            values: Partial<{
+                q: string;
+                page: number;
+                fund_id: number;
+                organization_id: number;
+                product_category_id: number;
+                product_sub_category_id: number;
+                postcode: string;
+                distance: number;
+                bookmarked: boolean;
+                display_type: 'list' | 'grid';
+                order_by: 'created_at' | 'price' | 'most_popular' | 'name';
+                order_dir: 'asc' | 'desc';
+            }>,
+        ) => {
             const isSortingByPrice = values.order_by === 'price';
 
             return {

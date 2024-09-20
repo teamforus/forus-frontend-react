@@ -42,6 +42,7 @@ import Employee from '../../../props/models/Employee';
 import Media from '../../../props/models/Media';
 import RecordType from '../../../props/models/RecordType';
 import FaqEditor from '../../elements/faq-editor-funds/FaqEditor';
+import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -1158,17 +1159,27 @@ export default function OrganizationsFundsEdit() {
                                     <div className="form-label">
                                         {translate('funds_edit.labels.notification_amount')}
                                     </div>
-                                    <input
-                                        className="form-control"
-                                        type="number"
-                                        value={form.values.notification_amount || ''}
-                                        onChange={(e) => {
-                                            form.update({ notification_amount: e.target.value });
-                                        }}
-                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                        placeholder={translate('funds_edit.labels.notification_amount')}
-                                    />
-                                    <FormError error={form.errors?.notification_amount} />
+                                    <div className="form-offset">
+                                        <FormGroupInfo
+                                            info={`
+                                            Handig! Stel een minimum bedrag in voor het saldo van de regeling. Er
+                                            wordt automatisch een e-mail verstuurd als het saldo voor de regeling
+                                            lager is dan deze grens. De e-mail wordt verstuurd naar gebruikers met
+                                            de rollen beheerder en financiën.`}>
+                                            <input
+                                                className="form-control"
+                                                type="number"
+                                                value={form.values.notification_amount || ''}
+                                                onChange={(e) => {
+                                                    form.update({ notification_amount: e.target.value });
+                                                }}
+                                                disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                                placeholder={translate('funds_edit.labels.notification_amount')}
+                                            />
+                                        </FormGroupInfo>
+
+                                        <FormError error={form.errors?.notification_amount} />
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -50,7 +50,7 @@
             &.droparea-title-required {
                 strong {
                     &:after {
-                        content: "*";
+                        content: '*';
                         color: #ff5548;
                         font: inherit;
                         margin-left: 2px;
@@ -117,11 +117,12 @@
                 padding: 10px 10px;
 
                 .file-item-icon {
-                    margin-right: 15px;
+                    flex: 0 0 25px;
+                    margin-right: 10px;
 
                     img {
                         display: block;
-                        float: left;
+                        width: 100%;
                     }
                 }
 
@@ -186,15 +187,12 @@
                     .mdi {
                         font-size: 16px;
                         line-height: 24px;
-                        color: var(--color-primary);
+                        color: #282b39;
                     }
                 }
 
                 &.file-item-container-compact {
                     width: 450px;
-                }
-
-                &.file-item-container-inline {
                 }
             }
 

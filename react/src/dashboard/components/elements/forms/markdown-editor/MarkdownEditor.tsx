@@ -198,15 +198,15 @@ export default function MarkdownEditor({
     );
 
     const CmsButton = useCallback(
-        (type = 'customLink', icon = 'link') => {
+        (type: 'mailPreview' | 'imageLink' | 'customLink' | 'youtubeLink' = 'customLink', icon = 'link') => {
             return function (context: { options: { icons: { [key: string]: string } }; invoke: CallableFunction }) {
                 const ui = $.summernote.ui;
                 const btnIcon = context.options.icons[icon];
 
-                const showLinkDialog = function (linkInfo: {
-                    text?: string;
-                    url?: string;
-                }): Promise<{ alt?: string; url?: string }> {
+                const showLinkDialog = function (
+                    type: 'imageLink' | 'customLink' | 'youtubeLink',
+                    linkInfo: { text?: string; url?: string },
+                ): Promise<{ alt?: string; url?: string }> {
                     return new Promise((resolve) => {
                         const { text, url } = linkInfo;
 
@@ -230,7 +230,7 @@ export default function MarkdownEditor({
                             const linkInfo = context.invoke('editor.getLinkInfo');
                             const { url, text } = linkInfo;
 
-                            showLinkDialog({ url, text }).then(
+                            showLinkDialog(type, { url, text }).then(
                                 (data) => {
                                     context.invoke('editor.restoreRange');
                                     context.invoke('editor.createLink', { ...linkInfo, ...data });
@@ -240,7 +240,7 @@ export default function MarkdownEditor({
                         }
 
                         if (type === 'imageLink' || type === 'youtubeLink') {
-                            showLinkDialog({}).then(
+                            showLinkDialog(type, {}).then(
                                 (data) => {
                                     const { alt, url } = data;
 

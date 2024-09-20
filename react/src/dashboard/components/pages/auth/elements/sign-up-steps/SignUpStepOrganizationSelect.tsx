@@ -3,6 +3,7 @@ import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import Organization from '../../../../../props/models/Organization';
 import { useOrganizationService } from '../../../../../services/OrganizationService';
 import useTranslate from '../../../../../hooks/useTranslate';
+import SignUpFooter from '../../../../../../webshop/components/elements/sign-up/SignUpFooter';
 
 export default function SignUpStepOrganizationSelect({
     panelType,
@@ -104,17 +105,14 @@ export default function SignUpStepOrganizationSelect({
                 </div>
             </div>
 
-            <div className="sign_up-pane-footer">
-                <div className="row">
-                    <div className="col col-lg-6 text-left">
-                        <div className="button button-text button-text-padless" onClick={back}>
-                            <em className="mdi mdi-chevron-left icon-lefts" />
-                            {translate(`sign_up_${panelType}.buttons.back`)}
-                        </div>
+            <SignUpFooter
+                startActions={
+                    <div className="button button-text button-text-padless" onClick={back}>
+                        <em className="mdi mdi-chevron-left icon-lefts" />
+                        {translate(`sign_up_${panelType}.buttons.back`)}
                     </div>
-                    <div className="col col-lg-6 text-right" />
-                </div>
-            </div>
+                }
+            />
         </div>
     );
 }

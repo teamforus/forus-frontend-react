@@ -17,6 +17,7 @@ import { ResponseError } from '../../../../../../dashboard/props/ApiResponses';
 import { useFundRequestService } from '../../../../../services/FundRequestService';
 import { uniq } from 'lodash';
 import useSetProgress from '../../../../../../dashboard/hooks/useSetProgress';
+import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 
 export default function FundRequestStepCriteria({
     fund,
@@ -298,33 +299,31 @@ export default function FundRequestStepCriteria({
                     </div>
                 ))}
 
-                <div className="sign_up-pane-footer">
-                    <div className="row">
-                        <div className="col col-lg-6 col-xs-6 text-left">
-                            <button
-                                type={'button'}
-                                role="button"
-                                className="button button-text button-text-padless"
-                                onClick={onPrevStep}
-                                tabIndex={0}>
-                                <em className="mdi mdi-chevron-left icon-left" />
-                                {translate('fund_request.sign_up.pane.footer.prev')}
+                <SignUpFooter
+                    startActions={
+                        <button
+                            type={'button'}
+                            role="button"
+                            className="button button-text button-text-padless"
+                            onClick={onPrevStep}
+                            tabIndex={0}>
+                            <em className="mdi mdi-chevron-left icon-left" />
+                            {translate('fund_request.sign_up.pane.footer.prev')}
+                        </button>
+                    }
+                    endActions={
+                        steps[step + 1] !== 'done' ? (
+                            <button className="button button-text button-text-padless" type="submit" role="button">
+                                {translate('fund_request.sign_up.pane.footer.next')}
+                                <em className="mdi mdi-chevron-right icon-right" />
                             </button>
-                        </div>
-                        <div className="col col-lg-6 col-xs-6 text-right">
-                            {steps[step + 1] !== 'done' ? (
-                                <button className="button button-text button-text-padless" type="submit" role="button">
-                                    {translate('fund_request.sign_up.pane.footer.next')}
-                                    <em className="mdi mdi-chevron-right icon-right" />
-                                </button>
-                            ) : (
-                                <button className="button button-primary" type="submit" role="button">
-                                    Verzenden
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
+                        ) : (
+                            <button className="button button-primary" type="submit" role="button">
+                                Verzenden
+                            </button>
+                        )
+                    }
+                />
 
                 {bsnWarning}
             </form>

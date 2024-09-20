@@ -13,6 +13,7 @@ import TranslateHtml from '../../../../../../dashboard/components/elements/trans
 import EmailProviderLink from '../../../../../../dashboard/components/pages/auth/elements/EmailProviderLink';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAppConfigs from '../../../../../hooks/useAppConfigs';
+import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 
 export default function FundRequestStepEmailSetup({
     fund,
@@ -92,7 +93,7 @@ export default function FundRequestStepEmailSetup({
                     <div className="sign_up-pane-header">
                         <h2 className="sign_up-pane-header-title">Aanmelden met e-mailadres</h2>
                     </div>
-                    <div className="sign_up-pane-body sign_up-pane-body-padless-bottom">
+                    <div className="sign_up-pane-body">
                         <form onSubmit={emailForm.submit}>
                             {emailSetupRequired && (
                                 <p className="sign_up-pane-text">
@@ -184,25 +185,24 @@ export default function FundRequestStepEmailSetup({
                         </form>
                     </div>
 
-                    <div className="sign_up-pane-footer">
-                        <div className="flex-row">
+                    <SignUpFooter
+                        startActions={
                             <FundRequestGoBackButton prevStep={prevStep} fund={fund} step={step} tabIndex={5} />
-
-                            <div className="flex-col text-right">
-                                {!emailSetupRequired && (
-                                    <button
-                                        className="button button-text button-text-padless"
-                                        disabled={envData.config.flags.privacyPage && !emailForm.values.privacy}
-                                        onClick={nextStep}
-                                        role="button"
-                                        tabIndex={6}>
-                                        Overslaan
-                                        <em className="mdi mdi-chevron-right icon-right" />
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                    </div>
+                        }
+                        endActions={
+                            !emailSetupRequired && (
+                                <button
+                                    className="button button-text button-text-padless"
+                                    disabled={envData.config.flags.privacyPage && !emailForm.values.privacy}
+                                    onClick={nextStep}
+                                    role="button"
+                                    tabIndex={6}>
+                                    Overslaan
+                                    <em className="mdi mdi-chevron-right icon-right" />
+                                </button>
+                            )
+                        }
+                    />
 
                     {bsnWarning}
                 </div>

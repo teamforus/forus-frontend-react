@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { createContext, useState, useMemo, useCallback } from 'react';
 
 interface LayoutData {
@@ -20,7 +20,7 @@ const defaultLayoutData = {
     headerVariant: false,
 };
 
-const LayoutProvider = ({ children }: { children: unknown }) => {
+const LayoutProvider = ({ children }: { children: ReactNode }) => {
     const [layoutData, setLayoutData] = useState<LayoutData>({ ...defaultLayoutData });
 
     const setData = useCallback((data: LayoutData | ((a: LayoutData) => LayoutData)) => {

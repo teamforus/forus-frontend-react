@@ -2,6 +2,7 @@ import React, { FormEvent, Fragment } from 'react';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import FormError from '../../../../../../dashboard/components/elements/forms/errors/FormError';
 import Fund from '../../../../../props/models/Fund';
+import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 
 export default function FundRequestStepContactInformation({
     fund,
@@ -33,7 +34,7 @@ export default function FundRequestStepContactInformation({
             <div className="sign_up-pane">
                 <form onSubmit={(e) => onSubmitContactInformation(e)}>
                     <h2 className="sign_up-pane-header">Contactgegevens</h2>
-                    <div className="sign_up-pane-body sign_up-pane-body-padless-bottom">
+                    <div className="sign_up-pane-body">
                         <p className="sign_up-pane-text text-center">
                             {fund.contact_info_message_text || fund.contact_info_message_default}
                         </p>
@@ -53,26 +54,24 @@ export default function FundRequestStepContactInformation({
                             <FormError error={contactInformationError} />
                         </div>
                     </div>
-                    <div className="sign_up-pane-footer">
-                        <div className="row">
-                            <div className="col col-lg-6 col-xs-6 text-left">
-                                <button
-                                    className="button button-text button-text-padless"
-                                    onClick={() => onPrevStep()}
-                                    role="button"
-                                    tabIndex={0}>
-                                    <div className="mdi mdi-chevron-left icon-left" />
-                                    {translate('fund_request.sign_up.pane.footer.prev')}
-                                </button>
-                            </div>
-                            <div className="col col-lg-6 col-xs-6 text-right">
-                                <button className="button button-text button-text-padless" type="submit" role="button">
-                                    Vraag aan
-                                    <div className="mdi mdi-chevron-right icon-right" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <SignUpFooter
+                        startActions={
+                            <button
+                                className="button button-text button-text-padless"
+                                onClick={() => onPrevStep()}
+                                role="button"
+                                tabIndex={0}>
+                                <em className="mdi mdi-chevron-left icon-left" />
+                                {translate('fund_request.sign_up.pane.footer.prev')}
+                            </button>
+                        }
+                        endActions={
+                            <button className="button button-text button-text-padless" type="submit" role="button">
+                                Vraag aan
+                                <em className="mdi mdi-chevron-right icon-right" />
+                            </button>
+                        }
+                    />
 
                     {bsnWarning}
                 </form>

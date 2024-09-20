@@ -20,9 +20,7 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                 <div className="card-header">
                     <div className="flex">
                         <div className="flex flex-grow">
-                            <div className="card-title">
-                                {translate('financial_dashboard_transaction.labels.details')}
-                            </div>
+                            <div className="card-title">{translate('payouts.labels.details')}</div>
                         </div>
                     </div>
                 </div>
@@ -31,9 +29,7 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                         <div className="flex">
                             <div className="card-block card-block-keyvalue">
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.id')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.id')}</div>
                                     <div className="keyvalue-value">{transaction.id}</div>
                                 </div>
                                 <div className="keyvalue-item">
@@ -49,43 +45,31 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                     </div>
                                 </div>
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.fund')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.fund')}</div>
                                     <div className="keyvalue-value">{transaction.fund.name}</div>
                                 </div>
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.amount')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.amount')}</div>
                                     <div className="keyvalue-value">{transaction.amount_locale}</div>
                                 </div>
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.created_at')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.created_at')}</div>
                                     <div className="keyvalue-value">
                                         <TableDateOnly value={transaction.created_at_locale} />
                                     </div>
                                 </div>
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.transfer_at')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.transfer_at')}</div>
                                     <div className="keyvalue-value">
                                         <TableDateOnly value={transaction.transfer_at_locale} />
                                     </div>
                                 </div>
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.statement')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.payment_type')}</div>
                                     {transaction.payment_type_locale?.title}
                                 </div>
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.created_by')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.created_by')}</div>
                                     {transaction.employee?.email}
                                 </div>
 
@@ -97,11 +81,7 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                                 {transaction.iban_from}
                                             </span>
                                             {!transaction.iban_final && (
-                                                <Tooltip
-                                                    text={translate(
-                                                        'financial_dashboard_transaction.tooltips.pending_iban_from',
-                                                    )}
-                                                />
+                                                <Tooltip text={translate('payouts.tooltips.pending_iban_from')} />
                                             )}
                                         </div>
                                     </div>
@@ -121,11 +101,7 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                             </span>
 
                                             {!transaction.iban_final && transaction.target != 'iban' && (
-                                                <Tooltip
-                                                    text={translate(
-                                                        'financial_dashboard_transaction.tooltips.pending_iban_to',
-                                                    )}
-                                                />
+                                                <Tooltip text={translate('payouts.tooltips.pending_iban_to')} />
                                             )}
                                         </div>
                                     </div>
@@ -144,20 +120,14 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                                 {transaction.iban_to_name}
                                             </span>
                                             {!transaction.iban_final && transaction.target != 'iban' && (
-                                                <Tooltip
-                                                    text={translate(
-                                                        'financial_dashboard_transaction.tooltips.pending_iban_to',
-                                                    )}
-                                                />
+                                                <Tooltip text={translate('payouts.tooltips.pending_iban_to')} />
                                             )}
                                         </div>
                                     </div>
                                 )}
 
                                 <div className="keyvalue-item">
-                                    <div className="keyvalue-key">
-                                        {translate('financial_dashboard_transaction.labels.description')}
-                                    </div>
+                                    <div className="keyvalue-key">{translate('payouts.labels.description')}</div>
                                     <div className="keyvalue-value">
                                         {transaction.description || <TableEmptyValue />}
                                     </div>

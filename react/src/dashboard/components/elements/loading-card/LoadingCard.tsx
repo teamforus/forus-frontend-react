@@ -1,13 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 
 export default function LoadingCard({ type = 'card' }: { type?: 'card' | 'card-section' }) {
-    return React.createElement(
-        type == 'card' ? 'div' : Fragment,
-        type == 'card' ? { className: 'card' } : {},
-        <div className="card-section">
-            <div className="card-loading">
-                <em className="mdi mdi-loading mdi-spin" />
+    const Wrapper = ({ children }: { children: ReactNode }) => {
+        return type == 'card' ? <div className={'card'}>{children}</div> : <Fragment>{children}</Fragment>;
+    };
+
+    return (
+        <Wrapper>
+            <div className="card-section">
+                <div className="card-loading">
+                    <em className="mdi mdi-loading mdi-spin" />
+                </div>
             </div>
-        </div>,
+        </Wrapper>
     );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Fund from '../../../../props/models/Fund';
 
@@ -14,7 +14,7 @@ export default function FundRequestGoBackButton({
     tabIndex?: number;
 }) {
     return (
-        <div className="flex-col text-left">
+        <Fragment>
             {step <= 0 ? (
                 <StateNavLink
                     className="button button-text button-text-padless"
@@ -35,6 +35,6 @@ export default function FundRequestGoBackButton({
                     Terug
                 </div>
             )}
-        </div>
+        </Fragment>
     );
 }

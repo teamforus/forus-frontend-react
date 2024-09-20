@@ -511,7 +511,7 @@ export default {
             status: 'Status',
             start: 'Startdatum',
             end: 'Einddatum',
-            notification_amount: 'Saldo-ondergrens melding €',
+            notification_amount: '€ Saldo-ondergrens melding',
             application_method: 'Aanvraagmethode',
             request_btn_text: 'Knoptekst aanvragen',
             external_link_text: 'Externe linktekst',

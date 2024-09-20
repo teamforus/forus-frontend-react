@@ -1,6 +1,7 @@
 import React from 'react';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../hooks/useTranslate';
+import SignUpFooter from '../../../../../../webshop/components/elements/sign-up/SignUpFooter';
 
 export default function SignUpStepGeneralInfo({
     panelType,
@@ -18,9 +19,7 @@ export default function SignUpStepGeneralInfo({
 
             <div
                 className={`sign_up-pane-body ${
-                    panelType == 'validator'
-                        ? 'sign_up-pane-body-padless-bottom'
-                        : 'flex flex-vertical flex-vertical-reverse'
+                    panelType == 'validator' ? '' : 'flex flex-vertical flex-vertical-reverse'
                 }`}>
                 <div className="sign_up-pane-text">{translate(`sign_up_${panelType}.header.subtitle_step_1`)}</div>
 
@@ -33,20 +32,15 @@ export default function SignUpStepGeneralInfo({
                 </div>
             </div>
 
-            <div className="sign_up-pane-footer">
-                <div className="row">
-                    <div className="col col-lg-6 text-left">
-                        <div className="button button-text button-text-padless" />
-                    </div>
-
-                    <div className="col col-lg-6 text-right">
-                        <button type="button" className="button button-text button-text-padless" onClick={onStepNext}>
-                            {translate(`sign_up_${panelType}.buttons.next`)}
-                            <em className="mdi mdi-chevron-right icon-right" />
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <SignUpFooter
+                startActions={<div className="button button-text button-text-padless" />}
+                endActions={
+                    <button type="button" className="button button-text button-text-padless" onClick={onStepNext}>
+                        {translate(`sign_up_${panelType}.buttons.next`)}
+                        <em className="mdi mdi-chevron-right icon-right" />
+                    </button>
+                }
+            />
         </div>
     );
 }

@@ -95,7 +95,7 @@ export default function ModalVoucherCreate({
             product_id: null,
             limit_multiplier: 1,
         },
-        async (values) => {
+        (values) => {
             setProgress(0);
 
             const data = {
@@ -124,11 +124,11 @@ export default function ModalVoucherCreate({
                     })
                     .catch((err: ResponseError) => {
                         form.setErrors(err.data.errors);
+                        form.setIsLocked(false);
                         pushDanger('Mislukt!', err.data.message);
                     })
                     .finally(() => {
                         setProgress(100);
-                        form.setIsLocked(false);
                     });
             };
 
@@ -190,10 +190,10 @@ export default function ModalVoucherCreate({
                 .catch((err: ResponseError) => {
                     pushDanger('Mislukt!', err.data.message);
                     form.setErrors(err.data.errors);
+                    form.setIsLocked(false);
                 })
                 .finally(() => {
                     setProgress(100);
-                    form.setIsLocked(false);
                 });
         },
     );

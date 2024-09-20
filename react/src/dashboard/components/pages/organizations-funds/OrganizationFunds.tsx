@@ -44,8 +44,9 @@ export default function OrganizationFunds() {
 
     const [loading, setLoading] = useState(false);
     const [paginatorKey] = useState<string>('organization_funds');
-    const [funds, setFunds] = useState<PaginationData<Fund>>(null);
     const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
+    const [funds, setFunds] =
+        useState<PaginationData<Fund, { unarchived_funds_total: number; archived_funds_total: number }>>(null);
 
     const [topUpInProgress, setTopUpInProgress] = useState(false);
 

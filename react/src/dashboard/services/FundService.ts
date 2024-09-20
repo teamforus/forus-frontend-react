@@ -30,7 +30,10 @@ export class FundService<T = Fund> {
     /**
      * Fetch list
      */
-    public list(company_id: number, data: object = {}): Promise<ApiResponse<T>> {
+    public list(
+        company_id: number,
+        data: object = {},
+    ): Promise<ApiResponse<T, { unarchived_funds_total: number; archived_funds_total: number }>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds`, data);
     }
 

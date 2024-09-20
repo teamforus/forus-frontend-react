@@ -55,7 +55,12 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
     const navigateState = useNavigateState();
 
     const signOut = useCallback(
-        (e: React.MouseEvent = null, needConfirmation = false, deleteToken = true, redirect = 'home') => {
+        (
+            e: React.MouseEvent = null,
+            needConfirmation = false,
+            deleteToken = true,
+            redirect: boolean | string | (() => void) = 'home',
+        ) => {
             e?.preventDefault();
             e?.stopPropagation();
 

@@ -5,7 +5,7 @@ export function useAuthService() {
     const navigateState = useNavigateState();
 
     const onAuthRedirect = useCallback(
-        async (defaultState = 'home', defaultStateParams = {}) => {
+        async (defaultState: false | string = 'home', defaultStateParams = {}) => {
             // Otherwise go home
             return defaultState !== false ? navigateState(defaultState, defaultStateParams) : false;
         },

@@ -22,7 +22,7 @@ module.exports = {
         ecmaVersion: 13,
         sourceType: 'module',
     },
-    plugins: ['jest', 'no-for-of-loops', 'no-function-declare-after-return', 'react', 'react-hooks', 'prettier'],
+    plugins: ['no-for-of-loops', 'no-function-declare-after-return', 'react', 'react-hooks', 'prettier'],
     rules: {
         // ...
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks

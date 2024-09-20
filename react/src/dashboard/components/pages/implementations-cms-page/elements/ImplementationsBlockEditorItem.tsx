@@ -115,7 +115,7 @@ export default function ImplementationsBlockEditorItem({
                                     onChange({ label: e.target.value });
                                 }}
                             />
-                            <div className="form-hint">Max. 200 tekens</div>
+                            <div className="form-hint">Max. 30 tekens</div>
                             <FormError error={errors['blocks.' + index + '.label']} />
                         </div>
 
@@ -131,7 +131,7 @@ export default function ImplementationsBlockEditorItem({
                                 }}
                                 placeholder="Title..."
                             />
-                            <div className="form-hint">Max. 200 tekens</div>
+                            <div className="form-hint">Max. 100 tekens</div>
                             <FormError error={errors['blocks.' + index + '.title']} />
                         </div>
 
@@ -144,7 +144,7 @@ export default function ImplementationsBlockEditorItem({
                                 }}
                                 placeholder="Omschrijving..."
                             />
-                            <div className="form-hint">Max. 5000 tekens</div>
+                            <div className="form-hint">Max. 500 tekens</div>
                             <FormError error={errors['blocks.' + index + '.description']} />
                         </div>
 

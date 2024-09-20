@@ -1,0 +1,76 @@
+$primaryColor: #2a2a7f;
+$primaryColorLight: #2a2a7f;
+
+@import url("https://fonts.googleapis.com/css2?family=Cantarell&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
+
+:root {
+    // navbar
+    --bg-nav: #ececec;
+    --tc-nav-hov: #e8edff;
+    --tc-nav: #ffffff;
+    --logo-padding: 30px 0px;
+    --logo-height: 75px;
+
+    // navbar (auth)
+    --tc-auth-menu: #ffffff;
+    --tc-auth-btn: #171e5f;
+    --btn-auth-bg: #ffffff;
+    --btn-auth-border: #171e5f;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #3561ff;
+    --btn-start-btn: #3561ff;
+    --btn-start-border: transparent;
+
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
+
+    // base font
+    --bf: Montserrat, Arial, Verdana;
+
+    // text color
+    --tc: #1a1919;
+    --tc-var: #ee4e34;
+    --tc-link: inherit;
+
+    // base color
+    --bc: #003b3b;
+
+    // background color
+    --bg: #fff;
+
+    --bg_2: none;
+
+    // text formatting
+    --tf: inherit;
+
+    // footer color
+    --fbc: #171e5f;
+    --fc: #ffffff;
+
+    // displayed or not
+    --fd: block;
+
+    // product image
+    --pi: 0px;
+
+    // placeholder text color
+    --ptc: #515152;
+
+    --border_color: #dce0e0;
+
+    --border_radius: 3px;
+    --base_shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    --color_primary: #3561ff;
+    --color_primary_light: #3561ff;
+
+    --color_default: #3561ff;
+    --color_default_light: #3561ff;
+
+    // Label sets
+    --label-set-hover-background: #{rgba($primaryColor, .8)};
+
+    // Login button
+    --lb: #fff;
+}

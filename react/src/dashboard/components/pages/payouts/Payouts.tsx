@@ -123,7 +123,7 @@ export default function Payouts() {
 
         fundService
             .list(activeOrganization.id)
-            .then((res) => setFunds([{ id: null, name: 'Selecteer fond' }, ...res.data.data]))
+            .then((res) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...res.data.data]))
             .catch(pushApiError)
             .finally(() => setProgress(100));
     }, [activeOrganization.id, fundService, setProgress, pushApiError]);

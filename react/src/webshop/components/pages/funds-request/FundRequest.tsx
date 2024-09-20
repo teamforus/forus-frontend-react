@@ -27,7 +27,7 @@ import FundRequestStepEmailSetup from './elements/steps/FundRequestStepEmailSetu
 import FundRequestStepCriteriaOverview from './elements/steps/FundRequestStepCriteriaOverview';
 import FundRequestProgress from './elements/FundRequestProgress';
 import FundRequestStepDone from './elements/steps/FundRequestStepDone';
-import FundRequestStepOverview from './elements/steps/FundRequestStepOverview';
+import FundRequestValuesOverview from './elements/steps/FundRequestValuesOverview';
 import FundRequestStepContactInformation from './elements/steps/FundRequestStepContactInformation';
 import FundRequestStepConfirmCriteria from './elements/steps/FundRequestStepConfirmCriteria';
 import FundRequestBsnWarning from './elements/FundRequestBsnWarning';
@@ -583,8 +583,8 @@ export default function FundRequest() {
         }
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
 
-    if (!fund || !vouchers || !fundRequests) {
-        return null;
+    if (!fund || !vouchers || !fundRequests || (steps[step] == 'confirm_criteria' && autoSubmit)) {
+        return <BlockShowcase wrapper={true} />;
     }
 
     return (
@@ -611,9 +611,7 @@ export default function FundRequest() {
                                 step={step}
                                 onPrevStep={prevStep}
                                 onNextStep={nextStep}
-                                pendingCriteria={criteriaSteps.reduce((list, step) => {
-                                    return [...list, ...step.criteria];
-                                }, [])}
+                                criteriaSteps={criteriaSteps}
                                 progress={
                                     <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
                                 }
@@ -694,9 +692,9 @@ export default function FundRequest() {
                         )}
 
                         {steps[step] == 'application_overview' && (
-                            <FundRequestStepOverview
-                                pendingCriteria={pendingCriteria.filter((criteria) => shouldRequestRecord(criteria))}
+                            <FundRequestValuesOverview
                                 onSubmitRequest={submitRequest}
+                                criteriaSteps={criteriaSteps}
                                 contactInformation={contactInformation}
                                 emailSetupShow={emailSetupShow}
                                 onPrevStep={prevStep}

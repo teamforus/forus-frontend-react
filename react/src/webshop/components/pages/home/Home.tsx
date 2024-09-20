@@ -337,9 +337,6 @@ export default function Home() {
                                             Kwijtschelding gemeentelijke belastingen
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/87">Energietoeslag</a>
-                                    </li>
                                 </ul>
                                 <a href="https://vergoedingen.nijmegen.nl/fondsen">
                                     Meer vergoedingen van gemeente Nijmegen

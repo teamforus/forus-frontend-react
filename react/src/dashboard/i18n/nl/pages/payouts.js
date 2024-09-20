@@ -14,7 +14,7 @@ export default {
         refund: 'Terugbetalen',
         chargeid: 'Kopieer het transactienummer',
         connections: 'Connectie',
-        details: 'Bekijk transactiedetails',
+        details: 'Details',
         results: 'x resultaten',
         payment: 'Betaling -',
         fund: 'Fonds',
@@ -40,6 +40,7 @@ export default {
         quantity_max: 'Alles',
         amount_min: '0',
         amount_max: 'Alles',
+        created_by: 'Aangemaakt door',
         total_amount: 'Som van transacties <strong>{{ total_amount }}</strong>',
         bulk_total_amount: [
             'Bundel <strong>{{ total }}</strong> individuele transacties tot één bulktransactie ter waarde van <strong>{{ total_amount }}</strong>.',
@@ -74,6 +75,10 @@ export default {
         account_name: 'De naam van de rekeninghouder waarnaar de uitbetaling wordt overgemaakt.',
         source_iban: 'Het IBAN-nummer van waaruit de uitbetaling wordt uitgevoerd.',
         description: 'Een beschrijving of notitie die door een medewerker is toegevoegd bij de uitbetaling.',
+        pending_iban_from:
+            "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
+        pending_iban_to:
+            "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
     },
     buttons: {
         previous: 'Vorige',
