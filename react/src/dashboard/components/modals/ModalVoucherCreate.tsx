@@ -22,6 +22,7 @@ import useProductService from '../../services/ProductService';
 import ModalNotification from './ModalNotification';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
+import { uniqueId } from 'lodash';
 
 export default function ModalVoucherCreate({
     funds,
@@ -155,11 +156,7 @@ export default function ModalVoucherCreate({
                                     return makeRequest();
                                 }
 
-                                confirmEmailSkip([form.values.email], (list) => {
-                                    if (list.filter((email) => email.model).length > 0) {
-                                        makeRequest();
-                                    }
-                                });
+                                confirmEmailSkip(form.values.email, makeRequest, () => pushDanger('Geannuleerd'));
                             });
                     }
 
@@ -179,11 +176,7 @@ export default function ModalVoucherCreate({
                                     return makeRequest();
                                 }
 
-                                confirmBsnSkip([form.values.bsn], (list) => {
-                                    if (list.filter((bsn) => bsn.model).length > 0) {
-                                        makeRequest();
-                                    }
-                                });
+                                confirmBsnSkip(form.values.bsn, makeRequest, () => pushDanger('Geannuleerd'));
                             });
                     }
                 })
@@ -201,26 +194,20 @@ export default function ModalVoucherCreate({
     const { update: formUpdate } = form;
 
     const confirmEmailSkip = useCallback(
-        (
-            existingEmails,
-            onConfirm: (list: Array<{ value: string; blink?: boolean; model?: boolean }>) => void,
-            onCancel = () => null,
-        ) => {
-            const items = existingEmails.map((email: string) => ({ value: email }));
-
+        (email: string, onConfirm: () => void, onCancel: () => void) => {
             openModal((modal) => (
                 <ModalDuplicatesPicker
                     modal={modal}
                     hero_title={'Dubbele e-mailadressen gedetecteerd.'}
                     hero_subtitle={[
-                        `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
+                        `Weet u zeker dat u voor 1 e-mailadres een extra tegoed wilt aanmaken?`,
                         'Deze e-mailadressen bezitten al een tegoed van dit fonds.',
                     ]}
                     enableToggles={true}
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
-                    items={items}
-                    onConfirm={onConfirm}
+                    items={[{ label: email, _uid: uniqueId('rand_') }]}
+                    onConfirm={(data) => (data.uids.length === 0 ? onCancel() : onConfirm())}
                     onCancel={onCancel}
                 />
             ));
@@ -229,26 +216,20 @@ export default function ModalVoucherCreate({
     );
 
     const confirmBsnSkip = useCallback(
-        (
-            existingBsn,
-            onConfirm: (list: Array<{ value: string; blink?: boolean; model?: boolean }>) => void,
-            onCancel = () => null,
-        ) => {
-            const items = existingBsn.map((bsn: string) => ({ value: bsn }));
-
+        (bsn: string, onConfirm: () => void, onCancel: () => void) => {
             openModal((modal) => (
                 <ModalDuplicatesPicker
                     modal={modal}
                     hero_title={'Dubbele bsn(s) gedetecteerd.'}
                     hero_subtitle={[
-                        `Weet u zeker dat u voor ${items.length} bsn(s) een extra tegoed wilt aanmaken?`,
+                        `Weet u zeker dat u voor 1 bsn een extra tegoed wilt aanmaken?`,
                         'Deze burgerservicenummers bezitten al een tegoed van dit fonds.',
                     ]}
                     enableToggles={true}
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
-                    items={items}
-                    onConfirm={onConfirm}
+                    items={[{ _uid: uniqueId('rand_'), label: bsn }]}
+                    onConfirm={(data) => (data.uids.length === 0 ? onCancel() : onConfirm())}
                     onCancel={onCancel}
                 />
             ));

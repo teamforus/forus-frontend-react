@@ -7,7 +7,7 @@ import { useFileService } from '../../../../services/FileService';
 import CSVProgressBar from '../../../elements/csv-progress-bar/CSVProgressBar';
 import RecordType from '../../../../props/models/RecordType';
 import Papa from 'papaparse';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniqueId } from 'lodash';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import { usePrevalidationService } from '../../../../services/PrevalidationService';
 import ModalDuplicatesPicker from '../../../modals/ModalDuplicatesPicker';
@@ -16,6 +16,15 @@ import usePushDanger from '../../../../hooks/usePushDanger';
 import { ResponseError } from '../../../../props/ApiResponses';
 import { fileSize } from '../../../../helpers/string';
 import classNames from 'classnames';
+
+type RowDataPropData = { [key: string]: string };
+
+type RowDataProp = {
+    _uid: string;
+    uid_hash: string;
+    records_hash: string;
+    data: RowDataPropData;
+};
 
 export default function CSVUpload({
     fund,
@@ -79,7 +88,7 @@ export default function CSVUpload({
         setCsvComparing(false);
     }, []);
 
-    const onDragEvent = useCallback((e, isDragOver: boolean) => {
+    const onDragEvent = useCallback((e: React.DragEvent, isDragOver: boolean) => {
         e?.preventDefault();
         e?.stopPropagation();
 
@@ -249,7 +258,7 @@ export default function CSVUpload({
     );
 
     const startUploadingToServer = useCallback(
-        (data, overwriteUids: Array<string> = []) => {
+        (data: Array<RowDataPropData>, overwriteUids: Array<string> = []) => {
             return new Promise((resolve, reject) => {
                 setCsvProgress(2);
 
@@ -299,10 +308,7 @@ export default function CSVUpload({
     );
 
     const compareCsvAndDb = useCallback(
-        (
-            csvRecords: Array<{ data: unknown; uid_hash: string; records_hash: string }>,
-            dbRecords: Array<{ uid_hash: string; records_hash: string }>,
-        ) => {
+        (csvRecords: Array<RowDataProp>, dbRecords: Array<{ uid_hash: string; records_hash: string }>) => {
             const dbPrimaryKeys = dbRecords.reduce((obj, row) => {
                 return { ...obj, [row.uid_hash]: true };
             }, {});
@@ -311,16 +317,13 @@ export default function CSVUpload({
                 return { ...obj, [row.uid_hash + '_' + row.records_hash]: true };
             }, {});
 
-            const newRecords = [];
-            const updatedRecords = [];
-            const existingRecords = [];
+            const newRecords: Array<RowDataPropData> = [];
+            const updatedRecords: Array<RowDataPropData> = [];
 
             for (let index = 0; index < csvRecords.length; index++) {
                 if (dbPrimaryKeys[csvRecords[index].uid_hash]) {
-                    if (dbPrimaryFullKeys[csvRecords[index].uid_hash + '_' + csvRecords[index].records_hash]) {
-                        existingRecords.push(csvRecords[index].data);
-                    } else {
-                        updatedRecords.push(csvRecords[index].data);
+                    if (!dbPrimaryFullKeys[csvRecords[index].uid_hash + '_' + csvRecords[index].records_hash]) {
+                        updatedRecords.push({ ...csvRecords[index].data });
                     }
                 } else {
                     newRecords.push(csvRecords[index].data);
@@ -342,7 +345,7 @@ export default function CSVUpload({
                     updateProgressBarValue(100);
                 }
             } else {
-                const items = updatedRecords.map((row) => ({ value: row[fund.csv_primary_key] }));
+                const items = updatedRecords.map((row) => ({ _uid: row._uid, label: row[fund.csv_primary_key] }));
 
                 openModal((modal) => (
                     <ModalDuplicatesPicker
@@ -358,13 +361,16 @@ export default function CSVUpload({
                         button_none={'Alles overslaan'}
                         button_all={'Pas alles aan'}
                         items={items}
-                        onConfirm={(items) => {
-                            const skipUids = items.filter((item) => !item.model).map((item) => item.value);
+                        onConfirm={({ list }) => {
+                            const skipUids = list.filter((item) => !item.model).map((item) => item._uid);
+                            const updateUids = list.filter((item) => item.model).map((item) => item._uid);
 
-                            const updateUids = items.filter((item) => item.model).map((item) => item.value);
+                            const updatePrimaryKeys = updatedRecords
+                                .filter((row) => updateUids.includes(row._uid))
+                                .map((row) => row[fund.csv_primary_key]);
 
                             const newAndUpdatedRecords = updatedRecords
-                                .filter((csvRow) => !skipUids.includes(csvRow[fund.csv_primary_key]))
+                                .filter((csvRow) => !skipUids.includes(csvRow._uid))
                                 .concat(newRecords);
 
                             pushSuccess(
@@ -376,7 +382,7 @@ export default function CSVUpload({
                             );
 
                             if (newAndUpdatedRecords.length > 0) {
-                                return startUploadingToServer(newAndUpdatedRecords, updateUids).then(() => {
+                                return startUploadingToServer(newAndUpdatedRecords, updatePrimaryKeys).then(() => {
                                     if (skipUids.length > 0) {
                                         pushSuccess('Klaar!', `${skipUids.length} gegeven(s) overgeslagen!`);
                                     }
@@ -413,7 +419,10 @@ export default function CSVUpload({
 
         prevalidationService.submitCollectionCheck(data, fund.id, []).then((res) => {
             pushSuccess('Vergelijken...', 'Gegevens ingeladen! Vergelijken met .csv...', { icon: 'timer-sand' });
-            compareCsvAndDb(res.data.collection, res.data.db);
+            compareCsvAndDb(
+                res.data.collection.map((row) => ({ _uid: uniqueId('rand_'), ...row })),
+                res.data.db.map((row) => ({ _uid: uniqueId('rand_'), ...row })),
+            );
         });
     }, [compareCsvAndDb, data, fund.id, prevalidationService, pushSuccess]);
 
