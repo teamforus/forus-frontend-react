@@ -28,7 +28,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import ModalPayoutsUpload from '../../modals/ModalPayoutsUpload';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
-import TransactionLabel from '../transactions/elements/TransactionLabel';
+import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableDescription from '../../elements/table-empty-value/TableDescription';
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
@@ -480,7 +480,7 @@ export default function Payouts() {
                                                 )}
                                             </td>
                                             <td>
-                                                <TransactionLabel transaction={transaction} />
+                                                <TransactionStateLabel transaction={transaction} />
                                             </td>
                                             <td>{transaction?.employee?.email || <TableEmptyValue />}</td>
                                             <td>

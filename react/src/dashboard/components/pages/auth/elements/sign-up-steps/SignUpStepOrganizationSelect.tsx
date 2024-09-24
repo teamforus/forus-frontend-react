@@ -107,10 +107,14 @@ export default function SignUpStepOrganizationSelect({
 
             <SignUpFooter
                 startActions={
-                    <div className="button button-text button-text-padless" onClick={back}>
+                    <button
+                        className="button button-text button-text-padless"
+                        type={'button'}
+                        onClick={back}
+                        tabIndex={0}>
                         <em className="mdi mdi-chevron-left icon-lefts" />
                         {translate(`sign_up_${panelType}.buttons.back`)}
-                    </div>
+                    </button>
                 }
             />
         </div>

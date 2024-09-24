@@ -35,7 +35,11 @@ export default function SignUpStepGeneralInfo({
             <SignUpFooter
                 startActions={<div className="button button-text button-text-padless" />}
                 endActions={
-                    <button type="button" className="button button-text button-text-padless" onClick={onStepNext}>
+                    <button
+                        type="button"
+                        className="button button-text button-text-padless"
+                        onClick={onStepNext}
+                        tabIndex={0}>
                         {translate(`sign_up_${panelType}.buttons.next`)}
                         <em className="mdi mdi-chevron-right icon-right" />
                     </button>

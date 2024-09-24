@@ -470,7 +470,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         )}
                         <button
                             className="button button-primary button-xs show-sm"
-                            onClick={() => startFundRequest()}
+                            onClick={() => startFundRequest({ reset: 1 })}
                             role="button"
                             aria-label={translate('topnavbar.buttons.login')}
                             id="login_mobile">

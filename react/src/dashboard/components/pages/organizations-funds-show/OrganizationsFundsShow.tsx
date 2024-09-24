@@ -13,6 +13,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import useSetProgress from '../../../hooks/useSetProgress';
 import OrganizationsFundsShowDetailsCard from './elements/OrganizationsFundsShowDetailsCard';
 import OrganizationsFundsShowRelationsCard from './elements/OrganizationsFundsShowRelationsCard';
+import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 
 export default function OrganizationsFundsShow() {
     const fundId = useParams().fundId;
@@ -100,23 +101,7 @@ export default function OrganizationsFundsShow() {
                             <div className="fund-details">
                                 <div className="fund-header">
                                     <div className="fund-name">{fund.name}</div>
-                                    {fund.state == 'active' && (
-                                        <div className="tag tag-success tag-sm">
-                                            {translate('components.organization_funds.states.active')}
-                                        </div>
-                                    )}
-
-                                    {fund.state == 'paused' && (
-                                        <div className="tag tag-warning tag-sm">
-                                            {translate('components.organization_funds.states.paused')}
-                                        </div>
-                                    )}
-
-                                    {fund.state == 'closed' && (
-                                        <div className="tag tag-default tag-sm">
-                                            {translate('components.organization_funds.states.closed')}
-                                        </div>
-                                    )}
+                                    <FundStateLabels fund={fund} />
                                 </div>
 
                                 <div className="fund-description">{fund.description_short}</div>

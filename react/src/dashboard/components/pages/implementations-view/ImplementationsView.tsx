@@ -13,16 +13,15 @@ import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import ThSortable from '../../elements/tables/ThSortable';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
-import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useSetProgress from '../../../hooks/useSetProgress';
+import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 
 export default function ImplementationsView() {
     const { id } = useParams();
 
     const navigate = useNavigate();
     const assetUrl = useAssetUrl();
-    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
@@ -194,21 +193,7 @@ export default function ImplementationsView() {
                                                 </td>
                                                 <td>{fund.name}</td>
                                                 <td>
-                                                    {fund.state == 'active' && (
-                                                        <div className="tag tag-success">
-                                                            {translate('fund_card_sponsor.status.active')}
-                                                        </div>
-                                                    )}
-                                                    {fund.state == 'paused' && (
-                                                        <div className="tag tag-warning">
-                                                            {translate('fund_card_sponsor.status.paused')}
-                                                        </div>
-                                                    )}
-                                                    {fund.state == 'closed' && (
-                                                        <div className="tag tag-default">
-                                                            {translate('fund_card_sponsor.status.closed')}
-                                                        </div>
-                                                    )}
+                                                    <FundStateLabels fund={fund} />
                                                 </td>
 
                                                 {activeOrganization.backoffice_available && (

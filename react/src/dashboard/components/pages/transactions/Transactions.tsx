@@ -38,7 +38,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
-import TransactionLabel from './elements/TransactionLabel';
+import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -1028,7 +1028,7 @@ export default function Transactions() {
                                                 </td>
                                             )}
                                             <td data-dusk="transactionState">
-                                                <TransactionLabel transaction={transaction} />
+                                                <TransactionStateLabel transaction={transaction} />
                                             </td>
                                             <td className={'table-td-actions'}>
                                                 <TableRowActions

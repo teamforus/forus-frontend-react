@@ -313,12 +313,16 @@ export default function FundRequestStepCriteria({
                     }
                     endActions={
                         steps[step + 1] !== 'done' ? (
-                            <button className="button button-text button-text-padless" type="submit" role="button">
+                            <button
+                                className="button button-text button-text-padless"
+                                type="submit"
+                                role="button"
+                                tabIndex={0}>
                                 {translate('fund_request.sign_up.pane.footer.next')}
                                 <em className="mdi mdi-chevron-right icon-right" />
                             </button>
                         ) : (
-                            <button className="button button-primary" type="submit" role="button">
+                            <button className="button button-primary" type="submit" role="button" tabIndex={0}>
                                 Verzenden
                             </button>
                         )

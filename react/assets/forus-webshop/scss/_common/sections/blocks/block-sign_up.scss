@@ -440,13 +440,13 @@
                 &.sign_up-pane-list-steps {
                     display: flex;
                     flex-direction: column;
-                    gap: 15px;
                     padding-left: 15px;
 
                     .list-steps-item {
                         display: flex;
                         flex-direction: row;
                         gap: 10px;
+                        padding: 10px 0 0;
                         align-items: flex-start;
 
                         .list-steps-item-icon {
@@ -460,11 +460,34 @@
                             padding: 0 5px;
                         }
 
-                        .list-steps-item-title {
+                        .list-steps-item-content {
                             display: flex;
                             flex: 1 1 auto;
-                            font: 600 16px/20px var(--base-font);
-                            padding: 1px 0;
+                            gap: 4px;
+                            padding: 0 0 10px;
+                            flex-direction: column;
+                            border-bottom: 1px solid var(--sign-up-border-color);
+
+                            .list-steps-item-title {
+                                display: flex;
+                                font: 600 16px/22px var(--base-font);
+                            }
+
+                            .list-steps-item-description {
+                                display: flex;
+                                flex-direction: column;
+                                font: 400 14px/20px var(--base-font);
+
+                                & > *:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+
+                        &:last-child {
+                            .list-steps-details {
+                                border-bottom: none;
+                            }
                         }
                     }
                 }
@@ -724,8 +747,10 @@
 
                     .mdi {
                         color: var(--sign_up_step_btns_color);
-                        width: 36px;
-                        font-size: 34px;
+                        width: 32px;
+                        font-size: 32px;
+                        line-height: 32px;
+                        height: 32px;
                     }
 
                     &[disabled],
@@ -780,7 +805,7 @@
             .form-control:not([type='radio']):not([type='checkbox']) {
                 height: auto;
 
-                &:not(textarea):not(.phone-control-input) {
+                &:not(textarea):not(.phone-control-input):not(.select-control) {
                     padding: 14px 15px;
 
                     &.form-control-sm {
@@ -1063,11 +1088,16 @@
 
                     &.sign_up-pane-list-steps {
                         padding-left: 5px;
-                        gap: 10px;
 
                         .list-steps-item {
-                            .list-steps-item-title {
-                                font-size: 13px;
+                            .list-steps-item-content {
+                                .list-steps-item-title {
+                                    font-size: 13px;
+                                }
+
+                                .list-steps-item-description {
+                                    font: 400 13px / 20px var(--base-font) !important;
+                                }
                             }
                         }
                     }

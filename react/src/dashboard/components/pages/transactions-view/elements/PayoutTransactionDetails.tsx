@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
-import TransactionLabel from '../../transactions/elements/TransactionLabel';
+import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
 import TableDateOnly from '../../../elements/tables/elements/TableDateOnly';
 import PayoutTransaction from '../../../../props/models/PayoutTransaction';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
@@ -35,7 +35,7 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                 <div className="keyvalue-item">
                                     <div className="keyvalue-key">Status</div>
                                     <div className="keyvalue-value">
-                                        <TransactionLabel transaction={transaction} />
+                                        <TransactionStateLabel transaction={transaction} />
                                         {transaction.transfer_in > 0 && transaction.state == 'pending' && (
                                             <div className="text-sm text-muted-dark">
                                                 <em className="mdi mdi-clock-outline"> </em>

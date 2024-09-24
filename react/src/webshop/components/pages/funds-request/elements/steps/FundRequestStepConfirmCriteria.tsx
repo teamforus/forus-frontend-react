@@ -88,6 +88,7 @@ export default function FundRequestStepConfirmCriteria({
                             className="button button-text button-text-padless"
                             disabled={!confirmCriteria || (fund.key == 'IIT' && !confirmCriteriaWarning)}
                             onClick={onSubmitConfirmCriteria}
+                            tabIndex={0}
                             type="button"
                             role="button">
                             {translate('fund_request.sign_up.pane.footer.next')}

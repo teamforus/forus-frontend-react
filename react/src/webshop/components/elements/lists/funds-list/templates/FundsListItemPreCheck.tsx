@@ -188,12 +188,12 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                             aria-controls="fund_request_details">
                             {showMoreRequestInfo ? (
                                 <Fragment>
-                                    Toon minder
+                                    Verberg de uitleg
                                     <em className="mdi mdi-chevron-up icon-right" />
                                 </Fragment>
                             ) : (
                                 <Fragment>
-                                    Toon meer
+                                    Bekijk de uitleg
                                     <em className="mdi mdi-chevron-down icon-right" />
                                 </Fragment>
                             )}
@@ -249,7 +249,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                                             return [...shownKnokOutDetails];
                                                         });
                                                     }}>
-                                                    Toon informatie
+                                                    Waarom?
                                                     <em
                                                         className={`mdi ${
                                                             shownKnokOutCriteria.includes(criterion.id)

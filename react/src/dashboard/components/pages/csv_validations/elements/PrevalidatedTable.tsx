@@ -11,7 +11,7 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import ModalExportTypeLegacy from '../../../modals/ModalExportTypeLegacy';
 import useOpenModal from '../../../../hooks/useOpenModal';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
+import { PaginationData } from '../../../../props/ApiResponses';
 import Prevalidation from '../../../../props/models/Prevalidation';
 import { usePrevalidationService } from '../../../../services/PrevalidationService';
 import Paginator from '../../../../modules/paginator/components/Paginator';
@@ -22,11 +22,11 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { format } from 'date-fns';
 import { useFileService } from '../../../../services/FileService';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import Employee from '../../../../props/models/Employee';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function PrevalidatedTable({
     fund,
@@ -39,8 +39,8 @@ export default function PrevalidatedTable({
 }) {
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
 
@@ -116,20 +116,17 @@ export default function PrevalidatedTable({
 
     const doExport = useCallback(
         (exportType: string) => {
-            prevalidationService.export({ ...filter.activeValues, export_type: exportType }).then(
-                (res) => {
+            prevalidationService
+                .export({ ...externalFilters, ...filter.activeValues, fund_id: fund.id, export_type: exportType })
+                .then((res) => {
                     const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
                     const fileType = res.headers['content-type'] + ';charset=utf-8;';
                     const fileName = `${fund.key || 'fund'}_${dateTime}.${exportType}`;
 
                     fileService.downloadFile(fileName, res.data, fileType);
-                },
-                (res: ResponseError) => {
-                    pushDanger('Mislukt!', res.data.message);
-                },
-            );
+                }, pushApiError);
         },
-        [fileService, filter.activeValues, fund.key, prevalidationService, pushDanger],
+        [fileService, externalFilters, filter.activeValues, fund.key, fund.id, prevalidationService, pushApiError],
     );
 
     const exportData = useCallback(() => {

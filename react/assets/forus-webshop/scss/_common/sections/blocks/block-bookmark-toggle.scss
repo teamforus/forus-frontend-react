@@ -11,6 +11,10 @@
     border: 1px solid var(--border-color);
     cursor: pointer;
 
+    .mdi {
+        line-height: 20px;
+    }
+
     &:hover {
         color: #ED133C;
     }

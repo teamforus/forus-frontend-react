@@ -119,13 +119,21 @@ export default function FundRequestValuesOverview({
 
                 <SignUpFooter
                     startActions={
-                        <button className="button button-text button-text-padless" onClick={onPrevStep} role="button">
+                        <button
+                            className="button button-text button-text-padless"
+                            onClick={onPrevStep}
+                            role="button"
+                            tabIndex={0}>
                             <em className="mdi mdi-chevron-left icon-left" />
                             {translate('fund_request.sign_up.pane.footer.prev')}
                         </button>
                     }
                     endActions={
-                        <button className="button button-primary button-sm" onClick={onSubmitRequest} role="button">
+                        <button
+                            className="button button-primary button-sm"
+                            onClick={onSubmitRequest}
+                            role="button"
+                            tabIndex={0}>
                             Vraag aan
                             <em className="mdi mdi-chevron-right icon-right" />
                         </button>

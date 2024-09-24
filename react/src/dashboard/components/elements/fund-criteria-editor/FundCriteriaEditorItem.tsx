@@ -258,7 +258,7 @@ export default function FundCriteriaEditorItem({
                             onClick={() => removeCriterion(criterion)}
                             disabled={disabled || isEditing}>
                             <em className="mdi mdi-delete-outline icon-start" />
-                            {translate('components.fund_criteria_editor_item.buttons.edit')}
+                            {translate('components.fund_criteria_editor_item.buttons.cancel')}
                         </button>
                     )}
                 </div>

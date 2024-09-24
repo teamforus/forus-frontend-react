@@ -184,6 +184,8 @@ export default function Start() {
         }
 
         if (reset) {
+            setAuthEmailConfirmationSent(false);
+            setAuthEmailRestoreSent(false);
             setState('start');
         }
 

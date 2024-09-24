@@ -327,7 +327,8 @@ export default function SignUpStepOrganizationAdd({
                         <button
                             type={'button'}
                             className="button button-text button-text-padless"
-                            onClick={cancelAddOrganization}>
+                            onClick={cancelAddOrganization}
+                            tabIndex={0}>
                             <em className="mdi mdi-chevron-left icon-left" />
                             {translate(`sign_up_${panelType}.buttons.back`)}
                         </button>

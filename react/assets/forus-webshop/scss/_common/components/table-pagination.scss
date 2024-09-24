@@ -42,6 +42,10 @@
             display: inline-block;
             text-align: center;
 
+            &:focus {
+                z-index: 1;
+            }
+
             &:hover {
                 color: var(--paginator-button-hover-color);
                 border-color: var(--paginator-button-hover-background);

@@ -66,7 +66,11 @@ export default function FundRequestStepContactInformation({
                             </button>
                         }
                         endActions={
-                            <button className="button button-text button-text-padless" type="submit" role="button">
+                            <button
+                                className="button button-text button-text-padless"
+                                type="submit"
+                                role="button"
+                                tabIndex={0}>
                                 Vraag aan
                                 <em className="mdi mdi-chevron-right icon-right" />
                             </button>

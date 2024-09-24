@@ -221,16 +221,24 @@ export default function SignUpValidator() {
                             </div>
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back}>
+                                    <button
+                                        className="button button-text button-text-padless"
+                                        type={'button'}
+                                        onClick={back}
+                                        tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-left" />
                                         {translate('sign_up_validator.buttons.back')}
-                                    </div>
+                                    </button>
                                 }
                                 endActions={
-                                    <div className="button button-text button-text-padless" onClick={next}>
+                                    <button
+                                        className="button button-text button-text-padless"
+                                        type={'button'}
+                                        onClick={next}
+                                        tabIndex={0}>
                                         {translate('sign_up_validator.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
-                                    </div>
+                                    </button>
                                 }
                             />
                         </div>

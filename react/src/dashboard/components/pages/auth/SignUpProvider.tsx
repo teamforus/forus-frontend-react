@@ -822,10 +822,14 @@ export default function SignUpProvider() {
 
                             <SignUpFooter
                                 endActions={
-                                    <div className="button button-text button-text-padless" onClick={next}>
+                                    <button
+                                        className="button button-text button-text-padless"
+                                        type={'button'}
+                                        onClick={next}
+                                        tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
-                                    </div>
+                                    </button>
                                 }
                             />
                         </div>
@@ -859,13 +863,13 @@ export default function SignUpProvider() {
                             </div>
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back}>
+                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-left" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
                                 }
                                 endActions={
-                                    <div className="button button-text button-text-padless" onClick={next}>
+                                    <div className="button button-text button-text-padless" onClick={next} tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
                                     </div>
@@ -1350,7 +1354,8 @@ export default function SignUpProvider() {
                                     startActions={
                                         <div
                                             className="button button-text button-text-padless"
-                                            onClick={resetShareForms}>
+                                            onClick={resetShareForms}
+                                            tabIndex={0}>
                                             <em className="mdi mdi-chevron-left icon-lefts" />
                                             {translate('sign_up_provider.buttons.back')}
                                         </div>
@@ -1361,7 +1366,10 @@ export default function SignUpProvider() {
                             {!shareSmsSent && !shareEmailSent && !appDownloadSkip && (
                                 <SignUpFooter
                                     startActions={
-                                        <div className="button button-text button-text-padless" onClick={back}>
+                                        <div
+                                            className="button button-text button-text-padless"
+                                            onClick={back}
+                                            tabIndex={0}>
                                             <em className="mdi mdi-chevron-left icon-lefts" />
                                             {translate('sign_up_provider.buttons.back')}
                                         </div>
@@ -1428,7 +1436,7 @@ export default function SignUpProvider() {
                             </div>
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back}>
+                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
@@ -1686,13 +1694,17 @@ export default function SignUpProvider() {
                                         <button
                                             type={'button'}
                                             className="button button-text button-text-padless"
-                                            onClick={cancelAddOrganization}>
+                                            onClick={cancelAddOrganization}
+                                            tabIndex={0}>
                                             <em className="mdi mdi-chevron-left icon-left" />
                                             {translate('sign_up_provider.buttons.back')}
                                         </button>
                                     }
                                     endActions={
-                                        <button type={'submit'} className="button button-text button-text-padless">
+                                        <button
+                                            type={'submit'}
+                                            className="button button-text button-text-padless"
+                                            tabIndex={0}>
                                             {translate('sign_up_provider.buttons.next')}
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </button>
@@ -1821,7 +1833,10 @@ export default function SignUpProvider() {
 
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={() => back()}>
+                                    <div
+                                        className="button button-text button-text-padless"
+                                        onClick={() => back()}
+                                        tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
@@ -1831,7 +1846,8 @@ export default function SignUpProvider() {
                                         type={'button'}
                                         className="button button-text button-text-padless"
                                         disabled={!offices || offices?.length == 0}
-                                        onClick={() => next()}>
+                                        onClick={() => next()}
+                                        tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
                                     </button>
@@ -1908,13 +1924,13 @@ export default function SignUpProvider() {
                             </div>
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back}>
+                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
                                 }
                                 endActions={
-                                    <div className="button button-text button-text-padless" onClick={next}>
+                                    <div className="button button-text button-text-padless" onClick={next} tabIndex={0}>
                                         {translate('sign_up_provider.buttons.next')}
                                         <em className="mdi mdi-chevron-right icon-right" />
                                     </div>
@@ -1959,14 +1975,17 @@ export default function SignUpProvider() {
                             </div>
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back}>
+                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
                                 }
                                 endActions={
                                     (skipFundApplications || hasFundApplications) && (
-                                        <div className="button button-text button-text-padless" onClick={next}>
+                                        <div
+                                            className="button button-text button-text-padless"
+                                            onClick={next}
+                                            tabIndex={0}>
                                             {translate('sign_up_provider.buttons.next')}
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </div>
@@ -2014,14 +2033,17 @@ export default function SignUpProvider() {
 
                             <SignUpFooter
                                 startActions={
-                                    <div className="button button-text button-text-padless" onClick={back}>
+                                    <div className="button button-text button-text-padless" onClick={back} tabIndex={0}>
                                         <em className="mdi mdi-chevron-left icon-lefts" />
                                         {translate('sign_up_provider.buttons.back')}
                                     </div>
                                 }
                                 endActions={
                                     !loggedWithApp && (
-                                        <div className="button button-text button-text-padless" onClick={finish}>
+                                        <div
+                                            className="button button-text button-text-padless"
+                                            onClick={finish}
+                                            tabIndex={0}>
                                             {translate('sign_up_provider.buttons.go_to_dashboard')}
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </div>
@@ -2116,13 +2138,17 @@ export default function SignUpProvider() {
                                             onClick={() => {
                                                 setDemoToken(null);
                                                 back();
-                                            }}>
+                                            }}
+                                            tabIndex={0}>
                                             <em className="mdi mdi-chevron-left icon-lefts" />
                                             {translate('sign_up_provider.buttons.back')}
                                         </div>
                                     }
                                     endActions={
-                                        <div className="button button-text button-text-padless" onClick={finish}>
+                                        <div
+                                            className="button button-text button-text-padless"
+                                            onClick={finish}
+                                            tabIndex={0}>
                                             Skip and finish
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </div>
@@ -2133,7 +2159,10 @@ export default function SignUpProvider() {
                             {!loggedWithApp && (
                                 <SignUpFooter
                                     endActions={
-                                        <div className="button button-text button-text-padless" onClick={next}>
+                                        <div
+                                            className="button button-text button-text-padless"
+                                            onClick={next}
+                                            tabIndex={0}>
                                             {translate('sign_up_provider.buttons.go_to_dashboard')}
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </div>

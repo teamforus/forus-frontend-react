@@ -673,12 +673,14 @@ export default function FundActivate() {
                                 <SignUpFooter
                                     startActions={
                                         options?.length > 1 && (
-                                            <div
+                                            <button
                                                 className="button button-text button-text-padless"
-                                                onClick={() => setState('select')}>
+                                                type={'button'}
+                                                onClick={() => setState('select')}
+                                                tabIndex={0}>
                                                 <em className="mdi mdi-chevron-left icon-lefts" />
                                                 Terug
-                                            </div>
+                                            </button>
                                         )
                                     }
                                 />
@@ -730,7 +732,8 @@ export default function FundActivate() {
                                             <div
                                                 className="button button-text button-text-padless"
                                                 onClick={confirmCriteria}
-                                                role="button">
+                                                role="button"
+                                                tabIndex={0}>
                                                 {translate('fund_request.sign_up.pane.footer.next')}
                                                 <em className="mdi mdi-chevron-right icon-right" />
                                             </div>

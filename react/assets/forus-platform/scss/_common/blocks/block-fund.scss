@@ -34,15 +34,12 @@
                 grid-template-columns: 1fr auto;
                 gap: 20px;
                 font: 500 16px/24px var(--base-font);
+                align-items: center;
 
                 .fund-name {
                     font: inherit;
                     color: #151b26;
                     margin: 0;
-                }
-
-                .tag {
-                    height: fit-content;
                 }
             }
 

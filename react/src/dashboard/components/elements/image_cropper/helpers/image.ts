@@ -65,7 +65,7 @@ export function resizeCanvas(
             : contain(canvas.width, canvas.height, source.width, source.height);
 
     context.imageSmoothingQuality = 'high';
-    context.imageSmoothingEnabled = false;
+    context.imageSmoothingEnabled = true;
     context.drawImage(source, position.offsetX, position.offsetY, position.width, position.height);
 
     return canvas;

@@ -7,6 +7,7 @@ import FilterScope from '../../../../types/FilterScope';
 import FilterModel from '../../../../types/FilterModel';
 import FundProvider from '../../../../props/models/FundProvider';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
 
 export default function ProvidersTableItemFunds({
     filter,
@@ -25,7 +26,8 @@ export default function ProvidersTableItemFunds({
                         <thead>
                             <tr>
                                 <th>Fondsnaam</th>
-                                <th>Status</th>
+                                <th>Aanbieder status</th>
+                                <th>Fonds status</th>
                                 <th>Opties</th>
                             </tr>
                         </thead>
@@ -77,6 +79,9 @@ export default function ProvidersTableItemFunds({
                                             }`}>
                                             {fundProvider.state_locale}
                                         </div>
+                                    </td>
+                                    <td>
+                                        <FundStateLabels fund={fundProvider.fund} />
                                     </td>
                                     <td className="td-narrow text-right">
                                         <StateNavLink

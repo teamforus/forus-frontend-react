@@ -112,7 +112,7 @@ export default function FundRequestStepEmailSetup({
                                             onChangeValue={(email) => {
                                                 emailForm.update({ email });
                                             }}
-                                            tabIndex={1}
+                                            tabIndex={0}
                                         />
                                         <FormError error={emailForm.errors.email} />
                                     </div>
@@ -122,12 +122,13 @@ export default function FundRequestStepEmailSetup({
                                             className="button button-primary button-fill"
                                             disabled={!emailForm.values.privacy && envData.config?.flags?.privacyPage}
                                             type="submit"
-                                            tabIndex={4}>
+                                            tabIndex={0}>
                                             {translate('popup_auth.buttons.submit')}
                                         </button>
                                     </div>
                                 </div>
                             </div>
+
                             {!emailSetupRequired && (
                                 <div className="sign_up-info">
                                     <div className="sign_up-info-title">
@@ -151,7 +152,7 @@ export default function FundRequestStepEmailSetup({
                                         <label
                                             className="sign_up-pane-text"
                                             htmlFor="privacy"
-                                            tabIndex={2}
+                                            tabIndex={0}
                                             onKeyDown={(e) => {
                                                 e.stopPropagation();
                                                 clickOnKeyEnter(e);
@@ -168,7 +169,7 @@ export default function FundRequestStepEmailSetup({
                                             Ik heb de{' '}
                                             <StateNavLink
                                                 name={'privacy'}
-                                                tabIndex={3}
+                                                tabIndex={0}
                                                 target={'_blank'}
                                                 onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
                                                     e.stopPropagation();
@@ -187,7 +188,7 @@ export default function FundRequestStepEmailSetup({
 
                     <SignUpFooter
                         startActions={
-                            <FundRequestGoBackButton prevStep={prevStep} fund={fund} step={step} tabIndex={5} />
+                            <FundRequestGoBackButton prevStep={prevStep} fund={fund} step={step} tabIndex={0} />
                         }
                         endActions={
                             !emailSetupRequired && (
@@ -196,7 +197,7 @@ export default function FundRequestStepEmailSetup({
                                     disabled={envData.config.flags.privacyPage && !emailForm.values.privacy}
                                     onClick={nextStep}
                                     role="button"
-                                    tabIndex={6}>
+                                    tabIndex={0}>
                                     Overslaan
                                     <em className="mdi mdi-chevron-right icon-right" />
                                 </button>

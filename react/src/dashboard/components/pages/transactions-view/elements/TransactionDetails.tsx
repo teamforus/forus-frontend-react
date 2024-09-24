@@ -16,7 +16,7 @@ import useShowRejectInfoExtraPaid from '../../../../services/helpers/reservation
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import TransactionLabel from '../../transactions/elements/TransactionLabel';
+import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
 
 export default function TransactionDetails({
     transaction,
@@ -277,7 +277,7 @@ export default function TransactionDetails({
                                 <div className="keyvalue-item">
                                     <div className="keyvalue-key">Status</div>
                                     <div className="keyvalue-value">
-                                        <TransactionLabel transaction={transaction} />
+                                        <TransactionStateLabel transaction={transaction} />
                                         {transaction.transfer_in > 0 && transaction.state == 'pending' && (
                                             <div className="text-sm text-muted-dark">
                                                 <em className="mdi mdi-clock-outline"> </em>
