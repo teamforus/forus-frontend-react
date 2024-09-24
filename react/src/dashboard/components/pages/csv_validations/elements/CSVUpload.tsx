@@ -257,6 +257,52 @@ export default function CSVUpload({
         [parseCsvFile, fund, fundRecordKey, fundRecordKeyValue, validateFile, reset, criteriaRecordTypeKeys],
     );
 
+    const showInvalidRows = useCallback(
+        (errors = {}, rows = [], rowIndex = 0) => {
+            const items = Object.keys(errors)
+                .map(function (key) {
+                    const keyData = key.split('.');
+                    const keyDataId = keyData[1];
+                    const fieldKey = keyData[2];
+                    const index = parseInt(keyDataId, 10) + 1 + rowIndex;
+
+                    return [index, errors[key], fieldKey];
+                })
+                .sort((a, b) => a[0] - b[0]);
+
+            const uniqueRows = items.reduce((arr, item) => {
+                return arr.includes(item[0]) ? arr : [...arr, item[0]];
+            }, []);
+
+            const message = [
+                `${uniqueRows.length} van ${rows.length}`,
+                `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
+                `bekijk het bestand bij welke rij(en) het mis gaat.`,
+            ].join(' ');
+
+            pushDanger('Waarschuwing', message);
+
+            openModal((modal) => (
+                <ModalDuplicatesPicker
+                    modal={modal}
+                    hero_title={'Er zijn fouten opgetreden bij het importeren van de aanvragers'}
+                    hero_subtitle={message}
+                    enableToggles={false}
+                    label_on={'Aanmaken'}
+                    label_off={'Overslaan'}
+                    items={items.map((item) => ({
+                        value: `Rij: ${item[0]}: ${item[2]} - ${item[1]}`,
+                        _uid: uniqueId('rand_'),
+                        label: item?.[fund.csv_primary_key],
+                    }))}
+                    onConfirm={() => reset()}
+                    onCancel={() => reset()}
+                />
+            ));
+        },
+        [fund.csv_primary_key, openModal, pushDanger, reset],
+    );
+
     const startUploadingToServer = useCallback(
         (data: Array<RowDataPropData>, overwriteUids: Array<string> = []) => {
             return new Promise((resolve, reject) => {
@@ -292,8 +338,12 @@ export default function CSVUpload({
                             }
                         })
                         .catch((err: ResponseError) => {
-                            if (err.status == 422 && err.data.errors.data) {
-                                return pushDanger(err.data?.errors?.data?.[0]);
+                            if (err.status == 422 && err.data.errors) {
+                                showInvalidRows(err.data.errors, data, currentChunkNth * 100);
+
+                                return err.data?.errors?.data
+                                    ? pushDanger(err.data.errors.data[0])
+                                    : pushDanger('Onbekende error.');
                             }
 
                             pushDanger('Onbekende error.');
@@ -304,7 +354,16 @@ export default function CSVUpload({
                 uploadChunk(submitData[currentChunkNth]);
             });
         },
-        [chunkList, dataChunkSize, fund.id, onUpdated, prevalidationService, pushDanger, updateProgressBarValue],
+        [
+            chunkList,
+            dataChunkSize,
+            fund.id,
+            onUpdated,
+            prevalidationService,
+            pushDanger,
+            showInvalidRows,
+            updateProgressBarValue,
+        ],
     );
 
     const compareCsvAndDb = useCallback(
@@ -411,20 +470,82 @@ export default function CSVUpload({
         [fund.csv_primary_key, onUpdated, openModal, pushSuccess, startUploadingToServer, updateProgressBarValue],
     );
 
+    const submitCollectionCheck = useCallback(() => {
+        setCsvProgress(2);
+        abort.current = false;
+
+        const submitData = chunkList(JSON.parse(JSON.stringify(data)), dataChunkSize);
+        const chunksCount = submitData.length;
+
+        let currentChunkNth = 0;
+
+        updateProgressBarValue(0);
+        let collection = [];
+        let collectionDb = [];
+
+        const uploadChunk = function (data: Array<string>) {
+            prevalidationService
+                .submitCollectionCheck(data, fund.id, [])
+                .then((res) => {
+                    currentChunkNth++;
+                    updateProgressBarValue((currentChunkNth / chunksCount) * 100);
+                    collection = [...collection, ...res.data.collection];
+                    collectionDb = [...collectionDb, ...res.data.db];
+
+                    if (currentChunkNth == chunksCount) {
+                        setTimeout(() => {
+                            pushSuccess('Vergelijken...', 'Gegevens ingeladen! Vergelijken met .csv...', {
+                                icon: 'timer-sand',
+                            });
+
+                            compareCsvAndDb(
+                                collection.map((row) => ({ _uid: uniqueId('rand_'), ...row })),
+                                collectionDb.map((row) => ({ _uid: uniqueId('rand_'), ...row })),
+                            );
+                        }, 0);
+                    } else {
+                        if (abort.current) {
+                            return (abort.current = false);
+                        }
+
+                        uploadChunk(submitData[currentChunkNth]);
+                    }
+                })
+                .catch((err: ResponseError) => {
+                    if (err.status == 422 && err.data.errors) {
+                        showInvalidRows(err.data.errors, data, currentChunkNth * 100);
+
+                        return err.data?.errors?.data
+                            ? pushDanger(err.data.errors.data[0])
+                            : pushDanger('Onbekende error.');
+                    }
+
+                    pushDanger('Onbekende error.');
+                });
+        };
+
+        uploadChunk(submitData[currentChunkNth]);
+    }, [
+        chunkList,
+        compareCsvAndDb,
+        data,
+        dataChunkSize,
+        fund?.id,
+        prevalidationService,
+        pushDanger,
+        pushSuccess,
+        showInvalidRows,
+        updateProgressBarValue,
+    ]);
+
     const onConfirmUpload = useCallback(() => {
         setCsvComparing(true);
         pushSuccess('Inladen...', 'Inladen van gegevens voor controle op dubbele waarden!', {
             icon: 'download-outline',
         });
 
-        prevalidationService.submitCollectionCheck(data, fund.id, []).then((res) => {
-            pushSuccess('Vergelijken...', 'Gegevens ingeladen! Vergelijken met .csv...', { icon: 'timer-sand' });
-            compareCsvAndDb(
-                res.data.collection.map((row) => ({ _uid: uniqueId('rand_'), ...row })),
-                res.data.db.map((row) => ({ _uid: uniqueId('rand_'), ...row })),
-            );
-        });
-    }, [compareCsvAndDb, data, fund.id, prevalidationService, pushSuccess]);
+        submitCollectionCheck();
+    }, [pushSuccess, submitCollectionCheck]);
 
     const addSinglePrevalidation = useCallback(() => {
         openModal((modal) => (
@@ -562,13 +683,11 @@ export default function CSVUpload({
                         )}
 
                         {csvWarnings && !csvErrors && (
-                            <Fragment>
+                            <div className="csv-file-warning">
                                 {[].concat(csvWarnings).map((warning) => (
-                                    <div key={warning} className="csv-file-warning">
-                                        {warning}
-                                    </div>
+                                    <div key={warning}>{warning}</div>
                                 ))}
-                            </Fragment>
+                            </div>
                         )}
 
                         {csvErrors && (
