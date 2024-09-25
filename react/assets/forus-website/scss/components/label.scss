@@ -1,7 +1,7 @@
 .label {
-    font: 600 11px/18px var(--base-font);
+    font: 600 14px/21px var(--base-font);
     display: inline-block;
-    padding: 0 7.5px;
+    padding: 10px;
     border-radius: var(--border-radius);
     cursor: default;
     height: fit-content;
@@ -58,6 +58,10 @@
         cursor: pointer;
     }
 
+    &.label-center {
+        margin: 0 auto !important;
+    }
+
     &.label-success {
         background: #9bbfa1;
         color: #030304;
@@ -101,6 +105,11 @@
     &.label-dark {
         background: #303030;
         color: #fff;
+    }
+
+    &.label-gray {
+        background: #F5F7F8;
+        color: #2A2B2D;
     }
 
     &.label-dark-outline {

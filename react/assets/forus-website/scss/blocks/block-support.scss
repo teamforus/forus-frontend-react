@@ -1,0 +1,122 @@
+.block.block-support {
+    margin: 100px 0;
+
+    .block-support-title {
+        font: 700 56px/68px var(--base-font);
+        margin-bottom: 25px;
+    }
+
+    .block-support-description {
+        font: 300 20px/30px var(--base-font);
+        color: #333;
+        margin-bottom: 40px;
+    }
+
+    .block-support-contact {
+        display: flex;
+        padding: 50px;
+        border-radius: 20px;
+        background: #F8F9FB;
+        gap: 60px;
+        justify-content: space-evenly;
+
+        .block-support-contact-item {
+            text-align: center;
+
+            .block-support-contact-item-icon {
+                width: 40px;
+                height: 40px;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+                margin: 0 auto 20px auto;
+
+                &.icon-phone {
+                    background-image: url("./assets/img/icons-contact/phone-normal.svg");
+
+                    &:hover {
+                        background-image: url("./assets/img/icons-contact/phone-hover.svg");
+                    }
+                }
+
+                &.icon-email {
+                    background-image: url("./assets/img/icons-contact/email-normal.svg");
+
+                    &:hover {
+                        background-image: url("./assets/img/icons-contact/email-hover.svg");
+                    }
+                }
+
+                &.icon-chat {
+                    background-image: url("./assets/img/icons-contact/chat-normal.svg");
+
+                    &:hover {
+                        background-image: url("./assets/img/icons-contact/chat-hover.svg");
+                    }
+                }
+
+                &.icon-help-center {
+                    background-image: url("./assets/img/icons-contact/help-center-normal.svg");
+
+                    &:hover {
+                        background-image: url("./assets/img/icons-contact/help-center-hover.svg");
+                    }
+                }
+            }
+
+            .block-support-contact-item-label {
+                font: 600 24px/34px var(--base-font);
+                color: #333;
+            }
+
+            .block-support-contact-item-value {
+                font: 300 17px/28px var(--base-font);
+                color: #333;
+
+                &.link, a {
+                    color: #273266;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .block-support-title {
+            font: 700 30px/40px var(--base-font);
+            margin-bottom: 20px;
+        }
+
+        .block-support-description {
+            font: 300 14px/21px var(--base-font);
+            margin-bottom: 25px;
+        }
+
+        .block-support-contact {
+            flex-direction: column;
+            gap: 36px;
+            padding: 24px;
+
+            .block-support-contact-item {
+                display: flex;
+                align-items: center;
+                text-align: left;
+                gap: 15px;
+
+                .block-support-contact-item-icon {
+                    margin: 0;
+                }
+
+                .block-support-contact-item-main {
+                    .block-support-contact-item-label {
+                        font: 600 20px/30px var(--base-font);
+                    }
+
+                    .block-support-contact-item-value {
+                        font: 300 15px/24px var(--base-font);
+                    }
+                }
+            }
+        }
+    }
+}

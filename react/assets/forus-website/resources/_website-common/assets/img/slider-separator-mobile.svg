@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="99"
+   height="5"
+   viewBox="0 0 99 5"
+   fill="none"
+   version="1.1"
+   id="svg31"
+   sodipodi:docname="slider-separator-mobile.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview33"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     fit-margin-left="-7"
+     fit-margin-right="-7"
+     inkscape:zoom="8"
+     inkscape:cx="50.625"
+     inkscape:cy="0.0625"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg31"
+     fit-margin-top="0"
+     fit-margin-bottom="0" />
+  <g
+     clip-path="url(#clip0_1752_17705)"
+     id="g24"
+     transform="translate(-7,-0.5)">
+    <rect
+       x="-1"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,-1,5.5)"
+       fill="#ffffff"
+       id="rect2" />
+    <rect
+       x="10"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,10,5.5)"
+       fill="#ffffff"
+       id="rect4" />
+    <rect
+       x="21"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,21,5.5)"
+       fill="#ffffff"
+       id="rect6" />
+    <rect
+       x="32"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,32,5.5)"
+       fill="#ffffff"
+       id="rect8" />
+    <rect
+       x="43"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,43,5.5)"
+       fill="#ffffff"
+       id="rect10" />
+    <rect
+       x="54"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,54,5.5)"
+       fill="#ffffff"
+       id="rect12" />
+    <rect
+       x="65"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,65,5.5)"
+       fill="#ffffff"
+       id="rect14" />
+    <rect
+       x="76"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,76,5.5)"
+       fill="#ffffff"
+       id="rect16" />
+    <rect
+       x="87"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,87,5.5)"
+       fill="#ffffff"
+       id="rect18" />
+    <rect
+       x="98"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,98,5.5)"
+       fill="#ffffff"
+       id="rect20" />
+    <rect
+       x="109"
+       y="5.5"
+       width="5"
+       height="5"
+       rx="2.5"
+       transform="rotate(-90,109,5.5)"
+       fill="#ffffff"
+       id="rect22" />
+  </g>
+  <defs
+     id="defs29">
+    <clipPath
+       id="clip0_1752_17705">
+      <rect
+         width="5"
+         height="113"
+         fill="#ffffff"
+         transform="rotate(-90,2.75,2.75)"
+         id="rect26"
+         x="0"
+         y="0" />
+    </clipPath>
+  </defs>
+</svg>

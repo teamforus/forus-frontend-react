@@ -1,0 +1,40 @@
+.block.block-error-page {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 100px 0 40px 0;
+
+    .page-not-found-title {
+        font: 700 130px/150px var(--base-font);
+    }
+
+    .page-not-found-subtitle {
+        font: 300 20px/30px var(--base-font);
+        color: #333;
+        margin-bottom: 35px;
+    }
+
+    .page-not-found-actions {
+        display: flex;
+        gap: 15px;
+        margin: 0 auto 50px auto;
+    }
+
+    .page-not-found-image {
+        margin: 0 auto;
+
+        img {
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .page-not-found-title {
+            font: 700 72px/90px var(--base-font);
+        }
+
+        .page-not-found-subtitle {
+            font: 300 15px/20px var(--base-font);
+        }
+    }
+}

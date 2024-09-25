@@ -14,7 +14,7 @@
     --wrapper-width: 1200px;
 
     // text color
-    --text-color: #282b39;
+    --text-color: #131313;
     --text-color-muted: #595959;
 
     --border-color: #f4f4f4;
@@ -34,12 +34,30 @@
 
     // Buttons
     --btn-color: #282b39;
-    --btn-border-radius: calc(var(--border-radius) * 0.75);
+    --btn-border-radius: 5px;
 
-    --btn-disabled-color: #616161;
-    --btn-disabled-background: #e5e5e5;
+    --btn-disabled-color: #BBC1C6;
+    --btn-disabled-background: #F6F8F9;
 
     // Labels
     --label-default-color: #fff;
     --label-default-background: #595959;
+
+    // Label sets
+    --label-set-border-radius: 7px;
+    --label-set-border-color: #9e9e9e;
+    --label-set-color: #272525;
+    --label-set-background: #ffffff;
+    --label-set-active-color: #ffffff;
+    --label-set-active-background: var(--color-primary);
+    --label-set-hover-color: #131313;
+    --label-set-hover-background: #E1E2E8;
+    --label-set-focus-color: #272525;
+    --label-set-focus-background: #F4F5F7;
+
+    // Breadcrumbs
+    --breadcrumb-size: 13px;
+    --breadcrumb-color: #2A2B2D;
+    --breadcrumb-color-active: #273266;
+    --breadcrumb-padding: 20px;
 }

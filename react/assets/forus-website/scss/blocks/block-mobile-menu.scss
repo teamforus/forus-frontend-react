@@ -1,0 +1,201 @@
+.block.block-mobile-menu {
+    --item-height: 44px;
+    --item-line-height: 18px;
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    z-index: 999;
+    width: 100%;
+    transition: transform 0.2s;
+    background: #fff;
+    box-shadow: 0px -1px 0px 0px #E5E5E5 inset;
+    overflow: auto;
+
+    .mobile-menu-group {
+        border-bottom: 1px solid var(--border-color);
+
+        &.active {
+            .mobile-menu-group-header {
+                box-shadow: 5px 0 0 0 #315EFD inset;
+            }
+        }
+
+        .mobile-submenu-group {
+            .mobile-menu-group-header {
+                display: flex;
+                align-items: center;
+                color: #55575E;
+                gap: 10px;
+
+                .state-nav-link {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font: 700 14px/20px var(--base-font);
+                    color: #2A2B2D;
+                }
+            }
+
+            .mobile-submenu-image {
+                width: 34px;
+                background-color: #F6F7F8;
+                border-radius: 10px;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .mobile-menu-items {
+                padding: 0 16px;
+            }
+        }
+
+        .mobile-menu-group-header {
+            display: flex;
+            padding: 16px 20px 16px 15px;
+            color: #2A2B2D;
+            font: 700 14px/20px var(--base-font);
+            background: #FFF;
+            position: relative;
+
+            .mdi {
+                font-size: 25px;
+                margin-right: 5px;
+                color: #273266;
+                position: absolute;
+                right: 20px;
+
+                &.mdi-menu-up {
+                    color: #315EFD;
+                }
+            }
+        }
+
+        .mobile-menu-items {
+            width: 100%;
+            overflow: scroll;
+            padding: 0;
+
+            .mobile-menu-item {
+                font: 600 14px/var(--item-line-height) var(--base-font);
+                border-bottom: 1px solid var(--border-color);
+                padding: calc(calc(var(--item-height) - var(--item-line-height)) / 2) 15px;
+                display: flex;
+                position: relative;
+                color: #273266;
+                align-items: center;
+
+                .mobile-menu-item-icon {
+                    margin-right: 10px;
+                    width: 20px;
+                }
+
+                .mobile-menu-item-img {
+                    width: 36px;
+                    height: 36px;
+                    margin-right: 15px;
+                }
+
+                .mobile-menu-item-info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex: 1;
+
+                    .mobile-menu-item-title {
+                        font: 700 18px/27px var(--base-font);
+                        margin-bottom: 10px;
+                        color: #273266;
+                    }
+
+                    .mobile-menu-item-description {
+                        font: 400 13px/18px var(--base-font);
+                        color: #333;
+                    }
+                }
+
+                .button {
+                    font: 600 11px/11px var(--base-font);
+                    width: 100%;
+                    padding: 9px;
+                    display: flex;
+                    justify-content: center;
+                    background-color: var(--btn-start-bg);
+                    color: var(--tc-start-btn);
+                    border: solid 1px var(--btn-start-border);
+
+                    svg {
+                        width: 10px;
+                        height: 10px;
+                        margin-right: 5px;
+                    }
+
+                    &.button-start {
+                        background-color: var(--btn-auth-bg);
+                        border: solid 1px var(--btn-auth-border);
+                        color: var(--tc-auth-btn);
+
+                        .mdi {
+                            color: var(--tc-auth-btn);
+                        }
+
+                        &:hover {
+                            border: solid 1px var(--btn-auth-border);
+
+                            .mdi {
+                                color: var(--tc-auth-btn);
+                            }
+                        }
+                    }
+                }
+
+                .mdi {
+                    position: absolute;
+                    color: #D6D7DB;
+                    right: 10px;
+                }
+
+                &.active {
+                    color: var(--color-primary);
+
+                    .mdi {
+                        color: var(--color-primary);
+                    }
+
+                    &:after {
+                        position: absolute;
+                        right: 20px;
+                        content: "\F012C";
+                        font: normal normal normal 24px/1 "Material Design Icogitns";
+                        font-size: 18px;
+                        color: #282B39;
+                    }
+                }
+
+                &:hover {
+                    color: var(--color-primary);
+                    background-color: #F2F6FA;
+
+                    .mdi {
+                        color: #4c74ff;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom-color: transparent;
+                }
+            }
+        }
+
+        &.mobile-menu-group-main {
+            .mobile-menu-items {
+                .mobile-menu-item:not(.active) {
+                    .mobile-menu-item-icon {
+                        color: #CDCED2;
+                    }
+                }
+            }
+        }
+    }
+}

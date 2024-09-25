@@ -1,0 +1,179 @@
+.block.block-slider-compact {
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    margin-bottom: 200px;
+    height: 480px;
+
+    .block-slider-list-item {
+        display: flex;
+        width: 100%;
+        border-radius: var(--border-radius);
+        transition: visibility 0s, opacity 0.5s linear;
+
+        .block-slider-list-item-main {
+            position: relative;
+            flex: 1 1 380px;
+            background-color: #0A33C1;
+            padding: 62px 50px;
+            color: #FFF;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+
+            .block-slider-list-item-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 40px;
+
+                .block-slider-list-item-label {
+                    width: fit-content;
+                    border-radius: 20px;
+                    font: 600 14px/21px var(--base-font);
+                    padding: 12px 16px;
+                    background: linear-gradient(90deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.07) 100%);
+                }
+
+                .block-slider-arrows {
+                    display: flex;
+                    align-items: center;
+                    margin-left: auto;
+                    margin-right: 0;
+
+                    .separator {
+                        margin: 0 10px;
+
+                        img {
+                            display: block;
+                        }
+                    }
+
+                    .block-slider-arrow {
+                        cursor: pointer;
+
+                        .mdi {
+                            font-size: 22px;
+                        }
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+
+            .block-slider-list-item-title {
+                font: 700 28px/40px var(--base-font);
+                margin-bottom: 30px;
+            }
+
+            .block-slider-list-item-description {
+                font: 400 26px/38px var(--base-font);
+                margin-bottom: 30px;
+            }
+
+            .block-slider-list-item-actions {
+                position: absolute;
+                bottom: 50px;
+                left: 50px;
+            }
+        }
+
+        .block-slider-list-item-image {
+            height: 100%;
+
+            img {
+                display: block;
+                height: 100%;
+                border-top-right-radius: 30px;
+                border-bottom-right-radius: 30px;
+            }
+        }
+    }
+
+    .block-slider-compact-description {
+        text-align: center;
+        margin-top: 30px;
+        font: 300 21px/36px var(--base-font);
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0;
+        padding: 48px 0;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+
+        .block-slider-list-item {
+            flex-direction: column;
+
+            .block-slider-list-item-main {
+                order: 2;
+                border-radius: 0 0 30px 30px;
+                padding: 24px;
+                flex: auto;
+
+                .block-slider-list-item-header {
+                    width: 100%;
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    .block-slider-arrows {
+                        order: 1;
+                        margin: 0 0 36px;
+                        width: 100%;
+
+                        .block-slider-arrow {
+                            display: flex;
+                            align-items: center;
+                            cursor: pointer;
+                            padding: 8px;
+                            border-radius: 20px;
+                        }
+
+                        .separator {
+                            margin: 0;
+                            flex-grow: 1;
+
+                            img {
+                                margin: 0 auto;
+                            }
+                        }
+                    }
+
+                    .block-slider-list-item-label {
+                        order: 2;
+                        padding: 10px;
+                    }
+                }
+
+                .block-slider-list-item-title {
+                    font: 600 18px/30px var(--base-font);
+                }
+
+                .block-slider-list-item-actions {
+                    position: initial;
+                    width: 100%;
+
+                    .button {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .block-slider-list-item-image {
+                width: 100%;
+                order: 1;
+
+                img {
+                    width: 100%;
+                    border-radius: 30px 30px 0 0;
+                }
+            }
+        }
+
+        .block-slider-compact-description {
+            font: 300 15px/24px var(--base-font);
+        }
+    }
+}

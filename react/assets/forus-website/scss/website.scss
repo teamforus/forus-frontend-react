@@ -6,10 +6,7 @@
 @import 'includes/common';
 
 // LAYOUTS
-// @import 'layout/footer';
-// @import 'layout/grid';
-// @import 'layout/header';
-// @import 'layout/navigation';
+@import 'layout/header';
 
 // COMPONENTS
 @import 'components/buttons';
@@ -18,7 +15,53 @@
 @import 'components/label';
 @import 'components/modals';
 @import 'components/layout';
+@import 'components/breadcrumbs';
 
+@import "modals/modal-cookie-settings";
+
+@import "blocks/block-main-banner";
+@import "blocks/block-dashed-separator";
+@import "blocks/block-page-list";
+@import "blocks/block-project";
+@import "blocks/block-social-impact";
+@import "blocks/block-social-domain";
+@import "blocks/block-platform-aspects";
+@import "blocks/block-slider";
+@import "blocks/block-municipalities";
+@import "blocks/block-collaborations";
+@import "blocks/block-carousel";
+@import "blocks/block-learn-more";
 @import "blocks/block-footer-apps";
 @import "blocks/block-footer-menu";
 @import "blocks/block-footer-copyright";
+@import "blocks/block-mobile-menu";
+@import "blocks/block-help-center";
+@import "blocks/block-social-initiatives";
+@import "blocks/block-our-values";
+@import "blocks/block-statistics";
+@import "blocks/block-map";
+@import "blocks/block-with-image";
+@import "blocks/block-image-list";
+@import "blocks/block-overview-list";
+@import "blocks/block-roles-selector";
+@import "blocks/block-role-banner";
+@import "blocks/block-background-circles";
+@import "blocks/block-info";
+@import "blocks/block-basic-functions-banner";
+@import "blocks/block-label-tabs";
+@import "blocks/block-with-columns";
+@import "blocks/block-app-instructions";
+@import "blocks/block-me-app-download";
+@import "blocks/block-slider-compact";
+@import "blocks/block-labels-list";
+@import "blocks/block-slider-detailed";
+@import "blocks/block-privacy";
+@import "blocks/block-error-page";
+@import "blocks/block-about-us";
+@import "blocks/block-contact-details";
+@import "blocks/block-support";
+@import "blocks/block-contact-form";
+@import "blocks/block-cookies-accept";
+@import "blocks/block-login-type-select";
+@import "blocks/block-sign-in";
+@import "blocks/block-sign-in-email-sent";

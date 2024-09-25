@@ -1,0 +1,110 @@
+.block.block-our-values {
+    margin: 0 0 100px;
+
+    .block-our-values-header {
+        font: 800 56px/68px var(--base-font);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 60px;
+        align-items: center;
+    }
+
+    .block-our-values-items {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        text-align: left;
+        margin-bottom: 30px;
+        gap: 70px 70px;
+
+        .block-our-values-item {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            align-items: flex-start;
+            flex: 0 0 calc(50% - 35px);
+
+            .block-our-values-item-image {
+                display: flex;
+                flex: 0 0 60px;
+
+                img {
+                    display: block;
+                    width: 60px;
+                }
+            }
+
+            .block-our-values-item-main {
+                display: flex;
+                margin-top: -10px;
+                flex-direction: column;
+                gap: 2px;
+
+                .block-our-values-item-title {
+                    font: 700 26px/46px var(--base-font);
+                    margin: 0 0;
+                }
+
+                .block-our-values-item-description {
+                    font: 400 16px/24px var(--base-font);
+                    margin: 0 0;
+                    color: #55575e;
+
+                    .block-our-values-item-description-link {
+                        font: 400 16px/24px var(--base-font);
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0 0 30px;
+
+        .block-our-values-header {
+            display: flex;
+            flex-direction: column;
+            font: 900 30px/40px var(--base-font);
+            text-align: center;
+            gap: 20px;
+
+            .block-our-values-header-button {
+                width: 100%;
+            }
+        }
+
+        .block-our-values-items {
+            flex-direction: column;
+            gap: 40px;
+
+            .block-our-values-item {
+                width: 100%;
+                text-align: center;
+                align-items: center;
+                flex-direction: column;
+
+                .block-our-values-item-image {
+                    flex: 0 0 40px;
+                    flex-direction: row;
+                    justify-content: center;
+
+                    img {
+                        width: 40px;
+                    }
+                }
+
+                .block-our-values-item-main {
+                    .block-our-values-item-title {
+                        font: 700 20px/30px var(--base-font);
+                    }
+
+                    .block-our-values-item-description {
+                        font: 400 14px/21px var(--base-font);
+                    }
+                }
+            }
+        }
+    }
+}

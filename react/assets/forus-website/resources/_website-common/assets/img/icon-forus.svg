@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="124"
+   height="124"
+   viewBox="0 0 124 124"
+   fill="none"
+   version="1.1"
+   id="svg25"
+   sodipodi:docname="icon-forus.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview27"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     fit-margin-bottom="-20"
+     inkscape:zoom="3.3830645"
+     inkscape:cx="70.350417"
+     inkscape:cy="67.246722"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg25" />
+  <g
+     filter="url(#filter0_d_1783_126655)"
+     id="g6">
+    <path
+       d="M44.9092 24.7681C41.0407 28.7205 39.6898 38.2357 40.0583 45.4087C40.2629 49.424 41.184 56.6597 45.032 59.8175C48.4297 62.6407 55.266 64 62 64C68.734 64 75.5703 62.5989 78.968 59.8175C82.816 56.6597 83.7371 49.3612 83.9417 45.4087C84.3102 38.2357 82.9593 28.6787 79.0908 24.7681C72.8685 18.4106 51.1315 18.4106 44.9092 24.7681Z"
+       fill="white"
+       id="path2" />
+    <path
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="M62.0015 31.428C55.2516 31.428 49.7793 36.7431 49.7793 43.2995C49.7793 46.5877 51.1555 49.5635 53.3792 51.7126C53.5222 51.8502 53.7659 51.8178 53.8636 51.6467C54.9053 49.8186 56.7314 48.389 58.96 47.6934C57.5059 46.7416 56.5499 45.1285 56.5499 43.2985C56.5499 40.3734 58.9906 38.0035 62.0015 38.0035C65.0124 38.0035 67.4531 40.3734 67.4531 43.2985C67.4531 45.1285 66.4962 46.7416 65.043 47.6934C67.2716 48.389 69.0977 49.8186 70.1395 51.6467C70.2362 51.8178 70.4808 51.8502 70.6229 51.7126C72.8465 49.5635 74.2237 46.5877 74.2237 43.2995C74.2237 36.7431 68.7514 31.428 62.0015 31.428Z"
+       fill="#D6D7DB"
+       id="path4" />
+  </g>
+  <defs
+     id="defs23">
+    <filter
+       id="filter0_d_1783_126655"
+       x="0"
+       y="0"
+       width="124"
+       height="124"
+       filterUnits="userSpaceOnUse"
+       color-interpolation-filters="sRGB">
+      <feFlood
+         flood-opacity="0"
+         result="BackgroundImageFix"
+         id="feFlood8" />
+      <feColorMatrix
+         in="SourceAlpha"
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+         result="hardAlpha"
+         id="feColorMatrix10" />
+      <feOffset
+         dy="20"
+         id="feOffset12" />
+      <feGaussianBlur
+         stdDeviation="20"
+         id="feGaussianBlur14" />
+      <feColorMatrix
+         type="matrix"
+         values="0 0 0 0 0.2 0 0 0 0 0.2 0 0 0 0 0.2 0 0 0 0.08 0"
+         id="feColorMatrix16" />
+      <feBlend
+         mode="normal"
+         in2="BackgroundImageFix"
+         result="effect1_dropShadow_1783_126655"
+         id="feBlend18" />
+      <feBlend
+         mode="normal"
+         in="SourceGraphic"
+         in2="effect1_dropShadow_1783_126655"
+         result="shape"
+         id="feBlend20" />
+    </filter>
+  </defs>
+</svg>

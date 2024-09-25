@@ -1,0 +1,162 @@
+.block.block-app-instructions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+
+    .block-app-instructions-label {
+        width: fit-content;
+        font: 600 13px/21px var(--base-font);
+        color: #2A2B2D;
+        border-radius: var(--border-radius);
+        background: #F5F7F8;
+        padding: 8px 12px;
+        margin-bottom: 40px;
+    }
+
+    .block-app-instructions-title {
+        font: 600 44px/58px var(--base-font);
+        margin-bottom: 40px;
+    }
+
+    .block-app-instructions-details {
+        padding: 25px;
+        border-radius: 16px;
+        border: 1px solid #F4F4F4;
+        background: #FFF;
+        box-shadow: 0 20px 55px 0 rgba(115, 120, 145, 0.06);
+
+        .block-app-instructions-details-start {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 35px;
+            border-radius: 16px;
+            background-color: #F8F9FB;
+
+            .block-app-instruction-step-separator {
+                max-width: 120px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .block-app-instructions-step {
+                display: flex;
+                flex: 1 1 0;
+                gap: 15px;
+
+                .block-app-instruction-step-image {
+                    max-width: 82px;
+
+                    img {
+                        display: block;
+                        width: 100%;
+                    }
+                }
+
+                .block-app-instruction-step-info {
+                    .block-app-instructions-step-title {
+                        font: 600 25px/36px var(--base-font);
+                    }
+
+                    .block-app-instructions-step-description {
+                        font: 300 17px/27px var(--base-font);
+                    }
+                }
+            }
+        }
+
+        .block-app-instruction-divider {
+            position: relative;
+            margin: 0;
+
+            .block-app-instruction-arrow {
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                width: 0;
+                height: 0;
+                border-left: 150px solid rgba(0, 0, 0, 0);
+                border-right: 150px solid rgba(0, 0, 0, 0);
+                border-top: 25px solid var(--border-color);
+            }
+        }
+
+        .block-app-instructions-details-finish {
+            text-align: center;
+            padding: 0 35px 35px;
+
+            .block-app-instructions-image {
+                max-width: 132px;
+                margin: 0 auto;
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .block-app-instructions-title {
+                font: 600 25px/36px var(--base-font);
+                margin-bottom: 15px;
+            }
+
+            .block-app-instructions-description {
+                font: 300 18px/27px var(--base-font);
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .block-app-instructions-title {
+            font: 700 28px/40px var(--base-font);
+        }
+
+        .block-app-instructions-details {
+            .block-app-instructions-details-start {
+                flex-direction: column;
+
+                .block-app-instructions-step {
+                    flex-direction: column;
+                    text-align: center;
+
+                    .block-app-instruction-step-image {
+                        width: 110px;
+                        max-width: 110px;
+                        margin: 0 auto;
+                    }
+
+                    .block-app-instruction-step-info {
+                        .block-app-instructions-step-title {
+                            font-size: 600 18px/30px var(--base-font);
+                        }
+
+                        .block-app-instructions-step-description {
+                            font-size: 300 13px/21px var(--base-font);
+                        }
+                    }
+                }
+
+                .block-app-instruction-step-separator {
+                    rotate: 90deg;
+                    margin: 30px 0;
+                }
+            }
+
+            .block-app-instructions-details-finish {
+                .block-app-instructions-info {
+                    .block-app-instructions-title {
+                        font-size: 600 18px/30px var(--base-font);
+                    }
+
+                    .block-app-instructions-description {
+                        font-size: 300 13px/21px var(--base-font);
+                    }
+                }
+            }
+        }
+    }
+}

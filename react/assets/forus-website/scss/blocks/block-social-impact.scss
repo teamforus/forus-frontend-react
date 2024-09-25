@@ -1,0 +1,124 @@
+.block.block-social-impact {
+    display: flex;
+    flex-direction: row;
+    border-radius: 30px;
+    margin: 0 0 80px;
+    gap: 80px;
+
+    .block-social-impact-main-info {
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 560px;
+        gap: 30px;
+
+        .block-social-impact-label {
+            width: fit-content;
+            font: 600 14px/21px var(--base-font);
+            color: #2a2b2d;
+            border-radius: 5px;
+            background: #f5f7f8;
+            padding: 10px;
+        }
+
+        .block-social-impact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .block-social-impact-title {
+            font: 900 56px/68px var(--base-font);
+            margin: 0 0;
+        }
+
+        .block-social-impact-description {
+            font: 400 18px/27px var(--base-font);
+            margin: 0 0;
+        }
+
+        .block-social-impact-actions {
+            display: flex;
+        }
+    }
+
+    .block-social-impact-details {
+        .block-overview-list {
+            background-image: url('./assets/img/background-roles.png');
+
+            .block-overview-list-item {
+                gap: 20px;
+                height: fit-content;
+
+                .block-overview-list-item-title {
+                    font: 700 20px/30px var(--base-font);
+                }
+
+                .block-overview-list-item-description {
+                    font: 400 14px/21px var(--base-font);
+                    margin: 0;
+                }
+
+                .block-overview-list-item-info {
+                    .block-overview-list-item-read-more {
+                        .mdi {
+                            font-size: 16px;
+                        }
+
+                        &:hover {
+                            transition: all 0.35s ease;
+
+                            .mdi {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .block-social-impact-main-info {
+            flex: 0 0 460px;
+
+            .block-social-impact-title {
+                font: 900 44px/50px var(--base-font);
+            }
+
+            .block-social-impact-description {
+                font: 400 16px/24px var(--base-font);
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 30px;
+
+        .block-social-impact-main-info {
+            flex: 0 0 auto;
+            gap: 20px;
+
+            .block-social-impact-title {
+                font: 900 30px/40px var(--base-font);
+            }
+
+            .block-social-impact-description {
+                font: 400 14px/21px var(--base-font);
+            }
+
+            .block-social-impact-actions {
+                .button {
+                    width: 100%;
+                }
+            }
+        }
+
+        .block-social-impact-details {
+            .block-overview-list {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

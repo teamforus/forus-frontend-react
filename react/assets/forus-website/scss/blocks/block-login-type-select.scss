@@ -1,0 +1,141 @@
+.block.block-login-type-select {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 70px 0;
+
+    .block-login-type-select-title {
+        font: 700 56px/68px var(--base-font);
+        margin-bottom: 25px;
+    }
+
+    .block-login-type-select-description {
+        font: 300 20px/30px var(--base-font);
+        margin-bottom: 35px;
+        color: #333;
+    }
+
+    .block-login-type-select-options {
+        display: flex;
+        gap: 35px;
+
+        .block-login-type-select-option {
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            border: 1px solid #E5E5E5;
+            background: #FFF;
+            padding: 35px;
+            flex: 1 1 0;
+
+            .block-login-type-select-option-icon {
+                height: 72px;
+                width: 72px;
+                margin-bottom: 30px;
+                background-size: cover;
+            }
+
+            .block-login-type-select-option-subtitle {
+                font: 300 16px/24px var(--base-font);
+                margin-bottom: 10px;
+                color: #55575E;
+            }
+
+            .block-login-type-select-option-title {
+                font: 600 26px/36px var(--base-font);
+            }
+
+            &.block-login-type-select-option-provider {
+                .block-login-type-select-option-icon {
+                    background-image: url("./assets/img/provider.svg");
+                }
+
+                &:hover {
+                    background-color: #FA9454;
+
+                    .block-login-type-select-option-icon {
+                        background-image: url("./assets/img/provider-hover.svg");
+                    }
+                }
+            }
+
+            &.block-login-type-select-option-sponsor {
+                .block-login-type-select-option-icon {
+                    background-image: url("./assets/img/sponsor.svg");
+                }
+
+                &:hover {
+                    background-color: #7DC97E;
+
+                    .block-login-type-select-option-icon {
+                        background-image: url("./assets/img/sponsor-hover.svg");
+                    }
+                }
+            }
+
+            &.block-login-type-select-option-validator {
+                .block-login-type-select-option-icon {
+                    background-image: url("./assets/img/validator.svg");
+                }
+
+                &:hover {
+                    background-color: #9A169C;
+
+                    .block-login-type-select-option-icon {
+                        background-image: url("./assets/img/validator-hover.svg");
+                    }
+                }
+            }
+
+            &:hover {
+                box-shadow: 0 12px 30px 0 #E1E2E8;
+                color: #fff;
+
+                .block-login-type-select-option-subtitle, .block-login-type-select-option-title {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 50px 0;
+
+        .block-login-type-select-title {
+            font: 700 36px/44px var(--base-font);
+            margin-bottom: 25px;
+        }
+
+        .block-login-type-select-description {
+            font: 300 16px/24px var(--base-font);
+            margin-bottom: 25px;
+        }
+
+        .block-login-type-select-options {
+            flex-direction: column;
+
+            .block-login-type-select-option {
+                .block-login-type-select-option-icon {
+                    margin-bottom: 0;
+                }
+
+                .block-login-type-select-option-link {
+                    display: flex;
+                    gap: 20px;
+
+                    .block-login-type-select-option-text {
+                        text-align: left;
+
+                        .block-login-type-select-option-subtitle {
+                            font: 300 14px/22px var(--base-font);
+                            margin-bottom: 15px;
+                        }
+
+                        .block-login-type-select-option-title {
+                            font: 600 20px/30px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

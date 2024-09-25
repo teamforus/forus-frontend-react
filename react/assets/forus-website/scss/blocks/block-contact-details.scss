@@ -1,0 +1,203 @@
+.block.block-contact-details {
+    display: flex;
+    position: relative;
+    height: 440px;
+    margin: 0 0 60px;
+
+    .block-contact-details-main-info {
+        width: calc(50% - 80px);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 0 80px 0 0;
+
+        .block-contact-details-main-title {
+            text-overflow: ellipsis;
+            font: 700 56px/68px var(--base-font);
+            margin-bottom: 60px;
+        }
+
+        .block-contact-details-main-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+
+            .block-contact-details-main-list-item {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .block-contact-details-main-list-item-label {
+                    font: 600 20px/24px var(--base-font);
+                    margin: 0 0 5px 0;
+
+                    .mdi {
+                        font-size: 22px;
+                        color: #273266;
+                        margin-right: 15px;
+
+                        &.mdi-share-variant {
+                            color: #000;
+                        }
+                    }
+                }
+
+                .block-contact-details-main-list-item-value {
+                    font: 300 20px/24px var(--base-font);
+                    color: #333;
+                    margin-left: 37px;
+                }
+            }
+        }
+
+        .block-contact-details-main-info-social {
+            display: flex;
+            gap: 10px;
+
+            .icon-social {
+                width: 50px;
+                height: 50px;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+
+                &.icon-linkedin {
+                    background-image: url("./assets/img/contacts/linkedin-normal.svg");
+
+                    &:hover {
+                        background-image: url("./assets/img/contacts/linkedin-hover.svg");
+                    }
+                }
+
+                &.icon-discord {
+                    background-image: url("./assets/img/contacts/discord-normal.svg");
+
+                    &:hover {
+                        background-image: url("./assets/img/contacts/discord-hover.svg");
+                    }
+                }
+
+                &.icon-github {
+                    background-image: url("./assets/img/contacts/github-normal.svg");
+
+                    &:hover {
+                        background-image: url("./assets/img/contacts/github-hover.svg");
+                    }
+                }
+            }
+        }
+    }
+
+    .block-contact-map {
+        @include fill_parent();
+        height: 100%;
+        position: absolute;
+        left: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 50%;
+        border-radius: 20px;
+
+        iframe {
+            @include fill_parent();
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border: 0;
+        }
+
+        .map-canvas {
+            border-radius: 20px;
+        }
+
+        .block-google-map-backdrop {
+            @include fill_parent();
+            position: absolute;
+            background: rgba($color: #000000, $alpha: .1);
+            z-index: 1;
+        }
+
+        .block-contact-map-circles {
+            position: absolute;
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -1;
+
+            &.block-contact-map-circles-top-right {
+                top: -110px;
+                right: -80px;
+                width: 200px;
+                height: 200px;
+                background-image: url(./assets/img/circle1.svg);
+            }
+
+            &.block-contact-map-circles-bottom-right {
+                bottom: -70px;
+                right: -70px;
+                width: 140px;
+                height: 140px;
+                background-image: url(./assets/img/circle5.svg);
+            }
+
+            &.block-contact-map-circles-bottom-left {
+                bottom: -100px;
+                left: -120px;
+                width: 200px;
+                height: 200px;
+                background-image: url(./assets/img/circle2.svg);
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        height: auto;
+        gap: 40px;
+
+        .block-contact-details-main-info, .block-contact-map {
+            width: 100%;
+        }
+
+        .block-contact-details-main-info {
+            order: 2;
+
+            .block-contact-details-main-title {
+                font: 700 30px/40px var(--base-font);
+                margin-bottom: 20px;
+            }
+
+            .block-contact-details-main-list {
+                gap: 30px;
+
+                .block-contact-details-main-list-item {
+                    width: 100%;
+
+                    .block-contact-details-main-list-item-label {
+                        font: 600 16px/24px var(--base-font);
+                    }
+
+                    .block-contact-details-main-list-item-value {
+                        font: 300 15px/24px var(--base-font);
+                        margin-left: 0;
+                    }
+
+                    .block-contact-details-main-list-item-value, .block-contact-details-main-info-social {
+                        margin-left: 37px;
+                    }
+                }
+            }
+        }
+
+        .block-contact-map {
+            order: 1;
+            position: relative;
+            width: 100%;
+            height: 440px;
+
+            .block-contact-map-circles {
+                display: none;
+            }
+        }
+    }
+}

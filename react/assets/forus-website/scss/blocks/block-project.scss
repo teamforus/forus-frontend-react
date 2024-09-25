@@ -1,0 +1,105 @@
+.block.block-project {
+    display: flex;
+    flex-direction: row;
+    border-radius: 30px;
+    margin-bottom: 100px;
+    overflow: hidden;
+
+    .block-project-content {
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        padding: 50px;
+        position: relative;
+        background-color: #002a95;
+        flex: 0 0 480px;
+        gap: 40px;
+
+        .block-project-label {
+            width: fit-content;
+            font: 600 14px/21px var(--base-font);
+            color: #fff;
+            border-radius: 5px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.07) 100%);
+            padding: 6px 12px;
+        }
+
+        .block-project-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .block-project-title {
+            font: 700 30px/40px var(--base-font);
+            margin: 0 0;
+        }
+
+        .block-project-description {
+            font: 400 18px/28px var(--base-font);
+            margin: 0 0;
+        }
+
+        .block-project-actions {
+            padding-top: 10px;
+
+            .button {
+                width: 200px;
+                padding: 10px 24px;
+                font: 600 16px/24px var(--base-font);
+            }
+        }
+    }
+
+    .block-project-image {
+        position: relative;
+        flex: 1 1 auto;
+
+        img {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column-reverse;
+        border-radius: 12px;
+        margin-bottom: 50px;
+
+        .block-project-content {
+            padding: 25px;
+            gap: 25px;
+            flex: 0 0 auto;
+
+            .block-project-label {
+                font: 700 13px/18px var(--base-font);
+                padding: 6px 10px;
+            }
+
+            .block-project-title {
+                font: 700 20px/30px var(--base-font);
+            }
+
+            .block-project-description {
+                font: 400 14px/21px var(--base-font);
+            }
+
+            .block-project-actions {
+                padding: 0 0;
+
+                .button {
+                    width: 100%;
+                }
+            }
+        }
+
+        .block-project-image {
+            flex: 0 0 250px;
+        }
+    }
+}

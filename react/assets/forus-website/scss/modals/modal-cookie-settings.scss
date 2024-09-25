@@ -1,0 +1,190 @@
+.modal.modal-cookie-settings {
+    .modal-window {
+        width: 100%;
+        margin: 0 20px;
+        transform: scale(1);
+
+        .modal-header, .modal-body, .modal-footer {
+            padding: 20px 300px;
+        }
+
+        .modal-header {
+            display: flex;
+            flex-direction: column;
+
+            .block-cookies-accept-icon {
+                display: flex;
+                align-items: center;
+
+                .block-cookies-accept-icon-wrapper {
+                    flex-grow: 1;
+
+                    img {
+                        width: 56px;
+                    }
+                }
+
+                .modal-close {
+                    position: initial;
+                }
+            }
+
+            .modal-heading {
+                font: 600 26px/36px var(--base-font);
+                margin-bottom: 5px;
+            }
+
+            .modal-heading-description {
+                font: 300 16px/24px var(--base-font);
+            }
+        }
+
+        .modal-cookie-settings-block {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .modal-cookie-settings-block-title {
+                font: 600 16px/24px var(--base-font);
+            }
+
+            .modal-cookie-settings-block-description {
+                font: 300 14px/21px var(--base-font);
+
+                a {
+                    font: 600 14px/21px var(--base-font);
+                    text-decoration-line: underline;
+                }
+            }
+
+            .modal-cookie-settings-block-settings-list {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+                border-radius: 8px;
+                border: 1px solid #E1E2E8;
+                background: #FFF;
+
+                .modal-cookie-settings-block-setting {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    border-bottom: 1px solid #D6D7DB;
+
+                    .modal-cookie-settings-block-settings-title-wrapper {
+                        display: flex;
+
+                        .modal-cookie-settings-block-setting-title {
+                            font: 600 16px/24px var(--base-font);
+                            flex-grow: 1;
+                        }
+
+                        .form-toggle {
+                            display: flex;
+                            align-self: center;
+                            width: fit-content;
+                        }
+                    }
+
+                    .modal-cookie-settings-block-setting-description {
+                        font: 300 14px/21px var(--base-font);
+                    }
+
+                    .modal-cookie-settings-expand {
+                        display: flex;
+                        font: 600 14px/21px var(--base-font);
+                        margin-bottom: 15px;
+
+                        .mdi {
+                            margin-left: 5px;
+                            font-size: 20px;
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+
+                        .modal-cookie-settings-expand {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .modal-footer {
+            margin: 0 auto 0 0;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .modal-window {
+            .modal-header, .modal-body, .modal-footer {
+                padding: 20px;
+            }
+
+            .modal-header {
+                .modal-heading {
+                    font: 600 18px/27px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .modal-heading-description {
+                    font: 300 13px/18px var(--base-font);
+                }
+            }
+
+            .modal-cookie-settings-block {
+                gap: 15px;
+
+                .modal-cookie-settings-block-title {
+                    font: 600 14px/21px var(--base-font);
+                }
+
+                .modal-cookie-settings-block-description {
+                    font: 300 14px/21px var(--base-font);
+                }
+
+                .modal-cookie-settings-block-settings-list {
+                    gap: 15px;
+                    padding: 15px;
+
+                    .modal-cookie-settings-block-setting {
+                        gap: 15px;
+
+                        .modal-cookie-settings-block-settings-title-wrapper {
+                            display: flex;
+
+                            .modal-cookie-settings-block-setting-title {
+                                font: 600 14px/21px var(--base-font);
+                            }
+                        }
+
+                        .modal-cookie-settings-block-setting-description {
+                            font: 300 13px/21px var(--base-font);
+                        }
+
+                        .modal-cookie-settings-expand {
+                            font: 600 13px/21px var(--base-font);
+
+                            .mdi {
+                                margin-left: 5px;
+                                font-size: 18px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .modal-footer {
+                margin: 0;
+
+                .button-group {
+                    width: 100%;
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+}

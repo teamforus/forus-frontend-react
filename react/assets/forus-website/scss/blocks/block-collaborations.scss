@@ -1,0 +1,42 @@
+.block.block-collaborations {
+    margin: 0 0 60px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    .block-collaborations-content {
+        width: 100%;
+        padding: 0 20px;
+        margin: 0 auto;
+        max-width: calc(var(--wrapper-width) + 40px);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .block-collaborations-title {
+        font: 900 56px/68px var(--base-font);
+        margin: 0 0;
+    }
+
+    .block-collaborations-subtitle {
+        font: 400 20px/30px var(--base-font);
+        margin: 0 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        border-radius: 12px;
+        text-align: left;
+        margin: 0 0;
+        gap: 30px;
+
+        .block-collaborations-title {
+            font: 900 30px/40px var(--base-font);
+        }
+
+        .block-collaborations-subtitle {
+            font: 400 14px/21px var(--base-font);
+        }
+    }
+}

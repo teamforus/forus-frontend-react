@@ -1,0 +1,210 @@
+.block.block-info {
+    text-align: center;
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .block-info-icon {
+        margin-bottom: 50px;
+        width: 72px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .block-info-title {
+        font: 700 82px/96px var(--base-font);
+        margin: 0 0 5px 0;
+
+        &.block-info-title-sm {
+            font: 700 46px/68px var(--base-font);
+        }
+
+        &.block-info-title-md {
+            font: 700 56px/68px var(--base-font);
+        }
+    }
+
+    .block-info-label {
+        color: #315EFD;
+        font: 300 28px/46px var(--base-font);
+        margin-bottom: 30px;
+    }
+
+    .block-info-description {
+        font: 300 22px/36px var(--base-font);
+        margin: 0 0 30px;
+
+        a {
+            font: 300 22px/36px var(--base-font);
+            text-decoration: underline;
+        }
+
+        &.block-info-description-sm {
+            font: 300 18px/28px var(--base-font);
+
+            a {
+                font: 300 18px/28px var(--base-font);
+            }
+        }
+
+        &.block-info-description-md {
+            font: 400 26px/30px var(--base-font);
+
+            a {
+                font: 400 26px/30px var(--base-font);
+            }
+        }
+    }
+
+    .block-info-description-sm {
+        font: 300 16px/28px var(--base-font);
+        margin: 0 0 30px;
+
+        &:last-child {
+            margin: 0 0 0;
+        }
+    }
+
+    .block-info-subtitle {
+        font: 800 48px/64px var(--base-font);
+        margin: 0 0;
+    }
+
+    .block-info-details-block {
+        width: 100%;
+        display: flex;
+        gap: 100px;
+        text-align: left;
+
+        .block-info-details-block-main {
+            font: 600 40px/52px var(--base-font);
+            width: 50%;
+        }
+
+        .block-info-details-block-description {
+            font: 400 18px/28px var(--base-font);
+            width: 50%;
+        }
+    }
+
+    .block-info-actions {
+        width: fit-content;
+
+        &.block-info-actions-lg {
+            min-width: 200px;
+        }
+    }
+
+    .block-info-banner {
+        width: 100%;
+        margin-bottom: 60px;
+        border-radius: 32px;
+        box-shadow: 0 20px 55px 0 rgba(115, 120, 145, 0.06);
+
+        img {
+            width: 100%;
+            border-radius: 32px;
+        }
+    }
+
+    &.block-info-overview {
+        margin-bottom: 60px;
+
+        .block-info-title {
+            text-align: left;
+        }
+
+        .block-info-description {
+            font: 400 18px/28px var(--base-font);
+            margin: 40px 0 45px;
+        }
+
+        .block-info-separator {
+            border: 2px dashed var(--border-color);
+            position: relative;
+
+            .line {
+                position: absolute;
+                height: 4px;
+                width: 50px;
+                background: #315efd;
+                left: 0;
+                top: -2px;
+                border-radius: var(--border-radius);
+            }
+        }
+    }
+
+    &.block-info-contact {
+        gap: 40px;
+
+        .block-info-title {
+            margin: 0;
+        }
+
+        .block-info-description {
+            margin-bottom: 5px;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        margin: 0 0 30px;
+        gap: 10px;
+
+        .block-info-title {
+            font: 700 20px/30px var(--base-font);
+            margin: 0 0 20px 0;
+
+            &.block-info-title-sm {
+                font: 700 20px/30px var(--base-font);
+            }
+
+            &.block-info-title {
+                font: 700 30px/40px var(--base-font);
+            }
+        }
+
+        .block-info-subtitle {
+            font: 800 30px/40px var(--base-font);
+        }
+
+        .block-info-description {
+            font: 300 16px/24px var(--base-font);
+            margin-bottom: 30px;
+
+            &.block-info-description-sm {
+                font: 300 15px/24px var(--base-font);
+            }
+        }
+
+        .block-info-details-block {
+            flex-direction: column;
+            gap: 20px;
+
+            .block-info-details-block-main,
+            .block-info-details-block-description {
+                width: 100%;
+            }
+
+            .block-info-details-block-main {
+                font: 700 20px/30px var(--base-font);
+            }
+
+            .block-info-details-block-description {
+                font: 400 14px/21px var(--base-font);
+                color: #333;
+            }
+        }
+
+        .block-info-actions {
+            width: 100%;
+        }
+
+        .block-info-banner {
+            margin-bottom: 30px;
+        }
+    }
+}

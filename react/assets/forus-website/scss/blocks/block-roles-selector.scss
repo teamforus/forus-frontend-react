@@ -1,0 +1,59 @@
+.block.block-roles-selector {
+    display: flex;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    gap: 10px;
+    margin: 0 0 60px;
+    box-shadow: 0 20px 55px 0 rgba(115, 120, 145, 0.06);
+
+    .block-roles-selector-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+        padding: 25px 0;
+        gap: 10px;
+        font: 500 14px/21px var(--base-font);
+        cursor: pointer;
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .separator-bottom {
+            position: absolute;
+            bottom: 0;
+            border-bottom: 2px solid #009ef4;
+            width: calc(100% - 14px);
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            transform: translate(25%, 0%);
+            width: 1px;
+            height: 50%;
+            opacity: 0.5;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 15%, #e1e2e8 50%, rgba(255, 255, 255, 0) 85%);
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        overflow: scroll;
+        margin: 0 0 60px;
+        align-items: flex-start;
+
+        .block-roles-selector-item {
+            font: 700 12px/16px var(--base-font);
+            min-width: 90px;
+            overflow: hidden;
+            text-align: center;
+        }
+    }
+}
