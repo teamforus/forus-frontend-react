@@ -8,15 +8,15 @@ services:
     restart: unless-stopped
     working_dir: /ng-app/
     ports:
-      - "5000:5000"
+      - "5001:5000"
     volumes:
       - ./:/ng-app
     networks:
-      - forus-frontend
+      - forus-network
 
-  apache2:
+  apache:
     image: httpd:2.4
-    container_name: forus-frontend-apache2
+    container_name: forus-frontend-apache
     restart: unless-stopped
     environment:
       APACHE_DOCUMENT_ROOT: /usr/local/apache2/htdocs
@@ -24,11 +24,12 @@ services:
       - "3000:3000"
     volumes:
       - ./dist:/usr/local/apache2/htdocs
-      - ./docker/docker-compose/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./docker/docker-compose/apache2/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - ./docker/docker-compose/apache_conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./docker/docker-compose/apache_conf/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
     networks:
-      - forus-frontend
+      - forus-network
 
 networks:
-  forus-frontend:
+  forus-network:
+    name: forus-network
     driver: bridge
