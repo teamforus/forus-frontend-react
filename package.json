@@ -29,7 +29,7 @@
     "@types/papaparse": "^5.3.1",
     "@types/pdfjs-dist": "^2.10.378",
     "@types/qrcode": "^1.4.1",
-    "@types/react": "^18.1.0",
+    "@types/react": "^18.3.10",
     "@types/react-datepicker": "^4.11.2",
     "@types/react-dom": "^18.0.6",
     "@types/turndown": "^5.0.1",
