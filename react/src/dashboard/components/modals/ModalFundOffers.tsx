@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import FundProvider from '../../props/models/FundProvider';
 import Organization from '../../props/models/Organization';
@@ -44,19 +44,24 @@ export default function ModalFundOffers({
     const [paginatorKey] = useState('modal_fund_offers');
     const [enabledProducts, setEnabledProducts] = useState<number[]>([]);
 
+    const isSubsidyFund = useMemo(() => providerFund.fund.type === 'subsidies', [providerFund.fund.type]);
+
     const filter = useFilter({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
     const mapOffersAllowedProperty = useCallback(
-        (offers) => {
+        (offers: PaginationData<Product>) => {
             offers.data.forEach((offer: LocalProduct) => {
                 offer.allowed = enabledProducts.indexOf(offer.id) !== -1;
                 const fund = offer.funds.find((fund) => fund.id === providerFund.fund_id);
 
                 if (fund) {
-                    offer.subsidy_amount = parseFloat(offer.price) - parseFloat(fund.price);
-                    offer.subsidy_user_amount = parseFloat(fund.price);
+                    const isSubsidy = fund.type === 'subsidies';
+                    offer.subsidy_amount = isSubsidy
+                        ? parseFloat(offer.price) - parseFloat(fund.price)
+                        : parseFloat(offer.price);
+                    offer.subsidy_user_amount = isSubsidy ? parseFloat(fund.price) : 0;
                     offer.subsidy_user_limit = fund.limit_per_identity;
                     offer.subsidy_limit_total = fund.limit_total;
                     offer.subsidy_limit_total_unlimited = fund.limit_total_unlimited;
@@ -103,8 +108,18 @@ export default function ModalFundOffers({
                                             <th>{translate('modals.modal_funds_offers.labels.name')}</th>
                                             <th>{translate('modals.modal_funds_offers.labels.stock')}</th>
                                             <th>{translate('modals.modal_funds_offers.labels.price')}</th>
-                                            <th>{translate('modals.modal_funds_offers.labels.subsidy_amount')}</th>
-                                            <th>{translate('modals.modal_funds_offers.labels.subsidy_user_amount')}</th>
+                                            {isSubsidyFund && (
+                                                <Fragment>
+                                                    <th>
+                                                        {translate('modals.modal_funds_offers.labels.subsidy_amount')}
+                                                    </th>
+                                                    <th>
+                                                        {translate(
+                                                            'modals.modal_funds_offers.labels.subsidy_user_amount',
+                                                        )}
+                                                    </th>
+                                                </Fragment>
+                                            )}
                                             <th>{translate('modals.modal_funds_offers.labels.subsidy_user_limit')}</th>
                                             <th>{translate('modals.modal_funds_offers.labels.subsidy_limit_total')}</th>
                                             <th className="text-right">
@@ -131,10 +146,18 @@ export default function ModalFundOffers({
                                                 <td>
                                                     <div className="offer-price">{offer.price_locale}</div>
                                                 </td>
-                                                <td>{offer.allowed ? currencyFormat(offer.subsidy_amount) : '-'}</td>
-                                                <td>
-                                                    {offer.allowed ? currencyFormat(offer.subsidy_user_amount) : '-'}
-                                                </td>
+                                                {isSubsidyFund && (
+                                                    <Fragment>
+                                                        <td>
+                                                            {offer.allowed ? currencyFormat(offer.subsidy_amount) : '-'}
+                                                        </td>
+                                                        <td>
+                                                            {offer.allowed
+                                                                ? currencyFormat(offer.subsidy_user_amount)
+                                                                : '-'}
+                                                        </td>
+                                                    </Fragment>
+                                                )}
                                                 <td>
                                                     {offer.allowed && offer.subsidy_user_limit
                                                         ? offer.subsidy_user_limit
