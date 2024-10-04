@@ -287,8 +287,8 @@ export default function ModalVouchersUpload({
                 openModal((modal) => (
                     <ModalDuplicatesPicker
                         modal={modal}
-                        hero_title={`Low amount values for "${fund.name}".`}
-                        hero_subtitle={[`There are ${items.length} with low amounts.`, 'Do you want to proceed?']}
+                        hero_title={`Laag bedrag voor "${fund.name}".`}
+                        hero_subtitle={[`Er zijn ${items.length} tegoeden met een laag bedrag.`, 'Wilt u doorgaan?']}
                         button_none={'Alle overslaan'}
                         button_all={'Alle aanmaken'}
                         enableToggles={true}
