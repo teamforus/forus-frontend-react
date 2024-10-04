@@ -165,8 +165,10 @@ export default function ModalPayoutsUpload({
                     const keyData = key.split('.');
                     const keyDataId = keyData[1];
                     const index = parseInt(keyDataId, 10) + 1;
+                    const errorKey = key.split('.')[key.split('.').length - 1];
+                    const errorKeyValue = payouts[keyDataId][errorKey];
 
-                    return [index, errors[key], payouts[keyDataId]];
+                    return [index, errors[key], payouts[keyDataId], errorKeyValue, errorKey];
                 })
                 .sort((a, b) => a[0] - b[0]);
 
@@ -194,7 +196,7 @@ export default function ModalPayoutsUpload({
                     label_off={'Overslaan'}
                     items={items.map((item) => ({
                         _uid: uniqueId('rand_'),
-                        label: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
+                        label: `Rij: ${item[0]}: ${item[3] || item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
                     }))}
                     onConfirm={() => window.setTimeout(() => setHideModal(false), 300)}
                     onCancel={() => window.setTimeout(() => setHideModal(false), 300)}
