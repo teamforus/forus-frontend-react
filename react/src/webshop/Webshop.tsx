@@ -98,7 +98,19 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
     return (
         <Fragment>
             <LoadScript googleMapsApiKey={envData.config.google_maps_api_key} language={'nl'}>
-                <PushNotificationsProvider>
+                <PushNotificationsProvider
+                    groups={{
+                        webshop: {
+                            defaultDismissTimeout: 15,
+                            showConfig: true,
+                        },
+                        bookmarks: {
+                            maxCount: 1,
+                            className: 'block-push-notifications-bookmarks',
+                            showConfig: true,
+                            defaultDismissTimeout: null,
+                        },
+                    }}>
                     <RouterSelector envData={envData as unknown as EnvDataProp}>
                         <LoadingBarProvider>
                             <PrintableProvider>

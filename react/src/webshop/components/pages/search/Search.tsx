@@ -3,7 +3,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { mainContext } from '../../../contexts/MainContext';
-import { SearchResultItem, useSearchService } from '../../../services/SearchService';
+import { SearchItem, useSearchService } from '../../../services/SearchService';
 import { useFundService } from '../../../services/FundService';
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
 import Fund from '../../../props/models/Fund';
@@ -20,7 +20,8 @@ import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
-import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import { clickOnKeyEnter, clickOnKeyEnterOrSpace } from '../../../../dashboard/helpers/wcag';
+import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 
 export default function Search() {
     const authIdentity = useAuthIdentity();
@@ -37,7 +38,7 @@ export default function Search() {
     const { searchFilter } = useContext(mainContext);
 
     const [displayType, setDisplayType] = useState<'list' | 'grid'>('list');
-    const [searchItems, setSearchItems] = useState(null);
+    const [searchItems, setSearchItems] = useState<PaginationData<SearchItem & { searchParams?: object }>>(null);
 
     const globalQuery = useMemo(() => searchFilter?.values?.q, [searchFilter?.values?.q]);
     const [globalInitialized, setGlobalInitialized] = useState(false);
@@ -107,10 +108,10 @@ export default function Search() {
         },
     );
 
-    const transformItems = useCallback(function (items, stateParams) {
+    const transformItems = useCallback(function (items: PaginationData<SearchItem>, stateParams: object) {
         return {
             ...items,
-            ...{ data: items.data.map((item: SearchResultItem) => ({ ...item, ...{ searchParams: stateParams } })) },
+            ...{ data: items.data.map((item: SearchItem) => ({ ...item, ...{ searchParams: stateParams } })) },
         };
     }, []);
 
@@ -253,6 +254,7 @@ export default function Search() {
                             <div key={itemType.key} className="form-group">
                                 <div className="checkbox" role="checkbox" aria-checked={filterValues?.[itemType.key]}>
                                     <input
+                                        tabIndex={-1}
                                         aria-hidden="true"
                                         type="checkbox"
                                         id={`type_${itemType.key}`}
@@ -260,7 +262,7 @@ export default function Search() {
                                         onChange={() => filterUpdate({ [itemType.key]: !filterValues?.[itemType.key] })}
                                     />
                                     <label className="checkbox-label" htmlFor={`type_${itemType.key}`}>
-                                        <div className="checkbox-box">
+                                        <div className="checkbox-box" tabIndex={0} onKeyDown={clickOnKeyEnterOrSpace}>
                                             <em className="mdi mdi-check" />
                                         </div>
                                         {itemType.label}
