@@ -21,7 +21,7 @@ export default function useSelectControlKeyEventHandlers(
             const focusable = getFocusable();
             const index = [...focusable].indexOf(document.activeElement as Element & HTMLInputElement);
 
-            if (e.key == 'Enter' || (!showOptions && e.key === 'ArrowDown')) {
+            if (['Enter', ' '].includes(e.key) || (!showOptions && e.key === 'ArrowDown')) {
                 e.preventDefault();
                 window.setTimeout(() => selectorRef?.current?.focus(), 0);
                 return placeholderRef?.current?.click();

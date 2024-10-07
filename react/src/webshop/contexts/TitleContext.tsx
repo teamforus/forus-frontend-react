@@ -28,7 +28,9 @@ const TitleProvider = ({ children }: { children: React.ReactElement }) => {
     }, [route.pathname, route?.state?.name, translate]);
 
     useEffect(() => {
-        document.title = title;
+        if (title) {
+            document.title = title;
+        }
     }, [title]);
 
     return <Provider value={{ title, setTitle }}>{children}</Provider>;

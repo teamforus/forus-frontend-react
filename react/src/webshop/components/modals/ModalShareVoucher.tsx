@@ -8,7 +8,7 @@ import useOpenModal from '../../../dashboard/hooks/useOpenModal';
 import { useVoucherService } from '../../services/VoucherService';
 import ModalNotification from './ModalNotification';
 import Voucher from '../../../dashboard/props/models/Voucher';
-import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import { clickOnKeyEnter, clickOnKeyEnterOrSpace } from '../../../dashboard/helpers/wcag';
 
 export default function ModalShareVoucher({ modal, voucher }: { modal: ModalState; voucher: Voucher }) {
     const translate = useTranslate();
@@ -95,13 +95,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
                                         className="checkbox"
                                         htmlFor="send_copy"
                                         role="checkbox"
-                                        tabIndex={0}
-                                        aria-checked={shareVoucherForm.values.notify_by_email}
-                                        onKeyDown={(e) => {
-                                            if (e?.key == 'Enter') {
-                                                e.currentTarget.click();
-                                            }
-                                        }}>
+                                        aria-checked={shareVoucherForm.values.notify_by_email}>
                                         <input
                                             id="send_copy"
                                             type="checkbox"
@@ -113,7 +107,10 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
                                             aria-hidden="true"
                                         />
                                         <div className="checkbox-label">
-                                            <div className="checkbox-box">
+                                            <div
+                                                className="checkbox-box"
+                                                tabIndex={0}
+                                                onKeyDown={clickOnKeyEnterOrSpace}>
                                                 <em className="mdi mdi-check" />
                                             </div>
                                             {translate('voucher.share_voucher.labels.send_copy')}

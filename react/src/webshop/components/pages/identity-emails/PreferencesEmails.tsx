@@ -275,14 +275,15 @@ export default function PreferencesEmails() {
                             {!showForm && form.state !== 'success' && (
                                 <div className="card-section">
                                     <h2 className="card-heading card-heading-lg">Voeg een e-mailadres toe</h2>
-                                    <div
+                                    <button
+                                        type="button"
                                         className="button button-primary"
                                         onClick={showEmailForm}
                                         role="button"
                                         data-dusk="btnIdentityNewEmail">
                                         <em className="mdi mdi-plus-circle icon-start" />
                                         E-mail toevoegen
-                                    </div>
+                                    </button>
                                 </div>
                             )}
 

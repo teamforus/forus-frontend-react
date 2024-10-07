@@ -84,4 +84,18 @@ export default {
             },
         },
     },
+    push_notifications_preferences: {
+        title: 'Instellingen voor weergavetijd van meldingen',
+    },
+    push_notifications_dismiss_time: {
+        webshop: {
+            title: 'Algemene meldingen automatisch sluiten',
+            description: 'Verberg systeemmeldingen automatisch nadat een actie is uitgevoerd.',
+        },
+        bookmarks: {
+            title: 'Meldingen over favoriete producten automatisch sluiten',
+            description:
+                'Verberg de systeemmeldingen automatisch nadat favoriete producten worden toegevoegd of verwijderd.',
+        },
+    },
 };

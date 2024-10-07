@@ -809,6 +809,9 @@ export default function VouchersShow() {
                                 </div>
                                 <div className="block-card-actions">
                                     <div
+                                        role="button"
+                                        tabIndex={0}
+                                        onKeyDown={clickOnKeyEnter}
                                         className="button button-primary"
                                         onClick={() => linkPhysicalCard(voucher, 'card_code')}>
                                         {translate('voucher.physical_card.buttons.reactivate')}

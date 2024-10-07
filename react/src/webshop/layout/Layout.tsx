@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { useStateRoutes } from '../../dashboard/modules/state_router/Router';
 import Modals from '../../dashboard/modules/modals/components/Modals';
 import PushNotifications from '../../dashboard/modules/push_notifications/components/PushNotifications';
@@ -15,7 +15,6 @@ import ErrorBoundaryHandler from '../../dashboard/components/elements/error-boun
 
 export const Layout = ({ children }: { children: React.ReactElement }) => {
     const { route } = useStateRoutes();
-
     const { modals } = useContext(modalsContext);
 
     const envData = useEnvData();
@@ -66,9 +65,7 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
                 <LayoutFooter />
 
                 <Modals />
-
-                <PushNotifications group={'default'} />
-                <PushNotifications group={'bookmarks'} className={'block-push-notifications-bookmarks'} maxCount={1} />
+                <PushNotifications />
             </div>
 
             <Printable />

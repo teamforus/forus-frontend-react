@@ -910,6 +910,7 @@
         & > input[type='radio'],
         & > input[type='checkbox'] {
             opacity: 0;
+            display: none;
         }
 
         .form-toggle-inner {
@@ -999,10 +1000,10 @@
                 border-color: var(--color-primary);
 
                 .toggle-input-dot {
-                    background: var(--color-primary);
-                    border-color: var(--color-primary);
+                    background: #fff;
+                    border-color: #fff;
                     left: 100%;
-                    transform: translate(-100%, -50%);
+                    transform: translate(-80%, -50%);
                     margin-right: -1px;
                 }
             }

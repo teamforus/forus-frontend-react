@@ -143,8 +143,6 @@ export default function Providers() {
             setErrors(null);
             setProgress(0);
 
-            console.log('fetchProviders', query);
-
             providersService
                 .search(query)
                 .then((res) => setProviders(res.data))
@@ -227,7 +225,6 @@ export default function Providers() {
     }, [filterUpdate, filterValues.product_category_id, productCategoryService]);
 
     useEffect(() => {
-        console.log('show_map', filterValues.show_map);
         if (filterValues.show_map) {
             fetchProvidersMap(buildQuery(filterActiveValues));
         } else {

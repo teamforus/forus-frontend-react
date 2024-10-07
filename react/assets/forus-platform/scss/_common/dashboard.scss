@@ -95,6 +95,7 @@
 @import 'blocks/block-email-log-preview.scss';
 @import 'blocks/block-approve-fund-request.scss';
 @import 'blocks/block-provider-products-required.scss';
+@import 'blocks/block-push-notifications.scss';
 
 // Select controls
 .select-control {
@@ -5631,98 +5632,6 @@ body {
 
         &:first-child {
             margin-left: 0;
-        }
-    }
-
-    &.block-push-notifications {
-        position: fixed;
-        right: 15px;
-        top: 100px;
-        width: 290px;
-        z-index: 25;
-
-        .notification {
-            box-shadow: 5px 10px 30px rgba(#000, 0.2);
-            border-radius: 6px;
-            margin: 0 0 -59px;
-            padding: 20px 30px 20px 45px;
-            position: relative;
-            font: 500 13px/18px var(--base-font);
-            color: #262626;
-            width: 100%;
-            cursor: default;
-            background: #faf9f5;
-            transform: translate(120%, 0);
-            opacity: 0;
-            transition: 0.5s;
-            display: flex;
-            flex-direction: row;
-            filter: blur(15px);
-
-            .notification-close {
-                position: absolute;
-                right: 5px;
-                top: 5px;
-                font-size: 24px;
-                color: #bcc1d3;
-                transition: 0.4s;
-                z-index: 1;
-                width: 25px;
-                height: 25px;
-                display: block;
-                text-align: center;
-                cursor: pointer;
-
-                &:before {
-                    width: 25px;
-                    line-height: 25px;
-                }
-
-                &:hover {
-                    color: var(--base-color);
-                }
-            }
-
-            .notification-icon {
-                font-size: 24px;
-                float: left;
-                width: 25px;
-                margin-left: -25px;
-                margin-top: 0;
-                margin-right: 5px;
-                color: #33475b;
-            }
-
-            .notification-details {
-                font: inherit;
-                flex-grow: 1;
-
-                strong {
-                    display: block;
-                    font-size: 14px;
-                    margin-bottom: 5px;
-                    font-weight: 700;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-
-            &.notification-danger {
-                background: #fff5f5;
-            }
-
-            &.notification-success {
-                background: #ebffed;
-            }
-
-            &.shown {
-                transform: translate(0, 0);
-                opacity: 1;
-                filter: blur(0px);
-                margin: 0 0 20px;
-            }
         }
     }
 

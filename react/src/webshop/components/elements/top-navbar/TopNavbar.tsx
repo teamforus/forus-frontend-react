@@ -179,6 +179,8 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                     className={`button subnav-search-button hide-sm ${showSearchBox ? 'active' : ''}`}
                                     onClick={(e) => toggleSearchBox(e)}
                                     role="button"
+                                    tabIndex={0}
+                                    onKeyDown={clickOnKeyEnter}
                                     aria-label="Zoeken">
                                     <em className="mdi mdi-magnify" />
                                 </div>
