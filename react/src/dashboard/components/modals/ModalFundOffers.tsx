@@ -13,6 +13,7 @@ import StateNavLink from '../../modules/state_router/StateNavLink';
 import usePaginatorService from '../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
 
 type LocalProduct = Product & {
     allowed: boolean;
@@ -44,7 +45,9 @@ export default function ModalFundOffers({
     const [paginatorKey] = useState('modal_fund_offers');
     const [enabledProducts, setEnabledProducts] = useState<number[]>([]);
 
-    const isSubsidyFund = useMemo(() => providerFund.fund.type === 'subsidies', [providerFund.fund.type]);
+    const isSubsidyFund = useMemo(() => {
+        return providerFund.fund.type === 'subsidies';
+    }, [providerFund.fund.type]);
 
     const filter = useFilter({
         per_page: paginatorService.getPerPage(paginatorKey),
@@ -58,6 +61,7 @@ export default function ModalFundOffers({
 
                 if (fund) {
                     const isSubsidy = fund.type === 'subsidies';
+
                     offer.subsidy_amount = isSubsidy
                         ? parseFloat(offer.price) - parseFloat(fund.price)
                         : parseFloat(offer.price);
@@ -133,10 +137,7 @@ export default function ModalFundOffers({
                                                 <td title={offer.name}>
                                                     <StateNavLink
                                                         name={'products-show'}
-                                                        params={{
-                                                            organizationId: organization.id,
-                                                            id: offer.id,
-                                                        }}
+                                                        params={{ organizationId: organization.id, id: offer.id }}
                                                         target={'_blank'}
                                                         className={'text-primary text-medium'}>
                                                         {strLimit(offer.name, 45)}
@@ -149,26 +150,38 @@ export default function ModalFundOffers({
                                                 {isSubsidyFund && (
                                                     <Fragment>
                                                         <td>
-                                                            {offer.allowed ? currencyFormat(offer.subsidy_amount) : '-'}
+                                                            {offer.allowed ? (
+                                                                currencyFormat(offer.subsidy_amount)
+                                                            ) : (
+                                                                <TableEmptyValue />
+                                                            )}
                                                         </td>
                                                         <td>
-                                                            {offer.allowed
-                                                                ? currencyFormat(offer.subsidy_user_amount)
-                                                                : '-'}
+                                                            {offer.allowed ? (
+                                                                currencyFormat(offer.subsidy_user_amount)
+                                                            ) : (
+                                                                <TableEmptyValue />
+                                                            )}
                                                         </td>
                                                     </Fragment>
                                                 )}
                                                 <td>
-                                                    {offer.allowed && offer.subsidy_user_limit
-                                                        ? offer.subsidy_user_limit
-                                                        : '-'}
+                                                    {offer.allowed && offer.subsidy_user_limit ? (
+                                                        offer.subsidy_user_limit
+                                                    ) : (
+                                                        <TableEmptyValue />
+                                                    )}
                                                 </td>
                                                 <td>
-                                                    {offer.allowed
-                                                        ? offer.subsidy_limit_total_unlimited
-                                                            ? 'Onbeperkt'
-                                                            : offer.subsidy_limit_total
-                                                        : '-'}
+                                                    {offer.allowed ? (
+                                                        offer.subsidy_limit_total_unlimited ? (
+                                                            'Onbeperkt'
+                                                        ) : (
+                                                            offer.subsidy_limit_total
+                                                        )
+                                                    ) : (
+                                                        <TableEmptyValue />
+                                                    )}
                                                 </td>
 
                                                 <td className="text-right">
