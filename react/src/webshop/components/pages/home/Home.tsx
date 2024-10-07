@@ -158,7 +158,7 @@ export default function Home() {
                                 backgroundImage:
                                     appConfigs.settings.overlay_type == 'color'
                                         ? 'none'
-                                        : `url(${appConfigs.settings.overlay_type})`,
+                                        : `url("assets/img/banner-patterns/${appConfigs.settings.overlay_type}.svg")`,
                             }}
                         />
                     )}
