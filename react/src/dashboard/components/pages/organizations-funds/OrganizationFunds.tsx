@@ -143,7 +143,7 @@ export default function OrganizationFunds() {
     );
 
     const restoreFund = useCallback(
-        (e, fund: Fund) => {
+        (e: React.MouseEvent, fund: Fund) => {
             e?.stopPropagation();
             e?.preventDefault();
 

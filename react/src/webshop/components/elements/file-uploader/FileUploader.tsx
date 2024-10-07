@@ -320,7 +320,7 @@ export default function FileUploader({
                             } ${template == 'default' ? 'button-primary' : ''}`}
                             data-dusk="fileUploaderBtn"
                             type="button"
-                            role="button"
+                            tabIndex={0}
                             disabled={multipleSize && multipleSize <= fileItems.length}
                             onClick={() => inputRef.current?.click()}>
                             <em className={`mdi ${template == 'compact' ? 'mdi-paperclip' : 'mdi-upload'}`} />

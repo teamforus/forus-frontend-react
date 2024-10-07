@@ -198,19 +198,21 @@ export default function Security2FA() {
                                     <div className="auth-2fa-item-actions">
                                         <div className="button-group">
                                             {activeProvidersByKey[provider_type.type] ? (
-                                                <div
+                                                <button
+                                                    type="button"
                                                     className="button button-light button-sm"
                                                     onClick={() => deactivateAuth2FA(provider_type.type)}>
                                                     <em className="mdi mdi-lock-open-outline icon-start" />
                                                     Uitschakelen
-                                                </div>
+                                                </button>
                                             ) : (
-                                                <div
+                                                <button
+                                                    type="button"
                                                     className="button button-primary button-sm"
                                                     onClick={() => setupAuth2FA(provider_type.type)}>
                                                     <em className="mdi mdi-shield-check-outline icon-start" />
                                                     Inschakelen
-                                                </div>
+                                                </button>
                                             )}
                                         </div>
                                     </div>

@@ -37,6 +37,7 @@ export default function SelectControlOptionsCountryCodes<T>({
     return (
         <div
             className={'select-control select-control-country-codes ' + (className ? className : '')}
+            tabIndex={0}
             role="button"
             aria-haspopup="listbox"
             aria-expanded={showOptions}

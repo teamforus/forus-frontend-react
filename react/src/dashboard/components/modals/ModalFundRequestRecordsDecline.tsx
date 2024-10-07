@@ -29,7 +29,7 @@ export default function ModalFundRequestRecordsDecline({
         setProgress(0);
 
         return fundRequestService
-            .decline(organization.id, fundRequest.id, form.values.note)
+            .decline(organization.id, fundRequest.id, form.values)
             .then(() => {
                 modal.close();
                 onSubmitted();
