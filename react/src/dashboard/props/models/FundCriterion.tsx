@@ -6,6 +6,7 @@ export default interface FundCriterion {
     record_type_key?: string;
     operator: '<' | '<=' | '>' | '>=' | '!=' | '=' | '*';
     show_attachment: boolean;
+    label?: string;
     order?: number;
     title?: string;
     description?: string;
