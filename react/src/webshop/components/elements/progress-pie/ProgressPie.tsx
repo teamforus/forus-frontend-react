@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { CSSObject } from 'styled-components';
+import React, { DOMAttributes, HTMLAttributes, useCallback, useEffect, useState } from 'react';
 
 export default function ProgressPie({
     color,
     title,
-    style = {},
+    attr,
+    attrImg,
     size = 40,
     progress = 0,
     strokeWidth = 4,
-    styleImage,
     gradientMap,
     strokeColor,
     defaultColor = '#1c407b',
@@ -18,8 +17,8 @@ export default function ProgressPie({
     children,
 }: {
     title?: string;
-    style?: CSSObject;
-    styleImage?: CSSObject;
+    attr?: DOMAttributes<HTMLDivElement> | HTMLAttributes<HTMLDivElement>;
+    attrImg?: DOMAttributes<HTMLDivElement> | HTMLAttributes<HTMLDivElement>;
     size?: number;
     color?: string;
     progress?: number;
@@ -38,15 +37,17 @@ export default function ProgressPie({
     const [context] = useState(canvas.getContext('2d'));
 
     const getGradientColor = useCallback(
-        (gradientMap, progress: number): string => {
+        (gradientMap: Array<Array<number | string>> | ((progress: number) => string), progress: number): string => {
             if (typeof gradientMap == 'function') {
                 return gradientMap(progress);
             }
 
             if (Array.isArray(gradientMap)) {
-                const gradientValue = gradientMap.find((item) => progress >= item[0] && progress <= item[1]);
+                const gradientValue = gradientMap.find(
+                    (item) => progress >= parseInt(item[0].toString()) && progress <= parseInt(item[1].toString()),
+                );
 
-                return gradientValue ? gradientValue[2] : defaultColor;
+                return gradientValue ? gradientValue[2].toString() : defaultColor;
             }
 
             return defaultColor;
@@ -116,8 +117,8 @@ export default function ProgressPie({
     }
 
     return (
-        <div style={style} title={title} className={`block block-progress-pie ${className}`}>
-            <img style={{ ...styleImage, zIndex: 1 }} src={image} alt={''} />
+        <div {...attr} title={title} className={`block block-progress-pie ${className}`}>
+            <img {...attrImg} src={image} alt={''} />
             {children}
         </div>
     );

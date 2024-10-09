@@ -390,7 +390,7 @@ export default function Modal2FASetup({
                                             value={auth2FA.secret_url}
                                             logo={assetUrl('/assets/img/me-logo.png')}
                                             className={'block-qr-code-fit'}
-                                            style={{ padding: '15px' }}
+                                            qrCodeAttrs={{ style: { padding: '15px' } }}
                                         />
                                     )}
                                 </div>
