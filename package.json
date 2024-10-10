@@ -107,7 +107,7 @@
     "react-i18next": "^15.0.1",
     "react-image-crop": "^11.0.6",
     "react-router-dom": "^6.3.0",
-    "summernote": "github:teamforus/summernote#main",
+    "summernote": "^0.9.1",
     "terser-webpack-plugin": "^5.3.9",
     "turndown": "^7.1.2",
     "use-query-params": "^2.2.1"
