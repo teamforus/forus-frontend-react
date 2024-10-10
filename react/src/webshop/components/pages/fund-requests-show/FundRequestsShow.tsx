@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import FundRequest from '../../../../dashboard/props/models/FundRequest';
@@ -8,6 +8,8 @@ import FundRequestRecordCard from './elements/FundRequestRecordCard';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useSetTitle from '../../../hooks/useSetTitle';
+import PayoutCard from '../payouts/elements/PayoutCard';
+import VoucherCard from '../vouchers/elements/VoucherCard';
 
 export default function FundRequestsShow() {
     const { id } = useParams();
@@ -18,6 +20,7 @@ export default function FundRequestsShow() {
 
     const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [showDeclinedNote, setShowDeclinedNote] = useState(true);
+    const [showCreditInfo, setShowCreditInfo] = useState(true);
 
     const fundRequestService = useFundRequestService();
 
@@ -118,6 +121,43 @@ export default function FundRequestsShow() {
                             </div>
                         </div>
                     </div>
+
+                    {(fundRequest.payouts?.length > 0 || fundRequest.vouchers?.length > 0) && (
+                        <div className={`card card-collapsable ${showCreditInfo ? 'open' : ''}`}>
+                            <div className="card-header" onClick={() => setShowCreditInfo(!showCreditInfo)}>
+                                <div className="card-header-wrapper">
+                                    <em className="mdi mdi-menu-down card-header-arrow" />
+                                    <h2 className="card-heading card-heading-lg">What you have received</h2>
+                                </div>
+                            </div>
+
+                            {showCreditInfo && (
+                                <Fragment>
+                                    <div className="card-section">
+                                        {fundRequest.payouts?.length > 0 && (
+                                            <div className="block block-payouts-list">
+                                                {fundRequest.payouts.map((payout) => (
+                                                    <PayoutCard key={payout.id} payoutTransaction={payout} />
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {fundRequest.vouchers?.length > 0 && (
+                                            <div className="block block-vouchers block-vouchers-with-border">
+                                                {fundRequest.vouchers.map((voucher) => (
+                                                    <VoucherCard
+                                                        key={voucher.id}
+                                                        voucher={voucher}
+                                                        onVoucherDestroyed={() => null}
+                                                    />
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </Fragment>
+                            )}
+                        </div>
+                    )}
 
                     <h2 className="profile-content-header">
                         <div className="profile-content-title profile-content-title-sm">Mijn gegevens</div>

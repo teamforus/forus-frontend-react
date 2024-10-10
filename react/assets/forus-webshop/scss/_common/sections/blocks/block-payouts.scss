@@ -1,0 +1,222 @@
+.block.block-payouts-list {
+    .payout-item {
+        display: grid;
+        position: relative;
+        background: #ffffff;
+        box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
+        margin: 0 0 15px;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+        transition: box-shadow 0.4s;
+        grid-template-columns: 135px 1fr;
+
+        .button {
+            font: 600 13px/20px var(--base-font);
+            width: fit-content;
+
+            &.button-text {
+                padding: 0;
+            }
+
+            &.payout-read-more {
+                margin-bottom: 10px;
+            }
+        }
+
+        .payout-photo {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            border-radius: var(--border-radius);
+            padding: 15px 0 15px 15px;
+
+            img {
+                display: block;
+                width: 100%;
+                border-radius: var(--border-radius);
+            }
+        }
+
+        .payout-content {
+            display: flex;
+            flex-direction: column;
+            padding: 15px 15px;
+            width: 100%;
+            flex: 1 0;
+            overflow: hidden;
+
+            .payout-card-details-wrapper {
+                display: block;
+            }
+        }
+
+        .payout-card-details-wrapper {
+            display: none;
+        }
+
+        .payout-details {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            word-wrap: break-word;
+
+            .payout-status-label {
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: flex;
+            }
+
+            .payout-date {
+                position: absolute;
+                bottom: 10px;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+
+                .payout-date-label {
+                    font: 400 11px/16px var(--base-font);
+                }
+
+                .payout-date-value {
+                    font: 600 14px/21px var(--base-font);
+                }
+            }
+
+            .payout-name {
+                font: 700 22px/32px var(--hf);
+                margin: 0 0 5px;
+                color: var(--tc);
+                padding-right: 100px;
+
+                a {
+                    font: inherit;
+                    color: var(--tc);
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .payout-organization-name {
+                font: 400 16px/28px var(--base-font);
+                margin-bottom: 5px;
+            }
+
+            .payout-price {
+                font: 700 18px/24px var(--base-font);
+                flex: 1 0 auto;
+                margin-bottom: 25px;
+            }
+        }
+
+        &:hover {
+            box-shadow: var(--box-shadow);
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .payout-item {
+            grid-template-columns: 70px 1fr;
+
+            .payout-photo {
+                padding: 10px 0 10px 10px;
+            }
+
+            .payout-content {
+                padding: 10px 15px 10px 10px;
+            }
+
+            .payout-details {
+                .payout-name,
+                .payout-status-label {
+                    margin: 0 0 5px;
+                    padding: 0 0 0;
+                }
+
+                .payout-status-label {
+                    position: initial;
+                    order: 1;
+                }
+
+                .payout-name {
+                    font: 700 14px/20px var(--hf);
+                    order: 2;
+                }
+
+                .payout-organization-name {
+                    order: 3;
+                }
+
+                .payout-price {
+                    order: 4;
+                    margin: 0 0 15px;
+                }
+
+                .payout-date {
+                    position: initial;
+                    align-items: flex-start;
+                    order: 5;
+                    margin: 0 0 10px;
+                }
+
+                .payout-read-more {
+                    order: 6;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .payout-item {
+            .payout-content {
+                .payout-details {
+                    .payout-name {
+                        font: 700 12px/20px var(--base-font);
+                    }
+                }
+
+                .payout-card-details-wrapper {
+                    display: none !important;
+                }
+            }
+
+            .payout-card-details-wrapper {
+                display: grid !important;
+                grid-column: span 3;
+
+                .payout-read-more-wrapper {
+                    display: flex;
+                    padding: 15px;
+                    justify-content: center;
+                    background: #FBFBFB;
+                    border-top: 1px solid var(--border-color);
+                    border-bottom-left-radius: var(--border-radius);
+                    border-bottom-right-radius: var(--border-radius);
+
+                    .payout-read-more {
+                        margin-bottom: 0;
+                        font: 700 12px/16px var(--base-font);
+                    }
+                }
+
+                .payout-details-extra {
+                    border-top: 1px solid var(--border-color);
+
+                    .block-key-value-list {
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -21,5 +21,6 @@ export default {
         email_settings: 'E-mail instellingen',
         security: 'Beveiliging',
         fund_requests: 'Aanvragen',
+        payouts: 'Uitbetalingen',
     },
 };

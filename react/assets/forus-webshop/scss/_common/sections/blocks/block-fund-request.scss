@@ -371,6 +371,29 @@
         }
     }
 
+    .block-payouts-list {
+        margin: 0 0 10px;
+
+        .payout-item {
+            box-shadow: none;
+            border: 1px solid var(--border-color);
+
+            &:hover {
+                box-shadow: none;
+            }
+        }
+    }
+
+    .block-vouchers {
+        .voucher-item {
+            &:not(.voucher-item-static):not(.voucher-item-select) {
+                &:hover {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 1000px) {
         .card {
             &.card-fund-request-conversation {

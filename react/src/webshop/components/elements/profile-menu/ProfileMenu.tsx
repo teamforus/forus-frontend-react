@@ -60,6 +60,15 @@ export default function ProfileMenu({ className }: { className?: string }) {
                 <em className="mdi mdi-arrow-right" aria-hidden="true" />
             </StateNavLink>
 
+            <StateNavLink
+                className="profile-menu-item"
+                name="payouts"
+                role="button"
+                aria-current={navigateState?.name == 'payouts' ? 'page' : null}>
+                {translate('profile_menu.buttons.payouts')}
+                <em className="mdi mdi-arrow-right" aria-hidden="true" />
+            </StateNavLink>
+
             {envData.config.flags.fundsMenu && (
                 <StateNavLink
                     className="profile-menu-item show-sm"

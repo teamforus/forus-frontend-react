@@ -46,6 +46,7 @@ import FundRequest from '../components/pages/funds-request/FundRequest';
 import FundActivate from '../components/pages/funds-activate/FundActivate';
 import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
 import ThrowError from '../components/pages_system/ThrowError';
+import Payouts from '../components/pages/payouts/Payouts';
 
 const router = new RouterBuilder();
 
@@ -106,6 +107,12 @@ router.state('fund-activate', <FundActivate />, {
 router.state('fund-requests', <FundRequests />, {
     path: `/fondsen-aanvraag`,
     altPath: `/fund-requests`,
+    protected: true,
+});
+
+router.state('payouts', <Payouts />, {
+    path: `/uitbetalingen`,
+    altPath: `/payouts`,
     protected: true,
 });
 
