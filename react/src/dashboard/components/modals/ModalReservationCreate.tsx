@@ -12,6 +12,7 @@ import SelectControlOptions from '../elements/select-control/templates/SelectCon
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import TranslateHtml from '../elements/translate-html/TranslateHtml';
 
 export default function ModalReservationCreate({
     modal,
@@ -184,7 +185,8 @@ export default function ModalReservationCreate({
                                     <div className="form-group form-group-inline form-group-inline-md">
                                         <label className="form-label">Aanbod</label>
                                         <div className="form-offset">
-                                            <FormGroupInfo info={translate('reservation_create.tooltips.product')}>
+                                            <FormGroupInfo
+                                                info={<TranslateHtml i18n={'reservation_create.tooltips.product'} />}>
                                                 <SelectControl
                                                     className="form-control"
                                                     propKey={'id'}

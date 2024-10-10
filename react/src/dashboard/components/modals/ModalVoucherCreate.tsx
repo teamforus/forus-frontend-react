@@ -22,6 +22,7 @@ import useProductService from '../../services/ProductService';
 import ModalNotification from './ModalNotification';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
+import TranslateHtml from '../elements/translate-html/TranslateHtml';
 
 export default function ModalVoucherCreate({
     funds,
@@ -343,9 +344,11 @@ export default function ModalVoucherCreate({
                                             </div>
                                             <div className="form-offset">
                                                 <FormGroupInfo
-                                                    info={translate(
-                                                        'modals.modal_voucher_create.tooltips.assign_type',
-                                                    )}>
+                                                    info={
+                                                        <TranslateHtml
+                                                            i18n={'modals.modal_voucher_create.tooltips.assign_type'}
+                                                        />
+                                                    }>
                                                     <SelectControl
                                                         className={'flex-grow'}
                                                         value={fund.id}
@@ -368,7 +371,11 @@ export default function ModalVoucherCreate({
                                             </div>
                                             <div className="form-offset">
                                                 <FormGroupInfo
-                                                    info={translate('modals.modal_voucher_create.tooltips.type')}>
+                                                    info={
+                                                        <TranslateHtml
+                                                            i18n={'modals.modal_voucher_create.tooltips.type'}
+                                                        />
+                                                    }>
                                                     <SelectControl
                                                         value={form.values.type}
                                                         propKey={'key'}
@@ -437,7 +444,11 @@ export default function ModalVoucherCreate({
                                             </div>
                                             <div className="form-offset">
                                                 <FormGroupInfo
-                                                    info={translate('modals.modal_voucher_create.tooltips.funds')}>
+                                                    info={
+                                                        <TranslateHtml
+                                                            i18n={'modals.modal_voucher_create.tooltips.funds'}
+                                                        />
+                                                    }>
                                                     <SelectControl
                                                         value={assignType}
                                                         propValue={'label'}

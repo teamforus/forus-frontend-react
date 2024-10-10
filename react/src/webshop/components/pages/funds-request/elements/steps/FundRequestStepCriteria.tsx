@@ -18,6 +18,8 @@ import { useFundRequestService } from '../../../../../services/FundRequestServic
 import { uniq } from 'lodash';
 import useSetProgress from '../../../../../../dashboard/hooks/useSetProgress';
 import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
+import classNames from 'classnames';
+import FormLabel from '../../../../elements/forms/FormLabel';
 
 export default function FundRequestStepCriteria({
     fund,
@@ -125,6 +127,20 @@ export default function FundRequestStepCriteria({
         [onNextStep, setProgress, setCriterion, validateCriteria],
     );
 
+    const isLabelRequired = useCallback(
+        (criteria: LocalCriterion) => {
+            return !criteria.optional && fund.criteria_label_requirement_show !== 'optional';
+        },
+        [fund.criteria_label_requirement_show],
+    );
+
+    const isLabelOptional = useCallback(
+        (criteria: LocalCriterion) => {
+            return criteria.optional && fund.criteria_label_requirement_show !== 'required';
+        },
+        [fund.criteria_label_requirement_show],
+    );
+
     return (
         <Fragment>
             {progress}
@@ -170,114 +186,125 @@ export default function FundRequestStepCriteria({
                                         <div className="sign_up-pane-text">{criterion.title_default}</div>
                                     )}
                                 </div>
-
-                                <label
-                                    className="form-label"
-                                    htmlFor={`criterion_${criterion.id}`}
-                                    style={{ margin: '0 0 -5px' }}>
-                                    {recordTypesByKey?.[criterion?.record_type?.key]?.name}
-                                </label>
                             </Fragment>
                         )}
 
-                        {criterion.control_type == 'select_control' && (
-                            <SelectControl
-                                id={`criterion_${criterion.id}`}
-                                propKey="value"
-                                value={criterion.input_value}
-                                options={recordTypesByKey?.[criterion?.record_type?.key]?.options}
-                                onChange={(input_value?: string) => {
-                                    setCriterion(criterion.id, { input_value: input_value });
-                                }}
-                                placeholder={`Maak een keuze`}
-                            />
-                        )}
+                        <div
+                            className={classNames(
+                                'form-group',
+                                criterion.control_type == 'ui_control_step' && 'form-group-fit',
+                            )}>
+                            <FormLabel
+                                htmlFor={`criterion_${criterion.id}`}
+                                info={{
+                                    start: uploaderTemplate === 'inline',
+                                    type: isLabelRequired(criterion)
+                                        ? 'required'
+                                        : isLabelOptional(criterion)
+                                          ? 'optional'
+                                          : null,
+                                }}>
+                                {uploaderTemplate !== 'inline' && recordTypesByKey?.[criterion?.record_type?.key]?.name}
+                            </FormLabel>
 
-                        {criterion.control_type == 'ui_control_checkbox' && (
-                            <UIControlCheckbox
-                                checked={!!criterion.is_checked}
-                                name={criterion.record_type.key}
-                                id={`criterion_${criterion.id}`}
-                                label={criterion.label}
-                                slim={true}
-                                onChangeValue={(checked) => {
-                                    setCriterion(criterion.id, {
-                                        is_checked: checked,
-                                        input_value: checked ? criterion.value : null,
-                                    });
-                                }}
-                            />
-                        )}
+                            {criterion.control_type == 'select_control' && (
+                                <SelectControl
+                                    id={`criterion_${criterion.id}`}
+                                    propKey="value"
+                                    value={criterion.input_value}
+                                    options={recordTypesByKey?.[criterion?.record_type?.key]?.options}
+                                    onChange={(input_value?: string) => {
+                                        setCriterion(criterion.id, { input_value: input_value });
+                                    }}
+                                    placeholder={`Maak een keuze`}
+                                />
+                            )}
 
-                        {criterion.control_type == 'ui_control_step' && (
-                            <UIControlStep
-                                id={`criterion_${criterion.id}`}
-                                value={parseInt(criterion.input_value)}
-                                onChange={(value) => {
-                                    setCriterion(criterion.id, { input_value: value.toFixed() });
-                                }}
-                                name={criterion.record_type.key}
-                                min={0}
-                                max={32}
-                            />
-                        )}
+                            {criterion.control_type == 'ui_control_checkbox' && (
+                                <UIControlCheckbox
+                                    checked={!!criterion.is_checked}
+                                    name={criterion.record_type.key}
+                                    id={`criterion_${criterion.id}`}
+                                    label={criterion.label}
+                                    slim={true}
+                                    onChangeValue={(checked) => {
+                                        setCriterion(criterion.id, {
+                                            is_checked: checked,
+                                            input_value: checked ? criterion.value : null,
+                                        });
+                                    }}
+                                />
+                            )}
 
-                        {criterion.control_type == 'ui_control_date' && (
-                            <UIControlDate
-                                value={
-                                    criterion?.input_value
-                                        ? dateParse(criterion?.input_value, 'dd-MM-yyyy')
-                                        : new Date()
-                                }
-                                format={'dd-MM-yyyy'}
-                                onChange={(date) => {
-                                    setCriterion(criterion.id, {
-                                        input_value: date ? dateFormat(date, 'dd-MM-yyyy') : '',
-                                    });
-                                }}
-                                id={`criterion_${criterion.id}`}
-                            />
-                        )}
+                            {criterion.control_type == 'ui_control_step' && (
+                                <UIControlStep
+                                    id={`criterion_${criterion.id}`}
+                                    value={parseInt(criterion.input_value)}
+                                    onChange={(value) => {
+                                        setCriterion(criterion.id, { input_value: value.toFixed() });
+                                    }}
+                                    name={criterion.record_type.key}
+                                    min={0}
+                                    max={32}
+                                />
+                            )}
 
-                        {criterion.control_type == 'ui_control_number' && (
-                            <UIControlNumber
-                                type={'number'}
-                                value={criterion.input_value ? parseFloat(criterion.input_value) : null}
-                                name={criterion.record_type.key}
-                                id={`criterion_${criterion.id}`}
-                                onChangeValue={(value) => {
-                                    setCriterion(criterion.id, { input_value: (value || '').toString() });
-                                }}
-                            />
-                        )}
+                            {criterion.control_type == 'ui_control_date' && (
+                                <UIControlDate
+                                    value={
+                                        criterion?.input_value
+                                            ? dateParse(criterion?.input_value, 'dd-MM-yyyy')
+                                            : new Date()
+                                    }
+                                    format={'dd-MM-yyyy'}
+                                    onChange={(date) => {
+                                        setCriterion(criterion.id, {
+                                            input_value: date ? dateFormat(date, 'dd-MM-yyyy') : '',
+                                        });
+                                    }}
+                                    id={`criterion_${criterion.id}`}
+                                />
+                            )}
 
-                        {criterion.control_type == 'ui_control_text' && (
-                            <UIControlText
-                                type={'text'}
-                                value={criterion.input_value}
-                                name={criterion.record_type.key}
-                                id={`criterion_${criterion.id}`}
-                                onChange={(e) => {
-                                    setCriterion(criterion.id, { input_value: e.target.value });
-                                }}
-                            />
-                        )}
+                            {criterion.control_type == 'ui_control_number' && (
+                                <UIControlNumber
+                                    type={'number'}
+                                    value={criterion.input_value ? parseFloat(criterion.input_value) : null}
+                                    name={criterion.record_type.key}
+                                    id={`criterion_${criterion.id}`}
+                                    onChangeValue={(value) => {
+                                        setCriterion(criterion.id, { input_value: (value || '').toString() });
+                                    }}
+                                />
+                            )}
 
-                        {criterion.control_type == 'ui_control_currency' && (
-                            <UIControlNumber
-                                type={'currency'}
-                                value={criterion.input_value ? parseFloat(criterion.input_value) : null}
-                                min={0}
-                                name={criterion.record_type.key}
-                                id={`criterion_${criterion.id}`}
-                                onChangeValue={(value) => {
-                                    setCriterion(criterion.id, { input_value: (value || '').toString() });
-                                }}
-                            />
-                        )}
+                            {criterion.control_type == 'ui_control_text' && (
+                                <UIControlText
+                                    type={'text'}
+                                    value={criterion.input_value}
+                                    name={criterion.record_type.key}
+                                    id={`criterion_${criterion.id}`}
+                                    onChange={(e) => {
+                                        setCriterion(criterion.id, { input_value: e.target.value });
+                                    }}
+                                />
+                            )}
 
-                        <FormError error={criterion.errors?.value} />
+                            {criterion.control_type == 'ui_control_currency' && (
+                                <UIControlNumber
+                                    type={'currency'}
+                                    value={criterion.input_value ? parseFloat(criterion.input_value) : null}
+                                    min={0}
+                                    name={criterion.record_type.key}
+                                    id={`criterion_${criterion.id}`}
+                                    onChangeValue={(value) => {
+                                        setCriterion(criterion.id, { input_value: (value || '').toString() });
+                                    }}
+                                />
+                            )}
 
+                            <FormError error={criterion.errors?.value} />
+                        </div>
                         {criterion.show_attachment && (
                             <FileUploader
                                 type="fund_request_record_proof"
@@ -293,7 +320,6 @@ export default function FundRequestStepCriteria({
                                 }}
                             />
                         )}
-
                         <FormError error={criterion.errors?.files} />
                         <FormError error={criterion.errors?.record} />
                     </div>

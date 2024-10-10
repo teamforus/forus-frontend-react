@@ -27,6 +27,7 @@ import SelectControlOptions from '../elements/select-control/templates/SelectCon
 import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
+import TranslateHtml from '../elements/translate-html/TranslateHtml';
 
 type CSVErrorProp = {
     csvHasBsnWhileNotAllowed?: boolean;
@@ -892,7 +893,7 @@ export default function ModalVouchersUpload({
                             <div className="form-group form-group-inline form-group-inline-lg">
                                 <div className="form-label">{translate('modals.modal_voucher_create.labels.fund')}</div>
                                 <div className="form-offset">
-                                    <FormGroupInfo info={translate('csv_upload.tooltips.funds')}>
+                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.funds'} />}>
                                         <SelectControl
                                             className="flex-grow"
                                             value={fund.id}
@@ -913,7 +914,7 @@ export default function ModalVouchersUpload({
                                     {translate('modals.modal_voucher_create.labels.credit_type')}
                                 </div>
                                 <div className="form-offset">
-                                    <FormGroupInfo info={translate('csv_upload.tooltips.type')}>
+                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.type'} />}>
                                         <SelectControl
                                             value={type}
                                             propKey={'key'}

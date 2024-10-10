@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, ReactNode, useState } from 'react';
 
 export default function FormGroupInfo({
     info,
     children,
 }: {
-    info: string | React.ReactElement | Array<React.ReactElement>;
+    info: ReactNode;
     children: React.ReactElement | Array<React.ReactElement>;
 }) {
     const [showInfo, setShowInfo] = useState(false);
@@ -26,15 +26,9 @@ export default function FormGroupInfo({
                     <div className="info-box-icon mdi mdi-information" />
                     <div className="info-box-content">
                         <div className="block block-markdown">
-                            {typeof info === 'string' ? (
-                                info
-                                    .split('\n')
-                                    .map((line, index) => (
-                                        <div key={index} dangerouslySetInnerHTML={{ __html: line }} />
-                                    ))
-                            ) : (
-                                <div dangerouslySetInnerHTML={{ __html: info }} />
-                            )}
+                            {typeof info === 'string'
+                                ? info.split('\n').map((line, index) => <div key={index}>{line}</div>)
+                                : info}
                         </div>
                     </div>
                 </div>

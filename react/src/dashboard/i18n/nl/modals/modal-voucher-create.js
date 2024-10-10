@@ -13,17 +13,17 @@ export default {
     },
     tooltips: {
         funds: [
-            'Selecteer de manier waarop het tegoed aan een ontvanger wordt gekoppeld.',
-            '<br/><br/><ul>',
+            '<p>Selecteer de manier waarop het tegoed aan een ontvanger wordt gekoppeld.</p>',
+            '<ul>',
             '<li><strong>Activatiecode</strong>: De ontvanger activeert het tegoed door de activatiecode op de website in te voeren.</li>',
             '<li><strong>BSN</strong>: Wanneer de ontvanger met DigiD is ingelogd, wordt het tegoed automatisch gekoppeld aan het BSN.</li>',
             '<li><strong>E-mailadres</strong>: Het tegoed wordt gekoppeld aan het e-mailadres van de ontvanger.</li>',
             '</ul>',
-            '\n<br/>De bovenstaande methoden betreffen de eerste koppeling van het tegoed. Op een later moment kunnen aanvullende gegevens worden gekoppeld aan het tegoed.',
+            '<p>De bovenstaande methoden betreffen de eerste koppeling van het tegoed. Op een later moment kunnen aanvullende gegevens worden gekoppeld aan het tegoed.</p>',
         ].join(''),
         type: [
-            'Selecteer het type tegoed. Er zijn drie opties:',
-            '<br/><br/><ul>',
+            '<p>Selecteer het type tegoed. Er zijn drie opties:</p>',
+            '<ul>',
             '<li><strong>Budget</strong>: Een bedrag dat onder specifieke voorwaarden kan worden besteed.</li>',
             '<li><strong>Product</strong>: Een tegoed voor een specifiek product of dienst.</li>',
             '<li><strong>Korting</strong>: Het recht op een korting op een bepaald product of dienst.</li>',
