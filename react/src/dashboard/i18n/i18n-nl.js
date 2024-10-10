@@ -1494,6 +1494,12 @@ export default {
             assignee: 'Toegewezen aan',
             assignee_state: 'Toegewezen staat',
         },
+        tabs: {
+            all: 'Alles',
+            pending: 'Beoordelaar nodig',
+            assigned: 'In behandeling',
+            resolved: 'Afgehandeld',
+        },
         person: {
             relations: {
                 parents: 'Ouder {{ index }}',
