@@ -351,6 +351,13 @@ export default function TransactionDetails({
                                     </div>
                                 )}
 
+                                {transaction.amount_extra_cash && (
+                                    <div className="keyvalue-item">
+                                        <div className="keyvalue-key">Gevraagde bijbetaling</div>
+                                        <div className="keyvalue-value">{transaction.amount_extra_cash_locale}</div>
+                                    </div>
+                                )}
+
                                 {transaction.reservation && isProvider && showReservationPageButton && (
                                     <div className="keyvalue-item">
                                         <div className="keyvalue-key">Reservering</div>
