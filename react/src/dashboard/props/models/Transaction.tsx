@@ -21,6 +21,8 @@ export default interface Transaction {
     amount: string;
     amount_preset_id?: number;
     amount_locale: string;
+    amount_extra_cash?: string;
+    amount_extra_cash_locale?: string;
     timestamp: number;
     cancelable: boolean;
     attempts: number;
