@@ -21,7 +21,26 @@ export default {
             main: 'Application',
             title_step_1: 'Welcome',
             title_step_2: 'Apply',
-            title_fund_already_applied: 'Application in progress',
+        },
+        fund_already_applied: {
+            title: {
+                pending: 'Application in progress',
+                approved: 'Application is approved',
+                declined: 'Application is declined',
+                disregarded: 'Application is disregarded',
+                approved_partly: 'Application is approved partly',
+            },
+            subtitle: {
+                pending: 'Application in progress',
+                approved: 'Application is approved',
+                declined: 'Application is declined',
+                disregarded: 'Application is disregarded',
+                approved_partly: 'Application is approved partly',
+            },
+            information: 'Description',
+            buttons: {
+                open_fund_request: 'Bekijk de aanvraag',
+            },
         },
         subtitles: {
             step_1: 'You can register for available funds via this online form. ',

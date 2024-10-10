@@ -32,7 +32,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
     const handleAuthTarget = useCallback(
         (target: Array<string>) => {
             if (target[0] == targetFundRequest) {
-                target?.[1] ? navigateState('fund-request', { id: target[1] }) : navigateState('start');
+                target?.[1] ? navigateState('fund-request-show', { id: target[1] }) : navigateState('start');
                 return true;
             }
 

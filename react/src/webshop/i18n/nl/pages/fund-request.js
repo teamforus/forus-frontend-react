@@ -16,7 +16,6 @@ export default {
             criterion_less_or_equal: "'{{ name }}' moet minder of gelijk zijn aan {{ value }}.",
             criterion_same: "'{{ name }}' moet {{ value }} zijn.",
             criterion_any: "'{{ name }}' kan elke waarde zijn.",
-            fund_already_applied: 'U kunt niet nogmaals een aanvraag indienen.',
             footer: {
                 prev: 'Vorige stap',
                 next: 'Volgende stap',
@@ -26,12 +25,31 @@ export default {
             main: '{{ fund_name }} aanvraag',
             title: 'Aanmelden',
             title_log_digid: 'Eenmalig inloggen met DigiD',
-            title_fund_already_applied: 'Aanvraag in behandeling',
+        },
+        fund_already_applied: {
+            title: {
+                pending: 'De aanvraag is in behandeling',
+                approved: 'De aanvraag is goedgekeurd',
+                declined: 'De aanvraag is afgekeurd',
+                disregarded: 'De aanvraag is afgekeurd',
+                approved_partly: 'De aanvraag is deels goedgekeurd',
+            },
+            subtitle: {
+                pending: 'De aanvraag is ingediend op {{ date }}',
+                approved: 'De aanvraag is goedgekeurd op {{ date }}',
+                declined: 'De aanvraag is afgewezen op {{ date }}',
+                disregarded: 'De aanvraag is afgewezen op {{ date }}',
+                approved_partly: 'De aanvraag is deels goedgekeurd op {{ date }}',
+            },
+            information:
+                'De aanvraag is afgewezen. Er is per e-mail een bericht verstuurd met meer informatie. Druk op de knop hieronder om de gegevens van de aanvraag te bekijken.',
+            buttons: {
+                open_fund_request: 'Bekijk de aanvraag',
+            },
         },
         subtitles: {
             step_1: 'Via dit online formulier kunt u zich aanmelden voor beschikbare fondsen. ',
             step_2: 'Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan.',
-            fund_already_applied: 'Er is al een aanvraag in behandeling',
         },
         labels: {
             has_app: 'Aanmelden met Me-app >',

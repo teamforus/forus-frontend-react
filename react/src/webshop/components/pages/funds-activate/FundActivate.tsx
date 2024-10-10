@@ -80,7 +80,7 @@ export default function FundActivate() {
     const [criteriaCheckedWarning, setCriteriaCheckedWarning] = useState(false);
 
     const [fundRequests, setFundRequests] = useState<Array<FundRequest>>(null);
-    const [pendingRequest, setPendingRequest] = useState<FundRequest>(null);
+    const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [options, setOptions] = useState(null);
 
     const [fetchingData, setFetchingData] = useState(false);
@@ -357,9 +357,9 @@ export default function FundActivate() {
 
     const findCriterionState = useCallback(
         (criterion: FundCriterion) => {
-            return pendingRequest?.records?.find((record) => record?.fund_criterion_id == criterion?.id)?.state;
+            return fundRequest?.records?.find((record) => record?.fund_criterion_id == criterion?.id)?.state;
         },
-        [pendingRequest],
+        [fundRequest],
     );
 
     const fetchFund = useCallback(() => {
@@ -487,11 +487,8 @@ export default function FundActivate() {
             return;
         }
 
-        const pendingRequest = fundRequests?.find((request) => request.state === 'pending');
-
-        // Fund request already in progress
-        if (pendingRequest) {
-            setPendingRequest(pendingRequest);
+        if (fundRequests?.length > 0) {
+            setFundRequest(fundRequests[0]);
             setState('fund_already_applied');
             return;
         }
@@ -981,23 +978,35 @@ export default function FundActivate() {
                             </div>
                         )}
 
-                        {state == 'fund_already_applied' && (
+                        {state == 'fund_already_applied' && fundRequest && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">
-                                        {translate('fund_request.sign_up.header.title_fund_already_applied')}
+                                        {translate(
+                                            `fund_request.sign_up.fund_already_applied.title.${fundRequest.state}`,
+                                        )}
                                     </h2>
                                 </div>
                                 <div className="sign_up-pane-body">
                                     <div className="sign_up-pane-media">
-                                        <img
-                                            src={assetUrl('/assets/img/fund-request-error.png')}
-                                            alt="icon fund request error"
-                                        />
+                                        {fundRequest.state === 'approved' ? (
+                                            <img
+                                                src={assetUrl('/assets/img/fund-request-success.png')}
+                                                alt="icon fund request success"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={assetUrl('/assets/img/fund-request-error.png')}
+                                                alt="icon fund request error"
+                                            />
+                                        )}
                                     </div>
-                                    <p className="sign_up-pane-text">
-                                        {translate('fund_request.sign_up.subtitles.fund_already_applied')}
-                                    </p>
+                                    <div className="sign_up-pane-heading sign_up-pane-heading-md text-center">
+                                        {translate(
+                                            `fund_request.sign_up.fund_already_applied.subtitle.${fundRequest.state}`,
+                                            { date: fundRequest.created_at_locale },
+                                        )}
+                                    </div>
                                     <ul className="sign_up-pane-list sign_up-pane-list-criteria">
                                         {fund.criteria?.map((criterion) => (
                                             <li
@@ -1040,7 +1049,29 @@ export default function FundActivate() {
                                             </li>
                                         ))}
                                     </ul>
-                                    <span>{translate('fund_request.sign_up.pane.fund_already_applied')}</span>
+
+                                    <div className="block block-warning">
+                                        <div className="block-warning-icon">
+                                            <div className="icon">
+                                                <em className="mdi mdi-information-outline" />
+                                            </div>
+                                        </div>
+
+                                        <div className="block-warning-content">
+                                            {translate('fund_request.sign_up.fund_already_applied.information')}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="sign_up-pane-footer text-center">
+                                    <StateNavLink
+                                        name={'fund-request-show'}
+                                        params={{ id: fundRequest.id }}
+                                        className="button button-primary">
+                                        {translate(
+                                            'fund_request.sign_up.fund_already_applied.buttons.open_fund_request',
+                                        )}
+                                    </StateNavLink>
                                 </div>
                             </div>
                         )}
