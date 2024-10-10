@@ -4,7 +4,8 @@ import ScrollEnd from '../elements/scroll-end/ScrollEnd';
 import ToggleControl from '../elements/forms/controls/ToggleControl';
 
 type ItemProp = {
-    value: string;
+    _uid: string;
+    label: string;
     blink?: boolean;
     model?: boolean;
     columns?: Array<string>;
@@ -36,7 +37,7 @@ export default function ModalDuplicatesPicker({
     label_on: string;
     label_off: string;
     items: Array<ItemProp>;
-    onConfirm: (list: Array<{ value: string; blink?: boolean; model?: boolean }>) => void;
+    onConfirm: (data: { list: Array<ItemProp>; uids: Array<string> }) => void;
     onCancel: () => void;
     button_cancel?: string;
     button_none?: string;
@@ -121,7 +122,9 @@ export default function ModalDuplicatesPicker({
             list[0].model = true;
         }
 
-        onConfirm(list.filter((item) => item.model));
+        const listItems = list.filter((item) => item.model);
+
+        onConfirm({ list: listItems, uids: listItems.map((item) => item._uid) });
         modal.close();
     }, [list, modal, onConfirm]);
 
@@ -181,7 +184,7 @@ export default function ModalDuplicatesPicker({
                                             }>
                                             <td>
                                                 <em className="mdi mdi-alert-outline text-warning switch-key-icon" />
-                                                <span>{item.value}</span>
+                                                <span>{item.label}</span>
                                             </td>
 
                                             {item?.columns?.map((column, index) => <td key={index}>{column}</td>)}
