@@ -7,23 +7,20 @@ import useSetProgress from '../../hooks/useSetProgress';
 import FundRequest from '../../props/models/FundRequest';
 import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
 import Organization from '../../props/models/Organization';
-import FundRequestRecord from '../../props/models/FundRequestRecord';
 import classNames from 'classnames';
 
-export default function ModalFundRequestRecordDecline({
+export default function ModalFundRequestDecline({
     modal,
     className,
     fundRequest,
     onSubmitted,
     organization,
-    fundRequestRecord,
 }: {
     modal: ModalState;
     className?: string;
     fundRequest: FundRequest;
     onSubmitted: (res?: ResponseError) => void;
     organization: Organization;
-    fundRequestRecord: FundRequestRecord;
 }) {
     const setProgress = useSetProgress();
     const fundRequestService = useFundRequestValidatorService();
@@ -32,7 +29,7 @@ export default function ModalFundRequestRecordDecline({
         setProgress(0);
 
         return fundRequestService
-            .declineRecord(organization.id, fundRequestRecord.fund_request_id, fundRequestRecord.id, form.values.note)
+            .decline(organization.id, fundRequest.id, form.values)
             .then(() => {
                 modal.close();
                 onSubmitted();
@@ -59,6 +56,7 @@ export default function ModalFundRequestRecordDecline({
                 <div className="modal-icon modal-icon-primary">
                     <div className="mdi mdi-message-text-outline" />
                 </div>
+
                 {fundRequest.email ? (
                     <div className="modal-body">
                         <div className="modal-section modal-section-pad">
@@ -66,15 +64,19 @@ export default function ModalFundRequestRecordDecline({
                                 <div className="modal-heading">Weiger aanvraag</div>
                                 <div className="modal-text">
                                     U staat op het punt om een aanvraag te weigeren. Weet u zeker dat u deze aanvraag
-                                    wilt weigeren? <br />
+                                    wilt weigeren? The user will receive an email notification.
+                                    <br />
+                                    <br />
                                     Optioneel kunt u een bericht sturen naar de aanvrager.
+                                    <br />
+                                    &nbsp;
                                 </div>
                             </div>
                             <div className="form-group">
                                 <div className="form-label">Bericht (optioneel)</div>
                                 <textarea
                                     className="form-control"
-                                    value={form.values?.note}
+                                    value={form.values.note}
                                     onChange={(e) => form.update({ note: e.target.value })}
                                     placeholder="Bericht naar aanvrager"
                                 />

@@ -15,12 +15,10 @@ import BlockCardEmails from '../../elements/block-card-emails/BlockCardEmails';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalNotification from '../../modals/ModalNotification';
 import FundRequestRecord from '../../../props/models/FundRequestRecord';
-import { ModalState } from '../../../modules/modals/context/ModalContext';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { ResponseError } from '../../../props/ApiResponses';
 import ModalFundRequestClarify from '../../modals/ModalFundRequestClarify';
-import ModalFundRequestRecordDecline from '../../modals/ModalFundRequestRecordDecline';
-import ModalFundRequestRecordsDecline from '../../modals/ModalFundRequestRecordsDecline';
+import ModalFundRequestDecline from '../../modals/ModalFundRequestDecline';
 import ModalFundRequestRecordEdit from '../../modals/ModalFundRequestRecordEdit';
 import ModalFundRequestRecordCreate from '../../modals/ModalFundRequestRecordCreate';
 import ModalFundRequestDisregard from '../../modals/ModalFundRequestDisregard';
@@ -35,6 +33,7 @@ import { useFileService } from '../../../services/FileService';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
 import ModalApproveFundRequest from '../../modals/ModalApproveFundRequest';
+import Note from '../../../props/models/Note';
 
 export default function FundRequestsView() {
     const authIdentity = useAuthIdentity();
@@ -139,7 +138,6 @@ export default function FundRequestsView() {
         pending: 'label-primary-variant',
         declined: 'label-danger',
         approved: 'label-success',
-        approved_partly: 'label-success',
         disregarded: 'label-default',
     });
 
@@ -147,19 +145,18 @@ export default function FundRequestsView() {
         pending: 'circle-outline',
         declined: 'circle-off-outline',
         approved: 'circle-slice-8',
-        approved_partly: 'circle-slice-4',
         disregarded: 'circle-outline',
     });
 
     const updateNotesRef = useRef<() => void>(null);
     const fetchEmailsRef = useRef<() => void>(null);
 
-    const showFundCriteria = useCallback((e) => {
+    const showFundCriteria = useCallback((e: React.MouseEvent) => {
         e.stopPropagation();
         setShowCriteria(true);
     }, []);
 
-    const hideFundCriteria = useCallback((e) => {
+    const hideFundCriteria = useCallback((e: React.MouseEvent) => {
         e.stopPropagation();
         e.preventDefault();
         setShowCriteria(false);
@@ -191,65 +188,6 @@ export default function FundRequestsView() {
             updateNotesRef?.current?.();
         }, pushApiError);
     }, [activeOrganization.id, fundRequestMeta?.id, fundRequestService, pushApiError]);
-
-    const approveRecord = useCallback(
-        (requestRecord: FundRequestRecord) => {
-            const onConfirm = (modal: ModalState) => {
-                modal.close();
-                fundRequestService
-                    .approveRecord(activeOrganization.id, requestRecord.fund_request_id, requestRecord.id)
-                    .then(() => {
-                        reloadRequest();
-                        pushSuccess('Gelukt!', 'Persoonsgegeven gevalideert.');
-                    })
-                    .catch((err: ResponseError) =>
-                        showInfoModal(
-                            'Fout: U kunt deze persoonsgegeven op dit moment niet beoordelen.',
-                            err.data.message,
-                        ),
-                    );
-            };
-
-            openModal((modal) => (
-                <ModalNotification
-                    className={'modal-md'}
-                    modal={modal}
-                    title={'Weet u zeker dat u deze persoonsgegeven wil goedkeuren?'}
-                    description={
-                        'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.'
-                    }
-                    buttonCancel={{ onClick: modal.close }}
-                    buttonSubmit={{ onClick: () => onConfirm(modal) }}
-                />
-            ));
-        },
-        [activeOrganization.id, fundRequestService, openModal, pushSuccess, reloadRequest, showInfoModal],
-    );
-
-    const declineRecord = useCallback(
-        (requestRecord: FundRequestRecord) => {
-            openModal((modal) => (
-                <ModalFundRequestRecordDecline
-                    modal={modal}
-                    fundRequest={fundRequestMeta}
-                    organization={activeOrganization}
-                    fundRequestRecord={requestRecord}
-                    onSubmitted={(err) => {
-                        if (err) {
-                            return showInfoModal(
-                                'U kunt op dit moment deze persoonsgegeven niet weigeren.',
-                                `Reden: ${err.data.message}`,
-                            );
-                        }
-
-                        reloadRequest();
-                        pushSuccess('Gelukt!', 'Aanvullingsverzoek op aanvraag verstuurd.');
-                    }}
-                />
-            ));
-        },
-        [activeOrganization, fundRequestMeta, openModal, pushSuccess, reloadRequest, showInfoModal],
-    );
 
     const clarifyRecord = useCallback(
         (requestRecord: FundRequestRecord) => {
@@ -333,7 +271,7 @@ export default function FundRequestsView() {
 
     const requestDecline = useCallback(() => {
         openModal((modal) => (
-            <ModalFundRequestRecordsDecline
+            <ModalFundRequestDecline
                 modal={modal}
                 fundRequest={fundRequestMeta}
                 organization={activeOrganization}
@@ -523,12 +461,12 @@ export default function FundRequestsView() {
     );
 
     const deleteNote = useCallback(
-        (note) => fundRequestService.noteDestroy(activeOrganization.id, fundRequestMeta.id, note.id),
+        (note: Note) => fundRequestService.noteDestroy(activeOrganization.id, fundRequestMeta.id, note.id),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
 
     const storeNote = useCallback(
-        (data) => fundRequestService.storeNote(activeOrganization.id, fundRequestMeta.id, data),
+        (data: object) => fundRequestService.storeNote(activeOrganization.id, fundRequestMeta.id, data),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
 
@@ -837,14 +775,13 @@ export default function FundRequestsView() {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        {fundRequestMeta.hasContent && <th className="cell-chevron" />}
+                                        {fundRequestMeta.hasContent && <th className="cell-chevron th-narrow" />}
                                         <th style={{ width: '20%' }}>{translate('validation_requests.labels.type')}</th>
                                         <th style={{ width: '20%' }}>
                                             {translate('validation_requests.labels.value')}
                                         </th>
-                                        <th style={{ width: '20%' }}>{translate('validation_requests.labels.date')}</th>
                                         <th style={{ width: '20%' }}>
-                                            {translate('validation_requests.labels.status')}
+                                            {translate('validati   on_requests.labels.date')}
                                         </th>
                                         <th style={{ width: '20%' }} className="text-right">
                                             {translate('validation_requests.labels.actions')}
@@ -893,22 +830,25 @@ export default function FundRequestsView() {
                                             )}
 
                                             <td>{record.created_at_locale}</td>
-                                            <td>
-                                                <div
-                                                    className={`label label-tag label-round ${
-                                                        stateLabels[record.state]
-                                                    }`}>
-                                                    {translate(`validation_requests.status.${record.state}`)}
-                                                </div>
-                                            </td>
-                                            {record.state != 'pending' && (
+
+                                            {fundRequestMeta.is_assigned ? (
                                                 <td className="text-right">
-                                                    <div className="text-muted">
-                                                        {translate(`validation_requests.status.${record.state}`)}
+                                                    <div className="button-group flex-end">
+                                                        {activeOrganization.allow_fund_request_record_edit && (
+                                                            <button
+                                                                className="button button-default button-icon"
+                                                                onClick={() => editRecord(record)}>
+                                                                <em className="mdi mdi-pencil" />
+                                                            </button>
+                                                        )}
+                                                        <button
+                                                            className="button button-primary-light button-icon"
+                                                            onClick={() => clarifyRecord(record)}>
+                                                            <em className="mdi mdi-message-text" />
+                                                        </button>
                                                     </div>
                                                 </td>
-                                            )}
-                                            {record.state == 'pending' && !fundRequestMeta.is_assigned && (
+                                            ) : (
                                                 <td className="text-right">
                                                     {fundRequestMeta.employee ? (
                                                         <div className="td-text-insert text-muted">
@@ -924,38 +864,6 @@ export default function FundRequestsView() {
                                                     ) : (
                                                         <div className="text-muted">Zelf toewijzen</div>
                                                     )}
-                                                </td>
-                                            )}
-                                            {record.state == 'pending' && fundRequestMeta.is_assigned && (
-                                                <td className="text-right">
-                                                    <div className="button-group flex-end">
-                                                        {activeOrganization.allow_fund_request_record_edit && (
-                                                            <button
-                                                                className="button button-default button-icon"
-                                                                onClick={() => editRecord(record)}>
-                                                                <em className="mdi mdi-pencil" />
-                                                            </button>
-                                                        )}
-                                                        <button
-                                                            className="button button-primary-light button-icon"
-                                                            onClick={() => clarifyRecord(record)}>
-                                                            <em className="mdi mdi-message-text" />
-                                                        </button>
-                                                        {envData.config?.single_record_validation && (
-                                                            <button
-                                                                className="button button-danger button-icon"
-                                                                onClick={() => declineRecord(record)}>
-                                                                <em className="mdi mdi-close" />
-                                                            </button>
-                                                        )}
-                                                        {envData.config?.single_record_validation && (
-                                                            <button
-                                                                className="button button-primary button-icon"
-                                                                onClick={() => approveRecord(record)}>
-                                                                <em className="mdi mdi-check" />
-                                                            </button>
-                                                        )}
-                                                    </div>
                                                 </td>
                                             )}
                                         </tr>

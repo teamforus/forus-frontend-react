@@ -96,9 +96,6 @@ export default function FundRequestsShow() {
                                     {fundRequest.state === 'pending' && (
                                         <div className="label label-warning">{fundRequest.state_locale}</div>
                                     )}
-                                    {fundRequest.state === 'approved_partly' && (
-                                        <div className="label label-success">{fundRequest.state_locale}</div>
-                                    )}
                                     {fundRequest.state === 'approved' && (
                                         <div className="label label-success">{fundRequest.state_locale}</div>
                                     )}

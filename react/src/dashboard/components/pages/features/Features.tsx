@@ -67,7 +67,7 @@ export default function Features() {
     }, []);
 
     const filterFeatures = useCallback(
-        (features: Array<OrganizationFeature>, value) => {
+        (features: Array<OrganizationFeature>, value: { q: string; state: string }) => {
             const q = value.q.toLowerCase();
 
             const filteredListBySearch = features
@@ -79,7 +79,7 @@ export default function Features() {
 
             setActiveCounts(filteredListBySearch);
 
-            const list = filteredListBySearch.filter((item) => filterByState(item, value.state));
+            const list = filteredListBySearch.filter((item) => filterByState(item, value.state?.toString()));
 
             setFeatures(list.slice(0, 4));
             setFeaturesAfter(list.slice(4));
