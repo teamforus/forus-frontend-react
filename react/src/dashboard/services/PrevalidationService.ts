@@ -45,7 +45,7 @@ export class PrevalidationService<T = Prevalidation> {
         overwrite: Array<string> = [],
     ): Promise<{
         data: {
-            collection: Array<{ uid_hash: string; records_hash: string; data: Array<{ [key: string]: string }> }>;
+            collection: Array<{ uid_hash: string; records_hash: string; data: { [key: string]: string } }>;
             db: Array<{ uid_hash: string; records_hash: string }>;
         };
     }> {
