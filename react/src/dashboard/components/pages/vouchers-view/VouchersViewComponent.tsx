@@ -277,7 +277,9 @@ export default function VouchersViewComponent() {
     }, [fetchVoucher]);
 
     useEffect(() => {
-        voucher && fetchFund(voucher);
+        if (voucher) {
+            fetchFund(voucher);
+        }
     }, [fetchFund, voucher]);
 
     useEffect(() => {

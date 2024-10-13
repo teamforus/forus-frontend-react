@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { createContext } from 'react';
 import { uniqueId } from 'lodash';
 import ButtonType from '../../../../props/elements/ButtonType';
@@ -111,29 +111,24 @@ const PushNotificationsProvider = (props: {
         (notification: PushNotification) => {
             const groupKey = notification.group ? notification.group : Object.keys(groups)?.[0];
             const group = groups[groupKey];
-            const timeout = getDismissTimeValue(groupKey);
 
             notification.id = uniqueId();
             notification.group = groupKey;
-            notification.timeout = notification.timeout || (timeout ? timeout * 1000 : null);
 
-            if (notification.timeout) {
-                window.setTimeout(() => popNotification(notification.id), notification.timeout);
-            }
+            setNotifications((notifications) => {
+                const list = [notification, ...notifications];
+                const listGroup = list.filter((item) => item.group === groupKey);
 
-            const list = [notification, ...notifications];
+                listGroup
+                    .slice(group.maxCount > 0 ? group.maxCount : listGroup.length)
+                    .forEach((item) => setTimeout(() => popNotification(item.id)));
 
-            setNotifications([...list]);
-
-            const listGroup = list.filter((item) => item.group === groupKey);
-
-            listGroup
-                .slice(group.maxCount > 0 ? group.maxCount : listGroup.length)
-                .forEach((item) => popNotification(item.id));
+                return list;
+            });
 
             return notification.id;
         },
-        [getDismissTimeValue, groups, notifications, popNotification],
+        [groups, popNotification],
     );
 
     const pushSuccess = useCallback(
@@ -163,6 +158,18 @@ const PushNotificationsProvider = (props: {
         },
         [pushNotification],
     );
+
+    useEffect(() => {
+        notifications.forEach((notification) => {
+            const groupKey = notification.group ? notification.group : Object.keys(groups)?.[0];
+            const timeout = getDismissTimeValue(groupKey);
+            notification.timeout = notification.timeout || (timeout ? timeout * 1000 : null);
+
+            if (notification.timeout) {
+                window.setTimeout(() => popNotification(notification.id), notification.timeout);
+            }
+        });
+    }, [notifications, groups, popNotification, getDismissTimeValue]);
 
     return (
         <Provider

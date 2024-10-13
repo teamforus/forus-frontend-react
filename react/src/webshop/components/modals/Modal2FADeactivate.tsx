@@ -89,12 +89,12 @@ export default function Modal2FADeactivate({
     );
 
     const cancel = useCallback(() => {
-        onCancel ? onCancel() : null;
+        onCancel?.();
         modal.close();
     }, [modal, onCancel]);
 
     const done = useCallback(() => {
-        onReady ? onReady() : null;
+        onReady?.();
         modal.close();
     }, [modal, onReady]);
 

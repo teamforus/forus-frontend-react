@@ -826,7 +826,7 @@ export default function ModalVouchersUpload({
             } else {
                 pushDanger('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
             }
-        } catch (e) {
+        } catch {
             pushDanger('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
         }
 

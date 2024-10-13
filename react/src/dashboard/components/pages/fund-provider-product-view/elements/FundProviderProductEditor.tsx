@@ -99,7 +99,7 @@ export default function FundProviderProductEditor({
     );
 
     useEffect(() => {
-        onValuesChange && onValuesChange(form.values);
+        onValuesChange?.(form.values);
     }, [form.values, onValuesChange]);
 
     return (

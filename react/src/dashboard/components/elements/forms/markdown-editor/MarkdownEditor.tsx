@@ -22,7 +22,12 @@ type SummernoteObject = {
 
 type Summernote = SummernoteConstructor & SummernoteObject;
 
-const $ = typeof jQuery !== 'undefined' ? (jQuery as JQueryStatic & { summernote: Summernote }) : null;
+const $ =
+    typeof jQuery !== 'undefined'
+        ? (jQuery as JQueryStatic & {
+              summernote: Summernote;
+          })
+        : null;
 
 export default function MarkdownEditor({
     value = '',
@@ -345,7 +350,10 @@ export default function MarkdownEditor({
             toolbars.push(['cms', ['cmsLink', 'unlink', ...(extendedOptions ? ['cmsMedia', 'cmsLinkYoutube'] : [])]]);
             toolbars.push(['code', localStorage.markdownCode == 'true' ? ['cmsCodeMarkdown'] : '']);
             toolbars.push(['view', ['fullscreen', ...(allowPreview ? ['cmsMailView'] : [])]]);
-            buttons?.length && toolbars.push(['buttons', buttons.map((button) => button.key)]);
+
+            if (buttons?.length) {
+                toolbars.push(['buttons', buttons.map((button) => button.key)]);
+            }
 
             return toolbars.filter((group) => group);
         },
@@ -354,7 +362,13 @@ export default function MarkdownEditor({
 
     const initTheEditor = useCallback(() => {
         const _buttons = buttons || [];
-        const icons = _buttons.reduce((icons, btn) => ({ ...icons, [btn.iconKey || btn.key]: btn.icon }), {});
+        const icons = _buttons.reduce(
+            (icons, btn) => ({
+                ...icons,
+                [btn.iconKey || btn.key]: btn.icon,
+            }),
+            {},
+        );
 
         if (initialized) {
             return;
@@ -418,7 +432,7 @@ export default function MarkdownEditor({
 
                     onChangeRef.current(value);
                     markdownValueRef.current = value;
-                    onUpdatedRaw && onUpdatedRaw({ data: { content: value, content_html } });
+                    onUpdatedRaw?.({ data: { content: value, content_html } });
                 },
                 onPaste: (e: Event & { originalEvent: ClipboardEvent }) => {
                     e.preventDefault();

@@ -111,7 +111,11 @@ export default function FundsShow() {
     }, [fetchFund]);
 
     useEffect(() => {
-        authIdentity ? fetchVouchers() : setVouchers([]);
+        if (authIdentity) {
+            fetchVouchers();
+        } else {
+            setVouchers([]);
+        }
     }, [authIdentity, fetchVouchers]);
 
     useEffect(() => {

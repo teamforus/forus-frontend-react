@@ -51,7 +51,7 @@ export default function Markdown({
                     wrapper.appendChild(table);
                 }
             });
-        } catch (e) {
+        } catch {
             /* empty */
         }
     }, [content]);

@@ -32,28 +32,45 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
     const handleAuthTarget = useCallback(
         (target: Array<string>) => {
             if (target[0] == targetFundRequest) {
-                target?.[1] ? navigateState('fund-request', { id: target[1] }) : navigateState('start');
+                if (target?.[1]) {
+                    navigateState('fund-request', { id: target[1] });
+                } else {
+                    navigateState('start');
+                }
+
                 return true;
             }
 
             if (target[0] == targetVoucher) {
-                target?.[1] ? navigateState('voucher', { address: target[1] }) : navigateState('start');
+                if (target?.[1]) {
+                    navigateState('voucher', { address: target[1] });
+                } else {
+                    navigateState('start');
+                }
                 return true;
             }
 
             if (target[0] == targetRequestClarification) {
-                target?.[1] && target?.[2] && target?.[3]
-                    ? navigateState('fund-request-clarification', {
-                          fund_id: target[1],
-                          request_id: target[2],
-                          clarification_id: target[3],
-                      })
-                    : navigateState('start');
+                if (target?.[1] && target?.[2] && target?.[3]) {
+                    navigateState('fund-request-clarification', {
+                        fund_id: target[1],
+                        request_id: target[2],
+                        clarification_id: target[3],
+                    });
+                } else {
+                    navigateState('start');
+                }
+
                 return true;
             }
 
             if (target[0] == targetProductReservation) {
-                target?.[1] ? navigateState('product', { id: target[1] }) : navigateState('start');
+                if (target?.[1]) {
+                    navigateState('product', { id: target[1] });
+                } else {
+                    navigateState('start');
+                }
+
                 return true;
             }
 

@@ -62,7 +62,9 @@ export default function UIControlNumber({
         <div
             onFocus={() => setShowClear(true)}
             onBlur={(e) => {
-                !e.currentTarget.contains(e.relatedTarget) && setShowClear(false);
+                if (!e.currentTarget.contains(e.relatedTarget)) {
+                    setShowClear(false);
+                }
             }}
             className={`ui-control ui-control-text ${type === 'currency' ? 'ui-control-currency' : ''} ${className}`}
             aria-label={ariaLabel}>
@@ -76,8 +78,8 @@ export default function UIControlNumber({
                 step={step}
                 name={name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>) => {
-                    onChange ? onChange(e) : null;
-                    onChangeValue ? onChangeValue(parseFloat(parseFloat(e?.target?.value).toFixed(precision))) : null;
+                    onChange?.(e);
+                    onChangeValue?.(parseFloat(parseFloat(e?.target?.value).toFixed(precision)));
                     customInputValidationMessage?.(e?.target, validationMessages);
                 }}
                 min={min}
