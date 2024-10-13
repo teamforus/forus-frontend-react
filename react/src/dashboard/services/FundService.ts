@@ -238,6 +238,10 @@ export class FundService<T = Fund> {
         return this.apiRequest.post(`${this.prefix}/${company_id}/funds/${fund_id}/top-up`);
     }
 
+    public updatePreCheckSettings(company_id: number, fund_id: number, data: object): Promise<ApiResponseSingle<Fund>> {
+        return this.apiRequest.post(`${this.prefix}/${company_id}/funds/${fund_id}/update-pre-check-settings`, data);
+    }
+
     public export(company_id: number, fund_id: number, data: object = {}): Promise<ResponseSimple<ArrayBuffer>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities/export`, data, {
             responseType: 'arraybuffer',

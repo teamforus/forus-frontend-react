@@ -35,11 +35,15 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
     }, [fund.criteria, getCriteriaValidPercentage]);
 
     const progressStatusTitle = useMemo(() => {
+        if (fund.pre_check_excluded) {
+            return 'Geen indicatie';
+        }
+
         if (criteriaValidPercentage < 33) return 'Lage kans';
         if (criteriaValidPercentage < 66) return 'Gemiddelde kans';
 
         return 'Goede kans';
-    }, [criteriaValidPercentage]);
+    }, [criteriaValidPercentage, fund.pre_check_excluded]);
 
     const positiveAmount = useMemo(() => {
         return parseFloat(fund.amount_for_identity) > 0;
@@ -93,7 +97,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                 </button>
                             )}
 
-                            {showMore && fund.description_short.length > 190 && (
+                            {showMore && !fund.pre_check_excluded && fund.description_short.length > 190 && (
                                 <button
                                     className="button button-text button-xs fund-description-more"
                                     onClick={() => setShowMore(false)}
@@ -103,6 +107,8 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                     <em className="mdi mdi-chevron-up icon-right" />
                                 </button>
                             )}
+
+                            {showMore && fund.pre_check_excluded && <span>{fund.pre_check_note}</span>}
                         </div>
                     )}
 

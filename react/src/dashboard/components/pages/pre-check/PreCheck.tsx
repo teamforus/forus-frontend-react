@@ -26,8 +26,17 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import Paginator from '../../../modules/paginator/components/Paginator';
+import useFilter from '../../../hooks/useFilter';
+import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
+import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import useOpenModal from '../../../hooks/useOpenModal';
+import ModalAddPreCheckFund from '../../modals/ModalAddPreCheckFund';
+import ModalDangerZone from '../../modals/ModalDangerZone';
 
 export default function PreCheck() {
+    const openModal = useOpenModal();
     const activeOrganization = useActiveOrganization();
 
     const assetUrl = useAssetUrl();
@@ -40,12 +49,15 @@ export default function PreCheck() {
     const fundService = useFundService();
     const mediaService = useMediaService();
     const preCheckService = usePreCheckService();
+    const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
 
     const [mediaFile, setMediaFile] = useState<Blob>(null);
     const [deleteMedia, setDeleteMedia] = useState<boolean>(false);
     const [thumbnailMedia, setThumbnailMedia] = useState<Media>(null);
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
+    const [includedFunds, setIncludedFunds] = useState<PaginationData<Fund>>(null);
+    const [showIncludedFunds, setShowIncludedFunds] = useState(true);
     const [preChecks, setPreChecks] = useState<Array<PreCheck>>(null);
     const [implementation, setImplementation] = useState<Implementation>(null);
     const [implementations, setImplementations] = useState<Array<Implementation>>(null);
@@ -59,6 +71,12 @@ export default function PreCheck() {
         { key: false, name: `Uitgeschakeld` },
         { key: true, name: `Actief` },
     ]);
+    const [paginatorKey] = useState('pre_check_funds');
+
+    const filter = useFilter({
+        q: '',
+        per_page: paginatorService.getPerPage(paginatorKey),
+    });
 
     const preCheckForm = useFormBuilder(
         {
@@ -215,7 +233,80 @@ export default function PreCheck() {
             .list(activeOrganization.id, { per_page: 100, configured: 1 })
             .then((res) => setFunds(res.data))
             .finally(() => setProgress(100));
+    }, [activeOrganization.id, fundService, setFunds, setProgress]);
+
+    const fetchIncludedFunds = useCallback(() => {
+        setProgress(0);
+
+        fundService
+            .list(activeOrganization.id, { per_page: 100, configured: 1, pre_check_excluded: 0 })
+            .then((res) => setIncludedFunds(res.data))
+            .finally(() => setProgress(100));
     }, [activeOrganization.id, fundService, setProgress]);
+
+    const addFundExclusion = useCallback(() => {
+        openModal((modal) => (
+            <ModalAddPreCheckFund
+                modal={modal}
+                funds={funds.data}
+                activeOrganization={activeOrganization}
+                onDone={() => fetchIncludedFunds()}
+            />
+        ));
+    }, [activeOrganization, fetchIncludedFunds, funds?.data, openModal]);
+
+    const editFundPreCheckSettings = useCallback(
+        (fund_id: number) => {
+            openModal((modal) => (
+                <ModalAddPreCheckFund
+                    modal={modal}
+                    fund_id={fund_id}
+                    funds={funds.data}
+                    activeOrganization={activeOrganization}
+                    onDone={() => fetchIncludedFunds()}
+                />
+            ));
+        },
+        [activeOrganization, fetchIncludedFunds, funds?.data, openModal],
+    );
+
+    const askConfirmation = useCallback(
+        (onConfirm: () => void): void => {
+            openModal((modal) => (
+                <ModalDangerZone
+                    modal={modal}
+                    title={translate('modals.danger_zone.exclude_pre_check_fund.title')}
+                    description_text={translate('modals.danger_zone.exclude_pre_check_fund.description')}
+                    buttonCancel={{
+                        text: translate('modals.danger_zone.exclude_pre_check_fund.buttons.cancel'),
+                        onClick: modal.close,
+                    }}
+                    buttonSubmit={{
+                        text: translate('modals.danger_zone.exclude_pre_check_fund.buttons.confirm'),
+                        onClick: () => {
+                            modal.close();
+                            onConfirm();
+                        },
+                    }}
+                />
+            ));
+        },
+        [openModal, translate],
+    );
+
+    const excludePreCheckFund = useCallback(
+        (fund_id: number) => {
+            askConfirmation(() => {
+                fundService
+                    .updatePreCheckSettings(activeOrganization.id, fund_id, { pre_check_excluded: true })
+                    .then(() => fetchIncludedFunds())
+                    .catch((err: ResponseError) => {
+                        pushDanger('Mislukt!', err.data.message);
+                    });
+            });
+        },
+        [activeOrganization.id, askConfirmation, fetchIncludedFunds, fundService, pushDanger],
+    );
 
     useEffect(() => {
         fetchImplementations();
@@ -224,6 +315,10 @@ export default function PreCheck() {
     useEffect(() => {
         fetchFunds();
     }, [fetchFunds]);
+
+    useEffect(() => {
+        fetchIncludedFunds();
+    }, [fetchIncludedFunds]);
 
     useEffect(() => {
         setMediaFile(null);
@@ -567,6 +662,107 @@ export default function PreCheck() {
                     </form>
                 </div>
             )}
+
+            <div className="card">
+                <div className="card-header">
+                    <div className="flex">
+                        <div className="flex flex-grow">
+                            <div className="card-title" onClick={() => setShowIncludedFunds(!showIncludedFunds)}>
+                                <em
+                                    className={`mdi mdi-menu-${showIncludedFunds ? 'down' : 'up'}`}
+                                    style={{ marginLeft: '-5px' }}
+                                />
+                                Afwijkend en uitsluitend ({includedFunds?.meta?.total})
+                            </div>
+                        </div>
+                        <div className="flex">
+                            <button className="button button-primary" onClick={() => addFundExclusion()}>
+                                <em className="mdi mdi-plus-circle icon-start" />
+                                Fonds toevoegen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {showIncludedFunds && (
+                    <Fragment>
+                        {includedFunds?.meta?.total > 0 && (
+                            <div className="card-section">
+                                <div className="card-block card-block-table">
+                                    <div className="table-wrapper">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fonds</th>
+                                                    <th>Uitgesloten</th>
+                                                    <th>Uitleg</th>
+                                                    <th className="th-narrow text-right">
+                                                        {translate('components.organization_funds.labels.actions')}
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {includedFunds.data.map((fund) => (
+                                                    <tr key={fund.id}>
+                                                        <td>{fund.name}</td>
+                                                        <td>{fund.pre_check_excluded ? 'Ja' : 'Nee'}</td>
+                                                        <td>{fund.pre_check_note || <TableEmptyValue />}</td>
+                                                        <td className="table-td-actions">
+                                                            <TableRowActions
+                                                                content={() => (
+                                                                    <div className="dropdown dropdown-actions">
+                                                                        <a
+                                                                            className={`dropdown-item`}
+                                                                            onClick={() => {
+                                                                                editFundPreCheckSettings(fund.id);
+                                                                                close();
+                                                                            }}>
+                                                                            <em className="mdi mdi-pencil icon-start" />
+                                                                            Bewerken
+                                                                        </a>
+                                                                        <a
+                                                                            className={`dropdown-item`}
+                                                                            onClick={() => {
+                                                                                excludePreCheckFund(fund.id);
+                                                                                close();
+                                                                            }}>
+                                                                            <em className="mdi mdi-close-circle-outline icon-start" />
+                                                                            Verwijderen
+                                                                        </a>
+                                                                    </div>
+                                                                )}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {includedFunds?.meta.total == 0 && (
+                            <EmptyCard
+                                title={'Geen fondsen'}
+                                imageIconImg={assetUrl('/assets/img/pre-check-funds-logo.svg')}
+                                type={'card-section'}
+                            />
+                        )}
+
+                        <div className="card" hidden={includedFunds?.meta?.last_page < 2}>
+                            <div className="card-section">
+                                <Paginator
+                                    meta={includedFunds.meta}
+                                    filters={filter.values}
+                                    updateFilters={filter.update}
+                                    perPageKey={paginatorKey}
+                                />
+                            </div>
+                        </div>
+                    </Fragment>
+                )}
+            </div>
         </Fragment>
     );
 }

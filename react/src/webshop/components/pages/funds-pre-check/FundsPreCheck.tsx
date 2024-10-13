@@ -373,7 +373,7 @@ export default function FundsPreCheck() {
                                         <div className="progress-pie-info-title">
                                             {preChecks?.[activeStepIndex]?.title_short}
                                         </div>
-                                        {preChecks[activeStepIndex].record_types?.map((record, index) => (
+                                        {preChecks[activeStepIndex]?.record_types?.map((record, index) => (
                                             <div key={index} className="progress-pie-info-details">
                                                 <div className="progress-pie-info-details-key">
                                                     {record.title_short}: &nbsp;
