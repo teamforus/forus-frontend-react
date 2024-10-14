@@ -25,7 +25,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
             modal.close();
 
             voucherService
-                .shareVoucher(voucher.address, values)
+                .shareVoucher(voucher.number, values)
                 .then(() => {
                     openModal((modal) => (
                         <ModalNotification

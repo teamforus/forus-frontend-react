@@ -503,13 +503,13 @@ export default function FundActivate() {
 
         // Voucher already received, go to the voucher
         if (vouchersActive?.length > 0) {
-            return navigateState('voucher', { address: vouchersActive[0]?.address });
+            return navigateState('voucher', { number: vouchersActive[0]?.number });
         }
 
         // All the criteria are meet, request the voucher
         if (fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
             applyFund(fund)
-                .then((voucher) => navigateState('voucher', { address: voucher.address }))
+                .then((voucher) => navigateState('voucher', { number: voucher.number }))
                 .catch(() => navigateState('fund', { id: fund.id }));
         }
     }, [applyFund, fund, navigateState, vouchersActive, fundRequests]);

@@ -37,7 +37,7 @@ export function useAuthService() {
                 // Go to the first vouchers
                 if (fundsWithVouchers.length === 1) {
                     return navigateState('voucher', {
-                        address: vouchers.find((voucher) => voucher.fund_id === fundsWithVouchers[0].id).address,
+                        number: vouchers.find((voucher) => voucher.fund_id === fundsWithVouchers[0].id).number,
                     });
                 }
 

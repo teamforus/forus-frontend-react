@@ -220,7 +220,7 @@ export default function FundRequest() {
                 .apply(fund.id)
                 .then((res) => {
                     fetchAuthIdentity().then(() => {
-                        navigateState('voucher', { address: res.data.data.address });
+                        navigateState('voucher', { number: res.data.data.number });
                         pushSuccess(`Succes! ${fund.name} tegoed geactiveerd!`);
                     });
                 })
@@ -488,7 +488,7 @@ export default function FundRequest() {
 
         // Voucher already received, go to the voucher
         if (voucher) {
-            return navigateState('voucher', { address: voucher.address });
+            return navigateState('voucher', { number: voucher.number });
         }
 
         // Hot linking is not allowed
