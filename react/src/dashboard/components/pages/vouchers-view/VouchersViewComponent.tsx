@@ -3,7 +3,6 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Voucher from '../../../props/models/Voucher';
-import { strLimit } from '../../../helpers/string';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalVoucherTransaction from '../../modals/ModalVoucherTransaction/ModalVoucherTransaction';
 import Fund from '../../../props/models/Fund';
@@ -303,7 +302,7 @@ export default function VouchersViewComponent() {
                     Tegoeden
                 </StateNavLink>
 
-                <div className="breadcrumb-item active">{`${strLimit(voucher.fund.name, 50)} #${voucher.id}`}</div>
+                <div className="breadcrumb-item active">#{voucher.number}</div>
             </div>
 
             <div className="card">
@@ -312,7 +311,7 @@ export default function VouchersViewComponent() {
                         <div className="flex flex-grow">
                             <div className="card-title">
                                 <div className="flex flex-vertical flex-center">
-                                    {`${strLimit(voucher.fund.name, 50)} #${voucher.id}`}
+                                    <div className="flex flex-vertical flex-center">#{voucher.number}</div>
                                 </div>
                                 <div className="flex flex-vertical flex-center">
                                     {!voucher.expired && voucher.state == 'active' && (
@@ -336,10 +335,6 @@ export default function VouchersViewComponent() {
                                         </div>
                                     )}
                                 </div>
-                                &nbsp;&nbsp;
-                                {voucher.fund.type == 'budget' && (
-                                    <span className="text-primary">{voucher.amount_total_locale}</span>
-                                )}
                             </div>
                         </div>
 
@@ -435,8 +430,20 @@ export default function VouchersViewComponent() {
                 <div className="card-section">
                     <div className="card-block card-block-keyvalue">
                         <div className="keyvalue-item">
-                            <div className="keyvalue-key">{translate('vouchers.labels.id')}</div>
-                            <div className="keyvalue-value text-black">{voucher.id}</div>
+                            <div className="keyvalue-key">{translate('vouchers.labels.number')}</div>
+                            <div className="keyvalue-value text-black">#{voucher.number}</div>
+                        </div>
+
+                        {voucher.fund.type == 'budget' && (
+                            <div className="keyvalue-item">
+                                <div className="keyvalue-key">{translate('vouchers.labels.amount')}</div>
+                                <div className="keyvalue-value text-black">{voucher.amount_total_locale}</div>
+                            </div>
+                        )}
+
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.fund')}</div>
+                            <div className="keyvalue-value text-black">{voucher.fund.name}</div>
                         </div>
 
                         <div className="keyvalue-item">

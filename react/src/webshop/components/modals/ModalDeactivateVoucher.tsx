@@ -33,7 +33,7 @@ export default function ModalDeactivateVoucher({
 
     const form = useFormBuilder({}, () => {
         voucherService
-            .deactivate(voucher.address, { note: reason?.key === 'other' ? note : reason.value })
+            .deactivate(voucher.number, { note: reason?.key === 'other' ? note : reason.value })
             .then((res) => {
                 onDeactivated(res.data.data);
                 setState('success');
