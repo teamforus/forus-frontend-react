@@ -39,7 +39,7 @@ export default interface FundRequest {
     note: string;
     records: Array<FundRequestRecord>;
     replaced: boolean;
-    state: 'pending' | 'approved' | 'declined' | 'disregarded' | 'approved_partly';
+    state: 'pending' | 'approved' | 'declined' | 'disregarded';
     employee: Employee;
     employee_id: number;
     state_locale: string;

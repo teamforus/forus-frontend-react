@@ -72,7 +72,6 @@ export default function FundRequests() {
         pending: { label: 'primary-variant', icon: 'circle-outline' },
         declined: { label: 'danger', icon: 'circle-off-outline' },
         approved: { label: 'success', icon: 'circle-slice-8' },
-        approved_partly: { label: 'success', icon: 'circle-slice-4' },
         disregarded: { label: 'default', icon: 'circle-outline' },
     });
 

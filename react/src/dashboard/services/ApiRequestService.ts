@@ -211,7 +211,7 @@ export default class ApiRequestService<T = null> {
     private parseJson(res: string): unknown {
         try {
             return JSON.parse(res);
-        } catch (e) {
+        } catch {
             return null;
         }
     }

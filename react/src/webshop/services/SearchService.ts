@@ -1,16 +1,24 @@
-import { ApiResponseSingle } from '../../dashboard/props/ApiResponses';
+import { ApiResponse, ApiResponseSingle } from '../../dashboard/props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
 
-export type SearchResultItem = {
+export type SearchItem = {
     id: number;
-    item_type: 'fund' | 'provider' | 'product';
     name: string;
+    description_text: string;
+    item_type: 'fund' | 'product' | 'provider';
+    resource: object;
+};
+
+export type SearchResultGroupItem = {
+    id: number;
+    name: string;
+    item_type: 'fund' | 'product' | 'provider';
 };
 
 export type SearchResultGroup = {
     count: number;
-    items: Array<SearchResultItem>;
+    items: Array<SearchResultGroupItem>;
 };
 
 export type SearchResult = {
@@ -35,8 +43,15 @@ export class SearchService<T = SearchResult> {
     /**
      * Fetch list
      */
-    public search(data: object = {}): Promise<ApiResponseSingle<T>> {
+    public search(data: object = {}): Promise<ApiResponse<SearchItem>> {
         return this.apiRequest.get(`${this.prefix}`, data);
+    }
+
+    /**
+     * Fetch list with overview
+     */
+    public searchWithOverview(data: object = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.get(`${this.prefix}`, { ...data, overview: 1 });
     }
 }
 

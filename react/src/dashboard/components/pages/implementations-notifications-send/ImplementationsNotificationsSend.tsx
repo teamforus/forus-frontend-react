@@ -139,7 +139,7 @@ export default function ImplementationsNotificationsSend() {
     );
 
     const askConfirmation = useCallback(
-        (target, onConfirm) => {
+        (target: string, onConfirm: () => void) => {
             const descriptionKey =
                 {
                     all: 'description_identities_all',
@@ -177,7 +177,7 @@ export default function ImplementationsNotificationsSend() {
     );
 
     const askConfirmationToMyself = useCallback(
-        (onConfirm) => {
+        (onConfirm: () => void) => {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}

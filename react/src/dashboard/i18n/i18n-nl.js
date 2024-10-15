@@ -516,6 +516,7 @@ export default {
             request_btn_text: 'Knoptekst aanvragen',
             external_link_text: 'Externe linktekst',
             external_link_url: 'Externe link-url',
+            criteria_label_requirement_show: 'Verplichte of optionele vragen',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -1591,8 +1592,8 @@ export default {
                 'Hierdoor kan bijvoorbeeld worden bepaald bij welke aanbieders een tegoed kan worden besteed.',
             ].join(''),
             type: [
-                'Selecteer het type tegoeden. Er zijn twee opties:',
-                '<br/><br/><ul>',
+                '<p>Selecteer het type tegoeden. Er zijn twee opties:</p>',
+                '<ul>',
                 '<li><strong>Budget</strong>: Een bedrag dat onder specifieke voorwaarden kan worden besteed.</li>',
                 '<li><strong>Product</strong>: Een tegoed voor een specifiek product of dienst.</li>',
                 '</ul>',

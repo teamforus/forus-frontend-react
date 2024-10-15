@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { OptionType } from '../../SelectControl';
-import { clickOnKeyEnter } from '../../../../../helpers/wcag';
+import { clickOnKeyEnterOrSpace } from '../../../../../helpers/wcag';
 
 export default function SelectControlOptionItem<T>({
     option,
@@ -16,7 +16,7 @@ export default function SelectControlOptionItem<T>({
                 e.stopPropagation();
                 selectOption(option);
             }}
-            onKeyDown={clickOnKeyEnter}
+            onKeyDown={clickOnKeyEnterOrSpace}
             tabIndex={0}
             role="option">
             {option.labelFormat?.map((str, index) => (

@@ -64,11 +64,16 @@ export default function FundCriteriaEditorItem({
     const [title, setTitle] = useState(criterion.title);
     const [description, setDescription] = useState(criterion.title);
     const [showAttachments, setShowAttachments] = useState(criterion.show_attachment);
+    const [label, setLabel] = useState(criterion.label || '');
     const [optional, setOptional] = useState(criterion.optional);
 
     const disabled = useMemo<boolean>(() => {
         return !isEditable || !hasPermission(organization, 'manage_funds');
     }, [isEditable, organization]);
+
+    const hasBooleanLabel = useMemo(() => {
+        return recordType?.type === 'bool' || (recordType?.type === 'string' && operators?.[recordType?.key] === '=');
+    }, [operators, recordType?.key, recordType?.type]);
 
     const validateCriteria = useCallback(
         (data: object) => {
@@ -85,6 +90,7 @@ export default function FundCriteriaEditorItem({
                 value: values?.[recordType.key],
                 min: validations?.[recordType.key]?.min,
                 max: validations?.[recordType.key]?.max,
+                label,
                 title,
                 optional,
                 description,
@@ -111,6 +117,7 @@ export default function FundCriteriaEditorItem({
         criterion?.id,
         optional,
         title,
+        label,
         description,
         showAttachments,
         validateCriteria,
@@ -373,6 +380,21 @@ export default function FundCriteriaEditorItem({
                                     )}
                             </div>
                         </div>
+
+                        {hasBooleanLabel && (
+                            <div className="form-group">
+                                <label className="form-label">{'Voeg een aangepaste "Ik verklaar"-tekst toe'}</label>
+                                <input
+                                    type={'text'}
+                                    className="form-control"
+                                    value={label}
+                                    disabled={disabled}
+                                    onChange={(e) => setLabel(e?.target?.value)}
+                                    placeholder={'Ik verklaar aan de bovenstaande voorwaarden te voldoen'}
+                                />
+                                <FormError error={errors?.['criteria.0.label']} />
+                            </div>
+                        )}
 
                         {recordType?.key && (
                             <div className="row">

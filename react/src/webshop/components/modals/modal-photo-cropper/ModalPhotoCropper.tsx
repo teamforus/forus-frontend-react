@@ -344,19 +344,34 @@ export default function ModalPhotoCropper({
                             </div>
 
                             <div className="cropper-pagination">
-                                <div className="cropper-pagination-btn" onClick={prevMedia} title="Vorige">
+                                <div
+                                    className="cropper-pagination-btn"
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={clickOnKeyEnter}
+                                    onClick={prevMedia}
+                                    title="Vorige">
                                     <em className="mdi mdi-chevron-left" />
                                 </div>
                                 <div className="cropper-pagination-nav">
                                     {files?.map((_, index) => (
                                         <div
                                             key={index}
+                                            role="button"
+                                            tabIndex={0}
+                                            onKeyDown={clickOnKeyEnter}
                                             className={`cropper-pagination-item ${index === fileIndex ? 'active' : ''}`}
                                             onClick={() => setFileIndex(index)}
                                         />
                                     ))}
                                 </div>
-                                <div className="cropper-pagination-btn" onClick={nextMedia} title="Volgende">
+                                <div
+                                    className="cropper-pagination-btn"
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={clickOnKeyEnter}
+                                    onClick={nextMedia}
+                                    title="Volgende">
                                     <em className="mdi mdi-chevron-right" />
                                 </div>
                             </div>
@@ -366,6 +381,9 @@ export default function ModalPhotoCropper({
                                     {cropperFiles[fileIndex]?.is_image && (
                                         <div
                                             className="cropper-rotate-btn"
+                                            role="button"
+                                            tabIndex={0}
+                                            onKeyDown={clickOnKeyEnter}
                                             onClick={() => rotate(fileIndex, -90)}
                                             title="90 graden rechtsom draaien">
                                             <div className="mdi mdi-file-rotate-left-outline" />
@@ -375,6 +393,9 @@ export default function ModalPhotoCropper({
                                     {cropperFiles[fileIndex]?.is_image && (
                                         <div
                                             className="cropper-rotate-btn"
+                                            role="button"
+                                            tabIndex={0}
+                                            onKeyDown={clickOnKeyEnter}
                                             onClick={() => rotate(fileIndex, 90)}
                                             title="90 graden linkssom draaien">
                                             <div className="mdi mdi-file-rotate-right-outline" />
@@ -384,6 +405,9 @@ export default function ModalPhotoCropper({
 
                                 <div
                                     className="cropper-action-change"
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={clickOnKeyEnter}
                                     onClick={() => replaceFileAtIndex(fileIndex)}
                                     title="Kies andere afbeelding">
                                     <input type="file" accept={accept.join(',')} hidden={true} ref={replaceInputRef} />

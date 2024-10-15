@@ -316,19 +316,26 @@ export default function FundRequest() {
     }, [digIdService, fund?.id, navigateState, pushDanger]);
 
     const transformInvalidCriteria = useCallback(
-        (item: FundCriterion): LocalCriterion => ({
-            ...item,
-            title_default: criterionTitle(item),
-            record_type_options: item.record_type?.options.reduce(
-                (list, option) => ({ ...list, [option.value]: option }),
-                {},
-            ),
-            files: [],
-            label: fundService.getCriterionLabelValue(item.record_type, item.value, translate),
-            input_value: fundService.getCriterionControlDefaultValue(item.record_type, item.operator),
-            control_type: fundService.getCriterionControlType(item.record_type, item.operator),
-        }),
-        [criterionTitle, fundService, translate],
+        function (item: FundCriterion): LocalCriterion {
+            const control_type = fundService.getCriterionControlType(item.record_type, item.operator);
+
+            return {
+                ...item,
+                title_default: criterionTitle(item),
+                record_type_options: item.record_type?.options.reduce(
+                    (list, option) => ({ ...list, [option.value]: option }),
+                    {},
+                ),
+                files: [],
+                label:
+                    control_type === 'ui_control_checkbox'
+                        ? item.label || 'Ik verklaar aan de bovenstaande voorwaarden te voldoen'
+                        : '',
+                input_value: fundService.getCriterionControlDefaultValue(item.record_type, item.operator),
+                control_type,
+            };
+        },
+        [criterionTitle, fundService],
     );
 
     const buildSteps = useCallback(() => {

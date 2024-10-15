@@ -112,7 +112,7 @@ router.state('fund-requests', <FundRequests />, {
 router.state('fund-request-show', <FundRequestsShow />, {
     path: `/fondsen-aanvraag/:id`,
     altPath: [`/fund-requests/:id`, `/fund-request/:id`],
-    protected: true,
+    protected: false,
 });
 
 router.state('fund-request-clarification', <FundRequestsClarification />, {
@@ -246,7 +246,7 @@ router.state('identity-emails', <PreferencesEmails />, {
 });
 
 router.state('preferences-notifications', <PreferencesNotifications />, {
-    path: `/preferences/notifications`,
+    path: `/preferences/notifications/:section?`,
     protected: false,
 });
 

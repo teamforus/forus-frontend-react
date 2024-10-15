@@ -224,6 +224,11 @@
                 font: 700 16px/24px var(--base-font);
                 margin: 0 0 15px;
 
+                &.sign_up-pane-heading-md {
+                    font: 700 20px/30px var(--base-font);
+                    margin-bottom: 30px;
+                }
+
                 &.sign_up-pane-heading-lg {
                     font: 700 22px/32px var(--base-font);
                     margin: 0;
@@ -264,6 +269,16 @@
                 padding: 10px 0 0;
                 border-bottom: 1px solid var(--border-color);
                 margin: 0 0 30px;
+            }
+
+            .sign_up-privacy {
+                display: inline-flex;
+                gap: 5px;
+                align-items: center;
+
+                .sign_up-privacy-checkbox {
+                    margin: 0 0 ;
+                }
             }
 
             .list-normal {
@@ -376,12 +391,14 @@
 
                 &.sign_up-pane-list-criteria {
                     li {
+                        padding-left: 27.5px;
+
                         .item-icon {
                             display: inline-block;
                             width: 20px;
                             height: 20px;
                             border-radius: 20px;
-                            border: 2px solid #c4c4c4;
+                            border: 2px solid var(--text-color-muted);
                             background: transparent;
                             line-height: 16px;
                             position: absolute;
@@ -391,48 +408,14 @@
                             text-align: center;
 
                             .mdi {
-                                color: inherit;
-                                line-height: 16px;
-                                font-size: 14px;
-                            }
-
-                            &.item-icon-default {
-                                width: 10px;
-                                height: 10px;
-                                background-color: #c3d0d1;
-                                top: 5px;
+                                color: var(--text-color-muted);
+                                line-height: 22px;
+                                font-size: 20px;
                             }
                         }
 
                         &:before {
                             display: none;
-                        }
-
-                        &.item-valid {
-                            .item-icon {
-                                border-color: #2ac039;
-                                color: #2ac039;
-                            }
-                        }
-
-                        &.item-invalid {
-                            .item-icon {
-                                border-color: var(--color-primary);
-                            }
-                        }
-
-                        &.item-progress {
-                            .item-icon {
-                                border-color: #ffa500;
-                                color: #ffa500;
-                            }
-                        }
-
-                        &.item-declined {
-                            .item-icon {
-                                border-color: #e63b3b;
-                                color: #e63b3b;
-                            }
                         }
                     }
                 }
@@ -821,7 +804,10 @@
                     line-height: 16px;
                     letter-spacing: 0.08px;
                     color: #1a1919;
-                    padding-left: 15px;
+                }
+
+                .form-value-hint {
+                    font: 400 13px/18px var(--base-font);
                 }
             }
 
