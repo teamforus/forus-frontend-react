@@ -125,4 +125,6 @@ export default interface Fund {
     custom_amount_max?: string;
     amount_presets?: Array<{ id?: number; name?: string; amount?: string; amount_locale?: string }>;
     provider_products_required?: boolean;
+    pre_check_excluded?: boolean;
+    pre_check_note?: string;
 }
