@@ -128,6 +128,34 @@
             }
         }
 
+        .pre-check-totals {
+            border-radius: var(--border-radius);
+            border: 1px solid #DBDCDB;
+            background: #FBFBFB;
+            display: flex;
+            padding: 12px 16px;
+            margin-bottom: 25px;
+
+            .block.block-key-value-list {
+                width: 100%;
+
+                .block-key-value-list-item {
+                    width: 100%;
+                    color: #282B39;
+
+                    .key-value-list-item-label {
+                        font-weight: 600;
+                        flex-grow: 1;
+                    }
+
+                    .key-value-list-item-value {
+                        font-weight: 700;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
         .pre-check-actions {
             .button {
                 margin-bottom: 10px;
