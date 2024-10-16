@@ -43,6 +43,7 @@ export default function MarkdownEditor({
     extendedOptions = false,
     bindEditor = null,
     onChange = null,
+    height = 400,
     onUpdatedRaw,
     insertTextRef,
 }: {
@@ -60,6 +61,7 @@ export default function MarkdownEditor({
     allowAlignment?: boolean;
     extendedOptions?: boolean;
     onChange: (value: string) => void;
+    height?: number;
     onMediaUploaded?: (value: { media_uid: string }) => void;
     insertTextRef?: React.MutableRefObject<(text: string) => void>;
 }) {
@@ -378,7 +380,7 @@ export default function MarkdownEditor({
         getEditor().summernote({
             placeholder: placeholder || '',
             tabsize: 4,
-            height: 400,
+            height: height,
             disableDragAndDrop: true,
             disableResizeImage: true,
             icons: {
@@ -456,6 +458,7 @@ export default function MarkdownEditor({
         initialized,
         getEditor,
         onUpdatedRaw,
+        height,
     ]);
 
     useEffect(() => {

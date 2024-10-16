@@ -11,6 +11,8 @@ export default interface FundCriterion {
     title?: string;
     description?: string;
     description_html?: string;
+    extra_description?: string;
+    extra_description_html?: string;
     record_type?: RecordType;
     min?: string;
     max?: string;

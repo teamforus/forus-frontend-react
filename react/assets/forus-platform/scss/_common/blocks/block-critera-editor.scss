@@ -32,8 +32,7 @@
         }
 
         .criterion-head {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
+            display: flex;
             padding: 10px 10px 10px 20px;
             border-bottom: 1px solid var(--border-color);
 

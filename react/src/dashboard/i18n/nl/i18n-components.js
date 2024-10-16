@@ -63,6 +63,7 @@ export default {
             edit: 'Aanpassen',
             apply: 'Bevestigen',
             cancel: 'Annuleren',
+            delete: 'Verwijderen',
         },
 
         allow_attachments: 'Bijlage uploaden',
