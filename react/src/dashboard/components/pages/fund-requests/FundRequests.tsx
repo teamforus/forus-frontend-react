@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FundRequestTotals, useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import { strLimit } from '../../../helpers/string';
@@ -32,6 +32,8 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import FundRequestStateLabel from '../../elements/resource-states/FundRequestStateLabel';
 import { NumberParam, StringParam } from 'use-query-params';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
 
 export default function FundRequests() {
     const envData = useEnvData();
@@ -174,13 +176,6 @@ export default function FundRequests() {
     const exportRequests = useCallback(() => {
         openModal((modal) => <ModalExportTypeLegacy modal={modal} onSubmit={(exportType) => doExport(exportType)} />);
     }, [doExport, openModal]);
-
-    const getShowUrl = useCallback(
-        (fundRequest: FundRequest) => {
-            return getStateRouteUrl('fund-request', { organizationId: activeOrganization.id, id: fundRequest.id });
-        },
-        [activeOrganization],
-    );
 
     useEffect(() => {
         if (!appConfigs.organizations?.funds?.fund_requests) {
@@ -422,13 +417,24 @@ export default function FundRequests() {
                                             <td>
                                                 <FundRequestStateLabel fundRequest={fundRequest} />
                                             </td>
-                                            <td className={'text-right'}>
-                                                <NavLink
-                                                    to={getShowUrl(fundRequest)}
-                                                    className="button button-sm button-primary pull-right">
-                                                    <em className="mdi mdi-eye-outline icon-start" />
-                                                    {translate('validation_requests.buttons.view')}
-                                                </NavLink>
+
+                                            <td className="td-narrow text-right">
+                                                <TableRowActions
+                                                    content={() => (
+                                                        <div className="dropdown dropdown-actions">
+                                                            <StateNavLink
+                                                                name={'fund-request'}
+                                                                params={{
+                                                                    organizationId: activeOrganization.id,
+                                                                    id: fundRequest.id,
+                                                                }}
+                                                                className="dropdown-item">
+                                                                <em className="mdi mdi-eye-outline icon-start" />
+                                                                {translate('validation_requests.buttons.view')}
+                                                            </StateNavLink>
+                                                        </div>
+                                                    )}
+                                                />
                                             </td>
                                         </tr>
                                     ))}

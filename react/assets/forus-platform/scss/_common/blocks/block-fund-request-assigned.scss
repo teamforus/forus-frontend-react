@@ -1,0 +1,24 @@
+.block.block-fund-request-assigned {
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+    gap: 5px;
+
+    .block-fund-request-assigned-key {
+        color: #134478;
+        font: 600 13px/20px var(--base-font);
+    }
+
+    .block-fund-request-assigned-value {
+        display: flex;
+        color: #151b26;
+        font: 600 13px/20px var(--base-font);
+        vertical-align: center;
+        gap: 3px;
+
+        .mdi {
+            font-size: 18px;
+            line-height: 20px;
+        }
+    }
+}

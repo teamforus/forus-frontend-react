@@ -87,7 +87,7 @@ export default function ModalFundRequestClarify({
                         </div>
                     </div>
                     <div className="modal-footer text-center">
-                        <button type="button" className="button button-default" onClick={form.close}>
+                        <button type="button" className="button button-default" onClick={modal.close}>
                             Annuleer
                         </button>
                         <button type="submit" className="button button-primary">

@@ -97,6 +97,7 @@
 @import 'blocks/block-provider-products-required.scss';
 @import 'blocks/block-push-notifications.scss';
 @import 'blocks/block-collapsable.scss';
+@import 'blocks/block-fund-request-assigned.scss';
 
 // Select controls
 .select-control {
@@ -1426,7 +1427,6 @@ body {
 
         .keyvalue-item {
             padding-bottom: 10px;
-            float: left;
             @include cf();
 
             .keyvalue-key {
@@ -1442,6 +1442,9 @@ body {
                 color: #282b39;
                 font: 500 13px/20px var(--base-font);
                 width: calc(100% - 210px);
+                display: flex;
+                align-items: center;
+                gap: 10px;
 
                 .block-form_tooltip {
                     vertical-align: middle;
@@ -1462,6 +1465,23 @@ body {
 
                 .form-numeric {
                     margin-top: -5px;
+                }
+
+                .keyvalue-value-info-block-toggle {
+                    color: #134478;
+                    font: 600 12px / 18px var(--base-font);
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+
+                    .mdi {
+                        color: #646F79;
+                        font-size: 20px;
+                    }
+
+                    &:hover {
+                        color: #426993;
+                    }
                 }
             }
 
@@ -1484,6 +1504,33 @@ body {
             &.keyvalue-item-disabled {
                 pointer-events: none;
                 cursor: default;
+            }
+        }
+
+        .keyvalue-item-info-block {
+            background: #fbfbfb;
+            padding: 15px 20px;
+            margin: 0 -20px 10px -20px;
+            border-top: 1px solid #d4d9dd;
+            border-bottom: 1px solid #d4d9dd;
+
+            ul {
+                li {
+                    display: flex;
+                    gap: 10px;
+                    font: 500 12px / 18px var(--base-font);
+                    color: #151b26;
+                    margin-bottom: 10px;
+
+                    .mdi {
+                        font-size: 14px;
+                        color: #134478;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
             }
         }
 
