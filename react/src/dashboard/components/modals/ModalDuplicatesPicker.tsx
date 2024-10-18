@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import ScrollEnd from '../elements/scroll-end/ScrollEnd';
 import ToggleControl from '../elements/forms/controls/ToggleControl';
+import classNames from 'classnames';
 
 type ItemProp = {
     _uid: string;
@@ -148,7 +149,9 @@ export default function ModalDuplicatesPicker({
     }, [list, page, per_page]);
 
     return (
-        <div className={`modal modal-lg modal-animated ${modal.loading ? 'modal-loading' : ''} ${className || ''}`}>
+        <div
+            className={classNames('modal', 'modal-lg', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalDuplicatesPicker">
             <div className="modal-backdrop" onClick={cancel} />
             <div className="modal-window">
                 <div className="modal-body">
@@ -239,7 +242,10 @@ export default function ModalDuplicatesPicker({
                                 {labels.button_all}
                             </button>
                         )}
-                        <button className="button button-primary button-sm" onClick={confirm}>
+                        <button
+                            className="button button-primary button-sm"
+                            onClick={confirm}
+                            data-dusk="modalDuplicatesPickerConfirm">
                             {labels.button_confirm}
                         </button>
                     </div>
