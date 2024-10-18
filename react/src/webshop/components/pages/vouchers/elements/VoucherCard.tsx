@@ -40,7 +40,7 @@ export default function VoucherCard({
                     confirmBtnText={translate('voucher.delete_voucher.buttons.submit')}
                     cancelBtnText={translate('voucher.delete_voucher.buttons.close')}
                     onConfirm={() => {
-                        voucherService.destroy(voucher.address).then(() => {
+                        voucherService.destroy(voucher.number).then(() => {
                             modal?.close();
                             onVoucherDestroyed?.();
                         });
@@ -54,7 +54,7 @@ export default function VoucherCard({
     return (
         <StateNavLink
             name={'voucher'}
-            params={{ address: voucher.address }}
+            params={{ number: voucher.number }}
             className="voucher-item"
             dataDusk="voucherItem">
             <div className="voucher-image">
@@ -62,7 +62,7 @@ export default function VoucherCard({
             </div>
             <div className="voucher-details">
                 <h2 className="voucher-name" data-dusk="voucherName">
-                    {voucherCard.title}
+                    <span className={'show-sm'}>#{voucherCard.number}</span> {voucherCard.title}
                 </h2>
 
                 <div className="voucher-organization">
@@ -109,24 +109,33 @@ export default function VoucherCard({
             </div>
 
             <div className="voucher-overview voucher-overview-stats">
-                {!voucherCard.used && (
-                    <div className="voucher-overview-item">
-                        {voucher.expired ? (
-                            <div className="voucher-overview-label">{translate('vouchers.labels.expired_on')}</div>
-                        ) : (
-                            <div className="voucher-overview-label">{translate('vouchers.labels.expire')}</div>
-                        )}
+                <div className="voucher-overview-items">
+                    {voucherCard.number && (
+                        <div className="voucher-overview-item">
+                            <div className="voucher-overview-label">Number</div>
+                            <div className="voucher-overview-value">#{voucherCard.number}</div>
+                        </div>
+                    )}
 
-                        <div className="voucher-overview-value">{voucherCard.last_active_day_locale}</div>
-                    </div>
-                )}
+                    {!voucherCard.used && (
+                        <div className="voucher-overview-item">
+                            {voucher.expired ? (
+                                <div className="voucher-overview-label">{translate('vouchers.labels.expired_on')}</div>
+                            ) : (
+                                <div className="voucher-overview-label">{translate('vouchers.labels.expire')}</div>
+                            )}
 
-                {voucherCard.used && voucherCard.type == 'product' && (
-                    <div className="voucher-overview-item">
-                        <div className="voucher-overview-label">{translate('vouchers.labels.used_on')}</div>
-                        <div className="voucher-overview-value">{voucherCard.last_transaction_at_locale}</div>
-                    </div>
-                )}
+                            <div className="voucher-overview-value">{voucherCard.last_active_day_locale}</div>
+                        </div>
+                    )}
+
+                    {voucherCard.used && voucherCard.type == 'product' && (
+                        <div className="voucher-overview-item">
+                            <div className="voucher-overview-label">{translate('vouchers.labels.used_on')}</div>
+                            <div className="voucher-overview-value">{voucherCard.last_transaction_at_locale}</div>
+                        </div>
+                    )}
+                </div>
             </div>
         </StateNavLink>
     );
