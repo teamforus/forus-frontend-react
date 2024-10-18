@@ -167,6 +167,7 @@ fronts['backend'] = {
 module.exports = {
     fronts: fronts,
     enableOnly: ['webshop.general', 'dashboard.sponsor', 'dashboard.provider', 'dashboard.validator'],
+    disableOnly: [],
     httpsKey: null,
     httpsCert: null,
     buildGzipFiles: false,
