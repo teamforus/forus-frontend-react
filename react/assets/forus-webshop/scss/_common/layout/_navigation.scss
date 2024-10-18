@@ -267,6 +267,14 @@
                         color: #157C68;
                     }
                 }
+
+                .block-navbar-search {
+                    .search-form {
+                        .form-control {
+                            border-radius: var(--search-bar-input-radius);
+                        }
+                    }
+                }
             }
 
             .auth-in {

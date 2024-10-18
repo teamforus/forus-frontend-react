@@ -196,7 +196,8 @@
                         width: 6px;
                         height: 6px;
                         display: inline-block;
-                        background: #ececec;
+                        background: var(--search-bar-point-color);
+                        border-radius: var(--search-bar-point-radius);
                         margin: 2px 10px 2px 0;
                     }
 

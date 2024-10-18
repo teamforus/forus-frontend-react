@@ -1,15 +1,15 @@
 // LAYOUTS
-@import "doetegoed/layout/navigation";
-@import "doetegoed/layout/header";
+@import 'doetegoed/layout/navigation';
+@import 'doetegoed/layout/header';
 
 // INCLUDES
-@import "doetegoed/includes/fonts";
-@import "doetegoed/includes/form";
-@import "doetegoed/includes/buttons";
+@import 'doetegoed/includes/fonts';
+@import 'doetegoed/includes/form';
+@import 'doetegoed/includes/buttons';
 
 // COMPONENTS
-@import "doetegoed/components/labels";
-@import "doetegoed/components/buttons";
+@import 'doetegoed/components/labels';
+@import 'doetegoed/components/buttons';
 
 body {
     @media screen and (max-width: 1000px) {
@@ -17,59 +17,57 @@ body {
     }
 }
 
-.block {
-    &.block-pane,
-    &.block-empty,
-    &.block-map_card,
-    &.block-action-card,
-    &.block-funds-list .fund-item,
-    &.block-product .product-card,
-    &.block-search-results .search-item,
-    &.block-user_emails .user_email-item,
-    &.block-vouchers .voucher-item,
-    &.block-reimbursements .reimbursement-item,
-    &.block-profile .profile-aside .profile-menu .profile-menu-item {
-        border-radius: var(--border-radius);
-        border: 1px solid var(--border-color);
-    }
+.block.block-pane,
+.block.block-empty,
+.block.block-map_card,
+.block.block-action-card,
+.block.block-transactions,
+.block.block-funds-list .fund-item,
+.block.block-product .product-card,
+.block.block-reimbursements .reimbursement-item,
+.block.block-search-results .search-item,
+.block.block-vouchers .voucher-item,
+.block.block-voucher .base-card.base-card-voucher,
+.block.block-voucher .base-card.base-card-sponsor,
+.block.block-profile .profile-aside .profile-aside-block {
+    border: 1px solid var(--border-color);
+}
 
-    &.block-office .office-content .block-organizations .organization-item,
-    &.block-provider .provider-content .block-organizations .organization-item {
-        border: none;
-    }
+.block.block-office .office-content .block-organizations .organization-item,
+.block.block-provider .provider-content .block-organizations .organization-item {
+    border: none;
+}
 
-    &.block-funds-list .fund-item,
-    &.block-search-results .search-item {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
-        transition: 0.4s;
+.block.block-funds-list .fund-item,
+.block.block-search-results .search-item {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+    transition: 0.4s;
 
-        &:hover {
-            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
-        }
-    }
-
-    &.block-show-more .button,
-    &.block-map .button {
-        background-color: #ff9e1b;
-        border: 1px solid #f8c178;
-
-        .mdi {
-            display: none;
-        }
+    &:hover {
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
     }
 }
 
-@import "doetegoed/sections/blocks/block-cms";
-@import "doetegoed/sections/blocks/block-navbar";
-@import "doetegoed/sections/blocks/block-footer";
-@import "doetegoed/sections/blocks/block-product";
-@import "doetegoed/sections/blocks/block-sign_up";
-@import "doetegoed/sections/blocks/block-cms-funds";
-@import "doetegoed/sections/blocks/block-copyrights";
-@import "doetegoed/sections/blocks/block-action-card";
-@import "doetegoed/sections/blocks/block-organizations";
-@import "doetegoed/sections/blocks/block-map";
-@import "doetegoed/sections/blocks/block-markdown";
-@import "doetegoed/sections/blocks/block-profile";
-@import "doetegoed/sections/blocks/block-empty";
-@import "doetegoed/sections/blocks/block-navbar-search";
+.block.block-show-more .button,
+.block.block-map .button {
+    background-color: #ff9e1b;
+    border: 1px solid #f8c178;
+
+    .mdi {
+        display: none;
+    }
+}
+
+@import 'doetegoed/sections/blocks/block-cms';
+@import 'doetegoed/sections/blocks/block-navbar';
+@import 'doetegoed/sections/blocks/block-footer';
+@import 'doetegoed/sections/blocks/block-product';
+@import 'doetegoed/sections/blocks/block-sign_up';
+@import 'doetegoed/sections/blocks/block-cms-funds';
+@import 'doetegoed/sections/blocks/block-copyrights';
+@import 'doetegoed/sections/blocks/block-action-card';
+@import 'doetegoed/sections/blocks/block-organizations';
+@import 'doetegoed/sections/blocks/block-map';
+@import 'doetegoed/sections/blocks/block-markdown';
+@import 'doetegoed/sections/blocks/block-empty';
+@import 'doetegoed/sections/blocks/block-navbar-search';

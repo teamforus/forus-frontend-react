@@ -1,14 +1,14 @@
 // do not use these scss variables outside this file
-$primaryColor: #305dfb;
-$primaryColorLight: #305dfb;
+$primaryColor: #8f1354;
+$primaryColorLight: #b31869;
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
     // navbar
-    --bg-nav: #f5f5f5;
+    --bg-nav: #f7f8fa;
     --btn-nav: #305dfb;
-    --tc-nav-hov: #305dfb;
+    --tc-nav-hov: #{$primaryColor};
     --tc-nav: #282b39;
     --logo-padding: 20px 0px;
     --logo-height: 50px;
@@ -19,36 +19,36 @@ $primaryColorLight: #305dfb;
 
     // navbar (auth) (default button)
     --tc-auth-menu: #305dfb;
-    --tc-auth-btn: #305dfb;
-    --btn-auth-bg: #fff;
-    --btn-auth-border: #305dfb;
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #006767;
+    --btn-auth-border: #006767;
     --auth-avater-bg: #305dfb;
     --auth-avater-svg: #fff;
 
     // navbar (start modal primary)
     --tc-start-btn: #fff;
-    --btn-start-bg: #305dfb;
+    --btn-start-bg: #{$primaryColor};
     --btn-start-btn: #305dfb;
-    --btn-start-border: transparent;
+    --btn-start-border: #{$primaryColor};
 
     // header background
-    --bg-values: url("../img/splash-top-b.png") no-repeat 100% 0;
+    --bg-values: url('../img/splash-top-b.png') no-repeat 100% 0;
 
     // Header banner
-    --header-banner-pane-banner-padding: 50px 0;
-    --header-banner-pane-banner-max-width: 650px;
-    --header-banner-pane-banner-background: transparent;
+    --header-banner-pane-banner-padding: 40px 50px;
+    --header-banner-pane-banner-max-width: 760px;
+    --header-banner-pane-banner-background: #fff;
     --header-banner-pane-banner-border-color: initial;
-    --header-banner-pane-banner-border-radius: initial;
+    --header-banner-pane-banner-border-radius: var(--border-radius);
 
     // base font
-    --base-font: "Open Sans", arial, sans-serif;
+    --base-font: 'Open Sans', arial, sans-serif;
 
     // heading font
     --hf: var(--base-font);
 
     // text color
-    --tc: #282B39;
+    --tc: #282b39;
     --htc: var(--tc);
     --tc-var: inherit;
     --tc-link: inherit;
@@ -60,22 +60,22 @@ $primaryColorLight: #305dfb;
     // background color
     --bg: #f3f8fe;
 
-    --bg_2: linear-gradient(to bottom, #f3f8fe 0%, #feffff 100%);
+    --bg_2: #fff;
 
     // footer color
-    --footer_background_color: #fff;
-    --footer_color: #353535;
-    --footer_color_link: #004d93;
-    --footer_color_link_hover: #004d93;
+    --footer_background_color: #eff2f5;
+    --footer_color: var(--tc);
+    --footer_color_link: var(--tc);
+    --footer_color_link_hover: var(--tc);
 
-    --footer_social_color: var(--footer_color);
+    --footer_social_color: var(--color-primary);
     --footer_social_background: transparent;
-    --footer_social_border_color: var(--footer_color);
-    --footer_social_border_radius: var(--border-radius);
+    --footer_social_border_color: var(--color-primary);
+    --footer_social_border_radius: 40px;
 
-    --footer-copyright-color: var(--footer_color_link);
-    --footer-copyright-background: transparent;
-    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-color: #fff;
+    --footer-copyright-background: #008486;
+    --footer-copyright-border-color: #008486;
 
     // not displayed
     --footer_display: none;
@@ -97,17 +97,17 @@ $primaryColorLight: #305dfb;
     --color-danger: #e63b3b;
 
     // Search bar
-    --color-search-icon-medium: #{$primaryColor};
-    --color-search-icon-dark: #{darken($primaryColor, 10%)};
-    --color-search-icon-light: #{lighten($primaryColor, 25%)};
+    --color-search-icon-medium: #b31869;
+    --color-search-icon-dark: #8f1354;
+    --color-search-icon-light: #bababa;
 
-    --search-bar-point-color: #ececec;
-    --search-bar-point-radius: 0px;
-    --search-bar-input-radius: var(--border-radius);
+    --search-bar-point-color: var(--color-primary);
+    --search-bar-point-radius: 4px;
+    --search-bar-input-radius: 25px;
 
     // Dropdowns
     --dropdown-item-font: 500 13px/20px var(--base-font);
-    --dropdown-item-color: #282B39;
+    --dropdown-item-color: #282b39;
     --dropdown-item-background: #ffffff;
     --dropdown-item-hover-color: #000000;
     --dropdown-item-hover-background: #e5e5e5;
@@ -116,14 +116,14 @@ $primaryColorLight: #305dfb;
     --form-control-color: #222222;
     --form-control-background: #ffffff;
     --form-control-border-color: #646464;
-    --form-control-border-color-focus: #282B39;
+    --form-control-border-color-focus: #282b39;
     --form-control-placeholder-font: 400 13px/20px var(--base-font);
     --form-control-placeholder-color: #535561;
     --form-label-color: #595959;
 
     // Buttons
     --btn-color: #282b39;
-    --btn-border-radius: calc(var(--border-radius) * .75);
+    --btn-border-radius: 25px;
 
     --btn-disabled-color: #616161;
     --btn-disabled-background: #e5e5e5;
@@ -151,17 +151,17 @@ $primaryColorLight: #305dfb;
     --label-set-color: #272525;
     --label-set-background: #ffffff;
     --label-set-active-color: #ffffff;
-    --label-set-active-background: var(--color-primary);
+    --label-set-active-background: #006767;
     --label-set-hover-color: #ffffff;
-    --label-set-hover-background: #{rgba($primaryColor, .8)};
+    --label-set-hover-background: #{rgba(#006767, 0.8)};
     --label-set-focus-color: #272525;
-    --label-set-focus-background: #F4F5F7;
+    --label-set-focus-background: #f4f5f7;
 
     // Sign up
     --sign_up_accent_color: #305dfb;
     --sign_up_accent_color_light: #bdcbff;
     --sign_up_link_color: #e60003;
-    --sign_up_step_btns_color: #305dfb;
+    --sign_up_step_btns_color: var(--color-primary);
     --sign_up_digid_btn_bkg: #e1e7ff;
     --sign_up_digid_btn_text: #4b71ff;
     --sign_up_digid_btn_border: none;
@@ -179,8 +179,8 @@ $primaryColorLight: #305dfb;
     --showcase-item-background: var(--showcase-aside-background);
     --showcase-item-border: var(--showcase-aside-border);
     --showcase-item-border-radius: var(--showcase-aside-border-radius);
-    --showcase-item-hover-shadow: 2px 8px 14px 0px rgba(0, 0, 0, 0.10);
-    
+    --showcase-item-hover-shadow: 2px 8px 14px 0px rgba(0, 0, 0, 0.1);
+
     --showcase-aside-button-color: var(--color-primary);
     --showcase-aside-button-border: 1px solid var(--color-primary);
     --showcase-aside-button-background: transparent;
@@ -189,11 +189,11 @@ $primaryColorLight: #305dfb;
     --showcase-aside-button-hover-background: var(--color-primary);
 
     --showcase-fullscreen-bottom-offset: 115px;
-    
+
     --showcase-title-font: 600 18px/30px var(--hf);
     --showcase-title-color: var(--tc);
     --showcase-title-count-color: #fff;
-    --showcase-title-count-background: var(--color-primary);
+    --showcase-title-count-background: #006767;
     --showcase-title-count-border-radius: calc(var(--border-radius) / 2);
 
     // Nav item line position
@@ -211,10 +211,10 @@ $primaryColorLight: #305dfb;
     --loader-color: var(--color-primary);
 
     // Profile
-    --profile-menu-item-color: var(--color-primary);
+    --profile-menu-item-color: var(--tc);
     --profile-menu-item-shadow: var(--box-shadow);
     --profile-menu-item-background: #ffffff;
-    --profile-menu-item-border-color: transparent;
+    --profile-menu-item-border-color: var(--border-color);
     --profile-menu-item-border-radius: var(--border-radius);
     --profile-menu-item-hover-color: #fff;
     --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, .20);
@@ -223,11 +223,11 @@ $primaryColorLight: #305dfb;
     --profile-menu-item-hover-border-radius: var(--border-radius);
 
     // Voucher card
-    --voucher-card-action-color: var(--color-primary);
+    --voucher-card-action-color: #006767;
     --voucher-card-action-background: transparent;
-    --voucher-card-action-border-color: var(--color-primary);
-    --voucher-card-action-border-radius: 0px;
+    --voucher-card-action-border-color: #006767;
+    --voucher-card-action-border-radius: 20px;
     --voucher-card-action-hover-color: #fff;
-    --voucher-card-action-hover-background: var(--color-primary);
-    --voucher-card-action-hover-border-color: var(--color-primary);
+    --voucher-card-action-hover-background: #008486;
+    --voucher-card-action-hover-border-color: #008486;
 }

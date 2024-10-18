@@ -40,6 +40,7 @@
                     justify-content: center;
 
                     .action-item {
+                        cursor: pointer;
                         flex-direction: column;
                         text-align: center;
                         display: inline-flex;
@@ -51,10 +52,11 @@
                             height: 40px;
                             line-height: 40px;
                             text-align: center;
-                            border: 1px solid var(--color-primary);
-                            background: transparent;
                             text-transform: inherit;
-                            color: var(--color-primary);
+                            background: var(--voucher-card-action-background);
+                            border: 1px solid var(--voucher-card-action-border-color);
+                            border-radius: var(--voucher-card-action-border-radius);
+                            color: var(--voucher-card-action-color);
                             font-size: 20px;
                             transition: 0.4s;
                             cursor: pointer;
@@ -106,19 +108,16 @@
 
                         &:hover {
                             .action-item-icon {
-                                background-color: var(--color-primary);
-                                border: 1px solid var(--color-primary);
-                                color: #fff;
+                                background: var(--voucher-card-action-hover-background);
+                                border: 1px solid var(--voucher-card-action-hover-border-color);
+                                border-color: var(--voucher-card-action-hover-border-radius);
+                                color: var(--voucher-card-action-hover-color);
 
                                 .action-item-tooltip {
                                     opacity: 1;
                                     visibility: visible;
                                     transform: translate3d(-50%, 0, 0) scale3d(1, 1, 1);
                                 }
-                            }
-
-                            .action-item-name {
-                                color: var(--color-primary);
                             }
                         }
                     }

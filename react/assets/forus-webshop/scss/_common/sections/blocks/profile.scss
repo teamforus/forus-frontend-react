@@ -11,7 +11,7 @@
             .profile-card {
                 background: #fff;
                 border-radius: 10px;
-                box-shadow: 0 5px 30px rgba(0, 0, 0, .05);
+                box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
                 padding: 20px;
                 margin-bottom: 30px;
                 cursor: default;
@@ -50,7 +50,7 @@
                     padding: 20px;
                     border-top: 1px solid #e9ecee;
                     border-bottom: 1px solid #e9ecee;
-                    
+
                     .profile-address-label {
                         font: 400 10px var(--base-font);
                         color: #646f79;
@@ -75,7 +75,7 @@
                         float: left;
                         margin-right: 30px;
                         margin-bottom: 20px;
-                        transition: color .4s;
+                        transition: color 0.4s;
                         cursor: pointer;
                         @include cf();
 
@@ -107,54 +107,52 @@
 
             .profile-menu {
                 .profile-menu-item {
-                    margin-bottom: 15px;
-                    background-color: #ffffff;
-                    color: var(--color-primary);
-                    padding: 15px 20px;
+                    padding: 14px 19px;
                     font: 700 13px/20px var(--base-font);
-                    border-radius: var(--border-radius);
+                    color: var(--profile-menu-item-color);
+                    box-shadow: var(--profile-menu-item-shadow);
+                    background-color: var(--profile-menu-item-background);
+                    border: 1px solid var(--profile-menu-item-border-color);
+                    border-radius: var(--profile-menu-item-border-radius);
                     margin-bottom: 15px;
-                    box-shadow: var(--box-shadow);
                     display: block;
                     position: relative;
-                    transition: .4s;
+                    transition: 0.4s;
 
                     .mdi {
-                        color: var(--color-primary);
+                        color: var(--profile-menu-item-color);
                         position: absolute;
                         right: 15px;
                         top: 50%;
                         transform: translate(0, -50%);
                         font-size: 20px;
-                        transition: .4s;
+                        transition: 0.4s;
                     }
 
                     &.active,
                     &:hover {
-                        background-color: var(--color-primary);
-                        color: #fff;
-                        box-shadow: 0 5px 20px rgba(0, 0, 0, .20);
-                        
+                        color: var(--profile-menu-item-hover-color);
+                        box-shadow: var(--profile-menu-item-hover-shadow);
+                        background-color: var(--profile-menu-item-hover-background);
+                        border: 1px solid var(--profile-menu-item-hover-border-color);
+                        border-radius: var(--profile-menu-item-hover-border-radius);
+
                         .mdi {
                             right: 10px;
-                            color: #fff;
+                            color: var(--profile-menu-item-hover-color);
                         }
-                    }
-
-                    &.active {
-                        background-color: var(--color-primary);
                     }
                 }
             }
         }
-        
-        .profile-content {  
+
+        .profile-content {
             float: left;
             position: relative;
             z-index: 2;
             width: 75%;
             padding-left: 30px;
-            
+
             .profile-content-header {
                 position: relative;
                 z-index: 1;
@@ -173,15 +171,16 @@
                     }
 
                     .profile-content-title-count {
-                        font: 700 16px/30px var(--base-font);
-                        background: var(--color-primary);
-                        border-radius: calc(var(--border-radius) / 2);
+                        color: var(--showcase-title-count-color);
+                        background: var(--showcase-title-count-background);
+                        border-radius: var(--showcase-title-count-border-radius);
+                        font: var(--showcase-title-font);
+                        font-weight: 700;
+                        font-size: 1rem;
                         float: right;
                         min-width: 30px;
                         height: 30px;
                         margin: 0 0 0 10px;
-                        text-align: center;
-                        color: #fff;
                         text-align: center;
                         padding: 0 5px;
                     }
@@ -196,7 +195,7 @@
                         font: 700 18px/27px var(--hf);
                     }
                 }
-                
+
                 .profile-content-subtitle {
                     font: 400 14px/22px var(--base-font);
                     color: var(--tc);

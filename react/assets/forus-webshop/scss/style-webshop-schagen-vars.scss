@@ -69,9 +69,12 @@ $primaryColorLight: #1c8fd7;
     --color-default: #{$primaryColor};
     --color-default-light: #{$primaryColorLight};
 
+    // Search bar
     --color-search-icon-medium: #{$primaryColor};
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    --search-bar-input-radius: 10px;
     
     // Label sets
     --label-set-hover-background: #{rgba($primaryColor, .8)};

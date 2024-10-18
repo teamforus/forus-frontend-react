@@ -304,7 +304,7 @@
                     .showcase-filters-title-count {
                         color: var(--showcase-title-count-color);
                         background: var(--showcase-title-count-background);
-                        border-radius: calc(var(--border-radius) / 2);
+                        border-radius: var(--showcase-title-count-border-radius);
                         font: var(--showcase-title-font);
                         font-weight: 700;
                         font-size: 1rem;

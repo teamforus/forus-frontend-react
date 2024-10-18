@@ -1,0 +1,15 @@
+.block.block-pane,
+.block.block-empty,
+.block.block-map_card,
+.block.block-action-card,
+.block.block-transactions,
+.block.block-funds-list .fund-item,
+.block.block-product .product-card,
+.block.block-reimbursements .reimbursement-item,
+.block.block-search-results .search-item,
+.block.block-vouchers .voucher-item,
+.block.block-voucher .base-card.base-card-voucher,
+.block.block-voucher .base-card.base-card-sponsor,
+.block.block-profile .profile-aside .profile-aside-block {
+    border: 1px solid var(--border-color);
+}

@@ -83,21 +83,14 @@
 
                     .transactions-item-value {
                         font: 700 16px var(--base-font);
-                        color: #282b39;
+                        color: var(--tc);
                         margin-bottom: 5px;
                         white-space: nowrap;
                     }
 
                     .transactions-item-type {
                         font: 400 13px var(--base-font);
-                        color: #646f79;
-                    }
-                }
-
-                &.transactions-item-out {
-                    .transactions-item-amount .transactions-item-value,
-                    .transactions-item-icon {
-                        color: #335ffc;
+                        color: var(--tc);
                     }
                 }
 
