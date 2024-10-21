@@ -34,7 +34,7 @@ export default function ModalCookieSettings({
     });
 
     const cancel = useCallback(() => {
-        onCancel ? onCancel() : null;
+        onCancel?.();
         modal.close();
     }, [modal, onCancel]);
 
