@@ -232,7 +232,7 @@ export default function CSVUpload({
                     }
                 });
 
-                return isEmpty(row) ? result : [row, ...result];
+                return isEmpty(row) ? result : [...result, row];
             }, []);
 
             const invalidRows = validateFile(parsedData);
