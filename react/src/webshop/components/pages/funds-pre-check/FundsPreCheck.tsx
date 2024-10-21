@@ -307,20 +307,35 @@ export default function FundsPreCheck() {
                 </div>
 
                 {totals && (
-                    <div className="pre-check-actions">
-                        <button
-                            className="button button-download button-fill button-sm"
-                            type="button"
-                            onClick={downloadPDF}>
-                            Download als PDF
-                        </button>
-                        <button
-                            className="button button-light button-fill button-sm"
-                            type="button"
-                            onClick={changeAnswers}>
-                            Wijzig antwoorden
-                        </button>
-                    </div>
+                    <Fragment>
+                        <div className="pre-check-totals">
+                            <div className="block block-key-value-list">
+                                <div className="block-key-value-list-item">
+                                    <div className="key-value-list-item-label">Totaal bedrag</div>
+                                    <div className="key-value-list-item-value">{totals.products_amount_total}</div>
+                                </div>
+                                <div className="block-key-value-list-item">
+                                    <div className="key-value-list-item-label">Totaal aanbod</div>
+                                    <div className="key-value-list-item-value">{totals.products_count_total}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="pre-check-actions">
+                            <button
+                                className="button button-download button-fill button-sm"
+                                type="button"
+                                onClick={downloadPDF}>
+                                Download als PDF
+                            </button>
+                            <button
+                                className="button button-light button-fill button-sm"
+                                type="button"
+                                onClick={changeAnswers}>
+                                Wijzig antwoorden
+                            </button>
+                        </div>
+                    </Fragment>
                 )}
             </div>
         ),
