@@ -22,17 +22,21 @@
                         .block-markdown {
                             font: inherit;
 
-                            p {
-                                margin-bottom: 0;
+                            & > *,
+                            p,
+                            ul {
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
                             }
                         }
                     }
 
                     &:before {
-                        content: "";
+                        content: '';
                         height: 100%;
                         width: 3px;
-                        background: #9CA6AF;
+                        background: #9ca6af;
                         display: block;
                         position: absolute;
                         top: 0;
