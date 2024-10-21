@@ -1,38 +1,59 @@
 .modal.modal-fund-help {
     .modal-window {
-        width: 960px;
-
         .modal-body {
-            .modal-section {
-                .modal-section-description {
-                    color: #595959;
+            .modal-fund-help-section {
+                gap: 20px;
 
-                    .block-markdown {
-                        font: inherit;
-                        text-align: center;
+                .modal-fund-help-section-details {
+                    position: relative;
+                    padding-left: 20px;
 
-                        p {
-                            text-align: center;
-                            margin-bottom: 0;
+                    .modal-fund-help-section-title {
+                        font: 700 18px/30px var(--base-font);
+                        margin: 0 0 0;
+                        color: var(--tc);
+                    }
+
+                    .modal-fund-help-section-description {
+                        font: 400 14px/21px var(--base-font);
+                        margin: 0 0 0;
+                        color: var(--tc-muted);
+
+                        .block-markdown {
+                            font: inherit;
+
+                            p {
+                                margin-bottom: 0;
+                            }
                         }
+                    }
+
+                    &:before {
+                        content: "";
+                        height: 100%;
+                        width: 3px;
+                        background: #9CA6AF;
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
                     }
                 }
 
                 .modal-fund-help-pane {
+                    display: flex;
+                    row-gap: 25px;
+                    padding: 25px;
+                    flex-wrap: wrap;
                     box-shadow: none;
                     border: 1px solid var(--border-color);
                     border-radius: var(--border-radius);
-                    display: flex;
-                    flex-direction: row;
 
                     .modal-fund-help-pane-item {
                         display: flex;
-                        flex-direction: column;
-                        padding: 25px;
-                        justify-content: center;
+                        flex: 1 1 50%;
                         align-items: center;
-                        gap: 10px;
-                        flex: 1 1 auto;
+                        gap: 15px;
 
                         .modal-fund-help-pane-icon {
                             display: flex;
@@ -40,8 +61,8 @@
                             background: #f4f5f7;
                             align-items: center;
                             justify-content: center;
-                            width: 60px;
-                            height: 60px;
+                            width: 50px;
+                            height: 50px;
 
                             svg {
                                 display: block;
@@ -51,8 +72,6 @@
                         }
 
                         .modal-fund-help-pane-content {
-                            text-align: center;
-
                             .modal-fund-help-pane-title {
                                 color: #353535;
                                 font: 400 13px/18px var(--base-font);
@@ -75,16 +94,29 @@
                             }
                         }
                     }
+                }
 
-                    @media (max-width: 960px) {
-                        flex-direction: column;
-                        padding: 20px 20px;
+                @media (max-width: 960px) {
+                    gap: 15px;
+
+                    .modal-fund-help-section-details {
+                        padding-left: 15px;
+
+                        .modal-fund-help-section-title {
+                            font: 700 16px/24px var(--base-font);
+                            margin-bottom: 10px;
+                        }
+
+                        .modal-fund-help-section-description {
+                            font: 400 13px/18px var(--base-font);
+                        }
+                    }
+
+                    .modal-fund-help-pane {
+                        padding: 20px;
                         gap: 20px;
 
                         .modal-fund-help-pane-item {
-                            padding: 0;
-                            flex-direction: row;
-                            justify-content: flex-start;
                             gap: 12px;
 
                             .modal-fund-help-pane-icon {
@@ -98,14 +130,12 @@
                             }
 
                             .modal-fund-help-pane-content {
-                                text-align: left;
-
                                 .modal-fund-help-pane-title {
-                                    font: 400 13px/15px var(--base-font);
+                                    font: 400 13px/18px var(--base-font);
                                 }
 
                                 .modal-fund-help-pane-subtitle {
-                                    font: 600 13px/15px var(--base-font);
+                                    font: 600 13px/18px var(--base-font);
                                 }
                             }
                         }
