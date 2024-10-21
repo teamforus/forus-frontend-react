@@ -8,19 +8,14 @@ import FundsListItem from '../../../elements/lists/funds-list/FundsListItem';
 import Fund from '../../../../props/models/Fund';
 import ProvidersListItem from '../../../elements/lists/providers-list/ProvidersListItem';
 import Provider from '../../../../props/models/Provider';
+import { SearchItem } from '../../../../services/SearchService';
 
 export default function SearchItemsList({
     items,
     display,
     vouchers,
 }: {
-    items: Array<{
-        id: number;
-        description_text: string;
-        item_type: 'fund' | 'product' | 'provider';
-        resource: object;
-        searchParams?: object;
-    }>;
+    items: Array<SearchItem & { searchParams?: object }>;
     display: 'list' | 'grid';
     vouchers: Array<Voucher>;
 }) {

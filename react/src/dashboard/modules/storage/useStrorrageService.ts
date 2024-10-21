@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 export default function useStorageService() {
-    const isPlainObject = useCallback((obj) => {
+    const isPlainObject = useCallback((obj: unknown) => {
         return typeof obj == 'object' && !Array.isArray(obj) && !!obj;
     }, []);
 
@@ -11,7 +11,7 @@ export default function useStorageService() {
                 const collection = JSON.parse(localStorage.getItem(collection_name));
 
                 return isPlainObject(collection) ? collection : {};
-            } catch (e) {
+            } catch {
                 return {};
             }
         },
@@ -19,7 +19,7 @@ export default function useStorageService() {
     );
 
     const setCollectionItem = useCallback(
-        (collection_name, key, value) => {
+        (collection_name: string, key: string, value: unknown) => {
             const collection = {
                 ...getCollectionAll(collection_name),
                 [key]: value,
@@ -30,17 +30,24 @@ export default function useStorageService() {
         [getCollectionAll],
     );
 
+    const isValidCollectionWithKey = useCallback(
+        (collection: object, key: string) => {
+            return isPlainObject(collection) && Object.prototype.hasOwnProperty.call(collection, key);
+        },
+        [isPlainObject],
+    );
+
     const getCollectionItem = useCallback(
-        (collection_name: string, key, _default = null) => {
+        (collection_name: string, key: string, _default = null) => {
             try {
                 const collection = JSON.parse(localStorage.getItem(collection_name));
 
-                return isPlainObject(collection) ? collection[key] || _default : _default;
-            } catch (e) {
+                return isValidCollectionWithKey(collection, key) ? collection[key] : _default;
+            } catch {
                 return _default;
             }
         },
-        [isPlainObject],
+        [isValidCollectionWithKey],
     );
 
     const setCollectionAll = useCallback(
@@ -58,7 +65,7 @@ export default function useStorageService() {
         localStorage.setItem(collection_name, JSON.stringify({}));
     }, []);
 
-    const setCollectionWithExpiry = useCallback((key: string, value, ttl: number) => {
+    const setCollectionWithExpiry = useCallback((key: string, value: unknown, ttl: number) => {
         const now = new Date();
 
         const item = {
@@ -85,7 +92,7 @@ export default function useStorageService() {
             }
 
             return itemExpired ? null : item?.value;
-        } catch (e) {
+        } catch {
             return null;
         }
     }, []);

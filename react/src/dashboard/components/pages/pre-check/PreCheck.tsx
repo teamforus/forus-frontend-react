@@ -81,7 +81,9 @@ export default function PreCheck() {
                         const data = transformPreChecks(res.data.data);
 
                         preChecks.forEach((preCheck, index) => {
-                            data[index] ? (data[index].uid = preCheck.uid) : null;
+                            if (data[index]) {
+                                data[index].uid = preCheck.uid;
+                            }
                         });
 
                         return data;

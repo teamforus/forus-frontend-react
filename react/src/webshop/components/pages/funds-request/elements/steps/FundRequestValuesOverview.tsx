@@ -4,8 +4,11 @@ import { LocalCriterion } from '../../FundRequest';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import FundCriteriaStep from '../../../../../../dashboard/props/models/FundCriteriaStep';
 import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
+import FundRequestHelpBlock from '../FundRequestHelpBlock';
+import Fund from '../../../../../props/models/Fund';
 
 export default function FundRequestValuesOverview({
+    fund,
     onSubmitRequest,
     contactInformation,
     emailSetupShow,
@@ -14,6 +17,7 @@ export default function FundRequestValuesOverview({
     progress,
     bsnWarning,
 }: {
+    fund: Fund;
     onSubmitRequest: () => void;
     contactInformation: string;
     emailSetupShow: boolean;
@@ -55,6 +59,8 @@ export default function FundRequestValuesOverview({
                         <span>Kloppen de gegevens? Klik dan op de knop </span>
                         <strong>Vraag aan.</strong>
                     </p>
+
+                    <FundRequestHelpBlock fund={fund} />
                 </div>
                 <div className="sign_up-pane-body sign_up-pane-body-padless">
                     <div className="sign_up-request-preview">

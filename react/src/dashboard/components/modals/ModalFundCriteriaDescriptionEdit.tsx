@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import FormError from '../elements/forms/errors/FormError';
 import useFormBuilder from '../../hooks/useFormBuilder';
@@ -7,43 +7,55 @@ import { ResponseError } from '../../props/ApiResponses';
 import MarkdownEditor from '../elements/forms/markdown-editor/MarkdownEditor';
 import useTranslate from '../../hooks/useTranslate';
 
+type FundCriterionTexts = {
+    title: string;
+    description: string;
+    extra_description: string;
+    description_html: string;
+    extra_description_html: string;
+};
+
 export default function ModalFundCriteriaDescriptionEdit({
     modal,
-    title,
     criterion,
-    description,
-    description_html,
+    criterionTexts,
     validateCriteria,
     onSubmit,
 }: {
     modal: ModalState;
-    title: string;
     criterion: FundCriterion;
-    description: string;
-    description_html: string;
     validateCriteria: (criterion: FundCriterion) => Promise<Array<unknown>>;
-    onSubmit?: (res: { title: string; description: string }) => void;
+    criterionTexts: FundCriterionTexts;
+    onSubmit?: (res: FundCriterionTexts) => void;
 }) {
     const translate = useTranslate();
 
-    const form = useFormBuilder<{
-        title?: string;
-        description?: string;
-        description_html?: string;
-    }>(
+    const [descriptionHtml, setDescriptionHtml] = useState(criterionTexts.description_html);
+    const [extraDescriptionHtml, setExtraDescriptionHtml] = useState(criterionTexts.extra_description_html);
+
+    const form = useFormBuilder<FundCriterionTexts>(
         {
-            title: title,
-            description: description,
-            description_html: description_html,
+            title: criterionTexts.title,
+            description: criterionTexts.description,
+            description_html: criterionTexts.description_html,
+            extra_description: criterionTexts.extra_description,
+            extra_description_html: criterionTexts.extra_description_html,
         },
         (values) => {
             validateCriteria({
                 ...criterion,
                 title: form.values.title,
                 description: form.values.description,
+                extra_description: form.values.extra_description,
             })
                 .then(() => {
-                    onSubmit({ title: values.title, description: values.description });
+                    onSubmit({
+                        title: values.title,
+                        description: values.description,
+                        extra_description: values.extra_description,
+                        description_html: descriptionHtml,
+                        extra_description_html: extraDescriptionHtml,
+                    });
                     modal.close();
                 })
                 .catch((err: ResponseError) => {
@@ -92,11 +104,34 @@ export default function ModalFundCriteriaDescriptionEdit({
 
                             <MarkdownEditor
                                 value={form.values.description_html || ''}
+                                height={200}
                                 onChange={(description: string) => form.update({ description: description })}
+                                onUpdatedRaw={(data) => {
+                                    setDescriptionHtml(data.data.content_html);
+                                }}
                             />
 
                             <FormError error={form.errors['criteria.0.description']} />
                         </div>
+
+                        {criterion.fund_criteria_step_id && (
+                            <div className="form-group">
+                                <label className="form-label">
+                                    {translate('modals.modal_fund_criteria_description.labels.extra_description')}
+                                </label>
+
+                                <MarkdownEditor
+                                    value={form.values.extra_description_html || ''}
+                                    height={200}
+                                    onChange={(description: string) => form.update({ extra_description: description })}
+                                    onUpdatedRaw={(data) => {
+                                        setExtraDescriptionHtml(data.data.content_html);
+                                    }}
+                                />
+
+                                <FormError error={form.errors['criteria.0.extra_description']} />
+                            </div>
+                        )}
                     </div>
                 </div>
 
