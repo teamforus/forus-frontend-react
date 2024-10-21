@@ -485,6 +485,7 @@ export default function FundActivate() {
             return (
                 request.state === 'pending' ||
                 (request.state === 'approved' &&
+                    vouchersActive?.length > 0 &&
                     isWithinInterval(dateParse(request.created_at, 'yyyy-MM-dd HH:mm:ss'), {
                         start: dateParse(fund.start_date),
                         end: dateParse(fund.end_date),
