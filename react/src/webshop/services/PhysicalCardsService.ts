@@ -16,12 +16,12 @@ export class PhysicalCardsService<T = PhysicalCard> {
      */
     public prefix = '/platform/vouchers';
 
-    public store(voucher_address: string, data: object = {}): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post(`${this.prefix}/${voucher_address}/physical-cards`, data);
+    public store(voucher_number: string, data: object = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${voucher_number}/physical-cards`, data);
     }
 
-    public destroy(voucher_address: string, id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.delete(`${this.prefix}/${voucher_address}/physical-cards/${id}`);
+    public destroy(voucher_number: string, id: number): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.delete(`${this.prefix}/${voucher_number}/physical-cards/${id}`);
     }
 }
 
