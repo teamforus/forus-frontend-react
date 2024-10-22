@@ -817,9 +817,8 @@ export default function OrganizationsFundsEdit() {
                                         <FormGroupInfo
                                             info={
                                                 <Fragment>
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-                                                    deleniti incidunt reiciendis perferendis minima, nisi deserunt
-                                                    magnam maxime voluptatibus!
+                                                    De optie om verplichte of optionele vragen in het aanvraagformulier
+                                                    te markeren met een informatieve tekst
                                                 </Fragment>
                                             }>
                                             <SelectControl

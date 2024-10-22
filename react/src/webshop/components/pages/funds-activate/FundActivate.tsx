@@ -39,6 +39,8 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
+import { isWithinInterval } from 'date-fns';
+import { dateParse } from '../../../../dashboard/helpers/dates';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -479,7 +481,17 @@ export default function FundActivate() {
             return;
         }
 
-        const request = fundRequests?.find((request) => ['pending', 'approved'].includes(request.state));
+        const request = fundRequests?.find((request) => {
+            return (
+                request.state === 'pending' ||
+                (request.state === 'approved' &&
+                    vouchersActive?.length > 0 &&
+                    isWithinInterval(dateParse(request.created_at, 'yyyy-MM-dd HH:mm:ss'), {
+                        start: dateParse(fund.start_date),
+                        end: dateParse(fund.end_date),
+                    }))
+            );
+        });
 
         if (request) {
             setFundRequest(request);

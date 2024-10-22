@@ -261,7 +261,7 @@ export default function BudgetFundSponsorProducts({
             {products.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen aanbiedingen'} />}
 
             {products.meta && (
-                <div className="card-section card-section-narrow">
+                <div className="card-section card-section-narrow" hidden={products?.meta?.total < 1}>
                     <Paginator meta={products.meta} filters={filter.values} updateFilters={filter.update} />
                 </div>
             )}

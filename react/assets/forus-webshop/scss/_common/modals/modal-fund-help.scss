@@ -1,0 +1,117 @@
+.modal.modal-fund-help {
+    .modal-window {
+        width: 960px;
+
+        .modal-body {
+            .modal-section {
+                .modal-section-description {
+                    color: #595959;
+
+                    .block-markdown {
+                        font: inherit;
+                        text-align: center;
+
+                        p {
+                            text-align: center;
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+
+                .modal-fund-help-pane {
+                    box-shadow: none;
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--border-radius);
+                    display: flex;
+                    flex-direction: row;
+
+                    .modal-fund-help-pane-item {
+                        display: flex;
+                        flex-direction: column;
+                        padding: 25px;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 10px;
+                        flex: 1 1 auto;
+
+                        .modal-fund-help-pane-icon {
+                            display: flex;
+                            border-radius: 50%;
+                            background: #f4f5f7;
+                            align-items: center;
+                            justify-content: center;
+                            width: 60px;
+                            height: 60px;
+
+                            svg {
+                                display: block;
+                                width: 28px;
+                                height: 28px;
+                            }
+                        }
+
+                        .modal-fund-help-pane-content {
+                            text-align: center;
+
+                            .modal-fund-help-pane-title {
+                                color: #353535;
+                                font: 400 13px/18px var(--base-font);
+                                white-space: nowrap;
+                            }
+
+                            .modal-fund-help-pane-subtitle {
+                                color: #222;
+                                font: 600 14px/21px var(--base-font);
+                                white-space: nowrap;
+
+                                a {
+                                    font: inherit;
+
+                                    &.link {
+                                        color: #004d93;
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @media (max-width: 960px) {
+                        flex-direction: column;
+                        padding: 20px 20px;
+                        gap: 20px;
+
+                        .modal-fund-help-pane-item {
+                            padding: 0;
+                            flex-direction: row;
+                            justify-content: flex-start;
+                            gap: 12px;
+
+                            .modal-fund-help-pane-icon {
+                                width: 30px;
+                                height: 30px;
+
+                                svg {
+                                    width: 16px;
+                                    height: 16px;
+                                }
+                            }
+
+                            .modal-fund-help-pane-content {
+                                text-align: left;
+
+                                .modal-fund-help-pane-title {
+                                    font: 400 13px/15px var(--base-font);
+                                }
+
+                                .modal-fund-help-pane-subtitle {
+                                    font: 600 13px/15px var(--base-font);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

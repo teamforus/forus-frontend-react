@@ -165,6 +165,7 @@
         box-sizing: border-box;
         border-radius: calc(var(--border-radius) / 2);
         box-shadow: var(--box-shadow);
+        margin-bottom: 30px;
 
         .sign_up-pane-header {
             border-bottom: 1px solid var(--sign-up-border-color);
@@ -263,6 +264,13 @@
                     padding-left: 0;
                     margin-bottom: 0;
                 }
+            }
+
+            .sign_up-pane-step-description {
+                border-radius: 5px;
+                border: 1px solid #e5e5e5;
+                background: #fbfbfb;
+                padding: 18px;
             }
 
             .sign_up-pane-separator {
@@ -818,6 +826,10 @@
                     }
                 }
             }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 

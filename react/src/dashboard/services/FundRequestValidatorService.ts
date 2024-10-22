@@ -8,6 +8,13 @@ import FundRequestRecord from '../props/models/FundRequestRecord';
 import FundRequestApiPerson from '../props/models/FundRequestApiPerson';
 import EmailLog from '../props/models/EmailLog';
 
+export type FundRequestTotals = {
+    all: number;
+    pending: number;
+    assigned: number;
+    resolved: number;
+};
+
 export class FundRequestValidatorService<T = FundRequest> {
     /**
      * @param apiRequest
@@ -21,7 +28,10 @@ export class FundRequestValidatorService<T = FundRequest> {
      */
     public prefix = '/platform/organizations';
 
-    public index(organizationId: number, data: object = {}): Promise<ApiResponse<T>> {
+    public index(
+        organizationId: number,
+        data: object = {},
+    ): Promise<ApiResponse<FundRequest, { totals: FundRequestTotals }>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests`, data);
     }
 
