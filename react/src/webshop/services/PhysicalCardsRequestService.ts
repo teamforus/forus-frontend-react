@@ -16,20 +16,20 @@ export class PhysicalCardsRequestService<T = PhysicalCardRequest> {
      */
     public prefix = '/platform/vouchers';
 
-    public index(voucher_address: string, data?: object): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${voucher_address}/physical-card-requests`, data);
+    public index(voucher_number: string, data?: object): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${voucher_number}/physical-card-requests`, data);
     }
 
-    public store(voucher_address: string, data: object = {}): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post(`${this.prefix}/${voucher_address}/physical-card-requests`, data);
+    public store(voucher_number: string, data: object = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${voucher_number}/physical-card-requests`, data);
     }
 
-    public validate(voucher_address: string, data: object = {}): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post(`${this.prefix}/${voucher_address}/physical-card-requests/validate`, data);
+    public validate(voucher_number: string, data: object = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${voucher_number}/physical-card-requests/validate`, data);
     }
 
-    public show(voucher_address: string, id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post(`${this.prefix}/${voucher_address}/physical-card-requests/${id}`);
+    public show(voucher_number: string, id: number): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${voucher_number}/physical-card-requests/${id}`);
     }
 }
 

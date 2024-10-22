@@ -165,6 +165,7 @@
         box-sizing: border-box;
         border-radius: calc(var(--border-radius) / 2);
         box-shadow: var(--box-shadow);
+        margin-bottom: 30px;
 
         .sign_up-pane-header {
             border-bottom: 1px solid var(--sign-up-border-color);
@@ -224,6 +225,11 @@
                 font: 700 16px/24px var(--base-font);
                 margin: 0 0 15px;
 
+                &.sign_up-pane-heading-md {
+                    font: 700 20px/30px var(--base-font);
+                    margin-bottom: 30px;
+                }
+
                 &.sign_up-pane-heading-lg {
                     font: 700 22px/32px var(--base-font);
                     margin: 0;
@@ -258,6 +264,13 @@
                     padding-left: 0;
                     margin-bottom: 0;
                 }
+            }
+
+            .sign_up-pane-step-description {
+                border-radius: 5px;
+                border: 1px solid #e5e5e5;
+                background: #fbfbfb;
+                padding: 18px;
             }
 
             .sign_up-pane-separator {
@@ -386,12 +399,14 @@
 
                 &.sign_up-pane-list-criteria {
                     li {
+                        padding-left: 27.5px;
+
                         .item-icon {
                             display: inline-block;
                             width: 20px;
                             height: 20px;
                             border-radius: 20px;
-                            border: 2px solid #c4c4c4;
+                            border: 2px solid var(--text-color-muted);
                             background: transparent;
                             line-height: 16px;
                             position: absolute;
@@ -401,48 +416,14 @@
                             text-align: center;
 
                             .mdi {
-                                color: inherit;
-                                line-height: 16px;
-                                font-size: 14px;
-                            }
-
-                            &.item-icon-default {
-                                width: 10px;
-                                height: 10px;
-                                background-color: #c3d0d1;
-                                top: 5px;
+                                color: var(--text-color-muted);
+                                line-height: 22px;
+                                font-size: 20px;
                             }
                         }
 
                         &:before {
                             display: none;
-                        }
-
-                        &.item-valid {
-                            .item-icon {
-                                border-color: #2ac039;
-                                color: #2ac039;
-                            }
-                        }
-
-                        &.item-invalid {
-                            .item-icon {
-                                border-color: var(--color-primary);
-                            }
-                        }
-
-                        &.item-progress {
-                            .item-icon {
-                                border-color: #ffa500;
-                                color: #ffa500;
-                            }
-                        }
-
-                        &.item-declined {
-                            .item-icon {
-                                border-color: #e63b3b;
-                                color: #e63b3b;
-                            }
                         }
                     }
                 }
@@ -845,6 +826,10 @@
                     }
                 }
             }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 

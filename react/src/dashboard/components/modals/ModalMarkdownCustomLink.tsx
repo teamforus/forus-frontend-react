@@ -173,11 +173,11 @@ export default function ModalMarkdownCustomLink({
                     </div>
                 </div>
                 <div className="modal-footer text-center">
-                    <button className="button button-primary" type="submit">
-                        {translate('modal.buttons.confirm')}
-                    </button>
                     <button className="button button-default" type="button" onClick={modal.close}>
                         {translate('modal.buttons.close')}
+                    </button>
+                    <button className="button button-primary" type="submit">
+                        {translate('modal.buttons.confirm')}
                     </button>
                 </div>
             </form>

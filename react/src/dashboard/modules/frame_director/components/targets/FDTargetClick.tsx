@@ -47,7 +47,7 @@ export default function FDTargetClick({
 
     const setShowValue = useCallback(
         (value: boolean) => {
-            showExternal ? setShow(value) : setInternalShow(value);
+            return showExternal ? setShow(value) : setInternalShow(value);
         },
         [setShow, showExternal],
     );

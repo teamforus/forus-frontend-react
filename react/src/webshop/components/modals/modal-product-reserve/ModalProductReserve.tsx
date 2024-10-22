@@ -147,11 +147,7 @@ export default function ModalProductReserve({
         },
         (values) => {
             productReservationService
-                .reserve({
-                    ...values,
-                    voucher_address: voucher.address,
-                    product_id: product.id,
-                })
+                .reserve({ ...values, voucher_id: voucher.id, product_id: product.id })
                 .then((res) => {
                     if (res.data.checkout_url) {
                         return (document.location = res.data.checkout_url);
@@ -212,7 +208,7 @@ export default function ModalProductReserve({
             productReservationService
                 .validateFields({
                     ...form.values,
-                    voucher_address: voucher.address,
+                    voucher_id: voucher.id,
                     product_id: product.id,
                     user_note: include_note ? form.values.user_note : null,
                 })
@@ -228,7 +224,7 @@ export default function ModalProductReserve({
                     ),
                 );
         },
-        [form, next, onError, product.id, productReservationService, voucher?.address],
+        [form, next, onError, product.id, productReservationService, voucher?.id],
     );
 
     const validateAddress = useCallback(() => {

@@ -55,7 +55,7 @@ export class ProductReservationService<T = Reservation> {
         if (formData['birth_date']) {
             try {
                 return { ...formData, birth_date: dateFormat(dateParse(formData['birth_date'])) };
-            } catch (e) {
+            } catch {
                 //
             }
         }

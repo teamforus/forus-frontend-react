@@ -39,7 +39,7 @@ export default function PaymentMethods() {
 
     const onResponseError = useCallback(
         (err: ResponseError & ResponseErrorThrottled, fallbackMessage = 'Onbekende foutmelding!') => {
-            err.status === 429
+            return err.status === 429
                 ? pushDanger(err.data.meta.title, err.data.meta.message)
                 : pushDanger('Mislukt!', err.data?.message || fallbackMessage);
         },
