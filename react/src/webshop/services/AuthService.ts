@@ -37,7 +37,7 @@ export function useAuthService() {
                 // Go to the first vouchers
                 if (fundsWithVouchers.length === 1) {
                     return navigateState('voucher', {
-                        address: vouchers.find((voucher) => voucher.fund_id === fundsWithVouchers[0].id).address,
+                        number: vouchers.find((voucher) => voucher.fund_id === fundsWithVouchers[0].id).number,
                     });
                 }
 
@@ -56,7 +56,11 @@ export function useAuthService() {
             const target = rawTarget ? rawTarget.split('-') : null;
 
             if (target && target[0] == 'fundRequest') {
-                target[1] ? navigateState('fund-request', { id: target[1] }) : navigateState('start', {});
+                if (target[1]) {
+                    navigateState('fund-request', { id: target[1] });
+                } else {
+                    navigateState('start', {});
+                }
                 return true;
             }
 
@@ -66,19 +70,25 @@ export function useAuthService() {
             }
 
             if (target && target[0] == 'requestClarification') {
-                target[1]
-                    ? navigateState('fund-request-clarification', {
-                          fund_id: target[1],
-                          request_id: target[2],
-                          clarification_id: target[3],
-                      })
-                    : navigateState('start', {});
+                if (target[1]) {
+                    navigateState('fund-request-clarification', {
+                        fund_id: target[1],
+                        request_id: target[2],
+                        clarification_id: target[3],
+                    });
+                } else {
+                    navigateState('start', {});
+                }
 
                 return true;
             }
 
             if (target && target[0] == 'productReservation') {
-                target[1] ? navigateState('product', { id: target[1] }) : navigateState('start', {});
+                if (target[1]) {
+                    navigateState('product', { id: target[1] });
+                } else {
+                    navigateState('start', {});
+                }
                 return true;
             }
 

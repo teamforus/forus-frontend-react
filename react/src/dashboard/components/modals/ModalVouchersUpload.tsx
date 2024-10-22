@@ -27,6 +27,7 @@ import SelectControlOptions from '../elements/select-control/templates/SelectCon
 import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
+import TranslateHtml from '../elements/translate-html/TranslateHtml';
 
 type CSVErrorProp = {
     csvHasBsnWhileNotAllowed?: boolean;
@@ -351,6 +352,7 @@ export default function ModalVouchersUpload({
             const items = existingBsn.map((row) => ({
                 _uid: row._uid,
                 label: row.bsn,
+                value: row.bsn,
                 columns: [fund.name],
             }));
 
@@ -586,6 +588,7 @@ export default function ModalVouchersUpload({
                     items={items.map((item) => ({
                         _uid: uniqueId('rand_'),
                         label: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
+                        value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
                     }))}
                     onConfirm={() => window.setTimeout(() => setHideModal(false), 300)}
                     onCancel={() => window.setTimeout(() => setHideModal(false), 300)}
@@ -863,7 +866,7 @@ export default function ModalVouchersUpload({
             } else {
                 pushDanger('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
             }
-        } catch (e) {
+        } catch {
             pushDanger('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
         }
 
@@ -930,7 +933,7 @@ export default function ModalVouchersUpload({
                             <div className="form-group form-group-inline form-group-inline-lg">
                                 <div className="form-label">{translate('modals.modal_voucher_create.labels.fund')}</div>
                                 <div className="form-offset">
-                                    <FormGroupInfo info={translate('csv_upload.tooltips.funds')}>
+                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.funds'} />}>
                                         <SelectControl
                                             className="flex-grow"
                                             value={fund.id}
@@ -951,7 +954,7 @@ export default function ModalVouchersUpload({
                                     {translate('modals.modal_voucher_create.labels.credit_type')}
                                 </div>
                                 <div className="form-offset">
-                                    <FormGroupInfo info={translate('csv_upload.tooltips.type')}>
+                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.type'} />}>
                                         <SelectControl
                                             value={type}
                                             propKey={'key'}

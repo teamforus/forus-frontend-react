@@ -1,7 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { DOMAttributes, HTMLAttributes, useRef, useState } from 'react';
 import { useEffect } from 'react';
 import QRCode from 'easyqrcodejs';
-import { CSSObject } from 'styled-components';
 
 export default function QrCode({
     value,
@@ -12,8 +11,8 @@ export default function QrCode({
     logo = null,
     logoWidth = 80,
     logoHeight = 80,
-    style = null,
     className = '',
+    qrCodeAttrs = null,
 }: {
     value: string;
     background?: string;
@@ -23,8 +22,8 @@ export default function QrCode({
     logo?: string;
     logoWidth?: number;
     logoHeight?: number;
-    style?: CSSObject;
     className?: string;
+    qrCodeAttrs?: DOMAttributes<HTMLDivElement> | HTMLAttributes<HTMLDivElement>;
 }) {
     const code = useRef<HTMLDivElement>();
     const [, setQrCode] = useState(null);
@@ -52,7 +51,7 @@ export default function QrCode({
 
     return (
         <div className={`block block-qr-code ${className || ''}`}>
-            <div className="qr_code" ref={code} style={style} />
+            <div className="qr_code" ref={code} {...qrCodeAttrs} />
             {description && <div className="qr_code-desc">description</div>}
         </div>
     );

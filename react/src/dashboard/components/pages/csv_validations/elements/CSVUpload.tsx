@@ -241,7 +241,7 @@ export default function CSVUpload({
                     }
                 });
 
-                return isEmpty(row) ? result : [row, ...result];
+                return isEmpty(row) ? result : [...result, row];
             }, []);
 
             const invalidRows = validateFile(parsedData);
@@ -404,7 +404,11 @@ export default function CSVUpload({
                     updateProgressBarValue(100);
                 }
             } else {
-                const items = updatedRecords.map((row) => ({ _uid: row._uid, label: row[fund.csv_primary_key] }));
+                const items = updatedRecords.map((row) => ({
+                    _uid: row._uid,
+                    label: row[fund.csv_primary_key],
+                    value: row[fund.csv_primary_key],
+                }));
 
                 openModal((modal) => (
                     <ModalDuplicatesPicker

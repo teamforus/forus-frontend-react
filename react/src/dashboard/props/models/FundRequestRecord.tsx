@@ -21,7 +21,6 @@ export default interface FundRequestRecord {
     note: string;
     record_type: RecordType;
     record_type_key: string;
-    state: string;
     value?: string;
     updated_at: string;
     updated_at_locale: string;

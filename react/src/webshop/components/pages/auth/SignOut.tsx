@@ -11,7 +11,11 @@ export default function SignOut() {
     }>();
 
     useEffect(() => {
-        token ? signOut() : navigateState('home', null, null, { state: stateParams });
+        if (token) {
+            signOut();
+        } else {
+            navigateState('home', null, null, { state: stateParams });
+        }
     }, [signOut, token, navigateState, stateParams]);
 
     return <></>;

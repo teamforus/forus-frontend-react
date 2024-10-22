@@ -23,24 +23,24 @@ export class VoucherService<T = Voucher> {
         return this.apiRequest.get(`${this.prefix}`, data);
     }
 
-    public get(address: string): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.get(`${this.prefix}/${address}`);
+    public get(number: string): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.get(`${this.prefix}/${number}`);
     }
 
-    public sendToEmail(address: string): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post(`${this.prefix}/${address}/send-email`);
+    public sendToEmail(number: string): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${number}/send-email`);
     }
 
-    public shareVoucher(address: string, values = {}): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post(`${this.prefix}/${address}/share`, values);
+    public shareVoucher(number: string, values = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${number}/share`, values);
     }
 
-    public destroy(address: string): Promise<null> {
-        return this.apiRequest.delete(`${this.prefix}/${address}`);
+    public destroy(number: string): Promise<null> {
+        return this.apiRequest.delete(`${this.prefix}/${number}`);
     }
 
-    public deactivate(address: string, data = {}): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post(`${this.prefix}/${address}/deactivate`, data);
+    public deactivate(number: string, data = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${number}/deactivate`, data);
     }
 }
 

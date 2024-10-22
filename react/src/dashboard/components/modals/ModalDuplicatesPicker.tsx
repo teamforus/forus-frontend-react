@@ -7,6 +7,7 @@ import classNames from 'classnames';
 type ItemProp = {
     _uid: string;
     label: string;
+    value?: string;
     blink?: boolean;
     model?: boolean;
     columns?: Array<string>;
@@ -38,7 +39,7 @@ export default function ModalDuplicatesPicker({
     label_on: string;
     label_off: string;
     items: Array<ItemProp>;
-    onConfirm: (data: { list: Array<ItemProp>; uids: Array<string> }) => void;
+    onConfirm: (data: { list: Array<ItemProp>; uids?: Array<string> }) => void;
     onCancel: () => void;
     button_cancel?: string;
     button_none?: string;
@@ -187,7 +188,7 @@ export default function ModalDuplicatesPicker({
                                             }>
                                             <td>
                                                 <em className="mdi mdi-alert-outline text-warning switch-key-icon" />
-                                                <span>{item.label}</span>
+                                                <span>{item.label || item.value}</span>
                                             </td>
 
                                             {item?.columns?.map((column, index) => <td key={index}>{column}</td>)}

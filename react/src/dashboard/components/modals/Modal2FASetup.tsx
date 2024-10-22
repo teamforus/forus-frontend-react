@@ -72,12 +72,12 @@ export default function Modal2FASetup({
     }, [isLocked]);
 
     const cancel = useCallback(() => {
-        onCancel ? onCancel() : null;
+        onCancel?.();
         modal.close();
     }, [modal, onCancel]);
 
     const done = useCallback(() => {
-        onReady ? onReady() : null;
+        onReady?.();
         modal.close();
     }, [modal, onReady]);
 
@@ -363,7 +363,7 @@ export default function Modal2FASetup({
                                         value={auth2FA.secret_url}
                                         logo={assetUrl('/assets/img/me-logo-react.png')}
                                         className={'block-qr-code-fit'}
-                                        style={{ padding: '15px' }}
+                                        qrCodeAttrs={{ style: { padding: '15px' } }}
                                     />
                                 )}
                             </div>

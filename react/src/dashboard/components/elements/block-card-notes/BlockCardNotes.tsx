@@ -17,6 +17,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
+import TableRowActions from '../tables/TableRowActions';
 
 export default function BlockCardNotes({
     isAssigned,
@@ -128,14 +129,12 @@ export default function BlockCardNotes({
                         </div>
                     </div>
                     <div className="flex flex-row">
-                        <div className="block block-inline-filters">
-                            {isAssigned && (
-                                <div className="button button-primary" onClick={onAddNote}>
-                                    <em className="mdi mdi-plus-circle icon-start" />
-                                    {translate('notes.buttons.add_new')}
-                                </div>
-                            )}
-                        </div>
+                        {isAssigned && (
+                            <div className="button button-sm button-primary" onClick={onAddNote}>
+                                <em className="mdi mdi-plus icon-start" />
+                                {translate('notes.buttons.add_new')}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -165,17 +164,21 @@ export default function BlockCardNotes({
                                                     </div>
                                                 ))}
                                             </td>
-                                            <td className="text-right">
-                                                {note.employee.identity_address === identity.address ? (
-                                                    <div className="td-drawn">
-                                                        <button
-                                                            className="button button-default button-icon"
-                                                            onClick={() => onDeleteNote(note)}>
-                                                            <div className="mdi mdi-delete-outline" />
-                                                        </button>
-                                                    </div>
-                                                ) : (
-                                                    <span>-</span>
+
+                                            <td className="td-narrow text-right">
+                                                {note.employee.identity_address === identity.address && (
+                                                    <TableRowActions
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <div
+                                                                    className="dropdown-item"
+                                                                    onClick={() => onDeleteNote(note)}>
+                                                                    <em className="mdi mdi-delete-outline icon-start" />
+                                                                    Verwijderen
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    />
                                                 )}
                                             </td>
                                         </tr>

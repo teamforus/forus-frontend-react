@@ -58,7 +58,9 @@ export default function UIControlText({
         <div
             onFocus={() => setShowClear(true)}
             onBlur={(e) => {
-                !e.currentTarget.contains(e.relatedTarget) && setShowClear(false);
+                if (!e.currentTarget.contains(e.relatedTarget)) {
+                    setShowClear(false);
+                }
             }}
             className={`ui-control ui-control-text  ${className}`}
             aria-label={ariaLabel}>

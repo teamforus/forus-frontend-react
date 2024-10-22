@@ -98,7 +98,9 @@ export default function ModalFundProviderChatSponsor({
 
     useEffect(() => {
         return () => {
-            timeoutValue ? window.clearTimeout(timeoutValue) : null;
+            if (timeoutValue) {
+                window.clearTimeout(timeoutValue);
+            }
         };
     }, [timeoutValue]);
 
@@ -110,7 +112,9 @@ export default function ModalFundProviderChatSponsor({
         }, updateInterval);
 
         return () => {
-            interval ? window.clearInterval(interval) : null;
+            if (interval) {
+                window.clearInterval(interval);
+            }
         };
     }, [loadMessages, updateInterval]);
 

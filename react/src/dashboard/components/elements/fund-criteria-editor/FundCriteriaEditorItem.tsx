@@ -62,13 +62,25 @@ export default function FundCriteriaEditorItem({
     );
 
     const [title, setTitle] = useState(criterion.title);
-    const [description, setDescription] = useState(criterion.title);
+    const [criterionTexts, setCriterionTexts] = useState<{
+        title: string;
+        description: string;
+        description_html: string;
+        extra_description: string;
+        extra_description_html: string;
+    }>(null);
+
     const [showAttachments, setShowAttachments] = useState(criterion.show_attachment);
+    const [label, setLabel] = useState(criterion.label || '');
     const [optional, setOptional] = useState(criterion.optional);
 
     const disabled = useMemo<boolean>(() => {
         return !isEditable || !hasPermission(organization, 'manage_funds');
     }, [isEditable, organization]);
+
+    const hasBooleanLabel = useMemo(() => {
+        return recordType?.type === 'bool' || (recordType?.type === 'string' && operators?.[recordType?.key] === '=');
+    }, [operators, recordType?.key, recordType?.type]);
 
     const validateCriteria = useCallback(
         (data: object) => {
@@ -85,11 +97,11 @@ export default function FundCriteriaEditorItem({
                 value: values?.[recordType.key],
                 min: validations?.[recordType.key]?.min,
                 max: validations?.[recordType.key]?.max,
-                title,
+                label,
                 optional,
-                description,
                 show_attachment: showAttachments,
                 record_type_key: recordType?.key,
+                ...criterionTexts,
             };
 
             validateCriteria({ ..._criterion })
@@ -104,15 +116,15 @@ export default function FundCriteriaEditorItem({
                 });
         });
     }, [
-        values,
-        recordType,
-        operators,
-        validations,
         criterion?.id,
+        operators,
+        recordType,
+        values,
+        validations,
+        label,
         optional,
-        title,
-        description,
         showAttachments,
+        criterionTexts,
         validateCriteria,
         setCriterion,
     ]);
@@ -147,18 +159,16 @@ export default function FundCriteriaEditorItem({
                 <ModalFundCriteriaDescriptionEdit
                     modal={modal}
                     criterion={criterion}
-                    title={title}
-                    description={description}
-                    description_html={criterion.description_html}
+                    criterionTexts={criterionTexts}
                     validateCriteria={validateCriteria}
                     onSubmit={(res) => {
+                        setCriterionTexts(res);
                         setTitle(res.title);
-                        setDescription(res.description);
                     }}
                 />
             ));
         },
-        [description, openModal, title, validateCriteria],
+        [openModal, criterionTexts, validateCriteria],
     );
 
     const removeCriterion = useCallback(
@@ -210,11 +220,26 @@ export default function FundCriteriaEditorItem({
     }, [criterion, preparedData]);
 
     useEffect(() => {
+        setCriterionTexts({
+            title: criterion?.title,
+            description: criterion?.description,
+            description_html: criterion?.description_html,
+            extra_description: criterion?.extra_description,
+            extra_description_html: criterion?.extra_description_html,
+        });
+
         setTitle(criterion?.title);
         setOptional(criterion?.optional);
-        setDescription(criterion?.description);
         setShowAttachments(criterion?.show_attachment);
-    }, [criterion?.title, criterion?.description, criterion?.optional, criterion?.show_attachment]);
+    }, [
+        criterion?.title,
+        criterion?.description,
+        criterion?.extra_description,
+        criterion?.optional,
+        criterion?.show_attachment,
+        criterion?.description_html,
+        criterion?.extra_description_html,
+    ]);
 
     useEffect(() => {
         if (saveCriterionRef) {
@@ -231,11 +256,13 @@ export default function FundCriteriaEditorItem({
 
                 <div className="criterion-actions">
                     {isEditing && (
-                        <div
-                            className="button button-primary button-icon pull-left"
+                        <button
+                            type="button"
+                            className="button button-default"
                             onClick={() => editDescription(criterion)}>
-                            <em className="mdi mdi-comment-text icon-start" />
-                        </div>
+                            <em className="mdi mdi-text-box-edit icon-start" />
+                            Tekst bewerken
+                        </button>
                     )}
 
                     {!isEditing && (
@@ -258,7 +285,7 @@ export default function FundCriteriaEditorItem({
                             onClick={() => removeCriterion(criterion)}
                             disabled={disabled || isEditing}>
                             <em className="mdi mdi-delete-outline icon-start" />
-                            {translate('components.fund_criteria_editor_item.buttons.cancel')}
+                            {translate('components.fund_criteria_editor_item.buttons.delete')}
                         </button>
                     )}
                 </div>
@@ -373,6 +400,21 @@ export default function FundCriteriaEditorItem({
                                     )}
                             </div>
                         </div>
+
+                        {hasBooleanLabel && (
+                            <div className="form-group">
+                                <label className="form-label">{'Voeg een aangepaste "Ik verklaar"-tekst toe'}</label>
+                                <input
+                                    type={'text'}
+                                    className="form-control"
+                                    value={label}
+                                    disabled={disabled}
+                                    onChange={(e) => setLabel(e?.target?.value)}
+                                    placeholder={'Ik verklaar aan de bovenstaande voorwaarden te voldoen'}
+                                />
+                                <FormError error={errors?.['criteria.0.label']} />
+                            </div>
+                        )}
 
                         {recordType?.key && (
                             <div className="row">

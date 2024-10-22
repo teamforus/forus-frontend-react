@@ -46,6 +46,7 @@ import FundRequest from '../components/pages/funds-request/FundRequest';
 import FundActivate from '../components/pages/funds-activate/FundActivate';
 import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
 import ThrowError from '../components/pages_system/ThrowError';
+import Payouts from '../components/pages/payouts/Payouts';
 
 const router = new RouterBuilder();
 
@@ -109,10 +110,16 @@ router.state('fund-requests', <FundRequests />, {
     protected: true,
 });
 
+router.state('payouts', <Payouts />, {
+    path: `/uitbetalingen`,
+    altPath: `/payouts`,
+    protected: true,
+});
+
 router.state('fund-request-show', <FundRequestsShow />, {
     path: `/fondsen-aanvraag/:id`,
     altPath: [`/fund-requests/:id`, `/fund-request/:id`],
-    protected: true,
+    protected: false,
 });
 
 router.state('fund-request-clarification', <FundRequestsClarification />, {
@@ -162,8 +169,8 @@ router.state('vouchers', <Vouchers />, {
 });
 
 router.state('voucher', <VouchersShow />, {
-    path: `/tegoeden/:address`,
-    altPath: `/vouchers/:address`,
+    path: `/tegoeden/:number`,
+    altPath: `/vouchers/:number`,
     protected: true,
 });
 

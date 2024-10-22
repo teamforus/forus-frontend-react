@@ -22,7 +22,7 @@ import useProductService from '../../services/ProductService';
 import ModalNotification from './ModalNotification';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
-import { uniqueId } from 'lodash';
+import TranslateHtml from '../elements/translate-html/TranslateHtml';
 
 export default function ModalVoucherCreate({
     funds,
@@ -156,7 +156,15 @@ export default function ModalVoucherCreate({
                                     return makeRequest();
                                 }
 
-                                confirmEmailSkip(form.values.email, makeRequest, () => pushDanger('Geannuleerd'));
+                                confirmEmailSkip(
+                                    [form.values.email],
+                                    ({ list }) => {
+                                        if (list.filter((email) => email.model).length > 0) {
+                                            makeRequest();
+                                        }
+                                    },
+                                    () => pushDanger('Geannuleerd'),
+                                );
                             });
                     }
 
@@ -176,7 +184,15 @@ export default function ModalVoucherCreate({
                                     return makeRequest();
                                 }
 
-                                confirmBsnSkip(form.values.bsn, makeRequest, () => pushDanger('Geannuleerd'));
+                                confirmBsnSkip(
+                                    [form.values.bsn],
+                                    ({ list }) => {
+                                        if (list.filter((bsn) => bsn.model).length > 0) {
+                                            makeRequest();
+                                        }
+                                    },
+                                    () => pushDanger('Geannuleerd'),
+                                );
                             });
                     }
                 })
@@ -194,7 +210,13 @@ export default function ModalVoucherCreate({
     const { update: formUpdate } = form;
 
     const confirmEmailSkip = useCallback(
-        (email: string, onConfirm: () => void, onCancel: () => void) => {
+        (
+            existingEmails,
+            onConfirm: (data: { list: Array<{ value?: string; blink?: boolean; model?: boolean }> }) => void,
+            onCancel = () => null,
+        ) => {
+            const items = existingEmails.map((email: string) => ({ value: email }));
+
             openModal((modal) => (
                 <ModalDuplicatesPicker
                     modal={modal}
@@ -206,8 +228,8 @@ export default function ModalVoucherCreate({
                     enableToggles={true}
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
-                    items={[{ label: email, _uid: uniqueId('rand_') }]}
-                    onConfirm={(data) => (data.uids.length === 0 ? onCancel() : onConfirm())}
+                    items={items}
+                    onConfirm={onConfirm}
                     onCancel={onCancel}
                 />
             ));
@@ -216,20 +238,26 @@ export default function ModalVoucherCreate({
     );
 
     const confirmBsnSkip = useCallback(
-        (bsn: string, onConfirm: () => void, onCancel: () => void) => {
+        (
+            existingBsn,
+            onConfirm: (data: { list: Array<{ value?: string; blink?: boolean; model?: boolean }> }) => void,
+            onCancel = () => null,
+        ) => {
+            const items = existingBsn.map((bsn: string) => ({ value: bsn }));
+
             openModal((modal) => (
                 <ModalDuplicatesPicker
                     modal={modal}
                     hero_title={'Dubbele bsn(s) gedetecteerd.'}
                     hero_subtitle={[
-                        `Weet u zeker dat u voor 1 bsn een extra tegoed wilt aanmaken?`,
+                        `Weet u zeker dat u voor ${items.length} bsn(s) een extra tegoed wilt aanmaken?`,
                         'Deze burgerservicenummers bezitten al een tegoed van dit fonds.',
                     ]}
                     enableToggles={true}
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
-                    items={[{ _uid: uniqueId('rand_'), label: bsn }]}
-                    onConfirm={(data) => (data.uids.length === 0 ? onCancel() : onConfirm())}
+                    items={items}
+                    onConfirm={onConfirm}
                     onCancel={onCancel}
                 />
             ));
@@ -324,9 +352,11 @@ export default function ModalVoucherCreate({
                                             </div>
                                             <div className="form-offset">
                                                 <FormGroupInfo
-                                                    info={translate(
-                                                        'modals.modal_voucher_create.tooltips.assign_type',
-                                                    )}>
+                                                    info={
+                                                        <TranslateHtml
+                                                            i18n={'modals.modal_voucher_create.tooltips.assign_type'}
+                                                        />
+                                                    }>
                                                     <SelectControl
                                                         className={'flex-grow'}
                                                         value={fund.id}
@@ -349,7 +379,11 @@ export default function ModalVoucherCreate({
                                             </div>
                                             <div className="form-offset">
                                                 <FormGroupInfo
-                                                    info={translate('modals.modal_voucher_create.tooltips.type')}>
+                                                    info={
+                                                        <TranslateHtml
+                                                            i18n={'modals.modal_voucher_create.tooltips.type'}
+                                                        />
+                                                    }>
                                                     <SelectControl
                                                         value={form.values.type}
                                                         propKey={'key'}
@@ -418,7 +452,11 @@ export default function ModalVoucherCreate({
                                             </div>
                                             <div className="form-offset">
                                                 <FormGroupInfo
-                                                    info={translate('modals.modal_voucher_create.tooltips.funds')}>
+                                                    info={
+                                                        <TranslateHtml
+                                                            i18n={'modals.modal_voucher_create.tooltips.funds'}
+                                                        />
+                                                    }>
                                                     <SelectControl
                                                         value={assignType}
                                                         propValue={'label'}
