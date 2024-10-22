@@ -119,7 +119,12 @@ export default function ModalPayoutEdit({
 
             promise
                 .then(() => {
-                    transaction ? onUpdated?.() : onCreated?.();
+                    if (transaction) {
+                        onUpdated?.();
+                    } else {
+                        onCreated?.();
+                    }
+
                     modal.close();
                 })
                 .catch((err: ResponseError) => {

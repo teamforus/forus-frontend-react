@@ -310,6 +310,16 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 <em className="mdi mdi-card-account-details-outline" />
                                 Aanvragen
                             </StateNavLink>
+                            {appConfigs.has_payouts && (
+                                <StateNavLink
+                                    id="payouts"
+                                    name={'payouts'}
+                                    className="auth-user-menu-item"
+                                    tabIndex={0}>
+                                    <em className="mdi mdi-wallet-plus-outline" />
+                                    Uitbetalingen
+                                </StateNavLink>
+                            )}
                             <StateNavLink name={'notifications'} className="auth-user-menu-item" tabIndex={0}>
                                 <em className="mdi mdi-bell-outline" />
                                 Notificaties

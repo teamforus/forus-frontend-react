@@ -1,15 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Fund from '../../../../props/models/Fund';
-import FundCriteriaEditor from '../../../elements/fund-criteria-editor/FundCriteriaEditor';
-import { ResponseError } from '../../../../props/ApiResponses';
-import useSetProgress from '../../../../hooks/useSetProgress';
-import { useFundService } from '../../../../services/FundService';
-import usePushSuccess from '../../../../hooks/usePushSuccess';
-import usePushDanger from '../../../../hooks/usePushDanger';
-import RecordType from '../../../../props/models/RecordType';
-import { useRecordTypeService } from '../../../../services/RecordTypeService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import FundCriterion from '../../../../props/models/FundCriterion';
+import OrganizationsFundsShowFundRequestConfigCard from './OrganizationsFundsShowFundRequestConfigCard';
+import OrganizationsFundsShowFundRequestCriteriaCard from './OrganizationsFundsShowFundRequestCriteriaCard';
+import RecordType from '../../../../props/models/RecordType';
+import useSetProgress from '../../../../hooks/useSetProgress';
+import { useRecordTypeService } from '../../../../services/RecordTypeService';
 
 export default function OrganizationsFundsShowCriteriaCard({
     fund,
@@ -18,30 +14,10 @@ export default function OrganizationsFundsShowCriteriaCard({
     fund: Fund;
     setFund: React.Dispatch<React.SetStateAction<Fund>>;
 }) {
-    const pushDanger = usePushDanger();
-    const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
-
-    const fundService = useFundService();
     const recordTypeService = useRecordTypeService();
 
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
-
-    const saveCriteria = useCallback(
-        (criteria: Array<FundCriterion>) => {
-            setProgress(0);
-
-            fundService
-                .updateCriteria(fund.organization_id, fund.id, criteria)
-                .then((res) => {
-                    fund.criteria = Object.assign(fund.criteria, res.data.data.criteria);
-                    pushSuccess('Opgeslagen!');
-                })
-                .catch((err: ResponseError) => pushDanger(err.data.message || 'Error!'))
-                .finally(() => setProgress(100));
-        },
-        [fund, fundService, pushDanger, pushSuccess, setProgress],
-    );
 
     const fetchRecordTypes = useCallback(() => {
         setProgress(0);
@@ -58,17 +34,14 @@ export default function OrganizationsFundsShowCriteriaCard({
 
     return recordTypes ? (
         <div className="card-section card-section-primary">
-            <div className="form">
-                <FundCriteriaEditor
+            <div className="flex flex-vertical flex-gap">
+                <OrganizationsFundsShowFundRequestCriteriaCard
                     fund={fund}
-                    organization={fund.organization}
-                    criteria={fund.criteria}
-                    isEditable={fund.criteria_editable}
+                    setFund={setFund}
                     recordTypes={recordTypes}
-                    setCriteria={(criteria) => setFund({ ...fund, criteria })}
-                    saveButton={true}
-                    onSaveCriteria={saveCriteria}
                 />
+
+                <OrganizationsFundsShowFundRequestConfigCard fund={fund} setFund={setFund} />
             </div>
         </div>
     ) : (

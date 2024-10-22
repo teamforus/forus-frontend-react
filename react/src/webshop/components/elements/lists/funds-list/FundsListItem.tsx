@@ -43,7 +43,7 @@ export default function FundsListItem({
             pushSuccess('Tegoed geactiveerd.');
 
             if (funds?.length === 1) {
-                return navigateState('voucher', { address: vouchers.address });
+                return navigateState('voucher', { number: vouchers.number });
             } else {
                 document.location.reload();
             }
