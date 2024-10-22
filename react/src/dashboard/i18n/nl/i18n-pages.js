@@ -18,6 +18,7 @@ import mollie_connection from './pages/mollie-connection';
 import reservation from './pages/reservation';
 import reservations from './pages/reservations';
 import extra_payments from './pages/extra-payments';
+import fund_request_configurations from './pages/fund-request-configurations';
 
 export default {
     vouchers,
@@ -40,4 +41,5 @@ export default {
     reservation,
     reservations,
     extra_payments,
+    fund_request_configurations,
 };

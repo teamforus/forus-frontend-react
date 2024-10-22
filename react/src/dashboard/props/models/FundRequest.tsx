@@ -3,6 +3,8 @@ import FundRequestRecord from './FundRequestRecord';
 import Employee from './Employee';
 import FundRequestApiPerson from './FundRequestApiPerson';
 import FundCriterion from './FundCriterion';
+import Voucher from './Voucher';
+import PayoutTransaction from './PayoutTransaction';
 
 export interface FundRequestFormula {
     total_amount: string;
@@ -39,7 +41,7 @@ export default interface FundRequest {
     note: string;
     records: Array<FundRequestRecord>;
     replaced: boolean;
-    state: 'pending' | 'approved' | 'declined' | 'disregarded' | 'approved_partly';
+    state: 'pending' | 'approved' | 'declined' | 'disregarded';
     employee: Employee;
     employee_id: number;
     state_locale: string;
@@ -52,4 +54,6 @@ export default interface FundRequest {
     person?: FundRequestApiPerson;
     person_relative?: FundRequestApiPerson;
     person_breadcrumbs?: Array<FundRequestApiPerson>;
+    payouts?: Array<PayoutTransaction>;
+    vouchers?: Array<Voucher>;
 }

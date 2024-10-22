@@ -30,7 +30,7 @@ export default function BlockShowcasePage({
     };
 
     const toggleMobileMenu = useCallback(() => {
-        showModalFilters ? hideMobileMenu() : showMobileMenu();
+        return showModalFilters ? hideMobileMenu() : showMobileMenu();
     }, [showMobileMenu, showModalFilters]);
 
     return (

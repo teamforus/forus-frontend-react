@@ -51,6 +51,9 @@ export default {
         noordoostpolder: {
             funds: 'Regelingen',
         },
+        midden_drenthe: {
+            funds: 'Regelingen',
+        },
     },
     buttons: {
         westerkwartier: {
@@ -107,6 +110,7 @@ export default {
                 reservations: 'Reserveringen',
                 reimbursements: 'Kosten terugvragen',
                 fund_requests: 'Aanvragen',
+                payouts: 'Uitbetalingen',
                 notifications: 'Notificaties',
                 preferences_notifications: 'Notificatievoorkeuren',
                 preferences_emails: 'E-mailinstellingen',

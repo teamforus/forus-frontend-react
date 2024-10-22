@@ -50,8 +50,8 @@ export default function UIControlCheckbox({
                 checked={checked}
                 disabled={disabled}
                 onChange={(e) => {
-                    onChange ? onChange(e) : null;
-                    onChangeValue ? onChangeValue(e.target.checked) : null;
+                    onChange?.(e);
+                    onChangeValue?.(e.target.checked);
                 }}
             />
             <label

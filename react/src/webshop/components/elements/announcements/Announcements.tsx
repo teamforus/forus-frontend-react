@@ -33,7 +33,7 @@ export default function Announcements({ announcements }: { announcements: Array<
         try {
             const dismissed = JSON.parse(localStorage.getItem(storageKey));
             setDismissed(Array.isArray(dismissed) ? dismissed : []);
-        } catch (_) {
+        } catch {
             localStorage.setItem(storageKey, JSON.stringify([]));
             setDismissed([]);
         }

@@ -1,0 +1,36 @@
+.block.block-sign_up-help {
+    background: #ffffff;
+    border: 1px solid var(--sign-up-border-color);
+    box-sizing: border-box;
+    border-radius: calc(var(--border-radius) / 2);
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    word-break: break-word;
+
+    .sign_up-help-icon {
+        svg {
+            display: block;
+        }
+    }
+
+    .sign_up-help-title {
+        flex: 1 1 auto;
+        font: 700 18px/27px var(--base-font);
+    }
+
+    .sign_up-help-button {
+        flex: 0 0 auto;
+    }
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+
+        .sign_up-help-button {
+            width: 100%;
+        }
+    }
+}

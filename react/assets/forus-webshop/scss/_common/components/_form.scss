@@ -28,12 +28,40 @@
     }
 
     .form-label {
-        display: block;
+        display: flex;
         cursor: default;
         font: 500 12px/20px var(--base-font);
         margin-bottom: 4px;
         color: var(--form-label-color);
         padding: 0;
+
+        .form-label-info {
+            display: flex;
+            flex: 1 1 auto;
+            justify-content: flex-end;
+            font: inherit;
+            flex-direction: row;
+            font-weight: 400;
+            gap: 3px;
+
+            &.form-label-info-optional {
+                font-style: italic;
+                color: #353535;
+            }
+
+            &.form-label-info-required {
+                color: #353535;
+
+                &:before {
+                    content: '*';
+                    color: #ed133c;
+                }
+            }
+
+            &.form-label-info-start {
+                justify-content: flex-start;
+            }
+        }
 
         &.form-label-required {
             &:after {
@@ -561,6 +589,10 @@
                     float: none;
                 }
             }
+        }
+
+        &.form-group-fit {
+            width: fit-content;
         }
     }
 
