@@ -27,10 +27,10 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                 </div>
 
                 <div className="modal-body">
-                    <div className="modal-section flex flex-vertical flex-gap-xl">
-                        <div className="flex flex-vertical flex-gap">
-                            <div className="modal-section-title">{fund.help_title}</div>
-                            <div className="modal-section-description">
+                    <div className="modal-section modal-fund-help-section">
+                        <div className="modal-fund-help-section-details">
+                            <div className="modal-fund-help-section-title">{fund.help_title}</div>
+                            <div className="modal-fund-help-section-description">
                                 <Markdown content={fund.help_description_html} />
                             </div>
                         </div>
@@ -71,23 +71,7 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                                                 <a
                                                     href={`tel:+${fund.help_phone.replace(/\D/g, '')}`}
                                                     title={fund.help_phone}>
-                                                    {strLimit(fund.help_phone, 20)}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {fund.help_show_email && (
-                                    <div className="modal-fund-help-pane-item">
-                                        <div className="modal-fund-help-pane-icon">
-                                            <EmailIcon />
-                                        </div>
-                                        <div className="modal-fund-help-pane-content">
-                                            <div className="modal-fund-help-pane-title">E-mail</div>
-                                            <div className="modal-fund-help-pane-subtitle">
-                                                <a href={`mailto:${fund.help_email}`} title={fund.help_email}>
-                                                    {strLimit(fund.help_email, 25)}
+                                                    {strLimit(fund.help_phone, 35)}
                                                 </a>
                                             </div>
                                         </div>
@@ -103,11 +87,28 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                                             <div className="modal-fund-help-pane-title">Website</div>
                                             <div className="modal-fund-help-pane-subtitle">
                                                 <a
+                                                    className="link"
                                                     href={fund.help_website}
                                                     title={fund.help_website}
                                                     target="_blank"
                                                     rel="noreferrer">
-                                                    {strLimit(fund.help_website.replace('https://', ''), 30)}
+                                                    {strLimit(fund.help_website.replace('https://', ''), 35)}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {fund.help_show_email && (
+                                    <div className="modal-fund-help-pane-item">
+                                        <div className="modal-fund-help-pane-icon">
+                                            <EmailIcon />
+                                        </div>
+                                        <div className="modal-fund-help-pane-content">
+                                            <div className="modal-fund-help-pane-title">E-mail</div>
+                                            <div className="modal-fund-help-pane-subtitle">
+                                                <a href={`mailto:${fund.help_email}`} title={fund.help_email}>
+                                                    {strLimit(fund.help_email, 35)}
                                                 </a>
                                             </div>
                                         </div>
