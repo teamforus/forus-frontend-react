@@ -219,7 +219,7 @@ export default function BNG({
                                 De standaard werkwijze is dat hiervoor een nieuw bankrekeningnummer wordt gebruikt.
                                 Bekijk het artikel
                                 <a
-                                    href="https://helpcentrum.forus.io/kb/guide/nl/bankrekening-koppelen-hbW8QZc0LN/Steps/1235073"
+                                    href="https://forusoperations.zendesk.com/hc/nl-nl/sections/29408519783697-Bank-integraties"
                                     target="_blank"
                                     rel="noreferrer">
                                     Bankrekening koppelen
@@ -258,7 +258,7 @@ export default function BNG({
                             <p>
                                 Dit kan alleen met een <u>BNG</u> of <u>Bunq</u> bankrekening. Bekijk het artikel{' '}
                                 <a
-                                    href="https://helpcentrum.forus.io/kb/guide/nl/bankrekening-koppelen-hbW8QZc0LN/Steps/1235073"
+                                    href="https://forusoperations.zendesk.com/hc/nl-nl/sections/29408519783697-Bank-integraties"
                                     target="_blank"
                                     rel="noreferrer">
                                     Bankrekening koppelen

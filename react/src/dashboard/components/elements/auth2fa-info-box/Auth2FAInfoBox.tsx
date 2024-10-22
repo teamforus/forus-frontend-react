@@ -12,7 +12,7 @@ export default function Auth2FAInfoBox({ className = '' }: { className?: string 
                     Kijk voor meer informatie over 2FA op ons:&nbsp;
                     <a
                         className="info-box-link"
-                        href="https://helpcentrum.forus.io/kb/guide/nl/tweefactorauthenticatie-Nu6ntYlHzX/Steps/2584019"
+                        href="https://forusoperations.zendesk.com/hc/nl-nl/sections/29408618867473-Tweefactorauthenticatie"
                         rel="noreferrer"
                         target="_blank">
                         Helpcenter artikel
@@ -26,7 +26,7 @@ export default function Auth2FAInfoBox({ className = '' }: { className?: string 
                     Kijk voor meer informatie over 2FA op ons:&nbsp;
                     <a
                         className="info-box-link"
-                        href="https://helpcentrum.forus.io/kb/guide/nl/tweefactorauthenticatie-g2hokCxKEG/Steps/2584018"
+                        href="https://forusoperations.zendesk.com/hc/nl-nl/sections/29408389433745-Tweefactorauthenticatie"
                         rel="noreferrer"
                         target="_blank">
                         Helpcenter artikel
@@ -40,7 +40,7 @@ export default function Auth2FAInfoBox({ className = '' }: { className?: string 
                     Kijk voor meer informatie over 2FA op ons:&nbsp;
                     <a
                         className="info-box-link"
-                        href="https://helpcentrum.forus.io/kb/guide/nl/tweefactorauthenticatie-Nu6ntYlHzX/Steps/2584019"
+                        href="https://forusoperations.zendesk.com/hc/nl-nl/sections/29408618867473-Tweefactorauthenticatie"
                         rel="noreferrer"
                         target="_blank">
                         Helpcenter artikel

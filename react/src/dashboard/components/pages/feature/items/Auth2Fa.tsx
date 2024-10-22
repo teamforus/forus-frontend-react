@@ -168,7 +168,7 @@ export default function Auth2Fa({
                             <p>
                                 In het Helpcentrum artikel:{' '}
                                 <a
-                                    href="https://helpcentrum.forus.io/kb/guide/nl/2fa-instellen-K3CCs20vLb/Steps/2587986"
+                                    href="https://forusoperations.zendesk.com/hc/nl-nl/articles/29420407098001-Tweefactorauthenticatie-sponsor"
                                     target="_blank"
                                     rel="noreferrer">
                                     2FA instellen
