@@ -284,9 +284,7 @@ export default function ProductFundsCard({
                                             {fund.hasVouchers ? (
                                                 <StateNavLink
                                                     name="voucher"
-                                                    params={{
-                                                        address: fund.vouchers[0].address,
-                                                    }}
+                                                    params={{ number: fund.vouchers[0].number }}
                                                     className="button button-primary">
                                                     {translate(
                                                         `funds.buttons.${fund.key}.already_received`,

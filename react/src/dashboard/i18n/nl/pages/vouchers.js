@@ -3,7 +3,7 @@ export default {
         title: 'Tegoeden',
     },
     labels: {
-        id: 'ID',
+        number: 'Nummer',
         state: 'Status',
         activation_code: 'Code',
         details_activation_code: 'Activatiecode',
@@ -70,7 +70,7 @@ export default {
         default_note_no_email: 'Aangemaakt op {{ upload_date }} door {{ uploader_email }}',
     },
     tooltips: {
-        id: [
+        number: [
             'ID: Het unieke ID-nummer van het tegoed binnen het Forus Platform. ',
             'Dit nummer wordt automatisch gegenereed bij het aanmaken van het tegoed.',
             '<br/><br/>',

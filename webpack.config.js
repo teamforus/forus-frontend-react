@@ -16,16 +16,19 @@ module.exports = (env, argv) => {
     const {
         fronts,
         enableOnly = null,
+        disableOnly = null,
         httpsKey = null,
         httpsCert = null,
         buildGzipFiles = false,
         nonce = null,
     } = envData;
 
-    const cliEnableOnly = env.only?.split(',') || null;
+    const cliEnableOnly = env.enable?.split(',') || env.only?.split(',') || null;
+    const cliDisableOnly = env.disable?.split(',');
 
     const configs = Object.keys(fronts)
         .filter((key) => !(cliEnableOnly || enableOnly) || (cliEnableOnly || enableOnly).includes(key))
+        .filter((key) => !(cliDisableOnly || disableOnly) || !(cliDisableOnly || disableOnly).includes(key))
         .map((key) => ({ out: key, ...fronts[key] }));
 
     logInfo(`Building fronts:\n${configs?.map((config) => `   - ${config?.out}`)?.join('\n')}\n`);

@@ -2,11 +2,9 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { PaginationData } from '../../../props/ApiResponses';
-import FundSelector from '../../elements/fund-selector/FundSelector';
 import Fund from '../../../props/models/Fund';
 import Reimbursement from '../../../props/models/Reimbursement';
 import { useReimbursementsService } from '../../../services/ReimbursementService';
-import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import { useFundService } from '../../../services/FundService';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
@@ -17,7 +15,6 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import { hasPermission } from '../../../helpers/utils';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
-import ClickOutside from '../../elements/click-outside/ClickOutside';
 import useReimbursementExportService from '../../../services/exports/useReimbursementExportService';
 import useImplementationService from '../../../services/ImplementationService';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
@@ -28,6 +25,13 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../hooks/useTranslate';
 import classNames from 'classnames';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
@@ -41,8 +45,7 @@ export default function Reimbursements() {
     const implementationService = useImplementationService();
     const reimbursementExportService = useReimbursementExportService();
 
-    const [fund, setFund] = useState<Fund>(null);
-    const [funds, setFunds] = useState<PaginationData<Fund>>(null);
+    const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [paginatorKey] = useState('reimbursements');
     const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
     const [reimbursements, setReimbursements] = useState<PaginationData<Reimbursement>>(null);
@@ -58,48 +61,80 @@ export default function Reimbursements() {
     const [archivedOptions] = useState(reimbursementService.getArchivedOptions());
     const [deactivatedOptions] = useState(reimbursementService.getDeactivatedOptions());
 
-    const filter = useFilter({
-        q: '',
-        implementation_id: null,
-        state: null,
-        amount_min: null,
-        amount_max: null,
-        expired: null,
-        archived: 0,
-        deactivated: null,
-        from: null,
-        to: null,
-        fund_id: null,
-        page: 1,
-        per_page: paginatorService.getPerPage(paginatorKey, 10),
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        state: string;
+        implementation_id?: string;
+        amount_min?: string;
+        amount_max?: string;
+        expired?: number;
+        archived?: number;
+        deactivated?: number;
+        from?: string;
+        to?: string;
+        fund_id?: number;
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            state: null,
+            implementation_id: null,
+            amount_min: null,
+            amount_max: null,
+            expired: null,
+            archived: 0,
+            deactivated: null,
+            from: null,
+            to: null,
+            fund_id: null,
+            page: 1,
+            per_page: paginatorService.getPerPage(paginatorKey, 10),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                state: createEnumParam(['pending', 'approved', 'declined']),
+                implementation_id: NumberParam,
+                amount_min: NumberParam,
+                amount_max: NumberParam,
+                expired: NumberParam,
+                archived: NumberParam,
+                deactivated: NumberParam,
+                from: StringParam,
+                to: StringParam,
+                fund_id: NumberParam,
+                page: NumberParam,
+                per_page: NumberParam,
+            },
+            queryParamsRemoveDefault: true,
+            throttledValues: ['q', 'amount_min', 'amount_max'],
+        },
+    );
 
     const setArchivedOption = useCallback(
         (archived: number) => {
-            filter.update({
+            filterUpdate({
                 expired: null,
                 archived: archived,
                 deactivated: null,
             });
         },
-        [filter],
+        [filterUpdate],
     );
 
-    const fetchFunds = useCallback(() => {
-        fundService.list(activeOrganization.id, { per_page: 100, configured: 1 }).then((res) => {
-            setFunds(res.data);
-            setFund(fundService.getLastSelectedFund(res.data.data) || res.data.data[0]);
-        });
+    const fetchFunds = useCallback(async (): Promise<Array<Fund>> => {
+        return fundService.list(activeOrganization.id, { per_page: 100, configured: 1 }).then((res) => res.data.data);
     }, [activeOrganization.id, fundService]);
 
     const fetchReimbursements = useCallback(() => {
         setProgress(0);
 
         reimbursementService
-            .list(activeOrganization.id, { ...filter.activeValues, fund_id: fund?.id })
+            .list(activeOrganization.id, filterValuesActive)
             .then((res) => setReimbursements(res.data))
             .finally(() => setProgress(100));
-    }, [setProgress, activeOrganization.id, filter.activeValues, fund?.id, reimbursementService]);
+    }, [setProgress, activeOrganization.id, filterValuesActive, reimbursementService]);
 
     const fetchImplementations = useCallback(() => {
         implementationService
@@ -109,17 +144,13 @@ export default function Reimbursements() {
 
     const exportReimbursements = useCallback(() => {
         reimbursementExportService.exportData(activeOrganization.id, {
-            ...filter.activeValues,
+            ...filterValuesActive,
             per_page: null,
         });
-    }, [activeOrganization.id, filter.activeValues, reimbursementExportService]);
-
-    const onFundSelect = useCallback((fund: Fund) => {
-        setFund(fund);
-    }, []);
+    }, [activeOrganization.id, filterValuesActive, reimbursementExportService]);
 
     useEffect(() => {
-        fetchFunds();
+        fetchFunds().then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
     }, [fetchFunds]);
 
     useEffect(() => {
@@ -136,244 +167,217 @@ export default function Reimbursements() {
 
     return (
         <Fragment>
-            <FundSelector fund={fund} funds={funds?.data} onSelectFund={onFundSelect} />
-
             <div className="card">
-                <div className="card-header">
-                    <div className="flex-row">
-                        <div className="flex-col flex-grow">
-                            <div className="card-title">
-                                {translate('reimbursements.header.title')} ({reimbursements?.meta?.total})
-                            </div>
+                <div className="card-header card-header-next">
+                    <div className="flex flex-grow">
+                        <div className="card-title">
+                            {translate('reimbursements.header.title')} ({reimbursements?.meta?.total})
                         </div>
+                    </div>
+                    <div className={'card-header-filters'}>
+                        <div className="block block-inline-filters">
+                            <StateNavLink
+                                name="reimbursement-categories"
+                                params={{ organizationId: activeOrganization.id }}
+                                className="button button-default button-sm">
+                                <em className="mdi mdi-cog icon-start" />
+                                Categorieën
+                            </StateNavLink>
 
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                <StateNavLink
-                                    name="reimbursement-categories"
-                                    params={{ organizationId: activeOrganization.id }}
-                                    className="button button-default button-sm">
-                                    <em className="mdi mdi-cog icon-start" />
-                                    Categorieën
-                                </StateNavLink>
-
-                                <div className="flex form">
-                                    <div>
-                                        <div className="block block-label-tabs">
-                                            <div className="label-tab-set">
-                                                {archivedOptions.map((viewType) => (
-                                                    <div
-                                                        key={viewType.value}
-                                                        onClick={() => setArchivedOption(viewType.value)}
-                                                        className={`label-tab label-tab-sm ${
-                                                            filter.values.archived == viewType.value ? 'active' : ''
-                                                        }`}
-                                                        data-dusk={`${
-                                                            viewType.value
-                                                                ? 'reimbursementsFilterArchived'
-                                                                : 'reimbursementsFilterActive'
-                                                        }`}>
-                                                        {viewType.name}
-                                                    </div>
-                                                ))}
-                                            </div>
+                            <div className="block block-label-tabs">
+                                <div className="label-tab-set">
+                                    {archivedOptions.map((viewType) => (
+                                        <div
+                                            key={viewType.value}
+                                            onClick={() => setArchivedOption(viewType.value)}
+                                            className={`label-tab label-tab-sm ${
+                                                filterValues.archived == viewType.value ? 'active' : ''
+                                            }`}
+                                            data-dusk={`${
+                                                viewType.value
+                                                    ? 'reimbursementsFilterArchived'
+                                                    : 'reimbursementsFilterActive'
+                                            }`}>
+                                            {viewType.name}
                                         </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="form">
+                                <div className="form-group">
+                                    <SelectControl
+                                        className="form-control inline-filter-control"
+                                        propKey={'id'}
+                                        options={funds}
+                                        value={filterValuesActive.fund_id}
+                                        placeholder={translate('vouchers.labels.fund')}
+                                        allowSearch={false}
+                                        onChange={(fund_id: number) => filterUpdate({ fund_id })}
+                                        optionsComponent={SelectControlOptionsFund}
+                                    />
+                                </div>
+                            </div>
+
+                            {filter.show && (
+                                <div className="button button-text" onClick={filter.resetFilters}>
+                                    <em className="mdi mdi-close icon-start" />
+                                    <span>{translate('reimbursements.buttons.clear_filter')}</span>
+                                </div>
+                            )}
+
+                            {!filter.show && (
+                                <div className="form">
+                                    <div className="form-group">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            value={filterValues.q}
+                                            data-dusk="searchReimbursement"
+                                            placeholder={translate('reimbursements.labels.search')}
+                                            onChange={(e) => filterUpdate({ q: e.target.value })}
+                                        />
                                     </div>
                                 </div>
+                            )}
 
-                                {filter.show && (
-                                    <div className="button button-text" onClick={filter.resetFilters}>
-                                        <em className="mdi mdi-close icon-start" />
-                                        <span>{translate('reimbursements.buttons.clear_filter')}</span>
-                                    </div>
+                            <CardHeaderFilter filter={filter}>
+                                <FilterItemToggle show={true} label={translate('reimbursements.labels.search')}>
+                                    <input
+                                        className="form-control"
+                                        data-dusk="searchReimbursement"
+                                        value={filterValues.q}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
+                                        placeholder={translate('reimbursements.labels.search')}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('reimbursements.labels.state')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        allowSearch={false}
+                                        value={filterValues.state}
+                                        options={statesOptions}
+                                        optionsComponent={SelectControlOptions}
+                                        onChange={(state: string) => filterUpdate({ state })}
+                                    />
+                                </FilterItemToggle>
+
+                                {filterValues.archived == 1 && (
+                                    <Fragment>
+                                        <FilterItemToggle label={translate('reimbursements.labels.expired')}>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                allowSearch={false}
+                                                value={filterValues.expired}
+                                                options={expiredOptions}
+                                                optionsComponent={SelectControlOptions}
+                                                onChange={(expired: number) => filterUpdate({ expired })}
+                                            />
+                                        </FilterItemToggle>
+
+                                        <FilterItemToggle label={translate('reimbursements.labels.deactivated')}>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                allowSearch={false}
+                                                value={filterValues.deactivated}
+                                                options={deactivatedOptions}
+                                                optionsComponent={SelectControlOptions}
+                                                onChange={(deactivated: number) => filterUpdate({ deactivated })}
+                                            />
+                                        </FilterItemToggle>
+                                    </Fragment>
                                 )}
 
-                                {!filter.show && (
-                                    <div className="form">
-                                        <div className="form-group">
+                                <FilterItemToggle label={translate('transactions.labels.amount')}>
+                                    <div className="row">
+                                        <div className="col col-lg-6">
                                             <input
-                                                type="text"
                                                 className="form-control"
-                                                value={filter.values.q}
-                                                data-dusk="searchReimbursement"
-                                                placeholder={translate('reimbursements.labels.search')}
-                                                onChange={(e) => filter.update({ q: e.target.value })}
+                                                min={0}
+                                                type="number"
+                                                value={filterValues.amount_min || ''}
+                                                onChange={(e) =>
+                                                    filterUpdate({
+                                                        amount_min: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.amount_min')}
+                                            />
+                                        </div>
+
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={filterValues.amount_max || ''}
+                                                onChange={(e) =>
+                                                    filterUpdate({
+                                                        amount_max: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.amount_max')}
                                             />
                                         </div>
                                     </div>
-                                )}
+                                </FilterItemToggle>
 
-                                <ClickOutside className="form" onClickOutside={() => filter.setShow(false)}>
-                                    <div className="inline-filters-dropdown pull-right">
-                                        {filter.show && (
-                                            <div className="inline-filters-dropdown-content">
-                                                <div className="arrow-box bg-dim">
-                                                    <div className="arrow" />
-                                                </div>
+                                <FilterItemToggle label={translate('reimbursements.labels.from')}>
+                                    <DatePickerControl
+                                        value={dateParse(filterValues.from)}
+                                        placeholder={translate('yyyy-MM-dd')}
+                                        onChange={(from: Date) => {
+                                            filterUpdate({ from: dateFormat(from) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
 
-                                                <div className="form">
-                                                    <FilterItemToggle
-                                                        show={true}
-                                                        label={translate('reimbursements.labels.search')}>
-                                                        <input
-                                                            className="form-control"
-                                                            data-dusk="searchReimbursement"
-                                                            value={filter.values.q}
-                                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                                            placeholder={translate('reimbursements.labels.search')}
-                                                        />
-                                                    </FilterItemToggle>
+                                <FilterItemToggle label={translate('reimbursements.labels.to')}>
+                                    <DatePickerControl
+                                        value={dateParse(filterValues.to)}
+                                        placeholder={translate('yyyy-MM-dd')}
+                                        onChange={(to: Date) => {
+                                            filterUpdate({ to: dateFormat(to) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
 
-                                                    <FilterItemToggle label={translate('reimbursements.labels.state')}>
-                                                        <SelectControl
-                                                            className="form-control"
-                                                            propKey={'value'}
-                                                            allowSearch={false}
-                                                            value={filter.values.state}
-                                                            options={statesOptions}
-                                                            optionsComponent={SelectControlOptions}
-                                                            onChange={(state: string) => filter.update({ state })}
-                                                        />
-                                                    </FilterItemToggle>
+                                <FilterItemToggle label={translate('reimbursements.labels.implementation')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'id'}
+                                        allowSearch={false}
+                                        value={filterValues.implementation_id}
+                                        options={implementations}
+                                        optionsComponent={SelectControlOptions}
+                                        onChange={(implementation_id: string) => filterUpdate({ implementation_id })}
+                                    />
+                                </FilterItemToggle>
 
-                                                    {filter.values.archived == 1 && (
-                                                        <Fragment>
-                                                            <FilterItemToggle
-                                                                label={translate('reimbursements.labels.expired')}>
-                                                                <SelectControl
-                                                                    className="form-control"
-                                                                    propKey={'value'}
-                                                                    allowSearch={false}
-                                                                    value={filter.values.expired}
-                                                                    options={expiredOptions}
-                                                                    optionsComponent={SelectControlOptions}
-                                                                    onChange={(expired: string) =>
-                                                                        filter.update({ expired })
-                                                                    }
-                                                                />
-                                                            </FilterItemToggle>
-
-                                                            <FilterItemToggle
-                                                                label={translate('reimbursements.labels.deactivated')}>
-                                                                <SelectControl
-                                                                    className="form-control"
-                                                                    propKey={'value'}
-                                                                    allowSearch={false}
-                                                                    value={filter.values.deactivated}
-                                                                    options={deactivatedOptions}
-                                                                    optionsComponent={SelectControlOptions}
-                                                                    onChange={(deactivated: string) =>
-                                                                        filter.update({ deactivated })
-                                                                    }
-                                                                />
-                                                            </FilterItemToggle>
-                                                        </Fragment>
-                                                    )}
-
-                                                    <FilterItemToggle label={translate('transactions.labels.amount')}>
-                                                        <div className="row">
-                                                            <div className="col col-lg-6">
-                                                                <input
-                                                                    className="form-control"
-                                                                    min={0}
-                                                                    type="number"
-                                                                    value={filter.values.amount_min || ''}
-                                                                    onChange={(e) =>
-                                                                        filter.update({
-                                                                            amount_min: e.target.value,
-                                                                        })
-                                                                    }
-                                                                    placeholder={translate(
-                                                                        'transactions.labels.amount_min',
-                                                                    )}
-                                                                />
-                                                            </div>
-
-                                                            <div className="col col-lg-6">
-                                                                <input
-                                                                    className="form-control"
-                                                                    min={0}
-                                                                    type="number"
-                                                                    value={filter.values.amount_max || ''}
-                                                                    onChange={(e) =>
-                                                                        filter.update({
-                                                                            amount_max: e.target.value,
-                                                                        })
-                                                                    }
-                                                                    placeholder={translate(
-                                                                        'transactions.labels.amount_max',
-                                                                    )}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FilterItemToggle>
-
-                                                    <FilterItemToggle label={translate('reimbursements.labels.from')}>
-                                                        <DatePickerControl
-                                                            value={dateParse(filter.values.from)}
-                                                            placeholder={translate('yyyy-MM-dd')}
-                                                            onChange={(from: Date) => {
-                                                                filter.update({ from: dateFormat(from) });
-                                                            }}
-                                                        />
-                                                    </FilterItemToggle>
-
-                                                    <FilterItemToggle label={translate('reimbursements.labels.to')}>
-                                                        <DatePickerControl
-                                                            value={dateParse(filter.values.to)}
-                                                            placeholder={translate('yyyy-MM-dd')}
-                                                            onChange={(to: Date) => {
-                                                                filter.update({ to: dateFormat(to) });
-                                                            }}
-                                                        />
-                                                    </FilterItemToggle>
-
-                                                    <FilterItemToggle
-                                                        label={translate('reimbursements.labels.implementation')}>
-                                                        <SelectControl
-                                                            className="form-control"
-                                                            propKey={'id'}
-                                                            allowSearch={false}
-                                                            value={filter.values.implementation_id}
-                                                            options={implementations}
-                                                            optionsComponent={SelectControlOptions}
-                                                            onChange={(implementation_id: string) =>
-                                                                filter.update({ implementation_id })
-                                                            }
-                                                        />
-                                                    </FilterItemToggle>
-
-                                                    <div className="form-actions">
-                                                        <button
-                                                            className="button button-primary button-wide"
-                                                            onClick={() => exportReimbursements()}
-                                                            disabled={reimbursements.meta.total == 0}>
-                                                            <em className="mdi mdi-download icon-start"> </em>
-                                                            {translate('components.dropdown.export', {
-                                                                total: reimbursements.meta.total,
-                                                            })}
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <div
-                                            onClick={() => filter.setShow(!filter.show)}
-                                            className="button button-default button-icon">
-                                            <em className="mdi mdi-filter-outline" />
-                                        </div>
-                                    </div>
-                                </ClickOutside>
-                            </div>
+                                <div className="form-actions">
+                                    <button
+                                        className="button button-primary button-wide"
+                                        onClick={() => exportReimbursements()}
+                                        disabled={reimbursements.meta.total == 0}>
+                                        <em className="mdi mdi-download icon-start"> </em>
+                                        {translate('components.dropdown.export', {
+                                            total: reimbursements.meta.total,
+                                        })}
+                                    </button>
+                                </div>
+                            </CardHeaderFilter>
                         </div>
                     </div>
                 </div>
 
-                {reimbursements.data.length > 0 && (
-                    <div className="card-section" data-dusk="reimbursementsList">
+                <LoaderTableCard empty={reimbursements.meta.total == 0} emptyTitle={'Geen declaraties gevonden'}>
+                    <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            <TableTopScroller>
                                 <table className="table">
                                     <thead>
                                         <tr>
@@ -492,45 +496,45 @@ export default function Reimbursements() {
                                                     {!reimbursement.voucher_transaction && <TableEmptyValue />}
                                                 </td>
 
-                                                <td>
-                                                    <div className="button-group flex-end">
-                                                        <StateNavLink
-                                                            name={'reimbursements-view'}
-                                                            params={{
-                                                                id: reimbursement.id,
-                                                                organizationId: activeOrganization.id,
-                                                            }}
-                                                            className="button button-primary button-icon pull-right">
-                                                            <em className="mdi mdi-eye-outline icon-start" />
-                                                        </StateNavLink>
-                                                    </div>
+                                                <td className={'table-td-actions'}>
+                                                    <TableRowActions
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <StateNavLink
+                                                                    name={'reimbursements-view'}
+                                                                    className="dropdown-item"
+                                                                    params={{
+                                                                        id: reimbursement.id,
+                                                                        organizationId: activeOrganization.id,
+                                                                    }}>
+                                                                    <em className="mdi mdi-eye icon-start" /> Bekijken
+                                                                </StateNavLink>
+                                                            </div>
+                                                        )}
+                                                    />
                                                 </td>
                                             </StateNavLink>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
-                )}
 
-                {reimbursements.meta.total == 0 && (
-                    <EmptyCard type={'card-section'} title={'Geen declaraties gevonden'} />
-                )}
-
-                {reimbursements.meta && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={reimbursements.meta}
-                            filters={filter.values}
-                            updateFilters={filter.update}
-                            perPageKey={paginatorKey}
-                        />
-                    </div>
-                )}
+                    {reimbursements.meta && (
+                        <div className="card-section">
+                            <Paginator
+                                meta={reimbursements.meta}
+                                filters={filterValues}
+                                updateFilters={filterUpdate}
+                                perPageKey={paginatorKey}
+                            />
+                        </div>
+                    )}
+                </LoaderTableCard>
             </div>
 
-            {funds?.data.length == 0 && (
+            {funds?.length == 0 && (
                 <Fragment>
                     {hasPermission(activeOrganization, 'manage_funds') ? (
                         <EmptyCard

@@ -169,8 +169,8 @@ router.state('vouchers', <Vouchers />, {
 });
 
 router.state('voucher', <VouchersShow />, {
-    path: `/tegoeden/:address`,
-    altPath: `/vouchers/:address`,
+    path: `/tegoeden/:number`,
+    altPath: `/vouchers/:number`,
     protected: true,
 });
 

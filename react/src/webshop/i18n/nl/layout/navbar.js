@@ -51,6 +51,9 @@ export default {
         noordoostpolder: {
             funds: 'Regelingen',
         },
+        midden_drenthe: {
+            funds: 'Regelingen',
+        },
     },
     buttons: {
         westerkwartier: {

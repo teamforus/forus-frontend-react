@@ -26,7 +26,7 @@ export default function ModalPhysicalCardUnlink({
 
     const unlink = useCallback(() => {
         physicalCardsService
-            .destroy(voucher.address, voucher.physical_card.id)
+            .destroy(voucher.number, voucher.physical_card.id)
             .then(() => {
                 onPhysicalCardUnlinked();
                 setState('unlinked');

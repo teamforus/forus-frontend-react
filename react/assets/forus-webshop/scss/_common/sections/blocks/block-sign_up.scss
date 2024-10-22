@@ -266,6 +266,13 @@
                 }
             }
 
+            .sign_up-pane-step-description {
+                border-radius: 5px;
+                border: 1px solid #e5e5e5;
+                background: #fbfbfb;
+                padding: 18px;
+            }
+
             .sign_up-pane-separator {
                 padding: 10px 0 0;
                 border-bottom: 1px solid var(--border-color);
