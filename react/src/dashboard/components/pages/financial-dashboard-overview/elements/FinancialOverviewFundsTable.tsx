@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ThSortable from '../../../elements/tables/ThSortable';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import Fund from '../../../../props/models/Fund';
@@ -9,60 +9,33 @@ import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
-import { ResponseError } from '../../../../props/ApiResponses';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import { useFundService } from '../../../../services/FundService';
-import useActiveOrganization from '../../../../hooks/useActiveOrganization';
-import usePushDanger from '../../../../hooks/usePushDanger';
 
-export default function FinancialOverviewFundsTable({ organization }: { organization: Organization }) {
+export default function FinancialOverviewFundsTable({
+    years,
+    fetchFunds,
+    fetchFinancialOverview,
+    organization,
+}: {
+    years: Array<{ id: number; name: string }>;
+    fetchFunds: (year: number) => Promise<Array<Fund>>;
+    fetchFinancialOverview: (year: number) => Promise<FinancialOverview>;
+    organization: Organization;
+}) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const exportFunds = useExportFunds(organization);
-    const activeOrganization = useActiveOrganization();
-
-    const fundService = useFundService();
 
     const [year, setYear] = useState(new Date().getFullYear());
     const [funds, setFunds] = useState<Array<Fund>>(null);
-    const [years, setYears] = useState<Array<{ id: number; name: number }>>([]);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
-    const fetchFunds = useCallback(() => {
-        fundService
-            .list(activeOrganization.id, { stats: 'all', per_page: 100, year: year })
-            .then((res) => setFunds(res.data.data.filter((fund) => fund.state !== 'waiting')))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
-    }, [activeOrganization.id, fundService, pushDanger, year]);
-
-    const fetchFinancialOverview = useCallback(() => {
-        fundService
-            .financialOverview(activeOrganization.id, { stats: 'all', year: year })
-            .then((res) => setFinancialOverview(res.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
-    }, [activeOrganization.id, fundService, pushDanger, year]);
-
-    const buildYearsList = useCallback(() => {
-        const yearsList = [];
-
-        for (let i = new Date().getFullYear(); i > new Date().getFullYear() - 5; i--) {
-            yearsList.push({ id: i, name: i });
-        }
-
-        return yearsList;
-    }, []);
+    useEffect(() => {
+        fetchFunds(year).then(setFunds);
+    }, [fetchFunds, year]);
 
     useEffect(() => {
-        setYears(buildYearsList());
-    }, [buildYearsList]);
-
-    useEffect(() => {
-        fetchFunds();
-    }, [fetchFunds]);
-
-    useEffect(() => {
-        fetchFinancialOverview();
-    }, [fetchFinancialOverview]);
+        fetchFinancialOverview(year).then(setFinancialOverview);
+    }, [fetchFinancialOverview, year]);
 
     if (!funds || !financialOverview || !years.length) {
         return <LoadingCard />;
