@@ -8,6 +8,7 @@ import PhysicalCard from './PhysicalCard';
 
 export default interface Voucher {
     id: number;
+    number?: string;
     address?: string;
     fund_id: number;
     expired?: boolean;

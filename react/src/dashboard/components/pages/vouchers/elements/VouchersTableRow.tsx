@@ -42,7 +42,7 @@ export default function VouchersTableRow({
             name={'vouchers-show'}
             params={{ id: voucher.id, organizationId: organization.id }}
             dataDusk={`voucherItem${voucher.id}`}>
-            <td>{voucher.id}</td>
+            <td>#{voucher.number}</td>
             <td>
                 <div>
                     <strong className="text-primary">

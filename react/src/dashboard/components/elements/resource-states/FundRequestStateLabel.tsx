@@ -27,7 +27,7 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
     const localState = useMemo(() => {
         if (fundRequest.state == 'pending' && fundRequest.employee) {
             return hasRecordsWithPendingClarifications
-                ? { key: 'clarification_requested', label: 'Aanvullende informatie benodigd' }
+                ? { key: 'clarification_requested', label: 'Extra info nodig' }
                 : { key: 'assigned', label: 'In behandeling' };
         }
 
@@ -59,7 +59,7 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
                                     `icon-start`,
                                 )}
                             />
-                            Aanvullende informatie benodigd
+                            Extra info nodig
                         </div>
                     ) : (
                         <div className="label label-tag label-round label-primary">

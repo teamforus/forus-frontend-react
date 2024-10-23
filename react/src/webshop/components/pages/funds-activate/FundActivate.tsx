@@ -39,6 +39,8 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
+import { isWithinInterval } from 'date-fns';
+import { dateParse } from '../../../../dashboard/helpers/dates';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -479,7 +481,17 @@ export default function FundActivate() {
             return;
         }
 
-        const request = fundRequests?.find((request) => ['pending', 'approved'].includes(request.state));
+        const request = fundRequests?.find((request) => {
+            return (
+                request.state === 'pending' ||
+                (request.state === 'approved' &&
+                    vouchersActive?.length > 0 &&
+                    isWithinInterval(dateParse(request.created_at, 'yyyy-MM-dd HH:mm:ss'), {
+                        start: dateParse(fund.start_date),
+                        end: dateParse(fund.end_date),
+                    }))
+            );
+        });
 
         if (request) {
             setFundRequest(request);
@@ -494,13 +506,13 @@ export default function FundActivate() {
 
         // Voucher already received, go to the voucher
         if (vouchersActive?.length > 0) {
-            return navigateState('voucher', { address: vouchersActive[0]?.address });
+            return navigateState('voucher', { number: vouchersActive[0]?.number });
         }
 
         // All the criteria are meet, request the voucher
         if (fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
             applyFund(fund)
-                .then((voucher) => navigateState('voucher', { address: voucher.address }))
+                .then((voucher) => navigateState('voucher', { number: voucher.number }))
                 .catch(() => navigateState('fund', { id: fund.id }));
         }
     }, [applyFund, fund, navigateState, vouchersActive, fundRequests]);

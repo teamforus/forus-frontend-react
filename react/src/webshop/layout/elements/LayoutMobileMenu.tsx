@@ -215,6 +215,19 @@ export default function LayoutMobileMenu() {
                         </StateNavLink>
                     )}
 
+                    {authIdentity && appConfigs.has_payouts && (
+                        <StateNavLink
+                            className="mobile-menu-item"
+                            name="payouts"
+                            onClick={hideMobileMenu}
+                            aria-current={route.state?.name == 'payouts' ? 'true' : undefined}
+                            tabIndex={0}
+                            role="link">
+                            <em className="mobile-menu-item-icon mdi mdi-wallet-plus-outline" />
+                            {translate('topnavbar.buttons.mobile.dropdown.payouts')}
+                        </StateNavLink>
+                    )}
+
                     {authIdentity && (
                         <StateNavLink
                             className="mobile-menu-item"

@@ -372,7 +372,7 @@ export default function FundsPreCheck() {
                                 <div className="block-progress-pie">
                                     <div className="progress-pie">
                                         <ProgressPie
-                                            styleImage={{ width: '70px' }}
+                                            attrImg={{ style: { width: '70px' } }}
                                             title={activeStepIndex + 1 + ' van ' + preChecks.length}
                                             size={100}
                                             progress={(activeStepIndex + 1) / preChecks.length}

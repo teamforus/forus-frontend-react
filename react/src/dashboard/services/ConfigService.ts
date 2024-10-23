@@ -121,6 +121,7 @@ export type AppConfigProp = {
     has_budget_funds: boolean;
     has_subsidy_funds: boolean;
     has_reimbursements: boolean;
+    has_payouts: boolean;
     announcements: Array<Announcement>;
     digid: boolean;
     bsn_confirmation_offset?: number;

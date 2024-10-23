@@ -1,4 +1,4 @@
-name: Create Pull-Request with changes of master branch to develop branch
+name: Create Pull-Request with changes from master branch to develop branch
 
 on:
   push:
