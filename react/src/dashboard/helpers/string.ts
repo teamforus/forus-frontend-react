@@ -43,7 +43,7 @@ export const phoneNumberFormat = (phoneNumber = '') => {
         }
 
         return parser.isValid() ? parser.formatInternational() : number;
-    } catch (error) {
+    } catch {
         return phoneNumber;
     }
 };

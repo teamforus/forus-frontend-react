@@ -11,7 +11,7 @@ export default function useStorageService() {
                 const collection = JSON.parse(localStorage.getItem(collection_name));
 
                 return isPlainObject(collection) ? collection : {};
-            } catch (e) {
+            } catch {
                 return {};
             }
         },
@@ -43,7 +43,7 @@ export default function useStorageService() {
                 const collection = JSON.parse(localStorage.getItem(collection_name));
 
                 return isValidCollectionWithKey(collection, key) ? collection[key] : _default;
-            } catch (e) {
+            } catch {
                 return _default;
             }
         },
@@ -92,7 +92,7 @@ export default function useStorageService() {
             }
 
             return itemExpired ? null : item?.value;
-        } catch (e) {
+        } catch {
             return null;
         }
     }, []);

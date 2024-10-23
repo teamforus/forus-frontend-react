@@ -1,8 +1,9 @@
 export default {
     title: 'Beschrijving',
     labels: {
-        description: 'Beschrijving',
         title: 'Titel',
+        description: 'Beschrijving',
+        extra_description: 'Extra uitleg',
     },
     buttons: {
         save: 'Opslaan',

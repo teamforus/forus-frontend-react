@@ -155,12 +155,12 @@ export default function SystemNotificationTemplateEditor({
 
         formUpdate(data);
         setEdit(true);
-        onEditUpdated && onEditUpdated(true);
+        onEditUpdated?.(true);
     }, [onEditUpdated, template, formUpdate]);
 
     const cancelTemplateEdit = useCallback(() => {
         setEdit(false);
-        onEditUpdated && onEditUpdated(false);
+        onEditUpdated?.(false);
     }, [onEditUpdated]);
 
     const updateTemplate = useCallback(

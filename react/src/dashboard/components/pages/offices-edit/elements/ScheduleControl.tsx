@@ -70,7 +70,7 @@ export default function ScheduleControl({
     const activeWeekDays = scheduleData.slice(0, 5).filter((day) => !day.is_closed);
     const activeWeekEndDays = scheduleData.slice(5, 6).filter((day) => !day.is_closed);
 
-    const isSameSchedule = useCallback((day1, day2) => {
+    const isSameSchedule = useCallback((day1: OfficeScheduleLocal, day2: OfficeScheduleLocal) => {
         return (
             day1.start_time == day2.start_time &&
             day1.end_time == day2.end_time &&
@@ -164,7 +164,7 @@ export default function ScheduleControl({
         return timeOptions;
     }, [makeTimeOptions, parseTime, scheduleData]);
 
-    const syncTwoDatesHours = useCallback((date1, date2) => {
+    const syncTwoDatesHours = useCallback((date1: OfficeScheduleLocal, date2: OfficeScheduleLocal) => {
         date1.start_time = date2.start_time;
         date1.end_time = date2.end_time;
         date1.break_start_time = date2.break_start_time;
@@ -172,7 +172,7 @@ export default function ScheduleControl({
     }, []);
 
     const setDateTime = useCallback(
-        (index, key, value, sync) => {
+        (index: number, key: string, value: string, sync: boolean) => {
             setScheduleData((scheduleDetails) => {
                 const isWeekDay = index <= 4;
                 const dayIndexes = isWeekDay ? [0, 1, 2, 3, 4] : [5, 6];
@@ -214,8 +214,12 @@ export default function ScheduleControl({
     }, [errors]);
 
     const toggleSameCheckboxes = useCallback(
-        (checked, isWeekDay = false) => {
-            isWeekDay ? setSameHours(checked) : setSameHoursWeekend(checked);
+        (checked: boolean, isWeekDay = false) => {
+            if (isWeekDay) {
+                setSameHours(checked);
+            } else {
+                setSameHoursWeekend(checked);
+            }
 
             const activeDays = isWeekDay ? activeWeekDays : activeWeekEndDays;
             const activeDay = activeDays.find((day) => day);

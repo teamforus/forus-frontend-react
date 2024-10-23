@@ -127,4 +127,18 @@ export default interface Fund {
     provider_products_required?: boolean;
     pre_check_excluded?: boolean;
     pre_check_note?: string;
+    help_title?: string;
+    help_block_text?: string;
+    help_button_text?: string;
+    help_show_email?: boolean;
+    help_show_phone?: boolean;
+    help_show_website?: boolean;
+    help_show_chat?: boolean;
+    help_email?: string;
+    help_phone?: string;
+    help_website?: string;
+    help_chat?: string;
+    help_description?: string;
+    help_description_html?: string;
+    help_enabled?: boolean;
 }

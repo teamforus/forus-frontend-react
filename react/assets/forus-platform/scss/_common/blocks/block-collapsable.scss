@@ -1,0 +1,36 @@
+.block.block-collapsable {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 5px rgba(25, 39, 52, 0.22);
+    border-radius: calc(var(--border-radius));
+
+    .collapsable-header {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+
+        .collapsable-header-icon {
+            font-size: 24px;
+            line-height: 30px;
+        }
+
+        .collapsable-header-title {
+            flex-grow: 1;
+            font: 700 14px/30px var(--base-font);
+        }
+    }
+
+    .collapsable-body {
+        padding: 20px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .collapsable-footer {
+        display: flex;
+        border-top: 1px solid var(--border-color);
+        padding: 15px 20px;
+    }
+}

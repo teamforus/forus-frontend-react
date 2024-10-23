@@ -35,12 +35,29 @@ export default function ProviderOrganizationOverview({
         const propsArray: Array<{ label: string; value?: string; primary?: boolean }> = [];
         const makeProp = (label: string, value?: string, primary = false) => ({ label, value, primary });
 
-        organization.email && propsArray.push(makeProp('E-mail', organization.email, true));
-        organization.website && propsArray.push(makeProp('Website', organization.website, true));
-        organization.phone && propsArray.push(makeProp('Telefoonnummer', organization.phone, true));
-        organization.kvk && propsArray.push(makeProp('KVK', organization.kvk));
-        organization.iban && propsArray.push(makeProp('IBAN', organization.iban));
-        organization.btw && propsArray.push(makeProp('BTW', organization.btw));
+        if (organization.email) {
+            propsArray.push(makeProp('E-mail', organization.email, true));
+        }
+
+        if (organization.website) {
+            propsArray.push(makeProp('Website', organization.website, true));
+        }
+
+        if (organization.phone) {
+            propsArray.push(makeProp('Telefoonnummer', organization.phone, true));
+        }
+
+        if (organization.kvk) {
+            propsArray.push(makeProp('KVK', organization.kvk));
+        }
+
+        if (organization.iban) {
+            propsArray.push(makeProp('IBAN', organization.iban));
+        }
+
+        if (organization.btw) {
+            propsArray.push(makeProp('BTW', organization.btw));
+        }
 
         return [
             propsArray.splice(0, propsArray.length === 4 ? 4 : 3),

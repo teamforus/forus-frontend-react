@@ -46,7 +46,7 @@ export default function ModalReimbursementCategoryEdit({
                 .then(() => {
                     pushSuccess('Gelukt!', 'Declaratie is bijgewerkt!');
                     modal.close();
-                    onSubmit ? onSubmit() : null;
+                    onSubmit?.();
                 })
                 .catch((err: ResponseError) => {
                     pushDanger('Mislukt!', err.data?.message);

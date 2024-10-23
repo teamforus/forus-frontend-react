@@ -2,7 +2,7 @@
 $primaryColor: #627c18;
 $primaryColorLight: #627c18;
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap&subset=latin,cyrillic,latin-ext");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap&subset=latin,cyrillic,latin-ext');
 
 :root {
     // navbar
@@ -73,7 +73,7 @@ $primaryColorLight: #627c18;
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
     // Label sets
-    --label-set-hover-background: #{rgba($primaryColor, .8)};
+    --label-set-hover-background: #{rgba($primaryColor, 0.8)};
 
     // Sign up
     --sign_up_accent_color: #305dfb;
@@ -96,4 +96,16 @@ $primaryColorLight: #627c18;
     // Breadcrumbs
     --breadcrumb-color: var(--htc);
     --breadcrumb-color-active: #2d3748;
+
+    // Profile
+    --profile-menu-item-color: var(--tc);
+    --profile-menu-item-shadow: var(--box-shadow);
+    --profile-menu-item-background: #ffffff;
+    --profile-menu-item-border-color: transparent;
+    --profile-menu-item-border-radius: 0px;
+    --profile-menu-item-hover-color: #fff;
+    --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, .20);
+    --profile-menu-item-hover-background: #08749b;
+    --profile-menu-item-hover-border-color: transparent;
+    --profile-menu-item-hover-border-radius: 0px;
 }

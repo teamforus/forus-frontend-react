@@ -114,7 +114,9 @@ export default function useFDOffsetTableMenu(item: FDItem) {
     }, []);
 
     useEffect(() => {
-        item?.key && updateElement(item.key, { offset });
+        if (item?.key) {
+            updateElement(item.key, { offset });
+        }
     }, [item.key, offset, updateElement]);
 
     return useMemo(() => {

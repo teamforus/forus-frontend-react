@@ -20,6 +20,7 @@ import records from './nl/pages/records';
 import voucher from './nl/pages/voucher';
 import vouchers from './nl/pages/vouchers';
 import reservations from './nl/pages/reservations';
+import payouts from './nl/pages/payouts';
 import reimbursements from './nl/pages/reimbursements';
 import notification_preferences from './nl/pages/notification-preferences';
 import email_preferences from './nl/pages/email-preferences';
@@ -210,6 +211,7 @@ export default {
     records: records,
     voucher: voucher,
     vouchers: vouchers,
+    payouts: payouts,
     reservations: reservations,
     reimbursements: reimbursements,
     notification_preferences: notification_preferences,
