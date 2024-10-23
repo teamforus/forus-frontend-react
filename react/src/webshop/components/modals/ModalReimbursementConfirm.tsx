@@ -45,18 +45,18 @@ export default function ModalReimbursementConfirm({
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <div
+                    <button
                         className="button button-primary-outline button-sm"
                         onClick={modal.close}
                         data-dusk="modalReimbursementConfirmationCancel">
                         Annuleren
-                    </div>
-                    <div
+                    </button>
+                    <button
                         className="button button-primary button-sm"
                         onClick={confirm}
                         data-dusk="modalReimbursementConfirmationSubmit">
                         Bevestigen
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>

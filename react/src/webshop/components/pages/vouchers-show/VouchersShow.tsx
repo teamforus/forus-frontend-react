@@ -40,7 +40,7 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 
 export default function VouchersShow() {
-    const { address } = useParams();
+    const { number } = useParams();
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
@@ -102,7 +102,7 @@ export default function VouchersShow() {
                     mdiIconClass={'alert-outline'}
                     cancelBtnText={translate('voucher.delete_voucher.buttons.close')}
                     confirmBtnText={translate('voucher.delete_voucher.buttons.submit')}
-                    onConfirm={() => voucherService.destroy(voucher.address).then(() => navigateState('vouchers'))}
+                    onConfirm={() => voucherService.destroy(voucher.number).then(() => navigateState('vouchers'))}
                 />
             ));
         },
@@ -139,7 +139,7 @@ export default function VouchersShow() {
                     mdiIconClass={'email-open-outline'}
                     description={'Stuur de QR-code naar mijn e-mailadres'}
                     onConfirm={() => {
-                        voucherService.sendToEmail(voucher.address).then(() => {
+                        voucherService.sendToEmail(voucher.number).then(() => {
                             const emailServiceUrl = helperService.getEmailServiceProviderUrl(authIdentity?.email);
 
                             openModal((modal) => (
@@ -193,10 +193,10 @@ export default function VouchersShow() {
         setProgress(0);
 
         voucherService
-            .get(address)
+            .get(number)
             .then((res) => setVoucher(res.data.data))
             .finally(() => setProgress(100));
-    }, [address, setProgress, voucherService]);
+    }, [number, setProgress, voucherService]);
 
     const fetchProducts = useCallback(
         (voucher: Voucher) => {
@@ -243,7 +243,7 @@ export default function VouchersShow() {
                     voucher={voucher}
                     onPhysicalCardUnlinked={() => fetchVoucher()}
                     onClose={(requestNew) => {
-                        voucherService.get(voucher.address).then((res) => {
+                        voucherService.get(voucher.number).then((res) => {
                             setVoucher(res.data.data);
 
                             if (requestNew) {
@@ -288,12 +288,12 @@ export default function VouchersShow() {
                         {voucher && (
                             <StateNavLink
                                 name={'voucher'}
-                                params={{ address: voucher.address }}
+                                params={{ number: voucher.number }}
                                 className="breadcrumb-item active"
                                 aria-current="location">
                                 {voucher.physical_card
                                     ? `Uw ${voucherCard.title} #${voucher.physical_card.code}`
-                                    : voucherCard.title}
+                                    : `#${voucherCard.number}`}
                             </StateNavLink>
                         )}
                     </div>
@@ -727,7 +727,7 @@ export default function VouchersShow() {
                                                             Vraag uw kosten terug door een bon in te sturen. Klik{' '}
                                                             <StateNavLink
                                                                 name={'reimbursements-create'}
-                                                                params={{ voucher_address: voucher.address }}
+                                                                params={{ voucher_id: voucher.id }}
                                                                 className="card-description-link">
                                                                 hier
                                                             </StateNavLink>{' '}
@@ -809,6 +809,9 @@ export default function VouchersShow() {
                                 </div>
                                 <div className="block-card-actions">
                                     <div
+                                        role="button"
+                                        tabIndex={0}
+                                        onKeyDown={clickOnKeyEnter}
                                         className="button button-primary"
                                         onClick={() => linkPhysicalCard(voucher, 'card_code')}>
                                         {translate('voucher.physical_card.buttons.reactivate')}
@@ -857,7 +860,7 @@ export default function VouchersShow() {
                                 <div className="block-card-actions">
                                     <StateNavLink
                                         name={'reimbursements-create'}
-                                        params={{ voucher_address: voucher.address }}
+                                        params={{ voucher_id: voucher.id }}
                                         className="button button-primary">
                                         <em className="mdi mdi-plus icon-start" />
                                         Bon insturen

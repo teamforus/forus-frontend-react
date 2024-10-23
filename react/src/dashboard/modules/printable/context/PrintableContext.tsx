@@ -36,7 +36,7 @@ const PrintableProvider = ({ children }: { children: React.ReactElement }) => {
     const closePrintable = useCallback((printable: PrintableState) => {
         setTimeout(() => {
             setPrintableItems((printableItems) => [...printableItems.filter((item) => item !== printable)]);
-            printable?.onClosed && printable?.onClosed(printable);
+            printable?.onClosed?.(printable);
         }, 200);
     }, []);
 

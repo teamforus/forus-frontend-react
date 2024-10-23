@@ -7,6 +7,7 @@ import FundCriteriaEditorItem from './FundCriteriaEditorItem';
 import FundCriterion from '../../../props/models/FundCriterion';
 import useTranslate from '../../../hooks/useTranslate';
 import { uniqueId } from 'lodash';
+import classNames from 'classnames';
 
 export type CriteriaEditorItem = {
     uid?: string;
@@ -26,6 +27,9 @@ export default function FundCriteriaEditor({
     saveButton,
     onSaveCriteria,
     saveCriteriaRef,
+    className,
+    bodyClassName,
+    footerClassName,
 }: {
     fund: Fund;
     organization: Organization;
@@ -36,6 +40,9 @@ export default function FundCriteriaEditor({
     saveButton?: boolean;
     onSaveCriteria?: (criteria: Array<FundCriterion>) => void;
     saveCriteriaRef?: MutableRefObject<() => Promise<Array<FundCriterion>> | null>;
+    className?: string;
+    bodyClassName?: string;
+    footerClassName?: string;
 }) {
     const translate = useTranslate();
 
@@ -153,49 +160,53 @@ export default function FundCriteriaEditor({
     }, [saveCriteria, saveCriteriaRef]);
 
     return (
-        <div className="block block-criteria-editor" ref={elementRef}>
-            {criteriaList?.map((item, index) => (
-                <FundCriteriaEditorItem
-                    key={item.uid}
-                    fund={fund}
-                    recordTypes={recordTypesList}
-                    isEditable={isEditable}
-                    organization={organization}
-                    criterion={item.item}
-                    isNew={item.isNew}
-                    isEditing={item.isEditing}
-                    setIsEditing={(isEditing: boolean) => {
-                        setCriteriaList((list) => {
-                            list[index].isEditing = isEditing;
-                            return [...list];
-                        });
-                    }}
-                    setCriterion={(_criterion) => {
-                        setCriteriaList((list) => {
-                            list[index].item = { ...list[index].item, ..._criterion };
-                            return [...list];
-                        });
-                    }}
-                    onDeleteCriteria={() => onDelete(index)}
-                    saveCriterionRef={item.saveRef}
-                />
-            ))}
+        <div className={classNames('block block-criteria-editor', className)} ref={elementRef}>
+            <div className={classNames('criterion-list', bodyClassName)}>
+                {criteriaList?.map((item, index) => (
+                    <FundCriteriaEditorItem
+                        key={item.uid}
+                        fund={fund}
+                        recordTypes={recordTypesList}
+                        isEditable={isEditable}
+                        organization={organization}
+                        criterion={item.item}
+                        isNew={item.isNew}
+                        isEditing={item.isEditing}
+                        setIsEditing={(isEditing: boolean) => {
+                            setCriteriaList((list) => {
+                                list[index].isEditing = isEditing;
+                                return [...list];
+                            });
+                        }}
+                        setCriterion={(_criterion) => {
+                            setCriteriaList((list) => {
+                                list[index].item = { ...list[index].item, ..._criterion };
+                                return [...list];
+                            });
+                        }}
+                        onDeleteCriteria={() => onDelete(index)}
+                        saveCriterionRef={item.saveRef}
+                    />
+                ))}
+            </div>
 
-            <div className="criteria-editor-actions">
-                {isEditable && hasPermission(organization, 'manage_funds') && (
+            {isEditable && hasPermission(organization, 'manage_funds') && (
+                <div className={classNames('criteria-editor-actions', footerClassName)}>
                     <div className="button button-primary" onClick={addCriteria}>
                         <em className="mdi mdi-plus-circle icon-start" />
                         {translate('components.fund_criteria_editor.buttons.add_criteria')}
                     </div>
-                )}
 
-                {saveButton && (modified || deletedItemsCount > 0) && (
-                    <div className="button button-primary pull-right" onClick={saveCriteria}>
-                        <em className="mdi mdi-content-save icon-start" />
-                        {translate('components.fund_criteria_editor.buttons.save')}
-                    </div>
-                )}
-            </div>
+                    <div className="flex-grow" />
+
+                    {saveButton && (modified || deletedItemsCount > 0) && (
+                        <div className="button button-primary" onClick={saveCriteria}>
+                            <em className="mdi mdi-content-save icon-start" />
+                            {translate('components.fund_criteria_editor.buttons.save')}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

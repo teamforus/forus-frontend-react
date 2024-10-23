@@ -37,9 +37,10 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
-import FundCriterion from '../../../../dashboard/props/models/FundCriterion';
 import useSetTitle from '../../../hooks/useSetTitle';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
+import { isWithinInterval } from 'date-fns';
+import { dateParse } from '../../../../dashboard/helpers/dates';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -80,7 +81,7 @@ export default function FundActivate() {
     const [criteriaCheckedWarning, setCriteriaCheckedWarning] = useState(false);
 
     const [fundRequests, setFundRequests] = useState<Array<FundRequest>>(null);
-    const [pendingRequest, setPendingRequest] = useState<FundRequest>(null);
+    const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [options, setOptions] = useState(null);
 
     const [fetchingData, setFetchingData] = useState(false);
@@ -355,13 +356,6 @@ export default function FundActivate() {
         }
     }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse]);
 
-    const findCriterionState = useCallback(
-        (criterion: FundCriterion) => {
-            return pendingRequest?.records?.find((record) => record?.fund_criterion_id == criterion?.id)?.state;
-        },
-        [pendingRequest],
-    );
-
     const fetchFund = useCallback(() => {
         setProgress(0);
 
@@ -487,11 +481,20 @@ export default function FundActivate() {
             return;
         }
 
-        const pendingRequest = fundRequests?.find((request) => request.state === 'pending');
+        const request = fundRequests?.find((request) => {
+            return (
+                request.state === 'pending' ||
+                (request.state === 'approved' &&
+                    vouchersActive?.length > 0 &&
+                    isWithinInterval(dateParse(request.created_at, 'yyyy-MM-dd HH:mm:ss'), {
+                        start: dateParse(fund.start_date),
+                        end: dateParse(fund.end_date),
+                    }))
+            );
+        });
 
-        // Fund request already in progress
-        if (pendingRequest) {
-            setPendingRequest(pendingRequest);
+        if (request) {
+            setFundRequest(request);
             setState('fund_already_applied');
             return;
         }
@@ -503,13 +506,13 @@ export default function FundActivate() {
 
         // Voucher already received, go to the voucher
         if (vouchersActive?.length > 0) {
-            return navigateState('voucher', { address: vouchersActive[0]?.address });
+            return navigateState('voucher', { number: vouchersActive[0]?.number });
         }
 
         // All the criteria are meet, request the voucher
         if (fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
             applyFund(fund)
-                .then((voucher) => navigateState('voucher', { address: voucher.address }))
+                .then((voucher) => navigateState('voucher', { number: voucher.number }))
                 .catch(() => navigateState('fund', { id: fund.id }));
         }
     }, [applyFund, fund, navigateState, vouchersActive, fundRequests]);
@@ -981,44 +984,40 @@ export default function FundActivate() {
                             </div>
                         )}
 
-                        {state == 'fund_already_applied' && (
+                        {state == 'fund_already_applied' && fundRequest && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">
-                                        {translate('fund_request.sign_up.header.title_fund_already_applied')}
+                                        {translate(
+                                            `fund_request.sign_up.fund_already_applied.title.${fundRequest.state}`,
+                                        )}
                                     </h2>
                                 </div>
                                 <div className="sign_up-pane-body">
                                     <div className="sign_up-pane-media">
-                                        <img
-                                            src={assetUrl('/assets/img/fund-request-error.png')}
-                                            alt="icon fund request error"
-                                        />
+                                        {fundRequest.state === 'approved' ? (
+                                            <img
+                                                src={assetUrl('/assets/img/fund-request-success.png')}
+                                                alt="icon fund request success"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={assetUrl('/assets/img/fund-request-error.png')}
+                                                alt="icon fund request error"
+                                            />
+                                        )}
                                     </div>
-                                    <p className="sign_up-pane-text">
-                                        {translate('fund_request.sign_up.subtitles.fund_already_applied')}
-                                    </p>
+                                    <div className="sign_up-pane-heading sign_up-pane-heading-md text-center">
+                                        {translate(
+                                            `fund_request.sign_up.fund_already_applied.subtitle.${fundRequest.state}`,
+                                            { date: fundRequest.created_at_locale },
+                                        )}
+                                    </div>
                                     <ul className="sign_up-pane-list sign_up-pane-list-criteria">
                                         {fund.criteria?.map((criterion) => (
-                                            <li
-                                                key={criterion.id}
-                                                className={
-                                                    {
-                                                        pending: 'item-progress',
-                                                        approved: 'item-valid',
-                                                        declined: 'item-declined',
-                                                    }[findCriterionState(criterion)]
-                                                }>
+                                            <li key={criterion.id}>
                                                 <div className="item-icon">
-                                                    <em
-                                                        className={`mdi ${
-                                                            {
-                                                                pending: 'mdi-help',
-                                                                approved: 'mdi-check-bold',
-                                                                declined: 'mdi-close-thick',
-                                                            }[findCriterionState(criterion)]
-                                                        }`}
-                                                    />
+                                                    <em className="mdi mdi-information-outline" />
                                                 </div>
 
                                                 {criterion.title && criterion.title}
@@ -1040,7 +1039,31 @@ export default function FundActivate() {
                                             </li>
                                         ))}
                                     </ul>
-                                    <span>{translate('fund_request.sign_up.pane.fund_already_applied')}</span>
+
+                                    {fundRequest.state === 'pending' && (
+                                        <div className="block block-warning">
+                                            <div className="block-warning-icon">
+                                                <div className="icon">
+                                                    <em className="mdi mdi-information-outline" />
+                                                </div>
+                                            </div>
+
+                                            <div className="block-warning-content">
+                                                {translate('fund_request.sign_up.fund_already_applied.information')}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="sign_up-pane-footer text-center">
+                                    <StateNavLink
+                                        name={'fund-request-show'}
+                                        params={{ id: fundRequest.id }}
+                                        className="button button-primary">
+                                        {translate(
+                                            'fund_request.sign_up.fund_already_applied.buttons.open_fund_request',
+                                        )}
+                                    </StateNavLink>
                                 </div>
                             </div>
                         )}

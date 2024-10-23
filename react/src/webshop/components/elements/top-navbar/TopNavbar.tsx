@@ -179,6 +179,8 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                     className={`button subnav-search-button hide-sm ${showSearchBox ? 'active' : ''}`}
                                     onClick={(e) => toggleSearchBox(e)}
                                     role="button"
+                                    tabIndex={0}
+                                    onKeyDown={clickOnKeyEnter}
                                     aria-label="Zoeken">
                                     <em className="mdi mdi-magnify" />
                                 </div>
@@ -308,6 +310,16 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 <em className="mdi mdi-card-account-details-outline" />
                                 Aanvragen
                             </StateNavLink>
+                            {appConfigs.has_payouts && (
+                                <StateNavLink
+                                    id="payouts"
+                                    name={'payouts'}
+                                    className="auth-user-menu-item"
+                                    tabIndex={0}>
+                                    <em className="mdi mdi-wallet-plus-outline" />
+                                    Uitbetalingen
+                                </StateNavLink>
+                            )}
                             <StateNavLink name={'notifications'} className="auth-user-menu-item" tabIndex={0}>
                                 <em className="mdi mdi-bell-outline" />
                                 Notificaties

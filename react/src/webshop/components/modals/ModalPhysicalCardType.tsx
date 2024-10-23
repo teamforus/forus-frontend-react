@@ -66,7 +66,7 @@ export default function ModalPhysicalCardType({
         },
         (values) => {
             physicalCardsService
-                .store(voucher.address, values)
+                .store(voucher.number, values)
                 .then(() => {
                     setState('success_old_card');
                     onAttached?.();
@@ -92,7 +92,7 @@ export default function ModalPhysicalCardType({
         },
         (values) => {
             physicalCardsRequestService
-                .store(voucher.address, values)
+                .store(voucher.number, values)
                 .then(() => setState('success_new_card'))
                 .catch((err: ResponseError) => {
                     setState('select_type');
@@ -120,12 +120,12 @@ export default function ModalPhysicalCardType({
     const updateRequestPhysicalCardForm = requestPhysicalCardForm.update;
 
     const preferPlasticCard = useCallback(() => {
-        physicalCardsRequestService.index(voucher.address).then((res) => {
+        physicalCardsRequestService.index(voucher.number).then((res) => {
             updateRequestPhysicalCardForm(res.data.data[0] || {});
             setPrefersPlasticCard(true);
             setState('select_type');
         });
-    }, [physicalCardsRequestService, updateRequestPhysicalCardForm, voucher?.address]);
+    }, [physicalCardsRequestService, updateRequestPhysicalCardForm, voucher?.number]);
 
     const requestPhysicalCard = useCallback(() => {
         preferPlasticCard();
@@ -136,7 +136,7 @@ export default function ModalPhysicalCardType({
             e?.preventDefault();
 
             physicalCardsRequestService
-                .validate(voucher.address, requestPhysicalCardForm.values)
+                .validate(voucher.number, requestPhysicalCardForm.values)
                 .then(() => {
                     requestPhysicalCardForm.errors = {};
                     setState('confirm_new_card');
@@ -146,7 +146,7 @@ export default function ModalPhysicalCardType({
                     requestPhysicalCardForm.setErrors(err.data.errors);
                 });
         },
-        [physicalCardsRequestService, requestPhysicalCardForm, voucher?.address],
+        [physicalCardsRequestService, requestPhysicalCardForm, voucher?.number],
     );
 
     const confirmCard = useCallback(() => {

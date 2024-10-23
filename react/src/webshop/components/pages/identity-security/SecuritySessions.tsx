@@ -15,6 +15,7 @@ import { ModalState } from '../../../../dashboard/modules/modals/context/ModalCo
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import ModalNotification from '../../modals/ModalNotification';
 import Auth2FARestriction from '../../../components/elements/auth2fa-restriction/Auth2FARestriction';
+import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
@@ -211,8 +212,10 @@ export default function SecuritySessions() {
                                                     </div>
                                                 </div>
                                                 <div className="session-actions flex">
-                                                    {session.locations.length > 1 && (
+                                                    {session.locations?.length > 1 && (
                                                         <a
+                                                            tabIndex={0}
+                                                            onKeyDown={clickOnKeyEnter}
                                                             className="session-action"
                                                             onClick={() =>
                                                                 setShownLocations({
@@ -231,6 +234,8 @@ export default function SecuritySessions() {
                                                     )}
 
                                                     <a
+                                                        tabIndex={0}
+                                                        onKeyDown={clickOnKeyEnter}
                                                         onClick={() => terminateSession(session)}
                                                         className="session-action">
                                                         Beëindig sessie
@@ -238,7 +243,7 @@ export default function SecuritySessions() {
                                                     </a>
                                                 </div>
 
-                                                {session.locations.length > 1 && shownLocations[session.uid] && (
+                                                {session.locations?.length > 1 && shownLocations[session.uid] && (
                                                     <div className="session-locations">
                                                         {session.locations.map((location, index) => (
                                                             <div key={index} className="session-location">

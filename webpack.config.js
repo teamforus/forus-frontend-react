@@ -13,11 +13,22 @@ const envData = require('./env.js');
 const { info: logInfo } = console;
 
 module.exports = (env, argv) => {
-    const { fronts, enableOnly = null, httpsKey = null, httpsCert = null, buildGzipFiles = false } = envData;
-    const cliEnableOnly = env.only?.split(',') || null;
+    const {
+        fronts,
+        enableOnly = null,
+        disableOnly = null,
+        httpsKey = null,
+        httpsCert = null,
+        buildGzipFiles = false,
+        nonce = null,
+    } = envData;
+
+    const cliEnableOnly = env.enable?.split(',') || env.only?.split(',') || null;
+    const cliDisableOnly = env.disable?.split(',');
 
     const configs = Object.keys(fronts)
         .filter((key) => !(cliEnableOnly || enableOnly) || (cliEnableOnly || enableOnly).includes(key))
+        .filter((key) => !(cliDisableOnly || disableOnly) || !(cliDisableOnly || disableOnly).includes(key))
         .map((key) => ({ out: key, ...fronts[key] }));
 
     logInfo(`Building fronts:\n${configs?.map((config) => `   - ${config?.out}`)?.join('\n')}\n`);
@@ -174,7 +185,15 @@ module.exports = (env, argv) => {
                 }, */
                 {
                     test: /\.css$/i,
-                    use: ['style-loader', 'css-loader'],
+                    use: [
+                        {
+                            loader: 'style-loader',
+                            options: {
+                                attributes: nonce ? { nonce } : undefined,
+                            },
+                        },
+                        'css-loader',
+                    ],
                 },
                 {
                     test: /\.(png|jpe?g|gif)$/i,
@@ -190,7 +209,13 @@ module.exports = (env, argv) => {
                     use: [
                         // MiniCssExtractPlugin.loader,
                         // Creates `style` nodes from JS strings
-                        { loader: 'style-loader', options: { esModule: true /*, injectType: 'linkTag'*/ } },
+                        {
+                            loader: 'style-loader',
+                            options: {
+                                esModule: true /*, injectType: 'linkTag'*/,
+                                attributes: nonce ? { nonce } : undefined,
+                            },
+                        },
                         // Translates CSS into CommonJS
                         { loader: 'css-loader', options: { url: false, sourceMap: true } },
                         /*{

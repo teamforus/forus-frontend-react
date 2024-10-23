@@ -33,6 +33,7 @@ const aws_rum = null; /*{
 fronts['webshop.general'] = {
     type: 'webshop',
     client_key: 'general',
+    client_key_api: 'nijmegen',
     client_type: 'webshop',
     webRoot: 'webshop.general',
     name: 'General webshop',
@@ -100,7 +101,7 @@ fronts['dashboard.provider'] = {
     client_type: 'provider',
     name: 'Provider dashboard',
     default_title: 'Provider dashboard',
-    // webRoot: 'dashboard.provider',
+    webRoot: 'dashboard.provider',
     useHashRouter: use_hash_router,
     config: {
         api_url: api_url,
@@ -127,7 +128,7 @@ fronts['dashboard.validator'] = {
     client_type: 'validator',
     name: 'Validator dashboard',
     default_title: 'Validator dashboard',
-    // webRoot: 'dashboard.validator',
+    webRoot: 'dashboard.validator',
     useHashRouter: use_hash_router,
     config: {
         api_url: api_url,
@@ -149,22 +150,6 @@ fronts['dashboard.validator'] = {
     },
 };
 
-fronts['website'] = {
-    type: 'website',
-    client_key: 'general',
-    client_type: 'website',
-    name: 'Website',
-    webRoot: 'website',
-    useHashRouter: use_hash_router,
-    config: {
-        api_url: api_url,
-        android_link: android_link,
-        ios_iphone_link: ios_iphone_link,
-        google_maps_api_key: google_maps_api_key,
-        tag_manager_id: tag_manager_id,
-    },
-};
-
 fronts['backend'] = {
     type: 'backend',
     name: 'Backend',
@@ -182,7 +167,9 @@ fronts['backend'] = {
 module.exports = {
     fronts: fronts,
     enableOnly: ['webshop.general', 'dashboard.sponsor', 'dashboard.provider', 'dashboard.validator'],
+    disableOnly: [],
     httpsKey: null,
     httpsCert: null,
     buildGzipFiles: false,
+    nonce: null,
 };

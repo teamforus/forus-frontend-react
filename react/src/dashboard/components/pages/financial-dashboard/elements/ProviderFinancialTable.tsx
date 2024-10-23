@@ -58,7 +58,11 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
 
     const toggleTransactionsTable = useCallback((id: string) => {
         setShowTransactions((list) => {
-            list.includes(id) ? list.splice(list.indexOf(id), 1) : list.push(id);
+            if (list.includes(id)) {
+                list.splice(list.indexOf(id), 1);
+            } else {
+                list.push(id);
+            }
 
             return [...list];
         });

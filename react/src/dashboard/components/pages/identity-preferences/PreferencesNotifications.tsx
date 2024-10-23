@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { NavLink } from 'react-router-dom';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { useEmailPreferenceService } from '../../../services/EmailPreferenceService';
-import NotificationPreference from '../../../props/models/NotificationPreference';
+import NotificationPreference, { PreferenceOption } from '../../../props/models/NotificationPreference';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import NotificationPreferenceCard from './elements/NotificationPreferenceCard';
 import useEnvData from '../../../hooks/useEnvData';
@@ -108,7 +108,7 @@ export default function PreferencesNotifications() {
     );
 
     const togglePreference = useCallback(
-        (option, subscribed) => {
+        (option: PreferenceOption, subscribed: boolean) => {
             preferences.preferences[preferences.preferences.indexOf(option)].subscribed = subscribed;
             updatePreferences({ ...preferences });
         },

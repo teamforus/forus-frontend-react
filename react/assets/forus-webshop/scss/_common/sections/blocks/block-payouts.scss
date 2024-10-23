@@ -1,0 +1,151 @@
+.block.block-payouts-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 30px;
+    gap: 15px;
+
+    .payout-item {
+        display: flex;
+        flex-direction: row;
+        background: #ffffff;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+        word-wrap: break-word;
+        overflow: hidden;
+
+        .payout-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            min-width: 0;
+            padding: 15px;
+            gap: 15px;
+            flex: 1 1 auto;
+        }
+
+        .payout-photo {
+            display: block;
+            flex: 0 0 75px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .payout-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            width: 100%;
+            flex: 1 0;
+            gap: 5px;
+
+            .payout-name {
+                font: 700 18px/22px var(--hf);
+                margin: 0 0;
+                color: var(--tc);
+            }
+
+            .payout-organization {
+                font: 400 13px/18px var(--base-font);
+                margin: 0 0;
+                color: #353535;
+            }
+
+            .payout-price {
+                font: 700 18px/30px var(--base-font);
+                margin: 0 0;
+                flex: 1 1 auto;
+            }
+
+            .payout-read-more {
+                padding: 0;
+                font-size: 12px;
+                font-weight: 600;
+                width: fit-content;
+            }
+        }
+
+        .payout-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+            align-self: stretch;
+        }
+
+        .payout-overview {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .payout-date {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .payout-date-label {
+                font: 400 11px/16px var(--base-font);
+                margin: 0 0;
+            }
+
+            .payout-date-value {
+                font: 600 14px/21px var(--base-font);
+                margin: 0 0;
+            }
+        }
+    }
+
+    &:last-child {
+        margin: 0 0 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .payout-item {
+            flex-direction: column;
+
+            .payout-wrapper {
+                display: flex;
+                flex-direction: row;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .payout-photo {
+                flex: 0 0 50px;
+            }
+
+            .payout-details {
+                .payout-name {
+                    font: 600 14px/20px var(--hf);
+                }
+
+                .payout-organization {
+                    font: 400 11px/16px var(--base-font);
+                }
+
+                .payout-price {
+                    font: 600 13px/20px var(--base-font);
+                }
+            }
+
+            .payout-overview {
+                gap: 0;
+                background: #fbfbfb;
+                border-top: 1px solid var(--border-color);
+
+                .payout-read-more {
+                    justify-content: center;
+                    display: flex;
+                    width: 100%;
+                    line-height: 20px;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+
+                .payout-details-extra {
+                    border-top: 1px solid var(--border-color);
+                }
+            }
+        }
+    }
+}

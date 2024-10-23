@@ -58,9 +58,17 @@ export default function Funds() {
     const countFiltersApplied = useMemo(() => {
         let count = 0;
 
-        filter.values.q && count++;
-        filter.values.tag_id && count++;
-        filter.values.organization_id && count++;
+        if (filter.values.q) {
+            count++;
+        }
+
+        if (filter.values.tag_id) {
+            count++;
+        }
+
+        if (filter.values.organization_id) {
+            count++;
+        }
 
         return count;
     }, [filter.values.organization_id, filter.values.q, filter.values.tag_id]);
@@ -107,7 +115,11 @@ export default function Funds() {
     }, [fetchTags, fetchVouchers, fetchOrganizations]);
 
     useEffect(() => {
-        authIdentity ? fetchVouchers() : setVouchers(null);
+        if (authIdentity) {
+            fetchVouchers();
+        } else {
+            setVouchers(null);
+        }
     }, [authIdentity, fetchVouchers]);
 
     useEffect(() => {
