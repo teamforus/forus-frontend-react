@@ -375,7 +375,7 @@ export default function Reimbursements() {
                 </div>
 
                 <LoaderTableCard empty={reimbursements.meta.total == 0} emptyTitle={'Geen declaraties gevonden'}>
-                    <div className="card-section">
+                    <div className="card-section" data-dusk="reimbursementsList">
                         <div className="card-block card-block-table">
                             <TableTopScroller>
                                 <table className="table">
