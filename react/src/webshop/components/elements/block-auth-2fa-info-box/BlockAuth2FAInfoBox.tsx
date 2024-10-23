@@ -8,7 +8,7 @@ export default function BlockAuth2FAInfoBox({ className = '' }: { className?: st
                 Kijk voor meer informatie over 2FA op ons:&nbsp;
                 <a
                     className="info-box-link"
-                    href="https://deelnemer.forus.io/kb/guide/nl/tweefactorauthenticatie-euzhlJKzx4/Steps/2571975"
+                    href="https://forusoperations.zendesk.com/hc/nl-nl/sections/29407672516625-Tweefactorauthenticatie"
                     target="_blank"
                     rel="noreferrer">
                     Helpcenter artikel
