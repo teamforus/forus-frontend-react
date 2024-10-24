@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ThSortable from '../../../elements/tables/ThSortable';
 import { currencyFormat } from '../../../../helpers/string';
 import Tooltip from '../../../elements/tooltip/Tooltip';
@@ -8,26 +8,40 @@ import Fund from '../../../../props/models/Fund';
 import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
+import SelectControl from '../../../elements/select-control/SelectControl';
+import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 
 export default function FinancialOverviewFundsBudgetTable({
-    funds,
+    years,
+    fetchFunds,
+    fetchFinancialOverview,
     organization,
-    financialOverview,
 }: {
-    funds: Array<Fund>;
+    years: Array<{ id: number; name: string }>;
+    fetchFunds: (year: number) => Promise<Array<Fund>>;
+    fetchFinancialOverview: (year: number) => Promise<FinancialOverview>;
     organization: Organization;
-    financialOverview: FinancialOverview;
 }) {
     const translate = useTranslate();
     const exportFunds = useExportFunds(organization);
 
-    const [budgetFunds, setBudgetFunds] = useState<Array<Fund>>(null);
+    const [year, setYear] = useState(new Date().getFullYear());
+    const [funds, setFunds] = useState<Array<Fund>>(null);
+    const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
-    useEffect(() => {
-        setBudgetFunds(funds.filter((fund) => fund.state == 'active' && fund.type == 'budget'));
+    const budgetFunds = useMemo(() => {
+        return funds?.filter((fund) => fund.type == 'budget');
     }, [funds]);
 
-    if (!budgetFunds?.length) {
+    useEffect(() => {
+        fetchFunds(year).then(setFunds);
+    }, [fetchFunds, year]);
+
+    useEffect(() => {
+        fetchFinancialOverview(year).then(setFinancialOverview);
+    }, [fetchFinancialOverview, year]);
+
+    if (!budgetFunds?.length || !years.length) {
         return null;
     }
 
@@ -42,10 +56,25 @@ export default function FinancialOverviewFundsBudgetTable({
                         </div>
                     </div>
                     <div className="flex">
-                        <button className="button button-primary button-sm" onClick={() => exportFunds(true)}>
-                            <em className="mdi mdi-download icon-start" />
-                            {translate('financial_dashboard_overview.buttons.export')}
-                        </button>
+                        <div className="block block-inline-filters">
+                            <div className="form">
+                                <div className="form-group">
+                                    <SelectControl
+                                        className={'form-control'}
+                                        options={years}
+                                        propKey={'id'}
+                                        allowSearch={false}
+                                        value={year}
+                                        optionsComponent={SelectControlOptions}
+                                        onChange={(year?: number) => setYear(year)}
+                                    />
+                                </div>
+                            </div>
+                            <button className="button button-primary button-sm" onClick={() => exportFunds(true)}>
+                                <em className="mdi mdi-download icon-start" />
+                                {translate('financial_dashboard_overview.buttons.export')}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,15 +122,15 @@ export default function FinancialOverviewFundsBudgetTable({
                             <tbody>
                                 <tr className="table-totals">
                                     <td>{translate('financial_dashboard_overview.labels.total')}</td>
-                                    <td>{financialOverview.budget_funds.vouchers_amount_locale}</td>
-                                    <td>{financialOverview.budget_funds.active_vouchers_amount_locale}</td>
-                                    <td>{financialOverview.budget_funds.inactive_vouchers_amount_locale}</td>
-                                    <td>{financialOverview.budget_funds.deactivated_vouchers_amount_locale}</td>
-                                    <td>{financialOverview.budget_funds.budget_used_active_vouchers_locale}</td>
+                                    <td>{financialOverview?.budget_funds.vouchers_amount_locale}</td>
+                                    <td>{financialOverview?.budget_funds.active_vouchers_amount_locale}</td>
+                                    <td>{financialOverview?.budget_funds.inactive_vouchers_amount_locale}</td>
+                                    <td>{financialOverview?.budget_funds.deactivated_vouchers_amount_locale}</td>
+                                    <td>{financialOverview?.budget_funds.budget_used_active_vouchers_locale}</td>
                                     <td className={'text-right'}>
                                         {currencyFormat(
-                                            parseFloat(financialOverview.budget_funds.vouchers_amount) -
-                                                financialOverview.budget_funds.budget_used_active_vouchers,
+                                            parseFloat(financialOverview?.budget_funds.vouchers_amount) -
+                                                financialOverview?.budget_funds.budget_used_active_vouchers,
                                         )}
                                     </td>
                                 </tr>
