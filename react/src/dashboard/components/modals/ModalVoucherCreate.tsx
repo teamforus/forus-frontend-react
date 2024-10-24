@@ -156,11 +156,15 @@ export default function ModalVoucherCreate({
                                     return makeRequest();
                                 }
 
-                                confirmEmailSkip([form.values.email], (list) => {
-                                    if (list.filter((email) => email.model).length > 0) {
-                                        makeRequest();
-                                    }
-                                });
+                                confirmEmailSkip(
+                                    [form.values.email],
+                                    ({ list }) => {
+                                        if (list.filter((email) => email.model).length > 0) {
+                                            makeRequest();
+                                        }
+                                    },
+                                    () => pushDanger('Geannuleerd'),
+                                );
                             });
                     }
 
@@ -180,11 +184,15 @@ export default function ModalVoucherCreate({
                                     return makeRequest();
                                 }
 
-                                confirmBsnSkip([form.values.bsn], (list) => {
-                                    if (list.filter((bsn) => bsn.model).length > 0) {
-                                        makeRequest();
-                                    }
-                                });
+                                confirmBsnSkip(
+                                    [form.values.bsn],
+                                    ({ list }) => {
+                                        if (list.filter((bsn) => bsn.model).length > 0) {
+                                            makeRequest();
+                                        }
+                                    },
+                                    () => pushDanger('Geannuleerd'),
+                                );
                             });
                     }
                 })
@@ -204,7 +212,7 @@ export default function ModalVoucherCreate({
     const confirmEmailSkip = useCallback(
         (
             existingEmails,
-            onConfirm: (list: Array<{ value: string; blink?: boolean; model?: boolean }>) => void,
+            onConfirm: (data: { list: Array<{ value?: string; blink?: boolean; model?: boolean }> }) => void,
             onCancel = () => null,
         ) => {
             const items = existingEmails.map((email: string) => ({ value: email }));
@@ -214,7 +222,7 @@ export default function ModalVoucherCreate({
                     modal={modal}
                     hero_title={'Dubbele e-mailadressen gedetecteerd.'}
                     hero_subtitle={[
-                        `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
+                        `Weet u zeker dat u voor 1 e-mailadres een extra tegoed wilt aanmaken?`,
                         'Deze e-mailadressen bezitten al een tegoed van dit fonds.',
                     ]}
                     enableToggles={true}
@@ -232,7 +240,7 @@ export default function ModalVoucherCreate({
     const confirmBsnSkip = useCallback(
         (
             existingBsn,
-            onConfirm: (list: Array<{ value: string; blink?: boolean; model?: boolean }>) => void,
+            onConfirm: (data: { list: Array<{ value?: string; blink?: boolean; model?: boolean }> }) => void,
             onCancel = () => null,
         ) => {
             const items = existingBsn.map((bsn: string) => ({ value: bsn }));

@@ -3,7 +3,7 @@ import { ModalState } from '../../modules/modals/context/ModalContext';
 import Organization from '../../props/models/Organization';
 import { useFileService } from '../../services/FileService';
 import Papa from 'papaparse';
-import { chunk, isEmpty } from 'lodash';
+import { chunk, isEmpty, uniqueId } from 'lodash';
 import useAuthIdentity from '../../hooks/useAuthIdentity';
 import { dateFormat } from '../../helpers/dates';
 import usePushSuccess from '../../hooks/usePushSuccess';
@@ -194,7 +194,10 @@ export default function ModalVoucherTransactionsUpload({
                     enableToggles={false}
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
-                    items={items.map((item) => ({ value: `Rij: ${item[0]}: ${item[2]['uid'] || ''} - ${item[1]}` }))}
+                    items={items.map((item) => ({
+                        _uid: uniqueId('rand_'),
+                        label: `Rij: ${item[0]}: ${item[2]['uid'] || ''} - ${item[1]}`,
+                    }))}
                     onConfirm={() => setHideModal(false)}
                     onCancel={() => setHideModal(false)}
                 />
