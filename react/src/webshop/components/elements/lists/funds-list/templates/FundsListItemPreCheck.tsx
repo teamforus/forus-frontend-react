@@ -204,7 +204,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
 
             {showMoreRequestInfo && (
                 <div className="fund-pre-check-info-block">
-                    <div className="fund-pre-check-info-wrapper">
+                    <div className="fund-pre-check-info-section">
                         <div className="fund-pre-check-info-title">Voorwaarden</div>
                         <div className="fund-pre-check-info-list">
                             {fund.criteria?.map((criterion) => (
@@ -229,6 +229,12 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                         <div className="fund-pre-check-info-list-item-title">
                                             {`${criterion.name} ${criterion.value || '---'}`}
                                         </div>
+
+                                        {criterion.product_count > 0 && (
+                                            <div className="fund-pre-check-info-list-item-count">
+                                                {`${criterion.product_count + 'x' || '---'}`}
+                                            </div>
+                                        )}
 
                                         {criterion.is_knock_out &&
                                             criterion.knock_out_description &&
@@ -268,11 +274,41 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                 </div>
                             ))}
                         </div>
-                        <div className="fund-pre-check-info-totals">
-                            <div className="fund-pre-check-info-totals-title">Totaal</div>
-                            <div className="fund-pre-check-info-totals-amount">{fund.amount_total_locale}</div>
-                        </div>
                     </div>
+
+                    {Object.values(fund.fund_formula_products?.products)?.length > 0 && (
+                        <div className="fund-pre-check-info-section">
+                            <div className="fund-pre-check-info-title">Product voucher</div>
+                            <div className="fund-pre-check-info-list">
+                                {Object.values(fund.fund_formula_products?.products)?.map(
+                                    (fund_formula_product, index) => (
+                                        <div key={index} className="fund-pre-check-info-list-item">
+                                            <div className="fund-pre-check-info-list-item-content">
+                                                <div className="fund-pre-check-info-list-item-icon fund-pre-check-info-list-item-icon-product">
+                                                    <em className="mdi mdi-ticket-percent-outline" />
+                                                </div>
+                                                <div className="fund-pre-check-info-list-item-title">
+                                                    {fund_formula_product.name}
+                                                </div>
+                                                <div className="fund-pre-check-info-list-item-count">
+                                                    {fund_formula_product.count}x
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {!Object.values(fund.fund_formula_products?.products)?.length && (
+                        <div className="fund-pre-check-info-section">
+                            <div className="fund-pre-check-info-totals">
+                                <div className="fund-pre-check-info-totals-title">Totaal</div>
+                                <div className="fund-pre-check-info-totals-amount">{fund.amount_total_locale}</div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
