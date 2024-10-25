@@ -155,7 +155,12 @@ export default function ModalCreatePrevalidation({
                 className="modal-window"
                 onSubmit={(e) => {
                     e.preventDefault();
-                    verificationRequested ? form.submit() : setVerificationRequested(true);
+
+                    if (verificationRequested) {
+                        form.submit();
+                    } else {
+                        setVerificationRequested(true);
+                    }
                 }}>
                 <a className="mdi mdi-close modal-close" onClick={modal.close} role="button" />
 

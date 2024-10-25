@@ -51,6 +51,8 @@
                 }
 
                 .voucher-name {
+                    display: flex;
+                    gap: 5px;
                     font: 700 22px/26px var(--hf);
                     color: #00122a;
                     margin: 0 0 5px;
@@ -101,14 +103,19 @@
                 flex-direction: column;
                 align-items: center;
 
-                .voucher-overview-item {
+                .voucher-overview-items {
                     margin-bottom: 10px;
                     float: left;
                     position: absolute;
                     bottom: 15px;
                     left: 15px;
                     right: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                }
 
+                .voucher-overview-item {
                     .voucher-overview-label {
                         font: 400 11px/16px var(--base-font);
                         color: #646f79;
@@ -119,7 +126,6 @@
                         color: #282b39;
 
                         small {
-                            font: inherit;
                             font: 400 13px var(--base-font);
                             color: #646f79;
                             margin-left: 5px;

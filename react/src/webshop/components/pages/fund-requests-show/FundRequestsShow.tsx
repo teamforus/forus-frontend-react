@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import FundRequest from '../../../../dashboard/props/models/FundRequest';
@@ -8,6 +8,10 @@ import FundRequestRecordCard from './elements/FundRequestRecordCard';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useSetTitle from '../../../hooks/useSetTitle';
+import PayoutCard from '../payouts/elements/PayoutCard';
+import VoucherCard from '../vouchers/elements/VoucherCard';
+import { useNavigateState } from '../../../modules/state_router/Router';
+import { authContext } from '../../../contexts/AuthContext';
 
 export default function FundRequestsShow() {
     const { id } = useParams();
@@ -15,9 +19,12 @@ export default function FundRequestsShow() {
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
+    const navigateState = useNavigateState();
+    const { identity, token } = useContext(authContext);
 
     const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [showDeclinedNote, setShowDeclinedNote] = useState(true);
+    const [showCreditInfo, setShowCreditInfo] = useState(true);
 
     const fundRequestService = useFundRequestService();
 
@@ -31,14 +38,26 @@ export default function FundRequestsShow() {
     }, [fundRequestService, setProgress, id]);
 
     useEffect(() => {
-        fetchFundRequest();
-    }, [fetchFundRequest]);
+        if (identity) {
+            fetchFundRequest();
+        }
+    }, [identity, fetchFundRequest]);
 
     useEffect(() => {
         if (fundRequest) {
             setTitle(translate('page_state_titles.fund-request-show', { fund_name: fundRequest.fund.name }));
         }
     }, [fundRequest, setTitle, translate]);
+
+    useEffect(() => {
+        if (!identity && !token) {
+            navigateState('start', null, null, { state: { target: `fundRequest-${id}` } });
+        }
+    }, [id, identity, navigateState, token]);
+
+    if (!identity || !fundRequest) {
+        return null;
+    }
 
     return (
         <BlockShowcaseProfile
@@ -80,9 +99,6 @@ export default function FundRequestsShow() {
                                     {fundRequest.state === 'pending' && (
                                         <div className="label label-warning">{fundRequest.state_locale}</div>
                                     )}
-                                    {fundRequest.state === 'approved_partly' && (
-                                        <div className="label label-success">{fundRequest.state_locale}</div>
-                                    )}
                                     {fundRequest.state === 'approved' && (
                                         <div className="label label-success">{fundRequest.state_locale}</div>
                                     )}
@@ -118,6 +134,43 @@ export default function FundRequestsShow() {
                             </div>
                         </div>
                     </div>
+
+                    {(fundRequest.payouts?.length > 0 || fundRequest.vouchers?.length > 0) && (
+                        <div className={`card card-collapsable ${showCreditInfo ? 'open' : ''}`}>
+                            <div className="card-header" onClick={() => setShowCreditInfo(!showCreditInfo)}>
+                                <div className="card-header-wrapper">
+                                    <em className="mdi mdi-menu-down card-header-arrow" />
+                                    <h2 className="card-heading card-heading-lg">Ontvangen</h2>
+                                </div>
+                            </div>
+
+                            {showCreditInfo && (
+                                <Fragment>
+                                    <div className="card-section card-section-md">
+                                        {fundRequest.payouts?.length > 0 && (
+                                            <div className="block block-payouts-list">
+                                                {fundRequest.payouts.map((payout, index) => (
+                                                    <PayoutCard key={index} payout={payout} />
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {fundRequest.vouchers?.length > 0 && (
+                                            <div className="block block-vouchers block-vouchers-with-border">
+                                                {fundRequest.vouchers.map((voucher) => (
+                                                    <VoucherCard
+                                                        key={voucher.id}
+                                                        voucher={voucher}
+                                                        onVoucherDestroyed={() => null}
+                                                    />
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </Fragment>
+                            )}
+                        </div>
+                    )}
 
                     <h2 className="profile-content-header">
                         <div className="profile-content-title profile-content-title-sm">Mijn gegevens</div>

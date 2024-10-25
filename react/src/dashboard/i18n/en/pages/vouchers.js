@@ -3,6 +3,7 @@ export default {
         title: 'Tegoeden',
     },
     labels: {
+        number: 'Nummer',
         state: 'Status',
         activation_code: 'Code',
         amount: 'Amount',

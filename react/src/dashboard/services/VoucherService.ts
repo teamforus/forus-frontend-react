@@ -195,9 +195,9 @@ export class VoucherService<T = Voucher> {
     public getColumns(): Array<ConfigurableTableColumn> {
         return [
             {
-                key: 'id',
-                label: 'vouchers.labels.id',
-                tooltip: { key: 'id', title: 'ID / NR', description: 'vouchers.tooltips.id' },
+                key: 'number',
+                label: 'vouchers.labels.number',
+                tooltip: { key: 'number', title: 'Nummer', description: 'vouchers.tooltips.number' },
             },
             {
                 key: 'assigned_to',

@@ -522,7 +522,7 @@
             }
 
             & > .form-title {
-                padding-left: 0;
+                padding: 8px 0;
                 width: calc(100% - 200px);
                 float: left;
             }
@@ -1085,7 +1085,6 @@
     .form-title {
         font: 600 14px/20px var(--base-font);
         color: #151b26;
-        padding: 8px;
     }
 
     @media screen and (max-width: 600px) {

@@ -38,7 +38,9 @@ export default function SelectControlOptionItemVoucher<T>({
             <div className="voucher-details">
                 <div className="flex flex-horizontal">
                     <div className="flex flex-vertical flex-grow">
-                        <div className="voucher-name">{voucher?.fund.name}</div>
+                        <div className="voucher-name">
+                            {voucher?.fund.name} #{voucher?.number}
+                        </div>
                         <div className="voucher-organization">
                             {voucher.records_title && (
                                 <Fragment>

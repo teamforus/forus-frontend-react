@@ -19,7 +19,7 @@ export default function AwsRumScript({ awsRum }: { awsRum: AwsRumProps }) {
             };
 
             new AwsRum(awsRum.appId, awsRum.appVersion, awsRum.appRegion, config);
-        } catch (error) {
+        } catch {
             // Ignore errors thrown during CloudWatch RUM web client initialization
         }
     }, [awsRum]);

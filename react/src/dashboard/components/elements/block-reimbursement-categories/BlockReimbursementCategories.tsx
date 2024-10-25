@@ -150,7 +150,7 @@ export default function BlockReimbursementCategories({
                 loading={loading}
                 empty={categories?.data.length === 0}
                 emptyTitle={'Er zijn momenteel geen declaratie categorieën.'}>
-                <div className="card-section card-section-primary">
+                <div className="card-section">
                     <div className="card-block card-block-table">
                         <div className="table-wrapper">
                             <table className="table">
@@ -199,14 +199,12 @@ export default function BlockReimbursementCategories({
 
                 {categories?.meta.total > 0 && (
                     <div className={`card-section ${compact ? 'card-section-narrow' : ''}`}>
-                        <div className="table-pagination">
-                            <Paginator
-                                meta={categories.meta}
-                                filters={filter.values}
-                                updateFilters={filter.update}
-                                perPageKey={paginatorKey}
-                            />
-                        </div>
+                        <Paginator
+                            meta={categories.meta}
+                            filters={filter.values}
+                            updateFilters={filter.update}
+                            perPageKey={paginatorKey}
+                        />
                     </div>
                 )}
             </LoaderTableCard>

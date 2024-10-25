@@ -7,20 +7,16 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import ClickOutside from '../../elements/click-outside/ClickOutside';
-import { strLimit } from '../../../helpers/string';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import BlockCardEmails from '../../elements/block-card-emails/BlockCardEmails';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalNotification from '../../modals/ModalNotification';
 import FundRequestRecord from '../../../props/models/FundRequestRecord';
-import { ModalState } from '../../../modules/modals/context/ModalContext';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { ResponseError } from '../../../props/ApiResponses';
 import ModalFundRequestClarify from '../../modals/ModalFundRequestClarify';
-import ModalFundRequestRecordDecline from '../../modals/ModalFundRequestRecordDecline';
-import ModalFundRequestRecordsDecline from '../../modals/ModalFundRequestRecordsDecline';
+import ModalFundRequestDecline from '../../modals/ModalFundRequestDecline';
 import ModalFundRequestRecordEdit from '../../modals/ModalFundRequestRecordEdit';
 import ModalFundRequestRecordCreate from '../../modals/ModalFundRequestRecordCreate';
 import ModalFundRequestDisregard from '../../modals/ModalFundRequestDisregard';
@@ -35,6 +31,12 @@ import { useFileService } from '../../../services/FileService';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
 import ModalApproveFundRequest from '../../modals/ModalApproveFundRequest';
+import Note from '../../../props/models/Note';
+import FundRequestStateLabel from '../../elements/resource-states/FundRequestStateLabel';
+import KeyValueItem from '../../elements/key-value/KeyValueItem';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import Icon from '../../../../../assets/forus-platform/resources/_platform-common/assets/img/fund-request-icon.svg';
+import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 
 export default function FundRequestsView() {
     const authIdentity = useAuthIdentity();
@@ -106,7 +108,10 @@ export default function FundRequestsView() {
             const operator = operators[criterion.operator] || 'moet';
             const value = `${criterion.record_type.key === 'net_worth' ? '€' : ''}${criterion.value}`;
 
-            return { ...criterion, description: `${criterion.record_type.name} ${operator} ${value} zijn.` };
+            return {
+                ...criterion,
+                description: `${criterion.record_type.name} ${operator} ${value} zijn.`,
+            };
         });
 
         return {
@@ -132,38 +137,15 @@ export default function FundRequestsView() {
 
             can_resign: isPending && isAssigned,
             can_resign_as_supervisor: isPending && employee && isValidatorsSupervisor,
+            has_actions:
+                (isPending && isAssigned) ||
+                (isAssigned && isDisregarded) ||
+                (!isAssigned && isDisregarded && fundRequest.replaced),
         };
     }, [activeOrganization.bsn_enabled, authIdentity?.address, fundRequest, isValidatorsSupervisor]);
 
-    const [stateLabels] = useState({
-        pending: 'label-primary-variant',
-        declined: 'label-danger',
-        approved: 'label-success',
-        approved_partly: 'label-success',
-        disregarded: 'label-default',
-    });
-
-    const [stateLabelIcons] = useState({
-        pending: 'circle-outline',
-        declined: 'circle-off-outline',
-        approved: 'circle-slice-8',
-        approved_partly: 'circle-slice-4',
-        disregarded: 'circle-outline',
-    });
-
     const updateNotesRef = useRef<() => void>(null);
     const fetchEmailsRef = useRef<() => void>(null);
-
-    const showFundCriteria = useCallback((e) => {
-        e.stopPropagation();
-        setShowCriteria(true);
-    }, []);
-
-    const hideFundCriteria = useCallback((e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        setShowCriteria(false);
-    }, []);
 
     const showInfoModal = useCallback(
         (title: string, message: string) => {
@@ -191,65 +173,6 @@ export default function FundRequestsView() {
             updateNotesRef?.current?.();
         }, pushApiError);
     }, [activeOrganization.id, fundRequestMeta?.id, fundRequestService, pushApiError]);
-
-    const approveRecord = useCallback(
-        (requestRecord: FundRequestRecord) => {
-            const onConfirm = (modal: ModalState) => {
-                modal.close();
-                fundRequestService
-                    .approveRecord(activeOrganization.id, requestRecord.fund_request_id, requestRecord.id)
-                    .then(() => {
-                        reloadRequest();
-                        pushSuccess('Gelukt!', 'Persoonsgegeven gevalideert.');
-                    })
-                    .catch((err: ResponseError) =>
-                        showInfoModal(
-                            'Fout: U kunt deze persoonsgegeven op dit moment niet beoordelen.',
-                            err.data.message,
-                        ),
-                    );
-            };
-
-            openModal((modal) => (
-                <ModalNotification
-                    className={'modal-md'}
-                    modal={modal}
-                    title={'Weet u zeker dat u deze persoonsgegeven wil goedkeuren?'}
-                    description={
-                        'Een beoordeling kan niet ongedaan gemaakt worden. Kijk goed of u deze actie wilt verrichten.'
-                    }
-                    buttonCancel={{ onClick: modal.close }}
-                    buttonSubmit={{ onClick: () => onConfirm(modal) }}
-                />
-            ));
-        },
-        [activeOrganization.id, fundRequestService, openModal, pushSuccess, reloadRequest, showInfoModal],
-    );
-
-    const declineRecord = useCallback(
-        (requestRecord: FundRequestRecord) => {
-            openModal((modal) => (
-                <ModalFundRequestRecordDecline
-                    modal={modal}
-                    fundRequest={fundRequestMeta}
-                    organization={activeOrganization}
-                    fundRequestRecord={requestRecord}
-                    onSubmitted={(err) => {
-                        if (err) {
-                            return showInfoModal(
-                                'U kunt op dit moment deze persoonsgegeven niet weigeren.',
-                                `Reden: ${err.data.message}`,
-                            );
-                        }
-
-                        reloadRequest();
-                        pushSuccess('Gelukt!', 'Aanvullingsverzoek op aanvraag verstuurd.');
-                    }}
-                />
-            ));
-        },
-        [activeOrganization, fundRequestMeta, openModal, pushSuccess, reloadRequest, showInfoModal],
-    );
 
     const clarifyRecord = useCallback(
         (requestRecord: FundRequestRecord) => {
@@ -333,7 +256,7 @@ export default function FundRequestsView() {
 
     const requestDecline = useCallback(() => {
         openModal((modal) => (
-            <ModalFundRequestRecordsDecline
+            <ModalFundRequestDecline
                 modal={modal}
                 fundRequest={fundRequestMeta}
                 organization={activeOrganization}
@@ -523,12 +446,12 @@ export default function FundRequestsView() {
     );
 
     const deleteNote = useCallback(
-        (note) => fundRequestService.noteDestroy(activeOrganization.id, fundRequestMeta.id, note.id),
+        (note: Note) => fundRequestService.noteDestroy(activeOrganization.id, fundRequestMeta.id, note.id),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
 
     const storeNote = useCallback(
-        (data) => fundRequestService.storeNote(activeOrganization.id, fundRequestMeta.id, data),
+        (data: object) => fundRequestService.storeNote(activeOrganization.id, fundRequestMeta.id, data),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
 
@@ -555,57 +478,39 @@ export default function FundRequestsView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="flex flex-vertical">
-                                <div className="card-title">
-                                    <div className="flex">
-                                        <div className="flex flex-vertical">
-                                            <div className="flex text-strong">
-                                                <span className="text-muted">ID:&nbsp;</span>
-                                                {fundRequestMeta.id}&nbsp;&nbsp;
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-vertical flex-center">
-                                            <div className="flex flex-horizontal">
-                                                {!(
-                                                    fundRequestMeta.state == 'pending' && fundRequestMeta.is_assigned
-                                                ) && (
-                                                    <div
-                                                        className={`label label-tag label-round ${
-                                                            stateLabels[fundRequestMeta.state] || ''
-                                                        }`}>
-                                                        <em
-                                                            className={`mdi mdi-${
-                                                                stateLabelIcons[fundRequestMeta.state]
-                                                            } icon-start`}
-                                                        />
-                                                        <span>{fundRequestMeta.state_locale}</span>
-                                                    </div>
-                                                )}
+                    <div className="flex flex-row">
+                        <div className="card-title flex flex-grow flex-gap">
+                            <Icon />
 
-                                                {fundRequestMeta.state == 'pending' && fundRequestMeta.is_assigned && (
-                                                    <div className="label label-tag label-round label-warning">
-                                                        <span className="mdi mdi-circle-outline icon-start" />
-                                                        <span>In behandeling</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card-subtitle">
-                                    <div className="flex text-muted-dark">
-                                        <div className="mdi mdi-clock-outline text-muted-dark" />
-                                        {fundRequestMeta.created_at_locale}
-                                    </div>
-                                </div>
+                            <div className="flex flex-gap-sm flex-self-center">
+                                Aanvraag ID
+                                <div className="text-strong">#{fundRequestMeta.id}</div>
                             </div>
                         </div>
 
                         {['pending', 'disregarded'].includes(fundRequestMeta.state) && (
-                            <div className="flex flex-self-start">
-                                <div className="flex-row">
+                            <div className="flex flex-gap">
+                                {fundRequestMeta.employee && (
+                                    <div className="block block-fund-request-assigned">
+                                        <div className="block-fund-request-assigned-key">
+                                            {translate('validation_requests.labels.assigned_to_employee')}:
+                                        </div>
+
+                                        {fundRequestMeta.is_assigned ? (
+                                            <div className="block-fund-request-assigned-value">
+                                                <em className="mdi mdi-account" />
+                                                Toegewezen aan mij
+                                            </div>
+                                        ) : (
+                                            <div className="block-fund-request-assigned-value">
+                                                <em className="mdi mdi-account-outline" />
+                                                {fundRequestMeta.employee.email}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                <div className="button-group">
                                     {fundRequestMeta.is_assignable && (
                                         <button
                                             className={`button ${
@@ -626,178 +531,144 @@ export default function FundRequestsView() {
                                         </button>
                                     )}
 
-                                    {fundRequestMeta.state == 'pending' &&
-                                        fundRequestMeta.is_assigned &&
-                                        !fundRequestMeta.can_disregarded_undo && (
-                                            <button className="button button-primary" onClick={requestApprove}>
-                                                <em className="mdi mdi-check icon-start" />
-                                                {translate('validation_requests.buttons.accept_all')}
-                                            </button>
-                                        )}
-
-                                    {fundRequestMeta.state == 'pending' &&
-                                        fundRequestMeta.is_assigned &&
-                                        !fundRequestMeta.can_disregarded_undo && (
-                                            <button className="button button-danger" onClick={requestDecline}>
-                                                <em className="mdi mdi-close icon-start" />
-                                                {translate('validation_requests.buttons.decline_all')}
-                                            </button>
-                                        )}
-
-                                    {fundRequestMeta.can_disregarded && (
-                                        <button className="button button-default" onClick={requestDisregard}>
-                                            <em className="mdi mdi-timer-sand-empty icon-start" />
-                                            {translate('validation_requests.buttons.disregard')}
-                                        </button>
-                                    )}
-
-                                    {fundRequestMeta.can_disregarded_undo && (
-                                        <button className="button button-default" onClick={requestDisregardUndo}>
-                                            <em className="mdi mdi-backup-restore icon-start" />
-                                            {translate('validation_requests.buttons.disregard_undo')}
-                                        </button>
-                                    )}
-
                                     {(fundRequestMeta.can_resign || fundRequestMeta.can_resign_as_supervisor) && (
-                                        <button className="button button-primary-light" onClick={requestResign}>
-                                            <em className="mdi mdi-account-minus icon-start" />
+                                        <button className="button button-default" onClick={requestResign}>
+                                            <em className="mdi mdi-close icon-start" />
                                             {translate('validation_requests.buttons.resign')}
                                         </button>
                                     )}
-
-                                    {fundRequestMeta.state == 'disregarded' &&
-                                        !fundRequestMeta.can_disregarded_undo &&
-                                        fundRequestMeta.replaced && (
-                                            <button className="button button-default" type="button" disabled={true}>
-                                                <em className="mdi mdi-backup-restore icon-start" />
-                                                {translate(
-                                                    'validation_requests.buttons.disregard_undo_disabled_replaced',
-                                                )}
-                                            </button>
-                                        )}
                                 </div>
                             </div>
                         )}
                     </div>
                 </div>
+
                 <div className="card-section">
-                    <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            <table className="table table-fixed">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('validation_requests.labels.fund')}
-                                            </strong>
-                                            <br />
-                                            <div className="flex flex-horizontal">
-                                                <div className="flex">
-                                                    <strong className="text-black">{fundRequestMeta.fund.name}</strong>
-                                                </div>
-                                                <div className="flex flex-vertical">
-                                                    <a
-                                                        className={`mdi mdi-information block block-tooltip-details block-tooltip-details-inline ${
-                                                            showCriteria ? 'active' : ''
-                                                        }`}
-                                                        onClick={showFundCriteria}>
-                                                        {showCriteria && (
-                                                            <ClickOutside
-                                                                className="tooltip-content"
-                                                                onClickOutside={hideFundCriteria}>
-                                                                <ul className="tooltip-list">
-                                                                    {fundRequestMeta.fund.criteria.map((criterion) => (
-                                                                        <li
-                                                                            key={criterion.id}
-                                                                            className="tooltip-list-item">
-                                                                            <em className="mdi mdi-check" />
-                                                                            {criterion.description}
-                                                                        </li>
-                                                                    ))}
-                                                                </ul>
-                                                            </ClickOutside>
-                                                        )}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="block block-tooltip-details block-tooltip-hover flex-inline flex-vertical">
-                                                <strong className="text-strong text-md text-primary">
-                                                    {translate('validation_requests.labels.email')}
-                                                </strong>
-                                                <strong className={fundRequestMeta.email ? 'text-black' : 'text-muted'}>
-                                                    {strLimit(fundRequestMeta.email || 'Geen E-mail', 40)}
-                                                </strong>
-                                                {fundRequestMeta.email?.length > 40 && (
-                                                    <div className="tooltip-content tooltip-content-fit tooltip-content-bottom">
-                                                        <div className="triangle" />
-                                                        <div className="nowrap">
-                                                            {fundRequestMeta.email || 'Geen E-mail'}
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('validation_requests.labels.bsn')}
-                                            </strong>
-                                            <br />
-                                            <strong className={fundRequestMeta.bsn ? 'text-black' : 'text-muted'}>
-                                                {fundRequestMeta.bsn || 'Geen BSN'}
-                                            </strong>
-                                        </td>
-                                        {['pending', 'disregarded'].includes(fundRequestMeta.state) && (
-                                            <td>
-                                                <strong className="text-strong text-md text-primary">
-                                                    {translate('validation_requests.labels.lead_time')}
-                                                </strong>
-                                                <br />
-                                                <strong className="text-black">
-                                                    {fundRequestMeta.lead_time_locale}
-                                                </strong>
-                                            </td>
-                                        )}
-                                        {fundRequestMeta.state == 'disregarded' && (
-                                            <td>
-                                                <strong className="text-strong text-md text-primary">
-                                                    {translate('validation_requests.labels.disregarded_at')}
-                                                </strong>
-                                                <br />
-                                                <strong className="text-black">
-                                                    {fundRequestMeta.resolved_at_locale}
-                                                </strong>
-                                            </td>
-                                        )}
-                                        {fundRequestMeta.state == 'approved' && (
-                                            <td>
-                                                <strong className="text-strong text-md text-primary">
-                                                    {translate('validation_requests.labels.accepted_at')}
-                                                </strong>
-                                                <br />
-                                                <strong className="text-black">
-                                                    {fundRequestMeta.resolved_at_locale}
-                                                </strong>
-                                            </td>
-                                        )}
-                                        {fundRequestMeta.state == 'declined' && (
-                                            <td>
-                                                <strong className="text-strong text-md text-primary">
-                                                    {translate('validation_requests.labels.declined_at')}
-                                                </strong>
-                                                <br />
-                                                <strong className="text-black">
-                                                    {fundRequestMeta.resolved_at_locale}
-                                                </strong>
-                                            </td>
-                                        )}
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="card-block card-block-keyvalue">
+                        <KeyValueItem label={translate('validation_requests.labels.status')}>
+                            <FundRequestStateLabel fundRequest={fundRequest} />
+                        </KeyValueItem>
+
+                        <KeyValueItem label={translate('validation_requests.labels.fund')}>
+                            <Fragment>
+                                {fundRequestMeta.fund.name}
+                                <span
+                                    className="keyvalue-value-info-block-toggle"
+                                    onClick={() => setShowCriteria(!showCriteria)}>
+                                    Voorwaarden ({fundRequestMeta.fund.criteria.length})
+                                    <em className={`mdi mdi-chevron-${showCriteria ? 'up' : 'down'}`} />
+                                </span>
+                            </Fragment>
+                        </KeyValueItem>
+
+                        {showCriteria && (
+                            <div className="keyvalue-item-info-block">
+                                <ul>
+                                    {fundRequestMeta.fund.criteria.map((criterion) => (
+                                        <li key={criterion.id}>
+                                            <em className="mdi mdi-check" />
+                                            {criterion.description}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        <KeyValueItem label={translate('validation_requests.labels.created_date')}>
+                            {fundRequestMeta.created_at_locale}
+                        </KeyValueItem>
+
+                        <KeyValueItem label={translate('validation_requests.labels.assigned_to_employee')}>
+                            {fundRequestMeta.employee?.email || 'Nog niet toegewezen'}
+                        </KeyValueItem>
+
+                        {['pending', 'disregarded'].includes(fundRequestMeta.state) && (
+                            <KeyValueItem label={translate('validation_requests.labels.lead_time')}>
+                                {fundRequestMeta.lead_time_locale}
+                            </KeyValueItem>
+                        )}
+
+                        {fundRequestMeta.state == 'disregarded' && (
+                            <KeyValueItem label={translate('validation_requests.labels.disregarded_at')}>
+                                {fundRequestMeta.resolved_at_locale}
+                            </KeyValueItem>
+                        )}
+
+                        {fundRequestMeta.state == 'approved' && (
+                            <KeyValueItem label={translate('validation_requests.labels.accepted_at')}>
+                                {fundRequestMeta.resolved_at_locale}
+                            </KeyValueItem>
+                        )}
+
+                        {fundRequestMeta.state == 'declined' && (
+                            <KeyValueItem label={translate('validation_requests.labels.declined_at')}>
+                                {fundRequestMeta.resolved_at_locale}
+                            </KeyValueItem>
+                        )}
+
+                        <KeyValueItem
+                            label={translate('validation_requests.labels.email')}
+                            className={fundRequestMeta.email ? 'text-black' : 'text-muted'}>
+                            {fundRequestMeta.email || 'Geen E-mail'}
+                        </KeyValueItem>
+
+                        <KeyValueItem
+                            label={translate('validation_requests.labels.bsn')}
+                            className={fundRequestMeta.bsn ? 'text-black' : 'text-muted'}>
+                            {fundRequestMeta.bsn || 'Geen BSN'}
+                        </KeyValueItem>
                     </div>
                 </div>
+
+                {fundRequestMeta.has_actions && (
+                    <div className="card-footer card-footer-primary">
+                        <div className="flex">
+                            <div className="flex-grow"></div>
+                            <div className="flex-row">
+                                {fundRequestMeta.state == 'pending' &&
+                                    fundRequestMeta.is_assigned &&
+                                    !fundRequestMeta.can_disregarded_undo && (
+                                        <button className="button button-primary" onClick={requestApprove}>
+                                            <em className="mdi mdi-check icon-start" />
+                                            {translate('validation_requests.buttons.accept_all')}
+                                        </button>
+                                    )}
+
+                                {fundRequestMeta.state == 'pending' &&
+                                    fundRequestMeta.is_assigned &&
+                                    !fundRequestMeta.can_disregarded_undo && (
+                                        <button className="button button-danger" onClick={requestDecline}>
+                                            <em className="mdi mdi-close icon-start" />
+                                            {translate('validation_requests.buttons.decline_all')}
+                                        </button>
+                                    )}
+
+                                {fundRequestMeta.can_disregarded && (
+                                    <button className="button button-default" onClick={requestDisregard}>
+                                        <em className="mdi mdi-timer-sand-empty icon-start" />
+                                        {translate('validation_requests.buttons.disregard')}
+                                    </button>
+                                )}
+
+                                {fundRequestMeta.can_disregarded_undo && (
+                                    <button className="button button-default" onClick={requestDisregardUndo}>
+                                        <em className="mdi mdi-backup-restore icon-start" />
+                                        {translate('validation_requests.buttons.disregard_undo')}
+                                    </button>
+                                )}
+
+                                {fundRequestMeta.state == 'disregarded' &&
+                                    !fundRequestMeta.can_disregarded_undo &&
+                                    fundRequestMeta.replaced && (
+                                        <button className="button button-default" type="button" disabled={true}>
+                                            <em className="mdi mdi-backup-restore icon-start" />
+                                            {translate('validation_requests.buttons.disregard_undo_disabled_replaced')}
+                                        </button>
+                                    )}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {fundRequestMeta.note && (
@@ -819,7 +690,9 @@ export default function FundRequestsView() {
                 <div className="card-header">
                     <div className="flex flex-horizontal">
                         <div className="flex flex-vertical flex-center flex-grow">
-                            <div className="card-title">{translate('validation_requests.labels.records')}</div>
+                            <div className="card-title">
+                                {translate('validation_requests.labels.records')} ({fundRequestMeta.records.length})
+                            </div>
                         </div>
                         {fundRequestMeta.can_add_partner_bsn && (
                             <div className="flex flex-row">
@@ -837,15 +710,12 @@ export default function FundRequestsView() {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        {fundRequestMeta.hasContent && <th className="cell-chevron" />}
+                                        {fundRequestMeta.hasContent && <th className="cell-chevron th-narrow" />}
                                         <th style={{ width: '20%' }}>{translate('validation_requests.labels.type')}</th>
                                         <th style={{ width: '20%' }}>
                                             {translate('validation_requests.labels.value')}
                                         </th>
                                         <th style={{ width: '20%' }}>{translate('validation_requests.labels.date')}</th>
-                                        <th style={{ width: '20%' }}>
-                                            {translate('validation_requests.labels.status')}
-                                        </th>
                                         <th style={{ width: '20%' }} className="text-right">
                                             {translate('validation_requests.labels.actions')}
                                         </th>
@@ -893,71 +763,33 @@ export default function FundRequestsView() {
                                             )}
 
                                             <td>{record.created_at_locale}</td>
-                                            <td>
-                                                <div
-                                                    className={`label label-tag label-round ${
-                                                        stateLabels[record.state]
-                                                    }`}>
-                                                    {translate(`validation_requests.status.${record.state}`)}
-                                                </div>
-                                            </td>
-                                            {record.state != 'pending' && (
-                                                <td className="text-right">
-                                                    <div className="text-muted">
-                                                        {translate(`validation_requests.status.${record.state}`)}
-                                                    </div>
-                                                </td>
-                                            )}
-                                            {record.state == 'pending' && !fundRequestMeta.is_assigned && (
-                                                <td className="text-right">
-                                                    {fundRequestMeta.employee ? (
-                                                        <div className="td-text-insert text-muted">
-                                                            <span>Toegewezen aan</span>
-                                                            <div className="text-strong nowrap">
-                                                                {strLimit(
-                                                                    fundRequestMeta.employee?.email ||
-                                                                        fundRequestMeta.employee?.identity_address,
-                                                                    32,
+
+                                            <td className="td-narrow text-right">
+                                                {fundRequestMeta.is_assigned ? (
+                                                    <TableRowActions
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                {activeOrganization.allow_fund_request_record_edit && (
+                                                                    <div
+                                                                        className="dropdown-item"
+                                                                        onClick={() => editRecord(record)}>
+                                                                        <em className="mdi mdi-pencil icon-start" />
+                                                                        Bewerking
+                                                                    </div>
                                                                 )}
+                                                                <div
+                                                                    className="dropdown-item"
+                                                                    onClick={() => clarifyRecord(record)}>
+                                                                    <em className="mdi mdi-message-text icon-start" />
+                                                                    Aanvullingsverzoek
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    ) : (
-                                                        <div className="text-muted">Zelf toewijzen</div>
-                                                    )}
-                                                </td>
-                                            )}
-                                            {record.state == 'pending' && fundRequestMeta.is_assigned && (
-                                                <td className="text-right">
-                                                    <div className="button-group flex-end">
-                                                        {activeOrganization.allow_fund_request_record_edit && (
-                                                            <button
-                                                                className="button button-default button-icon"
-                                                                onClick={() => editRecord(record)}>
-                                                                <em className="mdi mdi-pencil" />
-                                                            </button>
                                                         )}
-                                                        <button
-                                                            className="button button-primary-light button-icon"
-                                                            onClick={() => clarifyRecord(record)}>
-                                                            <em className="mdi mdi-message-text" />
-                                                        </button>
-                                                        {envData.config?.single_record_validation && (
-                                                            <button
-                                                                className="button button-danger button-icon"
-                                                                onClick={() => declineRecord(record)}>
-                                                                <em className="mdi mdi-close" />
-                                                            </button>
-                                                        )}
-                                                        {envData.config?.single_record_validation && (
-                                                            <button
-                                                                className="button button-primary button-icon"
-                                                                onClick={() => approveRecord(record)}>
-                                                                <em className="mdi mdi-check" />
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                </td>
-                                            )}
+                                                    />
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
                                         </tr>
                                         {record.hasContent && !collapsedRecords.includes(record.id) && (
                                             <tr className="dim">

@@ -110,7 +110,7 @@ export default function Feature() {
                                 </div>
                                 <a
                                     className="button button-default button-sm"
-                                    href="https://helpcentrum.forus.io/kb/nl"
+                                    href="https://forusoperations.zendesk.com/hc/nl-nl"
                                     rel="noreferrer"
                                     target="_blank">
                                     Helpcenter-artikelen bekijken

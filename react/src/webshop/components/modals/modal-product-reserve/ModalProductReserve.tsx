@@ -147,11 +147,7 @@ export default function ModalProductReserve({
         },
         (values) => {
             productReservationService
-                .reserve({
-                    ...values,
-                    voucher_address: voucher.address,
-                    product_id: product.id,
-                })
+                .reserve({ ...values, voucher_id: voucher.id, product_id: product.id })
                 .then((res) => {
                     if (res.data.checkout_url) {
                         return (document.location = res.data.checkout_url);
@@ -185,7 +181,7 @@ export default function ModalProductReserve({
     }, [modal, navigateState]);
 
     const onError = useCallback(
-        (err: ResponseError, address = false) => {
+        (err: ResponseError, address = false, user_note = false) => {
             const { errors = {}, message } = err.data;
 
             form.setErrors(errors);
@@ -202,24 +198,34 @@ export default function ModalProductReserve({
                 pushDanger(message);
             }
 
-            setStep(address ? STEP_FILL_ADDRESS : STEP_FILL_DATA);
+            setStep(address ? STEP_FILL_ADDRESS : user_note ? STEP_FILL_NOTES : STEP_FILL_DATA);
         },
-        [STEP_ERROR, STEP_FILL_ADDRESS, STEP_FILL_DATA, form, pushDanger],
+        [STEP_ERROR, STEP_FILL_ADDRESS, STEP_FILL_DATA, STEP_FILL_NOTES, form, pushDanger],
     );
 
-    const validateFields = useCallback(() => {
-        productReservationService
-            .validateFields({
-                ...form.values,
-                voucher_address: voucher.address,
-                product_id: product.id,
-            })
-            .then(() => {
-                form.setErrors({});
-                next();
-            })
-            .catch((err) => onError(err, false));
-    }, [form, next, onError, product.id, productReservationService, voucher?.address]);
+    const validateFields = useCallback(
+        (include_note: boolean = true) => {
+            productReservationService
+                .validateFields({
+                    ...form.values,
+                    voucher_id: voucher.id,
+                    product_id: product.id,
+                    user_note: include_note ? form.values.user_note : null,
+                })
+                .then(() => {
+                    form.setErrors({});
+                    next();
+                })
+                .catch((err) =>
+                    onError(
+                        err,
+                        false,
+                        include_note && err?.data?.errors?.user_note && Object.values(err?.data?.errors).length == 1,
+                    ),
+                );
+        },
+        [form, next, onError, product.id, productReservationService, voucher?.id],
+    );
 
     const validateAddress = useCallback(() => {
         productReservationService
@@ -609,7 +615,7 @@ export default function ModalProductReserve({
                     className="modal-window form form-compact"
                     onSubmit={(e) => {
                         e?.preventDefault();
-                        validateFields();
+                        validateFields(false);
                     }}
                     data-dusk="productReserveForm">
                     <div
