@@ -6,9 +6,10 @@ import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 export default function ModalNotification({
     modal,
     type,
+    onClose,
     onCancel,
-    cancelBtnText,
     onConfirm,
+    cancelBtnText,
     confirmBtnText,
     closeBtnText,
     className,
@@ -21,9 +22,10 @@ export default function ModalNotification({
 }: {
     modal: ModalState;
     type: 'info' | 'confirm' | 'action-result';
+    onClose?: () => void;
     onCancel?: () => void;
-    cancelBtnText?: string;
     onConfirm?: () => void;
+    cancelBtnText?: string;
     confirmBtnText?: string;
     closeBtnText?: string;
     className?: string;
@@ -57,25 +59,26 @@ export default function ModalNotification({
         }, 1000);
     }, [type]);
 
+    const close = useCallback(() => {
+        onClose?.();
+        modal?.close();
+    }, [onClose, modal]);
+
     const cancel = useCallback(() => {
         onCancel?.();
-        modal.close();
-    }, [modal, onCancel]);
+        close?.();
+    }, [onCancel, close]);
 
     const confirm = useCallback(() => {
         onConfirm?.();
-        modal.close();
-    }, [modal, onConfirm]);
-
-    /*if (!modal.ready) {
-        return null;
-    }*/
+        close?.();
+    }, [onConfirm, close]);
 
     return (
         <div
             className={`modal modal-notification modal-animated ${className} ${modal.loading ? '' : 'modal-loaded'}`}
             role="dialog">
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" role="button" />
+            <div className="modal-backdrop" onClick={close} aria-label="Sluiten" role="button" />
             <div className="modal-window">
                 <div
                     className="modal-close mdi mdi-close"
@@ -117,7 +120,7 @@ export default function ModalNotification({
 
                 <div className="modal-footer">
                     {showCloseBtn && (
-                        <button className="button button-sm button-light" data-close="data-close" onClick={modal.close}>
+                        <button className="button button-sm button-light" data-close="data-close" onClick={close}>
                             {closeBtnText || translate('modal.buttons.close')}
                         </button>
                     )}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, createContext } from 'react';
+import React, { useCallback, useEffect, useState, createContext, useRef } from 'react';
 import Identity from '../../dashboard/props/models/Identity';
 import { useAuthService } from '../../dashboard/services/AuthService';
 import { useStateRoutes } from '../modules/state_router/Router';
@@ -53,6 +53,9 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
     const setProgress = useSetProgress();
     const openModal = useOpenModal();
     const navigateState = useNavigateState();
+
+    const last401ErrorThreshold = useState<number>(10000)[0];
+    const last401ErrorTime = useRef<number>();
 
     const signOut = useCallback(
         (
@@ -162,15 +165,19 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
                 return;
             }
 
-            navigateState('sign-out', null, null, {
-                state: { session_expired: data.detail.data.message == 'session_expired' },
-            });
+            if (!last401ErrorTime.current || Date.now() - last401ErrorTime.current > last401ErrorThreshold) {
+                last401ErrorTime.current = Date.now();
+
+                navigateState('sign-out', null, null, {
+                    state: { session_expired: data.detail.data.message == 'session_expired' },
+                });
+            }
         };
 
         events.subscribe('api-response:401', callback);
 
         return () => events.unsubscribe('api-response:401', callback);
-    }, [fetchIdentity2FA, navigateState, route?.state?.name, setProgress, updateIdentity]);
+    }, [fetchIdentity2FA, navigateState, route?.state?.name, setProgress, updateIdentity, last401ErrorThreshold]);
 
     return (
         <Provider
