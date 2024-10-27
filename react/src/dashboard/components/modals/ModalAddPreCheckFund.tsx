@@ -14,14 +14,14 @@ import SelectControlOptionsFund from '../elements/select-control/templates/Selec
 export default function ModalAddPreCheckFund({
     modal,
     funds,
-    fund_id,
+    fund,
     activeOrganization,
     onDone,
     onError,
 }: {
     modal: ModalState;
     funds: Array<Fund>;
-    fund_id?: number;
+    fund?: Fund;
     activeOrganization: Organization;
     onDone?: () => void;
     onError?: (err: ResponseError) => void;
@@ -39,9 +39,9 @@ export default function ModalAddPreCheckFund({
         pre_check_excluded?: boolean;
     }>(
         {
-            fund_id: fund_id || funds[0]?.id,
-            pre_check_note: '',
-            pre_check_excluded: true,
+            fund_id: fund?.id || funds[0]?.id,
+            pre_check_note: fund?.pre_check_note || '',
+            pre_check_excluded: fund?.pre_check_excluded || true,
         },
         ({ fund_id, pre_check_excluded, pre_check_note }) => {
             fundService
@@ -77,7 +77,7 @@ export default function ModalAddPreCheckFund({
                                     info={`Naam van het fonds dat te dienen worden uitgesloten of dat een afwijkend resultaat dient te hebben.`}>
                                     <SelectControl
                                         className="form-control inline-filter-control"
-                                        disabled={!!fund_id}
+                                        disabled={!!fund?.id}
                                         propKey={'id'}
                                         propValue={'name'}
                                         options={funds}
@@ -109,19 +109,21 @@ export default function ModalAddPreCheckFund({
                             </div>
                         </div>
 
-                        <div className="form-group form-group-inline form-group-inline-md">
-                            <label className="form-label form-label-required">Uitleg</label>
-                            <div className="form-offset">
-                                <textarea
-                                    className="form-control"
-                                    placeholder="Add description"
-                                    value={form.values.pre_check_note}
-                                    onChange={(e) => form.update({ pre_check_note: e.target.value })}
-                                />
+                        {!form.values.pre_check_excluded && (
+                            <div className="form-group form-group-inline form-group-inline-md">
+                                <label className="form-label form-label-required">Uitleg</label>
+                                <div className="form-offset">
+                                    <textarea
+                                        className="form-control"
+                                        placeholder="Voeg omschrijving toe"
+                                        value={form.values.pre_check_note}
+                                        onChange={(e) => form.update({ pre_check_note: e.target.value })}
+                                    />
 
-                                <FormError error={form.errors?.pre_check_note} />
+                                    <FormError error={form.errors?.pre_check_note} />
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         <div className="form-group">
                             <div className="form-label" />

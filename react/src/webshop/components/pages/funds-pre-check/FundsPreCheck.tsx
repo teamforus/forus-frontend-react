@@ -483,13 +483,13 @@ export default function FundsPreCheck() {
                                             }}>
                                             <div className="pre-check-step-section-details">
                                                 <div className="pre-check-step-section-title">
-                                                    {preChecks[activeStepIndex].title}
+                                                    {preChecks[activeStepIndex]?.title}
                                                 </div>
                                                 <div className="pre-check-step-section-description">
-                                                    {preChecks[activeStepIndex].description}
+                                                    {preChecks[activeStepIndex]?.description}
                                                 </div>
                                             </div>
-                                            {preChecks[activeStepIndex].record_types?.map((preCheckRecord, index) => (
+                                            {preChecks[activeStepIndex]?.record_types?.map((preCheckRecord, index) => (
                                                 <div
                                                     key={`${activeStepIndex}_${index}`}
                                                     className="pre-check-step-section-question">
