@@ -276,14 +276,16 @@ export default function TransactionDetails({
                                 )}
                                 <div className="keyvalue-item">
                                     <div className="keyvalue-key">Status</div>
-                                    <div className="keyvalue-value keyvalue-value-multiline">
-                                        <TransactionStateLabel transaction={transaction} />
-                                        {transaction.transfer_in > 0 && transaction.state == 'pending' && (
-                                            <div className="text-sm text-muted-dark">
-                                                <em className="mdi mdi-clock-outline"> </em>
-                                                {transaction.transfer_in} dagen resterend
-                                            </div>
-                                        )}
+                                    <div className="keyvalue-value">
+                                        <div className="flex flex-vertical">
+                                            <TransactionStateLabel transaction={transaction} />
+                                            {transaction.transfer_in > 0 && transaction.state == 'pending' && (
+                                                <div className="text-sm text-muted-dark">
+                                                    <em className="mdi mdi-clock-outline"> </em>
+                                                    {transaction.transfer_in} dagen resterend
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                                 {transaction.iban_from && (
