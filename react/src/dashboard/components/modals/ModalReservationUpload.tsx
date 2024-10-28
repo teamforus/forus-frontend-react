@@ -4,7 +4,7 @@ import Organization from '../../props/models/Organization';
 import useProductReservationService from '../../services/ProductReservationService';
 import { useFileService } from '../../services/FileService';
 import Papa from 'papaparse';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniqueId } from 'lodash';
 import useAuthIdentity from '../../hooks/useAuthIdentity';
 import { dateFormat } from '../../helpers/dates';
 import usePushSuccess from '../../hooks/usePushSuccess';
@@ -199,7 +199,8 @@ export default function ModalReservationUpload({
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
                     items={items.map((item) => ({
-                        value: item[2]?.['number'] ? item[2]?.['number'] + ' - ' + item[1] : item[1],
+                        _uid: uniqueId('rand_'),
+                        label: item[2]?.['number'] ? item[2]?.['number'] + ' - ' + item[1] : item[1],
                     }))}
                     onConfirm={() => setHideModal(false)}
                     onCancel={() => setHideModal(false)}
