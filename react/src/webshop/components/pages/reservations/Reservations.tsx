@@ -57,7 +57,7 @@ export default function Reservations() {
         setProgress(0);
 
         organizationService
-            .list({ is_employee: 0, has_reservations: 1, per_page: 300, fund_type: 'budget' })
+            .list({ type: 'provider', has_reservations: 1, per_page: 300, fund_type: 'budget' })
             .then((res) => setOrganizations([{ name: 'Selecteer aanbieder...', id: null }, ...res.data.data]))
             .finally(() => setProgress(100));
     }, [organizationService, setProgress]);
