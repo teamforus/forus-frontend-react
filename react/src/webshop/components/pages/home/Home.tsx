@@ -28,10 +28,11 @@ export default function Home() {
     const appConfigs = useAppConfigs();
 
     const setTitle = useSetTitle();
+    const openModal = useOpenModal();
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
-    const openModal = useOpenModal();
+
     const { closeModal } = useContext(modalsContext);
 
     const authIdentity = useAuthIdentity();
@@ -112,6 +113,9 @@ export default function Home() {
         if (!stateParams?.session_expired) {
             return;
         }
+
+        // clear session_expired state
+        window.history.replaceState({}, '');
 
         const modal = openModal((modal) => (
             <ModalNotification
