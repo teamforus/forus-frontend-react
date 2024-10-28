@@ -1483,6 +1483,12 @@ body {
                         color: #426993;
                     }
                 }
+
+                &.keyvalue-value-multiline {
+                    gap: 0;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
             }
 
             .keyvalue-link {
