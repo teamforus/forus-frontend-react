@@ -27,7 +27,8 @@ export default function useExportFunds(organization: Organization) {
                     year: year,
                 })
                 .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+                    const dateTime =
+                        year != new Date().getFullYear() ? year : format(new Date(), 'yyyy-MM-dd HH:mm:ss');
                     const fileName = `${envData.client_type}_${organization.name}_${dateTime}.${exportType}`;
                     const fileType = res.headers['content-type'] + ';charset=utf-8;';
 
