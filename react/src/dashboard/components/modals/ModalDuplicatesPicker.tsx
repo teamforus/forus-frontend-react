@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import ScrollEnd from '../elements/scroll-end/ScrollEnd';
 import ToggleControl from '../elements/forms/controls/ToggleControl';
+import classNames from 'classnames';
 
 type ItemProp = {
-    value: string;
+    _uid: string;
+    label: string;
+    value?: string;
     blink?: boolean;
     model?: boolean;
     columns?: Array<string>;
@@ -36,7 +39,7 @@ export default function ModalDuplicatesPicker({
     label_on: string;
     label_off: string;
     items: Array<ItemProp>;
-    onConfirm: (list: Array<{ value: string; blink?: boolean; model?: boolean }>) => void;
+    onConfirm: (data: { list: Array<ItemProp>; uids?: Array<string> }) => void;
     onCancel: () => void;
     button_cancel?: string;
     button_none?: string;
@@ -121,7 +124,9 @@ export default function ModalDuplicatesPicker({
             list[0].model = true;
         }
 
-        onConfirm(list.filter((item) => item.model));
+        const listItems = list.filter((item) => item.model);
+
+        onConfirm({ list: listItems, uids: listItems.map((item) => item._uid) });
         modal.close();
     }, [list, modal, onConfirm]);
 
@@ -145,7 +150,9 @@ export default function ModalDuplicatesPicker({
     }, [list, page, per_page]);
 
     return (
-        <div className={`modal modal-lg modal-animated ${modal.loading ? 'modal-loading' : ''} ${className || ''}`}>
+        <div
+            className={classNames('modal', 'modal-lg', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalDuplicatesPicker">
             <div className="modal-backdrop" onClick={cancel} />
             <div className="modal-window">
                 <div className="modal-body">
@@ -181,7 +188,7 @@ export default function ModalDuplicatesPicker({
                                             }>
                                             <td>
                                                 <em className="mdi mdi-alert-outline text-warning switch-key-icon" />
-                                                <span>{item.value}</span>
+                                                <span>{item.label || item.value}</span>
                                             </td>
 
                                             {item?.columns?.map((column, index) => <td key={index}>{column}</td>)}
@@ -236,7 +243,10 @@ export default function ModalDuplicatesPicker({
                                 {labels.button_all}
                             </button>
                         )}
-                        <button className="button button-primary button-sm" onClick={confirm}>
+                        <button
+                            className="button button-primary button-sm"
+                            onClick={confirm}
+                            data-dusk="modalDuplicatesPickerConfirm">
                             {labels.button_confirm}
                         </button>
                     </div>

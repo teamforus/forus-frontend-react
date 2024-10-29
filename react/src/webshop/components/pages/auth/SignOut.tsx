@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { authContext } from '../../../contexts/AuthContext';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
 
@@ -10,13 +10,21 @@ export default function SignOut() {
         session_expired?: boolean;
     }>();
 
+    const redirectHome = useCallback(() => {
+        navigateState('home', null, null, { state: stateParams });
+    }, [navigateState, stateParams]);
+
     useEffect(() => {
         if (token) {
-            signOut();
+            signOut(null, false, true, () => {
+                if (stateParams.session_expired) {
+                    redirectHome();
+                }
+            });
         } else {
-            navigateState('home', null, null, { state: stateParams });
+            redirectHome();
         }
-    }, [signOut, token, navigateState, stateParams]);
+    }, [signOut, token, navigateState, stateParams, redirectHome]);
 
     return <></>;
 }
