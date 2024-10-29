@@ -10,6 +10,8 @@ import { FinancialOverview } from '../../financial-dashboard/types/FinancialStat
 import useTranslate from '../../../../hooks/useTranslate';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function FinancialOverviewFundsBudgetTable({
     years,
@@ -25,7 +27,6 @@ export default function FinancialOverviewFundsBudgetTable({
     const translate = useTranslate();
     const exportFunds = useExportFunds(organization);
 
-    const [year, setYear] = useState(new Date().getFullYear());
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
@@ -33,13 +34,30 @@ export default function FinancialOverviewFundsBudgetTable({
         return funds?.filter((fund) => fund.type == 'budget');
     }, [funds]);
 
-    useEffect(() => {
-        fetchFunds(year).then(setFunds);
-    }, [fetchFunds, year]);
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        year: number;
+    }>(
+        {
+            q: '',
+            year: new Date().getFullYear(),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                year: NumberParam,
+            },
+            throttledValues: ['q'],
+        },
+    );
 
     useEffect(() => {
-        fetchFinancialOverview(year).then(setFinancialOverview);
-    }, [fetchFinancialOverview, year]);
+        fetchFunds(filterValuesActive.year).then(setFunds);
+    }, [fetchFunds, filterValuesActive.year]);
+
+    useEffect(() => {
+        fetchFinancialOverview(filterValuesActive.year).then(setFinancialOverview);
+    }, [fetchFinancialOverview, filterValuesActive.year]);
 
     if (!budgetFunds?.length || !years.length) {
         return null;
@@ -64,13 +82,15 @@ export default function FinancialOverviewFundsBudgetTable({
                                         options={years}
                                         propKey={'id'}
                                         allowSearch={false}
-                                        value={year}
+                                        value={filterValues.year}
                                         optionsComponent={SelectControlOptions}
-                                        onChange={(year?: number) => setYear(year)}
+                                        onChange={(year?: number) => filterUpdate({ year })}
                                     />
                                 </div>
                             </div>
-                            <button className="button button-primary button-sm" onClick={() => exportFunds(true)}>
+                            <button
+                                className="button button-primary button-sm"
+                                onClick={() => exportFunds(true, filterValuesActive.year)}>
                                 <em className="mdi mdi-download icon-start" />
                                 {translate('financial_dashboard_overview.buttons.export')}
                             </button>

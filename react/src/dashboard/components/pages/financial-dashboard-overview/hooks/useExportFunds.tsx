@@ -19,11 +19,12 @@ export default function useExportFunds(organization: Organization) {
     const fundService = useFundService();
 
     const doExport = useCallback(
-        (exportType: string, detailed: boolean) => {
+        (exportType: string, detailed: boolean, year: number) => {
             fundService
                 .financialOverviewExport(organization.id, {
                     export_type: exportType,
                     detailed: detailed ? 1 : 0,
+                    year: year,
                 })
                 .then((res) => {
                     const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
@@ -34,13 +35,13 @@ export default function useExportFunds(organization: Organization) {
                 })
                 .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
         },
-        [fundService, organization?.id, organization?.name, envData.client_type, fileService, pushDanger],
+        [fundService, organization.id, organization.name, envData.client_type, fileService, pushDanger],
     );
 
     return useCallback(
-        (detailed: boolean) => {
+        (detailed: boolean, year: number) => {
             openModal((modal) => (
-                <ModalExportTypeLegacy modal={modal} onSubmit={(exportType) => doExport(exportType, detailed)} />
+                <ModalExportTypeLegacy modal={modal} onSubmit={(exportType) => doExport(exportType, detailed, year)} />
             ));
         },
         [doExport, openModal],
