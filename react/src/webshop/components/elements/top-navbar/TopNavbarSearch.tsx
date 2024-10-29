@@ -169,12 +169,7 @@ export default function TopNavbarSearch() {
                     }
                 }}
                 className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
-                <ClickOutside
-                    onClickOutside={(e) => {
-                        if (e.target != document.querySelector('input#genericSearch')) {
-                            hideSearchBox();
-                        }
-                    }}>
+                <ClickOutside onClickOutside={hideSearchBox}>
                     <div className="search-area">
                         <label id="search-label" htmlFor="genericSearch" className="navbar-search-label">
                             {translate(`top_navbar_search.placeholders.search_${appConfigs.communication_type}`)}
