@@ -174,7 +174,7 @@ export default function BlockCardNote({
                 </div>
             )}
 
-            {notes.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen Notities'} />}
+            {notes.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen notities'} />}
 
             {notes?.meta && (
                 <div className="card-section">
