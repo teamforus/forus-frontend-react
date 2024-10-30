@@ -168,7 +168,7 @@ export default function Search() {
         setProgress(0);
 
         organizationService
-            .list({ is_employee: 0, has_products: 1, per_page: 500, fund_type: 'budget' })
+            .list({ type: 'provider', per_page: 500, fund_type: 'budget' })
             .then((res) => setOrganizations([{ id: null, name: 'Selecteer aanbieders...' }, ...res.data.data]))
             .finally(() => setProgress(100));
     }, [organizationService, setProgress]);
