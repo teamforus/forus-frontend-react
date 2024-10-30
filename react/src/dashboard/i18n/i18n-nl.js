@@ -1573,7 +1573,7 @@ export default {
             id: 'ID',
             created_at: 'Aangemaakt op',
             created_by: 'Aangemaakt door',
-            note: 'Notite',
+            note: 'Notitie',
             actions: 'Acties',
         },
 
