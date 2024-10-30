@@ -303,18 +303,20 @@ export default function FundRequest() {
     );
 
     // Start digid sign-in
-    const startDigId = useCallback(() => {
-        digIdService
-            .startFundRequest(fund.id)
-            .then((res) => (document.location = res.data.redirect_url))
-            .catch((err) => {
-                if (err.status === 403 && err.data.message) {
-                    return pushDanger(err.data.message);
-                }
+    const startDigId = useCallback(async () => {
+        if ((await fetchAuthIdentity())?.identity) {
+            digIdService
+                .startFundRequest(fund.id)
+                .then((res) => (document.location = res.data.redirect_url))
+                .catch((err) => {
+                    if (err.status === 403 && err.data.message) {
+                        return pushDanger(err.data.message);
+                    }
 
-                navigateState('error', { errorCode: err.headers('error-code') });
-            });
-    }, [digIdService, fund?.id, navigateState, pushDanger]);
+                    navigateState('error', { errorCode: err.headers('error-code') });
+                });
+        }
+    }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity]);
 
     const transformInvalidCriteria = useCallback(
         function (item: FundCriterion): LocalCriterion {
