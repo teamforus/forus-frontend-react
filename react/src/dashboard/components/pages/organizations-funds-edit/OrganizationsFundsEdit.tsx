@@ -561,7 +561,7 @@ export default function OrganizationsFundsEdit() {
                                     />
                                     <Tooltip
                                         text={
-                                            'De datails die verborgen worden, zijn: Uitgifte door, tegoed per persoon, startdatum en einddatum van het fonds'
+                                            'De details die verborgen worden, zijn: Uitgifte door, tegoed per persoon, startdatum en einddatum van het fonds'
                                         }
                                     />
                                     <FormError error={form.errors?.hide_meta} />

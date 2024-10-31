@@ -139,7 +139,7 @@ export default function BlockCardNotes({
                 </div>
             </div>
 
-            <LoaderTableCard empty={!notes.meta.total} emptyTitle={'Geen notites'}>
+            <LoaderTableCard empty={!notes.meta.total} emptyTitle={'Geen notities'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         <div className="table-wrapper">
