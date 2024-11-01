@@ -113,6 +113,14 @@ export class FundService<T = Fund> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities`, data);
     }
 
+    public identitiesCount(
+        company_id: number,
+        fund_id: number,
+        data: object = {},
+    ): Promise<ApiResponse<Identity, { counts: { active: number; selected: number; without_email: number } }>> {
+        return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities/counts`, data);
+    }
+
     public archive(company_id: number, fund_id: number): Promise<ApiResponse<T>> {
         return this.apiRequest.post(`${this.prefix}/${company_id}/funds/${fund_id}/archive`);
     }
