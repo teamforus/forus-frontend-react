@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { mainContext } from '../../../contexts/MainContext';
@@ -234,16 +233,7 @@ export default function Search() {
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name="home" className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Zoekresultaten
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Zoekresultaten' }]}
             aside={
                 funds &&
                 organizations &&

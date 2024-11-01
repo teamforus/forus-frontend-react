@@ -141,7 +141,7 @@ export default function FundsShow() {
 
     return (
         <BlockShowcase
-            breadcrumbs={<></>}
+            breadcrumbItems={[]}
             wrapper={true}
             loaderElement={
                 <section className="section section-fund">
