@@ -12,6 +12,8 @@ import SelectControl from '../../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useSetProgress from '../../../../hooks/useSetProgress';
+import LoadingCard from '../../../elements/loading-card/LoadingCard';
 
 export default function FinancialOverviewFundsBudgetTable({
     years,
@@ -26,6 +28,8 @@ export default function FinancialOverviewFundsBudgetTable({
 }) {
     const translate = useTranslate();
     const exportFunds = useExportFunds(organization);
+
+    const setProgress = useSetProgress();
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
@@ -56,8 +60,12 @@ export default function FinancialOverviewFundsBudgetTable({
     }, [fetchFunds, filterValuesActive.year]);
 
     useEffect(() => {
-        fetchFinancialOverview(filterValuesActive.year).then(setFinancialOverview);
-    }, [fetchFinancialOverview, filterValuesActive.year]);
+        setProgress(0);
+
+        fetchFinancialOverview(filterValuesActive.year)
+            .then(setFinancialOverview)
+            .finally(() => setProgress(100));
+    }, [fetchFinancialOverview, filterValuesActive.year, setProgress]);
 
     if (!budgetFunds?.length || !years.length) {
         return null;
@@ -98,67 +106,72 @@ export default function FinancialOverviewFundsBudgetTable({
                     </div>
                 </div>
             </div>
-            <div className="card-section">
-                <div className="card-block card-block-table card-block-financial">
-                    <div className="table-wrapper">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <ThSortable
-                                        className="w-20"
-                                        label={translate('financial_dashboard_overview.labels.fund_name')}
-                                    />
-                                    <ThSortable
-                                        className="w-10"
-                                        label={translate('financial_dashboard_overview.labels.total')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.active')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.inactive')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.deactivated')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.used')}
-                                    />
-                                    <ThSortable
-                                        className={'text-right'}
-                                        label={translate('financial_dashboard_overview.labels.left')}
-                                    />
-                                </tr>
-                            </thead>
 
-                            {budgetFunds.map((fund) => (
-                                <FinancialOverviewFundsBudgetTableItem key={fund.id} fund={fund} />
-                            ))}
+            {financialOverview?.year != filterValuesActive.year ? (
+                <LoadingCard />
+            ) : (
+                <div className="card-section">
+                    <div className="card-block card-block-table card-block-financial">
+                        <div className="table-wrapper">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <ThSortable
+                                            className="w-20"
+                                            label={translate('financial_dashboard_overview.labels.fund_name')}
+                                        />
+                                        <ThSortable
+                                            className="w-10"
+                                            label={translate('financial_dashboard_overview.labels.total')}
+                                        />
+                                        <ThSortable
+                                            className="w-15"
+                                            label={translate('financial_dashboard_overview.labels.active')}
+                                        />
+                                        <ThSortable
+                                            className="w-15"
+                                            label={translate('financial_dashboard_overview.labels.inactive')}
+                                        />
+                                        <ThSortable
+                                            className="w-15"
+                                            label={translate('financial_dashboard_overview.labels.deactivated')}
+                                        />
+                                        <ThSortable
+                                            className="w-15"
+                                            label={translate('financial_dashboard_overview.labels.used')}
+                                        />
+                                        <ThSortable
+                                            className={'text-right'}
+                                            label={translate('financial_dashboard_overview.labels.left')}
+                                        />
+                                    </tr>
+                                </thead>
 
-                            <tbody>
-                                <tr className="table-totals">
-                                    <td>{translate('financial_dashboard_overview.labels.total')}</td>
-                                    <td>{financialOverview?.budget_funds.vouchers_amount_locale}</td>
-                                    <td>{financialOverview?.budget_funds.active_vouchers_amount_locale}</td>
-                                    <td>{financialOverview?.budget_funds.inactive_vouchers_amount_locale}</td>
-                                    <td>{financialOverview?.budget_funds.deactivated_vouchers_amount_locale}</td>
-                                    <td>{financialOverview?.budget_funds.budget_used_active_vouchers_locale}</td>
-                                    <td className={'text-right'}>
-                                        {currencyFormat(
-                                            parseFloat(financialOverview?.budget_funds.vouchers_amount) -
-                                                financialOverview?.budget_funds.budget_used_active_vouchers,
-                                        )}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                {budgetFunds.map((fund) => (
+                                    <FinancialOverviewFundsBudgetTableItem key={fund.id} fund={fund} />
+                                ))}
+
+                                <tbody>
+                                    <tr className="table-totals">
+                                        <td>{translate('financial_dashboard_overview.labels.total')}</td>
+                                        <td>{financialOverview?.budget_funds.vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.budget_funds.active_vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.budget_funds.inactive_vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.budget_funds.deactivated_vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.budget_funds.budget_used_active_vouchers_locale}</td>
+                                        <td className={'text-right'}>
+                                            {currencyFormat(
+                                                parseFloat(financialOverview?.budget_funds.vouchers_amount) -
+                                                    financialOverview?.budget_funds.budget_used_active_vouchers,
+                                            )}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }

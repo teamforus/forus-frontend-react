@@ -12,6 +12,7 @@ import SelectControlOptions from '../../../elements/select-control/templates/Sel
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useSetProgress from '../../../../hooks/useSetProgress';
 
 export default function FinancialOverviewFundsTable({
     years,
@@ -26,6 +27,8 @@ export default function FinancialOverviewFundsTable({
 }) {
     const translate = useTranslate();
     const exportFunds = useExportFunds(organization);
+
+    const setProgress = useSetProgress();
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
@@ -52,10 +55,14 @@ export default function FinancialOverviewFundsTable({
     }, [fetchFunds, filterValuesActive.year_all]);
 
     useEffect(() => {
-        fetchFinancialOverview(filterValuesActive.year_all).then(setFinancialOverview);
-    }, [fetchFinancialOverview, filterValuesActive.year_all]);
+        setProgress(0);
 
-    if (!funds || !financialOverview || !years.length) {
+        fetchFinancialOverview(filterValuesActive.year_all)
+            .then(setFinancialOverview)
+            .finally(() => setProgress(100));
+    }, [fetchFinancialOverview, filterValuesActive.year_all, setProgress]);
+
+    if (!funds?.length || !financialOverview || !years.length) {
         return <LoadingCard />;
     }
 
@@ -95,48 +102,58 @@ export default function FinancialOverviewFundsTable({
                 </div>
             </div>
 
-            <div className="card-section">
-                <div className="card-block card-block-table card-block-financial">
-                    <div className="table-wrapper">
-                        <table className="table">
-                            <tbody>
-                                <tr>
-                                    <ThSortable label={translate('financial_dashboard_overview.labels.fund_name')} />
-                                    <ThSortable label={translate('financial_dashboard_overview.labels.total_budget')} />
-                                    <ThSortable label={translate('financial_dashboard_overview.labels.used_budget')} />
-                                    <ThSortable
-                                        label={translate('financial_dashboard_overview.labels.current_budget')}
-                                    />
-                                    <ThSortable
-                                        className={'text-right'}
-                                        label={translate('financial_dashboard_overview.labels.transaction_costs')}
-                                    />
-                                </tr>
-
-                                {funds.map((fund) => (
-                                    <tr key={fund.id}>
-                                        <td>{fund.name}</td>
-                                        <td>{fund.budget?.total_locale || <TableEmptyValue />}</td>
-                                        <td>{fund.budget?.used_locale || <TableEmptyValue />}</td>
-                                        <td>{fund.budget?.left_locale || <TableEmptyValue />}</td>
-                                        <td className={'text-right'}>{fund.budget?.transaction_costs_locale}</td>
+            {financialOverview?.year != filterValuesActive.year_all ? (
+                <LoadingCard />
+            ) : (
+                <div className="card-section">
+                    <div className="card-block card-block-table card-block-financial">
+                        <div className="table-wrapper">
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <ThSortable
+                                            label={translate('financial_dashboard_overview.labels.fund_name')}
+                                        />
+                                        <ThSortable
+                                            label={translate('financial_dashboard_overview.labels.total_budget')}
+                                        />
+                                        <ThSortable
+                                            label={translate('financial_dashboard_overview.labels.used_budget')}
+                                        />
+                                        <ThSortable
+                                            label={translate('financial_dashboard_overview.labels.current_budget')}
+                                        />
+                                        <ThSortable
+                                            className={'text-right'}
+                                            label={translate('financial_dashboard_overview.labels.transaction_costs')}
+                                        />
                                     </tr>
-                                ))}
 
-                                <tr className="table-totals">
-                                    <td>{translate('financial_dashboard_overview.labels.total')}</td>
-                                    <td>{financialOverview?.funds.budget_locale}</td>
-                                    <td>{financialOverview?.funds.budget_used_locale}</td>
-                                    <td>{financialOverview?.funds.budget_left_locale}</td>
-                                    <td className={'text-right'}>
-                                        {financialOverview?.funds.transaction_costs_locale}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    {funds.map((fund) => (
+                                        <tr key={fund.id}>
+                                            <td>{fund.name}</td>
+                                            <td>{fund.budget?.total_locale || <TableEmptyValue />}</td>
+                                            <td>{fund.budget?.used_locale || <TableEmptyValue />}</td>
+                                            <td>{fund.budget?.left_locale || <TableEmptyValue />}</td>
+                                            <td className={'text-right'}>{fund.budget?.transaction_costs_locale}</td>
+                                        </tr>
+                                    ))}
+
+                                    <tr className="table-totals">
+                                        <td>{translate('financial_dashboard_overview.labels.total')}</td>
+                                        <td>{financialOverview?.funds.budget_locale}</td>
+                                        <td>{financialOverview?.funds.budget_used_locale}</td>
+                                        <td>{financialOverview?.funds.budget_left_locale}</td>
+                                        <td className={'text-right'}>
+                                            {financialOverview?.funds.transaction_costs_locale}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }
