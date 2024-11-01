@@ -22,6 +22,7 @@ import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatProvider';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
+import KeyValueItem from '../../elements/key-value/KeyValueItem';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -81,7 +82,7 @@ export default function ProductsView() {
     );
 
     const changeFundExclusion = useCallback(
-        (fund, is_available) => {
+        (fund: ProductFundLocal, is_available: boolean) => {
             const values = is_available ? { enable_funds: [fund.id] } : { disable_funds: [fund.id] };
 
             productService
@@ -186,78 +187,114 @@ export default function ProductsView() {
                 </StateNavLink>
                 <div className="breadcrumb-item active">{product.name}</div>
             </div>
-            <div className="block block-provider-product">
-                <div className="product-overview">
-                    <div className="product-media">
-                        <img
-                            className="product-media-img"
-                            alt={product.name}
-                            src={product?.photo?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
-                        />
-                    </div>
-                    <div className="product-details">
-                        <div className="product-name">{product.name}</div>
-                        <div className="product-properties">
-                            <div className="product-property">
-                                <div className="product-property-label">{translate('product_edit.labels.expire')}</div>
-                                <div className="product-property-value">
-                                    {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
+
+            <div className="block block-product">
+                <div className="card">
+                    <div className="card-section">
+                        <div className="flex">
+                            <div className="flex-col">
+                                <div className="block-product-media">
+                                    <img
+                                        src={
+                                            product.photo?.sizes?.small ||
+                                            assetUrl('/assets/img/placeholders/product-small.png')
+                                        }
+                                        alt={product.name}
+                                    />
                                 </div>
                             </div>
-                            <div className="product-property">
-                                <div className="product-property-label">{translate('product_edit.labels.sold')}</div>
-                                <div className="product-property-value">{product.sold_amount}</div>
-                            </div>
-                            <div className="product-property">
-                                <div className="product-property-label">
-                                    {translate('product_edit.labels.reserved')}
+
+                            <div className="flex-col flex-grow">
+                                <div className="flex flex-row">
+                                    <div className="flex-col flex-grow">
+                                        <div className="block-product-details">
+                                            <div className="block-product-name">{product.name}</div>
+                                            <div className="block-product-price">{product.price_locale}</div>
+                                        </div>
+                                    </div>
+                                    <div className="flex-col"></div>
                                 </div>
-                                <div className="product-property-value">{product.reserved_amount}</div>
-                            </div>
-                            <div className="product-property">
-                                <div className="product-property-label">
-                                    {translate('product_edit.labels.available_offers')}
+
+                                {product.description_html && (
+                                    <div
+                                        className="block-product-description-body"
+                                        dangerouslySetInnerHTML={{ __html: product.description_html }}
+                                    />
+                                )}
+
+                                <div className="block-product-separator"></div>
+
+                                <div className="card-block card-block-keyvalue">
+                                    <div className="keyvalue-title">{translate('product.labels.details')}</div>
+                                    <KeyValueItem label={translate('product.labels.expire')}>
+                                        {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
+                                    </KeyValueItem>
+
+                                    <KeyValueItem label={translate('product.labels.sold')}>
+                                        {product.sold_amount}
+                                    </KeyValueItem>
+
+                                    <KeyValueItem label={translate('product.labels.reserved')}>
+                                        {product.reserved_amount}
+                                    </KeyValueItem>
+
+                                    <KeyValueItem label={translate('product.labels.available_offers')}>
+                                        {product.unlimited_stock
+                                            ? translate('product.labels.unlimited')
+                                            : product.stock_amount}
+                                    </KeyValueItem>
+
+                                    <KeyValueItem label={translate('product.labels.ean')}>
+                                        <div className="flex flex-vertical flex-gap">
+                                            <div>{product.ean ? product.ean : '-'}</div>
+
+                                            <div className="block block-info-box block-info-box-secondary block-info-box-dashed">
+                                                <em className="info-box-icon mdi mdi-information" />
+
+                                                <div className="info-box-content">
+                                                    <div className="block block-markdown">
+                                                        <TranslateHtml i18n={'product.tooltips.ean'} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </KeyValueItem>
+
+                                    <KeyValueItem label={translate('product.labels.sku')}>
+                                        <div className="flex flex-vertical flex-gap">
+                                            <div>{product.sku ? product.sku : '-'}</div>
+
+                                            <div className="block block-info-box block-info-box-secondary block-info-box-dashed">
+                                                <em className="info-box-icon mdi mdi-information" />
+
+                                                <div className="info-box-content">
+                                                    <div className="block block-markdown">
+                                                        <TranslateHtml i18n={'product.tooltips.sku'} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </KeyValueItem>
                                 </div>
-                                <div className="product-property-value">
-                                    {product.unlimited_stock
-                                        ? translate('product_edit.labels.unlimited')
-                                        : product.stock_amount}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="product-actions">
-                        <div className="product-price">{product.price_locale}</div>
-                    </div>
-                </div>
-                <div className="product-description">
-                    <div className="description-header">
-                        Beschrijving
-                        <div className="description-header-action">
-                            <div className="button-group">
-                                <a className="button button-primary" onClick={() => deleteProduct(product)}>
-                                    <em className="mdi mdi-delete icon-start"> </em>
-                                    {translate('product_card.buttons.delete')}
-                                </a>
-                                <StateNavLink
-                                    className="button button-default"
-                                    name={'products-edit'}
-                                    params={{
-                                        organizationId: activeOrganization.id,
-                                        id: product.id,
-                                    }}>
-                                    <em className="mdi mdi-pen icon-start"> </em>
-                                    {translate('product_card.buttons.edit')}
-                                </StateNavLink>
                             </div>
                         </div>
                     </div>
 
-                    <div className="description-body">
-                        <div className="arrow-box border bg-dim">
-                            <div className="arrow" />
-                        </div>
-                        {product.description_html ? <TranslateHtml i18n={product.description_html} /> : 'Geen data'}
+                    <div className="card-footer card-footer-primary flex flex-end">
+                        <a className="button button-primary" onClick={() => deleteProduct(product)}>
+                            <em className="mdi mdi-delete icon-start"> </em>
+                            {translate('product.buttons.delete')}
+                        </a>
+                        <StateNavLink
+                            className="button button-default"
+                            name={'products-edit'}
+                            params={{
+                                organizationId: activeOrganization.id,
+                                id: product.id,
+                            }}>
+                            <em className="mdi mdi-pen icon-start"> </em>
+                            {translate('product.buttons.edit')}
+                        </StateNavLink>
                     </div>
                 </div>
             </div>

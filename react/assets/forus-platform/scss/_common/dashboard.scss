@@ -36,7 +36,6 @@
     @import 'blocks/block-danger_zone';
     @import 'blocks/block-sessions';
     @import 'blocks/block-breadcrumbs';
-    @import 'blocks/block-provider-product';
     @import 'blocks/block-notifications';
     @import '../../../forus-webshop/scss/_common/components/ui-controls';
 }
@@ -98,6 +97,7 @@
 @import 'blocks/block-push-notifications.scss';
 @import 'blocks/block-collapsable.scss';
 @import 'blocks/block-fund-request-assigned.scss';
+@import 'blocks/block-product.scss';
 
 // Select controls
 .select-control {
@@ -1424,6 +1424,12 @@ body {
     &.card-block-keyvalue {
         margin-bottom: 10px;
         @include cf();
+
+        .keyvalue-title {
+            font: 600 14px/20px var(--base-font);
+            color: #151B26;
+            margin: 0 0 10px;
+        }
 
         .keyvalue-item {
             padding-bottom: 10px;

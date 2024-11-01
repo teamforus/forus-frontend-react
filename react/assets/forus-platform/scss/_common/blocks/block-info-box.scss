@@ -55,6 +55,15 @@
         }
     }
 
+    &.block-info-box-secondary {
+        background-color: #ffffff;
+        border-style: solid;
+
+        .info-box-icon {
+            color: #009ef4;
+        }
+    }
+
     &.block-info-box-default {
         background-color: #f7f9fc;
         border-style: solid;

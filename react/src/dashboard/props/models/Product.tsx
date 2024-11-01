@@ -97,4 +97,6 @@ export default interface Product {
     }>;
     deals_history?: Array<DealHistory>;
     is_available?: boolean;
+    ean?: string;
+    sku?: string;
 }
