@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import Tooltip from '../../tooltip/Tooltip';
 import { uniqueId } from 'lodash';
+import classNames from 'classnames';
 
 export default function ToggleControl({
     id,
@@ -31,7 +32,7 @@ export default function ToggleControl({
         <label
             htmlFor={formId}
             title={title}
-            className={`form-toggle ${className} ${disabled ? 'form-toggle-disabled' : ''}`}>
+            className={classNames('form-toggle', className, disabled && 'form-toggle-disabled')}>
             <input
                 type="checkbox"
                 value={value}

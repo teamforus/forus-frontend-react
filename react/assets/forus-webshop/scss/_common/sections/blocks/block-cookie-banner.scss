@@ -1,0 +1,240 @@
+.block.block-cookie-banner {
+    box-shadow: 2px 8px 14px 0 rgba(0, 0, 0, 0.1);
+    width: 340px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    background: #fff;
+    padding: 25px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: var(--border-radius);
+    cursor: default;
+
+    .cookie-banner-icon {
+        display: flex;
+    }
+
+    .cookie-banner-title {
+        font: 700 18px/24px var(--base-font);
+        margin: 0 0 -10px;
+    }
+
+    .cookie-banner-description {
+        font: 400 14px/20px var(--base-font);
+
+        .cookie-banner-description-link {
+            font: inherit;
+            cursor: pointer;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .cookie-banner-actions {
+        gap: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .cookie-banner-button {
+            width: 100%;
+        }
+    }
+
+    .cookie-banner-button {
+        margin: 0 0;
+    }
+
+    .cookie-banner-config {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 3px;
+        cursor: pointer;
+        text-decoration: underline;
+        font: 600 14px/20px var(--base-font);
+
+        .mdi {
+            line-height: 20px;
+            height: 18px;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .cookie-configs {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        .cookie-configs-wrapper {
+            width: 100%;
+            margin: 0 auto;
+            max-width: 1220px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cookie-configs-header,
+        .cookie-configs-body,
+        .cookie-configs-footer {
+            padding: 20px 25px;
+        }
+
+        .cookie-configs-header {
+            border-bottom: 1px solid #e5e5e5;
+
+            .cookie-configs-wrapper {
+                gap: 5px;
+            }
+
+            .cookie-configs-header-close {
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            .cookie-configs-header-title {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                justify-content: space-between;
+                font: 700 18px/24px var(--base-font);
+            }
+
+            .cookie-configs-header-description {
+                font: 400 14px/20px var(--base-font);
+            }
+        }
+
+        .cookie-configs-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px 25px 20px;
+            background: #fbfbfb;
+
+            .cookie-configs-wrapper {
+                gap: 10px;
+            }
+
+            .cookie-configs-body-title {
+                font: 600 14px/20px var(--base-font);
+            }
+
+            .cookie-configs-toggles {
+                border: 1px solid #e5e5e5;
+                background: #fff;
+                border-radius: var(--border-radius);
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                .cookie-configs-toggle {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    .cookie-configs-toggle-title {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        font: 700 16px/24px var(--base-font);
+                        align-items: center;
+                    }
+
+                    .cookie-configs-toggle-details {
+                        font: 400 13px/18px var(--base-font);
+                    }
+
+                    .cookie-configs-toggle-more {
+                        font: 500 13px/24px var(--base-font);
+                        display: inline-flex;
+                        width: fit-content;
+                        align-items: center;
+                        flex-direction: row;
+                        text-decoration: underline;
+                        gap: 2px;
+                        cursor: pointer;
+
+                        .mdi {
+                            line-height: 18px;
+                            height: 16px;
+                            font-size: 16px;
+                        }
+
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+                }
+
+                .cookie-configs-toggle-separator {
+                    height: 1px;
+                    width: 100%;
+                    background: #e5e5e5;
+                }
+            }
+        }
+
+        .cookie-configs-footer {
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+
+            .cookie-configs-wrapper {
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+    }
+
+    &.block-cookie-banner-config {
+        left: 20px;
+        width: auto;
+        padding: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        width: auto;
+        padding: 20px;
+        text-align: center;
+        align-items: center;
+        gap: 15px;
+
+        &.block-cookie-banner-config {
+            text-align: left;
+            align-items: flex-start;
+
+            .cookie-configs {
+                .cookie-configs-header,
+                .cookie-configs-body,
+                .cookie-configs-footer {
+                    padding: 15px 20px;
+                }
+
+                .cookie-configs-header {
+                    .cookie-configs-header-title {
+                        font-size: 16px;
+                    }
+                }
+
+                .cookie-configs-footer {
+                    .cookie-configs-wrapper {
+                        gap: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
