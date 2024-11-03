@@ -100,7 +100,6 @@ export default function VouchersTableHeader({
                         <div className="form">
                             <div className="form-group">
                                 <SelectControl
-                                    className="form-control inline-filter-control"
                                     propKey={'id'}
                                     options={funds}
                                     value={filter.activeValues.fund_id}
