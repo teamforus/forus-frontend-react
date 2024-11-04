@@ -883,6 +883,35 @@ export default {
         },
     },
 
+    // PRODUCTS = product.pug
+    sponsor_products: {
+        offers: 'Aanbod',
+        labels: {
+            name: 'Aanbod',
+            provider_name: 'Aanbieder',
+            last_updated: 'Laatste wijziging',
+            nr_funds: 'Aantal fondsen',
+            nr_changes: 'Aantal wijzigingen',
+            fund: 'Fonds',
+            price: 'Prijs',
+            stock_amount: 'Voorraad',
+            categorie: 'Categorie',
+            created_at: 'Aanmaakdatum',
+            actions: 'Actie',
+        },
+        filters: {
+            search: 'Zoeken',
+            implementation: 'Implementatie',
+            amount: 'Bedrag',
+            state: 'Status',
+        },
+        states: {
+            approved: 'Goedgekeurd',
+            declined: 'Geweigerd',
+            waiting: 'In afwachting',
+        },
+    },
+
     // PROVIDER IDENTITIES = provider-identities.pug
     provider_identities: {
         labels: {

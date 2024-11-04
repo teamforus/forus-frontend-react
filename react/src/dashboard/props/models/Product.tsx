@@ -64,6 +64,7 @@ export default interface Product {
             price?: string;
             price_locale?: string;
             vouchers?: Array<Voucher>;
+            fund_providers?: Array<Organization>;
         }
     >;
     offices: Array<Office>;
@@ -97,4 +98,9 @@ export default interface Product {
     }>;
     deals_history?: Array<DealHistory>;
     is_available?: boolean;
+    updated_at?: string;
+    updated_at_locale?: string;
+    created_at?: string;
+    created_at_locale?: string;
+    digest_logs_count?: number;
 }

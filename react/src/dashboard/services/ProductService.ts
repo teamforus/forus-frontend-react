@@ -42,6 +42,20 @@ export class ProductService<T = Product> {
     }
 
     /**
+     * Fetch list sponsor products
+     */
+    public sponsorProducts(sponsor_organization_id: number, data = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products`, data);
+    }
+
+    /**
+     * Fetch list sponsor products
+     */
+    public sponsorDigestLogs(sponsor_organization_id: number, data = {}): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products/logs`, data);
+    }
+
+    /**
      * Fetch the list of product funds
      */
     public listProductFunds(organization_id: number, id: number, data: object = {}): Promise<ApiResponse<ProductFund>> {

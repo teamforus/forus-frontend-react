@@ -89,6 +89,8 @@ import SponsorFundUnsubscriptions from '../components/pages/sponsor-fund-unsubsc
 import OrganizationsContacts from '../components/pages/organizations-contacts/OrganizationsContacts';
 import Payouts from '../components/pages/payouts/Payouts';
 import PayoutsView from '../components/pages/payouts-view/PayoutsView';
+import SponsorProducts from '../components/pages/products/sponsor/SponsorProducts';
+import SponsorProductLogs from '../components/pages/products/sponsor/SponsorProductLogs';
 
 const router = new RouterBuilder();
 
@@ -205,6 +207,18 @@ router.state('pre-check', <PreCheck />, {
 router.state('sponsor-provider-organizations', <SponsorProviderOrganizations />, {
     path: `/organisaties/:organizationId/aanbieders`,
     altPath: `/organizations/:organizationId/providers`,
+    fallbackState: 'organizations',
+});
+
+router.state('sponsor-products', <SponsorProducts />, {
+    path: `/organisaties/:organizationId/sponsor/products`,
+    altPath: `/organizations/:organizationId/sponsor/products`,
+    fallbackState: 'organizations',
+});
+
+router.state('sponsor-product-logs', <SponsorProductLogs />, {
+    path: `/organisaties/:organizationId/sponsor/fund/:fundId:/fund_provider/:fundProviderId/product/:id`,
+    altPath: `/organizations/:organizationId/sponsor/fund/:fundId:/fund_provider/:fundProviderId/product/:id`,
     fallbackState: 'organizations',
 });
 
