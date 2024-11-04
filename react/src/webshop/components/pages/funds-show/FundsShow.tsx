@@ -17,8 +17,6 @@ import Markdown from '../../elements/markdown/Markdown';
 import BlockCard2FAWarning from '../../elements/block-card-2fa-warning/BlockCard2FAWarning';
 import useSetTitle from '../../../hooks/useSetTitle';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
-import BlockLoader from '../../elements/block-loader/BlockLoader';
-import BlockLoaderBreadcrumbs from '../../elements/block-loader/BlockLoaderBreadcrumbs';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import FundFaq from './elements/FundFaq';
 import FundProductsBlock from './elements/FundProductsBlock';
@@ -42,12 +40,12 @@ export default function FundsShow() {
     const voucherService = useVoucherService();
     const recordTypesService = useRecordTypeService();
 
+    const { showBack } = useStateParams<{ showBack: boolean }>();
+
     const [fund, setFund] = useState<Fund>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
     const fundMeta = useFundMeta(fund, vouchers || [], appConfigs);
-
-    const { searchParams } = useStateParams();
 
     const recordsByTypesKey = useMemo(async () => {
         return recordTypesService.list().then((res) => {
@@ -129,10 +127,7 @@ export default function FundsShow() {
             setTitle(
                 translate(
                     `custom_page_state_titles.${envData?.client_key}.fund`,
-                    {
-                        fund_name: fund?.name || '',
-                        organization_name: fund?.organization?.name || '',
-                    },
+                    { fund_name: fund?.name || '', organization_name: fund?.organization?.name || '' },
                     'page_state_titles.fund',
                 ),
             );
@@ -141,191 +136,163 @@ export default function FundsShow() {
 
     return (
         <BlockShowcase
-            breadcrumbItems={[]}
             wrapper={true}
-            loaderElement={
-                <section className="section section-fund">
-                    <div className="wrapper">
-                        <BlockLoaderBreadcrumbs />
-                        <BlockLoader />
-                    </div>
-                </section>
+            breadcrumbItems={
+                fund && [
+                    showBack && { name: 'Terug', back: true },
+                    { name: 'Home', state: 'home' },
+                    {
+                        name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title'),
+                        state: 'funds',
+                    },
+                    { name: fund?.name },
+                ]
             }>
             {fund && fundMeta && (
-                <section className="section section-fund">
-                    <div className="wrapper">
-                        <div className="block block-breadcrumbs">
-                            {searchParams && (
-                                <StateNavLink
-                                    name="search-result"
-                                    params={searchParams || null}
-                                    className="breadcrumb-item breadcrumb-item-back">
-                                    <em className="mdi mdi-chevron-left" />
-                                    Terug
-                                </StateNavLink>
-                            )}
-                            <StateNavLink name={'home'} className="breadcrumb-item">
-                                Home
-                            </StateNavLink>
-                            <StateNavLink name={'funds'} className="breadcrumb-item" activeExact={true}>
-                                {translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title')}
-                            </StateNavLink>
-                            <a className="breadcrumb-item active" aria-current="location">
-                                {fund?.name}
-                            </a>
-                        </div>
-                        <div className="block block-fund">
-                            <div className="fund-content">
-                                <div className="fund-card">
-                                    <h1 className="fund-name">{fund?.name}</h1>
+                <Fragment>
+                    <div className="block block-fund">
+                        <div className="fund-content">
+                            <div className="fund-card">
+                                <h1 className="fund-name">{fund?.name}</h1>
 
-                                    {fund?.description_short && (
-                                        <div className="fund-description">
-                                            <div className="block block-markdown">
-                                                <p>{fund.description_short}</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {!fund.hide_meta && (
-                                        <div className="fund-details-items">
-                                            <div className="fund-details-item">
-                                                <div className="fund-details-item-label">Uitgifte door:</div>
-                                                <div className="fund-details-item-value">{fund.organization?.name}</div>
-                                            </div>
-                                            {fund.type == 'budget' &&
-                                                formulaList.multiply?.map((formula, index) => (
-                                                    <div key={index} className="fund-details-item">
-                                                        <div className="fund-details-item-label">
-                                                            {translate('fund.criterias.multiplied_amount')}
-                                                        </div>
-                                                        <div className="fund-details-item-value">
-                                                            {formula.amount_locale}
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            {fund.key != 'IIT' && (
-                                                <div className="fund-details-item">
-                                                    <div className="fund-details-item-label">Startdatum:</div>
-                                                    <div className="fund-details-item-value">
-                                                        {fund.start_date_locale}
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {fund.key != 'IIT' && (
-                                                <div className="fund-details-item">
-                                                    <div className="fund-details-item-label">Einddatum:</div>
-                                                    <div className="fund-details-item-value">
-                                                        {fund.end_date_locale}
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="fund-actions">
-                                    <div className="button-group">
-                                        {fund.external_link_text && fund.external_link_url && (
-                                            <a
-                                                className={`button button ${
-                                                    fundMeta.linkPrimaryButton
-                                                        ? 'button-primary'
-                                                        : 'button-primary-outline'
-                                                }`}
-                                                target="_blank"
-                                                href={fund.external_link_url}
-                                                rel="noreferrer">
-                                                {fund.external_link_text}
-                                                <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
-                                            </a>
-                                        )}
-
-                                        {fundMeta.showRequestButton && (
-                                            <StateNavLink
-                                                name={'fund-activate'}
-                                                params={{ id: fund.id }}
-                                                className="button button-primary">
-                                                {fund.request_btn_text}
-                                                <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
-                                            </StateNavLink>
-                                        )}
-
-                                        {fundMeta.showActivateButton && (
-                                            <a
-                                                className="button button-primary"
-                                                type="button"
-                                                onClick={(e) => applyFund(e, fund)}>
-                                                {translate('funds.buttons.is_applicable')}
-                                                <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
-                                            </a>
-                                        )}
-
-                                        {fundMeta && fundMeta.hasVouchers && (
-                                            <StateNavLink
-                                                name={'voucher'}
-                                                params={{ number: fundMeta.vouchers[0]?.number }}
-                                                className="button button-primary">
-                                                {translate(
-                                                    `funds.buttons.${fund.key}.already_received`,
-                                                    {},
-                                                    'funds.buttons.already_received',
-                                                )}
-                                                <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
-                                            </StateNavLink>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {fundMeta.showPendingButton && (
-                                    <div className="block block-action-card block-action-card-compact">
-                                        <div className="block-card-logo">
-                                            <IconFundRequest />
-                                        </div>
-                                        <div className="block-card-details">
-                                            <h3 className="block-card-title">
-                                                We zijn uw aanvraag aan het controleren
-                                            </h3>
-                                        </div>
-                                        <div className="block-card-actions">
-                                            <StateNavLink
-                                                name={'fund-requests'}
-                                                params={{ id: fund.id }}
-                                                className="button button-primary">
-                                                {translate('funds.buttons.check_status')}
-                                                <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
-                                            </StateNavLink>
+                                {fund?.description_short && (
+                                    <div className="fund-description">
+                                        <div className="block block-markdown">
+                                            <p>{fund.description_short}</p>
                                         </div>
                                     </div>
                                 )}
+
+                                {!fund.hide_meta && (
+                                    <div className="fund-details-items">
+                                        <div className="fund-details-item">
+                                            <div className="fund-details-item-label">Uitgifte door:</div>
+                                            <div className="fund-details-item-value">{fund.organization?.name}</div>
+                                        </div>
+                                        {fund.type == 'budget' &&
+                                            formulaList.multiply?.map((formula, index) => (
+                                                <div key={index} className="fund-details-item">
+                                                    <div className="fund-details-item-label">
+                                                        {translate('fund.criterias.multiplied_amount')}
+                                                    </div>
+                                                    <div className="fund-details-item-value">
+                                                        {formula.amount_locale}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        {fund.key != 'IIT' && (
+                                            <div className="fund-details-item">
+                                                <div className="fund-details-item-label">Startdatum:</div>
+                                                <div className="fund-details-item-value">{fund.start_date_locale}</div>
+                                            </div>
+                                        )}
+                                        {fund.key != 'IIT' && (
+                                            <div className="fund-details-item">
+                                                <div className="fund-details-item-label">Einddatum:</div>
+                                                <div className="fund-details-item-value">{fund.end_date_locale}</div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
-                        </div>
 
-                        <div className={`flex flex-vertical`}>
-                            {authIdentity && fund && <BlockCard2FAWarning fund={fund} />}
+                            <div className="fund-actions">
+                                <div className="button-group">
+                                    {fund.external_link_text && fund.external_link_url && (
+                                        <a
+                                            className={`button button ${
+                                                fundMeta.linkPrimaryButton ? 'button-primary' : 'button-primary-outline'
+                                            }`}
+                                            target="_blank"
+                                            href={fund.external_link_url}
+                                            rel="noreferrer">
+                                            {fund.external_link_text}
+                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                                        </a>
+                                    )}
 
-                            {fund.description_position == 'before' ? (
-                                <Fragment>
-                                    <div>
-                                        {fund.description_html && <Markdown content={fund.description_html} />}
-                                        <FundFaq fund={fund} />
+                                    {fundMeta.showRequestButton && (
+                                        <StateNavLink
+                                            name={'fund-activate'}
+                                            params={{ id: fund.id }}
+                                            className="button button-primary">
+                                            {fund.request_btn_text}
+                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                                        </StateNavLink>
+                                    )}
+
+                                    {fundMeta.showActivateButton && (
+                                        <a
+                                            className="button button-primary"
+                                            type="button"
+                                            onClick={(e) => applyFund(e, fund)}>
+                                            {translate('funds.buttons.is_applicable')}
+                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                                        </a>
+                                    )}
+
+                                    {fundMeta && fundMeta.hasVouchers && (
+                                        <StateNavLink
+                                            name={'voucher'}
+                                            params={{ number: fundMeta.vouchers[0]?.number }}
+                                            className="button button-primary">
+                                            {translate(
+                                                `funds.buttons.${fund.key}.already_received`,
+                                                {},
+                                                'funds.buttons.already_received',
+                                            )}
+                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                                        </StateNavLink>
+                                    )}
+                                </div>
+                            </div>
+
+                            {fundMeta.showPendingButton && (
+                                <div className="block block-action-card block-action-card-compact">
+                                    <div className="block-card-logo">
+                                        <IconFundRequest />
                                     </div>
-
-                                    <FundProductsBlock fund={fund} />
-                                </Fragment>
-                            ) : (
-                                <Fragment>
-                                    <FundProductsBlock fund={fund} />
-
-                                    <div>
-                                        {fund.description_html && <Markdown content={fund.description_html} />}
-                                        <FundFaq fund={fund} />
+                                    <div className="block-card-details">
+                                        <h3 className="block-card-title">We zijn uw aanvraag aan het controleren</h3>
                                     </div>
-                                </Fragment>
+                                    <div className="block-card-actions">
+                                        <StateNavLink
+                                            name={'fund-requests'}
+                                            params={{ id: fund.id }}
+                                            className="button button-primary">
+                                            {translate('funds.buttons.check_status')}
+                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                                        </StateNavLink>
+                                    </div>
+                                </div>
                             )}
                         </div>
                     </div>
-                </section>
+
+                    <div className={`flex flex-vertical`}>
+                        {authIdentity && fund && <BlockCard2FAWarning fund={fund} />}
+
+                        {fund.description_position == 'before' ? (
+                            <Fragment>
+                                <div>
+                                    {fund.description_html && <Markdown content={fund.description_html} />}
+                                    <FundFaq fund={fund} />
+                                </div>
+
+                                <FundProductsBlock fund={fund} />
+                            </Fragment>
+                        ) : (
+                            <Fragment>
+                                <FundProductsBlock fund={fund} />
+
+                                <div>
+                                    {fund.description_html && <Markdown content={fund.description_html} />}
+                                    <FundFaq fund={fund} />
+                                </div>
+                            </Fragment>
+                        )}
+                    </div>
+                </Fragment>
             )}
         </BlockShowcase>
     );

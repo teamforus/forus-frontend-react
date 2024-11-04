@@ -1,23 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import useEnvData from '../../hooks/useEnvData';
+import useReadSpeakerHref from './hooks/useReadSpeakerHref';
 
 export default function ReadSpeakerButton({ className, targetId }: { className?: string; targetId: string }) {
-    const envData = useEnvData();
-    const { read_speaker_id, read_speaker_region } = envData?.config || {};
+    const href = useReadSpeakerHref(targetId);
 
-    const href = useMemo(() => {
-        const url = new URL('https://app-eu.readspeaker.com/cgi-bin/rsent');
-
-        url.searchParams.append('customerid', read_speaker_id);
-        url.searchParams.append('lang', 'nl_nl');
-        url.searchParams.append('voice', 'Alex');
-        url.searchParams.append('readid', targetId);
-
-        return url.toString();
-    }, [read_speaker_id, targetId]);
-
-    if (!read_speaker_region || !read_speaker_id || !href) {
+    if (!href) {
         return null;
     }
 

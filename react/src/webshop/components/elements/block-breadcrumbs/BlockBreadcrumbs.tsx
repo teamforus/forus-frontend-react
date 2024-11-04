@@ -1,12 +1,15 @@
 import React, { Fragment, ReactNode, useMemo } from 'react';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 export type Breadcrumb = {
     name: string;
     state?: string;
+    stateQuery?: object;
     stateParams?: object;
     className?: string;
+    back?: boolean;
 };
 
 export default function BlockBreadcrumbs({
@@ -18,6 +21,8 @@ export default function BlockBreadcrumbs({
     className?: string;
     after?: ReactNode;
 }) {
+    const navigate = useNavigate();
+
     const list = useMemo(() => {
         return items.filter((item) => item);
     }, [items]);
@@ -29,11 +34,22 @@ export default function BlockBreadcrumbs({
                     {item?.state ? (
                         <StateNavLink
                             name={item?.state}
+                            query={item.stateQuery}
                             params={item.stateParams}
                             className={classNames('breadcrumb-item', item.className)}
                             activeExact={true}>
                             {item.name}
                         </StateNavLink>
+                    ) : item?.back ? (
+                        <div
+                            className={classNames(
+                                'breadcrumb-item breadcrumb-item-back state-nav-link',
+                                item.className,
+                            )}
+                            onClick={() => navigate(-1)}>
+                            <em className={`mdi mdi-chevron-left`} />
+                            {item.name}
+                        </div>
                     ) : (
                         <div
                             className={classNames('breadcrumb-item', 'active', item.className)}
@@ -42,7 +58,7 @@ export default function BlockBreadcrumbs({
                         </div>
                     )}
 
-                    {index < list.length - 1 && <div className="breadcrumb-item-separator">/</div>}
+                    {index < list.length - 1 && !item.back && <div className="breadcrumb-item-separator">/</div>}
                 </Fragment>
             ))}
             {after}

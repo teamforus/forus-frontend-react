@@ -50,7 +50,7 @@ export default function ProductsShow() {
     const [provider, setProvider] = useState<Provider>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
-    const { searchParams } = useStateParams();
+    const { showBack } = useStateParams<{ showBack: boolean }>();
 
     const hasBudgetFunds = useMemo(() => {
         return product?.funds.filter((fund) => fund.type === 'budget').length > 0;
@@ -153,14 +153,16 @@ export default function ProductsShow() {
     return (
         <BlockShowcase
             wrapper={true}
-            breadcrumbItems={[
-                searchParams && { name: 'Terug', state: searchParams, className: 'breadcrumb-item-back' },
-                { name: translate('product.headers.home'), state: 'home' },
-                hasBudgetFunds && { name: translate('product.headers.products'), state: 'products' },
-                hasSubsidyFunds &&
-                    !hasBudgetFunds && { name: translate('product.headers.subsidies'), state: 'actions' },
-                product && { name: product.name },
-            ]}>
+            breadcrumbItems={
+                product && [
+                    showBack && { name: 'Terug', back: true },
+                    { name: translate('product.headers.home'), state: 'home' },
+                    hasBudgetFunds && { name: translate('product.headers.products'), state: 'products' },
+                    hasSubsidyFunds &&
+                        !hasBudgetFunds && { name: translate('product.headers.subsidies'), state: 'actions' },
+                    product && { name: product.name },
+                ]
+            }>
             {product && funds && vouchers && (
                 <section className="section section-product">
                     <div className="block block-product">

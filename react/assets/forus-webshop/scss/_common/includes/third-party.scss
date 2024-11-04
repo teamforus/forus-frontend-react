@@ -398,6 +398,7 @@
 .rs_addtools, .rsbtn {
     margin: 0 0 !important;
     display: flex;
+    z-index: initial !important;
 
     .rsbtn_toolpanel {
         position: absolute !important;

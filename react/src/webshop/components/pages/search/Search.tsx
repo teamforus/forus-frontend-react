@@ -37,7 +37,7 @@ export default function Search() {
     const { searchFilter } = useContext(mainContext);
 
     const [displayType, setDisplayType] = useState<'list' | 'grid'>('list');
-    const [searchItems, setSearchItems] = useState<PaginationData<SearchItem & { searchParams?: object }>>(null);
+    const [searchItems, setSearchItems] = useState<PaginationData<SearchItem & { stateParams?: object }>>(null);
 
     const globalQuery = useMemo(() => searchFilter?.values?.q, [searchFilter?.values?.q]);
     const [globalInitialized, setGlobalInitialized] = useState(false);
@@ -110,7 +110,7 @@ export default function Search() {
     const transformItems = useCallback(function (items: PaginationData<SearchItem>, stateParams: object) {
         return {
             ...items,
-            ...{ data: items.data.map((item: SearchItem) => ({ ...item, ...{ searchParams: stateParams } })) },
+            ...{ data: items.data.map((item: SearchItem) => ({ ...item, stateParams })) },
         };
     }, []);
 
@@ -212,9 +212,7 @@ export default function Search() {
                     filterValuesActive.products ? 'products' : null,
                 ].filter((type) => type),
             },
-            {
-                foo: 'bar',
-            },
+            { showBack: true },
         );
     }, [doSearch, filterValuesActive, sortByOptions]);
 

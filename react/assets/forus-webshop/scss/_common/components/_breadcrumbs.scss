@@ -30,6 +30,7 @@
         &.breadcrumb-item-back {
             color: var(--color-primary-light);
             margin-right: 30px;
+            white-space: nowrap;
 
             &:after {
                 content: none;
