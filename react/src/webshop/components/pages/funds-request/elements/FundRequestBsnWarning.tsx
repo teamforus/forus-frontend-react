@@ -22,7 +22,7 @@ export default function FundRequestBsnWarning({
             return;
         }
 
-        const timeOffset = appConfigs.bsn_confirmation_offset || 300;
+        const timeOffset = Math.min(appConfigs.bsn_confirmation_offset || 300, fund.bsn_confirmation_time / 2);
         const timeBeforeReConfirmation = Math.max((fund.bsn_confirmation_time || 0) - authIdentity.bsn_time, 0);
         const timeBeforeWarning = Math.max(timeBeforeReConfirmation - timeOffset, 0);
 

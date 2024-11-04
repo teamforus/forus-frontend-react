@@ -52,14 +52,23 @@ export default function ClickOutside({
             return;
         }
 
+        let destroyed = false;
+
         if (bindDelayValue) {
-            window.setTimeout(() => body.addEventListener('click', clickHandler, false), bindDelayValue);
+            window.setTimeout(() => {
+                if (!destroyed) {
+                    body.addEventListener('click', clickHandler, false);
+                }
+            }, bindDelayValue);
         } else {
             body.addEventListener('click', clickHandler, false);
         }
 
-        return () => body.removeEventListener('click', clickHandler, false);
-    }, [body, clickHandler, bindDelayValue, disabled]);
+        return () => {
+            destroyed = true;
+            body.removeEventListener('click', clickHandler, false);
+        };
+    }, [body, clickHandler, bindDelayValue, disabled, onClickOutside, elRef]);
 
     return (
         <div className={className} data-dusk={dataDusk} style={style || {}} {...attr} ref={elRef || ref}>

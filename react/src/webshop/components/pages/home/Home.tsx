@@ -28,10 +28,11 @@ export default function Home() {
     const appConfigs = useAppConfigs();
 
     const setTitle = useSetTitle();
+    const openModal = useOpenModal();
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
-    const openModal = useOpenModal();
+
     const { closeModal } = useContext(modalsContext);
 
     const authIdentity = useAuthIdentity();
@@ -112,6 +113,9 @@ export default function Home() {
         if (!stateParams?.session_expired) {
             return;
         }
+
+        // clear session_expired state
+        window.history.replaceState({}, '');
 
         const modal = openModal((modal) => (
             <ModalNotification
@@ -347,7 +351,7 @@ export default function Home() {
                                 <p className="block-description">
                                     Leergeld Nijmegen heeft als doel alle Nijmeegse kinderen mee te laten doen. Voor
                                     kinderen uit gezinnen met een laag inkomen kan dit een probleem zijn. Leergeld
-                                    Nijmegen biedt de mogelijkheid aan deze kinderen in de leeftijd van 4 tot en met 17
+                                    Nijmegen biedt de mogelijkheid aan deze kinderen in de leeftijd van 0 tot en met 17
                                     jaar om te kunnen deelnemen aan allerlei activiteiten.
                                 </p>
                                 <ul className="block-list">

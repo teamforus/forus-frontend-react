@@ -104,7 +104,7 @@ export default function Funds() {
         setProgress(0);
 
         organizationService
-            .list({ implementation: 1, is_employee: 0 })
+            .list({ type: 'sponsor' })
             .then((res) => setOrganizations([{ id: null, name: 'Alle organisaties' }, ...res.data.data]))
             .finally(() => setProgress(100));
     }, [organizationService, setProgress]);

@@ -92,7 +92,9 @@ export default function FundActivate() {
                 return null;
             }
 
-            const timeOffset = witOffset ? appConfigs.bsn_confirmation_offset || 300 : 0;
+            const timeOffset = witOffset
+                ? Math.min(appConfigs.bsn_confirmation_offset || 300, fund.bsn_confirmation_time / 2)
+                : 0;
 
             if (fund.bsn_confirmation_time === null || !identity.bsn) {
                 return null;
