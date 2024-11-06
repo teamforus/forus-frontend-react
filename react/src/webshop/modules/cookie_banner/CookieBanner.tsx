@@ -3,12 +3,16 @@ import IconCookies from '../../../../assets/forus-webshop/resources/_webshop-com
 import classNames from 'classnames';
 import CookieBannerToggle from './CookieBannerToggle';
 import StateNavLink from '../state_router/StateNavLink';
+import EnvDataWebshopProp from '../../../props/EnvDataWebshopProp';
 
 export default function CookieBanner({
+    envData,
     setAllowOptionalCookies,
 }: {
+    envData: EnvDataWebshopProp;
     setAllowOptionalCookies: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+    const { matomo_url, matomo_site_id, site_improve_analytics_id, aws_rum } = envData?.config || {};
     const [showConfigs, setShowConfigs] = useState(false);
 
     const [functionalAccepted, setFunctionalAccepted] = useState(true);
@@ -29,6 +33,10 @@ export default function CookieBanner({
     useEffect(() => {
         setAllowOptionalCookies(cookiesAccepted === 'all');
     }, [cookiesAccepted, setAllowOptionalCookies]);
+
+    if (!matomo_url && !matomo_site_id && !site_improve_analytics_id && !aws_rum) {
+        return null;
+    }
 
     if (cookiesAccepted) {
         return null;

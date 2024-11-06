@@ -132,7 +132,7 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                             </PrintableProvider>
                         </LoadingBarProvider>
 
-                        <CookieBanner setAllowOptionalCookies={setAllowOptionalCookies} />
+                        <CookieBanner envData={envData} setAllowOptionalCookies={setAllowOptionalCookies} />
                         <AwsRumScript awsRum={envData.config?.aws_rum} cookiesAccepted={allowOptionalCookies} />
                         <MatomoScript envData={envData} cookiesAccepted={allowOptionalCookies} />
                         <SiteImproveAnalytics envData={envData} cookiesAccepted={allowOptionalCookies} />
