@@ -5,7 +5,6 @@ import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import { strLimit } from '../../../helpers/string';
 import FundRequest from '../../../props/models/FundRequest';
-import ThSortable from '../../elements/tables/ThSortable';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
@@ -35,7 +34,6 @@ import { NumberParam, StringParam } from 'use-query-params';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function FundRequests() {
@@ -94,16 +92,6 @@ export default function FundRequests() {
         [totals, translate],
     );
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(fundRequestService.getColumns());
-
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q?: string;
         page?: number;
@@ -147,6 +135,11 @@ export default function FundRequests() {
             },
         },
     );
+
+    const { headElement, configsElement } = useConfigurableTable(fundRequestService.getColumns(), {
+        sortable: true,
+        filter,
+    });
 
     const fetchFundRequests = useCallback(() => {
         setProgress(0);
@@ -339,26 +332,8 @@ export default function FundRequests() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                                filter={filter}
-                                                value={column.key}
-                                                label={translate(column.label)}
-                                            />
-                                        ))}
+                                {headElement}
 
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {fundRequests?.data.map((fundRequest) => (
                                         <StateNavLink

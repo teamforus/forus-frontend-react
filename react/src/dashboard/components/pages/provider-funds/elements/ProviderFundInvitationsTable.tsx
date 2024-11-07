@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useFilter from '../../../../hooks/useFilter';
 import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
@@ -16,9 +16,7 @@ import usePaginatorService from '../../../../modules/paginator/services/usePagin
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import ThSortable from '../../../elements/tables/ThSortable';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_class?: string;
@@ -48,16 +46,6 @@ export default function ProviderFundInvitationsTable({
     const [invitations, setInvitations] = useState<PaginationData<FundProviderInvitationLocal>>(null);
     const [paginatorKey] = useState(`provider_fund_${type}`);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(fundProviderInvitationsService.getColumns());
-
     const filter = useFilter({
         q: '',
         from: '',
@@ -75,6 +63,21 @@ export default function ProviderFundInvitationsTable({
             selected_active: list?.filter((item) => item.can_be_accepted),
         };
     }, [invitations?.data, selected]);
+
+    const { headElement, configsElement } = useConfigurableTable(fundProviderInvitationsService.getColumns(), {
+        trPrepend: (
+            <Fragment>
+                {[null, 'pending'].includes(filter.values.state) && (
+                    <th className="th-narrow">
+                        <TableCheckboxControl
+                            checked={selected.length == invitations.data.length}
+                            onClick={(e) => toggleAll(e, invitations.data)}
+                        />
+                    </th>
+                )}
+            </Fragment>
+        ),
+    });
 
     const acceptInvitations = useCallback(
         (invitations: Array<FundProviderInvitation> = []) => {
@@ -187,33 +190,8 @@ export default function ProviderFundInvitationsTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {[null, 'pending'].includes(filter.values.state) && (
-                                            <th className="th-narrow">
-                                                <TableCheckboxControl
-                                                    checked={selected.length == invitations.data.length}
-                                                    onClick={(e) => toggleAll(e, invitations.data)}
-                                                />
-                                            </th>
-                                        )}
+                                {headElement}
 
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {invitations.data?.map((invitation) => (
                                         <tr

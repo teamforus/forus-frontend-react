@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
@@ -21,11 +21,9 @@ import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import classNames from 'classnames';
-import ThSortable from '../../../elements/tables/ThSortable';
 
 export default function ProviderFundsTable({
     type,
@@ -51,16 +49,6 @@ export default function ProviderFundsTable({
     const [paginatorKey] = useState(`provider_funds_${type}`);
     const [providerFunds, setProviderFunds] = useState<PaginationData<FundProvider>>(null);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(providerFundService.getColumns(type));
-
     const filter = useFilter({
         q: '',
         per_page: paginatorService.getPerPage(paginatorKey),
@@ -77,6 +65,21 @@ export default function ProviderFundsTable({
             selected_unsubscribe: list?.filter((item) => item.can_unsubscribe),
         };
     }, [providerFunds?.data, selected]);
+
+    const { headElement, configsElement } = useConfigurableTable(providerFundService.getColumns(type), {
+        trPrepend: (
+            <Fragment>
+                {type !== 'archived' && (
+                    <th className="th-narrow">
+                        <TableCheckboxControl
+                            checked={selected.length == providerFunds.data.length}
+                            onClick={(e) => toggleAll(e, providerFunds.data)}
+                        />
+                    </th>
+                )}
+            </Fragment>
+        ),
+    });
 
     const viewOffers = useCallback(
         (providerFund: FundProvider) => {
@@ -229,33 +232,8 @@ export default function ProviderFundsTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {type !== 'archived' && (
-                                            <th className="th-narrow">
-                                                <TableCheckboxControl
-                                                    checked={selected.length == providerFunds.data.length}
-                                                    onClick={(e) => toggleAll(e, providerFunds.data)}
-                                                />
-                                            </th>
-                                        )}
+                                {headElement}
 
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {providerFunds.data?.map((providerFund) => (
                                         <tr

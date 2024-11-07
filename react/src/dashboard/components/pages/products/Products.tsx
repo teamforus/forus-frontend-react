@@ -8,7 +8,6 @@ import Product from '../../../props/models/Product';
 import { PaginationData } from '../../../props/ApiResponses';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useFilter from '../../../hooks/useFilter';
-import ThSortable from '../../elements/tables/ThSortable';
 import useOpenModal from '../../../hooks/useOpenModal';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -16,7 +15,6 @@ import ModalNotification from '../../modals/ModalNotification';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
@@ -54,20 +52,15 @@ export default function Products() {
         return maxProductSoftLimit > 0 && products?.meta?.total_provider >= maxProductSoftLimit;
     }, [maxProductSoftLimit, products?.meta?.total_provider]);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(productService.getColumns());
-
     const filter = useFilter({
         q: '',
         source: 'provider',
         per_page: paginatorService.getPerPage(paginatorKey),
+    });
+
+    const { headElement, configsElement } = useConfigurableTable(productService.getColumns(), {
+        sortable: true,
+        filter: filter,
     });
 
     const deleteProduct = useCallback(
@@ -194,26 +187,8 @@ export default function Products() {
 
                     <TableTopScroller>
                         <table className="table">
-                            <thead>
-                                <tr>
-                                    {columns.map((column, index: number) => (
-                                        <ThSortable
-                                            key={index}
-                                            onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                            onMouseLeave={() => hideTableTooltip()}
-                                            filter={filter}
-                                            value={column.key}
-                                            label={translate(column.label)}
-                                        />
-                                    ))}
+                            {headElement}
 
-                                    <TableTopScrollerConfigTh
-                                        showTableConfig={showTableConfig}
-                                        displayTableConfig={displayTableConfig}
-                                        tableConfigCategory={tableConfigCategory}
-                                    />
-                                </tr>
-                            </thead>
                             <tbody>
                                 {products?.data.map((product) => (
                                     <StateNavLink

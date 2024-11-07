@@ -17,7 +17,6 @@ import useConfigurableTable from './hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { BooleanParam, createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import classNames from 'classnames';
 import { hasPermission } from '../../../helpers/utils';
 import SelectControl from '../../elements/select-control/SelectControl';
@@ -26,7 +25,6 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import Fund from '../../../props/models/Fund';
 import ModalVoucherCreate from '../../modals/ModalVoucherCreate';
 import ModalVouchersUpload from '../../modals/ModalVouchersUpload';
-import ThSortable from '../../elements/tables/ThSortable';
 
 export default function Vouchers() {
     const activeOrganization = useActiveOrganization();
@@ -45,15 +43,9 @@ export default function Vouchers() {
 
     const { funds } = useVoucherTableOptions(activeOrganization);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(voucherService.getColumns());
+    const { headElement, configsElement } = useConfigurableTable(voucherService.getColumns(), {
+        hasTooltips: true,
+    });
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<VouchersTableFiltersProps>(
         {
@@ -250,24 +242,7 @@ export default function Vouchers() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 <tbody>
                                     {vouchers.data.map((voucher) => (

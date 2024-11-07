@@ -23,9 +23,7 @@ import usePaginatorService from '../../../../modules/paginator/services/usePagin
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import ThSortable from '../../../elements/tables/ThSortable';
 
 export default function ProviderFundsAvailableTable({
     organization,
@@ -52,15 +50,11 @@ export default function ProviderFundsAvailableTable({
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
     const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(providerFundService.getColumnsAvailable());
+    const { selected, setSelected, toggleAll, toggle } = useTableToggles();
+
+    const selectedMeta = useMemo(() => {
+        return { selected: funds?.data?.filter((item) => selected?.includes(item.id)) };
+    }, [funds?.data, selected]);
 
     const filter = useFilter({
         q: '',
@@ -73,10 +67,18 @@ export default function ProviderFundsAvailableTable({
         order_dir: 'asc',
     });
 
-    const { selected, setSelected, toggleAll, toggle } = useTableToggles();
-    const selectedMeta = useMemo(() => {
-        return { selected: funds?.data?.filter((item) => selected?.includes(item.id)) };
-    }, [funds?.data, selected]);
+    const { headElement, configsElement } = useConfigurableTable(providerFundService.getColumnsAvailable(), {
+        filter: filter,
+        sortable: true,
+        trPrepend: (
+            <th className="th-narrow">
+                <TableCheckboxControl
+                    checked={selected.length == funds.data.length}
+                    onClick={(e) => toggleAll(e, funds.data)}
+                />
+            </th>
+        ),
+    });
 
     const successApplying = useCallback(() => {
         openModal((modal) => (
@@ -288,6 +290,7 @@ export default function ProviderFundsAvailableTable({
                     </div>
                 </div>
             </div>
+
             {!loading && funds.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table form">
@@ -295,33 +298,8 @@ export default function ProviderFundsAvailableTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th className="th-narrow">
-                                            <TableCheckboxControl
-                                                checked={selected.length == funds.data.length}
-                                                onClick={(e) => toggleAll(e, funds.data)}
-                                            />
-                                        </th>
+                                {headElement}
 
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                                filter={filter}
-                                                value={column.key}
-                                                label={translate(column.label)}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {funds.data?.map((fund) => (
                                         <tr key={fund.id} className={selected.includes(fund.id) ? 'selected' : ''}>

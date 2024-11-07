@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import ThSortable from './ThSortable';
 import LoadingCard from '../loading-card/LoadingCard';
 import FilterItemToggle from './elements/FilterItemToggle';
 import CardHeaderFilter from './elements/CardHeaderFilter';
@@ -18,7 +17,6 @@ import usePaginatorService from '../../../modules/paginator/services/usePaginato
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../empty-card/EmptyCard';
 import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from './TableTopScrollerConfigTh';
 import TableTopScroller from './TableTopScroller';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
 
@@ -64,15 +62,7 @@ export default function EventLogsTable({
         ].filter((item) => hasPermission(organization, permissionsMap[item.key]));
     }, [organization, permissionsMap]);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(eventLogService.getColumns(hideEntity));
+    const { headElement, configsElement } = useConfigurableTable(eventLogService.getColumns(hideEntity));
 
     const filter = useFilter({
         q: '',
@@ -221,24 +211,8 @@ export default function EventLogsTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
+                                {headElement}
 
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {logs.data.map((log) => (
                                         <tr key={log.id}>

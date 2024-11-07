@@ -6,7 +6,6 @@ import useExtraPaymentService from '../../../services/ExtraPaymentService';
 import ExtraPayment from '../../../props/models/ExtraPayment';
 import { PaginationData } from '../../../props/ApiResponses';
 import useFilter from '../../../hooks/useFilter';
-import ThSortable from '../../elements/tables/ThSortable';
 import { strLimit } from '../../../helpers/string';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -22,7 +21,6 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 
 export default function ExtraPayments() {
@@ -42,22 +40,17 @@ export default function ExtraPayments() {
     const [funds, setFunds] = useState(null);
     const [extraPayments, setExtraPayments] = useState<PaginationData<ExtraPayment>>(null);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(extraPaymentService.getColumns());
-
     const filter = useFilter({
         q: '',
         fund_id: null,
         per_page: paginatorService.getPerPage(paginatorKey),
         order_by: 'paid_at',
         order_dir: 'desc',
+    });
+
+    const { headElement, configsElement } = useConfigurableTable(extraPaymentService.getColumns(), {
+        sortable: true,
+        filter: filter,
     });
 
     const fetchExtraPayments = useCallback(() => {
@@ -181,26 +174,7 @@ export default function ExtraPayments() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                                filter={filter}
-                                                value={column.key}
-                                                label={translate(column.label)}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 <tbody>
                                     {extraPayments?.data.map((extraPayment) => (

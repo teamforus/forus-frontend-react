@@ -31,8 +31,6 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
-import ThSortable from '../../elements/tables/ThSortable';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -67,15 +65,9 @@ export default function OrganizationFunds() {
         { removeDefaultsFromUrl: true },
     );
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(fundService.getColumns(activeOrganization, funds_type));
+    const { headElement, configsElement } = useConfigurableTable(
+        fundService.getColumns(activeOrganization, funds_type),
+    );
 
     const filter = useFilter({
         q: '',
@@ -357,24 +349,7 @@ export default function OrganizationFunds() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 <tbody>
                                     {funds.data.map((fund) => (

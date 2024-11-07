@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
@@ -24,10 +24,8 @@ import useTranslate from '../../../../hooks/useTranslate';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import ThSortable from '../../../elements/tables/ThSortable';
 
 type FundProviderUnsubscribeLocal = FundProviderUnsubscribe & {
     showTooltip?: boolean;
@@ -61,16 +59,6 @@ export default function ProviderFundUnsubscriptionsTable({
         { key: 'canceled', label: 'Geannuleerd' },
     ]);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(fundUnsubscribeService.getColumns());
-
     const filter = useFilter({
         q: '',
         state: null,
@@ -91,6 +79,21 @@ export default function ProviderFundUnsubscriptionsTable({
             selected_cancel: list?.filter((item) => item.can_cancel),
         };
     }, [fundUnsubscriptions?.data, selected]);
+
+    const { headElement, configsElement } = useConfigurableTable(fundUnsubscribeService.getColumns(), {
+        trPrepend: (
+            <Fragment>
+                {[null, 'pending'].includes(filter.values.state) && (
+                    <th className="th-narrow">
+                        <TableCheckboxControl
+                            checked={selected.length == fundUnsubscriptions.data.length}
+                            onClick={(e) => toggleAll(e, fundUnsubscriptions.data)}
+                        />
+                    </th>
+                )}
+            </Fragment>
+        ),
+    });
 
     const cancelUnsubscriptions = useCallback(
         (unsubscriptions: Array<FundProviderUnsubscribe>) => {
@@ -245,33 +248,7 @@ export default function ProviderFundUnsubscriptionsTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {[null, 'pending'].includes(filter.values.state) && (
-                                            <th className="th-narrow">
-                                                <TableCheckboxControl
-                                                    checked={selected.length == fundUnsubscriptions.data.length}
-                                                    onClick={(e) => toggleAll(e, fundUnsubscriptions.data)}
-                                                />
-                                            </th>
-                                        )}
-
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 <tbody>
                                     {fundUnsubscriptions.data?.map((unsubscription) => (

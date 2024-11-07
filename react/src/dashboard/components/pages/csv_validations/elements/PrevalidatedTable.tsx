@@ -28,11 +28,9 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import Employee from '../../../../props/models/Employee';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import ThSortable from '../../../elements/tables/ThSortable';
 
 export default function PrevalidatedTable({
     fund,
@@ -110,15 +108,9 @@ export default function PrevalidatedTable({
         }));
     }, [headers, prevalidations?.data]);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(prevalidationService.getColumns(headers || [], typesByKey));
+    const { headElement, configsElement } = useConfigurableTable(
+        prevalidationService.getColumns(headers || [], typesByKey),
+    );
 
     const filter = useFilter({
         q: '',
@@ -340,24 +332,7 @@ export default function PrevalidatedTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 <tbody>
                                     {rows?.map((row) => (

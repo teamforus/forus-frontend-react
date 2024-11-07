@@ -33,8 +33,6 @@ import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
-import ThSortable from '../../elements/tables/ThSortable';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
@@ -64,15 +62,7 @@ export default function Reimbursements() {
     const [archivedOptions] = useState(reimbursementService.getArchivedOptions());
     const [deactivatedOptions] = useState(reimbursementService.getDeactivatedOptions());
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(reimbursementService.getColumns());
+    const { headElement, configsElement } = useConfigurableTable(reimbursementService.getColumns());
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
@@ -394,24 +384,7 @@ export default function Reimbursements() {
 
                             <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            {columns.map((column, index: number) => (
-                                                <ThSortable
-                                                    key={index}
-                                                    label={translate(column.label)}
-                                                    onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                    onMouseLeave={() => hideTableTooltip()}
-                                                />
-                                            ))}
-
-                                            <TableTopScrollerConfigTh
-                                                showTableConfig={showTableConfig}
-                                                displayTableConfig={displayTableConfig}
-                                                tableConfigCategory={tableConfigCategory}
-                                            />
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {reimbursements.data.map((reimbursement) => (

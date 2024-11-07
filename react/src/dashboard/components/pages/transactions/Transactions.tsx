@@ -40,7 +40,6 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -110,16 +109,6 @@ export default function Transactions() {
     const [paginatorTransactionsKey] = useState('transactions');
     const [paginatorTransactionBulkKey] = useState('transaction_bulks');
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(transactionService.getColumns(isSponsor, isProvider));
-
     const filter = useFilter(
         {
             q: '',
@@ -141,6 +130,12 @@ export default function Transactions() {
         },
         ['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max'],
     );
+
+    const { headElement, configsElement } = useConfigurableTable(transactionService.getColumns(isSponsor, isProvider), {
+        filter: filter,
+        sortable: true,
+        sortableExclude: ['method', 'branch_name', 'branch_number', 'amount_extra'],
+    });
 
     const bulkFilter = useFilter(
         {
@@ -762,35 +757,8 @@ export default function Transactions() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                                filter={filter}
-                                                value={
-                                                    ![
-                                                        'method',
-                                                        'branch_name',
-                                                        'branch_number',
-                                                        'amount_extra',
-                                                    ].includes(column.key)
-                                                        ? column.key
-                                                        : null
-                                                }
-                                                label={translate(column.label)}
-                                            />
-                                        ))}
+                                {headElement}
 
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {transactions.data.map((transaction) => (
                                         <StateNavLink

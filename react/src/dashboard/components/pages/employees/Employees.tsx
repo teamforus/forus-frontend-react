@@ -30,10 +30,8 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useIsProviderPanel from '../../../hooks/useIsProviderPanel';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
-import ThSortable from '../../elements/tables/ThSortable';
 
 export default function Employees() {
     const envData = useEnvData();
@@ -59,15 +57,7 @@ export default function Employees() {
     const [paginatorKey] = useState('employees');
     const [adminEmployees, setAdminEmployees] = useState([]);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(employeeService.getColumns(isProviderPanel));
+    const { headElement, configsElement } = useConfigurableTable(employeeService.getColumns(isProviderPanel));
 
     const filter = useFilter({
         q: '',
@@ -296,24 +286,8 @@ export default function Employees() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
+                                {headElement}
 
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {employees?.data.map((employee: Employee) => (
                                         <tr key={employee.id} data-dusk={`employeeRow${employee.id}`}>

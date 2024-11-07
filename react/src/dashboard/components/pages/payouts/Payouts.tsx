@@ -5,7 +5,6 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
 import { strLimit } from '../../../helpers/string';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import ThSortable from '../../elements/tables/ThSortable';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
@@ -34,7 +33,6 @@ import TableDescription from '../../elements/table-empty-value/TableDescription'
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushApiError from '../../../hooks/usePushApiError';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 
 export default function Payouts() {
     const openModal = useOpenModal();
@@ -106,15 +104,11 @@ export default function Payouts() {
         },
     );
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(payoutTransactionService.getColumns());
+    const { headElement, configsElement } = useConfigurableTable(payoutTransactionService.getColumns(), {
+        filter: filter,
+        sortable: true,
+        hasTooltips: true,
+    });
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -378,26 +372,8 @@ export default function Payouts() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                value={column.value}
-                                                filter={filter}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
+                                {headElement}
 
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {transactions.data.map((transaction) => (
                                         <StateNavLink

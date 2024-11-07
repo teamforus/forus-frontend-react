@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import ThSortable from '../../../elements/tables/ThSortable';
 import { currencyFormat } from '../../../../helpers/string';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import FinancialOverviewFundsBudgetTableItem from './FinancialOverviewFundsBudgetTableItem';
@@ -16,7 +15,6 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
@@ -45,15 +43,7 @@ export default function FinancialOverviewFundsBudgetTable({
 
     const fundService = useFundService();
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(fundService.getColumnsBudget());
+    const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBudget());
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; year: number }>(
         { q: '', year: new Date().getFullYear() },
@@ -117,24 +107,7 @@ export default function FinancialOverviewFundsBudgetTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                                label={translate(column.label)}
-                                            />
-                                        ))}
-
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 {budgetFunds.map((fund) => (
                                     <FinancialOverviewFundsBudgetTableItem key={fund.id} fund={fund} />

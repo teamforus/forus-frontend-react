@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ThSortable from '../../../elements/tables/ThSortable';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import Fund from '../../../../props/models/Fund';
 import useExportFunds from '../hooks/useExportFunds';
@@ -16,7 +15,6 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 
 export default function FinancialOverviewFundsTable({
     years,
@@ -39,15 +37,7 @@ export default function FinancialOverviewFundsTable({
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(fundService.getColumnsBalance());
+    const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBalance());
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; year_all: number }>(
         { q: '', year_all: new Date().getFullYear() },
@@ -111,24 +101,8 @@ export default function FinancialOverviewFundsTable({
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                                label={translate(column.label)}
-                                            />
-                                        ))}
+                                {headElement}
 
-                                        <TableTopScrollerConfigTh
-                                            showTableConfig={showTableConfig}
-                                            displayTableConfig={displayTableConfig}
-                                            tableConfigCategory={tableConfigCategory}
-                                        />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {funds.map((fund) => (
                                         <tr key={fund.id}>

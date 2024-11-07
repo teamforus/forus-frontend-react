@@ -11,16 +11,13 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useFilter from '../../../hooks/useFilter';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
-import ThSortable from '../../elements/tables/ThSortable';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useTranslate from '../../../hooks/useTranslate';
 import TableRowActions from '../../elements/tables/TableRowActions';
 
 export default function ImplementationsView() {
@@ -28,7 +25,6 @@ export default function ImplementationsView() {
 
     const navigate = useNavigate();
     const assetUrl = useAssetUrl();
-    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
 
@@ -55,15 +51,7 @@ export default function ImplementationsView() {
             });
     }, [activeOrganization.id, id, implementationService, navigate, pushDanger]);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(implementationService.getColumns());
+    const { headElement, configsElement } = useConfigurableTable(implementationService.getColumns());
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -184,24 +172,7 @@ export default function ImplementationsView() {
 
                             <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            {columns.map((column, index: number) => (
-                                                <ThSortable
-                                                    key={index}
-                                                    onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                    onMouseLeave={() => hideTableTooltip()}
-                                                    label={translate(column.label)}
-                                                />
-                                            ))}
-
-                                            <TableTopScrollerConfigTh
-                                                showTableConfig={showTableConfig}
-                                                displayTableConfig={displayTableConfig}
-                                                tableConfigCategory={tableConfigCategory}
-                                            />
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {funds.data.map((fund) => (

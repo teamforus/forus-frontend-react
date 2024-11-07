@@ -73,7 +73,7 @@
         overflow: auto;
         z-index: 1;
         display: flex;
-        flex: 1 0 auto;
+        flex: 1 1 auto;
         @include webkit_scrollbar_horizontal();
 
         .table-settings-tooltip-list {

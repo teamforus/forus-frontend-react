@@ -25,11 +25,9 @@ import useTranslate from '../../../hooks/useTranslate';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import ThSortable from '../../elements/tables/ThSortable';
 import ProvidersTableItem from './elements/ProvidersTableItem';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function SponsorProviderOrganizations() {
@@ -67,16 +65,6 @@ export default function SponsorProviderOrganizations() {
         { key: 'active', label: 'Actief' },
         { key: 'rejected', label: 'Inactief' },
     ]);
-
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(organizationService.getProviderColumns());
 
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q?: string;
@@ -121,6 +109,8 @@ export default function SponsorProviderOrganizations() {
             },
         },
     );
+
+    const { headElement, configsElement } = useConfigurableTable(organizationService.getProviderColumns());
 
     const fetchImplementations = useCallback(() => {
         setProgress(0);
@@ -562,24 +552,7 @@ export default function SponsorProviderOrganizations() {
 
                             <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            {columns.map((column, index: number) => (
-                                                <ThSortable
-                                                    key={index}
-                                                    onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                    onMouseLeave={() => hideTableTooltip()}
-                                                    label={translate(column.label)}
-                                                />
-                                            ))}
-
-                                            <TableTopScrollerConfigTh
-                                                showTableConfig={showTableConfig}
-                                                displayTableConfig={displayTableConfig}
-                                                tableConfigCategory={tableConfigCategory}
-                                            />
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     {providerOrganizations.data.map((providerOrganization) => (
                                         <ProvidersTableItem

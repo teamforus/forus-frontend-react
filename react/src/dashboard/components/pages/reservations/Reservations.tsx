@@ -6,7 +6,6 @@ import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
 import { PaginationData } from '../../../props/ApiResponses';
 import useFilter from '../../../hooks/useFilter';
-import ThSortable from '../../elements/tables/ThSortable';
 import useOpenModal from '../../../hooks/useOpenModal';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -38,7 +37,6 @@ import useConfirmReservationArchive from '../../../services/helpers/reservations
 import useConfirmReservationUnarchive from '../../../services/helpers/reservations/useConfirmReservationUnarchive';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
-import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
@@ -110,16 +108,6 @@ export default function Reservations() {
         ...(activeOrganization.can_view_provider_extra_payments ? extraPaymentStates : []), // Extra payment states
     ]);
 
-    const {
-        columns,
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(productReservationService.getColumns(showExtraPayments));
-
     const filter = useFilter({
         q: '',
         state: states[0].key,
@@ -129,6 +117,10 @@ export default function Reservations() {
         product_id: null,
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(
+        productReservationService.getColumns(showExtraPayments),
+    );
 
     const fetchReservations = useCallback(
         (query, archived = false) => {
@@ -523,24 +515,8 @@ export default function Reservations() {
 
                     <TableTopScroller>
                         <table className="table">
-                            <thead>
-                                <tr>
-                                    {columns.map((column, index: number) => (
-                                        <ThSortable
-                                            key={index}
-                                            onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                            onMouseLeave={() => hideTableTooltip()}
-                                            label={translate(column.label)}
-                                        />
-                                    ))}
+                            {headElement}
 
-                                    <TableTopScrollerConfigTh
-                                        showTableConfig={showTableConfig}
-                                        displayTableConfig={displayTableConfig}
-                                        tableConfigCategory={tableConfigCategory}
-                                    />
-                                </tr>
-                            </thead>
                             <tbody>
                                 {reservations.data?.map((reservation) => (
                                     <StateNavLink
