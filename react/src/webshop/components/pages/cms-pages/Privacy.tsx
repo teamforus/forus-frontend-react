@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useEnvData from '../../../hooks/useEnvData';
 import useCmsPage from './hooks/useCmsPage';
@@ -15,26 +14,15 @@ export default function Privacy() {
 
     return (
         <BlockShowcase
-            wrapper={false}
-            breadcrumbs={
-                <div className={'wrapper'}>
-                    <div className="block block-breadcrumbs">
-                        <StateNavLink name="home" className="breadcrumb-item">
-                            Home
-                        </StateNavLink>
-                        <div className="breadcrumb-item active" aria-current="location">
-                            Privacyverklaring
-                        </div>
-                    </div>
-                </div>
-            }>
+            wrapper={true}
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Privacyverklaring' }]}>
             {page && (
                 <div className="section">
                     <div
                         className={`flex flex-vertical ${
                             page.description_position == 'after' ? 'flex-vertical-reverse' : ''
                         }`}>
-                        {page && <CmsBlocks page={page} />}
+                        {page && <CmsBlocks page={page} wrapper={false} />}
 
                         {(!page.description_html || page.description_position !== 'replace') && (
                             <Fragment>

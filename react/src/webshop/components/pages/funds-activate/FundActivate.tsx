@@ -539,7 +539,7 @@ export default function FundActivate() {
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbs={<></>} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {fund && vouchers && appConfigs && (
                 <div className="block block-sign_up">
                     <div className="block-wrapper">

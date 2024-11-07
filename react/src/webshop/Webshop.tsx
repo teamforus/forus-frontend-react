@@ -24,6 +24,7 @@ import { TitleProvider } from './contexts/TitleContext';
 import i18nEN from './i18n/i18n-en';
 import i18nNL from './i18n/i18n-nl';
 import CookieBanner from './modules/cookie_banner/CookieBanner';
+import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
 
 i18n.use(initReactI18next)
     .init({
@@ -136,6 +137,8 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                         <AwsRumScript awsRum={envData.config?.aws_rum} cookiesAccepted={allowOptionalCookies} />
                         <MatomoScript envData={envData} cookiesAccepted={allowOptionalCookies} />
                         <SiteImproveAnalytics envData={envData} cookiesAccepted={allowOptionalCookies} />
+
+                        <ReadSpeakerScript envData={envData} />
                     </RouterSelector>
                 </PushNotificationsProvider>
             </LoadScript>

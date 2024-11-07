@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import NotificationPreferencesCards from './elements/NotificationPreferencesCards';
@@ -36,16 +35,10 @@ export default function PreferencesNotifications() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink className="breadcrumb-item" name="home">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active">
-                        {translate('notification_preferences.title_preferences')}
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: translate('notification_preferences.title_preferences') },
+            ]}
             profileHeader={
                 <div className="profile-content-header clearfix">
                     <div className="profile-content-title">
