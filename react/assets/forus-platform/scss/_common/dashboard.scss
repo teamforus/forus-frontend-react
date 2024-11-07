@@ -3545,6 +3545,7 @@ body {
             z-index: 1;
             color: #151b26;
             cursor: default;
+            white-space: normal;
 
             .tooltip-header {
                 font: 600 15px/28px var(--base-font);

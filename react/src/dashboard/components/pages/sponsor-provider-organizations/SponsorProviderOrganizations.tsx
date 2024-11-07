@@ -219,8 +219,8 @@ export default function SponsorProviderOrganizations() {
 
     return (
         <Fragment>
-            <div className="card">
-                {requests > 0 && (
+            {requests > 0 && (
+                <div className="card">
                     <div
                         className={`card-block card-block-requests ${
                             requestsExpired > 0
@@ -260,8 +260,8 @@ export default function SponsorProviderOrganizations() {
                             </div>
                         </StateNavLink>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
 
             <div className="card">
                 <div className="card-header card-header-next">

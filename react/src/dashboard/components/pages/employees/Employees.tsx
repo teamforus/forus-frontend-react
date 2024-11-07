@@ -382,12 +382,13 @@ export default function Employees() {
                                             {activeOrganization.identity_address != employee.identity_address ? (
                                                 <td className={'table-td-actions text-right'}>
                                                     <TableRowActions
+                                                        dataDusk={'btnEmployeeMenu'}
                                                         content={(e) => (
                                                             <div className="dropdown dropdown-actions">
                                                                 {canEditEmployee(employee) && (
                                                                     <a
                                                                         className="dropdown-item"
-                                                                        data-dusk={'btnEmployeeEdit'}
+                                                                        data-dusk={`btnEmployeeEdit${employee.id}`}
                                                                         onClick={() => {
                                                                             editEmployee(employee);
                                                                             e.close();
@@ -401,7 +402,7 @@ export default function Employees() {
                                                                 {authIdentity.address !== employee.identity_address && (
                                                                     <a
                                                                         className="dropdown-item"
-                                                                        data-dusk={'btnEmployeeDelete'}
+                                                                        data-dusk={`btnEmployeeDelete${employee.id}`}
                                                                         onClick={() => {
                                                                             deleteEmployee(employee);
                                                                             e.close();
@@ -420,6 +421,7 @@ export default function Employees() {
                                                     {adminEmployees.length > 0 &&
                                                     authIdentity.address === activeOrganization.identity_address ? (
                                                         <TableRowActions
+                                                            dataDusk={'btnEmployeeMenu'}
                                                             content={(e) => (
                                                                 <div className="dropdown dropdown-actions">
                                                                     <a

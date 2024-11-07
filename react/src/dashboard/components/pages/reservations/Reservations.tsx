@@ -550,7 +550,7 @@ export default function Reservations() {
                                             id: reservation.id,
                                         }}
                                         className={'tr-clickable'}
-                                        data-dusk={`reservationRow${reservation.id}`}
+                                        dataDusk={`reservationRow${reservation.id}`}
                                         customElement={'tr'}
                                         key={reservation.id}>
                                         <td>
