@@ -62,7 +62,7 @@
         font: 600 14px/20px var(--base-font);
 
         .mdi {
-            line-height: 20px;
+            line-height: 18px;
             height: 18px;
         }
 
@@ -233,6 +233,7 @@
                 .cookie-configs-footer {
                     .cookie-configs-wrapper {
                         gap: 10px;
+                        flex-direction: column;
                     }
                 }
             }

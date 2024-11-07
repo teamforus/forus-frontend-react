@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import IconCookies from '../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-search/cookies.svg';
 import classNames from 'classnames';
 import CookieBannerToggle from './CookieBannerToggle';
 import StateNavLink from '../state_router/StateNavLink';
 import EnvDataWebshopProp from '../../../props/EnvDataWebshopProp';
+import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 
 export default function CookieBanner({
     envData,
@@ -19,6 +20,8 @@ export default function CookieBanner({
     const [optionalAccepted, setOptionalAccepted] = useState(true);
 
     const [cookiesAccepted, setCookiesAccepted] = useState(localStorage.getItem('cookiesAccepted'));
+
+    const closeRef = useRef<HTMLDivElement>(null);
 
     const onAcceptAll = () => {
         localStorage.setItem('cookiesAccepted', 'all');
@@ -57,22 +60,38 @@ export default function CookieBanner({
                         <br />
                         <br />
                         Bekijk de{' '}
-                        <StateNavLink name="privacy" target={'_blank'} className={'cookie-banner-description-link'}>
+                        <StateNavLink
+                            name="privacy"
+                            target={'_blank'}
+                            className={'cookie-banner-description-link'}
+                            tabIndex={1}>
                             <strong>Privacyverklaring</strong>
                         </StateNavLink>
                         .
                     </div>
                     <div className="cookie-banner-actions">
-                        <button className="button button-primary button-sm cookie-banner-button" onClick={onAcceptAll}>
+                        <button
+                            className="button button-primary button-sm cookie-banner-button"
+                            onClick={onAcceptAll}
+                            tabIndex={1}>
                             Accepteren en doorgaan
                         </button>
                         <button
                             className="button button-light button-sm cookie-banner-button"
-                            onClick={onDisableOptional}>
+                            onClick={onDisableOptional}
+                            tabIndex={1}>
                             Alleen nodig voor de website
                         </button>
                     </div>
-                    <div role={'button'} onClick={() => setShowConfigs(true)} className="cookie-banner-config">
+                    <div
+                        role={'button'}
+                        tabIndex={1}
+                        onKeyDown={clickOnKeyEnter}
+                        onClick={() => {
+                            setShowConfigs(true);
+                            setTimeout(() => closeRef.current?.focus());
+                        }}
+                        className="cookie-banner-config">
                         Beheer cookies
                         <em className="mdi mdi-open-in-new" />
                     </div>
@@ -84,6 +103,9 @@ export default function CookieBanner({
                             <div className="cookie-configs-header-title">
                                 Cookie-instellingen
                                 <div
+                                    tabIndex={1}
+                                    ref={closeRef}
+                                    onKeyDown={clickOnKeyEnter}
                                     className="mdi mdi-close cookie-configs-header-close"
                                     onClick={() => setShowConfigs(!showConfigs)}
                                 />
@@ -135,14 +157,16 @@ export default function CookieBanner({
                             {functionalAccepted && (
                                 <button
                                     className="button button-primary button-sm cookie-banner-button"
-                                    onClick={onAcceptAll}>
+                                    onClick={onAcceptAll}
+                                    tabIndex={1}>
                                     Accepteren en doorgaan
                                 </button>
                             )}
 
                             <button
                                 className="button button-light button-sm cookie-banner-button"
-                                onClick={onDisableOptional}>
+                                onClick={onDisableOptional}
+                                tabIndex={1}>
                                 Alleen nodig voor de website
                             </button>
                         </div>
