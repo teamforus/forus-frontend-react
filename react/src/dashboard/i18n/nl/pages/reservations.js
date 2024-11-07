@@ -1,6 +1,6 @@
 export default {
     header: {
-        title: 'Reserveringen ({{ total }})',
+        title: 'Reserveringen',
     },
     filters: {
         fund: 'Fonds',

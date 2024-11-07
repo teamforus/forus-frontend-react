@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -20,6 +20,10 @@ import usePaginatorService from '../../../modules/paginator/services/usePaginato
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
+import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 
 export default function ExtraPayments() {
     const activeOrganization = useActiveOrganization();
@@ -37,6 +41,16 @@ export default function ExtraPayments() {
 
     const [funds, setFunds] = useState(null);
     const [extraPayments, setExtraPayments] = useState<PaginationData<ExtraPayment>>(null);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(extraPaymentService.getColumns());
 
     const filter = useFilter({
         q: '',
@@ -86,28 +100,41 @@ export default function ExtraPayments() {
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate('extra_payments.header.title')} ({extraPayments.meta.total})
-                        </div>
-                    </div>
-                    <div className="flex">
-                        <div className="block block-inline-filters">
-                            {filter.show && (
-                                <button
-                                    className="button button-text"
-                                    onClick={() => {
-                                        filter.resetFilters();
-                                        filter.setShow(false);
-                                    }}>
-                                    <em className="mdi mdi-close icon-start" />
-                                    {translate('extra_payments.buttons.clear_filter')}
-                                </button>
-                            )}
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate('extra_payments.header.title')} ({extraPayments.meta.total})
+                </div>
 
-                            {!filter.show && (
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        {filter.show && (
+                            <button
+                                className="button button-text"
+                                onClick={() => {
+                                    filter.resetFilters();
+                                    filter.setShow(false);
+                                }}>
+                                <em className="mdi mdi-close icon-start" />
+                                {translate('extra_payments.buttons.clear_filter')}
+                            </button>
+                        )}
+
+                        {!filter.show && (
+                            <Fragment>
+                                <div className="form">
+                                    <div className="form-group">
+                                        <SelectControl
+                                            className="form-control inline-filter-control"
+                                            propKey={'id'}
+                                            options={funds}
+                                            value={filter.activeValues.fund_id}
+                                            placeholder={translate('vouchers.labels.fund')}
+                                            allowSearch={false}
+                                            onChange={(fund_id: number) => filter.update({ fund_id })}
+                                            optionsComponent={SelectControlOptionsFund}
+                                        />
+                                    </div>
+                                </div>
                                 <div className="form">
                                     <div className="form-group">
                                         <input
@@ -119,30 +146,30 @@ export default function ExtraPayments() {
                                         />
                                     </div>
                                 </div>
-                            )}
+                            </Fragment>
+                        )}
 
-                            <CardHeaderFilter filter={filter}>
-                                <FilterItemToggle show={true} label={translate('extra_payments.labels.search')}>
-                                    <input
-                                        type="text"
-                                        value={filter.values?.q}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
-                                        placeholder={translate('extra_payments.labels.search')}
-                                        className="form-control"
-                                    />
-                                </FilterItemToggle>
-                                <FilterItemToggle label={translate('extra_payments.labels.fund')}>
-                                    <SelectControl
-                                        className={'form-control'}
-                                        options={funds}
-                                        propKey={'id'}
-                                        allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
-                                        onChange={(fund_id: string) => filter.update({ fund_id })}
-                                    />
-                                </FilterItemToggle>
-                            </CardHeaderFilter>
-                        </div>
+                        <CardHeaderFilter filter={filter}>
+                            <FilterItemToggle show={true} label={translate('extra_payments.labels.search')}>
+                                <input
+                                    type="text"
+                                    value={filter.values?.q}
+                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    placeholder={translate('extra_payments.labels.search')}
+                                    className="form-control"
+                                />
+                            </FilterItemToggle>
+                            <FilterItemToggle label={translate('extra_payments.labels.fund')}>
+                                <SelectControl
+                                    className={'form-control'}
+                                    options={funds}
+                                    propKey={'id'}
+                                    allowSearch={false}
+                                    optionsComponent={SelectControlOptions}
+                                    onChange={(fund_id: string) => filter.update({ fund_id })}
+                                />
+                            </FilterItemToggle>
+                        </CardHeaderFilter>
                     </div>
                 </div>
             </div>
@@ -150,72 +177,32 @@ export default function ExtraPayments() {
             {!loading && extraPayments?.meta.total > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <tbody>
+                                <thead>
                                     <tr>
-                                        <ThSortable
-                                            className="th-narrow nowrap"
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.id')}
-                                            value="id"
-                                        />
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                                filter={filter}
+                                                value={column.key}
+                                                label={translate(column.label)}
+                                            />
+                                        ))}
 
-                                        <ThSortable
-                                            className={'nowrap'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.price')}
-                                            value="price"
-                                        />
-
-                                        <ThSortable
-                                            className={'nowrap'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.amount_extra')}
-                                            value="amount"
-                                        />
-
-                                        <ThSortable
-                                            className={'nowrap'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.method')}
-                                            value="method"
-                                        />
-
-                                        <ThSortable
-                                            className={'nowrap'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.paid_at')}
-                                            value="paid_at"
-                                        />
-
-                                        <ThSortable
-                                            className={'nowrap'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.fund')}
-                                            value="fund_name"
-                                        />
-
-                                        <ThSortable
-                                            className={'nowrap'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.product')}
-                                            value="product_name"
-                                        />
-
-                                        <ThSortable
-                                            className={'nowrap'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.provider')}
-                                            value="provider_name"
-                                        />
-
-                                        <ThSortable
-                                            className={'th-narrow text-right'}
-                                            filter={filter}
-                                            label={translate('extra_payments.labels.actions')}
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
                                         />
                                     </tr>
+                                </thead>
+
+                                <tbody>
                                     {extraPayments?.data.map((extraPayment) => (
                                         <tr key={extraPayment.id} data-dusk="extraPaymentItem">
                                             <td>{extraPayment.id}</td>
@@ -258,7 +245,7 @@ export default function ExtraPayments() {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

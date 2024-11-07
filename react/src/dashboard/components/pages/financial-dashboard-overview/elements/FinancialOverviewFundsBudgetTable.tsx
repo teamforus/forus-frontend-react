@@ -8,6 +8,11 @@ import Fund from '../../../../props/models/Fund';
 import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import { useFundService } from '../../../../services/FundService';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function FinancialOverviewFundsBudgetTable({
     funds,
@@ -22,6 +27,18 @@ export default function FinancialOverviewFundsBudgetTable({
     const exportFunds = useExportFunds(organization);
 
     const [budgetFunds, setBudgetFunds] = useState<Array<Fund>>(null);
+
+    const fundService = useFundService();
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(fundService.getColumnsBudget());
 
     useEffect(() => {
         setBudgetFunds(funds.filter((fund) => fund.state == 'active' && fund.type == 'budget'));
@@ -51,37 +68,25 @@ export default function FinancialOverviewFundsBudgetTable({
             </div>
             <div className="card-section">
                 <div className="card-block card-block-table card-block-financial">
-                    <div className="table-wrapper">
+                    {configsElement}
+
+                    <TableTopScroller>
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <ThSortable
-                                        className="w-20"
-                                        label={translate('financial_dashboard_overview.labels.fund_name')}
-                                    />
-                                    <ThSortable
-                                        className="w-10"
-                                        label={translate('financial_dashboard_overview.labels.total')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.active')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.inactive')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.deactivated')}
-                                    />
-                                    <ThSortable
-                                        className="w-15"
-                                        label={translate('financial_dashboard_overview.labels.used')}
-                                    />
-                                    <ThSortable
-                                        className={'text-right'}
-                                        label={translate('financial_dashboard_overview.labels.left')}
+                                    {columns.map((column, index: number) => (
+                                        <ThSortable
+                                            key={index}
+                                            onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                            onMouseLeave={() => hideTableTooltip()}
+                                            label={translate(column.label)}
+                                        />
+                                    ))}
+
+                                    <TableTopScrollerConfigTh
+                                        showTableConfig={showTableConfig}
+                                        displayTableConfig={displayTableConfig}
+                                        tableConfigCategory={tableConfigCategory}
                                     />
                                 </tr>
                             </thead>
@@ -104,10 +109,13 @@ export default function FinancialOverviewFundsBudgetTable({
                                                 financialOverview.budget_funds.budget_used_active_vouchers,
                                         )}
                                     </td>
+                                    <td className={'table-td-actions text-right'}>
+                                        <TableEmptyValue />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </TableTopScroller>
                 </div>
             </div>
         </div>

@@ -34,6 +34,9 @@ import FundRequestStateLabel from '../../elements/resource-states/FundRequestSta
 import { NumberParam, StringParam } from 'use-query-params';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function FundRequests() {
     const envData = useEnvData();
@@ -90,6 +93,16 @@ export default function FundRequests() {
         ],
         [totals, translate],
     );
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(fundRequestService.getColumns());
 
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q?: string;
@@ -196,15 +209,11 @@ export default function FundRequests() {
     return (
         <div className="card" data-dusk="fundRequestsPageContent">
             <div className="card-header card-header-next">
-                <div className="flex flex-grow">
-                    <div className="card-title">
-                        {translate('validation_requests.header.title')}
-                        &nbsp;
-                        <span className="span-count">{fundRequests.meta.total}</span>
-                    </div>
+                <div className="card-title flex flex-grow">
+                    {translate('validation_requests.header.title')} ({fundRequests.meta.total})
                 </div>
 
-                <div className="flex-col">
+                <div className="card-header-filters form">
                     <div className="block block-label-tabs nowrap">
                         <div className="label-tab-set">
                             {stateGroups?.map((stateGroup) => (
@@ -219,9 +228,7 @@ export default function FundRequests() {
                             ))}
                         </div>
                     </div>
-                </div>
 
-                <div className="card-header-filters form">
                     <div className="block block-inline-filters">
                         {filter.show && (
                             <button
@@ -328,49 +335,41 @@ export default function FundRequests() {
             {fundRequests?.meta.total > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <ThSortable
-                                            className={'th-narrow'}
-                                            filter={filter}
-                                            label={translate('validation_requests.labels.id')}
-                                            value={'id'}
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                                filter={filter}
+                                                value={column.key}
+                                                label={translate(column.label)}
+                                            />
+                                        ))}
+
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
                                         />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('validation_requests.labels.requester')}
-                                            value={'requester_email'}
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('validation_requests.labels.fund')}
-                                            value={'fund_name'}
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('validation_requests.labels.created_date')}
-                                            value={'created_at'}
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('validation_requests.labels.assignee')}
-                                            value={'assignee_email'}
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('validation_requests.labels.status')}
-                                            value={'state'}
-                                        />
-                                        <th className={'nowrap text-right th-narrow'}>
-                                            {translate('validation_requests.labels.actions')}
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {fundRequests?.data.map((fundRequest) => (
-                                        <tr key={fundRequest.id}>
+                                        <StateNavLink
+                                            customElement={'tr'}
+                                            className={'tr-clickable'}
+                                            key={fundRequest.id}
+                                            name={'fund-request'}
+                                            params={{
+                                                organizationId: activeOrganization.id,
+                                                id: fundRequest.id,
+                                            }}>
                                             <td className={'text-strong'}>
                                                 <span className="text-muted-dark">#</span>
                                                 {fundRequest.id}
@@ -418,7 +417,7 @@ export default function FundRequests() {
                                                 <FundRequestStateLabel fundRequest={fundRequest} />
                                             </td>
 
-                                            <td className="td-narrow text-right">
+                                            <td className={'table-td-actions'}>
                                                 <TableRowActions
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">
@@ -436,11 +435,11 @@ export default function FundRequests() {
                                                     )}
                                                 />
                                             </td>
-                                        </tr>
+                                        </StateNavLink>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

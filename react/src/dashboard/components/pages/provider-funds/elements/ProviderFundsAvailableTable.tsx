@@ -17,14 +17,17 @@ import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle
 import SelectControl from '../../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import ModalNotification from '../../../modals/ModalNotification';
-import ThSortable from '../../../elements/tables/ThSortable';
 import useTableToggles from '../../../../hooks/useTableToggles';
 import Implementation from '../../../../props/models/Implementation';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import ThSortable from '../../../elements/tables/ThSortable';
 
-export default function ProviderAvailableFundsTable({
+export default function ProviderFundsAvailableTable({
     organization,
     onChange,
 }: {
@@ -48,6 +51,16 @@ export default function ProviderAvailableFundsTable({
     const [paginatorKey] = useState('provider_funds_available');
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
     const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(providerFundService.getColumnsAvailable());
 
     const filter = useFilter({
         q: '',
@@ -190,17 +203,16 @@ export default function ProviderAvailableFundsTable({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate(`provider_funds.title.available`)}
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate(`provider_funds.title.available`)}
 
-                            {!loading && selected.length > 0 && ` (${selected.length}/${funds.data.length})`}
-                            {!loading && selected.length == 0 && ` (${funds.meta.total})`}
-                        </div>
-                    </div>
-                    <div className="flex block block-inline-filters">
+                    {!loading && selected.length > 0 && ` (${selected.length}/${funds.data.length})`}
+                    {!loading && selected.length == 0 && ` (${funds.meta.total})`}
+                </div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         {selectedMeta?.selected?.length > 0 && (
                             <button
                                 type={'button'}
@@ -279,9 +291,11 @@ export default function ProviderAvailableFundsTable({
             {!loading && funds.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table form">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <tbody>
+                                <thead>
                                     <tr>
                                         <th className="th-narrow">
                                             <TableCheckboxControl
@@ -290,34 +304,25 @@ export default function ProviderAvailableFundsTable({
                                             />
                                         </th>
 
-                                        <ThSortable
-                                            label={translate('provider_funds.labels.fund')}
-                                            value={'name'}
-                                            filter={filter}
-                                        />
-                                        <ThSortable
-                                            label={translate('provider_funds.labels.organization')}
-                                            value={'organization_name'}
-                                            filter={filter}
-                                        />
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                                filter={filter}
+                                                value={column.key}
+                                                label={translate(column.label)}
+                                            />
+                                        ))}
 
-                                        <ThSortable
-                                            label={translate('provider_funds.labels.start_date')}
-                                            value={'start_date'}
-                                            filter={filter}
-                                        />
-
-                                        <ThSortable
-                                            label={translate('provider_funds.labels.end_date')}
-                                            value={'end_date'}
-                                            filter={filter}
-                                        />
-
-                                        <ThSortable
-                                            className={'nowrap text-right'}
-                                            label={translate('provider_funds.labels.actions')}
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
                                         />
                                     </tr>
+                                </thead>
+                                <tbody>
                                     {funds.data?.map((fund) => (
                                         <tr key={fund.id} className={selected.includes(fund.id) ? 'selected' : ''}>
                                             <td className="td-narrow">
@@ -370,7 +375,7 @@ export default function ProviderAvailableFundsTable({
                                                 </strong>
                                             </td>
 
-                                            <td>
+                                            <td className={'table-td-actions text-right'}>
                                                 <div className="button-group flex-end">
                                                     {fund.state != 'closed' && (
                                                         <button
@@ -386,7 +391,7 @@ export default function ProviderAvailableFundsTable({
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

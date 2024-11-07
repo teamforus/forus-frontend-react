@@ -29,6 +29,11 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useIsProviderPanel from '../../../hooks/useIsProviderPanel';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import ThSortable from '../../elements/tables/ThSortable';
 
 export default function Employees() {
     const envData = useEnvData();
@@ -53,6 +58,16 @@ export default function Employees() {
     const [employees, setEmployees] = useState<PaginationData<Employee>>(null);
     const [paginatorKey] = useState('employees');
     const [adminEmployees, setAdminEmployees] = useState([]);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(employeeService.getColumns(isProviderPanel));
 
     const filter = useFilter({
         q: '',
@@ -224,52 +239,47 @@ export default function Employees() {
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">Medewerkers ({employees?.meta.total})</div>
-                    </div>
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">Medewerkers ({employees?.meta.total})</div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        {activeOrganization.allow_2fa_restrictions &&
+                            hasPermission(activeOrganization, 'manage_organization') && (
+                                <NavLink
+                                    className={'button button-default button-sm'}
+                                    to={getStateRouteUrl('organization-security', {
+                                        organizationId: activeOrganization.id,
+                                    })}>
+                                    <em className="mdi mdi-security icon-start" />
+                                    {translate('organization_employees.buttons.security')}
+                                </NavLink>
+                            )}
+                        <button
+                            type="button"
+                            className="button button-primary button-sm"
+                            onClick={() => exportEmployees()}>
+                            <span className="mdi mdi-download icon-start" />
+                            {translate('organization_employees.buttons.export')}
+                        </button>
+                        <button
+                            type="button"
+                            className={'button button-primary button-sm '}
+                            data-dusk={'addEmployee'}
+                            onClick={() => editEmployee()}>
+                            <em className="mdi mdi-plus-circle icon-start" />
+                            {translate('organization_employees.buttons.add')}
+                        </button>
 
-                    <div className="flex">
-                        <div className="block block-inline-filters">
-                            {activeOrganization.allow_2fa_restrictions &&
-                                hasPermission(activeOrganization, 'manage_organization') && (
-                                    <NavLink
-                                        className={'button button-default button-sm'}
-                                        to={getStateRouteUrl('organization-security', {
-                                            organizationId: activeOrganization.id,
-                                        })}>
-                                        <em className="mdi mdi-security icon-start" />
-                                        {translate('organization_employees.buttons.security')}
-                                    </NavLink>
-                                )}
-                            <button
-                                type="button"
-                                className="button button-primary button-sm"
-                                onClick={() => exportEmployees()}>
-                                <span className="mdi mdi-download icon-start" />
-                                {translate('organization_employees.buttons.export')}
-                            </button>
-                            <button
-                                type="button"
-                                className={'button button-primary button-sm '}
-                                data-dusk={'addEmployee'}
-                                onClick={() => editEmployee()}>
-                                <em className="mdi mdi-plus-circle icon-start" />
-                                {translate('organization_employees.buttons.add')}
-                            </button>
-
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        value={filter.values.q}
-                                        placeholder="Zoeken"
-                                        data-dusk="searchEmployee"
-                                        className="form-control"
-                                        onChange={(e) => filter.update({ q: e.target.value })}
-                                    />
-                                </div>
+                        <div className="form">
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    value={filter.values.q}
+                                    placeholder="Zoeken"
+                                    data-dusk="searchEmployee"
+                                    className="form-control"
+                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                />
                             </div>
                         </div>
                     </div>
@@ -282,21 +292,26 @@ export default function Employees() {
                 emptyTitle={'Geen medewerkers gevonden'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th>{translate('organization_employees.labels.email')}</th>
-                                        {isProviderPanel && (
-                                            <Fragment>
-                                                <th>{translate('organization_employees.labels.branch_name_id')}</th>
-                                                <th>{translate('organization_employees.labels.branch_number')}</th>
-                                            </Fragment>
-                                        )}
-                                        <th>{translate('organization_employees.labels.auth_2fa')}</th>
-                                        <th className={'text-right'}>
-                                            {translate('organization_employees.labels.actions')}
-                                        </th>
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                label={translate(column.label)}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                            />
+                                        ))}
+
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
+                                        />
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -365,41 +380,61 @@ export default function Employees() {
                                             </td>
 
                                             {activeOrganization.identity_address != employee.identity_address ? (
-                                                <td className={'text-right'}>
-                                                    <Fragment>
-                                                        {canEditEmployee(employee) && (
-                                                            <a
-                                                                className="text-primary-light"
-                                                                data-dusk={'btnEmployeeEdit'}
-                                                                onClick={() => editEmployee(employee)}>
-                                                                {translate('organization_employees.buttons.adjust')}
-                                                            </a>
-                                                        )}
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableRowActions
+                                                        content={(e) => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                {canEditEmployee(employee) && (
+                                                                    <a
+                                                                        className="dropdown-item"
+                                                                        data-dusk={'btnEmployeeEdit'}
+                                                                        onClick={() => {
+                                                                            editEmployee(employee);
+                                                                            e.close();
+                                                                        }}>
+                                                                        {translate(
+                                                                            'organization_employees.buttons.adjust',
+                                                                        )}
+                                                                    </a>
+                                                                )}
 
-                                                        {authIdentity.address !== employee.identity_address && (
-                                                            <Fragment>
-                                                                &nbsp;&nbsp;
-                                                                <a
-                                                                    className="text-danger"
-                                                                    data-dusk={'btnEmployeeDelete'}
-                                                                    onClick={() => deleteEmployee(employee)}>
-                                                                    {translate('organization_employees.buttons.delete')}
-                                                                </a>
-                                                            </Fragment>
+                                                                {authIdentity.address !== employee.identity_address && (
+                                                                    <a
+                                                                        className="dropdown-item"
+                                                                        data-dusk={'btnEmployeeDelete'}
+                                                                        onClick={() => {
+                                                                            deleteEmployee(employee);
+                                                                            e.close();
+                                                                        }}>
+                                                                        {translate(
+                                                                            'organization_employees.buttons.delete',
+                                                                        )}
+                                                                    </a>
+                                                                )}
+                                                            </div>
                                                         )}
-                                                    </Fragment>
+                                                    />
                                                 </td>
                                             ) : (
-                                                <td className={'text-right'}>
+                                                <td className={'table-td-actions text-right'}>
                                                     {adminEmployees.length > 0 &&
                                                     authIdentity.address === activeOrganization.identity_address ? (
-                                                        <a
-                                                            className="text-primary-light"
-                                                            onClick={() => transferOwnership(adminEmployees)}>
-                                                            {translate(
-                                                                'organization_employees.buttons.transfer_ownership',
+                                                        <TableRowActions
+                                                            content={(e) => (
+                                                                <div className="dropdown dropdown-actions">
+                                                                    <a
+                                                                        className="dropdown-item"
+                                                                        onClick={() => {
+                                                                            transferOwnership(adminEmployees);
+                                                                            e.close();
+                                                                        }}>
+                                                                        {translate(
+                                                                            'organization_employees.buttons.transfer_ownership',
+                                                                        )}
+                                                                    </a>
+                                                                </div>
                                                             )}
-                                                        </a>
+                                                        />
                                                     ) : (
                                                         <span className={'text-muted'}>
                                                             {translate('organization_employees.labels.owner')}
@@ -411,7 +446,7 @@ export default function Employees() {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
 

@@ -34,6 +34,7 @@ import TableDescription from '../../elements/table-empty-value/TableDescription'
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushApiError from '../../../hooks/usePushApiError';
+import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
 
 export default function Payouts() {
     const openModal = useOpenModal();
@@ -105,18 +106,15 @@ export default function Payouts() {
         },
     );
 
-    const columns = useMemo(() => {
-        return payoutTransactionService.getColumns();
-    }, [payoutTransactionService]);
-
     const {
+        columns,
         configsElement,
         showTableTooltip,
         hideTableTooltip,
         tableConfigCategory,
         showTableConfig,
         displayTableConfig,
-    } = useConfigurableTable(columns);
+    } = useConfigurableTable(payoutTransactionService.getColumns());
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -224,11 +222,10 @@ export default function Payouts() {
     return (
         <div className="card">
             <div className="card-header card-header-next">
-                <div className="flex flex-grow">
-                    <div className="card-title">
-                        {translate('payouts.header.title')} ({transactions.meta.total})
-                    </div>
+                <div className="card-title flex flex-grow">
+                    {translate('payouts.header.title')} ({transactions.meta.total})
                 </div>
+
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
                         {fundsWithPayouts?.length > 0 && (
@@ -406,19 +403,12 @@ export default function Payouts() {
                                                 onMouseLeave={() => hideTableTooltip()}
                                             />
                                         ))}
-                                        <th className="table-th-actions table-th-actions-with-list">
-                                            <div className="table-th-actions-list">
-                                                <div
-                                                    className={`table-th-action ${
-                                                        showTableConfig && tableConfigCategory == 'tooltips'
-                                                            ? 'active'
-                                                            : ''
-                                                    }`}
-                                                    onClick={() => displayTableConfig('tooltips')}>
-                                                    <em className="mdi mdi-information-variant-circle" />
-                                                </div>
-                                            </div>
-                                        </th>
+
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
+                                        />
                                     </tr>
                                 </thead>
                                 <tbody>

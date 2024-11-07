@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import TableConfig from '../../../elements/table-config/TableConfig';
 import useSetToast from '../../../../hooks/useSetToast';
 
@@ -18,6 +18,14 @@ export default function useConfigurableTable(columns: Array<ConfigurableTableCol
     const [tableConfigCategory, setTableConfigCategory] = useState<string>('tooltips');
     const settingsRef = useRef<HTMLDivElement>(null);
 
+    const [columnsCached, setColumnsCached] = useState<Array<ConfigurableTableColumn>>(columns);
+
+    useEffect(() => {
+        setColumnsCached((value) => {
+            return JSON.stringify(columns) != JSON.stringify(value) ? columns : value;
+        });
+    }, [columns]);
+
     const displayTableConfig = useCallback(
         (key: string) => {
             if ((showTableConfig && tableConfigCategory == key) || !key) {
@@ -32,7 +40,7 @@ export default function useConfigurableTable(columns: Array<ConfigurableTableCol
     );
 
     const showTableTooltip = useCallback(
-        (tooltipKey) => {
+        (tooltipKey?: string) => {
             setActiveTooltipKey(null);
 
             if (!tooltipKey) {
@@ -86,7 +94,7 @@ export default function useConfigurableTable(columns: Array<ConfigurableTableCol
     }, [activeTooltipKey, showTableConfig, tableConfigCategory, tooltips]);
 
     return {
-        columns,
+        columns: columnsCached,
         columnKeys,
         configsElement,
         tableConfigCategory,

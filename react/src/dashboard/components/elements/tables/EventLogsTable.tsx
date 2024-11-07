@@ -17,6 +17,10 @@ import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../empty-card/EmptyCard';
+import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from './TableTopScrollerConfigTh';
+import TableTopScroller from './TableTopScroller';
+import TableEmptyValue from '../table-empty-value/TableEmptyValue';
 
 export default function EventLogsTable({
     organization,
@@ -59,6 +63,16 @@ export default function EventLogsTable({
             { key: 'voucher', title: 'Tegoeden' },
         ].filter((item) => hasPermission(organization, permissionsMap[item.key]));
     }, [organization, permissionsMap]);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(eventLogService.getColumns(hideEntity));
 
     const filter = useFilter({
         q: '',
@@ -131,78 +145,70 @@ export default function EventLogsTable({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex-col flex-grow">
-                        <div className="card-title">
-                            {title || 'Activiteitenlogboek'} ({logs.meta.total})
-                        </div>
-                    </div>
-
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {title || 'Activiteitenlogboek'} ({logs.meta.total})
+                </div>
+                <div className="card-header-filters">
                     {!hideFilterForm && (
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                {filter.show && (
-                                    <div className="button button-text" onClick={() => filter.resetFilters()}>
-                                        <em className="mdi mdi-close icon-start" />
-                                        Wis filters
+                        <div className="block block-inline-filters">
+                            {filter.show && (
+                                <div className="button button-text" onClick={() => filter.resetFilters()}>
+                                    <em className="mdi mdi-close icon-start" />
+                                    Wis filters
+                                </div>
+                            )}
+                            {!filter.show && (
+                                <div className="form">
+                                    <div className="form-group">
+                                        <input
+                                            type="search"
+                                            className="form-control"
+                                            value={filter.values.q}
+                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            placeholder={translate('event_logs.labels.search')}
+                                        />
                                     </div>
-                                )}
-                                {!filter.show && (
-                                    <div className="form">
-                                        <div className="form-group">
-                                            <input
-                                                type="search"
-                                                className="form-control"
-                                                value={filter.values.q}
-                                                onChange={(e) => filter.update({ q: e.target.value })}
-                                                placeholder={translate('event_logs.labels.search')}
-                                            />
-                                        </div>
-                                    </div>
-                                )}
+                                </div>
+                            )}
 
-                                {!hideFilterDropdown && (
-                                    <CardHeaderFilter filter={filter}>
-                                        <FilterItemToggle label={translate('event_logs.labels.search')} show={true}>
-                                            <input
-                                                className="form-control"
-                                                value={filter.values.q}
-                                                onChange={(e) => filter.update({ q: e.target.value })}
-                                                placeholder={translate('event_logs.labels.search')}
-                                            />
-                                        </FilterItemToggle>
+                            {!hideFilterDropdown && (
+                                <CardHeaderFilter filter={filter}>
+                                    <FilterItemToggle label={translate('event_logs.labels.search')} show={true}>
+                                        <input
+                                            className="form-control"
+                                            value={filter.values.q}
+                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            placeholder={translate('event_logs.labels.search')}
+                                        />
+                                    </FilterItemToggle>
 
-                                        <FilterItemToggle label={translate('event_logs.labels.entities')}>
-                                            {loggables.map((loggable) => (
-                                                <div key={loggable.key}>
-                                                    <label
-                                                        className="checkbox checkbox-narrow"
-                                                        htmlFor={'checkbox_' + loggable.key}>
-                                                        <input
-                                                            onChange={(e) =>
-                                                                selectLoggable(loggable.key, e.target.checked)
-                                                            }
-                                                            id={'checkbox_' + loggable.key}
-                                                            type="checkbox"
-                                                            checked={
-                                                                filter.activeValues.loggable.indexOf(loggable.key) !==
-                                                                -1
-                                                            }
-                                                        />
-                                                        <div className="checkbox-label">
-                                                            <div className="checkbox-box">
-                                                                <div className="mdi mdi-check" />
-                                                            </div>
-                                                            {loggable.title}
+                                    <FilterItemToggle label={translate('event_logs.labels.entities')}>
+                                        {loggables.map((loggable) => (
+                                            <div key={loggable.key}>
+                                                <label
+                                                    className="checkbox checkbox-narrow"
+                                                    htmlFor={'checkbox_' + loggable.key}>
+                                                    <input
+                                                        onChange={(e) => selectLoggable(loggable.key, e.target.checked)}
+                                                        id={'checkbox_' + loggable.key}
+                                                        type="checkbox"
+                                                        checked={
+                                                            filter.activeValues.loggable.indexOf(loggable.key) !== -1
+                                                        }
+                                                    />
+                                                    <div className="checkbox-label">
+                                                        <div className="checkbox-box">
+                                                            <div className="mdi mdi-check" />
                                                         </div>
-                                                    </label>
-                                                </div>
-                                            ))}
-                                        </FilterItemToggle>
-                                    </CardHeaderFilter>
-                                )}
-                            </div>
+                                                        {loggable.title}
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </FilterItemToggle>
+                                </CardHeaderFilter>
+                            )}
                         </div>
                     )}
                 </div>
@@ -211,16 +217,29 @@ export default function EventLogsTable({
             {logs.meta.total > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <tbody>
+                                <thead>
                                     <tr>
-                                        <ThSortable label={translate('event_logs.labels.date')} />
-                                        {!hideEntity && <ThSortable label={translate('event_logs.labels.entity')} />}
-                                        <ThSortable label={translate('event_logs.labels.action')} />
-                                        <ThSortable label={translate('event_logs.labels.author')} />
-                                        <ThSortable label={translate('event_logs.labels.note')} />
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                label={translate(column.label)}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                            />
+                                        ))}
+
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
+                                        />
                                     </tr>
+                                </thead>
+                                <tbody>
                                     {logs.data.map((log) => (
                                         <tr key={log.id}>
                                             <td>
@@ -268,11 +287,14 @@ export default function EventLogsTable({
                                                     <div className="text-muted">Geen notitie</div>
                                                 )}
                                             </td>
+                                            <td className={'table-td-actions text-right'}>
+                                                <TableEmptyValue />
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

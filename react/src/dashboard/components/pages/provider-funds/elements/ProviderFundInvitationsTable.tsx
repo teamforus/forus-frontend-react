@@ -15,6 +15,10 @@ import useTableToggles from '../../../../hooks/useTableToggles';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import ThSortable from '../../../elements/tables/ThSortable';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_class?: string;
@@ -43,6 +47,16 @@ export default function ProviderFundInvitationsTable({
 
     const [invitations, setInvitations] = useState<PaginationData<FundProviderInvitationLocal>>(null);
     const [paginatorKey] = useState(`provider_fund_${type}`);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(fundProviderInvitationsService.getColumns());
 
     const filter = useFilter({
         q: '',
@@ -132,17 +146,16 @@ export default function ProviderFundInvitationsTable({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate(`provider_funds.title.${type}`)}
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate(`provider_funds.title.${type}`)}
 
-                            {!loading && selected.length > 0 && ` (${selected.length}/${invitations.data.length})`}
-                            {!loading && selected.length == 0 && ` (${invitations.meta.total})`}
-                        </div>
-                    </div>
-                    <div className="flex block block-inline-filters">
+                    {!loading && selected.length > 0 && ` (${selected.length}/${invitations.data.length})`}
+                    {!loading && selected.length == 0 && ` (${invitations.meta.total})`}
+                </div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         {selectedMeta?.selected_active?.length > 0 && (
                             <button
                                 type={'button'}
@@ -166,12 +179,15 @@ export default function ProviderFundInvitationsTable({
                     </div>
                 </div>
             </div>
+
             {!loading && invitations.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table form">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <tbody>
+                                <thead>
                                     <tr>
                                         {[null, 'pending'].includes(filter.values.state) && (
                                             <th className="th-narrow">
@@ -182,22 +198,23 @@ export default function ProviderFundInvitationsTable({
                                             </th>
                                         )}
 
-                                        <th>{translate('provider_funds.labels.fund')}</th>
-                                        <th>{translate('provider_funds.labels.organization')}</th>
-                                        <th>{translate('provider_funds.labels.start_date')}</th>
-                                        <th>{translate('provider_funds.labels.end_date')}</th>
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                label={translate(column.label)}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                            />
+                                        ))}
 
-                                        <th className={type !== 'invitations' ? 'text-right' : ''}>
-                                            {translate('provider_funds.labels.status')}
-                                        </th>
-
-                                        {type === 'invitations' && (
-                                            <th className="nowrap text-right">
-                                                {translate('provider_funds.labels.actions')}
-                                            </th>
-                                        )}
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
+                                        />
                                     </tr>
-
+                                </thead>
+                                <tbody>
                                     {invitations.data?.map((invitation) => (
                                         <tr
                                             key={invitation.id}
@@ -274,7 +291,7 @@ export default function ProviderFundInvitationsTable({
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

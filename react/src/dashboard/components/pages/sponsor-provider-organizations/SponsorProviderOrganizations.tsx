@@ -28,6 +28,9 @@ import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import ThSortable from '../../elements/tables/ThSortable';
 import ProvidersTableItem from './elements/ProvidersTableItem';
 import Paginator from '../../../modules/paginator/components/Paginator';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
@@ -64,6 +67,16 @@ export default function SponsorProviderOrganizations() {
         { key: 'active', label: 'Actief' },
         { key: 'rejected', label: 'Inactief' },
     ]);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(organizationService.getProviderColumns());
 
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q?: string;
@@ -253,10 +266,8 @@ export default function SponsorProviderOrganizations() {
             <div className="card">
                 <div className="card-header card-header-next">
                     <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate('provider_organizations.header.title')}
-                            &nbsp;
-                            <span className="span-count">{providerOrganizations.meta.total}</span>
+                        <div className="card-title flex flex-grow">
+                            {translate('provider_organizations.header.title')} ({providerOrganizations.meta.total})
                         </div>
                     </div>
 
@@ -559,28 +570,28 @@ export default function SponsorProviderOrganizations() {
                     emptyTitle={'Je hebt nog geen verzoeken van aanbieders'}>
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
-                                    <tbody>
+                                    <thead>
                                         <tr>
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.organization_name')}
-                                            />
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.last_active')}
-                                            />
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.product_count')}
-                                            />
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.funds_count')}
-                                            />
-                                            <ThSortable
-                                                className="text-right"
-                                                label={translate('provider_organizations.labels.actions')}
+                                            {columns.map((column, index: number) => (
+                                                <ThSortable
+                                                    key={index}
+                                                    onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                    onMouseLeave={() => hideTableTooltip()}
+                                                    label={translate(column.label)}
+                                                />
+                                            ))}
+
+                                            <TableTopScrollerConfigTh
+                                                showTableConfig={showTableConfig}
+                                                displayTableConfig={displayTableConfig}
+                                                tableConfigCategory={tableConfigCategory}
                                             />
                                         </tr>
-                                    </tbody>
+                                    </thead>
 
                                     {providerOrganizations.data.map((providerOrganization) => (
                                         <ProvidersTableItem
@@ -590,7 +601,7 @@ export default function SponsorProviderOrganizations() {
                                         />
                                     ))}
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
 

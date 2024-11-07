@@ -7,6 +7,11 @@ import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import { strLimit } from '../../../../helpers/string';
+import { useFundService } from '../../../../services/FundService';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
 
 export default function FinancialOverviewFundsTable({
     funds,
@@ -19,6 +24,18 @@ export default function FinancialOverviewFundsTable({
 }) {
     const translate = useTranslate();
     const exportFunds = useExportFunds(organization);
+
+    const fundService = useFundService();
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(fundService.getColumnsBalance());
 
     return (
         <div className="card card-financial form">
@@ -41,29 +58,39 @@ export default function FinancialOverviewFundsTable({
 
             <div className="card-section">
                 <div className="card-block card-block-table card-block-financial">
-                    <div className="table-wrapper">
+                    {configsElement}
+
+                    <TableTopScroller>
                         <table className="table">
-                            <tbody>
+                            <thead>
                                 <tr>
-                                    <ThSortable label={translate('financial_dashboard_overview.labels.fund_name')} />
-                                    <ThSortable label={translate('financial_dashboard_overview.labels.total_budget')} />
-                                    <ThSortable label={translate('financial_dashboard_overview.labels.used_budget')} />
-                                    <ThSortable
-                                        label={translate('financial_dashboard_overview.labels.current_budget')}
-                                    />
-                                    <ThSortable
-                                        className={'text-right'}
-                                        label={translate('financial_dashboard_overview.labels.transaction_costs')}
+                                    {columns.map((column, index: number) => (
+                                        <ThSortable
+                                            key={index}
+                                            onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                            onMouseLeave={() => hideTableTooltip()}
+                                            label={translate(column.label)}
+                                        />
+                                    ))}
+
+                                    <TableTopScrollerConfigTh
+                                        showTableConfig={showTableConfig}
+                                        displayTableConfig={displayTableConfig}
+                                        tableConfigCategory={tableConfigCategory}
                                     />
                                 </tr>
-
+                            </thead>
+                            <tbody>
                                 {funds.map((fund) => (
                                     <tr key={fund.id}>
-                                        <td>{fund.name}</td>
+                                        <td title={fund.name}>{strLimit(fund.name, 64)}</td>
                                         <td>{fund.budget?.total_locale || <TableEmptyValue />}</td>
                                         <td>{fund.budget?.used_locale || <TableEmptyValue />}</td>
                                         <td>{fund.budget?.left_locale || <TableEmptyValue />}</td>
                                         <td className={'text-right'}>{fund.budget?.transaction_costs_locale}</td>
+                                        <td className={'table-td-actions text-right'}>
+                                            <TableEmptyValue />
+                                        </td>
                                     </tr>
                                 ))}
 
@@ -75,10 +102,13 @@ export default function FinancialOverviewFundsTable({
                                     <td className={'text-right'}>
                                         {fundsFinancialOverview.funds.transaction_costs_locale}
                                     </td>
+                                    <td className={'table-td-actions text-right'}>
+                                        <TableEmptyValue />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </TableTopScroller>
                 </div>
             </div>
         </div>

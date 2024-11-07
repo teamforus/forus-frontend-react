@@ -27,6 +27,12 @@ import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import Employee from '../../../../props/models/Employee';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import TableRowActions from '../../../elements/tables/TableRowActions';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import ThSortable from '../../../elements/tables/ThSortable';
 
 export default function PrevalidatedTable({
     fund,
@@ -74,16 +80,6 @@ export default function PrevalidatedTable({
         { key: 0, name: 'Nee' },
     ]);
 
-    const filter = useFilter({
-        q: '',
-        fund_id: fund ? fund.id : null,
-        state: states[0].key,
-        exported: statesExported[0].key,
-        from: null,
-        to: null,
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
-
     const headers = useMemo(() => {
         const headers: string[] = prevalidations?.data
             ?.reduce((headers, prevalidation) => {
@@ -113,6 +109,26 @@ export default function PrevalidatedTable({
             }),
         }));
     }, [headers, prevalidations?.data]);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(prevalidationService.getColumns(headers || [], typesByKey));
+
+    const filter = useFilter({
+        q: '',
+        fund_id: fund ? fund.id : null,
+        state: states[0].key,
+        exported: statesExported[0].key,
+        from: null,
+        to: null,
+        per_page: paginatorService.getPerPage(paginatorKey),
+    });
 
     const doExport = useCallback(
         (exportType: string) => {
@@ -200,15 +216,17 @@ export default function PrevalidatedTable({
 
     return (
         <div className="card form">
-            <div className="card-header">
-                <div className="row">
-                    <div className="col col-lg-6 col-xs-12">
-                        <div className="card-title">{translate('prevalidated_table.header.title')}</div>
-                    </div>
-
-                    <div className="block block-inline-filters col col-lg-6 col-xs-12 text-right">
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">{translate('prevalidated_table.header.title')}</div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters ">
                         {filter.show && (
-                            <div className="button button-text" onClick={() => filter.resetFilters()}>
+                            <div
+                                className="button button-text"
+                                onClick={() => {
+                                    filter.resetFilters();
+                                    filter.setShow(false);
+                                }}>
                                 <em className="mdi mdi-close icon-start" />
                                 Wis filters
                             </div>
@@ -318,20 +336,26 @@ export default function PrevalidatedTable({
             {rows.length > 0 && headers && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper table-wrapper-scroll">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th>{translate('prevalidated_table.labels.code')}</th>
-                                        <th>{translate('prevalidated_table.labels.employee')}</th>
-                                        {headers?.map((headerKey, index) => (
-                                            <th key={index}>{typesByKey[headerKey] || headerKey}</th>
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                label={translate(column.label)}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                            />
                                         ))}
-                                        <th className="text-right">{translate('prevalidated_table.status.active')}</th>
-                                        <th className="text-right">
-                                            {translate('prevalidated_table.labels.exported')}
-                                        </th>
-                                        <th className="text-right">{translate('prevalidated_table.labels.actions')}</th>
+
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
+                                        />
                                     </tr>
                                 </thead>
 
@@ -370,24 +394,31 @@ export default function PrevalidatedTable({
                                                 </div>
                                             </td>
 
-                                            <td className="text-right">
-                                                {row.state === 'pending' && (
-                                                    <div
-                                                        className="button button-default button-icon"
-                                                        onClick={() => deletePrevalidation(row)}>
-                                                        <em className="mdi mdi-delete icon-start" />
-                                                    </div>
-                                                )}
-
-                                                {row.state !== 'pending' && (
-                                                    <div className="text-muted">Geen opties</div>
+                                            <td className={'table-td-actions text-right'}>
+                                                {row.state === 'pending' ? (
+                                                    <TableRowActions
+                                                        content={(e) => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <a
+                                                                    className="dropdown-item"
+                                                                    onClick={() => {
+                                                                        deletePrevalidation(row);
+                                                                        e.close();
+                                                                    }}>
+                                                                    Verwijderen
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                    />
+                                                ) : (
+                                                    <TableEmptyValue />
                                                 )}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

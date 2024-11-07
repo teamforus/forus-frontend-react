@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { PaginationData } from '../../../props/ApiResponses';
 import Voucher from '../../../props/models/Voucher';
@@ -11,18 +11,29 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
 import VouchersTableNoFundsBlock from './elements/VouchersTableNoFundsBlock';
 import useVoucherTableOptions from './hooks/useVoucherTableOptions';
-import { VouchersTableFiltersProps } from './elements/VouchersTableFilters';
-import VouchersTableHeader from './elements/VouchersTableHeader';
+import VouchersTableFilters, { VouchersTableFiltersProps } from './elements/VouchersTableFilters';
 import VouchersTableRow from './elements/VouchersTableRow';
 import useConfigurableTable from './hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { BooleanParam, createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableTopScrollerConfigTh from '../../elements/tables/TableTopScrollerConfigTh';
+import classNames from 'classnames';
+import { hasPermission } from '../../../helpers/utils';
+import SelectControl from '../../elements/select-control/SelectControl';
+import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
+import useOpenModal from '../../../hooks/useOpenModal';
+import Fund from '../../../props/models/Fund';
+import ModalVoucherCreate from '../../modals/ModalVoucherCreate';
+import ModalVouchersUpload from '../../modals/ModalVouchersUpload';
+import ThSortable from '../../elements/tables/ThSortable';
 
 export default function Vouchers() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
+
+    const openModal = useOpenModal();
     const setProgress = useSetProgress();
 
     const voucherService = useVoucherService();
@@ -33,6 +44,16 @@ export default function Vouchers() {
     const [paginatorKey] = useState<string>('vouchers');
 
     const { funds } = useVoucherTableOptions(activeOrganization);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(voucherService.getColumns());
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<VouchersTableFiltersProps>(
         {
@@ -97,19 +118,6 @@ export default function Vouchers() {
         },
     );
 
-    const columns = useMemo(() => {
-        return voucherService.getColumns();
-    }, [voucherService]);
-
-    const {
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(voucherService.getColumns());
-
     const fetchVouchers = useCallback(() => {
         setProgress(0);
         setLoading(true);
@@ -135,6 +143,38 @@ export default function Vouchers() {
             });
     }, [activeOrganization.id, filterValuesActive, setProgress, voucherService]);
 
+    const createVoucher = useCallback(
+        (funds: Array<Partial<Fund>>, fundId?: number, onCreate?: () => void) => {
+            const fundsList = funds.filter((fund) => fund.id);
+
+            openModal((modal) => (
+                <ModalVoucherCreate
+                    fundId={fundId || fundsList[0].id}
+                    funds={fundsList}
+                    modal={modal}
+                    onCreated={onCreate}
+                    organization={activeOrganization}
+                />
+            ));
+        },
+        [openModal, activeOrganization],
+    );
+
+    const uploadVouchers = useCallback(
+        (funds: Array<Partial<Fund>>, fundId?: number, onCreate?: () => void) => {
+            openModal((modal) => (
+                <ModalVouchersUpload
+                    modal={modal}
+                    fundId={fundId || funds[0].id}
+                    funds={funds}
+                    organization={activeOrganization}
+                    onCompleted={onCreate}
+                />
+            ));
+        },
+        [openModal, activeOrganization],
+    );
+
     useEffect(() => {
         fetchVouchers();
     }, [fetchVouchers]);
@@ -149,14 +189,59 @@ export default function Vouchers() {
 
     return (
         <div className="card" data-dusk={`vouchersCard${filterValues?.fund_id || ''}`}>
-            <VouchersTableHeader
-                filter={filter}
-                organization={activeOrganization}
-                vouchers={vouchers}
-                funds={funds}
-                loading={loading}
-                fetchVouchers={fetchVouchers}
-            />
+            <div className={classNames(`card-header card-header-next`, loading && 'card-header-inactive')}>
+                <div className="card-title flex flex-grow" data-dusk="vouchersTitle">
+                    {translate('vouchers.header.title')} ({vouchers?.meta?.total})
+                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        {hasPermission(activeOrganization, 'manage_vouchers') && (
+                            <Fragment>
+                                <button
+                                    id="create_voucher"
+                                    className="button button-primary"
+                                    disabled={funds?.filter((fund) => fund.id)?.length < 1}
+                                    onClick={() => createVoucher(funds, filter.activeValues?.fund_id, fetchVouchers)}>
+                                    <em className="mdi mdi-plus-circle icon-start" />
+                                    {translate('vouchers.buttons.add_new')}
+                                </button>
+
+                                <button
+                                    id="voucher_upload_csv"
+                                    className="button button-primary"
+                                    disabled={funds?.filter((fund) => fund.id)?.length < 1}
+                                    onClick={() => uploadVouchers(funds, filter.activeValues?.fund_id, fetchVouchers)}
+                                    data-dusk="uploadVouchersBatchButton">
+                                    <em className="mdi mdi-upload icon-start" />
+                                    {translate('vouchers.buttons.upload_csv')}
+                                </button>
+                            </Fragment>
+                        )}
+
+                        <div className="form">
+                            <div className="form-group">
+                                <SelectControl
+                                    className="form-control inline-filter-control"
+                                    propKey={'id'}
+                                    options={funds}
+                                    value={filter.activeValues.fund_id}
+                                    placeholder={translate('vouchers.labels.fund')}
+                                    allowSearch={false}
+                                    onChange={(fund_id: number) => filter.update({ fund_id })}
+                                    optionsComponent={SelectControlOptionsFund}
+                                />
+                            </div>
+                        </div>
+
+                        <VouchersTableFilters
+                            filter={filter}
+                            organization={activeOrganization}
+                            vouchers={vouchers}
+                            funds={funds}
+                        />
+                    </div>
+                </div>
+            </div>
 
             {!loading && vouchers.data.length > 0 && (
                 <div className="card-section">
@@ -168,27 +253,19 @@ export default function Vouchers() {
                                 <thead>
                                     <tr>
                                         {columns.map((column, index: number) => (
-                                            <th
+                                            <ThSortable
                                                 key={index}
+                                                label={translate(column.label)}
                                                 onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}>
-                                                {translate(column.label)}
-                                            </th>
+                                                onMouseLeave={() => hideTableTooltip()}
+                                            />
                                         ))}
 
-                                        <th className="table-th-actions table-th-actions-with-list">
-                                            <div className="table-th-actions-list">
-                                                <div
-                                                    className={`table-th-action ${
-                                                        showTableConfig && tableConfigCategory == 'tooltips'
-                                                            ? 'active'
-                                                            : ''
-                                                    }`}
-                                                    onClick={() => displayTableConfig('tooltips')}>
-                                                    <em className="mdi mdi-information-variant-circle" />
-                                                </div>
-                                            </div>
-                                        </th>
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
+                                        />
                                     </tr>
                                 </thead>
 

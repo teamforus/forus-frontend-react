@@ -19,6 +19,13 @@ import useTableToggles from '../../../../hooks/useTableToggles';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScrollerConfigTh from '../../../elements/tables/TableTopScrollerConfigTh';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import TableRowActions from '../../../elements/tables/TableRowActions';
+import classNames from 'classnames';
+import ThSortable from '../../../elements/tables/ThSortable';
 
 export default function ProviderFundsTable({
     type,
@@ -43,6 +50,16 @@ export default function ProviderFundsTable({
 
     const [paginatorKey] = useState(`provider_funds_${type}`);
     const [providerFunds, setProviderFunds] = useState<PaginationData<FundProvider>>(null);
+
+    const {
+        columns,
+        configsElement,
+        showTableTooltip,
+        hideTableTooltip,
+        tableConfigCategory,
+        showTableConfig,
+        displayTableConfig,
+    } = useConfigurableTable(providerFundService.getColumns(type));
 
     const filter = useFilter({
         q: '',
@@ -171,17 +188,15 @@ export default function ProviderFundsTable({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate(`provider_funds.title.${type}`)}
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate(`provider_funds.title.${type}`)}
 
-                            {!loading && selected.length > 0 && ` (${selected.length}/${providerFunds.data.length})`}
-                            {!loading && selected.length == 0 && ` (${providerFunds.meta.total})`}
-                        </div>
-                    </div>
-                    <div className="flex block block-inline-filters">
+                    {!loading && selected.length > 0 && ` (${selected.length}/${providerFunds.data.length})`}
+                    {!loading && selected.length == 0 && ` (${providerFunds.meta.total})`}
+                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         {selectedMeta?.selected_cancel?.length > 0 && (
                             <button
                                 type={'button'}
@@ -192,6 +207,7 @@ export default function ProviderFundsTable({
                                 {translate('provider_funds.labels.cancel_application')}
                             </button>
                         )}
+
                         <div className="form">
                             <div className="form-group">
                                 <input
@@ -205,12 +221,15 @@ export default function ProviderFundsTable({
                     </div>
                 </div>
             </div>
+
             {!loading && providerFunds.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table form">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <tbody>
+                                <thead>
                                     <tr>
                                         {type !== 'archived' && (
                                             <th className="th-narrow">
@@ -221,23 +240,23 @@ export default function ProviderFundsTable({
                                             </th>
                                         )}
 
-                                        <th>{translate('provider_funds.labels.fund')}</th>
-                                        <th>{translate('provider_funds.labels.organization')}</th>
-                                        <th>{translate('provider_funds.labels.start_date')}</th>
-                                        <th>{translate('provider_funds.labels.end_date')}</th>
+                                        {columns.map((column, index: number) => (
+                                            <ThSortable
+                                                key={index}
+                                                label={translate(column.label)}
+                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
+                                                onMouseLeave={() => hideTableTooltip()}
+                                            />
+                                        ))}
 
-                                        {type === 'active' && <th>{translate('provider_funds.labels.max_amount')}</th>}
-
-                                        <th>{translate('provider_funds.labels.allow_budget')}</th>
-                                        <th>{translate('provider_funds.labels.allow_products')}</th>
-                                        <th>{translate('provider_funds.labels.status')}</th>
-
-                                        {type !== 'archived' && (
-                                            <th className="nowrap text-right">
-                                                {translate('provider_funds.labels.actions')}
-                                            </th>
-                                        )}
+                                        <TableTopScrollerConfigTh
+                                            showTableConfig={showTableConfig}
+                                            displayTableConfig={displayTableConfig}
+                                            tableConfigCategory={tableConfigCategory}
+                                        />
                                     </tr>
+                                </thead>
+                                <tbody>
                                     {providerFunds.data?.map((providerFund) => (
                                         <tr
                                             key={providerFund.id}
@@ -330,46 +349,68 @@ export default function ProviderFundsTable({
                                                 </td>
                                             )}
 
-                                            {type !== 'archived' && (
-                                                <td>
-                                                    <div className="button-group flex-end">
-                                                        {(providerFund.fund.type == 'subsidies' ||
-                                                            (providerFund.fund.state != 'closed' &&
-                                                                providerFund.allow_some_products)) && (
-                                                            <button
-                                                                className="button button-primary button-sm button-icon"
-                                                                title="Bekijk"
-                                                                onClick={() => viewOffers(providerFund)}>
-                                                                <em className="mdi mdi-eye-outline icon-start" />
-                                                            </button>
-                                                        )}
+                                            {type !== 'archived' ? (
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableRowActions
+                                                        content={(e) => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                {(providerFund.fund.type == 'subsidies' ||
+                                                                    (providerFund.fund.state != 'closed' &&
+                                                                        providerFund.allow_some_products)) && (
+                                                                    <div
+                                                                        className="dropdown-item"
+                                                                        title="Bekijk"
+                                                                        onClick={() => {
+                                                                            viewOffers(providerFund);
+                                                                            e.close();
+                                                                        }}>
+                                                                        <em className="mdi mdi-eye-outline icon-start" />
+                                                                        Bekijk
+                                                                    </div>
+                                                                )}
 
-                                                        {type == 'active' && (
-                                                            <button
-                                                                className="button button-danger button-sm button-icon"
-                                                                title="Unsubscribe"
-                                                                onClick={() => unsubscribe(providerFund)}
-                                                                disabled={!providerFund.can_unsubscribe}>
-                                                                <em className="mdi mdi-progress-close icon-start" />
-                                                            </button>
-                                                        )}
+                                                                {type == 'active' && (
+                                                                    <div
+                                                                        className={classNames(
+                                                                            'dropdown-item',
+                                                                            !providerFund.can_unsubscribe && 'disabled',
+                                                                        )}
+                                                                        title="Unsubscribe"
+                                                                        onClick={() => {
+                                                                            unsubscribe(providerFund);
+                                                                            e.close();
+                                                                        }}>
+                                                                        <em className="mdi mdi-progress-close icon-start" />
+                                                                        Uitschrijven
+                                                                    </div>
+                                                                )}
 
-                                                        {providerFund.can_cancel && (
-                                                            <button
-                                                                className="button button-danger button-sm button-icon"
-                                                                title="Cancel"
-                                                                onClick={() => cancelApplications([providerFund])}>
-                                                                <em className="mdi mdi-close-circle-outline icon-start" />
-                                                            </button>
+                                                                {providerFund.can_cancel && (
+                                                                    <div
+                                                                        className="dropdown-item"
+                                                                        title="Cancel"
+                                                                        onClick={() => {
+                                                                            cancelApplications([providerFund]);
+                                                                            e.close();
+                                                                        }}>
+                                                                        <em className="mdi mdi-close-circle-outline icon-start" />
+                                                                        Annuleren
+                                                                    </div>
+                                                                )}
+                                                            </div>
                                                         )}
-                                                    </div>
+                                                    />
+                                                </td>
+                                            ) : (
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableEmptyValue />
                                                 </td>
                                             )}
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}
