@@ -31,7 +31,7 @@
     "@types/file-saver": "^2.0.7",
     "@types/jquery": "^3.5.18",
     "@types/lodash": "^4.14.192",
-    "@types/node": "^22.0.2",
+    "@types/node": "^22.8.6",
     "@types/papaparse": "^5.3.1",
     "@types/pdfjs-dist": "^2.10.378",
     "@types/qrcode": "^1.4.1",
