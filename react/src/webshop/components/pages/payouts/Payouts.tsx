@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
@@ -41,16 +40,7 @@ export default function Payouts() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        {translate('payouts.header.title')}
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('payouts.header.title') }]}
             profileHeader={
                 payouts && (
                     <div className="profile-content-header clearfix">

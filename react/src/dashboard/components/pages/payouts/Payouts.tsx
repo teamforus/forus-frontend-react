@@ -324,19 +324,6 @@ export default function Payouts() {
                                 />
                             </FilterItemToggle>
 
-                            <FilterItemToggle label={translate('payouts.labels.fund')}>
-                                {funds && (
-                                    <SelectControl
-                                        className="form-control"
-                                        propKey={'id'}
-                                        allowSearch={false}
-                                        options={funds}
-                                        optionsComponent={SelectControlOptions}
-                                        onChange={(fund_id: number) => filterUpdate({ fund_id })}
-                                    />
-                                )}
-                            </FilterItemToggle>
-
                             <FilterItemToggle label={translate('payouts.labels.from')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.from)}

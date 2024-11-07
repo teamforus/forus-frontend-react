@@ -15,7 +15,7 @@ export default function SearchItemsList({
     display,
     vouchers,
 }: {
-    items: Array<SearchItem & { searchParams?: object }>;
+    items: Array<SearchItem & { stateParams?: object }>;
     display: 'list' | 'grid';
     vouchers: Array<Voucher>;
 }) {
@@ -47,7 +47,7 @@ export default function SearchItemsList({
                                 } as Product
                             }
                             display={'search'}
-                            searchParams={item.searchParams || null}
+                            stateParams={item.stateParams || null}
                         />
                     )}
 
@@ -56,7 +56,7 @@ export default function SearchItemsList({
                             fund={{ ...item.resource, description: getDescription(item.description_text) } as Fund}
                             vouchers={vouchers}
                             display={'search'}
-                            searchParams={item.searchParams || null}
+                            stateParams={item.stateParams || null}
                         />
                     )}
 
@@ -69,7 +69,7 @@ export default function SearchItemsList({
                                 } as unknown as Provider
                             }
                             display={'search'}
-                            searchParams={item.searchParams || null}
+                            stateParams={item.stateParams || null}
                         />
                     )}
                 </div>

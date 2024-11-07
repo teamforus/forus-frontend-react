@@ -520,18 +520,6 @@ export default function SponsorProviderOrganizations() {
                                     </div>
                                 </FilterItemToggle>
 
-                                <FilterItemToggle label="Fondsen">
-                                    <SelectControl
-                                        className={'form-control'}
-                                        options={funds}
-                                        propKey={'id'}
-                                        allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
-                                        value={filterValues.fund_id}
-                                        onChange={(fund_id: number) => filterUpdate({ fund_id })}
-                                    />
-                                </FilterItemToggle>
-
                                 <FilterItemToggle label="Implementatie">
                                     <SelectControl
                                         className={'form-control'}

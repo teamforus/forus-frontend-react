@@ -23,6 +23,7 @@ import StateHashPrefixRedirect from '../dashboard/modules/state_router/StateHash
 import { TitleProvider } from './contexts/TitleContext';
 import i18nEN from './i18n/i18n-en';
 import i18nNL from './i18n/i18n-nl';
+import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
 
 i18n.use(initReactI18next)
     .init({
@@ -134,6 +135,7 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
 
             <AwsRumScript awsRum={envData.config?.aws_rum} />
             <MatomoScript envData={envData} />
+            <ReadSpeakerScript envData={envData} />
             <SiteImproveAnalytics envData={envData} />
         </Fragment>
     );
