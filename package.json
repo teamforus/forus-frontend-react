@@ -39,7 +39,7 @@
     "@types/react-datepicker": "^7.0.0",
     "@types/react-dom": "^18.0.6",
     "@types/turndown": "^5.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.8",
+    "@typescript-eslint/eslint-plugin": "^8.12",
     "@typescript-eslint/parser": "^8.8",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^9.1.2",
