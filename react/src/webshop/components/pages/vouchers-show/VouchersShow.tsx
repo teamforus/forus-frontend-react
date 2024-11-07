@@ -276,29 +276,17 @@ export default function VouchersShow() {
     return (
         <BlockShowcase
             wrapper={true}
-            breadcrumbs={
-                <div className={'wrapper'}>
-                    <div className="block block-breadcrumbs hide-sm">
-                        <StateNavLink name={'home'} className="breadcrumb-item">
-                            Home
-                        </StateNavLink>
-                        <StateNavLink name={'vouchers'} className="breadcrumb-item" activeExact={true}>
-                            Mijn tegoeden
-                        </StateNavLink>
-                        {voucher && (
-                            <StateNavLink
-                                name={'voucher'}
-                                params={{ number: voucher.number }}
-                                className="breadcrumb-item active"
-                                aria-current="location">
-                                {voucher.physical_card
-                                    ? `Uw ${voucherCard.title} #${voucher.physical_card.code}`
-                                    : `#${voucherCard.number}`}
-                            </StateNavLink>
-                        )}
-                    </div>
-                </div>
-            }>
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: 'Mijn tegoeden', state: 'vouchers' },
+                voucher
+                    ? {
+                          name: voucher?.physical_card
+                              ? `Uw ${voucherCard?.title} #${voucher?.physical_card.code}`
+                              : `#${voucherCard?.number}`,
+                      }
+                    : null,
+            ]}>
             {voucher && voucherCard && (
                 <section className="section section-voucher-details">
                     <div className="page page-voucher">
