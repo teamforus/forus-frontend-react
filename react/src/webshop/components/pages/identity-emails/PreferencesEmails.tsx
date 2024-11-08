@@ -106,6 +106,12 @@ export default function PreferencesEmails() {
         identityEmailService
             .store(values.email)
             .then(() => {
+                pushSuccess(
+                    [
+                        'Er is een e-mail gestuurd naar het ingevulde e-mailadres als dit nog niet bij ons bekend is.',
+                        'Open de e-mail en klik op de link om te bevestigen.',
+                    ].join(' '),
+                );
                 fetchEmails();
                 setShowForm(false);
                 form.setState('success');
