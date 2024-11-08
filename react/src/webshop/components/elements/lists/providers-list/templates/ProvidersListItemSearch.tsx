@@ -5,10 +5,10 @@ import Provider from '../../../../../props/models/Provider';
 
 export default function ProvidersListItemSearch({
     provider,
-    searchParams,
+    stateParams,
 }: {
     provider?: Provider;
-    searchParams?: object;
+    stateParams?: object;
 }) {
     const assetUrl = useAssetUrl();
 
@@ -16,7 +16,7 @@ export default function ProvidersListItemSearch({
         <StateNavLink
             name={'provider'}
             params={{ id: provider?.id }}
-            state={{ searchParams: searchParams || null }}
+            state={stateParams || null}
             className="search-item search-item-provider">
             <div className="search-media">
                 <img
