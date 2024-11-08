@@ -23,6 +23,8 @@ import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatPro
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
+import InfoBox from '../../elements/info-box/InfoBox';
+import EmptyValue from '../../../../webshop/components/elements/empty-value/EmptyValue';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -188,44 +190,38 @@ export default function ProductsView() {
                 <div className="breadcrumb-item active">{product.name}</div>
             </div>
 
-            <div className="block block-product">
-                <div className="card">
-                    <div className="card-section">
-                        <div className="flex">
-                            <div className="flex-col">
-                                <div className="block-product-media">
-                                    <img
-                                        src={
-                                            product.photo?.sizes?.small ||
-                                            assetUrl('/assets/img/placeholders/product-small.png')
-                                        }
-                                        alt={product.name}
-                                    />
-                                </div>
+            <div className="card">
+                <div className="card-section">
+                    <div className="block block-product">
+                        <div className="block-product-media">
+                            <img
+                                src={
+                                    product.photo?.sizes?.small ||
+                                    assetUrl('/assets/img/placeholders/product-small.png')
+                                }
+                                alt={product.name}
+                            />
+                        </div>
+
+                        <div className="block-product-content">
+                            <div className="block-product-details">
+                                <div className="block-product-name">{product.name}</div>
+                                <div className="block-product-price">{product.price_locale}</div>
                             </div>
 
-                            <div className="flex-col flex-grow">
-                                <div className="flex flex-row">
-                                    <div className="flex-col flex-grow">
-                                        <div className="block-product-details">
-                                            <div className="block-product-name">{product.name}</div>
-                                            <div className="block-product-price">{product.price_locale}</div>
-                                        </div>
-                                    </div>
-                                    <div className="flex-col"></div>
-                                </div>
+                            {product.description_html && (
+                                <div
+                                    className="block block-markdown block-product-description"
+                                    dangerouslySetInnerHTML={{ __html: product.description_html }}
+                                />
+                            )}
 
-                                {product.description_html && (
-                                    <div
-                                        className="block-product-description-body"
-                                        dangerouslySetInnerHTML={{ __html: product.description_html }}
-                                    />
-                                )}
+                            <div className="block-product-separator" />
 
-                                <div className="block-product-separator"></div>
+                            <div className="flex flex-vertical">
+                                <div className="card-heading">{translate('product.labels.details')}</div>
 
-                                <div className="card-block card-block-keyvalue">
-                                    <div className="keyvalue-title">{translate('product.labels.details')}</div>
+                                <div className="card-block card-block-keyvalue card-block-keyvalue-md">
                                     <KeyValueItem label={translate('product.labels.expire')}>
                                         {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
                                     </KeyValueItem>
@@ -246,56 +242,42 @@ export default function ProductsView() {
 
                                     <KeyValueItem label={translate('product.labels.ean')}>
                                         <div className="flex flex-vertical flex-gap">
-                                            <div>{product.ean ? product.ean : '-'}</div>
+                                            <div>{product.ean ? product.ean : <EmptyValue />}</div>
 
-                                            <div className="block block-info-box block-info-box-secondary block-info-box-dashed">
-                                                <em className="info-box-icon mdi mdi-information" />
-
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <TranslateHtml i18n={'product.tooltips.ean'} />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <InfoBox dashed={true} iconPosition={'top'}>
+                                                <TranslateHtml i18n={'product.tooltips.ean'} />
+                                            </InfoBox>
                                         </div>
                                     </KeyValueItem>
 
                                     <KeyValueItem label={translate('product.labels.sku')}>
                                         <div className="flex flex-vertical flex-gap">
-                                            <div>{product.sku ? product.sku : '-'}</div>
+                                            <div>{product.sku ? product.sku : <EmptyValue />}</div>
 
-                                            <div className="block block-info-box block-info-box-secondary block-info-box-dashed">
-                                                <em className="info-box-icon mdi mdi-information" />
-
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <TranslateHtml i18n={'product.tooltips.sku'} />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <InfoBox dashed={true} iconPosition={'top'}>
+                                                <TranslateHtml i18n={'product.tooltips.sku'} />
+                                            </InfoBox>
                                         </div>
                                     </KeyValueItem>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div className="card-footer card-footer-primary flex flex-end">
-                        <a className="button button-primary" onClick={() => deleteProduct(product)}>
-                            <em className="mdi mdi-delete icon-start"> </em>
-                            {translate('product.buttons.delete')}
-                        </a>
-                        <StateNavLink
-                            className="button button-default"
-                            name={'products-edit'}
-                            params={{
-                                organizationId: activeOrganization.id,
-                                id: product.id,
-                            }}>
-                            <em className="mdi mdi-pen icon-start"> </em>
-                            {translate('product.buttons.edit')}
-                        </StateNavLink>
-                    </div>
+                <div className="card-footer card-footer-primary flex flex-end">
+                    <a className="button button-primary" onClick={() => deleteProduct(product)}>
+                        <em className="mdi mdi-delete icon-start"> </em>
+                        {translate('product.buttons.delete')}
+                    </a>
+
+                    <StateNavLink
+                        className="button button-default"
+                        name={'products-edit'}
+                        params={{ organizationId: activeOrganization.id, id: product.id }}>
+                        <em className="mdi mdi-pen icon-start"> </em>
+                        {translate('product.buttons.edit')}
+                    </StateNavLink>
                 </div>
             </div>
 

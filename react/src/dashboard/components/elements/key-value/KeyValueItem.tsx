@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import EmptyValue from '../../../../webshop/components/elements/empty-value/EmptyValue';
 
 export default function KeyValueItem({
     label,
@@ -13,7 +14,7 @@ export default function KeyValueItem({
     return (
         <div className="keyvalue-item">
             <div className="keyvalue-key">{label}</div>
-            <div className={classNames(!children && 'text-muted', 'keyvalue-value', className)}>{children || '-'}</div>
+            <div className={classNames('keyvalue-value', className)}>{children || <EmptyValue />}</div>
         </div>
     );
 }

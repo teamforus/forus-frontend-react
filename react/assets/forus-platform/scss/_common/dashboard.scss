@@ -66,7 +66,6 @@
     @import 'blocks/block-implementation-blocks-editor';
     @import 'blocks/block-auth-2fa.scss';
     @import 'blocks/block-2fa-restriction.scss';
-    @import 'blocks/block-info-box.scss';
     @import 'blocks/block-bi-info.scss';
     @import 'blocks/block-pincode.scss';
     @import 'blocks/block-voucher-records-editor.scss';
@@ -89,6 +88,7 @@
     @import 'blocks/block-toast.scss';
 }
 
+@import 'blocks/block-info-box.scss';
 @import 'blocks/block-fund-amounts.scss';
 @import 'blocks/block-info-with-icon.scss';
 @import 'blocks/block-email-log-preview.scss';
@@ -1423,12 +1423,6 @@ body {
         margin-bottom: 10px;
         @include cf();
 
-        .keyvalue-title {
-            font: 600 14px/20px var(--base-font);
-            color: #151B26;
-            margin: 0 0 10px;
-        }
-
         .keyvalue-item {
             padding-bottom: 10px;
             @include cf();
@@ -1598,6 +1592,18 @@ body {
             border-bottom: 1px solid #d4d9dd;
             padding-bottom: 14px;
             margin-bottom: 14px;
+        }
+
+        &.card-block-keyvalue-md {
+            .keyvalue-item {
+                .keyvalue-key {
+                    width: 240px;
+                }
+
+                .keyvalue-value {
+                    width: calc(100% - 240px);
+                }
+            }
         }
 
         &:last-child {

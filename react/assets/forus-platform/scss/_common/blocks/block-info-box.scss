@@ -1,7 +1,7 @@
-&.block-info-box {
+.block.block-info-box {
     background-color: #fffdeb;
     border: 1px solid var(--border-color);
-    padding: 15px;
+    padding: 10px 15px;
     font: 400 13px/20px var(--base-font);
     display: flex;
     flex-direction: row;
@@ -48,15 +48,6 @@
 
     &.block-info-box-primary {
         background-color: #f3f8fe;
-        border-style: solid;
-
-        .info-box-icon {
-            color: #009ef4;
-        }
-    }
-
-    &.block-info-box-secondary {
-        background-color: #ffffff;
         border-style: solid;
 
         .info-box-icon {
