@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
@@ -76,16 +75,7 @@ export default function FundRequests() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        {translate('fund_requests.header.title')}
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('fund_requests.header.title') }]}
             profileHeader={
                 fundRequests && (
                     <div className="profile-content-header clearfix">

@@ -37,7 +37,7 @@ import Privacy from '../components/pages/cms-pages/Privacy';
 import TermsAndConditions from '../components/pages/cms-pages/TermsAndConditions';
 import Error from '../components/pages/error/Error';
 import FundRequestsClarification from '../components/pages/fund-requests-show/FundRequestsClarification';
-import ProvidersSignUp from '../components/pages/providers-sign-up/ProvidersSignUp';
+import ProvidersSignUp from '../components/pages/cms-pages/ProvidersSignUp';
 import Auth2FA from '../components/pages/auth/Auth2FA';
 import ProvidersOffice from '../components/pages/providers-office/ProvidersOffice';
 import Search from '../components/pages/search/Search';

@@ -64,7 +64,6 @@ export default function OrganizationsFundsShowFundRequestConfigCard({
         (values) => {
             setProgress(0);
 
-            console.log('asd-0');
             fundService
                 .update(fund.organization.id, fund.id, values)
                 .then(() => {
@@ -369,7 +368,6 @@ export default function OrganizationsFundsShowFundRequestConfigCard({
                                 type={'button'}
                                 className="button button-default"
                                 onClick={() => {
-                                    console.log('asd');
                                     form.reset();
                                     setCollapsed(true);
                                 }}>

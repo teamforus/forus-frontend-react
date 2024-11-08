@@ -10,13 +10,13 @@ export default function ProductsListItem({
     display,
     product,
     productType,
-    searchParams = null,
+    stateParams = null,
     onToggleBookmark = null,
 }: {
     display: 'grid' | 'list' | 'search';
     product: Product;
     productType?: 'budget' | 'subsidies';
-    searchParams?: object;
+    stateParams?: object;
     onToggleBookmark?: (product: Product) => void;
 }) {
     const bookmarkProductToggle = useBookmarkProductToggle();
@@ -54,7 +54,7 @@ export default function ProductsListItem({
         <StateNavLink
             name={'product'}
             params={{ id: product.id }}
-            state={{ searchParams: searchParams || null }}
+            state={stateParams || null}
             className={display === 'search' ? 'search-item search-item-product' : 'product-item'}
             dataDusk="productItem">
             {display === 'grid' && (

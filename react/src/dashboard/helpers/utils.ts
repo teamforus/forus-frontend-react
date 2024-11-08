@@ -30,3 +30,14 @@ export const extractText = (html: string) => {
 
     return doc.body.textContent || '';
 };
+
+export const removeNullProperties = (obj?: object) => {
+    return obj
+        ? Object.keys(obj).reduce((acc, key) => {
+              if (obj[key] !== null) {
+                  acc[key] = obj[key];
+              }
+              return acc;
+          }, {})
+        : null;
+};

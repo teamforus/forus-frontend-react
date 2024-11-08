@@ -22,6 +22,7 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import { modalsContext } from '../../../../dashboard/modules/modals/context/ModalContext';
 import ModalNotification from '../../modals/ModalNotification';
 import useSetTitle from '../../../hooks/useSetTitle';
+import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
 
 export default function Home() {
     const envData = useEnvData();
@@ -171,6 +172,7 @@ export default function Home() {
                     </div>
                     <div className="wrapper">
                         <div className="header-content" data-dusk="header">
+                            <ReadSpeakerButton className={'header-read-speaker'} targetId={'main-content'} />
                             {appConfigs.settings.title ? (
                                 <h1 className="header-title" data-dusk="headerTitle">
                                     {appConfigs.settings.title}

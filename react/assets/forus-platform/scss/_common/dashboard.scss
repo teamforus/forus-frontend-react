@@ -100,10 +100,8 @@
 @import 'blocks/block-product.scss';
 
 // Select controls
-.select-control {
-    @import 'select-controls/select-control-funds';
-    @import 'select-controls/select-control-organizations';
-}
+@import 'select-controls/select-control-funds';
+@import 'select-controls/select-control-organizations';
 
 // Dropdown menus
 .dropdown {
@@ -1000,7 +998,7 @@ body {
 
                 .mdi {
                     margin-right: 0;
-                    color: #646F79;
+                    color: #646f79;
                 }
             }
         }
@@ -1481,7 +1479,7 @@ body {
                     cursor: pointer;
 
                     .mdi {
-                        color: #646F79;
+                        color: #646f79;
                         font-size: 20px;
                     }
 
@@ -4942,7 +4940,7 @@ body {
             }
         }
 
-        .inline-filter-control {
+        .select-control {
             width: 180px !important;
 
             .select-control-input {
@@ -4963,8 +4961,13 @@ body {
 
             .select-control-options {
                 .select-control-option {
-                    padding-left: 7.5px;
+                    padding-left: 10px;
+                    font-size: 12px;
                 }
+            }
+
+            &.select-control-lg {
+                width: 240px !important;
             }
         }
 
@@ -5125,6 +5128,7 @@ body {
                             margin: 0 0 10px;
                             height: 30px;
                             font-size: 12px;
+                            width: 100% !important;
 
                             &.select-control {
                                 .select-control-search {
