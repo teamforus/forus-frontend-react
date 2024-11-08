@@ -213,6 +213,13 @@ export default function ModalVouchersUpload({
         [productsById],
     );
 
+    const getFundsById = useCallback(
+        (fundIds: Array<number>, type: 'budget' | 'subsidies') => {
+            return funds.filter((fund) => fundIds.indexOf(fund.id) != -1 && fund.type == type);
+        },
+        [funds],
+    );
+
     const validateCsvDataBudget = useCallback(
         (data: Array<{ [key: string]: string | number }>) => {
             const fundBudget = parseFloat(fund.limit_sum_vouchers);
@@ -221,7 +228,10 @@ export default function ModalVouchersUpload({
                 0,
             );
 
-            if (fund.type === 'budget') {
+            const csvFundIds = data.map((row) => parseInt(row?.fund_id?.toString()));
+            const csvBudgetFunds = getFundsById(csvFundIds, 'budget');
+
+            if (fund.type === 'budget' || csvBudgetFunds.length > 0) {
                 csvErrors.csvAmountMissing = data.filter((row: RowDataProp) => !row.amount).length > 0;
 
                 // csv total amount should be withing fund budget
@@ -243,7 +253,7 @@ export default function ModalVouchersUpload({
                 !csvErrors.invalidPerVoucherAmount
             );
         },
-        [csvErrors, fund.limit_per_voucher, fund.limit_sum_vouchers, fund.type],
+        [csvErrors, fund.limit_per_voucher, fund.limit_sum_vouchers, fund.type, getFundsById],
     );
 
     const validateCsvDataProduct = useCallback(
