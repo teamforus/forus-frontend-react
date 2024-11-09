@@ -217,8 +217,8 @@ router.state('sponsor-products', <SponsorProducts />, {
 });
 
 router.state('sponsor-product-logs', <SponsorProductLogs />, {
-    path: `/organisaties/:organizationId/sponsor/fund/:fundId:/fund_provider/:fundProviderId/product/:id`,
-    altPath: `/organizations/:organizationId/sponsor/fund/:fundId:/fund_provider/:fundProviderId/product/:id`,
+    path: `/organisaties/:organizationId/sponsor/fund/:fundId/fund_provider/:fundProviderId/product/:id`,
+    altPath: `/organizations/:organizationId/sponsor/fund/:fundId/fund_provider/:fundProviderId/product/:id`,
     fallbackState: 'organizations',
 });
 

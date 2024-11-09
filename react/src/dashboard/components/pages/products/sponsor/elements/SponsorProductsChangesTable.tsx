@@ -2,24 +2,21 @@ import React from 'react';
 import { strLimit } from '../../../../../helpers/string';
 import TableRowActions from '../../../../elements/tables/TableRowActions';
 import useTranslate from '../../../../../hooks/useTranslate';
-import Product from '../../../../../props/models/Product';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
+import FundProviderProduct from '../../../../../props/models/FundProviderProduct';
 
 export default function SponsorProductsChangesTable({
     products = null,
     groupBy = null,
 }: {
-    products: Array<Product>;
+    products: Array<FundProviderProduct>;
     groupBy: string;
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const activeOrganization = useActiveOrganization();
-
-    console.log('provider id: ', products[0].funds?.[0].fund_providers[0]?.id);
-    console.log('fund id: ', products[0].funds?.[0].id);
 
     return (
         <table className="table">
@@ -31,7 +28,7 @@ export default function SponsorProductsChangesTable({
 
                     <th>{translate('sponsor_products.labels.last_updated')}</th>
 
-                    <th>{translate('sponsor_products.labels.fund')}</th>
+                    {groupBy != 'per_product' && <th>{translate('sponsor_products.labels.fund')}</th>}
 
                     {groupBy == 'per_product' && <th>{translate('sponsor_products.labels.nr_changes')}</th>}
 
@@ -68,7 +65,7 @@ export default function SponsorProductsChangesTable({
                             </div>
                         </td>
 
-                        <td>{product.funds.map((fund) => fund.name).join(', ')}</td>
+                        {groupBy != 'per_product' && <td>{product.fund.name}</td>}
 
                         {groupBy == 'per_product' && <td>{product.digest_logs_count}</td>}
 
@@ -76,21 +73,40 @@ export default function SponsorProductsChangesTable({
                             <TableRowActions
                                 content={() => (
                                     <div className="dropdown dropdown-actions">
-                                        <div className="dropdown-item">
-                                            <em className={'mdi mdi-eye icon-start'} />
+                                        <StateNavLink
+                                            className="dropdown-item"
+                                            name={'fund-provider-product'}
+                                            params={{
+                                                organizationId: activeOrganization.id,
+                                                fundId: product.fund_id,
+                                                fundProviderId: product.fund_provider_id,
+                                                id: product.id,
+                                            }}>
+                                            <em className="mdi mdi-eye icon-start" />
                                             Bekijken
-                                        </div>
-                                        <div className="dropdown-item">
+                                        </StateNavLink>
+
+                                        <StateNavLink
+                                            className="dropdown-item"
+                                            name={'fund-provider-product'}
+                                            params={{
+                                                organizationId: activeOrganization.id,
+                                                fundId: product.fund_id,
+                                                fundProviderId: product.fund_provider_id,
+                                                id: product.id,
+                                            }}
+                                            query={{ source_id: product.id }}>
                                             <em className="mdi mdi-content-copy icon-start" />
                                             Kopieren
-                                        </div>
+                                        </StateNavLink>
+
                                         <StateNavLink
                                             className="dropdown-item"
                                             name={'sponsor-product-logs'}
                                             params={{
                                                 organizationId: activeOrganization.id,
-                                                fundId: product.funds?.[0].id,
-                                                fundProviderId: product.funds?.[0]?.fund_providers?.[0]?.id,
+                                                fundId: product.fund_id,
+                                                fundProviderId: product.fund_provider_id,
                                                 id: product.id,
                                             }}>
                                             <em className="mdi mdi-history icon-start" />

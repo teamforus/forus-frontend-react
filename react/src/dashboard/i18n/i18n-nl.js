@@ -887,6 +887,7 @@ export default {
     sponsor_products: {
         offers: 'Aanbod',
         labels: {
+            search: 'Zoeken',
             name: 'Aanbod',
             provider_name: 'Aanbieder',
             last_updated: 'Laatste wijziging',
@@ -895,20 +896,22 @@ export default {
             fund: 'Fonds',
             price: 'Prijs',
             stock_amount: 'Voorraad',
-            categorie: 'Categorie',
+            category: 'Categorie',
+            price_min: '0',
+            price_max: 'Alle',
+            logs: 'Geschiedenis van wijzigingen',
             created_at: 'Aanmaakdatum',
             actions: 'Actie',
+            date_type: 'Pas toe op',
+            from: 'Vanaf',
+            to: 'Tot en met',
         },
         filters: {
             search: 'Zoeken',
             implementation: 'Implementatie',
             amount: 'Bedrag',
-            state: 'Status',
-        },
-        states: {
-            approved: 'Goedgekeurd',
-            declined: 'Geweigerd',
-            waiting: 'In afwachting',
+            has_reservations: 'Heeft reserveringen',
+            funds: 'Fondsen',
         },
     },
 

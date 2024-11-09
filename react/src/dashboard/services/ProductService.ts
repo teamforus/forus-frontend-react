@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Product from '../props/models/Product';
 import ProductFund from '../props/models/ProductFund';
+import FundProviderProduct from '../props/models/FundProviderProduct';
 
 export class ProductService<T = Product> {
     /**
@@ -51,7 +52,10 @@ export class ProductService<T = Product> {
     /**
      * Fetch list sponsor products
      */
-    public sponsorDigestLogs(sponsor_organization_id: number, data = {}): Promise<ApiResponse<T>> {
+    public sponsorFundProviderDigestProducts(
+        sponsor_organization_id: number,
+        data = {},
+    ): Promise<ApiResponse<FundProviderProduct>> {
         return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products/logs`, data);
     }
 

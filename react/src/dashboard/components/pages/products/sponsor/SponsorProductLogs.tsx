@@ -5,33 +5,37 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import useProductService from '../../../../services/ProductService';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import Product from '../../../../props/models/Product';
-import { useParams } from 'react-router-dom';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
+import FundProviderProduct from '../../../../props/models/FundProviderProduct';
+import useAssetUrl from '../../../../hooks/useAssetUrl';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { useParams } from 'react-router-dom';
 
 export default function SponsorProductLogs() {
     const { id, fundId, fundProviderId } = useParams();
     const activeOrganization = useActiveOrganization();
 
-    const translate = useTranslate();
+    const assetUrl = useAssetUrl();
     const setProgress = useSetProgress();
+    const translate = useTranslate();
 
-    const productService = useProductService();
     const fundService = useFundService();
+    const productService = useProductService();
 
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState<Product>(null);
-    const [logs, setProductLogs] = useState<PaginationData<Product>>(null);
+    const [fundProviderProducts, setFundProviderProducts] = useState<PaginationData<FundProviderProduct>>(null);
 
     const fetchLogs = useCallback(() => {
         setProgress(0);
         setLoading(true);
 
         productService
-            .sponsorDigestLogs(activeOrganization.id, {
+            .sponsorFundProviderDigestProducts(activeOrganization.id, {
                 product_id: id,
             })
-            .then((res) => setProductLogs(res.data))
+            .then((res) => setFundProviderProducts(res.data))
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
@@ -59,25 +63,60 @@ export default function SponsorProductLogs() {
         fetchProduct();
     }, [fetchProduct]);
 
-    if (!product || !logs) {
+    if (!product || !fundProviderProducts) {
         return <LoadingCard />;
     }
 
     return (
         <Fragment>
+            <div className="block block-breadcrumbs">
+                <StateNavLink
+                    name={'sponsor-products'}
+                    params={{ organizationId: activeOrganization.id }}
+                    activeExact={true}
+                    className="breadcrumb-item">
+                    Aanbod
+                </StateNavLink>
+                <div className="breadcrumb-item active">Geschiedenis van wijzigingen</div>
+            </div>
+
             <div className="card">
-                <div className="card-header">
-                    <div className="photo">{product?.name}</div>
+                <div className="card-section">
+                    <div className="card-section-actions">
+                        <StateNavLink
+                            className="button button-default"
+                            name={'sponsor-provider-organization'}
+                            params={{
+                                organizationId: activeOrganization.id,
+                                id: product.organization_id,
+                            }}>
+                            <em className="mdi mdi-open-in-new icon-start" />
+                            Bekijk
+                        </StateNavLink>
+                    </div>
+
+                    <div className="card-block card-block-provider">
+                        <div className="provider-img">
+                            <img
+                                src={
+                                    product?.photo?.sizes?.small ||
+                                    assetUrl('/assets/img/placeholders/product-small.png')
+                                }
+                                alt={product?.name}
+                            />
+                        </div>
+                        <div className="provider-details">
+                            <div className="provider-title">{product?.name}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div className="card">
                 <div className="card-header card-header-next">
                     <div className="flex flex-grow">
-                        <div className="flex-col">
-                            <div className="card-title">
-                                {translate('products.offers')} ({logs?.meta?.total})
-                            </div>
+                        <div className="card-title">
+                            {translate('sponsor_products.labels.logs')} ({fundProviderProducts?.meta?.total})
                         </div>
                     </div>
                 </div>
@@ -90,41 +129,37 @@ export default function SponsorProductLogs() {
                     </div>
                 )}
 
-                {!loading && logs?.meta?.total > 0 && (
+                {!loading && fundProviderProducts?.meta?.total > 0 && (
                     <div className="card-section">
                         <div className="card-block card-block-table">
                             <div className="table-wrapper">
                                 <table className="table">
                                     <thead>
                                         <tr>
-                                            <th className={'nowrap'}>{translate('sponsor_products.labels.name')}</th>
-
                                             <th className={'nowrap'}>
                                                 {translate('sponsor_products.labels.provider_name')}
                                             </th>
 
+                                            <th className={'nowrap'}>{translate('sponsor_products.labels.fund')}</th>
+
                                             <th>{translate('sponsor_products.labels.last_updated')}</th>
-
-                                            <th>{translate('sponsor_products.labels.nr_changes')}</th>
-
-                                            <th className="text-right nowrap th-narrow" />
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        {logs?.data?.map((productLog, id) => (
+                                        {fundProviderProducts?.data?.map((productLog, id) => (
                                             <tr key={id}>
                                                 <td>{productLog.organization.name}</td>
+                                                <td>{productLog.fund.name}</td>
                                                 <td>
                                                     <div className="text-medium text-primary">
-                                                        {product.updated_at_locale?.split(' - ')[0]}
+                                                        {productLog.updated_at_locale?.split(' - ')[0]}
                                                     </div>
 
                                                     <div className="text-strong text-md text-muted-dark">
-                                                        {product.updated_at_locale?.split(' - ')[1]}
+                                                        {productLog.updated_at_locale?.split(' - ')[1]}
                                                     </div>
                                                 </td>
-                                                <td>{productLog.digest_logs_count}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -134,7 +169,7 @@ export default function SponsorProductLogs() {
                     </div>
                 )}
 
-                {!loading && logs?.meta?.total == 0 && (
+                {!loading && fundProviderProducts?.meta?.total == 0 && (
                     <div className="card-section text-center">
                         <div className="card-subtitle">Er zijn geen aanbiedingen gevonden voor de zoekopdracht.</div>
                     </div>

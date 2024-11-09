@@ -17,8 +17,11 @@ import SelectControl from '../../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
-import useImplementationService from '../../../../services/ImplementationService';
-import Implementation from '../../../../props/models/Implementation';
+import FundProviderProduct from '../../../../props/models/FundProviderProduct';
+import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
+import { dateFormat, dateParse } from '../../../../helpers/dates';
+import { useFundService } from '../../../../services/FundService';
+import Fund from '../../../../props/models/Fund';
 
 export default function SponsorProducts() {
     const activeOrganization = useActiveOrganization();
@@ -28,18 +31,23 @@ export default function SponsorProducts() {
 
     const productService = useProductService();
     const paginatorService = usePaginatorService();
-    const implementationService = useImplementationService();
+    const fundService = useFundService();
 
-    const [paginatorKey] = useState('sponsor_products');
     const [loading, setLoading] = useState(false);
+    const [paginatorKey] = useState('sponsor_products');
+    const [funds, setFunds] = useState<Array<Fund>>(null);
     const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
+    const [fundProviderProducts, setFundProviderProducts] = useState<PaginationData<FundProviderProduct>>(null);
 
-    const [statesOptions] = useState([
+    const [hasReservationOptions] = useState([
+        { key: 1, name: 'Ja' },
+        { key: 0, name: 'Nee' },
         { key: null, name: 'Alle' },
-        { key: 'approved', name: translate(`sponsor_products.states.approved`) },
-        { key: 'waiting', name: translate(`sponsor_products.states.waiting`) },
-        { key: 'declined', name: translate(`sponsor_products.states.declined`) },
+    ]);
+
+    const [dateTypeOptions] = useState([
+        { key: 'created_at', name: 'Aanmaakdatum' },
+        { key: 'updated_at', name: 'Laatste wijziging datum' },
     ]);
 
     const [groupByOptions] = useState([
@@ -49,17 +57,25 @@ export default function SponsorProducts() {
 
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q?: string;
+        to?: string;
+        from?: string;
         page?: number;
-        amount_min?: string;
-        amount_max?: string;
+        fund_id?: number;
+        price_min?: string;
+        price_max?: string;
         source?: string;
         group_by?: string;
         per_page?: number;
+        has_reservations?: number;
+        date_type?: 'created_at' | 'updated_at';
     }>(
         {
             q: '',
             page: 1,
-            source: 'all',
+            source: 'products',
+            fund_id: null,
+            has_reservations: null,
+            date_type: 'created_at',
             group_by: groupByOptions[0].value,
             per_page: paginatorService.getPerPage(paginatorKey),
         },
@@ -67,21 +83,39 @@ export default function SponsorProducts() {
             queryParamsRemoveDefault: true,
             queryParams: {
                 q: StringParam,
+                to: StringParam,
+                from: StringParam,
                 page: NumberParam,
+                fund_id: NumberParam,
                 per_page: NumberParam,
                 source: StringParam,
                 group_by: StringParam,
+                has_reservations: NumberParam,
+                date_type: StringParam,
+                price_min: StringParam,
+                price_max: StringParam,
             },
         },
     );
+
+    const { resetFilters: resetFilters } = filter;
 
     const fetchProducts = useCallback(() => {
         setProgress(0);
         setLoading(true);
 
-        if (filterActiveValues.source == 'all') {
+        const values = {
+            ...filterActiveValues,
+            date_type: null,
+            from: filterActiveValues.date_type === 'created_at' ? filterActiveValues.from : null,
+            to: filterActiveValues.date_type === 'created_at' ? filterActiveValues.to : null,
+            updated_from: filterActiveValues.date_type === 'updated_at' ? filterActiveValues.from : null,
+            updated_to: filterActiveValues.date_type === 'updated_at' ? filterActiveValues.to : null,
+        };
+
+        if (filterActiveValues.source == 'products') {
             productService
-                .sponsorProducts(activeOrganization.id, filterActiveValues)
+                .sponsorProducts(activeOrganization.id, values)
                 .then((res) => setProducts(res.data))
                 .finally(() => {
                     setLoading(false);
@@ -89,8 +123,8 @@ export default function SponsorProducts() {
                 });
         } else {
             productService
-                .sponsorDigestLogs(activeOrganization.id, filterActiveValues)
-                .then((res) => setProducts(res.data))
+                .sponsorFundProviderDigestProducts(activeOrganization.id, values)
+                .then((res) => setFundProviderProducts(res.data))
                 .finally(() => {
                     setLoading(false);
                     setProgress(100);
@@ -98,24 +132,24 @@ export default function SponsorProducts() {
         }
     }, [setProgress, productService, activeOrganization.id, filterActiveValues]);
 
-    const fetchImplementations = useCallback(() => {
+    const fetchFunds = useCallback(() => {
         setProgress(0);
 
-        implementationService
-            .list(activeOrganization.id, { per_page: 100 })
-            .then((res) => setImplementations([{ id: null, name: 'Alle implementaties...' }, ...res.data.data]))
+        fundService
+            .list(activeOrganization.id, { with_archived: 1 })
+            .then((res) => setFunds(res.data.data))
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, implementationService, setProgress]);
+    }, [activeOrganization.id, fundService, setProgress]);
+
+    useEffect(() => {
+        fetchFunds();
+    }, [fetchFunds]);
 
     useEffect(() => {
         fetchProducts();
     }, [fetchProducts]);
 
-    useEffect(() => {
-        fetchImplementations();
-    }, [fetchImplementations]);
-
-    if (!products) {
+    if (!products && !fundProviderProducts) {
         return <LoadingCard />;
     }
 
@@ -125,7 +159,8 @@ export default function SponsorProducts() {
                 <div className="flex flex-grow">
                     <div className="flex-col">
                         <div className="card-title">
-                            {translate('products.offers')} ({products.meta.total})
+                            {translate('products.offers')} (
+                            {(filterActiveValues.source == 'products' ? products : fundProviderProducts)?.meta.total})
                         </div>
                     </div>
                 </div>
@@ -133,7 +168,7 @@ export default function SponsorProducts() {
                 <div className="card-header-filters form">
                     <div className="block block-inline-filters">
                         {filter.show && (
-                            <div className="button button-text" onClick={() => filter.resetFilters()}>
+                            <div className="button button-text" onClick={() => resetFilters()}>
                                 <em className="mdi mdi-close icon-start" />
                                 Wis filters
                             </div>
@@ -141,7 +176,7 @@ export default function SponsorProducts() {
 
                         {!filter.show && (
                             <Fragment>
-                                {filterActiveValues.source == 'changes' && (
+                                {filterActiveValues.source == 'fund_provider_products' && (
                                     <div className="form-group form-group-inline">
                                         <label className="form-label">Sorteer op:</label>
                                         <div className="form-offset">
@@ -163,18 +198,20 @@ export default function SponsorProducts() {
                                         <div className="label-tab-set">
                                             <div
                                                 className={`label-tab label-tab-sm ${
-                                                    filterActiveValues.source == 'all' ? 'active' : ''
+                                                    filterActiveValues.source == 'products' ? 'active' : ''
                                                 }`}
-                                                onClick={() => filterUpdate({ source: 'all' })}>
-                                                All
+                                                onClick={() => filterUpdate({ source: 'products' })}>
+                                                Alle
                                             </div>
 
                                             <div
                                                 className={`label-tab label-tab-sm ${
-                                                    filterActiveValues.source == 'changes' ? 'active' : ''
+                                                    filterActiveValues.source == 'fund_provider_products'
+                                                        ? 'active'
+                                                        : ''
                                                 }`}
-                                                onClick={() => filterUpdate({ source: 'changes' })}>
-                                                Changes
+                                                onClick={() => filterUpdate({ source: 'fund_provider_products' })}>
+                                                Wijzigingen
                                             </div>
                                         </div>
                                     </div>
@@ -186,8 +223,7 @@ export default function SponsorProducts() {
                                         type="text"
                                         value={filterValues.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
-                                        data-dusk="searchTransaction"
-                                        placeholder={translate('transactions.labels.search')}
+                                        placeholder={translate('sponsor_products.labels.search')}
                                     />
                                 </div>
                             </Fragment>
@@ -217,29 +253,31 @@ export default function SponsorProducts() {
                                                 />
                                             </FilterItemToggle>
 
-                                            <FilterItemToggle label={translate('sponsor_products.filters.state')}>
+                                            {filterActiveValues.source == 'fund_provider_products' && (
+                                                <FilterItemToggle label={translate('sponsor_products.filters.funds')}>
+                                                    <SelectControl
+                                                        className="form-control"
+                                                        propKey={'id'}
+                                                        allowSearch={false}
+                                                        value={filterValues.fund_id || funds?.[0]?.id}
+                                                        options={funds}
+                                                        optionsComponent={SelectControlOptions}
+                                                        onChange={(fund_id: number) => filterUpdate({ fund_id })}
+                                                    />
+                                                </FilterItemToggle>
+                                            )}
+
+                                            <FilterItemToggle
+                                                label={translate('sponsor_products.filters.has_reservations')}>
                                                 <SelectControl
                                                     className="form-control"
                                                     propKey={'key'}
                                                     allowSearch={false}
-                                                    value={filter.values.state}
-                                                    options={statesOptions}
+                                                    value={filterValues.has_reservations}
+                                                    options={hasReservationOptions}
                                                     optionsComponent={SelectControlOptions}
-                                                    onChange={(state: string) => filter.update({ state })}
-                                                />
-                                            </FilterItemToggle>
-
-                                            <FilterItemToggle
-                                                label={translate('sponsor_products.filters.implementation')}>
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey={'id'}
-                                                    allowSearch={false}
-                                                    value={filter.values.implementation_id}
-                                                    options={implementations}
-                                                    optionsComponent={SelectControlOptions}
-                                                    onChange={(implementation_id: string) =>
-                                                        filter.update({ implementation_id })
+                                                    onChange={(has_reservations: number) =>
+                                                        filterUpdate({ has_reservations })
                                                     }
                                                 />
                                             </FilterItemToggle>
@@ -251,11 +289,11 @@ export default function SponsorProducts() {
                                                             className="form-control"
                                                             min={0}
                                                             type="number"
-                                                            value={filter.values.amount_min || ''}
+                                                            value={filterValues.price_min || ''}
                                                             onChange={(e) => {
-                                                                filter.update({ amount_min: e.target.value || null });
+                                                                filterUpdate({ price_min: e.target.value || null });
                                                             }}
-                                                            placeholder={translate('transactions.labels.amount_min')}
+                                                            placeholder={translate('sponsor_products.labels.price_min')}
                                                         />
                                                     </div>
 
@@ -264,14 +302,43 @@ export default function SponsorProducts() {
                                                             className="form-control"
                                                             min={0}
                                                             type="number"
-                                                            value={filter.values.amount_max || ''}
+                                                            value={filter.values.price_max || ''}
                                                             onChange={(e) => {
-                                                                filter.update({ amount_max: e.target.value || null });
+                                                                filterUpdate({ price_max: e.target.value || null });
                                                             }}
-                                                            placeholder={translate('transactions.labels.amount_max')}
+                                                            placeholder={translate('sponsor_products.labels.price_max')}
                                                         />
                                                     </div>
                                                 </div>
+                                            </FilterItemToggle>
+
+                                            <FilterItemToggle label={translate('sponsor_products.labels.date_type')}>
+                                                <SelectControl
+                                                    className="form-control"
+                                                    propKey={'key'}
+                                                    allowSearch={false}
+                                                    value={filterValues.date_type}
+                                                    options={dateTypeOptions}
+                                                    onChange={(date_type: 'created_at' | 'updated_at') =>
+                                                        filterUpdate({ date_type })
+                                                    }
+                                                />
+                                            </FilterItemToggle>
+
+                                            <FilterItemToggle label={translate('sponsor_products.labels.from')}>
+                                                <DatePickerControl
+                                                    value={dateParse(filterValues.from)}
+                                                    placeholder={translate('dd-MM-yyyy')}
+                                                    onChange={(from: Date) => filterUpdate({ from: dateFormat(from) })}
+                                                />
+                                            </FilterItemToggle>
+
+                                            <FilterItemToggle label={translate('sponsor_products.labels.to')}>
+                                                <DatePickerControl
+                                                    value={dateParse(filterValues.to)}
+                                                    placeholder={translate('dd-MM-yyyy')}
+                                                    onChange={(to: Date) => filterUpdate({ to: dateFormat(to) })}
+                                                />
                                             </FilterItemToggle>
                                         </div>
                                     </div>
@@ -296,41 +363,44 @@ export default function SponsorProducts() {
                 </div>
             )}
 
-            {!loading && products?.meta?.total > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            {filterValues.source == 'all' ? (
-                                <TableTopScroller>
-                                    <SponsorProductsGeneralTable products={products?.data} />
-                                </TableTopScroller>
-                            ) : (
-                                <SponsorProductsChangesTable
-                                    products={products?.data}
-                                    groupBy={filterActiveValues.group_by}
-                                />
-                            )}
+            {!loading &&
+                (filterActiveValues.source == 'products' ? products : fundProviderProducts)?.meta?.total > 0 && (
+                    <div className="card-section">
+                        <div className="card-block card-block-table">
+                            <div className="table-wrapper">
+                                {filterValues.source == 'products' ? (
+                                    <TableTopScroller>
+                                        <SponsorProductsGeneralTable products={products?.data} />
+                                    </TableTopScroller>
+                                ) : (
+                                    <SponsorProductsChangesTable
+                                        products={fundProviderProducts?.data}
+                                        groupBy={filterActiveValues.group_by}
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {!loading && products.meta.total == 0 && filterActiveValues?.q && (
-                <div className="card-section text-center">
-                    <div className="card-subtitle">Er zijn geen aanbiedingen gevonden voor de zoekopdracht.</div>
-                </div>
-            )}
+            {!loading &&
+                (filterActiveValues.source == 'products' ? products : fundProviderProducts)?.meta.total == 0 && (
+                    <div className="card-section text-center">
+                        <div className="card-subtitle">Er zijn geen aanbiedingen gevonden voor de zoekopdracht.</div>
+                    </div>
+                )}
 
-            {!loading && products?.meta?.last_page > 1 && (
-                <div className="card-section">
-                    <Paginator
-                        meta={products.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+            {!loading &&
+                (filterActiveValues.source == 'products' ? products : fundProviderProducts)?.meta?.last_page > 1 && (
+                    <div className="card-section">
+                        <Paginator
+                            meta={products.meta}
+                            filters={filter.values}
+                            updateFilters={filter.update}
+                            perPageKey={paginatorKey}
+                        />
+                    </div>
+                )}
         </div>
     );
 }

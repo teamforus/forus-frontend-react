@@ -28,7 +28,7 @@ export default function SponsorProductsGeneralTable({ products = null }: { produ
 
                     <th>{translate('sponsor_products.labels.stock_amount')}</th>
 
-                    <th>{translate('sponsor_products.labels.categorie')}</th>
+                    <th>{translate('sponsor_products.labels.category')}</th>
 
                     <th>{translate('sponsor_products.labels.created_at')}</th>
 
@@ -91,35 +91,13 @@ export default function SponsorProductsGeneralTable({ products = null }: { produ
                                     <div className="dropdown dropdown-actions">
                                         <StateNavLink
                                             className="dropdown-item"
-                                            name={'products-show'}
-                                            params={{
-                                                organizationId: product.organization.id,
-                                                id: product.id,
-                                            }}>
-                                            <em className={'mdi mdi-eye icon-start'} />
-                                            Bekijken
-                                        </StateNavLink>
-                                        <StateNavLink
-                                            className="dropdown-item"
-                                            name={'products-show'}
-                                            params={{
-                                                organizationId: product.organization.id,
-                                                id: product.id,
-                                            }}>
-                                            <em className="mdi mdi-content-copy icon-start" />
-                                            Kopieren
-                                        </StateNavLink>
-                                        <StateNavLink
-                                            className="dropdown-item"
-                                            name={'sponsor-product-logs'}
+                                            name={'sponsor-provider-organization'}
                                             params={{
                                                 organizationId: activeOrganization.id,
-                                                fundProviderId: product.funds?.[0]?.fund_providers?.[0].id,
-                                                fundId: product.funds[0]?.id,
-                                                id: product.id,
+                                                id: product.organization_id,
                                             }}>
-                                            <em className="mdi mdi-history icon-start" />
-                                            Geschiedenis
+                                            <em className="mdi mdi-eye icon-start" />
+                                            Bekijken
                                         </StateNavLink>
                                     </div>
                                 )}
