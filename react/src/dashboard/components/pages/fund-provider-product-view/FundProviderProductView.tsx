@@ -450,11 +450,15 @@ export default function FundProviderProductView() {
                     )}
 
                     {!product.sponsor_organization && fundProviderProductChat && (
-                        <Fragment>
+                        <div className={'button-group flex flex-gap'}>
                             {fundProviderProductChat.sponsor_unseen_messages > 0 && (
-                                <span className="block-product-unseen-messages">
-                                    {fundProviderProductChat.sponsor_unseen_messages} nieuwe
-                                </span>
+                                <div>
+                                    <span className="button button-text button-text-padless button-disabled">
+                                        <span className="text text-black">
+                                            {fundProviderProductChat.sponsor_unseen_messages} nieuwe
+                                        </span>
+                                    </span>
+                                </div>
                             )}
 
                             <button
@@ -474,7 +478,7 @@ export default function FundProviderProductView() {
                                     }`}
                                 />
                             </button>
-                        </Fragment>
+                        </div>
                     )}
                 </div>
             </div>
