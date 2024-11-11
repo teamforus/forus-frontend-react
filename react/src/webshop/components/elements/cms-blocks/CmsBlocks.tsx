@@ -2,14 +2,15 @@ import React from 'react';
 import ImplementationPage from '../../../props/models/ImplementationPage';
 import Markdown from '../markdown/Markdown';
 import useAssetUrl from '../../../hooks/useAssetUrl';
+import classNames from 'classnames';
 
-export default function CmsBlocks({ page }: { page: ImplementationPage }) {
+export default function CmsBlocks({ page, wrapper = true }: { page: ImplementationPage; wrapper?: boolean }) {
     const assetUrl = useAssetUrl();
 
     return (
         <div className={`block block-cms ${page.blocks.length > 0 ? 'block-cms-with-items' : ''}`}>
             {(page.description_html || page.blocks.length > 0) && (
-                <div className="wrapper">
+                <div className={classNames(wrapper && 'wrapper')}>
                     {page.description_html && (
                         <Markdown content={page.description_html} align={page.description_alignment} />
                     )}

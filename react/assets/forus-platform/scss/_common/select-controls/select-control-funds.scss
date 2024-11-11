@@ -1,4 +1,4 @@
-&.select-control-funds {
+.select-control.select-control-funds {
     .select-control-input {
         .select-control-search,
         .select-control-options {
@@ -24,7 +24,11 @@
 
         .select-control-options {
             .select-control-option {
+                height: auto;
+                min-width: var(--option-height);
                 padding-left: 10px;
+                word-break: break-word;
+                white-space: wrap;
             }
         }
 
