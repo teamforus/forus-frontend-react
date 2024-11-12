@@ -89,36 +89,34 @@ export default function OrganizationsSecurity() {
                 </div>
                 <div className="card">
                     <form className="form" onSubmit={form.submit}>
-                        <div className="card-header">
-                            <div className="flex-row">
-                                <div className="flex flex-grow">
-                                    {viewType == 'employees' && (
-                                        <div className="card-title">Tweefactorauthenticatie voor medewerkers</div>
-                                    )}
-                                    {viewType == 'funds' && (
-                                        <div className="card-title">Tweefactorauthenticatie voor fondsen</div>
-                                    )}
-                                </div>
-                                <div className="flex">
-                                    <div className="block block-inline-filters">
-                                        <div className="flex">
-                                            <div>
-                                                <div className="block block-label-tabs pull-right">
-                                                    <div className="label-tab-set">
-                                                        <div
-                                                            className={`label-tab label-tab-sm ${
-                                                                viewType == 'employees' ? 'active' : ''
-                                                            }`}
-                                                            onClick={() => setViewType('employees')}>
-                                                            Medewerkers
-                                                        </div>
-                                                        <div
-                                                            className={`label-tab label-tab-sm ${
-                                                                viewType == 'funds' ? 'active' : ''
-                                                            }`}
-                                                            onClick={() => setViewType('funds')}>
-                                                            Fondsen
-                                                        </div>
+                        <div className="card-header card-header-next">
+                            <div className="flex flex-grow">
+                                {viewType == 'employees' && (
+                                    <div className="card-title">Tweefactorauthenticatie voor medewerkers</div>
+                                )}
+                                {viewType == 'funds' && (
+                                    <div className="card-title">Tweefactorauthenticatie voor fondsen</div>
+                                )}
+                            </div>
+                            <div className="flex">
+                                <div className="block block-inline-filters">
+                                    <div className="flex">
+                                        <div>
+                                            <div className="block block-label-tabs pull-right">
+                                                <div className="label-tab-set">
+                                                    <div
+                                                        className={`label-tab label-tab-sm ${
+                                                            viewType == 'employees' ? 'active' : ''
+                                                        }`}
+                                                        onClick={() => setViewType('employees')}>
+                                                        Medewerkers
+                                                    </div>
+                                                    <div
+                                                        className={`label-tab label-tab-sm ${
+                                                            viewType == 'funds' ? 'active' : ''
+                                                        }`}
+                                                        onClick={() => setViewType('funds')}>
+                                                        Fondsen
                                                     </div>
                                                 </div>
                                             </div>

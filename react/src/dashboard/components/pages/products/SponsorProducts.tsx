@@ -23,6 +23,7 @@ import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 
 export default function SponsorProducts() {
     const activeOrganization = useActiveOrganization();
@@ -89,6 +90,10 @@ export default function SponsorProducts() {
             },
             throttledValues: ['q', 'from', 'to', 'price_min', 'price_max'],
         },
+    );
+
+    const { headElement, configsElement } = useConfigurableTable(
+        productService.getColumnsSponsor(filterActiveValues.view),
     );
 
     const { resetFilters: resetFilters } = filter;
@@ -331,11 +336,16 @@ export default function SponsorProducts() {
                     {products?.meta?.total > 0 && (
                         <div className="card-section">
                             <div className="card-block card-block-table">
+                                {configsElement}
+
                                 <TableTopScroller>
                                     {filterActiveValues.view == 'products' ? (
-                                        <SponsorProductsTable products={products?.data} />
+                                        <SponsorProductsTable products={products?.data} headElement={headElement} />
                                     ) : (
-                                        <SponsorProductsChangesTable products={products?.data} />
+                                        <SponsorProductsChangesTable
+                                            products={products?.data}
+                                            headElement={headElement}
+                                        />
                                     )}
                                 </TableTopScroller>
                             </div>

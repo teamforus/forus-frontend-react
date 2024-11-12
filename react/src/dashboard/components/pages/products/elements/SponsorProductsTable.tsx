@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { strLimit } from '../../../../helpers/string';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -8,26 +8,20 @@ import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import TableDateTime from '../../../elements/tables/elements/TableDateTime';
 
-export default function SponsorProductsTable({ products = null }: { products: Array<SponsorProduct> }) {
+export default function SponsorProductsTable({
+    products = null,
+    headElement = null,
+}: {
+    products: Array<SponsorProduct>;
+    headElement: ReactNode;
+}) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const activeOrganization = useActiveOrganization();
 
     return (
         <table className="table">
-            <thead>
-                <tr>
-                    <th className={'nowrap'}>{translate('sponsor_products.labels.name')}</th>
-                    <th className={'nowrap'}>{translate('sponsor_products.labels.provider_name')}</th>
-                    <th>{translate('sponsor_products.labels.last_updated')}</th>
-                    <th>{translate('sponsor_products.labels.nr_funds')}</th>
-                    <th>{translate('sponsor_products.labels.price')}</th>
-                    <th>{translate('sponsor_products.labels.stock_amount')}</th>
-                    <th>{translate('sponsor_products.labels.category')}</th>
-                    <th>{translate('sponsor_products.labels.created_at')}</th>
-                    <th className="text-right nowrap th-narrow" />
-                </tr>
-            </thead>
+            {headElement}
 
             <tbody>
                 {products?.map((product) => (

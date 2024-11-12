@@ -6,6 +6,7 @@ import Fund from '../props/models/Fund';
 import Organization from '../props/models/Organization';
 import Tag from '../props/models/Tag';
 import Implementation from '../props/models/Implementation';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ProviderFundService<T = FundProvider> {
     /**
@@ -83,7 +84,45 @@ export class ProviderFundService<T = FundProvider> {
     public cancelApplication(organizationId: number, id: number, data: object = {}): Promise<null> {
         return this.apiRequest.delete(`${this.prefix}/${organizationId}/provider/funds/${id}`, data);
     }
+
+    public getColumns(type: 'active' | 'pending_rejected' | 'archived'): Array<ConfigurableTableColumn> {
+        const list = [
+            'name',
+            'organization_name',
+            'start_date',
+            'end_date',
+            type === 'active' ? 'max_amount' : null,
+            'allow_budget',
+            'allow_products',
+            'status',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `provider_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `provider_funds.labels.${key}`,
+                description: `provider_funds.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getColumnsAvailable(): Array<ConfigurableTableColumn> {
+        const list = ['name', 'organization_name', 'start_date', 'end_date'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `provider_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `provider_funds.labels.${key}`,
+                description: `provider_funds.tooltips.${key}`,
+            },
+        }));
+    }
 }
+
 export default function useProviderFundService(): ProviderFundService {
     return useState(new ProviderFundService())[0];
 }

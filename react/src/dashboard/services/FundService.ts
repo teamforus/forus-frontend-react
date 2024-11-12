@@ -12,6 +12,9 @@ import {
     ProviderFinancialStatistics,
     FinancialOverview,
 } from '../components/pages/financial-dashboard/types/FinancialStatisticTypes';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import { hasPermission } from '../helpers/utils';
+import Organization from '../props/models/Organization';
 
 export class FundService<T = Fund> {
     /**
@@ -220,20 +223,6 @@ export class FundService<T = Fund> {
         return Papa.unparse([fund.csv_required_keys.filter((key) => !key.endsWith('_eligible'))]);
     }
 
-    public getLastSelectedFund(funds: Array<Fund> = []): Fund {
-        const lastSelectedId = this.getLastSelectedFundId();
-
-        return funds.find((fund) => fund.id == lastSelectedId) || funds?.[0] || null;
-    }
-
-    public getLastSelectedFundId(): number {
-        return parseInt(localStorage.getItem('selected_fund_id'));
-    }
-
-    public setLastSelectedFund(fund: Fund) {
-        return localStorage.setItem('selected_fund_id', fund?.id.toString());
-    }
-
     public topUp(company_id: number, fund_id: number): Promise<ApiResponseSingle<FundTopUpTransaction>> {
         return this.apiRequest.post(`${this.prefix}/${company_id}/funds/${fund_id}/top-up`);
     }
@@ -259,6 +248,94 @@ export class FundService<T = Fund> {
             { name: 'Gepauzeerd', value: 'paused' },
             { name: 'Gesloten', value: 'closed' },
         ];
+    }
+
+    public getColumns(organization: Organization, funds_type: string): Array<ConfigurableTableColumn> {
+        return [
+            {
+                key: 'name',
+                label: 'components.organization_funds.labels.name',
+                tooltip: {
+                    key: 'name',
+                    title: 'components.organization_funds.labels.name',
+                    description: 'components.organization_funds.tooltips.name',
+                },
+            },
+            {
+                key: 'implementation',
+                label: 'components.organization_funds.labels.implementation',
+                tooltip: {
+                    key: 'implementation',
+                    title: 'components.organization_funds.labels.implementation',
+                    description: 'components.organization_funds.tooltips.implementation',
+                },
+            },
+            ...(funds_type == 'active' && hasPermission(organization, 'view_finances')
+                ? [
+                      {
+                          key: 'remaining',
+                          label: 'components.organization_funds.labels.remaining',
+                          tooltip: {
+                              key: 'remaining',
+                              title: 'components.organization_funds.labels.remaining',
+                              description: 'components.organization_funds.tooltips.remaining',
+                          },
+                      },
+                  ]
+                : []),
+            ...(funds_type == 'active'
+                ? [
+                      {
+                          key: 'requester_count',
+                          label: 'components.organization_funds.labels.requester_count',
+                          tooltip: {
+                              key: 'requester_count',
+                              title: 'components.organization_funds.labels.requester_count',
+                              description: 'components.organization_funds.tooltips.requester_count',
+                          },
+                      },
+                  ]
+                : []),
+            {
+                key: 'status',
+                label: 'components.organization_funds.labels.status',
+                tooltip: {
+                    key: 'status',
+                    title: 'components.organization_funds.labels.status',
+                    description: 'components.organization_funds.tooltips.status',
+                },
+            },
+        ];
+    }
+
+    public getColumnsBalance(): Array<ConfigurableTableColumn> {
+        const list = ['fund_name', 'total_budget', 'used_budget', 'current_budget', 'transaction_costs'].filter(
+            (item) => item,
+        );
+
+        return list.map((key) => ({
+            key,
+            label: `financial_dashboard_overview.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `financial_dashboard_overview.labels.${key}`,
+                description: `financial_dashboard_overview.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getColumnsBudget(): Array<ConfigurableTableColumn> {
+        const list = ['fund_name', 'total', 'active', 'inactive', 'deactivated', 'used', 'left'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `financial_dashboard_overview.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `financial_dashboard_overview.labels.${key}`,
+                description: `financial_dashboard_overview.tooltips.${key}`,
+            },
+        }));
     }
 }
 

@@ -4,6 +4,7 @@ import ApiRequestService from './ApiRequestService';
 import Product from '../props/models/Product';
 import ProductFund from '../props/models/ProductFund';
 import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ProductService<T = Product> {
     /**
@@ -136,6 +137,46 @@ export class ProductService<T = Product> {
             reservation_birth_date: apiResource.reservation_birth_date,
             reservation_extra_payments: apiResource.reservation_extra_payments,
         };
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['id', 'name', 'stock_amount', 'price', 'expire_at', 'expired_at'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `products.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `products.labels.${key}`,
+                description: `products.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getColumnsSponsor(tab: 'products' | 'history' = 'products'): Array<ConfigurableTableColumn> {
+        const productsList = [
+            'name',
+            'provider_name',
+            'last_updated',
+            'nr_funds',
+            'price',
+            'stock_amount',
+            'category',
+            'created_at',
+        ];
+
+        const historyList = ['name', 'provider_name', 'last_updated', 'nr_changes', 'fund'];
+        const list = (tab === 'products' ? productsList : historyList).filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `sponsor_products.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `sponsor_products.labels.${key}`,
+                description: `sponsor_products.tooltips.${key}`,
+            },
+        }));
     }
 }
 

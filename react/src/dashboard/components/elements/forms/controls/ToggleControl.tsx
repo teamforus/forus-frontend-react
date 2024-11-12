@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import Tooltip from '../../tooltip/Tooltip';
 import { uniqueId } from 'lodash';
+import classNames from 'classnames';
 
 export default function ToggleControl({
     id,
@@ -13,6 +14,8 @@ export default function ToggleControl({
     className,
     customElement,
     labelRight = true,
+    tabIndex,
+    onKeyDown,
 }: {
     id?: string;
     title?: string;
@@ -24,6 +27,8 @@ export default function ToggleControl({
     className?: string;
     customElement?: React.ReactElement;
     labelRight?: boolean;
+    tabIndex?: number;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
 }) {
     const formId = useMemo(() => (id ? id : uniqueId('toggle_control_')), [id]);
 
@@ -31,7 +36,9 @@ export default function ToggleControl({
         <label
             htmlFor={formId}
             title={title}
-            className={`form-toggle ${className} ${disabled ? 'form-toggle-disabled' : ''}`}>
+            tabIndex={tabIndex}
+            onKeyDown={onKeyDown}
+            className={classNames('form-toggle', className, disabled && 'form-toggle-disabled')}>
             <input
                 type="checkbox"
                 value={value}

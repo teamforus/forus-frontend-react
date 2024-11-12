@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
@@ -22,6 +22,10 @@ import usePaginatorService from '../../../../modules/paginator/services/usePagin
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import Tooltip from '../../../elements/tooltip/Tooltip';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import TableRowActions from '../../../elements/tables/TableRowActions';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 type FundProviderUnsubscribeLocal = FundProviderUnsubscribe & {
     showTooltip?: boolean;
@@ -75,6 +79,21 @@ export default function ProviderFundUnsubscriptionsTable({
             selected_cancel: list?.filter((item) => item.can_cancel),
         };
     }, [fundUnsubscriptions?.data, selected]);
+
+    const { headElement, configsElement } = useConfigurableTable(fundUnsubscribeService.getColumns(), {
+        trPrepend: (
+            <Fragment>
+                {[null, 'pending'].includes(filter.values.state) && (
+                    <th className="th-narrow">
+                        <TableCheckboxControl
+                            checked={selected.length == fundUnsubscriptions?.data?.length}
+                            onClick={(e) => toggleAll(e, fundUnsubscriptions?.data)}
+                        />
+                    </th>
+                )}
+            </Fragment>
+        ),
+    });
 
     const cancelUnsubscriptions = useCallback(
         (unsubscriptions: Array<FundProviderUnsubscribe>) => {
@@ -133,19 +152,16 @@ export default function ProviderFundUnsubscriptionsTable({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate(`fund_unsubscriptions.title`)}
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate(`fund_unsubscriptions.title`)}
 
-                            {!loading &&
-                                selected.length > 0 &&
-                                ` (${selected.length}/${fundUnsubscriptions.data.length})`}
-                            {!loading && selected.length == 0 && ` (${fundUnsubscriptions.meta.total})`}
-                        </div>
-                    </div>
-                    <div className="flex block block-inline-filters">
+                    {!loading && selected.length > 0 && ` (${selected.length}/${fundUnsubscriptions.data.length})`}
+                    {!loading && selected.length == 0 && ` (${fundUnsubscriptions.meta.total})`}
+                </div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         {selectedMeta?.selected_cancel?.length > 0 && (
                             <button
                                 type={'button'}
@@ -228,30 +244,13 @@ export default function ProviderFundUnsubscriptionsTable({
             {!loading && fundUnsubscriptions.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table form">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
+                                {headElement}
+
                                 <tbody>
-                                    <tr>
-                                        {[null, 'pending'].includes(filter.values.state) && (
-                                            <th className="th-narrow">
-                                                <TableCheckboxControl
-                                                    checked={selected.length == fundUnsubscriptions.data.length}
-                                                    onClick={(e) => toggleAll(e, fundUnsubscriptions.data)}
-                                                />
-                                            </th>
-                                        )}
-
-                                        <th>{translate('fund_unsubscriptions.labels.fund')}</th>
-                                        <th>{translate('fund_unsubscriptions.labels.organization')}</th>
-                                        <th>{translate('fund_unsubscriptions.labels.created_at')}</th>
-                                        <th>{translate('fund_unsubscriptions.labels.unsubscription_date')}</th>
-                                        <th>{translate('fund_unsubscriptions.labels.note')}</th>
-                                        <th>{translate('fund_unsubscriptions.labels.status')}</th>
-                                        <th className="nowrap text-right">
-                                            {translate('fund_unsubscriptions.labels.actions')}
-                                        </th>
-                                    </tr>
-
                                     {fundUnsubscriptions.data?.map((unsubscription) => (
                                         <tr
                                             key={unsubscription.id}
@@ -306,17 +305,21 @@ export default function ProviderFundUnsubscriptionsTable({
                                                 </strong>
                                             </td>
                                             <td title="{{ unsubscription.note }}">
-                                                <div className="flex">
-                                                    <span>{strLimit(unsubscription.note)}</span>
-                                                    &nbsp;
-                                                    {unsubscription.note?.length >= 25 && (
-                                                        <Tooltip
-                                                            type={'primary'}
-                                                            position={'bottom'}
-                                                            text={strLimit(unsubscription.note || '-', 512)}
-                                                        />
-                                                    )}
-                                                </div>
+                                                {unsubscription.note ? (
+                                                    <div className="flex">
+                                                        <span>{strLimit(unsubscription.note)}</span>
+                                                        &nbsp;
+                                                        {unsubscription.note?.length >= 25 && (
+                                                            <Tooltip
+                                                                type={'primary'}
+                                                                position={'bottom'}
+                                                                text={strLimit(unsubscription.note || '-', 512)}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
                                             </td>
                                             <td className="nowrap">
                                                 {unsubscription.state == 'approved' && (
@@ -343,25 +346,33 @@ export default function ProviderFundUnsubscriptionsTable({
                                                     </div>
                                                 )}
                                             </td>
-
-                                            <td className={'text-right td-narrow'}>
-                                                <div className="button-group flex-end">
-                                                    {unsubscription.can_cancel && (
-                                                        <button
-                                                            className="button button-danger button-sm"
-                                                            title="Cancel"
-                                                            onClick={() => cancelUnsubscriptions([unsubscription])}>
-                                                            <em className="mdi mdi-close-circle-outline icon-start" />
-                                                            Annuleren
-                                                        </button>
-                                                    )}
-                                                </div>
+                                            <td className={'table-td-actions text-right'}>
+                                                {unsubscription.can_cancel ? (
+                                                    <TableRowActions
+                                                        content={(e) => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <div
+                                                                    className="dropdown-item"
+                                                                    title="Cancel"
+                                                                    onClick={() => {
+                                                                        cancelUnsubscriptions([unsubscription]);
+                                                                        e.close();
+                                                                    }}>
+                                                                    <em className="mdi mdi-close-circle-outline icon-start" />
+                                                                    Annuleren
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    />
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

@@ -1,30 +1,25 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { strLimit } from '../../../../helpers/string';
 import TableRowActions from '../../../elements/tables/TableRowActions';
-import useTranslate from '../../../../hooks/useTranslate';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import TableDateTime from '../../../elements/tables/elements/TableDateTime';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 
-export default function SponsorProductsChangesTable({ products = null }: { products: Array<SponsorProduct> }) {
+export default function SponsorProductsChangesTable({
+    products = null,
+    headElement = null,
+}: {
+    products: Array<SponsorProduct>;
+    headElement: ReactNode;
+}) {
     const assetUrl = useAssetUrl();
-    const translate = useTranslate();
     const activeOrganization = useActiveOrganization();
 
     return (
         <table className="table">
-            <thead>
-                <tr>
-                    <th className={'nowrap'}>{translate('sponsor_products.labels.name')}</th>
-                    <th className={'nowrap'}>{translate('sponsor_products.labels.provider_name')}</th>
-                    <th>{translate('sponsor_products.labels.last_updated')}</th>
-                    <th>{translate('sponsor_products.labels.nr_changes')}</th>
-                    <th>{translate('sponsor_products.labels.fund')}</th>
-                    <th className="text-right nowrap th-narrow" />
-                </tr>
-            </thead>
+            {headElement}
 
             <tbody>
                 {products?.map((product, index) => (

@@ -7,6 +7,7 @@ import OrganizationFeatureStatuses from './types/OrganizationFeatureStatuses';
 import FundProvider from '../props/models/FundProvider';
 import { ProviderFinancial } from '../components/pages/financial-dashboard/types/FinancialStatisticTypes';
 import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class OrganizationService<T = Organization> {
     /**
@@ -199,11 +200,25 @@ export class OrganizationService<T = Organization> {
         }[type];
     }
 
-    getAvailableRoutes = (type: string, organization: Organization) => {
+    public getAvailableRoutes = (type: string, organization: Organization) => {
         return this.getRoutePermissionsMap(type).filter((permission) => {
             return hasPermission(organization, permission.permissions, false);
         });
     };
+
+    public getProviderColumns(): Array<ConfigurableTableColumn> {
+        const list = ['organization_name', 'last_active', 'product_count', 'funds_count'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `provider_organizations.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `provider_organizations.labels.${key}`,
+                description: `provider_organizations.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export function useOrganizationService(): OrganizationService {
