@@ -893,7 +893,7 @@ export default {
             last_updated: 'Laatste wijziging',
             nr_funds: 'Aantal fondsen',
             nr_changes: 'Aantal wijzigingen',
-            fund: 'Fonds',
+            fund: 'Aantal fondsen',
             price: 'Prijs',
             stock_amount: 'Voorraad',
             category: 'Categorie',
@@ -1960,6 +1960,10 @@ export default {
                 daily_validator: {
                     title: 'Dagelijkse samenvatting omtrent aanvragen voor fondsen',
                     description: 'Notificaties omtrent aanvragen worden gegroepeerd toegestuurd.',
+                },
+                daily_sponsor_product_updates: {
+                    title: 'Dagelijkse samenvatting over wijzigingen in aanbiedingen',
+                    description: 'Notificaties over wijzigingen in aanbiedingen die zijn goedgekeurd.',
                 },
             },
             funds: {
