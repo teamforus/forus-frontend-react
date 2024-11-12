@@ -8,6 +8,7 @@ import FilterModel from '../../../../types/FilterModel';
 import FundProvider from '../../../../props/models/FundProvider';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
+import TableRowActions from '../../../elements/tables/TableRowActions';
 
 export default function ProvidersTableItemFunds({
     filter,
@@ -83,18 +84,24 @@ export default function ProvidersTableItemFunds({
                                     <td>
                                         <FundStateLabels fund={fundProvider.fund} />
                                     </td>
-                                    <td className="td-narrow text-right">
-                                        <StateNavLink
-                                            name={'fund-provider'}
-                                            params={{
-                                                id: fundProvider.id,
-                                                fundId: fundProvider.fund_id,
-                                                organizationId: organization.id,
-                                            }}
-                                            className="button button-default button-sm nowrap">
-                                            <em className="mdi mdi-eye-outline icon-start" />
-                                            Bekijk aanbod
-                                        </StateNavLink>
+                                    <td className={'table-td-actions text-right'}>
+                                        <TableRowActions
+                                            content={() => (
+                                                <div className="dropdown dropdown-actions">
+                                                    <StateNavLink
+                                                        name={'fund-provider'}
+                                                        params={{
+                                                            id: fundProvider.id,
+                                                            fundId: fundProvider.fund_id,
+                                                            organizationId: organization.id,
+                                                        }}
+                                                        className="dropdown-item">
+                                                        <em className="mdi mdi-eye-outline icon-start" />
+                                                        Bekijk aanbod
+                                                    </StateNavLink>
+                                                </div>
+                                            )}
+                                        />
                                     </td>
                                 </StateNavLink>
                             ))}

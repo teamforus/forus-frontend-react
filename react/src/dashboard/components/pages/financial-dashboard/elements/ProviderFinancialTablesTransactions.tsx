@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ThSortable from '../../../elements/tables/ThSortable';
 import { strLimit } from '../../../../helpers/string';
 import Transaction from '../../../../props/models/Transaction';
@@ -15,6 +15,7 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushDanger from '../../../../hooks/usePushDanger';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
 
 export default function ProviderFinancialTablesTransactions({
     provider,
@@ -86,7 +87,7 @@ export default function ProviderFinancialTablesTransactions({
     }
 
     return (
-        <Fragment>
+        <TableTopScroller>
             {transactions.meta.total > 0 ? (
                 <table className="table">
                     <tbody>
@@ -126,6 +127,7 @@ export default function ProviderFinancialTablesTransactions({
                                 </td>
                             </tr>
                         ))}
+
                         <tr>
                             <td colSpan={5}>
                                 {transactions?.meta && (
@@ -143,6 +145,6 @@ export default function ProviderFinancialTablesTransactions({
             ) : (
                 <EmptyCard title={'Geen transacties.'} />
             )}
-        </Fragment>
+        </TableTopScroller>
     );
 }

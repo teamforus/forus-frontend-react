@@ -93,29 +93,19 @@ export default function ProvidersOffice() {
     }, [fetchProducts]);
 
     return (
-        <BlockShowcase wrapper={false} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase
+            wrapper={false}
+            breadcrumbItems={
+                provider && [
+                    { name: 'Aanbieders', state: 'providers' },
+                    { name: provider.name, state: 'provider', stateParams: { id: provider.id } },
+                    { name: office.address },
+                ]
+            }
+            breadcrumbWrapper={true}
+            loaderElement={<BlockLoader type={'full'} />}>
             {provider && office && (
                 <div className="block block-office">
-                    <div className="office-breadcrumbs">
-                        <div className="wrapper">
-                            <div className="block block-breadcrumbs">
-                                <StateNavLink name="providers" className="breadcrumb-item" activeExact={true}>
-                                    Aanbieders
-                                </StateNavLink>
-                                <StateNavLink
-                                    name="provider"
-                                    className="breadcrumb-item"
-                                    params={{ id: provider.id }}
-                                    activeExact={true}>
-                                    {provider.name}
-                                </StateNavLink>
-                                <div className="breadcrumb-item active" aria-current="location">
-                                    {office.address}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     {appConfigs?.show_office_map && (
                         <div className="office-map">
                             <div className="block block-google-map">
