@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Product from '../props/models/Product';
 import ProductFund from '../props/models/ProductFund';
-import FundProviderProduct from '../props/models/FundProviderProduct';
+import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 
 export class ProductService<T = Product> {
     /**
@@ -45,18 +45,19 @@ export class ProductService<T = Product> {
     /**
      * Fetch list sponsor products
      */
-    public sponsorProducts(sponsor_organization_id: number, data = {}): Promise<ApiResponse<T>> {
+    public sponsorProducts(sponsor_organization_id: number, data = {}): Promise<ApiResponse<SponsorProduct>> {
         return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products`, data);
     }
 
     /**
      * Fetch list sponsor products
      */
-    public sponsorFundProviderDigestProducts(
+    public sponsorProduct(
         sponsor_organization_id: number,
+        id: number,
         data = {},
-    ): Promise<ApiResponse<FundProviderProduct>> {
-        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products/logs`, data);
+    ): Promise<ApiResponseSingle<SponsorProduct>> {
+        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products/${id}`, data);
     }
 
     /**
@@ -108,7 +109,7 @@ export class ProductService<T = Product> {
         return this.apiRequest.delete(`${this.prefix}/${organizationId}/products/${id}`);
     }
 
-    public apiResourceToForm(apiResource: Product) {
+    public apiResourceToForm(apiResource: Product | SponsorProduct) {
         return {
             name: apiResource.name,
             description: apiResource.description,

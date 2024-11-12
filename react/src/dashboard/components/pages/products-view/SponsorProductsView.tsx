@@ -1,69 +1,46 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import useTranslate from '../../../../hooks/useTranslate';
-import { PaginationData } from '../../../../props/ApiResponses';
-import useSetProgress from '../../../../hooks/useSetProgress';
-import useProductService from '../../../../services/ProductService';
-import useActiveOrganization from '../../../../hooks/useActiveOrganization';
-import Product from '../../../../props/models/Product';
-import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import { useFundService } from '../../../../services/FundService';
-import FundProviderProduct from '../../../../props/models/FundProviderProduct';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
-import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import useTranslate from '../../../hooks/useTranslate';
+import useSetProgress from '../../../hooks/useSetProgress';
+import useActiveOrganization from '../../../hooks/useActiveOrganization';
+import LoadingCard from '../../elements/loading-card/LoadingCard';
+import useAssetUrl from '../../../hooks/useAssetUrl';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { useParams } from 'react-router-dom';
+import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
+import useProductService from '../../../services/ProductService';
+import TableDateTime from '../../elements/tables/elements/TableDateTime';
 
 export default function SponsorProductLogs() {
-    const { id, fundId, fundProviderId } = useParams();
+    const { id } = useParams();
     const activeOrganization = useActiveOrganization();
 
     const assetUrl = useAssetUrl();
     const setProgress = useSetProgress();
     const translate = useTranslate();
 
-    const fundService = useFundService();
     const productService = useProductService();
 
     const [loading, setLoading] = useState(false);
-    const [product, setProduct] = useState<Product>(null);
-    const [fundProviderProducts, setFundProviderProducts] = useState<PaginationData<FundProviderProduct>>(null);
-
-    const fetchLogs = useCallback(() => {
-        setProgress(0);
-        setLoading(true);
-
-        productService
-            .sponsorFundProviderDigestProducts(activeOrganization.id, {
-                product_id: id,
-            })
-            .then((res) => setFundProviderProducts(res.data))
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [activeOrganization.id, id, productService, setProgress]);
+    const [product, setProduct] = useState<SponsorProduct>(null);
 
     const fetchProduct = useCallback(() => {
         setProgress(0);
         setLoading(true);
 
-        fundService
-            .getProviderProduct(activeOrganization.id, parseInt(fundId), parseInt(fundProviderId), parseInt(id))
+        productService
+            .sponsorProduct(activeOrganization.id, parseInt(id))
             .then((res) => setProduct(res.data.data))
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [activeOrganization.id, fundId, fundProviderId, fundService, id, setProgress]);
-
-    useEffect(() => {
-        fetchLogs();
-    }, [fetchLogs]);
+    }, [activeOrganization.id, productService, id, setProgress]);
 
     useEffect(() => {
         fetchProduct();
     }, [fetchProduct]);
 
-    if (!product || !fundProviderProducts) {
+    if (!product) {
         return <LoadingCard />;
     }
 
@@ -71,8 +48,9 @@ export default function SponsorProductLogs() {
         <Fragment>
             <div className="block block-breadcrumbs">
                 <StateNavLink
-                    name={'sponsor-products'}
+                    name={'products'}
                     params={{ organizationId: activeOrganization.id }}
+                    query={{ view: 'history' }}
                     activeExact={true}
                     className="breadcrumb-item">
                     Aanbod
@@ -91,7 +69,7 @@ export default function SponsorProductLogs() {
                                 id: product.organization_id,
                             }}>
                             <em className="mdi mdi-open-in-new icon-start" />
-                            Bekijk
+                            Bekijk aanbieder
                         </StateNavLink>
                     </div>
 
@@ -99,8 +77,8 @@ export default function SponsorProductLogs() {
                         <div className="provider-img">
                             <img
                                 src={
-                                    product?.photo?.sizes?.small ||
-                                    assetUrl('/assets/img/placeholders/product-small.png')
+                                    product?.photo?.sizes?.thumbnail ||
+                                    assetUrl('/assets/img/placeholders/product-thumbnail.png')
                                 }
                                 alt={product?.name}
                             />
@@ -116,7 +94,7 @@ export default function SponsorProductLogs() {
                 <div className="card-header card-header-next">
                     <div className="flex flex-grow">
                         <div className="card-title">
-                            {translate('sponsor_products.labels.logs')} ({fundProviderProducts?.meta?.total})
+                            {translate('sponsor_products.labels.logs')} ({product.monitored_history?.length})
                         </div>
                     </div>
                 </div>
@@ -129,7 +107,7 @@ export default function SponsorProductLogs() {
                     </div>
                 )}
 
-                {!loading && fundProviderProducts?.meta?.total > 0 && (
+                {!loading && product?.monitored_history?.length > 0 && (
                     <div className="card-section">
                         <div className="card-block card-block-table">
                             <div className="table-wrapper">
@@ -139,26 +117,22 @@ export default function SponsorProductLogs() {
                                             <th className={'nowrap'}>
                                                 {translate('sponsor_products.labels.provider_name')}
                                             </th>
-
                                             <th className={'nowrap'}>{translate('sponsor_products.labels.fund')}</th>
-
                                             <th>{translate('sponsor_products.labels.last_updated')}</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        {fundProviderProducts?.data?.map((productLog, id) => (
+                                        {product?.monitored_history?.map((item, id) => (
                                             <tr key={id}>
-                                                <td>{productLog.organization.name}</td>
-                                                <td>{productLog.fund.name}</td>
+                                                <td>{product.organization.name}</td>
+                                                <td title={product.funds.map((fund) => fund.name)?.join(', ')}>
+                                                    <div className={'text-primary text-medium'}>
+                                                        {product.funds.length}
+                                                    </div>
+                                                </td>
                                                 <td>
-                                                    <div className="text-medium text-primary">
-                                                        {productLog.updated_at_locale?.split(' - ')[0]}
-                                                    </div>
-
-                                                    <div className="text-strong text-md text-muted-dark">
-                                                        {productLog.updated_at_locale?.split(' - ')[1]}
-                                                    </div>
+                                                    <TableDateTime value={item.created_at_locale} />
                                                 </td>
                                             </tr>
                                         ))}
@@ -169,7 +143,7 @@ export default function SponsorProductLogs() {
                     </div>
                 )}
 
-                {!loading && fundProviderProducts?.meta?.total == 0 && (
+                {!loading && product?.monitored_history.length == 0 && (
                     <div className="card-section text-center">
                         <div className="card-subtitle">Er zijn geen aanbiedingen gevonden voor de zoekopdracht.</div>
                     </div>
