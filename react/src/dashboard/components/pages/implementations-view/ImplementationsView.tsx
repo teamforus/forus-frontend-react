@@ -108,6 +108,16 @@ export default function ImplementationsView() {
                     <div className="card-section-actions">
                         {hasPermission(activeOrganization, 'manage_implementation') && (
                             <StateNavLink
+                                name={'implementations-cookies'}
+                                params={{ id: implementation.id, organizationId: implementation.organization_id }}
+                                className={`button button-default`}>
+                                <em className="mdi mdi-cookie icon-start" />
+                                Cookiemelding
+                            </StateNavLink>
+                        )}
+
+                        {hasPermission(activeOrganization, 'manage_implementation') && (
+                            <StateNavLink
                                 name={'implementations-email'}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
                                 className={`button button-default`}>

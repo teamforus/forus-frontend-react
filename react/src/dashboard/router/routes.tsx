@@ -53,6 +53,7 @@ import EventLogs from '../components/pages/eventLogs/EventLogs';
 import ImplementationsView from '../components/pages/implementations-view/ImplementationsView';
 import ImplementationsEmail from '../components/pages/implementations-email/ImplementationsEmail';
 import ImplementationsDigid from '../components/pages/implementations-digid/ImplementationsDigid';
+import ImplementationsCookies from '../components/pages/implementations-cookies/ImplementationsCookies';
 import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
 import ImplementationsCms from '../components/pages/implementations-cms/ImplementationsCms';
 import ImplementationsConfig from '../components/pages/implementations-config/ImplementationsConfig';
@@ -353,6 +354,12 @@ router.state('implementations-config', <ImplementationsConfig />, {
 router.state('implementations-email', <ImplementationsEmail />, {
     path: `/organisaties/:organizationId/implementaties/:id/email`,
     altPath: `/organizations/:organizationId/implementations/:id/email`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-cookies', <ImplementationsCookies />, {
+    path: `/organisaties/:organizationId/implementaties/:id/cookiemelding`,
+    altPath: `/organizations/:organizationId/implementations/:id/cookies`,
     fallbackState: 'organizations',
 });
 
