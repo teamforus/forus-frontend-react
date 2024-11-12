@@ -249,7 +249,7 @@ export default function ProviderFundInvitationsTable({
                                                     {invitation.fund?.end_date_locale}
                                                 </strong>
                                             </td>
-                                            <td className={`nowrap ${type !== 'invitations' ? 'text-right' : ''}`}>
+                                            <td className={`nowrap`}>
                                                 <div className={`tag tag-sm ${invitation.status_class}`}>
                                                     {invitation.status_text}
                                                 </div>
