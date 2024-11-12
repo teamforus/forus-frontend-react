@@ -1034,7 +1034,7 @@ export default function Transactions() {
                     <div className="card-block card-block-table">
                         <TableTopScroller>
                             <table className="table">
-                                <tbody>
+                                <thead>
                                     <tr>
                                         <ThSortable label={'ID'} value={'id'} filter={bulkFilter} />
                                         <ThSortable label={'Bedrag'} value={'amount'} filter={bulkFilter} />
@@ -1047,7 +1047,9 @@ export default function Transactions() {
                                         <ThSortable label={'Status'} value={'state'} filter={bulkFilter} />
                                         <ThSortable label={''} />
                                     </tr>
+                                </thead>
 
+                                <tbody>
                                     {transactionBulks.data?.map((transactionBulk) => (
                                         <tr key={transactionBulk.id}>
                                             <td>{transactionBulk.id}</td>

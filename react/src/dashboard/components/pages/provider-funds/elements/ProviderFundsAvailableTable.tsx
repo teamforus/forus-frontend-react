@@ -73,8 +73,8 @@ export default function ProviderFundsAvailableTable({
         trPrepend: (
             <th className="th-narrow">
                 <TableCheckboxControl
-                    checked={selected.length == funds.data.length}
-                    onClick={(e) => toggleAll(e, funds.data)}
+                    checked={selected.length == funds?.data?.length}
+                    onClick={(e) => toggleAll(e, funds?.data)}
                 />
             </th>
         ),

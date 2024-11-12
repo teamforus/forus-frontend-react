@@ -70,8 +70,8 @@ export default function ProviderFundInvitationsTable({
                 {[null, 'pending'].includes(filter.values.state) && (
                     <th className="th-narrow">
                         <TableCheckboxControl
-                            checked={selected.length == invitations.data.length}
-                            onClick={(e) => toggleAll(e, invitations.data)}
+                            checked={selected.length == invitations?.data?.length}
+                            onClick={(e) => toggleAll(e, invitations?.data)}
                         />
                     </th>
                 )}

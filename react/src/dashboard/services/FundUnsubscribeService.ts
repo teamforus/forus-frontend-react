@@ -52,6 +52,20 @@ export class FundUnsubscribeService<T = FundProviderUnsubscribe> {
             },
         }));
     }
+
+    public getColumnsSponsor(): Array<ConfigurableTableColumn> {
+        const list = ['provider', 'fund', 'created_at', 'note', 'status', 'unsubscription_date'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `fund_unsubscriptions.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `fund_unsubscriptions.labels.${key}`,
+                description: `fund_unsubscriptions.tooltips.${key}`,
+            },
+        }));
+    }
 }
 export default function useFundUnsubscribeService(): FundUnsubscribeService {
     return useState(new FundUnsubscribeService())[0];

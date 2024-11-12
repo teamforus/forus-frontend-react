@@ -86,8 +86,8 @@ export default function ProviderFundUnsubscriptionsTable({
                 {[null, 'pending'].includes(filter.values.state) && (
                     <th className="th-narrow">
                         <TableCheckboxControl
-                            checked={selected.length == fundUnsubscriptions.data.length}
-                            onClick={(e) => toggleAll(e, fundUnsubscriptions.data)}
+                            checked={selected.length == fundUnsubscriptions?.data?.length}
+                            onClick={(e) => toggleAll(e, fundUnsubscriptions?.data)}
                         />
                     </th>
                 )}

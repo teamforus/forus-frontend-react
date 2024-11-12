@@ -72,8 +72,8 @@ export default function ProviderFundsTable({
                 {type !== 'archived' && (
                     <th className="th-narrow">
                         <TableCheckboxControl
-                            checked={selected.length == providerFunds.data.length}
-                            onClick={(e) => toggleAll(e, providerFunds.data)}
+                            checked={selected.length == providerFunds?.data?.length}
+                            onClick={(e) => toggleAll(e, providerFunds?.data)}
                         />
                     </th>
                 )}
