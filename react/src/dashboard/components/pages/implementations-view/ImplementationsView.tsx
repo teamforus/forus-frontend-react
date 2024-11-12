@@ -11,11 +11,14 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useFilter from '../../../hooks/useFilter';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
-import ThSortable from '../../elements/tables/ThSortable';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
 
 export default function ImplementationsView() {
     const { id } = useParams();
@@ -24,6 +27,7 @@ export default function ImplementationsView() {
     const assetUrl = useAssetUrl();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -46,6 +50,8 @@ export default function ImplementationsView() {
                 pushDanger('Mislukt!', res.data.message);
             });
     }, [activeOrganization.id, id, implementationService, navigate, pushDanger]);
+
+    const { headElement, configsElement } = useConfigurableTable(implementationService.getColumns());
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -150,97 +156,106 @@ export default function ImplementationsView() {
             </div>
 
             <div className="card card-collapsed">
-                <div className="card-header">
-                    <div className="flex-row">
-                        <div className="flex-col">
-                            <div className="card-title">Fonds gekoppeld aan webshop</div>
-                        </div>
-                        <div className="flex-col">
-                            <div className="card-header-drown">
-                                <div className="block block-inline-filters">
-                                    <div className="form">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                value={filter.values.q}
-                                                placeholder="Zoeken"
-                                                className="form-control"
-                                                onChange={(e) => filter.update({ q: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
+                <div className="card-header card-header-next">
+                    <div className="card-title flex flex-grow">Fonds gekoppeld aan webshop</div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            <div className="form">
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        value={filter.values.q}
+                                        placeholder="Zoeken"
+                                        className="form-control"
+                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 {funds.meta.total > 0 ? (
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
-                                <table className="table">
-                                    <tbody>
-                                        <tr>
-                                            <ThSortable className="th-narrow" label="Afbeelding" />
-                                            <ThSortable label="Naam" />
-                                            <ThSortable label="Status" />
-                                            {activeOrganization.backoffice_available && (
-                                                <ThSortable className="th-narrow" label="Acties" />
-                                            )}
-                                        </tr>
+                            {configsElement}
 
+                            <TableTopScroller>
+                                <table className="table">
+                                    {headElement}
+
+                                    <tbody>
                                         {funds.data.map((fund) => (
-                                            <tr key={fund.id}>
+                                            <StateNavLink
+                                                key={fund.id}
+                                                name={'funds-show'}
+                                                className={'tr-clickable'}
+                                                customElement={'tr'}
+                                                params={{ fundId: fund.id, organizationId: activeOrganization.id }}>
                                                 <td>
-                                                    <img
-                                                        className="td-media"
-                                                        src={
-                                                            fund?.logo?.sizes?.thumbnail ||
-                                                            assetUrl('/assets/img/placeholders/product-thumbnail.png')
-                                                        }
-                                                        alt={fund.name}
-                                                    />
+                                                    <div className="flex flex-align-items-center flex-gap">
+                                                        <img
+                                                            className="td-media td-media-sm"
+                                                            src={
+                                                                fund?.logo?.sizes?.thumbnail ||
+                                                                assetUrl(
+                                                                    '/assets/img/placeholders/product-thumbnail.png',
+                                                                )
+                                                            }
+                                                            alt={fund.name}
+                                                        />
+                                                        {fund.name}
+                                                    </div>
                                                 </td>
-                                                <td>{fund.name}</td>
                                                 <td>
                                                     <FundStateLabels fund={fund} />
                                                 </td>
 
-                                                {activeOrganization.backoffice_available && (
-                                                    <td>
-                                                        <div className="button-group">
-                                                            {hasPermission(activeOrganization, 'manage_funds') &&
-                                                                fund.key && (
+                                                <td className={'table-td-actions text-right'}>
+                                                    {activeOrganization.backoffice_available ? (
+                                                        <TableRowActions
+                                                            content={() => (
+                                                                <div className="dropdown dropdown-actions">
                                                                     <StateNavLink
-                                                                        name={'fund-backoffice-edit'}
+                                                                        name={'funds-show'}
                                                                         params={{
                                                                             fundId: fund.id,
                                                                             organizationId: activeOrganization.id,
                                                                         }}
-                                                                        className={`button button-default`}>
-                                                                        <em className="mdi mdi-cog icon-start" />
-                                                                        Backoffice
+                                                                        className="dropdown-item">
+                                                                        <em className="mdi mdi-eye-outline icon-start" />
+                                                                        Bekijken
                                                                     </StateNavLink>
-                                                                )}
 
-                                                            <StateNavLink
-                                                                name={'funds-show'}
-                                                                params={{
-                                                                    fundId: fund.id,
-                                                                    organizationId: activeOrganization.id,
-                                                                }}
-                                                                className={`button button-primary`}>
-                                                                <em className="mdi mdi-eye-outline icon-start" />
-                                                                Bekijken
-                                                            </StateNavLink>
-                                                        </div>
-                                                    </td>
-                                                )}
-                                            </tr>
+                                                                    {hasPermission(
+                                                                        activeOrganization,
+                                                                        'manage_funds',
+                                                                    ) &&
+                                                                        fund.key && (
+                                                                            <StateNavLink
+                                                                                name={'fund-backoffice-edit'}
+                                                                                params={{
+                                                                                    fundId: fund.id,
+                                                                                    organizationId:
+                                                                                        activeOrganization.id,
+                                                                                }}
+                                                                                className="dropdown-item">
+                                                                                <em className="mdi mdi-cog icon-start" />
+                                                                                Backoffice
+                                                                            </StateNavLink>
+                                                                        )}
+                                                                </div>
+                                                            )}
+                                                        />
+                                                    ) : (
+                                                        <TableEmptyValue />
+                                                    )}
+                                                </td>
+                                            </StateNavLink>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
                 ) : (
