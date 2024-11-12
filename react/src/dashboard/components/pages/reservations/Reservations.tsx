@@ -6,7 +6,6 @@ import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
 import { PaginationData } from '../../../props/ApiResponses';
 import useFilter from '../../../hooks/useFilter';
-import ThSortable from '../../elements/tables/ThSortable';
 import useOpenModal from '../../../hooks/useOpenModal';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -38,6 +37,9 @@ import useConfirmReservationArchive from '../../../services/helpers/reservations
 import useConfirmReservationUnarchive from '../../../services/helpers/reservations/useConfirmReservationUnarchive';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
 
 export default function Reservations() {
     const activeOrganization = useActiveOrganization();
@@ -115,6 +117,10 @@ export default function Reservations() {
         product_id: null,
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(
+        productReservationService.getColumns(showExtraPayments),
+    );
 
     const fetchReservations = useCallback(
         (query, archived = false) => {
@@ -354,11 +360,11 @@ export default function Reservations() {
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow card-title" data-dusk="reservationsTitle">
-                        {translate('reservations.header.title', reservations.meta)}
-                    </div>
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow" data-dusk="reservationsTitle">
+                    {translate('reservations.header.title')} ({reservations?.meta?.total})
+                </div>
+                <div className="card-header-filters">
                     <div className="flex block block-inline-filters">
                         {reservationEnabled && (
                             <div onClick={makeReservation} className="button button-primary button-sm">
@@ -505,26 +511,24 @@ export default function Reservations() {
             </div>
             {reservations.meta.total > 0 && (
                 <div className="card-section card-section-padless">
-                    <div className="table-wrapper">
+                    {configsElement}
+
+                    <TableTopScroller>
                         <table className="table">
+                            {headElement}
+
                             <tbody>
-                                <tr>
-                                    <ThSortable label={translate('reservations.labels.number')} />
-                                    <ThSortable label={translate('reservations.labels.product')} />
-                                    <ThSortable label={translate('reservations.labels.price')} />
-                                    {showExtraPayments && (
-                                        <ThSortable label={translate('reservations.labels.amount_extra')} />
-                                    )}
-                                    <ThSortable label={translate('reservations.labels.customer')} />
-                                    <ThSortable label={translate('reservations.labels.reserved_at')} />
-                                    <ThSortable label={translate('reservations.labels.status')} />
-                                    <ThSortable
-                                        className={'text-right'}
-                                        label={translate('reservations.labels.actions')}
-                                    />
-                                </tr>
                                 {reservations.data?.map((reservation) => (
-                                    <tr data-dusk={`reservationRow${reservation.id}`} key={reservation.id}>
+                                    <StateNavLink
+                                        name="reservations-show"
+                                        params={{
+                                            organizationId: activeOrganization.id,
+                                            id: reservation.id,
+                                        }}
+                                        className={'tr-clickable'}
+                                        dataDusk={`reservationRow${reservation.id}`}
+                                        customElement={'tr'}
+                                        key={reservation.id}>
                                         <td>
                                             <StateNavLink
                                                 name={'reservations-show'}
@@ -589,56 +593,78 @@ export default function Reservations() {
                                                 {!reservation.expired ? reservation.state_locale : 'Verlopen'}
                                             </strong>
                                         </td>
-                                        <td>
-                                            <div className="flex-group flex flex-end">
-                                                {reservation.acceptable && (
-                                                    <button
-                                                        className="button button-sm button-primary-light button-icon"
-                                                        onClick={() => acceptReservation(reservation)}>
-                                                        <em className="mdi mdi-check" />
-                                                    </button>
-                                                )}
 
-                                                {reservation.rejectable && (
-                                                    <button
-                                                        className="button button-sm button-danger button-icon"
-                                                        onClick={() => rejectReservation(reservation)}>
-                                                        <em className="mdi mdi-close" />
-                                                    </button>
-                                                )}
+                                        <td className={'table-td-actions text-right'}>
+                                            <TableRowActions
+                                                content={(e) => (
+                                                    <div className="dropdown dropdown-actions">
+                                                        <StateNavLink
+                                                            name="reservations-show"
+                                                            params={{
+                                                                organizationId: activeOrganization.id,
+                                                                id: reservation.id,
+                                                            }}
+                                                            className="dropdown-item">
+                                                            <em className="mdi mdi-eye icon-start" />
+                                                            Bekijk
+                                                        </StateNavLink>
 
-                                                {reservation.archivable && (
-                                                    <button
-                                                        className="button button-sm button-primary button-icon"
-                                                        onClick={() => archiveReservation(reservation)}>
-                                                        <em className="mdi mdi-archive-outline" />
-                                                    </button>
-                                                )}
+                                                        {reservation.acceptable && (
+                                                            <div
+                                                                className="dropdown-item"
+                                                                onClick={() => {
+                                                                    acceptReservation(reservation);
+                                                                    e.close();
+                                                                }}>
+                                                                <em className="mdi mdi-check icon-start" />
+                                                                Accepteren
+                                                            </div>
+                                                        )}
 
-                                                {reservation.archived && (
-                                                    <button
-                                                        className="button button-sm button-primary button-icon"
-                                                        onClick={() => unarchiveReservation(reservation)}>
-                                                        <em className="mdi mdi-archive-arrow-up-outline" />
-                                                    </button>
-                                                )}
+                                                        {reservation.rejectable && (
+                                                            <div
+                                                                className="dropdown-item"
+                                                                onClick={() => {
+                                                                    rejectReservation(reservation);
+                                                                    e.close();
+                                                                }}>
+                                                                <em className="mdi mdi-close icon-start" />
+                                                                Afwijzen
+                                                            </div>
+                                                        )}
 
-                                                <StateNavLink
-                                                    name="reservations-show"
-                                                    params={{
-                                                        organizationId: activeOrganization.id,
-                                                        id: reservation.id,
-                                                    }}
-                                                    className="button button-sm button-default button-icon">
-                                                    <em className="mdi mdi-eye" />
-                                                </StateNavLink>
-                                            </div>
+                                                        {reservation.archivable && (
+                                                            <div
+                                                                className="dropdown-item"
+                                                                onClick={() => {
+                                                                    archiveReservation(reservation);
+                                                                    e.close();
+                                                                }}>
+                                                                <em className="mdi mdi-archive-outline icon-start" />
+                                                                Archief
+                                                            </div>
+                                                        )}
+
+                                                        {reservation.archived && (
+                                                            <div
+                                                                className="dropdown-item"
+                                                                onClick={() => {
+                                                                    unarchiveReservation(reservation);
+                                                                    e.close();
+                                                                }}>
+                                                                <em className="mdi mdi-archive-arrow-up-outline icon-start" />
+                                                                Herstellen
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            />
                                         </td>
-                                    </tr>
+                                    </StateNavLink>
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </TableTopScroller>
                 </div>
             )}
 

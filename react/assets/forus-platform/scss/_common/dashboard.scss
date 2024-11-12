@@ -888,7 +888,7 @@ body {
     }
 
     .card-header {
-        padding: 15px 25px 14px;
+        padding: 15px 20px 14px;
         position: relative;
         @include cf();
 
@@ -911,7 +911,6 @@ body {
                 flex-direction: row;
                 gap: 10px;
                 align-items: center;
-                margin-right: -5px;
 
                 .block-inline-filters {
                     display: flex;
@@ -1119,7 +1118,7 @@ body {
         .card-section-actions {
             position: absolute;
             margin-bottom: -10px;
-            right: 25px;
+            right: 20px;
             top: 25px;
             z-index: 1;
 
@@ -3571,6 +3570,7 @@ body {
             z-index: 1;
             color: #151b26;
             cursor: default;
+            white-space: normal;
 
             .tooltip-header {
                 font: 600 15px/28px var(--base-font);
