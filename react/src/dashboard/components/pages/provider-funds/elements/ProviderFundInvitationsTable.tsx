@@ -224,7 +224,7 @@ export default function ProviderFundInvitationsTable({
                                                             {strLimit(invitation.fund.name, 32)}
                                                         </div>
                                                         <a
-                                                            href={invitation.fund.implementation.url_webshop}
+                                                            href={invitation.fund.implementation?.url_webshop}
                                                             target="_blank"
                                                             className="text-strong text-md text-muted-dark text-inherit"
                                                             rel="noreferrer">
