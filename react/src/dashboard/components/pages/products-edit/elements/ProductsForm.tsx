@@ -849,16 +849,17 @@ export default function ProductsForm({
                             <div className="form-group form-group-inline tooltipped">
                                 <label className="form-label">{translate('product_edit.labels.ean')}</label>
                                 <div className="form-offset">
-                                    <FormGroupInfo info={<TranslateHtml i18n={'product_edit.tooltips.ean'} />}>
+                                    <FormGroupInfo
+                                        info={<TranslateHtml i18n={'product_edit.tooltips.ean'} />}
+                                        error={form.errors?.ean}>
                                         <input
                                             className="form-control"
-                                            value={form.values.ean}
+                                            value={form.values.ean || ''}
                                             onChange={(e) => form.update({ ean: e.target.value })}
                                             type="text"
                                             placeholder={translate('product_edit.labels.ean_placeholder')}
                                             disabled={!isEditable}
                                         />
-                                        <FormError error={form.errors?.ean} />
                                     </FormGroupInfo>
                                 </div>
                             </div>
@@ -866,16 +867,17 @@ export default function ProductsForm({
                             <div className="form-group form-group-inline tooltipped">
                                 <label className="form-label">{translate('product_edit.labels.sku')}</label>
                                 <div className="form-offset">
-                                    <FormGroupInfo info={<TranslateHtml i18n={'product_edit.tooltips.sku'} />}>
+                                    <FormGroupInfo
+                                        info={<TranslateHtml i18n={'product_edit.tooltips.sku'} />}
+                                        error={form.errors?.sku}>
                                         <input
                                             className="form-control"
-                                            value={form.values.sku}
+                                            value={form.values.sku || ''}
                                             onChange={(e) => form.update({ sku: e.target.value })}
                                             type="text"
                                             placeholder={translate('product_edit.labels.sku_placeholder')}
                                             disabled={!isEditable}
                                         />
-                                        <FormError error={form.errors?.sku} />
                                     </FormGroupInfo>
                                 </div>
                             </div>

@@ -1477,6 +1477,19 @@ body {
                         font-size: 20px;
                     }
 
+                    &.keyvalue-value-info-block-toggle-secondary {
+                        .mdi {
+                            color: #134478;
+                            font-size: 16px;
+                        }
+
+                        &.active {
+                            .mdi {
+                                color: #009EF4;
+                            }
+                        }
+                    }
+
                     &:hover {
                         color: #426993;
                     }

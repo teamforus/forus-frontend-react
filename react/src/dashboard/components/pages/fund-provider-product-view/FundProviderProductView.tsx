@@ -25,8 +25,6 @@ import useTranslate from '../../../hooks/useTranslate';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import TranslateHtml from '../../elements/translate-html/TranslateHtml';
-import InfoBox from '../../elements/info-box/InfoBox';
-import EmptyValue from '../../../../webshop/components/elements/empty-value/EmptyValue';
 
 type ProductLocal = Product & {
     allowed?: boolean;
@@ -412,14 +410,10 @@ export default function FundProviderProductView() {
                                         {product.reserved_amount}
                                     </KeyValueItem>
 
-                                    <KeyValueItem label={translate('product.labels.ean')}>
-                                        <div className="flex flex-vertical flex-gap">
-                                            <div>{product.ean ? product.ean : <EmptyValue />}</div>
-
-                                            <InfoBox dashed={true} iconPosition={'top'}>
-                                                <TranslateHtml i18n={'product.tooltips.ean'} />
-                                            </InfoBox>
-                                        </div>
+                                    <KeyValueItem
+                                        label={translate('product.labels.ean')}
+                                        infoBlock={<TranslateHtml i18n={'product.tooltips.ean'} />}>
+                                        {product.ean}
                                     </KeyValueItem>
                                 </div>
                             </div>

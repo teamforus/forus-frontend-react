@@ -23,8 +23,6 @@ import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatPro
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
-import InfoBox from '../../elements/info-box/InfoBox';
-import EmptyValue from '../../../../webshop/components/elements/empty-value/EmptyValue';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -240,24 +238,16 @@ export default function ProductsView() {
                                             : product.stock_amount}
                                     </KeyValueItem>
 
-                                    <KeyValueItem label={translate('product.labels.ean')}>
-                                        <div className="flex flex-vertical flex-gap">
-                                            <div>{product.ean ? product.ean : <EmptyValue />}</div>
-
-                                            <InfoBox dashed={true} iconPosition={'top'}>
-                                                <TranslateHtml i18n={'product.tooltips.ean'} />
-                                            </InfoBox>
-                                        </div>
+                                    <KeyValueItem
+                                        label={translate('product.labels.ean')}
+                                        infoBlock={<TranslateHtml i18n={'product.tooltips.ean'} />}>
+                                        {product.ean}
                                     </KeyValueItem>
 
-                                    <KeyValueItem label={translate('product.labels.sku')}>
-                                        <div className="flex flex-vertical flex-gap">
-                                            <div>{product.sku ? product.sku : <EmptyValue />}</div>
-
-                                            <InfoBox dashed={true} iconPosition={'top'}>
-                                                <TranslateHtml i18n={'product.tooltips.sku'} />
-                                            </InfoBox>
-                                        </div>
+                                    <KeyValueItem
+                                        label={translate('product.labels.sku')}
+                                        infoBlock={<TranslateHtml i18n={'product.tooltips.sku'} />}>
+                                        {product.sku}
                                     </KeyValueItem>
                                 </div>
                             </div>
