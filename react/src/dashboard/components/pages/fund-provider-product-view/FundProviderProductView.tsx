@@ -320,7 +320,7 @@ export default function FundProviderProductView() {
                             />
                         </div>
 
-                        <div className="block-product-content">
+                        <div className="block-product-content flex-grow">
                             <div className="flex flex-gap">
                                 <div className="block-product-details flex-grow">
                                     <div className="block-product-name">{product.name}</div>

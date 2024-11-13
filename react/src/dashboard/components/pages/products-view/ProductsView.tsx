@@ -201,7 +201,7 @@ export default function ProductsView() {
                             />
                         </div>
 
-                        <div className="block-product-content">
+                        <div className="block-product-content flex-grow">
                             <div className="block-product-details">
                                 <div className="block-product-name">{product.name}</div>
                                 <div className="block-product-price">{product.price_locale}</div>
