@@ -7,6 +7,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import TableDateTime from '../../../elements/tables/elements/TableDateTime';
+import EmptyValue from '../../../../../webshop/components/elements/empty-value/EmptyValue';
 
 export default function SponsorProductsTable({
     products = null,
@@ -67,7 +68,7 @@ export default function SponsorProductsTable({
                             <td>{product.stock_amount}</td>
                         )}
 
-                        <td>{product.product_category.name}</td>
+                        <td>{product.product_category?.name || <EmptyValue />}</td>
 
                         <td>
                             <TableDateTime value={product.created_at_locale} />
