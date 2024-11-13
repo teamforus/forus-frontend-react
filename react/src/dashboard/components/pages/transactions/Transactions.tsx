@@ -39,6 +39,7 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -129,6 +130,12 @@ export default function Transactions() {
         },
         ['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max'],
     );
+
+    const { headElement, configsElement } = useConfigurableTable(transactionService.getColumns(isSponsor, isProvider), {
+        filter: filter,
+        sortable: true,
+        sortableExclude: ['method', 'branch_name', 'branch_number', 'amount_extra'],
+    });
 
     const bulkFilter = useFilter(
         {
@@ -358,389 +365,387 @@ export default function Transactions() {
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex-col flex-grow">
-                        {viewType.key == 'transactions' ? (
-                            <div className="card-title">
-                                {isSponsor
-                                    ? translate('transactions.header.title')
-                                    : translate('transactions.header.title_provider')}{' '}
-                                ({transactions.meta.total})
-                            </div>
-                        ) : (
-                            <div className="card-title">
-                                {translate('transactions.header.titleBulks')} ({transactionBulks.meta.total})
+            <div className="card-header card-header-next">
+                {viewType.key == 'transactions' ? (
+                    <div className="card-title flex flex-grow">
+                        {isSponsor
+                            ? translate('transactions.header.title')
+                            : translate('transactions.header.title_provider')}{' '}
+                        ({transactions.meta.total})
+                    </div>
+                ) : (
+                    <div className="card-title flex flex-grow">
+                        {translate('transactions.header.titleBulks')} ({transactionBulks.meta.total})
+                    </div>
+                )}
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        {hasDirectPayments && (
+                            <div
+                                className="button button-primary button-sm"
+                                onClick={() => uploadTransactions()}
+                                data-dusk="uploadTransactionsBatchButton">
+                                <em className="mdi mdi-upload icon-start" />
+                                Upload bulkbestand
                             </div>
                         )}
-                    </div>
-                    <div className="flex">
-                        <div className="block block-inline-filters">
-                            {hasDirectPayments && (
-                                <div
-                                    className="button button-primary button-sm"
-                                    onClick={() => uploadTransactions()}
-                                    data-dusk="uploadTransactionsBatchButton">
-                                    <em className="mdi mdi-upload icon-start" />
-                                    Upload bulkbestand
-                                </div>
-                            )}
-                            {isSponsor && (
-                                <div className="flex form">
-                                    <div>
-                                        <div className="block block-label-tabs">
-                                            <div className="label-tab-set">
-                                                {viewTypes?.map((viewTypeItem) => (
-                                                    <div
-                                                        key={viewTypeItem.key}
-                                                        onClick={() => setViewType(viewTypeItem)}
-                                                        className={`label-tab label-tab-sm ${
-                                                            viewType.key === viewTypeItem.key ? 'active' : ''
-                                                        }`}>
-                                                        {viewTypeItem.label}
-                                                    </div>
-                                                ))}
-                                            </div>
+
+                        {isSponsor && (
+                            <div className="flex form">
+                                <div>
+                                    <div className="block block-label-tabs">
+                                        <div className="label-tab-set">
+                                            {viewTypes?.map((viewTypeItem) => (
+                                                <div
+                                                    key={viewTypeItem.key}
+                                                    onClick={() => setViewType(viewTypeItem)}
+                                                    className={`label-tab label-tab-sm ${
+                                                        viewType.key === viewTypeItem.key ? 'active' : ''
+                                                    }`}>
+                                                    {viewTypeItem.label}
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
-                            )}
-                            {viewType.key == 'transactions' && filter.show && (
-                                <div className="button button-text" onClick={() => resetFilters()}>
-                                    <em className="mdi mdi-close icon-start" />
-                                    Wis filters
+                            </div>
+                        )}
+
+                        {viewType.key == 'transactions' && filter.show && (
+                            <div className="button button-text" onClick={() => resetFilters()}>
+                                <em className="mdi mdi-close icon-start" />
+                                Wis filters
+                            </div>
+                        )}
+
+                        {viewType.key == 'bulks' && bulkFilter.show && (
+                            <div className="button button-text" onClick={() => resetBulkFilters()}>
+                                <em className="mdi mdi-close icon-start" />
+                                Wis filters
+                            </div>
+                        )}
+
+                        {viewType.key == 'transactions' && isProvider && (
+                            <StateNavLink
+                                name={'transaction-settings'}
+                                params={{ organizationId: activeOrganization.id }}
+                                className="button button-primary button-sm">
+                                <em className="mdi mdi-cog icon-start" />
+                                Instellingen
+                            </StateNavLink>
+                        )}
+
+                        {!filter.show && viewType.key == 'transactions' && (
+                            <div className="form">
+                                <div className="form-group">
+                                    <input
+                                        className="form-control"
+                                        value={filter.values.q}
+                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        data-dusk="searchTransaction"
+                                        placeholder={translate('transactions.labels.search')}
+                                    />
                                 </div>
-                            )}
-                            {viewType.key == 'bulks' && bulkFilter.show && (
-                                <div className="button button-text" onClick={() => resetBulkFilters()}>
-                                    <em className="mdi mdi-close icon-start" />
-                                    Wis filters
-                                </div>
-                            )}
+                            </div>
+                        )}
 
-                            {viewType.key == 'transactions' && isProvider && (
-                                <StateNavLink
-                                    name={'transaction-settings'}
-                                    params={{ organizationId: activeOrganization.id }}
-                                    className="button button-primary button-sm">
-                                    <em className="mdi mdi-cog icon-start" />
-                                    Instellingen
-                                </StateNavLink>
-                            )}
+                        {viewType.key == 'transactions' && (
+                            <CardHeaderFilter filter={filter}>
+                                <FilterItemToggle label={translate('transactions.labels.search')} show={true}>
+                                    <input
+                                        className="form-control"
+                                        value={filter.values.q}
+                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        placeholder={translate('transactions.labels.search')}
+                                    />
+                                </FilterItemToggle>
 
-                            {!filter.show && viewType.key == 'transactions' && (
-                                <div className="form">
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                            data-dusk="searchTransaction"
-                                            placeholder={translate('transactions.labels.search')}
-                                        />
-                                    </div>
-                                </div>
-                            )}
-
-                            {viewType.key == 'transactions' && (
-                                <CardHeaderFilter filter={filter}>
-                                    <FilterItemToggle label={translate('transactions.labels.search')} show={true}>
-                                        <input
-                                            className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                            placeholder={translate('transactions.labels.search')}
-                                        />
-                                    </FilterItemToggle>
-
-                                    <FilterItemToggle label={translate('transactions.labels.amount')}>
-                                        <div className="row">
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={filter.values.amount_min || ''}
-                                                    onChange={(e) =>
-                                                        filter.update({
-                                                            amount_min: e.target.value,
-                                                        })
-                                                    }
-                                                    placeholder={translate('transactions.labels.amount_min')}
-                                                />
-                                            </div>
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={filter.values.amount_max || ''}
-                                                    onChange={(e) =>
-                                                        filter.update({
-                                                            amount_max: e.target.value,
-                                                        })
-                                                    }
-                                                    placeholder={translate('transactions.labels.amount_max')}
-                                                />
-                                            </div>
+                                <FilterItemToggle label={translate('transactions.labels.amount')}>
+                                    <div className="row">
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={filter.values.amount_min || ''}
+                                                onChange={(e) =>
+                                                    filter.update({
+                                                        amount_min: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.amount_min')}
+                                            />
                                         </div>
-                                    </FilterItemToggle>
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={filter.values.amount_max || ''}
+                                                onChange={(e) =>
+                                                    filter.update({
+                                                        amount_max: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.amount_max')}
+                                            />
+                                        </div>
+                                    </div>
+                                </FilterItemToggle>
 
-                                    <FilterItemToggle label={translate('transactions.labels.state')}>
+                                <FilterItemToggle label={translate('transactions.labels.state')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'key'}
+                                        allowSearch={false}
+                                        value={filter.values.state}
+                                        options={states}
+                                        optionsComponent={SelectControlOptions}
+                                        onChange={(state: string) => filter.update({ state })}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.fund_name')}>
+                                    {funds && (
                                         <SelectControl
                                             className="form-control"
-                                            propKey={'key'}
+                                            propKey={'id'}
                                             allowSearch={false}
-                                            value={filter.values.state}
-                                            options={states}
+                                            options={funds}
                                             optionsComponent={SelectControlOptions}
-                                            onChange={(state: string) => filter.update({ state })}
+                                            onChange={(fund_id: number) => filter.update({ fund_id })}
                                         />
-                                    </FilterItemToggle>
+                                    )}
+                                </FilterItemToggle>
 
-                                    <FilterItemToggle label={translate('transactions.labels.fund')}>
-                                        {funds && (
+                                <FilterItemToggle label={translate('transactions.labels.from')}>
+                                    <DatePickerControl
+                                        value={dateParse(filter.values.from)}
+                                        placeholder={translate('jjjj-MM-dd')}
+                                        onChange={(from: Date) => {
+                                            filter.update({ from: dateFormat(from) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.to')}>
+                                    <DatePickerControl
+                                        value={dateParse(filter.values.to)}
+                                        placeholder={translate('jjjj-MM-dd')}
+                                        onChange={(to: Date) => {
+                                            filter.update({ to: dateFormat(to) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.transfer_in')}>
+                                    <div className="row">
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={filter.values.transfer_in_min || ''}
+                                                onChange={(e) => {
+                                                    if (!e.target.value || parseInt(e.target.value) >= 0) {
+                                                        filter.update({ transfer_in_min: e.target.value });
+                                                    }
+                                                }}
+                                                placeholder={translate('transactions.labels.transfer_in_min')}
+                                            />
+                                        </div>
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={filter.values.transfer_in_max || ''}
+                                                onChange={(e) => {
+                                                    if (!e.target.value || parseInt(e.target.value) <= 14) {
+                                                        filter.update({ transfer_in_max: e.target.value });
+                                                    }
+                                                }}
+                                                placeholder={translate('transactions.labels.transfer_in_max')}
+                                            />
+                                        </div>
+                                    </div>
+                                </FilterItemToggle>
+
+                                {isSponsor && (
+                                    <Fragment>
+                                        <FilterItemToggle label={translate('transactions.labels.non_cancelable_from')}>
+                                            <DatePickerControl
+                                                value={dateParse(filter.values.non_cancelable_from)}
+                                                placeholder={translate('jjjj-MM-dd')}
+                                                onChange={(from: Date) => {
+                                                    filter.update({ non_cancelable_from: dateFormat(from) });
+                                                }}
+                                            />
+                                        </FilterItemToggle>
+
+                                        <FilterItemToggle label={translate('transactions.labels.non_cancelable_to')}>
+                                            <DatePickerControl
+                                                value={dateParse(filter.values.non_cancelable_to)}
+                                                placeholder={translate('jjjj-MM-dd')}
+                                                onChange={(to: Date) => {
+                                                    filter.update({ non_cancelable_to: dateFormat(to) });
+                                                }}
+                                            />
+                                        </FilterItemToggle>
+
+                                        <FilterItemToggle label={translate('transactions.labels.bulk_state')}>
                                             <SelectControl
                                                 className="form-control"
-                                                propKey={'id'}
+                                                propKey={'key'}
                                                 allowSearch={false}
-                                                options={funds}
+                                                value={filter.values.bulk_state}
+                                                options={bulkStates}
                                                 optionsComponent={SelectControlOptions}
-                                                onChange={(fund_id: number) => filter.update({ fund_id })}
+                                                onChange={(bulk_state: string) => filter.update({ bulk_state })}
                                             />
-                                        )}
-                                    </FilterItemToggle>
+                                        </FilterItemToggle>
+                                    </Fragment>
+                                )}
 
-                                    <FilterItemToggle label={translate('transactions.labels.from')}>
-                                        <DatePickerControl
-                                            value={dateParse(filter.values.from)}
-                                            placeholder={translate('jjjj-MM-dd')}
-                                            onChange={(from: Date) => {
-                                                filter.update({ from: dateFormat(from) });
-                                            }}
-                                        />
-                                    </FilterItemToggle>
+                                <FilterItemToggle label={translate('transactions.labels.fund_state')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'key'}
+                                        allowSearch={false}
+                                        value={filter.values.fund_state}
+                                        options={fundStates}
+                                        optionsComponent={SelectControlOptions}
+                                        onChange={(fund_state: string) => filter.update({ fund_state })}
+                                    />
+                                </FilterItemToggle>
 
-                                    <FilterItemToggle label={translate('transactions.labels.to')}>
-                                        <DatePickerControl
-                                            value={dateParse(filter.values.to)}
-                                            placeholder={translate('jjjj-MM-dd')}
-                                            onChange={(to: Date) => {
-                                                filter.update({ to: dateFormat(to) });
-                                            }}
-                                        />
-                                    </FilterItemToggle>
-
-                                    <FilterItemToggle label={translate('transactions.labels.transfer_in')}>
-                                        <div className="row">
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={filter.values.transfer_in_min || ''}
-                                                    onChange={(e) => {
-                                                        if (!e.target.value || parseInt(e.target.value) >= 0) {
-                                                            filter.update({ transfer_in_min: e.target.value });
-                                                        }
-                                                    }}
-                                                    placeholder={translate('transactions.labels.transfer_in_min')}
-                                                />
-                                            </div>
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={filter.values.transfer_in_max || ''}
-                                                    onChange={(e) => {
-                                                        if (!e.target.value || parseInt(e.target.value) <= 14) {
-                                                            filter.update({ transfer_in_max: e.target.value });
-                                                        }
-                                                    }}
-                                                    placeholder={translate('transactions.labels.transfer_in_max')}
-                                                />
-                                            </div>
+                                <div className="form-actions">
+                                    <button
+                                        className="button button-primary button-wide"
+                                        onClick={() => exportTransactions()}
+                                        disabled={transactions.meta.total == 0}>
+                                        <em className="mdi mdi-download icon-start"> </em>
+                                        {translate('components.dropdown.export', {
+                                            total: transactions.meta.total,
+                                        })}
+                                    </button>
+                                </div>
+                            </CardHeaderFilter>
+                        )}
+                        {viewType.key == 'bulks' && (
+                            <CardHeaderFilter filter={bulkFilter}>
+                                <FilterItemToggle label={translate('transactions.labels.amount')}>
+                                    <div className="row">
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={bulkFilter.values.amount_min || ''}
+                                                onChange={(e) =>
+                                                    bulkFilter.update({
+                                                        amount_min: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.amount_min')}
+                                            />
                                         </div>
-                                    </FilterItemToggle>
-
-                                    {isSponsor && (
-                                        <Fragment>
-                                            <FilterItemToggle
-                                                label={translate('transactions.labels.non_cancelable_from')}>
-                                                <DatePickerControl
-                                                    value={dateParse(filter.values.non_cancelable_from)}
-                                                    placeholder={translate('jjjj-MM-dd')}
-                                                    onChange={(from: Date) => {
-                                                        filter.update({ non_cancelable_from: dateFormat(from) });
-                                                    }}
-                                                />
-                                            </FilterItemToggle>
-
-                                            <FilterItemToggle
-                                                label={translate('transactions.labels.non_cancelable_to')}>
-                                                <DatePickerControl
-                                                    value={dateParse(filter.values.non_cancelable_to)}
-                                                    placeholder={translate('jjjj-MM-dd')}
-                                                    onChange={(to: Date) => {
-                                                        filter.update({ non_cancelable_to: dateFormat(to) });
-                                                    }}
-                                                />
-                                            </FilterItemToggle>
-
-                                            <FilterItemToggle label={translate('transactions.labels.bulk_state')}>
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey={'key'}
-                                                    allowSearch={false}
-                                                    value={filter.values.bulk_state}
-                                                    options={bulkStates}
-                                                    optionsComponent={SelectControlOptions}
-                                                    onChange={(bulk_state: string) => filter.update({ bulk_state })}
-                                                />
-                                            </FilterItemToggle>
-                                        </Fragment>
-                                    )}
-
-                                    <FilterItemToggle label={translate('transactions.labels.fund_state')}>
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey={'key'}
-                                            allowSearch={false}
-                                            value={filter.values.fund_state}
-                                            options={fundStates}
-                                            optionsComponent={SelectControlOptions}
-                                            onChange={(fund_state: string) => filter.update({ fund_state })}
-                                        />
-                                    </FilterItemToggle>
-
-                                    <div className="form-actions">
-                                        <button
-                                            className="button button-primary button-wide"
-                                            onClick={() => exportTransactions()}
-                                            disabled={transactions.meta.total == 0}>
-                                            <em className="mdi mdi-download icon-start"> </em>
-                                            {translate('components.dropdown.export', {
-                                                total: transactions.meta.total,
-                                            })}
-                                        </button>
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={bulkFilter.values.amount_max || ''}
+                                                onChange={(e) =>
+                                                    bulkFilter.update({
+                                                        amount_max: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.amount_max')}
+                                            />
+                                        </div>
                                     </div>
-                                </CardHeaderFilter>
-                            )}
-                            {viewType.key == 'bulks' && (
-                                <CardHeaderFilter filter={bulkFilter}>
-                                    <FilterItemToggle label={translate('transactions.labels.amount')}>
-                                        <div className="row">
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={bulkFilter.values.amount_min || ''}
-                                                    onChange={(e) =>
-                                                        bulkFilter.update({
-                                                            amount_min: e.target.value,
-                                                        })
-                                                    }
-                                                    placeholder={translate('transactions.labels.amount_min')}
-                                                />
-                                            </div>
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={bulkFilter.values.amount_max || ''}
-                                                    onChange={(e) =>
-                                                        bulkFilter.update({
-                                                            amount_max: e.target.value,
-                                                        })
-                                                    }
-                                                    placeholder={translate('transactions.labels.amount_max')}
-                                                />
-                                            </div>
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.quantity')}>
+                                    <div className="row">
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={bulkFilter.values.quantity_min || ''}
+                                                onChange={(e) =>
+                                                    bulkFilter.update({
+                                                        quantity_min: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.quantity_min')}
+                                            />
                                         </div>
-                                    </FilterItemToggle>
-
-                                    <FilterItemToggle label={translate('transactions.labels.quantity')}>
-                                        <div className="row">
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={bulkFilter.values.quantity_min || ''}
-                                                    onChange={(e) =>
-                                                        bulkFilter.update({
-                                                            quantity_min: e.target.value,
-                                                        })
-                                                    }
-                                                    placeholder={translate('transactions.labels.quantity_min')}
-                                                />
-                                            </div>
-                                            <div className="col col-lg-6">
-                                                <input
-                                                    className="form-control"
-                                                    min={0}
-                                                    type="number"
-                                                    value={bulkFilter.values.quantity_max || ''}
-                                                    onChange={(e) =>
-                                                        bulkFilter.update({
-                                                            quantity_max: e.target.value,
-                                                        })
-                                                    }
-                                                    placeholder={translate('transactions.labels.quantity_max')}
-                                                />
-                                            </div>
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                value={bulkFilter.values.quantity_max || ''}
+                                                onChange={(e) =>
+                                                    bulkFilter.update({
+                                                        quantity_max: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.quantity_max')}
+                                            />
                                         </div>
-                                    </FilterItemToggle>
-
-                                    <FilterItemToggle label={translate('transactions.labels.state')}>
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey={'key'}
-                                            allowSearch={false}
-                                            value={bulkFilter.values.state}
-                                            options={bulkStates}
-                                            optionsComponent={SelectControlOptions}
-                                            onChange={(state: string) => bulkFilter.update({ state })}
-                                        />
-                                    </FilterItemToggle>
-
-                                    <FilterItemToggle label={translate('transactions.labels.from')}>
-                                        <DatePickerControl
-                                            value={dateParse(bulkFilter.values.from)}
-                                            placeholder={translate('jjjj-MM-dd')}
-                                            onChange={(from: Date) => {
-                                                bulkFilter.update({ from: dateFormat(from) });
-                                            }}
-                                        />
-                                    </FilterItemToggle>
-
-                                    <FilterItemToggle label={translate('transactions.labels.to')}>
-                                        <DatePickerControl
-                                            value={dateParse(bulkFilter.values.to)}
-                                            placeholder={translate('jjjj-MM-dd')}
-                                            onChange={(to: Date) => {
-                                                bulkFilter.update({ to: dateFormat(to) });
-                                            }}
-                                        />
-                                    </FilterItemToggle>
-
-                                    <div className="form-actions">
-                                        <button
-                                            className="button button-primary button-wide"
-                                            onClick={() => exportTransactionBulks()}
-                                            disabled={transactionBulks.meta.total == 0}>
-                                            <em className="mdi mdi-download icon-start"> </em>
-                                            {translate('components.dropdown.export', {
-                                                total: transactionBulks.meta.total,
-                                            })}
-                                        </button>
                                     </div>
-                                </CardHeaderFilter>
-                            )}
-                        </div>
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.state')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'key'}
+                                        allowSearch={false}
+                                        value={bulkFilter.values.state}
+                                        options={bulkStates}
+                                        optionsComponent={SelectControlOptions}
+                                        onChange={(state: string) => bulkFilter.update({ state })}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.from')}>
+                                    <DatePickerControl
+                                        value={dateParse(bulkFilter.values.from)}
+                                        placeholder={translate('jjjj-MM-dd')}
+                                        onChange={(from: Date) => {
+                                            bulkFilter.update({ from: dateFormat(from) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.to')}>
+                                    <DatePickerControl
+                                        value={dateParse(bulkFilter.values.to)}
+                                        placeholder={translate('jjjj-MM-dd')}
+                                        onChange={(to: Date) => {
+                                            bulkFilter.update({ to: dateFormat(to) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+
+                                <div className="form-actions">
+                                    <button
+                                        className="button button-primary button-wide"
+                                        onClick={() => exportTransactionBulks()}
+                                        disabled={transactionBulks.meta.total == 0}>
+                                        <em className="mdi mdi-download icon-start"> </em>
+                                        {translate('components.dropdown.export', {
+                                            total: transactionBulks.meta.total,
+                                        })}
+                                    </button>
+                                </div>
+                            </CardHeaderFilter>
+                        )}
                     </div>
                 </div>
             </div>
@@ -748,107 +753,12 @@ export default function Transactions() {
             {viewType.key == 'transactions' && transactions.meta.total > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
+                        {configsElement}
+
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        <ThSortable label={'ID'} value={'id'} filter={filter} />
-                                        {isSponsor && <ThSortable label={'UID'} value={'uid'} filter={filter} />}
-                                        <ThSortable
-                                            label={translate('transactions.labels.price')}
-                                            value={'amount'}
-                                            filter={filter}
-                                        />
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={translate('transactions.labels.method')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={translate('transactions.labels.branch_name')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={translate('transactions.labels.branch_number')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isProvider && (
-                                            <ThSortable
-                                                className={'nowrap'}
-                                                label={translate('transactions.labels.amount_extra')}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        <ThSortable
-                                            label={translate('transactions.labels.date')}
-                                            value={'created_at'}
-                                            filter={filter}
-                                        />
-                                        <ThSortable
-                                            label={translate('transactions.labels.fund')}
-                                            value={'fund_name'}
-                                            filter={filter}
-                                        />
-                                        {isProvider && (
-                                            <ThSortable
-                                                label={translate('transactions.labels.product_name')}
-                                                value={'product_name'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isSponsor && (
-                                            <ThSortable
-                                                label={translate('transactions.labels.payment_type')}
-                                                value={'payment_type'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isSponsor && (
-                                            <ThSortable
-                                                label={translate('transactions.labels.provider')}
-                                                value={'provider_name'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isSponsor && (
-                                            <ThSortable
-                                                className="nowrap"
-                                                label={translate('transactions.labels.date_non_cancelable')}
-                                                value={'date_non_cancelable'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isSponsor && (
-                                            <ThSortable
-                                                label={translate('transactions.labels.bulk')}
-                                                value={'transfer_in'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        {isSponsor && (
-                                            <ThSortable
-                                                label={translate('transactions.labels.bulk_state')}
-                                                value={'bulk_state'}
-                                                filter={filter}
-                                            />
-                                        )}
-                                        <ThSortable
-                                            label={translate('transactions.labels.status')}
-                                            value={'state'}
-                                            filter={filter}
-                                        />
+                                {headElement}
 
-                                        <ThSortable label="" className={'table-th-actions'} />
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {transactions.data.map((transaction) => (
                                         <StateNavLink
@@ -1124,7 +1034,7 @@ export default function Transactions() {
                     <div className="card-block card-block-table">
                         <TableTopScroller>
                             <table className="table">
-                                <tbody>
+                                <thead>
                                     <tr>
                                         <ThSortable label={'ID'} value={'id'} filter={bulkFilter} />
                                         <ThSortable label={'Bedrag'} value={'amount'} filter={bulkFilter} />
@@ -1137,7 +1047,9 @@ export default function Transactions() {
                                         <ThSortable label={'Status'} value={'state'} filter={bulkFilter} />
                                         <ThSortable label={''} />
                                     </tr>
+                                </thead>
 
+                                <tbody>
                                     {transactionBulks.data?.map((transactionBulk) => (
                                         <tr key={transactionBulk.id}>
                                             <td>{transactionBulk.id}</td>

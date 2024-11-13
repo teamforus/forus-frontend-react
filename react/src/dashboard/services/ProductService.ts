@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Product from '../props/models/Product';
 import ProductFund from '../props/models/ProductFund';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ProductService<T = Product> {
     /**
@@ -120,6 +121,20 @@ export class ProductService<T = Product> {
             reservation_birth_date: apiResource.reservation_birth_date,
             reservation_extra_payments: apiResource.reservation_extra_payments,
         };
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['id', 'name', 'stock_amount', 'price', 'expire_at', 'expired_at'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `products.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `products.labels.${key}`,
+                description: `products.tooltips.${key}`,
+            },
+        }));
     }
 }
 

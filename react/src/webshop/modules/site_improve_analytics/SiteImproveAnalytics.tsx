@@ -1,22 +1,34 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import EnvDataWebshopProp from '../../../props/EnvDataWebshopProp';
 
-export default function SiteImproveAnalytics({ envData }: { envData: EnvDataWebshopProp }) {
+export default function SiteImproveAnalytics({
+    envData,
+    cookiesAccepted = null,
+}: {
+    envData: EnvDataWebshopProp;
+    cookiesAccepted: boolean;
+}) {
     const { site_improve_analytics_id } = envData?.config || {};
+    const [scriptLoaded, setScriptLoaded] = useState(false);
 
     useEffect(() => {
-        if (!site_improve_analytics_id) {
+        if (!site_improve_analytics_id || cookiesAccepted === null || scriptLoaded) {
             return;
         }
 
-        const sz = document.createElement('script');
-        sz.type = 'text/javascript';
-        sz.async = true;
-        sz.src = `https://siteimproveanalytics.com/js/siteanalyze_${site_improve_analytics_id}.js`;
+        if (cookiesAccepted) {
+            setScriptLoaded(true);
 
-        const s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(sz, s);
-    }, [site_improve_analytics_id]);
+            const script = document.createElement('script');
+
+            script.type = 'text/javascript';
+            script.async = true;
+            script.defer = true;
+            script.src = `https://siteimproveanalytics.com/js/siteanalyze_${site_improve_analytics_id}.js`;
+
+            document.body.appendChild(script);
+        }
+    }, [site_improve_analytics_id, cookiesAccepted, scriptLoaded]);
 
     return null;
 }

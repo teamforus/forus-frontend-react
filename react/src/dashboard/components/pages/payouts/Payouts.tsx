@@ -5,7 +5,6 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
 import { strLimit } from '../../../helpers/string';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import ThSortable from '../../elements/tables/ThSortable';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
@@ -105,18 +104,11 @@ export default function Payouts() {
         },
     );
 
-    const columns = useMemo(() => {
-        return payoutTransactionService.getColumns();
-    }, [payoutTransactionService]);
-
-    const {
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(columns);
+    const { headElement, configsElement } = useConfigurableTable(payoutTransactionService.getColumns(), {
+        filter: filter,
+        sortable: true,
+        hasTooltips: true,
+    });
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -224,11 +216,10 @@ export default function Payouts() {
     return (
         <div className="card">
             <div className="card-header card-header-next">
-                <div className="flex flex-grow">
-                    <div className="card-title">
-                        {translate('payouts.header.title')} ({transactions.meta.total})
-                    </div>
+                <div className="card-title flex flex-grow">
+                    {translate('payouts.header.title')} ({transactions.meta.total})
                 </div>
+
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
                         {fundsWithPayouts?.length > 0 && (
@@ -381,33 +372,8 @@ export default function Payouts() {
 
                         <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                value={column.value}
-                                                filter={filter}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-                                        <th className="table-th-actions table-th-actions-with-list">
-                                            <div className="table-th-actions-list">
-                                                <div
-                                                    className={`table-th-action ${
-                                                        showTableConfig && tableConfigCategory == 'tooltips'
-                                                            ? 'active'
-                                                            : ''
-                                                    }`}
-                                                    onClick={() => displayTableConfig('tooltips')}>
-                                                    <em className="mdi mdi-information-variant-circle" />
-                                                </div>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </thead>
+                                {headElement}
+
                                 <tbody>
                                     {transactions.data.map((transaction) => (
                                         <StateNavLink

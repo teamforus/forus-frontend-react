@@ -3,6 +3,7 @@ import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResp
 import ApiRequestService from './ApiRequestService';
 import Reimbursement from '../props/models/Reimbursement';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ReimbursementService<T = Reimbursement> {
     /**
@@ -107,6 +108,30 @@ export class ReimbursementService<T = Reimbursement> {
 
     public storeNote(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/reimbursements/${id}/notes`, data);
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = [
+            'identity',
+            'fund',
+            'amount',
+            'created_at',
+            'lead_time',
+            'employee',
+            'expired',
+            'state',
+            'transaction',
+        ];
+
+        return list.map((key) => ({
+            key,
+            label: `reimbursements.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `reimbursements.labels.${key}`,
+                description: `reimbursements.tooltips.${key}`,
+            },
+        }));
     }
 }
 
