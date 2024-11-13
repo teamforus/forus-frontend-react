@@ -870,7 +870,7 @@ export default {
             photo: 'Afbeelding',
             stock_amount: 'Resterend',
             price: 'Bedrag',
-            expired: 'Verlopen',
+            expired_at: 'Verlopen',
             expire_at: 'Verloopdatum',
             actions: 'Actie',
         },
@@ -1428,6 +1428,20 @@ export default {
         },
     },
 
+    // Organization-employees.pug
+    implementation_funds: {
+        labels: {
+            image: 'Afbeelding',
+            name: 'Naam',
+            state: 'Status',
+        },
+        tooltips: {
+            image: 'Afbeelding',
+            name: 'Naam',
+            state: 'Status',
+        },
+    },
+
     // RESERVATION = modals/modal-reservation-create.pug
     reservation_create: {
         tooltips: {
@@ -1573,7 +1587,7 @@ export default {
             id: 'ID',
             created_at: 'Aangemaakt op',
             created_by: 'Aangemaakt door',
-            note: 'Notite',
+            note: 'Notitie',
             actions: 'Acties',
         },
 
@@ -1718,13 +1732,11 @@ export default {
             employee: 'Medewerker',
             search: 'Zoeken',
             exported: 'Geëxporteerd',
+            active: 'Geactiveerd',
             from: 'Van',
             to: 'Tot',
             filter: 'Filter',
             actions: 'Opties',
-        },
-        status: {
-            active: 'Geactiveerd',
         },
         buttons: {
             export_selected: 'Exporteer selectie',

@@ -44,7 +44,13 @@ export default function SelectControlOptionsFund<T>({
     return (
         <div
             id={id}
-            className={classNames('select-control', 'select-control-funds', disabled && 'disabled', className)}
+            className={classNames(
+                'select-control',
+                'select-control-lg',
+                'select-control-funds',
+                disabled && 'disabled',
+                className,
+            )}
             tabIndex={0}
             role="button"
             data-dusk={dusk}
@@ -146,13 +152,11 @@ export default function SelectControlOptionsFund<T>({
                                         alt=""
                                     />
                                 </div>
-                                <div className="ellipsis">
-                                    {option.labelFormat?.map((str, index) => (
-                                        <Fragment key={str.id}>
-                                            {index != 1 ? <span>{str.value}</span> : <strong>{str.value}</strong>}
-                                        </Fragment>
-                                    ))}
-                                </div>
+                                {option.labelFormat?.map((str, index) => (
+                                    <Fragment key={str.id}>
+                                        {index != 1 ? <span>{str.value}</span> : <strong>{str.value}</strong>}
+                                    </Fragment>
+                                ))}
                             </div>
                         ))}
                     </ClickOutside>

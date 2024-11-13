@@ -8,7 +8,6 @@ import { useIdentity2FAService } from '../../../../dashboard/services/Identity2F
 import Identity2FAState from '../../../../dashboard/props/models/Identity2FAState';
 import useFormBuilder from '../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import Modal2FADeactivate from '../../modals/Modal2FADeactivate';
@@ -113,14 +112,7 @@ export default function Security2FA() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active">Beveiliging</div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Beveiliging' }]}
             profileHeader={
                 auth2FAState &&
                 form.values && (

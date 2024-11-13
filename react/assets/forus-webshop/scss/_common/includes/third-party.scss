@@ -395,6 +395,20 @@
     float: left;
 }
 
+.rs_addtools, .rsbtn {
+    margin: 0 0 !important;
+    display: flex;
+    z-index: initial !important;
+
+    .rsbtn_toolpanel {
+        position: absolute !important;
+    }
+}
+
+.rs_skip {
+    // read speaker skip class, added for referencing
+}
+
 ._720kb {
     &-datepicker {
         &-calendar {

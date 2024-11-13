@@ -6,16 +6,16 @@ import Provider from '../../../../props/models/Provider';
 export default function ProvidersListItem({
     provider,
     display = 'list',
-    searchParams = null,
+    stateParams = null,
 }: {
     provider: Provider;
     display: 'list' | 'search';
-    searchParams?: object;
+    stateParams?: object;
 }) {
     return (
         <Fragment>
-            {display === 'list' && <ProvidersListItemList searchParams={searchParams} provider={provider} />}
-            {display === 'search' && <ProvidersListItemSearch searchParams={searchParams} provider={provider} />}
+            {display === 'list' && <ProvidersListItemList stateParams={stateParams} provider={provider} />}
+            {display === 'search' && <ProvidersListItemSearch stateParams={stateParams} provider={provider} />}
         </Fragment>
     );
 }

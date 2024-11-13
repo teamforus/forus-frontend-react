@@ -39,3 +39,14 @@ export const fileToText = async (file: File) => {
         reader.readAsText(file);
     });
 };
+
+export const removeNullProperties = (obj?: object) => {
+    return obj
+        ? Object.keys(obj).reduce((acc, key) => {
+              if (obj[key] !== null) {
+                  acc[key] = obj[key];
+              }
+              return acc;
+          }, {})
+        : null;
+};

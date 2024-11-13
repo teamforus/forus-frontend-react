@@ -66,19 +66,11 @@ export default function ReservationsShow() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name="home" className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <StateNavLink name="reservations" className="breadcrumb-item" activeExact={true}>
-                        {translate('reservations.header.title')}
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Reservering
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: translate('reservations.header.title'), state: 'reservations' },
+                { name: 'Reservering' },
+            ]}
             profileHeader={<></>}
             contentDusk={'reservationDetailsPage'}>
             {reservation && (
