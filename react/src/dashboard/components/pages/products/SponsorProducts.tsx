@@ -16,7 +16,7 @@ import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
 import SelectControl from '../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
-import { NumberParam, StringParam, createEnumParam } from 'use-query-params';
+import { NumberParam, StringParam, createEnumParam, useQueryParam, withDefault } from 'use-query-params';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import { useFundService } from '../../../services/FundService';
@@ -24,6 +24,7 @@ import Fund from '../../../props/models/Fund';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import classNames from 'classnames';
 
 export default function SponsorProducts() {
     const activeOrganization = useActiveOrganization();
@@ -39,6 +40,12 @@ export default function SponsorProducts() {
     const [paginatorKey] = useState('sponsor_products');
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [products, setProducts] = useState<PaginationData<SponsorProduct>>(null);
+
+    const [view, setView] = useQueryParam<'products' | 'history'>(
+        'view',
+        withDefault(createEnumParam(['products', 'history']), 'products'),
+        { removeDefaultsFromUrl: true },
+    );
 
     const [hasReservationOptions] = useState([
         { key: 1, name: 'Ja' },
@@ -59,7 +66,6 @@ export default function SponsorProducts() {
         fund_id?: number;
         price_min?: string;
         price_max?: string;
-        view?: 'products' | 'history';
         per_page?: number;
         has_reservations?: number;
         date_type?: 'created_at' | 'updated_at';
@@ -67,7 +73,10 @@ export default function SponsorProducts() {
         {
             q: '',
             page: 1,
-            view: 'products',
+            from: null,
+            to: null,
+            price_min: null,
+            price_max: null,
             fund_id: null,
             has_reservations: null,
             date_type: 'created_at',
@@ -82,7 +91,6 @@ export default function SponsorProducts() {
                 page: NumberParam,
                 fund_id: NumberParam,
                 per_page: NumberParam,
-                view: createEnumParam(['products', 'history']),
                 has_reservations: NumberParam,
                 date_type: createEnumParam(['created_at', 'updated_at']),
                 price_min: StringParam,
@@ -92,9 +100,7 @@ export default function SponsorProducts() {
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(
-        productService.getColumnsSponsor(filterActiveValues.view),
-    );
+    const { headElement, configsElement } = useConfigurableTable(productService.getColumnsSponsor(view));
 
     const { resetFilters: resetFilters } = filter;
 
@@ -163,18 +169,20 @@ export default function SponsorProducts() {
                                 <div className="block block-label-tabs">
                                     <div className="label-tab-set">
                                         <div
-                                            className={`label-tab label-tab-sm ${
-                                                filterActiveValues.view == 'products' ? 'active' : ''
-                                            }`}
-                                            onClick={() => filterUpdate({ view: 'products' })}>
+                                            className={classNames(
+                                                `label-tab label-tab-sm`,
+                                                view == 'products' && 'active',
+                                            )}
+                                            onClick={() => setView('products')}>
                                             Alle
                                         </div>
 
                                         <div
-                                            className={`label-tab label-tab-sm ${
-                                                filterActiveValues.view == 'history' ? 'active' : ''
-                                            }`}
-                                            onClick={() => filterUpdate({ view: 'history' })}>
+                                            className={classNames(
+                                                `label-tab label-tab-sm`,
+                                                view == 'history' && 'active',
+                                            )}
+                                            onClick={() => setView('history')}>
                                             Wijzigingen
                                         </div>
                                     </div>
