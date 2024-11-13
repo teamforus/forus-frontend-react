@@ -115,7 +115,7 @@ export default function SponsorProducts() {
             to: filterActiveValues.date_type === 'created_at' ? filterActiveValues.to : null,
             updated_from: filterActiveValues.date_type === 'updated_at' ? filterActiveValues.from : null,
             updated_to: filterActiveValues.date_type === 'updated_at' ? filterActiveValues.to : null,
-            order_by: filterActiveValues.view === 'products' ? 'name' : 'last_monitored_change_at',
+            order_by: view === 'products' ? 'name' : 'last_monitored_change_at',
         };
 
         productService
@@ -125,7 +125,7 @@ export default function SponsorProducts() {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [setProgress, productService, activeOrganization.id, filterActiveValues]);
+    }, [setProgress, filterActiveValues, view, productService, activeOrganization.id]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -347,7 +347,7 @@ export default function SponsorProducts() {
                                 {configsElement}
 
                                 <TableTopScroller>
-                                    {filterActiveValues.view == 'products' ? (
+                                    {view == 'products' ? (
                                         <SponsorProductsTable products={products?.data} headElement={headElement} />
                                     ) : (
                                         <SponsorProductsChangesTable
