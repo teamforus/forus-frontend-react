@@ -1,11 +1,24 @@
-import Office from './Office';
-import Organization from './Organization';
-import Media from './Media';
-import ProductCategory from './ProductCategory';
-import Fund from './Fund';
-import Voucher from './Voucher';
+import Office from '../Office';
+import Organization from '../Organization';
+import Media from '../Media';
+import ProductCategory from '../ProductCategory';
 
-export default interface Product {
+export interface DealHistory {
+    id: number;
+    amount?: string;
+    amount_locale?: string;
+    limit_total?: number;
+    limit_total_unlimited?: boolean;
+    limit_per_identity?: number;
+    voucher_transactions_count?: number;
+    product_reservations_pending_count?: number;
+    active: boolean;
+    product_id: number;
+    expire_at?: string;
+    expire_at_locale?: string;
+}
+
+export default interface SponsorProduct {
     id: number;
     name: string;
     description: string;
@@ -28,42 +41,21 @@ export default interface Product {
     expire_at: string;
     expire_at_locale: string;
     expired: boolean;
-    deleted_at?: string;
-    deleted_at_locale?: string;
     deleted: boolean;
-    funds: Array<
-        Fund & {
-            organization: {
-                id: number;
-                name: string;
-            };
-            end_at: string;
-            end_at_locale: string;
-            reservations_enabled: boolean;
-            reservation_extra_payments_enabled: boolean;
-            fund_id?: number;
-            limit_total?: number;
-            limit_available?: number;
-            limit_per_identity?: number;
-            limit_total_unlimited: boolean;
-            price?: string;
-            price_locale?: string;
-            vouchers?: Array<Voucher>;
-            fund_providers?: Array<Organization>;
-        }
-    >;
+    funds: Array<{
+        id: number;
+        name: string;
+        type: string;
+        organization_id: number;
+        organization_name: string;
+        logo: Media;
+    }>;
     offices: Array<Office>;
     product_category: ProductCategory;
     bookmarked: boolean;
     price_type: 'regular' | 'discount_fixed' | 'discount_percentage' | 'free';
     price_discount: string;
     price_discount_locale: string;
-    price_min?: string;
-    price_min_locale?: string;
-    price_max?: string;
-    price_max_locale?: string;
-    lowest_price?: string;
-    lowest_price_locale?: string;
     reservation_fields: boolean;
     reservation_phone: 'global' | 'no' | 'optional' | 'required';
     reservation_address: 'global' | 'no' | 'optional' | 'required';
@@ -74,16 +66,21 @@ export default interface Product {
         id: number;
         name: string;
     };
-    unseen_messages: number;
-    excluded_funds: Array<{
+    monitored_history?: Array<{
         id: number;
-        name: string;
-        state: 'active' | 'closed' | 'paused' | 'waiting';
-        expire_at: string;
+        created_at: string;
+        created_at_locale: string;
     }>;
+    unseen_messages: number;
+    deals_history?: Array<DealHistory>;
     is_available?: boolean;
+    monitored_changes_count?: number;
     updated_at?: string;
     updated_at_locale?: string;
+    deleted_at?: string;
+    deleted_at_locale?: string;
     created_at?: string;
     created_at_locale?: string;
+    last_monitored_changed_at?: string;
+    last_monitored_changed_at_locale?: string;
 }
