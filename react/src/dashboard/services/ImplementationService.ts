@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
 import ApiRequestService from './ApiRequestService';
 import Implementation from '../props/models/Implementation';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ImplementationService<T = Implementation> {
     /**
@@ -70,6 +71,20 @@ export class ImplementationService<T = Implementation> {
      */
     public updatePreCheckBanner(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/implementations/${id}/pre-check-banner`, data);
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['name', 'state'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `implementation_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `implementation_funds.labels.${key}`,
+                description: `implementation_funds.tooltips.${key}`,
+            },
+        }));
     }
 }
 

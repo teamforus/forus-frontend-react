@@ -26,7 +26,7 @@
                     background: #f6f9fc;
 
                     th {
-                        transition: padding-bottom .1s linear;
+                        transition: padding-bottom 0.1s linear;
                     }
                 }
             }
@@ -120,10 +120,14 @@
         }
 
         &.table-container-scroll-top {
-            thead {
-                tr {
-                    th {
-                        padding-bottom: 29px;
+            & > .table-scroll {
+                & > .table {
+                    & > thead {
+                        & > tr {
+                            & > th:not(.table-th-actions) {
+                                padding-bottom: 29px;
+                            }
+                        }
                     }
                 }
             }
@@ -252,11 +256,11 @@
                 }
 
                 &:first-child {
-                    padding-left: 25px;
+                    padding-left: 20px;
                 }
 
                 &:last-child {
-                    padding-right: 25px;
+                    padding-right: 20px;
                 }
             }
 
@@ -457,11 +461,11 @@
                 }
 
                 &:first-child {
-                    padding-left: 25px;
+                    padding-left: 20px;
                 }
 
                 &:last-child {
-                    padding-right: 25px;
+                    padding-right: 20px;
                 }
 
                 &.td-narrow {

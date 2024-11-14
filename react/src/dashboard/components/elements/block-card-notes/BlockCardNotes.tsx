@@ -120,26 +120,21 @@ export default function BlockCardNotes({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex flex-horizontal">
-                    <div className="flex flex-vertical flex-center flex-grow">
-                        <div className="card-title">
-                            {translate('notes.header.title')}&nbsp;
-                            <span className="span-count">{notes.meta.total}</span>
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate('notes.header.title')}({notes.meta.total})
+                </div>
+                <div className="button-group">
+                    {isAssigned && (
+                        <div className="button button-sm button-primary" onClick={onAddNote}>
+                            <em className="mdi mdi-plus icon-start" />
+                            {translate('notes.buttons.add_new')}
                         </div>
-                    </div>
-                    <div className="flex flex-row">
-                        {isAssigned && (
-                            <div className="button button-sm button-primary" onClick={onAddNote}>
-                                <em className="mdi mdi-plus icon-start" />
-                                {translate('notes.buttons.add_new')}
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
             </div>
 
-            <LoaderTableCard empty={!notes.meta.total} emptyTitle={'Geen notites'}>
+            <LoaderTableCard empty={!notes.meta.total} emptyTitle={'Geen notities'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         <div className="table-wrapper">

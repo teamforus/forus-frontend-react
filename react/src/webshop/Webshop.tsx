@@ -1,6 +1,6 @@
 import { ModalsProvider } from '../dashboard/modules/modals/context/ModalContext';
 import { AuthProvider } from './contexts/AuthContext';
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, ReactNode, useContext, useEffect, useState } from 'react';
 import { Layout } from './layout/Layout';
 import { HashRouter, Route, Routes, BrowserRouter } from 'react-router-dom';
 import EnvDataProp from '../props/EnvData';
@@ -23,6 +23,8 @@ import StateHashPrefixRedirect from '../dashboard/modules/state_router/StateHash
 import { TitleProvider } from './contexts/TitleContext';
 import i18nEN from './i18n/i18n-en';
 import i18nNL from './i18n/i18n-nl';
+import CookieBanner from './modules/cookie_banner/CookieBanner';
+import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
 
 i18n.use(initReactI18next)
     .init({
@@ -59,7 +61,7 @@ const RouterLayout = ({ envData }: { envData: EnvDataWebshopProp }) => {
     );
 };
 
-function RouterSelector({ children, envData }: { envData: EnvDataProp; children: React.ReactElement }) {
+function RouterSelector({ children, envData }: { envData: EnvDataProp; children: ReactNode | ReactNode[] }) {
     if (envData.useHashRouter) {
         return <HashRouter basename={`/`}>{children}</HashRouter>;
     }
@@ -95,6 +97,8 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
     ApiRequestService.setHost(envData.config.api_url);
     ApiRequestService.setEnvData(envData as unknown as EnvDataProp);
 
+    const [allowOptionalCookies, setAllowOptionalCookies] = useState<boolean>(null);
+
     return (
         <Fragment>
             <LoadScript googleMapsApiKey={envData.config.google_maps_api_key} language={'nl'}>
@@ -115,7 +119,7 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                         <LoadingBarProvider>
                             <PrintableProvider>
                                 <ModalsProvider>
-                                    <MainProvider>
+                                    <MainProvider cookiesAccepted={allowOptionalCookies}>
                                         <TitleProvider>
                                             <AuthProvider>
                                                 <QueryParamProvider adapter={ReactRouter6Adapter}>
@@ -128,13 +132,16 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                                 </ModalsProvider>
                             </PrintableProvider>
                         </LoadingBarProvider>
+
+                        <CookieBanner envData={envData} setAllowOptionalCookies={setAllowOptionalCookies} />
+                        <AwsRumScript awsRum={envData.config?.aws_rum} cookiesAccepted={allowOptionalCookies} />
+                        <MatomoScript envData={envData} cookiesAccepted={allowOptionalCookies} />
+                        <SiteImproveAnalytics envData={envData} cookiesAccepted={allowOptionalCookies} />
+
+                        <ReadSpeakerScript envData={envData} />
                     </RouterSelector>
                 </PushNotificationsProvider>
             </LoadScript>
-
-            <AwsRumScript awsRum={envData.config?.aws_rum} />
-            <MatomoScript envData={envData} />
-            <SiteImproveAnalytics envData={envData} />
         </Fragment>
     );
 }

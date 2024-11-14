@@ -19,7 +19,6 @@ import OrganizationCreate from '../components/pages/organizations-edit/Organizat
 import Auth2FA from '../components/pages/auth/Auth2FA';
 import ProviderOverview from '../components/pages/provider-overview/ProviderOverview';
 import Offices from '../components/pages/offices/Offices';
-import Products from '../components/pages/products/Products';
 import ProductsCreate from '../components/pages/products-edit/ProductsCreate';
 import ProductsEdit from '../components/pages/products-edit/ProductsEdit';
 import ProductsView from '../components/pages/products-view/ProductsView';
@@ -53,6 +52,7 @@ import EventLogs from '../components/pages/eventLogs/EventLogs';
 import ImplementationsView from '../components/pages/implementations-view/ImplementationsView';
 import ImplementationsEmail from '../components/pages/implementations-email/ImplementationsEmail';
 import ImplementationsDigid from '../components/pages/implementations-digid/ImplementationsDigid';
+import ImplementationsCookies from '../components/pages/implementations-cookies/ImplementationsCookies';
 import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
 import ImplementationsCms from '../components/pages/implementations-cms/ImplementationsCms';
 import ImplementationsConfig from '../components/pages/implementations-config/ImplementationsConfig';
@@ -89,6 +89,8 @@ import SponsorFundUnsubscriptions from '../components/pages/sponsor-fund-unsubsc
 import OrganizationsContacts from '../components/pages/organizations-contacts/OrganizationsContacts';
 import Payouts from '../components/pages/payouts/Payouts';
 import PayoutsView from '../components/pages/payouts-view/PayoutsView';
+import ProductsViewHistory from '../components/pages/products-view/SponsorProductsView';
+import Products from '../components/pages/products/Products';
 
 const router = new RouterBuilder();
 
@@ -205,6 +207,12 @@ router.state('pre-check', <PreCheck />, {
 router.state('sponsor-provider-organizations', <SponsorProviderOrganizations />, {
     path: `/organisaties/:organizationId/aanbieders`,
     altPath: `/organizations/:organizationId/providers`,
+    fallbackState: 'organizations',
+});
+
+router.state('sponsor-product-history', <ProductsViewHistory />, {
+    path: `/organisaties/:organizationId/producten/:id/geschiedenis`,
+    altPath: `/organizations/:organizationId/products/:id/history`,
     fallbackState: 'organizations',
 });
 
@@ -353,6 +361,12 @@ router.state('implementations-config', <ImplementationsConfig />, {
 router.state('implementations-email', <ImplementationsEmail />, {
     path: `/organisaties/:organizationId/implementaties/:id/email`,
     altPath: `/organizations/:organizationId/implementations/:id/email`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-cookies', <ImplementationsCookies />, {
+    path: `/organisaties/:organizationId/implementaties/:id/cookiemelding`,
+    altPath: `/organizations/:organizationId/implementations/:id/cookies`,
     fallbackState: 'organizations',
 });
 

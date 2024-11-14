@@ -19,12 +19,6 @@
 }
 
 .section {
-    &.section-fund {
-        .wrapper {
-            width: 1000px;
-        }
-    }
-
     &.section-faq {
         .faq {
             margin: 0;
@@ -61,19 +55,6 @@
 .block {
     &.block-markdown {
         margin-bottom: 50px;
-    }
-
-    &.block-steps {    
-        .block-markdown {
-            a:not(.button) {
-                text-decoration: underline;
-                color: var(--color-primary);
-
-                &:hover {
-                    text-decoration: none;
-                }
-            }
-        }
     }
 
     &.block-pane {    

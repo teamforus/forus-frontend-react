@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router-dom';
-import Product, { DealHistory } from '../../../props/models/Product';
+import SponsorProduct, { DealHistory } from '../../../props/models/Sponsor/SponsorProduct';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { ResponseError } from '../../../props/ApiResponses';
@@ -23,8 +23,10 @@ import ModalFundProviderChatSponsor from '../../modals/ModalFundProviderChatSpon
 import ModalFundProviderChatMessage from '../../modals/ModalFundProviderChatMessage';
 import useTranslate from '../../../hooks/useTranslate';
 import useAssetUrl from '../../../hooks/useAssetUrl';
+import KeyValueItem from '../../elements/key-value/KeyValueItem';
+import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 
-type ProductLocal = Product & {
+type ProductLocal = SponsorProduct & {
     allowed?: boolean;
     hasLimits?: boolean;
 };
@@ -53,14 +55,14 @@ export default function FundProviderProductView() {
     const [fundProviderProductChat, setFundProviderProductChat] = useState<FundProviderChat>(null);
 
     const disableProviderProduct = useCallback(
-        (product: Product) => {
+        (product: SponsorProduct) => {
             disableProduct(fundProvider, product).then((res) => setFundProvider(res));
         },
         [disableProduct, fundProvider],
     );
 
     const confirmDangerAction = useCallback(
-        (title, description_text, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
+        (title: string, description_text: string, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
             return new Promise((resolve) => {
                 openModal((modal) => (
                     <ModalDangerZone
@@ -89,7 +91,7 @@ export default function FundProviderProductView() {
     );
 
     const mapProduct = useCallback(
-        (data: Product): ProductLocal => {
+        (data: SponsorProduct): ProductLocal => {
             return {
                 ...data,
                 allowed: fundProvider.products.indexOf(data.id) !== -1,
@@ -115,7 +117,7 @@ export default function FundProviderProductView() {
     }, [fundService, activeOrganization.id, fundId, fundProviderId, id, mapProduct, pushDanger]);
 
     const resetLimits = useCallback(
-        (deal) => {
+        (deal: DealHistory) => {
             confirmDangerAction(
                 'Limiet verwijderen?',
                 [
@@ -153,7 +155,7 @@ export default function FundProviderProductView() {
     );
 
     const updateAllowBudgetItem = useCallback(
-        (product: Product, allowed: boolean) => {
+        (product: SponsorProduct, allowed: boolean) => {
             const enable_products = allowed ? [{ id: product.id }] : [];
             const disable_products = !allowed ? [product.id] : [];
 
@@ -283,14 +285,21 @@ export default function FundProviderProductView() {
                 </StateNavLink>
                 <StateNavLink
                     name={'sponsor-provider-organization'}
-                    params={{ id: fundProvider.organization.id, organizationId: activeOrganization.id }}
+                    params={{
+                        id: fundProvider.organization.id,
+                        organizationId: activeOrganization.id,
+                    }}
                     activeExact={true}
                     className="breadcrumb-item">
                     {strLimit(fundProvider.organization.name, 40)}
                 </StateNavLink>
                 <StateNavLink
                     name={'fund-provider'}
-                    params={{ id: fundProvider.id, fundId: fund.id, organizationId: activeOrganization.id }}
+                    params={{
+                        id: fundProvider.id,
+                        fundId: fund.id,
+                        organizationId: activeOrganization.id,
+                    }}
                     activeExact={true}
                     className="breadcrumb-item">
                     {strLimit(fundProvider.fund.name, 40)}
@@ -298,161 +307,171 @@ export default function FundProviderProductView() {
                 <div className="breadcrumb-item active">{strLimit(product.name, 40)}</div>
             </div>
 
-            <div className="block block-provider-product">
-                <div className="product-overview">
-                    <div className="product-media">
-                        <img
-                            className="product-media-img"
-                            src={product.photo?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
-                            alt={product.name}
-                        />
-                    </div>
-                    <div className="product-details">
-                        <div className="product-name">{product.name}</div>
-                        <div className="product-properties">
-                            <div className="product-property">
-                                <div className="product-property-label">{translate('product_edit.labels.expire')}</div>
-                                <div className="product-property-value">
-                                    {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
+            <div className="card">
+                <div className="card-section">
+                    <div className="block block-product">
+                        <div className="block-product-media">
+                            <img
+                                src={
+                                    product.photo?.sizes?.small ||
+                                    assetUrl('/assets/img/placeholders/product-small.png')
+                                }
+                                alt={product.name}
+                            />
+                        </div>
+
+                        <div className="block-product-content flex-grow">
+                            <div className="flex flex-gap">
+                                <div className="block-product-details flex-grow">
+                                    <div className="block-product-name">{product.name}</div>
+                                    <div className="block-product-price">{product.price_locale}</div>
+                                </div>
+                                <div className="flex flex-align-items-start">
+                                    {fundProvider.fund.type == 'budget' && (
+                                        <div className="form">
+                                            <div className="form-group form-group-inline">
+                                                <label
+                                                    className={`form-toggle ${
+                                                        fundProvider.allow_products
+                                                            ? 'form-toggle-disabled form-toggle-active'
+                                                            : ''
+                                                    }`}
+                                                    htmlFor={`product_${product.id}_enabled`}>
+                                                    <input
+                                                        type="checkbox"
+                                                        id={`product_${product.id}_enabled`}
+                                                        checked={product.allowed}
+                                                        onChange={(e) =>
+                                                            updateAllowBudgetItem(product, e.target.checked)
+                                                        }
+                                                    />
+                                                    <div className="form-toggle-inner">
+                                                        <div className="toggle-input">
+                                                            <div className="toggle-input-dot" />
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {fundProvider.fund.type == 'subsidies' && (
+                                        <Fragment>
+                                            {product.is_available && !product.allowed && (
+                                                <StateNavLink
+                                                    name={'fund-provider-product-subsidy-edit'}
+                                                    params={{
+                                                        id: product.id,
+                                                        fundId: fundProvider.fund_id,
+                                                        fundProviderId: fundProvider.id,
+                                                        organizationId: activeOrganization.id,
+                                                    }}
+                                                    className="button button-primary button-sm nowrap">
+                                                    <em className="mdi mdi-play icon-start" />
+                                                    {translate('product.buttons.subsidy_edit')}
+                                                </StateNavLink>
+                                            )}
+
+                                            {product.is_available && product.allowed && (
+                                                <div className="tag tag-success nowrap">
+                                                    {translate('product.buttons.subsidy_active')}
+                                                    <em
+                                                        className="mdi mdi-close icon-end clickable"
+                                                        onClick={() => disableProviderProduct(product)}
+                                                    />
+                                                </div>
+                                            )}
+                                        </Fragment>
+                                    )}
                                 </div>
                             </div>
-                            <div className="product-property">
-                                <div className="product-property-label">{translate('product_edit.labels.sold')}</div>
-                                <div className="product-property-value">{product.sold_amount}</div>
-                            </div>
-                            <div className="product-property">
-                                <div className="product-property-label">
-                                    {translate('product_edit.labels.reserved')}
+
+                            {product.description_html && (
+                                <div
+                                    className="block block-markdown block-product-description"
+                                    dangerouslySetInnerHTML={{ __html: product.description_html }}
+                                />
+                            )}
+                            <div className="block-product-separator" />
+
+                            <div className="flex flex-vertical">
+                                <div className="card-heading">{translate('product.labels.details')}</div>
+
+                                <div className="card-block card-block-keyvalue card-block-keyvalue-md">
+                                    <KeyValueItem label={translate('product.labels.expire')}>
+                                        {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
+                                    </KeyValueItem>
+
+                                    <KeyValueItem label={translate('product.labels.sold')}>
+                                        {product.sold_amount}
+                                    </KeyValueItem>
+
+                                    <KeyValueItem label={translate('product.labels.reserved')}>
+                                        {product.reserved_amount}
+                                    </KeyValueItem>
+
+                                    <KeyValueItem
+                                        label={translate('product.labels.ean')}
+                                        infoBlock={<TranslateHtml i18n={'product.tooltips.ean'} />}>
+                                        {product.ean}
+                                    </KeyValueItem>
                                 </div>
-                                <div className="product-property-value">{product.reserved_amount}</div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="product-actions form">
-                        <div className="product-price">{product.price_locale}</div>
-                        {fundProvider.fund.type == 'budget' && (
-                            <div className="form-group form-group-inline">
-                                <label
-                                    className={`form-toggle ${
-                                        fundProvider.allow_products ? 'form-toggle-disabled form-toggle-active' : ''
-                                    }`}
-                                    htmlFor={`product_${product.id}_enabled`}>
-                                    <input
-                                        type="checkbox"
-                                        id={`product_${product.id}_enabled`}
-                                        checked={product.allowed}
-                                        onChange={(e) => updateAllowBudgetItem(product, e.target.checked)}
-                                    />
-                                    <div className="form-toggle-inner">
-                                        <div className="toggle-input">
-                                            <div className="toggle-input-dot" />
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        )}
-
-                        {fundProvider.fund.type == 'subsidies' && (
-                            <div className="flex flex-end">
-                                {product.is_available && !product.allowed && (
-                                    <StateNavLink
-                                        name={'fund-provider-product-subsidy-edit'}
-                                        params={{
-                                            id: product.id,
-                                            fundId: fundProvider.fund_id,
-                                            fundProviderId: fundProvider.id,
-                                            organizationId: activeOrganization.id,
-                                        }}
-                                        className="button button-primary button-sm nowrap">
-                                        <em className="mdi mdi-play icon-start" />
-                                        Start subsidie
-                                    </StateNavLink>
-                                )}
-
-                                {product.is_available && product.allowed && (
-                                    <div className="tag tag-success nowrap">
-                                        Subsidie actief
-                                        <em
-                                            className="mdi mdi-close icon-end clickable"
-                                            onClick={() => disableProviderProduct(product)}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        )}
                     </div>
                 </div>
+                <div className="card-footer card-footer-primary flex flex-end">
+                    {!product.sponsor_organization_id && !fundProviderProductChat && (
+                        <button type="button" className="button button-primary-light" onClick={() => makeChat()}>
+                            <em className="mdi mdi-message-text icon-start" />
+                            Nieuw aanpassingsverzoek
+                        </button>
+                    )}
 
-                <div className="product-description">
-                    <div className="description-header">
-                        Beschrijving
-                        <div className="description-header-action">
-                            {!product.sponsor_organization_id && !fundProviderProductChat && (
-                                <button
-                                    type="button"
-                                    className="button button-primary-light"
-                                    onClick={() => makeChat()}>
-                                    <em className="mdi mdi-message-text icon-start" />
-                                    Nieuw aanpassingsverzoek
-                                </button>
+                    {product.sponsor_organization_id === activeOrganization.id && !fundProviderProductChat && (
+                        <StateNavLink
+                            className="button button-primary"
+                            name={'fund-provider-product-edit'}
+                            params={{
+                                id: product.id,
+                                fundId: fundProvider.fund_id,
+                                fundProviderId: fundProvider.id,
+                                organizationId: activeOrganization.id,
+                            }}>
+                            <em className="mdi mdi-pencil icon-start" />
+                            Bewerken
+                        </StateNavLink>
+                    )}
+
+                    {!product.sponsor_organization && fundProviderProductChat && (
+                        <div className={'button-group flex flex-gap'}>
+                            {fundProviderProductChat.sponsor_unseen_messages > 0 && (
+                                <div>
+                                    <span className="button button-text button-text-padless button-disabled">
+                                        <span className="text text-black">
+                                            {fundProviderProductChat.sponsor_unseen_messages} nieuwe
+                                        </span>
+                                    </span>
+                                </div>
                             )}
 
-                            {product.sponsor_organization_id === activeOrganization.id && !fundProviderProductChat && (
-                                <StateNavLink
-                                    className="button button-primary"
-                                    name={'fund-provider-product-edit'}
-                                    params={{
-                                        id: product.id,
-                                        fundId: fundProvider.fund_id,
-                                        fundProviderId: fundProvider.id,
-                                        organizationId: activeOrganization.id,
-                                    }}>
-                                    <em className="mdi mdi-pencil icon-start" />
-                                    Bewerken
-                                </StateNavLink>
-                            )}
-                        </div>
-                        {!product.sponsor_organization && fundProviderProductChat && (
-                            <div className="description-header-action">
-                                {fundProviderProductChat.sponsor_unseen_messages > 0 && (
-                                    <span>{fundProviderProductChat.sponsor_unseen_messages} nieuwe</span>
-                                )}
-
-                                <button
-                                    type="button"
-                                    className={`button button-icon ${
-                                        fundProviderProductChat.sponsor_unseen_messages > 0
-                                            ? 'button-primary-light'
-                                            : 'button-default'
+                            <button
+                                type="button"
+                                className={`button button-icon ${
+                                    fundProviderProductChat.sponsor_unseen_messages > 0
+                                        ? 'button-primary-light'
+                                        : 'button-default'
+                                }`}
+                                disabled={!fundProviderProductChat}
+                                onClick={() => showTheChat()}>
+                                <em
+                                    className={`mdi mdi-message-text ${
+                                        fundProviderProductChat && !fundProviderProductChat.sponsor_unseen_messages
+                                            ? 'text-primary'
+                                            : ''
                                     }`}
-                                    disabled={!fundProviderProductChat}
-                                    onClick={() => showTheChat()}>
-                                    <em
-                                        className={`mdi mdi-message-text ${
-                                            fundProviderProductChat && !fundProviderProductChat.sponsor_unseen_messages
-                                                ? 'text-primary'
-                                                : ''
-                                        }`}
-                                    />
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {product.description_html ? (
-                        <div className="description-body">
-                            <div className="arrow-box border bg-dim">
-                                <div className="arrow" />
-                            </div>
-                            <div dangerouslySetInnerHTML={{ __html: product.description_html }} />
-                        </div>
-                    ) : (
-                        <div className="description-body">
-                            <div className="arrow-box border bg-dim">
-                                <div className="arrow" />
-                            </div>
-                            Geen data
+                                />
+                            </button>
                         </div>
                     )}
                 </div>

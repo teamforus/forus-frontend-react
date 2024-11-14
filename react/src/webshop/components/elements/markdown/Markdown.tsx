@@ -20,6 +20,7 @@ export default function Markdown({
     useEffect(() => {
         const tables = ref.current?.querySelectorAll('table');
 
+        // fix empty th from markdown and convert preceding h4 to caption
         try {
             tables.forEach((table) => {
                 const head = table.querySelector('tHead tr');
@@ -51,7 +52,27 @@ export default function Markdown({
                     wrapper.appendChild(table);
                 }
             });
-        } catch {
+        } catch (e) {
+            console.error('Could not fix table headers: ' + e.toString());
+            /* empty */
+        }
+
+        // make responsive
+        try {
+            tables.forEach((table) => {
+                const headers = [...table.querySelectorAll('tHead tr th')];
+                const rows = table.querySelectorAll('tBody tr');
+
+                headers.forEach((value, index) => {
+                    rows.forEach((row) => {
+                        row.querySelectorAll('td')[index].dataset.title = value.textContent;
+                    });
+                });
+
+                table.classList.add('table-responsive');
+            });
+        } catch (e) {
+            console.error('Could not apply table responsiveness: ' + e.toString());
             /* empty */
         }
     }, [content]);

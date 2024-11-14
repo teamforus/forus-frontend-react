@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { useFundService } from '../../../services/FundService';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import PreCheck from '../../../props/models/PreCheck';
@@ -31,8 +30,6 @@ import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import FundsListItemPreCheck from '../../elements/lists/funds-list/templates/FundsListItemPreCheck';
 import useFilter from '../../../../dashboard/hooks/useFilter';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
-import BlockLoader from '../../elements/block-loader/BlockLoader';
-import BlockLoaderBreadcrumbs from '../../elements/block-loader/BlockLoaderBreadcrumbs';
 
 type PreCheckLocal = PreCheck<{
     label?: string;
@@ -329,24 +326,11 @@ export default function FundsPreCheck() {
 
     return (
         <BlockShowcase
-            loaderElement={
-                <div className={'wrapper'}>
-                    <BlockLoaderBreadcrumbs />
-                    <BlockLoader />
-                </div>
-            }>
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'De Potjes check' }]}
+            breadcrumbWrapper={true}>
             {preChecks && appConfigs && (
                 <div className="block block-fund-pre-check">
                     <div className="showcase-wrapper">
-                        <div className="block block-breadcrumbs">
-                            <StateNavLink className="breadcrumb-item" name="home">
-                                Home
-                            </StateNavLink>
-                            <div className="breadcrumb-item active" aria-current="location">
-                                De Potjes check
-                            </div>
-                        </div>
-
                         <div className="show-sm">
                             <div className="pre-check-info">
                                 <div className="pre-check-info-title">{appConfigs.pre_check_title}</div>
