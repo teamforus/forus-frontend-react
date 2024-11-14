@@ -75,6 +75,8 @@ export default interface SponsorProduct {
     deals_history?: Array<DealHistory>;
     is_available?: boolean;
     monitored_changes_count?: number;
+    ean?: string;
+    sku?: string;
     updated_at?: string;
     updated_at_locale?: string;
     deleted_at?: string;

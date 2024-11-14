@@ -121,6 +121,9 @@ export class ProductService<T = Product> {
             price_type: apiResource.price_type,
             price_discount: apiResource.price_discount !== null ? parseFloat(apiResource.price_discount) : null,
 
+            ean: apiResource.ean,
+            sku: apiResource.sku,
+
             expire_at: apiResource.expire_at,
             total_amount: apiResource.total_amount,
             stock_amount: apiResource.stock_amount,

@@ -82,6 +82,8 @@ export default interface Product {
         expire_at: string;
     }>;
     is_available?: boolean;
+    ean?: string;
+    sku?: string;
     updated_at?: string;
     updated_at_locale?: string;
     created_at?: string;
