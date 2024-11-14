@@ -38,7 +38,7 @@ export default function FinancialOverviewFundsBudgetTable({
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
     const budgetFunds = useMemo(() => {
-        return funds?.filter((fund) => fund.type == 'budget');
+        return funds?.filter((fund) => fund.type == 'budget' && fund.budget);
     }, [funds]);
 
     const fundService = useFundService();
