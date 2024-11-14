@@ -2,12 +2,12 @@ import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResp
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Fund from '../props/models/Fund';
-import Product from '../props/models/Product';
 import FundProvider from '../props/models/FundProvider';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import FundTopUpTransaction from '../props/models/FundTopUpTransaction';
 import Identity from '../props/models/Sponsor/Identity';
 import Papa from 'papaparse';
+import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import {
     ProviderFinancialStatistics,
     FinancialOverview,
@@ -182,7 +182,7 @@ export class FundService<T = Fund> {
         fund_id: number,
         provider_id: number,
         query: object = {},
-    ): Promise<ApiResponse<Product>> {
+    ): Promise<ApiResponse<SponsorProduct>> {
         return this.apiRequest.get(
             `${this.prefix}/${organization_id}/funds/${fund_id}/providers/${provider_id}/products`,
             query,
@@ -195,7 +195,7 @@ export class FundService<T = Fund> {
         provider_id: number,
         product_id: number,
         query: object = {},
-    ): Promise<ApiResponseSingle<Product>> {
+    ): Promise<ApiResponseSingle<SponsorProduct>> {
         return this.apiRequest.get(
             `${this.prefix}/${organization_id}/funds/${fund_id}/providers/${provider_id}/products/${product_id}`,
             query,

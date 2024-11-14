@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router-dom';
-import Product, { DealHistory } from '../../../props/models/Product';
+import SponsorProduct, { DealHistory } from '../../../props/models/Sponsor/SponsorProduct';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { ResponseError } from '../../../props/ApiResponses';
@@ -26,7 +26,7 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 
-type ProductLocal = Product & {
+type ProductLocal = SponsorProduct & {
     allowed?: boolean;
     hasLimits?: boolean;
 };
@@ -55,7 +55,7 @@ export default function FundProviderProductView() {
     const [fundProviderProductChat, setFundProviderProductChat] = useState<FundProviderChat>(null);
 
     const disableProviderProduct = useCallback(
-        (product: Product) => {
+        (product: SponsorProduct) => {
             disableProduct(fundProvider, product).then((res) => setFundProvider(res));
         },
         [disableProduct, fundProvider],
@@ -91,7 +91,7 @@ export default function FundProviderProductView() {
     );
 
     const mapProduct = useCallback(
-        (data: Product): ProductLocal => {
+        (data: SponsorProduct): ProductLocal => {
             return {
                 ...data,
                 allowed: fundProvider.products.indexOf(data.id) !== -1,
@@ -155,7 +155,7 @@ export default function FundProviderProductView() {
     );
 
     const updateAllowBudgetItem = useCallback(
-        (product: Product, allowed: boolean) => {
+        (product: SponsorProduct, allowed: boolean) => {
             const enable_products = allowed ? [{ id: product.id }] : [];
             const disable_products = !allowed ? [product.id] : [];
 

@@ -819,6 +819,38 @@ export default {
         },
     },
 
+    // PRODUCTS = product.pug
+    sponsor_products: {
+        offers: 'Aanbod',
+        labels: {
+            search: 'Zoeken',
+            name: 'Aanbod',
+            provider_name: 'Aanbieder',
+            last_updated: 'Laatste wijziging',
+            nr_funds: 'Aantal fondsen',
+            nr_changes: 'Aantal wijzigingen',
+            fund: 'Aantal fondsen',
+            price: 'Prijs',
+            stock_amount: 'Voorraad',
+            category: 'Categorie',
+            price_min: '0',
+            price_max: 'Alle',
+            logs: 'Geschiedenis van wijzigingen',
+            created_at: 'Aanmaakdatum',
+            actions: 'Actie',
+            date_type: 'Pas toe op',
+            from: 'Vanaf',
+            to: 'Tot en met',
+        },
+        filters: {
+            search: 'Zoeken',
+            implementation: 'Implementatie',
+            amount: 'Bedrag',
+            has_reservations: 'Heeft reserveringen',
+            funds: 'Fondsen',
+        },
+    },
+
     // PROVIDER IDENTITIES = provider-identities.pug
     provider_identities: {
         labels: {
@@ -1861,6 +1893,10 @@ export default {
                 daily_validator: {
                     title: 'Dagelijkse samenvatting omtrent aanvragen voor fondsen',
                     description: 'Notificaties omtrent aanvragen worden gegroepeerd toegestuurd.',
+                },
+                daily_sponsor_product_updates: {
+                    title: 'Dagelijkse samenvatting over wijzigingen in aanbiedingen',
+                    description: 'Notificaties over wijzigingen in aanbiedingen die zijn goedgekeurd.',
                 },
             },
             funds: {
