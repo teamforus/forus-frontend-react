@@ -2,7 +2,7 @@
 $primaryColor: #305dfb;
 $primaryColorLight: #305dfb;
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
     // navbar
@@ -14,8 +14,9 @@ $primaryColorLight: #305dfb;
     --logo-height: 50px;
 
     // Outline
-    --outline-width: 2px;
-    --outline-offset: 1px;
+    --focus-outline: 2px solid #315efd;
+    --focus-outline-offset: 2px;
+    --focus-box-shadow: 0 0 0 3px white;
 
     // navbar (auth) (default button)
     --tc-auth-menu: #305dfb;
@@ -32,7 +33,7 @@ $primaryColorLight: #305dfb;
     --btn-start-border: transparent;
 
     // header background
-    --bg-values: url("../img/splash-top-b.png") no-repeat 100% 0;
+    --bg-values: url('../img/splash-top-b.png') no-repeat 100% 0;
 
     // Header banner
     --header-banner-pane-banner-padding: 50px 0;
@@ -42,13 +43,13 @@ $primaryColorLight: #305dfb;
     --header-banner-pane-banner-border-radius: initial;
 
     // base font
-    --base-font: "Open Sans", arial, sans-serif;
+    --base-font: 'Open Sans', arial, sans-serif;
 
     // heading font
     --hf: var(--base-font);
 
     // text color
-    --tc: #282B39;
+    --tc: #282b39;
     --htc: var(--tc);
     --tc-var: inherit;
     --tc-link: inherit;
@@ -107,7 +108,7 @@ $primaryColorLight: #305dfb;
 
     // Dropdowns
     --dropdown-item-font: 500 13px/20px var(--base-font);
-    --dropdown-item-color: #282B39;
+    --dropdown-item-color: #282b39;
     --dropdown-item-background: #ffffff;
     --dropdown-item-hover-color: #000000;
     --dropdown-item-hover-background: #e5e5e5;
@@ -116,14 +117,14 @@ $primaryColorLight: #305dfb;
     --form-control-color: #222222;
     --form-control-background: #ffffff;
     --form-control-border-color: #646464;
-    --form-control-border-color-focus: #282B39;
+    --form-control-border-color-focus: #282b39;
     --form-control-placeholder-font: 400 13px/20px var(--base-font);
     --form-control-placeholder-color: #535561;
     --form-label-color: #595959;
 
     // Buttons
     --btn-color: #282b39;
-    --btn-border-radius: calc(var(--border-radius) * .75);
+    --btn-border-radius: calc(var(--border-radius) * 0.75);
 
     --btn-disabled-color: #616161;
     --btn-disabled-background: #e5e5e5;
@@ -153,9 +154,10 @@ $primaryColorLight: #305dfb;
     --label-set-active-color: #ffffff;
     --label-set-active-background: var(--color-primary);
     --label-set-hover-color: #ffffff;
-    --label-set-hover-background: #{rgba($primaryColor, .8)};
+    --label-set-hover-background: #{rgba($primaryColor, 0.8)};
     --label-set-focus-color: #272525;
-    --label-set-focus-background: #F4F5F7;
+    --label-set-focus-background: #f4f5f7;
+    --label-set-focus-border-color: #9e9e9e;
 
     // Sign up
     --sign_up_accent_color: #305dfb;
@@ -179,8 +181,8 @@ $primaryColorLight: #305dfb;
     --showcase-item-background: var(--showcase-aside-background);
     --showcase-item-border: var(--showcase-aside-border);
     --showcase-item-border-radius: var(--showcase-aside-border-radius);
-    --showcase-item-hover-shadow: 2px 8px 14px 0px rgba(0, 0, 0, 0.10);
-    
+    --showcase-item-hover-shadow: 2px 8px 14px 0px rgba(0, 0, 0, 0.1);
+
     --showcase-aside-button-color: var(--color-primary);
     --showcase-aside-button-border: 1px solid var(--color-primary);
     --showcase-aside-button-background: transparent;
@@ -189,7 +191,7 @@ $primaryColorLight: #305dfb;
     --showcase-aside-button-hover-background: var(--color-primary);
 
     --showcase-fullscreen-bottom-offset: 115px;
-    
+
     --showcase-title-font: 600 18px/30px var(--hf);
     --showcase-title-color: var(--tc);
     --showcase-title-count-color: #fff;
@@ -217,7 +219,7 @@ $primaryColorLight: #305dfb;
     --profile-menu-item-border-color: transparent;
     --profile-menu-item-border-radius: var(--border-radius);
     --profile-menu-item-hover-color: #fff;
-    --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, .20);
+    --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     --profile-menu-item-hover-background: var(--color-primary);
     --profile-menu-item-hover-border-color: var(--color-primary);
     --profile-menu-item-hover-border-radius: var(--border-radius);

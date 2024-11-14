@@ -54,7 +54,7 @@
     a:not(.button) {
         color: var(--tc-link);
         font-weight: 500;
-        transition: 0.4s;
+        transition: color .4s, background-color .4s;
         font: inherit;
         text-decoration: underline;
 
