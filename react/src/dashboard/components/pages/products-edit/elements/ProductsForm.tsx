@@ -30,6 +30,7 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import { hasPermission } from '../../../../helpers/utils';
 import { strLimit } from '../../../../helpers/string';
 import useTranslate from '../../../../hooks/useTranslate';
+import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 
 export default function ProductsForm({
     organization,
@@ -142,8 +143,8 @@ export default function ProductsForm({
     const [allowsReservations, setAllowsReservations] = useState<boolean>(true);
     const [nonExpiring, setNonExpiring] = useState<boolean>(false);
     const [mediaErrors] = useState<string[]>(null);
-    const [product, setProduct] = useState<Product>(null);
-    const [sourceProduct, setSourceProduct] = useState<Product>(null);
+    const [product, setProduct] = useState<Product | SponsorProduct>(null);
+    const [sourceProduct, setSourceProduct] = useState<Product | SponsorProduct>(null);
     const [products, setProducts] = useState<Product[]>(null);
 
     const goToFundProvider = useCallback(
@@ -258,7 +259,7 @@ export default function ProductsForm({
 
         uploadMedia().then((media_uid: string) => {
             setProgress(0);
-            let promise: Promise<ApiResponseSingle<Product>>;
+            let promise: Promise<ApiResponseSingle<Product | SponsorProduct>>;
             const valueData = { ...values, media_uid };
 
             if (nonExpiring) {
@@ -333,7 +334,7 @@ export default function ProductsForm({
     const { update: updateForm } = form;
 
     const priceWillChange = useCallback(
-        (product?: Product): boolean => {
+        (product?: Product | SponsorProduct): boolean => {
             if (!product) {
                 return false;
             }
@@ -358,7 +359,7 @@ export default function ProductsForm({
         [form?.values],
     );
 
-    const hasSubsidyFunds = useCallback((product: Product) => {
+    const hasSubsidyFunds = useCallback((product: Product | SponsorProduct) => {
         return product && (product.sponsor_organization_id || product.funds.find((fund) => fund.type === 'subsidies'));
     }, []);
 
