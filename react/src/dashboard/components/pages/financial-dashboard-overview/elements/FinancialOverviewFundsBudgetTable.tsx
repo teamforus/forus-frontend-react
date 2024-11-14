@@ -69,7 +69,7 @@ export default function FinancialOverviewFundsBudgetTable({
     return (
         <div className="card card-financial">
             <div className="card-header card-header-next">
-                <div className="flex-col card-title flex flex-grow tooltipped">
+                <div className="card-title flex flex-grow tooltipped">
                     Tegoeden
                     <Tooltip text={'De tegoeden die zijn toegekend via het systeem met de huidige status.'} />
                 </div>
