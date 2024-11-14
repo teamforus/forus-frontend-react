@@ -59,8 +59,25 @@ export default function SponsorProductLogs() {
             </div>
 
             <div className="card">
-                <div className="card-section">
-                    <div className="card-section-actions">
+                <div className="card-section flex flex-horizontal">
+                    <div className="flex flex-grow">
+                        <div className="card-block card-block-provider flex flex-align-items-center">
+                            <div className="provider-img">
+                                <img
+                                    src={
+                                        product?.photo?.sizes?.thumbnail ||
+                                        assetUrl('/assets/img/placeholders/product-thumbnail.png')
+                                    }
+                                    alt={product?.name}
+                                />
+                            </div>
+                            <div className="provider-details">
+                                <div className="provider-title">{product?.name}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex-group flex flex-align-items-center nowrap">
                         <StateNavLink
                             className="button button-default"
                             name={'sponsor-provider-organization'}
@@ -68,24 +85,20 @@ export default function SponsorProductLogs() {
                                 organizationId: activeOrganization.id,
                                 id: product.organization_id,
                             }}>
-                            <em className="mdi mdi-open-in-new icon-start" />
-                            Bekijk aanbieder
+                            <em className="mdi mdi-store-outline icon-start" />
+                            Bekijk aanbieder in beheeromgeving
                         </StateNavLink>
-                    </div>
 
-                    <div className="card-block card-block-provider">
-                        <div className="provider-img">
-                            <img
-                                src={
-                                    product?.photo?.sizes?.thumbnail ||
-                                    assetUrl('/assets/img/placeholders/product-thumbnail.png')
-                                }
-                                alt={product?.name}
-                            />
-                        </div>
-                        <div className="provider-details">
-                            <div className="provider-title">{product?.name}</div>
-                        </div>
+                        {product.funds?.[0]?.url_product && (
+                            <a
+                                className="button button-primary"
+                                target={'_blank'}
+                                href={product.funds?.[0]?.url_product}
+                                rel="noreferrer">
+                                <em className="mdi mdi-open-in-new icon-start" />
+                                Bekijk aanbod op de webshop
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>

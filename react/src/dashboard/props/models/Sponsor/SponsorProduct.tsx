@@ -49,6 +49,8 @@ export default interface SponsorProduct {
         organization_id: number;
         organization_name: string;
         logo: Media;
+        url?: string;
+        url_product?: string;
     }>;
     offices: Array<Office>;
     product_category: ProductCategory;
