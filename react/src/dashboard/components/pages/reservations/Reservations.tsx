@@ -411,7 +411,7 @@ export default function Reservations() {
                         {filter.show ? (
                             <div className="button button-text" onClick={filter.resetFilters}>
                                 <em className="mdi mdi-close icon-start" />
-                                Wis filters
+                                <span>Wis filters</span>
                             </div>
                         ) : (
                             <div className="form">
