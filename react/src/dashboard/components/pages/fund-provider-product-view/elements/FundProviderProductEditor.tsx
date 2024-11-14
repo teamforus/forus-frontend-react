@@ -5,7 +5,7 @@ import useFormBuilder from '../../../../hooks/useFormBuilder';
 import { ResponseError } from '../../../../props/ApiResponses';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
-import Product, { DealHistory } from '../../../../props/models/Product';
+import SponsorProduct, { DealHistory } from '../../../../props/models/Sponsor/SponsorProduct';
 import Fund from '../../../../props/models/Fund';
 import FundProvider from '../../../../props/models/FundProvider';
 import { useFundService } from '../../../../services/FundService';
@@ -23,7 +23,7 @@ export default function FundProviderProductEditor({
 }: {
     deal?: DealHistory;
     fund: Fund;
-    product: Product;
+    product: SponsorProduct;
     onReset?: (deal: DealHistory) => void;
     onCancel?: () => void;
     onUpdate?: (data: FundProvider) => void;

@@ -5,7 +5,6 @@ import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
 import useFilter from '../../../../hooks/useFilter';
 import Paginator from '../../../../modules/paginator/components/Paginator';
-import Product from '../../../../props/models/Product';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
@@ -14,8 +13,9 @@ import useUpdateProduct from '../hooks/useUpdateProduct';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 
-type ProductLocal = Product & {
+type ProductLocal = SponsorProduct & {
     allowed: boolean;
 };
 
@@ -55,7 +55,10 @@ export default function BudgetFundProducts({
     );
 
     const mapProduct = useCallback(
-        (product: Product) => ({ ...product, allowed: fundProvider.products.indexOf(product.id) !== -1 }),
+        (product: SponsorProduct) => ({
+            ...product,
+            allowed: fundProvider.products.indexOf(product.id) !== -1,
+        }),
         [fundProvider.products],
     );
 

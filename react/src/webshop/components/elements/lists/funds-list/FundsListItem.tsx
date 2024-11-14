@@ -18,13 +18,13 @@ export default function FundsListItem({
     funds,
     vouchers,
     display,
-    searchParams = null,
+    stateParams = null,
 }: {
     display: 'list' | 'search';
     fund: Fund;
     vouchers: Array<Voucher>;
     funds?: Array<Fund>;
-    searchParams?: object;
+    stateParams?: object;
 }) {
     const [applyingFund, setApplyingFund] = React.useState(false);
     const appConfigs = useAppConfigs();
@@ -86,7 +86,7 @@ export default function FundsListItem({
             <StateNavLink
                 name={'fund'}
                 params={{ id: fund.id }}
-                state={{ searchParams: searchParams || null }}
+                state={stateParams || null}
                 className={'search-item search-item-fund'}
                 dataDusk="productItem">
                 <FundsListItemSearch fund={fundMeta} applyFund={applyFund} />
@@ -95,7 +95,7 @@ export default function FundsListItem({
     }
 
     return (
-        <StateNavLink name={'fund'} params={{ id: fund.id }} state={{ searchParams: searchParams || null }}>
+        <StateNavLink name={'fund'} params={{ id: fund.id }} state={stateParams || null}>
             <div className={'fund-item'}>
                 <FundsListItemList fund={fundMeta} applyFund={applyFund} />
             </div>

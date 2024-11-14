@@ -15,6 +15,7 @@ import usePushDanger from '../../../../hooks/usePushDanger';
 import { FinancialFiltersQuery } from './FinancialFilters';
 import { ProviderFinancial } from '../types/FinancialStatisticTypes';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
@@ -108,7 +109,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
 
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            <TableTopScroller>
                                 <table className="table">
                                     <thead>
                                         <tr>
@@ -116,23 +117,34 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                                             <ThSortable label="Totaal uitgegeven" />
                                             <ThSortable label="Hoogste aankoopbedrag" />
                                             <ThSortable label="Aantal transacties" />
-                                            <ThSortable className="text-right" label="Transacties" />
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {providersFinances.data.map((provider) => (
                                             <Fragment key={provider.id}>
-                                                <tr>
-                                                    <td className="text-primary-light">
-                                                        <img
-                                                            className="organization-logo"
-                                                            src={
-                                                                provider.provider.logo?.sizes?.thumbnail ||
-                                                                './assets/img/placeholders/organization-thumbnail.png'
-                                                            }
-                                                            alt={provider.provider.name}
-                                                        />
-                                                        <span>{provider.provider.name}</span>
+                                                <tr
+                                                    className={'tr-clickable table-separator'}
+                                                    onClick={() => toggleTransactionsTable(provider.id)}>
+                                                    <td>
+                                                        <div className="flex flex-align-items-center">
+                                                            <img
+                                                                className="organization-logo"
+                                                                src={
+                                                                    provider.provider.logo?.sizes?.thumbnail ||
+                                                                    './assets/img/placeholders/organization-thumbnail.png'
+                                                                }
+                                                                alt={provider.provider.name}
+                                                            />
+
+                                                            {provider.nr_transactions > 0 &&
+                                                                (showTransactions.includes(provider.id) ? (
+                                                                    <em className="mdi mdi-menu-down td-menu-icon" />
+                                                                ) : (
+                                                                    <em className="mdi mdi-menu-right td-menu-icon" />
+                                                                ))}
+
+                                                            <strong>{provider.provider.name}</strong>
+                                                        </div>
                                                     </td>
                                                     <td className={!provider.total_spent ? 'text-muted' : ''}>
                                                         {provider.total_spent
@@ -145,16 +157,6 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                                                             : 'Geen transacties'}
                                                     </td>
                                                     <td>{provider.nr_transactions}</td>
-                                                    <td className="text-right">
-                                                        {provider.nr_transactions > 0 && (
-                                                            <button
-                                                                className="button button-primary"
-                                                                onClick={() => toggleTransactionsTable(provider.id)}>
-                                                                <em className="mdi mdi-cash-multiple icon-start" />
-                                                                <span>Transacties</span>
-                                                            </button>
-                                                        )}
-                                                    </td>
                                                 </tr>
 
                                                 {showTransactions.includes(provider.id) && (
@@ -172,7 +174,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
 

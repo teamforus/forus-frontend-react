@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import IdentityEmail from '../../../../dashboard/props/models/IdentityEmail';
 import { useIdentityEmailsService } from '../../../../dashboard/services/IdentityEmailService';
@@ -135,16 +134,10 @@ export default function PreferencesEmails() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active">
-                        {translate('email_preferences.title_email_preferences')}
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: translate('email_preferences.title_email_preferences') },
+            ]}
             profileHeader={
                 (auth2faRestricted || emails) &&
                 (auth2faRestricted ? (

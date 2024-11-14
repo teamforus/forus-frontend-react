@@ -23,10 +23,12 @@ export default function TableTopScroller({
     }, []);
 
     const handlePositionChange = useCallback(() => {
-        const rect = tableScrollWrapperRef?.current?.getBoundingClientRect();
+        const el = tableScrollWrapperRef?.current;
+        const rect = el?.getBoundingClientRect();
         const screenHeight = window.innerHeight;
+        const hasHorizontalScroll = el?.offsetWidth < el?.scrollWidth;
 
-        setShowTopScroll(rect && rect?.bottom > screenHeight);
+        setShowTopScroll(rect && rect?.bottom > screenHeight && hasHorizontalScroll);
     }, []);
 
     const updateState = useCallback(() => {

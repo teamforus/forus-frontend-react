@@ -4,6 +4,7 @@ import Papa from 'papaparse';
 import Reservation from '../props/models/Reservation';
 import { ApiResponse, ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ProductReservationService<T = Reservation> {
     /**
@@ -95,6 +96,28 @@ export class ProductReservationService<T = Reservation> {
             }[reservation?.state] || 'label-default'
         );
     };
+
+    public getColumns(showExtraPayments: boolean): Array<ConfigurableTableColumn> {
+        const list = [
+            'number',
+            'product',
+            'price',
+            showExtraPayments ? 'amount_extra' : null,
+            'customer',
+            'reserved_at',
+            'status',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `reservations.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `reservations.labels.${key}`,
+                description: `reservations.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export default function useProductReservationService(): ProductReservationService {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { createContext } from 'react';
 
 interface LoadingBarMemo {
@@ -9,7 +9,7 @@ interface LoadingBarMemo {
 const loadingBarContext = createContext<LoadingBarMemo>(null);
 const { Provider } = loadingBarContext;
 
-const LoadingBarProvider = ({ children }: { children: React.ReactElement }) => {
+const LoadingBarProvider = ({ children }: { children: ReactNode | ReactNode[] }) => {
     const [progress, setProgress] = useState(100);
 
     return <Provider value={{ progress, setProgress }}>{children}</Provider>;
