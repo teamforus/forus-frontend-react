@@ -17,6 +17,7 @@ import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_class?: string;
@@ -248,12 +249,12 @@ export default function ProviderFundInvitationsTable({
                                                     {invitation.fund?.end_date_locale}
                                                 </strong>
                                             </td>
-                                            <td className={`nowrap ${type !== 'invitations' ? 'text-right' : ''}`}>
+                                            <td className={`nowrap`}>
                                                 <div className={`tag tag-sm ${invitation.status_class}`}>
                                                     {invitation.status_text}
                                                 </div>
                                             </td>
-                                            {type === 'invitations' && invitation.can_be_accepted && (
+                                            {type === 'invitations' && invitation.can_be_accepted ? (
                                                 <td>
                                                     <div className="button-group flex-end">
                                                         <div
@@ -263,6 +264,10 @@ export default function ProviderFundInvitationsTable({
                                                             {translate('provider_funds.labels.accept_invitation')}
                                                         </div>
                                                     </div>
+                                                </td>
+                                            ) : (
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableEmptyValue />
                                                 </td>
                                             )}
                                         </tr>

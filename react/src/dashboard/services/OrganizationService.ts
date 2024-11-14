@@ -3,10 +3,10 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Organization, { SponsorProviderOrganization } from '../props/models/Organization';
 import { hasPermission } from '../helpers/utils';
-import Product from '../props/models/Product';
 import OrganizationFeatureStatuses from './types/OrganizationFeatureStatuses';
 import FundProvider from '../props/models/FundProvider';
 import { ProviderFinancial } from '../components/pages/financial-dashboard/types/FinancialStatisticTypes';
+import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class OrganizationService<T = Organization> {
@@ -134,7 +134,11 @@ export class OrganizationService<T = Organization> {
         });
     }
 
-    public sponsorProducts(id: number, provider_organization_id: number, data = {}): Promise<ApiResponse<Product>> {
+    public sponsorProducts(
+        id: number,
+        provider_organization_id: number,
+        data = {},
+    ): Promise<ApiResponse<SponsorProduct>> {
         return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/${provider_organization_id}/products`, data);
     }
 
@@ -143,7 +147,7 @@ export class OrganizationService<T = Organization> {
         provider_organization_id: number,
         product_id: number,
         data = {},
-    ): Promise<ApiResponseSingle<Product>> {
+    ): Promise<ApiResponseSingle<SponsorProduct>> {
         return this.apiRequest.patch(
             `${this.prefix}/${id}/sponsor/providers/${provider_organization_id}/products/${product_id}`,
             data,
@@ -164,7 +168,7 @@ export class OrganizationService<T = Organization> {
         id: number,
         provider_organization_id: number,
         data = {},
-    ): Promise<ApiResponseSingle<Product>> {
+    ): Promise<ApiResponseSingle<SponsorProduct>> {
         return this.apiRequest.post(
             `${this.prefix}/${id}/sponsor/providers/${provider_organization_id}/products`,
             data,

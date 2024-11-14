@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Product from '../props/models/Product';
 import ProductFund from '../props/models/ProductFund';
+import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ProductService<T = Product> {
@@ -40,6 +41,24 @@ export class ProductService<T = Product> {
      */
     public listAll(data: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.get(`${this.prefixPublic}/products`, data);
+    }
+
+    /**
+     * Fetch list sponsor products
+     */
+    public sponsorProducts(sponsor_organization_id: number, data = {}): Promise<ApiResponse<SponsorProduct>> {
+        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products`, data);
+    }
+
+    /**
+     * Fetch list sponsor products
+     */
+    public sponsorProduct(
+        sponsor_organization_id: number,
+        id: number,
+        data = {},
+    ): Promise<ApiResponseSingle<SponsorProduct>> {
+        return this.apiRequest.get(`${this.prefix}/${sponsor_organization_id}/sponsor/products/${id}`, data);
     }
 
     /**
@@ -91,7 +110,7 @@ export class ProductService<T = Product> {
         return this.apiRequest.delete(`${this.prefix}/${organizationId}/products/${id}`);
     }
 
-    public apiResourceToForm(apiResource: Product) {
+    public apiResourceToForm(apiResource: Product | SponsorProduct) {
         return {
             name: apiResource.name,
             description: apiResource.description,
@@ -130,6 +149,32 @@ export class ProductService<T = Product> {
                 key: key,
                 title: `products.labels.${key}`,
                 description: `products.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getColumnsSponsor(tab: 'products' | 'history' = 'products'): Array<ConfigurableTableColumn> {
+        const productsList = [
+            'name',
+            'provider_name',
+            'last_updated',
+            'nr_funds',
+            'price',
+            'stock_amount',
+            'category',
+            'created_at',
+        ];
+
+        const historyList = ['name', 'provider_name', 'last_updated', 'nr_changes', 'fund'];
+        const list = (tab === 'products' ? productsList : historyList).filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `sponsor_products.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `sponsor_products.labels.${key}`,
+                description: `sponsor_products.tooltips.${key}`,
             },
         }));
     }
