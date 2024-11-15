@@ -17,6 +17,7 @@ export default interface EnvDataWebshopProp {
         tag_manager_id?: string;
         sessions?: boolean;
         google_maps_api_key?: string;
+        disable_cookie_banner?: boolean;
         default_title?: string;
         allow_indexing?: boolean;
 
