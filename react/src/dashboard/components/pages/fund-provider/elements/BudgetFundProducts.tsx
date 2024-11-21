@@ -137,17 +137,7 @@ export default function BudgetFundProducts({
                                     <th />
                                 </tr>
                                 {products.data.map((product) => (
-                                    <StateNavLink
-                                        name={'fund-provider-product'}
-                                        params={{
-                                            id: product.id,
-                                            fundId: fundProvider.fund_id,
-                                            fundProviderId: fundProvider.id,
-                                            organizationId: organization.id,
-                                        }}
-                                        customElement={'tr'}
-                                        className={'tr-clickable'}
-                                        key={product.id}>
+                                    <tr key={product.id}>
                                         <td className="td-narrow">
                                             <img
                                                 className="td-media"
@@ -233,7 +223,7 @@ export default function BudgetFundProducts({
                                                 )}
                                             />
                                         </td>
-                                    </StateNavLink>
+                                    </tr>
                                 ))}
                             </tbody>
                         </table>

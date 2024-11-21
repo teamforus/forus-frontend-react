@@ -23,10 +23,7 @@ export default function ProductMonitoredHistoryCardItem({
     }, [item?.fields]);
 
     const fieldsList = useMemo(
-        () =>
-            Object.keys(fields)
-                .map((key) => translate(`sponsor_products.fields.${key}`))
-                .join(', '),
+        () => fields.map((key) => translate(`sponsor_products.fields.${key}`)).join(', '),
         [fields, translate],
     );
 
