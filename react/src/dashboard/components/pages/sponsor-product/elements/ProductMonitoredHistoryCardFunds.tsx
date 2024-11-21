@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
@@ -8,6 +8,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import { useFundService } from '../../../../services/FundService';
 import Organization from '../../../../props/models/Organization';
 import classNames from 'classnames';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function ProductMonitoredHistoryCardFunds({
     type = 'card',
@@ -54,20 +55,26 @@ export default function ProductMonitoredHistoryCardFunds({
                                 />
                             </td>
                             <td>
-                                {fund.state === 'approved' && (
-                                    <a
-                                        title={'Bekijk aanbod op webshop'}
-                                        onClick={(e) => e.stopPropagation()}
-                                        className="text-primary text-medium flex flex-gap-sm text-underline"
-                                        href={fund.url_product}
-                                        target={'_blank'}
-                                        rel="noreferrer">
-                                        {fund.implementation?.name}
-                                        <em className="mdi mdi-link-variant icon-end" />
-                                    </a>
-                                )}
+                                {fund.implementation ? (
+                                    <Fragment>
+                                        {fund.state === 'approved' && (
+                                            <a
+                                                title={'Bekijk aanbod op webshop'}
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="text-primary text-medium flex flex-gap-sm text-underline"
+                                                href={fund.url_product}
+                                                target={'_blank'}
+                                                rel="noreferrer">
+                                                {fund.implementation?.name}
+                                                <em className="mdi mdi-link-variant icon-end" />
+                                            </a>
+                                        )}
 
-                                {fund.state === 'pending' && fund.implementation?.name}
+                                        {fund.state === 'pending' && fund.implementation?.name}
+                                    </Fragment>
+                                ) : (
+                                    <TableEmptyValue />
+                                )}
                             </td>
                             <td>
                                 {fund.state === 'approved' && (
@@ -104,7 +111,7 @@ export default function ProductMonitoredHistoryCardFunds({
                                                 Bekijken aanbieder
                                             </StateNavLink>
 
-                                            {fund.state === 'approved' && (
+                                            {fund.state === 'approved' && fund.url_product && (
                                                 <a
                                                     className="dropdown-item"
                                                     href={fund.url_product}
