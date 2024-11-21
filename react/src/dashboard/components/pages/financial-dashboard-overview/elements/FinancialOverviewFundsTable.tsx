@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ThSortable from '../../../elements/tables/ThSortable';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import Fund from '../../../../props/models/Fund';
 import useExportFunds from '../hooks/useExportFunds';
@@ -13,6 +12,9 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useSetProgress from '../../../../hooks/useSetProgress';
+import { useFundService } from '../../../../services/FundService';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 
 export default function FinancialOverviewFundsTable({
     years,
@@ -30,28 +32,20 @@ export default function FinancialOverviewFundsTable({
 
     const setProgress = useSetProgress();
 
+    const fundService = useFundService();
+
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
-        q: string;
-        year_all: number;
-    }>(
-        {
-            q: '',
-            year_all: new Date().getFullYear(),
-        },
-        {
-            queryParams: {
-                q: StringParam,
-                year_all: NumberParam,
-            },
-            throttledValues: ['q'],
-        },
+    const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBalance());
+
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; year_all: number }>(
+        { q: '', year_all: new Date().getFullYear() },
+        { queryParams: { q: StringParam, year_all: NumberParam }, throttledValues: ['q'] },
     );
 
     useEffect(() => {
-        fetchFunds(filterValuesActive.year_all).then(setFunds);
+        fetchFunds(filterValuesActive.year_all).then((funds) => setFunds(funds.filter((fund) => fund.budget)));
     }, [fetchFunds, filterValuesActive.year_all]);
 
     useEffect(() => {
@@ -68,36 +62,32 @@ export default function FinancialOverviewFundsTable({
 
     return (
         <div className="card card-financial form">
-            <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex flex-grow">
-                        <div className="flex-col card-title tooltipped">
-                            Saldo en uitgaven
-                            <Tooltip text={'Saldo en uitgaven van de gekoppelde bankrekening per fonds.'} />
-                        </div>
-                    </div>
-                    <div className="flex">
-                        <div className="block block-inline-filters">
-                            <div className="form">
-                                <div className="form-group">
-                                    <SelectControl
-                                        className={'form-control'}
-                                        options={years}
-                                        propKey={'id'}
-                                        allowSearch={false}
-                                        value={filterValues.year_all}
-                                        optionsComponent={SelectControlOptions}
-                                        onChange={(year?: number) => filterUpdate({ year_all: year })}
-                                    />
-                                </div>
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow tooltipped">
+                    Saldo en uitgaven
+                    <Tooltip text={'Saldo en uitgaven van de gekoppelde bankrekening per fonds.'} />
+                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        <div className="form">
+                            <div className="form-group">
+                                <SelectControl
+                                    className={'form-control'}
+                                    options={years}
+                                    propKey={'id'}
+                                    allowSearch={false}
+                                    value={filterValues.year_all}
+                                    optionsComponent={SelectControlOptions}
+                                    onChange={(year?: number) => filterUpdate({ year_all: year })}
+                                />
                             </div>
-                            <button
-                                className="button button-primary button-sm"
-                                onClick={() => exportFunds(false, filterValuesActive.year_all)}>
-                                <em className="mdi mdi-download icon-start" />
-                                {translate('financial_dashboard_overview.buttons.export')}
-                            </button>
                         </div>
+                        <button
+                            className="button button-primary button-sm"
+                            onClick={() => exportFunds(false, filterValuesActive.year_all)}>
+                            <em className="mdi mdi-download icon-start" />
+                            {translate('financial_dashboard_overview.buttons.export')}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -107,28 +97,13 @@ export default function FinancialOverviewFundsTable({
             ) : (
                 <div className="card-section">
                     <div className="card-block card-block-table card-block-financial">
-                        <div className="table-wrapper">
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <ThSortable
-                                            label={translate('financial_dashboard_overview.labels.fund_name')}
-                                        />
-                                        <ThSortable
-                                            label={translate('financial_dashboard_overview.labels.total_budget')}
-                                        />
-                                        <ThSortable
-                                            label={translate('financial_dashboard_overview.labels.used_budget')}
-                                        />
-                                        <ThSortable
-                                            label={translate('financial_dashboard_overview.labels.current_budget')}
-                                        />
-                                        <ThSortable
-                                            className={'text-right'}
-                                            label={translate('financial_dashboard_overview.labels.transaction_costs')}
-                                        />
-                                    </tr>
+                        {configsElement}
 
+                        <TableTopScroller>
+                            <table className="table">
+                                {headElement}
+
+                                <tbody>
                                     {funds.map((fund) => (
                                         <tr key={fund.id}>
                                             <td>{fund.name}</td>
@@ -136,6 +111,9 @@ export default function FinancialOverviewFundsTable({
                                             <td>{fund.budget?.used_locale || <TableEmptyValue />}</td>
                                             <td>{fund.budget?.left_locale || <TableEmptyValue />}</td>
                                             <td className={'text-right'}>{fund.budget?.transaction_costs_locale}</td>
+                                            <td className={'table-td-actions text-right'}>
+                                                <TableEmptyValue />
+                                            </td>
                                         </tr>
                                     ))}
 
@@ -147,10 +125,13 @@ export default function FinancialOverviewFundsTable({
                                         <td className={'text-right'}>
                                             {financialOverview?.funds.transaction_costs_locale}
                                         </td>
+                                        <td className={'table-td-actions text-right'}>
+                                            <TableEmptyValue />
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

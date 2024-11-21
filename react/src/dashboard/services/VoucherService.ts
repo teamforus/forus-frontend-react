@@ -44,8 +44,14 @@ export class VoucherService<T = Voucher> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/vouchers/validate`, data);
     }
 
-    public storeCollection(organizationId: number, fund_id: number, vouchers: Array<object>): Promise<ApiResponse<T>> {
+    public async storeCollection(
+        organizationId: number,
+        fund_id: number,
+        vouchers: Array<object>,
+        file?: object,
+    ): Promise<ApiResponse<T>> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/vouchers/batch`, {
+            file: file,
             fund_id: fund_id,
             vouchers: vouchers,
         });

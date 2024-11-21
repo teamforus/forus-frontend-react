@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import FundProviderInvitation from '../props/models/FundProviderInvitation';
 import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class FundProviderInvitationsService<T = FundProviderInvitation> {
     /**
@@ -48,7 +49,22 @@ export class FundProviderInvitationsService<T = FundProviderInvitation> {
             `/platform/organizations/${organization_id}/provider-invitations/${invitation_id}`,
         );
     }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['name', 'organization_name', 'start_date', 'end_date', 'status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `provider_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `provider_funds.labels.${key}`,
+                description: `provider_funds.tooltips.${key}`,
+            },
+        }));
+    }
 }
+
 export default function useFundProviderInvitationsService(): FundProviderInvitationsService {
     return useState(new FundProviderInvitationsService())[0];
 }

@@ -32,6 +32,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
@@ -60,6 +61,8 @@ export default function Reimbursements() {
     const [expiredOptions] = useState(reimbursementService.getExpiredOptions());
     const [archivedOptions] = useState(reimbursementService.getArchivedOptions());
     const [deactivatedOptions] = useState(reimbursementService.getDeactivatedOptions());
+
+    const { headElement, configsElement } = useConfigurableTable(reimbursementService.getColumns());
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
@@ -377,31 +380,21 @@ export default function Reimbursements() {
                 <LoaderTableCard empty={reimbursements.meta.total == 0} emptyTitle={'Geen declaraties gevonden'}>
                     <div className="card-section" data-dusk="reimbursementsList">
                         <div className="card-block card-block-table">
+                            {configsElement}
+
                             <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th>{translate('reimbursements.labels.identity')}</th>
-                                            <th>{translate('reimbursements.labels.fund')}</th>
-                                            <th>{translate('reimbursements.labels.amount')}</th>
-                                            <th>{translate('reimbursements.labels.created_at')}</th>
-                                            <th>{translate('reimbursements.labels.lead_time')}</th>
-                                            <th>{translate('reimbursements.labels.employee')}</th>
-                                            <th>{translate('reimbursements.labels.expired')}</th>
-                                            <th>{translate('reimbursements.labels.state')}</th>
-                                            <th>{translate('reimbursements.labels.transaction')}</th>
-                                            <th className="nowrap text-right">
-                                                {translate('reimbursements.labels.actions')}
-                                            </th>
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {reimbursements.data.map((reimbursement) => (
                                             <StateNavLink
                                                 customElement={'tr'}
                                                 name={'reimbursements-view'}
-                                                params={{ id: reimbursement.id, organizationId: activeOrganization.id }}
+                                                params={{
+                                                    id: reimbursement.id,
+                                                    organizationId: activeOrganization.id,
+                                                }}
                                                 key={reimbursement.id}
                                                 dataDusk={`reimbursement${reimbursement.id}`}
                                                 className={classNames(
