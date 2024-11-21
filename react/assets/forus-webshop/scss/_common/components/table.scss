@@ -105,12 +105,6 @@ table.table {
             }
         }
 
-        &.dim {
-            td {
-                background: #f6f9fc;
-            }
-        }
-
         &[ng-click]:hover {
             td,
             th {

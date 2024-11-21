@@ -124,7 +124,17 @@ export default function SubsidyFundProducts({
                                     <th />
                                 </tr>
                                 {products.data.map((product) => (
-                                    <tr key={product.id}>
+                                    <StateNavLink
+                                        name={'fund-provider-product'}
+                                        params={{
+                                            id: product.id,
+                                            fundId: fundProvider.fund_id,
+                                            fundProviderId: fundProvider.id,
+                                            organizationId: organization.id,
+                                        }}
+                                        customElement={'tr'}
+                                        className={'tr-clickable'}
+                                        key={product.id}>
                                         <td className="td-narrow">
                                             <img
                                                 className="td-media"
@@ -220,7 +230,7 @@ export default function SubsidyFundProducts({
                                                 />
                                             </div>
                                         </td>
-                                    </tr>
+                                    </StateNavLink>
                                 ))}
                             </tbody>
                         </table>
