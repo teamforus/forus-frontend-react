@@ -92,7 +92,9 @@ export default function ProductMonitoredHistoryCardFunds({
                             </td>
                             <td className="table-td-actions">
                                 <TableRowActions
-                                    disabled={fund.state !== 'approved' || !fund.url_product || !fund.fund_provider_id}
+                                    disabled={
+                                        !fund.fund_provider_id && !(fund.state === 'approved' && fund.url_product)
+                                    }
                                     content={() => (
                                         <div className="dropdown dropdown-actions">
                                             {fund.fund_provider_id && (
