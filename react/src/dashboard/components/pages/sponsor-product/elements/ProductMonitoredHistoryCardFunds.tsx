@@ -32,6 +32,7 @@ export default function ProductMonitoredHistoryCardFunds({
                 <tbody>
                     {product.funds?.map((fund) => (
                         <StateNavLink
+                            disabled={!fund.fund_provider_id}
                             name={'fund-provider-product'}
                             params={{
                                 id: product.id,
@@ -40,7 +41,7 @@ export default function ProductMonitoredHistoryCardFunds({
                                 organizationId: fund.organization_id,
                             }}
                             className={classNames(
-                                'tr-clickable',
+                                fund.fund_provider_id && 'tr-clickable',
                                 type === 'table' && 'tr-gray',
                                 type === 'table' && 'tr-narrow',
                             )}
@@ -57,7 +58,7 @@ export default function ProductMonitoredHistoryCardFunds({
                             <td>
                                 {fund.implementation ? (
                                     <Fragment>
-                                        {fund.state === 'approved' && (
+                                        {fund.state === 'approved' ? (
                                             <a
                                                 title={'Bekijk aanbod op webshop'}
                                                 onClick={(e) => e.stopPropagation()}
@@ -68,9 +69,9 @@ export default function ProductMonitoredHistoryCardFunds({
                                                 {fund.implementation?.name}
                                                 <em className="mdi mdi-link-variant icon-end" />
                                             </a>
+                                        ) : (
+                                            fund.implementation?.name
                                         )}
-
-                                        {fund.state === 'pending' && fund.implementation?.name}
                                     </Fragment>
                                 ) : (
                                     <TableEmptyValue />
@@ -84,32 +85,42 @@ export default function ProductMonitoredHistoryCardFunds({
                                 {fund.state === 'pending' && (
                                     <span className="label label-default">{fund.state_locale}</span>
                                 )}
+
+                                {fund.state === 'not_applied' && (
+                                    <span className="label label-warning">{fund.state_locale}</span>
+                                )}
                             </td>
                             <td className="table-td-actions">
                                 <TableRowActions
+                                    disabled={fund.state !== 'approved' || !fund.url_product || !fund.fund_provider_id}
                                     content={() => (
                                         <div className="dropdown dropdown-actions">
-                                            <StateNavLink
-                                                name={'fund-provider-product'}
-                                                params={{
-                                                    id: product.id,
-                                                    fundId: fund.id,
-                                                    fundProviderId: fund.fund_provider_id,
-                                                    organizationId: fund.organization_id,
-                                                }}
-                                                className="dropdown-item">
-                                                Bekijken
-                                            </StateNavLink>
-                                            <StateNavLink
-                                                name={'fund-provider'}
-                                                params={{
-                                                    id: fund.fund_provider_id,
-                                                    fundId: fund.id,
-                                                    organizationId: fund.organization_id,
-                                                }}
-                                                className="dropdown-item">
-                                                Bekijken aanbieder
-                                            </StateNavLink>
+                                            {fund.fund_provider_id && (
+                                                <StateNavLink
+                                                    name={'fund-provider-product'}
+                                                    params={{
+                                                        id: product.id,
+                                                        fundId: fund.id,
+                                                        fundProviderId: fund.fund_provider_id,
+                                                        organizationId: fund.organization_id,
+                                                    }}
+                                                    className="dropdown-item">
+                                                    Bekijken
+                                                </StateNavLink>
+                                            )}
+
+                                            {fund.fund_provider_id && (
+                                                <StateNavLink
+                                                    name={'fund-provider'}
+                                                    params={{
+                                                        id: fund.fund_provider_id,
+                                                        fundId: fund.id,
+                                                        organizationId: fund.organization_id,
+                                                    }}
+                                                    className="dropdown-item">
+                                                    Bekijken aanbieder
+                                                </StateNavLink>
+                                            )}
 
                                             {fund.state === 'approved' && fund.url_product && (
                                                 <a

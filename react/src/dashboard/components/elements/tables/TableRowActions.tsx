@@ -7,26 +7,34 @@ import FDTargetContainerTableMenu from '../../../modules/frame_director/componen
 export default function TableRowActions({
     content,
     dataDusk,
+    disabled = false,
 }: {
     content: (e: FDTargetContainerProps) => ReactNode;
     dataDusk?: string;
+    disabled?: boolean;
 }) {
     return (
         <div className={`actions`}>
-            <FDTargetClick
-                position={'bottom'}
-                align={'end'}
-                contentContainer={FDTargetContainerTableMenu}
-                content={(e) => (
-                    <div className="menu-dropdown">
-                        <div className="menu-dropdown-arrow" />
-                        {content(e)}
-                    </div>
-                )}>
-                <div className="button button-text button-menu" data-dusk={dataDusk}>
+            {disabled ? (
+                <button className="button button-text button-menu" data-dusk={dataDusk} disabled={true}>
                     <em className="mdi mdi-dots-horizontal" />
-                </div>
-            </FDTargetClick>
+                </button>
+            ) : (
+                <FDTargetClick
+                    position={'bottom'}
+                    align={'end'}
+                    contentContainer={FDTargetContainerTableMenu}
+                    content={(e) => (
+                        <div className="menu-dropdown">
+                            <div className="menu-dropdown-arrow" />
+                            {content(e)}
+                        </div>
+                    )}>
+                    <button className="button button-text button-menu" data-dusk={dataDusk}>
+                        <em className="mdi mdi-dots-horizontal" />
+                    </button>
+                </FDTargetClick>
+            )}
         </div>
     );
 }

@@ -30,7 +30,7 @@ export interface SponsorProductFundItem {
     name: string;
     type: string;
     type_locale: string;
-    state: 'approved' | 'pending';
+    state: 'approved' | 'pending' | 'not_applied';
     state_locale: 'Goedgekeurd' | 'In behandeling';
     implementation?: { id: number; name: string };
     organization_id: number;
