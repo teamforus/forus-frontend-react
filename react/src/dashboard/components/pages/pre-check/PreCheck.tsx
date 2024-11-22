@@ -26,15 +26,10 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import TableRowActions from '../../elements/tables/TableRowActions';
-import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
-import useOpenModal from '../../../hooks/useOpenModal';
-import ModalAddPreCheckFund from '../../modals/ModalAddPreCheckFund';
-import ModalDangerZone from '../../modals/ModalDangerZone';
 import InfoBox from '../../elements/info-box/InfoBox';
+import PreCheckExclusionsCard from './cards/PreCheckExclusionsCard';
 
 export default function PreCheck() {
-    const openModal = useOpenModal();
     const activeOrganization = useActiveOrganization();
 
     const assetUrl = useAssetUrl();
@@ -53,8 +48,6 @@ export default function PreCheck() {
     const [deleteMedia, setDeleteMedia] = useState<boolean>(false);
     const [thumbnailMedia, setThumbnailMedia] = useState<Media>(null);
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
-    const [excludedFunds, setExcludedFunds] = useState<PaginationData<Fund>>(null);
-    const [showExcludedFunds, setShowExcludedFunds] = useState(true);
     const [preChecks, setPreChecks] = useState<Array<PreCheck>>(null);
     const [implementation, setImplementation] = useState<Implementation>(null);
     const [implementations, setImplementations] = useState<Array<Implementation>>(null);
@@ -228,104 +221,6 @@ export default function PreCheck() {
             .finally(() => setProgress(100));
     }, [activeOrganization.id, fundService, setFunds, setProgress]);
 
-    const fetchExcludedFunds = useCallback(() => {
-        setProgress(0);
-
-        fundService
-            .list(activeOrganization.id, { per_page: 100, configured: 1, pre_check_excluded_state: 1 })
-            .then((res) => setExcludedFunds(res.data))
-            .finally(() => setProgress(100));
-    }, [activeOrganization.id, fundService, setProgress]);
-
-    const addFundExclusion = useCallback(() => {
-        const excludedFundIds = excludedFunds.data.map((fund) => fund.id);
-
-        if (!excludedFundIds.length) {
-            pushDanger('Geen fondsen');
-        }
-
-        openModal((modal) => (
-            <ModalAddPreCheckFund
-                modal={modal}
-                funds={funds.data.filter((fund) => excludedFundIds.indexOf(fund.id) == -1)}
-                activeOrganization={activeOrganization}
-                onDone={() => {
-                    fetchPreChecks(implementation?.id).then((preChecks) => {
-                        setPreChecks(preChecks);
-                        fetchExcludedFunds();
-                    });
-                }}
-            />
-        ));
-    }, [
-        activeOrganization,
-        excludedFunds?.data,
-        fetchExcludedFunds,
-        fetchPreChecks,
-        funds?.data,
-        implementation?.id,
-        openModal,
-        pushDanger,
-    ]);
-
-    const editFundPreCheckSettings = useCallback(
-        (fund: Fund) => {
-            openModal((modal) => (
-                <ModalAddPreCheckFund
-                    modal={modal}
-                    fund={fund}
-                    funds={funds.data}
-                    activeOrganization={activeOrganization}
-                    onDone={() => {
-                        fetchPreChecks(implementation?.id).then((preChecks) => {
-                            setPreChecks(preChecks);
-                            fetchExcludedFunds();
-                        });
-                    }}
-                />
-            ));
-        },
-        [activeOrganization, fetchExcludedFunds, fetchPreChecks, funds?.data, implementation?.id, openModal],
-    );
-
-    const askConfirmation = useCallback(
-        (onConfirm: () => void): void => {
-            openModal((modal) => (
-                <ModalDangerZone
-                    modal={modal}
-                    title={translate('modals.danger_zone.exclude_pre_check_fund.title')}
-                    description_text={translate('modals.danger_zone.exclude_pre_check_fund.description')}
-                    buttonCancel={{
-                        text: translate('modals.danger_zone.exclude_pre_check_fund.buttons.cancel'),
-                        onClick: modal.close,
-                    }}
-                    buttonSubmit={{
-                        text: translate('modals.danger_zone.exclude_pre_check_fund.buttons.confirm'),
-                        onClick: () => {
-                            modal.close();
-                            onConfirm();
-                        },
-                    }}
-                />
-            ));
-        },
-        [openModal, translate],
-    );
-
-    const excludePreCheckFund = useCallback(
-        (fund_id: number) => {
-            askConfirmation(() => {
-                fundService
-                    .updatePreCheckSettings(activeOrganization.id, fund_id, { pre_check_excluded: true })
-                    .then(() => fetchExcludedFunds())
-                    .catch((err: ResponseError) => {
-                        pushDanger('Mislukt!', err.data.message);
-                    });
-            });
-        },
-        [activeOrganization.id, askConfirmation, fetchExcludedFunds, fundService, pushDanger],
-    );
-
     useEffect(() => {
         fetchImplementations();
     }, [fetchImplementations]);
@@ -333,10 +228,6 @@ export default function PreCheck() {
     useEffect(() => {
         fetchFunds();
     }, [fetchFunds]);
-
-    useEffect(() => {
-        fetchExcludedFunds();
-    }, [fetchExcludedFunds]);
 
     useEffect(() => {
         setMediaFile(null);
@@ -380,386 +271,290 @@ export default function PreCheck() {
         return <LoadingCard />;
     }
 
+    if (!implementation) {
+        return (
+            <EmptyCard
+                title={"You don't have any implementations"}
+                description={
+                    'In order to user prechecks you need to have at least one implementation and at least one fund.'
+                }
+            />
+        );
+    }
+
     return (
         <Fragment>
-            {!implementation && (
-                <EmptyCard
-                    title={"You don't have any implementations"}
-                    description={
-                        'In order to user prechecks you need to have at least one implementation and at least one fund.'
-                    }
-                />
-            )}
+            <form className="card form" onSubmit={preCheckForm.submit}>
+                <div className="card-header card-header-next">
+                    <div className="card-title flex flex-grow">{translate('funds_pre_check.header.title')}</div>
 
-            {implementation && (
-                <div className="card">
-                    <form className="form" onSubmit={preCheckForm.submit}>
-                        <div className="card-header flex-row">
-                            <div className="card-title">{translate('funds_pre_check.header.title')}</div>
-
-                            <div className="flex flex-grow flex-end">
-                                {implementation.pre_check_enabled && (
-                                    <a
-                                        className="button button-text button-sm"
-                                        href={implementation.pre_check_url}
-                                        target="_blank"
-                                        rel="noreferrer">
-                                        Bekijk pagina
-                                        <em className="mdi mdi-open-in-new icon-end" />
-                                    </a>
-                                )}
-
-                                <button className="button button-primary button-sm" type="submit">
-                                    {translate('funds_edit.buttons.confirm')}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="card-section card-section-primary">
-                            <div className="row">
-                                <div className="col col-lg-12 col-xs-12">
-                                    {implementations.length > 1 && (
-                                        <div className="form-group">
-                                            <label className="form-label">
-                                                {translate('funds_pre_check.labels.implementation')}
-                                            </label>
-                                            <SelectControl
-                                                className="form-control"
-                                                allowSearch={false}
-                                                options={implementations}
-                                                value={implementation}
-                                                onChange={(implementation: Implementation) => {
-                                                    setImplementation(implementation);
-                                                }}
-                                                optionsComponent={SelectControlOptions}
-                                            />
-                                            <FormError error={preCheckForm.errors?.implementation_id} />
-                                        </div>
-                                    )}
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            {translate('funds_pre_check.labels.status')}
-                                        </label>
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey={'key'}
-                                            allowSearch={false}
-                                            options={enableOptions}
-                                            value={preCheckForm.values.pre_check_enabled}
-                                            onChange={(pre_check_enabled: boolean) => {
-                                                preCheckForm.update({ pre_check_enabled });
-                                            }}
-                                            optionsComponent={SelectControlOptions}
-                                        />
-                                        <FormError error={preCheckForm.errors?.pre_check_enabled} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card-section card-section-primary">
-                            <div className="row">
-                                <div className="col col-lg-12 col-xs-12">
-                                    <div className="card-heading">
-                                        {translate('funds_pre_check.labels.description_title')}
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label form-label-required">
-                                            {translate('funds_pre_check.labels.title')}
-                                        </label>
-                                        <input
-                                            className="form-control r-n"
-                                            placeholder={translate('funds_pre_check.labels.title')}
-                                            value={preCheckForm.values.pre_check_title || ''}
-                                            onChange={(e) => {
-                                                preCheckForm.update({ pre_check_title: e?.target.value });
-                                            }}
-                                        />
-                                        <FormError error={preCheckForm.errors?.pre_check_title} />
-                                        <div className="form-hint">Max. 50 tekens</div>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="form-label">
-                                            {translate('funds_pre_check.labels.description')}
-                                        </label>
-                                        <textarea
-                                            className="form-control r-n"
-                                            value={preCheckForm.values.pre_check_description || ''}
-                                            onChange={(e) => {
-                                                preCheckForm.update({ pre_check_description: e.target.value });
-                                            }}
-                                            placeholder="Voeg omschrijving toe"
-                                        />
-                                        <FormError error={preCheckForm.errors?.pre_check_description} />
-                                        <div className="form-hint">Max. 1000 tekens</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {funds.meta.total > 0 && preChecks && (
-                            <div className="card-section card-section-primary">
-                                <div className="row">
-                                    <div className="col col-lg-12 col-xs-12">
-                                        <div className="card-heading">Stappen ({preChecks?.length || 0})</div>
-
-                                        <PreCheckStepEditor
-                                            preChecks={preChecks}
-                                            setPreChecks={setPreChecks}
-                                            errors={preCheckForm.errors}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="button-group">
+                        {implementation.pre_check_enabled && (
+                            <a
+                                className="button button-text button-sm"
+                                href={implementation.pre_check_url}
+                                target="_blank"
+                                rel="noreferrer">
+                                Bekijk pagina
+                                <em className="mdi mdi-open-in-new icon-end" />
+                            </a>
                         )}
 
-                        <div className="card-section card-section-primary">
-                            <div className="row">
-                                <div className="col col-lg-12 col-xs-12">
-                                    {funds.meta.total == 0 && (
-                                        <EmptyCard
-                                            title={'Geen fondsen gevonden'}
-                                            imageIcon={assetUrl('/assets/img/no-funds-icon.svg')}
-                                            description={[
-                                                'Op dit moment lijkt u geen actieve fondsen te hebben.',
-                                                'Voordat u verder gaat, moet u eerst een fonds aanmaken.',
-                                            ].join(' ')}
-                                            button={{
-                                                text: 'Ga naar de fondsenpagina',
-                                                type: 'primary',
-                                                icon: 'plus',
-                                                to: getStateRouteUrl('funds-create', {
-                                                    organizationId: activeOrganization.id,
-                                                }),
-                                            }}
-                                        />
-                                    )}
-
-                                    <InfoBox>
-                                        <p>
-                                            U heeft de mogelijkheid om extra stappen toe te voegen die zichtbaar zullen
-                                            zijn in de Pre-Check voor de aanvrager.
-                                        </p>
-                                    </InfoBox>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card-section">
-                            <div className="text-right">
-                                <button className="button button-default" type="button" id="cancel">
-                                    {translate('funds_edit.buttons.cancel')}
-                                </button>
-
-                                <button className="button button-primary" type="submit">
-                                    {translate('funds_edit.buttons.confirm')}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        <button className="button button-primary button-sm" type="submit">
+                            {translate('funds_edit.buttons.confirm')}
+                        </button>
+                    </div>
                 </div>
-            )}
 
-            {implementation && (
-                <div className="card">
-                    <div className="card-header">
-                        <div className="flex">
-                            <div className="flex flex-grow">
-                                <div className="card-title" onClick={() => setShowExcludedFunds(!showExcludedFunds)}>
-                                    <em
-                                        className={`mdi mdi-menu-${showExcludedFunds ? 'down' : 'up'}`}
-                                        style={{ marginLeft: '-5px' }}
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-lg-12 col-xs-12">
+                            {implementations.length > 1 && (
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        {translate('funds_pre_check.labels.implementation')}
+                                    </label>
+                                    <SelectControl
+                                        className="form-control"
+                                        allowSearch={false}
+                                        options={implementations}
+                                        value={implementation}
+                                        onChange={(implementation: Implementation) => {
+                                            setImplementation(implementation);
+                                        }}
+                                        optionsComponent={SelectControlOptions}
                                     />
-                                    Afwijkend en uitsluitend ({excludedFunds?.meta?.total})
+                                    <FormError error={preCheckForm.errors?.implementation_id} />
                                 </div>
-                            </div>
-                            <div className="flex">
-                                <button className="button button-primary" onClick={() => addFundExclusion()}>
-                                    <em className="mdi mdi-plus-circle icon-start" />
-                                    Fonds toevoegen
-                                </button>
+                            )}
+
+                            <div className="form-group">
+                                <label className="form-label">{translate('funds_pre_check.labels.status')}</label>
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'key'}
+                                    allowSearch={false}
+                                    options={enableOptions}
+                                    value={preCheckForm.values.pre_check_enabled}
+                                    onChange={(pre_check_enabled: boolean) => {
+                                        preCheckForm.update({ pre_check_enabled });
+                                    }}
+                                    optionsComponent={SelectControlOptions}
+                                />
+                                <FormError error={preCheckForm.errors?.pre_check_enabled} />
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    {showExcludedFunds && (
-                        <Fragment>
-                            {excludedFunds?.meta?.total > 0 && (
-                                <div className="card-section">
-                                    <div className="card-block card-block-table">
-                                        <div className="table-wrapper">
-                                            <table className="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Fonds</th>
-                                                        <th>Uitgesloten</th>
-                                                        <th>Uitleg</th>
-                                                        <th className="th-narrow text-right">
-                                                            {translate('components.organization_funds.labels.actions')}
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {excludedFunds.data.map((fund) => (
-                                                        <tr key={fund.id}>
-                                                            <td>{fund.name}</td>
-                                                            <td>{fund.pre_check_excluded ? 'Ja' : 'Nee'}</td>
-                                                            <td>{fund.pre_check_note || <TableEmptyValue />}</td>
-                                                            <td className="table-td-actions">
-                                                                <TableRowActions
-                                                                    content={() => (
-                                                                        <div className="dropdown dropdown-actions">
-                                                                            <a
-                                                                                className={`dropdown-item`}
-                                                                                onClick={() => {
-                                                                                    editFundPreCheckSettings(fund);
-                                                                                }}>
-                                                                                <em className="mdi mdi-pencil icon-start" />
-                                                                                Bewerken
-                                                                            </a>
-                                                                            <a
-                                                                                className={`dropdown-item`}
-                                                                                onClick={() => {
-                                                                                    excludePreCheckFund(fund.id);
-                                                                                }}>
-                                                                                <em className="mdi mdi-close-circle-outline icon-start" />
-                                                                                Verwijderen
-                                                                            </a>
-                                                                        </div>
-                                                                    )}
-                                                                />
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-lg-12 col-xs-12">
+                            <div className="card-heading">{translate('funds_pre_check.labels.description_title')}</div>
 
-                            {excludedFunds?.meta.total == 0 && (
+                            <div className="form-group">
+                                <label className="form-label form-label-required">
+                                    {translate('funds_pre_check.labels.title')}
+                                </label>
+                                <input
+                                    className="form-control r-n"
+                                    placeholder={translate('funds_pre_check.labels.title')}
+                                    value={preCheckForm.values.pre_check_title || ''}
+                                    onChange={(e) => {
+                                        preCheckForm.update({ pre_check_title: e?.target.value });
+                                    }}
+                                />
+                                <FormError error={preCheckForm.errors?.pre_check_title} />
+                                <div className="form-hint">Max. 50 tekens</div>
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">{translate('funds_pre_check.labels.description')}</label>
+                                <textarea
+                                    className="form-control r-n"
+                                    value={preCheckForm.values.pre_check_description || ''}
+                                    onChange={(e) => {
+                                        preCheckForm.update({ pre_check_description: e.target.value });
+                                    }}
+                                    placeholder="Voeg omschrijving toe"
+                                />
+                                <FormError error={preCheckForm.errors?.pre_check_description} />
+                                <div className="form-hint">Max. 1000 tekens</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {funds.meta.total > 0 && preChecks && (
+                    <div className="card-section card-section-primary">
+                        <div className="row">
+                            <div className="col col-lg-12 col-xs-12">
+                                <div className="card-heading">Stappen ({preChecks?.length || 0})</div>
+
+                                <PreCheckStepEditor
+                                    preChecks={preChecks}
+                                    setPreChecks={setPreChecks}
+                                    errors={preCheckForm.errors}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-lg-12 col-xs-12">
+                            {funds.meta.total == 0 && (
                                 <EmptyCard
-                                    title={'Geen fondsen'}
-                                    imageIconImg={assetUrl('/assets/img/pre-check-funds-logo.svg')}
-                                    type={'card-section'}
+                                    title={'Geen fondsen gevonden'}
+                                    imageIcon={assetUrl('/assets/img/no-funds-icon.svg')}
+                                    description={[
+                                        'Op dit moment lijkt u geen actieve fondsen te hebben.',
+                                        'Voordat u verder gaat, moet u eerst een fonds aanmaken.',
+                                    ].join(' ')}
+                                    button={{
+                                        text: 'Ga naar de fondsenpagina',
+                                        type: 'primary',
+                                        icon: 'plus',
+                                        to: getStateRouteUrl('funds-create', {
+                                            organizationId: activeOrganization.id,
+                                        }),
+                                    }}
                                 />
                             )}
-                        </Fragment>
-                    )}
-                </div>
-            )}
-
-            {implementation && (
-                <div className="card">
-                    <form className="form" onSubmit={bannerForm.submit}>
-                        <div className="card-header">
-                            <div className="card-title">Homepagina banner</div>
-                        </div>
-
-                        <div className="card-section card-section-primary">
-                            <div className="form-group">
-                                <div className="form-offset">
-                                    <PhotoSelector
-                                        type={'pre_check_banner'}
-                                        thumbnail={thumbnailMedia?.sizes.thumbnail}
-                                        selectPhoto={selectPhoto}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <div className="form-label">Actieve banner</div>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        className={'form-control'}
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        options={bannerStates}
-                                        optionsComponent={SelectControlOptions}
-                                        value={bannerForm.values.pre_check_banner_state}
-                                        onChange={(pre_check_banner_state: string) => {
-                                            bannerForm.update({ pre_check_banner_state });
-                                        }}
-                                    />
-                                    <FormError error={bannerForm.errors?.pre_check_banner_state} />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <div className="form-label form-label-required">
-                                    {translate('funds_pre_check.labels.title')}
-                                </div>
-                                <div className="form-offset">
-                                    <input
-                                        className={'form-control r-n'}
-                                        placeholder={translate('funds_pre_check.labels.title')}
-                                        value={bannerForm.values.pre_check_banner_title || ''}
-                                        onChange={(e) => {
-                                            bannerForm.update({ pre_check_banner_title: e.target.value });
-                                        }}
-                                    />
-                                    <FormError error={bannerForm.errors?.pre_check_banner_title} />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <div className="form-label form-label-required">
-                                    {translate('funds_pre_check.labels.description')}
-                                </div>
-                                <div className="form-offset">
-                                    <textarea
-                                        className={'form-control r-n'}
-                                        placeholder={translate('funds_pre_check.labels.description')}
-                                        value={bannerForm.values.pre_check_banner_description || ''}
-                                        onChange={(e) => {
-                                            bannerForm.update({ pre_check_banner_description: e.target.value });
-                                        }}
-                                    />
-                                    <FormError error={bannerForm.errors?.pre_check_banner_description} />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <div className="form-label">{translate('funds_pre_check.labels.label')}</div>
-                                <div className="form-offset">
-                                    <input
-                                        className={'form-control r-n'}
-                                        placeholder={translate('funds_pre_check.labels.label')}
-                                        value={bannerForm.values.pre_check_banner_label || ''}
-                                        onChange={(e) => {
-                                            bannerForm.update({ pre_check_banner_label: e.target.value });
-                                        }}
-                                    />
-                                    <FormError error={bannerForm.errors?.pre_check_banner_label} />
-                                </div>
-                            </div>
 
                             <InfoBox>
                                 <p>
-                                    U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de
-                                    startpagina van de webshop wordt weergegeven.
+                                    U heeft de mogelijkheid om extra stappen toe te voegen die zichtbaar zullen zijn in
+                                    de Pre-Check voor de aanvrager.
                                 </p>
                             </InfoBox>
                         </div>
-
-                        <div className="card-section">
-                            <div className="text-right">
-                                <StateNavLink id="cancel" name={'organizations'} className={'button button-default'}>
-                                    {translate('funds_edit.buttons.cancel')}
-                                </StateNavLink>
-
-                                <button className="button button-primary" type="submit">
-                                    {translate('funds_edit.buttons.confirm')}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            )}
+
+                <div className="card-section">
+                    <div className="text-right">
+                        <button className="button button-default" type="button" id="cancel">
+                            {translate('funds_edit.buttons.cancel')}
+                        </button>
+
+                        <button className="button button-primary" type="submit">
+                            {translate('funds_edit.buttons.confirm')}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <PreCheckExclusionsCard
+                funds={funds.data}
+                implementation={implementation}
+                activeOrganization={activeOrganization}
+                onChange={() => {
+                    fetchPreChecks(implementation?.id).then((preChecks) => {
+                        setPreChecks(preChecks);
+                        fetchFunds();
+                    });
+                }}
+            />
+
+            <form className="card form" onSubmit={bannerForm.submit}>
+                <div className="card-header card-header-next">
+                    <div className="card-title">Homepagina banner</div>
+                </div>
+
+                <div className="card-section card-section-primary">
+                    <div className="form-group">
+                        <div className="form-offset">
+                            <PhotoSelector
+                                type={'pre_check_banner'}
+                                thumbnail={thumbnailMedia?.sizes.thumbnail}
+                                selectPhoto={selectPhoto}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="form-label">Actieve banner</div>
+                        <div className="form-offset">
+                            <SelectControl
+                                className={'form-control'}
+                                propKey={'value'}
+                                allowSearch={false}
+                                options={bannerStates}
+                                optionsComponent={SelectControlOptions}
+                                value={bannerForm.values.pre_check_banner_state}
+                                onChange={(pre_check_banner_state: string) => {
+                                    bannerForm.update({ pre_check_banner_state });
+                                }}
+                            />
+                            <FormError error={bannerForm.errors?.pre_check_banner_state} />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="form-label form-label-required">
+                            {translate('funds_pre_check.labels.title')}
+                        </div>
+                        <div className="form-offset">
+                            <input
+                                className={'form-control r-n'}
+                                placeholder={translate('funds_pre_check.labels.title')}
+                                value={bannerForm.values.pre_check_banner_title || ''}
+                                onChange={(e) => bannerForm.update({ pre_check_banner_title: e.target.value })}
+                            />
+                            <FormError error={bannerForm.errors?.pre_check_banner_title} />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="form-label form-label-required">
+                            {translate('funds_pre_check.labels.description')}
+                        </div>
+                        <div className="form-offset">
+                            <textarea
+                                className={'form-control r-n'}
+                                placeholder={translate('funds_pre_check.labels.description')}
+                                value={bannerForm.values.pre_check_banner_description || ''}
+                                onChange={(e) => bannerForm.update({ pre_check_banner_description: e.target.value })}
+                            />
+                            <FormError error={bannerForm.errors?.pre_check_banner_description} />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="form-label">{translate('funds_pre_check.labels.label')}</div>
+                        <div className="form-offset">
+                            <input
+                                className={'form-control r-n'}
+                                placeholder={translate('funds_pre_check.labels.label')}
+                                value={bannerForm.values.pre_check_banner_label || ''}
+                                onChange={(e) => bannerForm.update({ pre_check_banner_label: e.target.value })}
+                            />
+                            <FormError error={bannerForm.errors?.pre_check_banner_label} />
+                        </div>
+                    </div>
+
+                    <InfoBox>
+                        <p>
+                            U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de startpagina
+                            van de webshop wordt weergegeven.
+                        </p>
+                    </InfoBox>
+                </div>
+
+                <div className="card-section">
+                    <div className="text-right">
+                        <StateNavLink id="cancel" name={'organizations'} className={'button button-default'}>
+                            {translate('funds_edit.buttons.cancel')}
+                        </StateNavLink>
+
+                        <button className="button button-primary" type="submit">
+                            {translate('funds_edit.buttons.confirm')}
+                        </button>
+                    </div>
+                </div>
+            </form>
         </Fragment>
     );
 }
