@@ -112,7 +112,10 @@ export default function PreCheckExclusionsCard({
                     Afwijkend en uitsluitend ({excludedFunds?.length})
                 </div>
 
-                <button className="button button-primary button-sm" onClick={addFundExclusion}>
+                <button
+                    className="button button-primary button-sm"
+                    onClick={addFundExclusion}
+                    disabled={funds.length <= excludedFunds.length}>
                     <em className="mdi mdi-plus-circle icon-start" />
                     Fonds toevoegen
                 </button>
