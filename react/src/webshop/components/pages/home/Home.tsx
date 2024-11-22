@@ -22,16 +22,18 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import { modalsContext } from '../../../../dashboard/modules/modals/context/ModalContext';
 import ModalNotification from '../../modals/ModalNotification';
 import useSetTitle from '../../../hooks/useSetTitle';
+import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
 
 export default function Home() {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
 
     const setTitle = useSetTitle();
+    const openModal = useOpenModal();
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
-    const openModal = useOpenModal();
+
     const { closeModal } = useContext(modalsContext);
 
     const authIdentity = useAuthIdentity();
@@ -113,6 +115,9 @@ export default function Home() {
             return;
         }
 
+        // clear session_expired state
+        window.history.replaceState({}, '');
+
         const modal = openModal((modal) => (
             <ModalNotification
                 modal={modal}
@@ -167,6 +172,7 @@ export default function Home() {
                     </div>
                     <div className="wrapper">
                         <div className="header-content" data-dusk="header">
+                            <ReadSpeakerButton className={'header-read-speaker'} targetId={'main-content'} />
                             {appConfigs.settings.title ? (
                                 <h1 className="header-title" data-dusk="headerTitle">
                                     {appConfigs.settings.title}

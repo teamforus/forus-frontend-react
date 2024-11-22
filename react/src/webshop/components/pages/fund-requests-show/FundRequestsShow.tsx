@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import FundRequest from '../../../../dashboard/props/models/FundRequest';
 import { useFundRequestService } from '../../../services/FundRequestService';
@@ -61,21 +60,11 @@ export default function FundRequestsShow() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <StateNavLink name={'fund-requests'} className="breadcrumb-item" activeExact={true}>
-                        {translate('fund_requests.header.title')}
-                    </StateNavLink>
-                    {fundRequest && (
-                        <div className="breadcrumb-item active" aria-current="location">
-                            Aanvraag #{fundRequest?.id}
-                        </div>
-                    )}
-                </div>
-            }
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: translate('fund_requests.header.title'), state: 'fund-requests' },
+                { name: `Aanvraag #${fundRequest?.id}` },
+            ]}
             profileHeader={
                 fundRequest && (
                     <div className="profile-content-header">

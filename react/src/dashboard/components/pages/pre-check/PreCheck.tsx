@@ -31,6 +31,7 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalAddPreCheckFund from '../../modals/ModalAddPreCheckFund';
 import ModalDangerZone from '../../modals/ModalDangerZone';
+import InfoBox from '../../elements/info-box/InfoBox';
 
 export default function PreCheck() {
     const openModal = useOpenModal();
@@ -537,17 +538,12 @@ export default function PreCheck() {
                                         />
                                     )}
 
-                                    <div className="block block-info-box block-info-box-default block-info-box-dashed">
-                                        <div className="info-box-icon mdi mdi-information flex-center flex-vertical" />
-                                        <div className="info-box-content">
-                                            <div className="block block-markdown">
-                                                <p>
-                                                    U heeft de mogelijkheid om extra stappen toe te voegen die zichtbaar
-                                                    zullen zijn in de Pre-Check voor de aanvrager.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <InfoBox>
+                                        <p>
+                                            U heeft de mogelijkheid om extra stappen toe te voegen die zichtbaar zullen
+                                            zijn in de Pre-Check voor de aanvrager.
+                                        </p>
+                                    </InfoBox>
                                 </div>
                             </div>
                         </div>
@@ -742,17 +738,12 @@ export default function PreCheck() {
                                 </div>
                             </div>
 
-                            <div className="block block-info-box block-info-box-default block-info-box-dashed">
-                                <div className="info-box-icon mdi mdi-information flex-center flex-vertical text-primary-light" />
-                                <div className="info-box-content">
-                                    <div className="block block-markdown">
-                                        <p>
-                                            U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op
-                                            de startpagina van de webshop wordt weergegeven.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <InfoBox>
+                                <p>
+                                    U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de
+                                    startpagina van de webshop wordt weergegeven.
+                                </p>
+                            </InfoBox>
                         </div>
 
                         <div className="card-section">

@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../hooks/useEnvData';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import Tag from '../../../../dashboard/props/models/Tag';
 import Fund from '../../../props/models/Fund';
@@ -104,7 +103,7 @@ export default function Funds() {
         setProgress(0);
 
         organizationService
-            .list({ implementation: 1, is_employee: 0 })
+            .list({ type: 'sponsor' })
             .then((res) => setOrganizations([{ id: null, name: 'Alle organisaties' }, ...res.data.data]))
             .finally(() => setProgress(100));
     }, [organizationService, setProgress]);
@@ -141,16 +140,10 @@ export default function Funds() {
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active">
-                        {translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title')}
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title') },
+            ]}
             aside={
                 organizations &&
                 tags && (

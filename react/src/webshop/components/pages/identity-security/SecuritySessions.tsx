@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
@@ -139,14 +138,7 @@ export default function SecuritySessions() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name="home" className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active">Beveiliging</div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Beveiliging' }]}
             profileHeader={
                 (auth2faRestricted || sessions) &&
                 (auth2faRestricted ? (

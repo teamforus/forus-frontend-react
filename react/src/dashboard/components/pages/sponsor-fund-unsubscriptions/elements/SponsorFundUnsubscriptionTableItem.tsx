@@ -28,7 +28,10 @@ export default function SponsorFundUnsubscriptionTableItem({
             customElement={'tr'}
             className={'tr-clickable'}
             name={'sponsor-provider-organization'}
-            params={{ organizationId: organization.id, id: unsubscription.fund_provider.organization.id }}>
+            params={{
+                organizationId: organization.id,
+                id: unsubscription.fund_provider.organization.id,
+            }}>
             <td>
                 <div className="td-entity-main">
                     <div className="td-entity-main-media">
@@ -80,12 +83,15 @@ export default function SponsorFundUnsubscriptionTableItem({
                 </div>
             </td>
 
-            <td className="nowrap text-right">
+            <td className="nowrap">
                 <div className={unsubscription.is_expired ? 'text-danger' : 'text-muted-dark'}>
                     {unsubscription.is_expired && <em className="mdi mdi-alert" />}
                     &nbsp;
                     <strong className="text-strong text-md">{unsubscription.unsubscribe_at_locale}</strong>
                 </div>
+            </td>
+            <td className={'table-td-actions text-right'}>
+                <TableEmptyValue />
             </td>
         </StateNavLink>
     );

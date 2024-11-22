@@ -58,6 +58,14 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 id={'providers'}
             />
             <LayoutAsideNavItem
+                name={'Aanbod'}
+                icon={'products'}
+                route={'products'}
+                routeParams={{ organizationId: organization?.id }}
+                show={organization.allow_product_updates && hasPermission(organization, 'manage_providers')}
+                id={'products'}
+            />
+            <LayoutAsideNavItem
                 name={'Aanvragers'}
                 icon={'file_csv'}
                 route={'csv-validation'}

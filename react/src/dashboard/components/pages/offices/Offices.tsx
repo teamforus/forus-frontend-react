@@ -211,34 +211,30 @@ export default function Offices() {
 
             {offices && (
                 <div className="card">
-                    <div className="card-header">
-                        <div className="flex-row">
-                            <div className="flex-col flex-grow">
-                                <div className="card-title">
-                                    {translate('offices.labels.offices')} ({offices?.length})
-                                </div>
-                            </div>
+                    <div className="card-header card-header-next">
+                        <div className="card-title flex flex-grow">
+                            {translate('offices.labels.offices')} ({offices?.length})
+                        </div>
 
-                            <div className="flex">
-                                <div className="block block-inline-filters">
-                                    <StateNavLink
-                                        name={'offices-create'}
-                                        params={{ organizationId: organization.id }}
-                                        className="button button-primary">
-                                        <em className="mdi mdi-plus-circle icon-start" />
-                                        Voeg een nieuwe vestiging toe
-                                    </StateNavLink>
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
+                                <StateNavLink
+                                    name={'offices-create'}
+                                    params={{ organizationId: organization.id }}
+                                    className="button button-primary">
+                                    <em className="mdi mdi-plus-circle icon-start" />
+                                    Voeg een nieuwe vestiging toe
+                                </StateNavLink>
 
-                                    <div className="form">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Zoeken"
-                                                value={filter.values.q}
-                                                onChange={(e) => filter.update({ q: e.target.value })}
-                                            />
-                                        </div>
+                                <div className="form">
+                                    <div className="form-group">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Zoeken"
+                                            value={filter.values.q}
+                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                        />
                                     </div>
                                 </div>
                             </div>

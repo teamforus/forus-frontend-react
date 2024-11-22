@@ -1040,6 +1040,13 @@
                 }
             }
         }
+
+        &.form-toggle-disabled,
+        &[disabled] {
+            pointer-events: none;
+            opacity: 0.5;
+            filter: saturate(0);
+        }
     }
 
     .form-group-info {

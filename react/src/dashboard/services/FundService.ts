@@ -2,16 +2,19 @@ import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResp
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Fund from '../props/models/Fund';
-import Product from '../props/models/Product';
 import FundProvider from '../props/models/FundProvider';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import FundTopUpTransaction from '../props/models/FundTopUpTransaction';
 import Identity from '../props/models/Sponsor/Identity';
 import Papa from 'papaparse';
+import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import {
     ProviderFinancialStatistics,
     FinancialOverview,
 } from '../components/pages/financial-dashboard/types/FinancialStatisticTypes';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import { hasPermission } from '../helpers/utils';
+import Organization from '../props/models/Organization';
 
 export class FundService<T = Fund> {
     /**
@@ -179,7 +182,7 @@ export class FundService<T = Fund> {
         fund_id: number,
         provider_id: number,
         query: object = {},
-    ): Promise<ApiResponse<Product>> {
+    ): Promise<ApiResponse<SponsorProduct>> {
         return this.apiRequest.get(
             `${this.prefix}/${organization_id}/funds/${fund_id}/providers/${provider_id}/products`,
             query,
@@ -192,7 +195,7 @@ export class FundService<T = Fund> {
         provider_id: number,
         product_id: number,
         query: object = {},
-    ): Promise<ApiResponseSingle<Product>> {
+    ): Promise<ApiResponseSingle<SponsorProduct>> {
         return this.apiRequest.get(
             `${this.prefix}/${organization_id}/funds/${fund_id}/providers/${provider_id}/products/${product_id}`,
             query,
@@ -218,20 +221,6 @@ export class FundService<T = Fund> {
 
     public sampleCSV(fund: Fund): string {
         return Papa.unparse([fund.csv_required_keys.filter((key) => !key.endsWith('_eligible'))]);
-    }
-
-    public getLastSelectedFund(funds: Array<Fund> = []): Fund {
-        const lastSelectedId = this.getLastSelectedFundId();
-
-        return funds.find((fund) => fund.id == lastSelectedId) || funds?.[0] || null;
-    }
-
-    public getLastSelectedFundId(): number {
-        return parseInt(localStorage.getItem('selected_fund_id'));
-    }
-
-    public setLastSelectedFund(fund: Fund) {
-        return localStorage.setItem('selected_fund_id', fund?.id.toString());
     }
 
     public topUp(company_id: number, fund_id: number): Promise<ApiResponseSingle<FundTopUpTransaction>> {
@@ -263,6 +252,94 @@ export class FundService<T = Fund> {
             { name: 'Gepauzeerd', value: 'paused' },
             { name: 'Gesloten', value: 'closed' },
         ];
+    }
+
+    public getColumns(organization: Organization, funds_type: string): Array<ConfigurableTableColumn> {
+        return [
+            {
+                key: 'name',
+                label: 'components.organization_funds.labels.name',
+                tooltip: {
+                    key: 'name',
+                    title: 'components.organization_funds.labels.name',
+                    description: 'components.organization_funds.tooltips.name',
+                },
+            },
+            {
+                key: 'implementation',
+                label: 'components.organization_funds.labels.implementation',
+                tooltip: {
+                    key: 'implementation',
+                    title: 'components.organization_funds.labels.implementation',
+                    description: 'components.organization_funds.tooltips.implementation',
+                },
+            },
+            ...(funds_type == 'active' && hasPermission(organization, 'view_finances')
+                ? [
+                      {
+                          key: 'remaining',
+                          label: 'components.organization_funds.labels.remaining',
+                          tooltip: {
+                              key: 'remaining',
+                              title: 'components.organization_funds.labels.remaining',
+                              description: 'components.organization_funds.tooltips.remaining',
+                          },
+                      },
+                  ]
+                : []),
+            ...(funds_type == 'active'
+                ? [
+                      {
+                          key: 'requester_count',
+                          label: 'components.organization_funds.labels.requester_count',
+                          tooltip: {
+                              key: 'requester_count',
+                              title: 'components.organization_funds.labels.requester_count',
+                              description: 'components.organization_funds.tooltips.requester_count',
+                          },
+                      },
+                  ]
+                : []),
+            {
+                key: 'status',
+                label: 'components.organization_funds.labels.status',
+                tooltip: {
+                    key: 'status',
+                    title: 'components.organization_funds.labels.status',
+                    description: 'components.organization_funds.tooltips.status',
+                },
+            },
+        ];
+    }
+
+    public getColumnsBalance(): Array<ConfigurableTableColumn> {
+        const list = ['fund_name', 'total_budget', 'used_budget', 'current_budget', 'transaction_costs'].filter(
+            (item) => item,
+        );
+
+        return list.map((key) => ({
+            key,
+            label: `financial_dashboard_overview.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `financial_dashboard_overview.labels.${key}`,
+                description: `financial_dashboard_overview.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getColumnsBudget(): Array<ConfigurableTableColumn> {
+        const list = ['fund_name', 'total', 'active', 'inactive', 'deactivated', 'used', 'left'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `financial_dashboard_overview.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `financial_dashboard_overview.labels.${key}`,
+                description: `financial_dashboard_overview.tooltips.${key}`,
+            },
+        }));
     }
 }
 

@@ -31,6 +31,7 @@ export default function PreferencesNotifications() {
         'employee.deleted',
         'digest.daily_sponsor',
         'digest.daily_validator',
+        'digest.daily_sponsor_product_updates',
     ]);
 
     const [providerKeys] = useState([

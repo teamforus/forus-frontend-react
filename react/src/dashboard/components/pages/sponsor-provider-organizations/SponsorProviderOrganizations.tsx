@@ -25,9 +25,10 @@ import useTranslate from '../../../hooks/useTranslate';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
-import ThSortable from '../../elements/tables/ThSortable';
 import ProvidersTableItem from './elements/ProvidersTableItem';
 import Paginator from '../../../modules/paginator/components/Paginator';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
@@ -108,6 +109,8 @@ export default function SponsorProviderOrganizations() {
             },
         },
     );
+
+    const { headElement, configsElement } = useConfigurableTable(organizationService.getProviderColumns());
 
     const fetchImplementations = useCallback(() => {
         setProgress(0);
@@ -206,8 +209,8 @@ export default function SponsorProviderOrganizations() {
 
     return (
         <Fragment>
-            <div className="card">
-                {requests > 0 && (
+            {requests > 0 && (
+                <div className="card">
                     <div
                         className={`card-block card-block-requests ${
                             requestsExpired > 0
@@ -247,16 +250,14 @@ export default function SponsorProviderOrganizations() {
                             </div>
                         </StateNavLink>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
 
             <div className="card">
                 <div className="card-header card-header-next">
                     <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate('provider_organizations.header.title')}
-                            &nbsp;
-                            <span className="span-count">{providerOrganizations.meta.total}</span>
+                        <div className="card-title flex flex-grow">
+                            {translate('provider_organizations.header.title')} ({providerOrganizations.meta.total})
                         </div>
                     </div>
 
@@ -509,18 +510,6 @@ export default function SponsorProviderOrganizations() {
                                     </div>
                                 </FilterItemToggle>
 
-                                <FilterItemToggle label="Fondsen">
-                                    <SelectControl
-                                        className={'form-control'}
-                                        options={funds}
-                                        propKey={'id'}
-                                        allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
-                                        value={filterValues.fund_id}
-                                        onChange={(fund_id: number) => filterUpdate({ fund_id })}
-                                    />
-                                </FilterItemToggle>
-
                                 <FilterItemToggle label="Implementatie">
                                     <SelectControl
                                         className={'form-control'}
@@ -559,28 +548,11 @@ export default function SponsorProviderOrganizations() {
                     emptyTitle={'Je hebt nog geen verzoeken van aanbieders'}>
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
-                                    <tbody>
-                                        <tr>
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.organization_name')}
-                                            />
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.last_active')}
-                                            />
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.product_count')}
-                                            />
-                                            <ThSortable
-                                                label={translate('provider_organizations.labels.funds_count')}
-                                            />
-                                            <ThSortable
-                                                className="text-right"
-                                                label={translate('provider_organizations.labels.actions')}
-                                            />
-                                        </tr>
-                                    </tbody>
+                                    {headElement}
 
                                     {providerOrganizations.data.map((providerOrganization) => (
                                         <ProvidersTableItem
@@ -590,7 +562,7 @@ export default function SponsorProviderOrganizations() {
                                         />
                                     ))}
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
 
