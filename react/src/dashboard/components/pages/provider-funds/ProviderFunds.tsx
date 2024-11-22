@@ -6,7 +6,7 @@ import { ResponseError } from '../../../props/ApiResponses';
 import usePushDanger from '../../../hooks/usePushDanger';
 import ProviderFundsTable from './elements/ProviderFundsTable';
 import ProviderFundUnsubscriptionsTable from './elements/ProviderFundUnsubscriptionsTable';
-import ProviderAvailableFundsTable from './elements/ProviderAvailableFundsTable';
+import ProviderFundsAvailableTable from './elements/ProviderFundsAvailableTable';
 import ProviderFundInvitationsTable from './elements/ProviderFundInvitationsTable';
 import useTranslate from '../../../hooks/useTranslate';
 
@@ -123,7 +123,7 @@ export default function ProviderFunds() {
 
             {/* Available funds */}
             {tab == 'available' && (
-                <ProviderAvailableFundsTable
+                <ProviderFundsAvailableTable
                     organization={activeOrganization}
                     onChange={() => {
                         fetchFunds();

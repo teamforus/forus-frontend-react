@@ -4,9 +4,9 @@ import useSetProgress from '../../hooks/useSetProgress';
 import Fund from '../../props/models/Fund';
 import { useFileService } from '../../services/FileService';
 import useVoucherService from '../../services/VoucherService';
-import { fileSize } from '../../helpers/string';
+import { currencyFormat, fileSize } from '../../helpers/string';
 import Papa from 'papaparse';
-import { chunk, groupBy, isEmpty, sortBy, uniq, map, countBy, keyBy } from 'lodash';
+import { chunk, groupBy, isEmpty, sortBy, uniq, map, countBy, keyBy, uniqueId } from 'lodash';
 import Organization from '../../props/models/Organization';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import usePushDanger from '../../hooks/usePushDanger';
@@ -28,6 +28,7 @@ import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
+import { fileToText } from '../../helpers/utils';
 
 type CSVErrorProp = {
     csvHasBsnWhileNotAllowed?: boolean;
@@ -46,6 +47,7 @@ type CSVErrorProp = {
 };
 
 type RowDataProp = {
+    _uid?: string;
     amount?: number;
     expires_at?: string;
     note?: string;
@@ -271,10 +273,47 @@ export default function ModalVouchersUpload({
         [csvErrors, validateProductId],
     );
 
+    const confirmLowAmountsSkip = useCallback(
+        (lowAmounts: Array<RowDataProp>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
+            const items = lowAmounts.map((row) => ({
+                _uid: row._uid,
+                label: currencyFormat(parseFloat(row?.amount?.toString())),
+                columns: [fund.name],
+            }));
+
+            return new Promise<Array<RowDataProp> | 'canceled'>((resolve) => {
+                if (items.length === 0) {
+                    return resolve(list);
+                }
+
+                openModal((modal) => (
+                    <ModalDuplicatesPicker
+                        modal={modal}
+                        hero_title={`Laag bedrag voor "${fund.name}".`}
+                        hero_subtitle={[`Er zijn ${items.length} tegoeden met een laag bedrag.`, 'Wilt u doorgaan?']}
+                        button_none={'Alle overslaan'}
+                        button_all={'Alle aanmaken'}
+                        enableToggles={true}
+                        label_on={'Aanmaken'}
+                        label_off={'Overslaan'}
+                        items={items}
+                        onConfirm={(data) => resolve(list.filter((row) => data.uids.includes(row._uid)))}
+                        onCancel={() => {
+                            window.setTimeout(() => setHideModal(false), 300);
+                            resolve('canceled');
+                        }}
+                    />
+                ));
+            });
+        },
+        [openModal],
+    );
+
     const confirmEmailSkip = useCallback(
-        (existingEmails: Array<string>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
-            const items = existingEmails.map((email: string) => ({
-                value: email,
+        (existingEmails: Array<RowDataProp>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
+            const items = existingEmails.map((row) => ({
+                _uid: row._uid,
+                label: row.email,
                 columns: [fund.name],
             }));
 
@@ -297,15 +336,7 @@ export default function ModalVouchersUpload({
                         label_on={'Aanmaken'}
                         label_off={'Overslaan'}
                         items={items}
-                        onConfirm={(items) => {
-                            const allowedEmails = items.filter((item) => item.model).map((item) => item.value);
-
-                            resolve(
-                                list.filter(
-                                    (row) => !existingEmails.includes(row.email) || allowedEmails.includes(row.email),
-                                ),
-                            );
-                        }}
+                        onConfirm={(data) => resolve(list.filter((row) => data.uids.includes(row._uid)))}
                         onCancel={() => {
                             window.setTimeout(() => setHideModal(false), 300);
                             resolve('canceled');
@@ -318,9 +349,11 @@ export default function ModalVouchersUpload({
     );
 
     const confirmBsnSkip = useCallback(
-        (existingBsn: Array<string>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
-            const items = existingBsn.map((bsn: string) => ({
-                value: bsn,
+        (existingBsn: Array<RowDataProp>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
+            const items = existingBsn.map((row) => ({
+                _uid: row._uid,
+                label: row.bsn,
+                value: row.bsn,
                 columns: [fund.name],
             }));
 
@@ -343,11 +376,7 @@ export default function ModalVouchersUpload({
                         label_on={'Aanmaken'}
                         label_off={'Overslaan'}
                         items={items}
-                        onConfirm={(items) => {
-                            const allowed = items.filter((item) => item.model).map((item) => item.value);
-
-                            resolve(list.filter((row) => !allowed.includes(row.bsn) || allowed.includes(row.bsn)));
-                        }}
+                        onConfirm={(data) => resolve(list.filter((row) => data.uids.includes(row._uid)))}
                         onCancel={() => {
                             window.setTimeout(() => setHideModal(false), 300);
                             resolve('canceled');
@@ -395,19 +424,15 @@ export default function ModalVouchersUpload({
                     ...data.map((voucher) => voucher.identity_bsn),
                 ];
 
-                const existingEmails = list
-                    .filter((csvRow: { email: string }) => emails.includes(csvRow.email))
-                    .map((csvRow: { email: string }) => csvRow.email);
-
-                const existingBsn = list
-                    .filter((csvRow: { bsn: string }) => bsnList.includes(csvRow.bsn))
-                    .map((csvRow: { bsn: string }) => csvRow.bsn);
+                const existingEmails = list.filter((row: { email: string }) => emails.includes(row.email));
+                const existingBsn = list.filter((csvRow) => bsnList.includes(csvRow.bsn));
 
                 if (existingEmails.length === 0 && existingBsn.length === 0) {
                     return list;
                 }
 
                 const listFromEmails = await confirmEmailSkip(existingEmails, fund, list);
+
                 const listFromBsn =
                     listFromEmails !== 'canceled' ? await confirmBsnSkip(existingBsn, fund, listFromEmails) : null;
 
@@ -435,6 +460,15 @@ export default function ModalVouchersUpload({
             type,
             voucherService,
         ],
+    );
+
+    const checkLowAmounts = useCallback(
+        async (fund: Partial<Fund>, list: Array<RowDataProp>) => {
+            const lowAmounts = list.filter((row) => parseFloat(row.amount?.toString()) <= 5);
+
+            return lowAmounts.length === 0 ? list : await confirmLowAmountsSkip(lowAmounts, fund, list);
+        },
+        [confirmLowAmountsSkip],
     );
 
     const validateCsvData = useCallback(
@@ -477,7 +511,7 @@ export default function ModalVouchersUpload({
         [availableFundsIds, csvErrors, organization.bsn_enabled, type, validateCsvDataBudget, validateCsvDataProduct],
     );
 
-    const transformCsvData = useCallback((rawData) => {
+    const transformCsvData = useCallback((rawData: Array<Array<string>>) => {
         const header = rawData[0];
 
         const recordIndexes = header.reduce((list: Array<number>, row: string, index: number) => {
@@ -489,9 +523,9 @@ export default function ModalVouchersUpload({
             .filter((row: Array<string>) => {
                 return row.filter((col) => !isEmpty(col)).length > 0;
             })
-            .map((row: Array<string>) => {
-                const records = recordIndexes.reduce((list: Array<string>, index: number) => {
-                    return { ...list, [header[index].slice('record.'.length)]: row[index] };
+            .map((row: Array<string>): Array<RowDataProp> => {
+                const records = recordIndexes.reduce((list: RowDataProp, index: number) => {
+                    return { ...list, [header[index].slice('record.'.length)]: row[index] as RowDataProp };
                 }, {});
 
                 const values = row.reduce((list, item, key) => {
@@ -553,6 +587,8 @@ export default function ModalVouchersUpload({
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
                     items={items.map((item) => ({
+                        _uid: uniqueId('rand_'),
+                        label: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
                         value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
                     }))}
                     onConfirm={() => window.setTimeout(() => setHideModal(false), 300)}
@@ -585,14 +621,16 @@ export default function ModalVouchersUpload({
                 return reset();
             }
 
-            const csvData = transformCsvData((results.data = results.data.filter((item) => !!item)));
+            results.data = results.data.filter((item) => !!item);
+
+            const csvData = transformCsvData(results.data);
             const header = csvData.shift();
             const body = csvData.filter((row) => Array.isArray(row) && row.filter((item) => !!item).length > 0);
 
             setCsvFile(file);
 
             const data = body
-                .map((item: RowDataProp) => {
+                .map((item) => {
                     const row: RowDataProp = {};
 
                     header.forEach((hVal: string, hKey: number) => {
@@ -601,6 +639,7 @@ export default function ModalVouchersUpload({
                         }
                     });
 
+                    row._uid = uniqueId('row_');
                     row.note = row.note || defaultNote(row);
                     row.fund_id = row.fund_id || fund.id;
                     row.client_uid = row.client_uid || row.activation_code_uid || null;
@@ -619,17 +658,24 @@ export default function ModalVouchersUpload({
     );
 
     const startUploadingData = useCallback(
-        (fund: Partial<Fund>, groupData, onChunk: (data: Array<RowDataProp>) => void) => {
+        (fund: Partial<Fund>, groupData: Array<RowDataProp>, onChunk: (data: Array<RowDataProp>) => void) => {
             return new Promise((resolve) => {
                 const submitData = chunk(groupData, dataChunkSize);
                 const chunksCount = submitData.length;
                 let currentChunkNth = 0;
 
-                const uploadChunk = (data: Array<RowDataProp>) => {
+                const uploadChunk = async (data: Array<RowDataProp>) => {
                     setChanged(true);
 
                     voucherService
-                        .storeCollection(organization.id, fund.id, data)
+                        .storeCollection(organization.id, fund.id, data, {
+                            name: csvFile.name,
+                            content: await fileToText(csvFile),
+                            total: groupData.length,
+                            chunk: currentChunkNth,
+                            chunks: chunksCount,
+                            chunkSize: dataChunkSize,
+                        })
                         .then(() => {
                             currentChunkNth++;
                             onChunk(data);
@@ -662,10 +708,10 @@ export default function ModalVouchersUpload({
                     return (abortRef.current = false);
                 }
 
-                uploadChunk(submitData[currentChunkNth]);
+                uploadChunk(submitData[currentChunkNth]).then();
             });
         },
-        [abortRef, dataChunkSize, organization.id, pushDanger, voucherService],
+        [csvFile, dataChunkSize, organization.id, pushDanger, voucherService],
     );
 
     const startValidationUploadingData = useCallback(
@@ -807,15 +853,16 @@ export default function ModalVouchersUpload({
         try {
             for (let i = 0; i < list.length; i++) {
                 const data = await findDuplicates(list[i].fund, list[i].list);
+                const data2 = data === 'canceled' ? data : await checkLowAmounts(list[i].fund, data);
 
-                if (data === 'canceled') {
+                if (data2 === 'canceled') {
                     pushSuccess('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
                     setLoadingBarProgress(0);
                     setHideModal(false);
                     setLoading(false);
                     return;
                 } else {
-                    listSelected.push(...data);
+                    listSelected.push(...data2);
                 }
             }
 
@@ -836,6 +883,7 @@ export default function ModalVouchersUpload({
         setLoading(false);
     }, [
         availableFundsById,
+        checkLowAmounts,
         csvIsValid,
         data,
         findDuplicates,
@@ -845,7 +893,7 @@ export default function ModalVouchersUpload({
         startUploading,
     ]);
 
-    const onDragEvent = useCallback((e, isDragOver: boolean) => {
+    const onDragEvent = useCallback((e: React.DragEvent, isDragOver: boolean) => {
         e?.preventDefault();
         e?.stopPropagation();
 

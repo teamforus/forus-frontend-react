@@ -9,7 +9,6 @@ import ProductCategory from '../../../../dashboard/props/models/ProductCategory'
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
 import useProductCategoryService from '../../../../dashboard/services/ProductCategoryService';
 import Organization from '../../../../dashboard/props/models/Organization';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import SelectControlOptions from '../../../../dashboard/components/elements/select-control/templates/SelectControlOptions';
@@ -181,7 +180,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
 
     const fetchOrganizations = useCallback(() => {
         organizationService
-            .list({ is_employee: 0, has_products: 1, per_page: 300, fund_type: fundType })
+            .list({ type: 'provider', per_page: 300, fund_type: fundType })
             .then((res) => setOrganizations([{ id: null, name: 'Selecteer aanbieder...' }, ...res.data.data]));
     }, [organizationService, fundType]);
 
@@ -231,16 +230,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Aanbod
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Aanbod' }]}
             aside={
                 organizations &&
                 productCategories &&

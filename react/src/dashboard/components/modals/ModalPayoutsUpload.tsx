@@ -4,7 +4,7 @@ import Fund from '../../props/models/Fund';
 import { useFileService } from '../../services/FileService';
 import { fileSize } from '../../helpers/string';
 import Papa from 'papaparse';
-import { chunk, isEmpty } from 'lodash';
+import { chunk, isEmpty, uniqueId } from 'lodash';
 import Organization from '../../props/models/Organization';
 import usePushDanger from '../../hooks/usePushDanger';
 import { ResponseError } from '../../props/ApiResponses';
@@ -18,6 +18,7 @@ import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
 import usePayoutTransactionService from '../../services/PayoutTransactionService';
+import { fileToText } from '../../helpers/utils';
 
 type CSVErrorProp = {
     csvHasBsnWhileNotAllowed?: boolean;
@@ -151,7 +152,7 @@ export default function ModalPayoutsUpload({
         [csvErrors, fund.limit_per_voucher, fund.limit_sum_vouchers],
     );
 
-    const transformCsvData = useCallback((rawData) => {
+    const transformCsvData = useCallback((rawData: Array<Array<string>>) => {
         const header = rawData[0].filter((value: string) => value);
         const body = rawData.slice(1).filter((row: Array<string>) => row.filter((col) => !isEmpty(col)).length > 0);
 
@@ -159,14 +160,16 @@ export default function ModalPayoutsUpload({
     }, []);
 
     const showInvalidRows = useCallback(
-        (errors = {}, vouchers = []) => {
+        (errors = {}, payouts: Array<RowDataProp>) => {
             const items = Object.keys(errors)
                 .map(function (key) {
                     const keyData = key.split('.');
                     const keyDataId = keyData[1];
                     const index = parseInt(keyDataId, 10) + 1;
+                    const errorKey = key.split('.')[key.split('.').length - 1];
+                    const errorKeyValue = payouts[keyDataId][errorKey];
 
-                    return [index, errors[key], vouchers[keyDataId]];
+                    return [index, errors[key], payouts[keyDataId], errorKeyValue, errorKey];
                 })
                 .sort((a, b) => a[0] - b[0]);
 
@@ -175,7 +178,7 @@ export default function ModalPayoutsUpload({
             }, []);
 
             const message = [
-                `${uniqueRows.length} van ${vouchers.length}`,
+                `${uniqueRows.length} van ${payouts.length}`,
                 `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
                 `bekijk het bestand bij welke rij(en) het mis gaat.`,
             ].join(' ');
@@ -187,13 +190,14 @@ export default function ModalPayoutsUpload({
             openModal((modal) => (
                 <ModalDuplicatesPicker
                     modal={modal}
-                    hero_title={'Er zijn fouten opgetreden bij het importeren van de tegoeden'}
+                    hero_title={'Er zijn fouten opgetreden bij het importeren van de uitbetalingen'}
                     hero_subtitle={message}
                     enableToggles={false}
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
                     items={items.map((item) => ({
-                        value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
+                        _uid: uniqueId('rand_'),
+                        label: `Rij: ${item[0]}: ${item[3] || item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
                     }))}
                     onConfirm={() => window.setTimeout(() => setHideModal(false), 300)}
                     onCancel={() => window.setTimeout(() => setHideModal(false), 300)}
@@ -232,7 +236,7 @@ export default function ModalPayoutsUpload({
             setCsvFile(file);
 
             const data = body
-                .map((item: RowDataProp) => {
+                .map((item) => {
                     const row: RowDataProp = {};
 
                     header.forEach((hVal: string, hKey: number) => {
@@ -254,14 +258,14 @@ export default function ModalPayoutsUpload({
     );
 
     const startUploadingData = useCallback(
-        (fund: Partial<Fund>, groupData, onChunk: (data: Array<RowDataProp>) => void) => {
+        (fund: Partial<Fund>, groupData: Array<RowDataProp>, onChunk: (data: Array<RowDataProp>) => void) => {
             return new Promise((resolve) => {
                 const submitData = chunk(groupData, dataChunkSize);
                 const chunksCount = submitData.length;
                 let currentChunkNth = 0;
                 let uploadBatchId = undefined;
 
-                const uploadChunk = (data: Array<RowDataProp>) => {
+                const uploadChunk = async (data: Array<RowDataProp>) => {
                     setChanged(true);
 
                     payoutTransactionService
@@ -269,6 +273,14 @@ export default function ModalPayoutsUpload({
                             payouts: data,
                             fund_id: fund.id,
                             upload_batch_id: uploadBatchId,
+                            file: {
+                                name: csvFile.name,
+                                content: await fileToText(csvFile),
+                                total: groupData.length,
+                                chunk: currentChunkNth,
+                                chunks: chunksCount,
+                                chunkSize: dataChunkSize,
+                            },
                         })
                         .then((res) => {
                             uploadBatchId = res?.data?.data?.[0]?.upload_batch_id;
@@ -304,10 +316,10 @@ export default function ModalPayoutsUpload({
                     return (abortRef.current = false);
                 }
 
-                uploadChunk(submitData[currentChunkNth]);
+                uploadChunk(submitData[currentChunkNth]).then();
             });
         },
-        [abortRef, dataChunkSize, organization.id, pushDanger, payoutTransactionService],
+        [dataChunkSize, payoutTransactionService, organization.id, csvFile, pushDanger],
     );
 
     const startValidationUploadingData = useCallback(
@@ -432,7 +444,7 @@ export default function ModalPayoutsUpload({
         setLoading(false);
     }, [csvIsValid, data, pushDanger, setLoadingBarProgress, startUploading]);
 
-    const onDragEvent = useCallback((e, isDragOver: boolean) => {
+    const onDragEvent = useCallback((e: React.DragEvent, isDragOver: boolean) => {
         e?.preventDefault();
         e?.stopPropagation();
 

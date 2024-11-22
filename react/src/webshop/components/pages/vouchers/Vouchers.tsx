@@ -69,16 +69,7 @@ export default function Vouchers() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        {translate('vouchers.header.title')}
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('vouchers.header.title') }]}
             profileHeader={
                 vouchers && (
                     <div className="profile-content-header clearfix">

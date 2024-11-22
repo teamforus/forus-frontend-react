@@ -114,25 +114,25 @@ export default function TransactionBulkTransactionsTable({
 
                                     <ThSortable
                                         filter={filter}
-                                        label={translate('transactions.labels.price')}
+                                        label={translate('transactions.labels.amount')}
                                         value="amount"
                                     />
 
                                     <ThSortable
                                         filter={filter}
-                                        label={translate('transactions.labels.date')}
+                                        label={translate('transactions.labels.created_at')}
                                         value="created_at"
                                     />
 
                                     <ThSortable
                                         filter={filter}
-                                        label={translate('transactions.labels.fund')}
+                                        label={translate('transactions.labels.fund_name')}
                                         value="fund_name"
                                     />
 
                                     <ThSortable
                                         filter={filter}
-                                        label={translate('transactions.labels.provider')}
+                                        label={translate('transactions.labels.provider_name')}
                                         value="provider_name"
                                     />
 
@@ -144,7 +144,7 @@ export default function TransactionBulkTransactionsTable({
 
                                     <ThSortable
                                         filter={filter}
-                                        label={translate('transactions.labels.status')}
+                                        label={translate('transactions.labels.state')}
                                         value="status"
                                     />
 

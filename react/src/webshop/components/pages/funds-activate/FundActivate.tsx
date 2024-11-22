@@ -92,7 +92,9 @@ export default function FundActivate() {
                 return null;
             }
 
-            const timeOffset = witOffset ? appConfigs.bsn_confirmation_offset || 300 : 0;
+            const timeOffset = witOffset
+                ? Math.min(appConfigs.bsn_confirmation_offset || 300, fund.bsn_confirmation_time / 2)
+                : 0;
 
             if (fund.bsn_confirmation_time === null || !identity.bsn) {
                 return null;
@@ -537,7 +539,7 @@ export default function FundActivate() {
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbs={<></>} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {fund && vouchers && appConfigs && (
                 <div className="block block-sign_up">
                     <div className="block-wrapper">

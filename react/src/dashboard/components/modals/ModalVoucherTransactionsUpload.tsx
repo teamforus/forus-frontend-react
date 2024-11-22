@@ -3,7 +3,7 @@ import { ModalState } from '../../modules/modals/context/ModalContext';
 import Organization from '../../props/models/Organization';
 import { useFileService } from '../../services/FileService';
 import Papa from 'papaparse';
-import { chunk, isEmpty } from 'lodash';
+import { chunk, isEmpty, uniqueId } from 'lodash';
 import useAuthIdentity from '../../hooks/useAuthIdentity';
 import { dateFormat } from '../../helpers/dates';
 import usePushSuccess from '../../hooks/usePushSuccess';
@@ -17,6 +17,7 @@ import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import usePushInfo from '../../hooks/usePushInfo';
+import { fileToText } from '../../helpers/utils';
 
 export default function ModalVoucherTransactionsUpload({
     modal,
@@ -194,7 +195,10 @@ export default function ModalVoucherTransactionsUpload({
                     enableToggles={false}
                     label_on={'Aanmaken'}
                     label_off={'Overslaan'}
-                    items={items.map((item) => ({ value: `Rij: ${item[0]}: ${item[2]['uid'] || ''} - ${item[1]}` }))}
+                    items={items.map((item) => ({
+                        _uid: uniqueId('rand_'),
+                        label: `Rij: ${item[0]}: ${item[2]['uid'] || ''} - ${item[1]}`,
+                    }))}
                     onConfirm={() => setHideModal(false)}
                     onCancel={() => setHideModal(false)}
                 />
@@ -231,7 +235,7 @@ export default function ModalVoucherTransactionsUpload({
                 const chunks = chunk(transactions, dataChunkSize);
                 let chunkCount = 0;
 
-                const uploadChunk = (data: Array<object>) => {
+                const uploadChunk = async (data: Array<object>) => {
                     const transformErrors = (errors: object) => {
                         return Object.keys(errors).reduce((obj, key) => {
                             const errorKey = key.split('.');
@@ -241,7 +245,17 @@ export default function ModalVoucherTransactionsUpload({
                     };
 
                     transactionService
-                        .storeBatch(organization.id, { transactions: data })
+                        .storeBatch(organization.id, {
+                            transactions: data,
+                            file: {
+                                name: csvFile.name,
+                                content: await fileToText(csvFile),
+                                total: transactions.length,
+                                chunk: chunkCount,
+                                chunks: chunks.length,
+                                chunkSize: dataChunkSize,
+                            },
+                        })
                         .then((res) => {
                             stats.errors = { ...transformErrors(res.data['errors']), ...stats.errors };
                             stats.success = stats.success += res.data['created'].length || 0;
@@ -277,10 +291,10 @@ export default function ModalVoucherTransactionsUpload({
                         });
                 };
 
-                uploadChunk(chunks[chunkCount]);
+                uploadChunk(chunks[chunkCount]).then();
             });
         },
-        [dataChunkSize, organization.id, transactionService],
+        [csvFile, dataChunkSize, organization.id, transactionService],
     );
 
     const startUploadingTransactions = useCallback(

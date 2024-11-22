@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router-dom';
-import Product, { DealHistory } from '../../../props/models/Product';
+import SponsorProduct, { DealHistory } from '../../../props/models/Sponsor/SponsorProduct';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { ResponseError } from '../../../props/ApiResponses';
@@ -34,7 +34,7 @@ export default function FundProviderProductSubsidyEdit() {
     const [values, setValues] = useState(null);
     const [readOnly, setReadOnly] = useState(false);
     const [fund, setFund] = useState<Fund>(null);
-    const [product, setProduct] = useState<Product>(null);
+    const [product, setProduct] = useState<SponsorProduct>(null);
     const [fundProvider, setFundProvider] = useState<FundProvider>(null);
 
     const [dealId] = useQueryParam('deal_id', NumberParam);

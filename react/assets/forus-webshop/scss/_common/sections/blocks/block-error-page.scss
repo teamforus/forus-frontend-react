@@ -1,10 +1,9 @@
 .block.block-error-page {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 60vh;
 
-    &>.wrapper {
-        justify-content: 'center';
+    & > .wrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -13,12 +12,12 @@
         padding-bottom: 100px;
 
         .page-not-found-title {
-            font: 600 164px/189px arial, "Open Sans", sans-serif;
-            color: #D0D0D0;
+            font: 600 164px/189px var(--base-font);
+            color: #d0d0d0;
         }
 
         .page-not-found-subtitle {
-            font: 600 26px/30px arial, "Open Sans", sans-serif;
+            font: 600 26px/30px var(--base-font);
             color: #303030;
             margin-bottom: 30px;
         }
