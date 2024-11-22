@@ -2,6 +2,7 @@ import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResp
 import { useState } from 'react';
 import Employee from '../props/models/Employee';
 import ApiRequestService from './ApiRequestService';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class EmployeeService<T = Employee> {
     /**
@@ -56,7 +57,27 @@ export class EmployeeService<T = Employee> {
             responseType: 'arraybuffer',
         });
     }
+
+    public getColumns(isProviderPanel: boolean): Array<ConfigurableTableColumn> {
+        const list = [
+            'email',
+            isProviderPanel ? 'branch_name_id' : null,
+            isProviderPanel ? 'branch_number' : null,
+            'auth_2fa',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `organization_employees.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `organization_employees.labels.${key}`,
+                description: `organization_employees.tooltips.${key}`,
+            },
+        }));
+    }
 }
+
 export function useEmployeeService(): EmployeeService {
     return useState(new EmployeeService())[0];
 }

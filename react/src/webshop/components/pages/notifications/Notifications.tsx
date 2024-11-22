@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { useNotificationService } from '../../../../dashboard/services/NotificationService';
@@ -56,16 +55,7 @@ export default function Notifications() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name="home" className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Notificaties
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Notificaties' }]}
             profileHeader={
                 notifications && (
                     <div className="profile-content-header clearfix">

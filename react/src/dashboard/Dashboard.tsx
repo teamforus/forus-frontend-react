@@ -99,7 +99,7 @@ export default function Dashboard({ envData }: { envData: EnvDataProp }): React.
                     </FrameDirectorProvider>
                 </RouterSelector>
             </ToastsProvider>
-            <AwsRumScript awsRum={envData.config?.aws_rum} />
+            <AwsRumScript awsRum={envData.config?.aws_rum} cookiesAccepted={false} />
         </PushNotificationsProvider>
     );
 }
