@@ -45,7 +45,7 @@ export default function FinancialOverviewFundsTable({
     );
 
     useEffect(() => {
-        fetchFunds(filterValuesActive.year_all).then(setFunds);
+        fetchFunds(filterValuesActive.year_all).then((funds) => setFunds(funds.filter((fund) => fund.budget)));
     }, [fetchFunds, filterValuesActive.year_all]);
 
     useEffect(() => {

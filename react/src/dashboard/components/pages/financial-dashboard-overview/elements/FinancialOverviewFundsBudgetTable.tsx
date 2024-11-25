@@ -38,7 +38,7 @@ export default function FinancialOverviewFundsBudgetTable({
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
     const budgetFunds = useMemo(() => {
-        return funds?.filter((fund) => fund.type == 'budget');
+        return funds?.filter((fund) => fund.type == 'budget' && fund.budget);
     }, [funds]);
 
     const fundService = useFundService();
@@ -69,7 +69,7 @@ export default function FinancialOverviewFundsBudgetTable({
     return (
         <div className="card card-financial">
             <div className="card-header card-header-next">
-                <div className="flex-col card-title flex flex-grow tooltipped">
+                <div className="card-title flex flex-grow tooltipped">
                     Tegoeden
                     <Tooltip text={'De tegoeden die zijn toegekend via het systeem met de huidige status.'} />
                 </div>

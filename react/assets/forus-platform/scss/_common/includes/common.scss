@@ -246,8 +246,16 @@ img {
     justify-items: center;
 }
 
+.flex-align-items-start {
+    align-items: flex-start;
+}
+
 .flex-align-items-center {
     align-items: center;
+}
+
+.flex-align-items-end {
+    align-items: flex-end;
 }
 
 .flex-self-start {

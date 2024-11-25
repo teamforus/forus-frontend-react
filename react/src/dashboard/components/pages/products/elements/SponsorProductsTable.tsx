@@ -27,10 +27,10 @@ export default function SponsorProductsTable({
             <tbody>
                 {products?.map((product) => (
                     <StateNavLink
-                        name={'sponsor-provider-organization'}
+                        name={'sponsor-product-history'}
                         params={{
+                            id: product?.id,
                             organizationId: activeOrganization.id,
-                            id: product.organization_id,
                         }}
                         className={'tr-clickable'}
                         customElement={'tr'}
