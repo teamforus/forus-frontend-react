@@ -93,7 +93,7 @@ export default function ProductMonitoredHistoryCardItem({
                                                                 <div>
                                                                     Deze weergave laat zien wat er is veranderd: de
                                                                     oude tekst is rood en de nieuwe tekst is groen. Bepaalde
-                                                                    wijzigingen, zoals veranderingen in links (URL's),
+                                                                    wijzigingen, zoals veranderingen in links (URLs),
                                                                     worden in deze weergave niet getoond.
                                                                 </div>
                                                             </InfoBox>
