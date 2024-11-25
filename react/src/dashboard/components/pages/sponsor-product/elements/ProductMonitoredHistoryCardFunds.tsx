@@ -107,7 +107,7 @@ export default function ProductMonitoredHistoryCardFunds({
                                                         organizationId: fund.organization_id,
                                                     }}
                                                     className="dropdown-item">
-                                                    Bekijken
+                                                    Bekijk aanbod
                                                 </StateNavLink>
                                             )}
 
