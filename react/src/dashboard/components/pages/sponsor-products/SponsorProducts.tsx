@@ -182,8 +182,8 @@ export default function SponsorProducts() {
                                     value={filter.activeValues.state}
                                     setValue={(state: 'approved' | 'pending') => filter.update({ state })}
                                     tabs={[
-                                        { value: 'approved', label: 'Approved' },
-                                        { value: 'pending', label: 'Pending' },
+                                        { value: 'approved', label: 'Geaccepteerd' },
+                                        { value: 'pending', label: 'In afwachting' },
                                     ]}
                                 />
 
