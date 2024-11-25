@@ -207,7 +207,7 @@ export default function FundRequests() {
                 </div>
 
                 <div className="card-header-filters form">
-                    <div className="block block-label-tabs nowrap">
+                    <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             {stateGroups?.map((stateGroup) => (
                                 <div

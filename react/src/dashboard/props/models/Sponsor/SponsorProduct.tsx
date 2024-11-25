@@ -18,6 +18,29 @@ export interface DealHistory {
     expire_at_locale?: string;
 }
 
+export interface SponsorProductHistoryItem {
+    id: number;
+    fields?: { [key: string]: { from?: string; to?: string } };
+    created_at: string;
+    created_at_locale: string;
+}
+
+export interface SponsorProductFundItem {
+    id: number;
+    name: string;
+    type: string;
+    type_locale: string;
+    state: 'approved' | 'pending' | 'not_applied';
+    state_locale: 'Goedgekeurd' | 'In behandeling';
+    implementation?: { id: number; name: string };
+    organization_id: number;
+    fund_provider_id?: number;
+    organization_name: string;
+    logo: Media;
+    url?: string;
+    url_product?: string;
+}
+
 export default interface SponsorProduct {
     id: number;
     name: string;
@@ -42,16 +65,7 @@ export default interface SponsorProduct {
     expire_at_locale: string;
     expired: boolean;
     deleted: boolean;
-    funds: Array<{
-        id: number;
-        name: string;
-        type: string;
-        organization_id: number;
-        organization_name: string;
-        logo: Media;
-        url?: string;
-        url_product?: string;
-    }>;
+    funds?: Array<SponsorProductFundItem>;
     offices: Array<Office>;
     product_category: ProductCategory;
     bookmarked: boolean;
@@ -68,11 +82,7 @@ export default interface SponsorProduct {
         id: number;
         name: string;
     };
-    monitored_history?: Array<{
-        id: number;
-        created_at: string;
-        created_at_locale: string;
-    }>;
+    monitored_history?: Array<SponsorProductHistoryItem>;
     unseen_messages: number;
     deals_history?: Array<DealHistory>;
     is_available?: boolean;

@@ -49,7 +49,6 @@
     @import 'blocks/block-subsidy-product-overview';
     @import 'blocks/block-app_download.scss';
     @import 'blocks/block-app_links.scss';
-    @import 'blocks/block-label-tabs.scss';
     @import 'blocks/block-timeframe.scss';
     @import 'blocks/block-financial-dashboard.scss';
     @import 'blocks/block-banner-picker.scss';
@@ -98,6 +97,7 @@
 @import 'blocks/block-collapsable.scss';
 @import 'blocks/block-fund-request-assigned.scss';
 @import 'blocks/block-product.scss';
+@import 'blocks/block-label-tabs.scss';
 
 // Select controls
 @import 'select-controls/select-control-funds';
@@ -5559,156 +5559,6 @@ body {
             min-height: 100%;
             justify-content: center;
             justify-items: center;
-        }
-    }
-
-    &.block-label-tabs {
-        display: flex;
-        margin-left: 10px;
-        border-radius: calc(var(--border-radius));
-
-        .label-tab {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-right: none;
-            font: 500 13px/20px var(--base-font);
-            color: #2f2e43;
-            padding: 5px 10px;
-            transition:
-                color 0.4s,
-                border-color 0.4s,
-                background-color 0.4s,
-                box-shadow 0.4s;
-            cursor: pointer;
-            outline: none;
-            border-radius: 0;
-            position: relative;
-            vertical-align: middle;
-            display: flex;
-            justify-content: center;
-            justify-items: center;
-
-            .mdi {
-                font-size: 16px;
-                line-height: 20px;
-                float: left;
-                color: #6f747e;
-            }
-
-            .label-tab-icon-start {
-                margin-right: 4px;
-            }
-
-            .label-tab-icon-end {
-                margin-left: 4px;
-            }
-
-            &:first-child {
-                border-top-left-radius: calc(var(--border-radius));
-                border-bottom-left-radius: calc(var(--border-radius));
-            }
-
-            &:last-child {
-                border-top-right-radius: calc(var(--border-radius));
-                border-bottom-right-radius: calc(var(--border-radius));
-                border-right: 1px solid var(--border-color);
-            }
-
-            &:hover:not(.active) {
-                color: var(--color-primary);
-                box-shadow: 2px 3px 6px 2px rgba(0, 0, 0, 0.075);
-            }
-
-            &.label-tab-text {
-                border: none;
-                box-shadow: none;
-                background: transparent;
-
-                &:hover {
-                    color: var(--color-primary-light);
-                    box-shadow: none;
-
-                    .mdi {
-                        color: var(--color-primary-light);
-                    }
-                }
-            }
-
-            &.label-tab-primary {
-                color: var(--color-primary);
-            }
-
-            &.label-tab-disabled {
-                pointer-events: none;
-                cursor: default;
-            }
-
-            &.label-tab-primary-light {
-                color: var(--color-primary-light);
-
-                &:hover {
-                    color: var(--color-primary);
-                }
-            }
-
-            &.label-tab-sm {
-                padding: 4px 8px;
-                font: 500 11px/20px var(--base-font);
-            }
-
-            &.active {
-                background: var(--color-primary);
-                border-color: var(--color-primary);
-                color: #fff;
-
-                .mdi {
-                    color: #fff;
-                }
-
-                .label-tab-dropdown,
-                .label-tab-dropdown .mdi {
-                    color: var(--text-color);
-                }
-            }
-
-            &.disabled {
-                cursor: default;
-                pointer-events: none;
-            }
-        }
-
-        .label-tab-set {
-            margin-right: 10px;
-            display: flex;
-            border-radius: inherit;
-
-            &:last-child {
-                margin-right: 0;
-            }
-
-            &.label-tab-set-borderless {
-                .label-tab {
-                    &:hover {
-                        box-shadow: none;
-                    }
-
-                    &:not(:last-child) {
-                        border-right: none;
-                    }
-
-                    &:not(:first-child) {
-                        border-left: none;
-                    }
-                }
-            }
-
-            &.label-tab-set-shadowless {
-                box-shadow: none;
-            }
-        }
-
-        &:first-child {
-            margin-left: 0;
         }
     }
 

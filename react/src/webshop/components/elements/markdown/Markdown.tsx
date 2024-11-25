@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import classNames from 'classnames';
 
 export default function Markdown({
     align,
@@ -83,7 +84,7 @@ export default function Markdown({
             role={role}
             aria-level={ariaLevel}
             style={{ fontSize: fontSize ? `${fontSize}px` : undefined }}
-            className={`block block-markdown ${align ? 'block-markdown-' + align : ''} ${className}`}
+            className={classNames('block', 'block-markdown', align && `block-markdown-${align}`, className)}
             dangerouslySetInnerHTML={{ __html: content }}
         />
     );

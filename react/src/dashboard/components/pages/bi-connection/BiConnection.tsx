@@ -24,6 +24,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import InfoBox from '../../elements/info-box/InfoBox';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function BiConnection() {
     const auth2FAState = useAuthIdentity2FAState();
@@ -261,31 +262,16 @@ export default function BiConnection() {
 
             <div className="card">
                 <form className="form">
-                    <div className="card-header">
-                        <div className="flex-row">
-                            <div className="flex-col flex-grow">
-                                <div className="card-title">
-                                    <span>{translate('bi_connection.title')}</span>
-                                </div>
-                            </div>
-
-                            <div className="flex-col">
-                                <div className="block block-label-tabs nowrap">
-                                    <div className="label-tab-set">
-                                        {viewTypes.map((type, index) => (
-                                            <div
-                                                key={index}
-                                                className={`label-tab label-tab-sm ${
-                                                    type === filterValues.view_type ? 'active' : ''
-                                                }`}
-                                                onClick={() => filtersUpdate({ view_type: type })}>
-                                                {translate(`bi_connection.tabs.${type}`)}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="card-header card-header-next">
+                        <div className="card-title flex flex-grow">{translate('bi_connection.title')}</div>
+                        <BlockLabelTabs
+                            value={filterValues.view_type}
+                            setValue={(type: 'settings' | 'security') => filtersUpdate({ view_type: type })}
+                            tabs={viewTypes.map((type) => ({
+                                label: translate(`bi_connection.tabs.${type}`),
+                                value: type,
+                            }))}
+                        />
                     </div>
 
                     {filterValues.view_type === 'settings' && (

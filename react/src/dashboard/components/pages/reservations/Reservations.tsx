@@ -388,7 +388,7 @@ export default function Reservations() {
                             </div>
                         )}
                         <div className="flex-col">
-                            <div className="block block-label-tabs nowrap pull-right">
+                            <div className="block block-label-tabs pull-right">
                                 <div className="label-tab-set">
                                     <div
                                         className={`label-tab label-tab-sm ${

@@ -7,7 +7,6 @@ import { PaginationData } from '../../../props/ApiResponses';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SponsorProductsTable from './elements/SponsorProductsTable';
@@ -24,7 +23,7 @@ import Fund from '../../../props/models/Fund';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import classNames from 'classnames';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function SponsorProducts() {
     const activeOrganization = useActiveOrganization();
@@ -63,6 +62,7 @@ export default function SponsorProducts() {
         to?: string;
         from?: string;
         page?: number;
+        state?: 'approved' | 'pending';
         fund_id?: number;
         price_min?: string;
         price_max?: string;
@@ -77,6 +77,7 @@ export default function SponsorProducts() {
             to: null,
             price_min: null,
             price_max: null,
+            state: 'approved',
             fund_id: null,
             has_reservations: null,
             date_type: 'created_at',
@@ -92,6 +93,7 @@ export default function SponsorProducts() {
                 fund_id: NumberParam,
                 per_page: NumberParam,
                 has_reservations: NumberParam,
+                state: createEnumParam(['all', 'approved', 'pending']),
                 date_type: createEnumParam(['created_at', 'updated_at']),
                 price_min: StringParam,
                 price_max: StringParam,
@@ -100,7 +102,8 @@ export default function SponsorProducts() {
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(productService.getColumnsSponsor(view));
+    const columns = productService.getColumnsSponsor(view);
+    const { headElement, configsElement } = useConfigurableTable(columns);
 
     const { resetFilters: resetFilters } = filter;
 
@@ -166,27 +169,23 @@ export default function SponsorProducts() {
 
                         {!filter.show && (
                             <Fragment>
-                                <div className="block block-label-tabs">
-                                    <div className="label-tab-set">
-                                        <div
-                                            className={classNames(
-                                                `label-tab label-tab-sm`,
-                                                view == 'products' && 'active',
-                                            )}
-                                            onClick={() => setView('products')}>
-                                            Alle
-                                        </div>
+                                <BlockLabelTabs
+                                    value={view}
+                                    setValue={(view: 'products' | 'history') => setView(view)}
+                                    tabs={[
+                                        { value: 'products', label: 'Aanbod' },
+                                        { value: 'history', label: 'Wijzigingen' },
+                                    ]}
+                                />
 
-                                        <div
-                                            className={classNames(
-                                                `label-tab label-tab-sm`,
-                                                view == 'history' && 'active',
-                                            )}
-                                            onClick={() => setView('history')}>
-                                            Wijzigingen
-                                        </div>
-                                    </div>
-                                </div>
+                                <BlockLabelTabs
+                                    value={filter.activeValues.state}
+                                    setValue={(state: 'approved' | 'pending') => filter.update({ state })}
+                                    tabs={[
+                                        { value: 'approved', label: 'Geaccepteerd' },
+                                        { value: 'pending', label: 'In afwachting' },
+                                    ]}
+                                />
 
                                 <div className="form-group">
                                     <SelectControl
@@ -228,11 +227,7 @@ export default function SponsorProducts() {
                                                 <input
                                                     className="form-control"
                                                     value={filterValues.q}
-                                                    onChange={(e) =>
-                                                        filterUpdate({
-                                                            q: e.target.value,
-                                                        })
-                                                    }
+                                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                                     placeholder={translate('sponsor_products.filters.search')}
                                                 />
                                             </FilterItemToggle>
@@ -346,16 +341,21 @@ export default function SponsorProducts() {
                             <div className="card-block card-block-table">
                                 {configsElement}
 
-                                <TableTopScroller>
-                                    {view == 'products' ? (
-                                        <SponsorProductsTable products={products?.data} headElement={headElement} />
-                                    ) : (
-                                        <SponsorProductsChangesTable
-                                            products={products?.data}
-                                            headElement={headElement}
-                                        />
-                                    )}
-                                </TableTopScroller>
+                                {view == 'products' ? (
+                                    <SponsorProductsTable
+                                        columns={columns}
+                                        products={products?.data}
+                                        headElement={headElement}
+                                        activeOrganization={activeOrganization}
+                                    />
+                                ) : (
+                                    <SponsorProductsChangesTable
+                                        columns={columns}
+                                        products={products?.data}
+                                        headElement={headElement}
+                                        activeOrganization={activeOrganization}
+                                    />
+                                )}
                             </div>
                         </div>
                     )}
