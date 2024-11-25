@@ -18,8 +18,8 @@ export default function ProductMonitoredHistoryCard({ product }: { product: Spon
                     value={historyView}
                     setValue={(historyView: 'compare' | 'diff') => setHistoryView(historyView)}
                     tabs={[
-                        { value: 'compare', label: 'Compare' },
-                        { value: 'diff', label: 'Text diff' },
+                        { value: 'compare', label: 'Tekstueel' },
+                        { value: 'diff', label: 'Visueel' },
                     ]}
                 />
             </div>
