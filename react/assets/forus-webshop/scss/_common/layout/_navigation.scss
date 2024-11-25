@@ -939,9 +939,10 @@
         &.block-navbar {
             .button.navbar-menu-button,
             .button.navbar-search-button {
-                padding: 10px 0px;
+                padding: 9px 0;
                 min-width: 60px;
                 font: 600 9px/14px var(--base-font);
+                outline-offset: -2px !important;
             }
 
             .button.button-xs {
