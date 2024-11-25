@@ -91,8 +91,8 @@ export default function ProductMonitoredHistoryCardItem({
                                                                     <strong>Let op</strong>
                                                                 </div>
                                                                 <div>
-                                                                    Deze weergave laat zien wat er is veranderd: de
-                                                                    oude tekst is rood en de nieuwe tekst is groen. Bepaalde
+                                                                    Deze weergave laat zien wat er is veranderd: de oude
+                                                                    tekst is rood en de nieuwe tekst is groen. Bepaalde
                                                                     wijzigingen, zoals veranderingen in links (URLs),
                                                                     worden in deze weergave niet getoond.
                                                                 </div>
