@@ -17,6 +17,7 @@ import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import usePushInfo from '../../hooks/usePushInfo';
+import { fileToText } from '../../helpers/utils';
 
 export default function ModalVoucherTransactionsUpload({
     modal,
@@ -234,7 +235,7 @@ export default function ModalVoucherTransactionsUpload({
                 const chunks = chunk(transactions, dataChunkSize);
                 let chunkCount = 0;
 
-                const uploadChunk = (data: Array<object>) => {
+                const uploadChunk = async (data: Array<object>) => {
                     const transformErrors = (errors: object) => {
                         return Object.keys(errors).reduce((obj, key) => {
                             const errorKey = key.split('.');
@@ -244,7 +245,17 @@ export default function ModalVoucherTransactionsUpload({
                     };
 
                     transactionService
-                        .storeBatch(organization.id, { transactions: data })
+                        .storeBatch(organization.id, {
+                            transactions: data,
+                            file: {
+                                name: csvFile.name,
+                                content: await fileToText(csvFile),
+                                total: transactions.length,
+                                chunk: chunkCount,
+                                chunks: chunks.length,
+                                chunkSize: dataChunkSize,
+                            },
+                        })
                         .then((res) => {
                             stats.errors = { ...transformErrors(res.data['errors']), ...stats.errors };
                             stats.success = stats.success += res.data['created'].length || 0;
@@ -280,10 +291,10 @@ export default function ModalVoucherTransactionsUpload({
                         });
                 };
 
-                uploadChunk(chunks[chunkCount]);
+                uploadChunk(chunks[chunkCount]).then();
             });
         },
-        [dataChunkSize, organization.id, transactionService],
+        [csvFile, dataChunkSize, organization.id, transactionService],
     );
 
     const startUploadingTransactions = useCallback(

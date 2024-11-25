@@ -18,6 +18,7 @@ import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
 import usePayoutTransactionService from '../../services/PayoutTransactionService';
+import { fileToText } from '../../helpers/utils';
 
 type CSVErrorProp = {
     csvHasBsnWhileNotAllowed?: boolean;
@@ -264,7 +265,7 @@ export default function ModalPayoutsUpload({
                 let currentChunkNth = 0;
                 let uploadBatchId = undefined;
 
-                const uploadChunk = (data: Array<RowDataProp>) => {
+                const uploadChunk = async (data: Array<RowDataProp>) => {
                     setChanged(true);
 
                     payoutTransactionService
@@ -272,6 +273,14 @@ export default function ModalPayoutsUpload({
                             payouts: data,
                             fund_id: fund.id,
                             upload_batch_id: uploadBatchId,
+                            file: {
+                                name: csvFile.name,
+                                content: await fileToText(csvFile),
+                                total: groupData.length,
+                                chunk: currentChunkNth,
+                                chunks: chunksCount,
+                                chunkSize: dataChunkSize,
+                            },
                         })
                         .then((res) => {
                             uploadBatchId = res?.data?.data?.[0]?.upload_batch_id;
@@ -307,10 +316,10 @@ export default function ModalPayoutsUpload({
                     return (abortRef.current = false);
                 }
 
-                uploadChunk(submitData[currentChunkNth]);
+                uploadChunk(submitData[currentChunkNth]).then();
             });
         },
-        [abortRef, dataChunkSize, organization.id, pushDanger, payoutTransactionService],
+        [dataChunkSize, payoutTransactionService, organization.id, csvFile, pushDanger],
     );
 
     const startValidationUploadingData = useCallback(

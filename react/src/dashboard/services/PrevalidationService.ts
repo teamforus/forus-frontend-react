@@ -32,11 +32,13 @@ export class PrevalidationService<T = Prevalidation> {
         data: Array<{ [key: string]: string }>,
         fund_id: number = null,
         overwrite: Array<string> = [],
+        file?: object,
     ): Promise<T> {
         return this.apiRequest.post(`${this.prefix}/collection`, {
             data: data,
             fund_id: fund_id,
             overwrite: overwrite,
+            file,
         });
     }
 

@@ -31,6 +31,15 @@ export const extractText = (html: string) => {
     return doc.body.textContent || '';
 };
 
+export const fileToText = async (file: File) => {
+    return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.toString());
+        reader.onerror = () => reject(reader.error);
+        reader.readAsText(file);
+    });
+};
+
 export const removeNullProperties = (obj?: object) => {
     return obj
         ? Object.keys(obj).reduce((acc, key) => {
