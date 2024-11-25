@@ -45,14 +45,14 @@ export default function ProductMonitoredHistoryCardItem({
                             <thead>
                                 <tr>
                                     <th className={'th-narrow'}></th>
-                                    <th style={{ width: '240px' }}>Field</th>
+                                    <th style={{ width: '240px' }}>Veld</th>
                                     {historyView === 'compare' ? (
                                         <Fragment>
-                                            <th>From</th>
-                                            <th>To</th>
+                                            <th>Oud</th>
+                                            <th>Nieuw</th>
                                         </Fragment>
                                     ) : (
-                                        <th>Diff</th>
+                                        <th>Wijziging</th>
                                     )}
                                 </tr>
                             </thead>
@@ -88,12 +88,13 @@ export default function ProductMonitoredHistoryCardItem({
                                                                 iconColor={'warning'}
                                                                 iconPosition={'top'}>
                                                                 <div>
-                                                                    <strong>Caution!</strong>
+                                                                    <strong>Let op</strong>
                                                                 </div>
                                                                 <div>
-                                                                    The diff view extracts text from the product
-                                                                    description, which may not display certain changes,
-                                                                    such as link URLs.
+                                                                    Deze weergave laat zien wat er is veranderd: de
+                                                                    oude tekst is rood en de nieuwe tekst is groen. Bepaalde
+                                                                    wijzigingen, zoals veranderingen in links (URL's),
+                                                                    worden in deze weergave niet getoond.
                                                                 </div>
                                                             </InfoBox>
                                                         )}
