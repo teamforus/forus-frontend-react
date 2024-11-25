@@ -120,7 +120,7 @@ export default function ProductMonitoredHistoryCardFunds({
                                                         organizationId: fund.organization_id,
                                                     }}
                                                     className="dropdown-item">
-                                                    Bekijken aanbieder
+                                                    Bekijk aanbieder
                                                 </StateNavLink>
                                             )}
 
@@ -151,7 +151,7 @@ export default function ProductMonitoredHistoryCardFunds({
     return (
         <div className="card">
             <div className="card-header card-header-next">
-                <div className="card-title flex flex-grow">Funds</div>
+                <div className="card-title flex flex-grow">Fondsen</div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
                         <StateNavLink
