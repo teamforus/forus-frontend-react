@@ -16,6 +16,7 @@ import usePushDanger from '../../../../hooks/usePushDanger';
 import { ResponseError } from '../../../../props/ApiResponses';
 import { fileSize } from '../../../../helpers/string';
 import classNames from 'classnames';
+import { fileToText } from '../../../../helpers/utils';
 
 type RowDataPropData = { [key: string]: string };
 
@@ -315,9 +316,16 @@ export default function CSVUpload({
 
                 updateProgressBarValue(0);
 
-                const uploadChunk = function (data: Array<{ [key: string]: string }>) {
+                const uploadChunk = async function (data: Array<{ [key: string]: string }>) {
                     prevalidationService
-                        .submitCollection(data, fund.id, overwriteUids)
+                        .submitCollection(data, fund.id, overwriteUids, {
+                            name: csvFile.name,
+                            content: await fileToText(csvFile),
+                            total: data.length,
+                            chunk: currentChunkNth,
+                            chunks: chunksCount,
+                            chunkSize: dataChunkSize,
+                        })
                         .then(() => {
                             currentChunkNth++;
                             updateProgressBarValue((currentChunkNth / chunksCount) * 100);
@@ -351,7 +359,7 @@ export default function CSVUpload({
                         });
                 };
 
-                uploadChunk(submitData[currentChunkNth]);
+                uploadChunk(submitData[currentChunkNth]).then();
             });
         },
         [
@@ -363,6 +371,7 @@ export default function CSVUpload({
             pushDanger,
             showInvalidRows,
             updateProgressBarValue,
+            csvFile,
         ],
     );
 

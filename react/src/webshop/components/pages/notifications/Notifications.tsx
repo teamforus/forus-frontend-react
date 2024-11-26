@@ -8,6 +8,7 @@ import useFilter from '../../../../dashboard/hooks/useFilter';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
+import classNames from 'classnames';
 
 export default function Notifications() {
     const translate = useTranslate();
@@ -84,7 +85,9 @@ export default function Notifications() {
                                             <th>Notificatie</th>
                                         </tr>
                                         {notifications.data?.map((notification) => (
-                                            <tr key={notification.id} className={!notification.seen ? 'dim' : ''}>
+                                            <tr
+                                                key={notification.id}
+                                                className={classNames(!notification.seen && 'tr-dim')}>
                                                 <td className="notification-date hide-sm">
                                                     <em className="mdi mdi-clock-outline" />
                                                     {notification.created_at_locale}

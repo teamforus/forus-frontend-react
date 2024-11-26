@@ -21,7 +21,7 @@ import ProviderOverview from '../components/pages/provider-overview/ProviderOver
 import Offices from '../components/pages/offices/Offices';
 import ProductsCreate from '../components/pages/products-edit/ProductsCreate';
 import ProductsEdit from '../components/pages/products-edit/ProductsEdit';
-import ProductsView from '../components/pages/products-view/ProductsView';
+import ProductView from '../components/pages/products-view/ProductView';
 import Transactions from '../components/pages/transactions/Transactions';
 import TransactionSettings from '../components/pages/transaction-settings/TransactionSettings';
 import TransactionsView from '../components/pages/transactions-view/TransactionsView';
@@ -89,8 +89,9 @@ import SponsorFundUnsubscriptions from '../components/pages/sponsor-fund-unsubsc
 import OrganizationsContacts from '../components/pages/organizations-contacts/OrganizationsContacts';
 import Payouts from '../components/pages/payouts/Payouts';
 import PayoutsView from '../components/pages/payouts-view/PayoutsView';
-import ProductsViewHistory from '../components/pages/products-view/SponsorProductsView';
 import Products from '../components/pages/products/Products';
+import SponsorProducts from '../components/pages/sponsor-products/SponsorProducts';
+import SponsorProductView from '../components/pages/sponsor-product/SponsorProductView';
 
 const router = new RouterBuilder();
 
@@ -210,12 +211,6 @@ router.state('sponsor-provider-organizations', <SponsorProviderOrganizations />,
     fallbackState: 'organizations',
 });
 
-router.state('sponsor-product-history', <ProductsViewHistory />, {
-    path: `/organisaties/:organizationId/producten/:id/geschiedenis`,
-    altPath: `/organizations/:organizationId/products/:id/history`,
-    fallbackState: 'organizations',
-});
-
 router.state('sponsor-provider-organization', <SponsorProviderOrganization />, {
     path: `/organisaties/:organizationId/aanbieders/:id`,
     altPath: `/organizations/:organizationId/providers/:id`,
@@ -265,6 +260,18 @@ router.state('fund-provider-product-subsidy-edit', <FundProviderProductSubsidyEd
 router.state('sponsor-fund-unsubscriptions', <SponsorFundUnsubscriptions />, {
     path: `/organisaties/:organizationId/fonds-afmeldingen`,
     altPath: `/organizations/:organizationId/fund-unsubscriptions`,
+    fallbackState: 'organizations',
+});
+
+router.state('sponsor-products', <SponsorProducts />, {
+    path: `/organisaties/:organizationId/sponsor/producten`,
+    altPath: `/organizations/:organizationId/sponsor/products`,
+    fallbackState: 'organizations',
+});
+
+router.state('sponsor-product', <SponsorProductView />, {
+    path: `/organisaties/:organizationId/sponsor/producten/:productId`,
+    altPath: `/organizations/:organizationId/sponsor/products/:productId`,
     fallbackState: 'organizations',
 });
 
@@ -512,7 +519,7 @@ router.state('products', <Products />, {
     altPath: `/organizations/:organizationId/products`,
 });
 
-router.state('products-show', <ProductsView />, {
+router.state('products-show', <ProductView />, {
     path: `/organisaties/:organizationId/producten/:id`,
     altPath: `/organizations/:organizationId/products/:id`,
     fallbackState: 'products',

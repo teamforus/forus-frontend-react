@@ -39,7 +39,7 @@ export default function ProviderFunds() {
             <div className="card-heading flex-row">
                 <div className="flex-col flex-grow">{translate('provider_funds.title.main')}</div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs nowrap">
+                    <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'active' ? 'active' : ''}`}
@@ -68,7 +68,7 @@ export default function ProviderFunds() {
                     </div>
                 </div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs nowrap">
+                    <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'invitations' ? 'active' : ''}`}
@@ -87,7 +87,7 @@ export default function ProviderFunds() {
                     </div>
                 </div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs nowrap">
+                    <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'unsubscriptions' ? 'active' : ''}`}

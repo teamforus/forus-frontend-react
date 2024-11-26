@@ -97,6 +97,7 @@
                         position: sticky;
                         right: 0;
                         z-index: 1;
+                        width: 0;
                         background: linear-gradient(
                             90deg,
                             rgba(255, 255, 255, 0) 0%,
@@ -366,18 +367,31 @@
                 }
 
                 .td-entity-main {
-                    display: grid;
-                    grid-template-columns: auto 1fr;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
                     gap: 10px;
 
+                    .td-entity-main-collapse {
+                        display: flex;
+                        font-size: 24px;
+                        flex-direction: column;
+                        justify-content: center;
+                        margin-right: -10px;
+                    }
+
                     .td-entity-main-media {
-                        display: grid;
-                        align-items: center;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-content: center;
                     }
 
                     .td-entity-main-content {
-                        display: grid;
-                        align-items: center;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        align-content: center;
                     }
                 }
 
@@ -389,6 +403,11 @@
 
                     &.td-media-sm {
                         width: 30px;
+                        border-radius: 4px;
+                    }
+
+                    &.td-media-md {
+                        width: 40px;
                         border-radius: 4px;
                     }
 
@@ -490,8 +509,19 @@
                 }
             }
 
-            &.dim {
+            &.tr-dim {
                 background: #f6f9fc;
+            }
+
+            &.tr-gray {
+                background: #fefefe;
+            }
+
+            &.tr-narrow {
+                td {
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                }
             }
 
             &.light {

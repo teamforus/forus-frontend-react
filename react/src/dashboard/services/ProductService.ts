@@ -157,18 +157,9 @@ export class ProductService<T = Product> {
     }
 
     public getColumnsSponsor(tab: 'products' | 'history' = 'products'): Array<ConfigurableTableColumn> {
-        const productsList = [
-            'name',
-            'provider_name',
-            'last_updated',
-            'nr_funds',
-            'price',
-            'stock_amount',
-            'category',
-            'created_at',
-        ];
+        const productsList = ['name', 'last_updated', 'nr_funds', 'price', 'stock_amount', 'category', 'created_at'];
+        const historyList = ['name', 'last_updated', 'nr_changes', 'fund'];
 
-        const historyList = ['name', 'provider_name', 'last_updated', 'nr_changes', 'fund'];
         const list = (tab === 'products' ? productsList : historyList).filter((item) => item);
 
         return list.map((key) => ({

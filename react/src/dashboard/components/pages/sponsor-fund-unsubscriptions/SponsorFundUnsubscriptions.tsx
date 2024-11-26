@@ -94,7 +94,7 @@ export default function SponsorFundUnsubscriptions() {
                 <div className="card-header card-header-next">
                     <div className="card-title flex flex-grow">Afmeldingen ({fundUnsubscribes.meta.total})</div>
                     <div className="card-header-filters">
-                        <div className="block block-label-tabs nowrap pull-right">
+                        <div className="block block-label-tabs pull-right">
                             <div className="label-tab-set">
                                 {statesOptions.map((item) => (
                                     <div

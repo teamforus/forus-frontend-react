@@ -26,18 +26,17 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import ModalFundTopUp from '../../modals/ModalFundTopUp';
 import useTranslate from '../../../hooks/useTranslate';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
-    const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
     const activeOrganization = useActiveOrganization();
 
@@ -360,27 +359,12 @@ export default function OrganizationFunds() {
                                             customElement={'tr'}
                                             className={'tr-clickable'}>
                                             <td>
-                                                <div className="td-entity-main">
-                                                    <div className="td-entity-main-media">
-                                                        <img
-                                                            className="td-media td-media-sm td-media-round"
-                                                            src={
-                                                                fund.logo?.sizes.thumbnail ||
-                                                                assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                                            }
-                                                            alt={''}
-                                                        />
-                                                    </div>
-
-                                                    <div className="td-entity-main-content">
-                                                        <div
-                                                            className="text-strong text-primary"
-                                                            title={fund.name || '-'}>
-                                                            {strLimit(fund.name, 50)}
-                                                        </div>
-                                                        <div className="text-muted-dark">{fund.type_locale}</div>
-                                                    </div>
-                                                </div>
+                                                <TableEntityMain
+                                                    title={strLimit(fund.name, 50)}
+                                                    subtitle={fund.type_locale}
+                                                    mediaPlaceholder={'fund'}
+                                                    media={fund?.logo}
+                                                />
                                             </td>
 
                                             <td className="text-strong text-muted-dark">
