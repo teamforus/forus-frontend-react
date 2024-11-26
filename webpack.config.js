@@ -253,7 +253,6 @@ module.exports = (env, argv) => {
                             options: {
                                 sourceMap: true,
                                 implementation: require('sass'),
-                                additionalData: '$buildReact: true;',
                                 webpackImporter: true,
                                 warnRuleAsWarning: false,
                                 sassOptions: { quietDeps: true },

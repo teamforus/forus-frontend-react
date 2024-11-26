@@ -58,8 +58,8 @@
                 padding: 5px 20px;
                 font: 500 17px/24px var(--base-font);
                 transition:
-                    color 0.4s,
-                    background-color 0.4s;
+                    color .4s,
+                    background-color .4s;
 
                 .mdi {
                     float: left;
@@ -307,7 +307,7 @@
                 font: 500 14px/27px var(--base-font);
                 margin: 0 0 15px;
                 color: var(--sign_up_accent_color);
-                transition: 0.4s;
+                transition: color .4s;
                 display: inline;
                 text-decoration: underline;
                 cursor: pointer;
@@ -885,8 +885,8 @@
             cursor: pointer;
             background-color: #fff;
             transition:
-                background-color 0.4s,
-                border-color 0.4s;
+                background-color .4s,
+                border-color .4s;
 
             .sign_up-option-media {
                 display: flex;

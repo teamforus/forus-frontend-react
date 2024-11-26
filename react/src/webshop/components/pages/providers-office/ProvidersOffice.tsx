@@ -99,7 +99,7 @@ export default function ProvidersOffice() {
                 provider && [
                     { name: 'Aanbieders', state: 'providers' },
                     { name: provider.name, state: 'provider', stateParams: { id: provider.id } },
-                    { name: office.address },
+                    { name: office?.address },
                 ]
             }
             breadcrumbWrapper={true}

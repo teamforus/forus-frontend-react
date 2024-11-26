@@ -30,12 +30,6 @@
                 text-align: center;
                 top: 0;
                 z-index: 100;
-                -webkit-transition: outline-color .7s ease-out;
-                -moz-transition: outline-color .7s ease-out;
-                -o-transition: outline-color .7s ease-out;
-                transition: outline-color .7s ease-out;
-                outline: 5px auto -webkit-focus-ring-color;
-                outline-offset: 1px;
 
                 @media screen and (max-width: 767px) {
                     position: fixed;

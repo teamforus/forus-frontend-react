@@ -22,11 +22,7 @@ body {
 .block.block-map_card,
 .block.block-action-card,
 .block.block-transactions,
-.block.block-funds-list .fund-item,
 .block.block-product .product-card,
-.block.block-reimbursements .reimbursement-item,
-.block.block-search-results .search-item,
-.block.block-vouchers .voucher-item,
 .block.block-voucher .base-card.base-card-voucher,
 .block.block-voucher .base-card.base-card-sponsor,
 .block.block-profile .profile-aside .profile-aside-block {
@@ -36,16 +32,6 @@ body {
 .block.block-office .office-content .block-organizations .organization-item,
 .block.block-provider .provider-content .block-organizations .organization-item {
     border: none;
-}
-
-.block.block-funds-list .fund-item,
-.block.block-search-results .search-item {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
-    transition: 0.4s;
-
-    &:hover {
-        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
-    }
 }
 
 .block.block-show-more .button,
@@ -63,7 +49,6 @@ body {
 @import 'doetegoed/sections/blocks/block-footer';
 @import 'doetegoed/sections/blocks/block-product';
 @import 'doetegoed/sections/blocks/block-sign_up';
-@import 'doetegoed/sections/blocks/block-cms-funds';
 @import 'doetegoed/sections/blocks/block-copyrights';
 @import 'doetegoed/sections/blocks/block-action-card';
 @import 'doetegoed/sections/blocks/block-organizations';

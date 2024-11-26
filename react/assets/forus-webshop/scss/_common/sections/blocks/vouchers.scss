@@ -10,18 +10,21 @@
 
         .voucher-item {
             background-color: #fff;
-            border-radius: var(--border-radius);
             margin-bottom: 15px;
-            box-shadow: var(--box-shadow);
             position: relative;
             transition:
                 background-color 0.4s,
+                box-shadow 0.4s,
                 border 0.4s;
             min-height: 120px;
             overflow: hidden;
             cursor: default;
             display: grid;
             grid-template-columns: 130px 1fr auto;
+            background: var(--showcase-item-background);
+            border-radius: var(--showcase-item-border-radius);
+            box-shadow: var(--showcase-item-shadow);
+            border: var(--showcase-item-border);
 
             .voucher-image {
                 overflow: hidden;
@@ -156,7 +159,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                    box-shadow: var(--showcase-item-hover-shadow);
 
                     .voucher-image {
                         &:after {
@@ -352,7 +355,7 @@
                 }
 
                 &:focus {
-                    outline-offset: -2px;
+                    outline-offset: -2px !important;
                     border-radius: 7px;
                 }
 
@@ -360,11 +363,7 @@
                     border: 1px solid var(--border-color);
                     border-radius: calc(var(--border-radius) / 2);
                     padding-right: 25px;
-                    @if $buildReact {
-                        background-image: url('./assets/img/select-bg.png');
-                    } @else {
-                        background-image: url('../img/select-bg.png');
-                    }
+                    background-image: url('./assets/img/select-bg.png');
                     background-position: calc(100% - 4px);
                     background-repeat: no-repeat;
                 }

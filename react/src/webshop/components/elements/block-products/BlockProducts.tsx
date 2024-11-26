@@ -34,11 +34,11 @@ export default function BlockProducts({
         <section className="section section-products" id="products">
             {products.length != 0 && (
                 <div className={'wrapper'}>
-                    <StateNavLink name={type == 'budget' ? 'products' : 'actions'} params={filters}>
-                        <h2 className={'section-title'}>
+                    <h2 className={'section-title'}>
+                        <StateNavLink name={type == 'budget' ? 'products' : 'actions'} params={filters}>
                             {cmsBlock?.title || translate(`block_products.header.title_${type}`)}
-                        </h2>
-                    </StateNavLink>
+                        </StateNavLink>
+                    </h2>
                 </div>
             )}
 

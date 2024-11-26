@@ -4,14 +4,18 @@
     .reimbursement-item {
         display: flex;
         background-color: #fff;
-        border-radius: var(--border-radius);
         margin-bottom: 15px;
-        box-shadow: var(--box-shadow);
         position: relative;
-        transition: 0.4s;
+        transition:
+            color 0.4s,
+            background-color 0.4s;
         min-height: 135px;
         overflow: hidden;
         cursor: default;
+        background: var(--showcase-item-background);
+        border-radius: var(--showcase-item-border-radius);
+        box-shadow: var(--showcase-item-shadow);
+        border: var(--showcase-item-border);
 
         .reimbursement-image {
             display: flex;
@@ -42,7 +46,7 @@
             }
 
             &:after {
-                content: "";
+                content: '';
                 background: #394260;
                 opacity: 0;
                 transition: opacity 0.4s;
@@ -127,7 +131,7 @@
                 color: #646f79;
 
                 &:after {
-                    content: "";
+                    content: '';
                     position: absolute;
                     display: block;
                     height: 10px;
@@ -194,7 +198,6 @@
                     color: #282b39;
 
                     small {
-                        font: inherit;
                         font: 400 13px var(--base-font);
                         color: #646f79;
                         margin-left: 5px;
@@ -217,6 +220,10 @@
                     margin-bottom: 0;
                 }
             }
+        }
+
+        &:hover {
+            box-shadow: var(--showcase-item-hover-shadow);
         }
 
         &:last-child {
@@ -300,7 +307,7 @@
                 flex-direction: column;
                 flex-grow: 1;
             }
-            
+
             .reimbursement-values {
                 .reimbursement-value {
                     display: flex;
