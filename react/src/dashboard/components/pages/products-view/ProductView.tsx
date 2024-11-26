@@ -1,34 +1,33 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router-dom';
-import useProductService from '../../../services/ProductService';
-import Product from '../../../props/models/Product';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
-import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useAssetUrl from '../../../hooks/useAssetUrl';
-import TranslateHtml from '../../elements/translate-html/TranslateHtml';
-import { PaginationData } from '../../../props/ApiResponses';
-import useFilter from '../../../hooks/useFilter';
-import Paginator from '../../../modules/paginator/components/Paginator';
-import { useNavigateState } from '../../../modules/state_router/Router';
-import FundProviderChat from '../../../props/models/FundProviderChat';
-import useOpenModal from '../../../hooks/useOpenModal';
-import ModalNotification from '../../modals/ModalNotification';
-import useProductChatService from '../../../services/ProductChatService';
-import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
-import ProductFund from '../../../props/models/ProductFund';
-import ToggleControl from '../../elements/forms/controls/ToggleControl';
-import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatProvider';
-import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
-import KeyValueItem from '../../elements/key-value/KeyValueItem';
+import useActiveOrganization from '../../../hooks/useActiveOrganization';
+import useAssetUrl from '../../../hooks/useAssetUrl';
+import useProductService from '../../../services/ProductService';
+import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
+import useProductChatService from '../../../services/ProductChatService';
+import { useNavigateState } from '../../../modules/state_router/Router';
+import useOpenModal from '../../../hooks/useOpenModal';
+import Product from '../../../props/models/Product';
+import { PaginationData } from '../../../props/ApiResponses';
+import usePushDanger from '../../../hooks/usePushDanger';
+import usePushSuccess from '../../../hooks/usePushSuccess';
+import useFilter from '../../../hooks/useFilter';
+import ModalNotification from '../../modals/ModalNotification';
+import FundProviderChat from '../../../props/models/FundProviderChat';
+import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatProvider';
+import LoadingCard from '../../elements/loading-card/LoadingCard';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
+import ProductDetailsBlock from './elements/ProductDetailsBlock';
+import ToggleControl from '../../elements/forms/controls/ToggleControl';
+import Paginator from '../../../modules/paginator/components/Paginator';
+import ProductFund from '../../../props/models/ProductFund';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
 };
 
-export default function ProductsView() {
+export default function ProductView() {
     const { id } = useParams();
 
     const translate = useTranslate();
@@ -190,69 +189,7 @@ export default function ProductsView() {
 
             <div className="card">
                 <div className="card-section">
-                    <div className="block block-product">
-                        <div className="block-product-media">
-                            <img
-                                src={
-                                    product.photo?.sizes?.small ||
-                                    assetUrl('/assets/img/placeholders/product-small.png')
-                                }
-                                alt={product.name}
-                            />
-                        </div>
-
-                        <div className="block-product-content flex-grow">
-                            <div className="block-product-details">
-                                <div className="block-product-name">{product.name}</div>
-                                <div className="block-product-price">{product.price_locale}</div>
-                            </div>
-
-                            {product.description_html && (
-                                <div
-                                    className="block block-markdown block-product-description"
-                                    dangerouslySetInnerHTML={{ __html: product.description_html }}
-                                />
-                            )}
-
-                            <div className="block-product-separator" />
-
-                            <div className="flex flex-vertical">
-                                <div className="card-heading">{translate('product.labels.details')}</div>
-
-                                <div className="card-block card-block-keyvalue card-block-keyvalue-md">
-                                    <KeyValueItem label={translate('product.labels.expire')}>
-                                        {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
-                                    </KeyValueItem>
-
-                                    <KeyValueItem label={translate('product.labels.sold')}>
-                                        {product.sold_amount}
-                                    </KeyValueItem>
-
-                                    <KeyValueItem label={translate('product.labels.reserved')}>
-                                        {product.reserved_amount}
-                                    </KeyValueItem>
-
-                                    <KeyValueItem label={translate('product.labels.available_offers')}>
-                                        {product.unlimited_stock
-                                            ? translate('product.labels.unlimited')
-                                            : product.stock_amount}
-                                    </KeyValueItem>
-
-                                    <KeyValueItem
-                                        label={translate('product.labels.ean')}
-                                        infoBlock={<TranslateHtml i18n={'product.tooltips.ean'} />}>
-                                        {product.ean}
-                                    </KeyValueItem>
-
-                                    <KeyValueItem
-                                        label={translate('product.labels.sku')}
-                                        infoBlock={<TranslateHtml i18n={'product.tooltips.sku'} />}>
-                                        {product.sku}
-                                    </KeyValueItem>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <ProductDetailsBlock product={product} viewType={'provider'} />
                 </div>
 
                 <div className="card-footer card-footer-primary flex flex-end">

@@ -394,6 +394,8 @@ export default function ProductsForm({
 
     const saveProduct = useCallback(
         (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+
             if (!priceWillChange(product) || !hasSubsidyFunds(product)) {
                 return form.submit(e);
             }

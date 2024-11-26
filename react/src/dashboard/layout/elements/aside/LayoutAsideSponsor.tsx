@@ -60,7 +60,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
             <LayoutAsideNavItem
                 name={'Aanbod'}
                 icon={'products'}
-                route={'products'}
+                route={'sponsor-products'}
                 routeParams={{ organizationId: organization?.id }}
                 show={organization.allow_product_updates && hasPermission(organization, 'manage_providers')}
                 id={'products'}
