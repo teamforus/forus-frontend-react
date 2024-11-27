@@ -70,7 +70,7 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                 <td>{fundBudget.inactive_vouchers_amount_locale}</td>
                 <td>{fundBudget.deactivated_vouchers_amount_locale}</td>
                 <td>{fundBudget.used_active_vouchers_locale}</td>
-                <td className={'text-right'}>
+                <td>
                     {currencyFormat(
                         parseFloat(fundBudget.vouchers_amount) - parseFloat(fundBudget.used_active_vouchers),
                     )}
@@ -92,7 +92,7 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                         <td>{fundBudget.percentage_inactive} %</td>
                         <td>{fundBudget.percentage_deactivated} %</td>
                         <td>{fundBudget.percentage_used} %</td>
-                        <td className={'text-right'}>{fundBudget.percentage_left} %</td>
+                        <td>{fundBudget.percentage_left} %</td>
 
                         <td className={'table-td-actions text-right'}>
                             <TableEmptyValue />
@@ -108,7 +108,7 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                         <td>{fundBudget.inactive_vouchers_count}</td>
                         <td>{fundBudget.deactivated_vouchers_count}</td>
                         <td>-</td>
-                        <td className={'text-right'}>-</td>
+                        <td>-</td>
 
                         <td className={'table-td-actions text-right'}>
                             <TableEmptyValue />

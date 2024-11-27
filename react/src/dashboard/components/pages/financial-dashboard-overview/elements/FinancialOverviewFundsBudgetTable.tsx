@@ -121,7 +121,7 @@ export default function FinancialOverviewFundsBudgetTable({
                                         <td>{financialOverview?.budget_funds.inactive_vouchers_amount_locale}</td>
                                         <td>{financialOverview?.budget_funds.deactivated_vouchers_amount_locale}</td>
                                         <td>{financialOverview?.budget_funds.budget_used_active_vouchers_locale}</td>
-                                        <td className={'text-right'}>
+                                        <td>
                                             {currencyFormat(
                                                 parseFloat(financialOverview?.budget_funds.vouchers_amount) -
                                                     financialOverview?.budget_funds.budget_used_active_vouchers,
