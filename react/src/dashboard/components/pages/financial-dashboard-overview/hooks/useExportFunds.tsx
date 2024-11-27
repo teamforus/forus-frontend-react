@@ -40,7 +40,7 @@ export default function useExportFunds(organization: Organization) {
     );
 
     return useCallback(
-        (detailed: boolean, year: number) => {
+        (detailed: boolean, year?: number) => {
             openModal((modal) => (
                 <ModalExportTypeLegacy modal={modal} onSubmit={(exportType) => doExport(exportType, detailed, year)} />
             ));

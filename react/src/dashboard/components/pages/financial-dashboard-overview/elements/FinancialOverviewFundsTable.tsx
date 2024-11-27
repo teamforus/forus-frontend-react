@@ -6,11 +6,7 @@ import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import useFilterNext from '../../../../modules/filter_next/useFilterNext';
-import { NumberParam, StringParam } from 'use-query-params';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
@@ -23,8 +19,8 @@ export default function FinancialOverviewFundsTable({
     organization,
 }: {
     years: Array<{ id: number; name: string }>;
-    fetchFunds: (year: number) => Promise<Array<Fund>>;
-    fetchFinancialOverview: (year: number) => Promise<FinancialOverview>;
+    fetchFunds: (year?: number) => Promise<Array<Fund>>;
+    fetchFinancialOverview: (year?: number) => Promise<FinancialOverview>;
     organization: Organization;
 }) {
     const translate = useTranslate();
@@ -39,22 +35,17 @@ export default function FinancialOverviewFundsTable({
 
     const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBalance());
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; year_all: number }>(
-        { q: '', year_all: new Date().getFullYear() },
-        { queryParams: { q: StringParam, year_all: NumberParam }, throttledValues: ['q'] },
-    );
-
     useEffect(() => {
-        fetchFunds(filterValuesActive.year_all).then((funds) => setFunds(funds.filter((fund) => fund.budget)));
-    }, [fetchFunds, filterValuesActive.year_all]);
+        fetchFunds().then((funds) => setFunds(funds.filter((fund) => fund.budget)));
+    }, [fetchFunds]);
 
     useEffect(() => {
         setProgress(0);
 
-        fetchFinancialOverview(filterValuesActive.year_all)
+        fetchFinancialOverview()
             .then(setFinancialOverview)
             .finally(() => setProgress(100));
-    }, [fetchFinancialOverview, filterValuesActive.year_all, setProgress]);
+    }, [fetchFinancialOverview, setProgress]);
 
     if (!funds?.length || !financialOverview || !years.length) {
         return <LoadingCard />;
@@ -69,22 +60,7 @@ export default function FinancialOverviewFundsTable({
                 </div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
-                        <div className="form">
-                            <div className="form-group">
-                                <SelectControl
-                                    className={'form-control'}
-                                    options={years}
-                                    propKey={'id'}
-                                    allowSearch={false}
-                                    value={filterValues.year_all}
-                                    optionsComponent={SelectControlOptions}
-                                    onChange={(year?: number) => filterUpdate({ year_all: year })}
-                                />
-                            </div>
-                        </div>
-                        <button
-                            className="button button-primary button-sm"
-                            onClick={() => exportFunds(false, filterValuesActive.year_all)}>
+                        <button className="button button-primary button-sm" onClick={() => exportFunds(false)}>
                             <em className="mdi mdi-download icon-start" />
                             {translate('financial_dashboard_overview.buttons.export')}
                         </button>
@@ -92,7 +68,7 @@ export default function FinancialOverviewFundsTable({
                 </div>
             </div>
 
-            {financialOverview?.year != filterValuesActive.year_all ? (
+            {!funds.length ? (
                 <LoadingCard />
             ) : (
                 <div className="card-section">
@@ -110,7 +86,7 @@ export default function FinancialOverviewFundsTable({
                                             <td>{fund.budget?.total_locale || <TableEmptyValue />}</td>
                                             <td>{fund.budget?.used_locale || <TableEmptyValue />}</td>
                                             <td>{fund.budget?.left_locale || <TableEmptyValue />}</td>
-                                            <td className={'text-right'}>{fund.budget?.transaction_costs_locale}</td>
+                                            <td>{fund.budget?.transaction_costs_locale}</td>
                                             <td className={'table-td-actions text-right'}>
                                                 <TableEmptyValue />
                                             </td>
@@ -122,9 +98,7 @@ export default function FinancialOverviewFundsTable({
                                         <td>{financialOverview?.funds.budget_locale}</td>
                                         <td>{financialOverview?.funds.budget_used_locale}</td>
                                         <td>{financialOverview?.funds.budget_left_locale}</td>
-                                        <td className={'text-right'}>
-                                            {financialOverview?.funds.transaction_costs_locale}
-                                        </td>
+                                        <td>{financialOverview?.funds.transaction_costs_locale}</td>
                                         <td className={'table-td-actions text-right'}>
                                             <TableEmptyValue />
                                         </td>
