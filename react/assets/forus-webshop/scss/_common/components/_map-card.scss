@@ -23,6 +23,7 @@
             color: #282b39;
             font: 700 14px/16px var(--base-font);
             margin: 0 0 5px;
+            padding-right: 20px;
         }
         
         .map-card-description {
@@ -75,6 +76,14 @@
 }
 
 .gm-style {
+    .gm-style-iw-chr {
+        position: absolute;
+        display: flex;
+        top: 0;
+        right: 0;
+        z-index: 1;
+    }
+
     .gm-style-iw-c {
         padding: 0;
         max-width: 360px !important;
