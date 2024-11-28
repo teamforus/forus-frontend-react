@@ -23,7 +23,6 @@
             font-size: 14px;
             padding-left: 45px;
             background-color: #fff;
-            transition: 0.4s;
             border-radius: var(--border-radius);
 
             &::placeholder {
@@ -81,7 +80,9 @@
                 font: 700 14px/24px var(--base-font);
                 margin-bottom: 5px;
                 margin-top: 0;
-                transition: color 0.4s, background-color 0.4s;
+                transition:
+                    color 0.4s,
+                    background-color 0.4s;
 
                 .search-result-sidebar-item-icon {
                     padding-right: 10px;
@@ -184,7 +185,7 @@
                         position: relative;
 
                         &::before {
-                            content: "";
+                            content: '';
                             @include fill_parent();
                             background: var(--color-primary);
                             opacity: 0.1;
@@ -192,7 +193,7 @@
                     }
 
                     &:before {
-                        content: "";
+                        content: '';
                         width: 6px;
                         height: 6px;
                         display: inline-block;
@@ -204,6 +205,11 @@
                     &:hover,
                     &.selected {
                         background-color: whitesmoke;
+                    }
+
+                    &:focus {
+                        outline-offset: -4px !important;
+                        outline-style: auto !important;
                     }
                 }
             }

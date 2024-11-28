@@ -1,0 +1,93 @@
+// do not use these scss variables outside this file
+$primaryColor: #15694B;
+$primaryColorLight: #1B8761;
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+    // navbar
+    --bg-nav: #F5F5F5;
+    --tc-nav-hov: #{$primaryColor};
+
+    // navbar (auth) (default button)
+    --tc-auth-btn: #fff;
+    --btn-auth-bg: #7A0138;
+    --btn-auth-border: #7A0138;
+
+    // navbar (start modal primary)
+    --btn-start-bg: #{$primaryColor};
+    --btn-start-border: #{$primaryColor};
+
+    // Header banner
+    --header-banner-pane-banner-padding: 40px 50px;
+    --header-banner-pane-banner-max-width: 760px;
+    --header-banner-pane-banner-background: #fff;
+    --header-banner-pane-banner-border-radius: var(--border-radius);
+
+    --bg_2: #fff;
+    --border-radius: 0;
+    --box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.04), 0px 12px 12px 0px rgba(0, 0, 0, 0.08);
+
+    // Paginator
+    --paginator-button-active-background: #282B39;
+    --paginator-button-hover-background: #{rgba(#282B39, 0.8)};
+
+    // Showcase
+    --showcase-item-shadow: none;
+    --showcase-item-hover-shadow: none;
+    --showcase-aside-shadow: none;
+
+    // footer color
+    --footer_background_color: #15694B;
+    --footer_color: #FFFFFF;
+    --footer_color_link: #FFFFFF;
+    --footer_color_link_hover: #FFFFFF;
+
+    --footer_social_color: #FFFFFF;
+    --footer_social_background: transparent;
+    --footer_social_border_color: rgba(255, 255, 255, 0.20);
+    --footer_social_border_radius: 0;
+
+    --footer-copyright-color: #fff;
+    --footer-copyright-background: #1B8761;
+    --footer-copyright-border-color: #1B8761;
+
+    --color-primary: #{$primaryColor};
+    --color-primary-light: #{$primaryColorLight};
+
+    // Search bar
+    --color-search-icon-medium: #1B8761;
+    --color-search-icon-dark: #15694B;
+    --color-search-icon-light: #bababa;
+
+    --search-bar-point-color: #E5E5E5;
+    --search-bar-point-radius: 0;
+    --search-bar-input-radius: 0;
+
+    // Buttons
+    --btn-border-radius: 0;
+
+    // Label sets
+    --label-set-active-background: #7A0138;
+    --label-set-hover-background: #960145;
+
+    // Sign up
+    --sign_up_step_btns_color: var(--color-primary);
+
+    //- Showcase
+    --showcase-title-count-background: #7A0138;
+    --showcase-title-count-border-radius: 0;
+
+    // Profile
+    --profile-menu-item-color: var(--tc);
+    --profile-menu-item-border-color: var(--border-color);
+    --profile-menu-item-shadow: none;
+    --profile-menu-item-hover-shadow: var(--box-shadow);
+
+    // Voucher card
+    --voucher-card-action-color: #15694B;
+    --voucher-card-action-border-color: #15694B;
+    --voucher-card-action-border-radius: 0;
+    --voucher-card-action-hover-background: #15694B;
+    --voucher-card-action-hover-border-color: #15694B;
+}

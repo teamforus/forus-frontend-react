@@ -37,11 +37,11 @@
             display: block;
             cursor: pointer;
             color: #848484;
-            transition: color 0.4s;
+            transition: color .4s;
             z-index: 1;
             background: none;
             border: none;
-            transition: 0.4s ease color;
+            transition: .4s ease color;
 
             &:hover {
                 color: #282b39;

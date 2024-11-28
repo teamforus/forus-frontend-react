@@ -41,6 +41,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                 border-bottom: 1px solid var(--border-color);
                 padding: calc(calc(var(--item-height) - var(--item-line-height)) / 2) 15px;
                 display: flex;
+                outline-offset: -2px !important;
     
                 .mobile-menu-item-icon {
                     font-size: 22px;
