@@ -91,16 +91,16 @@ export default function ImplementationsNotificationsSend() {
     );
 
     const [identityTargets] = useState([
-        { value: 'all', name: 'Alle gebruikers met een actieve tegoed' },
+        { value: 'all', name: 'Alle gebruikers met een actief tegoed' },
         {
             value: 'has_balance',
-            name: 'Alle gebruikers die nog budget beschikbaar hebben of een ongebruike reservering en/of aanbiedings tegoed',
+            name: 'Alle gebruikers met nog beschikbaar resterend tegoed',
         },
     ]);
 
     const [providerTargets] = useState([
         { value: 'providers_approved', name: 'Alleen geaccepteerde aanbieders' },
-        { value: 'providers_rejected', name: 'Alle aanbieders niet nog niet geaccepteerd of geweigerd zijn' },
+        { value: 'providers_rejected', name: 'Alle aanbieders die nog niet geaccepteerd of geweigerd zijn' },
         { value: 'providers_all', name: 'Alle aanbieders' },
     ]);
 
