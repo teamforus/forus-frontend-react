@@ -787,7 +787,7 @@ export default function FundRequestsView() {
                                             </td>
                                         </tr>
                                         {record.hasContent && !collapsedRecords.includes(record.id) && (
-                                            <tr className="dim">
+                                            <tr className="tr-dim">
                                                 <td className="collapse-content" colSpan={6}>
                                                     <FundRequestRecordTabs fundRequestRecord={record} />
                                                 </td>

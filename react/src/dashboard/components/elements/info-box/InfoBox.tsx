@@ -8,17 +8,19 @@ export default function InfoBox({
     iconColor = 'light',
     iconPosition = 'center',
 }: {
-    type?: 'default' | 'primary';
+    type?: 'default' | 'primary' | 'warning';
     dashed?: boolean;
     children: ReactNode;
-    iconColor?: 'light' | 'primary';
+    iconColor?: 'light' | 'primary' | 'warning';
     iconPosition?: 'top' | 'center';
 }) {
     return (
         <div
             className={classNames(
                 'block block-info-box',
-                type === 'default' ? 'block-info-box-default ' : 'block-info-box-primary',
+                type === 'default' && 'block-info-box-default',
+                type === 'primary' && 'block-info-box-primary',
+                type === 'warning' && 'block-info-box',
                 dashed && 'block-info-box-dashed',
             )}>
             <em
@@ -27,7 +29,9 @@ export default function InfoBox({
                     'mdi',
                     'mdi-information',
                     'flex-vertical',
-                    iconColor === 'light' ? 'text-primary-light' : 'text-primary',
+                    iconColor === 'light' && 'text-primary-light',
+                    iconColor === 'primary' && 'text-primary',
+                    iconColor === 'warning' && 'text-warning',
                     iconPosition === 'center' ? 'flex-center' : 'flex-start',
                 )}
             />

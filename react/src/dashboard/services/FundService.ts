@@ -251,61 +251,37 @@ export class FundService<T = Fund> {
     }
 
     public getColumns(organization: Organization, funds_type: string): Array<ConfigurableTableColumn> {
-        return [
-            {
-                key: 'name',
-                label: 'components.organization_funds.labels.name',
-                tooltip: {
-                    key: 'name',
-                    title: 'components.organization_funds.labels.name',
-                    description: 'components.organization_funds.tooltips.name',
-                },
+        const list = [
+            'name',
+            'implementation',
+            funds_type == 'active' && hasPermission(organization, 'view_finances') ? 'remaining' : null,
+            funds_type == 'active' ? 'requester_count' : null,
+            'status',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.organization_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.organization_funds.labels.${key}`,
+                description: `components.organization_funds.tooltips.${key}`,
             },
-            {
-                key: 'implementation',
-                label: 'components.organization_funds.labels.implementation',
-                tooltip: {
-                    key: 'implementation',
-                    title: 'components.organization_funds.labels.implementation',
-                    description: 'components.organization_funds.tooltips.implementation',
-                },
+        }));
+    }
+
+    public getColumnsProductFunds(): Array<ConfigurableTableColumn> {
+        const list = ['name', 'implementation', 'status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.organization_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.organization_funds.labels.${key}`,
+                description: `components.organization_funds.tooltips.${key}`,
             },
-            ...(funds_type == 'active' && hasPermission(organization, 'view_finances')
-                ? [
-                      {
-                          key: 'remaining',
-                          label: 'components.organization_funds.labels.remaining',
-                          tooltip: {
-                              key: 'remaining',
-                              title: 'components.organization_funds.labels.remaining',
-                              description: 'components.organization_funds.tooltips.remaining',
-                          },
-                      },
-                  ]
-                : []),
-            ...(funds_type == 'active'
-                ? [
-                      {
-                          key: 'requester_count',
-                          label: 'components.organization_funds.labels.requester_count',
-                          tooltip: {
-                              key: 'requester_count',
-                              title: 'components.organization_funds.labels.requester_count',
-                              description: 'components.organization_funds.tooltips.requester_count',
-                          },
-                      },
-                  ]
-                : []),
-            {
-                key: 'status',
-                label: 'components.organization_funds.labels.status',
-                tooltip: {
-                    key: 'status',
-                    title: 'components.organization_funds.labels.status',
-                    description: 'components.organization_funds.tooltips.status',
-                },
-            },
-        ];
+        }));
     }
 
     public getColumnsBalance(): Array<ConfigurableTableColumn> {

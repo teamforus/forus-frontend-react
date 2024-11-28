@@ -7,6 +7,7 @@ export default {
         details: 'Beschrijving',
         reserved: 'Gereserveerd',
         sold: 'Verkocht',
+        provider: 'Aanbieder',
         expire: 'Vervaldatum van aanbod (t/m)',
         available_offers: 'Resterend aanbod',
         unlimited: 'Onbeperkt',

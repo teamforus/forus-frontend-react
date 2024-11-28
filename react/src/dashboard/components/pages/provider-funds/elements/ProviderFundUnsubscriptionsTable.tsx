@@ -173,7 +173,7 @@ export default function ProviderFundUnsubscriptionsTable({
                             </button>
                         )}
                         <div className="flex-col">
-                            <div className="block block-label-tabs nowrap">
+                            <div className="block block-label-tabs">
                                 <div className="label-tab-set">
                                     {states?.map((state) => (
                                         <div

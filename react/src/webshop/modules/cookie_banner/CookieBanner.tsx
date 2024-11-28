@@ -13,14 +13,16 @@ export default function CookieBanner({
     envData: EnvDataWebshopProp;
     setAllowOptionalCookies: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-    const { matomo_url, matomo_site_id, site_improve_analytics_id, aws_rum, disable_cookie_banner } =
-        envData?.config || {};
+    const { matomo_url, matomo_site_id, site_improve_analytics_id, aws_rum } = envData?.config || {};
+    const { disable_cookie_banner } = envData?.config || {};
     const [showConfigs, setShowConfigs] = useState(false);
 
     const [functionalAccepted, setFunctionalAccepted] = useState(true);
     const [optionalAccepted, setOptionalAccepted] = useState(true);
 
-    const [cookiesAccepted, setCookiesAccepted] = useState(localStorage.getItem('cookiesAccepted'));
+    const [cookiesAccepted, setCookiesAccepted] = useState(
+        disable_cookie_banner ? 'all' : localStorage.getItem('cookiesAccepted'),
+    );
 
     const closeRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +40,7 @@ export default function CookieBanner({
         setAllowOptionalCookies(cookiesAccepted === 'all');
     }, [cookiesAccepted, setAllowOptionalCookies]);
 
-    if ((!matomo_url && !matomo_site_id && !site_improve_analytics_id && !aws_rum) || disable_cookie_banner) {
+    if (!matomo_url && !matomo_site_id && !site_improve_analytics_id && !aws_rum?.allowCookies) {
         return null;
     }
 
