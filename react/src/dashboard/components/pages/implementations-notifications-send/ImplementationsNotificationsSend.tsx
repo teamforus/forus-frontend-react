@@ -709,8 +709,7 @@ export default function ImplementationsNotificationsSend() {
 
                         {!previewSent && (
                             <div className="card-section card-section-narrow card-section card-section-warning text-center">
-                                Voordat je de e-mail naar de doelgroep kan versturen dien je eerst e-mail als test naar
-                                jezelf te sturen.
+                                Voordat je de e-mail naar de doelgroep kunt versturen, dien je eerst een test-e-mail naar jezelf te sturen.
                             </div>
                         )}
                     </div>
