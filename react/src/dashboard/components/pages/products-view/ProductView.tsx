@@ -1,33 +1,33 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router-dom';
-import useProductService from '../../../services/ProductService';
-import Product from '../../../props/models/Product';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
-import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useAssetUrl from '../../../hooks/useAssetUrl';
-import TranslateHtml from '../../elements/translate-html/TranslateHtml';
-import { PaginationData } from '../../../props/ApiResponses';
-import useFilter from '../../../hooks/useFilter';
-import Paginator from '../../../modules/paginator/components/Paginator';
-import { useNavigateState } from '../../../modules/state_router/Router';
-import FundProviderChat from '../../../props/models/FundProviderChat';
-import useOpenModal from '../../../hooks/useOpenModal';
-import ModalNotification from '../../modals/ModalNotification';
-import useProductChatService from '../../../services/ProductChatService';
-import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
-import ProductFund from '../../../props/models/ProductFund';
-import ToggleControl from '../../elements/forms/controls/ToggleControl';
-import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatProvider';
-import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
+import useActiveOrganization from '../../../hooks/useActiveOrganization';
+import useAssetUrl from '../../../hooks/useAssetUrl';
+import useProductService from '../../../services/ProductService';
+import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
+import useProductChatService from '../../../services/ProductChatService';
+import { useNavigateState } from '../../../modules/state_router/Router';
+import useOpenModal from '../../../hooks/useOpenModal';
+import Product from '../../../props/models/Product';
+import { PaginationData } from '../../../props/ApiResponses';
+import usePushDanger from '../../../hooks/usePushDanger';
+import usePushSuccess from '../../../hooks/usePushSuccess';
+import useFilter from '../../../hooks/useFilter';
+import ModalNotification from '../../modals/ModalNotification';
+import FundProviderChat from '../../../props/models/FundProviderChat';
+import ModalFundProviderChatProvider from '../../modals/ModalFundProviderChatProvider';
+import LoadingCard from '../../elements/loading-card/LoadingCard';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
+import ProductDetailsBlock from './elements/ProductDetailsBlock';
+import ToggleControl from '../../elements/forms/controls/ToggleControl';
+import Paginator from '../../../modules/paginator/components/Paginator';
+import ProductFund from '../../../props/models/ProductFund';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
 };
 
-export default function ProductsView() {
+export default function ProductView() {
     const { id } = useParams();
 
     const translate = useTranslate();
@@ -81,7 +81,7 @@ export default function ProductsView() {
     );
 
     const changeFundExclusion = useCallback(
-        (fund, is_available) => {
+        (fund: ProductFundLocal, is_available: boolean) => {
             const values = is_available ? { enable_funds: [fund.id] } : { disable_funds: [fund.id] };
 
             productService
@@ -186,79 +186,25 @@ export default function ProductsView() {
                 </StateNavLink>
                 <div className="breadcrumb-item active">{product.name}</div>
             </div>
-            <div className="block block-provider-product">
-                <div className="product-overview">
-                    <div className="product-media">
-                        <img
-                            className="product-media-img"
-                            alt={product.name}
-                            src={product?.photo?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
-                        />
-                    </div>
-                    <div className="product-details">
-                        <div className="product-name">{product.name}</div>
-                        <div className="product-properties">
-                            <div className="product-property">
-                                <div className="product-property-label">{translate('product_edit.labels.expire')}</div>
-                                <div className="product-property-value">
-                                    {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
-                                </div>
-                            </div>
-                            <div className="product-property">
-                                <div className="product-property-label">{translate('product_edit.labels.sold')}</div>
-                                <div className="product-property-value">{product.sold_amount}</div>
-                            </div>
-                            <div className="product-property">
-                                <div className="product-property-label">
-                                    {translate('product_edit.labels.reserved')}
-                                </div>
-                                <div className="product-property-value">{product.reserved_amount}</div>
-                            </div>
-                            <div className="product-property">
-                                <div className="product-property-label">
-                                    {translate('product_edit.labels.available_offers')}
-                                </div>
-                                <div className="product-property-value">
-                                    {product.unlimited_stock
-                                        ? translate('product_edit.labels.unlimited')
-                                        : product.stock_amount}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="product-actions">
-                        <div className="product-price">{product.price_locale}</div>
-                    </div>
-                </div>
-                <div className="product-description">
-                    <div className="description-header">
-                        Beschrijving
-                        <div className="description-header-action">
-                            <div className="button-group">
-                                <a className="button button-primary" onClick={() => deleteProduct(product)}>
-                                    <em className="mdi mdi-delete icon-start"> </em>
-                                    {translate('product_card.buttons.delete')}
-                                </a>
-                                <StateNavLink
-                                    className="button button-default"
-                                    name={'products-edit'}
-                                    params={{
-                                        organizationId: activeOrganization.id,
-                                        id: product.id,
-                                    }}>
-                                    <em className="mdi mdi-pen icon-start"> </em>
-                                    {translate('product_card.buttons.edit')}
-                                </StateNavLink>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="description-body">
-                        <div className="arrow-box border bg-dim">
-                            <div className="arrow" />
-                        </div>
-                        {product.description_html ? <TranslateHtml i18n={product.description_html} /> : 'Geen data'}
-                    </div>
+            <div className="card">
+                <div className="card-section">
+                    <ProductDetailsBlock product={product} viewType={'provider'} />
+                </div>
+
+                <div className="card-footer card-footer-primary flex flex-end">
+                    <a className="button button-primary" onClick={() => deleteProduct(product)}>
+                        <em className="mdi mdi-delete icon-start"> </em>
+                        {translate('product.buttons.delete')}
+                    </a>
+
+                    <StateNavLink
+                        className="button button-default"
+                        name={'products-edit'}
+                        params={{ organizationId: activeOrganization.id, id: product.id }}>
+                        <em className="mdi mdi-pen icon-start"> </em>
+                        {translate('product.buttons.edit')}
+                    </StateNavLink>
                 </div>
             </div>
 

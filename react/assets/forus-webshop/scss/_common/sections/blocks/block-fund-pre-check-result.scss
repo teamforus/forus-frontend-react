@@ -7,7 +7,6 @@
         box-shadow: var(--showcase-item-shadow);
         border: var(--showcase-item-border);
         border-radius: var(--showcase-item-border-radius);
-        border-radius: var(--border-radius);
         margin: 0 0 15px;
         grid-template-columns: 1fr 240px;
 
@@ -90,7 +89,6 @@
                 }
 
                 .fund-related-funds-list {
-                    list-style-type: disc;
                     list-style-position: inside;
                     list-style-type: none;
                     font: inherit;
@@ -361,7 +359,6 @@
                 .fund-pre-check-info-totals {
                     display: flex;
                     align-items: center;
-                    padding-top: 10px;
                     border-top: 1px solid var(--border-color);
                     padding: 15px 20px;
                     margin: 0 -20px -20px;

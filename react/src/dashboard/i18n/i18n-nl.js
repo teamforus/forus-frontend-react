@@ -767,70 +767,6 @@ export default {
         },
     },
 
-    // EDIT PRODUCTS = product-edit.pug
-    product_edit: {
-        header: {
-            title_add: 'Aanbod toevoegen',
-            title_edit: 'Aanbod aanpassen',
-        },
-        labels: {
-            name: 'Titel van aanbod',
-            description: 'Omschrijving',
-            new: 'Aanbiedingsprijs €',
-            old: 'Originele prijs €',
-            total: 'Aantal',
-            reserved: 'Gereserveerd',
-            sold: 'Verkocht',
-            stock: 'Nog te koop / Totaal',
-            stock_amount: 'Nog te koop',
-            stock_unlimited: 'Onbeperkt aanbod',
-            category: 'Categorie',
-            expire: 'Vervaldatum van aanbod (t/m)',
-            available_offers: 'Resterend aanbod',
-            unlimited: 'Onbeperkt',
-            alternative_text: 'Alt-tekst',
-            alternative_text_placeholder: 'Omschrijving van de afbeelding',
-            extra_payments: 'Bijbetaling accepteren',
-        },
-        tooltips: {
-            product_type: [
-                'Kies het soort aanbod. Voorbeelden:',
-                '1. Normaal: een fiets voor € 200,-.',
-                '2. Korting €: € 20,- korting op een fiets.',
-                '3. Korting %: 20% korting op een fiets.',
-                '4. Gratis: gratis toegang voor een film.',
-            ].join('\n'),
-            reservation_fields: [
-                'Vraag de klant om aanvullende informatie op te geven bij het maken van een reservering.',
-                'Let op: Er zijn ook algemene instellingen voor alle reserveringen.',
-                'Kijk hiervoor bij: Reserveringen > Instellingen.',
-            ].join(' '),
-            reservation_enabled: [
-                'Deze instelling zorgt ervoor dat de klant het aanbod via de webshop kan reserveren.',
-                'In dit geval hoeft u geen QR-code te scannen.',
-                'De betaling verloopt automatische na acceptatie van de reservering.',
-            ].join(' '),
-        },
-        buttons: {
-            cancel: 'Annuleren',
-            confirm: 'Bevestigen',
-            close: 'Sluit',
-        },
-        errors: {
-            already_added: 'U heeft het limiet bereikt. U kunt niet meer aanbod toevoegen.',
-        },
-        confirm_create: {
-            title: 'Een aanbod toevoegen.',
-            description:
-                'U staat op het punt een aanbod op de webshop toe te voegen. Uw aanbod wordt van de webshop verwijderd als de vervaldatum bereikt is.',
-        },
-        confirm_price_change: {
-            title: 'Er is een lopende actie',
-            description:
-                'Er is een actie gemaakt van deze aanbieding. Een wijziging heeft invloed op deze actie en de prijs. De aanbieding dient daarom opnieuw te worden goedgekeurd voordat de actie weer op de website zichtbaar is.',
-        },
-    },
-
     // SHOW PRODUCTS = product-show.pug
     //TRANSLATION NOT FINISHED -> PAGE NOT DONE
     products_show: {
@@ -870,7 +806,7 @@ export default {
             photo: 'Afbeelding',
             stock_amount: 'Resterend',
             price: 'Bedrag',
-            expired: 'Verlopen',
+            expired_at: 'Verlopen',
             expire_at: 'Verloopdatum',
             actions: 'Actie',
         },
@@ -880,6 +816,47 @@ export default {
             title: 'Weet u zeker dat u dit aanbod wilt verwijderen?',
             description:
                 'Als u het aanbod verwijderd, wordt het aanbod uit de webshop gehaald. Ook verdwijnt het aanbod uit uw dashboard. U kunt uw gereserveerd aanbod dan niet meer inzien. Reeds gemaakte reserveringen blijven actief en kunnen nog opgehaald worden.',
+        },
+    },
+
+    // PRODUCTS = product.pug
+    sponsor_products: {
+        offers: 'Aanbod',
+        labels: {
+            search: 'Zoeken',
+            name: 'Aanbod',
+            provider_name: 'Aanbieder',
+            last_updated: 'Laatste wijziging',
+            date: 'Datum',
+            nr_funds: 'Aantal fondsen',
+            nr_changes: 'Aantal wijzigingen',
+            fund: 'Aantal fondsen',
+            price: 'Prijs',
+            stock_amount: 'Voorraad',
+            updated_fields: 'Bijgewerkte velden',
+            category: 'Categorie',
+            price_min: '0',
+            price_max: 'Alle',
+            logs: 'Geschiedenis van wijzigingen',
+            created_at: 'Aanmaakdatum',
+            actions: 'Actie',
+            date_type: 'Pas toe op',
+            from: 'Vanaf',
+            to: 'Tot en met',
+        },
+        fields: {
+            name: 'Titel',
+            description: 'Omschrijving',
+            price: 'Prijs',
+            price_type: 'Prijs type',
+            price_discount: 'Korting',
+        },
+        filters: {
+            search: 'Zoeken',
+            implementation: 'Implementatie',
+            amount: 'Bedrag',
+            has_reservations: 'Heeft reserveringen',
+            funds: 'Fondsen',
         },
     },
 
@@ -1428,6 +1405,20 @@ export default {
         },
     },
 
+    // Organization-employees.pug
+    implementation_funds: {
+        labels: {
+            image: 'Afbeelding',
+            name: 'Naam',
+            state: 'Status',
+        },
+        tooltips: {
+            image: 'Afbeelding',
+            name: 'Naam',
+            state: 'Status',
+        },
+    },
+
     // RESERVATION = modals/modal-reservation-create.pug
     reservation_create: {
         tooltips: {
@@ -1718,33 +1709,16 @@ export default {
             employee: 'Medewerker',
             search: 'Zoeken',
             exported: 'Geëxporteerd',
+            active: 'Geactiveerd',
             from: 'Van',
             to: 'Tot',
             filter: 'Filter',
             actions: 'Opties',
         },
-        status: {
-            active: 'Geactiveerd',
-        },
         buttons: {
             export_selected: 'Exporteer selectie',
             export_csv: 'Exporteer als .CSV',
             export_xls: 'Exporteer als .XLS',
-        },
-    },
-
-    // PRODUCT CARD = product-card.pug
-    product_card: {
-        status: {
-            active: 'Actief',
-            paused: 'Gepauzeerd',
-            closed: 'Gesloten',
-            archived: 'Gearchiveerd',
-        },
-        buttons: {
-            delete: 'Verwijderen',
-            edit: 'Bewerken',
-            view: 'Bekijken',
         },
     },
 
@@ -1928,6 +1902,10 @@ export default {
                 daily_validator: {
                     title: 'Dagelijkse samenvatting omtrent aanvragen voor fondsen',
                     description: 'Notificaties omtrent aanvragen worden gegroepeerd toegestuurd.',
+                },
+                daily_sponsor_product_updates: {
+                    title: 'Dagelijkse samenvatting over wijzigingen in aanbiedingen',
+                    description: 'Notificaties over wijzigingen in aanbiedingen die zijn goedgekeurd.',
                 },
             },
             funds: {

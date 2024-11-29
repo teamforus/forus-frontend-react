@@ -27,7 +27,7 @@
                             color: #fff;
                             opacity: 1;
                             font-weight: 400;
-                            transition: 0.4s;
+                            transition: opacity .4s, color .4s;
                         }
 
                         &.focused {
@@ -48,7 +48,7 @@
                     .navbar-search-icon {
                         .mdi {
                             color: #fff;
-                            transition: 0.4s;
+                            transition: color .4s;
                         }
 
                         &.focused {

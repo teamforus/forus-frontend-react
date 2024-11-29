@@ -1,5 +1,6 @@
 const fs = require('fs');
 const _path = require('path');
+const { set } = require('lodash');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -21,15 +22,39 @@ module.exports = (env, argv) => {
         httpsCert = null,
         buildGzipFiles = false,
         nonce = null,
+        globalConfigs = {},
     } = envData;
 
+    // example: npm run start -- --env enable='webshop'
+    // example: npm run start -- --env disable='dashboard*'
     const cliEnableOnly = env.enable?.split(',') || env.only?.split(',') || null;
     const cliDisableOnly = env.disable?.split(',');
 
+    const filterKey = (key, list, exclude = false) => {
+        if (!list) {
+            return !exclude;
+        }
+
+        return list.some((item) => {
+            return new RegExp(`^${item.replace(/\*/g, '.*')}$`).test(key);
+        });
+    };
+
     const configs = Object.keys(fronts)
-        .filter((key) => !(cliEnableOnly || enableOnly) || (cliEnableOnly || enableOnly).includes(key))
-        .filter((key) => !(cliDisableOnly || disableOnly) || !(cliDisableOnly || disableOnly).includes(key))
-        .map((key) => ({ out: key, ...fronts[key] }));
+        .filter((key) => filterKey(key, cliEnableOnly || enableOnly))
+        .filter((key) => !filterKey(key, cliDisableOnly || disableOnly, true))
+        .map((key) => ({ out: key, ...fronts[key] }))
+        .map((config) => {
+            Object.keys(globalConfigs).forEach((group) => {
+                if (new RegExp(`^${group.replace(/\*/g, '.*')}$`).test(config.out)) {
+                    Object.keys(globalConfigs[group]).forEach((key2) => {
+                        set(config, key2, globalConfigs[group][key2]);
+                    });
+                }
+            });
+
+            return config;
+        });
 
     logInfo(`Building fronts:\n${configs?.map((config) => `   - ${config?.out}`)?.join('\n')}\n`);
 
@@ -228,7 +253,6 @@ module.exports = (env, argv) => {
                             options: {
                                 sourceMap: true,
                                 implementation: require('sass'),
-                                additionalData: '$buildReact: true;',
                                 webpackImporter: true,
                                 warnRuleAsWarning: false,
                                 sassOptions: { quietDeps: true },

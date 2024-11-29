@@ -18,11 +18,13 @@ import { StringParam } from 'use-query-params';
 import useTranslate from '../../../hooks/useTranslate';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import useCopyToClipboard from '../../../hooks/useCopyToClipboard';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { ResponseError } from '../../../props/ApiResponses';
 import useSetProgress from '../../../hooks/useSetProgress';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
+import InfoBox from '../../elements/info-box/InfoBox';
+import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 export default function BiConnection() {
     const auth2FAState = useAuthIdentity2FAState();
@@ -34,7 +36,6 @@ export default function BiConnection() {
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
-    const copyToClipboard = useCopyToClipboard();
 
     const biConnectionService = useBiConnectionService();
 
@@ -45,12 +46,6 @@ export default function BiConnection() {
     const [dataTypes, setDataTypes] = useState(null);
     const [connection, setConnection] = useState(null);
     const [availableDataTypes, setAvailableDataTypes] = useState<Array<Array<BiConnectionDataType>>>(null);
-
-    const [showInfoBlock, setShowInfoBlock] = useState<boolean>(false);
-    const [showInfoBlockUrl, setShowInfoBlockUrl] = useState<boolean>(false);
-    const [showInfoBlockToken, setShowInfoBlockToken] = useState<boolean>(false);
-    const [showInfoBlockHeader, setShowInfoBlockHeader] = useState<boolean>(false);
-    const [showInfoBlockExpiry, setShowInfoBlockExpiry] = useState<boolean>(false);
 
     const [viewTypes] = useState<Array<'settings' | 'security'>>(['settings', 'security']);
 
@@ -267,31 +262,16 @@ export default function BiConnection() {
 
             <div className="card">
                 <form className="form">
-                    <div className="card-header">
-                        <div className="flex-row">
-                            <div className="flex-col flex-grow">
-                                <div className="card-title">
-                                    <span>{translate('bi_connection.title')}</span>
-                                </div>
-                            </div>
-
-                            <div className="flex-col">
-                                <div className="block block-label-tabs nowrap">
-                                    <div className="label-tab-set">
-                                        {viewTypes.map((type, index) => (
-                                            <div
-                                                key={index}
-                                                className={`label-tab label-tab-sm ${
-                                                    type === filterValues.view_type ? 'active' : ''
-                                                }`}
-                                                onClick={() => filtersUpdate({ view_type: type })}>
-                                                {translate(`bi_connection.tabs.${type}`)}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="card-header card-header-next">
+                        <div className="card-title flex flex-grow">{translate('bi_connection.title')}</div>
+                        <BlockLabelTabs
+                            value={filterValues.view_type}
+                            setValue={(type: 'settings' | 'security') => filtersUpdate({ view_type: type })}
+                            tabs={viewTypes.map((type) => ({
+                                label: translate(`bi_connection.tabs.${type}`),
+                                value: type,
+                            }))}
+                        />
                     </div>
 
                     {filterValues.view_type === 'settings' && (
@@ -300,55 +280,37 @@ export default function BiConnection() {
                                 <div className="form-label">{translate('bi_connection.labels.enabled')}</div>
 
                                 <div className="form-offset">
-                                    <div className="form-group-info">
-                                        <div className="form-group-info-control">
-                                            <SelectControl
-                                                className="form-control"
-                                                propKey={'value'}
-                                                value={form.values.enabled}
-                                                options={authTypes}
-                                                allowSearch={false}
-                                                onChange={(enabled: 0 | 1) => form.update({ enabled })}
-                                            />
-                                        </div>
-
-                                        <div className="form-group-info-button">
-                                            <div
-                                                className={`button button-default button-icon pull-left ${
-                                                    showInfoBlock ? 'active' : ''
-                                                }`}
-                                                onClick={() => setShowInfoBlock(!showInfoBlock)}>
-                                                <em className="mdi mdi-information" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {showInfoBlock && (
-                                        <div className="block block-info-box block-info-box-primary">
-                                            <div className="info-box-icon mdi mdi-information" />
-
-                                            <div className="info-box-content">
-                                                <div className="block block-markdown">
-                                                    <h4>Kies de juiste instelling</h4>
-                                                    <p>
-                                                        Vul bij de header bovenstaande naam en sleutelcode in. Voor het
-                                                        instellen van de token zijn er twee opties:
-                                                    </p>
-                                                    <ul></ul>
-                                                    <ul>
-                                                        <li>
-                                                            URL-parameter: Kies deze optie als uw BI-tool token
-                                                            ondersteunt. Voeg de token toe als een parameter in de URL
-                                                        </li>
-                                                        <li>
-                                                            Header: Kies deze optie als uw BI-tool header ondersteunt.
-                                                            Voeg de token toe in de header
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
+                                    <FormGroupInfo
+                                        error={form.errors?.enabled}
+                                        info={
+                                            <Fragment>
+                                                <h4>Kies de juiste instelling</h4>
+                                                <p>
+                                                    Vul bij de header bovenstaande naam en sleutelcode in. Voor het
+                                                    instellen van de token zijn er twee opties:
+                                                </p>
+                                                <ul></ul>
+                                                <ul>
+                                                    <li>
+                                                        URL-parameter: Kies deze optie als uw BI-tool token ondersteunt.
+                                                        Voeg de token toe als een parameter in de URL
+                                                    </li>
+                                                    <li>
+                                                        Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg
+                                                        de token toe in de header
+                                                    </li>
+                                                </ul>
+                                            </Fragment>
+                                        }>
+                                        <SelectControl
+                                            className="form-control"
+                                            propKey={'value'}
+                                            value={form.values.enabled}
+                                            options={authTypes}
+                                            allowSearch={false}
+                                            onChange={(enabled: 0 | 1) => form.update({ enabled })}
+                                        />
+                                    </FormGroupInfo>
                                 </div>
                             </div>
 
@@ -358,51 +320,25 @@ export default function BiConnection() {
                                         <div className="form-label">{translate('bi_connection.labels.url')}</div>
 
                                         <div className="form-offset">
-                                            <div className="form-group-info">
-                                                <div className="form-group-info-control">
-                                                    <input
-                                                        type={'text'}
-                                                        className="form-control form-control-dashed"
-                                                        disabled={!connection?.access_token}
-                                                        defaultValue={activeOrganization.bi_connection_url}
-                                                        readOnly={true}
-                                                    />
-                                                </div>
-
-                                                <div className="form-group-info-button form-group-info-button-dashed">
-                                                    <button
-                                                        className="button button-default button-dashed button-icon pull-left"
-                                                        disabled={!connection?.access_token}
-                                                        onClick={() =>
-                                                            copyToClipboard(activeOrganization.bi_connection_url)
-                                                        }>
-                                                        <em className="mdi mdi-content-copy" />
-                                                    </button>
-
-                                                    <button
-                                                        className={`button button-default button-icon pull-left ${
-                                                            showInfoBlockUrl ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setShowInfoBlockUrl(!showInfoBlockUrl)}>
-                                                        <em className="mdi mdi-information" />
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            {showInfoBlockUrl && (
-                                                <div className="block block-info-box block-info-box-primary">
-                                                    <em className="info-box-icon mdi mdi-information" />
-
-                                                    <div className="info-box-content">
-                                                        <div className="block block-markdown">
-                                                            <p>
-                                                                Dit is de URL voor het exporteren van gegevens. Kopieer
-                                                                deze naar de BI-tool.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
+                                            <FormGroupInfo
+                                                dashed={true}
+                                                copyShow={true}
+                                                copyValue={activeOrganization.bi_connection_url}
+                                                copyDisable={!connection?.access_token}
+                                                info={
+                                                    <p>
+                                                        Dit is de URL voor het exporteren van gegevens. Kopieer deze
+                                                        naar de BI-tool.
+                                                    </p>
+                                                }>
+                                                <input
+                                                    type={'text'}
+                                                    className="form-control form-control-dashed"
+                                                    disabled={!connection?.access_token}
+                                                    defaultValue={activeOrganization.bi_connection_url}
+                                                    readOnly={true}
+                                                />
+                                            </FormGroupInfo>
                                         </div>
                                     </div>
 
@@ -439,49 +375,24 @@ export default function BiConnection() {
                                         </div>
 
                                         <div className="form-offset">
-                                            <div className="form-group-info">
-                                                <div className="form-group-info-control">
-                                                    <input
-                                                        type={'text'}
-                                                        className="form-control form-control-dashed"
-                                                        defaultValue={headerKey}
-                                                        readOnly={true}
-                                                    />
-                                                </div>
-
-                                                <div className="form-group-info-button form-group-info-button-dashed">
-                                                    <button
-                                                        className="button button-default button-dashed button-icon pull-left"
-                                                        onClick={() => copyToClipboard(headerKey)}>
-                                                        <div className="mdi mdi-content-copy" />
-                                                    </button>
-
-                                                    <button
-                                                        className={`button button-default button-icon pull-left ${
-                                                            showInfoBlockHeader ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setShowInfoBlockHeader(!showInfoBlockHeader)}>
-                                                        <em className="mdi mdi-information" />
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            {showInfoBlockHeader && (
-                                                <div className="block block-info-box block-info-box-primary">
-                                                    <em className="info-box-icon mdi mdi-information" />
-
-                                                    <div className="info-box-content">
-                                                        <div className="block block-markdown">
-                                                            <p>
-                                                                {`Dit is de naam van de key die wordt gebruikt
-                                                                        voor de verificatie van verzoeken. Kopieer en
-                                                                        plak deze waarde in de "key" waarde van de
-                                                                        header "X-API-KEY" in de BI-tool.`}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
+                                            <FormGroupInfo
+                                                dashed={true}
+                                                copyShow={true}
+                                                copyValue={headerKey}
+                                                info={
+                                                    <p>
+                                                        Dit is de naam van de key die wordt gebruikt voor de verificatie
+                                                        van verzoeken. Kopieer en plak deze waarde in de {'"key"'}{' '}
+                                                        waarde van de header {'"X-API-KEY"'} in de BI-tool.
+                                                    </p>
+                                                }>
+                                                <input
+                                                    type={'text'}
+                                                    className="form-control form-control-dashed"
+                                                    defaultValue={headerKey}
+                                                    readOnly={true}
+                                                />
+                                            </FormGroupInfo>
                                         </div>
                                     </div>
 
@@ -489,57 +400,30 @@ export default function BiConnection() {
                                         <div className="form-label">{translate('bi_connection.labels.header_key')}</div>
 
                                         <div className="form-offset">
-                                            <div className="form-group-info">
-                                                <div className="form-group-info-control">
-                                                    <input
-                                                        type={'text'}
-                                                        className="form-control form-control-dashed"
-                                                        disabled={!connection?.access_token}
-                                                        value={connection?.access_token || ''}
-                                                        placeholder={translate(
-                                                            'bi_connection.labels.token_placeholder',
-                                                        )}
-                                                        readOnly={true}
-                                                    />
-                                                </div>
-
-                                                <div className="form-group-info-button form-group-info-button-dashed">
-                                                    <button
-                                                        className="button button-default button-dashed button-icon pull-left"
-                                                        disabled={!connection?.access_token}
-                                                        onClick={() => copyToClipboard(connection?.access_token)}>
-                                                        <em className="mdi mdi-content-copy" />
-                                                    </button>
-
-                                                    <button
-                                                        className={`button button-default button-icon pull-left ${
-                                                            showInfoBlockToken ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => setShowInfoBlockToken(!showInfoBlockToken)}>
-                                                        <em className="mdi mdi-information" />
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            {showInfoBlockToken && (
-                                                <div className="block block-info-box block-info-box-primary">
-                                                    <em className="info-box-icon mdi mdi-information" />
-
-                                                    <div className="info-box-content">
-                                                        <div className="block block-markdown">
-                                                            <p>
-                                                                {[
-                                                                    `Dit is de waarde van de X-API-KEY key header, die wordt gebruikt als`,
-                                                                    `token voor verificatie van verzoeken. Het is mogelijk om het handmatig`,
-                                                                    `te regenereren en de vervalperiode in te stellen op het tabblad "Beveilging".`,
-                                                                    `Kopieer deze waarde en plak het in het veld "value" van de header`,
-                                                                    `"X-API-KEY" in de BI-tool.`,
-                                                                ].join(' ')}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
+                                            <FormGroupInfo
+                                                dashed={true}
+                                                copyShow={true}
+                                                copyValue={connection?.access_token}
+                                                copyDisable={!connection?.access_token}
+                                                info={
+                                                    <p>
+                                                        Dit is de waarde van de X-API-KEY key header, die wordt gebruikt
+                                                        als token voor verificatie van verzoeken. Het is mogelijk om het
+                                                        handmatig te regenereren en de vervalperiode in te stellen op
+                                                        het tabblad {'"Beveilging"'}. Kopieer deze waarde en plak het in
+                                                        het veld {'"value"'} van de header {'"X-API-KEY"'} in de
+                                                        BI-tool.
+                                                    </p>
+                                                }>
+                                                <input
+                                                    type={'text'}
+                                                    className="form-control form-control-dashed"
+                                                    disabled={!connection?.access_token}
+                                                    value={connection?.access_token || ''}
+                                                    placeholder={translate('bi_connection.labels.token_placeholder')}
+                                                    readOnly={true}
+                                                />
+                                            </FormGroupInfo>
                                         </div>
                                     </div>
 
@@ -586,27 +470,18 @@ export default function BiConnection() {
                                         <div className="form-label">&nbsp;</div>
 
                                         <div className="form-offset">
-                                            <div className="block block-info-box block-info-box-default block-info-box-dashed">
-                                                <em className="info-box-icon mdi mdi-information" />
-
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <h4>Gegevens exporteren naar de BI-tool</h4>
-                                                        <ul>
-                                                            <li>Open de BI-tool en ga naar instellingen.</li>
-                                                            <li>
-                                                                Voeg een nieuwe gegevensbron of verbinding toe en
-                                                                selecteer de optie om verbinding te maken met een
-                                                                externe URL.
-                                                            </li>
-                                                            <li>Voer de bovenstaande URL in.</li>
-                                                            <li>
-                                                                Vul bij de header bovenstaande naam en sleutelcode in.
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <InfoBox iconPosition={'top'}>
+                                                <h4>Gegevens exporteren naar de BI-tool</h4>
+                                                <ul>
+                                                    <li>Open de BI-tool en ga naar instellingen.</li>
+                                                    <li>
+                                                        Voeg een nieuwe gegevensbron of verbinding toe en selecteer de
+                                                        optie om verbinding te maken met een externe URL.
+                                                    </li>
+                                                    <li>Voer de bovenstaande URL in.</li>
+                                                    <li>Vul bij de header bovenstaande naam en sleutelcode in.</li>
+                                                </ul>
+                                            </InfoBox>
                                         </div>
                                     </div>
                                 </Fragment>
@@ -620,51 +495,27 @@ export default function BiConnection() {
                                 <div className="form-label">{translate('bi_connection.labels.expiration_period')}</div>
 
                                 <div className="form-offset">
-                                    <div className="form-group-info">
-                                        <div className="form-group-info-control">
-                                            <SelectControl
-                                                className="form-control"
-                                                propKey={'value'}
-                                                value={form.values.expiration_period}
-                                                options={expirationPeriods}
-                                                allowSearch={false}
-                                                onChange={(expiration_period: number) => {
-                                                    form.update({ expiration_period });
-                                                }}
-                                                optionsComponent={SelectControlOptions}
-                                            />
-                                        </div>
-
-                                        <div className="form-group-info-button">
-                                            <div
-                                                className={`button button-default button-icon pull-left ${
-                                                    showInfoBlockExpiry ? 'active' : ''
-                                                }`}
-                                                onClick={() => setShowInfoBlockExpiry(!showInfoBlockExpiry)}>
-                                                <em className="mdi mdi-information"></em>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <FormError error={form.errors?.expiration_period} />
-
-                                    {showInfoBlockExpiry && (
-                                        <div className="block block-info-box block-info-box-primary">
-                                            <em className="info-box-icon mdi mdi-information" />
-
-                                            <div className="info-box-content">
-                                                <div className="block block-markdown">
-                                                    <p>
-                                                        {[
-                                                            `Kies een vervalperiode voor het authenticatietoken.`,
-                                                            `Nadat het token is verlopen, moet het opnieuw worden`,
-                                                            `gegenereerd door te klikken op "Vernieuwen".`,
-                                                        ].join(' ')}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
+                                    <FormGroupInfo
+                                        error={form.errors?.expiration_period}
+                                        info={
+                                            <p>
+                                                Kies een vervalperiode voor het authenticatietoken. Nadat het token is
+                                                verlopen, moet het opnieuw worden gegenereerd door te klikken op{' '}
+                                                {'"Vernieuwen"'}.
+                                            </p>
+                                        }>
+                                        <SelectControl
+                                            className="form-control"
+                                            propKey={'value'}
+                                            value={form.values.expiration_period}
+                                            options={expirationPeriods}
+                                            allowSearch={false}
+                                            onChange={(expiration_period: number) => {
+                                                form.update({ expiration_period });
+                                            }}
+                                            optionsComponent={SelectControlOptions}
+                                        />
+                                    </FormGroupInfo>
                                 </div>
                             </div>
 
@@ -737,22 +588,16 @@ export default function BiConnection() {
                                     </div>
 
                                     <div className="form-group">
-                                        <div className="block block-info-box block-info-box-default block-info-box-dashed">
-                                            <em className="info-box-icon mdi mdi-information" />
-
-                                            <div className="info-box-content">
-                                                <div className="block block-markdown">
-                                                    <p>
-                                                        Het whitelisten van IP-adressen is een veiligheidsmaatregel om
-                                                        de lijst van gebruikers te beperken die gegevens van het account
-                                                        kunnen downloaden. Bij het gebruik van een zelf gehoste BI-tool
-                                                        of handmatige gegevensexport, vraag dan de IT-afdeling om het
-                                                        IP-adres. Bij het gebruik van een BI-tool als SaaS-product is
-                                                        het whitelisten van IP-adressen niet van toepassing.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <InfoBox iconPosition={'top'} iconColor={'primary'}>
+                                            <p>
+                                                Het whitelisten van IP-adressen is een veiligheidsmaatregel om de lijst
+                                                van gebruikers te beperken die gegevens van het account kunnen
+                                                downloaden. Bij het gebruik van een zelf gehoste BI-tool of handmatige
+                                                gegevensexport, vraag dan de IT-afdeling om het IP-adres. Bij het
+                                                gebruik van een BI-tool als SaaS-product is het whitelisten van
+                                                IP-adressen niet van toepassing.
+                                            </p>
+                                        </InfoBox>
                                     </div>
                                 </div>
                             </div>

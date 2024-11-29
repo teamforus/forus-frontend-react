@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
@@ -85,19 +84,11 @@ export default function ReimbursementsShow() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <StateNavLink name={'reimbursements'} className="breadcrumb-item" activeExact={true}>
-                        {translate('reimbursements.header.title')}
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Bon insturen
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: translate('reimbursements.header.title'), state: 'reimbursements' },
+                { name: 'Bon insturen' },
+            ]}
             contentDusk={'reimbursementDetailsPage'}
             profileHeader={
                 reimbursement && (

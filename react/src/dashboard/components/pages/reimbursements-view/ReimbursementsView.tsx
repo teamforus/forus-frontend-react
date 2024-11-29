@@ -499,7 +499,7 @@ export default function ReimbursementsView() {
                                         <div className="keyvalue-key">{translate('reimbursements.labels.files')}</div>
                                         <div className="keyvalue-value">
                                             {reimbursement.files.length > 0 && (
-                                                <div className="block block-attachments-list">
+                                                <div className="block block-attachments-list flex flex-grow">
                                                     {reimbursement.files.map((file: File, index) => (
                                                         <a
                                                             key={index}
@@ -547,23 +547,15 @@ export default function ReimbursementsView() {
 
             {reimbursement && (
                 <div className="card">
-                    <div className="card-header">
-                        <div className="flex-row">
-                            <div className="flex flex-grow">
-                                <div className="card-title">Extra informatie</div>
-                            </div>
-                            <div className="flex">
-                                <div className="block block-inline-filters">
-                                    {reimbursement.employee?.identity_address === authIdentity.address && (
-                                        <div
-                                            className="button button-primary"
-                                            onClick={() => editReimbursementDetails()}>
-                                            <em className="mdi mdi-pencil icon-start" />
-                                            Bewerk
-                                        </div>
-                                    )}
+                    <div className="card-header card-header-next">
+                        <div className="card-title flex flex-grow">Extra informatie</div>
+                        <div className="block block-inline-filters">
+                            {reimbursement.employee?.identity_address === authIdentity.address && (
+                                <div className="button button-primary" onClick={() => editReimbursementDetails()}>
+                                    <em className="mdi mdi-pencil icon-start" />
+                                    Bewerk
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 

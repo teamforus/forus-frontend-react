@@ -1,10 +1,7 @@
 .block.block-label-tabs {
     display: flex;
     margin-right: 20px;
-    border-top-left-radius: var(--label-set-border-radius);
-    border-top-right-radius: var(--label-set-border-radius);
-    border-bottom-left-radius: var(--label-set-border-radius);
-    border-bottom-right-radius: var(--label-set-border-radius);
+    border-radius: var(--label-set-border-radius);
 
     .label-tab {
         color: var(--label-set-color);
@@ -12,7 +9,10 @@
         border: 1px solid var(--label-set-border-color);
         border-right: none;
         padding: 9px 10px;
-        transition: all 0.35s ease;
+        transition:
+            color 0.4s,
+            border 0.4s,
+            background 0.4s;
         font: 600 11px/20px var(--base-font);
         cursor: pointer;
         border-radius: 0;
@@ -26,7 +26,7 @@
             line-height: 20px;
             float: left;
             color: var(--label-set-color);
-            transition: all 0.35s ease;
+            transition: color 0.4s;
             margin-bottom: -1.5px;
 
             &.icon-start {
@@ -51,10 +51,8 @@
 
         &:focus {
             color: var(--label-set-focus-color);
-            border-color: var(--label-set-focus-background);
+            border-color: var(--label-set-focus-border-color);
             background-color: var(--label-set-focus-background);
-            outline: 2px auto -webkit-focus-ring-color !important;
-            outline-offset: 2px;
 
             .mdi {
                 color: var(--label-set-focus-color);

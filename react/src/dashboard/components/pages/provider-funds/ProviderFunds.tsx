@@ -6,7 +6,7 @@ import { ResponseError } from '../../../props/ApiResponses';
 import usePushDanger from '../../../hooks/usePushDanger';
 import ProviderFundsTable from './elements/ProviderFundsTable';
 import ProviderFundUnsubscriptionsTable from './elements/ProviderFundUnsubscriptionsTable';
-import ProviderAvailableFundsTable from './elements/ProviderAvailableFundsTable';
+import ProviderFundsAvailableTable from './elements/ProviderFundsAvailableTable';
 import ProviderFundInvitationsTable from './elements/ProviderFundInvitationsTable';
 import useTranslate from '../../../hooks/useTranslate';
 
@@ -39,7 +39,7 @@ export default function ProviderFunds() {
             <div className="card-heading flex-row">
                 <div className="flex-col flex-grow">{translate('provider_funds.title.main')}</div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs nowrap">
+                    <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'active' ? 'active' : ''}`}
@@ -68,7 +68,7 @@ export default function ProviderFunds() {
                     </div>
                 </div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs nowrap">
+                    <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'invitations' ? 'active' : ''}`}
@@ -87,7 +87,7 @@ export default function ProviderFunds() {
                     </div>
                 </div>
                 <div className="flex-col">
-                    <div className="block block-label-tabs nowrap">
+                    <div className="block block-label-tabs">
                         <div className="label-tab-set">
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'unsubscriptions' ? 'active' : ''}`}
@@ -123,7 +123,7 @@ export default function ProviderFunds() {
 
             {/* Available funds */}
             {tab == 'available' && (
-                <ProviderAvailableFundsTable
+                <ProviderFundsAvailableTable
                     organization={activeOrganization}
                     onChange={() => {
                         fetchFunds();

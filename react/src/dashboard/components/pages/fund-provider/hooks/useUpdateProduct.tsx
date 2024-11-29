@@ -4,13 +4,13 @@ import usePushDanger from '../../../../hooks/usePushDanger';
 import { useFundService } from '../../../../services/FundService';
 import FundProvider from '../../../../props/models/FundProvider';
 import useStopActionConfirmation from './useStopActionConfirmation';
-import Product from '../../../../props/models/Product';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import ModalNotification from '../../../modals/ModalNotification';
 import Organization from '../../../../props/models/Organization';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import useTranslate from '../../../../hooks/useTranslate';
+import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 
 export default function useUpdateProduct() {
     const translate = useTranslate();
@@ -44,7 +44,7 @@ export default function useUpdateProduct() {
     );
 
     const disableProduct = useCallback(
-        (fundProvider: FundProvider, product: Product): Promise<FundProvider> => {
+        (fundProvider: FundProvider, product: SponsorProduct): Promise<FundProvider> => {
             return new Promise<FundProvider>((resolve) => {
                 stopActionConfirmation()
                     .then(() =>
@@ -60,7 +60,7 @@ export default function useUpdateProduct() {
     );
 
     const deleteProduct = useCallback(
-        (organization: Organization, fundProvider: FundProvider, product: Product) => {
+        (organization: Organization, fundProvider: FundProvider, product: SponsorProduct) => {
             return new Promise<boolean>((resolve) => {
                 openModal((modal) => (
                     <ModalNotification

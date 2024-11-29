@@ -2,6 +2,8 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { currencyFormat, strLimit } from '../../../../helpers/string';
 import Fund from '../../../../props/models/Fund';
 import useTranslate from '../../../../hooks/useTranslate';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import classNames from 'classnames';
 
 export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: Fund }) {
     const translate = useTranslate();
@@ -51,7 +53,7 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
     return (
         <tbody>
             <tr
-                className={`tr-clickable ${collapsed ? 'table-highlight' : 'table-separator'}`}
+                className={classNames('tr-clickable', !collapsed && 'table-separator')}
                 onClick={() => setCollapsed(!collapsed)}>
                 <td>
                     <div className="flex">
@@ -60,7 +62,7 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                                 collapsed ? 'mdi-menu-down' : 'mdi-menu-right'
                             }`}
                         />
-                        <strong className="nowrap">{strLimit(fund.name, 50)}</strong>
+                        <strong className="nowrap">{strLimit(fund.name, 64)}</strong>
                     </div>
                 </td>
                 <td>{fundBudget.vouchers_amount_locale}</td>
@@ -68,17 +70,21 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                 <td>{fundBudget.inactive_vouchers_amount_locale}</td>
                 <td>{fundBudget.deactivated_vouchers_amount_locale}</td>
                 <td>{fundBudget.used_active_vouchers_locale}</td>
-                <td className={'text-right'}>
+                <td>
                     {currencyFormat(
                         parseFloat(fundBudget.vouchers_amount) - parseFloat(fundBudget.used_active_vouchers),
                     )}
+                </td>
+
+                <td className={'table-td-actions text-right'}>
+                    <TableEmptyValue />
                 </td>
             </tr>
 
             {collapsed && (
                 <Fragment>
-                    <tr className="table-highlight-grey">
-                        <td>
+                    <tr>
+                        <td style={{ paddingLeft: '46px' }}>
                             <strong>{translate('financial_dashboard_overview.labels.total_percentage')}</strong>
                         </td>
                         <td>{fundBudget.percentage_total} %</td>
@@ -86,11 +92,15 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                         <td>{fundBudget.percentage_inactive} %</td>
                         <td>{fundBudget.percentage_deactivated} %</td>
                         <td>{fundBudget.percentage_used} %</td>
-                        <td className={'text-right'}>{fundBudget.percentage_left} %</td>
+                        <td>{fundBudget.percentage_left} %</td>
+
+                        <td className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
                     </tr>
 
-                    <tr className="table-highlight-grey">
-                        <td>
+                    <tr>
+                        <td style={{ paddingLeft: '46px' }}>
                             <strong>{translate('financial_dashboard_overview.labels.total_count')}</strong>
                         </td>
                         <td>{fundBudget.vouchers_count}</td>
@@ -98,11 +108,15 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                         <td>{fundBudget.inactive_vouchers_count}</td>
                         <td>{fundBudget.deactivated_vouchers_count}</td>
                         <td>-</td>
-                        <td className={'text-right'}>-</td>
+                        <td>-</td>
+
+                        <td className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
                     </tr>
 
-                    <tr className="table-highlight-grey">
-                        <td>
+                    <tr>
+                        <td style={{ paddingLeft: '46px' }}>
                             <strong>Tegoeden</strong>
                         </td>
                         <td colSpan={2}>
@@ -122,12 +136,15 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                             </div>
                         </td>
                         <td />
-                        <td colSpan={2} />
+
+                        <td colSpan={3} className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
                     </tr>
 
                     {fundBudget.children_count > 0 && (
-                        <tr className="table-highlight-grey">
-                            <td>
+                        <tr>
+                            <td style={{ paddingLeft: '46px' }}>
                                 <strong>Persoonsgegevens</strong>
                             </td>
                             <td colSpan={6}>
@@ -136,18 +153,25 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                                     <strong>{fundBudget.children_count}</strong>
                                 </div>
                             </td>
+
+                            <td className={'table-td-actions text-right'}>
+                                <TableEmptyValue />
+                            </td>
                         </tr>
                     )}
 
-                    <tr className="table-highlight-grey">
-                        <td>
+                    <tr>
+                        <td style={{ paddingLeft: '46px' }}>
                             <strong>{translate('financial_dashboard_overview.labels.product_vouchers')}</strong>
                         </td>
                         <td>{fund.product_vouchers.vouchers_amount_locale}</td>
                         <td>{fund.product_vouchers.active_vouchers_amount_locale}</td>
                         <td>{fund.product_vouchers.inactive_vouchers_amount_locale}</td>
                         <td>{fund.product_vouchers.deactivated_vouchers_amount_locale}</td>
-                        <td colSpan={2} />
+
+                        <td colSpan={3} className={'table-td-actions text-right'}>
+                            <TableEmptyValue />
+                        </td>
                     </tr>
                 </Fragment>
             )}

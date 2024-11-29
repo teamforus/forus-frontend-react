@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
@@ -51,7 +50,7 @@ export default function ProductsShow() {
     const [provider, setProvider] = useState<Provider>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
 
-    const { searchParams } = useStateParams();
+    const { showBack } = useStateParams<{ showBack: boolean }>();
 
     const hasBudgetFunds = useMemo(() => {
         return product?.funds.filter((fund) => fund.type === 'budget').length > 0;
@@ -154,39 +153,15 @@ export default function ProductsShow() {
     return (
         <BlockShowcase
             wrapper={true}
-            breadcrumbs={
-                product && (
-                    <div className="block block-breadcrumbs">
-                        {searchParams && (
-                            <StateNavLink
-                                className="breadcrumb-item breadcrumb-item-back"
-                                name={'search-result'}
-                                state={searchParams}>
-                                <em className="mdi mdi-chevron-left" />
-                                Terug
-                            </StateNavLink>
-                        )}
-                        <StateNavLink name="home" className="breadcrumb-item">
-                            {translate('product.headers.home')}
-                        </StateNavLink>
-
-                        {hasBudgetFunds && (
-                            <StateNavLink className="breadcrumb-item" activeExact={true} name="products">
-                                {translate('product.headers.products')}
-                            </StateNavLink>
-                        )}
-
-                        {hasSubsidyFunds && !hasBudgetFunds && (
-                            <StateNavLink className="breadcrumb-item" activeExact={true} name="actions">
-                                {translate('product.headers.subsidies')}
-                            </StateNavLink>
-                        )}
-
-                        <div className="breadcrumb-item active" aria-current="location">
-                            {product.name}
-                        </div>
-                    </div>
-                )
+            breadcrumbItems={
+                product && [
+                    showBack && { name: 'Terug', back: true },
+                    { name: translate('product.headers.home'), state: 'home' },
+                    hasBudgetFunds && { name: translate('product.headers.products'), state: 'products' },
+                    hasSubsidyFunds &&
+                        !hasBudgetFunds && { name: translate('product.headers.subsidies'), state: 'actions' },
+                    product && { name: product.name },
+                ]
             }>
             {product && funds && vouchers && (
                 <section className="section section-product">

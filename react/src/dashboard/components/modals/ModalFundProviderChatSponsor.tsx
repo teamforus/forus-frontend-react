@@ -10,10 +10,10 @@ import FundProviderChatMessage from '../../props/models/FundProviderChatMessage'
 import Fund from '../../props/models/Fund';
 import FundProvider from '../../props/models/FundProvider';
 import useFundProviderChatService from '../../services/FundProviderChatService';
-import Product from '../../props/models/Product';
 import { ResponseError } from '../../props/ApiResponses';
 import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
+import SponsorProduct from '../../props/models/Sponsor/SponsorProduct';
 
 export default function ModalFundProviderChatSponsor({
     modal,
@@ -27,7 +27,7 @@ export default function ModalFundProviderChatSponsor({
     modal: ModalState;
     chat: FundProviderChat;
     fund: Fund;
-    product: Product;
+    product: SponsorProduct;
     className?: string;
     organization: Organization;
     fundProvider: FundProvider;

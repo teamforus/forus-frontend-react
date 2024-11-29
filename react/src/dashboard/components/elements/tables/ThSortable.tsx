@@ -1,6 +1,7 @@
-import React, { MouseEventHandler, useCallback } from 'react';
+import React, { CSSProperties, MouseEventHandler, useCallback } from 'react';
 import FilterScope from '../../../types/FilterScope';
 import FilterModel from '../../../types/FilterModel';
+import classNames from 'classnames';
 
 enum OrderDir {
     asc = 'asc',
@@ -15,6 +16,7 @@ export default function ThSortable({
     onMouseLeave,
     disabled = false,
     className,
+    style = null,
 }: {
     label: string;
     value?: string;
@@ -23,6 +25,7 @@ export default function ThSortable({
     onMouseLeave?: MouseEventHandler<HTMLTableCellElement>;
     disabled?: boolean;
     className?: string;
+    style?: CSSProperties;
 }) {
     const orderBy = useCallback(
         (value) => {
@@ -42,7 +45,7 @@ export default function ThSortable({
     );
 
     return (
-        <th className={className || ''} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+        <th className={classNames(className)} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave} style={style}>
             {disabled || !value ? (
                 label
             ) : (

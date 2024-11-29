@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import Prevalidation from '../props/models/Prevalidation';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class PrevalidationService<T = Prevalidation> {
     /**
@@ -31,11 +32,13 @@ export class PrevalidationService<T = Prevalidation> {
         data: Array<{ [key: string]: string }>,
         fund_id: number = null,
         overwrite: Array<string> = [],
+        file?: object,
     ): Promise<T> {
         return this.apiRequest.post(`${this.prefix}/collection`, {
             data: data,
             fund_id: fund_id,
             overwrite: overwrite,
+            file,
         });
     }
 
@@ -64,6 +67,20 @@ export class PrevalidationService<T = Prevalidation> {
         return this.apiRequest.get(`${this.prefix}/export`, filters, {
             responseType: 'arraybuffer',
         });
+    }
+
+    public getColumns(headers: Array<string>, typesByKey: object): Array<ConfigurableTableColumn> {
+        const list = ['code', 'employee', ...headers, 'active', 'exported'];
+
+        return list.map((key) => ({
+            key,
+            label: typesByKey[key] || `prevalidated_table.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: typesByKey[key] || `prevalidated_table.labels.${key}`,
+                description: typesByKey[key] || `prevalidated_table.tooltips.${key}`,
+            },
+        }));
     }
 }
 

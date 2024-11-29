@@ -5,7 +5,7 @@ import Fund from '../../props/models/Fund';
 
 export default function useFundMetaBuilder() {
     return useCallback((fund: Fund, vouchers: Array<Voucher>, configs: AppConfigProp) => {
-        if (!fund) {
+        if (!fund || !vouchers) {
             return null;
         }
 
