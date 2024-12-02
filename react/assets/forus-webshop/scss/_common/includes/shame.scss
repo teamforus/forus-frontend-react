@@ -94,6 +94,11 @@ body {
         content: ")";
     }
 }
+.section-title {
+    a {
+        font: inherit !important;
+    }
+}
 
 @media screen and (min-width: 1024px) {
     .section-profile {

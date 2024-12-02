@@ -3,11 +3,13 @@
         display: grid;
         position: relative;
         background: #ffffff;
-        box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
         margin: 0 0 15px;
-        border-radius: var(--border-radius);
-        transition: box-shadow 0.4s;
         grid-template-columns: 135px 1fr;
+        transition: box-shadow 0.4s;
+        background: var(--showcase-item-background);
+        border-radius: var(--showcase-item-border-radius);
+        box-shadow: var(--showcase-item-shadow);
+        border: var(--showcase-item-border);
 
         .button {
             font: 600 13px/20px var(--base-font);
@@ -83,7 +85,7 @@
                     padding-top: 5px;
 
                     .mdi {
-                        color: #DBDCDB;
+                        color: #dbdcdb;
                         margin-left: 3px;
                         font-size: 16px;
                     }
@@ -101,7 +103,7 @@
         }
 
         &:hover {
-            box-shadow: var(--box-shadow);
+            box-shadow: var(--showcase-item-hover-shadow);
         }
     }
 
@@ -124,7 +126,7 @@
                     margin: 0 0 5px;
                     padding: 0 0 0;
                 }
-                    
+
                 .fund-status-label {
                     position: initial;
                 }

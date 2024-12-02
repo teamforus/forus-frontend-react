@@ -122,13 +122,6 @@
         }
     }
 
-    &.block-funds-list {
-        .fund-item {
-            box-shadow: none;
-            border: 1px solid #e4e4e4;
-        }
-    }
-
     &.block-pane {
         box-shadow: none;
         border: 1px solid #e4e4e4;
@@ -157,23 +150,9 @@
         }
     }
 
-    &.block-vouchers {
-        .voucher-item {
-            box-shadow: none;
-            border: 1px solid #e4e4e4;
-        }
-    }
-
     &.block-map_card {
         box-shadow: none;
         border: 1px solid #e4e4e4;
-    }
-
-    &.block-search-results {
-        .search-item {
-            box-shadow: none;
-            border: 1px solid #e4e4e4;
-        }
     }
 
     @media screen and (min-width: 1000px) {

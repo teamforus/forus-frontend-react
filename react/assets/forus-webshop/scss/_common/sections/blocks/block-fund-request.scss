@@ -29,7 +29,7 @@
                         align-items: center;
                         border-radius: calc(var(--border-radius) / 2);
                         background: #f4f5f7;
-                        transition: 0.4s;
+                        transition: color .4s, background-color .4s;
                     }
 
                     .card-heading-wrapper {
@@ -373,14 +373,6 @@
 
     .block-payouts-list {
         margin: 0 0 10px;
-    }
-
-    // todo: css refactoring resource border consistency
-    .block-vouchers {
-        .voucher-item {
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-        }
     }
 
     @media screen and (max-width: 1000px) {
