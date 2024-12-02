@@ -774,9 +774,7 @@ export default function FundRequest() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group col col-lg-12">
-                                        <br />
-                                    </div>
+                                    <br />
                                 </div>
                             </div>
                         </div>

@@ -9,7 +9,7 @@
         box-shadow: var(--showcase-item-shadow);
         border: var(--showcase-item-border);
         border-radius: var(--showcase-item-border-radius);
-        transition: 0.4s;
+        transition: color .4s, background-color .4s;
         cursor: default;
 
         .reservation-actions,

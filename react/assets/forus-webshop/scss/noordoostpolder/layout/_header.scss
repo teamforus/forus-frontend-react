@@ -51,23 +51,13 @@
 
         &:before {
             left: -2px;
-
-            @if ($buildReact) {
-                background-image: url('./assets/img/left-leaf.png');
-            } @else {
-                background-image: url('../img/left-leaf.png');
-            }
-
+            background-image: url('./assets/img/left-leaf.png');
             background-position: top left;
         }
 
         &:after {
             right: -2px;
-            @if ($buildReact) {
-                background-image: url('./assets/img/splash-top-b.png');
-            } @else {
-                background-image: url('../img/splash-top-b.png');
-            }
+            background-image: url('./assets/img/splash-top-b.png');
             background-position: top right;
         }
 

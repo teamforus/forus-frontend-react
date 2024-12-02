@@ -429,7 +429,6 @@ export default function ModalPayoutsUpload({
         }
 
         setLoading(true);
-        setHideModal(true);
 
         if (data.length > 0) {
             if (await startUploading(data, true)) {

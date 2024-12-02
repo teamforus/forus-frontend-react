@@ -62,7 +62,7 @@
                     background: #ebedf0;
                     height: 4px;
                     border-radius: var(--border-radius);
-                    transition: background-color 0.4s;
+                    transition: background-color .4s;
 
                     &:before {
                         content: "";
@@ -86,7 +86,7 @@
                     background-color: #dbdcdb;
                     border: 2.5px solid #fff;
                     z-index: 1;
-                    transition: background-color 0.4s;
+                    transition: background-color .4s;
                 }
 
                 &:first-child {

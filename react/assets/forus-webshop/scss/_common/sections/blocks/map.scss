@@ -1,11 +1,6 @@
 .block {
     &.block-map {
-        @if ($buildReact) {
-            background: url(./assets/img/sprite-map.png) no-repeat;
-        } @else {
-            background: url('../img/sprite-map.png') no-repeat;
-        }
-        background-position: 100% 50%;
+        background: url(./assets/img/sprite-map.png) no-repeat 100% 50%;
         background-size: auto 710px;
         @include cf();
 

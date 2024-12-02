@@ -56,12 +56,13 @@
                     .criteria-validation-validate {
                         font: 600 13px var(--base-font);
                         color: orange;
-                        transition: 0.4s;
+                        transition: color .4s;
 
                         .mdi {
                             background: none;
                             color: orange;
                             font-size: 1.5em;
+                            transition: color .4s, background-color .4s;
                         }
 
                         &:hover {
@@ -77,10 +78,11 @@
                     .criteria-validation-add {
                         font: 600 13px var(--base-font);
                         color: var(--color-default);
-                        transition: 0.4s;
+                        transition: color .4s;
 
                         .mdi {
                             background: var(--color-default);
+                            transition: background-color .4s;
                         }
 
                         &:hover {
@@ -95,7 +97,6 @@
                     .criteria-validation-valid {
                         font: 600 13px var(--base-font);
                         color: var(--color-default);
-                        transition: 0.4s;
 
                         .mdi {
                             background: #00d291;
@@ -113,7 +114,7 @@
                         text-align: center;
                         line-height: 18px;
                         font-weight: 700;
-                        transition: 0.4s;
+                        transition: color .4s;
                     }
                 }
 
