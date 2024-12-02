@@ -29,6 +29,11 @@ import useFundIdentitiesExportService from '../../../services/exports/useFundIde
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 
+type PaginationDataIdentities = PaginationData<
+    Identity,
+    { counts: { active: number; selected: number; without_email: number } }
+>;
+
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
     const activeOrganization = useActiveOrganization();
@@ -51,10 +56,7 @@ export default function ImplementationsNotificationsSend() {
     const [errors, setErrors] = useState<ResponseErrorData>(null);
     const [editing, setEditing] = useState(false);
 
-    const [identities, setIdentities] =
-        useState<PaginationData<Identity, { counts: { active: number; selected: number; without_email: number } }>>(
-            null,
-        );
+    const [identities, setIdentities] = useState<PaginationDataIdentities>(null);
 
     const [submitting, setSubmitting] = useState(false);
     const [perPageKey] = useState('notification_identities');
@@ -350,20 +352,54 @@ export default function ImplementationsNotificationsSend() {
             .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
     }, [fundService, activeOrganization.id, implementation?.id, pushDanger]);
 
+    const fetchCountsByIds = useCallback(
+        (resources: PaginationDataIdentities) => {
+            setProgress(0);
+
+            fundService
+                .identitiesCount(activeOrganization.id, fund.id, {
+                    ...identitiesFilters.activeValues,
+                    identity_ids: resources.data.map((item) => item.id),
+                })
+                .then((res) => {
+                    const items = resources.data.map((identity) => ({
+                        ...identity,
+                        ...res.data.data.filter((item) => item.id === identity.id)[0],
+                    }));
+
+                    setIdentities({
+                        ...resources,
+                        data: items,
+                        meta: { ...resources.meta, counts: res.data.meta.counts },
+                    });
+                })
+                .finally(() => setProgress(100));
+        },
+        [setProgress, fundService, activeOrganization.id, fund?.id, identitiesFilters.activeValues],
+    );
+
     const fetchFundIdentities = useCallback(() => {
         if (fund) {
             setProgress(0);
 
             fundService
                 .listIdentities(activeOrganization.id, fund.id, identitiesFilters.activeValues)
-                .then((res) => setIdentities(res.data))
+                .then((res) => fetchCountsByIds(res.data))
                 .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
                 .finally(() => {
                     setLastIdentitiesQuery(identitiesFilters.activeValues.q);
                     setProgress(100);
                 });
         }
-    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilters?.activeValues, pushDanger]);
+    }, [
+        fund,
+        pushDanger,
+        setProgress,
+        fundService,
+        fetchCountsByIds,
+        activeOrganization.id,
+        identitiesFilters.activeValues,
+    ]);
 
     useEffect(() => {
         if (implementation) {

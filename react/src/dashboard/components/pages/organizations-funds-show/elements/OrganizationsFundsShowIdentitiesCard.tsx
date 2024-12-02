@@ -17,6 +17,11 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
 import useFundIdentitiesExportService from '../../../../services/exports/useFundIdentitiesExportService';
 
+type PaginationDataIdentities = PaginationData<
+    Identity,
+    { counts: { active: number; selected: number; without_email: number } }
+>;
+
 export default function OrganizationsFundsShowIdentitiesCard({
     fund,
     viewType,
@@ -39,7 +44,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
     const [identitiesActive, setIdentitiesActive] = useState<number>(0);
     const [lastQueryIdentities, setLastQueryIdentities] = useState<string>('');
     const [identitiesWithoutEmail, setIdentitiesWithoutEmail] = useState<number>(0);
-    const [identities, setIdentities] = useState<PaginationData<Identity>>(null);
+    const [identities, setIdentities] = useState<PaginationDataIdentities>(null);
 
     const [paginationPerPageKey] = useState('fund_identities_per_page');
 
@@ -47,19 +52,44 @@ export default function OrganizationsFundsShowIdentitiesCard({
         per_page: paginatorService.getPerPage(paginationPerPageKey),
     });
 
+    const fetchCountsByIds = useCallback(
+        (resources: PaginationDataIdentities) => {
+            setProgress(0);
+
+            fundService
+                .identitiesCount(activeOrganization.id, fund.id, {
+                    ...filter.activeValues,
+                    identity_ids: resources.data.map((item) => item.id),
+                })
+                .then((res) => {
+                    const items = resources.data.map((identity) => ({
+                        ...identity,
+                        ...res.data.data.filter((item) => item.id === identity.id)[0],
+                    }));
+
+                    setIdentities({
+                        ...resources,
+                        data: items,
+                        meta: { ...resources.meta, counts: res.data.meta.counts },
+                    });
+
+                    setIdentitiesActive(res.data.meta.counts['active']);
+                    setIdentitiesWithoutEmail(res.data.meta.counts['without_email']);
+                    setLastQueryIdentities(filter.activeValues.q);
+                })
+                .finally(() => setProgress(100));
+        },
+        [setProgress, fundService, activeOrganization.id, fund.id, filter.activeValues],
+    );
+
     const fetchIdentities = useCallback(() => {
         setProgress(0);
 
         fundService
             .listIdentities(activeOrganization.id, fund.id, filter.activeValues)
-            .then((res) => {
-                setIdentities(res.data);
-                setIdentitiesActive(res.data.meta.counts['active']);
-                setIdentitiesWithoutEmail(res.data.meta.counts['without_email']);
-                setLastQueryIdentities(filter.activeValues.q);
-            })
+            .then((res) => fetchCountsByIds(res.data))
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, fund.id, filter.activeValues]);
+    }, [setProgress, fundService, activeOrganization.id, fund.id, filter.activeValues, fetchCountsByIds]);
 
     const exportIdentities = useCallback(() => {
         fundIdentitiesExportService.exportData(activeOrganization.id, fund.id, filter.activeValues);
