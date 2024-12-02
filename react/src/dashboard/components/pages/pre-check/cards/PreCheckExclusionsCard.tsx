@@ -3,7 +3,7 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import React, { useCallback, useMemo, useState } from 'react';
 import Fund from '../../../../props/models/Fund';
-import ModalAddPreCheckFund from '../../../modals/ModalAddPreCheckFund';
+import ModalPreCheckEditFundExclusions from '../../../modals/ModalPreCheckEditFundExclusions';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -12,6 +12,7 @@ import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Implementation from '../../../../props/models/Implementation';
 import usePreCheckService from '../../../../services/PreCheckService';
+import { strLimit } from '../../../../helpers/string';
 
 export default function PreCheckExclusionsCard({
     funds,
@@ -40,7 +41,7 @@ export default function PreCheckExclusionsCard({
     const editFundPreCheckSettings = useCallback(
         (fund: Fund) => {
             openModal((modal) => (
-                <ModalAddPreCheckFund
+                <ModalPreCheckEditFundExclusions
                     modal={modal}
                     fund={fund}
                     funds={funds}
@@ -81,9 +82,7 @@ export default function PreCheckExclusionsCard({
         (fund_id: number) => {
             askConfirmation(() => {
                 preCheckService
-                    .sync(activeOrganization.id, implementation.id, {
-                        fund_exclusion: { fund_id, excluded: false, note: null },
-                    })
+                    .sync(activeOrganization.id, implementation.id, { exclusions_remove: [fund_id] })
                     .then(() => onChange())
                     .catch(pushApiError);
             });
@@ -95,7 +94,7 @@ export default function PreCheckExclusionsCard({
         const excludedFundIds = excludedFunds.map((fund) => fund.id);
 
         openModal((modal) => (
-            <ModalAddPreCheckFund
+            <ModalPreCheckEditFundExclusions
                 modal={modal}
                 funds={funds.filter((fund) => !excludedFundIds.includes(fund.id))}
                 implementation={implementation}
@@ -141,7 +140,13 @@ export default function PreCheckExclusionsCard({
                                         <tr key={fund.id}>
                                             <td>{fund.name}</td>
                                             <td>{fund.pre_check_excluded ? 'Ja' : 'Nee'}</td>
-                                            <td>{fund.pre_check_note || <TableEmptyValue />}</td>
+                                            <td>
+                                                {!fund.pre_check_excluded && fund.pre_check_note ? (
+                                                    strLimit(fund.pre_check_note, 500)
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
                                             <td className="table-td-actions">
                                                 <TableRowActions
                                                     content={(e) => (

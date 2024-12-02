@@ -12,7 +12,7 @@ import FormError from '../elements/forms/errors/FormError';
 import usePreCheckService from '../../services/PreCheckService';
 import Implementation from '../../props/models/Implementation';
 
-export default function ModalAddPreCheckFund({
+export default function ModalPreCheckEditFundExclusions({
     modal,
     funds,
     fund,
@@ -46,7 +46,7 @@ export default function ModalAddPreCheckFund({
         },
         (values) => {
             preCheckService
-                .sync(activeOrganization.id, implementation.id, { fund_exclusion: values })
+                .sync(activeOrganization.id, implementation.id, { exclusion: values })
                 .then(() => {
                     modal.close();
                     onDone?.();
@@ -128,7 +128,7 @@ export default function ModalAddPreCheckFund({
                                         onChange={(e) => form.update({ note: e.target.value })}
                                     />
 
-                                    <FormError error={form.errors?.note} />
+                                    <FormError error={form.errors['exclusion.note']} />
                                 </div>
                             </div>
                         )}
