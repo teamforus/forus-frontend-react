@@ -5,7 +5,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import Fund from '../../../../props/models/Fund';
 import ModalPreCheckEditFundExclusions from '../../../modals/ModalPreCheckEditFundExclusions';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../hooks/useTranslate';
 import Organization from '../../../../props/models/Organization';
 import useOpenModal from '../../../../hooks/useOpenModal';
@@ -13,6 +12,7 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import Implementation from '../../../../props/models/Implementation';
 import usePreCheckService from '../../../../services/PreCheckService';
 import { strLimit } from '../../../../helpers/string';
+import PreCheckFundsLogo from '../../../../../../assets/forus-platform/resources/_platform-common/assets/img/pre-check-funds-logo.svg';
 
 export default function PreCheckExclusionsCard({
     funds,
@@ -25,7 +25,6 @@ export default function PreCheckExclusionsCard({
     implementation: Implementation;
     activeOrganization: Organization;
 }) {
-    const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
     const translate = useTranslate();
     const pushApiError = usePushApiError();
@@ -181,11 +180,7 @@ export default function PreCheckExclusionsCard({
                     </div>
                 </div>
             ) : (
-                <EmptyCard
-                    title={'Geen fondsen'}
-                    imageIconImg={assetUrl('/assets/img/pre-check-funds-logo.svg')}
-                    type={'card-section'}
-                />
+                <EmptyCard title={'Geen fondsen'} imageIconSvg={<PreCheckFundsLogo />} type={'card-section'} />
             )}
         </div>
     );

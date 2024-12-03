@@ -216,7 +216,7 @@ export default function PreCheck() {
         setProgress(0);
 
         fundService
-            .list(activeOrganization.id, { per_page: 100, configured: 1 })
+            .list(activeOrganization.id, { per_page: 100, configured: 1, with_external: 1 })
             .then((res) => setFunds(res.data))
             .finally(() => setProgress(100));
     }, [activeOrganization.id, fundService, setFunds, setProgress]);
