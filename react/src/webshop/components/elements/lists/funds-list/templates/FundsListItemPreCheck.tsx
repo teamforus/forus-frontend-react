@@ -35,11 +35,15 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
     }, [fund.criteria, getCriteriaValidPercentage]);
 
     const progressStatusTitle = useMemo(() => {
+        if (fund.pre_check_note) {
+            return 'Geen indicatie';
+        }
+
         if (criteriaValidPercentage < 33) return 'Lage kans';
         if (criteriaValidPercentage < 66) return 'Gemiddelde kans';
 
         return 'Goede kans';
-    }, [criteriaValidPercentage]);
+    }, [criteriaValidPercentage, fund.pre_check_note]);
 
     const positiveAmount = useMemo(() => {
         return parseFloat(fund.amount_for_identity) > 0;
@@ -93,7 +97,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                 </button>
                             )}
 
-                            {showMore && fund.description_short.length > 190 && (
+                            {showMore && !fund.pre_check_excluded && fund.description_short.length > 190 && (
                                 <button
                                     className="button button-text button-xs fund-description-more"
                                     onClick={() => setShowMore(false)}
@@ -159,7 +163,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                         </div>
                     </div>
 
-                    {!fund.is_external && (
+                    {!fund.is_external && !fund.pre_check_note && (
                         <div className="fund-request-block-button">
                             <button
                                 className="button button-primary button-sm"
@@ -205,73 +209,82 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
             {showMoreRequestInfo && (
                 <div className="fund-pre-check-info-block">
                     <div className="fund-pre-check-info-wrapper">
-                        <div className="fund-pre-check-info-title">Voorwaarden</div>
-                        <div className="fund-pre-check-info-list">
-                            {fund.criteria?.map((criterion) => (
-                                <div
-                                    key={criterion.id}
-                                    className={`fund-pre-check-info-list-item ${
-                                        criterion.is_valid ? 'criteria-valid' : ''
-                                    } ${
-                                        criterion.is_knock_out && !criterion.is_valid
-                                            ? 'criteria-invalid-knock-out'
-                                            : ''
-                                    }`}>
-                                    <div className="fund-pre-check-info-list-item-content">
-                                        <div className="fund-pre-check-info-list-item-icon">
-                                            {criterion.is_valid ? (
-                                                <em className="mdi mdi-check-circle" aria-hidden="true" />
-                                            ) : (
-                                                <em className="mdi mdi-close-circle" aria-hidden="true" />
-                                            )}
+                        <div className="fund-pre-check-info-title">
+                            {!fund.pre_check_note ? 'Voorwaarden' : 'Uitleg'}
+                        </div>
+                        {!fund.pre_check_note && (
+                            <div className="fund-pre-check-info-list">
+                                {fund.criteria?.map((criterion) => (
+                                    <div
+                                        key={criterion.id}
+                                        className={`fund-pre-check-info-list-item ${
+                                            criterion.is_valid ? 'criteria-valid' : ''
+                                        } ${
+                                            criterion.is_knock_out && !criterion.is_valid
+                                                ? 'criteria-invalid-knock-out'
+                                                : ''
+                                        }`}>
+                                        <div className="fund-pre-check-info-list-item-content">
+                                            <div className="fund-pre-check-info-list-item-icon">
+                                                {criterion.is_valid ? (
+                                                    <em className="mdi mdi-check-circle" aria-hidden="true" />
+                                                ) : (
+                                                    <em className="mdi mdi-close-circle" aria-hidden="true" />
+                                                )}
+                                            </div>
+
+                                            <div className="fund-pre-check-info-list-item-title">
+                                                {`${criterion.name} ${criterion.value || '---'}`}
+                                            </div>
+
+                                            {criterion.is_knock_out &&
+                                                criterion.knock_out_description &&
+                                                !criterion.is_valid && (
+                                                    <div
+                                                        className="fund-pre-check-info-list-item-more clickable"
+                                                        onClick={() => {
+                                                            setShownKnokOutCriteria((shownKnokOutDetails) => {
+                                                                if (shownKnokOutDetails.includes(criterion.id)) {
+                                                                    shownKnokOutDetails.splice(
+                                                                        shownKnokOutDetails.indexOf(criterion.id),
+                                                                        1,
+                                                                    );
+                                                                } else {
+                                                                    shownKnokOutDetails.push(criterion.id);
+                                                                }
+
+                                                                return [...shownKnokOutDetails];
+                                                            });
+                                                        }}>
+                                                        Waarom?
+                                                        <em
+                                                            className={`mdi ${
+                                                                shownKnokOutCriteria.includes(criterion.id)
+                                                                    ? 'mdi-chevron-up'
+                                                                    : 'mdi-chevron-down'
+                                                            }`}
+                                                        />
+                                                    </div>
+                                                )}
                                         </div>
-
-                                        <div className="fund-pre-check-info-list-item-title">
-                                            {`${criterion.name} ${criterion.value || '---'}`}
-                                        </div>
-
-                                        {criterion.is_knock_out &&
-                                            criterion.knock_out_description &&
-                                            !criterion.is_valid && (
-                                                <div
-                                                    className="fund-pre-check-info-list-item-more clickable"
-                                                    onClick={() => {
-                                                        setShownKnokOutCriteria((shownKnokOutDetails) => {
-                                                            if (shownKnokOutDetails.includes(criterion.id)) {
-                                                                shownKnokOutDetails.splice(
-                                                                    shownKnokOutDetails.indexOf(criterion.id),
-                                                                    1,
-                                                                );
-                                                            } else {
-                                                                shownKnokOutDetails.push(criterion.id);
-                                                            }
-
-                                                            return [...shownKnokOutDetails];
-                                                        });
-                                                    }}>
-                                                    Waarom?
-                                                    <em
-                                                        className={`mdi ${
-                                                            shownKnokOutCriteria.includes(criterion.id)
-                                                                ? 'mdi-chevron-up'
-                                                                : 'mdi-chevron-down'
-                                                        }`}
-                                                    />
-                                                </div>
-                                            )}
+                                        {shownKnokOutCriteria.includes(criterion.id) && (
+                                            <div className="fund-pre-check-info-list-item-description">
+                                                {criterion.knock_out_description}
+                                            </div>
+                                        )}
                                     </div>
-                                    {shownKnokOutCriteria.includes(criterion.id) && (
-                                        <div className="fund-pre-check-info-list-item-description">
-                                            {criterion.knock_out_description}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                        <div className="fund-pre-check-info-totals">
-                            <div className="fund-pre-check-info-totals-title">Totaal</div>
-                            <div className="fund-pre-check-info-totals-amount">{fund.amount_total_locale}</div>
-                        </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {!fund.pre_check_note ? (
+                            <div className="fund-pre-check-info-totals">
+                                <div className="fund-pre-check-info-totals-title">Totaal</div>
+                                <div className="fund-pre-check-info-totals-amount">{fund.amount_total_locale}</div>
+                            </div>
+                        ) : (
+                            <div className="fund-pre-check-note-block">{fund.pre_check_note}</div>
+                        )}
                     </div>
                 </div>
             )}
