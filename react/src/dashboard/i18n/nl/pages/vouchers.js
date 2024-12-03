@@ -20,7 +20,7 @@ export default {
         email: 'E-mailadres',
         fund: 'Fonds',
         granted: 'Toegewezen',
-        used_date: 'In gebruik date',
+        used_date: 'Eerste gebruiksdatum ',
         note: 'Notitie',
         search: 'Zoeken',
         qr_code: 'QR-Code',
