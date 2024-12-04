@@ -43,6 +43,7 @@ export default function Start() {
     const [loading, setLoading] = useState(false);
 
     const [qrValue, setQrValue] = useState(null);
+    const [emailValue, setEmailValue] = useState(null);
 
     const [{ reset, logout, restore_with_digid, restore_with_email }, setQueryParams] = useQueryParams({
         reset: BooleanParam,
@@ -97,6 +98,7 @@ export default function Start() {
                 return identityService
                     .makeAuthEmailToken(values.email, `${envData.client_key}_${envData.client_type}`, values.target)
                     .then(() => {
+                        setEmailValue(values.email);
                         setState('email');
                         setAuthEmailConfirmationSent(true);
                         authForm.reset();
@@ -107,6 +109,7 @@ export default function Start() {
             identityService
                 .make(values)
                 .then(() => {
+                    setEmailValue(values.email);
                     setAuthEmailRestoreSent(true);
                     authForm.reset();
                     setState('email');
@@ -375,7 +378,7 @@ export default function Start() {
     );
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbs={<></>} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {!signedIn && (
                 <header className="section section-sign-up-choose">
                     <div className="wrapper">
@@ -550,7 +553,7 @@ export default function Start() {
                                                     <TranslateHtml
                                                         component={<div className="sign_up-email_sent-text" />}
                                                         i18n={`popup_auth.header.subtitle_we_succes_${appConfigs?.communication_type}`}
-                                                        values={{ email: authForm.values.email }}
+                                                        values={{ email: emailValue }}
                                                     />
                                                     <EmailProviderLink email={authForm.values.email} />
                                                 </div>
@@ -582,7 +585,7 @@ export default function Start() {
                                                     <TranslateHtml
                                                         component={<div className="sign_up-email_sent-text" />}
                                                         i18n={`popup_auth.notifications.link_${appConfigs?.communication_type}`}
-                                                        values={authForm.values}
+                                                        values={{ email: emailValue }}
                                                     />
                                                     <EmailProviderLink email={authForm.values.email} />
                                                 </div>

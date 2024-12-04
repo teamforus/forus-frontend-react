@@ -49,7 +49,7 @@
                 border-radius: var(--border-radius);
                 margin: 0 auto 10px;
                 border: 1px dashed #767676;
-                transition: 0.4s;
+                transition: color .4s, background-color .4s;
 
                 .mdi {
                     color: #626161;

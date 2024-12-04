@@ -598,7 +598,7 @@ export default function FundRequest() {
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbs={<></>} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {!digiExpired && (
                 <div className="block block-sign_up">
                     <div className="block-wrapper form">
@@ -774,9 +774,7 @@ export default function FundRequest() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group col col-lg-12">
-                                        <br />
-                                    </div>
+                                    <br />
                                 </div>
                             </div>
                         </div>

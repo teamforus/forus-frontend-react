@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { useNotificationService } from '../../../../dashboard/services/NotificationService';
@@ -9,6 +8,7 @@ import useFilter from '../../../../dashboard/hooks/useFilter';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
+import classNames from 'classnames';
 
 export default function Notifications() {
     const translate = useTranslate();
@@ -56,16 +56,7 @@ export default function Notifications() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name="home" className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Notificaties
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Notificaties' }]}
             profileHeader={
                 notifications && (
                     <div className="profile-content-header clearfix">
@@ -94,7 +85,9 @@ export default function Notifications() {
                                             <th>Notificatie</th>
                                         </tr>
                                         {notifications.data?.map((notification) => (
-                                            <tr key={notification.id} className={!notification.seen ? 'dim' : ''}>
+                                            <tr
+                                                key={notification.id}
+                                                className={classNames(!notification.seen && 'tr-dim')}>
                                                 <td className="notification-date hide-sm">
                                                     <em className="mdi mdi-clock-outline" />
                                                     {notification.created_at_locale}

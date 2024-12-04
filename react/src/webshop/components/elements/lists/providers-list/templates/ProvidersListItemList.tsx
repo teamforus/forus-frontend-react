@@ -6,10 +6,10 @@ import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 
 export default function ProvidersListItemList({
     provider,
-    searchParams,
+    stateParams,
 }: {
     provider?: Provider;
-    searchParams?: object;
+    stateParams?: object;
 }) {
     const assetUrl = useAssetUrl();
     const [showOffices, setShowOffices] = useState(false);
@@ -20,7 +20,7 @@ export default function ProvidersListItemList({
                 <StateNavLink
                     name="provider"
                     params={{ id: provider.id }}
-                    state={{ searchParams: searchParams || null }}
+                    state={stateParams || null}
                     className="organization-pane-info"
                     role="link">
                     <div className="organization-logo" role="none" tabIndex={-1}>

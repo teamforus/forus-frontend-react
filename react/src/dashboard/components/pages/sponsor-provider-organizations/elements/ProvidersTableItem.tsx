@@ -10,6 +10,7 @@ import FundProvider from '../../../../props/models/FundProvider';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import useTranslate from '../../../../hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import TableRowActions from '../../../elements/tables/TableRowActions';
 
 export default function ProvidersTableItem({
     organization,
@@ -88,17 +89,23 @@ export default function ProvidersTableItem({
                 <td>{providerOrganization.last_activity_locale}</td>
                 <td>{providerOrganization.products_count}</td>
                 <td>{providerOrganization.funds.length}</td>
-                <td className="text-right">
-                    <StateNavLink
-                        name={'sponsor-provider-organization'}
-                        params={{
-                            id: providerOrganization.id,
-                            organizationId: organization.id,
-                        }}
-                        className="button button-primary button-sm">
-                        <em className="mdi mdi-eye-outline icon-start" />
-                        {translate('provider_organizations.buttons.view')}
-                    </StateNavLink>
+                <td className={'table-td-actions text-right'}>
+                    <TableRowActions
+                        content={() => (
+                            <div className="dropdown dropdown-actions">
+                                <StateNavLink
+                                    name={'sponsor-provider-organization'}
+                                    params={{
+                                        id: providerOrganization.id,
+                                        organizationId: organization.id,
+                                    }}
+                                    className="dropdown-item">
+                                    <em className="mdi mdi-eye-outline icon-start" />
+                                    {translate('provider_organizations.buttons.view')}
+                                </StateNavLink>
+                            </div>
+                        )}
+                    />
                 </td>
             </StateNavLink>
 

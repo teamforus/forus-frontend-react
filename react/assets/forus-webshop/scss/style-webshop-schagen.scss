@@ -1,11 +1,6 @@
 @font-face {
     font-family: 'Century Gothic';
-
-    @if ($buildReact) {
-        src: url('./assets/fonts/Century Gothic.ttf');
-    } @else {
-        src: url('../fonts/Century Gothic.ttf');
-    }
+    src: url('./assets/fonts/Century Gothic.ttf');
 }
 
 // INCLUDES

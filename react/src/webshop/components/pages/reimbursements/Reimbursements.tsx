@@ -90,16 +90,7 @@ export default function Reimbursements() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        {translate('reimbursements.header.title')}
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('reimbursements.header.title') }]}
             filters={
                 funds && (
                     <div className="form form-compact">

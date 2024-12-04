@@ -477,70 +477,68 @@ export default function FundRequestsView() {
             </div>
 
             <div className="card">
-                <div className="card-header">
-                    <div className="flex flex-row">
-                        <div className="card-title flex flex-grow flex-gap">
-                            <Icon />
+                <div className="card-header card-header-next">
+                    <div className="card-title flex flex-grow flex-gap">
+                        <Icon />
 
-                            <div className="flex flex-gap-sm flex-self-center">
-                                Aanvraag ID
-                                <div className="text-strong">#{fundRequestMeta.id}</div>
-                            </div>
+                        <div className="flex flex-gap-sm flex-self-center">
+                            Aanvraag ID
+                            <div className="text-strong">#{fundRequestMeta.id}</div>
                         </div>
+                    </div>
 
-                        {['pending', 'disregarded'].includes(fundRequestMeta.state) && (
-                            <div className="flex flex-gap">
-                                {fundRequestMeta.employee && (
-                                    <div className="block block-fund-request-assigned">
-                                        <div className="block-fund-request-assigned-key">
-                                            {translate('validation_requests.labels.assigned_to_employee')}:
-                                        </div>
-
-                                        {fundRequestMeta.is_assigned ? (
-                                            <div className="block-fund-request-assigned-value">
-                                                <em className="mdi mdi-account" />
-                                                Toegewezen aan mij
-                                            </div>
-                                        ) : (
-                                            <div className="block-fund-request-assigned-value">
-                                                <em className="mdi mdi-account-outline" />
-                                                {fundRequestMeta.employee.email}
-                                            </div>
-                                        )}
+                    {['pending', 'disregarded'].includes(fundRequestMeta.state) && (
+                        <div className="flex flex-gap">
+                            {fundRequestMeta.employee && (
+                                <div className="block block-fund-request-assigned">
+                                    <div className="block-fund-request-assigned-key">
+                                        {translate('validation_requests.labels.assigned_to_employee')}:
                                     </div>
-                                )}
 
-                                <div className="button-group">
-                                    {fundRequestMeta.is_assignable && (
-                                        <button
-                                            className={`button ${
-                                                fundRequestMeta.is_assignable_as_supervisor
-                                                    ? 'button-default'
-                                                    : 'button-primary'
-                                            }`}
-                                            onClick={() => assignRequest()}>
-                                            <em className="mdi mdi-account-plus icon-start" />
-                                            {translate('validation_requests.buttons.assign_to_me')}
-                                        </button>
-                                    )}
-
-                                    {fundRequestMeta.is_assignable_as_supervisor && (
-                                        <button className="button button-primary" onClick={assignRequestAsSupervisor}>
-                                            <em className="mdi mdi-account-details-outline icon-start" />
-                                            {translate('validation_requests.buttons.assign')}
-                                        </button>
-                                    )}
-
-                                    {(fundRequestMeta.can_resign || fundRequestMeta.can_resign_as_supervisor) && (
-                                        <button className="button button-default" onClick={requestResign}>
-                                            <em className="mdi mdi-close icon-start" />
-                                            {translate('validation_requests.buttons.resign')}
-                                        </button>
+                                    {fundRequestMeta.is_assigned ? (
+                                        <div className="block-fund-request-assigned-value">
+                                            <em className="mdi mdi-account" />
+                                            Toegewezen aan mij
+                                        </div>
+                                    ) : (
+                                        <div className="block-fund-request-assigned-value">
+                                            <em className="mdi mdi-account-outline" />
+                                            {fundRequestMeta.employee.email}
+                                        </div>
                                     )}
                                 </div>
+                            )}
+
+                            <div className="button-group">
+                                {fundRequestMeta.is_assignable && (
+                                    <button
+                                        className={`button ${
+                                            fundRequestMeta.is_assignable_as_supervisor
+                                                ? 'button-default'
+                                                : 'button-primary'
+                                        }`}
+                                        onClick={() => assignRequest()}>
+                                        <em className="mdi mdi-account-plus icon-start" />
+                                        {translate('validation_requests.buttons.assign_to_me')}
+                                    </button>
+                                )}
+
+                                {fundRequestMeta.is_assignable_as_supervisor && (
+                                    <button className="button button-primary" onClick={assignRequestAsSupervisor}>
+                                        <em className="mdi mdi-account-details-outline icon-start" />
+                                        {translate('validation_requests.buttons.assign')}
+                                    </button>
+                                )}
+
+                                {(fundRequestMeta.can_resign || fundRequestMeta.can_resign_as_supervisor) && (
+                                    <button className="button button-default" onClick={requestResign}>
+                                        <em className="mdi mdi-close icon-start" />
+                                        {translate('validation_requests.buttons.resign')}
+                                    </button>
+                                )}
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="card-section">
@@ -622,50 +620,47 @@ export default function FundRequestsView() {
 
                 {fundRequestMeta.has_actions && (
                     <div className="card-footer card-footer-primary">
-                        <div className="flex">
-                            <div className="flex-grow"></div>
-                            <div className="flex-row">
-                                {fundRequestMeta.state == 'pending' &&
-                                    fundRequestMeta.is_assigned &&
-                                    !fundRequestMeta.can_disregarded_undo && (
-                                        <button className="button button-primary" onClick={requestApprove}>
-                                            <em className="mdi mdi-check icon-start" />
-                                            {translate('validation_requests.buttons.accept_all')}
-                                        </button>
-                                    )}
-
-                                {fundRequestMeta.state == 'pending' &&
-                                    fundRequestMeta.is_assigned &&
-                                    !fundRequestMeta.can_disregarded_undo && (
-                                        <button className="button button-danger" onClick={requestDecline}>
-                                            <em className="mdi mdi-close icon-start" />
-                                            {translate('validation_requests.buttons.decline_all')}
-                                        </button>
-                                    )}
-
-                                {fundRequestMeta.can_disregarded && (
-                                    <button className="button button-default" onClick={requestDisregard}>
-                                        <em className="mdi mdi-timer-sand-empty icon-start" />
-                                        {translate('validation_requests.buttons.disregard')}
+                        <div className="flex flex-end">
+                            {fundRequestMeta.state == 'pending' &&
+                                fundRequestMeta.is_assigned &&
+                                !fundRequestMeta.can_disregarded_undo && (
+                                    <button className="button button-primary" onClick={requestApprove}>
+                                        <em className="mdi mdi-check icon-start" />
+                                        {translate('validation_requests.buttons.accept_all')}
                                     </button>
                                 )}
 
-                                {fundRequestMeta.can_disregarded_undo && (
-                                    <button className="button button-default" onClick={requestDisregardUndo}>
+                            {fundRequestMeta.state == 'pending' &&
+                                fundRequestMeta.is_assigned &&
+                                !fundRequestMeta.can_disregarded_undo && (
+                                    <button className="button button-danger" onClick={requestDecline}>
+                                        <em className="mdi mdi-close icon-start" />
+                                        {translate('validation_requests.buttons.decline_all')}
+                                    </button>
+                                )}
+
+                            {fundRequestMeta.can_disregarded && (
+                                <button className="button button-default" onClick={requestDisregard}>
+                                    <em className="mdi mdi-timer-sand-empty icon-start" />
+                                    {translate('validation_requests.buttons.disregard')}
+                                </button>
+                            )}
+
+                            {fundRequestMeta.can_disregarded_undo && (
+                                <button className="button button-default" onClick={requestDisregardUndo}>
+                                    <em className="mdi mdi-backup-restore icon-start" />
+                                    {translate('validation_requests.buttons.disregard_undo')}
+                                </button>
+                            )}
+
+                            {fundRequestMeta.state == 'disregarded' &&
+                                !fundRequestMeta.can_disregarded_undo &&
+                                fundRequestMeta.replaced && (
+                                    <button className="button button-default" type="button" disabled={true}>
                                         <em className="mdi mdi-backup-restore icon-start" />
-                                        {translate('validation_requests.buttons.disregard_undo')}
+                                        {translate('validation_requests.buttons.disregard_undo_disabled_replaced')}
                                     </button>
                                 )}
-
-                                {fundRequestMeta.state == 'disregarded' &&
-                                    !fundRequestMeta.can_disregarded_undo &&
-                                    fundRequestMeta.replaced && (
-                                        <button className="button button-default" type="button" disabled={true}>
-                                            <em className="mdi mdi-backup-restore icon-start" />
-                                            {translate('validation_requests.buttons.disregard_undo_disabled_replaced')}
-                                        </button>
-                                    )}
-                            </div>
                         </div>
                     </div>
                 )}
@@ -792,7 +787,7 @@ export default function FundRequestsView() {
                                             </td>
                                         </tr>
                                         {record.hasContent && !collapsedRecords.includes(record.id) && (
-                                            <tr className="dim">
+                                            <tr className="tr-dim">
                                                 <td className="collapse-content" colSpan={6}>
                                                     <FundRequestRecordTabs fundRequestRecord={record} />
                                                 </td>

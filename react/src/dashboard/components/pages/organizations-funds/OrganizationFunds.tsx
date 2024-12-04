@@ -26,16 +26,17 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import ModalFundTopUp from '../../modals/ModalFundTopUp';
 import useTranslate from '../../../hooks/useTranslate';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import FundStateLabels from '../../elements/resource-states/FundStateLabels';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
-    const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
     const activeOrganization = useActiveOrganization();
 
@@ -61,6 +62,10 @@ export default function OrganizationFunds() {
     const [{ funds_type }, setQueryParams] = useQueryParams(
         { funds_type: withDefault(StringParam, 'active') },
         { removeDefaultsFromUrl: true },
+    );
+
+    const { headElement, configsElement } = useConfigurableTable(
+        fundService.getColumns(activeOrganization, funds_type),
     );
 
     const filter = useFilter({
@@ -192,153 +197,145 @@ export default function OrganizationFunds() {
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex-col flex-grow">
-                        <div className="card-title" data-dusk="fundsTitle">
-                            {translate('components.organization_funds.title')} ({funds.meta.total})
-                        </div>
-                    </div>
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow" data-dusk="fundsTitle">
+                    {translate('components.organization_funds.title')} ({funds.meta.total})
+                </div>
 
-                    <div className="flex">
-                        <div className="block block-inline-filters">
-                            {hasPermission(activeOrganization, 'manage_funds') && (
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        {hasPermission(activeOrganization, 'manage_funds') && (
+                            <StateNavLink
+                                name={'funds-create'}
+                                params={{ organizationId: activeOrganization.id }}
+                                className="button button-primary button-sm">
+                                <em className="mdi mdi-plus-circle icon-start" />
+                                {translate('components.organization_funds.buttons.add')}
+                            </StateNavLink>
+                        )}
+
+                        {activeOrganization.allow_2fa_restrictions &&
+                            hasPermission(activeOrganization, 'manage_organization') && (
                                 <StateNavLink
-                                    name={'funds-create'}
+                                    name={'organization-security'}
+                                    query={{ view_type: 'funds' }}
                                     params={{ organizationId: activeOrganization.id }}
-                                    className="button button-primary button-sm">
-                                    <em className="mdi mdi-plus-circle icon-start" />
-                                    {translate('components.organization_funds.buttons.add')}
+                                    className="button button-default button-sm">
+                                    <em className="mdi mdi-security icon-start" />
+                                    {translate('components.organization_funds.buttons.security')}
                                 </StateNavLink>
                             )}
 
-                            {activeOrganization.allow_2fa_restrictions &&
-                                hasPermission(activeOrganization, 'manage_organization') && (
-                                    <StateNavLink
-                                        name={'organization-security'}
-                                        query={{ view_type: 'funds' }}
-                                        params={{ organizationId: activeOrganization.id }}
-                                        className="button button-default button-sm">
-                                        <em className="mdi mdi-security icon-start" />
-                                        {translate('components.organization_funds.buttons.security')}
-                                    </StateNavLink>
-                                )}
+                        <div className="form">
+                            <div className="flex">
+                                <div>
+                                    <div className="block block-label-tabs">
+                                        <div className="label-tab-set">
+                                            <div
+                                                onClick={() => setQueryParams({ funds_type: 'active' })}
+                                                className={`label-tab label-tab-sm ${
+                                                    funds_type == 'active' ? 'active' : ''
+                                                }`}>
+                                                Lopend ({funds.meta.unarchived_funds_total})
+                                            </div>
 
-                            <div className="form">
-                                <div className="flex">
-                                    <div>
-                                        <div className="block block-label-tabs">
-                                            <div className="label-tab-set">
-                                                <div
-                                                    onClick={() => setQueryParams({ funds_type: 'active' })}
-                                                    className={`label-tab label-tab-sm ${
-                                                        funds_type == 'active' ? 'active' : ''
-                                                    }`}>
-                                                    Lopend ({funds.meta.unarchived_funds_total})
-                                                </div>
-
-                                                <div
-                                                    onClick={() => setQueryParams({ funds_type: 'archived' })}
-                                                    className={`label-tab label-tab-sm ${
-                                                        funds_type == 'archived' ? 'active' : ''
-                                                    }`}>
-                                                    Archief ({funds.meta.archived_funds_total})
-                                                </div>
+                                            <div
+                                                onClick={() => setQueryParams({ funds_type: 'archived' })}
+                                                className={`label-tab label-tab-sm ${
+                                                    funds_type == 'archived' ? 'active' : ''
+                                                }`}>
+                                                Archief ({funds.meta.archived_funds_total})
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="flex">
-                                {filter.show && (
-                                    <div className="button button-text" onClick={filter.resetFilters}>
-                                        <em className="mdi mdi-close icon-start" />
-                                        Wis filters
+                        <div className="flex">
+                            {filter.show && (
+                                <div className="button button-text" onClick={filter.resetFilters}>
+                                    <em className="mdi mdi-close icon-start" />
+                                    Wis filters
+                                </div>
+                            )}
+
+                            {!filter.show && (
+                                <div className="form">
+                                    <div className="form-group">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Zoeken"
+                                            value={filter.values.q}
+                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                        />
                                     </div>
-                                )}
+                                </div>
+                            )}
 
-                                {!filter.show && (
-                                    <div className="form">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Zoeken"
-                                                value={filter.values.q}
-                                                onChange={(e) => filter.update({ q: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
-                                <ClickOutside className="form" onClickOutside={() => filter.setShow(false)}>
-                                    <div className="inline-filters-dropdown pull-right">
-                                        {filter.show && (
-                                            <div className="inline-filters-dropdown-content">
-                                                <div className="arrow-box bg-dim">
-                                                    <div className="arrow" />
-                                                </div>
-
-                                                <div className="form">
-                                                    <FilterItemToggle
-                                                        show={true}
-                                                        label={translate(
-                                                            'components.organization_funds.filters.search',
-                                                        )}>
-                                                        <input
-                                                            className="form-control"
-                                                            value={filter.values.q}
-                                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                                            placeholder={translate(
-                                                                'components.organization_funds.filters.search',
-                                                            )}
-                                                        />
-                                                    </FilterItemToggle>
-
-                                                    <FilterItemToggle
-                                                        label={translate(
-                                                            'components.organization_funds.filters.state',
-                                                        )}>
-                                                        <SelectControl
-                                                            className="form-control"
-                                                            propKey={'key'}
-                                                            allowSearch={false}
-                                                            value={filter.values.state}
-                                                            options={statesOptions}
-                                                            optionsComponent={SelectControlOptions}
-                                                            onChange={(state: string) => filter.update({ state })}
-                                                        />
-                                                    </FilterItemToggle>
-
-                                                    <FilterItemToggle
-                                                        label={translate(
-                                                            'components.organization_funds.filters.implementation',
-                                                        )}>
-                                                        <SelectControl
-                                                            className="form-control"
-                                                            propKey={'id'}
-                                                            allowSearch={false}
-                                                            value={filter.values.implementation_id}
-                                                            options={implementations}
-                                                            optionsComponent={SelectControlOptions}
-                                                            onChange={(implementation_id: string) =>
-                                                                filter.update({ implementation_id })
-                                                            }
-                                                        />
-                                                    </FilterItemToggle>
-                                                </div>
+                            <ClickOutside className="form" onClickOutside={() => filter.setShow(false)}>
+                                <div className="inline-filters-dropdown pull-right">
+                                    {filter.show && (
+                                        <div className="inline-filters-dropdown-content">
+                                            <div className="arrow-box bg-dim">
+                                                <div className="arrow" />
                                             </div>
-                                        )}
 
-                                        <div
-                                            className="button button-default button-icon"
-                                            onClick={() => filter.setShow(!filter.show)}>
-                                            <em className="mdi mdi-filter-outline" />
+                                            <div className="form">
+                                                <FilterItemToggle
+                                                    show={true}
+                                                    label={translate('components.organization_funds.filters.search')}>
+                                                    <input
+                                                        className="form-control"
+                                                        value={filter.values.q}
+                                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                                        placeholder={translate(
+                                                            'components.organization_funds.filters.search',
+                                                        )}
+                                                    />
+                                                </FilterItemToggle>
+
+                                                <FilterItemToggle
+                                                    label={translate('components.organization_funds.filters.state')}>
+                                                    <SelectControl
+                                                        className="form-control"
+                                                        propKey={'key'}
+                                                        allowSearch={false}
+                                                        value={filter.values.state}
+                                                        options={statesOptions}
+                                                        optionsComponent={SelectControlOptions}
+                                                        onChange={(state: string) => filter.update({ state })}
+                                                    />
+                                                </FilterItemToggle>
+
+                                                <FilterItemToggle
+                                                    label={translate(
+                                                        'components.organization_funds.filters.implementation',
+                                                    )}>
+                                                    <SelectControl
+                                                        className="form-control"
+                                                        propKey={'id'}
+                                                        allowSearch={false}
+                                                        value={filter.values.implementation_id}
+                                                        options={implementations}
+                                                        optionsComponent={SelectControlOptions}
+                                                        onChange={(implementation_id: string) =>
+                                                            filter.update({ implementation_id })
+                                                        }
+                                                    />
+                                                </FilterItemToggle>
+                                            </div>
                                         </div>
+                                    )}
+
+                                    <div
+                                        className="button button-default button-icon"
+                                        onClick={() => filter.setShow(!filter.show)}>
+                                        <em className="mdi mdi-filter-outline" />
                                     </div>
-                                </ClickOutside>
-                            </div>
+                                </div>
+                            </ClickOutside>
                         </div>
                     </div>
                 </div>
@@ -347,31 +344,11 @@ export default function OrganizationFunds() {
             {!loading && funds.meta.total > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>{translate('components.organization_funds.labels.name')}</th>
-                                        <th>{translate('components.organization_funds.labels.implementation')}</th>
-                                        {funds_type == 'active' && (
-                                            <Fragment>
-                                                {hasPermission(activeOrganization, 'view_finances') && (
-                                                    <th>
-                                                        {translate('components.organization_funds.labels.remaining')}
-                                                    </th>
-                                                )}
-                                                <th>
-                                                    {translate('components.organization_funds.labels.requester_count')}
-                                                </th>
-                                            </Fragment>
-                                        )}
+                        {configsElement}
 
-                                        <th>{translate('components.organization_funds.labels.status')}</th>
-                                        <th className="th-narrow text-right">
-                                            {translate('components.organization_funds.labels.actions')}
-                                        </th>
-                                    </tr>
-                                </thead>
+                        <TableTopScroller>
+                            <table className="table">
+                                {headElement}
 
                                 <tbody>
                                     {funds.data.map((fund) => (
@@ -382,27 +359,12 @@ export default function OrganizationFunds() {
                                             customElement={'tr'}
                                             className={'tr-clickable'}>
                                             <td>
-                                                <div className="td-entity-main">
-                                                    <div className="td-entity-main-media">
-                                                        <img
-                                                            className="td-media td-media-sm td-media-round"
-                                                            src={
-                                                                fund.logo?.sizes.thumbnail ||
-                                                                assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                                            }
-                                                            alt={''}
-                                                        />
-                                                    </div>
-
-                                                    <div className="td-entity-main-content">
-                                                        <div
-                                                            className="text-strong text-primary"
-                                                            title={fund.name || '-'}>
-                                                            {strLimit(fund.name, 50)}
-                                                        </div>
-                                                        <div className="text-muted-dark">{fund.type_locale}</div>
-                                                    </div>
-                                                </div>
+                                                <TableEntityMain
+                                                    title={strLimit(fund.name, 50)}
+                                                    subtitle={fund.type_locale}
+                                                    mediaPlaceholder={'fund'}
+                                                    media={fund?.logo}
+                                                />
                                             </td>
 
                                             <td className="text-strong text-muted-dark">
@@ -531,7 +493,7 @@ export default function OrganizationFunds() {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

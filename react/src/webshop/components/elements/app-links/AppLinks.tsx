@@ -29,6 +29,7 @@ export default function AppLinks({
                     href={envData?.config?.android_link}
                     target="_blank"
                     id={androidId}
+                    tabIndex={0}
                     className="download-link"
                     rel="noreferrer">
                     <img
@@ -43,6 +44,7 @@ export default function AppLinks({
                     href={envData?.config?.ios_iphone_link}
                     target="_blank"
                     id={iosId}
+                    tabIndex={0}
                     className="download-link"
                     rel="noreferrer">
                     <img

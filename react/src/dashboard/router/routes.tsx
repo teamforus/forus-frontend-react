@@ -19,10 +19,9 @@ import OrganizationCreate from '../components/pages/organizations-edit/Organizat
 import Auth2FA from '../components/pages/auth/Auth2FA';
 import ProviderOverview from '../components/pages/provider-overview/ProviderOverview';
 import Offices from '../components/pages/offices/Offices';
-import Products from '../components/pages/products/Products';
 import ProductsCreate from '../components/pages/products-edit/ProductsCreate';
 import ProductsEdit from '../components/pages/products-edit/ProductsEdit';
-import ProductsView from '../components/pages/products-view/ProductsView';
+import ProductView from '../components/pages/products-view/ProductView';
 import Transactions from '../components/pages/transactions/Transactions';
 import TransactionSettings from '../components/pages/transaction-settings/TransactionSettings';
 import TransactionsView from '../components/pages/transactions-view/TransactionsView';
@@ -53,6 +52,7 @@ import EventLogs from '../components/pages/eventLogs/EventLogs';
 import ImplementationsView from '../components/pages/implementations-view/ImplementationsView';
 import ImplementationsEmail from '../components/pages/implementations-email/ImplementationsEmail';
 import ImplementationsDigid from '../components/pages/implementations-digid/ImplementationsDigid';
+import ImplementationsCookies from '../components/pages/implementations-cookies/ImplementationsCookies';
 import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
 import ImplementationsCms from '../components/pages/implementations-cms/ImplementationsCms';
 import ImplementationsConfig from '../components/pages/implementations-config/ImplementationsConfig';
@@ -89,6 +89,9 @@ import SponsorFundUnsubscriptions from '../components/pages/sponsor-fund-unsubsc
 import OrganizationsContacts from '../components/pages/organizations-contacts/OrganizationsContacts';
 import Payouts from '../components/pages/payouts/Payouts';
 import PayoutsView from '../components/pages/payouts-view/PayoutsView';
+import Products from '../components/pages/products/Products';
+import SponsorProducts from '../components/pages/sponsor-products/SponsorProducts';
+import SponsorProductView from '../components/pages/sponsor-product/SponsorProductView';
 
 const router = new RouterBuilder();
 
@@ -260,6 +263,18 @@ router.state('sponsor-fund-unsubscriptions', <SponsorFundUnsubscriptions />, {
     fallbackState: 'organizations',
 });
 
+router.state('sponsor-products', <SponsorProducts />, {
+    path: `/organisaties/:organizationId/sponsor/producten`,
+    altPath: `/organizations/:organizationId/sponsor/products`,
+    fallbackState: 'organizations',
+});
+
+router.state('sponsor-product', <SponsorProductView />, {
+    path: `/organisaties/:organizationId/sponsor/producten/:productId`,
+    altPath: `/organizations/:organizationId/sponsor/products/:productId`,
+    fallbackState: 'organizations',
+});
+
 router.state('bank-connections', <BankConnections />, {
     path: `/organisaties/:organizationId/bank-integraties`,
     altPath: `/organizations/:organizationId/bank-connections`,
@@ -353,6 +368,12 @@ router.state('implementations-config', <ImplementationsConfig />, {
 router.state('implementations-email', <ImplementationsEmail />, {
     path: `/organisaties/:organizationId/implementaties/:id/email`,
     altPath: `/organizations/:organizationId/implementations/:id/email`,
+    fallbackState: 'organizations',
+});
+
+router.state('implementations-cookies', <ImplementationsCookies />, {
+    path: `/organisaties/:organizationId/implementaties/:id/cookiemelding`,
+    altPath: `/organizations/:organizationId/implementations/:id/cookies`,
     fallbackState: 'organizations',
 });
 
@@ -498,7 +519,7 @@ router.state('products', <Products />, {
     altPath: `/organizations/:organizationId/products`,
 });
 
-router.state('products-show', <ProductsView />, {
+router.state('products-show', <ProductView />, {
     path: `/organisaties/:organizationId/producten/:id`,
     altPath: `/organizations/:organizationId/products/:id`,
     fallbackState: 'products',
