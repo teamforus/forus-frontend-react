@@ -95,9 +95,9 @@ export default function ReimbursementsShow() {
                     <div className="profile-content-header">
                         <div className="flex">
                             <div className="flex flex-grow flex-center">
-                                <div className="profile-content-title flex flex-center flex-vertical">
+                                <h1 className="profile-content-title flex flex-center flex-vertical">
                                     Nummer: #{reimbursement.code}
-                                </div>
+                                </h1>
                             </div>
                             <div className="flex flex-center hide-sm">
                                 {reimbursement.state === 'draft' && (

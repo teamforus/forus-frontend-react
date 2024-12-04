@@ -238,9 +238,9 @@ export default function ReimbursementsEdit() {
                 (!id || reimbursement) && (
                     <div className="profile-content-header">
                         {reimbursement ? (
-                            <h2 className="profile-content-title">Declaratienummer: #{reimbursement.code}</h2>
+                            <h1 className="profile-content-title">Declaratienummer: #{reimbursement.code}</h1>
                         ) : (
-                            <h2 className="profile-content-title">Nieuwe kosten terugvragen</h2>
+                            <h1 className="profile-content-title">Nieuwe kosten terugvragen</h1>
                         )}
                     </div>
                 )
