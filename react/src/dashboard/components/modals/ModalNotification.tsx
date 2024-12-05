@@ -1,8 +1,9 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { Fragment, ReactNode, useCallback } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ModalButton } from './elements/ModalButton';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import classNames from 'classnames';
+import Modal from './elements/Modal';
 
 export default function ModalNotification({
     modal,
@@ -26,43 +27,15 @@ export default function ModalNotification({
     buttons?: Array<ModalButton>;
 }) {
     const assetUrl = useAssetUrl();
-    const getIcon = useCallback((icon) => assetUrl('./assets/img/modal/' + icon + '.png'), [assetUrl]);
+    const getIcon = useCallback((icon: string) => assetUrl('./assets/img/modal/' + icon + '.png'), [assetUrl]);
 
     return (
-        <div
-            className={classNames(
-                'modal',
-                'modal-animated',
-                'modal-notification',
-                modal.loading && 'modal-loading',
-                className,
-            )}>
-            <div className="modal-backdrop" onClick={modal.close} />
-            <div className="modal-window">
-                <div className="modal-close mdi mdi-close" onClick={modal.close} />
-                <div className="modal-body form">
-                    <div className="modal-section">
-                        <div className="text-center">
-                            {icon && (
-                                <div className="modal-icon-rounded">
-                                    <img src={getIcon(icon)} alt="Icon" />
-                                </div>
-                            )}
-
-                            <div className="modal-heading">{title}</div>
-
-                            {description && (
-                                <div className="modal-text">
-                                    {(Array.isArray(description) ? description : [description]).map((value, index) => (
-                                        <div key={index}>{value}</div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="modal-footer text-center">
+        <Modal
+            size={'lg'}
+            modal={modal}
+            className={classNames('modal-notification', className)}
+            footer={
+                <Fragment>
                     {buttonClose && <ModalButton button={buttonClose} text="Sluiten" type="default" />}
                     {buttonCancel && <ModalButton button={buttonCancel} text="Annuleren" type="default" />}
                     {buttonSubmit && <ModalButton button={buttonSubmit} text="Bevestigen" type="primary" />}
@@ -70,8 +43,23 @@ export default function ModalNotification({
                     {buttons?.map((button, index) => (
                         <ModalButton key={index} button={button} text={''} type="default" submit={true} />
                     ))}
+                </Fragment>
+            }>
+            {icon && (
+                <div className="modal-icon-rounded">
+                    <img src={getIcon(icon)} alt="Icon" />
                 </div>
-            </div>
-        </div>
+            )}
+
+            <div className="modal-heading text-center">{title}</div>
+
+            {description && (
+                <div className="modal-text">
+                    {(Array.isArray(description) ? description : [description]).map((value, index) => (
+                        <div key={index}>{value}</div>
+                    ))}
+                </div>
+            )}
+        </Modal>
     );
 }

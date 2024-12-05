@@ -34,6 +34,66 @@
                 font: inherit;
                 color: #004d93;
             }
+
+            .key-value-list-item-value-history {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: 5px;
+
+                .key-value-list-item-value-history-header {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 8px;
+
+                    .key-value-list-item-value-history-toggle {
+                        font: 600 12px/20px var(--base-font);
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0;
+                        color: #646f79;
+                        cursor: pointer;
+
+                        .mdi {
+                            height: 20px;
+                            line-height: 20px;
+                            font-size: 20px;
+                        }
+
+                        &:hover {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+
+                .key-value-list-item-value-history-body {
+                    background: #f4f5f7;
+                    border-radius: var(--border-radius);
+                    border: 1px solid var(--border-color);
+                    padding: 5px 15px;
+                    max-height: 350px;
+                    overflow: auto;
+                    @include webkit_scrollbar();
+
+                    .key-value-list-item-value-history-body-item {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 5px;
+                        padding: 6px 0;
+                        font: 500 12px/20px var(--base-font);
+                        border-bottom: 1px solid var(--border-color);
+                        color: #646f79;
+
+                        strong {
+                            color: #000;
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -63,7 +123,6 @@
                 font: 600 13px/18px var(--base-font);
             }
         }
-
 
         &.block-key-value-list-pane {
             padding: 15px;

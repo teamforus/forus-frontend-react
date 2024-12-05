@@ -1,53 +1,104 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useFundService } from '../../../services/FundService';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useSetProgress from '../../../hooks/useSetProgress';
-import Fund from '../../../props/models/Fund';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router-dom';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import Identity from '../../../props/models/Sponsor/Identity';
-import IdentityVouchersCard from './elements/IdentityVouchersCard';
+import SponsorIdentity, {
+    ProfileRecord,
+    ProfileRecords,
+    ProfileRecordTypes,
+} from '../../../props/models/Sponsor/SponsorIdentity';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
+import useSponsorIdentitiesService from '../../../services/SponsorIdentitesService';
+import Card from '../../elements/card/Card';
+import CardBlockKeyValue from '../../elements/card/blocks/CardBlockKeyValue';
+import useOpenModal from '../../../hooks/useOpenModal';
+import ModalEditProfileRecords from './modals/ModalEditProfileRecords';
+import { useRecordTypeService } from '../../../services/RecordTypeService';
+import RecordType from '../../../props/models/RecordType';
+import { hasPermission } from '../../../helpers/utils';
+import IdentityReimbursementsCard from './cards/IdentityReimbursementsCard';
+import IdentityFundRequestsCard from './cards/IdentityFundRequestsCard';
+import IdentityBankAccountsCard from './cards/IdentityBankAccountsCard';
+import IdentityVouchersCard from './cards/IdentityVouchersCard';
+import IdentityPayoutsCard from './cards/IdentityPayoutsCard';
+import IdentityRecordKeyValueWithHistory from './elements/IdentityRecordKeyValueWithHistory';
 
 export default function IdentitiesShow() {
+    const openModal = useOpenModal();
+    const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
 
-    const setProgress = useSetProgress();
-    const fundService = useFundService();
+    const recordTypeService = useRecordTypeService();
+    const sponsorIdentitiesService = useSponsorIdentitiesService();
 
-    const [fund, setFund] = useState<Fund>(null);
-    const [identity, setIdentity] = useState<Identity>(null);
-
-    const fundId = parseInt(useParams().fundId);
     const identityId = parseInt(useParams().id);
+    const [identity, setIdentity] = useState<SponsorIdentity>(null);
+    const [recordTypes, setRecordTypes] = useState<Array<RecordType & { key: ProfileRecordTypes }>>(null);
 
-    const fetchFund = useCallback(() => {
-        setProgress(0);
+    const recordTypesByKey = useMemo(() => {
+        return recordTypes?.reduce((map, recordType) => {
+            return { ...map, [recordType.key]: recordType };
+        }, {}) as ProfileRecords;
+    }, [recordTypes]);
 
-        fundService
-            .read(activeOrganization.id, fundId)
-            .then((res) => setFund(res.data.data))
-            .finally(() => setProgress(100));
-    }, [activeOrganization.id, fundService, fundId, setProgress]);
+    const recordsByKey = useMemo(() => {
+        return Object.keys(identity?.records || {})?.reduce((map, key) => {
+            const record: ProfileRecord[] = identity?.records[key];
+
+            return { ...map, [key]: record[0]?.value };
+        }, {}) as { [key in ProfileRecordTypes]: string };
+    }, [identity]);
 
     const fetchIdentity = useCallback(() => {
         setProgress(0);
 
-        fundService
-            .readIdentity(activeOrganization.id, fundId, identityId)
+        sponsorIdentitiesService
+            .read(activeOrganization.id, identityId)
             .then((res) => setIdentity(res.data.data))
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, fundService, fundId, identityId, setProgress]);
+    }, [activeOrganization.id, identityId, setProgress, sponsorIdentitiesService]);
 
-    useEffect(() => {
-        fetchFund();
-    }, [fetchFund]);
+    const fetchRecordTypes = useCallback(() => {
+        setProgress(0);
+
+        recordTypeService
+            .list<RecordType & { key: ProfileRecordTypes }>()
+            .then((res) => setRecordTypes(res.data))
+            .finally(() => setProgress(100));
+    }, [recordTypeService, setProgress]);
+
+    const editProfileRecords = useCallback(
+        (
+            recordTypeKyes: ProfileRecordTypes[],
+            disabledFields: Array<{ label: string; value: string; key: string }> = [],
+            bodyOverflowVisible: boolean = false,
+        ) => {
+            openModal((modal) => (
+                <ModalEditProfileRecords
+                    modal={modal}
+                    disabledFields={disabledFields}
+                    onDone={fetchIdentity}
+                    identity={identity}
+                    recordTypes={recordTypes?.filter((item) => recordTypeKyes.includes(item.key))}
+                    values={recordsByKey}
+                    organization={activeOrganization}
+                    bodyOverflowVisible={bodyOverflowVisible}
+                />
+            ));
+        },
+        [openModal, fetchIdentity, identity, recordTypes, recordsByKey, activeOrganization],
+    );
 
     useEffect(() => {
         fetchIdentity();
     }, [fetchIdentity]);
 
-    if (!identity || !fund) {
+    useEffect(() => {
+        fetchRecordTypes();
+    }, [fetchRecordTypes]);
+
+    if (!identity || !recordTypes) {
         return <LoadingCard />;
     }
 
@@ -56,42 +107,144 @@ export default function IdentitiesShow() {
             <div className="block block-breadcrumbs">
                 <StateNavLink
                     className="breadcrumb-item"
-                    name="funds-show"
+                    name="identities"
                     activeExact={true}
-                    params={{ organizationId: activeOrganization.id, fundId: fundId }}>
-                    {fund?.name}
+                    params={{ organizationId: activeOrganization.id }}>
+                    Personen
                 </StateNavLink>
 
-                <div className="breadcrumb-item active">{identity?.email}</div>
+                <div className="breadcrumb-item active">#{identity?.id}</div>
             </div>
 
-            <div className="card">
-                <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">
-                                <span>{identity?.email}</span>
-                            </div>
-                        </div>
-                        {/*todo: investigate later*/}
-                        {/*{identity?.bsn && (
-                            <div className="flex flex-self-start">
-                                <div className="card-title">
-                                    <span className="text-strong text-md text-primary">BSN:</span>
-                                    <span className="text-strong text-md text-muted-dark">{identity.bsn}</span>
-                                </div>
-                            </div>
-                        )}*/}
-                    </div>
-                </div>
-            </div>
+            <Card
+                title={'Persoonsgegevens'}
+                buttons={[
+                    hasPermission(activeOrganization, 'manage_identities') && {
+                        text: 'Bewerken',
+                        icon: 'pencil-outline',
+                        onClick: () => editProfileRecords(['given_name', 'family_name', 'birth_date'], [], true),
+                    },
+                ]}>
+                <CardBlockKeyValue
+                    size={'md'}
+                    items={[
+                        {
+                            label: recordTypesByKey?.given_name?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.given_name} />,
+                        },
+                        {
+                            label: recordTypesByKey?.family_name?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.family_name} />,
+                        },
+                        {
+                            label: recordTypesByKey?.birth_date?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.birth_date} />,
+                        },
+                        { label: 'BSN', value: identity?.bsn },
+                    ]}
+                />
+            </Card>
 
-            <IdentityVouchersCard
-                fund={fund}
+            <Card title={'Accountgegevens'}>
+                <CardBlockKeyValue
+                    size={'md'}
+                    items={[
+                        { label: 'Accountnummer', value: identity?.id },
+                        { label: 'Actief sinds', value: identity?.created_at_locale },
+                        { label: 'Laatste inlog', value: identity?.last_activity_at_locale },
+                    ]}
+                />
+            </Card>
+
+            <Card
+                title={'Contactgegevens'}
+                buttons={[
+                    hasPermission(activeOrganization, 'manage_identities') && {
+                        text: 'Bewerken',
+                        icon: 'pencil-outline',
+                        onClick: () => {
+                            editProfileRecords(
+                                [
+                                    'telephone',
+                                    'mobile',
+                                    'city',
+                                    'street',
+                                    'house_number',
+                                    'house_number_addition',
+                                    'postal_code',
+                                ],
+                                [
+                                    { label: 'Hoofd e-mailadres', value: identity.email, key: 'email' },
+                                    {
+                                        label: 'E-mailadres',
+                                        value: identity?.email_verified?.join(', '),
+                                        key: 'emails_verified',
+                                    },
+                                ],
+                            );
+                        },
+                    },
+                ]}>
+                <CardBlockKeyValue
+                    size={'md'}
+                    items={[
+                        { label: 'Hoofd e-mailadres', value: identity.email },
+                        { label: 'E-mailadres', value: identity?.email_verified?.join(', ') },
+                        {
+                            label: recordTypesByKey?.telephone?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.telephone} />,
+                        },
+                        {
+                            label: recordTypesByKey?.mobile?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.mobile} />,
+                        },
+                        {
+                            label: recordTypesByKey?.city?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.city} />,
+                        },
+                        {
+                            label: recordTypesByKey?.street?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.street} />,
+                        },
+                        {
+                            label: recordTypesByKey?.house_number?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.house_number} />,
+                        },
+                        {
+                            label: recordTypesByKey?.house_number_addition?.name,
+                            value: (
+                                <IdentityRecordKeyValueWithHistory records={identity.records.house_number_addition} />
+                            ),
+                        },
+                        {
+                            label: recordTypesByKey?.postal_code?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.postal_code} />,
+                        },
+                    ]}
+                />
+            </Card>
+
+            <IdentityBankAccountsCard
                 identity={identity}
                 organization={activeOrganization}
-                blockTitle={'Vouchers'}
+                fetchIdentity={fetchIdentity}
             />
+
+            {hasPermission(activeOrganization, ['manage_vouchers', 'view_vouchers']) && (
+                <IdentityVouchersCard organization={activeOrganization} identity={identity} />
+            )}
+
+            {activeOrganization?.allow_payouts && hasPermission(activeOrganization, 'manage_payouts') && (
+                <IdentityPayoutsCard organization={activeOrganization} identity={identity} />
+            )}
+
+            {hasPermission(activeOrganization, 'manage_reimbursements') && (
+                <IdentityReimbursementsCard organization={activeOrganization} identity={identity} />
+            )}
+
+            {hasPermission(activeOrganization, ['validate_records', 'manage_validators'], false) && (
+                <IdentityFundRequestsCard organization={activeOrganization} identity={identity} />
+            )}
         </Fragment>
     );
 }
