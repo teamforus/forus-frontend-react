@@ -187,6 +187,7 @@ export class OrganizationService<T = Organization> {
                 { permissions: ['view_finances'], name: 'transactions' },
                 { permissions: ['manage_payouts'], name: 'payouts' },
                 { permissions: ['validate_records'], name: 'csv-validation' },
+                { permissions: ['view_identities', 'manage_identities'], name: 'identities' },
             ],
             provider: [
                 { permissions: ['manage_employees'], name: 'provider-overview' },
