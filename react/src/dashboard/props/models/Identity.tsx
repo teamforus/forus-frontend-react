@@ -4,4 +4,5 @@ export default interface Identity {
     bsn: boolean;
     bsn_time?: number;
     email?: string;
+    profile?: boolean;
 }

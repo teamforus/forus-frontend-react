@@ -5,7 +5,7 @@ import Fund from '../props/models/Fund';
 import FundProvider from '../props/models/FundProvider';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import FundTopUpTransaction from '../props/models/FundTopUpTransaction';
-import Identity from '../props/models/Sponsor/Identity';
+import SponsorIdentity, { SponsorIdentityCounts } from '../props/models/Sponsor/SponsorIdentity';
 import Papa from 'papaparse';
 import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import {
@@ -104,7 +104,7 @@ export class FundService<T = Fund> {
         fund_id: number,
         id: number,
         data: object = {},
-    ): Promise<ApiResponseSingle<Identity>> {
+    ): Promise<ApiResponseSingle<SponsorIdentity>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities/${id}`, data);
     }
 
@@ -112,7 +112,7 @@ export class FundService<T = Fund> {
         company_id: number,
         fund_id: number,
         data: object = {},
-    ): Promise<ApiResponse<Identity, { counts: { active: number; selected: number; without_email: number } }>> {
+    ): Promise<ApiResponse<SponsorIdentity, { counts: SponsorIdentityCounts }>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities`, data);
     }
 

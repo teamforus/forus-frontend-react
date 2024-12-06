@@ -23,6 +23,7 @@ import reservations from './nl/pages/reservations';
 import payouts from './nl/pages/payouts';
 import reimbursements from './nl/pages/reimbursements';
 import notification_preferences from './nl/pages/notification-preferences';
+import profile from './nl/pages/profile';
 import email_preferences from './nl/pages/email-preferences';
 import voucher_printable from './nl/pages/voucher-printable';
 import accessibility from './nl/pages/accessibility';
@@ -215,6 +216,7 @@ export default {
     reservations: reservations,
     reimbursements: reimbursements,
     notification_preferences: notification_preferences,
+    profile: profile,
     email_preferences: email_preferences,
     voucher_printable: voucher_printable,
     accessibility: accessibility,
