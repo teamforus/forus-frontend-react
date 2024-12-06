@@ -20,7 +20,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                         <li>
                             In de tabel hieronder vindt u wat uw maximale inkomen mag zijn. Gebruik ter controle uw
                             inkomen van de maand vóór de maand waarin u het abonnement aanvraagt. Voorbeeld: u vraagt op
-                            3 december 2023 het abonnement aan. Dan vergelijkt u uw inkomen van november 2023 met het
+                            3 december 2024 het abonnement aan. Dan vergelijkt u uw inkomen van november 2024 met het
                             maximale inkomen dat voor u geldt
                         </li>
                     </ul>
@@ -37,24 +37,24 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                             </tr>
                             <tr>
                                 <td>Alleenstaand</td>
-                                <td>€ 1.590,-</td>
-                                <td>€ 1.770,-</td>
-                                <td>€ 560,-</td>
-                                <td>€ 700,-</td>
+                                <td>€ 1.620,-</td>
+                                <td>€ 1.800,-</td>
+                                <td>€ 570,-</td>
+                                <td>€ 720,-</td>
                             </tr>
                             <tr>
                                 <td>Alleenstaande ouder</td>
-                                <td>€ 2.040,-</td>
-                                <td>€ 2.150,-</td>
-                                <td>€ 810,-</td>
-                                <td>€ 860,-</td>
+                                <td>€ 2.080,-</td>
+                                <td>€ 2.200,-</td>
+                                <td>€ 830,-</td>
+                                <td>€ 870,-</td>
                             </tr>
                             <tr>
                                 <td>Getrouwd/samenwonend</td>
-                                <td>€ 2.270,-</td>
-                                <td>€ 2.390,-</td>
-                                <td>€ 900,-</td>
-                                <td>€ 950,-</td>
+                                <td>€ 2.310,-</td>
+                                <td>€ 2.450,-</td>
+                                <td>€ 920,-</td>
+                                <td>€ 970,-</td>
                             </tr>
                         </tbody>
                     </table>
@@ -104,24 +104,24 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                             </tr>
                             <tr>
                                 <td>Alleenstaand</td>
-                                <td>€ 1.710,-</td>
-                                <td>€ 1.900,-</td>
-                                <td>€ 600,-</td>
-                                <td>€ 760,-</td>
+                                <td>€ 1.750,-</td>
+                                <td>€ 1.940,-</td>
+                                <td>€ 610,-</td>
+                                <td>€ 770,-</td>
                             </tr>
                             <tr>
                                 <td>Alleenstaande ouder</td>
-                                <td>€ 2.200,-</td>
-                                <td>€ 2.320,-</td>
-                                <td>€ 880,-</td>
-                                <td>€ 920,-</td>
+                                <td>€ 2.240,-</td>
+                                <td>€ 2.370,-</td>
+                                <td>€ 890,-</td>
+                                <td>€ 940,-</td>
                             </tr>
                             <tr>
                                 <td>Getrouwd/samenwonend</td>
-                                <td>€ 2.440,-</td>
-                                <td>€ 2.570,-</td>
-                                <td>€ 970,-</td>
-                                <td>€ 1.020,-</td>
+                                <td>€ 2.490,-</td>
+                                <td>€ 2.630,-</td>
+                                <td>€ 990,-</td>
+                                <td>€ 1.040,-</td>
                             </tr>
                         </tbody>
                     </table>
