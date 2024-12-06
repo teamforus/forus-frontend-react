@@ -59,16 +59,16 @@ export default function IdentityPayoutsCard({
 
     const fetchTransactions = useCallback(
         (query = {}) => {
-            setLoading(true);
             setProgress(0);
+            setLoading(true);
 
             payoutTransactionService
                 .list(activeOrganization.id, { ...query })
                 .then((res) => setTransactions(res.data))
                 .catch(pushApiError)
                 .finally(() => {
-                    setLoading(false);
                     setProgress(100);
+                    setLoading(false);
                 });
         },
         [activeOrganization.id, setProgress, payoutTransactionService, pushApiError],

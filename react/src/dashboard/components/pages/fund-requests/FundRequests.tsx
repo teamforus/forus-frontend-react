@@ -42,6 +42,7 @@ export default function FundRequests() {
     const pushApiError = usePushApiError();
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [employees, setEmployees] = useState(null);
     const [fundRequests, setFundRequests] = useState<PaginationData<FundRequest, { totals: FundRequestTotals }>>(null);
 
@@ -131,12 +132,16 @@ export default function FundRequests() {
 
     const fetchFundRequests = useCallback(() => {
         setProgress(0);
+        setLoading(true);
 
         fundRequestService
             .index(activeOrganization.id, filterActiveValues)
             .then((res) => setFundRequests(res.data))
             .catch(pushApiError)
-            .finally(() => setProgress(100));
+            .finally(() => {
+                setProgress(100);
+                setLoading(false);
+            });
     }, [setProgress, fundRequestService, activeOrganization.id, filterActiveValues, pushApiError]);
 
     const fetchEmployees = useCallback(() => {
@@ -315,6 +320,7 @@ export default function FundRequests() {
 
             <FundRequestsTable
                 filter={filter}
+                loading={loading}
                 paginatorKey={paginatorKey}
                 organization={activeOrganization}
                 fundRequests={fundRequests}

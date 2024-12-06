@@ -18,9 +18,9 @@ export default function IdentityReimbursementsCard({
     identity: SponsorIdentity;
 }) {
     const setProgress = useSetProgress();
-    const [loading, setLoading] = useState<boolean>(true);
     const reimbursementService = useReimbursementsService();
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [paginatorKey] = useState('reimbursements');
     const [reimbursements, setReimbursements] = useState<PaginationData<Reimbursement>>(null);
 
@@ -38,7 +38,7 @@ export default function IdentityReimbursementsCard({
             .then((res) => setReimbursements(res.data))
             .finally(() => {
                 setProgress(100);
-                setLoading(true);
+                setLoading(false);
             });
     }, [setProgress, organization.id, filterValuesActive, reimbursementService]);
 

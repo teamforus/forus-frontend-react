@@ -7,7 +7,7 @@ import ProfileModel from '../../../../dashboard/props/models/Profile';
 import { ProfileRecords, ProfileRecordTypes } from '../../../../dashboard/props/models/Sponsor/SponsorIdentity';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { useRecordTypeService } from '../../../../dashboard/services/RecordTypeService';
-import IdentityRecordKeyValueListItemWithHistory from './elements/IdentityRecordKeyValueListItemWithHistory';
+import IdentityRecordKeyValueListHistory from './elements/IdentityRecordKeyValueListHistory';
 import IdentityContactInformationCard from './cards/IdentityContactInformationCard';
 import { useProfileService } from '../../../../dashboard/services/ProfileService';
 
@@ -70,25 +70,19 @@ export default function Profile() {
                                     {
                                         label: recordTypesByKey?.given_name?.name,
                                         value: (
-                                            <IdentityRecordKeyValueListItemWithHistory
-                                                records={profile.records.given_name}
-                                            />
+                                            <IdentityRecordKeyValueListHistory records={profile.records.given_name} />
                                         ),
                                     },
                                     {
                                         label: recordTypesByKey?.family_name?.name,
                                         value: (
-                                            <IdentityRecordKeyValueListItemWithHistory
-                                                records={profile.records.family_name}
-                                            />
+                                            <IdentityRecordKeyValueListHistory records={profile.records.family_name} />
                                         ),
                                     },
                                     {
                                         label: recordTypesByKey?.birth_date?.name,
                                         value: (
-                                            <IdentityRecordKeyValueListItemWithHistory
-                                                records={profile.records.birth_date}
-                                            />
+                                            <IdentityRecordKeyValueListHistory records={profile.records.birth_date} />
                                         ),
                                     },
                                     { label: 'BSN', value: profile?.bsn },
@@ -117,25 +111,27 @@ export default function Profile() {
                         setProfile={setProfile}
                     />
 
-                    <div className="card">
-                        <div className="card-header">
-                            <h2 className="card-title">Bankrekening</h2>
-                        </div>
-                        <div className="card-section">
-                            <div className="flex flex-vertical flex-gap-xxl">
-                                {profile?.bank_accounts?.map((bank_account, index) => (
-                                    <div className="card-section-pane" key={index}>
-                                        <BlockKeyValueList
-                                            items={[
-                                                { label: 'IBAN', value: bank_account.iban },
-                                                { label: 'Tenaam stelling', value: bank_account.name },
-                                            ]}
-                                        />
-                                    </div>
-                                ))}
+                    {profile?.bank_accounts?.length > 0 && (
+                        <div className="card">
+                            <div className="card-header">
+                                <h2 className="card-title">Bankrekening</h2>
+                            </div>
+                            <div className="card-section">
+                                <div className="flex flex-vertical flex-gap">
+                                    {profile?.bank_accounts?.map((bank_account, index) => (
+                                        <div className="card-section-pane" key={index}>
+                                            <BlockKeyValueList
+                                                items={[
+                                                    { label: 'IBAN', value: bank_account.iban },
+                                                    { label: 'Tenaam stelling', value: bank_account.name },
+                                                ]}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </Fragment>
             )}
         </BlockShowcaseProfile>

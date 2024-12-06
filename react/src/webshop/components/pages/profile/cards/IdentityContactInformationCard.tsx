@@ -1,5 +1,5 @@
 import BlockKeyValueList from '../../../elements/block-key-value-list/BlockKeyValueList';
-import IdentityRecordKeyValueListItemWithHistory from '../elements/IdentityRecordKeyValueListItemWithHistory';
+import IdentityRecordKeyValueListHistory from '../elements/IdentityRecordKeyValueListHistory';
 import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { ProfileRecords, ProfileRecordValues } from '../../../../../dashboard/props/models/Sponsor/SponsorIdentity';
 import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
@@ -172,63 +172,77 @@ export default function IdentityContactInformationCard({
             <div className="card-header flex">
                 <h2 className="card-title flex flex-grow">Contactgegevens</h2>
                 <div className="button-group">
-                    <div
-                        className="button button-text button-xs"
+                    <button
+                        className="button button-text button-xs hide-sm"
                         onClick={() => {
                             initFormValues();
                             setEditContacts(true);
                         }}>
                         <em className="mdi mdi-pencil-outline" />
                         Bewerken
-                    </div>
+                    </button>
                 </div>
             </div>
 
             <div className="card-section">
-                <BlockKeyValueList
-                    items={[
-                        {
-                            label: 'Hoofd e-mailadres',
-                            value: profile.email,
-                        },
-                        {
-                            label: 'Tweede e-mailadres',
-                            value: profile?.email_verified?.join(', '),
-                        },
-                        {
-                            label: recordTypesByKey?.telephone?.name,
-                            value: <IdentityRecordKeyValueListItemWithHistory records={profile.records.telephone} />,
-                        },
-                        {
-                            label: recordTypesByKey?.mobile?.name,
-                            value: <IdentityRecordKeyValueListItemWithHistory records={profile.records.mobile} />,
-                        },
-                        {
-                            label: recordTypesByKey?.city?.name,
-                            value: <IdentityRecordKeyValueListItemWithHistory records={profile.records.city} />,
-                        },
-                        {
-                            label: recordTypesByKey?.street?.name,
-                            value: <IdentityRecordKeyValueListItemWithHistory records={profile.records.street} />,
-                        },
-                        {
-                            label: recordTypesByKey?.house_number?.name,
-                            value: <IdentityRecordKeyValueListItemWithHistory records={profile.records.house_number} />,
-                        },
-                        {
-                            label: recordTypesByKey?.house_number_addition?.name,
-                            value: (
-                                <IdentityRecordKeyValueListItemWithHistory
-                                    records={profile.records.house_number_addition}
-                                />
-                            ),
-                        },
-                        {
-                            label: recordTypesByKey?.postal_code?.name,
-                            value: <IdentityRecordKeyValueListItemWithHistory records={profile.records.postal_code} />,
-                        },
-                    ]}
-                />
+                <div className={'flex flex-vertical flex-gap-lg'}>
+                    <BlockKeyValueList
+                        items={[
+                            {
+                                label: 'Hoofd e-mailadres',
+                                value: profile.email,
+                            },
+                            {
+                                label: 'Tweede e-mailadres',
+                                value: profile?.email_verified?.join(', '),
+                            },
+                            {
+                                label: recordTypesByKey?.telephone?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.telephone} />,
+                            },
+                            {
+                                label: recordTypesByKey?.mobile?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.mobile} />,
+                            },
+                            {
+                                label: recordTypesByKey?.city?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.city} />,
+                            },
+                            {
+                                label: recordTypesByKey?.street?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.street} />,
+                            },
+                            {
+                                label: recordTypesByKey?.house_number?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.house_number} />,
+                            },
+                            {
+                                label: recordTypesByKey?.house_number_addition?.name,
+                                value: (
+                                    <IdentityRecordKeyValueListHistory
+                                        records={profile.records.house_number_addition}
+                                    />
+                                ),
+                            },
+                            {
+                                label: recordTypesByKey?.postal_code?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.postal_code} />,
+                            },
+                        ]}
+                    />
+
+                    <button
+                        className="button button-light button-wide button-xs show-sm"
+                        onClick={() => {
+                            initFormValues();
+                            setEditContacts(true);
+                        }}>
+                        <span className="flex flex-center">
+                            <em className="mdi mdi-pencil-outline" />
+                            Bewerken
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     );

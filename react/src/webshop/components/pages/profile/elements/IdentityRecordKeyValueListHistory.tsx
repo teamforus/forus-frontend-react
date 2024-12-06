@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ProfileRecord } from '../../../../../dashboard/props/models/Sponsor/SponsorIdentity';
 
-export default function IdentityRecordKeyValueListItemWithHistory({ records }: { records: Array<ProfileRecord> }) {
+export default function IdentityRecordKeyValueListHistory({ records }: { records: Array<ProfileRecord> }) {
     const [show, setShow] = useState(false);
 
     return (

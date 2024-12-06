@@ -23,6 +23,7 @@ export default function IdentityFundRequestsCard({
 
     const fundRequestService = useFundRequestValidatorService();
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [fundRequests, setFundRequests] = useState<PaginationData<FundRequest, { totals: FundRequestTotals }>>(null);
     const [paginatorKey] = useState('fund_requests');
 
@@ -35,12 +36,16 @@ export default function IdentityFundRequestsCard({
 
     const fetchFundRequests = useCallback(() => {
         setProgress(0);
+        setLoading(true);
 
         fundRequestService
             .index(organization.id, filterValuesActive)
             .then((res) => setFundRequests(res.data))
             .catch(pushApiError)
-            .finally(() => setProgress(100));
+            .finally(() => {
+                setProgress(100);
+                setLoading(false);
+            });
     }, [setProgress, fundRequestService, organization.id, filterValuesActive, pushApiError]);
 
     useEffect(() => {
@@ -55,6 +60,7 @@ export default function IdentityFundRequestsCard({
         <Card title={`Aanvragen (${fundRequests?.meta?.total || 0})`} section={false}>
             <FundRequestsTable
                 filter={filter}
+                loading={loading}
                 paginatorKey={paginatorKey}
                 organization={organization}
                 fundRequests={fundRequests}
