@@ -185,7 +185,7 @@ export default function FundRequests() {
 
     useEffect(() => {
         if (!appConfigs.organizations?.funds?.fund_requests) {
-            return navigate(getStateRouteUrl('organizations'));
+            navigate(getStateRouteUrl('organizations'));
         }
     }, [appConfigs.organizations?.funds?.fund_requests, navigate]);
 
