@@ -1,5 +1,5 @@
-:focus,
-:focus-visible {
+:focus:not(.map-canvas *),
+:focus-visible:not(.map-canvas *) {
     outline: var(--focus-outline) !important;
     outline-offset: var(--focus-outline-offset) !important;
     box-shadow: var(--focus-box-shadow) !important;
@@ -148,6 +148,16 @@ img {
 .hidden {
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
 
 .wcag-hidden {
     border: 0;
