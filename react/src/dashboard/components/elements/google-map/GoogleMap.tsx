@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { GoogleMap as GoogleMapComponent, InfoWindow, Marker } from '@react-google-maps/api';
 import { AppConfigProp } from '../../../services/ConfigService';
+import useIsMobile from '../../../../webshop/hooks/useIsMobile';
 
 export function GoogleMap({
     appConfigs,
@@ -27,6 +28,7 @@ export function GoogleMap({
 }) {
     const [selectedMarker, setSelectedMarker] = React.useState(null);
     const [markers, setMarkers] = useState([]);
+    const isMobile = useIsMobile(1000);
 
     const avg = useCallback((values: Array<number>) => {
         return values.reduce((avg, value) => value + avg, 0) / values.length;
@@ -87,11 +89,13 @@ export function GoogleMap({
                     disableDefaultUI: false,
                     gestureHandling: gestureHandling || undefined,
                     scaleControl: true,
-                    mapTypeControl: true,
+                    mapTypeControl: !isMobile,
                     fullscreenControl: true,
                     mapTypeControlOptions: mapTypeControlOptions,
                     fullscreenControlOptions: {
-                        position: fullscreenPosition || window.google.maps.ControlPosition.LEFT_BOTTOM,
+                        position: isMobile
+                            ? window.google.maps.ControlPosition.LEFT_BOTTOM
+                            : fullscreenPosition || window.google.maps.ControlPosition.LEFT_BOTTOM,
                     },
                 }}>
                 {markers.map((marker, index) => (
