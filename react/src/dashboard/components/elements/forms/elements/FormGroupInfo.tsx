@@ -12,7 +12,7 @@ export default function FormGroupInfo({
     copyValue = null,
     copyDisable = false,
 }: {
-    info: ReactNode | ReactNode[];
+    info?: ReactNode | ReactNode[];
     error?: string | Array<string>;
     dashed?: boolean;
     copyShow?: boolean;

@@ -17,6 +17,7 @@ export default {
         funds: 'Aanvragen',
         notifications: 'Notificaties',
         notification_preferences: 'Notificatievoorkeuren',
+        profile: 'Gegevens',
         sessions: 'Sessies',
         email_settings: 'E-mail instellingen',
         security: 'Beveiliging',

@@ -1481,7 +1481,7 @@ export default {
             created_date: 'Binnengekomen op',
             fund: 'Fonds',
             email: 'E-mail van aanvrager',
-            empty_table: 'Geen aanvragen',
+            empty_table: 'Geen aanvragen gevonden',
             note_title: 'Reden van weigeren',
             assignee: 'Toegewezen aan',
             assignee_state: 'Toegewezen staat',

@@ -5,11 +5,13 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
 
 export default function ProfileMenu({ className }: { className?: string }) {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const auth2FAState = useAuthIdentity2FAState();
+    const authIdentity = useAuthIdentity();
 
     const translate = useTranslate();
     const navigateState = useNavigateState();
@@ -111,6 +113,16 @@ export default function ProfileMenu({ className }: { className?: string }) {
                 {translate('profile_menu.buttons.notification_preferences')}
                 <em className="mdi mdi-arrow-right" aria-hidden="true" />
             </StateNavLink>
+
+            {authIdentity?.profile && (
+                <StateNavLink
+                    className="profile-menu-item"
+                    name="profile"
+                    aria-current={navigateState?.name == 'profile' ? 'page' : null}>
+                    {translate('profile_menu.buttons.profile')}
+                    <em className="mdi mdi-arrow-right" aria-hidden="true" />
+                </StateNavLink>
+            )}
 
             {envData.config.sessions && (
                 <StateNavLink

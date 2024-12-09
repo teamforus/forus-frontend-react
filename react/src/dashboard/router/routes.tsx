@@ -92,6 +92,7 @@ import PayoutsView from '../components/pages/payouts-view/PayoutsView';
 import Products from '../components/pages/products/Products';
 import SponsorProducts from '../components/pages/sponsor-products/SponsorProducts';
 import SponsorProductView from '../components/pages/sponsor-product/SponsorProductView';
+import Identities from '../components/pages/identities/Identities';
 
 const router = new RouterBuilder();
 
@@ -194,12 +195,6 @@ router.state('funds-security', <OrganizationsFundsSecurity />, {
     fallbackState: 'organizations',
 });
 
-router.state('identities-show', <IdentitiesShow />, {
-    path: `/organisaties/:organizationId/fondsen/:fundId/identiteiten/:id`,
-    altPath: `/organizations/:organizationId/funds/:fundId/identities/:id`,
-    fallbackState: 'organizations',
-});
-
 router.state('pre-check', <PreCheck />, {
     path: `/organisaties/:organizationId/pre-check`,
     altPath: `/organizations/:organizationId/pre-check`,
@@ -220,6 +215,17 @@ router.state('sponsor-provider-organization', <SponsorProviderOrganization />, {
 router.state('payouts', <Payouts />, {
     path: `/organisaties/:organizationId/uitbetalingen`,
     altPath: `/organizations/:organizationId/payouts`,
+});
+
+router.state('identities', <Identities />, {
+    path: `/organisaties/:organizationId/identiteiten`,
+    altPath: `/organizations/:organizationId/identities`,
+});
+
+router.state('identities-show', <IdentitiesShow />, {
+    path: `/organisaties/:organizationId/identiteiten/:id`,
+    altPath: `/organizations/:organizationId/identities/:id`,
+    fallbackState: 'organizations',
 });
 
 router.state('payout', <PayoutsView />, {
