@@ -89,16 +89,16 @@ export default function ImplementationsNotificationsSend() {
     );
 
     const [identityTargets] = useState([
-        { value: 'all', name: 'Alle gebruikers met een actieve tegoed' },
+        { value: 'all', name: 'Alle gebruikers met een actief tegoed' },
         {
             value: 'has_balance',
-            name: 'Alle gebruikers die nog budget beschikbaar hebben of een ongebruike reservering en/of aanbiedings tegoed',
+            name: 'Alle gebruikers met nog beschikbaar resterend tegoed',
         },
     ]);
 
     const [providerTargets] = useState([
         { value: 'providers_approved', name: 'Alleen geaccepteerde aanbieders' },
-        { value: 'providers_rejected', name: 'Alle aanbieders niet nog niet geaccepteerd of geweigerd zijn' },
+        { value: 'providers_rejected', name: 'Alle aanbieders die nog niet geaccepteerd of geweigerd zijn' },
         { value: 'providers_all', name: 'Alle aanbieders' },
     ]);
 
@@ -707,8 +707,8 @@ export default function ImplementationsNotificationsSend() {
 
                         {!previewSent && (
                             <div className="card-section card-section-narrow card-section card-section-warning text-center">
-                                Voordat je de e-mail naar de doelgroep kan versturen dien je eerst e-mail als test naar
-                                jezelf te sturen.
+                                Voordat je de e-mail naar de doelgroep kunt versturen, dien je eerst een test-e-mail
+                                naar jezelf te sturen.
                             </div>
                         )}
                     </div>
