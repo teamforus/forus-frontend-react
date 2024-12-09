@@ -18,14 +18,23 @@ export default function IdentityRecordKeyValueListHistory({ records }: { records
             {show && (
                 <div className="key-value-list-item-value-history-body">
                     {records.map((item, index) => (
-                        <div className="key-value-list-item-value-history-body-item" key={index}>
-                            <em className="mdi mdi-clock-outline" />
-                            {'Gewijzigd door '}
-                            <strong className="text-strong">{item.sponsor ? item.sponsor_name : 'jou'}</strong>{' '}
-                            {`${item.created_at_locale} • van `}
-                            <strong>{`'${records[index + 1]?.value_locale || ''}'`}</strong>
-                            {' naar '}
-                            <strong>{`'${item.value_locale || ''}'`}</strong>
+                        <div
+                            className="key-value-list-item-value-history-body-item"
+                            key={index}
+                            data-nth={`${records.length - index}/${records.length}`}>
+                            <em className="mdi mdi-clock-outline key-value-list-item-value-history-body-item-icon" />
+                            <div>
+                                {'Gewijzigd door '}
+                                <strong className="text-strong">{item.sponsor ? item.sponsor_name : 'jou'}</strong>{' '}
+                            </div>
+                            <div>{`${item.created_at_locale}`}</div>
+                            <div className="hide-sm">•</div>
+                            <div>
+                                {` van `}
+                                <strong>{`'${records[index + 1]?.value_locale || ''}'`}</strong>
+                                {' naar '}
+                                <strong>{`'${item.value_locale || ''}'`}</strong>
+                            </div>
                         </div>
                     ))}
                 </div>

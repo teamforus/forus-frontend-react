@@ -15,7 +15,7 @@ export default function Modal({
     onSubmit,
 }: {
     modal: ModalState;
-    title?: string;
+    title?: string | ReactNode;
     size?: 'sm' | 'md' | 'lg';
     children?: ReactNode | ReactNode[];
     head?: ReactNode | ReactNode[];
