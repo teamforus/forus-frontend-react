@@ -96,8 +96,9 @@ export default function HeaderNotifications({ organization }: { organization: Or
                         </div>
                         <div className="notifications-menu-header">
                             Nieuwe notificaties
-                            {parseInt(notifications?.meta?.total_unseen?.toString()) > 0 &&
-                                ` (${notifications.meta.total_unseen} nieuw)`}
+                            {parseInt(notifications?.meta?.total_unseen?.toString()) > 0 && (
+                                <span>{` (${notifications.meta.total_unseen} nieuw)`}</span>
+                            )}
                             <StateNavLink
                                 name={'organization-notifications'}
                                 params={{ organizationId: organization.id }}
