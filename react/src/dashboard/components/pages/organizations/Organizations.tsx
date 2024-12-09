@@ -58,7 +58,8 @@ export default function Organizations() {
 
     useEffect(() => {
         if (!token) {
-            return navigate(getStateRouteUrl('home'));
+            navigate(getStateRouteUrl('home'));
+            return;
         }
 
         if (envData && organizations) {
