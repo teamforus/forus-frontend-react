@@ -286,7 +286,7 @@ export default function FundRequest() {
                         '*': 'any',
                     }[criterion.operator] || '';
 
-                const isCurrency = fundService.getCurrencyKeys().includes(record_type?.key);
+                const isCurrency = record_type?.control_type === 'currency';
 
                 const value =
                     record_type.type == 'select'
@@ -299,7 +299,7 @@ export default function FundRequest() {
                 });
             }
         },
-        [fundService, translate],
+        [translate],
     );
 
     // Start digid sign-in
@@ -774,9 +774,7 @@ export default function FundRequest() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group col col-lg-12">
-                                        <br />
-                                    </div>
+                                    <br />
                                 </div>
                             </div>
                         </div>

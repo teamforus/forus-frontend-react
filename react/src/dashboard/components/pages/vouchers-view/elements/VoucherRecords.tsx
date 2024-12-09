@@ -183,7 +183,7 @@ export default function VoucherRecords({ voucher, organization }: { voucher: Vou
                                             <td>{record.value_locale}</td>
                                             <td className="nowrap">{record.created_at_locale}</td>
                                             <td className={record.note ? '' : 'text-muted'}>
-                                                {record.note || 'No note'}
+                                                {record.note || 'Geen notitie'}
                                             </td>
                                             {hasPermission(organization, 'manage_vouchers') && (
                                                 <td>

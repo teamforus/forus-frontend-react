@@ -115,8 +115,8 @@
                     top: 50%;
                     display: block;
                     transform: translate(0, -50%);
-                    @include anim_blink();
                     transition: opacity .4s;
+                    @include anim_blink();
                 }
 
                 &:first-child {

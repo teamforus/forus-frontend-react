@@ -14,7 +14,7 @@ export default function useReadSpeakerHref(targetId: string) {
 
         url.searchParams.append('customerid', read_speaker_id);
         url.searchParams.append('lang', 'nl_nl');
-        url.searchParams.append('voice', 'Alex');
+        url.searchParams.append('voice', 'Ilse');
         url.searchParams.append('readid', targetId);
 
         return url.toString();
