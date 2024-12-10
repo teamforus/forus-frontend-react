@@ -31,6 +31,8 @@ export type PreCheckTotalsFund = {
     amount_total_locale?: string;
     amount_for_identity?: string;
     amount_for_identity_locale?: string;
+    pre_check_excluded?: boolean;
+    pre_check_note?: string;
     fund_formula_products: {
         products: Array<{
             record: string;
