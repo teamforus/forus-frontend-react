@@ -96,7 +96,7 @@ export default function Payouts() {
         setProgress(0);
 
         fundService
-            .list(activeOrganization.id)
+            .list(activeOrganization.id, { per_page: 100 })
             .then((res) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...res.data.data]))
             .catch(pushApiError)
             .finally(() => setProgress(100));
