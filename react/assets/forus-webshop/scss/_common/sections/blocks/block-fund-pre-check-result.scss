@@ -250,6 +250,15 @@
                 padding: 20px;
                 gap: 5px;
 
+                .fund-pre-check-note-block {
+                    width: 100%;
+                    padding: 15px;
+                    background-color: #fffceb;
+                    border-radius: var(--border-radius);
+                    border: 1px solid #dbdcdb;
+                    font: 400 13px/18px var(--base-font);
+                }
+
                 .fund-pre-check-info-title {
                     font: 700 16px/24px var(--base-font);
                     margin: 0 0 0;
@@ -456,8 +465,12 @@
             .fund-pre-check-info-block {
                 grid-column: 1/2;
 
-                .fund-pre-check-info-wrapper {
+                .fund-pre-check-info-section {
                     padding: 15px;
+
+                    .fund-pre-check-note-block {
+                        font: 600 12px/18px var(--hf);
+                    }
 
                     .fund-pre-check-info {
                         .fund-pre-check-info-title {
@@ -489,7 +502,7 @@
                     }
 
                     .fund-pre-check-info-totals {
-                        margin: 0 -15px -15px;
+                        margin: -15px -15px;
                         padding: 10px 15px;
                     }
                 }
