@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export default function BlockKeyValueList({
     items,
 }: {
-    items: Array<{ label: string; value: ReactNode | ReactNode[] }>;
+    items: Array<{ label: string; value: string | ReactNode | ReactNode[] }>;
 }) {
     return (
         <div className={classNames('block', 'block-key-value-list')}>

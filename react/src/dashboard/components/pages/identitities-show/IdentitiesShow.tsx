@@ -50,6 +50,10 @@ export default function IdentitiesShow() {
         }, {}) as { [key in ProfileRecordTypes]: string };
     }, [identity]);
 
+    const otherEmails = useMemo(() => {
+        return identity?.email_verified ? identity?.email_verified : [];
+    }, [identity?.email_verified]);
+
     const fetchIdentity = useCallback(() => {
         setProgress(0);
 
@@ -175,11 +179,11 @@ export default function IdentitiesShow() {
                                 ],
                                 [
                                     { label: 'Hoofd e-mailadres', value: identity.email, key: 'email' },
-                                    {
-                                        label: 'E-mailadres',
-                                        value: identity?.email_verified?.join(', '),
-                                        key: 'emails_verified',
-                                    },
+                                    ...otherEmails.map((email, index) => ({
+                                        label: `Extra e-mailadres ${index + 1}`,
+                                        value: email,
+                                        key: `emails_verified_${index}`,
+                                    })),
                                 ],
                             );
                         },
@@ -189,7 +193,10 @@ export default function IdentitiesShow() {
                     size={'md'}
                     items={[
                         { label: 'Hoofd e-mailadres', value: identity.email },
-                        { label: 'E-mailadres', value: identity?.email_verified?.join(', ') },
+                        ...otherEmails.map((email, index) => ({
+                            label: `Extra e-mailadres ${index + 1}`,
+                            value: email,
+                        })),
                         {
                             label: recordTypesByKey?.telephone?.name,
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.telephone} />,

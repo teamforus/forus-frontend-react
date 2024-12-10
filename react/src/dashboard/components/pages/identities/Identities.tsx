@@ -180,10 +180,7 @@ export default function Identities() {
                 </div>
             </div>
 
-            <LoaderTableCard
-                loading={loading}
-                empty={identities.meta.total == 0}
-                emptyTitle={'Geen uitbetalingen gevonden'}>
+            <LoaderTableCard loading={loading} empty={identities.meta.total == 0} emptyTitle={'Geen personen gevonden'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         {configsElement}

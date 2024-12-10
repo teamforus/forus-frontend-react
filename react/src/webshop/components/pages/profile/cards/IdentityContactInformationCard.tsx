@@ -1,6 +1,6 @@
 import BlockKeyValueList from '../../../elements/block-key-value-list/BlockKeyValueList';
 import IdentityRecordKeyValueListHistory from '../elements/IdentityRecordKeyValueListHistory';
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { ProfileRecords, ProfileRecordValues } from '../../../../../dashboard/props/models/Sponsor/SponsorIdentity';
 import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
 import Profile from '../../../../../dashboard/props/models/Profile';
@@ -11,6 +11,7 @@ import usePushDanger from '../../../../../dashboard/hooks/usePushDanger';
 import usePushSuccess from '../../../../../dashboard/hooks/usePushSuccess';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import FormError from '../../../../../dashboard/components/elements/forms/errors/FormError';
+import BlockInfoBox from '../../../elements/block-info-box/BlockInfoBox';
 
 export default function IdentityContactInformationCard({
     profile,
@@ -37,6 +38,10 @@ export default function IdentityContactInformationCard({
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const profileService = useProfileService();
+
+    const other_emails = useMemo(() => {
+        return profile?.email_verified ? profile?.email_verified : [];
+    }, [profile?.email_verified]);
 
     const form = useFormBuilder<Partial<ProfileRecordValues>>(
         {
@@ -104,35 +109,28 @@ export default function IdentityContactInformationCard({
                         <div className="form-group">
                             <label className="form-label">Hoofd e-mailadres</label>
                             <input className="form-control" disabled={true} value={profile.email} />
-                            <div className="form-hint">
-                                To change your emails please go to the{' '}
-                                <StateNavLink
-                                    name="identity-emails"
-                                    className={'text-primary text-inherit'}
-                                    target={'_blank'}>
-                                    E-mail instellingen
-                                </StateNavLink>{' '}
-                                page.
-                            </div>
                         </div>
 
-                        <div className="form-group">
-                            <label className="form-label">Tweede e-mailadres</label>
-                            <input
-                                className="form-control"
-                                disabled={true}
-                                value={profile?.email_verified?.join(', ') || '-'}
-                            />
-                            <div className="form-hint">
-                                To change your emails please go to the{' '}
-                                <StateNavLink
-                                    name="identity-emails"
-                                    className={'text-primary text-inherit'}
-                                    target={'_blank'}>
-                                    E-mail instellingen
-                                </StateNavLink>{' '}
-                                page.
+                        {profile?.email_verified?.map((email, index) => (
+                            <div className="form-group" key={index}>
+                                <label className="form-label">{`Extra e-mailadres ${index + 1}`}</label>
+                                <input className="form-control" disabled={true} value={email} />
                             </div>
+                        ))}
+
+                        <div className="form-group">
+                            <BlockInfoBox>
+                                <span>
+                                    To change your emails please go to the{' '}
+                                    <StateNavLink
+                                        name="identity-emails"
+                                        className={'text-inherit text-medium text-underline'}
+                                        target={'_blank'}>
+                                        E-mail instellingen
+                                    </StateNavLink>{' '}
+                                    page.
+                                </span>
+                            </BlockInfoBox>
                         </div>
 
                         {fields.map((field, index) => (
@@ -159,6 +157,7 @@ export default function IdentityContactInformationCard({
                         }}>
                         Annuleren
                     </button>
+                    <div className="flex-grow" />
                     <button type={'submit'} className="button button-primary button-sm">
                         Opslaan
                     </button>
@@ -192,10 +191,10 @@ export default function IdentityContactInformationCard({
                                 label: 'Hoofd e-mailadres',
                                 value: profile.email,
                             },
-                            {
-                                label: 'Tweede e-mailadres',
-                                value: profile?.email_verified?.join(', '),
-                            },
+                            ...other_emails.map((email, index) => ({
+                                label: `Extra e-mailadres ${index + 1}`,
+                                value: email,
+                            })),
                             {
                                 label: recordTypesByKey?.telephone?.name,
                                 value: <IdentityRecordKeyValueListHistory records={profile.records.telephone} />,
