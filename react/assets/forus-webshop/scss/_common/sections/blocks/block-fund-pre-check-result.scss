@@ -241,11 +241,11 @@
             padding: 15px;
             background: #fbfbfb;
 
-            .fund-pre-check-info-wrapper {
+            .fund-pre-check-info-section {
                 display: flex;
                 flex-direction: column;
-                border-radius: var(--border-radius);
                 border: 1px solid var(--border-color);
+                border-top: none;
                 background: #fff;
                 padding: 20px;
                 gap: 5px;
@@ -281,23 +281,30 @@
                         .fund-pre-check-info-list-item-content {
                             display: flex;
                             flex-direction: row;
+                            align-items: center;
                             gap: 6px;
                             width: 100%;
                             min-width: 0;
 
                             .fund-pre-check-info-list-item-icon {
                                 display: flex;
-                                line-height: 20px;
-                                height: 15px;
+                                line-height: 16px;
                                 color: #9e9e9e;
                                 font-size: 15px;
+
+                                &.fund-pre-check-info-list-item-icon-product {
+                                    color: #282B39;
+                                }
                             }
 
                             .fund-pre-check-info-list-item-title {
                                 flex: 1 1 auto;
-                                font: 600 11px/14px var(--base-font);
+                                font: 600 11px/16px var(--base-font);
                                 word-break: break-word;
-                                padding: 3px 0;
+                            }
+
+                            .fund-pre-check-info-list-item-count {
+                                font: 600 11px/16px var(--base-font);
                             }
 
                             .fund-pre-check-info-list-item-more {
@@ -340,6 +347,7 @@
 
                         &:last-child {
                             border-bottom: none;
+                            padding-bottom: 0;
                         }
                     }
                 }
@@ -369,8 +377,9 @@
                     display: flex;
                     align-items: center;
                     border-top: 1px solid var(--border-color);
-                    padding: 15px 20px;
-                    margin: 0 -20px -20px;
+                    padding: 0;
+                    margin: 0;
+                    border-top: none;
 
                     .fund-pre-check-info-totals-title {
                         font: 600 16px/24px var(--base-font);
@@ -382,8 +391,16 @@
                     }
                 }
 
+                &:first-child {
+                    border-top-left-radius: var(--border-radius);
+                    border-top-right-radius: var(--border-radius);
+                    border-top: 1px solid var(--border-color);
+                }
+
                 &:last-child {
                     border-left: 1px solid var(--border-color);
+                    border-bottom-left-radius: var(--border-radius);
+                    border-bottom-right-radius: var(--border-radius);
                 }
             }
         }
@@ -448,7 +465,7 @@
             .fund-pre-check-info-block {
                 grid-column: 1/2;
 
-                .fund-pre-check-info-wrapper {
+                .fund-pre-check-info-section {
                     padding: 15px;
 
                     .fund-pre-check-note-block {
@@ -485,7 +502,7 @@
                     }
 
                     .fund-pre-check-info-totals {
-                        margin: 0 -15px -15px;
+                        margin: -15px -15px;
                         padding: 10px 15px;
                     }
                 }

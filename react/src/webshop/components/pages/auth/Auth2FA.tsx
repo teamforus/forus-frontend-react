@@ -59,7 +59,8 @@ export default function Auth2FA() {
         const { required, confirmed, active_providers, provider_types } = auth2FAState;
 
         if (!required || confirmed) {
-            return goDashboard();
+            goDashboard();
+            return;
         }
 
         if (active_providers.length == 0) {

@@ -8,6 +8,7 @@ export type PreCheckCriteria = {
     is_valid: boolean;
     is_knock_out?: boolean;
     impact_level?: number;
+    product_count?: number;
     knock_out_description?: string;
 };
 
@@ -32,6 +33,22 @@ export type PreCheckTotalsFund = {
     amount_for_identity_locale?: string;
     pre_check_excluded?: boolean;
     pre_check_note?: string;
+    fund_formula_products: {
+        products: Array<{
+            record: string;
+            type: string;
+            name: string;
+            count: number;
+        }>;
+        items: Array<{
+            record: string;
+            type: string;
+            value: string;
+            count: number;
+            total: string;
+            amount: string;
+        }>;
+    };
 };
 
 export default interface PreCheckTotals {
@@ -41,4 +58,6 @@ export default interface PreCheckTotals {
     amount_total_locale: string;
     amount_total_valid: number;
     amount_total_valid_locale: string;
+    products_amount_total: string;
+    products_count_total: number;
 }

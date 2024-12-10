@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { createSearchParams, generatePath, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentRoute, RouteState } from './RouterProps';
 import router from '../../router/routes';
-import { NavigateOptions } from 'react-router/dist/lib/context';
+import { NavigateOptions } from 'react-router';
 
 const useCurrentRoute = (routes: Array<RouteState>): CurrentRoute => {
     const location = useLocation();
