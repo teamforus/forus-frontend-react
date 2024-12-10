@@ -16,6 +16,7 @@ export default function EmptyCard({
     description,
     imageIcon,
     imageIconImg,
+    imageIconSvg,
     textAlign,
     button = null,
     buttons = [],
@@ -25,6 +26,7 @@ export default function EmptyCard({
     description?: string;
     imageIcon?: string;
     imageIconImg?: string;
+    imageIconSvg?: ReactNode;
     textAlign?: 'left' | 'center' | 'right';
     button?: EmptyButtonType;
     buttons?: Array<EmptyButtonType>;
@@ -56,6 +58,12 @@ export default function EmptyCard({
                 {imageIconImg && (
                     <div className="empty-icon">
                         <img className="empty-icon-img empty-icon-img-border" src={imageIconImg} alt={''} />
+                    </div>
+                )}
+
+                {imageIconSvg && (
+                    <div className="empty-icon">
+                        <div className="empty-icon-img empty-icon-img-border">{imageIconSvg}</div>
                     </div>
                 )}
 

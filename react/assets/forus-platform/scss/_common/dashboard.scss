@@ -3821,6 +3821,7 @@ body {
                 display: flex;
                 border: 1px solid transparent;
                 border-radius: 50px;
+                align-items: center;
 
                 &.empty-icon-img-border {
                     border-color: var(--border-color-light);
