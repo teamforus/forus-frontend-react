@@ -23,25 +23,25 @@ export default function MapMarkerProviderOffice({ office }: { office: Office }) 
             <div className="map-card-content">
                 <div className="map-card-title">{office?.organization?.name}</div>
                 <div className="map-card-description">
-                    <div>
-                        <strong>{translate('maps.labels.address')}</strong>
+                    <div className={'map-card-description-row'}>
+                        <strong>{translate('maps.labels.address')}:</strong>
                         {office.address}
                     </div>
                     {office?.organization?.business_type?.name && (
-                        <div>
-                            <strong>{translate('maps.labels.organization_type')}</strong>
+                        <div className={'map-card-description-row'}>
+                            <strong>{translate('maps.labels.organization_type')}:</strong>
                             {office.organization.business_type.name}
                         </div>
                     )}
                     {(office?.phone || office?.organization?.phone) && (
-                        <div>
-                            <strong>{translate('maps.labels.phone')}</strong>
+                        <div className={'map-card-description-row'}>
+                            <strong>{translate('maps.labels.phone')}:</strong>
                             {office.phone ? office.phone : office.organization.phone}
                         </div>
                     )}
                     {office?.organization?.email && (
-                        <div>
-                            <strong>{translate('maps.labels.email')}</strong>
+                        <div className={'map-card-description-row'}>
+                            <strong>{translate('maps.labels.email')}:</strong>
                             {office?.organization?.email}
                         </div>
                     )}
