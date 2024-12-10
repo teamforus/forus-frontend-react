@@ -945,6 +945,13 @@ body {
                 }
             }
 
+            .card-header-actions {
+                margin: -1px 0;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
             .block-label-tabs {
                 margin-left: 0;
             }
@@ -1484,13 +1491,73 @@ body {
 
                         &.active {
                             .mdi {
-                                color: #009EF4;
+                                color: #009ef4;
                             }
                         }
                     }
 
                     &:hover {
                         color: #426993;
+                    }
+                }
+
+                .keyvalue-value-history {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    gap: 5px;
+
+                    .keyvalue-value-history-header {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 8px;
+
+                        .keyvalue-value-history-toggle {
+                            font: 600 12px/20px var(--base-font);
+                            display: flex;
+                            flex-direction: row;
+                            gap: 0;
+                            color: #646F79;
+                            cursor: pointer;
+
+                            .mdi {
+                                height: 20px;
+                                line-height: 20px;
+                                font-size: 20px;
+                            }
+
+                            &:hover {
+                                color: var(--color-primary);
+                            }
+                        }
+                    }
+
+                    .keyvalue-value-history-body {
+                        background: #F7F9FC;
+                        border-radius: var(--border-radius);
+                        border: 1px solid var(--border-color);
+                        padding: 5px 15px;
+                        max-height: 350px;
+                        overflow: auto;
+                        @include webkit_scrollbar();
+
+                        .keyvalue-value-history-body-item {
+                            display: flex;
+                            flex-direction: row;
+                            gap: 5px;
+                            padding: 6px 0;
+                            font: 500 12px/20px var(--base-font);
+                            border-bottom: 1px solid var(--border-color);
+                            color: #646F79;
+
+                            strong {
+                                color: #000;
+                            }
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+                        }
                     }
                 }
             }
