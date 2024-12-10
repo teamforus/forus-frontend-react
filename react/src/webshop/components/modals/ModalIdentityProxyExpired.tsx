@@ -44,7 +44,7 @@ export default function ModalIdentityProxyExpired({ modal }: { modal: ModalState
                         <h2 className="modal-section-title" role="heading" id="expiredIdentityDialogTitle">
                             {translate('expired_identity.title')}
                         </h2>
-                        <div className="description" id="expiredIdentityDialogDescription">
+                        <div className="modal-section-description" id="expiredIdentityDialogDescription">
                             {translate('expired_identity.description')}
                         </div>
                     </div>
