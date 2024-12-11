@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import useAppConfigs from '../../hooks/useAppConfigs';
 import { mainContext } from '../../contexts/MainContext';
 import StateNavLink from '../../modules/state_router/StateNavLink';
@@ -15,6 +15,8 @@ import useOpenModal from '../../../dashboard/hooks/useOpenModal';
 import useTopMenuItems from '../../components/elements/top-navbar/helpers/useTopMenuItems';
 import useAuthIdentity2FAState from '../../hooks/useAuthIdentity2FAState';
 import ModalAuthPincode from '../../components/modals/ModalAuthPincode';
+import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import useSelectControlKeyEventHandlers from '../../../dashboard/components/elements/select-control/hooks/useSelectControlKeyEventHandlers';
 
 export default function LayoutMobileMenu() {
     const translate = useTranslate();
@@ -38,6 +40,16 @@ export default function LayoutMobileMenu() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>([]);
 
     const { mobileMenuOpened, setMobileMenuOpened } = useContext(mainContext);
+
+    const selectorRef = useRef<HTMLDivElement>(null);
+    const placeholderRef = useRef<HTMLLabelElement>(null);
+
+    const { onKeyDown, onBlur } = useSelectControlKeyEventHandlers(
+        selectorRef,
+        placeholderRef,
+        mobileMenuOpened,
+        setMobileMenuOpened,
+    );
 
     const hideMobileMenu = useCallback(() => {
         setMobileMenuOpened(false);
@@ -85,7 +97,7 @@ export default function LayoutMobileMenu() {
     }
 
     return (
-        <div className="block block-mobile-menu show-sm">
+        <div className="block block-mobile-menu show-sm" ref={selectorRef} onKeyDown={onKeyDown} onBlur={onBlur}>
             <div className="mobile-menu-group mobile-menu-group-main">
                 <div className="mobile-menu-group-header">Hoofdmenu</div>
                 <div className="mobile-menu-items">
@@ -309,8 +321,10 @@ export default function LayoutMobileMenu() {
                     {authIdentity && (
                         <a
                             role="button"
+                            tabIndex={0}
                             className="mobile-menu-item"
                             onClick={onSignOut}
+                            onKeyDown={clickOnKeyEnter}
                             aria-label={translate('topnavbar.buttons.logout')}>
                             <em className="mobile-menu-item-icon mdi mdi-logout" />
                             {translate('topnavbar.buttons.logout')}

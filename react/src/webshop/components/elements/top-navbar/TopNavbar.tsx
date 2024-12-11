@@ -18,6 +18,7 @@ import Announcements from '../announcements/Announcements';
 import ModalAuthPincode from '../../modals/ModalAuthPincode';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import LayoutMobileMenu from '../../../layout/elements/LayoutMobileMenu';
+import useReverseFocusKeyEventHandlers from '../../../../dashboard/components/elements/select-control/hooks/useReverseFocusKeyEventHandlers';
 
 export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScroll?: boolean; className?: string }) => {
     const {
@@ -42,6 +43,9 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
     const auth2faState = useAuthIdentity2FAState();
     const translate = useTranslate();
     const authIdentity = useAuthIdentity();
+
+    const mobileNavBarRef = useRef<HTMLDivElement>(null);
+    const { onKeyDown, onFocus, onBlur } = useReverseFocusKeyEventHandlers(mobileNavBarRef);
 
     const [visible, setVisible] = React.useState(false);
     const [prevWidth, setPrevWidth] = React.useState(null);
@@ -417,7 +421,12 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
             {appConfigs.announcements && <Announcements announcements={appConfigs.announcements} />}
 
             {!showSearchBox && (
-                <div className="navbar-inner wrapper flex-horizontal-reverse">
+                <div
+                    className="navbar-inner wrapper flex-horizontal-reverse"
+                    ref={mobileNavBarRef}
+                    onKeyDown={onKeyDown}
+                    onFocus={onFocus}
+                    onBlur={onBlur}>
                     {envData.config?.flags?.genericSearch ? (
                         <div
                             className="button navbar-search-button show-sm"
@@ -438,7 +447,8 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         name={'home'}
                         className="navbar-logo show-sm"
                         title={`Terug naar hoofdpagina`}
-                        disabled={route?.state?.name === 'home'}>
+                        disabled={route?.state?.name === 'home'}
+                        tabIndex={0}>
                         <img
                             src={assetUrl(`/assets/img/logo-normal${logoExtension}`)}
                             alt={translate(`logo_alt_text.${envData.client_key}`, {}, envData.client_key)}
