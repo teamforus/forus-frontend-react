@@ -61,7 +61,7 @@ export default function IdentityContactInformationCard({
                 .then((res) => {
                     setProfile(res.data);
                     setEditContacts(false);
-                    pushSuccess('Gelukt!', 'Contact information updated.');
+                    pushSuccess('Gelukt!', 'De informatie is bijgewerkt.');
                 })
                 .catch((err: ResponseError) => {
                     pushDanger('Error!', err.data.message);
@@ -121,14 +121,15 @@ export default function IdentityContactInformationCard({
                         <div className="form-group">
                             <BlockInfoBox>
                                 <span>
-                                    To change your emails please go to the{' '}
+                                    Het e-mailadres kan worden aangepast op de pagina{' '}
                                     <StateNavLink
                                         name="identity-emails"
-                                        className={'text-inherit text-medium text-underline'}
+                                        className={'text-inherit text-semibold text-underline'}
                                         target={'_blank'}>
-                                        E-mail instellingen
-                                    </StateNavLink>{' '}
-                                    page.
+                                        {"'E-mail instellingen'"}
+                                    </StateNavLink>
+                                    . Hier kan een nieuw e-mailadres worden toegevoegd en het hoofd-e-mailadres worden
+                                    ingesteld.
                                 </span>
                             </BlockInfoBox>
                         </div>

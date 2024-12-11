@@ -17,6 +17,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 
 export default function ModalEditProfileRecords({
     modal,
+    title,
     onDone,
     values,
     identity,
@@ -26,6 +27,7 @@ export default function ModalEditProfileRecords({
     bodyOverflowVisible = false,
 }: {
     modal: ModalState;
+    title: string;
     onDone: () => void;
     values: { [key in ProfileRecordTypes]: string };
     identity: SponsorIdentity;
@@ -67,16 +69,16 @@ export default function ModalEditProfileRecords({
     return (
         <Modal
             modal={modal}
-            title={'Edit info'}
+            title={title}
             onSubmit={formSubmit}
             bodyOverflowVisible={bodyOverflowVisible}
             footer={
                 <Fragment>
                     <button type="button" className="button button-default" onClick={modal.close}>
-                        Cancel
+                        Annuleren
                     </button>
                     <button type="submit" className="button button-primary">
-                        Submit
+                        Bevestigen
                     </button>
                 </Fragment>
             }>

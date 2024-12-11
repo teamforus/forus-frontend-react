@@ -52,21 +52,27 @@ export default {
         },
     },
     record_info: {
-        given_name: 'Lorem Ipsum - dolor sit amet!',
-        family_name: 'Lorem Ipsum - dolor sit amet!',
-        email: 'Lorem Ipsum - dolor sit amet!',
-        emails_verified: 'Lorem Ipsum - dolor sit amet!',
-        bsn: 'Lorem Ipsum - dolor sit amet!',
-        birth_date: 'Lorem Ipsum - dolor sit amet!',
+        given_name: 'De samenvoeging van alle exemplaren van voornaam van de persoon.',
+        family_name: 'De familienaam of geslachtsnaam die aangeeft dat de persoon tot een specifieke familie behoort.',
+        email: 'Het adres waaronder de persoon per elektronische post bereikbaar is. Dit is het hoofd e-mailadres van de persoon en wordt gebruikt om in te loggen op de website en systeemberichten te ontvangen.',
+        emails_verified_0:
+            'Het eerste extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        emails_verified_1:
+            'Het tweede extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        emails_verified_2:
+            'Het tweede extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        emails_verified_3:
+            'Het tweede extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        birth_date: 'De datum van geboorte van de persoon.',
         last_activity: 'Lorem Ipsum - dolor sit amet!',
-        postal_code: 'Lorem Ipsum - dolor sit amet!',
-        vouchers_count: 'Lorem Ipsum - dolor sit amet!',
-        mobile: 'Lorem Ipsum - dolor sit amet!',
-        city: 'Lorem Ipsum - dolor sit amet!',
-        house_number: 'Lorem Ipsum - dolor sit amet!',
-        house_number_addition: 'Lorem Ipsum - dolor sit amet!',
-        street: 'Lorem Ipsum - dolor sit amet!',
-        created_at: 'Lorem Ipsum - dolor sit amet!',
+        postal_code:
+            'De officiële codering van TNT Post voor een Nederlands postadres, bestaande uit een numeriek deel en een alfabetisch deel.',
+        telephone: 'Het telefoonnummer waaronder de persoon bereikbaar is.',
+        mobile: 'Het mobiele telefoonnummer waaronder de persoon bereikbaar is.',
+        city: '"De naam van een door het bevoegde gemeentelijke orgaan als zodanig aangewezen gedeelte van het gemeentelijk grondgebied.',
+        house_number: 'De numerieke aanduiding zoals deze door de gemeente aan het object is toegekend.',
+        house_number_addition: 'De huisnummertoevoeging zoals deze door de gemeente aan het object is toegekend.',
+        street: 'De officiële door de gemeente vastgestelde naam van een straat waar de persoon woonachtig is.',
     },
     buttons: {
         clear_filter: 'Wis filter',

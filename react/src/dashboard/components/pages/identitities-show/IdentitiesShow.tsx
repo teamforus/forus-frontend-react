@@ -74,6 +74,7 @@ export default function IdentitiesShow() {
 
     const editProfileRecords = useCallback(
         (
+            title: string,
             recordTypeKyes: ProfileRecordTypes[],
             disabledFields: Array<{ label: string; value: string; key: string }> = [],
             bodyOverflowVisible: boolean = false,
@@ -81,6 +82,7 @@ export default function IdentitiesShow() {
             openModal((modal) => (
                 <ModalEditProfileRecords
                     modal={modal}
+                    title={title}
                     disabledFields={disabledFields}
                     onDone={fetchIdentity}
                     identity={identity}
@@ -126,7 +128,13 @@ export default function IdentitiesShow() {
                     hasPermission(activeOrganization, 'manage_identities') && {
                         text: 'Bewerken',
                         icon: 'pencil-outline',
-                        onClick: () => editProfileRecords(['given_name', 'family_name', 'birth_date'], [], true),
+                        onClick: () =>
+                            editProfileRecords(
+                                'Wijzig persoonsgegevens',
+                                ['given_name', 'family_name', 'birth_date'],
+                                [],
+                                true,
+                            ),
                     },
                 ]}>
                 <CardBlockKeyValue
@@ -168,6 +176,7 @@ export default function IdentitiesShow() {
                         icon: 'pencil-outline',
                         onClick: () => {
                             editProfileRecords(
+                                'Wijzig contactgegevens',
                                 [
                                     'telephone',
                                     'mobile',
