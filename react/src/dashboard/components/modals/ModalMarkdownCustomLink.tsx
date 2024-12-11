@@ -71,7 +71,7 @@ export default function ModalMarkdownCustomLink({
                     })
                     .catch((res: ResponseError) => {
                         if (res.status === 0 || res.status === 413) {
-                            pushDanger('Geüpload bestand is te groot.');
+                            pushDanger('Mislukt!', 'Geüpload bestand is te groot.');
                         }
 
                         setErrors(res.data?.errors);
