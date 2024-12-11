@@ -146,7 +146,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 page: values.page,
                 fund_id: values.fund_id,
                 organization_id: values.organization_id,
-                product_category_id: values.product_category_id,
+                product_category_id: values.product_sub_category_id || values.product_category_id,
                 fund_type: fundType,
                 postcode: values.postcode || '',
                 distance: values.distance || null,
@@ -210,7 +210,14 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                     used_type: fundType,
                 })
                 .then((res) => {
-                    filterUpdate({ product_sub_category_id: null });
+                    filterUpdate((values) => {
+                        if (!res.data.data?.map((item) => item.id).includes(values.product_sub_category_id)) {
+                            return { ...values, product_sub_category_id: null };
+                        }
+
+                        return values;
+                    });
+
                     setProductSubCategories(
                         res.data.meta.total
                             ? [{ name: 'Selecteer subcategorie...', id: null }, ...res.data.data]
