@@ -74,7 +74,9 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
     );
 
     useEffect(() => {
-        exchangeToken(token, target);
+        if (token) {
+            exchangeToken(token, target);
+        }
     }, [exchangeToken, token, target]);
 
     return <></>;

@@ -58,64 +58,19 @@ export class FundService<T = Fund> {
         return this.apiRequest.post(`${this.prefix}/redeem`, { code });
     }
 
-    public getCurrencyKeys() {
-        return ['net_worth', 'base_salary'];
-    }
-
     public getCriterionControlType(record_type: RecordType, operator = null) {
-        const checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
-        const stepKeys = [
-            'children_nth',
-            'waa_kind_0_tm_4_2021_eligible_nth',
-            'waa_kind_4_tm_18_2021_eligible_nth',
-            'eem_kind_0_tm_4_eligible_nth',
-            'eem_kind_4_tm_12_eligible_nth',
-            'eem_kind_12_tm_14_eligible_nth',
-            'eem_kind_14_tm_18_eligible_nth',
-        ];
-
-        const currencyKeys = this.getCurrencyKeys();
-        const numberKeys = ['tax_id'];
-        const dateKeys = ['birth_date'];
-
-        const control_type_default = 'ui_control_text';
-        const control_type_base = {
-            bool: 'ui_control_checkbox',
-            date: 'ui_control_date',
-            string: 'ui_control_text',
-            email: 'ui_control_text',
-            bsn: 'ui_control_number',
-            iban: 'ui_control_text',
-            number: 'ui_control_number',
-            select: 'select_control',
-            select_number: 'select_control',
-        }[record_type.type];
-
-        const control_type_key =
-            {
-                // checkboxes
-                ...checkboxKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_checkbox' }), {}),
-                // stepper
-                ...stepKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_step' }), {}),
-                // currency
-                ...currencyKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_currency' }), {}),
-                // numbers
-                ...numberKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_number' }), {}),
-                // dates
-                ...dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
-            }[record_type.key] || null;
+        const control_type =
+            record_type.control_type === 'select' ? 'select_control' : `ui_control_${record_type.control_type}`;
 
         // for pre-check
         if (operator === null) {
             return record_type.type == 'string' && record_type.operators.find((operator) => operator.key == '=')
                 ? 'ui_control_checkbox'
-                : control_type_key || control_type_base || control_type_default;
+                : control_type;
         }
 
         // for fund request
-        return record_type.type == 'string' && operator == '='
-            ? 'ui_control_checkbox'
-            : control_type_key || control_type_base || control_type_default;
+        return record_type.type == 'string' && operator == '=' ? 'ui_control_checkbox' : control_type;
     }
 
     public getCriterionControlDefaultValue(record_type: RecordType, operator = null, init_date = true) {
