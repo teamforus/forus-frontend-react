@@ -563,7 +563,7 @@ export default function ModalVouchersUpload({
     );
 
     const showInvalidRows = useCallback(
-        (errors = {}, vouchers = []) => {
+        (errors = {}, vouchers = []): Promise<boolean> => {
             const items = Object.keys(errors)
                 .map(function (key) {
                     const keyData = key.split('.');
@@ -588,23 +588,35 @@ export default function ModalVouchersUpload({
 
             setHideModal(true);
 
-            openModal((modal) => (
-                <ModalDuplicatesPicker
-                    modal={modal}
-                    hero_title={'Er zijn fouten opgetreden bij het importeren van de tegoeden'}
-                    hero_subtitle={message}
-                    enableToggles={false}
-                    label_on={'Aanmaken'}
-                    label_off={'Overslaan'}
-                    items={items.map((item) => ({
-                        _uid: uniqueId('rand_'),
-                        label: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
-                        value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
-                    }))}
-                    onConfirm={() => window.setTimeout(() => setHideModal(false), 300)}
-                    onCancel={() => window.setTimeout(() => setHideModal(false), 300)}
-                />
-            ));
+            return new Promise((resolve) => {
+                openModal((modal) => (
+                    <ModalDuplicatesPicker
+                        modal={modal}
+                        hero_title={'Er zijn fouten opgetreden bij het importeren van de tegoeden'}
+                        hero_subtitle={message}
+                        enableToggles={false}
+                        label_on={'Aanmaken'}
+                        label_off={'Overslaan'}
+                        items={items.map((item) => ({
+                            _uid: uniqueId('rand_'),
+                            label: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
+                            value: `Rij: ${item[0]}: ${item[2]['email'] || item[2]['bsn'] || ''} - ${item[1]}`,
+                        }))}
+                        onConfirm={() =>
+                            window.setTimeout(() => {
+                                setHideModal(false);
+                                resolve(true);
+                            }, 300)
+                        }
+                        onCancel={() =>
+                            window.setTimeout(() => {
+                                setHideModal(false);
+                                resolve(true);
+                            }, 300)
+                        }
+                    />
+                ));
+            });
         },
         [openModal, pushDanger],
     );
@@ -668,7 +680,11 @@ export default function ModalVouchersUpload({
     );
 
     const startUploadingData = useCallback(
-        (fund: Partial<Fund>, groupData: Array<RowDataProp>, onChunk: (data: Array<RowDataProp>) => void) => {
+        (
+            fund: Partial<Fund>,
+            groupData: Array<RowDataProp>,
+            onChunk: (data: Array<RowDataProp>) => void,
+        ): Promise<boolean> => {
             return new Promise((resolve) => {
                 const submitData = chunk(groupData, dataChunkSize);
                 const chunksCount = submitData.length;
@@ -706,6 +722,7 @@ export default function ModalVouchersUpload({
 
                             setLoading(false);
                             setCsvProgress(1);
+                            resolve(false);
                             pushDanger(
                                 'Er is een onbekende fout opgetreden tijdens het uploaden van CSV.',
                                 'Controleer de CSV op problemen, vernieuw de pagina en probeer het opnieuw.',
@@ -781,7 +798,7 @@ export default function ModalVouchersUpload({
     );
 
     const startUploading = useCallback(
-        async (data: Array<RowDataProp>, validation = false) => {
+        async (data: Array<RowDataProp>, validation = false): Promise<boolean> => {
             setCsvProgress(2);
 
             const dataGrouped = groupBy<RowDataProp>(
@@ -805,20 +822,34 @@ export default function ModalVouchersUpload({
                 setLoadingBarProgress(0, getStatus(fund, validation));
 
                 if (validation) {
-                    await startValidationUploadingData(fund, items, (list) => {
+                    const valid = await startValidationUploadingData(fund, items, (list) => {
                         uploadedRows += list.length;
                         setLoadingBarProgress((uploadedRows / totalRows) * 100, getStatus(fund, true));
                     })
-                        .then(() => setLoadingBarProgress(100, getStatus(fund, true)))
-                        .catch((err: ResponseError) => {
-                            setCsvProgress(1);
-                            showInvalidRows(err, items);
+                        .then(() => {
+                            setLoadingBarProgress(100, getStatus(fund, true));
+                            return true;
+                        })
+                        .catch(async (err: ResponseError) => {
+                            window.setTimeout(() => {
+                                setCsvProgress(1);
+                                setLoadingBarProgress(0);
+                            }, 0);
+
+                            await showInvalidRows(err, items);
+                            return false;
                         });
+
+                    console.log('valid', valid);
+
+                    if (!valid) {
+                        return false;
+                    }
 
                     continue;
                 }
 
-                await startUploadingData(fund, items, (chunkData) => {
+                const uploadValid = await startUploadingData(fund, items, (chunkData) => {
                     uploadedRows += chunkData.length;
                     setLoadingBarProgress((uploadedRows / totalRows) * 100, getStatus(fund, false));
 
@@ -828,9 +859,14 @@ export default function ModalVouchersUpload({
                         }, 0);
                     }
                 });
+
+                if (!uploadValid) {
+                    return false;
+                }
             }
 
             setCsvProgress(3);
+            return true;
         },
         [
             availableFundsById,
@@ -879,8 +915,9 @@ export default function ModalVouchersUpload({
             setHideModal(false);
 
             if (listSelected.length > 0) {
-                await startUploading(listSelected, true);
-                await startUploading(listSelected, false);
+                if (await startUploading(listSelected, true)) {
+                    await startUploading(listSelected, false);
+                }
             } else {
                 pushDanger('CSV upload is geannuleerd', 'Er zijn geen gegevens geselecteerd.');
             }
