@@ -17,7 +17,7 @@ import ThSortable from '../../elements/tables/ThSortable';
 import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import Identity from '../../../props/models/Sponsor/Identity';
+import SponsorIdentity, { SponsorIdentityCounts } from '../../../props/models/Sponsor/SponsorIdentity';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
 import useImplementationNotificationService from '../../../services/ImplementationNotificationService';
@@ -52,9 +52,7 @@ export default function ImplementationsNotificationsSend() {
     const [editing, setEditing] = useState(false);
 
     const [identities, setIdentities] =
-        useState<PaginationData<Identity, { counts: { active: number; selected: number; without_email: number } }>>(
-            null,
-        );
+        useState<PaginationData<SponsorIdentity, { counts: SponsorIdentityCounts }>>(null);
 
     const [submitting, setSubmitting] = useState(false);
     const [perPageKey] = useState('notification_identities');
