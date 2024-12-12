@@ -66,6 +66,7 @@ export default interface Organization {
     auth_2fa_remember_ip?: boolean;
     allow_pre_checks?: boolean;
     allow_payouts?: boolean;
+    allow_profiles?: boolean;
     allow_2fa_restrictions?: boolean;
     allow_reservation_custom_fields: boolean;
     auth_2fa_funds_policy: 'optional' | 'required' | 'restrict_features';
