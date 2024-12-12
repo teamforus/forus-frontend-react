@@ -22,7 +22,11 @@ export default function OrganizationsFundsShowRelationsCard({
     }, [organization]);
 
     const canViewIdentities = useMemo(() => {
-        return hasPermission(organization, ['manage_implementation_notifications', 'manage_vouchers']);
+        return hasPermission(
+            organization,
+            ['view_identities', 'manage_identities', 'manage_implementation_notifications'],
+            false,
+        );
     }, [organization]);
 
     const canViewImplementation = useMemo(() => {

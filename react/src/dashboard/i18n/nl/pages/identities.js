@@ -1,6 +1,78 @@
 export default {
+    header: {
+        title: 'Personen',
+    },
     labels: {
+        id: 'ID',
+        given_name: 'Voornaam',
+        family_name: 'Achternaam',
+        email: 'E-mail adres',
+        bsn: 'BSN',
+        birth_date: 'Geboorte datum',
+        last_activity: 'Laatste inlog',
+        postal_code: 'Postcode',
+        vouchers_count: 'Aantal tegoeden',
+        mobile: 'Mobiele telefoonnummer',
+        city: 'Woonplaats',
+        house_number: 'Huisnummer',
+        house_number_addition: 'Huisnummer toevoeging',
+        street: 'Straatnaam',
+        created_at: 'Gemaakt op',
         actions: 'Acties',
+    },
+    tooltips: {
+        id: 'ID',
+        given_name: 'Voornaam',
+        family_name: 'Achternaam',
+        email: 'E-mail adres',
+        bsn: 'BSN',
+        birth_date: 'Geboorte datum',
+        last_activity: 'Laatste inlog',
+        postal_code: 'Postcode',
+        vouchers_count: 'Aantal tegoeden',
+        mobile: 'Mobiele telefoonnummer',
+        city: 'Woonplaats',
+        house_number: 'Huisnummer',
+        house_number_addition: 'Huisnummer toevoeging',
+        street: 'Straatnaam',
+        created_at: 'Gemaakt op',
+    },
+    bank_accounts: {
+        labels: {
+            iban: 'IBAN',
+            iban_name: 'Te naam stelling',
+            updated_at: 'Laatst aangepast',
+            created_by: 'Verkregen via',
+        },
+        tooltips: {
+            iban: 'IBAN',
+            iban_name: 'Te naam stelling',
+            updated_at: 'Laatst aangepast',
+            created_by: 'Verkregen via',
+        },
+    },
+    record_info: {
+        given_name: 'De samenvoeging van alle exemplaren van voornaam van de persoon.',
+        family_name: 'De familienaam of geslachtsnaam die aangeeft dat de persoon tot een specifieke familie behoort.',
+        email: 'Het adres waaronder de persoon per elektronische post bereikbaar is. Dit is het hoofd e-mailadres van de persoon en wordt gebruikt om in te loggen op de website en systeemberichten te ontvangen.',
+        emails_verified_0:
+            'Het eerste extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        emails_verified_1:
+            'Het tweede extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        emails_verified_2:
+            'Het tweede extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        emails_verified_3:
+            'Het tweede extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
+        birth_date: 'De datum van geboorte van de persoon.',
+        last_activity: 'Lorem Ipsum - dolor sit amet!',
+        postal_code:
+            'De officiële codering van TNT Post voor een Nederlands postadres, bestaande uit een numeriek deel en een alfabetisch deel.',
+        telephone: 'Het telefoonnummer waaronder de persoon bereikbaar is.',
+        mobile: 'Het mobiele telefoonnummer waaronder de persoon bereikbaar is.',
+        city: '"De naam van een door het bevoegde gemeentelijke orgaan als zodanig aangewezen gedeelte van het gemeentelijk grondgebied.',
+        house_number: 'De numerieke aanduiding zoals deze door de gemeente aan het object is toegekend.',
+        house_number_addition: 'De huisnummertoevoeging zoals deze door de gemeente aan het object is toegekend.',
+        street: 'De officiële door de gemeente vastgestelde naam van een straat waar de persoon woonachtig is.',
     },
     buttons: {
         clear_filter: 'Wis filter',

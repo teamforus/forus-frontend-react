@@ -4,7 +4,7 @@
     color: var(--btn-color);
     cursor: pointer;
     border: 1px solid transparent;
-    transition: color 0.4s, background-color 0.4s, box-shadow 0.4s, border 0.4s;
+    transition: color .4s, background-color .4s, box-shadow .4s, border .4s;
     border-radius: var(--btn-border-radius);
     display: inline-block;
     text-align: center;
@@ -27,7 +27,6 @@
 
     img {
         display: block;
-        transition: 0.4s;
         margin: 0 auto;
     }
 

@@ -3,9 +3,6 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData } from '../../../props/ApiResponses';
-import { strLimit } from '../../../helpers/string';
-import Paginator from '../../../modules/paginator/components/Paginator';
-import ThSortable from '../../elements/tables/ThSortable';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
@@ -14,31 +11,21 @@ import SelectControl from '../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
-import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import ModalPayoutsEdit from '../../modals/ModalPayoutEdit';
-import TableDateTime from '../../elements/tables/elements/TableDateTime';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
-import TableRowActions from '../../elements/tables/TableRowActions';
 import ModalPayoutsUpload from '../../modals/ModalPayoutsUpload';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
-import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
-import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
-import TableDescription from '../../elements/table-empty-value/TableDescription';
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
-import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushApiError from '../../../hooks/usePushApiError';
+import PayoutsTable from './elements/PayoutsTable';
 
 export default function Payouts() {
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const paginatorService = usePaginatorService();
@@ -105,24 +92,11 @@ export default function Payouts() {
         },
     );
 
-    const columns = useMemo(() => {
-        return payoutTransactionService.getColumns();
-    }, [payoutTransactionService]);
-
-    const {
-        configsElement,
-        showTableTooltip,
-        hideTableTooltip,
-        tableConfigCategory,
-        showTableConfig,
-        displayTableConfig,
-    } = useConfigurableTable(columns);
-
     const fetchFunds = useCallback(() => {
         setProgress(0);
 
         fundService
-            .list(activeOrganization.id)
+            .list(activeOrganization.id, { per_page: 100 })
             .then((res) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...res.data.data]))
             .catch(pushApiError)
             .finally(() => setProgress(100));
@@ -145,30 +119,6 @@ export default function Payouts() {
         [activeOrganization.id, setProgress, payoutTransactionService, pushApiError],
     );
 
-    const updatePayment = useCallback(
-        (transaction: PayoutTransaction, data: { skip_transfer_delay?: boolean; cancel?: boolean }) => {
-            setProgress(0);
-
-            payoutTransactionService
-                .update(activeOrganization.id, transaction.address, data)
-                .then(() => {
-                    fetchTransactions(filter.activeValues);
-                    pushSuccess('Opgeslagen!');
-                })
-                .catch(pushApiError)
-                .finally(() => setProgress(100));
-        },
-        [
-            setProgress,
-            pushApiError,
-            payoutTransactionService,
-            activeOrganization.id,
-            fetchTransactions,
-            filter.activeValues,
-            pushSuccess,
-        ],
-    );
-
     const { resetFilters: resetFilters } = filter;
 
     const createPayout = useCallback(() => {
@@ -181,21 +131,6 @@ export default function Payouts() {
             />
         ));
     }, [activeOrganization, fetchTransactions, fundsWithPayouts, filter.activeValues, openModal]);
-
-    const editPayout = useCallback(
-        (transaction: PayoutTransaction) => {
-            openModal((modal) => (
-                <ModalPayoutsEdit
-                    modal={modal}
-                    funds={fundsWithPayouts?.filter((item) => item.id === transaction.fund.id)}
-                    transaction={transaction}
-                    organization={activeOrganization}
-                    onUpdated={() => fetchTransactions(filter.activeValues)}
-                />
-            ));
-        },
-        [activeOrganization, fetchTransactions, fundsWithPayouts, filter.activeValues, openModal],
-    );
 
     const uploadPayouts = useCallback(() => {
         openModal((modal) => (
@@ -224,11 +159,10 @@ export default function Payouts() {
     return (
         <div className="card">
             <div className="card-header card-header-next">
-                <div className="flex flex-grow">
-                    <div className="card-title">
-                        {translate('payouts.header.title')} ({transactions.meta.total})
-                    </div>
+                <div className="card-title flex flex-grow">
+                    {translate('payouts.header.title')} ({transactions.meta.total})
                 </div>
+
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
                         {fundsWithPayouts?.length > 0 && (
@@ -371,194 +305,17 @@ export default function Payouts() {
                 </div>
             </div>
 
-            <LoaderTableCard
+            <PayoutsTable
+                filter={filter}
                 loading={loading}
-                empty={transactions.meta.total == 0}
-                emptyTitle={'Geen uitbetalingen gevonden'}>
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        {columns.map((column, index: number) => (
-                                            <ThSortable
-                                                key={index}
-                                                label={translate(column.label)}
-                                                value={column.value}
-                                                filter={filter}
-                                                onMouseOver={() => showTableTooltip(column.tooltip?.key)}
-                                                onMouseLeave={() => hideTableTooltip()}
-                                            />
-                                        ))}
-                                        <th className="table-th-actions table-th-actions-with-list">
-                                            <div className="table-th-actions-list">
-                                                <div
-                                                    className={`table-th-action ${
-                                                        showTableConfig && tableConfigCategory == 'tooltips'
-                                                            ? 'active'
-                                                            : ''
-                                                    }`}
-                                                    onClick={() => displayTableConfig('tooltips')}>
-                                                    <em className="mdi mdi-information-variant-circle" />
-                                                </div>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {transactions.data.map((transaction) => (
-                                        <StateNavLink
-                                            key={transaction.id}
-                                            name={'payout'}
-                                            params={{
-                                                address: transaction.address,
-                                                organizationId: activeOrganization.id,
-                                            }}
-                                            className={'tr-clickable'}
-                                            customElement={'tr'}>
-                                            <td>{transaction.id}</td>
-                                            <td title={transaction.fund.name || ''}>
-                                                <StateNavLink
-                                                    name={'funds-show'}
-                                                    params={{
-                                                        organizationId: activeOrganization.id,
-                                                        fundId: transaction?.fund?.id,
-                                                    }}
-                                                    className="text-primary-light">
-                                                    {strLimit(transaction.fund.name, 25)}
-                                                </StateNavLink>
-                                            </td>
-                                            <td>{transaction.amount_locale}</td>
-                                            <td>
-                                                <TableDateTime value={transaction.created_at_locale} />
-                                            </td>
-                                            <td>
-                                                <TableDateTime value={transaction.transfer_at_locale} />
-                                            </td>
-                                            <td>
-                                                <div className="text-medium text-primary">
-                                                    {transaction.payment_type_locale.title}
-                                                </div>
-                                                <div
-                                                    className="text-strong text-md text-muted-dark"
-                                                    title={transaction.payment_type_locale.subtitle || ''}>
-                                                    {strLimit(transaction.payment_type_locale.subtitle)}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {transaction.payout_relations?.length > 0 ? (
-                                                    transaction.payout_relations.map((relation) => (
-                                                        <div
-                                                            title={relation.value}
-                                                            className={
-                                                                relation.type === 'bsn'
-                                                                    ? 'text-primary text-medium'
-                                                                    : ''
-                                                            }
-                                                            key={relation.id}>
-                                                            {strLimit(relation.value)}
-                                                        </div>
-                                                    ))
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-                                            <td>
-                                                <TransactionStateLabel transaction={transaction} />
-                                            </td>
-                                            <td>{transaction?.employee?.email || <TableEmptyValue />}</td>
-                                            <td>
-                                                {transaction.iban_to}
-                                                <div className={'text-small text-muted-dark'}>
-                                                    {transaction.iban_to_name}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {transaction.description ? (
-                                                    <TableDescription description={transaction.description} />
-                                                ) : (
-                                                    <TableEmptyValue />
-                                                )}
-                                            </td>
-
-                                            <td className={'table-td-actions'}>
-                                                <TableRowActions
-                                                    content={({ close }) => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <StateNavLink
-                                                                name={'payout'}
-                                                                className="dropdown-item"
-                                                                params={{
-                                                                    organizationId: activeOrganization.id,
-                                                                    address: transaction.address,
-                                                                }}>
-                                                                <em className="mdi mdi-eye icon-start" /> Bekijken
-                                                            </StateNavLink>
-                                                            {transaction.is_editable && (
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        editPayout(transaction);
-                                                                        close();
-                                                                    }}>
-                                                                    <em className="mdi mdi-pencil-outline icon-start" />{' '}
-                                                                    Bewerken
-                                                                </div>
-                                                            )}
-                                                            {transaction.is_cancelable && (
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        updatePayment(transaction, {
-                                                                            cancel: true,
-                                                                        });
-                                                                        close();
-                                                                    }}>
-                                                                    <em className="mdi mdi-close-circle icon-start" />{' '}
-                                                                    Annuleren
-                                                                </div>
-                                                            )}
-                                                            {transaction.transfer_in_pending && (
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => {
-                                                                        updatePayment(transaction, {
-                                                                            skip_transfer_delay: true,
-                                                                        });
-                                                                    }}>
-                                                                    <em className="mdi mdi-clock-fast icon-start" />{' '}
-                                                                    {strLimit(
-                                                                        'Direct doorzetten naar betaalopdracht',
-                                                                        32,
-                                                                    )}
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-
-                {transactions.meta.total > 0 && (
-                    <div className="card-section">
-                        <Paginator
-                            meta={transactions.meta}
-                            filters={filterValues}
-                            updateFilters={filterUpdate}
-                            perPageKey={paginatorTransactionsKey}
-                        />
-                    </div>
-                )}
-            </LoaderTableCard>
+                paginatorKey={paginatorTransactionsKey}
+                transactions={transactions}
+                organization={activeOrganization}
+                filterValues={filterValues}
+                filterUpdate={filterUpdate}
+                fetchTransactions={fetchTransactions}
+                fundsWithPayouts={fundsWithPayouts}
+            />
         </div>
     );
 }

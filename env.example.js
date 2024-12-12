@@ -16,6 +16,7 @@ const help_link = 'https://helpcentrum.forus.io';
 const use_hash_router = true;
 const disable_indexing = true;
 const allow_test_errors = false;
+const disable_cookie_banner = false;
 
 const read_speaker_id = null;
 const read_speaker_region = null;
@@ -42,6 +43,7 @@ const globalConfigs = {
         'config.google_maps_api_key': google_maps_api_key,
         'config.disable_indexing': disable_indexing,
         'config.allow_test_errors': allow_test_errors,
+        'config.disable_cookie_banner': disable_cookie_banner,
     },
 
     'webshop.*': {

@@ -13,9 +13,8 @@ export default function FinancialDashboardOverview() {
     const translate = useTranslate();
     const pushDanger = usePushDanger();
 
-    const activeOrganization = useActiveOrganization();
-
     const fundService = useFundService();
+    const activeOrganization = useActiveOrganization();
 
     const years = useMemo<Array<{ id: number; name: string }>>(() => {
         const yearsList = [];
@@ -28,7 +27,7 @@ export default function FinancialDashboardOverview() {
     }, []);
 
     const fetchFunds = useCallback(
-        (year: number): Promise<Array<Fund>> => {
+        (year?: number): Promise<Array<Fund>> => {
             return new Promise((resolve) =>
                 fundService
                     .list(activeOrganization.id, { stats: 'all', per_page: 100, year: year })
@@ -40,7 +39,7 @@ export default function FinancialDashboardOverview() {
     );
 
     const fetchFinancialOverview = useCallback(
-        (year: number): Promise<FinancialOverview> => {
+        (year?: number): Promise<FinancialOverview> => {
             return new Promise((resolve) => {
                 fundService
                     .financialOverview(activeOrganization.id, { stats: 'all', year })

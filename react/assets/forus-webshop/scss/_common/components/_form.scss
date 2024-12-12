@@ -83,8 +83,8 @@
         font: var(--form-font);
         line-height: 20px;
         transition:
-            background-color 0.4s ease,
-            border 0.4s ease;
+            background-color .4s ease,
+            border .4s ease;
         appearance: none;
 
         &[disabled] {
@@ -96,7 +96,6 @@
         }
 
         &:focus {
-            outline: 4px auto -webkit-focus-ring-color !important;
             outline-offset: 3px;
             background-color: #ffffff;
             border: 1px solid var(--form-control-border-color-focus);
@@ -105,7 +104,6 @@
         &.form-control-fancy {
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.075);
             border: 1px solid transparent;
-            transition: 0.4s;
             padding: 14px 25px;
             color: #00122a;
             height: 60px;
@@ -209,8 +207,6 @@
         }
 
         &:focus {
-            outline: 4px auto -webkit-focus-ring-color !important;
-            outline-offset: 3px;
             background-color: #ffffff;
             border: 1px solid var(--form-control-border-color-focus);
         }
@@ -256,7 +252,7 @@
                 transform: translate(0, -50%);
                 opacity: 1;
                 pointer-events: none;
-                transition: opacity 0.4s;
+                transition: opacity .4s;
 
                 .mdi {
                     color: #ccd0e0;
@@ -309,13 +305,12 @@
                     calc(calc(calc(var(--option-height) - 20px) / 2) - 1px);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
-                transition: 0.4s;
+                transition: background-color .4s, color .4s;
                 height: var(--option-height);
                 font: var(--dropdown-item-font);
                 line-height: 20px;
                 color: var(--dropdown-item-color);
                 background: var(--dropdown-item-background);
-                outline-offset: -1px;
                 @include ellipsis();
 
                 strong,
@@ -328,6 +323,8 @@
                 &:focus {
                     background: var(--dropdown-item-hover-background);
                     color: var(--dropdown-item-hover-color);
+                    outline-offset: -2px !important;
+                    outline-style: auto !important;
                 }
 
                 &:last-child {
@@ -666,7 +663,7 @@
                 line-height: 38px;
                 position: relative;
                 z-index: 1;
-                transition: color 0.4s;
+                transition: color .4s;
 
                 &:before {
                     content: '';
@@ -680,7 +677,7 @@
                     transform: translate(-50%, -50%);
                     z-index: -1;
                     border-radius: 20px;
-                    transition: background 0.4s;
+                    transition: background .4s;
                 }
 
                 &:hover {
@@ -765,7 +762,7 @@
                 top: 50%;
                 transform: translate3d(-50%, -50%, 0);
                 font-size: 18px;
-                transition: 0.4s;
+                transition: color .4s, background .4s;
                 opacity: 0;
             }
         }
@@ -817,6 +814,7 @@
             float: left;
             border-radius: 20px;
             margin-left: -30px;
+            transition: color .4s, background .4s, border .4s;
 
             &:after {
                 content: '';
@@ -830,7 +828,6 @@
                 border-radius: 10px;
                 transform: translate3d(-50%, -50%, 0);
                 font-size: 18px;
-                transition: 0.4s;
                 opacity: 0;
             }
         }
@@ -957,7 +954,7 @@
                 border: 1px solid #ddd;
                 height: 20px;
                 position: relative;
-                transition: all 0.4s ease-in-out;
+                transition: all .4s ease-in-out;
 
                 .toggle-input-dot {
                     width: 24px;
@@ -973,7 +970,7 @@
                     font-size: 18px;
                     transform: translate(0, -50%);
                     color: #fefefe;
-                    transition: all 0.4s ease-in-out;
+                    transition: all .4s ease-in-out;
                     position: relative;
 
                     .icon-disabled {
@@ -1014,7 +1011,7 @@
                 a {
                     font: inherit;
                     color: $colorPrimary;
-                    transition: color 0.4s;
+                    transition: color .4s;
 
                     &:hover {
                         color: var(--bc);
@@ -1039,6 +1036,13 @@
                     margin-right: -1px;
                 }
             }
+        }
+
+        &.form-toggle-disabled,
+        &[disabled] {
+            pointer-events: none;
+            opacity: 0.5;
+            filter: saturate(0);
         }
     }
 

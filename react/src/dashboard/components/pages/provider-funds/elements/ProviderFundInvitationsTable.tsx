@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useFilter from '../../../../hooks/useFilter';
 import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
@@ -15,6 +15,9 @@ import useTableToggles from '../../../../hooks/useTableToggles';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_class?: string;
@@ -61,6 +64,21 @@ export default function ProviderFundInvitationsTable({
             selected_active: list?.filter((item) => item.can_be_accepted),
         };
     }, [invitations?.data, selected]);
+
+    const { headElement, configsElement } = useConfigurableTable(fundProviderInvitationsService.getColumns(), {
+        trPrepend: (
+            <Fragment>
+                {[null, 'pending'].includes(filter.values.state) && (
+                    <th className="th-narrow">
+                        <TableCheckboxControl
+                            checked={selected.length == invitations?.data?.length}
+                            onClick={(e) => toggleAll(e, invitations?.data)}
+                        />
+                    </th>
+                )}
+            </Fragment>
+        ),
+    });
 
     const acceptInvitations = useCallback(
         (invitations: Array<FundProviderInvitation> = []) => {
@@ -132,17 +150,16 @@ export default function ProviderFundInvitationsTable({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate(`provider_funds.title.${type}`)}
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate(`provider_funds.title.${type}`)}
 
-                            {!loading && selected.length > 0 && ` (${selected.length}/${invitations.data.length})`}
-                            {!loading && selected.length == 0 && ` (${invitations.meta.total})`}
-                        </div>
-                    </div>
-                    <div className="flex block block-inline-filters">
+                    {!loading && selected.length > 0 && ` (${selected.length}/${invitations.data.length})`}
+                    {!loading && selected.length == 0 && ` (${invitations.meta.total})`}
+                </div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         {selectedMeta?.selected_active?.length > 0 && (
                             <button
                                 type={'button'}
@@ -166,38 +183,17 @@ export default function ProviderFundInvitationsTable({
                     </div>
                 </div>
             </div>
+
             {!loading && invitations.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table form">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
+                                {headElement}
+
                                 <tbody>
-                                    <tr>
-                                        {[null, 'pending'].includes(filter.values.state) && (
-                                            <th className="th-narrow">
-                                                <TableCheckboxControl
-                                                    checked={selected.length == invitations.data.length}
-                                                    onClick={(e) => toggleAll(e, invitations.data)}
-                                                />
-                                            </th>
-                                        )}
-
-                                        <th>{translate('provider_funds.labels.fund')}</th>
-                                        <th>{translate('provider_funds.labels.organization')}</th>
-                                        <th>{translate('provider_funds.labels.start_date')}</th>
-                                        <th>{translate('provider_funds.labels.end_date')}</th>
-
-                                        <th className={type !== 'invitations' ? 'text-right' : ''}>
-                                            {translate('provider_funds.labels.status')}
-                                        </th>
-
-                                        {type === 'invitations' && (
-                                            <th className="nowrap text-right">
-                                                {translate('provider_funds.labels.actions')}
-                                            </th>
-                                        )}
-                                    </tr>
-
                                     {invitations.data?.map((invitation) => (
                                         <tr
                                             key={invitation.id}
@@ -229,7 +225,7 @@ export default function ProviderFundInvitationsTable({
                                                             {strLimit(invitation.fund.name, 32)}
                                                         </div>
                                                         <a
-                                                            href={invitation.fund.implementation.url_webshop}
+                                                            href={invitation.fund.implementation?.url_webshop}
                                                             target="_blank"
                                                             className="text-strong text-md text-muted-dark text-inherit"
                                                             rel="noreferrer">
@@ -253,12 +249,12 @@ export default function ProviderFundInvitationsTable({
                                                     {invitation.fund?.end_date_locale}
                                                 </strong>
                                             </td>
-                                            <td className={`nowrap ${type !== 'invitations' ? 'text-right' : ''}`}>
+                                            <td className={`nowrap`}>
                                                 <div className={`tag tag-sm ${invitation.status_class}`}>
                                                     {invitation.status_text}
                                                 </div>
                                             </td>
-                                            {type === 'invitations' && invitation.can_be_accepted && (
+                                            {type === 'invitations' && invitation.can_be_accepted ? (
                                                 <td>
                                                     <div className="button-group flex-end">
                                                         <div
@@ -269,12 +265,16 @@ export default function ProviderFundInvitationsTable({
                                                         </div>
                                                     </div>
                                                 </td>
+                                            ) : (
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableEmptyValue />
+                                                </td>
                                             )}
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

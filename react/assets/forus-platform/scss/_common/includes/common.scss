@@ -104,6 +104,10 @@ img {
     flex-grow: 100 !important;
 }
 
+.flex-space-between {
+    justify-content: space-between !important;
+}
+
 .text-muted-light {
     color: #c1c1c1 !important;
     transition: color 0.3s;
@@ -246,8 +250,16 @@ img {
     justify-items: center;
 }
 
+.flex-align-items-start {
+    align-items: flex-start;
+}
+
 .flex-align-items-center {
     align-items: center;
+}
+
+.flex-align-items-end {
+    align-items: flex-end;
 }
 
 .flex-self-start {

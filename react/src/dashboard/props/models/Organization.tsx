@@ -61,10 +61,12 @@ export default interface Organization {
     allow_manual_bulk_processing: boolean;
     allow_fund_request_record_edit: boolean;
     allow_bi_connection: boolean;
+    allow_product_updates: boolean;
     auth_2fa_policy: 'optional' | 'required' | 'restrict_features';
     auth_2fa_remember_ip?: boolean;
     allow_pre_checks?: boolean;
     allow_payouts?: boolean;
+    allow_profiles?: boolean;
     allow_2fa_restrictions?: boolean;
     allow_reservation_custom_fields: boolean;
     auth_2fa_funds_policy: 'optional' | 'required' | 'restrict_features';

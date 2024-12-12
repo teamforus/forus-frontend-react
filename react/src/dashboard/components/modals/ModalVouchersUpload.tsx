@@ -28,6 +28,7 @@ import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
+import { fileToText } from '../../helpers/utils';
 
 type CSVErrorProp = {
     csvHasBsnWhileNotAllowed?: boolean;
@@ -673,11 +674,18 @@ export default function ModalVouchersUpload({
                 const chunksCount = submitData.length;
                 let currentChunkNth = 0;
 
-                const uploadChunk = (data: Array<RowDataProp>) => {
+                const uploadChunk = async (data: Array<RowDataProp>) => {
                     setChanged(true);
 
                     voucherService
-                        .storeCollection(organization.id, fund.id, data)
+                        .storeCollection(organization.id, fund.id, data, {
+                            name: csvFile.name,
+                            content: await fileToText(csvFile),
+                            total: groupData.length,
+                            chunk: currentChunkNth,
+                            chunks: chunksCount,
+                            chunkSize: dataChunkSize,
+                        })
                         .then(() => {
                             currentChunkNth++;
                             onChunk(data);
@@ -710,10 +718,10 @@ export default function ModalVouchersUpload({
                     return (abortRef.current = false);
                 }
 
-                uploadChunk(submitData[currentChunkNth]);
+                uploadChunk(submitData[currentChunkNth]).then();
             });
         },
-        [abortRef, dataChunkSize, organization.id, pushDanger, voucherService],
+        [csvFile, dataChunkSize, organization.id, pushDanger, voucherService],
     );
 
     const startValidationUploadingData = useCallback(

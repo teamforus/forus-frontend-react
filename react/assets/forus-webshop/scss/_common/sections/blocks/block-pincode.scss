@@ -124,9 +124,8 @@
             height: 35px;
             width: 32px;
             line-height: 38px;
-            font-size: 18px;
             margin-right: 4px;
-            font: 600 20px/24px var(--base-font);
+            font: 600 18px/24px var(--base-font);
         }
 
         &.block-pincode-phone {
@@ -136,10 +135,6 @@
                 width: 23px !important;
                 padding: 0;
                 margin-right: 2px;
-
-                &:focus {
-                    outline: var(--color-primary) auto 1px;
-                }
 
                 &.pincode-number-divider {
                     margin: 0 !important;

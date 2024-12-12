@@ -5,7 +5,6 @@ import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
 import useFilter from '../../../../hooks/useFilter';
 import Paginator from '../../../../modules/paginator/components/Paginator';
-import Product, { DealHistory } from '../../../../props/models/Product';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
@@ -14,8 +13,9 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import SponsorProduct, { DealHistory } from '../../../../props/models/Sponsor/SponsorProduct';
 
-type ProductLocal = Product & {
+type ProductLocal = SponsorProduct & {
     allowed: boolean;
     active_deal: DealHistory;
 };
@@ -49,7 +49,7 @@ export default function SubsidyFundSponsorProducts({
     );
 
     const mapProduct = useCallback(
-        (product: Product) => {
+        (product: SponsorProduct) => {
             const activeDeals = product.deals_history ? product.deals_history.filter((deal) => deal.active) : [];
 
             return {

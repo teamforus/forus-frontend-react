@@ -3,7 +3,7 @@
     padding: 15px 25px;
     background: #ffffff;
     opacity: 1;
-    transition: opacity 0.4s;
+    transition: opacity .4s;
     border: 1px solid var(--border-color);
     border-top: none;
     cursor: default;
@@ -48,7 +48,7 @@
         display: block;
         cursor: pointer;
         color: #757575;
-        transition: color 0.4s;
+        transition: color .4s;
         z-index: 1;
     }
 

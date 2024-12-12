@@ -304,20 +304,35 @@ export default function FundsPreCheck() {
                 </div>
 
                 {totals && (
-                    <div className="pre-check-actions">
-                        <button
-                            className="button button-download button-fill button-sm"
-                            type="button"
-                            onClick={downloadPDF}>
-                            Download als PDF
-                        </button>
-                        <button
-                            className="button button-light button-fill button-sm"
-                            type="button"
-                            onClick={changeAnswers}>
-                            Wijzig antwoorden
-                        </button>
-                    </div>
+                    <Fragment>
+                        <div className="pre-check-totals">
+                            <div className="block block-key-value-list">
+                                <div className="block-key-value-list-item">
+                                    <div className="key-value-list-item-label">Totaal bedrag</div>
+                                    <div className="key-value-list-item-value">{totals.products_amount_total}</div>
+                                </div>
+                                <div className="block-key-value-list-item">
+                                    <div className="key-value-list-item-label">Totaal aanbod</div>
+                                    <div className="key-value-list-item-value">{totals.products_count_total}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="pre-check-actions">
+                            <button
+                                className="button button-download button-fill button-sm"
+                                type="button"
+                                onClick={downloadPDF}>
+                                Download als PDF
+                            </button>
+                            <button
+                                className="button button-light button-fill button-sm"
+                                type="button"
+                                onClick={changeAnswers}>
+                                Wijzig antwoorden
+                            </button>
+                        </div>
+                    </Fragment>
                 )}
             </div>
         ),
@@ -357,7 +372,7 @@ export default function FundsPreCheck() {
                                         <div className="progress-pie-info-title">
                                             {preChecks?.[activeStepIndex]?.title_short}
                                         </div>
-                                        {preChecks[activeStepIndex].record_types?.map((record, index) => (
+                                        {preChecks[activeStepIndex]?.record_types?.map((record, index) => (
                                             <div key={index} className="progress-pie-info-details">
                                                 <div className="progress-pie-info-details-key">
                                                     {record.title_short}: &nbsp;
@@ -467,13 +482,13 @@ export default function FundsPreCheck() {
                                             }}>
                                             <div className="pre-check-step-section-details">
                                                 <div className="pre-check-step-section-title">
-                                                    {preChecks[activeStepIndex].title}
+                                                    {preChecks[activeStepIndex]?.title}
                                                 </div>
                                                 <div className="pre-check-step-section-description">
-                                                    {preChecks[activeStepIndex].description}
+                                                    {preChecks[activeStepIndex]?.description}
                                                 </div>
                                             </div>
-                                            {preChecks[activeStepIndex].record_types?.map((preCheckRecord, index) => (
+                                            {preChecks[activeStepIndex]?.record_types?.map((preCheckRecord, index) => (
                                                 <div
                                                     key={`${activeStepIndex}_${index}`}
                                                     className="pre-check-step-section-question">

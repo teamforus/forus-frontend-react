@@ -30,6 +30,9 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import { hasPermission } from '../../../../helpers/utils';
 import { strLimit } from '../../../../helpers/string';
 import useTranslate from '../../../../hooks/useTranslate';
+import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
+import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
+import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 
 export default function ProductsForm({
     organization,
@@ -142,8 +145,8 @@ export default function ProductsForm({
     const [allowsReservations, setAllowsReservations] = useState<boolean>(true);
     const [nonExpiring, setNonExpiring] = useState<boolean>(false);
     const [mediaErrors] = useState<string[]>(null);
-    const [product, setProduct] = useState<Product>(null);
-    const [sourceProduct, setSourceProduct] = useState<Product>(null);
+    const [product, setProduct] = useState<Product | SponsorProduct>(null);
+    const [sourceProduct, setSourceProduct] = useState<Product | SponsorProduct>(null);
     const [products, setProducts] = useState<Product[]>(null);
 
     const goToFundProvider = useCallback(
@@ -186,7 +189,7 @@ export default function ProductsForm({
     }, [mediaFile, product, sourceProduct?.photo?.uid, setProgress, mediaService]);
 
     const fetchProduct = useCallback(
-        (id) => {
+        (id: number) => {
             setProgress(0);
 
             if (fundProvider) {
@@ -207,7 +210,7 @@ export default function ProductsForm({
     );
 
     const fetchSourceProduct = useCallback(
-        (id) => {
+        (id: number) => {
             setProgress(0);
 
             fundService
@@ -228,6 +231,8 @@ export default function ProductsForm({
     }, [productService, organization, setProgress]);
 
     const form = useFormBuilder<{
+        ean?: string;
+        sku?: string;
         name?: string;
         price?: number;
         price_type: 'regular' | 'discount_fixed' | 'discount_percentage' | 'free';
@@ -258,7 +263,7 @@ export default function ProductsForm({
 
         uploadMedia().then((media_uid: string) => {
             setProgress(0);
-            let promise: Promise<ApiResponseSingle<Product>>;
+            let promise: Promise<ApiResponseSingle<Product | SponsorProduct>>;
             const valueData = { ...values, media_uid };
 
             if (nonExpiring) {
@@ -333,7 +338,7 @@ export default function ProductsForm({
     const { update: updateForm } = form;
 
     const priceWillChange = useCallback(
-        (product?: Product): boolean => {
+        (product?: Product | SponsorProduct): boolean => {
             if (!product) {
                 return false;
             }
@@ -358,7 +363,7 @@ export default function ProductsForm({
         [form?.values],
     );
 
-    const hasSubsidyFunds = useCallback((product: Product) => {
+    const hasSubsidyFunds = useCallback((product: Product | SponsorProduct) => {
         return product && (product.sponsor_organization_id || product.funds.find((fund) => fund.type === 'subsidies'));
     }, []);
 
@@ -389,6 +394,8 @@ export default function ProductsForm({
 
     const saveProduct = useCallback(
         (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+
             if (!priceWillChange(product) || !hasSubsidyFunds(product)) {
                 return form.submit(e);
             }
@@ -464,6 +471,8 @@ export default function ProductsForm({
             model
                 ? productService.apiResourceToForm(sourceProduct || product)
                 : {
+                      ean: '',
+                      sku: '',
                       name: '',
                       price: undefined,
                       price_discount: undefined,
@@ -833,6 +842,48 @@ export default function ProductsForm({
                                     </div>
                                 </div>
                             )}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-xs-11 col-lg-9">
+                            <div className="form-group form-group-inline tooltipped">
+                                <label className="form-label">{translate('product_edit.labels.ean')}</label>
+                                <div className="form-offset">
+                                    <FormGroupInfo
+                                        info={<TranslateHtml i18n={'product_edit.tooltips.ean'} />}
+                                        error={form.errors?.ean}>
+                                        <input
+                                            className="form-control"
+                                            value={form.values.ean || ''}
+                                            onChange={(e) => form.update({ ean: e.target.value })}
+                                            type="text"
+                                            placeholder={translate('product_edit.labels.ean_placeholder')}
+                                            disabled={!isEditable}
+                                        />
+                                    </FormGroupInfo>
+                                </div>
+                            </div>
+
+                            <div className="form-group form-group-inline tooltipped">
+                                <label className="form-label">{translate('product_edit.labels.sku')}</label>
+                                <div className="form-offset">
+                                    <FormGroupInfo
+                                        info={<TranslateHtml i18n={'product_edit.tooltips.sku'} />}
+                                        error={form.errors?.sku}>
+                                        <input
+                                            className="form-control"
+                                            value={form.values.sku || ''}
+                                            onChange={(e) => form.update({ sku: e.target.value })}
+                                            type="text"
+                                            placeholder={translate('product_edit.labels.sku_placeholder')}
+                                            disabled={!isEditable}
+                                        />
+                                    </FormGroupInfo>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

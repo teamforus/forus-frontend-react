@@ -12,10 +12,12 @@ import useFilter from '../../../../hooks/useFilter';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import ThSortable from '../../../elements/tables/ThSortable';
-import Identity from '../../../../props/models/Sponsor/Identity';
+import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
 import useFundIdentitiesExportService from '../../../../services/exports/useFundIdentitiesExportService';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import { hasPermission } from '../../../../helpers/utils';
 
 export default function OrganizationsFundsShowIdentitiesCard({
     fund,
@@ -39,7 +41,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
     const [identitiesActive, setIdentitiesActive] = useState<number>(0);
     const [lastQueryIdentities, setLastQueryIdentities] = useState<string>('');
     const [identitiesWithoutEmail, setIdentitiesWithoutEmail] = useState<number>(0);
-    const [identities, setIdentities] = useState<PaginationData<Identity>>(null);
+    const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
 
     const [paginationPerPageKey] = useState('fund_identities_per_page');
 
@@ -205,25 +207,32 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                     </thead>
 
                                     <tbody>
-                                        {identities.data.map((identity: Identity, index: number) => (
+                                        {identities.data.map((identity: SponsorIdentity, index: number) => (
                                             <tr key={index}>
                                                 <td>{identity.id}</td>
                                                 <td>{identity.email}</td>
                                                 <td>{identity.count_vouchers}</td>
                                                 <td>{identity.count_vouchers_active}</td>
                                                 <td>{identity.count_vouchers_active_with_balance}</td>
-                                                <td>
-                                                    <StateNavLink
-                                                        className="button button-primary button-sm pull-right"
-                                                        name={'identities-show'}
-                                                        params={{
-                                                            organizationId: fund.organization_id,
-                                                            id: identity.id,
-                                                            fundId: fund.id,
-                                                        }}>
-                                                        <em className="icon-start mdi mdi-eye-outline" />
-                                                        Bekijken
-                                                    </StateNavLink>
+                                                <td className={'text-right'}>
+                                                    {hasPermission(
+                                                        activeOrganization,
+                                                        ['view_identities', 'manage_identities'],
+                                                        false,
+                                                    ) ? (
+                                                        <StateNavLink
+                                                            className="button button-primary button-sm pull-right"
+                                                            name={'identities-show'}
+                                                            params={{
+                                                                organizationId: fund.organization_id,
+                                                                id: identity.id,
+                                                            }}>
+                                                            <em className="icon-start mdi mdi-eye-outline" />
+                                                            Bekijken
+                                                        </StateNavLink>
+                                                    ) : (
+                                                        <TableEmptyValue />
+                                                    )}
                                                 </td>
                                             </tr>
                                         ))}

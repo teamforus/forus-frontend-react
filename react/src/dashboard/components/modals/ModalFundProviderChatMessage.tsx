@@ -1,7 +1,6 @@
 import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import Organization from '../../props/models/Organization';
-import Product from '../../props/models/Product';
 import FundProviderChat from '../../props/models/FundProviderChat';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import FormError from '../elements/forms/errors/FormError';
@@ -9,6 +8,7 @@ import Fund from '../../props/models/Fund';
 import FundProvider from '../../props/models/FundProvider';
 import useFundProviderChatService from '../../services/FundProviderChatService';
 import { ResponseError } from '../../props/ApiResponses';
+import SponsorProduct from '../../props/models/Sponsor/SponsorProduct';
 
 export default function ModalFundProviderChatMessage({
     modal,
@@ -21,7 +21,7 @@ export default function ModalFundProviderChatMessage({
 }: {
     modal: ModalState;
     fund: Fund;
-    product: Product;
+    product: SponsorProduct;
     className?: string;
     organization: Organization;
     fundProvider: FundProvider;

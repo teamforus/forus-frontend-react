@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ProfileMenu from '../profile-menu/ProfileMenu';
 import BlockShowcase from './BlockShowcase';
 import BlockLoader from '../block-loader/BlockLoader';
@@ -14,10 +14,10 @@ export default function BlockShowcaseProfile({
     profileHeader = null,
     breadcrumbItems = null,
 }: {
-    filters?: React.ReactElement | Array<React.ReactElement>;
-    children?: React.ReactElement | Array<React.ReactElement>;
+    filters?: ReactNode | Array<ReactNode>;
+    children?: ReactNode | Array<ReactNode>;
     contentDusk?: string;
-    profileHeader: React.ReactElement | Array<React.ReactElement>;
+    profileHeader: ReactNode | Array<ReactNode>;
     breadcrumbItems?: Array<Breadcrumb>;
 }) {
     return (

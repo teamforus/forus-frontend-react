@@ -46,7 +46,6 @@
         .pane-head-more {
             font: 600 14px/20px var(--base-font);
             color: #083f49;
-            display: inline-block;
             vertical-align: middle;
             cursor: pointer;
             margin-left: 5px;
@@ -58,7 +57,7 @@
                 position: relative;
                 margin-left: 5px;
                 display: block;
-                transition: 0.4s;
+                transition: color .4s, background-color .4s;
                 font-size: 1.4em;
                 transform: translate(0, 0);
                 line-height: 20px;

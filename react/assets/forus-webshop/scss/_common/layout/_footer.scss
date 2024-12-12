@@ -80,7 +80,6 @@
                 font: inherit;
                 color: var(--footer-copyright-color);
                 display: block;
-                transition: 0.4s;
                 text-decoration: underline;
                 
                 &:hover {
@@ -97,7 +96,7 @@
             a {
                 font: inherit;
                 color: var(--footer_color_link);
-                transition: 0.4s;
+                transition: color .4s;
 
                 &:hover {
                     color: var(--footer_color_link_hover);
@@ -219,7 +218,7 @@
                 a {
                     color: var(--footer_color_link);
                     font: 400 16px/1.5em var(--base-font);
-                    transition: color 0.4s;
+                    transition: color .4s;
                 }
 
                 &:last-child {
