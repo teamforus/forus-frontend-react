@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FundRequestTotals, useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
 import { useNavigate } from 'react-router-dom';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
-import Paginator from '../../../modules/paginator/components/Paginator';
-import { strLimit } from '../../../helpers/string';
 import FundRequest from '../../../props/models/FundRequest';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
@@ -25,16 +23,11 @@ import usePushDanger from '../../../hooks/usePushDanger';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
-import FundRequestStateLabel from '../../elements/resource-states/FundRequestStateLabel';
+import FundRequestsTable from './elements/FundRequestsTable';
 import { NumberParam, StringParam } from 'use-query-params';
-import TableRowActions from '../../elements/tables/TableRowActions';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
-import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function FundRequests() {
     const envData = useEnvData();
@@ -49,6 +42,7 @@ export default function FundRequests() {
     const pushApiError = usePushApiError();
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [employees, setEmployees] = useState(null);
     const [fundRequests, setFundRequests] = useState<PaginationData<FundRequest, { totals: FundRequestTotals }>>(null);
 
@@ -136,19 +130,18 @@ export default function FundRequests() {
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(fundRequestService.getColumns(), {
-        sortable: true,
-        filter,
-    });
-
     const fetchFundRequests = useCallback(() => {
         setProgress(0);
+        setLoading(true);
 
         fundRequestService
             .index(activeOrganization.id, filterActiveValues)
             .then((res) => setFundRequests(res.data))
             .catch(pushApiError)
-            .finally(() => setProgress(100));
+            .finally(() => {
+                setProgress(100);
+                setLoading(false);
+            });
     }, [setProgress, fundRequestService, activeOrganization.id, filterActiveValues, pushApiError]);
 
     const fetchEmployees = useCallback(() => {
@@ -185,7 +178,7 @@ export default function FundRequests() {
 
     useEffect(() => {
         if (!appConfigs.organizations?.funds?.fund_requests) {
-            return navigate(getStateRouteUrl('organizations'));
+            navigate(getStateRouteUrl('organizations'));
         }
     }, [appConfigs.organizations?.funds?.fund_requests, navigate]);
 
@@ -325,114 +318,15 @@ export default function FundRequests() {
                 </div>
             </div>
 
-            {fundRequests?.meta.total > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {fundRequests?.data.map((fundRequest) => (
-                                        <StateNavLink
-                                            customElement={'tr'}
-                                            className={'tr-clickable'}
-                                            key={fundRequest.id}
-                                            name={'fund-request'}
-                                            params={{
-                                                organizationId: activeOrganization.id,
-                                                id: fundRequest.id,
-                                            }}>
-                                            <td className={'text-strong'}>
-                                                <span className="text-muted-dark">#</span>
-                                                {fundRequest.id}
-                                            </td>
-                                            <td>
-                                                <div className="relative">
-                                                    <div className="block block-tooltip-details block-tooltip-hover flex flex-inline">
-                                                        <strong className="text-primary">
-                                                            {strLimit(fundRequest.email || 'Geen E-mail', 40)}
-                                                        </strong>
-                                                        {fundRequest.email?.length > 40 && (
-                                                            <div className="tooltip-content tooltip-content-fit tooltip-content-bottom tooltip-content-compact">
-                                                                <em className="triangle" />
-                                                                <div className="nowrap">
-                                                                    {fundRequest.email || 'Geen E-mail'}
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                                <div className="text-strong text-md text-muted-dark">
-                                                    {fundRequest.bsn ? `BSN: ${fundRequest.bsn}` : 'Geen BSN'}
-                                                </div>
-                                            </td>
-                                            <td>{fundRequest.fund.name}</td>
-                                            <td>
-                                                <strong className="text-primary">
-                                                    {fundRequest.created_at_locale?.split(' - ')[0]}
-                                                </strong>
-                                                <br />
-                                                <strong className="text-strong text-md text-muted-dark">
-                                                    {fundRequest.created_at_locale?.split(' - ')[1]}
-                                                </strong>
-                                            </td>
-                                            <td>
-                                                {fundRequest.employee ? (
-                                                    <div className="text-primary">
-                                                        <strong>{fundRequest.employee.email}</strong>
-                                                    </div>
-                                                ) : (
-                                                    <span className="text-muted">Niet toegewezen</span>
-                                                )}
-                                            </td>
-                                            <td>
-                                                <FundRequestStateLabel fundRequest={fundRequest} />
-                                            </td>
-
-                                            <td className={'table-td-actions'}>
-                                                <TableRowActions
-                                                    content={() => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <StateNavLink
-                                                                name={'fund-request'}
-                                                                params={{
-                                                                    organizationId: activeOrganization.id,
-                                                                    id: fundRequest.id,
-                                                                }}
-                                                                className="dropdown-item">
-                                                                <em className="mdi mdi-eye-outline icon-start" />
-                                                                {translate('validation_requests.buttons.view')}
-                                                            </StateNavLink>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {fundRequests?.meta.total == 0 && (
-                <EmptyCard type={'card-section'} title={translate('validation_requests.labels.empty_table')} />
-            )}
-
-            {fundRequests?.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={fundRequests.meta}
-                        filters={filter.values}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+            <FundRequestsTable
+                filter={filter}
+                loading={loading}
+                paginatorKey={paginatorKey}
+                organization={activeOrganization}
+                fundRequests={fundRequests}
+                filterUpdate={filterUpdate}
+                filterValues={filterValues}
+            />
         </div>
     );
 }

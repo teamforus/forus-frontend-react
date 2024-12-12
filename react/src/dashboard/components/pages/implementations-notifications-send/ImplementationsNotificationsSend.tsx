@@ -17,7 +17,7 @@ import ThSortable from '../../elements/tables/ThSortable';
 import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import Identity from '../../../props/models/Sponsor/Identity';
+import SponsorIdentity, { SponsorIdentityCounts } from '../../../props/models/Sponsor/SponsorIdentity';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
 import useImplementationNotificationService from '../../../services/ImplementationNotificationService';
@@ -52,9 +52,7 @@ export default function ImplementationsNotificationsSend() {
     const [editing, setEditing] = useState(false);
 
     const [identities, setIdentities] =
-        useState<PaginationData<Identity, { counts: { active: number; selected: number; without_email: number } }>>(
-            null,
-        );
+        useState<PaginationData<SponsorIdentity, { counts: SponsorIdentityCounts }>>(null);
 
     const [submitting, setSubmitting] = useState(false);
     const [perPageKey] = useState('notification_identities');
@@ -91,16 +89,16 @@ export default function ImplementationsNotificationsSend() {
     );
 
     const [identityTargets] = useState([
-        { value: 'all', name: 'Alle gebruikers met een actieve tegoed' },
+        { value: 'all', name: 'Alle gebruikers met een actief tegoed' },
         {
             value: 'has_balance',
-            name: 'Alle gebruikers die nog budget beschikbaar hebben of een ongebruike reservering en/of aanbiedings tegoed',
+            name: 'Alle gebruikers met nog beschikbaar resterend tegoed',
         },
     ]);
 
     const [providerTargets] = useState([
         { value: 'providers_approved', name: 'Alleen geaccepteerde aanbieders' },
-        { value: 'providers_rejected', name: 'Alle aanbieders niet nog niet geaccepteerd of geweigerd zijn' },
+        { value: 'providers_rejected', name: 'Alle aanbieders die nog niet geaccepteerd of geweigerd zijn' },
         { value: 'providers_all', name: 'Alle aanbieders' },
     ]);
 
@@ -709,8 +707,8 @@ export default function ImplementationsNotificationsSend() {
 
                         {!previewSent && (
                             <div className="card-section card-section-narrow card-section card-section-warning text-center">
-                                Voordat je de e-mail naar de doelgroep kan versturen dien je eerst e-mail als test naar
-                                jezelf te sturen.
+                                Voordat je de e-mail naar de doelgroep kunt versturen, dien je eerst een test-e-mail
+                                naar jezelf te sturen.
                             </div>
                         )}
                     </div>

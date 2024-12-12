@@ -115,6 +115,7 @@
         flex-direction: row;
         max-width: 100%;
         width: 240px;
+        user-select: none;
 
         .ui-control-step-icon {
             padding: var(--form-padding);
