@@ -104,6 +104,10 @@ img {
     flex-grow: 100 !important;
 }
 
+.flex-space-between {
+    justify-content: space-between !important;
+}
+
 .text-muted-light {
     color: #c1c1c1 !important;
     transition: color 0.3s;

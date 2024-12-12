@@ -16,6 +16,7 @@ import recreate_bi_connection from './modals/danger-zone/recreate-bi-connection'
 import remove_reservation_field from './modals/danger-zone/remove-reservation-field';
 import remove_mollie_connection from './modals/danger-zone/remove-mollie-connection';
 import confirm_extra_payment_refund from './modals/danger-zone/confirm-extra-payment-refund';
+import exclude_pre_check_fund from './modals/danger-zone/exclude_pre_check_fund';
 
 export default {
     remove_provider_application,
@@ -35,5 +36,6 @@ export default {
     recreate_bi_connection,
     remove_reservation_field,
     remove_mollie_connection,
+    exclude_pre_check_fund,
     confirm_extra_payment_refund,
 };

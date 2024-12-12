@@ -3,20 +3,15 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { PaginationData } from '../../../props/ApiResponses';
 import Voucher from '../../../props/models/Voucher';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import Paginator from '../../../modules/paginator/components/Paginator';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import useVoucherService from '../../../services/VoucherService';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
 import VouchersTableNoFundsBlock from './elements/VouchersTableNoFundsBlock';
 import useVoucherTableOptions from './hooks/useVoucherTableOptions';
 import VouchersTableFilters, { VouchersTableFiltersProps } from './elements/VouchersTableFilters';
-import VouchersTableRow from './elements/VouchersTableRow';
-import useConfigurableTable from './hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { BooleanParam, createEnumParam, NumberParam, StringParam } from 'use-query-params';
-import TableTopScroller from '../../elements/tables/TableTopScroller';
 import classNames from 'classnames';
 import { hasPermission } from '../../../helpers/utils';
 import SelectControl from '../../elements/select-control/SelectControl';
@@ -25,6 +20,7 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import Fund from '../../../props/models/Fund';
 import ModalVoucherCreate from '../../modals/ModalVoucherCreate';
 import ModalVouchersUpload from '../../modals/ModalVouchersUpload';
+import VouchersTable from './elements/VouchersTable';
 
 export default function Vouchers() {
     const activeOrganization = useActiveOrganization();
@@ -42,10 +38,6 @@ export default function Vouchers() {
     const [paginatorKey] = useState<string>('vouchers');
 
     const { funds } = useVoucherTableOptions(activeOrganization);
-
-    const { headElement, configsElement } = useConfigurableTable(voucherService.getColumns(), {
-        hasTooltips: true,
-    });
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<VouchersTableFiltersProps>(
         {
@@ -235,48 +227,16 @@ export default function Vouchers() {
                 </div>
             </div>
 
-            {!loading && vouchers.data.length > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        {configsElement}
-
-                        <TableTopScroller>
-                            <table className="table">
-                                {headElement}
-
-                                <tbody>
-                                    {vouchers.data.map((voucher) => (
-                                        <VouchersTableRow
-                                            funds={funds}
-                                            key={voucher.id}
-                                            voucher={voucher}
-                                            fetchVouchers={fetchVouchers}
-                                            organization={activeOrganization}
-                                        />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
-            )}
-
-            {loading && <LoadingCard type={'card-section'} />}
-
-            {!loading && vouchers.meta.total == 0 && (
-                <EmptyCard title={'Geen vouchers gevonden'} type={'card-section'} />
-            )}
-
-            {vouchers.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={vouchers.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+            <VouchersTable
+                funds={funds}
+                loading={loading}
+                paginatorKey={paginatorKey}
+                vouchers={vouchers}
+                organization={activeOrganization}
+                fetchVouchers={fetchVouchers}
+                filterValues={filterValues}
+                filterUpdate={filterUpdate}
+            />
         </div>
     );
 }

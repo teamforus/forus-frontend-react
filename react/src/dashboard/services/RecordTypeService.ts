@@ -19,7 +19,7 @@ export class RecordTypeService<T = RecordType> {
     /**
      * Fetch list
      */
-    public list(filters: object = {}): Promise<PaginationData<T>> {
+    public list<M = T>(filters: object = {}): Promise<PaginationData<M>> {
         return this.apiRequest.get(`${this.prefix}`, filters);
     }
 }

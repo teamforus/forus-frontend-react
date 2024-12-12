@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 
 export default function UIControlStep({
     id,
@@ -31,7 +32,7 @@ export default function UIControlStep({
 
     return (
         <div
-            className={`ui-control ui-control-step ${className}`}
+            className={classNames(`ui-control ui-control-step`, className)}
             role={role}
             aria-label="Aanpassen"
             aria-valuenow={value}
