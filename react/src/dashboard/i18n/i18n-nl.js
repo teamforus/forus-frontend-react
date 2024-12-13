@@ -378,7 +378,7 @@ export default {
             active: 'Actief',
             inactive: 'Inactief',
             deactivated: 'Gedeactiveerd',
-            used: 'Uitgaven',
+            used: 'Besteed',
             left: 'Restant',
             total_percentage: 'Totaal percentage',
             total_count: 'Totaal aantal',
