@@ -35,15 +35,25 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
     }, [fund.criteria, getCriteriaValidPercentage]);
 
     const progressStatusTitle = useMemo(() => {
+        if (fund.pre_check_note) {
+            return 'Geen indicatie';
+        }
+
         if (criteriaValidPercentage < 33) return 'Lage kans';
         if (criteriaValidPercentage < 66) return 'Gemiddelde kans';
 
         return 'Goede kans';
-    }, [criteriaValidPercentage]);
+    }, [criteriaValidPercentage, fund.pre_check_note]);
 
     const positiveAmount = useMemo(() => {
         return parseFloat(fund.amount_for_identity) > 0;
     }, [fund.amount_for_identity]);
+
+    const products = useMemo(() => {
+        return typeof fund?.fund_formula_products?.products === 'object'
+            ? Object.values(fund?.fund_formula_products?.products)
+            : [];
+    }, [fund?.fund_formula_products?.products]);
 
     const applyFund = useCallback(
         function (e) {
@@ -93,7 +103,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                 </button>
                             )}
 
-                            {showMore && fund.description_short.length > 190 && (
+                            {showMore && !fund.pre_check_excluded && fund.description_short.length > 190 && (
                                 <button
                                     className="button button-text button-xs fund-description-more"
                                     onClick={() => setShowMore(false)}
@@ -159,7 +169,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                         </div>
                     </div>
 
-                    {!fund.is_external && (
+                    {!fund.is_external && !fund.pre_check_note && (
                         <div className="fund-request-block-button">
                             <button
                                 className="button button-primary button-sm"
@@ -202,10 +212,20 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                 </div>
             </div>
 
-            {showMoreRequestInfo && (
+            {showMoreRequestInfo && fund.pre_check_note && (
+                <div className="fund-pre-check-info-block">
+                    <div className="fund-pre-check-info-section">
+                        <div className="fund-pre-check-info-title">Uitleg</div>
+                        <div className="fund-pre-check-note-block">{fund.pre_check_note}</div>
+                    </div>
+                </div>
+            )}
+
+            {showMoreRequestInfo && !fund.pre_check_note && (
                 <div className="fund-pre-check-info-block">
                     <div className="fund-pre-check-info-section">
                         <div className="fund-pre-check-info-title">Voorwaarden</div>
+
                         <div className="fund-pre-check-info-list">
                             {fund.criteria?.map((criterion) => (
                                 <div
@@ -276,32 +296,28 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                         </div>
                     </div>
 
-                    {Object.values(fund.fund_formula_products?.products)?.length > 0 && (
+                    {products.length > 0 ? (
                         <div className="fund-pre-check-info-section">
                             <div className="fund-pre-check-info-title">Product voucher</div>
                             <div className="fund-pre-check-info-list">
-                                {Object.values(fund.fund_formula_products?.products)?.map(
-                                    (fund_formula_product, index) => (
-                                        <div key={index} className="fund-pre-check-info-list-item">
-                                            <div className="fund-pre-check-info-list-item-content">
-                                                <div className="fund-pre-check-info-list-item-icon fund-pre-check-info-list-item-icon-product">
-                                                    <em className="mdi mdi-ticket-percent-outline" />
-                                                </div>
-                                                <div className="fund-pre-check-info-list-item-title">
-                                                    {fund_formula_product.name}
-                                                </div>
-                                                <div className="fund-pre-check-info-list-item-count">
-                                                    {fund_formula_product.count}x
-                                                </div>
+                                {products.map((fund_formula_product, index) => (
+                                    <div key={index} className="fund-pre-check-info-list-item">
+                                        <div className="fund-pre-check-info-list-item-content">
+                                            <div className="fund-pre-check-info-list-item-icon fund-pre-check-info-list-item-icon-product">
+                                                <em className="mdi mdi-ticket-percent-outline" />
+                                            </div>
+                                            <div className="fund-pre-check-info-list-item-title">
+                                                {fund_formula_product.name}
+                                            </div>
+                                            <div className="fund-pre-check-info-list-item-count">
+                                                {fund_formula_product.count}x
                                             </div>
                                         </div>
-                                    ),
-                                )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    )}
-
-                    {!Object.values(fund.fund_formula_products?.products)?.length && (
+                    ) : (
                         <div className="fund-pre-check-info-section">
                             <div className="fund-pre-check-info-totals">
                                 <div className="fund-pre-check-info-totals-title">Totaal</div>
