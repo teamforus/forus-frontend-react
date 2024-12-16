@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
 import Fund from '../../../../props/models/Fund';
-import { currencyFormat } from '../../../../helpers/string';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import ModalFundInviteProviders from '../../../modals/ModalFundInviteProviders';
@@ -110,25 +109,17 @@ export default function OrganizationsFundsShowStatisticsCard({
                     <div className="card-block card-block-keyvalue card-block-keyvalue-horizontal row">
                         <div className="keyvalue-item col col-lg-3">
                             <div className="keyvalue-key">Gestort</div>
-                            <div className="keyvalue-value">
-                                {currencyFormat(parseFloat(fund.budget.total.toString()))}
-                            </div>
+                            <div className="keyvalue-value">{fund.budget.total_locale}</div>
                         </div>
 
                         <div className="keyvalue-item col col-lg-3">
                             <div className="keyvalue-key">Gebruikt</div>
-                            <div className="keyvalue-value">
-                                {currencyFormat(parseFloat(fund.budget.used.toString()))}
-                            </div>
+                            <div className="keyvalue-value">{fund.budget.used_locale}</div>
                         </div>
 
                         <div className="keyvalue-item col col-lg-3">
                             <div className="keyvalue-key">Resterend</div>
-                            <div className="keyvalue-value">
-                                {currencyFormat(
-                                    parseFloat(fund.budget.total.toString()) - parseFloat(fund.budget.used.toString()),
-                                )}
-                            </div>
+                            <div className="keyvalue-value">{fund.budget.left_locale}</div>
                         </div>
                     </div>
                 </div>

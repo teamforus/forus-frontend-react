@@ -492,19 +492,22 @@ export default function VouchersShow() {
                                                         </div>
                                                     </div>
                                                 )}
-                                                <div className="action-col">
-                                                    <div
-                                                        role={'button'}
-                                                        tabIndex={0}
-                                                        onKeyDown={clickOnKeyEnter}
-                                                        className="action-item"
-                                                        onClick={() => shareVoucher(voucher)}>
-                                                        <div className="action-item-icon">
-                                                            <em className="mdi mdi-share-variant" />
+
+                                                {voucherCard.product && (
+                                                    <div className="action-col">
+                                                        <div
+                                                            role={'button'}
+                                                            tabIndex={0}
+                                                            onKeyDown={clickOnKeyEnter}
+                                                            className="action-item"
+                                                            onClick={() => shareVoucher(voucher)}>
+                                                            <div className="action-item-icon">
+                                                                <em className="mdi mdi-share-variant" />
+                                                            </div>
+                                                            <div className="action-item-name">Delen</div>
                                                         </div>
-                                                        <div className="action-item-name">Delen</div>
                                                     </div>
-                                                </div>
+                                                )}
 
                                                 {!voucherCard.used && voucherCard.product && voucherCard.returnable && (
                                                     <div className="action-col">
