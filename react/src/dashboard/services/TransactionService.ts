@@ -54,8 +54,8 @@ export class TransactionService<T = Transaction> {
     }
 
     public sampleCsvTransactions() {
-        const headers = ['voucher_id', 'amount', 'direct_payment_iban', 'direct_payment_name', 'uid', 'note'];
-        const values = [1, 10, 'NLXXXXXXXXXXXXXXXX', 'XXXX XXXX', '', ''];
+        const headers = ['voucher_number', 'amount', 'direct_payment_iban', 'direct_payment_name', 'uid', 'note'];
+        const values = ['XXXXXXXX', 10, 'NLXXXXXXXXXXXXXXXX', 'XXXX XXXX', '', ''];
 
         return Papa.unparse([headers, values]);
     }
