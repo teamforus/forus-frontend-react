@@ -1577,6 +1577,7 @@ export default {
     csv_upload: {
         buttons: {
             upload: 'Upload',
+            close: 'Sluiten',
         },
         labels: {
             swipe: 'Sleep hier het *.CSV of *.TXT bestand',
