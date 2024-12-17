@@ -15,7 +15,7 @@ import SelectControl from '../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
-import { currencyFormat, strLimit } from '../../../helpers/string';
+import { strLimit } from '../../../helpers/string';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushDanger from '../../../hooks/usePushDanger';
@@ -374,12 +374,7 @@ export default function OrganizationFunds() {
                                             {funds_type == 'active' && (
                                                 <Fragment>
                                                     {hasPermission(activeOrganization, 'view_finances') && (
-                                                        <td>
-                                                            {currencyFormat(
-                                                                (parseFloat(fund.budget?.total) || 0) -
-                                                                    (parseFloat(fund.budget?.used) || 0),
-                                                            )}
-                                                        </td>
+                                                        <td>{fund.budget?.left_locale}</td>
                                                     )}
 
                                                     <td className="text-strong text-muted-dark">

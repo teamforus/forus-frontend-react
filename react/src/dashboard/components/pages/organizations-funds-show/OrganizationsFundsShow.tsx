@@ -93,7 +93,7 @@ export default function OrganizationsFundsShow() {
                             <div className="fund-media">
                                 <img
                                     className="fund-media-img"
-                                    src={fund.logo?.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png'}
+                                    src={fund.logo?.sizes.large || './assets/img/placeholders/fund-thumbnail.png'}
                                     alt={''}
                                 />
                             </div>

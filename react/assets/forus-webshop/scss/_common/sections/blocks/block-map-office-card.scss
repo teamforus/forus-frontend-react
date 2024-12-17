@@ -1,7 +1,9 @@
 .block.block-map-office-card {
+    --office-card-media-size: 120px;
+    --office-card-padding: 15px;
+
     border-radius: var(--border-radius);
     box-shadow: 2px 2px 15px rgba($color: #000000, $alpha: 0.05);
-    background: #fff;
     width: 580px;
     max-width: 100%;
     margin: 0 auto;
@@ -10,51 +12,79 @@
     position: relative;
     background: #ffffff;
     z-index: 1;
+    gap: var(--office-card-padding);
+    word-break: break-word;
 
     .map-office-photo {
-        width: 120px;
-        min-width: 120px;
-        max-width: 120px;
-        height: 120px;
+        display: flex;
+        flex: 0 0 var(--office-card-media-size);
         border-top-left-radius: var(--border-radius);
         border-bottom-left-radius: var(--border-radius);
         background-size: cover;
         background-position: 50% 50%;
-    }
+        padding: var(--office-card-padding);
+        padding-right: 0;
+        align-items: flex-start;
 
-    img { 
-        width: 120px;
-        min-width: 120px;
-        max-width: 120px;
-        height: 120px;
+        img {
+            width: 100%;
+            display: block;
+            border-radius: var(--border-radius);
+        }
     }
 
     .map-office-details {
-        padding: 15px;
+        display: flex;
+        padding: 12.5px 25px 12.5px 0;
+        flex-direction: column;
+        min-width: 0;
+        gap: 10px;
 
         .map-office-title {
             font: 700 14px/20px var(--base-font);
             color: #282b39;
-            margin: 0 0 5px;
+        }
+
+        .map-office-info-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1 1 auto;
         }
 
         .map-office-info {
-            font: 600 12px/22px var(--base-font);
+            font: 600 12px/20px var(--base-font);
             display: flex;
+            min-width: 0;
+            gap: 5px;
+            flex-wrap: nowrap;
+            word-break: break-word;
+            align-items: flex-start;
 
             .mdi {
-                float: left;
                 font-size: 15px;
-                margin: -1px 5px -1px 0;
+                height: 20px;
+                line-height: 22px;
             }
 
-            &.map-office-info-inline {
-                display: inline-flex;
+            .map-office-info-value {
+                display: flex;
+                flex: 1 1 auto;
+                flex-wrap: wrap;
+                min-width: 0;
+                white-space: normal;
+                font: inherit;
+                color: #282b39;
             }
+        }
+    }
 
-            &:not(:last-child) {
-                margin-right: 20px;
-            }
+    @media screen and (max-width: 1000px) {
+        --office-card-media-size: 100px;
+        --office-card-padding: 12px;
+
+        .map-office-details .map-office-info {
+            line-height: 18px;
         }
     }
 }
