@@ -144,9 +144,13 @@ export default function TopNavbarSearch() {
     }, [filters.activeValues.q, isSearchResultPage, searchService, clearSearch, updateResults, setProgress]);
 
     useEffect(() => {
+        let timer: NodeJS.Timeout;
+
         if (isSearchResultPage) {
-            return updateSearchFilters({ q: filters.values.q });
+            timer = setTimeout(() => updateSearchFilters({ q: filters.values.q }));
         }
+
+        return () => clearTimeout(timer);
     }, [filters.values.q, isSearchResultPage, updateSearchFilters]);
 
     useEffect(() => {
@@ -297,7 +301,7 @@ export default function TopNavbarSearch() {
                                                 {results[itemKey].count > 3 && (
                                                     <StateNavLink
                                                         name={'search-result'}
-                                                        params={{ q: lastQuery, search_item_types: itemKey }}
+                                                        query={{ q: lastQuery, [itemKey]: 1 }}
                                                         className="search-result-group-link hide-sm">
                                                         {`${results?.[itemKey]?.count} resultaten gevonden...`}
                                                     </StateNavLink>
@@ -325,7 +329,7 @@ export default function TopNavbarSearch() {
                                                     {results[itemKey]?.count > 3 && (
                                                         <StateNavLink
                                                             name="search-result"
-                                                            params={{ q: lastQuery, search_item_types: itemKey }}
+                                                            query={{ q: lastQuery, [itemKey]: 1 }}
                                                             className="search-result-group-link show-sm">
                                                             {`${results?.[itemKey]?.count} resultaten gevonden...`}
                                                         </StateNavLink>
