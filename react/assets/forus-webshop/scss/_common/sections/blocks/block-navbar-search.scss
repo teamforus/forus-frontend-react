@@ -274,6 +274,22 @@
         }
     }
 
+    .search-area {
+        display: flex;
+
+        .search-reset {
+            position: absolute;
+            align-self: center;
+            z-index: 99;
+            right: 10px;
+            cursor: pointer;
+
+            .mdi {
+                font-size: 20px;
+            }
+        }
+    }
+
     &.block-navbar-search-results {
         .search-result {
             border-top-left-radius: 0;
@@ -334,17 +350,6 @@
                     &:focus {
                         border: none;
                     }
-                }
-            }
-
-            .search-reset {
-                position: absolute;
-                align-self: center;
-                z-index: 99;
-                right: 10px;
-
-                .mdi {
-                    font-size: 20px;
                 }
             }
         }
