@@ -73,7 +73,7 @@ export default function FinancialChart({ chartData }: { chartData: ProviderFinan
                     <div
                         className={`label-tab ${field === 'amount' ? 'active' : ''}`}
                         onClick={() => setField('amount')}>
-                        Totaal uitgegeven
+                        Besteed
                     </div>
                     <div className={`label-tab ${field === 'count' ? 'active' : ''}`} onClick={() => setField('count')}>
                         Totaal transacties

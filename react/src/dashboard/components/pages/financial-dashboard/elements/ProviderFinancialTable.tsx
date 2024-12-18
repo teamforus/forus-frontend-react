@@ -114,7 +114,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                                     <thead>
                                         <tr>
                                             <ThSortable label="Aanbieder" />
-                                            <ThSortable label="Totaal uitgegeven" />
+                                            <ThSortable label="Besteed" />
                                             <ThSortable label="Hoogste aankoopbedrag" />
                                             <ThSortable label="Aantal transacties" />
                                         </tr>

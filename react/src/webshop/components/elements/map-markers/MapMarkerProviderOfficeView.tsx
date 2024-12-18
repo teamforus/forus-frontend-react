@@ -19,30 +19,27 @@ export default function MapMarkerProviderOfficeView({ office }: { office: Office
             </div>
             <div className="map-office-details">
                 <div className="map-office-title">{office.organization.name}</div>
-                <div className="row">
-                    <div className="col col-lg-12">
-                        <div className="map-office-info">
-                            <div className="mdi mdi-map-marker-outline text-muted" />
-                            <span className="text-primary">{office.address}</span>
-                        </div>
+                <div className="map-office-info-contacts">
+                    <div className="map-office-info">
+                        <em className="mdi mdi-map-marker-outline text-muted" />
+                        <span className="map-office-info-value">{office.address}</span>
                     </div>
-                    <div className="col col-lg-12">
-                        {(office.phone || office.organization.phone) && (
-                            <div className="map-office-info map-office-info-inline">
-                                <div className="mdi mdi-phone-outline text-muted" />
-                                <span className="text-primary">
-                                    {office.phone ? office.phone : office.organization.phone}
-                                </span>
-                            </div>
-                        )}
 
-                        {office.organization.email && (
-                            <div className="map-office-info map-office-info-inline">
-                                <div className="mdi mdi-email-outline text-muted" />
-                                <span className="text-primary">{office.organization.email}</span>
-                            </div>
-                        )}
-                    </div>
+                    {(office.phone || office.organization.phone) && (
+                        <div className="map-office-info">
+                            <em className="mdi mdi-phone-outline text-muted" />
+                            <span className="map-office-info-value">
+                                {office.phone ? office.phone : office.organization.phone}
+                            </span>
+                        </div>
+                    )}
+
+                    {office.organization.email && (
+                        <div className="map-office-info">
+                            <em className="mdi mdi-email-outline text-muted" />
+                            <span className="map-office-info-value">{office.organization.email}</span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

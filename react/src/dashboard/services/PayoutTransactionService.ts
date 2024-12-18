@@ -64,13 +64,13 @@ export class PayoutTransactionService<T = PayoutTransaction> {
                 tooltip: { key: 'id', title: 'payouts.labels.id', description: 'payouts.tooltips.id' },
             },
             {
-                key: 'fund',
+                key: 'fund_name',
                 value: 'fund_name',
-                label: 'payouts.labels.fund',
+                label: 'payouts.labels.fund_name',
                 tooltip: {
-                    key: 'fund',
-                    title: 'payouts.labels.fund',
-                    description: 'payouts.tooltips.fund',
+                    key: 'fund_name',
+                    title: 'payouts.labels.fund_name',
+                    description: 'payouts.tooltips.fund_name',
                 },
             },
             {
@@ -120,19 +120,19 @@ export class PayoutTransactionService<T = PayoutTransaction> {
                 },
             },
             {
-                key: 'status',
+                key: 'state',
                 value: 'state',
-                label: 'payouts.labels.status',
-                tooltip: { key: 'status', title: 'payouts.labels.status', description: 'payouts.tooltips.status' },
+                label: 'payouts.labels.state',
+                tooltip: { key: 'state', title: 'payouts.labels.state', description: 'payouts.tooltips.state' },
             },
             {
-                key: 'employee',
+                key: 'employee_email',
                 value: 'employee_email',
-                label: 'payouts.labels.employee',
+                label: 'payouts.labels.employee_email',
                 tooltip: {
-                    key: 'employee',
-                    title: 'payouts.labels.employee',
-                    description: 'payouts.tooltips.employee',
+                    key: 'employee_email',
+                    title: 'payouts.labels.employee_email',
+                    description: 'payouts.tooltips.employee_email',
                 },
             },
             {

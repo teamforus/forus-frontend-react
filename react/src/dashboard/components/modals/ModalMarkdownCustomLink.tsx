@@ -7,6 +7,7 @@ import FormError from '../elements/forms/errors/FormError';
 import useSetProgress from '../../hooks/useSetProgress';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import usePushDanger from '../../hooks/usePushDanger';
 
 export default function ModalMarkdownCustomLink({
     type,
@@ -22,6 +23,7 @@ export default function ModalMarkdownCustomLink({
     className?: string;
 }) {
     const translate = useTranslate();
+    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
 
     const mediaService = useMediaService();
@@ -59,7 +61,7 @@ export default function ModalMarkdownCustomLink({
                 mediaService
                     .store('cms_media', e.target.files[0], ['public'])
                     .then((res) => {
-                        setErrors(errors);
+                        setErrors(null);
                         const media = res.data.data;
 
                         form.update({
@@ -67,13 +69,19 @@ export default function ModalMarkdownCustomLink({
                             url: media.sizes.public,
                         });
                     })
-                    .catch((res: ResponseError) => setErrors(res.data.errors))
+                    .catch((res: ResponseError) => {
+                        if (res.status === 0 || res.status === 413) {
+                            pushDanger('Mislukt!', 'Geüpload bestand is te groot.');
+                        }
+
+                        setErrors(res.data?.errors);
+                    })
                     .finally(() => setProgress(100));
             });
 
             input.current.click();
         },
-        [errors, form, mediaService, setProgress],
+        [form, mediaService, setProgress, pushDanger],
     );
 
     return (
