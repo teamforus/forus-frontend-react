@@ -33,6 +33,8 @@ export default function IdentityVouchersCard({
         type: 'all',
         source: 'all',
         identity_address: identity.address,
+        order_by: 'created_at',
+        order_dir: 'desc',
     });
 
     const fetchVouchers = useCallback(() => {
