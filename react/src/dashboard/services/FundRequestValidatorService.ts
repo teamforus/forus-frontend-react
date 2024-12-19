@@ -148,7 +148,9 @@ export class FundRequestValidatorService<T = FundRequest> {
     }
 
     public getColumns(): Array<ConfigurableTableColumn> {
-        const list = ['id', 'requester', 'fund', 'created_date', 'assignee', 'status'].filter((item) => item);
+        const list = ['id', 'requester_email', 'fund_name', 'created_at', 'assignee_email', 'state'].filter(
+            (item) => item,
+        );
 
         return list.map((key) => ({
             key,
