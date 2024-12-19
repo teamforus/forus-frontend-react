@@ -543,11 +543,11 @@ export default function FundRequestsView() {
 
                 <div className="card-section">
                     <div className="card-block card-block-keyvalue">
-                        <KeyValueItem label={translate('validation_requests.labels.status')}>
+                        <KeyValueItem label={translate('validation_requests.labels.state')}>
                             <FundRequestStateLabel fundRequest={fundRequest} />
                         </KeyValueItem>
 
-                        <KeyValueItem label={translate('validation_requests.labels.fund')}>
+                        <KeyValueItem label={translate('validation_requests.labels.fund_name')}>
                             <Fragment>
                                 {fundRequestMeta.fund.name}
                                 <span
@@ -572,7 +572,7 @@ export default function FundRequestsView() {
                             </div>
                         )}
 
-                        <KeyValueItem label={translate('validation_requests.labels.created_date')}>
+                        <KeyValueItem label={translate('validation_requests.labels.created_at')}>
                             {fundRequestMeta.created_at_locale}
                         </KeyValueItem>
 

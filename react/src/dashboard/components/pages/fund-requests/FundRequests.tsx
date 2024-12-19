@@ -252,7 +252,7 @@ export default function FundRequests() {
                                     className="form-control"
                                 />
                             </FilterItemToggle>
-                            <FilterItemToggle label={translate('validation_requests.labels.status')}>
+                            <FilterItemToggle label={translate('validation_requests.labels.state')}>
                                 <SelectControl
                                     className={'form-control'}
                                     options={states}
