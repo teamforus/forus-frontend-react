@@ -32,9 +32,9 @@ export default function IdentityVouchersCard({
         per_page: 10,
         type: 'all',
         source: 'all',
-        identity_address: identity.address,
         order_by: 'created_at',
         order_dir: 'desc',
+        identity_id: identity.id,
     });
 
     const fetchVouchers = useCallback(() => {
