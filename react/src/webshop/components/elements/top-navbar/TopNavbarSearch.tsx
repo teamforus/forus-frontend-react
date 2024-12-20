@@ -190,17 +190,17 @@ export default function TopNavbarSearch() {
                             onBlur={() => setSearchFocused(false)}
                             aria-haspopup={true}
                         />
-                        <div
-                            className={`search-reset ${
-                                !envData.config?.flags?.genericSearchUseToggle ? 'show-sm' : ''
-                            }`}
-                            onClick={hideSearchBox}
-                            onKeyDown={clickOnKeyEnter}
-                            tabIndex={0}
-                            aria-label="Sluit zoeken"
-                            role="button">
-                            <em className="mdi mdi-close" />
-                        </div>
+                        {filters.values.q && (
+                            <div
+                                className="search-reset"
+                                onClick={() => filters.update({ q: '' })}
+                                onKeyDown={clickOnKeyEnter}
+                                tabIndex={0}
+                                aria-label="Sluit zoeken"
+                                role="button">
+                                <em className="mdi mdi-close" />
+                            </div>
+                        )}
                     </div>
                     {dropdown && (
                         <div className="search-result" role={'menu'}>
