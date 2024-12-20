@@ -227,16 +227,6 @@
 .block {
     &.block-footer {
         .block {
-
-            .footer-nav {
-                .footer-nav-item {
-                    a {
-                        color: #fff;
-                        font: 500 16px/24px var(--base-font);
-                    }
-                }
-            }
-
             &.block-markdown {
                 a:not(.button) {
                     color: #fff;
