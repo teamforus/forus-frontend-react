@@ -249,6 +249,10 @@ export default function ModalVoucherTransaction({
         fetchVoucherFund();
     }, [fetchVoucherFund]);
 
+    if (!fund) {
+        return null;
+    }
+
     return (
         <div
             className={`modal modal-md modal-animated modal-voucher-transaction ${
