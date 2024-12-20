@@ -31,7 +31,7 @@ export default function IdentityFundRequestsCard({
         order_by: 'created_at',
         order_dir: 'desc',
         per_page: 10,
-        identity_id: identity.id,
+        identity_address: identity.address,
     });
 
     const fetchFundRequests = useCallback(() => {
