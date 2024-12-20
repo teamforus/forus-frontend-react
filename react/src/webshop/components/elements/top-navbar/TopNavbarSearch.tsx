@@ -166,10 +166,6 @@ export default function TopNavbarSearch() {
 
                     if (!isSearchResultPage) {
                         navigateState('search-result', {}, { q: filters.values.q });
-
-                        window.setTimeout(() => {
-                            updateSearchFilters({ q: filters.values.q });
-                        }, 0);
                     }
                 }}
                 className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
