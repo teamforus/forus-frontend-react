@@ -10,6 +10,7 @@ import Fund from '../../../../props/models/Fund';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { hasPermission } from '../../../../helpers/utils';
 import useShowVoucherQrCode from '../hooks/useShowVoucherQrCode';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function VouchersTableRow({
     funds,
@@ -82,7 +83,13 @@ export default function VouchersTableRow({
             </td>
 
             {!voucher.product ? (
-                <td>{currencyFormat(parseFloat(voucher.amount_total))}</td>
+                <td>
+                    {voucher.fund.type === 'budget' ? (
+                        currencyFormat(parseFloat(voucher.amount_total))
+                    ) : (
+                        <TableEmptyValue />
+                    )}
+                </td>
             ) : (
                 <td>
                     <div className="text-primary text-medium" title={voucher.product.organization.name}>
