@@ -9,6 +9,7 @@ import { useNavigateState } from '../../../../modules/state_router/Router';
 import useConfirmReimbursementDestroy from '../../../../services/helpers/useConfirmReimbursementDestroy';
 import { useReimbursementService } from '../../../../services/ReimbursementService';
 import IconReimbursement from '../../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-reimbursement.svg';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function ReimbursementCard({
     onDelete,
@@ -17,6 +18,7 @@ export default function ReimbursementCard({
     onDelete: () => void;
     reimbursement: Reimbursement;
 }) {
+    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
@@ -105,7 +107,9 @@ export default function ReimbursementCard({
                                 <div className="label label-default label-round">{reimbursement?.state_locale}</div>
                             </div>
                             <div className="reimbursement-overview-item">
-                                <div className="reimbursement-overview-label">Declaratienummer:</div>
+                                <div className="reimbursement-overview-label">
+                                    {translate('reimbursements.item.number')}
+                                </div>
                                 <div className="reimbursement-overview-value" data-dusk="reimbursementsItemCode">
                                     #{reimbursement.code}
                                 </div>
@@ -116,10 +120,14 @@ export default function ReimbursementCard({
                     {!reimbursement.expired && reimbursement.state === 'pending' && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelPending">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-warning label-round">In afwachting</div>
+                                <div className="label label-warning label-round">
+                                    {translate('reimbursements.item.states.pending')}
+                                </div>
                             </div>
                             <div className="reimbursement-overview-item">
-                                <div className="reimbursement-overview-label">Declaratienummer:</div>
+                                <div className="reimbursement-overview-label">
+                                    {translate('reimbursements.item.number')}
+                                </div>
                                 <div className="reimbursement-overview-value" data-dusk="reimbursementsItemCode">
                                     #{reimbursement.code}
                                 </div>
@@ -130,10 +138,14 @@ export default function ReimbursementCard({
                     {!reimbursement.expired && reimbursement.state === 'approved' && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelApproved">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-success label-round">Geaccepteerd</div>
+                                <div className="label label-success label-round">
+                                    {translate('reimbursements.item.states.accepted')}
+                                </div>
                             </div>
                             <div className="reimbursement-overview-item">
-                                <div className="reimbursement-overview-label">Declaratienummer:</div>
+                                <div className="reimbursement-overview-label">
+                                    {translate('reimbursements.item.number')}
+                                </div>
                                 <div className="reimbursement-overview-value" data-dusk="reimbursementsItemCode">
                                     #{reimbursement.code}
                                 </div>
@@ -144,33 +156,46 @@ export default function ReimbursementCard({
                     {!reimbursement.expired && reimbursement.state === 'declined' && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelDeclined">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-default label-round">Geweigerd</div>
+                                <div className="label label-default label-round">
+                                    {translate('reimbursements.item.states.declined')}
+                                </div>
                             </div>
                             <div className="reimbursement-overview-item">
-                                <div className="reimbursement-overview-label">Declaratienummer:</div>
+                                <div className="reimbursement-overview-label">
+                                    {translate('reimbursements.item.number')}
+                                </div>
                                 <div className="reimbursement-overview-value" data-dusk="reimbursementsItemCode">
                                     #{reimbursement.code}
                                 </div>
                             </div>
                             <div className="reimbursement-overview-item">
-                                <div className="reimbursement-overview-label">Geweigerd op:</div>
+                                <div className="reimbursement-overview-label">
+                                    {translate('reimbursements.item.states.declined_at')}
+                                </div>
                                 <div className="reimbursement-overview-value">{reimbursement.rejected_at_locale}</div>
                             </div>
                         </div>
                     )}
+
                     {reimbursement.expired && (
                         <div className="reimbursement-overview" data-dusk="reimbursementsItemLabelExpired">
                             <div className="reimbursement-overview-status">
-                                <div className="label label-danger label-round">Verlopen</div>
+                                <div className="label label-danger label-round">
+                                    {translate('reimbursements.item.states.expired')}
+                                </div>
                             </div>
                             <div className="reimbursement-overview-item">
-                                <div className="reimbursement-overview-label">Declaratienummer:</div>
+                                <div className="reimbursement-overview-label">
+                                    {translate('reimbursements.item.number')}
+                                </div>
                                 <div className="reimbursement-overview-value" data-dusk="reimbursementsItemCode">
                                     #{reimbursement.code}
                                 </div>
                             </div>
                             <div className="reimbursement-overview-item">
-                                <div className="reimbursement-overview-label">Verlopen op:</div>
+                                <div className="reimbursement-overview-label">
+                                    {translate('reimbursements.item.states.expired_at')}
+                                </div>
                                 <div className="reimbursement-overview-value" data-dusk="reimbursementsItemDateExpired">
                                     {reimbursement.expire_at_locale}
                                 </div>
@@ -178,20 +203,23 @@ export default function ReimbursementCard({
                         </div>
                     )}
                 </div>
+
                 <div className="reimbursement-values">
                     {reimbursement.submitted_at && (
                         <div className="reimbursement-value">
-                            Ingediend op:{' '}
+                            {translate('reimbursements.item.labels.submitted_at')}{' '}
                             <strong data-dusk="reimbursementsItemDateSubmitted">
                                 {reimbursement.submitted_at_locale}
                             </strong>
                         </div>
                     )}
+
                     {reimbursement.state === 'approved' &&
                         reimbursement.resolved_at &&
                         reimbursement.voucher_transaction?.state == 'success' && (
                             <div className="reimbursement-value" data-dusk="reimbursementsItemDateResolved">
-                                Uitbetaald op: <strong>{reimbursement.voucher_transaction?.created_at_locale}</strong>
+                                {translate('reimbursements.item.labels.approved_at')}{' '}
+                                <strong>{reimbursement.voucher_transaction?.created_at_locale}</strong>
                             </div>
                         )}
 
@@ -199,13 +227,14 @@ export default function ReimbursementCard({
                         reimbursement.resolved_at &&
                         reimbursement.voucher_transaction.state != 'success' && (
                             <div className="reimbursement-value" data-dusk="reimbursementsItemDateResolved">
-                                Geaccepteerd op: <strong>{reimbursement.resolved_at_locale}</strong>
+                                {translate('reimbursements.item.labels.accepted_at')}{' '}
+                                <strong>{reimbursement.resolved_at_locale}</strong>
                             </div>
                         )}
 
                     {reimbursement.state === 'declined' && reimbursement.resolved_at && (
                         <div className="reimbursement-value" data-dusk="reimbursementsItemDateDeclined">
-                            Afgewezen op:
+                            {translate('reimbursements.item.labels.declined_at')}{' '}
                             <strong>{reimbursement.resolved_at_locale}</strong>
                         </div>
                     )}
@@ -217,7 +246,7 @@ export default function ReimbursementCard({
                                 data-dusk="reimbursementsItemBtnCancel"
                                 onClick={(e) => cancelReimbursement(e)}>
                                 <em className="mdi mdi-trash-can-outline" />
-                                Annuleren
+                                {translate('reimbursements.item.buttons.cancel')}
                             </button>
                         </div>
                     )}

@@ -106,12 +106,14 @@ export default function NotificationPreferencesCards({
             {preferences && !preferences?.email && (
                 <div className="card">
                     <div className="card-header">
-                        <h2 className="card-title">{translate('notification_preferences.no_email_title')}</h2>
+                        <h2 className="card-title">{translate('preferences_notifications.no_email_title')}</h2>
                     </div>
                     <div className="card-section">
-                        <div className="card-heading">{translate('notification_preferences.no_email_description')}</div>
+                        <div className="card-heading">
+                            {translate('preferences_notifications.no_email_description')}
+                        </div>
                         <StateNavLink name="identity-emails" className="button button-primary">
-                            {translate('notification_preferences.no_email_button')}
+                            {translate('preferences_notifications.no_email_button')}
                         </StateNavLink>
                     </div>
                 </div>
@@ -120,11 +122,11 @@ export default function NotificationPreferencesCards({
             {preferences && preferences?.email && preferences?.email_unsubscribed && (
                 <div className="card">
                     <div className="card-header">
-                        <h2 className="card-title">{translate('notification_preferences.title_emails_turned_on')}</h2>
+                        <h2 className="card-title">{translate('preferences_notifications.title_emails_turned_on')}</h2>
                     </div>
                     <div className="card-section">
                         <div className="card-heading">
-                            {translate(`notification_preferences.subscribe_desc_${appConfigs?.communication_type}`, {
+                            {translate(`preferences_notifications.subscribe_desc_${appConfigs?.communication_type}`, {
                                 email: preferences.email,
                             })}
                         </div>
@@ -134,7 +136,7 @@ export default function NotificationPreferencesCards({
                                 type="button"
                                 onClick={() => toggleSubscription(false)}
                                 id="enable_subscription">
-                                {translate('notification_preferences.subscribe')}
+                                {translate('preferences_notifications.subscribe')}
                             </button>
                         </div>
                     </div>
@@ -144,17 +146,17 @@ export default function NotificationPreferencesCards({
             {preferences && preferences?.email && !preferences?.email_unsubscribed && (
                 <div className="card">
                     <div className="card-header">
-                        <h2 className="card-title">{translate('notification_preferences.title_emails_turned_of')}</h2>
+                        <h2 className="card-title">{translate('preferences_notifications.title_emails_turned_of')}</h2>
                     </div>
                     <div className="card-section">
-                        <div className="card-heading">{translate('notification_preferences.unsubscribe_desc')}</div>
+                        <div className="card-heading">{translate('preferences_notifications.unsubscribe_desc')}</div>
                         <div>
                             <button
                                 className="button button-primary"
                                 type="button"
                                 id="disable_subscription"
                                 onClick={() => toggleSubscription(true)}>
-                                {translate('notification_preferences.unsubscribe')}
+                                {translate('preferences_notifications.unsubscribe')}
                             </button>
                         </div>
                     </div>
@@ -164,7 +166,7 @@ export default function NotificationPreferencesCards({
             {preferences && preferences?.email && !preferences?.email_unsubscribed && (
                 <div className="card">
                     <div className="card-header">
-                        <h2 className="card-title">{translate('notification_preferences.title_email_preferences')}</h2>
+                        <h2 className="card-title">{translate('preferences_notifications.title_email_preferences')}</h2>
                     </div>
 
                     <div className="form block block-preferences">
@@ -179,10 +181,10 @@ export default function NotificationPreferencesCards({
                                 aria-checked={type.subscribed}>
                                 <div className="preference-option-details">
                                     <div className="card-heading card-heading-padless">
-                                        {translate(`notification_preferences.types.${type.key}.title`)}
+                                        {translate(`preferences_notifications.types.${type.key}.title`)}
                                     </div>
                                     <div className="card-text">
-                                        {translate(`notification_preferences.types.${type.key}.description`)}
+                                        {translate(`preferences_notifications.types.${type.key}.description`)}
                                     </div>
                                 </div>
                                 <div className="preference-option-input">
@@ -212,7 +214,7 @@ export default function NotificationPreferencesCards({
 
             <div className="card" ref={cardRef}>
                 <div className="card-header">
-                    <h2 className="card-title">{translate('notification_preferences.title_push_preferences')}</h2>
+                    <h2 className="card-title">{translate('preferences_notifications.title_push_preferences')}</h2>
                 </div>
 
                 <div className="form block block-preferences">
@@ -227,10 +229,10 @@ export default function NotificationPreferencesCards({
                             aria-checked={type.subscribed}>
                             <div className="preference-option-details">
                                 <div className="card-heading card-heading-padless">
-                                    {translate(`notification_preferences.types.${type.key}.title`)}
+                                    {translate(`preferences_notifications.types.${type.key}.title`)}
                                 </div>
                                 <div className="card-text">
-                                    {translate(`notification_preferences.types.${type.key}.description`)}
+                                    {translate(`preferences_notifications.types.${type.key}.description`)}
                                 </div>
                             </div>
                             <div className="preference-option-input">

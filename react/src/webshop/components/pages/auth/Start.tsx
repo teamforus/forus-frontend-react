@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authContext } from '../../../contexts/AuthContext';
-import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
+import { getStateRouteUrl, useNavigateState, useStateParams } from '../../../modules/state_router/Router';
 import { useAuthService } from '../../../services/AuthService';
 import useFormBuilder from '../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
@@ -13,7 +13,6 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAssetUrl from '../../../hooks/useAssetUrl';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import EmailProviderLink from '../../../../dashboard/components/pages/auth/elements/EmailProviderLink';
 import QrCode from '../../../../dashboard/components/elements/qr-code/QrCode';
 import AppLinks from '../../elements/app-links/AppLinks';
@@ -24,6 +23,7 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
+import BindLinksInside from '../../elements/bind-links-inside/BindLinksInside';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -230,7 +230,7 @@ export default function Start() {
                                 <FormError error={authForm.errors.email} />
                             </div>
                             <div className="form-value-hint">
-                                Vul een geldig e-mailadres in, bijvoorbeeld <strong>naam@voorbeeld.com</strong>
+                                <TranslateHtml i18n={'auth_start.example'} />
                             </div>
                         </div>
                     </div>
@@ -272,21 +272,14 @@ export default function Start() {
                                     }}
                                     id="privacy"
                                 />
-                                <strong>
-                                    Ik heb de{' '}
-                                    <StateNavLink
-                                        tabIndex={3}
-                                        target={'_blank'}
-                                        onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
-                                            e.stopPropagation();
-                                            clickOnKeyEnter(e);
-                                        }}
-                                        className="text-primary-light sign_up-pane-link"
-                                        name="privacy">
-                                        privacyverklaring
-                                    </StateNavLink>{' '}
-                                    gelezen
-                                </strong>
+                                <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
+                                    <strong>
+                                        <TranslateHtml
+                                            i18n={'auth.privacy_link.text'}
+                                            values={{ link_url: getStateRouteUrl('privacy') }}
+                                        />
+                                    </strong>
+                                </BindLinksInside>
                             </label>
                         </div>
                     </div>
@@ -311,33 +304,15 @@ export default function Start() {
                 />
             </div>
             <div className="sign_up-option-details">
-                <div className="sign_up-option-title">Me app</div>
+                <div className="sign_up-option-title">{translate('auth.options.qr.title')}</div>
                 <div className="sign_up-option-description">
-                    Scan een QR-code met de&nbsp;<u>Me app</u>
-                    &nbsp;
+                    <TranslateHtml i18n={'auth.options.qr.description'} />
                 </div>
             </div>
         </div>
     );
 
-    const restoreLink = (label = 'Kun je niet meer inloggen?', link = 'Account herstellen met DigiD') => (
-        <div className="sign_up-restore">
-            <div className="sign_up-restore-label">{label}</div>
-            <div
-                className="sign_up-restore-link clickable"
-                onClick={() => setState('restore')}
-                role="button"
-                tabIndex={0}
-                onKeyDown={clickOnKeyEnter}>
-                {link}
-                <div className="sign_up-restore-chevron">
-                    <em className="mdi mdi-chevron-right" />
-                </div>
-            </div>
-        </div>
-    );
-
-    const digidOption = (title: string, description: string) => (
+    const digidOption = (
         <div className="sign_up-option" tabIndex={0} onKeyDown={clickOnKeyEnter} role="button" onClick={startDigId}>
             <div className="sign_up-option-media">
                 <img
@@ -347,20 +322,18 @@ export default function Start() {
                 />
             </div>
             <div className="sign_up-option-details">
-                <div className="sign_up-option-title">{title}</div>
-                <div className="sign_up-option-description">{description}</div>
+                <div className="sign_up-option-title">{translate('auth.options.digid.title')}</div>
+                <div className="sign_up-option-description">{translate('auth.options.digid.description')}</div>
             </div>
         </div>
     );
 
-    const emailOption = (dusk: string, title: string, description: string) => (
+    const emailOption = (dusk: string) => (
         <div
             className="sign_up-option"
             tabIndex={0}
             onKeyDown={clickOnKeyEnter}
-            onClick={() => {
-                window.setTimeout(() => setState('email'), 0);
-            }}
+            onClick={() => window.setTimeout(() => setState('email'), 0)}
             role="button"
             data-dusk={dusk}>
             <div className="sign_up-option-media">
@@ -371,8 +344,25 @@ export default function Start() {
                 />
             </div>
             <div className="sign_up-option-details">
-                <div className="sign_up-option-title">{title}</div>
-                <div className="sign_up-option-description">{description}</div>
+                <div className="sign_up-option-title">{translate('auth.options.email.title')}</div>
+                <div className="sign_up-option-description">{translate('auth.options.email.description')}</div>
+            </div>
+        </div>
+    );
+
+    const restoreLink = () => (
+        <div className="sign_up-restore">
+            <div className="sign_up-restore-label">{translate('auth.restore.label')}</div>
+            <div
+                className="sign_up-restore-link clickable"
+                onClick={() => setState('restore')}
+                role="button"
+                tabIndex={0}
+                onKeyDown={clickOnKeyEnter}>
+                {translate('auth.restore.link')}
+                <div className="sign_up-restore-chevron">
+                    <em className="mdi mdi-chevron-right" />
+                </div>
             </div>
         </div>
     );
@@ -416,21 +406,17 @@ export default function Start() {
                                                     <div className="sign_up-col">
                                                         <h2 className="sign_up-pane-text">
                                                             <div className="sign_up-pane-heading">
-                                                                Account aanmaken of een aanvraag starten?
+                                                                {translate('auth.sign_in_up_title')}
                                                             </div>
                                                         </h2>
                                                         <div className={`sign_up-options ${loading ? 'disabled' : ''}`}>
                                                             {appConfigs.digid &&
                                                                 !envData.config?.flags?.startPage
                                                                     ?.hideSignUpDigidOption &&
-                                                                digidOption('DigiD', 'Open DigiD inlogscherm')}
+                                                                digidOption}
 
                                                             {!envData.config?.flags?.startPage?.hideSignUpEmailOption &&
-                                                                emailOption(
-                                                                    'authOptionEmailRegister',
-                                                                    'E-mailadres',
-                                                                    'Ontvang een inloglink per e-mail',
-                                                                )}
+                                                                emailOption('authOptionEmailRegister')}
                                                         </div>
                                                     </div>
                                                     <div className="sign_up-col">
@@ -447,14 +433,10 @@ export default function Start() {
                                                             {appConfigs.digid &&
                                                                 envData.config?.flags?.startPage
                                                                     ?.hideSignInDigidOption &&
-                                                                digidOption('DigiD', 'Open DigiD inlogscherm')}
+                                                                digidOption}
 
                                                             {!envData.config?.flags?.startPage?.hideSignInEmailOption &&
-                                                                emailOption(
-                                                                    'authOptionEmailRestore',
-                                                                    'E-mailadres',
-                                                                    'Ontvang een inloglink per e-mail',
-                                                                )}
+                                                                emailOption('authOptionEmailRestore')}
 
                                                             {!envData.config?.flags?.startPage
                                                                 ?.hideSignInQrCodeOption && qrOption}
@@ -473,13 +455,11 @@ export default function Start() {
                         {state == 'restore' && (
                             <div className="block block-sign_up">
                                 <div className="block-wrapper">
-                                    <h1 className="block-title">Account herstellen</h1>
+                                    <h1 className="block-title">{translate('auth.restore.title')}</h1>
                                     {!authEmailRestoreSent && !authEmailConfirmationSent && (
                                         <div className="sign_up-pane">
                                             <div className="sign_up-pane-body">
-                                                <div className="sign_up-options">
-                                                    {appConfigs.digid && digidOption('DigiD', 'Open DigiD inlogscherm')}
-                                                </div>
+                                                <div className="sign_up-options">{appConfigs.digid && digidOption}</div>
                                             </div>
                                             <SignUpFooter
                                                 startActions={
@@ -490,7 +470,7 @@ export default function Start() {
                                                         className="button button-text button-text-padless"
                                                         onClick={() => setState('start')}>
                                                         <em className="mdi mdi-chevron-left icon-lefts" />
-                                                        Terug naar inloggen
+                                                        {translate('auth.back_start')}
                                                     </div>
                                                 }
                                             />
@@ -523,7 +503,7 @@ export default function Start() {
                                                         className="button button-text button-text-padless"
                                                         onClick={() => setState('start')}>
                                                         <em className="mdi mdi-chevron-left icon-lefts" />
-                                                        Terug
+                                                        {translate('auth.back')}
                                                     </div>
                                                 }
                                             />
@@ -532,7 +512,9 @@ export default function Start() {
 
                                     {authEmailRestoreSent && (
                                         <div className="sign_up-pane">
-                                            <h1 className="sr-only">Start aanmelden</h1>
+                                            <h1 className="sr-only" role="heading">
+                                                {translate('popup_auth.header.title_sr')}
+                                            </h1>
                                             <h2 className="sign_up-pane-header">
                                                 {translate('popup_auth.header.title')}
                                             </h2>
@@ -563,10 +545,10 @@ export default function Start() {
                                     {authEmailConfirmationSent && (
                                         <div className="sign_up-pane">
                                             <h1 className="sr-only" role="heading">
-                                                Start aanmelden
+                                                {translate('popup_auth.header.title_sr')}
                                             </h1>
                                             <h2 className="sign_up-pane-header" role="heading">
-                                                E-mail verstuurd
+                                                {translate('popup_auth.header.title')}
                                             </h2>
                                             <div className="sign_up-pane-body" data-dusk="authEmailSentConfirmation">
                                                 <div className="sign_up-email_sent">
@@ -599,7 +581,7 @@ export default function Start() {
                         {state == 'qr' && (
                             <div className="block block-sign_up">
                                 <div className="block-wrapper">
-                                    <h1 className="block-title">Inloggen</h1>
+                                    <h1 className="block-title">{translate('auth.qr.title')}</h1>
                                     <div className="sign_up-pane">
                                         <div className="sign_up-pane-body">
                                             <div className="sign_up-pane-auth">
@@ -642,7 +624,7 @@ export default function Start() {
                                                     className="button button-text button-text-padless"
                                                     onClick={() => setState('start')}>
                                                     <em className="mdi mdi-chevron-left icon-lefts" />
-                                                    Terug
+                                                    {translate('auth.back')}
                                                 </div>
                                             }
                                         />

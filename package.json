@@ -15,7 +15,11 @@
     "build-dashboards": "webpack --mode production --env disable='webshop*,backend' enable='dashboard*'",
     "build-dev": "webpack --mode development",
     "build-webshops-dev": "webpack --mode development --env disable='dashboard*,backend' enable='webshop*'",
-    "build-dashboards-dev": "webpack --mode development --env disable='webshop*,backend' enable='dashboard*'"
+    "build-dashboards-dev": "webpack --mode development --env disable='webshop*,backend' enable='dashboard*'",
+    "translations-prepare": "node translations/prepare.mjs",
+    "translations-translate": "node translations/translate.mjs",
+    "translations-apply": "node translations/apply.mjs",
+    "translations-update-cache": "node translations/update-cache.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -90,6 +94,7 @@
     "chart.js": "^4.4.1",
     "clean-webpack-plugin": "^4.0.0",
     "date-fns": "^4.1.0",
+    "deepl-node": "^1.15.0",
     "diff": "^7.0.0",
     "dompurify": "^3.2.1",
     "easyqrcodejs": "^4.4.13",

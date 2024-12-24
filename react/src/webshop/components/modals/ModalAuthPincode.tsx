@@ -31,9 +31,9 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
                     <ModalNotification
                         modal={modal}
                         type={'confirm'}
-                        title={'Log in op de app'}
+                        title={translate('modal_pin_code.login')}
                         description={translate('popup_auth.pin_code.confirmation.description')}
-                        header={'popup_auth.pin_code.confirmation.title_' + appConfigs?.communication_type}
+                        header={translate(`popup_auth.pin_code.confirmation.title_${appConfigs?.communication_type}`)}
                         mdiIconType={'success'}
                         mdiIconClass={'check-circle-outline'}
                         confirmBtnText={translate('popup_auth.pin_code.confirmation.buttons.confirm')}
@@ -46,7 +46,7 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
             .catch((res: ResponseError) => {
                 form.setErrors({
                     ...res.data.errors,
-                    ...(res.status == 404 ? { auth_code: ['Onbekende code'] } : {}),
+                    ...(res.status == 404 ? { auth_code: [translate('modal_pin_code.unknown_code')] } : {}),
                 });
 
                 form.setIsLocked(false);
@@ -65,7 +65,12 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
 
     return (
         <div className={`modal modal-pin-code modal-animated  ${modal.loading ? '' : 'modal-loaded'}`} role="dialog">
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" role="button" />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('modal_pin_code.close')}
+                role="button"
+            />
 
             <form className="modal-window form" onSubmit={form.submit}>
                 <div
@@ -73,12 +78,12 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
                     onClick={modal.close}
                     tabIndex={0}
                     onKeyDown={clickOnKeyEnter}
-                    aria-label="Sluiten"
+                    aria-label={translate('modal_pin_code.close')}
                     role="button"
                 />
 
                 <div className="modal-header">
-                    <h2 className="modal-header-title">Log in op de app</h2>
+                    <h2 className="modal-header-title">{translate('modal_pin_code.login')}</h2>
                 </div>
                 <div className="modal-body">
                     <div className="app-instructions">
@@ -87,17 +92,17 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
                                 <div className="step-item-img">
                                     <img
                                         src={assetUrl('/assets/img/icon-auth/download-me-app.svg')}
-                                        alt="Me-app aanmeldscherm schermafbeelding"
+                                        alt={translate('modal_pin_code.step1_image_alt')}
                                     />
                                 </div>
-                                <h2 className="step-title">Stap 1</h2>
+                                <h2 className="step-title">{translate('modal_pin_code.step1_title')}</h2>
                                 <div className="step-description">
                                     <strong>
                                         <a href="#" className="text-link" onClick={(e) => openInMeModal(e)}>
-                                            Download
+                                            {translate('modal_pin_code.download')}
                                         </a>
                                     </strong>{' '}
-                                    en open de me app
+                                    {translate('modal_pin_code.and_open_app')}
                                 </div>
                             </div>
                             <div className="app-instructions-separator">
@@ -116,12 +121,13 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
                                 <div className="step-item-img">
                                     <img
                                         src={assetUrl('/assets/img/icon-auth/pair-me-app.svg')}
-                                        alt="Me-app aanmeldscherm schermafbeelding, kies koppelen"
+                                        alt={translate('modal_pin_code.step2_image_alt')}
                                     />
                                 </div>
-                                <h2 className="step-title">Stap 2</h2>
+                                <h2 className="step-title">{translate('modal_pin_code.step2_title')}</h2>
                                 <div className="step-description">
-                                    Kies “<strong>Koppelen</strong>”
+                                    {translate('modal_pin_code.choose')}{' '}
+                                    <strong>{translate('modal_pin_code.link')}</strong>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +154,7 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
                                 <PincodeControl
                                     value={form.values.pin_code.toString()}
                                     onChange={(pin_code) => form.update({ pin_code })}
-                                    ariaLabel={'Voer de koppelcode van de Me-app in'}
+                                    ariaLabel={translate('modal_pin_code.enter_code')}
                                 />
                                 <FormError error={form.errors.auth_code} />
                             </div>

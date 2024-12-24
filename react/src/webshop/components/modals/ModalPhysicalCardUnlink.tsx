@@ -46,7 +46,11 @@ export default function ModalPhysicalCardUnlink({
 
     return (
         <div className={`modal modal-animated modal-physical-cards ${modal.loading ? '' : 'modal-loaded'}`}>
-            <div className="modal-backdrop" onClick={modal.close} />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('modal_physical_card_unlink.buttons.close')}
+            />
 
             {state == 'start' && (
                 <div className="modal-window">
@@ -55,13 +59,13 @@ export default function ModalPhysicalCardUnlink({
                         onClick={closeModal}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_physical_card_unlink.buttons.close')}
                         role="button"
                     />
 
                     <div className="modal-header">
                         <h2 className="modal-header-title">
-                            {translate('physical_card.modal_section.link_card_unlink.title')}
+                            {translate('modal_physical_card_unlink.header.block_card')}
                         </h2>
                     </div>
                     <div className="modal-body">
@@ -70,18 +74,18 @@ export default function ModalPhysicalCardUnlink({
                                 <em className="mdi mdi-alert-outline" />
                             </div>
                             <div className="modal-section-description">
-                                Wil je je pas met pasnummer{' '}
-                                <span className="label label-dark-outline">{voucher.physical_card.code}</span>{' '}
-                                blokkeren?
+                                {translate('modal_physical_card_unlink.body.block_card', {
+                                    cardNumber: voucher.physical_card.code,
+                                })}
                             </div>
                         </div>
                     </div>
                     <div className="modal-footer">
                         <button className="button button-sm button-light" type="button" onClick={closeModal}>
-                            {translate('physical_card.modal_section.link_card_unlink.buttons.cancel')}
+                            {translate('modal_physical_card_unlink.buttons.cancel')}
                         </button>
                         <button className="button button-sm button-dark" type="button" onClick={unlink}>
-                            {translate('physical_card.modal_section.link_card_unlink.buttons.submit')}
+                            {translate('modal_physical_card_unlink.buttons.block')}
                         </button>
                     </div>
                 </div>
@@ -94,12 +98,14 @@ export default function ModalPhysicalCardUnlink({
                         onClick={closeModal}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_physical_card_unlink.buttons.close')}
                         role="button"
                     />
 
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Pas geblokkeerd!</h2>
+                        <h2 className="modal-header-title">
+                            {translate('modal_physical_card_unlink.header.card_blocked')}
+                        </h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
@@ -107,18 +113,18 @@ export default function ModalPhysicalCardUnlink({
                                 <em className="mdi mdi-check-circle-outline" />
                             </div>
                             <div className="modal-section-description">
-                                Je pas met pasnummer:{' '}
-                                <span className="label label-dark-outline">{voucher.physical_card.code}</span> is
-                                geblokkeerd!
+                                {translate('modal_physical_card_unlink.body.card_blocked', {
+                                    cardNumber: voucher.physical_card.code,
+                                })}
                             </div>
                         </div>
                     </div>
                     <div className="modal-footer">
                         <button className="button button-sm button-light" type="button" onClick={closeModal}>
-                            Afsluiten
+                            {translate('modal_physical_card_unlink.buttons.close')}
                         </button>
                         <button className="button button-sm button-dark" type="button" onClick={requestNewCard}>
-                            Bestel nieuwe pas
+                            {translate('modal_physical_card_unlink.buttons.request_new')}
                         </button>
                     </div>
                 </div>

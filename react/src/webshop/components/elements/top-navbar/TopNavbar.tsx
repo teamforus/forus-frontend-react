@@ -18,6 +18,7 @@ import Announcements from '../announcements/Announcements';
 import ModalAuthPincode from '../../modals/ModalAuthPincode';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import LayoutMobileMenu from '../../../layout/elements/LayoutMobileMenu';
+import useLangSelector from '../../../hooks/useLangSelector';
 
 export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScroll?: boolean; className?: string }) => {
     const {
@@ -90,7 +91,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
     );
 
     const toggleSearchBox = useCallback(
-        (e) => {
+        (e: React.MouseEvent) => {
             e.stopPropagation();
             e.preventDefault();
 
@@ -100,7 +101,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
     );
 
     const openMobileMenu = useCallback(
-        ($e) => {
+        ($e: React.MouseEvent & { target?: { tagName?: string } }) => {
             if ($e?.target?.tagName != 'A') {
                 $e.stopPropagation();
                 $e.preventDefault();
@@ -126,6 +127,8 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
         };
     }, [envData, onResize, setShowSearchBox, updateScrolled]);
 
+    const langSelector = useLangSelector();
+
     const primaryMenu = (
         <ul id="primary-menu" className={`navbar-list hide-sm ${authIdentity ? 'navbar-list-auth-in' : ''}`}>
             {menuItems.map((menuItem, index) => (
@@ -134,7 +137,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                     className={`navbar-item-wrapper ${menuItem.className || ''} ${
                         index >= menuItems.length - 2 ? 'navbar-item-wrapper_first-to-last' : ''
                     }`}>
-                    {['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && !menuItem.href && (
+                    {!['social_media_items', 'logout_item'].includes(menuItem.id) && !menuItem.href && (
                         <StateNavLink
                             name={menuItem.state}
                             params={menuItem.stateParams}
@@ -149,7 +152,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         </StateNavLink>
                     )}
 
-                    {['social_media_items', 'logout_item'].indexOf(menuItem.id) == -1 && menuItem.href && (
+                    {!['social_media_items', 'logout_item'].indexOf(menuItem.id) && menuItem.href && (
                         <a className="navbar-item" href={menuItem.href} target={menuItem.target || '_blank'}>
                             {translate(
                                 menuItem.nameTranslate,
@@ -159,18 +162,23 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         </a>
                     )}
 
-                    {menuItem.id == 'social_media_items' &&
-                        appConfigs.social_medias.map((social_media) => (
-                            <a
-                                key={social_media.type}
-                                className="navbar-social-media-icon"
-                                href={social_media.url}
-                                title={social_media.title}
-                                target="_blank"
-                                rel="noreferrer">
-                                <em className={`mdi mdi-${social_media.type}`} />
-                            </a>
-                        ))}
+                    {menuItem.id == 'social_media_items' && (
+                        <Fragment>
+                            {langSelector}
+
+                            {appConfigs.social_medias.map((social_media) => (
+                                <a
+                                    key={social_media.type}
+                                    className="navbar-social-media-icon"
+                                    href={social_media.url}
+                                    title={social_media.title}
+                                    target="_blank"
+                                    rel="noreferrer">
+                                    <em className={`mdi mdi-${social_media.type}`} />
+                                </a>
+                            ))}
+                        </Fragment>
+                    )}
 
                     {menuItem.id == 'logout_item' && (
                         <div className="flex">
@@ -197,7 +205,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 className={'state-nav-link'}
                                 tabIndex={0}
                                 onClick={(e) => signOut(e, true)}>
-                                <span className="navbar-item">{translate('topnavbar.buttons.logout')}</span>
+                                <span className="navbar-item">{translate('top_navbar.buttons.logout')}</span>
                                 <em className="mdi mdi-logout" />
                             </a>
                         </div>
@@ -253,7 +261,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                             {authIdentity?.email && (
                                 <div className="auth-user-menu-user">
                                     <span className="text-strong-half">
-                                        Ingelogd als: <br />
+                                        {translate('top_navbar.user_menu.auth_as')} <br />
                                     </span>
                                     {strLimit(authIdentity?.email, 27)}
                                 </div>
@@ -263,7 +271,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
 
                             <StateNavLink id="vouchers" name={'vouchers'} className="auth-user-menu-item" tabIndex={0}>
                                 <em className="mdi mdi-ticket-percent-outline" />
-                                Mijn tegoeden
+                                {translate('top_navbar.user_menu.my_vouchers')}
                             </StateNavLink>
                             <div
                                 id="open_pincode_popup"
@@ -273,7 +281,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 onKeyDown={clickOnKeyEnter}
                                 role="button">
                                 <em className="mdi mdi-cellphone" />
-                                {translate('topnavbar.buttons.authorize')}
+                                {translate('top_navbar.user_menu.authorize')}
                             </div>
                             <StateNavLink
                                 id="bookmarked_products"
@@ -281,7 +289,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 className="auth-user-menu-item"
                                 tabIndex={0}>
                                 <em className="mdi mdi-cards-heart-outline" />
-                                Mijn verlanglijstje
+                                {translate('top_navbar.user_menu.bookmarks')}
                             </StateNavLink>
                             <StateNavLink
                                 id="reservations"
@@ -289,7 +297,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 className="auth-user-menu-item"
                                 tabIndex={0}>
                                 <em className="mdi mdi-calendar-outline" />
-                                Reserveringen
+                                {translate('top_navbar.user_menu.reservations')}
                             </StateNavLink>
                             {appConfigs.has_reimbursements && (
                                 <StateNavLink
@@ -298,7 +306,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                     className="auth-user-menu-item"
                                     tabIndex={0}>
                                     <em className="mdi mdi-receipt-outline" />
-                                    Kosten terugvragen
+                                    {translate('top_navbar.user_menu.reimbursements')}
                                 </StateNavLink>
                             )}
                             <StateNavLink
@@ -308,7 +316,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 dataDusk="btnFundRequests"
                                 tabIndex={0}>
                                 <em className="mdi mdi-card-account-details-outline" />
-                                Aanvragen
+                                {translate('top_navbar.user_menu.fund_requests')}
                             </StateNavLink>
                             {appConfigs.has_payouts && (
                                 <StateNavLink
@@ -317,12 +325,12 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                     className="auth-user-menu-item"
                                     tabIndex={0}>
                                     <em className="mdi mdi-wallet-plus-outline" />
-                                    Uitbetalingen
+                                    {translate('top_navbar.user_menu.payouts')}
                                 </StateNavLink>
                             )}
                             <StateNavLink name={'notifications'} className="auth-user-menu-item" tabIndex={0}>
                                 <em className="mdi mdi-bell-outline" />
-                                Notificaties
+                                {translate('top_navbar.user_menu.notifications')}
                             </StateNavLink>
                             <StateNavLink
                                 id="notification_preferences"
@@ -330,12 +338,12 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 className="auth-user-menu-item"
                                 tabIndex={0}>
                                 <em className="mdi mdi-cog-outline" />
-                                {translate('notification_preferences.title_preferences')}
+                                {translate('top_navbar.user_menu.preferences_notifications')}
                             </StateNavLink>
                             {envData.config.sessions && (
                                 <StateNavLink name={'security-sessions'} className="auth-user-menu-item" tabIndex={0}>
                                     <em className="mdi mdi-shield-account" />
-                                    Sessies
+                                    {translate('top_navbar.user_menu.security_sessions')}
                                 </StateNavLink>
                             )}
                             <StateNavLink
@@ -345,13 +353,13 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 dataDusk="btnUserEmails"
                                 tabIndex={0}>
                                 <em className="mdi mdi-at" />
-                                {translate('email_preferences.title_preferences')}
+                                {translate('top_navbar.user_menu.preferences_emails')}
                             </StateNavLink>
 
                             {(envData.config.flags.show2FAMenu || auth2faState?.required) && (
                                 <StateNavLink name="security-2fa" className="auth-user-menu-item" tabIndex={0}>
                                     <em className="mdi mdi-security" />
-                                    Beveiliging
+                                    {translate('top_navbar.user_menu.security_2fa')}
                                 </StateNavLink>
                             )}
 
@@ -360,25 +368,26 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                             {authIdentity && (
                                 <StateNavLink name="funds" className="auth-user-menu-item show-sm" tabIndex={0}>
                                     <em className="mdi mdi-star-outline" />
-                                    {translate('topnavbar.buttons.logout')}
+                                    {translate('top_navbar.buttons.logout')}
+                                    {translate('top_navbar.user_menu.security_2fa')}
                                 </StateNavLink>
                             )}
                             {appConfigs.products.list && (
                                 <StateNavLink name="products" className="auth-user-menu-item show-sm" tabIndex={0}>
                                     <em className="mdi mdi-store" />
-                                    {translate('topnavbar.buttons.products')}
+                                    {translate('top_navbar.buttons.products')}
                                 </StateNavLink>
                             )}
                             {envData.config.flags.providersMenu && (
                                 <StateNavLink name="providers" className="auth-user-menu-item show-sm" tabIndex={0}>
                                     <em className="mdi mdi-store" />
-                                    {translate('topnavbar.items.providers')}
+                                    {translate('top_navbar.user_menu.providers')}
                                 </StateNavLink>
                             )}
                             <div className="auth-user-menu-separator show-sm" />
                             <StateNavLink name="vouchers" className="auth-user-menu-item show-sm" tabIndex={0}>
                                 <em className="mdi mdi-ticket-confirmation" />
-                                {translate('topnavbar.buttons.voucher')}
+                                {translate('top_navbar.user_menu.my_vouchers')}
                             </StateNavLink>
                             <div className="auth-user-menu-separator" />
                             <div
@@ -390,7 +399,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                 data-dusk="btnUserLogout"
                                 tabIndex={0}>
                                 <em className="mdi mdi-logout" />
-                                {translate('topnavbar.buttons.logout')}
+                                {translate('top_navbar.user_menu.logout')}
                             </div>
                         </div>
                     </ClickOutside>
@@ -428,11 +437,13 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                             onKeyDown={clickOnKeyEnter}
                             tabIndex={0}>
                             <em className="mdi mdi-magnify" />
-                            {translate('topnavbar.items.search')}
+                            {translate('top_navbar.items.search')}
                         </div>
                     ) : (
                         <div className="button navbar-search-button show-sm" aria-hidden="true" />
                     )}
+
+                    {langSelector}
 
                     <StateNavLink
                         name={'home'}
@@ -459,8 +470,8 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         tabIndex={0}>
                         <em className={`mdi ${mobileMenuOpened ? 'mdi-close' : 'mdi-menu'}`} />
                         {mobileMenuOpened
-                            ? translate('topnavbar.items.menu.close')
-                            : translate('topnavbar.items.menu.show')}
+                            ? translate('top_navbar.items.menu.close')
+                            : translate('top_navbar.items.menu.show')}
                     </div>
                 </div>
             )}
@@ -484,10 +495,14 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                             className="button button-primary button-xs show-sm"
                             onClick={() => startFundRequest({ reset: 1 })}
                             role="button"
-                            aria-label={translate('topnavbar.buttons.login')}
+                            aria-label={translate('top_navbar.buttons.login')}
                             id="login_mobile">
                             <em className="mdi mdi-account icon-start" />
-                            {translate(`topnavbar.buttons.${envData.client_key}.login`, {}, 'topnavbar.buttons.login')}
+                            {translate(
+                                `top_navbar.buttons.${envData.client_key}.login`,
+                                {},
+                                'top_navbar.buttons.login',
+                            )}
                         </button>
                     </div>
                 )}
@@ -560,9 +575,9 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                                             dataDusk="userVouchers">
                                             <em className="mdi mdi-ticket-confirmation" />
                                             {translate(
-                                                `topnavbar.buttons.${envData.client_key}.voucher`,
+                                                `top_navbar.buttons.${envData.client_key}.voucher`,
                                                 {},
-                                                'topnavbar.buttons.voucher',
+                                                'top_navbar.buttons.voucher',
                                             )}
                                         </StateNavLink>
                                     ) : (

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { pushNotificationContext } from '../context/PushNotificationsContext';
 import StateNavLink from '../../../../webshop/modules/state_router/StateNavLink';
 import classNames from 'classnames';
+import useTranslate from '../../../hooks/useTranslate';
 
 export default function PushNotificationsGroup({
     group = 'default',
@@ -14,6 +15,7 @@ export default function PushNotificationsGroup({
     showConfig?: boolean;
     maxVisibleCount?: number;
 }) {
+    const translate = useTranslate();
     const { notifications, popNotification, getDismissTimeValue } = useContext(pushNotificationContext);
 
     const [showAll, setShowAll] = useState(false);
@@ -51,11 +53,11 @@ export default function PushNotificationsGroup({
             {showConfig && notificationsList.length > 0 && (
                 <div className="notification-setting">
                     {dismissTime
-                        ? `Automatisch sluiten na ${dismissTime} seconden`
-                        : 'Automatisch sluiten is uitgeschakeld'}
+                        ? translate('push_notification_group.auto_close_after', { dismissTime })
+                        : translate('push_notification_group.auto_close_disabled')}
                     <div className="notification-setting-separator" />
                     <StateNavLink name={'preferences-notifications'} params={{ section: 'push' }} target={'_blank'}>
-                        Aanpassen
+                        {translate('push_notification_group.adjust')}
                     </StateNavLink>
                 </div>
             )}
@@ -89,11 +91,11 @@ export default function PushNotificationsGroup({
                         {showConfig && (
                             <div className="notification-setting-inline">
                                 {dismissTime
-                                    ? `Automatisch sluiten na ${dismissTime} seconden`
-                                    : 'Automatisch sluiten is uitgeschakeld'}
+                                    ? translate('push_notification_group.auto_close_after', { dismissTime })
+                                    : translate('push_notification_group.auto_close_disabled')}
 
                                 <StateNavLink name={'preferences-notifications'} params={{ section: 'push' }}>
-                                    Aanpassen
+                                    {translate('push_notification_group.adjust')}
                                 </StateNavLink>
                             </div>
                         )}
@@ -118,8 +120,12 @@ export default function PushNotificationsGroup({
             {notificationsList?.length > maxVisibleCount && (
                 <div className="notification-show-all" tabIndex={0} onClick={() => setShowAll(!showAll)}>
                     {showAll
-                        ? `Hide +${notificationsList.length - maxVisibleCount} notifications`
-                        : `Show +${notificationsList.length - maxVisibleCount} notifications`}
+                        ? translate('push_notification_group.hide_notifications', {
+                              count: notificationsList.length - maxVisibleCount,
+                          })
+                        : translate('push_notification_group.show_notifications', {
+                              count: notificationsList.length - maxVisibleCount,
+                          })}
 
                     <em className={classNames('mdi', showAll ? 'mdi-chevron-up' : 'mdi-chevron-down')} />
                 </div>
