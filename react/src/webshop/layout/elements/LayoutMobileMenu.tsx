@@ -110,6 +110,7 @@ export default function LayoutMobileMenu() {
                                     params={menuItem.stateParams}
                                     target={menuItem.target || '_blank'}
                                     activeExact={true}
+                                    onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
                                     onClick={hideMobileMenu}>
                                     <em className="mobile-menu-item-icon mdi mdi-arrow-right" aria-hidden="true" />
@@ -126,6 +127,7 @@ export default function LayoutMobileMenu() {
                                     className="mobile-menu-item"
                                     href={menuItem.href}
                                     target={menuItem.target || '_blank'}
+                                    onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
                                     onClick={hideMobileMenu}>
                                     <em className="mobile-menu-item-icon mdi mdi-arrow-right" aria-hidden="true" />
@@ -149,6 +151,7 @@ export default function LayoutMobileMenu() {
                             name="vouchers"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'vouchers' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-ticket-percent-outline" />
@@ -161,7 +164,15 @@ export default function LayoutMobileMenu() {
                     )}
 
                     {authIdentity && (
-                        <div className="mobile-menu-item" onClick={openPinCodePopup} tabIndex={0} role="button">
+                        <div
+                            className="mobile-menu-item"
+                            onClick={() => {
+                                hideMobileMenu();
+                                openPinCodePopup();
+                            }}
+                            onKeyDown={clickOnKeyEnter}
+                            tabIndex={0}
+                            role="button">
                             <em className="mobile-menu-item-icon mdi mdi-cellphone" />
                             {translate(
                                 `topnavbar.buttons.mobile.dropdown.${envData.client_key}.authorize`,
@@ -177,6 +188,7 @@ export default function LayoutMobileMenu() {
                             name="bookmarked-products"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'bookmarked-products' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-cards-heart-outline" />
@@ -194,6 +206,7 @@ export default function LayoutMobileMenu() {
                             name="reservations"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'reservations' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-calendar-outline" />
@@ -207,6 +220,7 @@ export default function LayoutMobileMenu() {
                             name="reimbursements"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'reimbursements' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-receipt-outline" />
@@ -220,6 +234,7 @@ export default function LayoutMobileMenu() {
                             name="fund-requests"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'fund-requests' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-card-account-details-outline" />
@@ -233,6 +248,7 @@ export default function LayoutMobileMenu() {
                             name="payouts"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'payouts' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-wallet-plus-outline" />
@@ -246,6 +262,7 @@ export default function LayoutMobileMenu() {
                             name="notifications"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'notifications' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-bell-ring-outline" />
@@ -259,6 +276,7 @@ export default function LayoutMobileMenu() {
                             name="preferences-notifications"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'preferences-notifications' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-cog-outline" />
@@ -272,6 +290,7 @@ export default function LayoutMobileMenu() {
                             name="security-sessions"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'security-sessions' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-shield-account-outline" />
@@ -285,6 +304,7 @@ export default function LayoutMobileMenu() {
                             name="identity-emails"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'identity-emails' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-email-outline" />
@@ -298,6 +318,7 @@ export default function LayoutMobileMenu() {
                             name="security-2fa"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'security-2fa' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-security" />
@@ -311,6 +332,7 @@ export default function LayoutMobileMenu() {
                             name="records"
                             onClick={hideMobileMenu}
                             aria-current={route.state?.name == 'records' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-format-list-bulleted" />
@@ -338,6 +360,7 @@ export default function LayoutMobileMenu() {
                                     className="button button-primary-outline button-start button-sm"
                                     role="button"
                                     aria-label={envData.config.flags.showStartButtonText || 'Start'}
+                                    onKeyDown={clickOnKeyEnter}
                                     onClick={() => startFundRequest({ restore_with_email: 1 })}>
                                     <em className="mdi mdi-plus-circle icon-start" />
                                     {envData.config.flags.showStartButtonText || 'Start'}
@@ -348,6 +371,7 @@ export default function LayoutMobileMenu() {
                                 className="button button-primary button-sm"
                                 role="button"
                                 onClick={() => startFundRequest({ reset: 1 })}
+                                onKeyDown={clickOnKeyEnter}
                                 aria-label={translate('topnavbar.buttons.login')}
                                 id="login_mobile">
                                 <em className="mdi mdi-account icon-start" />

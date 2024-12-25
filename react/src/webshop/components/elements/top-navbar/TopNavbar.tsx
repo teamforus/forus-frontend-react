@@ -18,7 +18,6 @@ import Announcements from '../announcements/Announcements';
 import ModalAuthPincode from '../../modals/ModalAuthPincode';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import LayoutMobileMenu from '../../../layout/elements/LayoutMobileMenu';
-import useReverseFocusKeyEventHandlers from '../../../../dashboard/components/elements/select-control/hooks/useReverseFocusKeyEventHandlers';
 
 export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScroll?: boolean; className?: string }) => {
     const {
@@ -45,7 +44,7 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
     const authIdentity = useAuthIdentity();
 
     const mobileNavBarRef = useRef<HTMLDivElement>(null);
-    const { onKeyDown, onFocus, onBlur } = useReverseFocusKeyEventHandlers(mobileNavBarRef);
+    // const { onKeyDown, onFocus, onBlur } = useReverseFocusKeyEventHandlers(mobileNavBarRef);
 
     const [visible, setVisible] = React.useState(false);
     const [prevWidth, setPrevWidth] = React.useState(null);
@@ -421,27 +420,19 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
             {appConfigs.announcements && <Announcements announcements={appConfigs.announcements} />}
 
             {!showSearchBox && (
-                <div
-                    className="navbar-inner wrapper flex-horizontal-reverse"
-                    ref={mobileNavBarRef}
-                    onKeyDown={onKeyDown}
-                    onFocus={onFocus}
-                    onBlur={onBlur}>
-                    {envData.config?.flags?.genericSearch ? (
-                        <div
-                            className="button navbar-search-button show-sm"
-                            onClick={(e) => toggleSearchBox(e)}
-                            aria-expanded={showSearchBox}
-                            aria-controls={'navbar-search'}
-                            role="button"
-                            onKeyDown={clickOnKeyEnter}
-                            tabIndex={0}>
-                            <em className="mdi mdi-magnify" />
-                            {translate('topnavbar.items.search')}
-                        </div>
-                    ) : (
-                        <div className="button navbar-search-button show-sm" aria-hidden="true" />
-                    )}
+                <div className="navbar-inner wrapper" ref={mobileNavBarRef}>
+                    <div
+                        className={`button navbar-menu-button show-sm ${mobileMenuOpened ? 'active' : ''}`}
+                        aria-expanded={mobileMenuOpened}
+                        onClick={openMobileMenu}
+                        role={'button'}
+                        onKeyDown={clickOnKeyEnter}
+                        tabIndex={0}>
+                        <em className={`mdi ${mobileMenuOpened ? 'mdi-close' : 'mdi-menu'}`} />
+                        {mobileMenuOpened
+                            ? translate('topnavbar.items.menu.close')
+                            : translate('topnavbar.items.menu.show')}
+                    </div>
 
                     <StateNavLink
                         name={'home'}
@@ -460,18 +451,21 @@ export const TopNavbar = ({ hideOnScroll = false, className = '' }: { hideOnScro
                         />
                     </StateNavLink>
 
-                    <div
-                        className={`button navbar-menu-button show-sm ${mobileMenuOpened ? 'active' : ''}`}
-                        aria-expanded={mobileMenuOpened}
-                        onClick={openMobileMenu}
-                        role={'button'}
-                        onKeyDown={clickOnKeyEnter}
-                        tabIndex={0}>
-                        <em className={`mdi ${mobileMenuOpened ? 'mdi-close' : 'mdi-menu'}`} />
-                        {mobileMenuOpened
-                            ? translate('topnavbar.items.menu.close')
-                            : translate('topnavbar.items.menu.show')}
-                    </div>
+                    {envData.config?.flags?.genericSearch ? (
+                        <div
+                            className="button navbar-search-button show-sm"
+                            onClick={(e) => toggleSearchBox(e)}
+                            aria-expanded={showSearchBox}
+                            aria-controls={'navbar-search'}
+                            role="button"
+                            onKeyDown={clickOnKeyEnter}
+                            tabIndex={0}>
+                            <em className="mdi mdi-magnify" />
+                            {translate('topnavbar.items.search')}
+                        </div>
+                    ) : (
+                        <div className="button navbar-search-button show-sm" aria-hidden="true" />
+                    )}
                 </div>
             )}
 
