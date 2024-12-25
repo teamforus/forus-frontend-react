@@ -35,8 +35,8 @@ export type VouchersTableFiltersProps = {
     amount_available_max?: string;
     count_per_identity_min?: string;
     count_per_identity_max?: string;
-    sort_by?: string;
-    sort_order?: string;
+    order_by?: string;
+    order_dir?: string;
     per_page?: number;
     page?: number;
 };
