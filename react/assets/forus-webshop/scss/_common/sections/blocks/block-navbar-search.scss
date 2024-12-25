@@ -281,8 +281,10 @@
             position: absolute;
             align-self: center;
             z-index: 99;
-            right: 10px;
+            right: 15px;
             cursor: pointer;
+            height: 20px;
+            line-height: 20px;
 
             .mdi {
                 font-size: 20px;
@@ -345,12 +347,8 @@
                 z-index: 99;
             }
 
-            input {
-                &.form-control {
-                    &:focus {
-                        border: none;
-                    }
-                }
+            .search-reset {
+                right: 10px;
             }
         }
 
