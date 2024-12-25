@@ -5,21 +5,6 @@ import ProductCategory from './ProductCategory';
 import Fund from './Fund';
 import Voucher from './Voucher';
 
-export interface DealHistory {
-    id: number;
-    amount?: string;
-    amount_locale?: string;
-    limit_total?: number;
-    limit_total_unlimited?: boolean;
-    limit_per_identity?: number;
-    voucher_transactions_count?: number;
-    product_reservations_pending_count?: number;
-    active: boolean;
-    product_id: number;
-    expire_at?: string;
-    expire_at_locale?: string;
-}
-
 export default interface Product {
     id: number;
     name: string;
@@ -64,6 +49,7 @@ export default interface Product {
             price?: string;
             price_locale?: string;
             vouchers?: Array<Voucher>;
+            fund_providers?: Array<Organization>;
         }
     >;
     offices: Array<Office>;
@@ -72,10 +58,10 @@ export default interface Product {
     price_type: 'regular' | 'discount_fixed' | 'discount_percentage' | 'free';
     price_discount: string;
     price_discount_locale: string;
-    price_min: string;
-    price_min_locale: string;
-    price_max: string;
-    price_max_locale: string;
+    price_min?: string;
+    price_min_locale?: string;
+    price_max?: string;
+    price_max_locale?: string;
     lowest_price?: string;
     lowest_price_locale?: string;
     reservation_fields: boolean;
@@ -95,6 +81,11 @@ export default interface Product {
         state: 'active' | 'closed' | 'paused' | 'waiting';
         expire_at: string;
     }>;
-    deals_history?: Array<DealHistory>;
     is_available?: boolean;
+    ean?: string;
+    sku?: string;
+    updated_at?: string;
+    updated_at_locale?: string;
+    created_at?: string;
+    created_at_locale?: string;
 }

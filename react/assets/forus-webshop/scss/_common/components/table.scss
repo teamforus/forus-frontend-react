@@ -14,7 +14,7 @@ table.table {
             background: #fff;
             transition: 0.3s;
 
-            &>a {
+            & > a {
                 font: inherit;
             }
 
@@ -72,7 +72,7 @@ table.table {
 
             .td-icon {
                 color: var(--color-primary);
-                transition: .4s;
+                transition: color .4s;
                 font-size: 20px;
 
                 &:hover {
@@ -105,12 +105,6 @@ table.table {
             }
         }
 
-        &.dim {
-            td {
-                background: #f6f9fc;
-            }
-        }
-
         &[ng-click]:hover {
             td,
             th {
@@ -126,9 +120,9 @@ table.table {
     }
 
     &.borderless-end {
-        &>tr,
-        &>thead:last-child>tr,
-        &>tbody:last-child>tr {
+        & > tr,
+        & > thead:last-child > tr,
+        & > tbody:last-child > tr {
             &:last-child {
                 td,
                 th {
@@ -140,11 +134,12 @@ table.table {
 
     &.collapse-sides {
         tr {
-            td, th {
+            td,
+            th {
                 &:first-child {
                     padding-left: 0;
                 }
-    
+
                 &:last-child {
                     padding-right: 0;
                 }
@@ -154,5 +149,86 @@ table.table {
 
     &:last-child {
         margin-bottom: 0;
+    }
+}
+
+// table table-responsive
+.table-responsive {
+    @media screen and (max-width: 1000px) {
+        padding: 0 0;
+        border: 1px solid var(--border-color);
+        background: #fff;
+
+        &,
+        & thead,
+        & tbody,
+        & th,
+        & td,
+        & tr {
+            display: block;
+        }
+
+        & thead tr {
+            left: -9999px;
+            position: absolute;
+            top: -9999px;
+        }
+
+        tbody {
+            tr {
+                border-top: 1px solid var(--border-color);
+                padding: 0 15px;
+
+                td {
+                    border: 0;
+                    margin-left: 50%;
+                    position: relative;
+                    width: 50%;
+                    text-align: left;
+                    padding: 10px 0 !important;
+                    border-bottom: none !important;
+                    font-weight: 600 !important;
+                    font-size: 13px !important;
+                    line-height: 18px !important;
+
+                    &:before {
+                        border-bottom: 0;
+                        content: attr(data-title);
+                        display: inline-block;
+                        float: left;
+                        margin-left: -100%;
+                        padding-bottom: 0;
+                        padding-top: 3px;
+                        padding-right: 10px;
+                        white-space: normal;
+                        width: 100%;
+                        font-weight: 400;
+                        color: var(--tc-muted);
+                    }
+
+                    &:after {
+                        clear: both;
+                        content: '';
+                        display: block;
+                        width: 200%;
+                        height: 0;
+                        border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+                        margin-left: -100%;
+                        top: 10px;
+                        position: relative;
+                    }
+
+                    &:last-child {
+                        &:after {
+                            visibility: hidden;
+                        }
+                    }
+                }
+
+                &:first-child {
+                    border-top: none;
+                }
+            }
+        }
     }
 }

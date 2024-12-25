@@ -7,18 +7,18 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushDanger from '../../../hooks/usePushDanger';
 import { createEnumParam, NumberParam } from 'use-query-params';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import useTranslate from '../../../hooks/useTranslate';
 import useFundUnsubscribeService from '../../../services/FundUnsubscribeService';
 import FundProviderUnsubscribe from '../../../props/models/FundProviderUnsubscribe';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import SponsorFundUnsubscriptionTableItem from './elements/SponsorFundUnsubscriptionTableItem';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function SponsorFundUnsubscriptions() {
     const activeOrganization = useActiveOrganization();
 
-    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
 
@@ -56,6 +56,8 @@ export default function SponsorFundUnsubscriptions() {
         },
     );
 
+    const { headElement, configsElement } = useConfigurableTable(fundUnsubscribeService.getColumnsSponsor());
+
     const fetchFundUnsubscribes = useCallback(() => {
         setProgress(0);
         setLoading(true);
@@ -89,13 +91,10 @@ export default function SponsorFundUnsubscriptions() {
             </StateNavLink>
 
             <div className="card">
-                <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">Afmeldingen ({fundUnsubscribes.meta.total})</div>
-                        </div>
-
-                        <div className="block block-label-tabs nowrap pull-right">
+                <div className="card-header card-header-next">
+                    <div className="card-title flex flex-grow">Afmeldingen ({fundUnsubscribes.meta.total})</div>
+                    <div className="card-header-filters">
+                        <div className="block block-label-tabs pull-right">
                             <div className="label-tab-set">
                                 {statesOptions.map((item) => (
                                     <div
@@ -118,20 +117,10 @@ export default function SponsorFundUnsubscriptions() {
                     emptyTitle={'Geen afmeldingen van aanbieders'}>
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            {configsElement}
+                            <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th>{translate('fund_unsubscriptions.labels.provider')}</th>
-                                            <th>{translate('fund_unsubscriptions.labels.fund')}</th>
-                                            <th>{translate('fund_unsubscriptions.labels.created_at')}</th>
-                                            <th>{translate('fund_unsubscriptions.labels.note')}</th>
-                                            <th>{translate('fund_unsubscriptions.labels.status')}</th>
-                                            <th className="nowrap text-right">
-                                                {translate('fund_unsubscriptions.labels.unsubscription_date')}
-                                            </th>
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {fundUnsubscribes.data.map((unsubscription) => (
@@ -143,7 +132,7 @@ export default function SponsorFundUnsubscriptions() {
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
 

@@ -37,7 +37,7 @@ import Privacy from '../components/pages/cms-pages/Privacy';
 import TermsAndConditions from '../components/pages/cms-pages/TermsAndConditions';
 import Error from '../components/pages/error/Error';
 import FundRequestsClarification from '../components/pages/fund-requests-show/FundRequestsClarification';
-import ProvidersSignUp from '../components/pages/providers-sign-up/ProvidersSignUp';
+import ProvidersSignUp from '../components/pages/cms-pages/ProvidersSignUp';
 import Auth2FA from '../components/pages/auth/Auth2FA';
 import ProvidersOffice from '../components/pages/providers-office/ProvidersOffice';
 import Search from '../components/pages/search/Search';
@@ -47,6 +47,7 @@ import FundActivate from '../components/pages/funds-activate/FundActivate';
 import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
 import ThrowError from '../components/pages_system/ThrowError';
 import Payouts from '../components/pages/payouts/Payouts';
+import Profile from '../components/pages/profile/Profile';
 
 const router = new RouterBuilder();
 
@@ -254,6 +255,12 @@ router.state('identity-emails', <PreferencesEmails />, {
 
 router.state('preferences-notifications', <PreferencesNotifications />, {
     path: `/preferences/notifications/:section?`,
+    protected: false,
+});
+
+router.state('profile', <Profile />, {
+    path: `/gegevens`,
+    altPath: `/profile`,
     protected: false,
 });
 

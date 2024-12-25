@@ -6,7 +6,7 @@ export default function FinancialStatistics({ chartData }: { chartData: Provider
         <div className="financial-totals">
             <div className="financial-totals-col">
                 <div className="financial-totals-header">
-                    <div className="financial-totals-label">Totaal uitgegeven</div>
+                    <div className="financial-totals-label">Besteed</div>
                     <div className="financial-totals-label financial-totals-label-sm">Totaal aantal transacties</div>
                 </div>
                 <div className="financial-totals-content">

@@ -58,7 +58,10 @@
                             border-radius: var(--voucher-card-action-border-radius);
                             color: var(--voucher-card-action-color);
                             font-size: 20px;
-                            transition: 0.4s;
+                            transition:
+                                background .4s,
+                                border .4s,
+                                color .4s;
                             cursor: pointer;
                             position: relative;
                             margin-bottom: 7.5px;
@@ -80,13 +83,16 @@
                                 left: 50%;
                                 transform: translate3d(-50%, 0, 0) scale3d(0, 0, 0);
                                 box-shadow: 2px 5px 35px rgba(0, 0, 0, 0.15);
-                                transition: 0.5s;
+                                transition:
+                                    opacity .4s,
+                                    transform .4s,
+                                    visibility .4s;
 
                                 &:after {
                                     left: 50%;
                                     position: absolute;
                                     display: block;
-                                    content: "";
+                                    content: '';
                                     @extend .triangle;
                                     bottom: 100%;
                                     border-color: transparent transparent #fff transparent;
@@ -98,7 +104,7 @@
                         .action-item-name {
                             color: #000;
                             font: 600 12px var(--base-font);
-                            transition: color 0.4s;
+                            transition: color .4s;
                             margin: 0 3px;
                         }
 
@@ -148,9 +154,8 @@
                     font-size: 1.3em;
                     float: right;
                     margin-left: 5px;
-                    transition: 0.4s;
+                    transition: margin-right .4s;
                     line-height: 22px;
-                    float: right;
                 }
 
                 &:hover {
@@ -287,7 +292,8 @@
                         border-radius: 0px;
                         box-shadow: unset;
 
-                        img, canvas {
+                        img,
+                        canvas {
                             display: block;
                             width: 100%;
                         }
@@ -338,7 +344,7 @@
 
                                 .card-description-link {
                                     font: 400 14px/20px var(--base-font);
-                                    color: #0000CD;
+                                    color: #0000cd;
                                     text-decoration: underline;
 
                                     &:hover {
@@ -564,7 +570,8 @@
                                 width: 140px;
                                 height: 140px;
 
-                                img, canvas {
+                                img,
+                                canvas {
                                     border-radius: 0;
                                     padding: 0;
                                     box-shadow: none;
@@ -677,7 +684,7 @@
                                     margin: 0 0 5px;
                                     font: 600 12px/18px var(--base-font);
                                 }
-    
+
                                 .card-description {
                                     font: 400 12px/16px var(--base-font);
                                 }

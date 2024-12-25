@@ -190,12 +190,11 @@
     // refactoring
     .card-block-table {
         .organization-logo {
-            width: 25px;
-            height: 25px;
-            border: 4px;
-            vertical-align: middle;
+            flex: 0 0 30px;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-color);
             border-radius: 25px;
-            margin-right: 10px;
         }
     }
 }

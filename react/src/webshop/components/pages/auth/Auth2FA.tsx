@@ -59,7 +59,8 @@ export default function Auth2FA() {
         const { required, confirmed, active_providers, provider_types } = auth2FAState;
 
         if (!required || confirmed) {
-            return goDashboard();
+            goDashboard();
+            return;
         }
 
         if (active_providers.length == 0) {
@@ -82,7 +83,7 @@ export default function Auth2FA() {
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbs={<></>} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             <div className="block block-sign_up">
                 <div className="block-wrapper">
                     {step == 'setup' && !paneHidden && (

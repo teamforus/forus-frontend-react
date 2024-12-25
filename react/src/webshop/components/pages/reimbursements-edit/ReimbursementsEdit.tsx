@@ -227,28 +227,20 @@ export default function ReimbursementsEdit() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <StateNavLink name={'reimbursements'} className="breadcrumb-item" activeExact={true}>
-                        {translate('reimbursements.header.title')}
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Bon insturen
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[
+                { name: 'Home', state: 'home' },
+                { name: translate('reimbursements.header.title'), state: 'reimbursements' },
+                { name: 'Bon insturen' },
+            ]}
             profileHeader={
                 !auth2FAState?.restrictions?.reimbursements?.restricted &&
                 vouchers &&
                 (!id || reimbursement) && (
                     <div className="profile-content-header">
                         {reimbursement ? (
-                            <h2 className="profile-content-title">Declaratienummer: #{reimbursement.code}</h2>
+                            <h1 className="profile-content-title">Declaratienummer: #{reimbursement.code}</h1>
                         ) : (
-                            <h2 className="profile-content-title">Nieuwe kosten terugvragen</h2>
+                            <h1 className="profile-content-title">Nieuwe kosten terugvragen</h1>
                         )}
                     </div>
                 )

@@ -17,6 +17,7 @@ import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import usePushInfo from '../../hooks/usePushInfo';
+import { fileToText } from '../../helpers/utils';
 
 export default function ModalVoucherTransactionsUpload({
     modal,
@@ -206,18 +207,27 @@ export default function ModalVoucherTransactionsUpload({
         [closeModal, openModal, pushDanger],
     );
 
+    const mapTransactions = useCallback((transactions: Array<{ voucher_number?: string | number }>) => {
+        return transactions.map((transaction) => ({
+            ...transaction,
+            voucher_number: transaction?.voucher_number
+                ? transaction.voucher_number.toString()?.replace(/^#/, '')
+                : null,
+        }));
+    }, []);
+
     const startValidationUploadingData = useCallback(
         function (transactions: Array<object>) {
             return new Promise((resolve, reject) => {
                 transactionService
-                    .storeBatchValidate(organization.id, { transactions })
+                    .storeBatchValidate(organization.id, { transactions: mapTransactions(transactions) })
                     .then((res) => resolve(res))
                     .catch((res: ResponseError) => {
                         reject(res.status == 422 ? res.data?.errors : res.data?.message || 'Onbekende foutmelding.');
                     });
             });
         },
-        [organization.id, transactionService],
+        [mapTransactions, organization.id, transactionService],
     );
 
     const startUploadingData = useCallback(
@@ -234,7 +244,7 @@ export default function ModalVoucherTransactionsUpload({
                 const chunks = chunk(transactions, dataChunkSize);
                 let chunkCount = 0;
 
-                const uploadChunk = (data: Array<object>) => {
+                const uploadChunk = async (data: Array<object>) => {
                     const transformErrors = (errors: object) => {
                         return Object.keys(errors).reduce((obj, key) => {
                             const errorKey = key.split('.');
@@ -244,7 +254,17 @@ export default function ModalVoucherTransactionsUpload({
                     };
 
                     transactionService
-                        .storeBatch(organization.id, { transactions: data })
+                        .storeBatch(organization.id, {
+                            transactions: mapTransactions(data),
+                            file: {
+                                name: csvFile.name,
+                                content: await fileToText(csvFile),
+                                total: transactions.length,
+                                chunk: chunkCount,
+                                chunks: chunks.length,
+                                chunkSize: dataChunkSize,
+                            },
+                        })
                         .then((res) => {
                             stats.errors = { ...transformErrors(res.data['errors']), ...stats.errors };
                             stats.success = stats.success += res.data['created'].length || 0;
@@ -280,10 +300,10 @@ export default function ModalVoucherTransactionsUpload({
                         });
                 };
 
-                uploadChunk(chunks[chunkCount]);
+                uploadChunk(chunks[chunkCount]).then();
             });
         },
-        [dataChunkSize, organization.id, transactionService],
+        [csvFile, dataChunkSize, mapTransactions, organization.id, transactionService],
     );
 
     const startUploadingTransactions = useCallback(
@@ -524,21 +544,26 @@ export default function ModalVoucherTransactionsUpload({
                     <button
                         className="button button-default"
                         onClick={closeModal}
-                        disabled={loading}
-                        id="close"
-                        data-dusk="closeModalButton">
+                        disabled={loading || progress === 3}
+                        id="close">
                         Annuleren
                     </button>
 
                     <div className="flex-grow" />
 
-                    <button
-                        className="button button-primary"
-                        disabled={loading || !(progress == 1 && isValid)}
-                        onClick={uploadToServer}
-                        data-dusk="uploadFileButton">
-                        {translate('csv_upload.buttons.upload')}
-                    </button>
+                    {progress < 3 ? (
+                        <button
+                            className="button button-primary"
+                            disabled={loading || !(progress == 1 && isValid)}
+                            onClick={uploadToServer}
+                            data-dusk="uploadFileButton">
+                            {translate('csv_upload.buttons.upload')}
+                        </button>
+                    ) : (
+                        <button className="button button-primary" onClick={closeModal} data-dusk="closeModalButton">
+                            {translate('csv_upload.buttons.close')}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

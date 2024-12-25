@@ -88,7 +88,10 @@
                         border-radius: var(--label-set-border-radius);
                         border-top-right-radius: 0;
                         border-bottom-right-radius: 0;
-                        transition: all 0.35s ease;
+                        transition:
+                            color 0.4s,
+                            border 0.4s,
+                            background 0.4s;
                         font: 400 13px/18px var(--base-font);
                         padding: 10px 5px;
 
@@ -97,7 +100,7 @@
                             font-size: 16px;
                             line-height: 18px;
                             margin-right: 2px;
-                            transition: all 0.35s ease;
+                            transition: color 0.4s;
                             color: var(--label-set-color);
                             height: 100%;
                             flex-direction: column;
@@ -113,7 +116,7 @@
 
                         &:focus {
                             color: var(--label-set-focus-color);
-                            border-color: var(--label-set-focus-background);
+                            border-color: var(--label-set-focus-border-color);
                             background-color: var(--label-set-focus-background);
 
                             .mdi {
@@ -511,8 +514,9 @@
         }
 
         .showcase-wrapper {
-            padding: 0 20px;
+            padding: 10px 20px;
             position: relative;
+            border-top: 1px solid var(--border-color);
         }
 
         .showcase-mobile-filters {

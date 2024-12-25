@@ -64,6 +64,11 @@
             color: #fff;
             text-shadow: 1px 2px 2px rgba($color: #dfb1b1, $alpha: 0.15);
 
+            .header-read-speaker {
+                display: inline-flex !important;
+                margin: 0 0 15px !important;
+            }
+
             .header-title {
                 color: inherit;
                 font: 700 48px/1.3em var(--hf);
@@ -77,7 +82,7 @@
                 text-shadow: inherit;
                 text-align: inherit;
                 margin: 0 0 20px;
-    
+
                 p,
                 ul,
                 ol,
@@ -106,7 +111,6 @@
                 margin: 0 0 20px;
                 font: 400 15px/1.5em var(--base-font);
                 font-style: italic;
-                transition: 0.4s;
                 color: inherit;
                 display: inline-block;
 

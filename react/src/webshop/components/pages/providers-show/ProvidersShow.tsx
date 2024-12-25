@@ -36,7 +36,7 @@ export default function ProvidersShow() {
     const [products, setProducts] = useState<PaginationData<Product>>(null);
     const [subsidies, setSubsidies] = useState<PaginationData<Product>>(null);
 
-    const { searchParams } = useStateParams();
+    const { showBack } = useStateParams<{ showBack: boolean }>();
 
     const fetchProvider = useCallback(() => {
         setProgress(0);
@@ -80,31 +80,19 @@ export default function ProvidersShow() {
     }, [provider?.name, setTitle, translate]);
 
     return (
-        <BlockShowcase wrapper={false} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase
+            wrapper={false}
+            breadcrumbItems={
+                provider && [
+                    showBack && { name: 'Terug', back: true },
+                    { name: 'Aanbieders', state: 'providers' },
+                    { name: provider.name },
+                ]
+            }
+            breadcrumbWrapper={true}
+            loaderElement={<BlockLoader type={'full'} />}>
             {provider && (
                 <div className="block block-provider">
-                    <div className="provider-breadcrumbs">
-                        <div className="wrapper">
-                            <div className="block block-breadcrumbs">
-                                {searchParams && (
-                                    <StateNavLink
-                                        className="breadcrumb-item breadcrumb-item-back"
-                                        name={'search-result'}
-                                        state={searchParams}>
-                                        <em className="mdi mdi-chevron-left" />
-                                        Terug
-                                    </StateNavLink>
-                                )}
-                                <StateNavLink name={'providers'} className="breadcrumb-item" activeExact={true}>
-                                    Aanbieders
-                                </StateNavLink>
-                                <div className="breadcrumb-item active" aria-current="location">
-                                    {provider.name}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     {appConfigs.show_provider_map && provider.offices && (
                         <div className="provider-map">
                             <div className="block block-google-map">
@@ -199,7 +187,10 @@ export default function ProvidersShow() {
                                             <StateNavLink
                                                 key={office.id}
                                                 name={'provider-office'}
-                                                params={{ organization_id: office.organization_id, id: office.id }}
+                                                params={{
+                                                    organization_id: office.organization_id,
+                                                    id: office.id,
+                                                }}
                                                 className="office-item">
                                                 <div className="office-item-map-icon">
                                                     <em className="mdi mdi-map-marker" role="img" aria-label="" />

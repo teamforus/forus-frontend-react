@@ -11,6 +11,7 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
 import useTranslate from '../../../../hooks/useTranslate';
+import InfoBox from '../../../elements/info-box/InfoBox';
 
 export default function MollieConnectionProfileDetails({
     onChange,
@@ -228,14 +229,9 @@ export default function MollieConnectionProfileDetails({
                                 </div>
                             </div>
 
-                            <div className="block block-info-box block-info-box-default block-info-box-dashed">
-                                <div className="info-box-icon mdi mdi-information"></div>
-                                <div className="info-box-content">
-                                    <div className="block block-markdown">
-                                        <p>{translate('mollie_connection.create_form.info_content')}</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <InfoBox iconPosition={'top'} iconColor={'primary'}>
+                                <p>{translate('mollie_connection.create_form.info_content')}</p>
+                            </InfoBox>
                         </div>
 
                         <div className="card-section">

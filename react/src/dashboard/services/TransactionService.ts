@@ -4,6 +4,7 @@ import ApiRequestService from './ApiRequestService';
 import Transaction from '../props/models/Transaction';
 import Papa from 'papaparse';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class TransactionService<T = Transaction> {
     /**
@@ -53,8 +54,8 @@ export class TransactionService<T = Transaction> {
     }
 
     public sampleCsvTransactions() {
-        const headers = ['voucher_id', 'amount', 'direct_payment_iban', 'direct_payment_name', 'uid', 'note'];
-        const values = [1, 10, 'NLXXXXXXXXXXXXXXXX', 'XXXX XXXX', '', ''];
+        const headers = ['voucher_number', 'amount', 'direct_payment_iban', 'direct_payment_name', 'uid', 'note'];
+        const values = ['XXXXXXXX', 10, 'NLXXXXXXXXXXXXXXXX', 'XXXX XXXX', '', ''];
 
         return Papa.unparse([headers, values]);
     }
@@ -67,6 +68,37 @@ export class TransactionService<T = Transaction> {
 
     public exportFields(type: string, organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/${type}/transactions/export-fields`);
+    }
+
+    public getColumns(isSponsor: boolean, isProvider: boolean): Array<ConfigurableTableColumn> {
+        const list = [
+            'id',
+            isSponsor ? 'uid' : null,
+            'amount',
+            isProvider ? 'method' : null,
+            isProvider ? 'branch_name' : null,
+            isProvider ? 'branch_number' : null,
+            isProvider ? 'amount_extra' : null,
+            'created_at',
+            'fund_name',
+            isProvider ? 'product_name' : null,
+            isSponsor ? 'payment_type' : null,
+            isSponsor ? 'provider_name' : null,
+            isSponsor ? 'date_non_cancelable' : null,
+            isSponsor ? 'bulk_id' : null,
+            isSponsor ? 'bulk_state' : null,
+            'state',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `transactions.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `transactions.labels.${key}`,
+                description: `transactions.tooltips.${key}`,
+            },
+        }));
     }
 }
 

@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import { mainContext } from '../../../contexts/MainContext';
@@ -38,7 +37,7 @@ export default function Search() {
     const { searchFilter } = useContext(mainContext);
 
     const [displayType, setDisplayType] = useState<'list' | 'grid'>('list');
-    const [searchItems, setSearchItems] = useState<PaginationData<SearchItem & { searchParams?: object }>>(null);
+    const [searchItems, setSearchItems] = useState<PaginationData<SearchItem & { stateParams?: object }>>(null);
 
     const globalQuery = useMemo(() => searchFilter?.values?.q, [searchFilter?.values?.q]);
     const [globalInitialized, setGlobalInitialized] = useState(false);
@@ -111,7 +110,7 @@ export default function Search() {
     const transformItems = useCallback(function (items: PaginationData<SearchItem>, stateParams: object) {
         return {
             ...items,
-            ...{ data: items.data.map((item: SearchItem) => ({ ...item, ...{ searchParams: stateParams } })) },
+            ...{ data: items.data.map((item: SearchItem) => ({ ...item, stateParams })) },
         };
     }, []);
 
@@ -213,9 +212,7 @@ export default function Search() {
                     filterValuesActive.products ? 'products' : null,
                 ].filter((type) => type),
             },
-            {
-                foo: 'bar',
-            },
+            { showBack: true },
         );
     }, [doSearch, filterValuesActive, sortByOptions]);
 
@@ -234,16 +231,7 @@ export default function Search() {
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name="home" className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Zoekresultaten
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Zoekresultaten' }]}
             aside={
                 funds &&
                 organizations &&

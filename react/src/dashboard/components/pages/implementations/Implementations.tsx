@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useImplementationService from '../../../services/ImplementationService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import { ResponseError } from '../../../props/ApiResponses';
+import { PaginationData, ResponseError } from '../../../props/ApiResponses';
 import usePushDanger from '../../../hooks/usePushDanger';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useFilter from '../../../hooks/useFilter';
@@ -23,7 +23,7 @@ export default function Implementations() {
     const implementationService = useImplementationService();
 
     const [paginatorKey] = useState('implementations');
-    const [implementations, setImplementations] = useState(null);
+    const [implementations, setImplementations] = useState<PaginationData<Implementation>>(null);
     const prevImplementations = useRef(null);
 
     const filter = useFilter({

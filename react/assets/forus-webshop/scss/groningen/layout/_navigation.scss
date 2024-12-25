@@ -1,28 +1,13 @@
 .block {
     &.block-navbar {
         .block-subnav {
-            @if ($buildReact) {
-                background: url(./assets/img/city-skyline.svg) no-repeat bottom center;
-            } @else {
-                background: url(../img/city-skyline.svg) no-repeat bottom center;
-            }
+            background: #E4E4E4 url(./assets/img/city-skyline.svg) no-repeat bottom center;
             background-size: 50% 50%;
-            background-color: #E4E4E4;
-
-            /* @media screen and (min-width: 1200px) { 
-                .subnav-inner {
-                    .navbar-logo {
-                        img {
-                            height: 90px;
-                        }
-                    }
-                }
-            } */
         }
 
         .block-auth {
             .button {
-                margin: 0px 10px;
+                margin: 0 10px;
 
                 &.button-primary {
                     border: none;

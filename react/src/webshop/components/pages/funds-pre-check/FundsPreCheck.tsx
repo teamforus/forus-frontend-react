@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { useFundService } from '../../../services/FundService';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import PreCheck from '../../../props/models/PreCheck';
@@ -31,8 +30,6 @@ import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import FundsListItemPreCheck from '../../elements/lists/funds-list/templates/FundsListItemPreCheck';
 import useFilter from '../../../../dashboard/hooks/useFilter';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
-import BlockLoader from '../../elements/block-loader/BlockLoader';
-import BlockLoaderBreadcrumbs from '../../elements/block-loader/BlockLoaderBreadcrumbs';
 
 type PreCheckLocal = PreCheck<{
     label?: string;
@@ -307,20 +304,35 @@ export default function FundsPreCheck() {
                 </div>
 
                 {totals && (
-                    <div className="pre-check-actions">
-                        <button
-                            className="button button-download button-fill button-sm"
-                            type="button"
-                            onClick={downloadPDF}>
-                            Download als PDF
-                        </button>
-                        <button
-                            className="button button-light button-fill button-sm"
-                            type="button"
-                            onClick={changeAnswers}>
-                            Wijzig antwoorden
-                        </button>
-                    </div>
+                    <Fragment>
+                        <div className="pre-check-totals">
+                            <div className="block block-key-value-list">
+                                <div className="block-key-value-list-item">
+                                    <div className="key-value-list-item-label">Totaal bedrag</div>
+                                    <div className="key-value-list-item-value">{totals.products_amount_total}</div>
+                                </div>
+                                <div className="block-key-value-list-item">
+                                    <div className="key-value-list-item-label">Totaal aanbod</div>
+                                    <div className="key-value-list-item-value">{totals.products_count_total}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="pre-check-actions">
+                            <button
+                                className="button button-download button-fill button-sm"
+                                type="button"
+                                onClick={downloadPDF}>
+                                Download als PDF
+                            </button>
+                            <button
+                                className="button button-light button-fill button-sm"
+                                type="button"
+                                onClick={changeAnswers}>
+                                Wijzig antwoorden
+                            </button>
+                        </div>
+                    </Fragment>
                 )}
             </div>
         ),
@@ -329,24 +341,11 @@ export default function FundsPreCheck() {
 
     return (
         <BlockShowcase
-            loaderElement={
-                <div className={'wrapper'}>
-                    <BlockLoaderBreadcrumbs />
-                    <BlockLoader />
-                </div>
-            }>
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'De Potjes check' }]}
+            breadcrumbWrapper={true}>
             {preChecks && appConfigs && (
                 <div className="block block-fund-pre-check">
                     <div className="showcase-wrapper">
-                        <div className="block block-breadcrumbs">
-                            <StateNavLink className="breadcrumb-item" name="home">
-                                Home
-                            </StateNavLink>
-                            <div className="breadcrumb-item active" aria-current="location">
-                                De Potjes check
-                            </div>
-                        </div>
-
                         <div className="show-sm">
                             <div className="pre-check-info">
                                 <div className="pre-check-info-title">{appConfigs.pre_check_title}</div>
@@ -373,7 +372,7 @@ export default function FundsPreCheck() {
                                         <div className="progress-pie-info-title">
                                             {preChecks?.[activeStepIndex]?.title_short}
                                         </div>
-                                        {preChecks[activeStepIndex].record_types?.map((record, index) => (
+                                        {preChecks[activeStepIndex]?.record_types?.map((record, index) => (
                                             <div key={index} className="progress-pie-info-details">
                                                 <div className="progress-pie-info-details-key">
                                                     {record.title_short}: &nbsp;
@@ -483,13 +482,13 @@ export default function FundsPreCheck() {
                                             }}>
                                             <div className="pre-check-step-section-details">
                                                 <div className="pre-check-step-section-title">
-                                                    {preChecks[activeStepIndex].title}
+                                                    {preChecks[activeStepIndex]?.title}
                                                 </div>
                                                 <div className="pre-check-step-section-description">
-                                                    {preChecks[activeStepIndex].description}
+                                                    {preChecks[activeStepIndex]?.description}
                                                 </div>
                                             </div>
-                                            {preChecks[activeStepIndex].record_types?.map((preCheckRecord, index) => (
+                                            {preChecks[activeStepIndex]?.record_types?.map((preCheckRecord, index) => (
                                                 <div
                                                     key={`${activeStepIndex}_${index}`}
                                                     className="pre-check-step-section-question">

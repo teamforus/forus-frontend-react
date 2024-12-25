@@ -37,7 +37,7 @@
             background: var(--paginator-button-background);
             cursor: pointer;
             border: 1px solid var(--paginator-button-border);
-            transition: color 0.4s, background-color 0.4s, box-shadow 0.4s, border 0.4s;
+            transition: color .4s, background-color .4s, box-shadow .4s, border .4s;
             border-radius: var(--paginator-border-radius);
             display: inline-block;
             text-align: center;

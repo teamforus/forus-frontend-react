@@ -8,14 +8,17 @@ import Product from '../../../props/models/Product';
 import { PaginationData } from '../../../props/ApiResponses';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useFilter from '../../../hooks/useFilter';
-import ThSortable from '../../elements/tables/ThSortable';
-import { strLimit } from '../../../helpers/string';
 import useOpenModal from '../../../hooks/useOpenModal';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import ModalNotification from '../../modals/ModalNotification';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import classNames from 'classnames';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 
 type ProductsDataLocal = PaginationData<
     Product,
@@ -56,8 +59,13 @@ export default function Products() {
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
+    const { headElement, configsElement } = useConfigurableTable(productService.getColumns(), {
+        sortable: true,
+        filter: filter,
+    });
+
     const deleteProduct = useCallback(
-        function (product) {
+        function (product: Product) {
             openModal((modal) => (
                 <ModalNotification
                     modal={modal}
@@ -101,77 +109,51 @@ export default function Products() {
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex flex-grow">
-                        <div className="flex-col">
-                            <div className="card-title">
-                                {translate('products.offers')} ({products.meta.total})
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form">
-                        <div className="block block-inline-filters">
-                            <StateNavLink
-                                name={'products-create'}
-                                params={{ organizationId: activeOrganization.id }}
-                                className={`button button-primary button-sm ${
-                                    productHardLimitReached ? 'disabled' : ''
-                                }`}
-                                id="add_product"
-                                disabled={productHardLimitReached}>
-                                <em className="mdi mdi-plus-circle icon-start" />
-                                {translate('products.add')}
-                                {productSoftLimitReached
-                                    ? ` (${products.meta.total_provider} / ${maxProductHardLimit})`
-                                    : ``}
-                            </StateNavLink>
+            <div className="card-header card-header-next">
+                <div className="card-title flex flex-grow">
+                    {translate('products.offers')} ({products.meta.total})
+                </div>
 
-                            <div className="form">
-                                <div>
-                                    <div className="block block-label-tabs">
-                                        <div className="label-tab-set">
-                                            <div
-                                                className={`label-tab label-tab-sm ${
-                                                    filter.values.source == 'provider' ? 'active' : ''
-                                                }`}
-                                                onClick={() => filter.update({ source: 'provider' })}>
-                                                In uw beheer ({products.meta.total_provider})
-                                            </div>
-                                            <div
-                                                className={`label-tab label-tab-sm ${
-                                                    filter.values.source == 'sponsor' ? 'active' : ''
-                                                }`}
-                                                onClick={() => filter.update({ source: 'sponsor' })}>
-                                                In beheer van sponsor ({products.meta.total_sponsor})
-                                            </div>
-                                            <div
-                                                className={`label-tab label-tab-sm ${
-                                                    filter.values.source == 'archive' ? 'active' : ''
-                                                }`}
-                                                onClick={() => filter.update({ source: 'archive' })}>
-                                                Archief ({products.meta.total_archived})
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        value={filter.values.q}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
-                                        data-dusk="searchTransaction"
-                                        placeholder={translate('transactions.labels.search')}
-                                    />
-                                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters form">
+                        <StateNavLink
+                            name={'products-create'}
+                            params={{ organizationId: activeOrganization.id }}
+                            className={`button button-primary button-sm ${productHardLimitReached ? 'disabled' : ''}`}
+                            id="add_product"
+                            disabled={productHardLimitReached}>
+                            <em className="mdi mdi-plus-circle icon-start" />
+                            {translate('products.add')}
+                            {productSoftLimitReached
+                                ? ` (${products.meta.total_provider} / ${maxProductHardLimit})`
+                                : ``}
+                        </StateNavLink>
+
+                        <BlockLabelTabs
+                            value={filter.values.source}
+                            setValue={(value) => filter.update({ source: value })}
+                            tabs={[
+                                { value: 'provider', label: `In uw beheer (${products?.meta?.total_provider})` },
+                                { value: 'sponsor', label: `In beheer van sponsor (${products?.meta?.total_sponsor})` },
+                                { value: 'archive', label: `Archief (${products?.meta?.total_archived})` },
+                            ]}
+                        />
+                        <div className="form">
+                            <div className="form-group">
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    value={filter.values.q}
+                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    data-dusk="searchTransaction"
+                                    placeholder={translate('transactions.labels.search')}
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             {loading && (
                 <div className="card-section">
                     <div className="card-loading">
@@ -179,95 +161,44 @@ export default function Products() {
                     </div>
                 </div>
             )}
+
             {!loading && products?.meta.total > 0 && (
                 <div className="card-section card-section-padless">
-                    <div className="table-wrapper">
+                    {configsElement}
+
+                    <TableTopScroller>
                         <table className="table">
+                            {headElement}
+
                             <tbody>
-                                <tr>
-                                    <ThSortable
-                                        className="th-narrow nowrap"
-                                        filter={filter}
-                                        label={translate('products.labels.id')}
-                                        value="id"
-                                    />
-
-                                    <ThSortable
-                                        disabled={true}
-                                        className="th-narrow nowrap"
-                                        filter={filter}
-                                        label={translate('products.labels.photo')}
-                                        value="photo"
-                                    />
-
-                                    <ThSortable
-                                        className={'nowrap'}
-                                        filter={filter}
-                                        label={translate('products.labels.name')}
-                                        value="name"
-                                    />
-
-                                    <ThSortable
-                                        className={'nowrap'}
-                                        filter={filter}
-                                        label={translate('products.labels.stock_amount')}
-                                        value="stock_amount"
-                                    />
-
-                                    <ThSortable
-                                        className={'nowrap'}
-                                        filter={filter}
-                                        label={translate('products.labels.price')}
-                                        value="price"
-                                    />
-
-                                    <ThSortable
-                                        className={'nowrap'}
-                                        filter={filter}
-                                        label={translate('products.labels.expire_at')}
-                                        value="expire_at"
-                                    />
-
-                                    <ThSortable
-                                        className={'nowrap'}
-                                        filter={filter}
-                                        label={translate('products.labels.expired')}
-                                        value="expire_at"
-                                    />
-
-                                    {filter.values.source != 'archive' && (
-                                        <th className="text-right nowrap th-narrow">
-                                            {translate('products.labels.actions')}
-                                        </th>
-                                    )}
-                                </tr>
                                 {products?.data.map((product) => (
-                                    <tr key={product.id}>
-                                        <td>{product.id}</td>
+                                    <StateNavLink
+                                        key={product.id}
+                                        name={'products-show'}
+                                        params={{
+                                            id: product.id,
+                                            organizationId: activeOrganization.id,
+                                        }}
+                                        customElement={'tr'}
+                                        className={'tr-clickable'}>
+                                        <td className={'td-narrow'}>{product.id}</td>
                                         <td>
-                                            <img
-                                                alt={product.name}
-                                                className="td-media"
-                                                src={
-                                                    product.photo?.sizes?.thumbnail ||
-                                                    assetUrl('/assets/img/placeholders/product-small.png')
-                                                }
-                                            />
-                                        </td>
-                                        <td>
-                                            <div className="relative">
-                                                <div className="block block-tooltip-details block-tooltip-hover flex flex-inline">
-                                                    <span className="text-word-break">
-                                                        {strLimit(product.name, 100)}
-                                                    </span>
-                                                    {product.name.length > 100 && (
-                                                        <div
-                                                            className="tooltip-content tooltip-content-fit tooltip-content-bottom tooltip-content-compact"
-                                                            onClick={(e) => e.stopPropagation()}>
-                                                            <div className="triangle" />
-                                                            <div className="nowrap">{product.name}</div>
-                                                        </div>
-                                                    )}
+                                            <div className="flex flex-align-items-center flex-gap">
+                                                <img
+                                                    alt={product.name}
+                                                    className="td-media"
+                                                    src={
+                                                        product.photo?.sizes?.thumbnail ||
+                                                        assetUrl('/assets/img/placeholders/product-small.png')
+                                                    }
+                                                />
+                                                <div
+                                                    className="text-word-break"
+                                                    style={{
+                                                        width: '350px',
+                                                        whiteSpace: 'initial',
+                                                    }}>
+                                                    {product.name}
                                                 </div>
                                             </div>
                                         </td>
@@ -288,57 +219,72 @@ export default function Products() {
                                             {product.expired ? 'Ja' : 'Nee'}
                                         </td>
 
-                                        {filter.values.source != 'archive' && (
-                                            <td className={'text-right'}>
-                                                <div className="button-group">
-                                                    {product.sponsor_organization ? (
-                                                        <button
-                                                            type="button"
-                                                            className="button button-danger button-icon"
-                                                            onClick={() => deleteProduct(product)}>
-                                                            <em className="mdi mdi-close icon-start icon-start" />
-                                                        </button>
-                                                    ) : (
-                                                        <StateNavLink
-                                                            name={'products-show'}
-                                                            params={{
-                                                                id: product.id,
-                                                                organizationId: activeOrganization.id,
-                                                            }}
-                                                            className={`button button-primary-light button-icon ${
-                                                                !(product.unseen_messages > 0) ? 'button-disabled' : ''
-                                                            }`}>
-                                                            <em className="mdi mdi-message-text" />
-                                                        </StateNavLink>
+                                        <td className={'table-td-actions text-right'}>
+                                            {filter.values.source != 'archive' ? (
+                                                <TableRowActions
+                                                    content={(e) => (
+                                                        <div className="dropdown dropdown-actions">
+                                                            <StateNavLink
+                                                                name={'products-show'}
+                                                                params={{
+                                                                    id: product.id,
+                                                                    organizationId: activeOrganization.id,
+                                                                }}
+                                                                className="dropdown-item">
+                                                                <div className="mdi mdi-eye-outline icon-start" />
+                                                                Bekijk
+                                                            </StateNavLink>
+
+                                                            <StateNavLink
+                                                                name={'products-edit'}
+                                                                params={{
+                                                                    id: product.id,
+                                                                    organizationId: activeOrganization.id,
+                                                                }}
+                                                                className="dropdown-item">
+                                                                <div className="mdi mdi-pencil-outline icon-start" />
+                                                                Bewerking
+                                                            </StateNavLink>
+
+                                                            {product.sponsor_organization ? (
+                                                                <div
+                                                                    className="dropdown-item"
+                                                                    onClick={() => {
+                                                                        deleteProduct(product);
+                                                                        e.close();
+                                                                    }}>
+                                                                    <em className="mdi mdi-close icon-start icon-start" />
+                                                                    Verwijderen
+                                                                </div>
+                                                            ) : (
+                                                                <StateNavLink
+                                                                    name={'products-show'}
+                                                                    params={{
+                                                                        id: product.id,
+                                                                        organizationId: activeOrganization.id,
+                                                                    }}
+                                                                    className={classNames(
+                                                                        'dropdown-item',
+                                                                        !(product.unseen_messages > 0) && 'disabled',
+                                                                    )}>
+                                                                    <em className="mdi mdi-message-text icon-start" />
+                                                                    Bericht
+                                                                </StateNavLink>
+                                                            )}
+                                                        </div>
                                                     )}
-
-                                                    <StateNavLink
-                                                        name={'products-edit'}
-                                                        params={{
-                                                            id: product.id,
-                                                            organizationId: activeOrganization.id,
-                                                        }}
-                                                        className="button button-default button-icon">
-                                                        <div className="mdi mdi-pencil-outline icon-start" />
-                                                    </StateNavLink>
-
-                                                    <StateNavLink
-                                                        name={'products-show'}
-                                                        params={{
-                                                            id: product.id,
-                                                            organizationId: activeOrganization.id,
-                                                        }}
-                                                        className="button button-primary button-icon">
-                                                        <div className="mdi mdi-eye-outline icon-start" />
-                                                    </StateNavLink>
-                                                </div>
-                                            </td>
-                                        )}
-                                    </tr>
+                                                />
+                                            ) : (
+                                                <span className={'text-muted'}>
+                                                    {translate('organization_employees.labels.owner')}
+                                                </span>
+                                            )}
+                                        </td>
+                                    </StateNavLink>
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </TableTopScroller>
                 </div>
             )}
 

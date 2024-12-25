@@ -39,7 +39,9 @@ export default function StateNavLink({
     const navigateState = useNavigateState();
 
     if (disabled) {
-        return (
+        return customElement ? (
+            React.createElement(customElement, { className, 'data-dusk': dataDusk, tabIndex }, children)
+        ) : (
             <div data-dusk={dataDusk} className={className}>
                 {children}
             </div>

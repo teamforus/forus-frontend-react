@@ -9,7 +9,6 @@ import ProductCategory from '../../../../dashboard/props/models/ProductCategory'
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
 import useProductCategoryService from '../../../../dashboard/services/ProductCategoryService';
 import Organization from '../../../../dashboard/props/models/Organization';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import SelectControlOptions from '../../../../dashboard/components/elements/select-control/templates/SelectControlOptions';
@@ -147,7 +146,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 page: values.page,
                 fund_id: values.fund_id,
                 organization_id: values.organization_id,
-                product_category_id: values.product_category_id,
+                product_category_id: values.product_sub_category_id || values.product_category_id,
                 fund_type: fundType,
                 postcode: values.postcode || '',
                 distance: values.distance || null,
@@ -211,7 +210,14 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                     used_type: fundType,
                 })
                 .then((res) => {
-                    filterUpdate({ product_sub_category_id: null });
+                    filterUpdate((values) => {
+                        if (!res.data.data?.map((item) => item.id).includes(values.product_sub_category_id)) {
+                            return { ...values, product_sub_category_id: null };
+                        }
+
+                        return values;
+                    });
+
                     setProductSubCategories(
                         res.data.meta.total
                             ? [{ name: 'Selecteer subcategorie...', id: null }, ...res.data.data]
@@ -231,16 +237,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Aanbod
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Aanbod' }]}
             aside={
                 organizations &&
                 productCategories &&

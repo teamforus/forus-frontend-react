@@ -7,6 +7,7 @@ import File from '../props/models/File';
 import FundRequestRecord from '../props/models/FundRequestRecord';
 import FundRequestApiPerson from '../props/models/FundRequestApiPerson';
 import EmailLog from '../props/models/EmailLog';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export type FundRequestTotals = {
     all: number;
@@ -144,6 +145,22 @@ export class FundRequestValidatorService<T = FundRequest> {
 
     public hasFilePreview(file: File) {
         return ['pdf', 'png', 'jpeg', 'jpg'].includes(file.ext);
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['id', 'requester_email', 'fund_name', 'created_at', 'assignee_email', 'state'].filter(
+            (item) => item,
+        );
+
+        return list.map((key) => ({
+            key,
+            label: `validation_requests.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `validation_requests.labels.${key}`,
+                description: `validation_requests.tooltips.${key}`,
+            },
+        }));
     }
 }
 export function useFundRequestValidatorService(): FundRequestValidatorService {

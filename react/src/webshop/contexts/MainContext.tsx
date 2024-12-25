@@ -18,6 +18,7 @@ interface AuthMemoProps {
     userMenuOpened?: boolean;
     setUserMenuOpened?: React.Dispatch<React.SetStateAction<boolean>>;
     searchQuery?: string;
+    cookiesAccepted?: boolean;
     setSearchQuery?: React.Dispatch<React.SetStateAction<string>>;
     searchFilter?: FilterScope<{ q: string }>;
 }
@@ -25,7 +26,7 @@ interface AuthMemoProps {
 const mainContext = createContext<AuthMemoProps>(null);
 const { Provider } = mainContext;
 
-const MainProvider = ({ children }: { children: React.ReactElement }) => {
+const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElement; cookiesAccepted?: boolean }) => {
     const [envData, setEnvData] = useState<EnvDataWebshopProp>(null);
     const [appConfigs, setAppConfigs] = useState(null);
     const [showSearchBox, setShowSearchBox] = useState(false);
@@ -69,6 +70,7 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
                 userMenuOpened,
                 setUserMenuOpened,
                 searchFilter,
+                cookiesAccepted,
             }}>
             {children}
         </Provider>

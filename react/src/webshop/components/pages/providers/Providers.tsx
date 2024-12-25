@@ -123,7 +123,7 @@ export default function Providers() {
             page: values.page,
             fund_id: values.fund_id || null,
             business_type_id: values.business_type_id || null,
-            product_category_id: values.product_category_id || null,
+            product_category_id: values.product_sub_category_id || values.product_category_id,
             postcode: values.postcode || '',
             distance: values.distance || null,
             order_by: values.order_by || null,
@@ -211,7 +211,14 @@ export default function Providers() {
                     used: 1,
                 })
                 .then((res) => {
-                    filterUpdate({ product_sub_category_id: null });
+                    filterUpdate((values) => {
+                        if (!res.data.data?.map((item) => item.id).includes(values.product_sub_category_id)) {
+                            return { ...values, product_sub_category_id: null };
+                        }
+
+                        return values;
+                    });
+
                     setProductSubCategories(
                         res.data.meta.total
                             ? [{ name: 'Selecteer subcategorie...', id: null }, ...res.data.data]
@@ -237,16 +244,7 @@ export default function Providers() {
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
             countFiltersApplied={countFiltersApplied}
-            breadcrumbs={
-                <div className="block block-breadcrumbs">
-                    <StateNavLink name={'home'} className="breadcrumb-item">
-                        Home
-                    </StateNavLink>
-                    <div className="breadcrumb-item active" aria-current="location">
-                        Aanbieders
-                    </div>
-                </div>
-            }
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Aanbieders' }]}
             aside={
                 funds &&
                 appConfigs &&

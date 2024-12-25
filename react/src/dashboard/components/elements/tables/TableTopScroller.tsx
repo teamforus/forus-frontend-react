@@ -3,9 +3,11 @@ import classNames from 'classnames';
 
 export default function TableTopScroller({
     children,
+    onScroll = null,
     scrollableRootSelector = '.app',
 }: {
     children: ReactElement | ReactElement[];
+    onScroll?: () => void;
     scrollableRootSelector?: string;
 }) {
     const tableScrollTopRef = useRef<HTMLDivElement>(null);
@@ -23,10 +25,12 @@ export default function TableTopScroller({
     }, []);
 
     const handlePositionChange = useCallback(() => {
-        const rect = tableScrollWrapperRef?.current?.getBoundingClientRect();
+        const el = tableScrollWrapperRef?.current;
+        const rect = el?.getBoundingClientRect();
         const screenHeight = window.innerHeight;
+        const hasHorizontalScroll = el?.offsetWidth < el?.scrollWidth;
 
-        setShowTopScroll(rect && rect?.bottom > screenHeight);
+        setShowTopScroll(rect && rect?.bottom > screenHeight && hasHorizontalScroll);
     }, []);
 
     const updateState = useCallback(() => {
@@ -89,7 +93,10 @@ export default function TableTopScroller({
                 <div
                     className="table-scroll"
                     ref={tableScrollWrapperRef}
-                    onScroll={(e) => tableScrollTopRef.current?.scrollTo({ left: e.currentTarget.scrollLeft })}>
+                    onScroll={(e) => {
+                        tableScrollTopRef.current?.scrollTo({ left: e.currentTarget.scrollLeft });
+                        onScroll?.();
+                    }}>
                     {children}
                 </div>
             </div>
