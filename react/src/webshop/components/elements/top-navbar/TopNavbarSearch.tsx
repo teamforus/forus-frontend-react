@@ -144,13 +144,13 @@ export default function TopNavbarSearch() {
     }, [filters.activeValues.q, isSearchResultPage, searchService, clearSearch, updateResults, setProgress]);
 
     useEffect(() => {
-        let timer: NodeJS.Timeout;
+        let timer: number;
 
         if (isSearchResultPage) {
-            timer = setTimeout(() => updateSearchFilters({ q: filters.values.q }));
+            timer = window.setTimeout(() => updateSearchFilters({ q: filters.values.q }));
         }
 
-        return () => clearTimeout(timer);
+        return () => window.clearTimeout(timer);
     }, [filters.values.q, isSearchResultPage, updateSearchFilters]);
 
     useEffect(() => {
@@ -297,7 +297,11 @@ export default function TopNavbarSearch() {
                                                 {results[itemKey].count > 3 && (
                                                     <StateNavLink
                                                         name={'search-result'}
-                                                        query={{ q: lastQuery, [itemKey]: 1 }}
+                                                        query={{
+                                                            ...{ funds: 0, products: 0, providers: 0 },
+                                                            q: lastQuery,
+                                                            [itemKey]: 1,
+                                                        }}
                                                         className="search-result-group-link hide-sm">
                                                         {`${results?.[itemKey]?.count} resultaten gevonden...`}
                                                     </StateNavLink>
@@ -325,7 +329,11 @@ export default function TopNavbarSearch() {
                                                     {results[itemKey]?.count > 3 && (
                                                         <StateNavLink
                                                             name="search-result"
-                                                            query={{ q: lastQuery, [itemKey]: 1 }}
+                                                            query={{
+                                                                ...{ funds: 0, products: 0, providers: 0 },
+                                                                q: lastQuery,
+                                                                [itemKey]: 1,
+                                                            }}
                                                             className="search-result-group-link show-sm">
                                                             {`${results?.[itemKey]?.count} resultaten gevonden...`}
                                                         </StateNavLink>
