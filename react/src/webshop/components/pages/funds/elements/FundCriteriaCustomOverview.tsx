@@ -15,7 +15,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                             U kunt geen gebruik maken van de OV-chipkaart voor studenten (het studentenreisproduct van
                             de DUO)
                         </li>
-                        <li>U woont in Nijmegen</li>
+                        <li>U woont in Nijmegen (en dit is geen opvanglocatie)</li>
                         <li>U bent geen inwoner van het AZC</li>
                         <li>
                             In de tabel hieronder vindt u wat uw maximale inkomen mag zijn. Gebruik ter controle uw
@@ -90,7 +90,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                     <ul className="sign_up-pane-list">
                         <li>U bent 18 jaar of ouder</li>
                         <li>U bent geen student</li>
-                        <li>U woont in Nijmegen</li>
+                        <li>U woont in Nijmegen (en dit is geen opvanglocatie)</li>
                         <li>U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2024:</li>
                     </ul>
                     <table className="table collapse-sides">
