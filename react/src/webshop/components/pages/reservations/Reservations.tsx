@@ -50,7 +50,9 @@ export default function Reservations() {
 
         fundService
             .list({ per_page: 100 })
-            .then((res) => setFunds([{ name: translate('reservations.filters.all_fund'), id: null }, ...res.data.data]))
+            .then((res) => {
+                setFunds([{ name: translate('reservations.filters.all_funds'), id: null }, ...res.data.data]);
+            })
             .finally(() => setProgress(100));
     }, [fundService, setProgress, translate]);
 

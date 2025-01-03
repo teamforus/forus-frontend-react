@@ -1,5 +1,6 @@
 .block.block-lang-control {
     border: 1px solid var(--border-color);
+    z-index: 12;
     border-radius: var(--border-radius);
 
     .lang-control-input {
@@ -80,7 +81,7 @@
     }
 
     @media screen and (max-width: 1000px) {
-        position: fixed;
+        position: absolute;
         top: 8px;
         right: 60px;
         border: 1px solid transparent;
