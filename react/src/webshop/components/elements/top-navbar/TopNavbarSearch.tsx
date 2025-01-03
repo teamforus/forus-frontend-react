@@ -297,11 +297,7 @@ export default function TopNavbarSearch() {
                                                 {results[itemKey].count > 3 && (
                                                     <StateNavLink
                                                         name={'search-result'}
-                                                        query={{
-                                                            ...{ funds: 0, products: 0, providers: 0 },
-                                                            q: lastQuery,
-                                                            [itemKey]: 1,
-                                                        }}
+                                                        query={{ q: lastQuery, [itemKey]: 1 }}
                                                         className="search-result-group-link hide-sm">
                                                         {`${results?.[itemKey]?.count} resultaten gevonden...`}
                                                     </StateNavLink>
@@ -329,11 +325,7 @@ export default function TopNavbarSearch() {
                                                     {results[itemKey]?.count > 3 && (
                                                         <StateNavLink
                                                             name="search-result"
-                                                            query={{
-                                                                ...{ funds: 0, products: 0, providers: 0 },
-                                                                q: lastQuery,
-                                                                [itemKey]: 1,
-                                                            }}
+                                                            query={{ q: lastQuery, [itemKey]: 1 }}
                                                             className="search-result-group-link show-sm">
                                                             {`${results?.[itemKey]?.count} resultaten gevonden...`}
                                                         </StateNavLink>
