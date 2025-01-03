@@ -5,10 +5,7 @@ import { useNavigateState, useStateParams } from '../../../modules/state_router/
 export default function SignOut() {
     const { signOut, token } = useContext(authContext);
     const navigateState = useNavigateState();
-
-    const stateParams = useStateParams<{
-        session_expired?: boolean;
-    }>();
+    const stateParams = useStateParams<{ session_expired?: boolean }>();
 
     const redirectHome = useCallback(() => {
         navigateState('home', null, null, { state: stateParams });

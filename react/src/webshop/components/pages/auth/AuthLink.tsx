@@ -5,12 +5,14 @@ import { authContext } from '../../../contexts/AuthContext';
 import { useAuthService } from '../../../services/AuthService';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { useNavigateState } from '../../../modules/state_router/Router';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function AuthLink() {
     const { setToken } = useContext(authContext);
     const { onAuthRedirect, handleAuthTarget } = useAuthService();
     const identityService = useIdentityService();
 
+    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const navigateState = useNavigateState();
 
@@ -30,7 +32,7 @@ export default function AuthLink() {
                 }
             })
             .catch(() => {
-                pushDanger('Deze link is reeds gebruikt of ongeldig.');
+                pushDanger(translate('auth.push.link_used.title'));
                 navigateState('home');
             });
     }, [
@@ -41,6 +43,7 @@ export default function AuthLink() {
         pushDanger,
         query?.target,
         query?.token,
+        translate,
         setToken,
     ]);
 

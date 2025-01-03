@@ -20,6 +20,7 @@ export default interface EnvDataWebshopProp {
         disable_cookie_banner?: boolean;
         default_title?: string;
         allow_indexing?: boolean;
+        language_selector?: boolean;
 
         me_app_link?: string;
         ios_ipad_link?: string;

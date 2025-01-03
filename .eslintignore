@@ -11,3 +11,6 @@ dist
 webpack.config.js
 custom.d.ts
 react/env.js
+env.js
+env.tmp.js
+env.example.js

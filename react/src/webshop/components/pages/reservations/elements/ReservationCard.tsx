@@ -81,7 +81,11 @@ export default function ReservationCard({
                                     {reservation.state === 'waiting' && stateData?.expiresIn > 0 && (
                                         <div className="label label-default-outline nowrap">
                                             <span className="label-blink label-blink-primary" aria-hidden="true" />
-                                            <span className="label-text">Nog {stateData.expiresIn} minuten</span>
+                                            <span className="label-text">
+                                                {translate('reservations.remaining_minutes', {
+                                                    minutes: stateData.expiresIn,
+                                                })}
+                                            </span>
                                         </div>
                                     )}
                                     <div
@@ -105,23 +109,18 @@ export default function ReservationCard({
                     <div className="reservation-section">
                         <div className="reservation-section-row">
                             <div className="reservation-value-list">
-                                {reservation.amount_extra == 0 && (
-                                    <div className="reservation-value-item">
-                                        <div className="reservation-value-title">Productprijs</div>
-                                        <div className="reservation-value">{reservation.price_locale}</div>
+                                <div className="reservation-value-item">
+                                    <div className="reservation-value-title">
+                                        {translate('reservations.card.value.product_price')}
                                     </div>
-                                )}
+                                    <div className="reservation-value">{reservation.price_locale}</div>
+                                </div>
 
                                 {reservation.amount_extra > 0 && (
                                     <div className="reservation-value-item">
-                                        <div className="reservation-value-title">Productprijs</div>
-                                        <div className="reservation-value">{reservation.price_locale}</div>
-                                    </div>
-                                )}
-
-                                {reservation.amount_extra > 0 && (
-                                    <div className="reservation-value-item">
-                                        <div className="reservation-value-title">Zelf betaald</div>
+                                        <div className="reservation-value-title">
+                                            {translate('reservations.card.value.paid_by_self')}
+                                        </div>
                                         <div className="reservation-value">{reservation.amount_extra_locale}</div>
                                     </div>
                                 )}
@@ -180,7 +179,9 @@ export default function ReservationCard({
                                                 type="button"
                                                 className="button button-text button-xs hidden-xs hidden-sm"
                                                 onClick={() => setShowExtraDetails(!showExtraDetails)}>
-                                                {showExtraDetails ? 'Verberg alle details' : 'Toon alle details'}
+                                                {showExtraDetails
+                                                    ? translate('reservations.card.actions.hide_all_details')
+                                                    : translate('reservations.card.actions.show_all_details')}
                                                 {showExtraDetails ? (
                                                     <em className="mdi icon-right mdi-chevron-up" />
                                                 ) : (
@@ -207,7 +208,7 @@ export default function ReservationCard({
                                                         type="button"
                                                         onClick={(e) => payReservationExtra(e, reservation)}>
                                                         <em className="mdi mdi-credit-card-outline icon-start" />
-                                                        Ga door naar betalen
+                                                        {translate('reservations.card.actions.proceed_to_payment')}
                                                     </button>
                                                 )}
                                         </div>
@@ -234,6 +235,7 @@ export default function ReservationCard({
                     </div>
                 </div>
             </div>
+
             <div className="reservation-actions reservation-actions-mobile">
                 {reservation.amount_extra > 0 && !reservation.canceled && (
                     <div className="reservation-action">
@@ -241,8 +243,9 @@ export default function ReservationCard({
                             type="button"
                             className="button button-text button-xs hidden-xs hidden-sm"
                             onClick={() => setShowExtraDetails(!showExtraDetails)}>
-                            {showExtraDetails ? 'Verberg alle details' : 'Toon alle details'}
-
+                            {showExtraDetails
+                                ? translate('reservations.card.actions.hide_all_details')
+                                : translate('reservations.card.actions.show_all_details')}
                             {showExtraDetails ? (
                                 <em className="mdi icon-right mdi-chevron-up" />
                             ) : (
@@ -267,7 +270,7 @@ export default function ReservationCard({
                                 type="button"
                                 onClick={(e) => payReservationExtra(e, reservation)}>
                                 <em className="mdi mdi-credit-card-outline icon-start" />
-                                Ga door naar betalen
+                                {translate('reservations.card.actions.proceed_to_payment')}
                             </button>
                         )}
                     </div>
@@ -339,7 +342,9 @@ export default function ReservationCard({
                         className="button button-text button-xs"
                         type="button"
                         onClick={() => setShowExtraDetails(!showExtraDetails)}>
-                        {showExtraDetails ? 'Verberg alle details' : 'Toon alle details'}
+                        {showExtraDetails
+                            ? translate('reservations.card.actions.hide_all_details')
+                            : translate('reservations.card.actions.show_all_details')}
                         {showExtraDetails ? (
                             <em className="mdi icon-right mdi-chevron-up" />
                         ) : (
@@ -357,20 +362,24 @@ export default function ReservationCard({
                                 <ul className="reservation-details-list">
                                     <li className="reservation-details-item">
                                         <div className="reservation-details-item-label">
-                                            Bijbetaald via bank overschrijving
+                                            {translate('reservations.card.details.paid_via_bank_transfer')}
                                         </div>
                                         <div className="reservation-details-item-value">
                                             {reservation.amount_extra_locale}
                                         </div>
                                     </li>
                                     <li className="reservation-details-item">
-                                        <div className="reservation-details-item-label">Betaald vanaf tegoed</div>
+                                        <div className="reservation-details-item-label">
+                                            {translate('reservations.card.details.paid_from_credit')}
+                                        </div>
                                         <div className="reservation-details-item-value">
                                             {reservation.amount_locale}
                                         </div>
                                     </li>
                                     <li className="reservation-details-item">
-                                        <div className="reservation-details-item-label">Volledige productprijs</div>
+                                        <div className="reservation-details-item-label">
+                                            {translate('reservations.card.details.total_product_price')}
+                                        </div>
                                         <div className="reservation-details-item-value">{reservation.price_locale}</div>
                                     </li>
                                 </ul>
@@ -379,7 +388,7 @@ export default function ReservationCard({
                                     params={{ id: reservation.id }}
                                     className="reservation-details-view-all"
                                     customElement={'div'}>
-                                    Bekijk all details
+                                    {translate('reservations.card.details.view_all_details')}
                                     <em className="mdi mdi-chevron-right" />
                                 </StateNavLink>
                             </div>
@@ -389,10 +398,7 @@ export default function ReservationCard({
             )}
 
             {reservation.state === 'waiting' && stateData.expiresIn > 0 && (
-                <div className="reservation-item-footer">
-                    Houd er rekening mee dat er nog <strong>{stateData.expiresIn} minuten</strong> over zijn om de
-                    bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd.
-                </div>
+                <div className="reservation-item-footer">{translate('reservation.expiring', stateData)}</div>
             )}
         </StateNavLink>
     );

@@ -2,6 +2,7 @@ import pages from './nl/i18n-pages';
 import modals from './nl/i18n-modals';
 import modals_danger_zone from './nl/i18n-modals-danger_zone';
 import components from './nl/i18n-components';
+import block_exception from './nl/blocks/block-exception.json';
 
 export default {
     test: '{{name}} {{foo}}',
@@ -1685,8 +1686,10 @@ export default {
     },
 
     modal_image_preview: {
-        header: {
-            title: 'Afbeelding-voorbeeld',
+        title: 'Afbeelding-voorbeeld',
+        alt_text: '',
+        buttons: {
+            close: 'Sluiten',
         },
     },
 
@@ -2008,5 +2011,9 @@ export default {
                 },
             },
         },
+    },
+
+    blocks: {
+        block_exception,
     },
 };

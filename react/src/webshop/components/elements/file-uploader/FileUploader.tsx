@@ -7,6 +7,7 @@ import FileUploaderItemView from './FileUploaderItemView';
 import usePushInfo from '../../../../dashboard/hooks/usePushInfo';
 import { uniqueId } from 'lodash';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export type FileUploaderItem = {
     id?: string;
@@ -38,7 +39,7 @@ type FileItemEventsListener = {
 
 export default function FileUploader({
     type,
-    title = 'Document slepen & neer zetten',
+    title,
     files = null,
     template = 'default',
     multiple = false,
@@ -70,6 +71,7 @@ export default function FileUploader({
     const fileService = useFileService();
 
     const pushInfo = usePushInfo();
+    const translate = useTranslate();
     const openModal = useOpenModal();
 
     const [isDragOver, setIsDragOver] = useState(false);
@@ -309,9 +311,9 @@ export default function FileUploader({
                         <div className="mdi mdi-tray-arrow-up"></div>
                     </div>
                     <div className={`droparea-title ${isRequired ? 'droparea-title-required' : ''}`}>
-                        <strong>{title}</strong>
+                        <strong>{title || translate('global.file_uploader.title')}</strong>
                         <br />
-                        <small>of</small>
+                        <small>{translate('global.file_uploader.or')}</small>
                     </div>
                     <div className="droparea-button">
                         <button
@@ -324,13 +326,17 @@ export default function FileUploader({
                             disabled={multipleSize && multipleSize <= fileItems.length}
                             onClick={() => inputRef.current?.click()}>
                             <em className={`mdi ${template == 'compact' ? 'mdi-paperclip' : 'mdi-upload'}`} />
-                            Upload een document
+                            {translate('global.file_uploader.upload_button')}
                         </button>
                     </div>
-                    {template === 'default' && <div className="droparea-size">max. grootte 8Mb</div>}
+                    {template === 'default' && (
+                        <div className="droparea-size">{translate('global.file_uploader.max_size')}</div>
+                    )}
 
                     {template === 'inline' && multipleSize && (
-                        <div className="droparea-max-limit">Max. {multipleSize} files</div>
+                        <div className="droparea-max-limit">
+                            {translate('global.file_uploader.max_files', { count: multipleSize })}
+                        </div>
                     )}
                 </div>
             )}
@@ -339,7 +345,7 @@ export default function FileUploader({
                 <div className="uploader-files">
                     {template === 'inline' && (
                         <div className="uploader-files-title">
-                            Attachments
+                            {translate('global.file_uploader.attachments')}
                             <div className="uploader-files-title-count">{fileItems.length}</div>
                         </div>
                     )}

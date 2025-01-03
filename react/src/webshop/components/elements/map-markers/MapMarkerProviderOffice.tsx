@@ -24,24 +24,24 @@ export default function MapMarkerProviderOffice({ office }: { office: Office }) 
                 <div className="map-card-title">{office?.organization?.name}</div>
                 <div className="map-card-description">
                     <div className={'map-card-description-row'}>
-                        <strong>{translate('maps.labels.address')}:</strong>
+                        <strong>{translate('global.map_marker.address')}:</strong>
                         {office.address}
                     </div>
                     {office?.organization?.business_type?.name && (
                         <div className={'map-card-description-row'}>
-                            <strong>{translate('maps.labels.organization_type')}:</strong>
+                            <strong>{translate('global.map_marker.organization_type')}:</strong>
                             {office.organization.business_type.name}
                         </div>
                     )}
                     {(office?.phone || office?.organization?.phone) && (
                         <div className={'map-card-description-row'}>
-                            <strong>{translate('maps.labels.phone')}:</strong>
+                            <strong>{translate('global.map_marker.phone')}:</strong>
                             {office.phone ? office.phone : office.organization.phone}
                         </div>
                     )}
                     {office?.organization?.email && (
                         <div className={'map-card-description-row'}>
-                            <strong>{translate('maps.labels.email')}:</strong>
+                            <strong>{translate('global.map_marker.email')}:</strong>
                             {office?.organization?.email}
                         </div>
                     )}
@@ -50,7 +50,7 @@ export default function MapMarkerProviderOffice({ office }: { office: Office }) 
                     name={'provider-office'}
                     params={{ organization_id: office.organization_id, id: office.id }}
                     className="map-card-button">
-                    Bekijk details
+                    {translate('global.map_marker.view_details')}
                     <em className="mdi mdi-arrow-right" aria-hidden="true" />
                 </StateNavLink>
             </div>

@@ -2,26 +2,24 @@ import React from 'react';
 import useOpenModal from '../../../dashboard/hooks/useOpenModal';
 import { useCallback } from 'react';
 import ModalNotification from '../../components/modals/ModalNotification';
+import useTranslate from '../../../dashboard/hooks/useTranslate';
 
 export default function useShowTakenByPartnerModal() {
     const openModal = useOpenModal();
+    const translate = useTranslate();
 
     return useCallback(() => {
         openModal((modal) => (
             <ModalNotification
                 modal={modal}
                 type="info"
-                title="Tegoed activeren"
-                header="Dit tegoed is al geactiveerd"
+                title={translate('confirm_taken_by_partner.title')}
+                header={translate('confirm_taken_by_partner.header')}
                 mdiIconType="warning"
                 mdiIconClass="alert-outline"
-                closeBtnText="Bevestigen"
-                description={[
-                    'U krijgt deze melding omdat het tegoed is geactiveerd door een ',
-                    'famielid of voogd. De tegoeden zijn beschikbaar in het account ',
-                    'van de persoon die deze als eerste heeft geactiveerd.',
-                ].join('')}
+                closeBtnText={translate('confirm_taken_by_partner.close_btn')}
+                description={translate('confirm_taken_by_partner.description')}
             />
         ));
-    }, [openModal]);
+    }, [openModal, translate]);
 }

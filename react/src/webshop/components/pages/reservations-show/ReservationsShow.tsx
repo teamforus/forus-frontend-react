@@ -11,6 +11,7 @@ import useComposeStateAndExpires from '../reservations/hooks/useComposeStateAndE
 import usePayReservationExtra from '../reservations/hooks/usePayReservationExtra';
 import useCancelReservation from '../reservations/hooks/useCancelReservation';
 import { BooleanParam, useQueryParam } from 'use-query-params';
+import classNames from 'classnames';
 
 export default function ReservationsShow() {
     const { id } = useParams();
@@ -67,9 +68,9 @@ export default function ReservationsShow() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
-                { name: translate('reservations.header.title'), state: 'reservations' },
-                { name: 'Reservering' },
+                { name: translate('reservations.breadcrumbs.home'), state: 'home' },
+                { name: translate('reservations.breadcrumbs.reservations'), state: 'reservations' },
+                { name: translate('reservations.breadcrumbs.reservation') },
             ]}
             profileHeader={<></>}
             contentDusk={'reservationDetailsPage'}>
@@ -93,14 +94,18 @@ export default function ReservationsShow() {
                                     </div>
                                     <div className="reservation-content">
                                         <div className="reservation-header">
-                                            <h2 className="reservation-title">Details van de reservering</h2>
+                                            <h2 className="reservation-title">
+                                                {translate('reservation.details.title')}
+                                            </h2>
                                             <div className={`label label-${stateData.stateClass}`}>
                                                 {stateData.stateText}
                                             </div>
                                         </div>
                                         <div className="block block-key-value-list block-key-value-list-pane">
                                             <div className="block-key-value-list-item">
-                                                <div className="key-value-list-item-label">Titel</div>
+                                                <div className="key-value-list-item-label">
+                                                    {translate('reservation.details.labels.title')}
+                                                </div>
                                                 <div
                                                     className="key-value-list-item-value"
                                                     data-dusk="reservationOverviewTitle">
@@ -112,7 +117,9 @@ export default function ReservationsShow() {
                                                 </div>
                                             </div>
                                             <div className="block-key-value-list-item">
-                                                <div className="key-value-list-item-label">ID</div>
+                                                <div className="key-value-list-item-label">
+                                                    {translate('reservation.details.labels.id')}
+                                                </div>
                                                 <div
                                                     className="key-value-list-item-value"
                                                     data-dusk="reservationOverviewCode">
@@ -120,7 +127,9 @@ export default function ReservationsShow() {
                                                 </div>
                                             </div>
                                             <div className="block-key-value-list-item">
-                                                <div className="key-value-list-item-label">Fonds naam</div>
+                                                <div className="key-value-list-item-label">
+                                                    {translate('reservation.details.labels.fund_name')}
+                                                </div>
                                                 <div
                                                     className="key-value-list-item-value"
                                                     data-dusk="reservationOverviewFundName">
@@ -129,7 +138,9 @@ export default function ReservationsShow() {
                                             </div>
                                             {reservation.amount_extra > 0 && (
                                                 <div className="block-key-value-list-item">
-                                                    <div className="key-value-list-item-label">Betaald van tegoed</div>
+                                                    <div className="key-value-list-item-label">
+                                                        {translate('reservation.details.labels.amount')}
+                                                    </div>
                                                     <div
                                                         className="key-value-list-item-value"
                                                         data-dusk="reservationOverviewCode">
@@ -139,7 +150,9 @@ export default function ReservationsShow() {
                                             )}
                                             {reservation.amount_extra > 0 && (
                                                 <div className="block-key-value-list-item">
-                                                    <div className="key-value-list-item-label">Zelf bijbetaald</div>
+                                                    <div className="key-value-list-item-label">
+                                                        {translate('reservation.details.labels.amount_extra')}
+                                                    </div>
                                                     <div
                                                         className="key-value-list-item-value"
                                                         data-dusk="reservationOverviewExtraAmount">
@@ -148,7 +161,9 @@ export default function ReservationsShow() {
                                                 </div>
                                             )}
                                             <div className="block-key-value-list-item">
-                                                <div className="key-value-list-item-label">Bedrag</div>
+                                                <div className="key-value-list-item-label">
+                                                    {translate('reservation.details.labels.price')}
+                                                </div>
                                                 <div
                                                     className="key-value-list-item-value"
                                                     data-dusk="reservationOverviewAmount">
@@ -175,14 +190,14 @@ export default function ReservationsShow() {
                                                         className="button button-primary button-sm"
                                                         onClick={(e) => payReservationExtra(e, reservation)}>
                                                         <em className="mdi mdi-credit-card-outline icon-start" />
-                                                        Ga door naar betalen
+                                                        {translate('reservation.labels.pay_extra')}
                                                     </button>
                                                 )}
 
                                             {showLoadingBtn && (
                                                 <button className="button button-primary button-sm" disabled={true}>
                                                     <em className="mdi mdi-loading mdi-spin icon-start" />
-                                                    Loading
+                                                    {translate('reservation.details.loading')}
                                                 </button>
                                             )}
                                         </div>
@@ -193,22 +208,19 @@ export default function ReservationsShow() {
 
                         {reservation.state === 'waiting' && stateData.expiresIn && !showLoadingBtn && (
                             <div className="card-footer card-footer-warning card-footer-sm">
-                                Houd er rekening mee dat er nog <strong>{stateData.expiresIn} minuten</strong> over zijn
-                                om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden
-                                geannuleerd.
+                                {translate('reservation.expiring', stateData)}
                             </div>
                         )}
 
                         {reservation.state === 'canceled_payment_expired' && (
                             <div className="card-footer card-footer-warning card-footer-sm">
-                                Sorry, uw reservering is tijdens het afrekenproces geannuleerd omdat het geselecteerde
-                                product uitverkocht is.
+                                {translate('reservation.expired')}
                             </div>
                         )}
                     </div>
 
                     {reservation.extra_payment && (
-                        <div className={`card card-collapsable ${showReservationExtraAmount ? 'open' : ''}`}>
+                        <div className={classNames(`card card-collapsable`, showReservationExtraAmount && 'open')}>
                             <div
                                 className="card-header"
                                 onClick={() => setShowReservationExtraAmount(!showReservationExtraAmount)}>
@@ -217,11 +229,14 @@ export default function ReservationsShow() {
                                     <h2 className="card-heading card-heading-lg">Bijbetalingsgegevens</h2>
                                 </div>
                             </div>
+
                             {showReservationExtraAmount && (
                                 <div className="card-section">
                                     <div className="block block-key-value-list block-key-value-list-pane">
                                         <div className="block-key-value-list-item">
-                                            <div className="key-value-list-item-label">Status:</div>
+                                            <div className="key-value-list-item-label">
+                                                {translate('reservation.extra_amount.status')}:
+                                            </div>
                                             <div className="key-value-list-item-value">
                                                 {!reservation.extra_payment.is_fully_refunded &&
                                                     reservation.extra_payment.is_paid && (
@@ -246,24 +261,32 @@ export default function ReservationsShow() {
                                                 )}
 
                                                 {reservation.extra_payment.is_fully_refunded && (
-                                                    <div className="label label-danger">Terugbetaald</div>
+                                                    <div className="label label-danger">
+                                                        {translate('reservation.extra_amount.refunded')}:
+                                                    </div>
                                                 )}
                                             </div>
                                         </div>
                                         <div className="block-key-value-list-item">
-                                            <div className="key-value-list-item-label">Datum:</div>
+                                            <div className="key-value-list-item-label">
+                                                {translate('reservation.extra_amount.date')}:
+                                            </div>
                                             <div className="key-value-list-item-value">
                                                 {reservation.extra_payment.paid_at_locale || '-'}
                                             </div>
                                         </div>
                                         <div className="block-key-value-list-item">
-                                            <div className="key-value-list-item-label">Zelf bijbetaal:</div>
+                                            <div className="key-value-list-item-label">
+                                                {translate('reservation.extra_amount.amount')}:
+                                            </div>
                                             <div className="key-value-list-item-value">
                                                 {reservation.extra_payment.amount_locale}
                                             </div>
                                         </div>
                                         <div className="block-key-value-list-item">
-                                            <div className="key-value-list-item-label">Methode:</div>
+                                            <div className="key-value-list-item-label">
+                                                {translate('reservation.extra_amount.method')}:
+                                            </div>
                                             <div className="key-value-list-item-value">
                                                 {reservation.extra_payment.method}
                                             </div>
@@ -275,13 +298,15 @@ export default function ReservationsShow() {
                     )}
 
                     {reservation?.extra_payment?.refunds?.length > 0 && (
-                        <div className={`card card-collapsable ${showReservationRefunds ? 'open' : ''}`}>
+                        <div className={classNames(`card card-collapsable`, showReservationRefunds && 'open')}>
                             <div
                                 className="card-header"
                                 onClick={() => setShowReservationRefunds(!showReservationRefunds)}>
                                 <div className="card-header-wrapper">
                                     <em className="mdi mdi-menu-down card-header-arrow" />
-                                    <h2 className="card-heading card-heading-lg">Details van terugbetaling</h2>
+                                    <h2 className="card-heading card-heading-lg">
+                                        {translate('reservation.extra_amount_refund.title')}
+                                    </h2>
                                 </div>
                             </div>
 
@@ -291,23 +316,25 @@ export default function ReservationsShow() {
                                         <table>
                                             <tbody>
                                                 <tr className="hide-sm">
-                                                    <th>Datum</th>
-                                                    <th>Bedrag</th>
-                                                    <th>Status</th>
+                                                    <th>{translate('reservation.extra_amount_refund.date')}</th>
+                                                    <th>{translate('reservation.extra_amount_refund.amount')}</th>
+                                                    <th>{translate('reservation.extra_amount_refund.state')}</th>
                                                 </tr>
                                                 {reservation.extra_payment.refunds.map((refund) => (
                                                     <tr key={refund.id}>
                                                         <td>
                                                             <div className="block-card-table-item">
                                                                 <div className="block-card-table-label show-sm">
-                                                                    Datum
+                                                                    {translate('reservation.extra_amount_refund.date')}
                                                                 </div>
                                                                 <div className="block-card-table-value">
                                                                     {refund.created_at_locale}
                                                                 </div>
                                                             </div>
                                                             <div className="block-card-table-item show-sm">
-                                                                <div className="block-card-table-label">Status</div>
+                                                                <div className="block-card-table-label">
+                                                                    {translate('reservation.extra_amount_refund.state')}
+                                                                </div>
                                                                 {refund.state == 'refunded' && (
                                                                     <div className="label label-success">
                                                                         {refund.state_locale}
@@ -332,7 +359,9 @@ export default function ReservationsShow() {
                                                         <td>
                                                             <div className="block-card-table-item">
                                                                 <div className="block-card-table-label show-sm">
-                                                                    Bedrag
+                                                                    {translate(
+                                                                        'reservation.extra_amount_refund.amount',
+                                                                    )}
                                                                 </div>
                                                                 <div className="block-card-table-value">
                                                                     {refund.amount_locale}

@@ -6,6 +6,7 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalImagePreview from '../../modals/ModalImagePreview';
 import ModalPdfPreview from '../../modals/ModalPdfPreview';
 import { FileUploaderItem } from './FileUploader';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function FileUploaderItemView({
     item,
@@ -22,6 +23,7 @@ export default function FileUploaderItemView({
 }) {
     const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
+    const translate = useTranslate();
     const fileService = useFileService();
 
     const name = useMemo(() => {
@@ -81,11 +83,11 @@ export default function FileUploaderItemView({
                         <button
                             className="mdi mdi-eye-outline"
                             onClick={(e) => previewFile(e, item)}
-                            title="Bestand bekijken"
+                            title={translate('global.file_item.view_file')}
                             role="button"
                             tabIndex={0}
                             type="button"
-                            name="Bestand bekijken"
+                            name={translate('global.file_item.view_file')}
                         />
                     </div>
                 )}
@@ -96,10 +98,10 @@ export default function FileUploaderItemView({
                             type={'button'}
                             className="mdi mdi-tray-arrow-down"
                             onClick={(e) => downloadFile(e, item)}
-                            title="Bestand downloaden"
+                            title={translate('global.file_item.download_file')}
                             role="button"
                             tabIndex={0}
-                            name="Bestand downloaden"></button>
+                            name={translate('global.file_item.download_file')}></button>
                     </div>
                 )}
 
@@ -109,10 +111,10 @@ export default function FileUploaderItemView({
                             type="button"
                             className="mdi mdi-close"
                             onClick={() => removeFile(item)}
-                            title="Bestand verwijderen"
+                            title={translate('global.file_item.remove_file')}
                             role="button"
                             tabIndex={0}
-                            name="Bestand verwijderen"></button>
+                            name={translate('global.file_item.remove_file')}></button>
                     </div>
                 )}
             </div>

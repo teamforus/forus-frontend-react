@@ -9,7 +9,10 @@ export default function NotFound({ error = '404' }: { error?: string }) {
     return (
         <BlockShowcase
             wrapper={true}
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Pagina niet gevonden' }]}>
+            breadcrumbItems={[
+                { name: translate('not_found.breadcrumbs.home'), state: 'home' },
+                { name: translate('not_found.breadcrumbs.not_found') },
+            ]}>
             <div className="block block-error-page">
                 <div className="wrapper">
                     <div className="page-not-found-title">{error}</div>

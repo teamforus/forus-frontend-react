@@ -78,14 +78,19 @@ export default function ModalNotification({
         <div
             className={`modal modal-notification modal-animated ${className} ${modal.loading ? '' : 'modal-loaded'}`}
             role="dialog">
-            <div className="modal-backdrop" onClick={close} aria-label="Sluiten" role="button" />
+            <div
+                className="modal-backdrop"
+                onClick={close}
+                aria-label={closeBtnText || translate('modal.buttons.close')}
+                role="button"
+            />
             <div className="modal-window">
                 <div
                     className="modal-close mdi mdi-close"
                     onClick={cancel}
                     tabIndex={0}
                     onKeyDown={clickOnKeyEnter}
-                    aria-label="Sluiten"
+                    aria-label={closeBtnText || translate('modal.buttons.close')}
                     role="button"
                 />
                 <div className="modal-header">

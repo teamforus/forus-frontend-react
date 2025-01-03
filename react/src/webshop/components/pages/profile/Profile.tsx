@@ -50,7 +50,10 @@ export default function Profile() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('profile.title') }]}
+            breadcrumbItems={[
+                { name: translate('profile.breadcrumbs.home'), state: 'home' },
+                { name: translate('profile.breadcrumbs.profile') },
+            ]}
             profileHeader={
                 <div className="profile-content-header clearfix">
                     <div className="profile-content-title">
@@ -62,7 +65,7 @@ export default function Profile() {
                 <Fragment>
                     <div className="card">
                         <div className="card-header flex">
-                            <h2 className="card-title flex flex-grow">Persoonsgegevens</h2>
+                            <h2 className="card-title flex flex-grow">{translate('profile.personal.title')}</h2>
                         </div>
                         <div className="card-section">
                             <BlockKeyValueList
@@ -85,7 +88,7 @@ export default function Profile() {
                                             <IdentityRecordKeyValueListHistory records={profile.records.birth_date} />
                                         ),
                                     },
-                                    { label: 'BSN', value: profile?.bsn },
+                                    { label: translate('profile.personal.bsn'), value: profile?.bsn },
                                 ]}
                             />
                         </div>
@@ -93,13 +96,19 @@ export default function Profile() {
 
                     <div className="card">
                         <div className="card-header">
-                            <h2 className="card-title">Accountgegevens</h2>
+                            <h2 className="card-title">{translate('profile.account.title')}</h2>
                         </div>
                         <div className="card-section">
                             <BlockKeyValueList
                                 items={[
-                                    { label: 'Actief sinds', value: profile?.created_at_locale },
-                                    { label: 'Laatste inlog', value: profile?.last_activity_at_locale },
+                                    {
+                                        label: translate('profile.account.active_since'),
+                                        value: profile?.created_at_locale,
+                                    },
+                                    {
+                                        label: translate('profile.account.last_login'),
+                                        value: profile?.last_activity_at_locale,
+                                    },
                                 ]}
                             />
                         </div>
@@ -114,7 +123,7 @@ export default function Profile() {
                     {profile?.bank_accounts?.length > 0 && (
                         <div className="card">
                             <div className="card-header">
-                                <h2 className="card-title">Bankrekening</h2>
+                                <h2 className="card-title">{translate('profile.bank_accounts.title')}</h2>
                             </div>
                             <div className="card-section">
                                 <div className="flex flex-vertical flex-gap">

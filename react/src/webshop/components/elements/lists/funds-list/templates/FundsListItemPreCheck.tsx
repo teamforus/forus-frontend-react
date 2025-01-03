@@ -4,12 +4,14 @@ import { PreCheckCriteria, PreCheckTotalsFund } from '../../../../../services/ty
 import { useNavigateState } from '../../../../../modules/state_router/Router';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import { strLimit } from '../../../../../../dashboard/helpers/string';
+import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 
 export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsFund }) {
     const [showMore, setShowMore] = useState(false);
     const [showMoreRequestInfo, setShowMoreRequestInfo] = useState(false);
 
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
     const navigateSate = useNavigateState();
 
     const [shownKnokOutCriteria, setShownKnokOutCriteria] = useState<Array<number>>([]);
@@ -36,14 +38,14 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
 
     const progressStatusTitle = useMemo(() => {
         if (fund.pre_check_note) {
-            return 'Geen indicatie';
+            return translate('list_blocks.funds_list_pre_check.no_indication');
         }
 
-        if (criteriaValidPercentage < 33) return 'Lage kans';
-        if (criteriaValidPercentage < 66) return 'Gemiddelde kans';
+        if (criteriaValidPercentage < 33) return translate('list_blocks.funds_list_pre_check.low_chance');
+        if (criteriaValidPercentage < 66) return translate('list_blocks.funds_list_pre_check.medium_chance');
 
-        return 'Goede kans';
-    }, [criteriaValidPercentage, fund.pre_check_note]);
+        return translate('list_blocks.funds_list_pre_check.good_chance');
+    }, [criteriaValidPercentage, fund.pre_check_note, translate]);
 
     const positiveAmount = useMemo(() => {
         return parseFloat(fund.amount_for_identity) > 0;
@@ -98,7 +100,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                     onClick={() => setShowMore(true)}
                                     aria-expanded={showMore && fund.description_short.length > 190}
                                     aria-controls="fund_description_short">
-                                    Toon meer
+                                    {translate('list_blocks.funds_list_pre_check.show_more')}
                                     <em className="mdi mdi-chevron-down icon-right" />
                                 </button>
                             )}
@@ -109,7 +111,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                     onClick={() => setShowMore(false)}
                                     aria-expanded={showMore && fund.description_short.length > 190}
                                     aria-controls="fund_description_short">
-                                    Toon minder
+                                    {translate('list_blocks.funds_list_pre_check.show_less')}
                                     <em className="mdi mdi-chevron-up icon-right" />
                                 </button>
                             )}
@@ -122,7 +124,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                             target="_blank"
                             href={fund.external_link_url}
                             rel="noreferrer">
-                            {fund.external_link_text || 'Externe website bekijken'}
+                            {fund.external_link_text || translate('list_blocks.funds_list_pre_check.external_website')}
                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                         </a>
                     )}
@@ -131,8 +133,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                 {fund.children.length > 0 && (
                     <div className="fund-related-funds-block">
                         <div className="fund-related-funds-description">
-                            Als u deze regeling aanvraagt, kunt u ook direct andere regelingen aanvragen. Dit geldt voor
-                            de volgende lijst met regelingen:
+                            {translate('list_blocks.funds_list_pre_check.apply_related_funds')}
                         </div>
 
                         {fund.children.map((item) => (
@@ -146,7 +147,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                 {fund.parent && (
                     <div className="fund-related-funds-block fund-related-funds-block-parent">
                         <div className="fund-related-funds-description">
-                            Deze regeling kunt u aanvragen door een aanvraag te doen voor de volgende regeling:
+                            {translate('list_blocks.funds_list_pre_check.apply_parent_fund')}
                         </div>
                         <ul className="fund-related-funds-list">
                             <li className="fund-related-funds-list-item">{fund.parent.name}</li>
@@ -176,7 +177,9 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                 type="button"
                                 disabled={!fund.allow_direct_requests}
                                 onClick={(e) => applyFund(e)}>
-                                {fund.allow_direct_requests ? '‘Activeren’' : 'Niet beschikbaar'}
+                                {fund.allow_direct_requests
+                                    ? '‘Activeren’'
+                                    : translate('list_blocks.funds_list_pre_check.not_available')}
                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                             </button>
                         </div>
@@ -185,7 +188,9 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                 <div className="fund-totals-block">
                     {positiveAmount && (
                         <div className="fund-totals-block-amount">
-                            <div className="fund-totals-block-amount-description">Totaal</div>
+                            <div className="fund-totals-block-amount-description">
+                                {translate('list_blocks.funds_list_pre_check.total')}
+                            </div>
                             <div className="fund-totals-block-amount-value">{fund.amount_total_locale}</div>
                         </div>
                     )}
@@ -198,12 +203,12 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                             aria-controls="fund_request_details">
                             {showMoreRequestInfo ? (
                                 <Fragment>
-                                    Verberg de uitleg
+                                    {translate('list_blocks.funds_list_pre_check.hide_explanation')}
                                     <em className="mdi mdi-chevron-up icon-right" />
                                 </Fragment>
                             ) : (
                                 <Fragment>
-                                    Bekijk de uitleg
+                                    {translate('list_blocks.funds_list_pre_check.view_explanation')}
                                     <em className="mdi mdi-chevron-down icon-right" />
                                 </Fragment>
                             )}
@@ -215,7 +220,9 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
             {showMoreRequestInfo && fund.pre_check_note && (
                 <div className="fund-pre-check-info-block">
                     <div className="fund-pre-check-info-section">
-                        <div className="fund-pre-check-info-title">Uitleg</div>
+                        <div className="fund-pre-check-info-title">
+                            {translate('list_blocks.funds_list_pre_check.explanation')}
+                        </div>
                         <div className="fund-pre-check-note-block">{fund.pre_check_note}</div>
                     </div>
                 </div>
@@ -224,7 +231,9 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
             {showMoreRequestInfo && !fund.pre_check_note && (
                 <div className="fund-pre-check-info-block">
                     <div className="fund-pre-check-info-section">
-                        <div className="fund-pre-check-info-title">Voorwaarden</div>
+                        <div className="fund-pre-check-info-title">
+                            {translate('list_blocks.funds_list_pre_check.conditions')}
+                        </div>
 
                         <div className="fund-pre-check-info-list">
                             {fund.criteria?.map((criterion) => (
@@ -275,7 +284,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                                             return [...shownKnokOutDetails];
                                                         });
                                                     }}>
-                                                    Waarom?
+                                                    {translate('list_blocks.funds_list_pre_check.why')}
                                                     <em
                                                         className={`mdi ${
                                                             shownKnokOutCriteria.includes(criterion.id)
@@ -298,7 +307,9 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
 
                     {products.length > 0 ? (
                         <div className="fund-pre-check-info-section">
-                            <div className="fund-pre-check-info-title">Product voucher</div>
+                            <div className="fund-pre-check-info-title">
+                                {translate('list_blocks.funds_list_pre_check.product_voucher')}
+                            </div>
                             <div className="fund-pre-check-info-list">
                                 {products.map((fund_formula_product, index) => (
                                     <div key={index} className="fund-pre-check-info-list-item">
@@ -320,7 +331,9 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                     ) : (
                         <div className="fund-pre-check-info-section">
                             <div className="fund-pre-check-info-totals">
-                                <div className="fund-pre-check-info-totals-title">Totaal</div>
+                                <div className="fund-pre-check-info-totals-title">
+                                    {translate('list_blocks.funds_list_pre_check.total')}
+                                </div>
                                 <div className="fund-pre-check-info-totals-amount">{fund.amount_total_locale}</div>
                             </div>
                         </div>

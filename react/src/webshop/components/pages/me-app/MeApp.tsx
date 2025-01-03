@@ -3,32 +3,31 @@ import useEnvData from '../../../hooks/useEnvData';
 import AppLinks from '../../elements/app-links/AppLinks';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function MeApp() {
     const envData = useEnvData();
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Over de Me-app' }]}>
+        <BlockShowcase
+            wrapper={true}
+            breadcrumbItems={[
+                { name: translate('me.breadcrumbs.home'), state: 'home' },
+                { name: translate('me.breadcrumbs.me') },
+            ]}>
             <div className="block block-about-me_app">
                 <div className="me_app-overview">
                     <div className="block block-markdown">
-                        <h2>Over de Me-app</h2>
+                        <h2>{translate('me.title')}</h2>
                         <div className="block-description">
-                            <p>
-                                De Me-app is een digitale portemonnee en kassa in één. Gemeenten gebruiken de Me-app
-                                voor het uitgeven van tegoeden. Met de app kunnen inwoners gemakkelijk hun tegoeden
-                                beheren. Aanbieders gebruiken de app om QR-codes te scannen.
-                            </p>
+                            <p>{translate('me.description')}</p>
                         </div>
                         <br />
-                        <h2>Download Me op je telefoon of tablet</h2>
+                        <h2>{translate('me.download.title')}</h2>
                         <div className="block-description">
-                            <p>
-                                Download de Me-app via onderstaande app stores.{' '}
-                                <a href={envData.config.me_app_link}>Klik hier om direct de juiste app store</a> te
-                                openen op je telefoon of tablet.
-                            </p>
+                            <p>{translate('me.download.description', { download_link: envData.config.me_app_link })}</p>
                         </div>
                         <AppLinks className={'hide-sm'} type={'lg'} />
                     </div>

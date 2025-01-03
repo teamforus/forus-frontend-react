@@ -69,14 +69,17 @@ export default function Vouchers() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('vouchers.header.title') }]}
+            breadcrumbItems={[
+                { name: translate('vouchers.breadcrumbs.home'), state: 'home' },
+                { name: translate('vouchers.breadcrumbs.vouchers') },
+            ]}
             profileHeader={
                 vouchers && (
                     <div className="profile-content-header clearfix">
                         <div className="profile-content-title">
                             <div className="pull-left">
                                 <div className="profile-content-title-count">{vouchers.meta.total}</div>
-                                <h1 className="profile-content-header">{translate('vouchers.header.regular.title')}</h1>
+                                <h1 className="profile-content-header">{translate('vouchers.title')}</h1>
                             </div>
                         </div>
                         <div className="block block-label-tabs form pull-right">
@@ -88,7 +91,7 @@ export default function Vouchers() {
                                     tabIndex={0}
                                     aria-pressed={!filter.values.archived}
                                     role="button">
-                                    Actief
+                                    {translate('vouchers.filters.active')}
                                 </div>
                                 <div
                                     className={`label-tab label-tab-sm ${filter.values.archived ? 'active' : ''}`}
@@ -97,7 +100,7 @@ export default function Vouchers() {
                                     tabIndex={0}
                                     aria-pressed={!!filter.values.archived}
                                     role="button">
-                                    Archief
+                                    {translate('vouchers.filters.archive')}
                                 </div>
                             </div>
                         </div>
@@ -132,11 +135,15 @@ export default function Vouchers() {
                                         <IconReimbursement />
                                     </div>
                                     <div className="block-card-details">
-                                        <h2 className="block-card-title">Kosten terugvragen</h2>
+                                        <h2 className="block-card-title">
+                                            {translate('vouchers.reimbursement.title')}
+                                        </h2>
                                     </div>
                                     <div className="block-card-actions">
                                         <StateNavLink name="reimbursements-create">
-                                            <div className="button button-primary-outline">Bon insturen</div>
+                                            <div className="button button-primary-outline">
+                                                {translate('vouchers.reimbursement.button')}
+                                            </div>
                                         </StateNavLink>
                                     </div>
                                 </div>
@@ -147,11 +154,11 @@ export default function Vouchers() {
                     {vouchers.data.length == 0 && (
                         <EmptyBlock
                             svgIcon="reimbursements"
-                            title={translate('vouchers.empty_block.title')}
-                            description={translate('vouchers.empty_block.subtitle')}
+                            title={translate('vouchers.empty.title')}
+                            description={translate('vouchers.empty.subtitle')}
                             hideLink={true}
                             button={{
-                                text: translate('vouchers.empty_block.cta'),
+                                text: translate('vouchers.empty.button'),
                                 icon: 'arrow-right',
                                 type: 'primary',
                                 iconEnd: true,

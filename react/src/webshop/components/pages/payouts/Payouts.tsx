@@ -40,14 +40,17 @@ export default function Payouts() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('payouts.header.title') }]}
+            breadcrumbItems={[
+                { name: translate('payouts.breadcrumbs.home'), state: 'home' },
+                { name: translate('payouts.breadcrumbs.payouts') },
+            ]}
             profileHeader={
                 payouts && (
                     <div className="profile-content-header clearfix">
                         <div className="profile-content-title">
                             <div className="pull-left">
                                 <div className="profile-content-title-count">{payouts.meta.total}</div>
-                                <h1 className="profile-content-header">{translate('payouts.header.title')}</h1>
+                                <h1 className="profile-content-header">{translate('payouts.title')}</h1>
                             </div>
                         </div>
                     </div>
@@ -63,7 +66,7 @@ export default function Payouts() {
                                     className={'form-control'}
                                     value={filterValues.q}
                                     onChange={(e) => filterUpdate({ q: e.target.value })}
-                                    placeholder={translate('payouts.header.search_placeholder')}
+                                    placeholder={translate('payouts.search')}
                                 />
                             </div>
                         </div>
@@ -82,12 +85,12 @@ export default function Payouts() {
 
                     {payouts?.data?.length == 0 && (
                         <EmptyBlock
-                            title={translate('payouts.empty_block.title')}
-                            description={translate('payouts.empty_block.subtitle')}
+                            title={translate('payouts.empty.title')}
+                            description={translate('payouts.empty.subtitle')}
                             svgIcon={'payouts'}
                             hideLink={true}
                             button={{
-                                text: translate('payouts.empty_block.cta'),
+                                text: translate('payouts.empty.button'),
                                 icon: 'arrow-right',
                                 iconEnd: true,
                                 type: 'primary',

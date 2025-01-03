@@ -5,6 +5,9 @@
 env.js
 env.*.js
 env.js.*
+deepl.env.mjs
+deepl.env.*.mjs
+!deepl.env.example.mjs
 
 # Compiled source #
 ###################

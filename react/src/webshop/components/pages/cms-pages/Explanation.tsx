@@ -72,7 +72,12 @@ export default function Explanation() {
     }, [fundService, makeDefaultFAQ]);
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Uitleg' }]}>
+        <BlockShowcase
+            wrapper={true}
+            breadcrumbItems={[
+                { name: translate('explanation.breadcrumbs.home'), state: 'home' },
+                { name: translate('explanation.breadcrumbs.explanation') },
+            ]}>
             {page && (
                 <div className="section">
                     <div

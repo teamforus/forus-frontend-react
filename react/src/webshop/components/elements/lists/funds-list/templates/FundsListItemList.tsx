@@ -34,23 +34,33 @@ export default function FundsListItemList({
                 <div className="fund-details">
                     <div className="fund-status-label">
                         {fund.canApply && !fund.showActivateButton && (
-                            <div className="label label-light">{translate('funds.status.is_applicable')}</div>
+                            <div className="label label-light">
+                                {translate('list_blocks.fund_item_list.status.is_applicable')}
+                            </div>
                         )}
 
                         {fund.showActivateButton && (
-                            <div className="label label-success">{translate('funds.status.activateable')}</div>
+                            <div className="label label-success">
+                                {translate('list_blocks.fund_item_list.status.activateable')}
+                            </div>
                         )}
 
                         {fund.alreadyReceived && (
-                            <div className="label label-primary">{translate('funds.status.active')}</div>
+                            <div className="label label-primary">
+                                {translate('list_blocks.fund_item_list.status.active')}
+                            </div>
                         )}
 
                         {fund.showPendingButton && (
-                            <div className="label label-warning">{translate('funds.status.is_pending')}</div>
+                            <div className="label label-warning">
+                                {translate('list_blocks.fund_item_list.status.is_pending')}
+                            </div>
                         )}
 
                         {fund.showRequestButton && (
-                            <div className="label label-light">{translate('funds.status.is_applicable')}</div>
+                            <div className="label label-light">
+                                {translate('list_blocks.fund_item_list.status.is_applicable')}
+                            </div>
                         )}
                     </div>
 
@@ -73,7 +83,9 @@ export default function FundsListItemList({
                                     }}
                                     aria-expanded={showMore}
                                     aria-controls={showMoreId}>
-                                    {showMore ? 'Toon minder' : 'Toon meer'}
+                                    {showMore
+                                        ? translate('list_blocks.fund_item_list.show_less')
+                                        : translate('list_blocks.fund_item_list.show_more')}
                                     <em
                                         className={`mdi ${showMore ? 'mdi-chevron-up' : 'mdi-chevron-down'} icon-right`}
                                     />
@@ -89,7 +101,7 @@ export default function FundsListItemList({
                             type="button"
                             className="button button-primary button-xs"
                             onClick={(e) => applyFund(e, fund)}>
-                            {translate('funds.buttons.is_applicable')}
+                            {translate('list_blocks.fund_item_list.buttons.is_applicable')}
                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                         </button>
                     </div>
@@ -103,7 +115,7 @@ export default function FundsListItemList({
                             params={{ fund_id: fund.id }}
                             className="button button-text button-xs"
                             ng-click="$dir.goToFundRequests($event)">
-                            {translate('funds.buttons.check_status')}
+                            {translate('list_blocks.fund_item_list.buttons.check_status')}
                             <em className="mdi mdi-chevron-right icon-right" aria-hidden="true" />
                         </StateNavLink>
                     </div>

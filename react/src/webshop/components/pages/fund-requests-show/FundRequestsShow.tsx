@@ -61,9 +61,9 @@ export default function FundRequestsShow() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
-                { name: translate('fund_requests.header.title'), state: 'fund-requests' },
-                { name: `Aanvraag #${fundRequest?.id}` },
+                { name: translate('fund_request.breadcrumbs.home'), state: 'home' },
+                { name: translate('fund_requests.title'), state: 'fund-requests' },
+                { name: translate('fund_request.breadcrumbs.fund_request', { id: fundRequest?.id }) },
             ]}
             profileHeader={
                 fundRequest && (
@@ -71,7 +71,7 @@ export default function FundRequestsShow() {
                         <div className="flex">
                             <div className="flex flex-grow flex-center">
                                 <div className="profile-content-title flex flex-center flex-vertical">
-                                    Aanvraag #{fundRequest.id}
+                                    {translate('fund_request.title', { id: fundRequest?.id })}
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ export default function FundRequestsShow() {
                     <div className="card">
                         <div className="card-section">
                             <h3 className="card-heading card-heading-lg flex">
-                                <div className="flex flex-grow">Status aanvraag</div>
+                                <div className="flex flex-grow">{translate('fund_request.details.title')}</div>
                                 <div className="flex flex-center flex-vertical">
                                     {fundRequest.state === 'pending' && (
                                         <div className="label label-warning">{fundRequest.state_locale}</div>
@@ -102,21 +102,29 @@ export default function FundRequestsShow() {
                             <div className="fund-request-section">
                                 <div className="fund-request-props">
                                     <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">Naam van het fonds:</div>
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.fund_name')}
+                                        </div>
                                         <div className="fund-request-prop-value" data-dusk="fundRequestFund">
                                             {fundRequest.fund.name}
                                         </div>
                                     </div>
                                     <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">ID:</div>
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.id')}
+                                        </div>
                                         <div className="fund-request-prop-value">#{fundRequest.id}</div>
                                     </div>
                                     <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">Ingediend op:</div>
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.created_at')}
+                                        </div>
                                         <div className="fund-request-prop-value">{fundRequest.created_at_locale}</div>
                                     </div>
                                     <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">Aantal persoonsgegevens:</div>
+                                        <div className="fund-request-prop-label">
+                                            {translate('fund_request.details.number_of_records')}
+                                        </div>
                                         <div className="fund-request-prop-value">{fundRequest.records.length}</div>
                                     </div>
                                 </div>
@@ -129,7 +137,9 @@ export default function FundRequestsShow() {
                             <div className="card-header" onClick={() => setShowCreditInfo(!showCreditInfo)}>
                                 <div className="card-header-wrapper">
                                     <em className="mdi mdi-menu-down card-header-arrow" />
-                                    <h2 className="card-heading card-heading-lg">Ontvangen</h2>
+                                    <h2 className="card-heading card-heading-lg">
+                                        {translate('fund_request.received.title')}
+                                    </h2>
                                 </div>
                             </div>
 
@@ -162,7 +172,9 @@ export default function FundRequestsShow() {
                     )}
 
                     <h2 className="profile-content-header">
-                        <div className="profile-content-title profile-content-title-sm">Mijn gegevens</div>
+                        <div className="profile-content-title profile-content-title-sm">
+                            {translate('fund_request.records.title')}
+                        </div>
                     </h2>
 
                     {fundRequest?.records.map((record) => (
@@ -179,15 +191,20 @@ export default function FundRequestsShow() {
                             <div className="card-header" onClick={() => setShowDeclinedNote(!showDeclinedNote)}>
                                 <div className="card-header-wrapper">
                                     <em className="mdi mdi-menu-down card-header-arrow" />
-                                    <h2 className="card-heading card-heading-lg">Reden van weigeren</h2>
+                                    <h2 className="card-heading card-heading-lg">
+                                        {translate('fund_request.declined.title')}
+                                    </h2>
                                 </div>
                             </div>
+
                             {showDeclinedNote && (
                                 <div className="card-section">
                                     {fundRequest.note ? (
                                         <p className="block block-markdown">{fundRequest.note}</p>
                                     ) : (
-                                        <p className="block block-markdown text-muted">No note</p>
+                                        <p className="block block-markdown text-muted">
+                                            {translate('fund_request.declined.no_note')}
+                                        </p>
                                     )}
                                 </div>
                             )}

@@ -28,6 +28,7 @@ import SelectControlOptionsVouchers from '../../elements/select-control/template
 import Tooltip from '../../elements/tooltip/Tooltip';
 import useSetTitle from '../../../hooks/useSetTitle';
 import useFetchAuthIdentity from '../../../hooks/useFetchAuthIdentity';
+import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function ReimbursementsEdit() {
     const { id, voucher_id } = useParams();
@@ -228,20 +229,20 @@ export default function ReimbursementsEdit() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
-                { name: translate('reimbursements.header.title'), state: 'reimbursements' },
-                { name: 'Bon insturen' },
+                { name: translate('reimbursements.breadcrumbs.home'), state: 'home' },
+                { name: translate('reimbursements.breadcrumbs.reimbursements'), state: 'reimbursements' },
+                { name: translate('reimbursements.breadcrumbs.reimbursement') },
             ]}
             profileHeader={
                 !auth2FAState?.restrictions?.reimbursements?.restricted &&
                 vouchers &&
                 (!id || reimbursement) && (
                     <div className="profile-content-header">
-                        {reimbursement ? (
-                            <h1 className="profile-content-title">Declaratienummer: #{reimbursement.code}</h1>
-                        ) : (
-                            <h1 className="profile-content-title">Nieuwe kosten terugvragen</h1>
-                        )}
+                        <h1 className="profile-content-title">
+                            {reimbursement
+                                ? translate('reimbursements.title_edit', { code: reimbursement.code })
+                                : translate('reimbursements.title_create')}
+                        </h1>
                     </div>
                 )
             }
@@ -252,28 +253,23 @@ export default function ReimbursementsEdit() {
                         <div className="card" data-dusk="reimbursementNoEmail">
                             <div className="card-section">
                                 <div className="card-title">
-                                    <strong>Er is geen e-mailadres bekend.</strong>
+                                    <strong>{translate('reimbursements.no_email.title')}</strong>
                                 </div>
                                 <div className="card-text">
-                                    Indien er vragen zijn over de declaratie, kan er geen contact worden opgenomen.
-                                    <br />
-                                    Is er geen mogelijkheid om een e-mailadres op te geven? Geef dan andere
-                                    contactgegevens op.
-                                    <br />
-                                    <br />
+                                    <TranslateHtml i18n={'reimbursements.no_email.description'} />
                                 </div>
                                 <div className="card-text">
                                     <StateNavLink
                                         name={'identity-emails'}
                                         className="button button-primary button-sm"
                                         dataDusk="reimbursementNoEmailAddBtn">
-                                        E-mailadres toevoegen
+                                        {translate('reimbursements.no_email.add_email')}
                                     </StateNavLink>
                                     <div
                                         className="button button-text button-sm"
                                         data-dusk="reimbursementNoEmailSkipBtn"
                                         onClick={() => setSkipEmail(true)}>
-                                        Doorgaan zonder e-mailadres
+                                        {translate('reimbursements.no_email.skip_email')}
                                     </div>
                                 </div>
                             </div>
@@ -298,7 +294,7 @@ export default function ReimbursementsEdit() {
                                     <FileUploader
                                         type="reimbursement_proof"
                                         files={reimbursement?.files}
-                                        title="Upload uw bon, rekening of factuur"
+                                        title={translate('reimbursements.form.file_upload_title')}
                                         acceptedFiles={['.pdf', '.png', '.jpg', '.jpeg']}
                                         cropMedia={true}
                                         multiple={true}
@@ -318,14 +314,14 @@ export default function ReimbursementsEdit() {
                                         <div className="col col-xs-12 col-md-10">
                                             <div className="form-group form-group-inline">
                                                 <label className="form-label" htmlFor="voucher_id">
-                                                    <div className="flex-inline">
-                                                        <div className="flex">Tegoed&nbsp;</div>
+                                                    <div className="flex-inline flex-gap-sm">
+                                                        <div className="flex">
+                                                            {translate('reimbursements.form.voucher')}
+                                                        </div>
                                                         <div className="flex-inline flex-center flex-vertical">
                                                             <Tooltip
                                                                 className={'text-left'}
-                                                                text={
-                                                                    'Kies het tegoed dat u wilt gebruiken voor het terugvragen van uw kosten.'
-                                                                }
+                                                                text={translate('reimbursements.form.voucher_tooltip')}
                                                             />
                                                         </div>
                                                     </div>
@@ -360,7 +356,7 @@ export default function ReimbursementsEdit() {
                                         <div className="col col-xs-12 col-md-10">
                                             <div className="form-group form-group-inline">
                                                 <label className="form-label form-label-required" htmlFor="title">
-                                                    Titel van de declaratie
+                                                    {translate('reimbursements.form.title')}
                                                 </label>
                                                 <input
                                                     className="form-control"
@@ -375,7 +371,7 @@ export default function ReimbursementsEdit() {
                                             </div>
                                             <div className="form-group form-group-inline">
                                                 <label className="form-label form-label-required" htmlFor="amount">
-                                                    Bedrag €
+                                                    {translate('reimbursements.form.amount')}
                                                 </label>
                                                 <input
                                                     className="form-control"
@@ -391,7 +387,7 @@ export default function ReimbursementsEdit() {
                                             </div>
                                             <div className="form-group form-group-inline">
                                                 <label className="form-label" htmlFor="description">
-                                                    Omschrijving
+                                                    {translate('reimbursements.form.description')}
                                                 </label>
                                                 <textarea
                                                     className="form-control"
@@ -407,13 +403,13 @@ export default function ReimbursementsEdit() {
                                             <div className="form-group form-group-inline">
                                                 <label className="form-label form-label-required" htmlFor="iban">
                                                     <div className="flex-inline">
-                                                        <div className="flex">IBAN nummer&nbsp;</div>
+                                                        <div className="flex">
+                                                            {translate('reimbursements.form.iban')}
+                                                        </div>
                                                         <div className="flex-inline flex-center flex-vertical">
                                                             <Tooltip
                                                                 className={'text-left'}
-                                                                text={
-                                                                    'IBAN-nummer moet het formaat NL89BANK0123456789 hebben.'
-                                                                }
+                                                                text={translate('reimbursements.form.iban_name')}
                                                             />
                                                         </div>
                                                     </div>
@@ -431,7 +427,7 @@ export default function ReimbursementsEdit() {
                                             </div>
                                             <div className="form-group form-group-inline">
                                                 <label className="form-label form-label-required" htmlFor="iban_name">
-                                                    Naam rekeninghouder
+                                                    {translate('reimbursements.form.iban_name')}
                                                 </label>
                                                 <input
                                                     className="form-control"
@@ -456,7 +452,7 @@ export default function ReimbursementsEdit() {
                                                 className="button button-light button-sm"
                                                 data-dusk="reimbursementFormCancel"
                                                 disabled={form.isLocked}>
-                                                Annuleren
+                                                {translate('reimbursements.form_buttons.cancel')}
                                             </StateNavLink>
                                         </div>
                                         <div className="flex flex-grow flex-end">
@@ -467,14 +463,14 @@ export default function ReimbursementsEdit() {
                                                     data-dusk="reimbursementFormSave"
                                                     disabled={form.isLocked}
                                                     onClick={() => submit()}>
-                                                    Opslaan voor later
+                                                    {translate('reimbursements.form_buttons.save_for_later')}
                                                 </button>
                                                 <button
                                                     className="button button-primary button-sm"
                                                     type="submit"
                                                     disabled={!submitAvailable}
                                                     data-dusk="reimbursementFormSubmit">
-                                                    Indienen
+                                                    {translate('reimbursements.form_buttons.submit')}
                                                 </button>
                                             </div>
                                         </div>

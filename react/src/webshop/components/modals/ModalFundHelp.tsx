@@ -8,28 +8,33 @@ import PhoneIcon from '../../../../assets/forus-webshop/resources/_webshop-commo
 import EmailIcon from '../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-help/icon-email.svg';
 import WebsiteIcon from '../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-help/icon-website.svg';
 import { strLimit } from '../../../dashboard/helpers/string';
+import useTranslate from '../../../dashboard/hooks/useTranslate';
 
 export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund: Fund }) {
+    const translate = useTranslate();
+
     return (
         <div className={`modal modal-fund-help modal-animated ${modal.loading ? '' : 'modal-loaded'}`}>
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" />
+            <div className="modal-backdrop" onClick={modal.close} aria-label={translate('modal_fund_help.close')} />
             <div className="modal-window">
                 <div
                     className="modal-close mdi mdi-close"
                     onClick={modal.close}
                     tabIndex={0}
                     onKeyDown={clickOnKeyEnter}
-                    aria-label="Sluiten"
+                    aria-label={translate('modal_fund_help.close')}
                     role="button"
                 />
                 <div className="modal-header">
-                    <h2 className="modal-header-title">{fund.help_block_text}</h2>
+                    <h2 className="modal-header-title">{translate('modal_fund_help.header_title')}</h2>
                 </div>
 
                 <div className="modal-body">
                     <div className="modal-section modal-fund-help-section">
                         <div className="modal-fund-help-section-details">
-                            <div className="modal-fund-help-section-title">{fund.help_title}</div>
+                            <div className="modal-fund-help-section-title">
+                                {translate('modal_fund_help.help_title')}
+                            </div>
                             <div className="modal-fund-help-section-description">
                                 <Markdown content={fund.help_description_html} />
                             </div>
@@ -46,14 +51,16 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                                             <ChatIcon />
                                         </div>
                                         <div className="modal-fund-help-pane-content">
-                                            <div className="modal-fund-help-pane-title">Chat</div>
+                                            <div className="modal-fund-help-pane-title">
+                                                {translate('modal_fund_help.chat')}
+                                            </div>
                                             <div className="modal-fund-help-pane-subtitle">
                                                 <a
                                                     className="link"
                                                     href={fund.help_chat}
                                                     target="_blank"
                                                     rel="noreferrer">
-                                                    Ga naar de beheeromgeving
+                                                    {translate('modal_fund_help.go_to_admin')}
                                                 </a>
                                             </div>
                                         </div>
@@ -66,7 +73,9 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                                             <PhoneIcon />
                                         </div>
                                         <div className="modal-fund-help-pane-content">
-                                            <div className="modal-fund-help-pane-title">Telefoon</div>
+                                            <div className="modal-fund-help-pane-title">
+                                                {translate('modal_fund_help.phone')}
+                                            </div>
                                             <div className="modal-fund-help-pane-subtitle">
                                                 <a
                                                     href={`tel:+${fund.help_phone.replace(/\D/g, '')}`}
@@ -84,7 +93,9 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                                             <WebsiteIcon />
                                         </div>
                                         <div className="modal-fund-help-pane-content">
-                                            <div className="modal-fund-help-pane-title">Website</div>
+                                            <div className="modal-fund-help-pane-title">
+                                                {translate('modal_fund_help.website')}
+                                            </div>
                                             <div className="modal-fund-help-pane-subtitle">
                                                 <a
                                                     className="link"
@@ -105,7 +116,9 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                                             <EmailIcon />
                                         </div>
                                         <div className="modal-fund-help-pane-content">
-                                            <div className="modal-fund-help-pane-title">E-mail</div>
+                                            <div className="modal-fund-help-pane-title">
+                                                {translate('modal_fund_help.email')}
+                                            </div>
                                             <div className="modal-fund-help-pane-subtitle">
                                                 <a href={`mailto:${fund.help_email}`} title={fund.help_email}>
                                                     {strLimit(fund.help_email, 35)}
@@ -120,7 +133,7 @@ export default function ModalFundHelp({ modal, fund }: { modal: ModalState; fund
                 </div>
                 <div className="modal-footer">
                     <button className="button button-sm button-light" onClick={modal.close}>
-                        Sluiten
+                        {translate('modal_fund_help.close')}
                     </button>
                 </div>
             </div>

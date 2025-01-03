@@ -31,7 +31,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
                         <ModalNotification
                             modal={modal}
                             type={'action-result'}
-                            title={'Delen'}
+                            title={translate('voucher.share_voucher.popup_sent.title_modal')}
                             header={translate('voucher.share_voucher.popup_sent.title')}
                             mdiIconType={'success'}
                             mdiIconClass={'check-circle-outline'}
@@ -49,7 +49,12 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
 
     return (
         <div className={`modal modal-animated  ${modal.loading ? '' : 'modal-loaded'}`} role="dialog">
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" role="button" />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('voucher.share_voucher.close')}
+                role="button"
+            />
 
             <div className="modal-window">
                 <form className="form" onSubmit={shareVoucherForm.submit}>
@@ -58,11 +63,13 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
                         onClick={modal.close}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('voucher.share_voucher.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Delen</h2>
+                        <h2 className="modal-header-title">
+                            {translate('voucher.share_voucher.popup_sent.title_modal')}
+                        </h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
@@ -126,7 +133,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
                             className="button button-light button-sm show-sm flex-grow"
                             type="button"
                             onClick={modal.close}>
-                            Annuleer
+                            {translate('voucher.share_voucher.buttons.cancel')}
                         </button>
 
                         <button
@@ -138,7 +145,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
 
                         <div className="flex flex-grow hide-sm">
                             <button className="button button-light button-sm" type="button" onClick={modal.close}>
-                                Annuleer
+                                {translate('voucher.share_voucher.buttons.cancel')}
                             </button>
                         </div>
 

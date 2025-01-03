@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import Fund from '../../../props/models/Fund';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function BlockCard2FAWarning({
     fund,
@@ -8,6 +9,8 @@ export default function BlockCard2FAWarning({
     fund: Fund;
     buttonPosition?: 'bottom' | 'top';
 }) {
+    const translate = useTranslate();
+
     const settings = useMemo(() => {
         return fund?.auth_2fa_policy == 'global' ? fund?.organization_funds_2fa : fund;
     }, [fund]);
@@ -36,11 +39,10 @@ export default function BlockCard2FAWarning({
                 {settings.auth_2fa_policy == 'required' && (
                     <div className="block-card-details">
                         <h3 className="block-card-title">
-                            Deze regeling verplicht het gebruik van tweefactorauthenticatie
+                            {translate('global.card_2fa_warning.2fa_policy.required.title')}
                         </h3>
                         <div className="block-card-description">
-                            Om gebruik te kunnen maken van deze regeling dient de gebruiker na aanvraag een tweede
-                            verificatiemethode te gebruiken.
+                            {translate('global.card_2fa_warning.2fa_policy.required.description')}
                         </div>
                     </div>
                 )}
@@ -48,12 +50,10 @@ export default function BlockCard2FAWarning({
                 {settings.auth_2fa_policy == 'restrict_features' && (
                     <div className="block-card-details">
                         <h3 className="block-card-title">
-                            Deze regeling verplicht het gebruik van tweefactorauthenticatie voor bepaalde
-                            functionaliteiten
+                            {translate('global.card_2fa_warning.2fa_policy.restrict_features.title')}
                         </h3>
                         <div className="block-card-description">
-                            Om bepaalde opties en functionaliteit te gebruiken die gekoppeld zijn aan deze regeling,
-                            dient de gebruiker een tweede verificatiemethode te gebruiken.
+                            {translate('global.card_2fa_warning.2fa_policy.restrict_features.description')}
                         </div>
                     </div>
                 )}
@@ -61,13 +61,13 @@ export default function BlockCard2FAWarning({
                 {hasRestrictions && (
                     <div className={`block-card-actions ${buttonPosition}`}>
                         {showMore2FADetails ? (
-                            <div className="button button-text" onChange={() => setShowMore2FADetails(false)}>
-                                Toon minder
+                            <div className="button button-text" onClick={() => setShowMore2FADetails(false)}>
+                                {translate('global.card_2fa_warning.2fa_policy.show_less')}
                                 <em className="mdi mdi-chevron-up icon-right" />
                             </div>
                         ) : (
-                            <div className="button button-text" onChange={() => setShowMore2FADetails(true)}>
-                                Toon meer
+                            <div className="button button-text" onClick={() => setShowMore2FADetails(true)}>
+                                {translate('global.card_2fa_warning.2fa_policy.show_more')}
                                 <em className="mdi mdi-chevron-right icon-right" />
                             </div>
                         )}
@@ -83,9 +83,11 @@ export default function BlockCard2FAWarning({
                                 <em className="mdi mdi-account-outline" />
                             </div>
                             <div className="block-card-details">
-                                <h3 className="block-card-title">E-mail restricties</h3>
+                                <h3 className="block-card-title">
+                                    {translate('global.card_2fa_warning.email_restrictions.title')}
+                                </h3>
                                 <div className="block-card-description">
-                                    Tweefactorauthenticatie is vereist voor het beheren van e-mailadressen.
+                                    {translate('global.card_2fa_warning.email_restrictions.description')}
                                 </div>
                             </div>
                         </div>
@@ -97,9 +99,11 @@ export default function BlockCard2FAWarning({
                                 <em className="mdi mdi-shield-account" />
                             </div>
                             <div className="block-card-details">
-                                <h3 className="block-card-title">Sessies restricties</h3>
+                                <h3 className="block-card-title">
+                                    {translate('global.card_2fa_warning.session_restrictions.title')}
+                                </h3>
                                 <div className="block-card-description">
-                                    Tweefactorauthenticatie is vereist voor het beheren van inlog sessies.
+                                    {translate('global.card_2fa_warning.session_restrictions.description')}
                                 </div>
                             </div>
                         </div>
@@ -111,9 +115,11 @@ export default function BlockCard2FAWarning({
                                 <em className="mdi mdi-list-box-outline" />
                             </div>
                             <div className="block-card-details">
-                                <h3 className="block-card-title">Declaraties restricties</h3>
+                                <h3 className="block-card-title">
+                                    {translate('global.card_2fa_warning.reimbursement_restrictions.title')}
+                                </h3>
                                 <div className="block-card-description">
-                                    Tweefactorauthenticatie is vereist voor het indienden van declaraties.
+                                    {translate('global.card_2fa_warning.reimbursement_restrictions.description')}
                                 </div>
                             </div>
                         </div>

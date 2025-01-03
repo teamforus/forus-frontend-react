@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { get } from 'lodash';
 import Fund from '../../../props/models/Fund';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function Auth2FARestriction({
     type,
@@ -19,6 +20,7 @@ export default function Auth2FARestriction({
     defaultThumbnail: string;
 }) {
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
 
     const itemsList = useMemo(() => {
         return items.map((item) => ({
@@ -36,19 +38,14 @@ export default function Auth2FARestriction({
                 </div>
                 {type == 'emails' && (
                     <div className="restriction-hero-details">
-                        <div className="restriction-hero-title">
-                            Tweefactorauthenticatie is vereist voor het beheren van e-mailadressen.
-                        </div>
+                        <div className="restriction-hero-title">{translate('global.2fa_restriction.emails.title')}</div>
                         <div className="restriction-hero-description">
-                            Om de veiligheid en bescherming van persoonlijke gegevens in de webshop te waarborgen, is
-                            het verplicht om accounts te authenticeren. Gebruikers moeten een identificatiemethode
-                            verstrekken voordat ze toegang krijgen tot functies waarin persoonlijke gegevens worden
-                            ingevoerd of accountaanpassingen kunnen worden gemaakt.
+                            {translate('global.2fa_restriction.emails.description')}
                         </div>
                         <div className="button-group">
                             <NavLink className="button button-primary button-sm" to={getStateRouteUrl('security-2fa')}>
-                                <div className="icon-start mdi mdi-lock-outline"></div>
-                                Tweefactorauthenticatie instellen
+                                <div className="icon-start mdi mdi-lock-outline" />
+                                {translate('global.2fa_restriction.emails.button')}
                             </NavLink>
                         </div>
                     </div>
@@ -57,18 +54,15 @@ export default function Auth2FARestriction({
                 {type == 'sessions' && (
                     <div className="restriction-hero-details">
                         <div className="restriction-hero-title">
-                            Tweefactorauthenticatie is vereist voor het beheren van inlog sessies.
+                            {translate('global.2fa_restriction.sessions.title')}
                         </div>
                         <div className="restriction-hero-description">
-                            Om de veiligheid en bescherming van persoonlijke gegevens in de webshop te waarborgen, is
-                            het verplicht om accounts te authenticeren. Gebruikers moeten een identificatiemethode
-                            verstrekken voordat ze toegang krijgen tot functies waarin persoonlijke gegevens worden
-                            ingevoerd of accountaanpassingen kunnen worden gemaakt.
+                            {translate('global.2fa_restriction.sessions.description')}
                         </div>
                         <div className="button-group">
                             <NavLink className="button button-primary button-sm" to={getStateRouteUrl('security-2fa')}>
                                 <div className="icon-start mdi mdi-lock-outline" />
-                                Tweefactorauthenticatie instellen
+                                {translate('global.2fa_restriction.sessions.button')}
                             </NavLink>
                         </div>
                     </div>
@@ -77,18 +71,15 @@ export default function Auth2FARestriction({
                 {type == 'reimbursements' && (
                     <div className="restriction-hero-details">
                         <div className="restriction-hero-title">
-                            Tweefactorauthenticatie is vereist voor het indienden van declaraties.
+                            {translate('global.2fa_restriction.reimbursements.title')}
                         </div>
                         <div className="restriction-hero-description">
-                            Om de veiligheid en bescherming van persoonlijke gegevens in de webshop te waarborgen, is
-                            het verplicht om accounts te authenticeren. Gebruikers moeten een identificatiemethode
-                            verstrekken voordat ze toegang krijgen tot functies waarin persoonlijke gegevens worden
-                            ingevoerd of accountaanpassingen kunnen worden gemaakt.
+                            {translate('global.2fa_restriction.reimbursements.description')}
                         </div>
                         <div className="button-group">
                             <NavLink className="button button-primary button-sm" to={getStateRouteUrl('security-2fa')}>
                                 <div className="icon-start mdi mdi-lock-outline" />
-                                Tweefactorauthenticatie instellen
+                                {translate('global.2fa_restriction.reimbursements.button')}
                             </NavLink>
                         </div>
                     </div>
@@ -98,42 +89,27 @@ export default function Auth2FARestriction({
             <div className="restriction-reasons">
                 {type == 'emails' && (
                     <div className="restriction-details">
-                        <div className="restriction-title">
-                            Voor de volgende tegoeden is tweefactorauthenticatie vereist.
-                        </div>
+                        <div className="restriction-title">{translate('global.2fa_restriction.reasons.title')}</div>
                         <div className="restriction-description">
-                            Om bepaalde opties en functionaliteit te gebruiken, dienen gebruikers een tweede
-                            verificatiemethode te gebruiken. Dit versterkt de beveiliging en zorgt ervoor dat alleen
-                            geautoriseerde gebruikers toegang hebben tot de functies, waardoor de accounts beter
-                            beschermd zijn.
+                            {translate('global.2fa_restriction.reasons.description')}
                         </div>
                     </div>
                 )}
 
                 {type == 'sessions' && (
                     <div className="restriction-details">
-                        <div className="restriction-title">
-                            Voor de volgende tegoeden is tweefactorauthenticatie vereist.
-                        </div>
+                        <div className="restriction-title">{translate('global.2fa_restriction.reasons.title')}</div>
                         <div className="restriction-description">
-                            Om bepaalde opties en functionaliteit te gebruiken, dienen gebruikers een tweede
-                            verificatiemethode te gebruiken. Dit versterkt de beveiliging en zorgt ervoor dat alleen
-                            geautoriseerde gebruikers toegang hebben tot de functies, waardoor de accounts beter
-                            beschermd zijn.
+                            {translate('global.2fa_restriction.reasons.description')}
                         </div>
                     </div>
                 )}
 
                 {type == 'reimbursements' && (
                     <div className="restriction-details">
-                        <div className="restriction-title">
-                            Voor de volgende tegoeden is tweefactorauthenticatie vereist.
-                        </div>
+                        <div className="restriction-title">{translate('global.2fa_restriction.reasons.title')}</div>
                         <div className="restriction-description">
-                            Om bepaalde opties en functionaliteit te gebruiken, dienen gebruikers een tweede
-                            verificatiemethode te gebruiken. Dit versterkt de beveiliging en zorgt ervoor dat alleen
-                            geautoriseerde gebruikers toegang hebben tot de functies, waardoor de accounts beter
-                            beschermd zijn.
+                            {translate('global.2fa_restriction.reasons.description')}
                         </div>
                     </div>
                 )}

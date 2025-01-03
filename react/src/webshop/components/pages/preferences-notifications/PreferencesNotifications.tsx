@@ -36,14 +36,14 @@ export default function PreferencesNotifications() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
-                { name: translate('notification_preferences.title_preferences') },
+                { name: translate('preferences_notifications.breadcrumbs.home'), state: 'home' },
+                { name: translate('preferences_notifications.breadcrumbs.preferences_notifications') },
             ]}
             profileHeader={
                 <div className="profile-content-header clearfix">
                     <div className="profile-content-title">
                         <div className="pull-left">
-                            <h1 className="profile-content-header">Notificatievoorkeuren</h1>
+                            <h1 className="profile-content-header">{translate('preferences_notifications.title')}</h1>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ export default function PreferencesNotifications() {
 
             <div className="profile-content-header">
                 <div className="profile-content-title">
-                    <h1 className="profile-content-header">Pop-up meldingen</h1>
+                    <h1 className="profile-content-header">{translate('preferences_notifications.popups.title')}</h1>
                 </div>
             </div>
 

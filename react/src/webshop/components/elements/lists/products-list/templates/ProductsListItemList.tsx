@@ -4,6 +4,7 @@ import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAuthIdentity from '../../../../../hooks/useAuthIdentity';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import { useProductService } from '../../../../../services/ProductService';
+import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 
 export default function ProductsListItemList({
     price,
@@ -15,8 +16,9 @@ export default function ProductsListItemList({
     toggleBookmark: (e: React.MouseEvent) => void;
 }) {
     const assetUrl = useAssetUrl();
-    const authIdentity = useAuthIdentity();
+    const translate = useTranslate();
 
+    const authIdentity = useAuthIdentity();
     const productService = useProductService();
 
     return (
@@ -43,7 +45,7 @@ export default function ProductsListItemList({
                             onKeyDown={clickOnKeyEnter}
                             role={'button'}
                             tabIndex={0}
-                            aria-label="Toevoegen aan verlanglijstje"
+                            aria-label={translate('list_blocks.product_item_list.bookmark')}
                             aria-pressed={product.bookmarked}>
                             {product.bookmarked ? (
                                 <em className="mdi mdi-cards-heart" />

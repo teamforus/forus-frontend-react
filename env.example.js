@@ -44,6 +44,7 @@ const globalConfigs = {
         'config.disable_indexing': disable_indexing,
         'config.allow_test_errors': allow_test_errors,
         'config.disable_cookie_banner': disable_cookie_banner,
+        'config.language_selector': false,
     },
 
     'webshop.*': {

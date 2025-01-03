@@ -4,6 +4,7 @@ import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAuthIdentity from '../../../../../hooks/useAuthIdentity';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import { useProductService } from '../../../../../services/ProductService';
+import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 
 export default function ProductsListItemGrid({
     price,
@@ -14,6 +15,7 @@ export default function ProductsListItemGrid({
     product?: Product;
     toggleBookmark: (e: React.MouseEvent) => void;
 }) {
+    const translate = useTranslate();
     const assetUrl = useAssetUrl();
     const authIdentity = useAuthIdentity();
 
@@ -28,7 +30,7 @@ export default function ProductsListItemGrid({
                     role={'button'}
                     tabIndex={0}
                     className={`block block-bookmark-toggle ${product.bookmarked ? 'active' : ''}`}
-                    aria-label="Toevoegen aan verlanglijstje"
+                    aria-label={translate('list_blocks.product_item_grid.bookmark')}
                     aria-pressed={product.bookmarked}>
                     {product.bookmarked ? (
                         <em className="mdi mdi-cards-heart" />

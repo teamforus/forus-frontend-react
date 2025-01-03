@@ -155,11 +155,11 @@ export default function ProductsShow() {
             wrapper={true}
             breadcrumbItems={
                 product && [
-                    showBack && { name: 'Terug', back: true },
-                    { name: translate('product.headers.home'), state: 'home' },
-                    hasBudgetFunds && { name: translate('product.headers.products'), state: 'products' },
+                    showBack && { name: translate('product.breadcrumbs.back'), back: true },
+                    { name: translate('product.breadcrumbs.home'), state: 'home' },
+                    hasBudgetFunds && { name: translate('product.breadcrumbs.products'), state: 'products' },
                     hasSubsidyFunds &&
-                        !hasBudgetFunds && { name: translate('product.headers.subsidies'), state: 'actions' },
+                        !hasBudgetFunds && { name: translate('product.breadcrumbs.subsidies'), state: 'actions' },
                     product && { name: product.name },
                 ]
             }>
@@ -236,7 +236,7 @@ export default function ProductsShow() {
                         {appConfigs?.show_product_map && (
                             <div className="block block-map_card">
                                 <div className="map_card-header">
-                                    <h2 className="map_card-title">{translate('product.headers.map')}</h2>
+                                    <h2 className="map_card-title">{translate('product.map.title')}</h2>
                                 </div>
                                 <div className="map_card-iframe">
                                     <GoogleMap

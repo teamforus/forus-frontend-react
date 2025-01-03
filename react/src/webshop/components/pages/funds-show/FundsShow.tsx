@@ -139,8 +139,8 @@ export default function FundsShow() {
             wrapper={true}
             breadcrumbItems={
                 fund && [
-                    showBack && { name: 'Terug', back: true },
-                    { name: 'Home', state: 'home' },
+                    showBack && { name: translate('fund.breadcrumbs.back'), back: true },
+                    { name: translate('fund.breadcrumbs.home'), state: 'home' },
                     {
                         name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title'),
                         state: 'funds',
@@ -166,7 +166,9 @@ export default function FundsShow() {
                                 {!fund.hide_meta && (
                                     <div className="fund-details-items">
                                         <div className="fund-details-item">
-                                            <div className="fund-details-item-label">Uitgifte door:</div>
+                                            <div className="fund-details-item-label">
+                                                {translate('fund.details.by')}
+                                            </div>
                                             <div className="fund-details-item-value">{fund.organization?.name}</div>
                                         </div>
                                         {fund.type == 'budget' &&
@@ -182,13 +184,17 @@ export default function FundsShow() {
                                             ))}
                                         {fund.key != 'IIT' && (
                                             <div className="fund-details-item">
-                                                <div className="fund-details-item-label">Startdatum:</div>
+                                                <div className="fund-details-item-label">
+                                                    {translate('fund.details.start_date')}
+                                                </div>
                                                 <div className="fund-details-item-value">{fund.start_date_locale}</div>
                                             </div>
                                         )}
                                         {fund.key != 'IIT' && (
                                             <div className="fund-details-item">
-                                                <div className="fund-details-item-label">Einddatum:</div>
+                                                <div className="fund-details-item-label">
+                                                    {translate('fund.details.end_date')}
+                                                </div>
                                                 <div className="fund-details-item-value">{fund.end_date_locale}</div>
                                             </div>
                                         )}
@@ -253,7 +259,7 @@ export default function FundsShow() {
                                         <IconFundRequest />
                                     </div>
                                     <div className="block-card-details">
-                                        <h3 className="block-card-title">We zijn uw aanvraag aan het controleren</h3>
+                                        <h3 className="block-card-title">{translate('fund.pending_request.title')}</h3>
                                     </div>
                                     <div className="block-card-actions">
                                         <StateNavLink

@@ -84,8 +84,9 @@ export default function ProvidersShow() {
             wrapper={false}
             breadcrumbItems={
                 provider && [
-                    showBack && { name: 'Terug', back: true },
-                    { name: 'Aanbieders', state: 'providers' },
+                    showBack && { name: translate('provider.breadcrumbs.back'), back: true },
+                    { name: translate('provider.breadcrumbs.home'), state: 'home' },
+                    { name: translate('provider.breadcrumbs.providers'), state: 'providers' },
                     { name: provider.name },
                 ]
             }
@@ -115,7 +116,7 @@ export default function ProvidersShow() {
                         <div className="block block-pane">
                             <div className="pane-head">
                                 <h1 className="sr-only">{provider.name}</h1>
-                                <h2 className="pane-head-title">Aanbieder informatie</h2>
+                                <h2 className="pane-head-title">{translate('provider.details.title')}</h2>
                             </div>
                             <div className="pane-section">
                                 <div className="provider-details">
@@ -137,22 +138,23 @@ export default function ProvidersShow() {
                                 <div className="block block-data-list">
                                     {provider.email && (
                                         <div className="data-list-row">
-                                            <div className="data-list-key">E-mailadres:</div>
+                                            <div className="data-list-key">{translate('provider.details.email')}</div>
                                             <div className="data-list-value">{provider.email}</div>
                                         </div>
                                     )}
                                     {provider.phone && (
                                         <div className="data-list-row">
-                                            <div className="data-list-key">Telefoonnummer:</div>
+                                            <div className="data-list-key">{translate('provider.details.phone')}</div>
                                             <div className="data-list-value">{provider.phone}</div>
                                         </div>
                                     )}
                                     {provider && (
                                         <div className="data-list-row">
-                                            <div className="data-list-key">Type aanbieder:</div>
+                                            <div className="data-list-key">{translate('provider.details.type')}</div>
                                             <div className="data-list-value">
                                                 <div className="label label-default label-sm">
-                                                    {provider.business_type?.name || 'Geen aanbieder type'}
+                                                    {provider.business_type?.name ||
+                                                        translate('provider.details.type_none')}
                                                 </div>
                                             </div>
                                         </div>
@@ -164,7 +166,7 @@ export default function ProvidersShow() {
                         {provider.description_html && (
                             <div className="block block-pane">
                                 <div className="pane-head">
-                                    <h2 className="pane-head-title">Omschrijving</h2>
+                                    <h2 className="pane-head-title">{translate('provider.description.title')}</h2>
                                 </div>
                                 <div className="pane-section">
                                     <div className="block block-markdown">
@@ -173,9 +175,10 @@ export default function ProvidersShow() {
                                 </div>
                             </div>
                         )}
+
                         <div className="block block-pane last-child">
                             <h2 className="pane-head">
-                                <div className="flex-grow">Vestigingen</div>
+                                <div className="flex-grow">{translate('provider.funds.title')}</div>
                                 <div className="pane-head-count">{provider.offices.length}</div>
                             </h2>
                         </div>

@@ -27,8 +27,18 @@ export class OfficeService<T = Office> {
         return this.apiRequest.get(`${this.prefix}/${id}`);
     }
 
-    public scheduleWeekFullDays = () => {
-        return { 0: 'Maandag', 1: 'Dinsdag', 2: 'Woensdag', 3: 'Donderdag', 4: 'Vrijdag', 5: 'Zaterdag', 6: 'Zondag' };
+    public scheduleWeekFullDays = (translate: (key: string) => string) => {
+        // Day keys, starting with Monday as 0
+        const dayKeys = ['0', '1', '2', '3', '4', '5', '6'];
+
+        // Map each day key to its translated value
+        return dayKeys.reduce(
+            (acc, key) => {
+                acc[parseInt(key)] = translate(`week_days.${key}`);
+                return acc;
+            },
+            {} as Record<number, string>,
+        );
     };
 }
 

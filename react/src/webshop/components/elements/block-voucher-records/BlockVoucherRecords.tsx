@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Voucher from '../../../../dashboard/props/models/Voucher';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function BlockVoucherRecords({
     toggle = false,
@@ -10,6 +11,8 @@ export default function BlockVoucherRecords({
     compact?: boolean;
     voucher: Voucher;
 }) {
+    const translate = useTranslate();
+
     const [showRecords, setShowRecords] = useState(false);
 
     return (
@@ -19,7 +22,9 @@ export default function BlockVoucherRecords({
             }`}>
             {toggle && (
                 <div className="records-toggle clickable" onClick={() => setShowRecords(!showRecords)}>
-                    {showRecords ? 'Verberg alle details' : 'Toon alle details'}
+                    {showRecords
+                        ? translate('global.voucher_records.hide_details')
+                        : translate('global.voucher_records.show_details')}
                     {showRecords ? <em className="mdi mdi-chevron-up" /> : <em className="mdi mdi-chevron-down" />}
                 </div>
             )}

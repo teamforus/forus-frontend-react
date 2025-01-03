@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import FundRequestRecord from '../../../../../dashboard/props/models/FundRequestRecord';
 import FundRequest from '../../../../../dashboard/props/models/FundRequest';
 import FundRequestRecordClarificationCard from './FundRequestRecordClarificationCard';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function FundRequestRecordCard({
     record,
@@ -13,6 +14,8 @@ export default function FundRequestRecordCard({
     setFundRequest: React.Dispatch<React.SetStateAction<FundRequest>>;
 }) {
     const [open, setOpen] = useState(false);
+
+    const translate = useTranslate();
 
     const notAnsweredCount = useMemo(
         () => record.clarifications.filter((item) => item.state !== 'answered').length,
@@ -37,12 +40,12 @@ export default function FundRequestRecordCard({
                     {notAnsweredCount > 0 && (
                         <div className="label label-primary label-xl nowrap">
                             <div className="label-blink" aria-hidden="true" />
-                            {notAnsweredCount} <div className="label-text">nieuw bericht</div>
+                            {notAnsweredCount} <div className="label-text">{translate('fund_request.record.new')}</div>
                         </div>
                     )}
                     {record.clarifications.length > 0 && (
                         <div className="card-header-view" onClick={() => setOpen(!open)}>
-                            Bekijk
+                            {translate('fund_request.record.view')}
                             <em className="mdi mdi-chevron-down card-header-view-arrow" />
                         </div>
                     )}

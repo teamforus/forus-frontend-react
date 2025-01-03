@@ -41,6 +41,7 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
 import { isWithinInterval } from 'date-fns';
 import { dateParse } from '../../../../dashboard/helpers/dates';
+import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -585,10 +586,11 @@ export default function FundActivate() {
                                                     />
                                                 </div>
                                                 <div className="sign_up-option-details">
-                                                    <div className="sign_up-option-title">Ik heb een activatiecode</div>
+                                                    <div className="sign_up-option-title">
+                                                        {translate('fund_activate.options.code.title')}
+                                                    </div>
                                                     <div className="sign_up-option-description">
-                                                        Ga verder met het activeren van je tegoed door gebruik te maken
-                                                        van een activatiecode
+                                                        {translate('fund_activate.options.code.description')}
                                                     </div>
                                                 </div>
                                             </div>
@@ -608,9 +610,11 @@ export default function FundActivate() {
                                                     />
                                                 </div>
                                                 <div className="sign_up-option-details">
-                                                    <div className="sign_up-option-title">DigiD</div>
+                                                    <div className="sign_up-option-title">
+                                                        {translate('fund_activate.options.digid.title')}
+                                                    </div>
                                                     <div className="sign_up-option-description">
-                                                        Open het DigiD inlogscherm
+                                                        {translate('fund_activate.options.digid.description')}
                                                     </div>
                                                 </div>
                                             </div>
@@ -632,10 +636,10 @@ export default function FundActivate() {
                                                 </div>
                                                 <div className="sign_up-option-details">
                                                     <div className="sign_up-option-title">
-                                                        Ik wil een tegoed aanvragen
+                                                        {translate('fund_activate.options.request.title')}
                                                     </div>
                                                     <div className="sign_up-option-description">
-                                                        Doorloop het aanvraagformulier om een tegoed aan te vragen
+                                                        {translate('fund_activate.options.request.description')}
                                                     </div>
                                                 </div>
                                             </StateNavLink>
@@ -648,19 +652,23 @@ export default function FundActivate() {
                         {state == 'code' && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
-                                    <h2 className="sign_up-pane-header-title">Vul uw activatiecode in</h2>
+                                    <h2 className="sign_up-pane-header-title">
+                                        {translate('fund_activate.cards.code.title')}
+                                    </h2>
                                 </div>
                                 <div className="sign_up-pane-body">
                                     <form className="form" onSubmit={codeForm.submit}>
                                         <div className="form-group text-center">
-                                            <div className="form-label">{translate('popup_auth.input.code')}</div>
+                                            <div className="form-label flex-center">
+                                                {translate('popup_auth.input.code')}
+                                            </div>
                                             <PincodeControl
                                                 value={codeForm.values.code}
                                                 onChange={(code) => codeForm.update({ code: code?.trim() })}
                                                 blockCount={2}
                                                 blockSize={4}
                                                 valueType={'alphaNum'}
-                                                ariaLabel={'Voer de activatiecode van het fonds in'}
+                                                ariaLabel={translate('fund_activate.cards.code.pincode_aria_label')}
                                             />
                                             <FormError error={codeForm.errors.code} />
                                         </div>
@@ -684,7 +692,7 @@ export default function FundActivate() {
                                                 onClick={() => setState('select')}
                                                 tabIndex={0}>
                                                 <em className="mdi mdi-chevron-left icon-lefts" />
-                                                Terug
+                                                {translate('fund_activate.cards.back')}
                                             </button>
                                         )
                                     }
@@ -711,7 +719,7 @@ export default function FundActivate() {
                                             <UIControlCheckbox
                                                 id={'confirm_criteria'}
                                                 checked={criteriaChecked}
-                                                label={'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden'}
+                                                label={translate('fund_activate.cards.digid.confirm')}
                                                 onChange={(e) => setCriteriaChecked(e.target.checked)}
                                             />
                                         </div>
@@ -756,7 +764,7 @@ export default function FundActivate() {
                                         <div className="mdi mdi-loading mdi-spin" />
                                     </div>
                                     <div className="sign_up-pane-text text-center text-muted">
-                                        Een moment geduld, het verzoek wordt verwerkt.
+                                        {translate('fund_activate.cards.digid.loading')}
                                     </div>
                                     <br />
                                 </div>
@@ -766,11 +774,15 @@ export default function FundActivate() {
                         {state == 'error_not_available' && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
-                                    <h2 className="sign_up-pane-header-title">Aanvraag mislukt</h2>
+                                    <h2 className="sign_up-pane-header-title">
+                                        {translate('fund_activate.cards.not_available.title')}
+                                    </h2>
                                 </div>
                                 <div className="sign_up-pane-body">
                                     <p className="sign_up-pane-text text-center">
-                                        U kunt zich niet aanmelden voor {fund.name}.
+                                        {translate('fund_activate.cards.not_available.description', {
+                                            name: fund.name,
+                                        })}
                                     </p>
                                     <div className="block-icon">
                                         <img
@@ -779,13 +791,15 @@ export default function FundActivate() {
                                         />
                                     </div>
                                     <p className="sign_up-pane-text text-center">
-                                        Neem contact op met {fund.organization.name}.
+                                        {translate('fund_activate.cards.not_available.contacts', {
+                                            name: fund.organization.name,
+                                        })}
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
                                             name={'funds'}
                                             className="button button-text button-text-primary button-text-padless">
-                                            Terug
+                                            {translate('fund_activate.cards.back')}
                                         </StateNavLink>
                                     </div>
                                     <div className="form-group col col-lg-12 hidden-xs">
@@ -798,16 +812,16 @@ export default function FundActivate() {
                         {state == 'taken_by_partner' && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
-                                    <h2 className="sign_up-pane-header-title">Dit tegoed is al geactiveerd</h2>
+                                    <h2 className="sign_up-pane-header-title">
+                                        {translate('fund_activate.cards.taken_by_partner.title')}
+                                    </h2>
                                 </div>
                                 <div className="sign_up-pane-body text-center">
-                                    <p className="sign_up-pane-heading sign_up-pane-heading-lg">Aanvraag mislukt</p>
+                                    <p className="sign_up-pane-heading sign_up-pane-heading-lg">
+                                        {translate('fund_activate.cards.taken_by_partner.heading')}
+                                    </p>
                                     <p className="sign_up-pane-text">
-                                        U krijgt deze melding omdat het tegoed is geactiveerd door een <br />
-                                        familielid of voogd. <br />
-                                        <br />
-                                        De tegoeden zijn beschikbaar in het account van de persoon die <br />
-                                        deze als eerste heeft geactiveerd.
+                                        <TranslateHtml i18n={'fund_activate.cards.taken_by_partner.description'} />
                                     </p>
                                     <div className="block-icon">
                                         <img
@@ -816,13 +830,15 @@ export default function FundActivate() {
                                         />
                                     </div>
                                     <p className="sign_up-pane-text text-center">
-                                        Neem voor vragen contact op met {fund.organization.name}.
+                                        {translate('fund_activate.cards.taken_by_partner.contacts', {
+                                            name: fund.organization.name,
+                                        })}
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
                                             name={'funds'}
                                             className="button button-text button-text-primary button-text-padless">
-                                            Terug
+                                            {translate('fund_activate.cards.back')}
                                         </StateNavLink>
                                     </div>
                                     <div className="form-group col col-lg-12 hidden-xs">
@@ -835,15 +851,16 @@ export default function FundActivate() {
                         {state == 'backoffice_error_not_resident' && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
-                                    <h2 className="sign_up-pane-header-title">Aanvraag mislukt</h2>
+                                    <h2 className="sign_up-pane-header-title">
+                                        {translate('fund_activate.cards.backoffice_error_not_resident.title')}
+                                    </h2>
                                 </div>
                                 <div className="sign_up-pane-body text-center">
                                     <p className="sign_up-pane-text">
-                                        Volgens onze gegevens bent u geen inwoner van de gemeente Nijmegen. De
-                                        {fund.name} geldt alleen voor inwoners van de gemeente Nijmegen. <br />
-                                        <br />
-                                        Mogelijk heeft uw eigen gemeente wel regelingen waarvoor u in aanmerking komt.
-                                        Neem hiervoor contact op met de gemeente waar u woonachtig bent.{' '}
+                                        <TranslateHtml
+                                            i18n={'fund_activate.cards.taken_by_partner.description'}
+                                            values={{ fund_name: fund.name }}
+                                        />
                                     </p>
                                     <div className="block-icon">
                                         <img
@@ -852,20 +869,21 @@ export default function FundActivate() {
                                         />
                                     </div>
                                     <p className="sign_up-pane-text text-center">
-                                        Voor meer informatie of vragen kunt u contact opnemen met gemeente Nijmegen.
-                                        <br />
-                                        E-mailadres:{' '}
-                                        <a className="txt_link var" href="mailto:inkomensondersteuning@nijmegen.nl">
-                                            inkomensondersteuning@nijmegen.nl
-                                        </a>
-                                        <br />
-                                        Telefoonnumer: 14 024
+                                        <TranslateHtml
+                                            i18n={'fund_activate.cards.taken_by_partner.contacts'}
+                                            values={{
+                                                fund_name: fund.name,
+                                                email_value: 'inkomensondersteuning@nijmegen.nl',
+                                                email_label: 'inkomensondersteuning@nijmegen.nl',
+                                                phone: '14 024',
+                                            }}
+                                        />
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
                                             name={'funds'}
                                             className="button button-text button-text-primary button-text-padless">
-                                            Terug
+                                            {translate('fund_activate.cards.back')}
                                         </StateNavLink>
                                     </div>
                                     <div className="form-group col col-lg-12 hidden-xs">
@@ -879,13 +897,17 @@ export default function FundActivate() {
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">
-                                        Aanvraag mislukt. U voldoet niet aan de voorwaarden.
+                                        {translate('fund_activate.cards.backoffice_error_not_eligible.title')}
                                     </h2>
                                 </div>
                                 <div className="sign_up-pane-body text-center">
-                                    <p className="sign_up-pane-heading sign_up-pane-heading-lg">Het is niet gelukt</p>
+                                    <p className="sign_up-pane-heading sign_up-pane-heading-lg">
+                                        {translate('fund_activate.cards.backoffice_error_not_eligible.heading')}
+                                    </p>
                                     <p className="sign_up-pane-text">
-                                        Sorry, uw aanvraag voor {fund.name} is helaas niet gelukt.
+                                        {translate('fund_activate.cards.backoffice_error_not_eligible.description', {
+                                            fund_name: fund.name,
+                                        })}
                                     </p>
                                     <div className="block-icon">
                                         <img
@@ -894,13 +916,13 @@ export default function FundActivate() {
                                         />
                                     </div>
                                     <p className="sign_up-pane-text text-center">
-                                        Neem voor meer informatie contact op met gemeente Nijmegen.
+                                        {translate('fund_activate.cards.backoffice_error_not_eligible.contacts')}
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
                                             name="funds"
                                             className="button button-text button-text-primary button-text-padless">
-                                            Terug
+                                            {translate('fund_activate.cards.back')}
                                         </StateNavLink>
                                     </div>
                                     <div className="form-group col col-lg-12 hidden-xs">
@@ -913,12 +935,13 @@ export default function FundActivate() {
                         {state == 'backoffice_error_taken_by_partner' && (
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
-                                    <h2 className="sign_up-pane-header-title">Aanvraag mislukt</h2>
+                                    <h2 className="sign_up-pane-header-title">
+                                        {translate('fund_activate.cards.backoffice_error_taken_by_partner.title')}
+                                    </h2>
                                 </div>
                                 <div className="sign_up-pane-body text-center">
                                     <p className="sign_up-pane-text">
-                                        Volgens onze informatie hebben wij al een aanvraag van uw partner ontvangen. Het
-                                        is daarom niet mogelijk om een aanvraag te doen.
+                                        {translate('fund_activate.cards.backoffice_error_taken_by_partner.description')}
                                     </p>
                                     <div className="block-icon">
                                         <img
@@ -927,21 +950,22 @@ export default function FundActivate() {
                                         />
                                     </div>
                                     <p className="sign_up-pane-text text-center">
-                                        Wilt u hiervoor een bezwaar indienen of heeft u vragen, neem dan contact met ons
-                                        op.
-                                        <br />
-                                        E-mailadres:{' '}
-                                        <a href="mailto:inkomensondersteuning@nijmegen.nl">
-                                            inkomensondersteuning@nijmegen.nl
-                                        </a>
-                                        <br />
                                         Telefoonnumer: 14 024
+                                        <TranslateHtml
+                                            i18n={'fund_activate.cards.backoffice_error_taken_by_partner.contacts'}
+                                            values={{
+                                                fund_name: fund.name,
+                                                email_value: 'inkomensondersteuning@nijmegen.nl',
+                                                email_label: 'inkomensondersteuning@nijmegen.nl',
+                                                phone: '14 024',
+                                            }}
+                                        />
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
                                             name={'funds'}
                                             className="button button-text button-text-primary button-text-padless">
-                                            Terug
+                                            {translate('fund_activate.cards.back')}
                                         </StateNavLink>
                                     </div>
                                     <div className="form-group col col-lg-12 hidden-xs">
@@ -955,13 +979,17 @@ export default function FundActivate() {
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">
-                                        Er is een technische fout opgetreden, probeer het later opnieuw.
+                                        {translate('fund_activate.cards.backoffice_error_no_response.title')}
                                     </h2>
                                 </div>
                                 <div className="sign_up-pane-body text-center">
-                                    <p className="sign_up-pane-heading sign_up-pane-heading-lg">Het is niet gelukt</p>
+                                    <p className="sign_up-pane-heading sign_up-pane-heading-lg">
+                                        {translate('fund_activate.cards.backoffice_error_no_response.heading')}
+                                    </p>
                                     <p className="sign_up-pane-text">
-                                        Sorry, uw aanvraag voor {fund.name} is helaas niet gelukt.
+                                        {translate('fund_activate.cards.backoffice_error_no_response.description', {
+                                            fund_name: fund.name,
+                                        })}
                                     </p>
                                     <div className="block-icon">
                                         <img
@@ -970,13 +998,13 @@ export default function FundActivate() {
                                         />
                                     </div>
                                     <p className="sign_up-pane-text text-center">
-                                        Neem voor meer informatie contact op met gemeente Nijmegen.
+                                        {translate('fund_activate.cards.backoffice_error_no_response.contacts')}
                                     </p>
                                     <div className="text-center">
                                         <StateNavLink
                                             name={'funds'}
                                             className="button button-text button-text-primary button-text-padless">
-                                            Terug
+                                            {translate('fund_activate.cards.back')}
                                         </StateNavLink>
                                     </div>
                                     <div className="form-group col col-lg-12 hidden-xs">

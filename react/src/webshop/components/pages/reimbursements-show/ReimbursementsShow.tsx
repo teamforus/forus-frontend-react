@@ -85,9 +85,9 @@ export default function ReimbursementsShow() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
-                { name: translate('reimbursements.header.title'), state: 'reimbursements' },
-                { name: 'Bon insturen' },
+                { name: translate('reimbursements.breadcrumbs.home'), state: 'home' },
+                { name: translate('reimbursements.breadcrumbs.reimbursements'), state: 'reimbursements' },
+                { name: translate('reimbursements.breadcrumbs.reimbursement') },
             ]}
             contentDusk={'reimbursementDetailsPage'}
             profileHeader={
@@ -106,7 +106,7 @@ export default function ReimbursementsShow() {
                                         data-dusk="reimbursementDetailsPageDeleteBtn"
                                         onClick={(e) => cancelReimbursement(e)}>
                                         <em className="mdi mdi-trash-can-outline icon-start" />
-                                        Annuleren
+                                        {translate('reimbursements.details.buttons.cancel')}
                                     </div>
                                 )}
                             </div>

@@ -86,9 +86,9 @@ export default function Funds() {
 
         tagService
             .list({ type: 'funds', per_page: 1000 })
-            .then((res) => setTags([{ id: null, name: 'Alle categorieën' }, ...res.data.data]))
+            .then((res) => setTags([{ id: null, name: translate('funds.filters.all_tags') }, ...res.data.data]))
             .finally(() => setProgress(100));
-    }, [tagService, setProgress]);
+    }, [tagService, setProgress, translate]);
 
     const fetchVouchers = useCallback(() => {
         setProgress(0);
@@ -104,9 +104,11 @@ export default function Funds() {
 
         organizationService
             .list({ type: 'sponsor' })
-            .then((res) => setOrganizations([{ id: null, name: 'Alle organisaties' }, ...res.data.data]))
+            .then((res) =>
+                setOrganizations([{ id: null, name: translate('funds.filters.all_organizations') }, ...res.data.data]),
+            )
             .finally(() => setProgress(100));
-    }, [organizationService, setProgress]);
+    }, [organizationService, setProgress, translate]);
 
     useEffect(() => {
         fetchTags();
@@ -141,7 +143,7 @@ export default function Funds() {
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
+                { name: translate(`funds.breadcrumbs.home`), state: 'home' },
                 { name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title') },
             ]}
             aside={

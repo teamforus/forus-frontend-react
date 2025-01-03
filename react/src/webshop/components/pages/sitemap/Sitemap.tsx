@@ -14,20 +14,25 @@ export default function Sitemap() {
     const translate = useTranslate();
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Sitemap' }]}>
+        <BlockShowcase
+            wrapper={true}
+            breadcrumbItems={[
+                { name: translate('sitemap.breadcrumbs.home'), state: 'home' },
+                { name: translate('sitemap.breadcrumbs.sitemap') },
+            ]}>
             <div className="block block-sitemap">
                 <h1>Sitemap</h1>
                 <ul>
                     <li>
-                        <StateNavLink name="home">{translate('topnavbar.items.home')}</StateNavLink>
+                        <StateNavLink name="home">{translate('top_navbar.items.home')}</StateNavLink>
                     </li>
                     {envData.config.flags.fundsMenu && (authIdentity || envData.config.flags.fundsMenuIfLoggedOut) && (
                         <li>
                             <StateNavLink name="funds">
                                 {translate(
-                                    `topnavbar.items.${envData.client_key}.funds`,
+                                    `top_navbar.items.${envData.client_key}.funds`,
                                     null,
-                                    'topnavbar.items.funds',
+                                    'top_navbar.items.funds',
                                 )}
                             </StateNavLink>
                         </li>
@@ -36,7 +41,7 @@ export default function Sitemap() {
                         appConfigs?.products.list &&
                         (envData.config.flags.productsMenu || authIdentity) && (
                             <li>
-                                <StateNavLink name="products">{translate('topnavbar.items.products')}</StateNavLink>
+                                <StateNavLink name="products">{translate('top_navbar.items.products')}</StateNavLink>
                             </li>
                         )}
 
@@ -44,13 +49,13 @@ export default function Sitemap() {
                         appConfigs?.products.list &&
                         (envData.config.flags.productsMenu || authIdentity) && (
                             <li>
-                                <StateNavLink name="actions">{translate('topnavbar.items.subsidies')}</StateNavLink>
+                                <StateNavLink name="actions">{translate('top_navbar.items.subsidies')}</StateNavLink>
                             </li>
                         )}
 
                     {envData.config.flags.providersMenu && (
                         <li>
-                            <StateNavLink name="providers">{translate('topnavbar.items.providers')}</StateNavLink>
+                            <StateNavLink name="providers">{translate('top_navbar.items.providers')}</StateNavLink>
                         </li>
                     )}
 
@@ -58,7 +63,7 @@ export default function Sitemap() {
                         <StateNavLink
                             name="explanation"
                             target={appConfigs?.pages?.explanation?.external ? '_blank' : '_self'}>
-                            {translate('topnavbar.items.explanation')}
+                            {translate('top_navbar.items.explanation')}
                         </StateNavLink>
                     </li>
                     <li>
