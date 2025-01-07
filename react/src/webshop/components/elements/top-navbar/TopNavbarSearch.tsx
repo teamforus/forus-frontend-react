@@ -218,25 +218,25 @@ export default function TopNavbarSearch() {
                                         onKeyDown={clickOnKeyEnter}
                                         onClick={() => setGroupKey(itemGroupKey)}>
                                         {itemGroupKey === 'all' && (
-                                            <div className="search-result-sidebar-item-icon hide-sm">
+                                            <div className="search-result-sidebar-item-icon hide-sm" aria-hidden="true">
                                                 <IconSearchAll />
                                             </div>
                                         )}
 
                                         {itemGroupKey === 'funds' && (
-                                            <div className="search-result-sidebar-item-icon hide-sm">
+                                            <div className="search-result-sidebar-item-icon hide-sm" aria-hidden="true">
                                                 <IconSearchFunds />
                                             </div>
                                         )}
 
                                         {itemGroupKey === 'products' && (
-                                            <div className="search-result-sidebar-item-icon hide-sm">
+                                            <div className="search-result-sidebar-item-icon hide-sm" aria-hidden="true">
                                                 <IconSearchProducts />
                                             </div>
                                         )}
 
                                         {itemGroupKey === 'providers' && (
-                                            <div className="search-result-sidebar-item-icon hide-sm">
+                                            <div className="search-result-sidebar-item-icon hide-sm" aria-hidden="true">
                                                 <IconSearchProviders />
                                             </div>
                                         )}
@@ -266,17 +266,23 @@ export default function TopNavbarSearch() {
                                         <div key={itemKey} className="search-result-section">
                                             <div className="search-result-group-header">
                                                 {itemKey === 'funds' && (
-                                                    <div className="search-result-group-icon hide-sm">
+                                                    <div
+                                                        className="search-result-group-icon hide-sm"
+                                                        aria-hidden="true">
                                                         <IconSearchFunds />
                                                     </div>
                                                 )}
                                                 {itemKey === 'products' && (
-                                                    <div className="search-result-group-icon hide-sm">
+                                                    <div
+                                                        className="search-result-group-icon hide-sm"
+                                                        aria-hidden="true">
                                                         <IconSearchProducts />
                                                     </div>
                                                 )}
                                                 {itemKey === 'providers' && (
-                                                    <div className="search-result-group-icon hide-sm">
+                                                    <div
+                                                        className="search-result-group-icon hide-sm"
+                                                        aria-hidden="true">
                                                         <IconSearchProviders />
                                                     </div>
                                                 )}
