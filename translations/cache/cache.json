@@ -3736,35 +3736,35 @@
         "Upload een document"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.body.block_card",
-        "Wil je je pas met pasnummer {cardNumber} blokkeren?"
+        "modal_physical_card_unlink.body.block_card",
+        "Wil je je pas met pasnummer {{cardNumber}} blokkeren?"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.body.card_blocked",
-        "Je pas met pasnummer {cardNumber} is geblokkeerd!"
+        "modal_physical_card_unlink.body.card_blocked",
+        "Je pas met pasnummer {{cardNumber}} is geblokkeerd!"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.buttons.block",
+        "modal_physical_card_unlink.buttons.block",
         "Blokkeer"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.buttons.cancel",
+        "modal_physical_card_unlink.buttons.cancel",
         "Annuleer"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.buttons.close",
+        "modal_physical_card_unlink.buttons.close",
         "Afsluiten"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.buttons.request_new",
+        "modal_physical_card_unlink.buttons.request_new",
         "Bestel nieuwe pas"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.header.block_card",
+        "modal_physical_card_unlink.header.block_card",
         "Blokkeer je pas"
     ],
     [
-        "modal_physical_card_unlink.modal_physical_cards.header.card_blocked",
+        "modal_physical_card_unlink.header.card_blocked",
         "Pas geblokkeerd!"
     ],
     [

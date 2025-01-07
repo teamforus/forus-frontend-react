@@ -26,10 +26,10 @@ import i18nEN from './i18n/translated/en-US.json';
 import CookieBanner from './modules/cookie_banner/CookieBanner';
 import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
 
-const lang = ['en', 'nl'].includes(localStorage.getItem('lang')) ? localStorage.getItem('lang') : 'nl';
+const locale = ['en', 'nl'].includes(localStorage.getItem('locale')) ? localStorage.getItem('locale') : 'nl';
 
-if (localStorage.getItem('lang') && localStorage.getItem('lang') !== lang) {
-    localStorage.setItem('lang', localStorage.getItem('lang'));
+if (localStorage.getItem('locale') && localStorage.getItem('locale') !== locale) {
+    localStorage.setItem('locale', localStorage.getItem('locale'));
 }
 
 i18n.use(initReactI18next)
@@ -38,7 +38,7 @@ i18n.use(initReactI18next)
             en: { translation: i18nEN },
             nl: { translation: i18nNL },
         },
-        lng: lang,
+        lng: locale,
         fallbackLng: 'nl',
         // https://www.i18next.com/translation-function/interpolation#unescape
         interpolation: { escapeValue: true },

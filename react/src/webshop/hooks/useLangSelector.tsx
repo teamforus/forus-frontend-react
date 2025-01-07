@@ -4,12 +4,14 @@ import SelectControlOptionsLang from '../../dashboard/components/elements/select
 import { useTranslation } from 'react-i18next';
 import useTranslate from '../../dashboard/hooks/useTranslate';
 import useEnvData from './useEnvData';
+import { useNavigate } from 'react-router-dom';
 
 export default function useLangSelector() {
     const { i18n } = useTranslation();
     const translate = useTranslate();
     const envData = useEnvData();
-    const [language, setLanguage] = useState(i18n.language || localStorage.getItem('lang'));
+    const navigate = useNavigate();
+    const [language, setLanguage] = useState(i18n.language || localStorage.getItem('locale'));
 
     const languages = useMemo(() => {
         return [
@@ -20,11 +22,11 @@ export default function useLangSelector() {
 
     const changeLanguage = useCallback(
         (lang: string) => {
-            i18n.changeLanguage(lang)?.then();
             setLanguage(lang);
-            localStorage.setItem('lang', lang);
+            localStorage.setItem('locale', lang);
+            navigate(0);
         },
-        [i18n],
+        [navigate],
     );
 
     return useMemo(() => {

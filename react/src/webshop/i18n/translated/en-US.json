@@ -3031,24 +3031,6 @@
         "submit": "Submit",
         "upload_document": "Upload a document"
     },
-    "modal_physical_card_unlink": {
-        "modal_physical_cards": {
-            "body": {
-                "block_card": "Would you like to block your card with card number {cardNumber}?",
-                "card_blocked": "Your card with card number {cardNumber} has been blocked!"
-            },
-            "buttons": {
-                "block": "Block",
-                "cancel": "Cancel",
-                "close": "Close",
-                "request_new": "Order new pass"
-            },
-            "header": {
-                "block_card": "Block your pass",
-                "card_blocked": "Pass blocked!"
-            }
-        }
-    },
     "modal_physical_card": {
         "buttons": {
             "close": "Close",
@@ -3174,5 +3156,21 @@
     "languages": {
         "en": "English",
         "nl": "Dutch"
+    },
+    "modal_physical_card_unlink": {
+        "body": {
+            "block_card": "Would you like to block your pass with pass number {{cardNumber}}?",
+            "card_blocked": "Your pass number {{cardNumber}} is blocked!"
+        },
+        "buttons": {
+            "block": "Block",
+            "cancel": "Cancel",
+            "close": "Close",
+            "request_new": "Order new pass"
+        },
+        "header": {
+            "block_card": "Block your pass",
+            "card_blocked": "Pass blocked!"
+        }
     }
 }
