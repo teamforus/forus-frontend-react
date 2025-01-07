@@ -145,6 +145,9 @@ export type AppConfigProp = {
         url_provider: string;
         url_validator: string;
         url_app: string;
+        url_sponsor_sign_up: string;
+        url_provider_sign_up: string;
+        url_validator_sign_up: string;
     };
     map?: {
         lon?: number;
