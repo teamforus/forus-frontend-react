@@ -170,7 +170,7 @@ export default function ModalPhotoCropper({
     }, []);
 
     const pdfToBlob = useCallback(
-        (rawPdfFile): Promise<Blob> => {
+        (rawPdfFile: File): Promise<Blob> => {
             return new Promise((resolve) => {
                 new Response(rawPdfFile).arrayBuffer().then((data) => {
                     window['pdfjsDist'].getDocument({ data }).promise.then(
@@ -244,7 +244,7 @@ export default function ModalPhotoCropper({
     }, [cropperFiles?.length]);
 
     const replaceFileAtIndex = useCallback(
-        (index) => {
+        (index: number) => {
             const input = replaceInputRef?.current;
 
             input.addEventListener('change', (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -357,6 +357,7 @@ export default function ModalPhotoCropper({
                                     tabIndex={0}
                                     onKeyDown={clickOnKeyEnter}
                                     onClick={prevMedia}
+                                    aria-label={translate('modal_photo_cropper.previous')}
                                     title={translate('modal_photo_cropper.previous')}>
                                     <em className="mdi mdi-chevron-left" />
                                 </div>
@@ -369,6 +370,7 @@ export default function ModalPhotoCropper({
                                             onKeyDown={clickOnKeyEnter}
                                             className={`cropper-pagination-item ${index === fileIndex ? 'active' : ''}`}
                                             onClick={() => setFileIndex(index)}
+                                            aria-label={`Toon afbeelding nummer: ${index + 1}`}
                                         />
                                     ))}
                                 </div>
@@ -378,7 +380,8 @@ export default function ModalPhotoCropper({
                                     tabIndex={0}
                                     onKeyDown={clickOnKeyEnter}
                                     onClick={nextMedia}
-                                    title={translate('modal_photo_cropper.next')}>
+                                    title={translate('modal_photo_cropper.next')}
+                                    aria-label={translate('modal_photo_cropper.next')}>
                                     <em className="mdi mdi-chevron-right" />
                                 </div>
                             </div>
@@ -392,7 +395,8 @@ export default function ModalPhotoCropper({
                                             tabIndex={0}
                                             onKeyDown={clickOnKeyEnter}
                                             onClick={() => rotate(fileIndex, -90)}
-                                            title={translate('modal_photo_cropper.rotate_right')}>
+                                            title={translate('modal_photo_cropper.rotate_right')}
+                                            aria-label={translate('modal_photo_cropper.rotate_right')}>
                                             <div className="mdi mdi-file-rotate-left-outline" />
                                         </div>
                                     )}
@@ -404,7 +408,8 @@ export default function ModalPhotoCropper({
                                             tabIndex={0}
                                             onKeyDown={clickOnKeyEnter}
                                             onClick={() => rotate(fileIndex, 90)}
-                                            title={translate('modal_photo_cropper.rotate_left')}>
+                                            title={translate('modal_photo_cropper.rotate_left')}
+                                            aria-label={translate('modal_photo_cropper.rotate_left')}>
                                             <div className="mdi mdi-file-rotate-right-outline" />
                                         </div>
                                     )}

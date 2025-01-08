@@ -88,8 +88,12 @@ export default function Modal2FADeactivate({
                     setErrorCode(null);
                 })
                 .catch((res) => {
-                    pushDanger(res.data?.message || translate('modal_2fa_deactivate.unknown_error'));
                     setErrorCode(res?.data?.errors?.code || null);
+                    pushDanger(
+                        res.status === 404
+                            ? translate('modal_2fa_deactivate.error_404')
+                            : res.data?.message || translate('modal_2fa_deactivate.unknown_error'),
+                    );
                 })
                 .finally(() => window.setTimeout(() => setDeactivating(false), 1000));
         },

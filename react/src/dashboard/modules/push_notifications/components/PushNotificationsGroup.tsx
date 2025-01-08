@@ -3,6 +3,7 @@ import { pushNotificationContext } from '../context/PushNotificationsContext';
 import StateNavLink from '../../../../webshop/modules/state_router/StateNavLink';
 import classNames from 'classnames';
 import useTranslate from '../../../hooks/useTranslate';
+import { clickOnKeyEnter } from '../../../helpers/wcag';
 
 export default function PushNotificationsGroup({
     group = 'default',
@@ -102,7 +103,12 @@ export default function PushNotificationsGroup({
 
                         {notification.button && (
                             <div className="notification-button">
-                                <div className="button button-primary button-sm" onClick={notification.button.onClick}>
+                                <div
+                                    className="button button-primary button-sm"
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={clickOnKeyEnter}
+                                    onClick={notification.button.onClick}>
                                     <em className={`mdi mdi-${notification.button.icon}`} aria-hidden="true" />
                                     {notification.button.text}
                                 </div>
@@ -111,6 +117,9 @@ export default function PushNotificationsGroup({
 
                         <div
                             className="notification-close mdi mdi-close"
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={clickOnKeyEnter}
                             onClick={() => popNotification(notification.id)}
                         />
                     </div>

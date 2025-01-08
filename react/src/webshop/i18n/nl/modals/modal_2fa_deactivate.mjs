@@ -4,6 +4,7 @@ export default {
     code_resent: 'We hebben de code opnieuw verstuurd.',
     failed: 'Mislukt!',
     unknown_error: 'Onbekende fout.',
+    error_404: 'Er is een fout opgetreden. Vernieuw de pagina.',
     enter_2fa_code: 'Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.',
     enter_sms_code: 'Voer de 6-cijferige SMS-code in',
     enter_app_code: 'Voer de 6-cijferige code in vanuit de app',

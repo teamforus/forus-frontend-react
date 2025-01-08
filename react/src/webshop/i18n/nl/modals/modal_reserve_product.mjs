@@ -112,5 +112,8 @@ export default {
         back: 'Terug',
         confirm: 'Bevestigen',
         submit: 'Indienen',
+        adjust: 'Terug',
+        processing: 'Verwerken',
+        go_to_reservation: 'Ga naar reservering',
     },
 };
