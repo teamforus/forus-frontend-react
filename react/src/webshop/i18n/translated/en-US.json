@@ -3001,7 +3001,8 @@
         "seconds": "{time} second(s)",
         "success": "Successful!",
         "unknown_error": "Unknown error.",
-        "verify": "Verify"
+        "verify": "Verify",
+        "error_404": "An error has occurred. Please refresh the page."
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -3171,6 +3172,113 @@
         "header": {
             "block_card": "Block your pass",
             "card_blocked": "Pass blocked!"
+        }
+    },
+    "modal_reserve_product": {
+        "add_email": "Add",
+        "buttons": {
+            "adjust": "Back",
+            "back": "Back",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "go_to_reservation": "Go to reservation",
+            "processing": "Process",
+            "submit": "Submit"
+        },
+        "cancel": "Cancel",
+        "choose_credit": "Choose the credit to pay with",
+        "close": "Close",
+        "confirm_notes": {
+            "buttons": {
+                "adjust": "Back",
+                "submit": "Attach"
+            },
+            "header": {
+                "title": "Confirm your reservation"
+            },
+            "labels": {
+                "birth_date": "Date of birth: ",
+                "city": "Location:",
+                "empty": "Empty",
+                "first_name": "First name: ",
+                "house_nr": "House number:",
+                "house_nr_addition": "House number addition:",
+                "last_name": "Last name: ",
+                "notes": "Remark: ",
+                "phone": "Phone number: ",
+                "postal_code": "Zip code:",
+                "street": "Street:"
+            },
+            "modal_section": {
+                "title": "Check your information:"
+            }
+        },
+        "description_formal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal information with the provider.",
+        "description_formal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation. ",
+        "description_informal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal data with the provider.",
+        "description_informal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation.",
+        "email_setup_description": "Add your email address to receive messages.",
+        "email_setup_title": "Add email address",
+        "error": {
+            "close": "Close",
+            "description": "Could not complete the reservation. Please try again later.",
+            "title": "Wrong!"
+        },
+        "extra_payment_description": "Additional payment",
+        "extra_payment": {
+            "external_link": "The link leads to an external website.",
+            "extra_payment": "Paying extra yourself",
+            "header": {
+                "subtitle": "You must pay an additional fee to complete your reservation.",
+                "title": "Additional payment"
+            },
+            "offer_cost": "The cost of the offer",
+            "remaining_credit": "Remaining on credit"
+        },
+        "fill_notes": {
+            "header": {
+                "subtitle": "{{provider_name}} enter your information to make a reservation.",
+                "title": "Enter your information"
+            },
+            "labels": {
+                "address": "Address",
+                "address_optional": "Address (optional)",
+                "birth_date": "Date of birth",
+                "birth_date_optional": "Date of birth (optional)",
+                "city": "Location",
+                "first_name": "First name",
+                "house_nr": "House number",
+                "house_nr_addition": "House number addition",
+                "last_name": "Surname",
+                "notes": "Note (optional)",
+                "phone": "Phone number",
+                "phone_optional": "Phone number (optional)",
+                "postal_code": "Postal code",
+                "street": "Street"
+            },
+            "max_characters": "Max. 400 characters",
+            "placeholders": {
+                "address": "Address",
+                "birth_date": "Date of birth",
+                "city": "Location",
+                "first_name": "First name",
+                "last_name": "Surname",
+                "notes": "Note",
+                "phone": "Phone number",
+                "postal_code": "Postal code",
+                "street": "Street"
+            }
+        },
+        "header": {
+            "title": "Make a reservation"
+        },
+        "multiple_vouchers_warning": "Some of your credits do not have a sufficient balance. By using one of these vouchers, you will have to pay the missing amount at the end of the reservation.",
+        "single_voucher_warning": "There is insufficient balance on your credit, you must pay the missing amount at the end of the reservation via one of the available payment methods.",
+        "skip": "Skip",
+        "success": {
+            "close": "Close",
+            "description": "Your reservation has been made.",
+            "title": "It worked!"
         }
     }
 }

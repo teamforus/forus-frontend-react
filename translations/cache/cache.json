@@ -3476,6 +3476,10 @@
         "Voer de 6-cijferige SMS-code in"
     ],
     [
+        "modal_2fa_deactivate.error_404",
+        "Er is een fout opgetreden. Vernieuw de pagina."
+    ],
+    [
         "modal_2fa_deactivate.failed",
         "Mislukt!"
     ],
@@ -4050,6 +4054,306 @@
     [
         "modal_product_reserve_extra_payment.header.title",
         "Kies een bank"
+    ],
+    [
+        "modal_reserve_product.add_email",
+        "Toevoegen"
+    ],
+    [
+        "modal_reserve_product.buttons.adjust",
+        "Terug"
+    ],
+    [
+        "modal_reserve_product.buttons.back",
+        "Terug"
+    ],
+    [
+        "modal_reserve_product.buttons.cancel",
+        "Annuleren"
+    ],
+    [
+        "modal_reserve_product.buttons.confirm",
+        "Bevestigen"
+    ],
+    [
+        "modal_reserve_product.buttons.go_to_reservation",
+        "Ga naar reservering"
+    ],
+    [
+        "modal_reserve_product.buttons.processing",
+        "Verwerken"
+    ],
+    [
+        "modal_reserve_product.buttons.submit",
+        "Indienen"
+    ],
+    [
+        "modal_reserve_product.cancel",
+        "Annuleren"
+    ],
+    [
+        "modal_reserve_product.choose_credit",
+        "Kies het tegoed om mee te betalen"
+    ],
+    [
+        "modal_reserve_product.close",
+        "Sluiten"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.buttons.adjust",
+        "Terug"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.buttons.submit",
+        "Bevestig"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.header.title",
+        "Bevestig uw reservering"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.birth_date",
+        "Geboortedatum: "
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.city",
+        "Plaats:"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.empty",
+        "Leeg"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.first_name",
+        "Voornaam: "
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.house_nr",
+        "Huisnummer:"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.house_nr_addition",
+        "Huisnummertoevoeging:"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.last_name",
+        "Achternaam: "
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.notes",
+        "Opmerking: "
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.phone",
+        "Telefoonnummer: "
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.postal_code",
+        "Postcode:"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.labels.street",
+        "Straat:"
+    ],
+    [
+        "modal_reserve_product.confirm_notes.modal_section.title",
+        "Controleer uw gegevens:"
+    ],
+    [
+        "modal_reserve_product.description_formal",
+        "U gebruikt uw <strong>{{fund}}</strong> tegoed voor deze reservering.<br/>Plaatst u een reservering? Dan gaat u ermee akkoord dat wij uw persoonlijke gegevens delen met de aanbieder."
+    ],
+    [
+        "modal_reserve_product.description_formal_time",
+        "De reservering kunt u na bevestiging nog binnen {{ days_to_cancel }} dagen annuleren. "
+    ],
+    [
+        "modal_reserve_product.description_informal",
+        "Je gebruikt jouw <strong>{{fund}}</strong> tegoed voor deze reservering.<br/>Plaatst je een reservering? Dan gaat je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder."
+    ],
+    [
+        "modal_reserve_product.description_informal_time",
+        "De reservering kun je na bevestiging nog binnen {{ days_to_cancel }} dagen annuleren."
+    ],
+    [
+        "modal_reserve_product.email_setup_description",
+        "Voeg uw e-mailadres toe om berichten te kunnen ontvangen."
+    ],
+    [
+        "modal_reserve_product.email_setup_title",
+        "E-mailadres toevoegen"
+    ],
+    [
+        "modal_reserve_product.error.close",
+        "Sluiten"
+    ],
+    [
+        "modal_reserve_product.error.description",
+        "Kon de reservering niet voltooien. Probeer het later opnieuw."
+    ],
+    [
+        "modal_reserve_product.error.title",
+        "Fout!"
+    ],
+    [
+        "modal_reserve_product.extra_payment_description",
+        "Bijbetalen"
+    ],
+    [
+        "modal_reserve_product.extra_payment.external_link",
+        "De link leidt naar een externe website."
+    ],
+    [
+        "modal_reserve_product.extra_payment.extra_payment",
+        "Zelf bijbetalen"
+    ],
+    [
+        "modal_reserve_product.extra_payment.header.subtitle",
+        "U moet bijbetalen om uw reservering te voltooien."
+    ],
+    [
+        "modal_reserve_product.extra_payment.header.title",
+        "Bijbetalen"
+    ],
+    [
+        "modal_reserve_product.extra_payment.offer_cost",
+        "De kosten voor het aanbod"
+    ],
+    [
+        "modal_reserve_product.extra_payment.remaining_credit",
+        "Resterend op het tegoed"
+    ],
+    [
+        "modal_reserve_product.fill_notes.header.subtitle",
+        "{{provider_name}} vul uw gegevens in voor het maken van een reservering."
+    ],
+    [
+        "modal_reserve_product.fill_notes.header.title",
+        "Vul uw gegevens in"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.address",
+        "Adres"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.address_optional",
+        "Adres (optioneel)"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.birth_date",
+        "Geboortedatum"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.birth_date_optional",
+        "Geboortedatum (optioneel)"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.city",
+        "Plaats"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.first_name",
+        "Voornaam"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.house_nr",
+        "Huisnummer"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.house_nr_addition",
+        "Huisnummertoevoeging"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.last_name",
+        "Achternaam"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.notes",
+        "Opmerking (optioneel)"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.phone",
+        "Telefoonnummer"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.phone_optional",
+        "Telefoonnummer (optioneel)"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.postal_code",
+        "Postcode"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.street",
+        "Straat"
+    ],
+    [
+        "modal_reserve_product.fill_notes.max_characters",
+        "Max. 400 tekens"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.address",
+        "Adres"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.birth_date",
+        "Geboortedatum"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.city",
+        "Plaats"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.first_name",
+        "Voornaam"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.last_name",
+        "Achternaam"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.notes",
+        "Opmerking"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.phone",
+        "Telefoonnummer"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.postal_code",
+        "Postcode"
+    ],
+    [
+        "modal_reserve_product.fill_notes.placeholders.street",
+        "Straat"
+    ],
+    [
+        "modal_reserve_product.header.title",
+        "Maak een reservering"
+    ],
+    [
+        "modal_reserve_product.multiple_vouchers_warning",
+        "Sommige van uw tegoeden hebben niet voldoende saldo. Door een van deze vouchers te gebruiken, moet u het ontbrekende bedrag aan het einde van de reservering bijbetalen."
+    ],
+    [
+        "modal_reserve_product.single_voucher_warning",
+        "Er is onvoldoende saldo op uw tegoed, u moet het ontbrekende bedrag aan het einde van de reservering bijbetalen via een van de beschikbare betaalmethoden."
+    ],
+    [
+        "modal_reserve_product.skip",
+        "Overslaan"
+    ],
+    [
+        "modal_reserve_product.success.close",
+        "Sluiten"
+    ],
+    [
+        "modal_reserve_product.success.description",
+        "Uw reservering is gemaakt."
+    ],
+    [
+        "modal_reserve_product.success.title",
+        "Het is gelukt!"
     ],
     [
         "modal.buttons.cancel",
