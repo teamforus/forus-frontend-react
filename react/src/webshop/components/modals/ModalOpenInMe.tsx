@@ -64,7 +64,12 @@ export default function ModalOpenInMe({ modal }: { modal: ModalState }) {
 
     return (
         <div className={`modal modal-open-in-me modal-animated  ${modal.loading ? '' : 'modal-loaded'}`} role="dialog">
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" role="button" />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('buttons.close')}
+                role="button"
+            />
 
             <div className="modal-window">
                 <form className="form f-w" onSubmit={phoneForm.submit}>
@@ -73,7 +78,7 @@ export default function ModalOpenInMe({ modal }: { modal: ModalState }) {
                         onClick={modal.close}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('buttons.close')}
                         role="button"
                     />
                     <div className="modal-header">
@@ -94,7 +99,7 @@ export default function ModalOpenInMe({ modal }: { modal: ModalState }) {
                             </div>
 
                             <div className="modal-section-description show-sm">
-                                De app kan gebruikt worden om tegoeden te beheren en makkelijk in te loggen.
+                                {translate('open_in_me.body.use_app')}
                             </div>
 
                             <div className="modal-open-in-me-phone-control">

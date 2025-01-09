@@ -50,15 +50,23 @@ export default function Search() {
             value: { order_by: 'created_at'; order_dir: 'asc' | 'desc' };
         }>
     >([
-        { id: 1, label: 'Oudste eerst', value: { order_by: 'created_at', order_dir: 'asc' } },
-        { id: 2, label: 'Nieuwe eerst', value: { order_by: 'created_at', order_dir: 'desc' } },
+        {
+            id: 1,
+            label: translate('search.sort_by.created_at_asc'),
+            value: { order_by: 'created_at', order_dir: 'asc' },
+        },
+        {
+            id: 2,
+            label: translate('search.sort_by.created_at_desc'),
+            value: { order_by: 'created_at', order_dir: 'desc' },
+        },
     ]);
 
     // Search by resource type
     const [searchItemTypes] = useState<Array<{ label: string; key: 'funds' | 'products' | 'providers' }>>([
-        { label: 'Tegoeden', key: 'funds' },
-        { label: 'Aanbod', key: 'products' },
-        { label: 'Aanbieders', key: 'providers' },
+        { label: translate('search.entities.funds'), key: 'funds' },
+        { label: translate('search.entities.products'), key: 'products' },
+        { label: translate('search.entities.providers'), key: 'providers' },
     ]);
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
@@ -161,27 +169,34 @@ export default function Search() {
 
         fundService
             .list({ with_external: 1 })
-            .then((res) => setFunds([{ id: null, name: 'Selecteer tegoeden...' }, ...res.data.data]))
+            .then((res) => setFunds([{ id: null, name: translate('search.filters.all_funds') }, ...res.data.data]))
             .finally(() => setProgress(100));
-    }, [fundService, setProgress]);
+    }, [fundService, setProgress, translate]);
 
     const fetchOrganizations = useCallback(() => {
         setProgress(0);
 
         organizationService
             .list({ type: 'provider', per_page: 500, fund_type: 'budget' })
-            .then((res) => setOrganizations([{ id: null, name: 'Selecteer aanbieders...' }, ...res.data.data]))
+            .then((res) =>
+                setOrganizations([{ id: null, name: translate('search.filters.all_providers') }, ...res.data.data]),
+            )
             .finally(() => setProgress(100));
-    }, [organizationService, setProgress]);
+    }, [organizationService, setProgress, translate]);
 
     const fetchProductCategories = useCallback(() => {
         setProgress(0);
 
         productCategoryService
             .list({ parent_id: 'null', used: 1, per_page: 1000 })
-            .then((res) => setProductCategories([{ id: null, name: 'Selecteer categorie...' }, ...res.data.data]))
+            .then((res) =>
+                setProductCategories([
+                    { id: null, name: translate('search.filters.all_categories') },
+                    ...res.data.data,
+                ]),
+            )
             .finally(() => setProgress(100));
-    }, [productCategoryService, setProgress]);
+    }, [productCategoryService, setProgress, translate]);
 
     useEffect(() => {
         fetchFunds();
@@ -233,13 +248,16 @@ export default function Search() {
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Zoekresultaten' }]}
+            breadcrumbItems={[
+                { name: translate('search.breadcrumbs.home'), state: 'home' },
+                { name: translate('search.breadcrumbs.search') },
+            ]}
             aside={
                 funds &&
                 organizations &&
                 productCategories && (
                     <div className="showcase-aside-block">
-                        <div className="form-label">Uitgelicht</div>
+                        <div className="form-label">{translate('search.filters.highlighted')}</div>
                         {searchItemTypes?.map((itemType) => (
                             <div key={itemType.key} className="form-group">
                                 <div className="checkbox" role="checkbox" aria-checked={filterValues?.[itemType.key]}>
@@ -264,7 +282,7 @@ export default function Search() {
                         {productCategories && (
                             <div className="form-group">
                                 <label className="form-label" htmlFor="category_id">
-                                    Categorie
+                                    {translate('search.filters.category')}
                                 </label>
                                 <SelectControl
                                     id="category_id"
@@ -280,7 +298,7 @@ export default function Search() {
                         {funds && (
                             <div className="form-group">
                                 <label className="form-label" htmlFor="fund_id">
-                                    Tegoeden
+                                    {translate('search.filters.funds')}
                                 </label>
                                 <SelectControl
                                     id="fund_id"
@@ -296,7 +314,7 @@ export default function Search() {
                         {organizations && (
                             <div className="form-group">
                                 <label className="form-label" htmlFor="organizatie_id">
-                                    Aanbieders
+                                    {translate('search.filters.providers')}
                                 </label>
                                 <SelectControl
                                     id="organizations_id"
@@ -315,14 +333,18 @@ export default function Search() {
                 <Fragment>
                     <div className="showcase-content-header">
                         <div className="showcase-filters-title">
-                            Zoekresultaten
-                            {filterValuesActive.q && <Fragment> gevonden voor {`"${filterValuesActive.q}"`}</Fragment>}
+                            {translate('search.title')}
+                            {filterValuesActive.q && (
+                                <Fragment>
+                                    {' ' + translate('search.filters.found_for', { query: filterValuesActive.q })}
+                                </Fragment>
+                            )}
                             <div className="showcase-filters-title-count">{searchItems?.meta?.total}</div>
                         </div>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
                                 <div className="showcase-filters-item">
-                                    <label className="form-label">Sorteer</label>
+                                    <label className="form-label">{translate('search.filters.sort')}</label>
                                     <SelectControl
                                         id="sort_by"
                                         propKey={'id'}
@@ -351,7 +373,7 @@ export default function Search() {
                                         aria-pressed={displayType == 'list'}
                                         role="button">
                                         <em className="mdi mdi-format-list-text icon-start" />
-                                        Lijst
+                                        {translate('search.view.list')}
                                     </div>
                                     <div
                                         className={`label-tab label-tab-sm ${displayType == 'grid' ? 'active' : ''}`}
@@ -361,7 +383,7 @@ export default function Search() {
                                         aria-pressed={displayType == 'grid'}
                                         role="button">
                                         <em className="mdi mdi-view-grid-outline icon-start" />
-                                        {"Foto's"}
+                                        {translate('search.view.photos')}
                                     </div>
                                 </div>
                             </div>

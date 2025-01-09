@@ -39,7 +39,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     const translate = useTranslate();
     const setProgress = useSetProgress();
 
-    const [sortByOptions] = useState(productService.getSortOptions());
+    const [sortByOptions] = useState(productService.getSortOptions(translate));
 
     const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
 
@@ -48,16 +48,18 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
     const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
 
-    const [distances] = useState([
-        { id: null, name: 'Overal' },
-        { id: 3, name: '< 3 km' },
-        { id: 5, name: '< 5 km' },
-        { id: 10, name: '< 10 km' },
-        { id: 15, name: '< 15 km' },
-        { id: 25, name: '< 25 km' },
-        { id: 50, name: '< 50 km' },
-        { id: 75, name: '< 75 km' },
-    ]);
+    const distances = useMemo(() => {
+        return [
+            { id: null, name: translate('products.distances.everywhere') },
+            { id: 3, name: translate('products.distances.3') },
+            { id: 5, name: translate('products.distances.5') },
+            { id: 10, name: translate('products.distances.10') },
+            { id: 15, name: translate('products.distances.15') },
+            { id: 25, name: translate('products.distances.25') },
+            { id: 50, name: translate('products.distances.50') },
+            { id: 75, name: translate('products.distances.75') },
+        ];
+    }, [translate]);
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
@@ -175,20 +177,27 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     const fetchFunds = useCallback(() => {
         fundService
             .list(fundType === 'budget' ? { has_products: 1 } : { has_subsidies: 1 })
-            .then((res) => setFunds([{ id: null, name: 'Alle tegoeden...' }, ...res.data.data]));
-    }, [fundService, fundType]);
+            .then((res) => setFunds([{ id: null, name: translate('products.filters.all_funds') }, ...res.data.data]));
+    }, [fundService, fundType, translate]);
 
     const fetchOrganizations = useCallback(() => {
         organizationService
             .list({ type: 'provider', per_page: 300, fund_type: fundType })
-            .then((res) => setOrganizations([{ id: null, name: 'Selecteer aanbieder...' }, ...res.data.data]));
-    }, [organizationService, fundType]);
+            .then((res) =>
+                setOrganizations([{ id: null, name: translate('products.filters.all_providers') }, ...res.data.data]),
+            );
+    }, [organizationService, fundType, translate]);
 
     const fetchProductCategories = useCallback(() => {
         productCategoryService
             .list({ per_page: 1000, used: 1, used_type: fundType, parent_id: 'null' })
-            .then((res) => setProductCategories([{ id: null, name: 'Selecteer categorie...' }, ...res.data.data]));
-    }, [productCategoryService, fundType]);
+            .then((res) =>
+                setProductCategories([
+                    { id: null, name: translate('products.filters.all_categories') },
+                    ...res.data.data,
+                ]),
+            );
+    }, [productCategoryService, fundType, translate]);
 
     useEffect(() => {
         fetchFunds();
@@ -220,7 +229,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
 
                     setProductSubCategories(
                         res.data.meta.total
-                            ? [{ name: 'Selecteer subcategorie...', id: null }, ...res.data.data]
+                            ? [{ name: translate('products.filters.all_sub_categories'), id: null }, ...res.data.data]
                             : null,
                     );
                 });
@@ -228,7 +237,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
             filterUpdate({ product_sub_category_id: null });
             setProductSubCategories(null);
         }
-    }, [filterUpdate, fundType, filterValues.product_category_id, productCategoryService]);
+    }, [filterUpdate, fundType, filterValues.product_category_id, productCategoryService, translate]);
 
     useEffect(() => {
         setTitle(translate('page_state_titles.products', { fund_name: fundFiltered ? ` ${fundFiltered.name}` : '' }));
@@ -237,7 +246,10 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Aanbod' }]}
+            breadcrumbItems={[
+                { name: translate('products.breadcrumbs.home'), state: 'home' },
+                { name: translate('products.breadcrumbs.products') },
+            ]}
             aside={
                 organizations &&
                 productCategories &&
@@ -256,7 +268,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     aria-pressed={!filterValues.bookmarked}
                                     role="button">
                                     <em className="mdi mdi-tag-multiple-outline" />
-                                    Volledig aanbod
+                                    {translate('products.filters.all_products')}
                                 </div>
                                 <div
                                     className={`showcase-aside-tab clickable ${
@@ -269,24 +281,25 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     aria-label="Toevoegen aan verlanglijstje"
                                     aria-pressed={!!filterValues.bookmarked}>
                                     <em className="mdi mdi-cards-heart-outline" />
-                                    Mijn verlanglijstje
+
+                                    {translate('products.filters.bookmarked')}
                                 </div>
                             </div>
                         )}
                         <div className="form-group">
                             <label className="form-label" htmlFor="products_search">
-                                Zoek aanbod
+                                {translate('products.filters.search')}
                             </label>
                             <UIControlText
                                 value={filterValues.q}
                                 onChangeValue={(q: string) => filterUpdate({ q })}
-                                ariaLabel="Zoeken"
+                                ariaLabel={translate('products.filters.search')}
                                 id="products_search"
                             />
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="select_provider">
-                                Aanbieders
+                                {translate('products.filters.providers')}
                             </label>
                             <SelectControl
                                 id={'select_provider'}
@@ -301,7 +314,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
 
                         <div className="form-group">
                             <label className="form-label" htmlFor="select_category">
-                                Categorie
+                                {translate('products.filters.category')}
                             </label>
 
                             <SelectControl
@@ -318,7 +331,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                         {productSubCategories?.length > 1 && (
                             <div className="form-group">
                                 <label className="form-label" htmlFor="select_sub_category">
-                                    Subcategorie
+                                    {translate('products.filters.sub_category')}
                                 </label>
 
                                 <SelectControl
@@ -335,7 +348,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
 
                         <div className="form-group">
                             <label className="form-label" htmlFor="select_fund">
-                                Tegoeden
+                                {translate('products.filters.fund')}
                             </label>
                             {funds && (
                                 <SelectControl
@@ -353,7 +366,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                             <div className="col col-md-6">
                                 <div className="form-group">
                                     <label className="form-label" htmlFor="postcode">
-                                        Postcode
+                                        {translate('products.filters.postcode')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -361,7 +374,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         value={filterValues.postcode}
                                         onChange={(e) => filterUpdate({ postcode: e.target.value })}
                                         type="text"
-                                        aria-label="Postcode"
+                                        aria-label={translate('products.filters.postcode')}
                                     />
                                     <FormError error={errors?.postcode} />
                                 </div>
@@ -369,11 +382,10 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                             <div className="col col-md-6">
                                 <div className="form-group">
                                     <label className="form-label" htmlFor="distance">
-                                        Afstand
+                                        {translate('products.filters.distance')}
                                     </label>
-
                                     <SelectControl
-                                        id={'select_fund'}
+                                        id={'distance'}
                                         propKey={'id'}
                                         value={filterValues.distance}
                                         allowSearch={true}
@@ -392,14 +404,16 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 <Fragment>
                     <div className="showcase-content-header">
                         <h1 className="showcase-filters-title">
-                            {filterValues.bookmarked ? 'Mijn verlanglijstje' : 'Aanbod'}
+                            {filterValues.bookmarked
+                                ? translate('products.filters.bookmarked')
+                                : translate('products.title')}
                             <div className="showcase-filters-title-count">{products?.meta?.total}</div>
                         </h1>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
                                 <div className="showcase-filters-item">
                                     <div className="form-label" id={'sort_by_label'}>
-                                        Sorteer
+                                        {translate('products.filters.sort')}
                                     </div>
                                     <SelectControl
                                         id={'sort_by'}
@@ -436,7 +450,8 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         aria-pressed={filterValues.display_type == 'list'}
                                         role="button">
                                         <em className="mdi mdi-format-list-text icon-start" />
-                                        Lijst
+
+                                        {translate('products.view.list')}
                                     </div>
                                     <div
                                         className={`label-tab label-tab-sm ${
@@ -448,7 +463,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         aria-pressed={filterValues.display_type == 'grid'}
                                         role="button">
                                         <em className="mdi mdi-view-grid-outline icon-start" />
-                                        {"Foto's"}
+                                        {translate('products.view.grid')}
                                     </div>
                                 </div>
                             </div>

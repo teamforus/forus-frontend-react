@@ -10,15 +10,17 @@ import { useNavigateState } from '../../../modules/state_router/Router';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function BookmarkedProducts() {
+    const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
 
     const productService = useProductService();
 
     const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [sortByOptions] = useState(productService.getSortOptions());
+    const [sortByOptions] = useState(productService.getSortOptions(translate));
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         page: number;
@@ -58,14 +60,14 @@ export default function BookmarkedProducts() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Mijn verlanglijstje' }]}
+            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('bookmarked_products.title') }]}
             profileHeader={
                 products && (
                     <div className="profile-content-header clearfix">
                         <div className="profile-content-title">
                             <div className="pull-left">
                                 <div className="profile-content-title-count">{products.meta.total}</div>
-                                <h1 className="profile-content-header">Mijn verlanglijstje</h1>
+                                <h1 className="profile-content-header">{translate('bookmarked_products.title')}</h1>
                             </div>
                         </div>
                         <div className="block block-label-tabs form pull-right">
@@ -93,7 +95,7 @@ export default function BookmarkedProducts() {
                                     aria-pressed={filterValues.display_type == 'list'}
                                     role="button">
                                     <em className="mdi mdi-format-list-text icon-start" />
-                                    Lijst
+                                    {translate('bookmarked_products.view_list')}
                                 </div>
                                 <div
                                     className={`label-tab label-tab-sm ${
@@ -103,7 +105,7 @@ export default function BookmarkedProducts() {
                                     aria-pressed={filterValues.display_type == 'grid'}
                                     role="button">
                                     <em className="mdi mdi-view-grid-outline icon-start" />
-                                    {"Foto's"}
+                                    {translate('bookmarked_products.view_grid')}
                                 </div>
                             </div>
                         </div>
@@ -116,14 +118,14 @@ export default function BookmarkedProducts() {
                         <ProductsList display={filterValues.display_type} products={products.data} />
                     ) : (
                         <EmptyBlock
-                            title="Er zijn nog geen aanbiedingen toegevoegd."
+                            title={translate('bookmarked_products.empty.title')}
                             svgIcon="reimbursements"
                             hideLink={true}
                             button={{
                                 iconEnd: true,
                                 icon: 'arrow-right',
                                 type: 'primary',
-                                text: 'Bekijk het aanbod',
+                                text: translate('bookmarked_products.empty.button'),
                                 onClick: () => navigateState('products'),
                             }}
                         />

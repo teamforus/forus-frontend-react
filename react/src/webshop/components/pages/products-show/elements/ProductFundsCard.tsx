@@ -86,7 +86,7 @@ export default function ProductFundsCard({
     );
 
     const reserveProduct = useCallback(
-        (fund) => {
+        (fund: Fund & { meta: { reservableVouchers: Voucher[] } }) => {
             fetchAuthIdentity().then(() => {
                 openModal((modal) => (
                     <ModalProductReserve
@@ -107,7 +107,7 @@ export default function ProductFundsCard({
                 <div className="block block-pane">
                     <div className="pane-head">
                         <StateNavLink className="pane-head-title" name="vouchers" customElement={'h2'}>
-                            {translate('product.headers.funds')}
+                            {translate('product.funds.title')}
                         </StateNavLink>
                     </div>
 
@@ -127,7 +127,9 @@ export default function ProductFundsCard({
                                             />
                                         </div>
                                         <div className="fund-item-content">
-                                            <div className="fund-item-section-label flex-start">Tegoed:</div>
+                                            <div className="fund-item-section-label flex-start">
+                                                {translate('product.funds.fund')}
+                                            </div>
                                             <div
                                                 className="fund-item-section-value fund-item-section-value-sm"
                                                 data-dusk="fundName">
@@ -296,8 +298,12 @@ export default function ProductFundsCard({
                                                 </StateNavLink>
                                             ) : (
                                                 <Fragment>
-                                                    <div className="fund-item-section-label">Reservering</div>
-                                                    <div className="fund-item-section-value">Niet beschikbaar</div>
+                                                    <div className="fund-item-section-label">
+                                                        {translate('product.funds.not_available_label')}
+                                                    </div>
+                                                    <div className="fund-item-section-value">
+                                                        {translate('product.funds.not_available_value')}
+                                                    </div>
                                                 </Fragment>
                                             )}
                                         </div>

@@ -297,7 +297,7 @@ export default function Home() {
 
                             {appConfigs.pages.explanation && (
                                 <StateNavLink name={'explanation'} className="header-how-it-works" target="_blank">
-                                    Hoe werkt het?
+                                    {translate('home.how_it_works')}
                                 </StateNavLink>
                             )}
                         </div>
@@ -308,63 +308,62 @@ export default function Home() {
                     <div className="wrapper">
                         <div className="block block-organization-info">
                             <div className="info-block-panel">
-                                <h2 className="block-title">Gemeente Nijmegen</h2>
-                                <p className="block-description">
-                                    De gemeente Nijmegen heeft verschillende vergoedingen voor mensen met een laag
-                                    inkomen. Denk aan de Meedoenregeling, dan krijgen inwoners met een laag inkomen
-                                    maximaal € 150,- voor culturele, sportieve en educatieve activiteiten. Of
-                                    bijvoorbeeld het busvoordeelabonnement. Alle vergoedingen vindt u hieronder.
-                                </p>
+                                <h2 className="block-title">{translate('home.nijmegen.title')}</h2>
+                                <p className="block-description">{translate('home.nijmegen.description')}</p>
                                 <ul className="block-list">
                                     <li>
-                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/26">Meedoenregeling</a>
+                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/26">
+                                            {translate('home.nijmegen.participation_scheme')}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/37">Busvoordeelabonnement</a>
+                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/37">
+                                            {translate('home.nijmegen.bus_benefit_subscription')}
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="https://vergoedingen.nijmegen.nl/fondsen/79">
-                                            Individuele inkomenstoeslag
+                                            {translate('home.nijmegen.individual_income_allowance')}
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/82">Studietoeslag</a>
+                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/82">
+                                            {translate('home.nijmegen.study_allowance')}
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="https://vergoedingen.nijmegen.nl/fondsen/81">
-                                            Collectieve Aanvullende Ziektekostenverzekering (CAZ)
+                                            {translate('home.nijmegen.collective_health_insurance')}
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/83">Bijzondere bijstand</a>
+                                        <a href="https://vergoedingen.nijmegen.nl/fondsen/83">
+                                            {translate('home.nijmegen.special_assistance')}
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="https://vergoedingen.nijmegen.nl/fondsen/84">
-                                            Kwijtschelding gemeentelijke belastingen
+                                            {translate('home.nijmegen.tax_relief')}
                                         </a>
                                     </li>
                                 </ul>
                                 <a href="https://vergoedingen.nijmegen.nl/fondsen">
-                                    Meer vergoedingen van gemeente Nijmegen
+                                    {translate('home.nijmegen.more_info')}
                                 </a>
                             </div>
+
                             <div className="info-block-panel">
-                                <h2 className="block-title">Stichting Leergeld Nijmegen</h2>
-                                <p className="block-description">
-                                    Leergeld Nijmegen heeft als doel alle Nijmeegse kinderen mee te laten doen. Voor
-                                    kinderen uit gezinnen met een laag inkomen kan dit een probleem zijn. Leergeld
-                                    Nijmegen biedt de mogelijkheid aan deze kinderen in de leeftijd van 0 tot en met 17
-                                    jaar om te kunnen deelnemen aan allerlei activiteiten.
-                                </p>
+                                <h2 className="block-title">{translate('home.leergeld.title')}</h2>
+                                <p className="block-description">{translate('home.leergeld.description')}</p>
                                 <ul className="block-list">
                                     <li>
                                         <a href="https://www.leergeldnijmegen.nl/hulp-voor-uw-kind">
-                                            Hulp voor uw kind
+                                            {translate('home.leergeld.help_for_child')}
                                         </a>
                                     </li>
                                 </ul>
                                 <a href="https://www.leergeldnijmegen.nl/homepagina">
-                                    Meer informatie over Stichting Leergeld Nijmegen
+                                    {translate('home.leergeld.more_info')}
                                 </a>
                             </div>
                         </div>
@@ -396,7 +395,7 @@ export default function Home() {
 
                                 <div className="pre-check-banner-actions">
                                     <StateNavLink name={'fund-pre-check'} className="button button-primary">
-                                        Doe de check
+                                        {translate('home.pre_check.take_check')}
                                         <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                     </StateNavLink>
                                 </div>
@@ -415,12 +414,7 @@ export default function Home() {
                                     <div className="wrapper">
                                         <BlockProducts
                                             products={products.data}
-                                            setProducts={(list) =>
-                                                setProducts({
-                                                    ...products,
-                                                    data: list,
-                                                })
-                                            }
+                                            setProducts={(list) => setProducts({ ...products, data: list })}
                                             type="budget"
                                             large={true}
                                             display="grid"
@@ -461,7 +455,7 @@ export default function Home() {
                                                 name={'providers'}
                                                 query={{ show_map: 1 }}
                                                 className="button button-primary">
-                                                {translate('buttons.show_map')}
+                                                {translate('home.map.show')}
                                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                             </StateNavLink>
                                         </div>

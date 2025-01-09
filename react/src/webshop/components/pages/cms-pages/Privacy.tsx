@@ -15,7 +15,10 @@ export default function Privacy() {
     return (
         <BlockShowcase
             wrapper={true}
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Privacyverklaring' }]}>
+            breadcrumbItems={[
+                { name: translate('privacy.breadcrumbs.home'), state: 'home' },
+                { name: translate('privacy.breadcrumbs.privacy') },
+            ]}>
             {page && (
                 <div className="section">
                     <div

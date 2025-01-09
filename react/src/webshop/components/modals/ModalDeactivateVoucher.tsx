@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useFormBuilder from '../../../dashboard/hooks/useFormBuilder';
 import FormError from '../../../dashboard/components/elements/forms/errors/FormError';
@@ -7,6 +7,7 @@ import { useVoucherService } from '../../services/VoucherService';
 import Voucher from '../../../dashboard/props/models/Voucher';
 import InputRadioControl from '../elements/input-radio-control/InputRadioControl';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import useTranslate from '../../../dashboard/hooks/useTranslate';
 
 export default function ModalDeactivateVoucher({
     modal,
@@ -17,12 +18,17 @@ export default function ModalDeactivateVoucher({
     voucher: Voucher;
     onDeactivated: (voucher: Voucher) => void;
 }) {
-    const [reasons] = useState([
-        { key: 'moved', value: 'Verhuizing' },
-        { key: 'income_change', value: 'Verandering in inkomen' },
-        { key: 'not_interested', value: 'Aanbod is niet aantrekkelijk' },
-        { key: 'other', value: 'Anders' },
-    ]);
+    const translate = useTranslate();
+
+    const reasons = useMemo(
+        () => [
+            { key: 'moved', value: translate('modal_deactivate_voucher.reasons.moved') },
+            { key: 'income_change', value: translate('modal_deactivate_voucher.reasons.income_change') },
+            { key: 'not_interested', value: translate('modal_deactivate_voucher.reasons.not_interested') },
+            { key: 'other', value: translate('modal_deactivate_voucher.reasons.other') },
+        ],
+        [translate],
+    );
 
     const [note, setNote] = useState('');
     const [reason, setReason] = useState(null);
@@ -47,7 +53,12 @@ export default function ModalDeactivateVoucher({
 
     return (
         <div className={`modal modal-animated  ${modal.loading ? '' : 'modal-loaded'}`} role="dialog">
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" role="button" />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('modal_deactivate_voucher.close')}
+                role="button"
+            />
 
             {state == 'reason' && (
                 <form className="modal-window form" onSubmit={() => setState('confirmation')}>
@@ -56,12 +67,12 @@ export default function ModalDeactivateVoucher({
                         onClick={modal.close}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_deactivate_voucher.close')}
                         role="button"
                     />
 
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Deelname stoppen</h2>
+                        <h2 className="modal-header-title">{translate('modal_deactivate_voucher.header_title')}</h2>
                     </div>
 
                     <div className="modal-body">
@@ -69,11 +80,17 @@ export default function ModalDeactivateVoucher({
                             <div className="modal-section-icon modal-section-icon-warning">
                                 <em className="mdi mdi-alert-outline" />
                             </div>
-                            <h2 className="modal-section-title">Je {voucher?.fund?.name} deelname stoppen.</h2>
+                            <h2 className="modal-section-title">
+                                {translate('modal_deactivate_voucher.stop_participation', {
+                                    name: voucher?.fund?.name,
+                                })}
+                            </h2>
                             <div className="modal-section-space" />
                             <div className="modal-section-space" />
                             <div className="modal-section-notice-pane">
-                                <div className="form-label">Reden van stoppen:</div>
+                                <div className="form-label">
+                                    {translate('modal_deactivate_voucher.reason_for_stopping')}
+                                </div>
                                 <div className="form-group form-group-inline">
                                     {reasons?.map((item) => (
                                         <InputRadioControl
@@ -93,7 +110,7 @@ export default function ModalDeactivateVoucher({
                                 {reason?.key == 'other' && (
                                     <div className="form-group">
                                         <label className="form-label" htmlFor="deactivate_voucher_note">
-                                            Reden
+                                            {translate('modal_deactivate_voucher.reason')}
                                         </label>
                                         <textarea
                                             className="form-control r-n"
@@ -102,7 +119,9 @@ export default function ModalDeactivateVoucher({
                                             value={note}
                                             onChange={(e) => setNote(e.target.value)}
                                         />
-                                        <div className="form-hint">Max. 140 tekens</div>
+                                        <div className="form-hint">
+                                            {translate('modal_deactivate_voucher.max_characters')}
+                                        </div>
                                         <FormError error={form.errors?.note} />
                                     </div>
                                 )}
@@ -112,10 +131,10 @@ export default function ModalDeactivateVoucher({
 
                     <div className="modal-footer">
                         <button className="button button-sm button-light" type="button" onClick={modal.close}>
-                            Annuleer
+                            {translate('modal_deactivate_voucher.cancel')}
                         </button>
                         <button className="button button-sm button-primary" type="submit" disabled={!reason}>
-                            Volgende
+                            {translate('modal_deactivate_voucher.next')}
                         </button>
                     </div>
                 </form>
@@ -128,21 +147,22 @@ export default function ModalDeactivateVoucher({
                         onClick={modal.close}
                         onKeyDown={clickOnKeyEnter}
                         tabIndex={0}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_deactivate_voucher.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Deelname stoppen</h2>
+                        <h2 className="modal-header-title">{translate('modal_deactivate_voucher.header_title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
                             <div className="modal-section-icon modal-section-icon-warning">
                                 <em className="mdi mdi-alert-outline" />
                             </div>
-                            <h2 className="modal-section-title">Weet u zeker dat u uw deelname wilt stoppen?</h2>
+                            <h2 className="modal-section-title">
+                                {translate('modal_deactivate_voucher.confirm_stop_participation')}
+                            </h2>
                             <div className="modal-section-description">
-                                Let op: Je kunt hierna geen gebruik meer maken van je tegoed. Je {voucher.fund.name}{' '}
-                                tegoed wordt gedeactiveerd.
+                                {translate('modal_deactivate_voucher.warning', { name: voucher.fund.name })}
                             </div>
                         </div>
                     </div>
@@ -151,10 +171,10 @@ export default function ModalDeactivateVoucher({
                             className="button button-sm button-light"
                             type="button"
                             onClick={() => setState('reason')}>
-                            Terug
+                            {translate('modal_deactivate_voucher.back')}
                         </button>
                         <button className="button button-sm button-primary" type="button" onClick={() => form.submit()}>
-                            Bevestigen
+                            {translate('modal_deactivate_voucher.confirm')}
                         </button>
                     </div>
                 </form>
@@ -167,24 +187,28 @@ export default function ModalDeactivateVoucher({
                         onClick={modal.close}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_deactivate_voucher.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Deelname stoppen</h2>
+                        <h2 className="modal-header-title">{translate('modal_deactivate_voucher.header_title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
                             <div className="modal-section-icon modal-section-icon-success">
                                 <em className="mdi mdi-check-circle-outline" />
                             </div>
-                            <h2 className="modal-section-title">Deelname gestopt</h2>
-                            <div className="modal-section-description">Je {voucher.fund.name} deelname is gestopt.</div>
+                            <h2 className="modal-section-title">
+                                {translate('modal_deactivate_voucher.stop_successful')}
+                            </h2>
+                            <div className="modal-section-description">
+                                {translate('modal_deactivate_voucher.success_message', { name: voucher.fund.name })}
+                            </div>
                         </div>
                     </div>
                     <div className="modal-footer">
                         <button className="button button-sm button-light" type="button" onClick={modal.close}>
-                            Sluiten
+                            {translate('modal_deactivate_voucher.close')}
                         </button>
                     </div>
                 </div>

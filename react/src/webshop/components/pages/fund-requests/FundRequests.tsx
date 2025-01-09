@@ -75,14 +75,17 @@ export default function FundRequests() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('fund_requests.header.title') }]}
+            breadcrumbItems={[
+                { name: translate('fund_requests.breadcrumbs.home'), state: 'home' },
+                { name: translate('fund_requests.breadcrumbs.fund_requests') },
+            ]}
             profileHeader={
                 fundRequests && (
                     <div className="profile-content-header clearfix">
                         <div className="profile-content-title">
                             <div className="pull-left">
                                 <div className="profile-content-title-count">{fundRequests.meta.total}</div>
-                                <h1 className="profile-content-header">{translate('fund_requests.header.title')}</h1>
+                                <h1 className="profile-content-header">{translate('fund_requests.title')}</h1>
                             </div>
                         </div>
                         <div className="block block-label-tabs form pull-right">
@@ -94,7 +97,7 @@ export default function FundRequests() {
                                     onClick={() => filterUpdate({ archived: false })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}>
-                                    Actief
+                                    {translate('fund_requests.filters.active')}
                                 </div>
                                 <div
                                     className={`label-tab label-tab-sm ${filterValues.archived ? 'active' : ''}`}
@@ -103,7 +106,7 @@ export default function FundRequests() {
                                     onClick={() => filterUpdate({ archived: true })}
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}>
-                                    Archief
+                                    {translate('fund_requests.filters.archive')}
                                 </div>
                             </div>
                         </div>
@@ -143,12 +146,12 @@ export default function FundRequests() {
                     {fundRequests?.data?.length == 0 && (
                         <EmptyBlock
                             data-dusk="fundRequestsEmptyBlock"
-                            title={translate('fund_requests.empty_block.title')}
-                            description={translate('fund_requests.empty_block.subtitle')}
+                            title={translate('fund_requests.empty.title')}
+                            description={translate('fund_requests.empty.subtitle')}
                             svgIcon={'fund-requests'}
                             hideLink={true}
                             button={{
-                                text: translate('fund_requests.empty_block.cta'),
+                                text: translate('fund_requests.empty.button'),
                                 icon: 'arrow-right',
                                 iconEnd: true,
                                 type: 'primary',

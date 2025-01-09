@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import BlockBreadcrumbs, { Breadcrumb } from '../block-breadcrumbs/BlockBreadcrumbs';
 import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
 import useIsMobile from '../../../hooks/useIsMobile';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 
 export default function BlockShowcasePage({
@@ -24,6 +25,8 @@ export default function BlockShowcasePage({
     countFiltersApplied?: number;
 }) {
     const isMobile = useIsMobile(1000);
+    const translate = useTranslate();
+
     const [showModalFilters, setShowModalFilters] = useState(false);
 
     const showMobileMenu = useCallback(() => {
@@ -45,14 +48,14 @@ export default function BlockShowcasePage({
                     <div className="mobile-filters-count">
                         <div className="mobile-filters-count-value">{countFiltersApplied}</div>
                     </div>
-                    <div className="mobile-filters-title">Filteren</div>
+                    <div className="mobile-filters-title">{translate('global.showcase.filters')}</div>
                     <div
                         className="mobile-filters-icon"
                         onClick={toggleMobileMenu}
                         role="button"
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Filteren"
+                        aria-label={translate('global.showcase.filters')}
                         aria-expanded={showModalFilters}
                         aria-controls={'aside-mobile'}>
                         <em className="mdi mdi-filter-outline" />

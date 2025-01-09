@@ -15,10 +15,12 @@ import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcasePro
 import ModalNotification from '../../modals/ModalNotification';
 import Auth2FARestriction from '../../../components/elements/auth2fa-restriction/Auth2FARestriction';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
+    const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
@@ -33,11 +35,11 @@ export default function SecuritySessions() {
     const [shownLocations, setShownLocations] = useState({});
 
     const [titles] = useState({
-        general: 'Onbekend',
-        sponsor: 'Sponsor beheeromgeving',
-        provider: 'Aanbieders beheeromgeving',
-        validator: 'Beoordelaar beheeromgeving',
-        webshop: 'Webshop',
+        general: translate('security_sessions.clients.general'),
+        sponsor: translate('security_sessions.clients.sponsor'),
+        provider: translate('security_sessions.clients.provider'),
+        validator: translate('security_sessions.clients.validator'),
+        webshop: translate('security_sessions.clients.webshop'),
         'app-me_ap': 'Me-app',
         'app-me_ap-android': 'Me-app',
         'app-me_ap-ios': 'Me-app',
@@ -138,7 +140,10 @@ export default function SecuritySessions() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Beveiliging' }]}
+            breadcrumbItems={[
+                { name: translate('security_sessions.breadcrumbs.home'), state: 'home' },
+                { name: translate('security_sessions.breadcrumbs.security_sessions') },
+            ]}
             profileHeader={
                 (auth2faRestricted || sessions) &&
                 (auth2faRestricted ? (
@@ -148,7 +153,7 @@ export default function SecuritySessions() {
                         <div className="profile-content-title">
                             <div className="pull-left">
                                 {sessions && <div className="profile-content-title-count">{sessions?.data.length}</div>}
-                                Sessies
+                                {translate('security_sessions.title')}
                             </div>
                         </div>
                     </div>
@@ -181,7 +186,9 @@ export default function SecuritySessions() {
                                                 </div>
                                                 <div className="session-properties">
                                                     <div className="session-property">
-                                                        <div className="session-property-label">Laatste activiteit</div>
+                                                        <div className="session-property-label">
+                                                            {translate('security_sessions.details.last_activity')}
+                                                        </div>
                                                         <div className="session-property-value">
                                                             {session.last_request.time_passed_locale}
                                                             {session.last_request.location && (
@@ -197,7 +204,9 @@ export default function SecuritySessions() {
                                                         </div>
                                                     </div>
                                                     <div className="session-property">
-                                                        <div className="session-property-label">Sessie gestart</div>
+                                                        <div className="session-property-label">
+                                                            {translate('security_sessions.details.started_at')}
+                                                        </div>
                                                         <div className="session-property-value">
                                                             {session.started_at_locale}
                                                         </div>
@@ -215,7 +224,7 @@ export default function SecuritySessions() {
                                                                     [session.uid]: !shownLocations[session.uid],
                                                                 })
                                                             }>
-                                                            Bekijk alle locaties
+                                                            {translate('security_sessions.buttons.show_all_locations')}
                                                             {shownLocations[session.uid] && (
                                                                 <em className="mdi mdi-menu-up" />
                                                             )}
@@ -230,7 +239,7 @@ export default function SecuritySessions() {
                                                         onKeyDown={clickOnKeyEnter}
                                                         onClick={() => terminateSession(session)}
                                                         className="session-action">
-                                                        Beëindig sessie
+                                                        {translate('security_sessions.buttons.terminate_session')}
                                                         <em className="mdi mdi-close" />
                                                     </a>
                                                 </div>
@@ -247,13 +256,17 @@ export default function SecuritySessions() {
                                             </div>
                                             {session.current && (
                                                 <div className="session-label">
-                                                    <div className="label label-lg label-primary">Huidig</div>
+                                                    <div className="label label-lg label-primary">
+                                                        {translate('security_sessions.labels.online')}
+                                                    </div>
                                                 </div>
                                             )}
 
                                             {session.active && !session.current && (
                                                 <div className="session-label">
-                                                    <div className="label label-lg label-success">Online</div>
+                                                    <div className="label label-lg label-success">
+                                                        {translate('security_sessions.labels.online')}
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
@@ -270,7 +283,8 @@ export default function SecuritySessions() {
                                             type={'button'}
                                             className="button button-primary"
                                             onClick={() => terminateAllSessions()}>
-                                            Beëindig alle sessies
+                                            {}
+                                            {translate('security_sessions.buttons.terminate_all_sessions')}
                                             <em className="mdi mdi-close icon-end" />
                                         </button>
                                     </div>

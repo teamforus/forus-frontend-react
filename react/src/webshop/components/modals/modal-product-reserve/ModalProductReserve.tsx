@@ -121,7 +121,7 @@ export default function ModalProductReserve({
     const [step, setStep] = useState(hasEmail ? STEP_SELECT_VOUCHER : STEP_EMAIL_SETUP);
     const [steps, setSteps] = useState([]);
     const [fields, setFields] = useState<Array<Field>>([]);
-    const [emptyText] = useState(translate('modal_product_reserve_notes.confirm_notes.labels.empty'));
+    const [emptyText] = useState(translate('modal_reserve_product.confirm_notes.labels.empty'));
     const [voucher, setVoucher] = useState<VoucherType>(null);
 
     const form = useFormBuilder<{
@@ -276,8 +276,8 @@ export default function ModalProductReserve({
             const required = product.reservation[key] === 'required';
 
             return {
-                label: translate(`modal_product_reserve_notes.fill_notes.labels.${key}${required ? '' : '_optional'}`),
-                placeholder: translate(`modal_product_reserve_notes.fill_notes.placeholders.${key}`),
+                label: translate(`modal_reserve_product.fill_notes.labels.${key}${required ? '' : '_optional'}`),
+                placeholder: translate(`modal_reserve_product.fill_notes.placeholders.${key}`),
                 required,
                 key,
                 dusk,
@@ -389,10 +389,15 @@ export default function ModalProductReserve({
 
     return (
         <div
-            className={`modal modal-product-reserve modal-animated  ${modal.loading ? '' : 'modal-loaded'}`}
+            className={`modal modal-product-reserve modal-animated ${modal.loading ? '' : 'modal-loaded'}`}
             data-dusk={'modalProductReserve'}
             role="dialog">
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" role="button" />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('modal_reserve_product.close')}
+                role="button"
+            />
 
             {step == STEP_EMAIL_SETUP && (
                 <div className="modal-window">
@@ -401,27 +406,29 @@ export default function ModalProductReserve({
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
                         onClick={modal.close}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">E-mailadres toevoegen</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.email_setup_title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
                             <div className="modal-section-icon modal-section-icon-primary">
                                 <div className="mdi mdi-email-outline" />
                             </div>
-                            <h2 className="modal-section-title">E-mailadres toevoegen</h2>
+                            <h2 className="modal-section-title">
+                                {translate('modal_reserve_product.email_setup_title')}
+                            </h2>
                             <div className="modal-section-description">
-                                Voeg uw e-mailadres toe om berichten te kunnen ontvangen.
+                                {translate('modal_reserve_product.email_setup_description')}
                             </div>
                             <div className="modal-section-space" />
                             <div className="modal-section-space" />
                             <div className="flex flex-grow flex-center">
                                 <button className="button button-primary button-sm" onClick={addEmail} role="link">
                                     <em className="mdi mdi-open-in-new icon-start" />
-                                    Toevoegen
+                                    {translate('modal_reserve_product.add_email')}
                                 </button>
                             </div>
                         </div>
@@ -429,7 +436,7 @@ export default function ModalProductReserve({
                     <div className="modal-footer flex-gap-lg">
                         <div className="flex flex-grow">
                             <button className="button button-light button-sm" type="button" onClick={modal.close}>
-                                Annuleren
+                                {translate('modal_reserve_product.cancel')}
                             </button>
                         </div>
                         <div className="flex">
@@ -438,7 +445,7 @@ export default function ModalProductReserve({
                                 data-dusk="reserveSkipEmailStep"
                                 type="button"
                                 onClick={() => setStep(STEP_SELECT_VOUCHER)}>
-                                Overslaan
+                                {translate('modal_reserve_product.skip')}
                             </button>
                         </div>
                     </div>
@@ -452,25 +459,26 @@ export default function ModalProductReserve({
                         onClick={() => modal.close()}
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
+
                     <div className="modal-header">
-                        <h2 className="modal-header-title">{translate('modal_product_reserve.header.title')}</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.header.title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
-                            <h2 className="modal-section-title">Kies het tegoed om mee te betalen</h2>
+                            <h2 className="modal-section-title">{translate('modal_reserve_product.choose_credit')}</h2>
                             <TranslateHtml
                                 className="modal-section-description"
-                                i18n={`modal_product_reserve.description_${appConfigs?.communication_type}`}
+                                i18n={`modal_reserve_product.description_${appConfigs?.communication_type}`}
                                 values={transValues}
                             />
 
                             {transValues.days_to_cancel > 0 && (
                                 <TranslateHtml
                                     className="modal-section-description"
-                                    i18n={`modal_product_reserve.description_${appConfigs?.communication_type}_time`}
+                                    i18n={`modal_reserve_product.description_${appConfigs?.communication_type}_time`}
                                     values={transValues}
                                 />
                             )}
@@ -541,7 +549,9 @@ export default function ModalProductReserve({
                                                             {currencyFormat(voucher.amount_extra)}
                                                         </div>
                                                         <div className="voucher-extra-payment-description">
-                                                            Bijbetalen
+                                                            {translate(
+                                                                'modal_reserve_product.extra_payment_description',
+                                                            )}
                                                         </div>
                                                     </div>
                                                 )}
@@ -553,7 +563,7 @@ export default function ModalProductReserve({
                                                 <button
                                                     className="button button-primary button-sm"
                                                     onClick={() => selectVoucher(voucher)}>
-                                                    Kies
+                                                    {translate('modal_reserve_product.choose')}
                                                 </button>
                                             </div>
                                         )}
@@ -577,17 +587,13 @@ export default function ModalProductReserve({
 
                                     {vouchersNeedExtraPayment > 1 && (
                                         <div className="block-warning-content">
-                                            Sommige van uw tegoeden hebben niet voldoende saldo. Door een van deze
-                                            vouchers te gebruiken, moet u het ontbrekende bedrag aan het einde van de
-                                            reservering bijbetalen.
+                                            {translate('modal_reserve_product.multiple_vouchers_warning')}
                                         </div>
                                     )}
 
                                     {vouchersNeedExtraPayment === 1 && (
                                         <div className="block-warning-content">
-                                            Er is onvoldoende saldo op uw tegoed, u moet het ontbrekende bedrag aan het
-                                            einde van de reservering bijbetalen via een van de beschikbare
-                                            betaalmethoden.
+                                            {translate('modal_reserve_product.single_voucher_warning')}
                                         </div>
                                     )}
                                 </div>
@@ -606,14 +612,14 @@ export default function ModalProductReserve({
                                 <div className="button-group">
                                     {!hasEmail && (
                                         <button className="button button-light button-sm" type="button" onClick={back}>
-                                            Terug
+                                            {translate('modal_reserve_product.buttons.back')}
                                         </button>
                                     )}
                                     <button
                                         className="button button-primary button-sm"
                                         data-dusk="btnSelectVoucher"
                                         onClick={() => selectVoucher(vouchersList[0])}>
-                                        Bevestigen
+                                        {translate('modal_reserve_product.buttons.confirm')}
                                     </button>
                                 </div>
                             </div>
@@ -636,20 +642,20 @@ export default function ModalProductReserve({
                         onKeyDown={clickOnKeyEnter}
                         tabIndex={0}
                         id="close"
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">{translate('modal_product_reserve.header.title')}</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.header.title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
                             <h2 className="modal-section-title">
-                                {translate('modal_product_reserve_notes.fill_notes.header.title')}
+                                {translate('modal_reserve_product.fill_notes.header.title')}
                             </h2>
                             <TranslateHtml
                                 className="modal-section-description"
-                                i18n="modal_product_reserve_notes.fill_notes.header.subtitle"
+                                i18n="modal_reserve_product.fill_notes.header.subtitle"
                                 values={{ provider_name: provider.name }}
                             />
                             <ModalProductReserveProgress
@@ -663,7 +669,7 @@ export default function ModalProductReserve({
                             <div className="row">
                                 <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
                                     <label className="form-label" htmlFor="reservation_modal_first_name">
-                                        {translate('modal_product_reserve_notes.fill_notes.labels.first_name')}
+                                        {translate('modal_reserve_product.fill_notes.labels.first_name')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -677,7 +683,7 @@ export default function ModalProductReserve({
                                 </div>
                                 <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
                                     <label className="form-label" htmlFor="reservation_modal_last_name">
-                                        {translate('modal_product_reserve_notes.fill_notes.labels.last_name')}
+                                        {translate('modal_reserve_product.fill_notes.labels.last_name')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -815,13 +821,13 @@ export default function ModalProductReserve({
                     <div className="modal-footer">
                         <div className="flex hide-sm">
                             <button className="button button-light button-sm" type="button" onClick={modal.close}>
-                                Annuleren
+                                {translate('modal_reserve_product.buttons.cancel')}
                             </button>
                         </div>
 
                         <div className="flex flex-grow flex-end">
                             <button className="button button-light button-sm" type="button" onClick={back}>
-                                Terug
+                                {translate('modal_reserve_product.buttons.back')}
                             </button>
                             <button className="button button-primary button-sm" type="submit" data-dusk="btnSubmit">
                                 {translate('popup_auth.buttons.submit')}
@@ -845,20 +851,20 @@ export default function ModalProductReserve({
                         onClick={modal.close}
                         onKeyDown={clickOnKeyEnter}
                         id="close"
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">{translate('modal_product_reserve.header.title')}</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.header.title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
                             <h2 className="modal-section-title">
-                                {translate('modal_product_reserve_notes.fill_notes.header.title')}
+                                {translate('modal_reserve_product.fill_notes.header.title')}
                             </h2>
                             <TranslateHtml
                                 className="modal-section-description"
-                                i18n="modal_product_reserve_notes.fill_notes.header.subtitle"
+                                i18n="modal_reserve_product.fill_notes.header.subtitle"
                                 values={{ provider_name: provider.name }}
                             />
                             <ModalProductReserveProgress
@@ -871,7 +877,7 @@ export default function ModalProductReserve({
                             <div className="row">
                                 <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
                                     <label className="form-label" htmlFor="reservation_modal_street">
-                                        {translate('modal_product_reserve_notes.fill_notes.labels.street')}
+                                        {translate('modal_reserve_product.fill_notes.labels.street')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -885,7 +891,7 @@ export default function ModalProductReserve({
                                 </div>
                                 <div className="col col-lg-3 col-xs-12 form-group form-group-margin">
                                     <label className="form-label" htmlFor="reservation_modal_house_nr">
-                                        {translate('modal_product_reserve_notes.fill_notes.labels.house_nr')}
+                                        {translate('modal_reserve_product.fill_notes.labels.house_nr')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -899,7 +905,7 @@ export default function ModalProductReserve({
                                 </div>
                                 <div className="col col-lg-3 col-xs-12 form-group form-group-margin">
                                     <label className="form-label" htmlFor="reservation_modal_house_nr_addition">
-                                        {translate('modal_product_reserve_notes.fill_notes.labels.house_nr_addition')}
+                                        {translate('modal_reserve_product.fill_notes.labels.house_nr_addition')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -916,7 +922,7 @@ export default function ModalProductReserve({
                             <div className="row">
                                 <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
                                     <label className="form-label" htmlFor="reservation_modal_postal_code">
-                                        {translate('modal_product_reserve_notes.fill_notes.labels.postal_code')}
+                                        {translate('modal_reserve_product.fill_notes.labels.postal_code')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -930,7 +936,7 @@ export default function ModalProductReserve({
                                 </div>
                                 <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
                                     <label className="form-label" htmlFor="reservation_modal_city">
-                                        {translate('modal_product_reserve_notes.fill_notes.labels.city')}
+                                        {translate('modal_reserve_product.fill_notes.labels.city')}
                                     </label>
                                     <input
                                         className="form-control"
@@ -948,12 +954,12 @@ export default function ModalProductReserve({
                     <div className="modal-footer">
                         <div className="flex hide-sm">
                             <button className="button button-light button-sm" type="button" onClick={modal.close}>
-                                Annuleren
+                                {translate('modal_reserve_product.buttons.cancel')}
                             </button>
                         </div>
                         <div className="flex flex-grow flex-end">
                             <button className="button button-light button-sm" type="button" onClick={back}>
-                                Terug
+                                {translate('modal_reserve_product.buttons.back')}
                             </button>
                             <button className="button button-primary button-sm" type="submit" data-dusk="btnSubmit">
                                 {translate('popup_auth.buttons.submit')}
@@ -977,20 +983,20 @@ export default function ModalProductReserve({
                         onKeyDown={clickOnKeyEnter}
                         tabIndex={0}
                         id="close"
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">{translate('modal_product_reserve.header.title')}</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.header.title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
                             <h2 className="modal-section-title">
-                                {translate('modal_product_reserve_notes.fill_notes.header.title')}
+                                {translate('modal_reserve_product.fill_notes.header.title')}
                             </h2>
                             <TranslateHtml
                                 className="modal-section-description"
-                                i18n={'modal_product_reserve_notes.fill_notes.header.subtitle'}
+                                i18n={'modal_reserve_product.fill_notes.header.subtitle'}
                                 values={{ provider_name: provider.name }}
                             />
                             <ModalProductReserveProgress
@@ -1002,7 +1008,7 @@ export default function ModalProductReserve({
                         <div className="modal-section">
                             <div className="form-group">
                                 <label className="form-label" htmlFor="reservation_modal_user_note">
-                                    {translate('modal_product_reserve_notes.fill_notes.labels.notes')}
+                                    {translate('modal_reserve_product.fill_notes.labels.notes')}
                                 </label>
                                 <textarea
                                     className="form-control"
@@ -1011,7 +1017,9 @@ export default function ModalProductReserve({
                                     onChange={(e) => form.update({ user_note: e.target.value })}
                                     data-dusk="productReserveFormNote"
                                 />
-                                <div className="form-hint">Max. 400 tekens</div>
+                                <div className="form-hint">
+                                    {translate('modal_reserve_product.fill_notes.max_characters')}
+                                </div>
                                 <FormError error={form.errors.user_note} />
                             </div>
                         </div>
@@ -1019,12 +1027,12 @@ export default function ModalProductReserve({
                     <div className="modal-footer">
                         <div className="flex hide-sm">
                             <button className="button button-light button-sm" type="button" onClick={modal.close}>
-                                Annuleren
+                                {translate('modal_reserve_product.buttons.cancel')}
                             </button>
                         </div>
                         <div className="flex flex-grow flex-end">
                             <button className="button button-light button-sm" type="button" onClick={back}>
-                                Terug
+                                {translate('modal_reserve_product.buttons.back')}
                             </button>
                             <button className="button button-primary button-sm" type="submit" data-dusk="btnSubmit">
                                 {translate('popup_auth.buttons.submit')}
@@ -1041,20 +1049,20 @@ export default function ModalProductReserve({
                         tabIndex={0}
                         onClick={modal.close}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">{translate('modal_product_reserve.header.title')}</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.header.title')}</h2>
                     </div>
                     <div className="modal-body" data-dusk="productReserveConfirmDetails">
                         <div className="modal-section">
                             <h2 className="modal-section-title">
-                                {translate('modal_product_reserve_notes.confirm_notes.header.title')}
+                                {translate('modal_reserve_product.confirm_notes.header.title')}
                             </h2>
                             <TranslateHtml
                                 className="modal-section-description"
-                                i18n="modal_product_reserve_notes.confirm_notes.modal_section.title"
+                                i18n="modal_reserve_product.confirm_notes.modal_section.title"
                             />
                             <ModalProductReserveProgress
                                 step={step}
@@ -1062,17 +1070,18 @@ export default function ModalProductReserve({
                                 finalStep={STEP_RESERVATION_FINISHED}
                             />
                         </div>
+
                         <div className="modal-section reservation-overview">
                             <div className="overview-list">
                                 <div className="overview-item">
                                     <div className="overview-item-label">
-                                        {translate('modal_product_reserve_notes.confirm_notes.labels.first_name')}
+                                        {translate('modal_reserve_product.confirm_notes.labels.first_name')}
                                     </div>
                                     <div className="overview-item-value">{form.values.first_name || '-'}</div>
                                 </div>
                                 <div className="overview-item">
                                     <div className="overview-item-label">
-                                        {translate('modal_product_reserve_notes.confirm_notes.labels.last_name')}
+                                        {translate('modal_reserve_product.confirm_notes.labels.last_name')}
                                     </div>
                                     <div className="overview-item-value">{form.values.last_name || '-'}</div>
                                 </div>
@@ -1083,7 +1092,7 @@ export default function ModalProductReserve({
                                             <Fragment>
                                                 <div className="overview-item-label">
                                                     {translate(
-                                                        `modal_product_reserve_notes.confirm_notes.labels.${field.key}`,
+                                                        `modal_reserve_product.confirm_notes.labels.${field.key}`,
                                                     )}
                                                 </div>
                                                 <div
@@ -1114,7 +1123,7 @@ export default function ModalProductReserve({
                                 {product?.reservation?.address !== 'no' && (
                                     <div className="overview-item">
                                         <div className="overview-item-label">
-                                            {translate('modal_product_reserve_notes.confirm_notes.labels.street')}
+                                            {translate('modal_reserve_product.confirm_notes.labels.street')}
                                         </div>
                                         <div
                                             className={`overview-item-value ${
@@ -1128,7 +1137,7 @@ export default function ModalProductReserve({
                                 {product.reservation.address !== 'no' && (
                                     <div className="overview-item">
                                         <div className="overview-item-label">
-                                            {translate('modal_product_reserve_notes.confirm_notes.labels.house_nr')}
+                                            {translate('modal_reserve_product.confirm_notes.labels.house_nr')}
                                         </div>
                                         <div
                                             className={`overview-item-value ${
@@ -1142,9 +1151,7 @@ export default function ModalProductReserve({
                                 {product.reservation.address !== 'no' && (
                                     <div className="overview-item">
                                         <div className="overview-item-label">
-                                            {translate(
-                                                'modal_product_reserve_notes.confirm_notes.labels.house_nr_addition',
-                                            )}
+                                            {translate('modal_reserve_product.confirm_notes.labels.house_nr_addition')}
                                         </div>
                                         <div
                                             className={`overview-item-value ${
@@ -1158,7 +1165,7 @@ export default function ModalProductReserve({
                                 {product.reservation.address !== 'no' && (
                                     <div className="overview-item">
                                         <div className="overview-item-label">
-                                            {translate('modal_product_reserve_notes.confirm_notes.labels.postal_code')}
+                                            {translate('modal_reserve_product.confirm_notes.labels.postal_code')}
                                         </div>
                                         <div
                                             className={`overview-item-value ${
@@ -1172,7 +1179,7 @@ export default function ModalProductReserve({
                                 {product.reservation.address !== 'no' && (
                                     <div className="overview-item">
                                         <div className="overview-item-label">
-                                            {translate('modal_product_reserve_notes.confirm_notes.labels.city')}
+                                            {translate('modal_reserve_product.confirm_notes.labels.city')}
                                         </div>
                                         <div
                                             className={`overview-item-value ${
@@ -1186,7 +1193,7 @@ export default function ModalProductReserve({
                                 {form.values.user_note && (
                                     <div className="overview-item overview-item-full">
                                         <div className="overview-item-label">
-                                            {translate('modal_product_reserve_notes.confirm_notes.labels.notes')}
+                                            {translate('modal_reserve_product.confirm_notes.labels.notes')}
                                         </div>
                                         <div className="overview-item-value">{form.values.user_note || emptyText}</div>
                                     </div>
@@ -1198,19 +1205,19 @@ export default function ModalProductReserve({
                     <div className="modal-footer">
                         <div className="flex hide-sm">
                             <button className="button button-light button-sm" type="button" onClick={modal.close}>
-                                Annuleren
+                                {translate('modal_reserve_product.buttons.cancel')}
                             </button>
                         </div>
                         <div className="flex flex-grow flex-end">
                             <button className="button button-light button-sm" type="button" onClick={back}>
-                                Terug
+                                {translate('modal_reserve_product.buttons.back')}
                             </button>
                             <button
                                 className="button button-primary button-sm"
                                 type="button"
                                 onClick={goToFinishStep}
                                 data-dusk="btnConfirmSubmit">
-                                {translate('modal_product_reserve_notes.confirm_notes.buttons.submit')}
+                                {translate('modal_reserve_product.confirm_notes.buttons.submit')}
                             </button>
                         </div>
                     </div>
@@ -1224,19 +1231,21 @@ export default function ModalProductReserve({
                         tabIndex={0}
                         onClick={modal.close}
                         onKeyDown={clickOnKeyEnter}
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">{translate('modal_product_reserve.header.title')}</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.header.title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section text-center">
                             <div className="modal-section-icon modal-section-icon-success">
                                 <div className="mdi mdi-check-circle-outline" />
                             </div>
-                            <h2 className="modal-section-title">Het is gelukt!</h2>
-                            <div className="modal-section-description">Uw reservering is gemaakt.</div>
+                            <h2 className="modal-section-title">{translate('modal_reserve_product.success.title')}</h2>
+                            <div className="modal-section-description">
+                                {translate('modal_reserve_product.success.description')}
+                            </div>
                         </div>
                     </div>
                     <div className="modal-footer">
@@ -1245,7 +1254,7 @@ export default function ModalProductReserve({
                             onClick={finish}
                             role="button"
                             data-dusk="btnReservationFinish">
-                            Sluiten
+                            {translate('modal_reserve_product.success.close')}
                         </button>
                     </div>
                 </div>
@@ -1254,16 +1263,16 @@ export default function ModalProductReserve({
             {step == STEP_ERROR && (
                 <div className="modal-window" data-dusk="productReserveDanger">
                     <div className="modal-header">
-                        <h2 className="modal-header-title">{translate('modal_product_reserve.header.title')}</h2>
+                        <h2 className="modal-header-title">{translate('modal_reserve_product.header.title')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section text-center">
                             <div className="modal-section-icon modal-section-icon-danger">
                                 <div className="mdi mdi-check-circle-outline" />
                             </div>
-                            <h2 className="modal-section-title">Fout!</h2>
+                            <h2 className="modal-section-title">{translate('modal_reserve_product.error.title')}</h2>
                             <div className="modal-section-description">
-                                {errorMessage || 'Kon de reservering niet voltooien. Probeer het later opnieuw.'}
+                                {errorMessage || translate('modal_reserve_product.error.description')}
                             </div>
                         </div>
                     </div>
@@ -1273,7 +1282,7 @@ export default function ModalProductReserve({
                             onClick={modal.close}
                             role="button"
                             data-dusk="btnReservationFinish">
-                            Sluiten
+                            {translate('modal_reserve_product.error.close')}
                         </button>
                     </div>
                 </div>
@@ -1287,7 +1296,7 @@ export default function ModalProductReserve({
                         onKeyDown={clickOnKeyEnter}
                         onClick={modal.close}
                         id="close"
-                        aria-label="Sluiten"
+                        aria-label={translate('modal_reserve_product.close')}
                         role="button"
                     />
                     <div className="modal-header">
@@ -1349,16 +1358,22 @@ export default function ModalProductReserve({
                             </div>
                             <div className="payment-details">
                                 <div className="payment-amount">
-                                    <div className="payment-key">De kosten voor het aanbod</div>
+                                    <div className="payment-key">
+                                        {translate('product_reserve_extra_payment.offer_cost')}
+                                    </div>
                                     <div className="payment-value">{product.price_locale}</div>
                                 </div>
                                 <div className="payment-amount">
-                                    <div className="payment-key">Resterend op het tegoed</div>
+                                    <div className="payment-key">
+                                        {translate('product_reserve_extra_payment.remaining_credit')}
+                                    </div>
                                     <div className="payment-value">{voucher.amount_locale}</div>
                                 </div>
                                 <div className="divider" />
                                 <div className="payment-amount">
-                                    <div className="payment-key">Zelf bijbetalen</div>
+                                    <div className="payment-key">
+                                        {translate('product_reserve_extra_payment.extra_payment')}
+                                    </div>
                                     <div className="payment-value bold">{currencyFormat(voucher.amount_extra)}</div>
                                 </div>
                             </div>
@@ -1366,14 +1381,16 @@ export default function ModalProductReserve({
                                 <div className="block-warning-icon">
                                     <em className="mdi mdi-information-outline" />
                                 </div>
-                                <div className="block-warning-content">De link leidt naar een externe website.</div>
+                                <div className="block-warning-content">
+                                    {translate('product_reserve_extra_payment.external_link')}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="modal-footer">
                         <div className="flex hide-sm">
                             <button className="button button-light button-sm" type="button" onClick={modal.close}>
-                                Annuleren
+                                {translate('modal_reserve_product.buttons.cancel')}
                             </button>
                         </div>
                         <div className="flex flex-grow flex-end">
@@ -1382,7 +1399,7 @@ export default function ModalProductReserve({
                                 type="button"
                                 disabled={submitting}
                                 onClick={back}>
-                                Terug
+                                {translate('modal_reserve_product.buttons.back')}
                             </button>
 
                             {reservationId ? (
@@ -1391,7 +1408,7 @@ export default function ModalProductReserve({
                                     type="button"
                                     disabled={submitting}
                                     onClick={goToReservation}>
-                                    {translate('modal_product_reserve_notes.confirm_notes.buttons.go_to_reservation')}
+                                    {translate('modal_reserve_product.buttons.go_to_reservation')}
                                 </button>
                             ) : (
                                 <button
@@ -1402,8 +1419,8 @@ export default function ModalProductReserve({
                                     data-dusk="btnConfirmSubmit">
                                     {submitting && <div className="mdi mdi-loading mdi-spin icon-start" />}
                                     {submitting
-                                        ? translate('modal_product_reserve_notes.confirm_notes.buttons.processing')
-                                        : translate('modal_product_reserve_notes.confirm_notes.buttons.submit')}
+                                        ? translate('modal_reserve_product.buttons.buttons.processing')
+                                        : translate('modal_reserve_product.buttons.buttons.submit')}
                                 </button>
                             )}
                         </div>
