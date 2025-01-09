@@ -71,11 +71,11 @@ export default function LayoutFooter() {
                             }`}>
                             {appConfigs.pages.provider && (
                                 <div className="block block-markdown">
-                                    <h3>Links</h3>
+                                    <h3>{translate('app_footer.columns.links')}</h3>
                                     <nav className="footer-nav">
                                         <div className="footer-nav-item">
                                             <StateNavLink name="sign-up" target="_self">
-                                                Aanmelden als aanbieder
+                                                {translate('app_footer.provider_sign_up')}
                                             </StateNavLink>
                                         </div>
                                     </nav>
@@ -100,7 +100,7 @@ export default function LayoutFooter() {
                                     <div>
                                         {appConfigs && (
                                             <div className="block block-markdown">
-                                                <h3>Download de Me-app</h3>
+                                                <h3>{translate('app_footer.columns.me_app')}</h3>
                                                 <AppLinks
                                                     theme={envData.config?.flags.useLightAppIcons ? 'light' : 'dark'}
                                                 />
@@ -111,7 +111,7 @@ export default function LayoutFooter() {
                                                                 <Icon />
                                                             </span>
                                                             <StateNavLink name="me-app" target="_blank">
-                                                                Meer informatie over de Me-app
+                                                                {translate('app_footer.me_app_more_info')}
                                                             </StateNavLink>
                                                         </div>
                                                     </div>

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import usePushSuccess from '../../../../../dashboard/hooks/usePushSuccess';
 import SelectControl from '../../../../../dashboard/components/elements/select-control/SelectControl';
@@ -20,14 +20,15 @@ export default function PushNotificationPreferencesCard({
     const [notificationsDismissTime, setNotificationsDismissTime] = useState<{ [key: string]: number }>(null);
     const [defaultTime] = useState(15);
 
-    const [dismissTimeOptions] = useState([
-        { key: 5, name: '5 seconden' },
-        { key: 10, name: '10 seconden' },
-        { key: 15, name: '15 seconden' },
-        { key: 30, name: '30 seconden' },
-        { key: 60, name: '60 seconden' },
-    ]);
-
+    const dismissTimeOptions = useMemo(() => {
+        return [
+            { key: 5, name: translate('preferences_notifications.popups.times.5') },
+            { key: 10, name: translate('preferences_notifications.popups.times.10') },
+            { key: 15, name: translate('preferences_notifications.popups.times.15') },
+            { key: 30, name: translate('preferences_notifications.popups.times.30') },
+            { key: 60, name: translate('preferences_notifications.popups.times.60') },
+        ];
+    }, [translate]);
     const validDismissTime = useCallback(
         (time: number) => {
             return time == 0 || dismissTimeOptions.find((option) => option.key == time);
@@ -54,11 +55,11 @@ export default function PushNotificationPreferencesCard({
             });
 
             pushSuccess(
-                'Nieuwe tijd is ingeschakeld',
-                `Pop-up meldingen worden automatisch na ${value} seconden gesloten.`,
+                translate('preferences_notifications.new_time_enabled'),
+                translate('preferences_notifications.auto_close_after', { value }),
             );
         },
-        [notificationsDismissTime, pushSuccess, setDismissTime],
+        [notificationsDismissTime, pushSuccess, setDismissTime, translate],
     );
 
     const togglePreference = useCallback(
@@ -66,14 +67,14 @@ export default function PushNotificationPreferencesCard({
             if (!value) {
                 setDismissTime(type, 0);
                 pushSuccess(
-                    'Automatisch sluiten is uitgeschakeld',
-                    'Het automatisch sluiten van pop-up meldingen is uitgeschakeld.',
+                    translate('preferences_notifications.auto_close_disabled'),
+                    translate('preferences_notifications.auto_close_disabled_description'),
                 );
             } else {
                 setDismissTime(type, defaultTime);
                 pushSuccess(
-                    'Automatisch sluiten is ingeschakeld',
-                    'Het automatisch sluiten van pop-up meldingen is ingeschakeld.',
+                    translate('preferences_notifications.auto_close_enabled'),
+                    translate('preferences_notifications.auto_close_enabled_description'),
                 );
             }
 
@@ -82,7 +83,7 @@ export default function PushNotificationPreferencesCard({
                 [type]: value ? defaultTime : 0,
             });
         },
-        [defaultTime, notificationsDismissTime, pushSuccess, setDismissTime],
+        [defaultTime, notificationsDismissTime, pushSuccess, setDismissTime, translate],
     );
 
     useEffect(() => {
@@ -104,7 +105,7 @@ export default function PushNotificationPreferencesCard({
         <div className="card" ref={cardRef}>
             <div className="card-header">
                 <h2 className="card-title">
-                    {translate('notification_preferences.push_notifications_preferences.title')}
+                    {translate('preferences_notifications.push_notifications_preferences.title')}
                 </h2>
             </div>
 
@@ -118,10 +119,10 @@ export default function PushNotificationPreferencesCard({
                     aria-checked={!!notificationsDismissTime.webshop}>
                     <div className="preference-option-details">
                         <div className="card-heading card-heading-padless">
-                            {translate(`notification_preferences.push_notifications_dismiss_time.webshop.title`)}
+                            {translate(`preferences_notifications.push_notifications_dismiss_time.webshop.title`)}
                         </div>
                         <div className="card-text">
-                            {translate(`notification_preferences.push_notifications_dismiss_time.webshop.description`)}
+                            {translate(`preferences_notifications.push_notifications_dismiss_time.webshop.description`)}
                         </div>
                     </div>
                     <div className="preference-option-input">
@@ -167,11 +168,11 @@ export default function PushNotificationPreferencesCard({
                     aria-checked={!!notificationsDismissTime.bookmarks}>
                     <div className="preference-option-details">
                         <div className="card-heading card-heading-padless">
-                            {translate(`notification_preferences.push_notifications_dismiss_time.bookmarks.title`)}
+                            {translate(`preferences_notifications.push_notifications_dismiss_time.bookmarks.title`)}
                         </div>
                         <div className="card-text">
                             {translate(
-                                `notification_preferences.push_notifications_dismiss_time.bookmarks.description`,
+                                `preferences_notifications.push_notifications_dismiss_time.bookmarks.description`,
                             )}
                         </div>
                     </div>
@@ -209,7 +210,7 @@ export default function PushNotificationPreferencesCard({
             </div>
 
             <div className="card-footer card-footer-warning card-footer-sm">
-                Schakel het automatisch sluiten van meldingen in om de weergavetijd van meldingen aan te passen.
+                {translate('preferences_notifications.popups.auto_close_info')}
             </div>
         </div>
     );

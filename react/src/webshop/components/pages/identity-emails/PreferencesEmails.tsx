@@ -75,8 +75,8 @@ export default function PreferencesEmails() {
     }, [identityEmailService, setProgress]);
 
     const makePrimary = useCallback(
-        (email) => {
-            if (email.disabled) {
+        (email: IdentityEmail) => {
+            if (emailDisabled[email.id]) {
                 return false;
             }
 
@@ -85,12 +85,12 @@ export default function PreferencesEmails() {
                 fetchEmails();
             });
         },
-        [identityEmailService, fetchEmails, pushSuccess],
+        [emailDisabled, identityEmailService, pushSuccess, fetchEmails],
     );
 
     const deleteEmail = useCallback(
-        (email) => {
-            if (email.disabled) {
+        (email: IdentityEmail) => {
+            if (emailDisabled[email.id]) {
                 return false;
             }
 
@@ -99,7 +99,7 @@ export default function PreferencesEmails() {
                 fetchEmails();
             });
         },
-        [fetchEmails, identityEmailService, pushSuccess],
+        [emailDisabled, fetchEmails, identityEmailService, pushSuccess],
     );
 
     const form = useFormBuilder({ email: '' }, (values) => {
@@ -135,8 +135,8 @@ export default function PreferencesEmails() {
     return (
         <BlockShowcaseProfile
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
-                { name: translate('email_preferences.title_email_preferences') },
+                { name: translate(`preferences_emails.breadcrumbs.home`), state: 'home' },
+                { name: translate('preferences_emails.breadcrumbs.preferences_emails') },
             ]}
             profileHeader={
                 (auth2faRestricted || emails) &&
@@ -146,9 +146,7 @@ export default function PreferencesEmails() {
                     <div className="profile-content-header clearfix">
                         <div className="profile-content-title">
                             <div className="pull-left">
-                                <h1 className="profile-content-header">
-                                    {translate('email_preferences.title_email_preferences')}
-                                </h1>
+                                <h1 className="profile-content-header">{translate('preferences_emails.title')}</h1>
                             </div>
                         </div>
                     </div>
@@ -181,8 +179,12 @@ export default function PreferencesEmails() {
                                                 </div>
                                                 {email.primary && (
                                                     <ul className="user_email-options">
-                                                        <li className="user_email-option">Ontvangt inlog e-mail</li>
-                                                        <li className="user_email-option">Ontvangt notificaties</li>
+                                                        <li className="user_email-option">
+                                                            {translate('preferences_emails.usage.sign_in')}
+                                                        </li>
+                                                        <li className="user_email-option">
+                                                            {translate('preferences_emails.usage.notifications')}
+                                                        </li>
                                                     </ul>
                                                 )}
                                                 <div className="flex-row">
@@ -194,7 +196,7 @@ export default function PreferencesEmails() {
                                                             onClick={() => makePrimary(email)}
                                                             data-dusk="identityEmailListItemSetPrimary">
                                                             <em className="mdi mdi-check-circle icon-start" />
-                                                            Instellen als hoofd e-mailadres
+                                                            {translate('preferences_emails.buttons.set_primary')}
                                                         </button>
                                                     )}
                                                 </div>
@@ -207,7 +209,7 @@ export default function PreferencesEmails() {
                                                             onClick={() => resendVerification(email.id)}
                                                             data-dusk="btnResendVerificationEmail">
                                                             <em className="mdi mdi-reload icon-start" />
-                                                            Bevestiging e-mail opnieuw versturen
+                                                            {translate('preferences_emails.buttons.send_again')}
                                                         </button>
                                                     )}
                                                 </div>
@@ -232,14 +234,14 @@ export default function PreferencesEmails() {
                                                             <label
                                                                 className="label label-success"
                                                                 data-dusk="identityEmailListItemPrimary">
-                                                                Hoofd e-mailadres
+                                                                {translate('preferences_emails.labels.primary')}
                                                             </label>
                                                         )}
                                                         {!email.verified && !email.primary && (
                                                             <label
                                                                 className="label label-default"
                                                                 data-dusk="identityEmailListItemNotVerified">
-                                                                Niet bevestigd
+                                                                {translate('preferences_emails.labels.not_confirmed')}
                                                             </label>
                                                         )}
                                                     </div>
@@ -267,7 +269,9 @@ export default function PreferencesEmails() {
                         <div className="card">
                             {!showForm && form.state !== 'success' && (
                                 <div className="card-section">
-                                    <h2 className="card-heading card-heading-lg">Voeg een e-mailadres toe</h2>
+                                    <h2 className="card-heading card-heading-lg">
+                                        {translate('preferences_emails.create.title')}
+                                    </h2>
                                     <button
                                         type="button"
                                         className="button button-primary"
@@ -275,18 +279,20 @@ export default function PreferencesEmails() {
                                         role="button"
                                         data-dusk="btnIdentityNewEmail">
                                         <em className="mdi mdi-plus-circle icon-start" />
-                                        E-mail toevoegen
+                                        {translate('preferences_emails.create.buttons.add_new')}
                                     </button>
                                 </div>
                             )}
 
                             {showForm && form.state !== 'success' && (
                                 <div className="card-section">
-                                    <h2 className="card-heading card-heading-lg">Voeg een e-mailadres toe</h2>
+                                    <h2 className="card-heading card-heading-lg">
+                                        {translate('preferences_emails.create.title')}
+                                    </h2>
                                     <form className="form row" onSubmit={form.submit} data-dusk="identityNewEmailForm">
                                         <div className="col col-lg-6 form-group">
                                             <label className="form-label" htmlFor="preferences_form_email">
-                                                E-mailadres
+                                                {translate('preferences_emails.create.labels.email')}
                                             </label>
                                             <div className="flex-row">
                                                 <div className="flex-col flex-grow">
@@ -308,7 +314,7 @@ export default function PreferencesEmails() {
                                                         type="submit"
                                                         className="button button-primary"
                                                         data-dusk="identityNewEmailFormSubmit">
-                                                        Toevoegen
+                                                        {translate('preferences_emails.create.buttons.send')}
                                                     </button>
                                                 </div>
                                             </div>
@@ -321,16 +327,16 @@ export default function PreferencesEmails() {
                                 <div className="card-section" data-dusk="identityNewEmailSuccess">
                                     <h2 className="card-heading card-heading-lg card-heading-padless">
                                         {translate(
-                                            `email_preferences.email_added.title_${appConfigs.communication_type}`,
+                                            `preferences_emails.email_added.title_${appConfigs.communication_type}`,
                                         )}
                                     </h2>
                                     <div className="card-text">
                                         {translate(
-                                            `email_preferences.email_added.description_${appConfigs.communication_type}`,
+                                            `preferences_emails.email_added.description_${appConfigs.communication_type}`,
                                         )}
                                     </div>
                                     <div className="button button-primary" onClick={showEmailForm} role="button">
-                                        Voeg nog een e-mailadres toe
+                                        {translate('preferences_emails.create.buttons.add_more')}
                                     </div>
                                 </div>
                             )}

@@ -15,7 +15,11 @@
     "build-dashboards": "webpack --mode production --env disable='webshop*,backend' enable='dashboard*'",
     "build-dev": "webpack --mode development",
     "build-webshops-dev": "webpack --mode development --env disable='dashboard*,backend' enable='webshop*'",
-    "build-dashboards-dev": "webpack --mode development --env disable='webshop*,backend' enable='dashboard*'"
+    "build-dashboards-dev": "webpack --mode development --env disable='webshop*,backend' enable='dashboard*'",
+    "translations-prepare": "node translations/prepare.mjs",
+    "translations-translate": "node translations/translate.mjs",
+    "translations-apply": "node translations/apply.mjs",
+    "translations-update-cache": "node translations/update-cache.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -74,7 +78,7 @@
     "typescript": "5.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4",
+    "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.1.0"
   },
   "dependencies": {
@@ -90,6 +94,7 @@
     "chart.js": "^4.4.1",
     "clean-webpack-plugin": "^4.0.0",
     "date-fns": "^4.1.0",
+    "deepl-node": "^1.15.0",
     "diff": "^7.0.0",
     "dompurify": "^3.2.1",
     "easyqrcodejs": "^4.4.13",
@@ -108,7 +113,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-datepicker": "^7.4.0",
     "react-dom": "^18.1.0",
-    "react-error-boundary": "^4.0.13",
+    "react-error-boundary": "^5.0.0",
     "react-gtm-module": "^2.0.11",
     "react-i18next": "^15.0.1",
     "react-image-crop": "^11.0.6",

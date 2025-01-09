@@ -2,9 +2,11 @@ import React, { useMemo } from 'react';
 import FundRequest from '../../../../../dashboard/props/models/FundRequest';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequest }) {
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
 
     const notAnsweredCount = useMemo(() => {
         return fundRequest?.records
@@ -25,7 +27,7 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
                         fundRequest?.fund?.logo?.sizes?.small ||
                         assetUrl('/assets/img/placeholders/fund-thumbnail.png')
                     }
-                    alt="fund image"
+                    alt={translate('fund_requests.card.img_alt')}
                 />
             </div>
             <div className="fund-request-container">
@@ -33,7 +35,7 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
                     <div className="fund-request-details">
                         <div className="fund-request-name">{fundRequest.fund.name}</div>
                         <div className="fund-request-subtitle">
-                            ID <strong>{`#${fundRequest.id}`}</strong>
+                            {translate('fund_requests.card.id')} <strong>{`#${fundRequest.id}`}</strong>
                         </div>
                     </div>
                     <div className="fund-request-overview">
@@ -59,26 +61,26 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
                         {notAnsweredCount > 0 && (
                             <div className="label label-primary label-xl">
                                 <div className="label-blink" aria-hidden="true" />
-                                {notAnsweredCount} nieuw bericht
+                                {translate('fund_requests.card.questions_count', { count: notAnsweredCount })}
                             </div>
                         )}
                     </div>
                     <div className="fund-request-values-date">
-                        <div className="fund-request-value-title">Ingediend op:</div>
+                        <div className="fund-request-value-title">{translate('fund_requests.card.created_at')}</div>
                         <div className="fund-request-value">{fundRequest.created_at_locale}</div>
                     </div>
                 </div>
             </div>
             <div className="fund-request-footer">
                 <div className="fund-request-values-date">
-                    <div className="fund-request-value-title">Ingediend op:</div>
+                    <div className="fund-request-value-title">{translate('fund_requests.card.created_at')}</div>
                     <div className="fund-request-value">{fundRequest.created_at_locale}</div>
                 </div>
                 <div className="fund-request-values-label">
                     {notAnsweredCount > 0 && (
                         <div className="label label-primary label-xl">
                             <div className="label-blink" aria-hidden="true" />
-                            {notAnsweredCount} nieuw bericht
+                            {translate('fund_requests.card.questions_count', { count: notAnsweredCount })}
                         </div>
                     )}
                 </div>

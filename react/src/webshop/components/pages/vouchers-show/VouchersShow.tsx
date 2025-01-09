@@ -277,13 +277,15 @@ export default function VouchersShow() {
         <BlockShowcase
             wrapper={true}
             breadcrumbItems={[
-                { name: 'Home', state: 'home' },
-                { name: 'Mijn tegoeden', state: 'vouchers' },
+                { name: translate('voucher.breadcrumbs.home'), state: 'home' },
+                { name: translate('voucher.breadcrumbs.vouchers'), state: 'vouchers' },
                 voucher
                     ? {
                           name: voucher?.physical_card
-                              ? `Uw ${voucherCard?.title} #${voucher?.physical_card.code}`
-                              : `#${voucherCard?.number}`,
+                              ? translate('voucher.breadcrumbs.voucher_physical', {
+                                    title: `${voucherCard?.title} #${voucher?.physical_card.code}`,
+                                })
+                              : translate('voucher.breadcrumbs.voucher', { title: `#${voucherCard?.number}` }),
                       }
                     : null,
             ]}>
@@ -341,7 +343,8 @@ export default function VouchersShow() {
                                                         )}
 
                                                         <div className="card-qr_code-desc">
-                                                            Geldig t/m {voucherCard.last_active_day_locale}
+                                                            {translate('voucher.card.valid_until')}{' '}
+                                                            {voucherCard.last_active_day_locale}
                                                         </div>
                                                     </div>
                                                     <div className="card-qr_code hide-sm">
@@ -356,23 +359,29 @@ export default function VouchersShow() {
 
                                                         {!voucherCard.used && (
                                                             <div className="card-qr_code-desc">
-                                                                Geldig t/m {voucherCard.last_active_day_locale}
+                                                                {translate('voucher.card.valid_until')}{' '}
+                                                                {voucherCard.last_active_day_locale}
                                                             </div>
                                                         )}
 
                                                         {voucherCard.product && voucherCard.used && (
-                                                            <div className="card-qr_code-desc">Gebruikt</div>
+                                                            <div className="card-qr_code-desc">
+                                                                {translate('voucher.card.used')}
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </Fragment>
                                             )}
                                         </div>
+
                                         <div className="card-footer">
                                             {voucherCard.product && (
                                                 <Fragment>
                                                     {voucherCard.transactions.map((transaction) => (
                                                         <div key={transaction.id} className="card-section">
-                                                            <div className="card-label">Gebruikt op:</div>
+                                                            <div className="card-label">
+                                                                {translate('voucher.card.used_on')}:
+                                                            </div>
                                                             <div className="card-value">
                                                                 {transaction?.created_at_locale}
                                                             </div>
@@ -394,7 +403,7 @@ export default function VouchersShow() {
                                                         </div>
                                                         <div className="action-item-name">
                                                             {translate(
-                                                                'physical_card.modal_section.request_new_card.email_to_me',
+                                                                'modal_physical_card.modal_section.request_new_card.email_to_me',
                                                             )}
                                                         </div>
                                                     </div>
@@ -411,7 +420,7 @@ export default function VouchersShow() {
                                                         </div>
                                                         <div className="action-item-name">
                                                             {translate(
-                                                                'physical_card.modal_section.request_new_card.open_in_app',
+                                                                'modal_physical_card.modal_section.request_new_card.open_in_app',
                                                             )}
                                                         </div>
                                                     </div>
@@ -430,7 +439,7 @@ export default function VouchersShow() {
                                                             </div>
                                                             <div className="action-item-name">
                                                                 {translate(
-                                                                    'physical_card.modal_section.request_new_card.print_pass',
+                                                                    'modal_physical_card.modal_section.request_new_card.print_pass',
                                                                 )}
                                                             </div>
                                                         </div>
@@ -452,7 +461,7 @@ export default function VouchersShow() {
                                                                 </div>
                                                                 <div className="action-item-name">
                                                                     {translate(
-                                                                        'physical_card.modal_section.type_selection.card_new.title',
+                                                                        'modal_physical_card.modal_section.type_selection.card_new.title',
                                                                     )}
                                                                 </div>
                                                             </div>
@@ -470,7 +479,9 @@ export default function VouchersShow() {
                                                             <div className="action-item-icon">
                                                                 <em className="mdi mdi-card-bulleted-outline" />
                                                             </div>
-                                                            <div className="action-item-name">Activeer mijn pas</div>
+                                                            <div className="action-item-name">
+                                                                {translate('voucher.card.activate_my_pass')}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )}
@@ -487,7 +498,7 @@ export default function VouchersShow() {
                                                                 <em className="mdi mdi-card-bulleted-outline" />
                                                             </div>
                                                             <div className="action-item-name">
-                                                                Ik ben mijn pas kwijt
+                                                                {translate('voucher.card.lost_my_pass')}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -504,7 +515,9 @@ export default function VouchersShow() {
                                                             <div className="action-item-icon">
                                                                 <em className="mdi mdi-share-variant" />
                                                             </div>
-                                                            <div className="action-item-name">Delen</div>
+                                                            <div className="action-item-name">
+                                                                {translate('voucher.card.share')}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )}
@@ -520,7 +533,9 @@ export default function VouchersShow() {
                                                             <div className="action-item-icon">
                                                                 <em className="mdi mdi-cancel" />
                                                             </div>
-                                                            <div className="action-item-name">Annuleren</div>
+                                                            <div className="action-item-name">
+                                                                {translate('voucher.card.cancel')}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )}
@@ -536,7 +551,9 @@ export default function VouchersShow() {
                                                             <div className="action-item-icon">
                                                                 <em className="mdi mdi-logout" />
                                                             </div>
-                                                            <div className="action-item-name">Stop deelname</div>
+                                                            <div className="action-item-name">
+                                                                {translate('voucher.card.stop_participation')}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )}
@@ -560,11 +577,11 @@ export default function VouchersShow() {
                                                 </div>
                                                 <div className="card-section">
                                                     <h2 className="card-title">
-                                                        {translate('voucher.voucher_card.header.title')}
+                                                        {translate('voucher.card.header.title')}
                                                     </h2>
                                                     <div className="card-description">
                                                         <TranslateHtml
-                                                            i18n={'voucher.voucher_card.labels.description'}
+                                                            i18n={'voucher.card.labels.description'}
                                                             values={{ fund_name: voucherCard.title }}
                                                         />
                                                     </div>
@@ -572,7 +589,7 @@ export default function VouchersShow() {
                                             </div>
                                             <div className="card-footer">
                                                 <div className="card-label">
-                                                    {translate('voucher.voucher_card.labels.contact_sponsor', {
+                                                    {translate('voucher.card.labels.contact_sponsor', {
                                                         fund_name: voucherCard.title,
                                                     })}
                                                 </div>
@@ -603,18 +620,16 @@ export default function VouchersShow() {
                                                 </div>
                                                 <div className="card-section">
                                                     <h2 className="card-title">
-                                                        {translate('voucher.voucher_card.header.title')}
+                                                        {translate('voucher.card.header.title')}
                                                     </h2>
                                                     <div className="card-description">
-                                                        <TranslateHtml
-                                                            i18n={'voucher.voucher_card.labels.description'}
-                                                        />
+                                                        <TranslateHtml i18n={'voucher.card.labels.description'} />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="card-footer">
                                                 <div className="card-label">
-                                                    {translate('voucher.voucher_card.labels.contact_sponsor')}
+                                                    {translate('voucher.card.labels.contact_sponsor')}
                                                 </div>
                                                 <div className="card-value card-value-sm">
                                                     E-mailadres:{' '}
@@ -667,25 +682,23 @@ export default function VouchersShow() {
                                         <div className="card-footer">
                                             <div className="card-section">
                                                 <h2 className="card-title">
-                                                    {translate('voucher.voucher_card_combined.header.title')}
+                                                    {translate('voucher.card_combined.header.title')}
                                                 </h2>
                                                 <div className="card-description">
                                                     <TranslateHtml
-                                                        i18n={`voucher.voucher_card_combined.labels.${voucherCard.fund?.key}.how_it_works`}
-                                                        i18nDefault={
-                                                            'voucher.voucher_card_combined.labels.how_it_works'
-                                                        }
+                                                        i18n={`voucher.card_combined.labels.${voucherCard.fund?.key}.how_it_works`}
+                                                        i18nDefault={'voucher.card_combined.labels.how_it_works'}
                                                     />
                                                 </div>
                                             </div>
                                             <div className="card-section">
                                                 <div className="card-title">
-                                                    {translate('voucher.voucher_card_combined.labels.contact_sponsor')}
+                                                    {translate('voucher.card_combined.labels.contact_sponsor')}
                                                 </div>
                                                 <div className="card-description">
                                                     <span>
                                                         {translate(
-                                                            'voucher.voucher_card_combined.labels.contact_sponsor_details',
+                                                            'voucher.card_combined.labels.contact_sponsor_details',
                                                         )}
                                                     </span>
                                                     <br />
@@ -696,9 +709,9 @@ export default function VouchersShow() {
                                                     <br />
                                                     <strong>
                                                         {translate(
-                                                            `voucher.voucher_card_combined.labels.${voucherCard.fund.key}.redirect_to`,
+                                                            `voucher.card_combined.labels.${voucherCard.fund.key}.redirect_to`,
                                                             null,
-                                                            'voucher.voucher_card_combined.labels.redirect_to',
+                                                            'voucher.card_combined.labels.redirect_to',
                                                         )}
                                                     </strong>
                                                     <br />
@@ -819,11 +832,13 @@ export default function VouchersShow() {
                                         src={assetUrl(
                                             '/assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png',
                                         )}
-                                        alt={`Fysieke pas: '${voucherCard.title}'`}
+                                        alt={translate('voucher.physical_card.alt', { title: voucherCard.title })}
                                     />
                                 </div>
                                 <div className="block-card-details">
-                                    <div className="block-card-code">Pasnummer: {voucher.physical_card.code}</div>
+                                    <div className="block-card-code">
+                                        {translate('voucher.physical_card.card_number')}: {voucher.physical_card.code}
+                                    </div>
                                 </div>
                                 <div className="block-card-actions">
                                     <div
@@ -842,10 +857,9 @@ export default function VouchersShow() {
                                     <IconReimbursement />
                                 </div>
                                 <div className="block-card-details">
-                                    <h3 className="block-card-title">Kosten terugvragen</h3>
+                                    <h3 className="block-card-title">{translate('voucher.reimbursement.title')}</h3>
                                     <div className="block-card-description">
-                                        Vraag uw gemaakte kosten terug door de gegevens van uw aankoop en de rekening of
-                                        kassabon in te sturen.
+                                        {translate('voucher.reimbursement.description')}
                                     </div>
                                 </div>
                                 <div className="block-card-actions">
@@ -854,7 +868,7 @@ export default function VouchersShow() {
                                         params={{ voucher_id: voucher.id }}
                                         className="button button-primary">
                                         <em className="mdi mdi-plus icon-start" />
-                                        Bon insturen
+                                        {translate('voucher.reimbursement.button')}
                                     </StateNavLink>
                                 </div>
                             </div>
@@ -864,14 +878,14 @@ export default function VouchersShow() {
                         {showHistory && (
                             <div className="block block-transactions">
                                 <div className="transactions-header">
-                                    <h2 className="transactions-title">Status </h2>
+                                    <h2 className="transactions-title">{translate('voucher.history.title')}</h2>
                                     {voucher.expired ? (
-                                        <div className="label label-danger">Verlopen</div>
+                                        <div className="label label-danger">
+                                            {translate('voucher.history.status.expired')}
+                                        </div>
                                     ) : (
                                         <div
-                                            className={`label ${
-                                                voucherCard.deactivated ? 'label-light' : 'label-primary'
-                                            }`}>
+                                            className={`label ${voucherCard.deactivated ? 'label-light' : 'label-primary'}`}>
                                             {voucherCard.state_locale}
                                         </div>
                                     )}
@@ -921,10 +935,12 @@ export default function VouchersShow() {
                             <div className="block block-transactions">
                                 <div className="transactions-header">
                                     <h2 className="transactions-title">
-                                        {translate('voucher.labels.transactions')}
+                                        {translate('voucher.transactions.title')}
                                         {voucher.expired && (
                                             <span className="text-strong-half">
-                                                {` - Verlopen op ${voucherCard.last_active_day_locale}`}
+                                                {translate('voucher.transactions.expired_on', {
+                                                    date: voucherCard.last_active_day_locale,
+                                                })}
                                             </span>
                                         )}
                                     </h2>
@@ -935,7 +951,9 @@ export default function VouchersShow() {
                                         <div className="transactions-list">
                                             <div className="transactions-item">
                                                 <div className="transactions-item-details">
-                                                    <div className="transactions-item-empty">Geen uitgaven</div>
+                                                    <div className="transactions-item-empty">
+                                                        {translate('voucher.transactions.no_spending')}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -947,9 +965,7 @@ export default function VouchersShow() {
                                         {voucherCard.transactionsList?.map((transaction) => (
                                             <div
                                                 key={transaction.unique_id}
-                                                className={`transactions-item ${
-                                                    transaction.incoming ? '' : 'transactions-item-out'
-                                                }`}>
+                                                className={`transactions-item ${transaction.incoming ? '' : 'transactions-item-out'}`}>
                                                 <div className="transactions-item-icon">
                                                     {transaction.incoming ? (
                                                         <em className="mdi mdi-arrow-down" />
@@ -962,12 +978,10 @@ export default function VouchersShow() {
                                                     {transaction.type == 'product_voucher' &&
                                                         transaction.product_reservation && (
                                                             <div className="transactions-item-counterpart">
-                                                                Reservering{' '}
+                                                                {translate('voucher.transactions.reservation') + ' '}
                                                                 <StateNavLink
                                                                     name={'reservation-show'}
-                                                                    params={{
-                                                                        id: transaction.product_reservation.id,
-                                                                    }}>
+                                                                    params={{ id: transaction.product_reservation.id }}>
                                                                     #{transaction.product_reservation.code}
                                                                 </StateNavLink>
                                                             </div>
@@ -991,14 +1005,14 @@ export default function VouchersShow() {
                                                     {transaction.type == 'transaction' &&
                                                         transaction.target == 'iban' && (
                                                             <div className="transactions-item-counterpart">
-                                                                Bankoverschrijving
+                                                                {translate('voucher.transactions.bank_transfer')}
                                                             </div>
                                                         )}
 
                                                     {transaction.type == 'transaction' &&
                                                         transaction.target == 'top_up' && (
                                                             <div className="transactions-item-counterpart">
-                                                                Opgewaardeerd
+                                                                {translate('voucher.transactions.top_up')}
                                                             </div>
                                                         )}
 
@@ -1017,8 +1031,8 @@ export default function VouchersShow() {
                                                         <div className="transactions-item-type">
                                                             {translate(
                                                                 transaction.incoming
-                                                                    ? 'voucher.labels.add'
-                                                                    : 'voucher.labels.subtract',
+                                                                    ? 'voucher.transactions.add'
+                                                                    : 'voucher.transactions.subtract',
                                                             )}
                                                         </div>
                                                     </div>

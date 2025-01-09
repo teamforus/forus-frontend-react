@@ -27,6 +27,7 @@ import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNe
 import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function Providers() {
     const translate = useTranslate();
@@ -45,8 +46,8 @@ export default function Providers() {
             value: { order_by: 'name'; order_dir: 'asc' | 'desc' };
         }>
     >([
-        { id: 1, label: 'Naam (oplopend)', value: { order_by: 'name', order_dir: 'asc' } },
-        { id: 2, label: 'Naam (aflopend)', value: { order_by: 'name', order_dir: 'desc' } },
+        { id: 1, label: translate('providers.sort.name_asc'), value: { order_by: 'name', order_dir: 'asc' } },
+        { id: 2, label: translate('providers.sort.name_desc'), value: { order_by: 'name', order_dir: 'desc' } },
     ]);
 
     const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
@@ -60,16 +61,18 @@ export default function Providers() {
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
     const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
 
-    const [distances] = useState([
-        { id: null, name: 'Overal' },
-        { id: 3, name: '< 3 km' },
-        { id: 5, name: '< 5 km' },
-        { id: 10, name: '< 10 km' },
-        { id: 15, name: '< 15 km' },
-        { id: 25, name: '< 25 km' },
-        { id: 50, name: '< 50 km' },
-        { id: 75, name: '< 75 km' },
-    ]);
+    const distances = useMemo(() => {
+        return [
+            { id: null, name: translate('providers.distances.everywhere') },
+            { id: 3, name: translate('providers.distances.3') },
+            { id: 5, name: translate('providers.distances.5') },
+            { id: 10, name: translate('providers.distances.10') },
+            { id: 15, name: translate('providers.distances.15') },
+            { id: 25, name: translate('providers.distances.25') },
+            { id: 50, name: translate('providers.distances.50') },
+            { id: 75, name: translate('providers.distances.75') },
+        ];
+    }, [translate]);
 
     type ProviderFilters = {
         q?: string;
@@ -174,27 +177,34 @@ export default function Providers() {
 
         fundService
             .list({ has_providers: 1 })
-            .then((res) => setFunds([{ id: null, name: 'Alle tegoeden...' }, ...res.data.data]))
+            .then((res) => setFunds([{ id: null, name: translate('providers.filters.all_funds') }, ...res.data.data]))
             .finally(() => setProgress(100));
-    }, [fundService, setProgress]);
+    }, [fundService, setProgress, translate]);
 
     const fetchBusinessTypes = useCallback(() => {
         setProgress(0);
 
         businessTypeService
             .list({ parent_id: 'null', per_page: 9999, used: 1 })
-            .then((res) => setBusinessTypes([{ id: null, name: 'Alle typen...' }, ...res.data.data]))
+            .then((res) =>
+                setBusinessTypes([{ id: null, name: translate('providers.filters.all_type') }, ...res.data.data]),
+            )
             .finally(() => setProgress(100));
-    }, [businessTypeService, setProgress]);
+    }, [businessTypeService, setProgress, translate]);
 
     const fetchProductCategories = useCallback(() => {
         setProgress(0);
 
         productCategoryService
             .list({ parent_id: 'null', used: 1, per_page: 1000 })
-            .then((res) => setProductCategories([{ id: null, name: 'Selecteer categorie...' }, ...res.data.data]))
+            .then((res) =>
+                setProductCategories([
+                    { id: null, name: translate('providers.filters.all_categories') },
+                    ...res.data.data,
+                ]),
+            )
             .finally(() => setProgress(100));
-    }, [productCategoryService, setProgress]);
+    }, [productCategoryService, setProgress, translate]);
 
     useEffect(() => {
         fetchFunds();
@@ -221,7 +231,7 @@ export default function Providers() {
 
                     setProductSubCategories(
                         res.data.meta.total
-                            ? [{ name: 'Selecteer subcategorie...', id: null }, ...res.data.data]
+                            ? [{ name: translate('providers.filters.all_sub_categories'), id: null }, ...res.data.data]
                             : null,
                     );
                 });
@@ -229,7 +239,7 @@ export default function Providers() {
             filterUpdate({ product_sub_category_id: null });
             setProductSubCategories(null);
         }
-    }, [filterUpdate, filterValues.product_category_id, productCategoryService]);
+    }, [filterUpdate, filterValues.product_category_id, productCategoryService, translate]);
 
     useEffect(() => {
         if (filterValues.show_map) {
@@ -244,7 +254,10 @@ export default function Providers() {
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
             countFiltersApplied={countFiltersApplied}
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Aanbieders' }]}
+            breadcrumbItems={[
+                { name: translate('providers.breadcrumbs.home'), state: 'home' },
+                { name: translate('providers.breadcrumbs.providers') },
+            ]}
             aside={
                 funds &&
                 appConfigs &&
@@ -253,23 +266,22 @@ export default function Providers() {
                     <Fragment>
                         <div className="showcase-aside-block">
                             {filterValues.show_map && (
-                                <div className="showcase-subtitle">Selecteer een aanbieder voor meer informatie</div>
+                                <div className="showcase-subtitle">{translate('providers.filters.map_title')}</div>
                             )}
                             <div className="form-group">
                                 <label className="form-label" htmlFor="business_type_id">
-                                    {translate('providers.labels.search')}
+                                    {translate('providers.filters.search')}
                                 </label>
                                 <UIControlText
                                     value={filterValues.q}
                                     onChangeValue={(q) => filterUpdate({ q })}
-                                    ariaLabel={translate('providers.labels.search_aria_label')}
+                                    ariaLabel={translate('providers.filters.search')}
                                 />
-
                                 <FormError error={errors?.q} />
                             </div>
                             <div className="form-group">
                                 <label className="form-label" htmlFor="business_type_id">
-                                    Type aanbieder
+                                    {translate('providers.filters.provider_type')}
                                 </label>
                                 <SelectControl
                                     propKey={'id'}
@@ -284,7 +296,7 @@ export default function Providers() {
 
                             <div className="form-group">
                                 <label className="form-label" htmlFor="select_category">
-                                    Categorie
+                                    {translate('providers.filters.category')}
                                 </label>
 
                                 <SelectControl
@@ -301,7 +313,7 @@ export default function Providers() {
                             {productSubCategories?.length > 1 && (
                                 <div className="form-group">
                                     <label className="form-label" htmlFor="select_sub_category">
-                                        Subcategorie
+                                        {translate('providers.filters.sub_category')}
                                     </label>
 
                                     <SelectControl
@@ -318,7 +330,7 @@ export default function Providers() {
 
                             <div className="form-group">
                                 <label className="form-label" htmlFor="select_fund">
-                                    Tegoeden
+                                    {translate('providers.filters.fund')}
                                 </label>
                                 {funds && (
                                     <SelectControl
@@ -336,7 +348,7 @@ export default function Providers() {
                                 <div className="col col-md-6">
                                     <div className="form-group">
                                         <label className="form-label" htmlFor="postcode">
-                                            Postcode
+                                            {translate('providers.filters.postcode')}
                                         </label>
                                         <input
                                             className="form-control"
@@ -352,7 +364,7 @@ export default function Providers() {
                                 <div className="col col-md-6">
                                     <div className="form-group">
                                         <label className="form-label" htmlFor="distance">
-                                            Afstand
+                                            {translate('providers.filters.distance')}
                                         </label>
 
                                         <SelectControl
@@ -368,11 +380,14 @@ export default function Providers() {
                                     </div>
                                 </div>
                             </div>
+
                             {filterValues.show_map && (
-                                <div className="showcase-result">
-                                    Er zijn <div className="showcase-result-count">{providers?.meta?.total}</div>{' '}
-                                    aanbieders gevonden
-                                </div>
+                                <TranslateHtml
+                                    component={<div />}
+                                    className={'showcase-result'}
+                                    i18n={'providers.filters.result'}
+                                    values={{ total: providers?.meta?.total }}
+                                />
                             )}
                         </div>
 
@@ -388,9 +403,9 @@ export default function Providers() {
             }>
             {appConfigs && (providers || offices) && (
                 <Fragment>
-                    <div className="showcase-content-header showcase-content-header-compact">
+                    <div className="showcase-content-header showcase-content-header-compact" style={{ zIndex: 4 }}>
                         <h1 className="showcase-filters-title">
-                            <span>Aanbieders</span>
+                            {translate('providers.title')}
                             <div className="showcase-filters-title-count">{providers?.meta.total}</div>
                         </h1>
                         <div className="showcase-filters-block">
@@ -434,7 +449,7 @@ export default function Providers() {
                                             tabIndex={0}
                                             aria-pressed={!filterValues.show_map}>
                                             <em className="mdi mdi-format-list-text icon-start" />
-                                            Lijst
+                                            {translate('providers.view.list')}
                                         </button>
                                         <button
                                             className={`label-tab label-tab-sm ${
@@ -445,7 +460,7 @@ export default function Providers() {
                                             tabIndex={0}
                                             aria-pressed={!!filterValues.show_map}>
                                             <em className="mdi mdi-map-marker-radius icon-start" />
-                                            Kaart
+                                            {translate('providers.view.map')}
                                         </button>
                                     </div>
                                 )}

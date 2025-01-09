@@ -82,12 +82,14 @@ export default function VoucherCard({
                 {!voucher.deactivated && (
                     <div className="voucher-status-label">
                         {voucher.expired && (
-                            <div className="label label-light">{translate('voucher.voucher_card.expired')}</div>
+                            <div className="label label-light">{translate('vouchers.card.expired')}</div>
                         )}
 
                         {voucherCard.type == 'product' && !voucher.expired && (
                             <div className={`label ${voucherCard.used ? 'label-warning' : 'label-success'}`}>
-                                {!voucherCard.used ? 'Ongebruikt' : 'Gebruikt'}
+                                {!voucherCard.used
+                                    ? translate('vouchers.card.unused')
+                                    : translate('vouchers.card.used')}
                             </div>
                         )}
                     </div>
@@ -95,15 +97,13 @@ export default function VoucherCard({
 
                 {voucher.deactivated && (
                     <div className="voucher-status-label">
-                        <div className="label label-danger">Gedeactiveerd</div>
+                        <div className="label label-danger">{translate('vouchers.card.deactivated')}</div>
                     </div>
                 )}
 
                 {voucher.expired && !voucherCard.used && voucherCard.type == 'product' && voucherCard.returnable && (
                     <div className="voucher-cancel-label">
-                        <label onClick={(e) => destroyVoucher(e, voucher)}>
-                            {translate('voucher.voucher_card.delete')}
-                        </label>
+                        <label onClick={(e) => destroyVoucher(e, voucher)}>{translate('vouchers.card.delete')}</label>
                     </div>
                 )}
             </div>
@@ -112,7 +112,7 @@ export default function VoucherCard({
                 <div className="voucher-overview-items">
                     {voucherCard.number && (
                         <div className="voucher-overview-item">
-                            <div className="voucher-overview-label">Number</div>
+                            <div className="voucher-overview-label">{translate('vouchers.card.number')}</div>
                             <div className="voucher-overview-value">#{voucherCard.number}</div>
                         </div>
                     )}

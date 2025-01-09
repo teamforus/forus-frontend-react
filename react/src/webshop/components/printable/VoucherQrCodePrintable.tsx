@@ -51,9 +51,7 @@ export default function VoucherQrCodePrintable({
                 <QrCode value={JSON.stringify({ type: 'voucher', value: voucher.address })} />
                 <div className="printable-title">{printableTitle}</div>
                 <div className="printable-description">
-                    {translate(`voucher_printable.${voucherType}_voucher.labels.description`, {
-                        printableTitle: printableTitle,
-                    })}
+                    {translate(`voucher_printable.${voucherType}_voucher.labels.description`, { printableTitle })}
                 </div>
             </div>
             <div className="printable-additional-info">
@@ -75,9 +73,7 @@ export default function VoucherQrCodePrintable({
             <div className="printable-organization-info">
                 <div className="contact">
                     <span>
-                        {translate('voucher_printable.default.labels.contact.have_questions', {
-                            printableTitle: printableTitle,
-                        })}
+                        {translate('voucher_printable.default.labels.contact.have_questions', { printableTitle })}
                     </span>
                     <br />
                     <span>{translate(`voucher_printable.${voucherType}_voucher.labels.contact_us`)}</span>

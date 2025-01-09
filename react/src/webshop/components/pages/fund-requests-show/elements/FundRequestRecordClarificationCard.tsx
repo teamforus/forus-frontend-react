@@ -10,6 +10,8 @@ import usePushSuccess from '../../../../../dashboard/hooks/usePushSuccess';
 import { ResponseError } from '../../../../../dashboard/props/ApiResponses';
 import { useFundRequestClarificationService } from '../../../../services/FundRequestClarificationService';
 import MultilineText from '../../../../../dashboard/components/elements/multiline-text/MultilineText';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import classNames from 'classnames';
 
 export default function FundRequestRecordClarificationCard({
     record,
@@ -22,12 +24,12 @@ export default function FundRequestRecordClarificationCard({
     clarification: FundRequestClarification;
     setFundRequest: React.Dispatch<React.SetStateAction<FundRequest>>;
 }) {
+    const translate = useTranslate();
     const pushSuccess = usePushSuccess();
 
     const fundRequestClarificationService = useFundRequestClarificationService();
 
     const [uploading, setUploading] = useState(false);
-
     const [showForm, setShowForm] = useState(false);
 
     const openReplyForm = useCallback(() => {
@@ -60,9 +62,10 @@ export default function FundRequestRecordClarificationCard({
     return (
         <div
             key={clarification.id}
-            className={`fund-request-chat ${
-                clarification.state === 'pending' ? 'fund-request-chat-new' : 'fund-request-chat-answered'
-            }`}>
+            className={classNames(
+                `fund-request-chat`,
+                clarification.state === 'pending' ? 'fund-request-chat-new' : 'fund-request-chat-answered',
+            )}>
             <div className="fund-request-chat-number">
                 {record.clarifications.length - record.clarifications.indexOf(clarification)}
             </div>
@@ -74,14 +77,14 @@ export default function FundRequestRecordClarificationCard({
                 {clarification.state === 'pending' && (
                     <div className="fund-request-chat-status">
                         <em className="fund-request-chat-status-icon" />
-                        Nieuw verzoek
+                        {translate('fund_request.record.new_message')}
                     </div>
                 )}
 
                 {clarification.state === 'answered' && (
                     <div className="fund-request-chat-status">
                         <em className="mdi mdi-check fund-request-chat-status-icon" />
-                        Beantwoord
+                        {translate('fund_request.record.Beantwoord')}
                     </div>
                 )}
             </div>
@@ -122,7 +125,7 @@ export default function FundRequestRecordClarificationCard({
                     <div className="fund-request-chat-conversation-reply" onClick={() => openReplyForm()}>
                         <button className="button button-light button-xs button-fill flex flex-center">
                             <em className="mdi mdi-reply" />
-                            Antwoord
+                            {translate('fund_request.record.answer_btn')}
                         </button>
                     </div>
                 )}
@@ -156,14 +159,14 @@ export default function FundRequestRecordClarificationCard({
                                     className="button button-light button-xs"
                                     onClick={() => setShowForm(false)}>
                                     <em className="mdi mdi-close" />
-                                    Annuleer
+                                    {translate('fund_request.record.cancel_btn')}
                                 </button>
                                 <button
                                     type={'submit'}
                                     className="button button-primary button-xs"
                                     disabled={uploading || !form.values.answer}>
                                     <em className="mdi mdi-send-outline" />
-                                    Verzend
+                                    {translate('fund_request.record.send_btn')}
                                 </button>
                             </div>
                         </div>
