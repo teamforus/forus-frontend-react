@@ -3134,7 +3134,7 @@
     "product_bookmark_push": {
         "go_to_bookmarks": "Go to my wish list",
         "list_message": "There are {{ total }} listings in the wish list",
-        "removed": "{name} has been removed from the wish list!"
+        "removed": "{{ name }} has been removed from the wish list!"
     },
     "push_notification_group": {
         "adjust": "Adjust",

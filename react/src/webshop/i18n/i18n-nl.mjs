@@ -358,7 +358,7 @@ export default {
     product_bookmark_push: {
         list_message: 'Er staan {{ total }} aanbiedingen in het verlanglijstje',
         go_to_bookmarks: 'Ga naar mijn verlanglijstje',
-        removed: '{name} is verwijderd uit het verlanglijstje!',
+        removed: '{{ name }} is verwijderd uit het verlanglijstje!',
     },
 
     push_notification_group: {

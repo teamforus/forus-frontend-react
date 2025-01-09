@@ -5569,7 +5569,7 @@
     ],
     [
         "product_bookmark_push.removed",
-        "{name} is verwijderd uit het verlanglijstje!"
+        "{{ name }} is verwijderd uit het verlanglijstje!"
     ],
     [
         "product.breadcrumbs.back",
