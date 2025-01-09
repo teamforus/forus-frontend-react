@@ -1,4 +1,4 @@
-import BlockException from '../../../../webshop/components/pages/block-exception/BlockException';
+import BlockException from '../../../../webshop/components/elements/block-exception/BlockException';
 import { ErrorBoundary } from 'react-error-boundary';
 import React, { Fragment, ReactNode } from 'react';
 

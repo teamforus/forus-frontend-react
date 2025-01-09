@@ -56,7 +56,10 @@ export default function Notifications() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Notificaties' }]}
+            breadcrumbItems={[
+                { name: translate('notifications.breadcrumbs.home'), state: 'home' },
+                { name: translate('notifications.breadcrumbs.notifications') },
+            ]}
             profileHeader={
                 notifications && (
                     <div className="profile-content-header clearfix">
@@ -67,7 +70,7 @@ export default function Notifications() {
                                         {notifications?.meta.total_unseen}
                                     </div>
                                 )}
-                                <h1 className="profile-content-header">Notificaties</h1>
+                                <h1 className="profile-content-header">{translate('notifications.title')}</h1>
                             </div>
                         </div>
                     </div>
@@ -81,8 +84,8 @@ export default function Notifications() {
                                 <table className="table">
                                     <tbody>
                                         <tr>
-                                            <th className="hide-sm">Datum</th>
-                                            <th>Notificatie</th>
+                                            <th className="hide-sm">{translate('notifications.columns.date')}</th>
+                                            <th>{translate('notifications.columns.details')}</th>
                                         </tr>
                                         {notifications.data?.map((notification) => (
                                             <tr

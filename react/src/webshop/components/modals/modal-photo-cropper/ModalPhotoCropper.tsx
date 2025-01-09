@@ -6,6 +6,7 @@ import PdfPreview from '../../../../dashboard/components/elements/pdf-preview/Pd
 import { uniqueId } from 'lodash';
 import ModalPhotoCropperControl from './elements/ModalPhotoCropperControl';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export type ModalPhotoCropperFile = {
     uid?: string;
@@ -31,6 +32,7 @@ export default function ModalPhotoCropper({
     accept?: Array<string>;
     onSubmit: (files: Array<{ file: File; file_preview: File }>) => void;
 }) {
+    const translate = useTranslate();
     const pushDanger = usePushDanger();
 
     const replaceInputRef = useRef(null);
@@ -168,7 +170,7 @@ export default function ModalPhotoCropper({
     }, []);
 
     const pdfToBlob = useCallback(
-        (rawPdfFile): Promise<Blob> => {
+        (rawPdfFile: File): Promise<Blob> => {
             return new Promise((resolve) => {
                 new Response(rawPdfFile).arrayBuffer().then((data) => {
                     window['pdfjsDist'].getDocument({ data }).promise.then(
@@ -242,7 +244,7 @@ export default function ModalPhotoCropper({
     }, [cropperFiles?.length]);
 
     const replaceFileAtIndex = useCallback(
-        (index) => {
+        (index: number) => {
             const input = replaceInputRef?.current;
 
             input.addEventListener('change', (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -253,13 +255,18 @@ export default function ModalPhotoCropper({
                             return [...cropperFiles];
                         });
                     })
-                    .catch(() => pushDanger('Error!', 'Selected file is not a valid image.'))
+                    .catch(() =>
+                        pushDanger(
+                            translate('modal_photo_cropper.error'),
+                            translate('modal_photo_cropper.invalid_image'),
+                        ),
+                    )
                     .finally(() => (input.files = null));
             });
 
             input.click();
         },
-        [prepareFile, pushDanger],
+        [prepareFile, pushDanger, translate],
     );
 
     const onCropperChange = useCallback((file: ModalPhotoCropperFile, previewData: Blob) => {
@@ -278,15 +285,18 @@ export default function ModalPhotoCropper({
             setCropperFiles(validFiles);
 
             if (invalidFiles.length && validFiles.length) {
-                return pushDanger('Error! Some of the selected cropperFiles are not valid images and are skipped.');
+                return pushDanger(
+                    translate('modal_photo_cropper.error'),
+                    translate('modal_photo_cropper.some_invalid_files'),
+                );
             }
 
             if (invalidFiles.length && !validFiles.length) {
-                pushDanger('Error! Uploaded file is not a valid image, please try another file.');
+                pushDanger(translate('modal_photo_cropper.error'), translate('modal_photo_cropper.invalid_file'));
                 modal.close();
             }
         });
-    }, [files, modal, prepareFile, pushDanger]);
+    }, [files, modal, prepareFile, pushDanger, translate]);
 
     return (
         <div
@@ -299,21 +309,18 @@ export default function ModalPhotoCropper({
                     onClick={modal.close}
                     tabIndex={0}
                     onKeyDown={clickOnKeyEnter}
-                    aria-label="Sluiten"
+                    aria-label={translate('modal_photo_cropper.close')}
                     role="button"
                 />
 
                 <div className="modal-header">
-                    <h2 className="modal-header-title">Upload een document</h2>
+                    <h2 className="modal-header-title">{translate('modal_photo_cropper.upload_document')}</h2>
                 </div>
 
                 <div className="modal-body">
                     <div className="modal-section">
-                        <h2 className="modal-section-title">Verplaats en wijzig grootte</h2>
-                        <div className="modal-section-description">
-                            Links ziet u de originele afbeelding en rechts de voorbeelden. Gebruik het vakje in de
-                            linker afbeelding om de foto te positioneren.
-                        </div>
+                        <h2 className="modal-section-title">{translate('modal_photo_cropper.move_and_resize')}</h2>
+                        <div className="modal-section-description">{translate('modal_photo_cropper.instructions')}</div>
                         <div className="modal-section-space" />
                         <div className="modal-section-space" />
                         <div className="cropper-media">
@@ -350,7 +357,8 @@ export default function ModalPhotoCropper({
                                     tabIndex={0}
                                     onKeyDown={clickOnKeyEnter}
                                     onClick={prevMedia}
-                                    title="Vorige">
+                                    aria-label={translate('modal_photo_cropper.previous')}
+                                    title={translate('modal_photo_cropper.previous')}>
                                     <em className="mdi mdi-chevron-left" />
                                 </div>
                                 <div className="cropper-pagination-nav">
@@ -362,6 +370,7 @@ export default function ModalPhotoCropper({
                                             onKeyDown={clickOnKeyEnter}
                                             className={`cropper-pagination-item ${index === fileIndex ? 'active' : ''}`}
                                             onClick={() => setFileIndex(index)}
+                                            aria-label={`Toon afbeelding nummer: ${index + 1}`}
                                         />
                                     ))}
                                 </div>
@@ -371,7 +380,8 @@ export default function ModalPhotoCropper({
                                     tabIndex={0}
                                     onKeyDown={clickOnKeyEnter}
                                     onClick={nextMedia}
-                                    title="Volgende">
+                                    title={translate('modal_photo_cropper.next')}
+                                    aria-label={translate('modal_photo_cropper.next')}>
                                     <em className="mdi mdi-chevron-right" />
                                 </div>
                             </div>
@@ -385,7 +395,8 @@ export default function ModalPhotoCropper({
                                             tabIndex={0}
                                             onKeyDown={clickOnKeyEnter}
                                             onClick={() => rotate(fileIndex, -90)}
-                                            title="90 graden rechtsom draaien">
+                                            title={translate('modal_photo_cropper.rotate_right')}
+                                            aria-label={translate('modal_photo_cropper.rotate_right')}>
                                             <div className="mdi mdi-file-rotate-left-outline" />
                                         </div>
                                     )}
@@ -397,7 +408,8 @@ export default function ModalPhotoCropper({
                                             tabIndex={0}
                                             onKeyDown={clickOnKeyEnter}
                                             onClick={() => rotate(fileIndex, 90)}
-                                            title="90 graden linkssom draaien">
+                                            title={translate('modal_photo_cropper.rotate_left')}
+                                            aria-label={translate('modal_photo_cropper.rotate_left')}>
                                             <div className="mdi mdi-file-rotate-right-outline" />
                                         </div>
                                     )}
@@ -409,10 +421,10 @@ export default function ModalPhotoCropper({
                                     tabIndex={0}
                                     onKeyDown={clickOnKeyEnter}
                                     onClick={() => replaceFileAtIndex(fileIndex)}
-                                    title="Kies andere afbeelding">
+                                    title={translate('modal_photo_cropper.choose_another')}>
                                     <input type="file" accept={accept.join(',')} hidden={true} ref={replaceInputRef} />
                                     <div className="mdi mdi-pencil" />
-                                    Kies andere afbeelding
+                                    {translate('modal_photo_cropper.choose_another')}
                                 </div>
                             </div>
                         </div>
@@ -425,7 +437,7 @@ export default function ModalPhotoCropper({
                             className="button button-light button-sm"
                             data-dusk="modalPhotoCropperCancel"
                             onClick={modal.close}>
-                            Annuleren
+                            {translate('modal_photo_cropper.cancel')}
                         </button>
 
                         <button
@@ -434,7 +446,9 @@ export default function ModalPhotoCropper({
                             onClick={submit}
                             disabled={!loaded}>
                             {!loaded && <div className="mdi mdi-loading mdi-spin icon-start" />}
-                            {loaded ? 'Indienen' : 'Loading'}
+                            {loaded
+                                ? translate('modal_photo_cropper.submit')
+                                : translate('modal_photo_cropper.loading')}
                         </button>
                     </div>
                 </div>

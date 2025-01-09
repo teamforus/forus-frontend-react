@@ -117,19 +117,31 @@ export class ProductService<T = Product> {
         return { regularActiveVouchers, funds, hasReservableFunds };
     }
 
-    public getSortOptions(): Array<{
+    public getSortOptions(translate: (key: string) => string): Array<{
         id: number;
         label: string;
         value: { order_by: 'created_at' | 'price' | 'most_popular' | 'name'; order_dir: 'asc' | 'desc' };
     }> {
         return [
-            { id: 1, label: 'Nieuwe eerst', value: { order_by: 'created_at', order_dir: 'desc' } },
-            { id: 2, label: 'Oudste eerst', value: { order_by: 'created_at', order_dir: 'asc' } },
-            { id: 3, label: 'Prijs (oplopend)', value: { order_by: 'price', order_dir: 'asc' } },
-            { id: 4, label: 'Prijs (aflopend)', value: { order_by: 'price', order_dir: 'desc' } },
-            { id: 5, label: 'Meest gewild', value: { order_by: 'most_popular', order_dir: 'desc' } },
-            { id: 6, label: 'Naam (oplopend)', value: { order_by: 'name', order_dir: 'asc' } },
-            { id: 7, label: 'Naam (aflopend)', value: { order_by: 'name', order_dir: 'desc' } },
+            {
+                id: 1,
+                label: translate('products.sort.created_at_desc'),
+                value: { order_by: 'created_at', order_dir: 'desc' },
+            },
+            {
+                id: 2,
+                label: translate('products.sort.created_at_asc'),
+                value: { order_by: 'created_at', order_dir: 'asc' },
+            },
+            { id: 3, label: translate('products.sort.price_asc'), value: { order_by: 'price', order_dir: 'asc' } },
+            { id: 4, label: translate('products.sort.price_desc'), value: { order_by: 'price', order_dir: 'desc' } },
+            {
+                id: 5,
+                label: translate('products.sort.most_popular'),
+                value: { order_by: 'most_popular', order_dir: 'desc' },
+            },
+            { id: 6, label: translate('products.sort.name_asc'), value: { order_by: 'name', order_dir: 'asc' } },
+            { id: 7, label: translate('products.sort.name_desc'), value: { order_by: 'name', order_dir: 'desc' } },
         ];
     }
 

@@ -10,6 +10,7 @@ import PincodeControl from '../../../dashboard/components/elements/forms/control
 import BlockAuth2FAInfoBox from '../elements/block-auth-2fa-info-box/BlockAuth2FAInfoBox';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
+import useTranslate from '../../../dashboard/hooks/useTranslate';
 
 export default function Modal2FADeactivate({
     modal,
@@ -32,6 +33,7 @@ export default function Modal2FADeactivate({
 
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const translate = useTranslate();
     const timer = useTimer();
     const { setTimer } = timer;
 
@@ -52,12 +54,18 @@ export default function Modal2FADeactivate({
             identity2FAService
                 .send(auth2FA.uuid)
                 .then(
-                    () => (notify ? pushSuccess('Gelukt!', 'We hebben de code opnieuw verstuurd.') : false),
-                    (res) => pushDanger('Mislukt!', res?.data?.message),
+                    () =>
+                        notify
+                            ? pushSuccess(
+                                  translate('modal_2fa_deactivate.success'),
+                                  translate('modal_2fa_deactivate.code_resent'),
+                              )
+                            : false,
+                    (res) => pushDanger(translate('modal_2fa_deactivate.failed'), res?.data?.message),
                 )
                 .then(() => setSendingCode(false));
         },
-        [auth2FA?.uuid, blockResend, identity2FAService, pushDanger, pushSuccess],
+        [auth2FA?.uuid, blockResend, identity2FAService, pushDanger, pushSuccess, translate],
     );
 
     const deactivateProvider = useCallback(
@@ -80,12 +88,24 @@ export default function Modal2FADeactivate({
                     setErrorCode(null);
                 })
                 .catch((res) => {
-                    pushDanger(res.data?.message || 'Unknown error.');
                     setErrorCode(res?.data?.errors?.code || null);
+                    pushDanger(
+                        res.status === 404
+                            ? translate('modal_2fa_deactivate.error_404')
+                            : res.data?.message || translate('modal_2fa_deactivate.unknown_error'),
+                    );
                 })
                 .finally(() => window.setTimeout(() => setDeactivating(false), 1000));
         },
-        [auth2FA.provider_type.key, auth2FA.uuid, confirmationCode, deactivating, identity2FAService, pushDanger],
+        [
+            auth2FA.provider_type.key,
+            auth2FA.uuid,
+            confirmationCode,
+            deactivating,
+            identity2FAService,
+            pushDanger,
+            translate,
+        ],
     );
 
     const cancel = useCallback(() => {
@@ -135,7 +155,7 @@ export default function Modal2FADeactivate({
             {step == 'confirmation' && (
                 <form className="modal-window form" onSubmit={deactivateProvider}>
                     <div className="modal-header">
-                        <div className="modal-heading">Tweefactorauthenticatie uischakelen</div>
+                        <div className="modal-heading">{translate('modal_2fa_deactivate.disable_2fa')}</div>
                         <div
                             className="modal-close mdi mdi-close"
                             onClick={cancel}
@@ -148,16 +168,18 @@ export default function Modal2FADeactivate({
                     <div className="modal-body text-center">
                         <div className="modal-section">
                             <div className="modal-section-title">
-                                Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.
+                                {translate('modal_2fa_deactivate.enter_2fa_code')}
                             </div>
 
                             {type == 'phone' && (
-                                <div className="modal-section-description">Voer de 6-cijferige SMS-code in</div>
+                                <div className="modal-section-description">
+                                    {translate('modal_2fa_deactivate.enter_sms_code')}
+                                </div>
                             )}
 
                             {type == 'authenticator' && (
                                 <div className="modal-section-description">
-                                    Voer de 6-cijferige code in vanuit de app
+                                    {translate('modal_2fa_deactivate.enter_app_code')}
                                 </div>
                             )}
 
@@ -173,7 +195,7 @@ export default function Modal2FADeactivate({
                                         valueType={'num'}
                                         blockSize={3}
                                         blockCount={2}
-                                        ariaLabel={'Voer de tweefactorauthenticatiecode in voor deactivering'}
+                                        ariaLabel={translate('modal_2fa_deactivate.enter_2fa_code_deactivation')}
                                     />
 
                                     <FormError error={errorCode} />
@@ -187,12 +209,15 @@ export default function Modal2FADeactivate({
                                             onClick={() => resendCode()}
                                             disabled={timer?.time > 0}>
                                             <div
-                                                className={`mdi mdi-refresh icon-start ${
-                                                    sendingCode ? 'mdi-spin' : ''
-                                                }`}
+                                                className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
                                             />
-                                            Code opnieuw verzenden
-                                            {timer?.time > 0 && <span>&nbsp;({timer?.time} seconde(n))</span>}
+                                            {translate('modal_2fa_deactivate.resend_code')}
+                                            {timer?.time > 0 && (
+                                                <span>
+                                                    &nbsp;(
+                                                    {translate('modal_2fa_deactivate.seconds', { time: timer?.time })})
+                                                </span>
+                                            )}
                                         </button>
                                     </div>
                                 )}
@@ -210,14 +235,14 @@ export default function Modal2FADeactivate({
                                 className="button button-light button-sm flex-center"
                                 type="button"
                                 onClick={cancel}>
-                                Annuleer
+                                {translate('modal_2fa_deactivate.cancel')}
                             </button>
                             <div className="flex flex-grow hide-sm">&nbsp;</div>
                             <button
                                 className="button button-primary button-sm flex-center"
                                 type="submit"
                                 disabled={confirmationCode?.length !== 6}>
-                                Verifieer
+                                {translate('modal_2fa_deactivate.verify')}
                             </button>
                         </div>
                     </div>
@@ -234,25 +259,23 @@ export default function Modal2FADeactivate({
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Tweefactorauthenticatie uitschakelen</h2>
+                        <h2 className="modal-header-title">{translate('modal_2fa_deactivate.disable_2fa')}</h2>
                     </div>
                     <div className="modal-body">
                         <div className="modal-section">
                             <div className="modal-section-icon modal-section-icon-success">
                                 <div className="mdi mdi-check-circle-outline" />
                             </div>
-                            <div className="modal-section-title">
-                                Tweefactorauthenticatie is succesvol uitgeschakeld
-                            </div>
+                            <div className="modal-section-title">{translate('modal_2fa_deactivate.2fa_disabled')}</div>
                             <div className="modal-section-description">
-                                Je tweefactorauthenticatie is succesvol uitgeschakeld
+                                {translate('modal_2fa_deactivate.2fa_disabled_description')}
                             </div>
                         </div>
                     </div>
                     <div className="modal-footer">
                         <div className="button-group flex-grow flex-center">
                             <div className="button button-primary button-sm flex-center" onClick={done}>
-                                Bevestigen
+                                {translate('modal_2fa_deactivate.confirm')}
                             </div>
                         </div>
                     </div>

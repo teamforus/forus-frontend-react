@@ -12,12 +12,15 @@ import SelectControl from '../../../../dashboard/components/elements/select-cont
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import Modal2FADeactivate from '../../modals/Modal2FADeactivate';
 import Modal2FASetup from '../../modals/Modal2FASetup';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function Security2FA() {
     const openModal = useOpenModal();
+    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+
     const { updateIdentity } = useContext(authContext);
     const identity2FAService = useIdentity2FAService();
     const [auth2FAState, setAuth2FAState] = useState<Identity2FAState>(null);
@@ -31,8 +34,8 @@ export default function Security2FA() {
     }, [auth2FAState]);
 
     const [auth2FARememberIpOptions] = useState([
-        { value: 0, name: 'Altijd bevestiging vereisen met 2FA' },
-        { value: 1, name: 'Als IP-adres in de afgelopen 48 uur gebruikt, geen 2FA vereisen.' },
+        { value: 0, name: translate('security_2fa.require_2fa_always') },
+        { value: 1, name: translate('security_2fa.require_2fa_ip') },
     ]);
 
     const form = useFormBuilder<{
@@ -44,11 +47,14 @@ export default function Security2FA() {
             .update(values)
             .then((res) => {
                 setAuth2FAState(res.data.data);
-                pushSuccess('Opgeslagen!');
+                pushSuccess(translate('security_2fa.saved'));
             })
             .catch((err: ResponseError) => {
                 form.setErrors(err.data.errors);
-                pushDanger('Error', err.data?.message || 'Onbekende foutmelding.');
+                pushDanger(
+                    translate('security_2fa.error'),
+                    err.data?.message || translate('security_2fa.unknown_error'),
+                );
             })
             .finally(() => {
                 form.setIsLocked(false);
@@ -67,9 +73,14 @@ export default function Security2FA() {
                 updateIdentity().then();
                 setAuth2FAState(res.data.data);
             })
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message || 'Unknown error.'))
+            .catch((err: ResponseError) =>
+                pushDanger(
+                    translate('security_2fa.failed'),
+                    err.data?.message || translate('security_2fa.unknown_error'),
+                ),
+            )
             .finally(() => setProgress(100));
-    }, [identity2FAService, setProgress, pushDanger, updateIdentity]);
+    }, [identity2FAService, setProgress, pushDanger, updateIdentity, translate]);
 
     const setupAuth2FA = useCallback(
         (type: string) => {
@@ -112,7 +123,10 @@ export default function Security2FA() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'Beveiliging' }]}
+            breadcrumbItems={[
+                { name: translate('security_2fa.breadcrumbs.home'), state: 'home' },
+                { name: translate('security_2fa.breadcrumbs.security_2fa') },
+            ]}
             profileHeader={
                 auth2FAState &&
                 form.values && (
@@ -123,17 +137,13 @@ export default function Security2FA() {
                                     <div className="profile-content-title-count">
                                         {auth2FAState?.provider_types.length}
                                     </div>
-                                    <h1 className="profile-content-header">Tweefactorauthenticatie</h1>
+                                    <h1 className="profile-content-header">{translate('security_2fa.title')}</h1>
                                 </div>
                             </h2>
                         </div>
                         <div className="profile-content-header clearfix">
                             <h2 className="profile-content-title">
-                                <div className="profile-content-subtitle">
-                                    Voeg een extra beveiligingslaag toe aan uw account door tweefactorauthenticatie in
-                                    te schakelen. U kunt kiezen uit de volgende verificatiemethoden: Authenticator app
-                                    en SMS-verificatie.
-                                </div>
+                                <div className="profile-content-subtitle">{translate('security_2fa.subtitle')}</div>
                             </h2>
                         </div>
                     </Fragment>
@@ -155,12 +165,14 @@ export default function Security2FA() {
                                         {activeProvidersByKey[provider_type.type] ? (
                                             <div className="auth-2fa-item-date">
                                                 <em className="mdi mdi-check-circle" />
-                                                {'Ingeschakeld: '}
+                                                {translate('security_2fa.enabled_on')}
                                                 {activeProvidersByKey[provider_type.type].created_at_locale}
                                             </div>
                                         ) : (
                                             <div className="auth-2fa-item-label">
-                                                <div className="label label-light">Uitgeschakeld</div>
+                                                <div className="label label-light">
+                                                    {translate('security_2fa.disabled')}
+                                                </div>
                                             </div>
                                         )}
                                     </div>
@@ -171,17 +183,21 @@ export default function Security2FA() {
                                                 <em className="mdi mdi-message-processing" />
                                             </div>
                                             <div className="auth-phone-details-content">
-                                                <div className="auth-phone-details-title">SMS Bericht</div>
+                                                <div className="auth-phone-details-title">
+                                                    {translate('security_2fa.sms_message')}
+                                                </div>
                                                 <div className="auth-phone-details-subtitle flex">
                                                     <div className="auth-phone-details-phone">
                                                         {activeProvidersByKey[provider_type.type].phone}
                                                     </div>
                                                     <div className="label-group pull-right">
-                                                        <div className="label label-success">Nummer bevestigd</div>
+                                                        <div className="label label-success">
+                                                            {translate('security_2fa.number_confirmed')}
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="auth-phone-details-description">
-                                                    Verificatie codes zijn verzonden via SMS
+                                                    {translate('security_2fa.verification_codes_sent')}
                                                 </div>
                                             </div>
                                         </div>
@@ -195,7 +211,7 @@ export default function Security2FA() {
                                                     className="button button-light button-sm"
                                                     onClick={() => deactivateAuth2FA(provider_type.type)}>
                                                     <em className="mdi mdi-lock-open-outline icon-start" />
-                                                    Uitschakelen
+                                                    {translate('security_2fa.disable')}
                                                 </button>
                                             ) : (
                                                 <button
@@ -203,7 +219,7 @@ export default function Security2FA() {
                                                     className="button button-primary button-sm"
                                                     onClick={() => setupAuth2FA(provider_type.type)}>
                                                     <em className="mdi mdi-shield-check-outline icon-start" />
-                                                    Inschakelen
+                                                    {translate('security_2fa.enable')}
                                                 </button>
                                             )}
                                         </div>
@@ -214,14 +230,14 @@ export default function Security2FA() {
                     ))}
 
                     <div className="profile-content-header clearfix">
-                        <h3 className="profile-content-title">Instellingen</h3>
+                        <h3 className="profile-content-title">{translate('security_2fa.settings')}</h3>
                     </div>
 
                     <div className="block block-auth-2fa">
                         <form className="form form-compact" onSubmit={form.submit}>
                             <div className="form-group">
                                 <label className="form-label" htmlFor="auth_2fa_remember_ip">
-                                    Onthoud IP-adres
+                                    {translate('security_2fa.remember_ip')}
                                 </label>
                                 {!auth2FAState.auth_2fa_forget_force.voucher &&
                                 !auth2FAState.auth_2fa_forget_force.organization ? (
@@ -243,21 +259,16 @@ export default function Security2FA() {
                                     />
                                 )}
                                 {auth2FAState.auth_2fa_forget_force.voucher && (
-                                    <div className="form-hint">
-                                        Er zijn één of meerdere vouchers van een fonds die deze instelling beperken
-                                    </div>
+                                    <div className="form-hint">{translate('security_2fa.vouchers_restrict')}</div>
                                 )}
 
                                 {auth2FAState.auth_2fa_forget_force.organization && (
-                                    <div className="form-hint">
-                                        Deze instellingen kunnen niet worden aangepast vanwege de voorwaarden die door
-                                        de gemeente zijn gesteld
-                                    </div>
+                                    <div className="form-hint">{translate('security_2fa.municipality_restrict')}</div>
                                 )}
                             </div>
                             <div className="text-center">
                                 <button className="button button-primary button-sm" type="submit">
-                                    Bevestigen
+                                    {translate('security_2fa.confirm')}
                                 </button>
                             </div>
                         </form>

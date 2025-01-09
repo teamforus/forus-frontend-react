@@ -22,18 +22,22 @@ export default function ModalProductReserveCancel({
         <div
             className={`modal modal-product-reserve modal-animated ${modal.loading ? '' : 'modal-loaded'}`}
             data-dusk="modalProductReserveCancel">
-            <div className="modal-backdrop" onClick={modal.close} aria-label="Sluiten" />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('modal_product_reserve_cancel.buttons.close')}
+            />
             <div className="modal-window">
                 <div
                     className="modal-close mdi mdi-close"
                     onClick={modal.close}
                     tabIndex={0}
                     onKeyDown={clickOnKeyEnter}
-                    aria-label="Sluiten"
+                    aria-label={translate('modal_product_reserve_cancel.buttons.close')}
                     role="button"
                 />
                 <div className="modal-header">
-                    <h2 className="modal-header-title">Reservering annuleren</h2>
+                    <h2 className="modal-header-title">{translate('modal_product_reserve_cancel.title')}</h2>
                 </div>
 
                 <div className="modal-body">
@@ -68,7 +72,7 @@ export default function ModalProductReserveCancel({
                                     <div>{translate('modal_product_reserve_cancel.description_not_cancelable')}</div>
                                     <div>
                                         <strong>
-                                            Neem contact op met de{' '}
+                                            {translate('modal_product_reserve_cancel.contact_provider') + ' '}
                                             <StateNavLink
                                                 name={'provider'}
                                                 params={{ id: reservation.product?.organization?.id }}
@@ -86,7 +90,7 @@ export default function ModalProductReserveCancel({
                 </div>
                 <div className="modal-footer">
                     <button className="button button-sm button-light" onClick={modal.close}>
-                        Annuleren
+                        {translate('modal_product_reserve_cancel.buttons.cancel')}
                     </button>
                     {reservation.cancelable && (
                         <button
@@ -96,7 +100,7 @@ export default function ModalProductReserveCancel({
                                 onConfirm?.();
                             }}
                             data-dusk="btnSubmit">
-                            Bevestigen
+                            {translate('modal_product_reserve_cancel.buttons.confirm')}
                         </button>
                     )}
                 </div>

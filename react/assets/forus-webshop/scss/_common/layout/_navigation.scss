@@ -567,9 +567,10 @@
                 }
 
                 &_social_icons {
-                    flex-grow: 1;
+                    flex: 1 1 auto;
                     display: inline-flex;
                     justify-content: flex-end;
+                    align-items: center;
 
                     .navbar-social-media-icon {
                         color: var(--tc-nav);

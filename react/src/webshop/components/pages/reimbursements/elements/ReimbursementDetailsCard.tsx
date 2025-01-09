@@ -2,6 +2,7 @@ import React, { Fragment, useCallback, useState } from 'react';
 import Reimbursement from '../../../../props/models/Reimbursement';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { currencyFormat } from '../../../../../dashboard/helpers/string';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function ReimbursementDetailsCard({
     compact = false,
@@ -10,6 +11,7 @@ export default function ReimbursementDetailsCard({
     compact?: boolean;
     reimbursement: Partial<Reimbursement>;
 }) {
+    const translate = useTranslate();
     const [previewIndex, setPreviewIndex] = useState(0);
 
     const prevPreviewMedia = useCallback(() => {
@@ -58,46 +60,60 @@ export default function ReimbursementDetailsCard({
                     )}
                 </div>
                 <div className="reimbursement-props">
-                    {!compact && <h2 className="reimbursement-title">Declaratie gegevens</h2>}
+                    {!compact && <h2 className="reimbursement-title">{translate('reimbursements.details.title')}</h2>}
                     <div className="reimbursement-prop">
-                        <div className="reimbursement-prop-label">Titel</div>
+                        <div className="reimbursement-prop-label">
+                            {translate('reimbursements.details.labels.title')}
+                        </div>
                         <div className="reimbursement-prop-value" data-dusk="reimbursementOverviewTitle">
                             {reimbursement.title}
                         </div>
                     </div>
                     <div className="reimbursement-prop">
-                        <div className="reimbursement-prop-label">Bedrag</div>
+                        <div className="reimbursement-prop-label">
+                            {translate('reimbursements.details.labels.amount')}
+                        </div>
                         <div className="reimbursement-prop-value" data-dusk="reimbursementOverviewAmount">
                             {reimbursement.amount_locale || currencyFormat(parseFloat(reimbursement.amount))}
                         </div>
                     </div>
                     <div className="reimbursement-prop">
-                        <div className="reimbursement-prop-label">Declareren bij</div>
+                        <div className="reimbursement-prop-label">
+                            {translate('reimbursements.details.labels.sponsor')}
+                        </div>
                         <div className="reimbursement-prop-value" data-dusk="reimbursementOverviewSponsorName">
                             {reimbursement.fund?.organization?.name}
                         </div>
                     </div>
                     <div className="reimbursement-prop">
-                        <div className="reimbursement-prop-label">Regeling</div>
+                        <div className="reimbursement-prop-label">
+                            {translate('reimbursements.details.labels.fund')}
+                        </div>
                         <div className="reimbursement-prop-value" data-dusk="reimbursementOverviewFundName">
                             {reimbursement.fund?.name}
                         </div>
                     </div>
                     <div className="reimbursement-prop">
-                        <div className="reimbursement-prop-label">IBAN</div>
+                        <div className="reimbursement-prop-label">
+                            {translate('reimbursements.details.labels.iban')}
+                        </div>
                         <div className="reimbursement-prop-value" data-dusk="reimbursementOverviewIban">
                             {reimbursement.iban}
                         </div>
                     </div>
                     <div className="reimbursement-prop">
-                        <div className="reimbursement-prop-label">Tenaamstelling van</div>
+                        <div className="reimbursement-prop-label">
+                            {translate('reimbursements.details.labels.iban_name')}
+                        </div>
                         <div className="reimbursement-prop-value" data-dusk="reimbursementOverviewIbanName">
                             {reimbursement.iban_name}
                         </div>
                     </div>
                     {!compact && (
                         <Fragment>
-                            <h2 className="reimbursement-title">Opmerking</h2>
+                            <h2 className="reimbursement-title">
+                                {translate('reimbursements.details.labels.description')}
+                            </h2>
                             <div className="reimbursement-text" data-dusk="reimbursementOverviewDescription">
                                 {reimbursement.description}
                             </div>
@@ -106,7 +122,9 @@ export default function ReimbursementDetailsCard({
 
                     {!compact && reimbursement.state == 'declined' && reimbursement.reason && (
                         <Fragment>
-                            <h2 className="reimbursement-title">Decline reason</h2>
+                            <h2 className="reimbursement-title">
+                                {translate('reimbursements.details.labels.decline_reason')}
+                            </h2>
                             <div className="reimbursement-text">{reimbursement.reason}</div>
                         </Fragment>
                     )}
@@ -118,7 +136,7 @@ export default function ReimbursementDetailsCard({
                             className="button button-primary-outline button-sm flex flex-center"
                             dataDusk="reimbursementOverviewEditButton">
                             <div className="mdi mdi-pencil icon-start" />
-                            Wijzigen
+                            {translate('reimbursements.details.buttons.edit')}
                         </StateNavLink>
                     )}
                 </div>

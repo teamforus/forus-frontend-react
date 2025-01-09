@@ -20,6 +20,7 @@ export default function Markdown({
 
     useEffect(() => {
         const tables = ref.current?.querySelectorAll('table');
+        const links = ref.current?.querySelectorAll('a');
 
         // fix empty th from markdown and convert preceding h4 to caption
         try {
@@ -75,6 +76,29 @@ export default function Markdown({
         } catch (e) {
             console.error('Could not apply table responsiveness: ' + e.toString());
             /* empty */
+        }
+
+        // update link target based on origin
+        try {
+            if (links) {
+                links.forEach((link) => {
+                    try {
+                        const url = new URL(link.href);
+
+                        if (url?.origin === window?.location?.origin) {
+                            link.target = '_self';
+                            link.rel = '';
+                        } else {
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                        }
+                    } catch (e) {
+                        console.error('Could not update link target: ' + e.toString(), link.href);
+                    }
+                });
+            }
+        } catch (e) {
+            console.error('Could not update link target: ' + e.toString());
         }
     }, [content]);
 

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Fund from '../../../../props/models/Fund';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function FundRequestGoBackButton({
     fund,
@@ -13,6 +14,8 @@ export default function FundRequestGoBackButton({
     prevStep: () => void;
     tabIndex?: number;
 }) {
+    const translate = useTranslate();
+
     return (
         <Fragment>
             {step <= 0 ? (
@@ -23,7 +26,7 @@ export default function FundRequestGoBackButton({
                     role="link"
                     tabIndex={tabIndex}>
                     <em className="mdi mdi-chevron-left icon-left" />
-                    Terug
+                    {translate('fund_request.buttons.back')}
                 </StateNavLink>
             ) : (
                 <div
@@ -32,7 +35,7 @@ export default function FundRequestGoBackButton({
                     role="button"
                     tabIndex={tabIndex}>
                     <div className="mdi mdi-chevron-left icon-left" />
-                    Terug
+                    {translate('fund_request.buttons.back')}
                 </div>
             )}
         </Fragment>
