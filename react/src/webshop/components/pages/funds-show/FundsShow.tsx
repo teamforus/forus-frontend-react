@@ -21,6 +21,8 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import FundFaq from './elements/FundFaq';
 import FundProductsBlock from './elements/FundProductsBlock';
 import useFundMeta from '../../../hooks/meta/useFundMeta';
+import usePayoutTransactionService from '../../../services/PayoutTransactionService';
+import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 
 export default function FundsShow() {
     const { id } = useParams();
@@ -39,13 +41,15 @@ export default function FundsShow() {
     const fundService = useFundService();
     const voucherService = useVoucherService();
     const recordTypesService = useRecordTypeService();
+    const payoutTransactionService = usePayoutTransactionService();
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
 
     const [fund, setFund] = useState<Fund>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
+    const [payoutTransactions, setPayoutTransactions] = useState<Array<PayoutTransaction>>(null);
 
-    const fundMeta = useFundMeta(fund, vouchers || [], appConfigs);
+    const fundMeta = useFundMeta(fund, vouchers || [], payoutTransactions || [], appConfigs);
 
     const recordsByTypesKey = useMemo(async () => {
         return recordTypesService.list().then((res) => {
@@ -91,6 +95,15 @@ export default function FundsShow() {
             .finally(() => setProgress(100));
     }, [voucherService, setProgress]);
 
+    const fetchPayouts = useCallback(() => {
+        setProgress(0);
+
+        payoutTransactionService
+            .list()
+            .then((res) => setPayoutTransactions(res.data.data))
+            .finally(() => setProgress(100));
+    }, [setProgress, payoutTransactionService]);
+
     const applyFund = useCallback(
         (e: React.MouseEvent, fund: Fund) => {
             e.preventDefault();
@@ -111,10 +124,12 @@ export default function FundsShow() {
     useEffect(() => {
         if (authIdentity) {
             fetchVouchers();
+            fetchPayouts();
         } else {
             setVouchers([]);
+            setPayoutTransactions([]);
         }
-    }, [authIdentity, fetchVouchers]);
+    }, [authIdentity, fetchPayouts, fetchVouchers]);
 
     useEffect(() => {
         if (fund && fund.id !== parseInt(id)) {
@@ -153,7 +168,9 @@ export default function FundsShow() {
                     <div className="block block-fund">
                         <div className="fund-content">
                             <div className="fund-card">
-                                <h1 className="fund-name">{fund?.name}</h1>
+                                <h1 className="fund-name" data-dusk="fundTitle">
+                                    {fund?.name}
+                                </h1>
 
                                 {fund?.description_short && (
                                     <div className="fund-description">
@@ -221,6 +238,7 @@ export default function FundsShow() {
                                         <StateNavLink
                                             name={'fund-activate'}
                                             params={{ id: fund.id }}
+                                            dataDusk="requestButton"
                                             className="button button-primary">
                                             {fund.request_btn_text}
                                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -231,6 +249,7 @@ export default function FundsShow() {
                                         <a
                                             className="button button-primary"
                                             type="button"
+                                            data-dusk="activateButton"
                                             onClick={(e) => applyFund(e, fund)}>
                                             {translate('funds.buttons.is_applicable')}
                                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -241,12 +260,23 @@ export default function FundsShow() {
                                         <StateNavLink
                                             name={'voucher'}
                                             params={{ number: fundMeta.vouchers[0]?.number }}
+                                            dataDusk="voucherButton"
                                             className="button button-primary">
                                             {translate(
                                                 `funds.buttons.${fund.key}.already_received`,
                                                 {},
                                                 'funds.buttons.already_received',
                                             )}
+                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                                        </StateNavLink>
+                                    )}
+
+                                    {fundMeta && fundMeta.hasPayouts && (
+                                        <StateNavLink
+                                            name={'payouts'}
+                                            className="button button-primary"
+                                            dataDusk="payoutsButton">
+                                            {translate('funds.buttons.open_payouts')}
                                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                         </StateNavLink>
                                     )}
@@ -265,6 +295,7 @@ export default function FundsShow() {
                                         <StateNavLink
                                             name={'fund-requests'}
                                             params={{ id: fund.id }}
+                                            dataDusk="pendingButton"
                                             className="button button-primary">
                                             {translate('funds.buttons.check_status')}
                                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />

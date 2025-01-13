@@ -25,6 +25,8 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
+import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
+import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -44,11 +46,13 @@ export default function ProductsShow() {
     const productService = useProductService();
     const voucherService = useVoucherService();
     const providerService = useProviderService();
+    const payoutTransactionService = usePayoutTransactionService();
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [product, setProduct] = useState<Product>(null);
     const [provider, setProvider] = useState<Provider>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
+    const [payoutTransactions, setPayoutTransactions] = useState<Array<PayoutTransaction>>(null);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
 
@@ -93,17 +97,22 @@ export default function ProductsShow() {
     }, [product?.organization_id, setProgress, providerService]);
 
     const fetchVouchers = useCallback(() => {
-        if (!authIdentity) {
-            return setVouchers([]);
-        }
-
         setProgress(0);
 
         voucherService
             .list({ product_id: parseInt(id), type: 'regular', state: 'active' })
             .then((res) => setVouchers(res.data.data))
             .finally(() => setProgress(100));
-    }, [authIdentity, voucherService, setProgress, id]);
+    }, [voucherService, setProgress, id]);
+
+    const fetchPayouts = useCallback(() => {
+        setProgress(0);
+
+        payoutTransactionService
+            .list()
+            .then((res) => setPayoutTransactions(res.data.data))
+            .finally(() => setProgress(100));
+    }, [setProgress, payoutTransactionService]);
 
     const fetchFunds = useCallback(() => {
         if (!product?.funds.length) {
@@ -128,8 +137,14 @@ export default function ProductsShow() {
     }, [fetchProvider]);
 
     useEffect(() => {
-        fetchVouchers();
-    }, [fetchVouchers]);
+        if (authIdentity) {
+            fetchVouchers();
+            fetchPayouts();
+        } else {
+            setVouchers([]);
+            setPayoutTransactions([]);
+        }
+    }, [authIdentity, fetchPayouts, fetchVouchers]);
 
     useEffect(() => {
         if (!appConfigs?.products?.show) {
@@ -225,7 +240,12 @@ export default function ProductsShow() {
                             )}
                         </div>
 
-                        <ProductFundsCard product={product} vouchers={vouchers} funds={funds} />
+                        <ProductFundsCard
+                            funds={funds}
+                            product={product}
+                            vouchers={vouchers}
+                            payoutTransactions={payoutTransactions}
+                        />
 
                         {provider && (
                             <div className="block block-organizations">

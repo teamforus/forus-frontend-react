@@ -12,18 +12,21 @@ import useShowTakenByPartnerModal from '../../../../services/helpers/useShowTake
 import FundsListItemModel from '../../../../services/types/FundsListItemModel';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useFundMeta from '../../../../hooks/meta/useFundMeta';
+import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
 
 export default function FundsListItem({
     fund,
     funds,
     vouchers,
     display,
+    payoutTransactions,
     stateParams = null,
 }: {
     display: 'list' | 'search';
     fund: Fund;
     vouchers: Array<Voucher>;
     funds?: Array<Fund>;
+    payoutTransactions: Array<PayoutTransaction>;
     stateParams?: object;
 }) {
     const [applyingFund, setApplyingFund] = React.useState(false);
@@ -36,7 +39,7 @@ export default function FundsListItem({
     const pushSuccess = usePushSuccess();
     const showTakenByPartnerModal = useShowTakenByPartnerModal();
 
-    const fundMeta = useFundMeta(fund, vouchers, appConfigs);
+    const fundMeta = useFundMeta(fund, vouchers, payoutTransactions, appConfigs);
 
     const onApplySuccess = useCallback(
         (vouchers: Voucher) => {
@@ -88,14 +91,19 @@ export default function FundsListItem({
                 params={{ id: fund.id }}
                 state={stateParams || null}
                 className={'search-item search-item-fund'}
-                dataDusk="productItem">
+                dataDusk={`fundItem${fund.id}`}>
                 <FundsListItemSearch fund={fundMeta} applyFund={applyFund} />
             </StateNavLink>
         );
     }
 
     return (
-        <StateNavLink name={'fund'} params={{ id: fund.id }} state={stateParams || null} className={'fund-item'}>
+        <StateNavLink
+            name={'fund'}
+            params={{ id: fund.id }}
+            state={stateParams || null}
+            className={'fund-item'}
+            dataDusk={`fundItem${fund.id}`}>
             <FundsListItemList fund={fundMeta} applyFund={applyFund} />
         </StateNavLink>
     );

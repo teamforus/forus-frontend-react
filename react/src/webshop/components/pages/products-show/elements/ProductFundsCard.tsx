@@ -17,15 +17,18 @@ import ModalProductReserve from '../../../modals/modal-product-reserve/ModalProd
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import useFetchAuthIdentity from '../../../../hooks/useFetchAuthIdentity';
 import useFundMetaBuilder from '../../../../hooks/meta/useFundMetaBuilder';
+import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
 
 export default function ProductFundsCard({
     product,
     funds,
+    payoutTransactions,
     vouchers = [],
 }: {
     product: Product;
     funds: Array<Fund>;
     vouchers: Array<Voucher>;
+    payoutTransactions: Array<PayoutTransaction>;
 }) {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
@@ -59,11 +62,12 @@ export default function ProductFundsCard({
                 ...fundMetaBuilder(
                     { ...funds.find((fund) => fund.id == productFund.id), ...productFund },
                     vouchers,
+                    payoutTransactions,
                     appConfigs,
                 ),
             })),
         };
-    }, [product, funds, productService, vouchers, fundMetaBuilder, appConfigs]);
+    }, [product, funds, vouchers, productService, fundMetaBuilder, payoutTransactions, appConfigs]);
 
     const listFunds = useMemo(() => {
         return productMeta?.funds.filter((fund) => !onlyAvailableFunds || fund.meta.isReservationAvailable);

@@ -9,15 +9,18 @@ import Fund from '../../../../props/models/Fund';
 import ProvidersListItem from '../../../elements/lists/providers-list/ProvidersListItem';
 import Provider from '../../../../props/models/Provider';
 import { SearchItem } from '../../../../services/SearchService';
+import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
 
 export default function SearchItemsList({
     items,
     display,
     vouchers,
+    payoutTransactions,
 }: {
     items: Array<SearchItem & { stateParams?: object }>;
     display: 'list' | 'grid';
     vouchers: Array<Voucher>;
+    payoutTransactions: Array<PayoutTransaction>;
 }) {
     const productService = useProductService();
 
@@ -55,6 +58,7 @@ export default function SearchItemsList({
                         <FundsListItem
                             fund={{ ...item.resource, description: getDescription(item.description_text) } as Fund}
                             vouchers={vouchers}
+                            payoutTransactions={payoutTransactions}
                             display={'search'}
                             stateParams={item.stateParams || null}
                         />

@@ -39,9 +39,9 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
-import { isWithinInterval } from 'date-fns';
-import { dateParse } from '../../../../dashboard/helpers/dates';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import usePayoutTransactionService from '../../../services/PayoutTransactionService';
+import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -60,6 +60,7 @@ export default function FundActivate() {
     const voucherService = useVoucherService();
     const identityService = useIdentityService();
     const fundRequestService = useFundRequestService();
+    const payoutTransactionService = usePayoutTransactionService();
 
     const setTitle = useSetTitle();
     const pushInfo = usePushInfo();
@@ -77,6 +78,7 @@ export default function FundActivate() {
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [vouchersActive, setVouchersActive] = useState<Array<Voucher>>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
 
     const [criteriaChecked, setCriteriaChecked] = useState(false);
     const [criteriaCheckedWarning, setCriteriaCheckedWarning] = useState(false);
@@ -87,9 +89,11 @@ export default function FundActivate() {
 
     const [fetchingData, setFetchingData] = useState(false);
 
+    const validFund = useCallback(() => fund && fund.id === parseInt(id), [fund, id]);
+
     const getTimeToSkipDigid = useCallback(
         (identity: Identity, fund: Fund, witOffset = true) => {
-            if (!identity || !fund) {
+            if (!identity || !validFund()) {
                 return null;
             }
 
@@ -103,7 +107,7 @@ export default function FundActivate() {
 
             return Math.max(fund.bsn_confirmation_time - (identity.bsn_time + timeOffset), 0);
         },
-        [appConfigs.bsn_confirmation_offset],
+        [appConfigs.bsn_confirmation_offset, validFund],
     );
 
     const skipBsnLimit = useMemo(() => {
@@ -317,7 +321,7 @@ export default function FundActivate() {
     const handleDigiDResponse = useCallback(() => {
         const { digid_success, digid_error } = digidResponse;
 
-        if ((!digid_success && !digid_error) || !fund) {
+        if ((!digid_success && !digid_error) || !validFund()) {
             return;
         }
 
@@ -357,7 +361,7 @@ export default function FundActivate() {
                 });
             }, 1000);
         }
-    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse]);
+    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse, validFund]);
 
     const fetchFund = useCallback(() => {
         setProgress(0);
@@ -368,26 +372,39 @@ export default function FundActivate() {
             .finally(() => setProgress(100));
     }, [fundService, setProgress, id]);
 
-    const fetchVouchers = useCallback(() => {
-        if (!authIdentity || !fund) {
-            setVouchers(null);
-            setVouchersActive(null);
-            return;
-        }
+    const fetchVouchers = useCallback(
+        (fund: Fund) => {
+            setProgress(0);
 
-        setProgress(0);
+            voucherService
+                .list()
+                .then((res) => {
+                    setVouchers(res.data.data);
+                    setVouchersActive(
+                        res.data.data.filter((voucher) => voucher.fund_id === fund.id && !voucher.expired),
+                    );
+                })
+                .finally(() => setProgress(100));
+        },
+        [voucherService, setProgress],
+    );
 
-        voucherService
-            .list()
-            .then((res) => {
-                setVouchers(res.data.data);
-                setVouchersActive(res.data.data.filter((voucher) => voucher.fund_id === fund.id && !voucher.expired));
-            })
-            .finally(() => setProgress(100));
-    }, [authIdentity, fund, voucherService, setProgress]);
+    const fetchPayouts = useCallback(
+        (fund: Fund) => {
+            setProgress(0);
+
+            payoutTransactionService
+                .list()
+                .then((res) => {
+                    setPayouts(res.data.data.filter((payout) => payout.fund.id === fund.id && !payout.voucher_expired));
+                })
+                .finally(() => setProgress(100));
+        },
+        [setProgress, payoutTransactionService],
+    );
 
     const fetchFundRequests = useCallback(() => {
-        if (!authIdentity || !fund) {
+        if (!authIdentity || !validFund()) {
             return setFundRequests(null);
         }
 
@@ -401,7 +418,7 @@ export default function FundActivate() {
                 navigateState('fund', { id: id });
             })
             .finally(() => setProgress(100));
-    }, [authIdentity, fund, fundRequestService, id, navigateState, pushDanger, setProgress]);
+    }, [authIdentity, fund, fundRequestService, id, navigateState, pushDanger, setProgress, validFund]);
 
     const getAvailableOptions = useCallback(
         (fund: Fund) => {
@@ -438,7 +455,7 @@ export default function FundActivate() {
             }
 
             if (options[0] === 'request') {
-                return navigateState('fund-request', fund);
+                return navigateState('fund-request', fund, {}, { state: { from: 'fund-activate' } });
             }
 
             if (options.length === 1 && options[0] !== 'digid') {
@@ -456,8 +473,15 @@ export default function FundActivate() {
     }, [fetchFund]);
 
     useEffect(() => {
-        fetchVouchers();
-    }, [fetchVouchers]);
+        if (!authIdentity || !validFund()) {
+            setVouchers(null);
+            setVouchersActive(null);
+            setPayouts(null);
+        } else {
+            fetchVouchers(fund);
+            fetchPayouts(fund);
+        }
+    }, [authIdentity, fetchPayouts, fetchVouchers, fund, validFund]);
 
     useEffect(() => {
         fetchAuthIdentity().then();
@@ -472,29 +496,21 @@ export default function FundActivate() {
     }, [handleDigiDResponse]);
 
     useEffect(() => {
-        if (!fund || !vouchers || !fundRequests) {
+        if (!validFund() || !vouchers || !fundRequests) {
             return;
         }
 
         initState(fund);
-    }, [fund, initState, vouchers, fundRequests]);
+    }, [fund, initState, vouchers, fundRequests, validFund]);
 
     useEffect(() => {
-        if (!fund || !vouchersActive || !fundRequests) {
+        if (!validFund() || !vouchersActive || !payouts || !fundRequests) {
             return;
         }
 
-        const request = fundRequests?.find((request) => {
-            return (
-                request.state === 'pending' ||
-                (request.state === 'approved' &&
-                    vouchersActive?.length > 0 &&
-                    isWithinInterval(dateParse(request.created_at, 'yyyy-MM-dd HH:mm:ss'), {
-                        start: dateParse(fund.start_date),
-                        end: dateParse(fund.end_date),
-                    }))
-            );
-        });
+        const request = fundRequests?.find(
+            (request) => request.state === 'pending' || (request.state === 'approved' && request.active_current_period),
+        );
 
         if (request) {
             setFundRequest(request);
@@ -512,13 +528,18 @@ export default function FundActivate() {
             return navigateState('voucher', { number: vouchersActive[0]?.number });
         }
 
+        // Payout already received, go to the payouts
+        if (payouts?.length > 0) {
+            return navigateState('payouts');
+        }
+
         // All the criteria are meet, request the voucher
         if (fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
             applyFund(fund)
                 .then((voucher) => navigateState('voucher', { number: voucher.number }))
                 .catch(() => navigateState('fund', { id: fund.id }));
         }
-    }, [applyFund, fund, navigateState, vouchersActive, fundRequests]);
+    }, [applyFund, fund, navigateState, vouchersActive, fundRequests, payouts, validFund]);
 
     useInterval(() => {
         const { timeToSkipBsn } = getTimeToSkip();
@@ -528,6 +549,12 @@ export default function FundActivate() {
             pushInfo('DigiD session expired.', 'You need to confirm your Identity by DigiD again.');
         }
     }, 1000);
+
+    useEffect(() => {
+        if (fund && fund.id !== parseInt(id)) {
+            setFund(null);
+        }
+    }, [fund, id]);
 
     useEffect(() => {
         if (fund) {
@@ -624,6 +651,7 @@ export default function FundActivate() {
                                             <StateNavLink
                                                 name="fund-request"
                                                 params={{ id: fund?.id }}
+                                                state={{ from: 'fund-activate' }}
                                                 tabIndex={0}
                                                 onKeyDown={clickOnKeyEnter}
                                                 className="sign_up-option">
@@ -1015,7 +1043,11 @@ export default function FundActivate() {
                         )}
 
                         {state == 'fund_already_applied' && fundRequest && (
-                            <div className="sign_up-pane">
+                            <div
+                                className="sign_up-pane"
+                                data-dusk={
+                                    fundRequest.state === 'approved' ? 'approvedFundRequest' : 'existsFundRequest'
+                                }>
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">
                                         {translate(
