@@ -218,7 +218,7 @@ export default function Funds() {
                     {appConfigs.pages.funds && <CmsBlocks page={appConfigs.pages.funds} />}
 
                     {funds?.data?.length > 0 && (
-                        <div className="block block-funds-list" id="funds_list">
+                        <div className="block block-funds-list" id="funds_list" data-dusk="fundsList">
                             {funds?.data.map((fund) => (
                                 <FundsListItem
                                     key={fund.id}
