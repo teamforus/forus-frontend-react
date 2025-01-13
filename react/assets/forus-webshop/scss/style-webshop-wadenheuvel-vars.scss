@@ -1,15 +1,15 @@
 $primaryColor: #2a2a7f;
 $primaryColorLight: #2a2a7f;
 
-@import url("https://fonts.googleapis.com/css2?family=Cantarell&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cantarell&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
 
 :root {
     // navbar
-    --bg-nav: #ececec;
-    --tc-nav-hov: #e8edff;
-    --tc-nav: #ffffff;
-    --logo-padding: 30px 0px;
-    --logo-height: 75px;
+    --navbar-menu-background: #171e5f;
+    --navbar-menu-item-color-hover: #e8edff;
+    --navbar-menu-item-color: #ffffff;
+    --navbar-search-padding: 30px 0px;
+    --navbar-logo-height: 75px;
 
     // navbar (auth)
     --tc-auth-menu: #ffffff;
@@ -23,7 +23,7 @@ $primaryColorLight: #2a2a7f;
     --btn-start-btn: #3561ff;
     --btn-start-border: transparent;
 
-    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
+    --bg-values: url('../img/splash-top-b.jpg') no-repeat center 100%;
 
     // base font
     --bf: Montserrat, Arial, Verdana;
@@ -69,7 +69,7 @@ $primaryColorLight: #2a2a7f;
     --color_default_light: #3561ff;
 
     // Label sets
-    --label-set-hover-background: #{rgba($primaryColor, .8)};
+    --label-set-hover-background: #{rgba($primaryColor, 0.8)};
 
     // Login button
     --lb: #fff;

@@ -2,7 +2,6 @@
     display: flex;
     flex-grow: 1;
     position: relative;
-    margin-right: 30px;
     cursor: default;
 
     .navbar-search-icon {
@@ -12,7 +11,14 @@
         transform: translate(0, -50%);
         font-size: 22px;
         pointer-events: none;
-        color: #666666;
+        color: var(--search-bar-input-icon-color) !important;
+        z-index: 2;
+    }
+
+    .navbar-search-input {
+        border: var(--search-bar-input-border) !important;
+        border-radius: var(--search-bar-input-radius) !important;
+        background-color: var(--search-bar-input-background) !important;
     }
 
     .search-form.form {
@@ -40,11 +46,11 @@
             text-align: center;
             font: 500 14px/14px var(--base-font);
             position: absolute;
-            top: -7px;
             left: 16px;
             z-index: 10;
-            background: #ffffff;
             padding: 0 4px;
+            top: var(--search-bar-label-top) !important;
+            background: var(--search-bar-label-background) !important;
         }
     }
 
@@ -308,8 +314,9 @@
     }
 
     @media screen and (max-width: 1000px) {
-        margin: 15px -20px;
         width: 100%;
+        margin: 0 0;
+        padding: 5px 15px 15px;
 
         .search-form.form {
             display: flex;
@@ -341,7 +348,6 @@
             display: flex;
             min-height: 42px;
             position: relative;
-            margin: 0 15px;
 
             .navbar-search-icon {
                 z-index: 99;

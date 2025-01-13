@@ -4,11 +4,12 @@ $primaryColorLight: #e60204;
 
 :root {
     // navbar
-    --bg-nav: #191818;
-    --tc-nav-hov: #ececec;
-    --tc-nav: #b3b3b3;
-    --logo-padding: 20px 0px;
-    --logo-height: 90px;
+    --navbar-menu-background: #191818;
+    --navbar-search-background: #E4E4E4 url('./assets/img/city-skyline.svg') no-repeat bottom center / 50% 50%;
+    --navbar-menu-item-color-hover: #ececec;
+    --navbar-menu-item-color: #b3b3b3;
+    --navbar-search-padding: 20px 0px;
+    --navbar-logo-height: 90px;
 
     // navbar (auth)
     --tc-auth-menu: #fff;
@@ -20,7 +21,11 @@ $primaryColorLight: #e60204;
     --tc-start-btn: #fff;
     --btn-start-bg: #e60103;
     --btn-start-btn: #e60103;
-    --btn-start-border: #282B39;
+    --btn-start-border: #e60103;
+
+    // Search bar
+    --search-bar-label-top: -18px;
+    --search-bar-label-background: transparent;
 
     // sign up
     --sign_up_accent_color: #191a1c;
@@ -80,7 +85,7 @@ $primaryColorLight: #e60204;
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
     // Label sets
-    --label-set-hover-background: #{rgba($primaryColor, .7)};
+    --label-set-hover-background: #{rgba($primaryColor, 0.7)};
 
     //- Showcase
     --showcase-fullscreen-bottom-offset: 155px;

@@ -1,20 +1,5 @@
 // Header
 @media screen and (min-width: 1024px) {
-    .block {
-        &.block-navbar {
-            .block-navbar-primary {
-                box-shadow: 0px -5px 9px 0px black;
-                display: block;
-                width: 100%;
-                position: relative;
-            }
-
-            .navbar-list .navbar-item-wrapper .navbar-item {
-                padding: 20px 0;
-            }
-        }
-    }
-
     .section {
         &.section-header {
             display: flex;

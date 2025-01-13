@@ -6,11 +6,11 @@ $primaryColorLight: #4c74ff;
 
 :root {
     // navbar
-    --bg-nav: #f5f5f5;
-    --tc-nav: #282b39;
-    --tc-nav-hov: #90191a;
-    --logo-padding: 20px 0px;
-    --logo-height: 50px;
+    --navbar-menu-background: #f5f5f5;
+    --navbar-menu-item-color: #282b39;
+    --navbar-menu-item-color-hover: #90191a;
+    --navbar-search-padding: 20px 0px;
+    --navbar-logo-height: 50px;
 
     // navbar (auth)
     --tc-auth-menu: #fff;

@@ -4,17 +4,17 @@ $primaryColorLight: #fd5392;
 
 :root {
     // navbar
-    --bg-nav: #f5f5f5;
-    --tc-nav: #282b39;
-    --tc-nav-hov: #de286b;
-    --logo-padding: 0;
-    --logo-height: 105px;
+    --navbar-menu-background: #f5f5f5;
+    --navbar-menu-item-color: #282b39;
+    --navbar-menu-item-color-hover: #de286b;
+    --navbar-search-padding: 0;
+    --navbar-logo-height: 105px;
 
     // navbar (auth)
     --tc-auth-menu: #fff;
     --tc-auth-btn: #fff;
     --btn-auth-bg: #6d5ea7;
-    --btn-auth-border: #ececec;
+    --btn-auth-border: #6d5ea7;
 
     // navbar (start modal primary)
     --tc-start-btn: #fff;

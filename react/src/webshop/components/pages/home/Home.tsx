@@ -140,14 +140,17 @@ export default function Home() {
         setTitle(translate('page_state_titles.home'));
     }, [setTitle, translate]);
 
-    return !funds ? (
+    if (!funds) {
+        return (
+            <div style={{ width: '100%', height: '100vh' }}>
+                <TopNavbar />
+            </div>
+        );
+    }
+
+    return (
         <Fragment>
-            <TopNavbar className="nav-var" />
-            <div style={{ width: '100%', height: '100vh' }} />
-        </Fragment>
-    ) : (
-        <Fragment>
-            <TopNavbar className="nav-var" />
+            <TopNavbar />
 
             <main id="main-content">
                 <header
@@ -414,7 +417,12 @@ export default function Home() {
                                     <div className="wrapper">
                                         <BlockProducts
                                             products={products.data}
-                                            setProducts={(list) => setProducts({ ...products, data: list })}
+                                            setProducts={(list) =>
+                                                setProducts({
+                                                    ...products,
+                                                    data: list,
+                                                })
+                                            }
                                             type="budget"
                                             large={true}
                                             display="grid"
