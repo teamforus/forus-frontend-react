@@ -144,7 +144,7 @@
         border: 1px solid transparent;
         color: var(--navbar-menu-item-color);
         cursor: pointer;
-        margin-right: 20px;
+        padding: 0;
         transition:
             0.4s color,
             0.4s border;
@@ -322,14 +322,22 @@
     }
 
     &.block-navbar-desktop-combined {
+        position: sticky;
+
         .navbar-desktop-section {
             &.navbar-desktop-section-menu {
                 border-bottom: 1px solid var(--border-color);
                 padding: 17px 0;
+
+                .navbar-desktop-section-wrapper {
+                    gap: 20px;
+                }
             }
         }
 
         .navbar-desktop-user {
+            gap: 10px;
+
             .navbar-desktop-user-avatar {
                 width: 24px;
                 height: 24px;
@@ -339,7 +347,7 @@
         }
 
         .navbar-desktop-menu {
-            justify-content: center;
+            justify-content: right;
         }
     }
 
@@ -347,6 +355,16 @@
         .navbar-desktop-section {
             .navbar-desktop-section-wrapper {
                 padding: 0 25px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1150px) {
+        .navbar-desktop-menu {
+            gap: 15px;
+
+            .navbar-desktop-menu-item {
+                font-size: 16px;
             }
         }
     }
