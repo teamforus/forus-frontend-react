@@ -187,7 +187,7 @@ export default function Providers() {
         businessTypeService
             .list({ parent_id: 'null', per_page: 9999, used: 1 })
             .then((res) =>
-                setBusinessTypes([{ id: null, name: translate('providers.filters.all_type') }, ...res.data.data]),
+                setBusinessTypes([{ id: null, name: translate('providers.filters.all_types') }, ...res.data.data]),
             )
             .finally(() => setProgress(100));
     }, [businessTypeService, setProgress, translate]);
