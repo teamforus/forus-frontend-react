@@ -3280,5 +3280,10 @@
             "description": "Your reservation has been made.",
             "title": "It worked!"
         }
+    },
+    "modal_logout": {
+        "description_formal": "Are you sure you want to log out?",
+        "description_informal": "Are you sure you want to log out?",
+        "title": "Logout"
     }
 }
