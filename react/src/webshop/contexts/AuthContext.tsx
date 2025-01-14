@@ -72,8 +72,12 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
                     <ModalNotification
                         modal={modal}
                         type={'confirm'}
-                        title={'Uitloggen'}
-                        header={translate(`logout.title_${appConfigs?.communication_type}`)}
+                        title={translate('modal_logout.title')}
+                        header={translate(
+                            appConfigs?.communication_type === 'formal'
+                                ? 'modal_logout.description_formal'
+                                : 'modal_logout.description_informal',
+                        )}
                         mdiIconType={'primary'}
                         mdiIconClass={'help-circle-outline'}
                         onConfirm={() => signOut()}
