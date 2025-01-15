@@ -8,11 +8,13 @@ import Modal2FASetup from '../../modals/Modal2FASetup';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function Auth2FA() {
     const openModal = useOpenModal();
     const assetUrl = useAssetUrl();
     const navigate = useNavigate();
+    const translate = useTranslate();
 
     const [step, setStep] = useState(null);
     const [paneHidden, setPaneHidden] = useState(null);
@@ -89,11 +91,11 @@ export default function Auth2FA() {
                     {step == 'setup' && !paneHidden && (
                         <div className="sign_up-pane">
                             <div className="sign_up-pane-header">
-                                <div className="sign_up-pane-header-title">Tweefactorauthenticatie instellen</div>
+                                <div className="sign_up-pane-header-title">{translate('auth.setup_2fa_title')}</div>
                             </div>
                             <div className="sign_up-pane-body">
                                 <div className="sign_up-pane-text">
-                                    <div className="sign_up-pane-heading">Kies een optie</div>
+                                    <div className="sign_up-pane-heading">{translate('auth.choose_option')}</div>
                                 </div>
                                 <div className="sign_up-options sign_up-options-2fa">
                                     {providerTypes?.map((providerType) => (
@@ -123,7 +125,7 @@ export default function Auth2FA() {
                                 <div
                                     className="button button-sm button-primary"
                                     onClick={() => navigate(getStateRouteUrl('sign-out'))}>
-                                    Uitloggen
+                                    {translate('auth.logout')}
                                 </div>
                             </div>
                         </div>
@@ -132,11 +134,11 @@ export default function Auth2FA() {
                     {step == 'auth' && !paneHidden && (
                         <div className="sign_up-pane">
                             <div className="sign_up-pane-header">
-                                <div className="sign_up-pane-header-title">Tweefactorauthenticatie</div>
+                                <div className="sign_up-pane-header-title">{translate('auth.2fa_title')}</div>
                             </div>
                             <div className="sign_up-pane-body">
                                 <div className="sign_up-pane-text">
-                                    <div className="sign_up-pane-heading">Kies een optie</div>
+                                    <div className="sign_up-pane-heading">{translate('auth.choose_option')}</div>
                                 </div>
                                 <div className="sign_up-options sign_up-options-2fa">
                                     {providerTypes?.map((providerType) => (
@@ -166,7 +168,7 @@ export default function Auth2FA() {
                                 <div
                                     className="button button-sm button-primary"
                                     onClick={() => navigate(getStateRouteUrl('sign-out'))}>
-                                    Uitloggen
+                                    {translate('auth.logout')}
                                 </div>
                             </div>
                         </div>

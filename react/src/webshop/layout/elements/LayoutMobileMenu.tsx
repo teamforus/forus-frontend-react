@@ -156,9 +156,9 @@ export default function LayoutMobileMenu() {
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-ticket-percent-outline" />
                             {translate(
-                                `topnavbar.buttons.mobile.dropdown.${envData.client_key}.vouchers`,
+                                `top_navbar.buttons.mobile.dropdown.${envData.client_key}.vouchers`,
                                 {},
-                                'topnavbar.buttons.mobile.dropdown.vouchers',
+                                'top_navbar.buttons.mobile.dropdown.vouchers',
                             )}
                         </StateNavLink>
                     )}
@@ -175,9 +175,9 @@ export default function LayoutMobileMenu() {
                             role="button">
                             <em className="mobile-menu-item-icon mdi mdi-cellphone" />
                             {translate(
-                                `topnavbar.buttons.mobile.dropdown.${envData.client_key}.authorize`,
+                                `top_navbar.buttons.mobile.dropdown.${envData.client_key}.authorize`,
                                 {},
-                                'topnavbar.buttons.mobile.dropdown.authorize',
+                                'top_navbar.buttons.mobile.dropdown.authorize',
                             )}
                         </div>
                     )}
@@ -193,9 +193,9 @@ export default function LayoutMobileMenu() {
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-cards-heart-outline" />
                             {translate(
-                                `topnavbar.buttons.mobile.dropdown.${envData.client_key}.bookmarked_products`,
+                                `top_navbar.buttons.mobile.dropdown.${envData.client_key}.bookmarked_products`,
                                 {},
-                                'topnavbar.buttons.mobile.dropdown.bookmarked_products',
+                                'top_navbar.buttons.mobile.dropdown.bookmarked_products',
                             )}
                         </StateNavLink>
                     )}
@@ -210,7 +210,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-calendar-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.reservations')}
+                            {translate('top_navbar.buttons.mobile.dropdown.reservations')}
                         </StateNavLink>
                     )}
 
@@ -224,7 +224,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-receipt-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.reimbursements')}
+                            {translate('top_navbar.buttons.mobile.dropdown.reimbursements')}
                         </StateNavLink>
                     )}
 
@@ -238,7 +238,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-card-account-details-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.fund_requests')}
+                            {translate('top_navbar.buttons.mobile.dropdown.fund_requests')}
                         </StateNavLink>
                     )}
 
@@ -252,7 +252,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-wallet-plus-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.payouts')}
+                            {translate('top_navbar.buttons.mobile.dropdown.payouts')}
                         </StateNavLink>
                     )}
 
@@ -266,7 +266,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-bell-ring-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.notifications')}
+                            {translate('top_navbar.buttons.mobile.dropdown.notifications')}
                         </StateNavLink>
                     )}
 
@@ -280,7 +280,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-cog-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.preferences_notifications')}
+                            {translate('top_navbar.buttons.mobile.dropdown.preferences_notifications')}
                         </StateNavLink>
                     )}
 
@@ -294,7 +294,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-shield-account-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.sessions')}
+                            {translate('top_navbar.buttons.mobile.dropdown.sessions')}
                         </StateNavLink>
                     )}
 
@@ -308,7 +308,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-email-outline" />
-                            {translate('topnavbar.buttons.mobile.dropdown.preferences_emails')}
+                            {translate('top_navbar.buttons.mobile.dropdown.preferences_emails')}
                         </StateNavLink>
                     )}
 
@@ -322,7 +322,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-security" />
-                            {translate('topnavbar.buttons.mobile.dropdown.security')}
+                            {translate('top_navbar.buttons.mobile.dropdown.security')}
                         </StateNavLink>
                     )}
 
@@ -336,7 +336,7 @@ export default function LayoutMobileMenu() {
                             tabIndex={0}
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-format-list-bulleted" />
-                            {translate('topnavbar.buttons.mobile.dropdown.records')}
+                            {translate('top_navbar.buttons.mobile.dropdown.records')}
                         </StateNavLink>
                     )}
 
@@ -347,9 +347,9 @@ export default function LayoutMobileMenu() {
                             className="mobile-menu-item"
                             onClick={onSignOut}
                             onKeyDown={clickOnKeyEnter}
-                            aria-label={translate('topnavbar.buttons.logout')}>
+                            aria-label={translate('top_navbar.buttons.logout')}>
                             <em className="mobile-menu-item-icon mdi mdi-logout" />
-                            {translate('topnavbar.buttons.logout')}
+                            {translate('top_navbar.buttons.logout')}
                         </a>
                     )}
 
@@ -372,10 +372,10 @@ export default function LayoutMobileMenu() {
                                 role="button"
                                 onClick={() => startFundRequest({ reset: 1 })}
                                 onKeyDown={clickOnKeyEnter}
-                                aria-label={translate('topnavbar.buttons.login')}
+                                aria-label={translate('top_navbar.buttons.login')}
                                 id="login_mobile">
                                 <em className="mdi mdi-account icon-start" />
-                                {translate('topnavbar.buttons.login')}
+                                {translate('top_navbar.buttons.login')}
                             </button>
                         </a>
                     )}

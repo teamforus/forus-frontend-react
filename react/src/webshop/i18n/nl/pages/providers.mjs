@@ -1,0 +1,51 @@
+export default {
+    title: 'Aanbieders',
+    breadcrumbs: {
+        home: 'Home',
+        providers: 'Aanbieders',
+    },
+    filters: {
+        all_products: 'Volledig aanbod',
+        bookmarked: 'Mijn verlanglijstje',
+        search: 'Zoeken',
+        providers: 'Aanbieders',
+        category: 'Categorie',
+        sub_category: 'Subcategorie',
+        fund: 'Tegoeden',
+        postcode: 'Postcode',
+        distance: 'Afstand',
+        provider_type: 'Type aanbieder',
+        sort: 'Sorteer',
+        all_types: 'Alle typen...',
+        all_funds: 'Alle tegoeden...',
+        all_providers: 'Selecteer aanbieder...',
+        all_categories: 'Selecteer categorie...',
+        all_sub_categories: 'Selecteer subcategorie...',
+        map_title: 'Selecteer een aanbieder voor meer informatie',
+        result: 'Er zijn <div class="showcase-result-count">{{ total }}</div> aanbieders gevonden.',
+    },
+    sort: {
+        name_asc: 'Naam (oplopend)',
+        name_desc: 'Naam (aflopend)',
+    },
+    distances: {
+        everywhere: 'Overal',
+        3: '< 3 km',
+        5: '< 5 km',
+        10: '< 10 km',
+        15: '< 15 km',
+        25: '< 25 km',
+        50: '< 50 km',
+        75: '< 75 km',
+    },
+    view: {
+        list: 'Lijst',
+        map: 'Kaart',
+    },
+    items: {
+        labels: {
+            show_locations: 'Toon locaties',
+            open_provider: 'Open aanbieder',
+        },
+    },
+};

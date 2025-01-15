@@ -8,7 +8,11 @@ export default function ModalImagePreview({ modal, imageSrc }: { modal: ModalSta
 
     return (
         <div className={`modal modal-animated modal-file-preview ${modal.loading ? '' : 'modal-loaded'}`}>
-            <div className="modal-backdrop" onClick={modal.close} />
+            <div
+                className="modal-backdrop"
+                onClick={modal.close}
+                aria-label={translate('modal_image_preview.buttons.close')}
+            />
 
             <div className="modal-window">
                 <a
@@ -16,14 +20,15 @@ export default function ModalImagePreview({ modal, imageSrc }: { modal: ModalSta
                     tabIndex={0}
                     onClick={modal.close}
                     onKeyDown={clickOnKeyEnter}
+                    aria-label={translate('modal_image_preview.buttons.close')}
                     role="button"
                 />
                 <div className="modal-header">
-                    <h2 className="modal-header-title">{translate('image_preview.header.title')}</h2>
+                    <h2 className="modal-header-title">{translate('modal_image_preview.title')}</h2>
                 </div>
                 <div className="modal-body">
                     <div className="modal-file-preview-image">
-                        <img src={imageSrc} alt={''} />
+                        <img src={imageSrc} alt={translate('modal_image_preview.alt_text')} />
                     </div>
                 </div>
             </div>

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { ProfileRecord } from '../../../../../dashboard/props/models/Sponsor/SponsorIdentity';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function IdentityRecordKeyValueListHistory({ records }: { records: Array<ProfileRecord> }) {
+    const translate = useTranslate();
+
     const [show, setShow] = useState(false);
 
     return (
@@ -10,7 +13,7 @@ export default function IdentityRecordKeyValueListHistory({ records }: { records
                 <span>{records?.[0]?.value_locale || '-'}</span>
                 {records?.length > 1 && (
                     <span className="key-value-list-item-value-history-toggle" onClick={() => setShow(!show)}>
-                        {`${records?.length} keer bewerkt`}
+                        {translate('profile.history.title', { count: records?.length })}
                         {show ? <em className="mdi mdi-chevron-up" /> : <em className="mdi mdi-chevron-down" />}
                     </span>
                 )}

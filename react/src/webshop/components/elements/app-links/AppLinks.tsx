@@ -1,6 +1,7 @@
 import React from 'react';
 import useEnvData from '../../../hooks/useEnvData';
 import useAssetUrl from '../../../hooks/useAssetUrl';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function AppLinks({
     type = null,
@@ -21,6 +22,7 @@ export default function AppLinks({
 }) {
     const envData = useEnvData();
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
 
     return (
         <div className={`block block-app_links ${className} ${type ? `block-app_links-${type}` : ''}`}>
@@ -34,7 +36,7 @@ export default function AppLinks({
                     rel="noreferrer">
                     <img
                         src={assetUrl(`/assets/img/icon-app/app-store-android-${theme}.svg`)}
-                        alt="Ontdek het op Google Play"
+                        alt={translate('global.app_links.google_play')}
                     />
                 </a>
             )}
@@ -49,7 +51,7 @@ export default function AppLinks({
                     rel="noreferrer">
                     <img
                         src={assetUrl(`/assets/img/icon-app/app-store-ios-${theme}.svg`)}
-                        alt="Download in de App Store"
+                        alt={translate('global.app_links.app_store')}
                     />
                 </a>
             )}

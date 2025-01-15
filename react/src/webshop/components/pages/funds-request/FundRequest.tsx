@@ -739,8 +739,8 @@ export default function FundRequest() {
                         <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
 
                         <div className="sign_up-pane">
-                            <h1 className="sr-only">DigiD sessie verlopen</h1>
-                            <h2 className="sign_up-pane-header">DigiD sessie verlopen</h2>
+                            <h1 className="sr-only">{translate('fund_request.digid_expired.title')}</h1>
+                            <h2 className="sign_up-pane-header">{translate('fund_request.digid_expired.title')}</h2>
                             <div className="sign_up-pane-body">
                                 <div className="row">
                                     <div className="form-group col col-xs-8 col-xs-offset-2">
@@ -749,10 +749,10 @@ export default function FundRequest() {
                                         </div>
                                         <div className="text-center">
                                             <h2 className="sign_up-pane-heading">
-                                                <strong>DigiD sessie verlopen</strong>
+                                                <strong>{translate('fund_request.digid_expired.title')}</strong>
                                             </h2>
                                             <p className="sign_up-pane-text">
-                                                Log opnieuw in met DigiD en begin opnieuw met de aanvraag.
+                                                {translate('fund_request.digid_expired.description')}
                                             </p>
                                             <div className="sign_up-pane-separator" />
                                         </div>
@@ -766,9 +766,11 @@ export default function FundRequest() {
                                                     />
                                                 </div>
                                                 <div className="sign_up-option-details">
-                                                    <div className="sign_up-option-title">DigiD</div>
+                                                    <div className="sign_up-option-title">
+                                                        {translate('fund_request.digid_expired.sign_in.title')}
+                                                    </div>
                                                     <div className="sign_up-option-description">
-                                                        Log opnieuw in met DigiD om opnieuw te beginnen.
+                                                        {translate('fund_request.digid_expired.sign_in.description')}
                                                     </div>
                                                 </div>
                                             </div>

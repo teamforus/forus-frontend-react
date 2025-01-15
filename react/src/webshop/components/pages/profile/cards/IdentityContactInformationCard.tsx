@@ -9,9 +9,11 @@ import { ResponseError } from '../../../../../dashboard/props/ApiResponses';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 import usePushDanger from '../../../../../dashboard/hooks/usePushDanger';
 import usePushSuccess from '../../../../../dashboard/hooks/usePushSuccess';
-import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import FormError from '../../../../../dashboard/components/elements/forms/errors/FormError';
 import BlockInfoBox from '../../../elements/block-info-box/BlockInfoBox';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import TranslateHtml from '../../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import { getStateRouteUrl } from '../../../../modules/state_router/Router';
 
 export default function IdentityContactInformationCard({
     profile,
@@ -34,6 +36,7 @@ export default function IdentityContactInformationCard({
 
     const [editContacts, setEditContacts] = useState(false);
 
+    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
@@ -101,36 +104,31 @@ export default function IdentityContactInformationCard({
         return (
             <form className="card form form-compact form-compact-flat" onSubmit={form.submit}>
                 <div className="card-header flex">
-                    <h2 className="card-title flex flex-grow">Contactgegevens aanpassen</h2>
+                    <h2 className="card-title flex flex-grow">{translate('profile.contacts.title')}</h2>
                 </div>
 
                 <div className="card-section">
                     <div className="col col-sm-12 col-lg-8 col-md-10">
                         <div className="form-group">
-                            <label className="form-label">Hoofd e-mailadres</label>
+                            <label className="form-label">{translate('profile.contacts.primary_email')}</label>
                             <input className="form-control" disabled={true} value={profile.email} />
                         </div>
 
                         {profile?.email_verified?.map((email, index) => (
                             <div className="form-group" key={index}>
-                                <label className="form-label">{`Extra e-mailadres ${index + 1}`}</label>
+                                <label className="form-label">
+                                    {translate('profile.contacts.extra_email', { number: index + 1 })}
+                                </label>
                                 <input className="form-control" disabled={true} value={email} />
                             </div>
                         ))}
 
                         <div className="form-group">
                             <BlockInfoBox>
-                                <span>
-                                    Het e-mailadres kan worden aangepast op de pagina{' '}
-                                    <StateNavLink
-                                        name="identity-emails"
-                                        className={'text-inherit text-semibold text-underline'}
-                                        target={'_blank'}>
-                                        {"'E-mail instellingen'"}
-                                    </StateNavLink>
-                                    . Hier kan een nieuw e-mailadres worden toegevoegd en het hoofd-e-mailadres worden
-                                    ingesteld.
-                                </span>
+                                <TranslateHtml
+                                    i18n={'profile.contacts.extra_email_info'}
+                                    values={{ link_url: getStateRouteUrl('identity-emails') }}
+                                />
                             </BlockInfoBox>
                         </div>
 
@@ -156,11 +154,11 @@ export default function IdentityContactInformationCard({
                             setEditContacts(false);
                             initFormValues();
                         }}>
-                        Annuleren
+                        {translate('profile.contacts.cancel')}
                     </button>
                     <div className="flex-grow" />
                     <button type={'submit'} className="button button-primary button-sm">
-                        Opslaan
+                        {translate('profile.contacts.save')}
                     </button>
                 </div>
             </form>
@@ -170,7 +168,7 @@ export default function IdentityContactInformationCard({
     return (
         <div className="card">
             <div className="card-header flex">
-                <h2 className="card-title flex flex-grow">Contactgegevens</h2>
+                <h2 className="card-title flex flex-grow">{translate('profile.contacts.title')}</h2>
                 <div className="button-group">
                     <button
                         className="button button-text button-xs hide-sm"
@@ -179,7 +177,7 @@ export default function IdentityContactInformationCard({
                             setEditContacts(true);
                         }}>
                         <em className="mdi mdi-pencil-outline" />
-                        Bewerken
+                        {translate('profile.contacts.edit')}
                     </button>
                 </div>
             </div>
@@ -189,11 +187,11 @@ export default function IdentityContactInformationCard({
                     <BlockKeyValueList
                         items={[
                             {
-                                label: 'Hoofd e-mailadres',
+                                label: translate('profile.contacts.primary_email'),
                                 value: profile.email,
                             },
                             ...other_emails.map((email, index) => ({
-                                label: `Extra e-mailadres ${index + 1}`,
+                                label: translate('profile.contacts.extra_email', { number: index + 1 }),
                                 value: email,
                             })),
                             {
@@ -239,7 +237,7 @@ export default function IdentityContactInformationCard({
                         }}>
                         <span className="flex flex-center">
                             <em className="mdi mdi-pencil-outline" />
-                            Bewerken
+                            {translate('profile.contacts.edit')}
                         </span>
                     </button>
                 </div>

@@ -17,7 +17,7 @@ export default function ModalPdfPreview({
 
     return (
         <div className={`modal modal-animated modal-file-preview ${className} ${modal.loading ? '' : 'modal-loaded'}`}>
-            <div className="modal-backdrop" onClick={modal.close} />
+            <div className="modal-backdrop" onClick={modal.close} aria-label={translate('pdf_preview.buttons.close')} />
 
             <div className="modal-window">
                 <a
@@ -25,6 +25,7 @@ export default function ModalPdfPreview({
                     tabIndex={0}
                     onClick={modal.close}
                     onKeyDown={clickOnKeyEnter}
+                    aria-label={translate('pdf_preview.buttons.close')}
                     role="button"
                 />
                 <div className="modal-header">

@@ -19,6 +19,7 @@ import BlockAuth2FAInfoBox from '../elements/block-auth-2fa-info-box/BlockAuth2F
 import Icon2faPhoneConnect from '../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-2fa-phone-connect.svg';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
+import useTranslate from '../../../dashboard/hooks/useTranslate';
 
 export default function Modal2FASetup({
     modal,
@@ -38,6 +39,8 @@ export default function Modal2FASetup({
     auth2FAState: Identity2FAState;
 }) {
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
+
     const [isLocked, setIsLocked] = useState(false);
     const [unlockEvent, setUnlockEvent] = useState(null);
 
@@ -113,9 +116,12 @@ export default function Modal2FASetup({
             })
             .catch((err: ResponseError) => {
                 setPhoneNumberError(err?.data?.errors?.phone);
-                pushDanger('Mislukt!', err.data?.message || 'Unknown error.');
+                pushDanger(
+                    translate('modal_2fa_setup.failed'),
+                    err.data?.message || translate('modal_2fa_setup.unknown_error'),
+                );
             });
-    }, [blockResend, goToStep, identity2FAService, phoneNumber, pushDanger]);
+    }, [blockResend, goToStep, identity2FAService, phoneNumber, pushDanger, translate]);
 
     const makeAuthenticator2FA = useCallback(() => {
         identity2FAService
@@ -125,13 +131,13 @@ export default function Modal2FASetup({
                 goToStep('provider_select');
             })
             .catch((err: ResponseError) => {
-                pushDanger(err.data?.message || 'Unknown error.');
+                pushDanger(err.data?.message || translate('modal_2fa_setup.unknown_error'));
 
                 if (err.status == 429) {
                     cancel();
                 }
             });
-    }, [cancel, goToStep, identity2FAService, pushDanger]);
+    }, [cancel, goToStep, identity2FAService, pushDanger, translate]);
 
     const submitPhoneNumber = useCallback(
         (e?: React.FormEvent) => {
@@ -168,11 +174,11 @@ export default function Modal2FASetup({
                 })
                 .catch((err: ResponseError) => {
                     setActivateAuthErrors(err.data?.errors?.code);
-                    pushDanger(err.data?.message || 'Unknown error.');
+                    pushDanger(err.data?.message || translate('modal_2fa_setup.unknown_error'));
                 })
                 .finally(() => unlock());
         },
-        [auth2FA, confirmationCode, goToStep, identity2FAService, lock, provider, pushDanger, unlock],
+        [auth2FA, confirmationCode, goToStep, identity2FAService, lock, provider, pushDanger, unlock, translate],
     );
 
     const verifyAuthProvider = useCallback(
@@ -191,11 +197,11 @@ export default function Modal2FASetup({
                 })
                 .catch((res) => {
                     setVerifyAuthErrors(res.data?.errors?.code);
-                    pushDanger(res.data?.message || 'Unknown error.');
+                    pushDanger(res.data?.message || translate('modal_2fa_setup.unknown_error'));
                 })
                 .finally(() => unlock());
         },
-        [auth2FA, confirmationCode, goToStep, identity2FAService, lock, pushDanger, unlock],
+        [auth2FA, confirmationCode, goToStep, identity2FAService, lock, pushDanger, unlock, translate],
     );
 
     const resendCode = useCallback(
@@ -210,12 +216,18 @@ export default function Modal2FASetup({
             identity2FAService
                 .send(auth2FA.uuid)
                 .then(
-                    () => (notify ? pushSuccess('Gelukt!', 'We hebben de code opnieuw verstuurd.') : false),
-                    (res) => pushDanger('Mislukt!', res?.data?.message),
+                    () =>
+                        notify
+                            ? pushSuccess(
+                                  translate('modal_2fa_setup.success'),
+                                  translate('modal_2fa_setup.code_resent'),
+                              )
+                            : false,
+                    (res) => pushDanger(translate('modal_2fa_setup.failed'), res?.data?.message),
                 )
                 .then(() => setSendingCode(false));
         },
-        [auth2FA?.uuid, blockResend, identity2FAService, pushDanger, pushSuccess],
+        [auth2FA?.uuid, blockResend, identity2FAService, pushDanger, pushSuccess, translate],
     );
 
     const onKeyDown = useCallback(
@@ -293,11 +305,11 @@ export default function Modal2FASetup({
                 className,
             )}>
             <div className="modal-backdrop" onClick={cancel} />
-            {/*Select provider*/}
+            {/* Select provider */}
             {step == 'provider_select' && (
                 <form className={'modal-window form form-compact'} onSubmit={submitAuthenticator}>
                     <div className="modal-header">
-                        <div className="modal-heading">Tweefactorauthenticatie instellen</div>
+                        <div className="modal-heading">{translate('modal_2fa_setup.setup_2fa')}</div>
                         <div
                             className="modal-close mdi mdi-close"
                             tabIndex={0}
@@ -313,7 +325,7 @@ export default function Modal2FASetup({
                                 <div className="modal-section-column flex-gap-lg">
                                     <div className="flex flex-vertical flex-gap">
                                         <div className="modal-section-title text-left">
-                                            Selecteer de authenticatie-app die u wilt gebruiken.
+                                            {translate('modal_2fa_setup.select_auth_app')}
                                         </div>
                                         <div className="form-group">
                                             <SelectControl
@@ -328,10 +340,11 @@ export default function Modal2FASetup({
 
                                     <div className="modal-section-description text-left">
                                         <strong className="text-strong">
-                                            Als je de {provider.name} app niet hebt,{' '}
+                                            {translate('modal_2fa_setup.dont_have_app', { name: provider.name })}
                                         </strong>
-                                        Kun je deze downloaden vanuit de{' '}
-                                        <strong className="text-strong">Play Store</strong> of de{' '}
+                                        {translate('modal_2fa_setup.download_from')}
+                                        <strong className="text-strong">Play Store</strong>
+                                        {translate('modal_2fa_setup.or')}
                                         <strong className="text-strong">App Store</strong>.
                                     </div>
 
@@ -368,18 +381,24 @@ export default function Modal2FASetup({
 
                                     <div className="modal-section-description text-left">
                                         <strong className="text-strong">
-                                            Als je al de Google Authenticator-app hebt, volg dan de onderstaande
-                                            stappen:
+                                            {translate('modal_2fa_setup.already_have_app')}
                                         </strong>
                                     </div>
 
                                     <div className="modal-section-description text-left">
-                                        1. In de app, selecteer{' '}
-                                        <strong className="text-strong">Account instellen</strong>
+                                        {`1. ${translate('modal_2fa_setup.in_app_select')}
+                                    `}
+                                        <strong className="text-strong">
+                                            {translate('modal_2fa_setup.setup_account')}
+                                        </strong>
                                         <br />
-                                        2. Kies <strong className="text-strong">Scan een QR-code</strong> of{' '}
+                                        {`2. ${translate('modal_2fa_setup.choose')}
+                                    `}
+                                        <strong className="text-strong">{translate('modal_2fa_setup.scan_qr')}</strong>
+                                        {` ${translate('modal_2fa_setup.or')}
+                                    `}
                                         <strong className="text-strongEnter">
-                                            Voer een installatiesleutel in: {auth2FA?.secret}
+                                            {translate('modal_2fa_setup.enter_key', { secret: auth2FA?.secret })}
                                         </strong>
                                     </div>
                                 </div>
@@ -407,24 +426,24 @@ export default function Modal2FASetup({
                                 className="button button-light button-sm flex-center"
                                 type="button"
                                 onClick={cancel}>
-                                Annuleer
+                                {translate('modal_2fa_setup.cancel')}
                             </button>
                             <div className="flex flex-grow hide-sm">&nbsp;</div>
                             <button className="button button-primary button-sm flex-center" type="submit">
-                                Bevestigen
+                                {translate('modal_2fa_setup.confirm')}
                             </button>
                         </div>
                     </div>
                 </form>
             )}
 
-            {/*Phone setup*/}
+            {/* Phone setup */}
             {step == 'phone_setup' && (
                 <form className={'modal-window form form-compact'} onSubmit={submitPhoneNumber}>
                     <div className="modal-header">
-                        <div className="modal-heading">Tweefactorauthenticatie instellen</div>
+                        <div className="modal-heading">{translate('modal_2fa_setup.setup_2fa')}</div>
                         <div
-                            className="modal-close  mdi mdi-close"
+                            className="modal-close mdi mdi-close"
                             onClick={cancel}
                             tabIndex={0}
                             onKeyDown={clickOnKeyEnter}
@@ -439,13 +458,15 @@ export default function Modal2FASetup({
                                     <div className="modal-section-icon">
                                         <Icon2faPhoneConnect />
                                     </div>
-                                    <div className="modal-section-title">Koppel je telefoonnummer</div>
+                                    <div className="modal-section-title">{translate('modal_2fa_setup.link_phone')}</div>
 
                                     <div className="modal-section-description">
-                                        Om door te gaan, voer je telefoonnummer in
+                                        {translate('modal_2fa_setup.enter_phone')}
                                         <div className="modal-separator" />
                                         <div className="form-group">
-                                            <div className="form-label text-strong">Telefoonnummer</div>
+                                            <div className="form-label text-strong">
+                                                {translate('modal_2fa_setup.phone_number')}
+                                            </div>
                                             <PhoneControl
                                                 onChange={(value) => setPhoneNumber(value)}
                                                 placeholder={null}
@@ -468,22 +489,22 @@ export default function Modal2FASetup({
                                 className="button button-light button-sm flex-center"
                                 type="button"
                                 onClick={cancel}>
-                                Annuleer
+                                {translate('modal_2fa_setup.cancel')}
                             </button>
                             <div className="flex flex-grow hide-sm">&nbsp;</div>
                             <button className="button button-primary button-sm flex-center" type="submit">
-                                Bevestigen
+                                {translate('modal_2fa_setup.confirm')}
                             </button>
                         </div>
                     </div>
                 </form>
             )}
 
-            {/*Authenticator setup*/}
+            {/* Authenticator setup */}
             {step == 'provider_confirmation' && (
                 <form className={'modal-window form form-compact'} onSubmit={activateProvider}>
                     <div className="modal-header">
-                        <div className="modal-header-title">Tweefactorauthenticatie instellen</div>
+                        <div className="modal-header-title">{translate('modal_2fa_setup.setup_2fa')}</div>
                         <div
                             className="modal-close mdi mdi-close"
                             onClick={cancel}
@@ -495,18 +516,16 @@ export default function Modal2FASetup({
 
                     <div className="modal-body">
                         <div className="modal-section">
-                            <div className="modal-section-title">
-                                Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.
-                            </div>
+                            <div className="modal-section-title">{translate('modal_2fa_setup.enter_2fa_code')}</div>
 
                             <div className="modal-section-description">
                                 <div className="form-group">
                                     {type == 'phone' && (
-                                        <div className="form-label">Voer de 6-cijferige SMS-code in</div>
+                                        <div className="form-label">{translate('modal_2fa_setup.enter_sms_code')}</div>
                                     )}
 
                                     {type == 'authenticator' && (
-                                        <div className="form-label">Voer de 6-cijferige code in vanuit de app</div>
+                                        <div className="form-label">{translate('modal_2fa_setup.enter_app_code')}</div>
                                     )}
 
                                     <PincodeControl
@@ -516,7 +535,7 @@ export default function Modal2FASetup({
                                         valueType={'num'}
                                         className={'block-pincode-compact'}
                                         onChange={(code) => setConfirmationCode(code)}
-                                        ariaLabel={'Voer de tweefactorauthenticatiecode in'}
+                                        ariaLabel={translate('modal_2fa_setup.enter_2fa_code')}
                                     />
 
                                     <FormError error={activateAuthErrors} />
@@ -533,8 +552,12 @@ export default function Modal2FASetup({
                                         <div
                                             className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
                                         />
-                                        Code opnieuw verzenden
-                                        {timer?.time > 0 && <span>&nbsp;({timer?.time} seconde(n))</span>}
+                                        {translate('modal_2fa_setup.resend_code')}
+                                        {timer?.time > 0 && (
+                                            <span>
+                                                &nbsp;({translate('modal_2fa_setup.seconds', { time: timer?.time })})
+                                            </span>
+                                        )}
                                     </button>
                                 </div>
                             )}
@@ -550,25 +573,25 @@ export default function Modal2FASetup({
                                 onClick={() => goToStep(type == 'phone' ? 'phone_setup' : 'provider_select')}
                                 className="button button-light button-sm flex-center"
                                 type="button">
-                                Terug
+                                {translate('modal_2fa_setup.back')}
                             </button>
                             <div className="flex flex-grow hide-sm">&nbsp;</div>
                             <button
                                 className="button button-primary button-sm flex-center"
                                 type="submit"
                                 disabled={confirmationCode.length !== 6}>
-                                Verifieer
+                                {translate('modal_2fa_setup.verify')}
                             </button>
                         </div>
                     </div>
                 </form>
             )}
 
-            {/*Provider verification*/}
+            {/* Provider verification */}
             {step == 'provider_verification' && (
                 <form className={'modal-window form form-compact'} onSubmit={verifyAuthProvider}>
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Tweefactorauthenticatie</h2>
+                        <h2 className="modal-header-title">{translate('modal_2fa_setup.2fa')}</h2>
                         <div
                             className="modal-close mdi mdi-close"
                             onClick={cancel}
@@ -582,24 +605,24 @@ export default function Modal2FASetup({
                         <div className="modal-section">
                             {auth2FA.provider_type?.type == 'phone' && (
                                 <div className="modal-section-title">
-                                    Om door te gaan, voer alstublieft de 6-cijferige SMS-code in die naar je
-                                    telefoonnummer is verzonden.
+                                    {translate('modal_2fa_setup.enter_sms_code_6_digits')}
                                 </div>
                             )}
                             {auth2FA.provider_type?.type == 'authenticator' && (
                                 <div className="modal-section-title">
-                                    Om door te gaan, voer de 6-cijferige beveiligingscode in van{' '}
-                                    {auth2FA.provider_type.name}
+                                    {translate('modal_2fa_setup.enter_app_code_6_digits', {
+                                        provider: auth2FA.provider_type.name,
+                                    })}
                                 </div>
                             )}
                             <div className="modal-section-description">
                                 <div className="form-group">
                                     {auth2FA.provider_type.type == 'phone' && (
-                                        <div className="form-label">Voer de 6-cijferige SMS-code in</div>
+                                        <div className="form-label">{translate('modal_2fa_setup.enter_sms_code')}</div>
                                     )}
 
                                     {auth2FA.provider_type.type == 'authenticator' && (
-                                        <div className="form-label">Voer de 6-cijferige code in vanuit de app</div>
+                                        <div className="form-label">{translate('modal_2fa_setup.enter_app_code')}</div>
                                     )}
 
                                     <div className="form-group">
@@ -610,7 +633,7 @@ export default function Modal2FASetup({
                                             valueType={'num'}
                                             className={'block-pincode-compact'}
                                             onChange={(code) => setConfirmationCode(code)}
-                                            ariaLabel={'Voer de tweefactorauthenticatiecode in'}
+                                            ariaLabel={translate('modal_2fa_setup.enter_2fa_code')}
                                         />
                                         <FormError error={verifyAuthErrors} />
                                     </div>
@@ -627,8 +650,12 @@ export default function Modal2FASetup({
                                         <div
                                             className={`mdi mdi-refresh icon-start ${sendingCode ? 'mdi-spin' : ''}`}
                                         />
-                                        Code opnieuw verzenden
-                                        {timer?.time > 0 && <span>&nbsp;{timer?.time} seconde(n))</span>}
+                                        {translate('modal_2fa_setup.resend_code')}
+                                        {timer?.time > 0 && (
+                                            <span>
+                                                &nbsp;({translate('modal_2fa_setup.seconds', { time: timer?.time })})
+                                            </span>
+                                        )}
                                     </button>
                                 </div>
                             )}
@@ -644,25 +671,25 @@ export default function Modal2FASetup({
                                 className="button button-light button-sm flex-center"
                                 type="button"
                                 onClick={cancel}>
-                                Annuleer
+                                {translate('modal_2fa_setup.cancel')}
                             </button>
                             <div className="flex flex-grow hide-sm">&nbsp;</div>
                             <button
                                 type="submit"
                                 className="button button-primary button-sm flex-center"
                                 disabled={confirmationCode.length !== 6}>
-                                Verifieer
+                                {translate('modal_2fa_setup.verify')}
                             </button>
                         </div>
                     </div>
                 </form>
             )}
 
-            {/*Success*/}
+            {/* Success */}
             {step == 'success' && auth && (
                 <div className="modal-window">
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Tweefactorauthenticatie</h2>
+                        <h2 className="modal-header-title">{translate('modal_2fa_setup.2fa')}</h2>
                         <div
                             className="modal-close mdi mdi-close"
                             onClick={cancel}
@@ -677,17 +704,15 @@ export default function Modal2FASetup({
                             <div className="modal-section-icon modal-section-icon-success">
                                 <div className="mdi mdi-check-circle-outline" />
                             </div>
-                            <div className="modal-section-title">Het is gelukt!</div>
-                            <div className="modal-section-description">
-                                Je bent succesvol ingelogd met tweefactorauthenticatie. Welkom terug!
-                            </div>
+                            <div className="modal-section-title">{translate('modal_2fa_setup.successful_login')}</div>
+                            <div className="modal-section-description">{translate('modal_2fa_setup.welcome_back')}</div>
                         </div>
                     </div>
 
                     <div className="modal-footer">
                         <div className="button-group">
                             <button className="button button-primary button-sm" onClick={done}>
-                                Bevestigen
+                                {translate('modal_2fa_setup.confirm')}
                             </button>
                         </div>
                     </div>
@@ -704,7 +729,7 @@ export default function Modal2FASetup({
                         role="button"
                     />
                     <div className="modal-header">
-                        <h2 className="modal-header-title">Tweefactorauthenticatie instellen</h2>
+                        <h2 className="modal-header-title">{translate('modal_2fa_setup.setup_2fa')}</h2>
                     </div>
 
                     <div className="modal-body">
@@ -712,9 +737,9 @@ export default function Modal2FASetup({
                             <div className="modal-section-icon modal-section-icon-success">
                                 <div className="mdi mdi-check-circle-outline" />
                             </div>
-                            <div className="modal-section-title">Tweefactorauthenticatie succesvol ingesteld</div>
+                            <div className="modal-section-title">{translate('modal_2fa_setup.2fa_success')}</div>
                             <div className="modal-section-description">
-                                Je tweefactorauthenticatie is succesvol ingesteld. Je account is nu extra beveiligd.
+                                {translate('modal_2fa_setup.extra_security')}
                             </div>
                         </div>
                     </div>
@@ -722,7 +747,7 @@ export default function Modal2FASetup({
                     <div className="modal-footer">
                         <div className="button-group">
                             <button className="button button-primary button-sm flex-center" onClick={done}>
-                                Bevestigen
+                                {translate('modal_2fa_setup.confirm')}
                             </button>
                         </div>
                     </div>

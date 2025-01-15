@@ -16,11 +16,13 @@ import { useOfficeService } from '../../../services/OfficeService';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function ProvidersOffice() {
     const { organization_id, id } = useParams();
 
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
     const setProgress = useSetProgress();
 
     const appConfigs = useAppConfigs();
@@ -35,8 +37,8 @@ export default function ProvidersOffice() {
     const [showOffices, setShowOffices] = useState(false);
 
     const weekDays = useMemo(() => {
-        return officeService.scheduleWeekFullDays();
-    }, [officeService]);
+        return officeService.scheduleWeekFullDays(translate);
+    }, [officeService, translate]);
 
     const schedules = useMemo(() => {
         return office?.schedule?.reduce((schedules, schedule) => {
@@ -97,7 +99,8 @@ export default function ProvidersOffice() {
             wrapper={false}
             breadcrumbItems={
                 provider && [
-                    { name: 'Aanbieders', state: 'providers' },
+                    { name: translate('providers_office.breadcrumbs.home'), state: 'home' },
+                    { name: translate('providers_office.breadcrumbs.providers'), state: 'providers' },
                     { name: provider.name, state: 'provider', stateParams: { id: provider.id } },
                     { name: office?.address },
                 ]
@@ -126,37 +129,46 @@ export default function ProvidersOffice() {
                         <div className="block block-pane">
                             <div className="pane-head">
                                 <h1 className="sr-only">{office.address}</h1>
-                                <h2 className="pane-head-title">Vestiging informatie</h2>
+                                <h2 className="pane-head-title">{translate('providers_office.details.title')}</h2>
                             </div>
                             <div className="pane-section pane-section-compact-vertical">
                                 <div className="block block-data-list">
                                     {office.address && (
                                         <div className="data-list-row">
-                                            <div className="data-list-key">Adres:</div>
+                                            <div className="data-list-key">
+                                                {translate('providers_office.details.address')}:
+                                            </div>
                                             <div className="data-list-value">{office.address}</div>
                                         </div>
                                     )}
 
                                     {provider.email && (
                                         <div className="data-list-row">
-                                            <div className="data-list-key">E-mailadres:</div>
+                                            <div className="data-list-key">
+                                                {translate('providers_office.details.email')}:
+                                            </div>
                                             <div className="data-list-value">{provider.email}</div>
                                         </div>
                                     )}
 
                                     {(office.phone || provider.phone) && (
                                         <div className="data-list-row">
-                                            <div className="data-list-key">Telefoonnummer:</div>
+                                            <div className="data-list-key">
+                                                {translate('providers_office.details.phone')}:
+                                            </div>
                                             <div className="data-list-value">{office.phone || provider.phone}</div>
                                         </div>
                                     )}
 
                                     {provider.business_type?.name && (
                                         <div className="data-list-row">
-                                            <div className="data-list-key">Type aanbieder:</div>
+                                            <div className="data-list-key">
+                                                {translate('providers_office.details.type')}:
+                                            </div>
                                             <div className="data-list-value">
                                                 <div className="label label-default label-sm">
-                                                    {provider.business_type.name || 'Geen type geselecteerd'}
+                                                    {provider.business_type.name ||
+                                                        translate('providers_office.details.type_none')}
                                                 </div>
                                             </div>
                                         </div>
@@ -167,7 +179,7 @@ export default function ProvidersOffice() {
 
                         <div className="block block-pane">
                             <div className="pane-head">
-                                <h2 className="pane-head-title">Openingstijden</h2>
+                                <h2 className="pane-head-title">{translate('providers_office.working_hours.title')}</h2>
                             </div>
                             {office.schedule?.length > 0 ? (
                                 <div className="pane-section pane-section-compact-vertical">
@@ -190,15 +202,14 @@ export default function ProvidersOffice() {
                                 </div>
                             ) : (
                                 <div className="pane-section">
-                                    Aanbieder heeft geen openingstijden ingesteld. Contacteer aanbieder voor de
-                                    openingstijden.
+                                    {translate('providers_office.working_hours.not_set')}
                                 </div>
                             )}
                         </div>
 
                         <div className="block block-pane last-child">
                             <div className="pane-head">
-                                <h2 className="pane-head-title">Aanbieder</h2>
+                                <h2 className="pane-head-title">{translate('providers_office.providers.title')}</h2>
                             </div>
                             <div className="pane-section">
                                 <div className="office-organization" onClick={() => setShowOffices(!showOffices)}>
@@ -206,7 +217,7 @@ export default function ProvidersOffice() {
                                         name={'provider'}
                                         params={{ id: provider.id }}
                                         className="organization-photo"
-                                        onClick={(e) => e.stopPropagation()}>
+                                        onClick={(e: React.MouseEvent) => e.stopPropagation()}>
                                         <img
                                             className="organization-photo-img"
                                             src={
@@ -222,7 +233,7 @@ export default function ProvidersOffice() {
                                         name={'provider'}
                                         params={{ id: provider.id }}
                                         className="organization-title"
-                                        onClick={(e) => e.stopPropagation()}>
+                                        onClick={(e: React.MouseEvent) => e.stopPropagation()}>
                                         <div className="organization-title-value">{provider.name}</div>
                                         <div className="organization-title-count">{provider.offices?.length}</div>
                                     </StateNavLink>
@@ -232,7 +243,8 @@ export default function ProvidersOffice() {
                                             className={`mdi ${showOffices ? 'mdi-chevron-up' : 'mdi-chevron-right'}`}
                                             role="button"
                                             aria-expanded={showOffices}
-                                            aria-label="Toon/verberg informatie over aanbieder"></div>
+                                            aria-label={translate('providers_office.providers.show_more')}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +279,9 @@ export default function ProvidersOffice() {
                                                                             '/assets/img/placeholders/office-thumbnail.png',
                                                                         )
                                                                     }
-                                                                    alt="office thumbnail"
+                                                                    alt={translate(
+                                                                        'providers_office.providers.office_thumbnail_alt',
+                                                                    )}
                                                                 />
                                                             </div>
 
@@ -276,7 +290,9 @@ export default function ProvidersOffice() {
                                                                 <div className="office-labels">
                                                                     <div className="label label-default">
                                                                         {provider.business_type?.name ||
-                                                                            'Geen organisatie type'}
+                                                                            translate(
+                                                                                'providers_office.providers.type_none',
+                                                                            )}
                                                                     </div>
                                                                 </div>
                                                                 {(office.phone || provider.phone || provider.email) && (

@@ -1,4 +1,5 @@
 import React from 'react';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function FundRequestProgress({
     step,
@@ -9,6 +10,8 @@ export default function FundRequestProgress({
     step: number;
     steps: Array<string>;
 }) {
+    const translate = useTranslate();
+
     return (
         <div className={`sign_up-progress ${criteriaSteps.length >= 5 ? 'sign_up-progress-compact' : ''}`}>
             <div
@@ -29,17 +32,20 @@ export default function FundRequestProgress({
                     ${step > steps.indexOf(_) ? 'sign_up-step-done' : ''}`}
                     aria-hidden="true">
                     <div className="sign_up-step-border" />
-                    <div className="sign-up-step-block">Stap {index + 1}</div>
+                    <div className="sign-up-step-block">
+                        {translate('fund_request.steps.step', { step: index + 1 })}
+                    </div>
                 </div>
             ))}
 
             <div className="sign_up-progress-overview" aria-hidden="true">
-                Stap {step} van {steps.length}
+                {translate('fund_request.steps.step_out_of', { step, total: steps.length })}
             </div>
 
-            <span className="sr-only">Stap {step}</span>
+            <span className="sr-only">{translate('fund_request.steps.step', { step })}</span>
+
             <span className="sr-only">
-                Stap {step} van {steps.length}
+                {translate('fund_request.steps.step_out_of', { step, total: steps.length })}
             </span>
         </div>
     );

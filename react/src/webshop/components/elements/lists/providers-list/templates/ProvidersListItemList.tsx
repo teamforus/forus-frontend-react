@@ -3,6 +3,7 @@ import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import Provider from '../../../../../props/models/Provider';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
+import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 
 export default function ProvidersListItemList({
     provider,
@@ -12,6 +13,7 @@ export default function ProvidersListItemList({
     stateParams?: object;
 }) {
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
     const [showOffices, setShowOffices] = useState(false);
 
     return (
@@ -37,7 +39,7 @@ export default function ProvidersListItemList({
                     <div className="organization-title">
                         <span className="organization-title-value">{provider.name}</span>
                         <div className="organization-page-link">
-                            Open aanbieder
+                            {translate('list_blocks.provider_item_list.open_provider')}
                             <em className="mdi mdi-chevron-right" />
                         </div>
                     </div>
@@ -53,7 +55,9 @@ export default function ProvidersListItemList({
                     <div className="organization-chevron">
                         <em className={`mdi ${showOffices ? 'mdi-chevron-up' : 'mdi-chevron-down'}`} />
                     </div>
-                    <div className="organization-total-offices">Toon locaties</div>
+                    <div className="organization-total-offices">
+                        {translate('list_blocks.provider_item_list.show_locations')}
+                    </div>
                     <div className={`organization-total-offices-count ${showOffices ? 'active' : ''}`}>
                         {provider.offices.length}
                     </div>
@@ -87,7 +91,8 @@ export default function ProvidersListItemList({
                                             <div className="office-title">{office.address}</div>
                                             <div className="office-labels">
                                                 <div className="label label-default">
-                                                    {provider.business_type.name || 'Geen data'}
+                                                    {provider.business_type.name ||
+                                                        translate('list_blocks.provider_item_list.no_data')}
                                                 </div>
                                             </div>
                                             {(office.phone || provider.phone || provider.email) && (

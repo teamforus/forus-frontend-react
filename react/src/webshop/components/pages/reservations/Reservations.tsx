@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
@@ -28,16 +28,18 @@ export default function Reservations() {
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
     const [reservations, setReservations] = useState<PaginationData<Reservation>>(null);
 
-    const [states] = useState([
-        { name: 'Selecteer status...', value: null },
-        { name: 'In afwachting', value: 'pending' },
-        { name: 'Geaccepteerd', value: 'accepted' },
-        { name: 'Geweigerd', value: 'rejected' },
-        { name: 'Geannuleerd', value: 'canceled' },
-    ]);
+    const states = useMemo(() => {
+        return [
+            { value: 'all', name: translate('reservations.states.all') },
+            { value: 'pending', name: translate('reservations.states.pending') },
+            { value: 'accepted', name: translate('reservations.states.accepted') },
+            { value: 'rejected', name: translate('reservations.states.rejected') },
+            { value: 'canceled', name: translate('reservations.states.canceled') },
+        ];
+    }, [translate]);
 
     const filters = useFilter({
-        state: null,
+        state: 'all',
         fund_id: null,
         organization_id: null,
         archived: 0,
@@ -48,24 +50,34 @@ export default function Reservations() {
 
         fundService
             .list({ per_page: 100 })
-            .then((res) => setFunds([{ name: 'Alle tegoeden...', id: null }, ...res.data.data]))
+            .then((res) => {
+                setFunds([{ name: translate('reservations.filters.all_funds'), id: null }, ...res.data.data]);
+            })
             .finally(() => setProgress(100));
-    }, [fundService, setProgress]);
+    }, [fundService, setProgress, translate]);
 
     const fetchOrganizations = useCallback(() => {
         setProgress(0);
 
         organizationService
             .list({ type: 'provider', has_reservations: 1, per_page: 300, fund_type: 'budget' })
-            .then((res) => setOrganizations([{ name: 'Selecteer aanbieder...', id: null }, ...res.data.data]))
+            .then((res) =>
+                setOrganizations([
+                    { name: translate('reservations.filters.all_providers'), id: null },
+                    ...res.data.data,
+                ]),
+            )
             .finally(() => setProgress(100));
-    }, [organizationService, setProgress]);
+    }, [organizationService, setProgress, translate]);
 
     const fetchReservations = useCallback(() => {
         setProgress(0);
 
         productReservationService
-            .list(filters.activeValues)
+            .list({
+                ...filters.activeValues,
+                state: filters.activeValues?.state === 'all' ? null : filters.activeValues?.state,
+            })
             .then((res) => setReservations(res.data))
             .finally(() => setProgress(100));
     }, [filters.activeValues, productReservationService, setProgress]);
@@ -84,25 +96,30 @@ export default function Reservations() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('reservations.header.title') }]}
+            breadcrumbItems={[
+                { name: translate('reservations.breadcrumbs.home'), state: 'home' },
+                { name: translate('reservations.breadcrumbs.reservations') },
+            ]}
             filters={
                 <div className="form form-compact">
                     <div className="profile-aside-block">
                         <div className="form-group">
                             <label className="form-label" htmlFor="products_search">
-                                {translate('reservations.labels.search')}
+                                {translate('reservations.filters.search')}
                             </label>
+
                             <UIControlText
                                 id="products_search"
                                 value={filters.values.q}
                                 onChangeValue={(q) => filters.update({ q })}
-                                ariaLabel={translate('reservations.labels.search_aria_label')}
+                                ariaLabel={translate('reservations.filters.search_aria_label')}
                             />
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="select_fund">
-                                Tegoeden
+                                {translate('reservations.filters.fund')}
                             </label>
+
                             <SelectControl
                                 id="select_fund"
                                 propKey={'id'}
@@ -113,7 +130,7 @@ export default function Reservations() {
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="select_provider">
-                                Aanbieders
+                                {translate('reservations.filters.provider')}
                             </label>
 
                             <SelectControl
@@ -126,7 +143,7 @@ export default function Reservations() {
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="select_state">
-                                Status
+                                {translate('reservations.filters.state')}
                             </label>
 
                             <SelectControl
@@ -148,7 +165,7 @@ export default function Reservations() {
                                 <div className="pull-left">
                                     <div className="profile-content-title-count">{reservations.meta.total}</div>
                                     <h1 className="profile-content-header" data-dusk="reservationsTitle">
-                                        {translate('reservations.header.title')}
+                                        {translate('reservations.title')}
                                     </h1>
                                 </div>
                             </div>
@@ -158,23 +175,23 @@ export default function Reservations() {
                                     <div
                                         className={`label-tab label-tab-sm ${!filters.values.archived ? 'active' : ''}`}
                                         onClick={() => filters.update({ archived: 0 })}
-                                        aria-pressed={!filters.values.archived ? 'true' : 'false'}
+                                        aria-pressed={!filters.values.archived}
                                         role="button">
-                                        Actief
+                                        {translate('reservations.types.active')}
                                     </div>
                                     <div
                                         className={`label-tab label-tab-sm ${filters.values.archived ? 'active' : ''}`}
                                         onClick={() => filters.update({ archived: 1 })}
-                                        aria-pressed={filters.values.archived ? 'true' : 'false'}
+                                        aria-pressed={!!filters.values.archived}
                                         role="button">
-                                        Archief
+                                        {translate('reservations.types.archived')}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="profile-content-header">
-                            <div className="profile-content-subtitle">{translate('reservations.header.subtitle')}</div>
+                            <div className="profile-content-subtitle">{translate('reservations.subtitle')}</div>
                         </div>
                     </Fragment>
                 )
@@ -196,9 +213,8 @@ export default function Reservations() {
                     {reservations.meta?.total == 0 && (
                         <EmptyBlock
                             svgIcon="reimbursements"
-                            title={translate('reservations.empty_block.title')}
-                            description={translate('reservations.empty_block.subtitle')}
-                            text={translate('reservations.empty_block.cta')}
+                            title={translate('reservations.empty.title')}
+                            description={translate('reservations.empty.subtitle')}
                             hideLink={true}
                         />
                     )}

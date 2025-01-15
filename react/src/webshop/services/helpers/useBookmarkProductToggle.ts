@@ -5,17 +5,19 @@ import usePushSuccess from '../../../dashboard/hooks/usePushSuccess';
 import { useNavigateState } from '../../modules/state_router/Router';
 import { useProductService } from '../ProductService';
 import usePopNotification from '../../../dashboard/hooks/usePopNotification';
+import useTranslate from '../../../dashboard/hooks/useTranslate';
 
 export default function useBookmarkProductToggle() {
     const pushRaw = usePushRaw();
     const pushSuccess = usePushSuccess();
+    const translate = useTranslate();
     const navigateState = useNavigateState();
     const popNotification = usePopNotification();
     const productService = useProductService();
 
     const showBookmarkPush = useCallback(
-        (product) => {
-            const media = product.photo || product.logo || null;
+        (product: Product) => {
+            const media = product?.photo || null;
             const productImgSrc =
                 media?.sizes?.small || media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
 
@@ -24,11 +26,11 @@ export default function useBookmarkProductToggle() {
                     icon: null,
                     title: product.name,
                     imageSrc: productImgSrc,
-                    message: `Er staan ${res.data.meta.total} aanbiedingen in het verlanglijstje`,
+                    message: translate('product_bookmark_push.list_message', { total: res.data.meta.total }),
                     group: 'bookmarks',
                     button: {
                         icon: 'cards-heart-outline',
-                        text: 'Ga naar mijn verlanglijstje',
+                        text: translate('product_bookmark_push.go_to_bookmarks'),
                         onClick: () => {
                             navigateState('bookmarked-products');
                             popNotification(id);
@@ -37,7 +39,7 @@ export default function useBookmarkProductToggle() {
                 });
             });
         },
-        [productService, pushRaw, navigateState, popNotification],
+        [productService, pushRaw, navigateState, popNotification, translate],
     );
 
     return useCallback(
@@ -52,10 +54,10 @@ export default function useBookmarkProductToggle() {
             }
 
             return await productService.removeBookmark(product.id).then((res) => {
-                pushSuccess(`${product.name} is verwijderd uit het verlanglijstje!`);
+                pushSuccess(translate('product_bookmark_push.removed', { name: product.name }));
                 return res.data.data.bookmarked;
             });
         },
-        [productService, pushSuccess, showBookmarkPush],
+        [productService, pushSuccess, showBookmarkPush, translate],
     );
 }

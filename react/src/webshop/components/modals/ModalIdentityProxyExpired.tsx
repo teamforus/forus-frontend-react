@@ -22,7 +22,12 @@ export default function ModalIdentityProxyExpired({ modal }: { modal: ModalState
         <div
             className={`modal modal-identity-proxy-expired modal-animated  ${modal.loading ? '' : 'modal-loaded'}`}
             role="dialog">
-            <div className="modal-backdrop" onClick={cancel} aria-label="Sluiten" role="button" />
+            <div
+                className="modal-backdrop"
+                onClick={cancel}
+                aria-label={translate('expired_identity.buttons.close')}
+                role="button"
+            />
 
             <div className="modal-window">
                 <div
@@ -30,7 +35,7 @@ export default function ModalIdentityProxyExpired({ modal }: { modal: ModalState
                     onClick={cancel}
                     tabIndex={0}
                     onKeyDown={clickOnKeyEnter}
-                    aria-label="Sluiten"
+                    aria-label={translate('expired_identity.buttons.close')}
                     role="button"
                 />
                 <div className="modal-header">
@@ -51,7 +56,7 @@ export default function ModalIdentityProxyExpired({ modal }: { modal: ModalState
                 </div>
                 <div className="modal-footer">
                     <button className="button button-sm button-primary" onClick={openLoginModal}>
-                        Bevestigen
+                        {translate('expired_identity.buttons.confirm')}
                     </button>
                 </div>
             </div>

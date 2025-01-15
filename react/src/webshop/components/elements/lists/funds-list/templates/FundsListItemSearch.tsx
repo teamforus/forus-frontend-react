@@ -31,11 +31,15 @@ export default function FundsListItemSearch({
                     <div className="search-subtitle">{fund.organization?.name}</div>
                     <div className="search-status-label">
                         {fund.showPendingButton && (
-                            <div className="label label-default">{translate('funds.buttons.is_pending')}</div>
+                            <div className="label label-default">
+                                {translate('list_blocks.fund_item_search.buttons.is_pending')}
+                            </div>
                         )}
 
                         {fund.alreadyReceived && (
-                            <div className="label label-success">{translate('funds.status.active')}</div>
+                            <div className="label label-success">
+                                {translate('list_blocks.fund_item_search.status.active')}
+                            </div>
                         )}
                     </div>
                 </div>
@@ -45,7 +49,7 @@ export default function FundsListItemSearch({
                             className="button button-primary button-fill"
                             type="button"
                             onClick={(e) => applyFund(e, fund)}>
-                            {translate('funds.buttons.is_applicable')}
+                            {translate('list_blocks.fund_item_search.buttons.is_applicable')}
                         </button>
                     </div>
                 )}

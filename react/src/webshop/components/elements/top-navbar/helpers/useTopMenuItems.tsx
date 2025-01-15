@@ -42,7 +42,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
         return [
             {
                 id: 'home_page',
-                nameTranslate: `topnavbar.items.home`,
+                nameTranslate: `top_navbar.items.home`,
                 state: 'home',
                 stateParams: {},
                 target: '_self',
@@ -50,8 +50,8 @@ export default function useTopMenuItems(onlyEnabled = true) {
             },
             {
                 id: 'funds_page',
-                nameTranslate: `topnavbar.items.${envData.client_key}.funds`,
-                nameTranslateDefault: translate(`topnavbar.items.funds`),
+                nameTranslate: `top_navbar.items.${envData.client_key}.funds`,
+                nameTranslateDefault: translate(`top_navbar.items.funds`),
                 state: 'funds',
                 stateParams: {},
                 target: '_self',
@@ -62,8 +62,8 @@ export default function useTopMenuItems(onlyEnabled = true) {
             },
             {
                 id: 'products_page',
-                nameTranslate: `topnavbar.items.${envData.client_key}.products`,
-                nameTranslateDefault: translate(`topnavbar.items.products`),
+                nameTranslate: `top_navbar.items.${envData.client_key}.products`,
+                nameTranslateDefault: translate(`top_navbar.items.products`),
                 state: 'products',
                 stateParams: {},
                 target: '_self',
@@ -75,7 +75,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
             },
             {
                 id: 'actions_page',
-                nameTranslate: `topnavbar.items.subsidies`,
+                nameTranslate: `top_navbar.items.subsidies`,
                 state: 'actions',
                 stateParams: {},
                 target: '_self',
@@ -87,7 +87,7 @@ export default function useTopMenuItems(onlyEnabled = true) {
             },
             {
                 id: 'providers_page',
-                nameTranslate: `topnavbar.items.providers`,
+                nameTranslate: `top_navbar.items.providers`,
                 state: 'providers',
                 stateParams: {},
                 target: '_self',
@@ -96,15 +96,15 @@ export default function useTopMenuItems(onlyEnabled = true) {
             {
                 id: 'explanation_page',
                 target: appConfigs.pages?.explanation?.external ? '_blank' : '_self',
-                nameTranslate: `topnavbar.items.${envData.client_key}.explanation`,
-                nameTranslateDefault: translate(`topnavbar.items.explanation`),
+                nameTranslate: `top_navbar.items.${envData.client_key}.explanation`,
+                nameTranslateDefault: translate(`top_navbar.items.explanation`),
                 state: 'explanation',
                 stateParams: {},
                 enabled: true,
             },
             {
                 id: 'providers_sign_up_page',
-                nameTranslate: `topnavbar.items.signup`,
+                nameTranslate: `top_navbar.items.signup`,
                 state: 'sign-up',
                 stateParams: {},
                 target: '_self',
