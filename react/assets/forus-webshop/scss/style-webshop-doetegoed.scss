@@ -1,5 +1,4 @@
 // LAYOUTS
-@import 'doetegoed/layout/navigation';
 @import 'doetegoed/layout/header';
 
 // INCLUDES
@@ -45,7 +44,6 @@ body {
 }
 
 @import 'doetegoed/sections/blocks/block-cms';
-@import 'doetegoed/sections/blocks/block-navbar';
 @import 'doetegoed/sections/blocks/block-product';
 @import 'doetegoed/sections/blocks/block-sign_up';
 @import 'doetegoed/sections/blocks/block-copyrights';
@@ -54,4 +52,3 @@ body {
 @import 'doetegoed/sections/blocks/block-map';
 @import 'doetegoed/sections/blocks/block-markdown';
 @import 'doetegoed/sections/blocks/block-empty';
-@import 'doetegoed/sections/blocks/block-navbar-search';

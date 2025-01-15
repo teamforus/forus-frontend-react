@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import Announcement from '../../../../dashboard/props/models/Announcement';
 import Markdown from '../markdown/Markdown';
 
-export default function Announcements({ announcements }: { announcements: Array<Announcement> }) {
+export default function Announcements({ announcements }: { announcements?: Array<Announcement> }) {
     const [storageKey] = useState('dismissed_announcements');
     const [dismissed, setDismissed] = useState<Array<number>>(null);
     const [listActive, setListActive] = useState<Array<Announcement & { dismissed?: boolean }>>(null);
@@ -26,7 +26,7 @@ export default function Announcements({ announcements }: { announcements: Array<
     );
 
     useEffect(() => {
-        setListActive(announcements.filter((item) => !item.dismissible || !dismissed?.includes(item.id)));
+        setListActive(announcements?.filter((item) => !item.dismissible || !dismissed?.includes(item.id)));
     }, [announcements, dismissed]);
 
     useEffect(() => {

@@ -1,0 +1,105 @@
+.block.block-navbar-mobile {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
+
+    .navbar-mobile-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & > .navbar-mobile-auth-buttons {
+            padding-top: 5px;
+        }
+    }
+
+    .navbar-mobile-button {
+        flex: 0 0 60px;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font: 600 9px / 14px var(--base-font);
+        outline-offset: -2px !important;
+        border-radius: 6px;
+        gap: 2px;
+
+        .navbar-mobile-button-icon {
+            font-size: 16px;
+        }
+    }
+
+    .navbar-mobile-logo {
+        display: flex;
+        height: 30px;
+        flex: 1 1 auto;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .navbar-mobile-lang {
+        position: relative;
+        display: flex;
+        flex: 0 0 0;
+
+        .block-lang-control {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+    }
+
+    .navbar-mobile-auth-buttons {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding: 15px 15px;
+        gap: 10px;
+
+        .navbar-mobile-auth-button {
+            padding-top: 7px;
+            padding-bottom: 7px;
+            margin: 0 0;
+            flex: 0 0 calc(50% - 5px);
+            box-shadow: none;
+            justify-content: center;
+            font: 700 12px / 16px var(--base-font);
+            border-radius: calc(var(--border-radius) / 2);
+            display: flex;
+            gap: 6px;
+
+            em {
+                float: none;
+                font-size: 12px;
+                height: 16px;
+                line-height: 16px;
+                margin: 0 0;
+            }
+
+            &.button-primary-outline {
+                background-color: var(--btn-auth-bg);
+                border: solid 1px var(--btn-auth-border);
+                color: var(--tc-auth-btn);
+            }
+
+            &.button-primary {
+                background-color: var(--btn-start-bg);
+                color: var(--tc-start-btn);
+                border: solid 1px var(--btn-start-border);
+            }
+
+            &.button-text {
+                &:hover {
+                    color: var(--color-primary);
+                }
+            }
+
+            &:first-child:last-child {
+                flex: 0 0 100%;
+            }
+        }
+    }
+}

@@ -16,46 +16,6 @@ ui-view {
 
 .block {
     @media screen and (min-width: 1000px) {
-        &.block-navbar {
-            border-bottom: 0;
-
-            .navbar-inner {
-                order: 2;
-            }
-
-            .navbar-list {
-                .navbar-item-wrapper {
-                    padding-right: 40px;
-
-                    .navbar-item {
-                        font: 400 18px/26px var(--base-font);
-                    }
-
-                    &::after {
-                        right: 20px;
-                    }
-
-                    &.navbar-item-wrapper_sign-out {
-                        padding-right: 0;
-                    }
-
-                    &:hover {
-                        background-color: #354B89;
-                    }
-
-                    .navbar-item {
-                        &:hover {
-                            color: #FFFFFF;
-                        }
-
-                        &.active {
-                            color: #FFFFFF;
-                        }
-                    }
-                }
-            }
-        }
-
         &.block-app_links {
             img {
                 max-width: none !important;
