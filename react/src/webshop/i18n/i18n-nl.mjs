@@ -178,7 +178,6 @@ export default {
         schagen: 'Schagen',
         hartvanwestbrabant: 'HvWB',
         eemsdelta: 'Eemsdelta',
-        doetegoed: 'Doe-tegoed',
         goereeoverflakkee: 'Goeree-Overflakkee',
     },
 
@@ -192,7 +191,6 @@ export default {
     logo_alt_text: {
         general: 'Forus',
         berkelland: 'Gemeente Berkelland',
-        doetegoed: 'Doe-tegoed',
         ede: 'Ede',
         eemsdelta: 'Gemeente Eemsdelta',
         geertruidenberg: 'Gemeente Geertruidenberg',
