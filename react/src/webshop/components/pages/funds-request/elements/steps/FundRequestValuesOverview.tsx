@@ -139,6 +139,7 @@ export default function FundRequestValuesOverview({
                             className="button button-primary button-sm"
                             onClick={onSubmitRequest}
                             role="button"
+                            data-dusk="submitButton"
                             tabIndex={0}>
                             Vraag aan
                             <em className="mdi mdi-chevron-right icon-right" />

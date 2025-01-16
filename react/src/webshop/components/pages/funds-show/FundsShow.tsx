@@ -153,7 +153,9 @@ export default function FundsShow() {
                     <div className="block block-fund">
                         <div className="fund-content">
                             <div className="fund-card">
-                                <h1 className="fund-name">{fund?.name}</h1>
+                                <h1 className="fund-name" data-dusk="fundTitle">
+                                    {fund?.name}
+                                </h1>
 
                                 {fund?.description_short && (
                                     <div className="fund-description">
@@ -221,6 +223,7 @@ export default function FundsShow() {
                                         <StateNavLink
                                             name={'fund-activate'}
                                             params={{ id: fund.id }}
+                                            dataDusk="requestButton"
                                             className="button button-primary">
                                             {fund.request_btn_text}
                                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -231,6 +234,7 @@ export default function FundsShow() {
                                         <a
                                             className="button button-primary"
                                             type="button"
+                                            data-dusk="activateButton"
                                             onClick={(e) => applyFund(e, fund)}>
                                             {translate('funds.buttons.is_applicable')}
                                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -241,6 +245,7 @@ export default function FundsShow() {
                                         <StateNavLink
                                             name={'voucher'}
                                             params={{ number: fundMeta.vouchers[0]?.number }}
+                                            dataDusk="voucherButton"
                                             className="button button-primary">
                                             {translate(
                                                 `funds.buttons.${fund.key}.already_received`,
@@ -250,6 +255,16 @@ export default function FundsShow() {
                                             <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                         </StateNavLink>
                                     )}
+
+                                    {/*{fundMeta && fundMeta.hasPayouts && (*/}
+                                    {/*    <StateNavLink*/}
+                                    {/*        name={'payouts'}*/}
+                                    {/*        className="button button-primary"*/}
+                                    {/*        dataDusk="payoutsButton">*/}
+                                    {/*        {translate('funds.buttons.open_payouts')}*/}
+                                    {/*        <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />*/}
+                                    {/*    </StateNavLink>*/}
+                                    {/*)}*/}
                                 </div>
                             </div>
 

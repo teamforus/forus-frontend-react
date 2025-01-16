@@ -28,7 +28,7 @@ export default function FundRequestStepCriteriaOverview({
         <Fragment>
             {progress}
 
-            <div className="sign_up-pane">
+            <div className="sign_up-pane" data-dusk="criteriaStepsOverview">
                 <h2 className="sign_up-pane-header" role="heading">
                     {translate('fund_request.sign_up.pane.header_title')}
                 </h2>
@@ -66,6 +66,7 @@ export default function FundRequestStepCriteriaOverview({
                             onClick={onNextStep}
                             role="button"
                             type="button"
+                            data-dusk="nextStepButton"
                             tabIndex={0}>
                             {translate('fund_request.sign_up.pane.footer.next')}
                             <em className="mdi mdi-chevron-right icon-right" />

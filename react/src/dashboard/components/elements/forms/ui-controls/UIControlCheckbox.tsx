@@ -10,6 +10,7 @@ export default function UIControlCheckbox({
     slim = false,
     className = '',
     disabled = false,
+    dataDusk = null,
     onChange = null,
     onChangeValue = null,
 }: {
@@ -21,6 +22,7 @@ export default function UIControlCheckbox({
     checked?: boolean;
     className?: string;
     disabled?: boolean;
+    dataDusk?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeValue?: (checked: boolean) => void;
 }) {
@@ -59,6 +61,7 @@ export default function UIControlCheckbox({
                 htmlFor={innerId}
                 tabIndex={0}
                 aria-checked={inputRef?.current?.checked}
+                data-dusk={dataDusk}
                 onKeyDown={toggleCheckbox}>
                 <span className="ui-checkbox-box">
                     <em className="mdi mdi-check" />
