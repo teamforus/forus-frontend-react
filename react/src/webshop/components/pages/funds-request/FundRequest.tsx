@@ -734,7 +734,7 @@ export default function FundRequest() {
             )}
 
             {digiExpired && (
-                <div className="block block-sign_up">
+                <div className="block block-sign_up" data-dusk="digidExpired">
                     <div className="block-wrapper form">
                         <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
 
