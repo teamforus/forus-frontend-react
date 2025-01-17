@@ -113,14 +113,6 @@ export default function useTopMenuItems(onlyEnabled = true) {
         ].filter((menuItem) => menuItem.enabled);
     }, [appConfigs, envData, identity, translate]);
 
-    const requiredItems = useMemo<Array<MenuItem>>(
-        () => [
-            { id: 'social_media_items', className: 'navbar-item-wrapper_social_icons', enabled: true },
-            { id: 'logout_item', className: 'navbar-item-wrapper_sign-out', enabled: !!identity },
-        ],
-        [identity],
-    );
-
     return useMemo(() => {
         if (!envData || !appConfigs) {
             return [];
@@ -130,7 +122,6 @@ export default function useTopMenuItems(onlyEnabled = true) {
             ...(envData.config?.flags.menuItems
                 ? replaceMenuItems(defaultMenuItems, envData.config?.flags.menuItems)
                 : defaultMenuItems),
-            ...requiredItems,
         ]
             .map((item: MenuItem) => ({
                 ...item,
@@ -142,5 +133,5 @@ export default function useTopMenuItems(onlyEnabled = true) {
                     : null,
             }))
             .filter((item) => !onlyEnabled || item.enabled);
-    }, [appConfigs, defaultMenuItems, envData, onlyEnabled, replaceMenuItems, requiredItems]);
+    }, [appConfigs, defaultMenuItems, envData, onlyEnabled, replaceMenuItems]);
 }

@@ -65,6 +65,7 @@ import reimbursement_confirmation from './nl/modals/modal-reimbursement-confirma
 import modal_physical_card_unlink from './nl/modals/modal-physical_card_unlink.mjs';
 import modal_fund_help from './nl/modals/modal_fund_help.mjs';
 import modal_pin_code from './nl/modals/modal_pin_code.mjs';
+import modal_logout from './nl/modals/modal_logout.mjs';
 
 import app_footer from './nl/directives/app-footer.mjs';
 import block_products from './nl/directives/block-products.mjs';
@@ -177,7 +178,6 @@ export default {
         schagen: 'Schagen',
         hartvanwestbrabant: 'HvWB',
         eemsdelta: 'Eemsdelta',
-        doetegoed: 'Doe-tegoed',
         goereeoverflakkee: 'Goeree-Overflakkee',
     },
 
@@ -191,7 +191,6 @@ export default {
     logo_alt_text: {
         general: 'Forus',
         berkelland: 'Gemeente Berkelland',
-        doetegoed: 'Doe-tegoed',
         ede: 'Ede',
         eemsdelta: 'Gemeente Eemsdelta',
         geertruidenberg: 'Gemeente Geertruidenberg',
@@ -452,6 +451,7 @@ export default {
     modal_physical_card_unlink: modal_physical_card_unlink,
     modal_fund_help: modal_fund_help,
     modal_pin_code: modal_pin_code,
+    modal_logout: modal_logout,
 
     // DIRECTIVES
     app_footer: app_footer,

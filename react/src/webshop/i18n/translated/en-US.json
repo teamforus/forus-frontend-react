@@ -44,7 +44,6 @@
     },
     "implementation_name": {
         "berkelland": "Berkelland",
-        "doetegoed": "Do credit",
         "ede": "Ede",
         "eemsdelta": "Ems Delta",
         "forus": "Forus platform &amp; ",
@@ -66,7 +65,6 @@
     },
     "logo_alt_text": {
         "berkelland": "Municipality of Berkelland",
-        "doetegoed": "Do credit",
         "ede": "Ede",
         "eemsdelta": "Municipality of Eemsdelta",
         "geertruidenberg": "Municipality of Geertruidenberg",
@@ -3280,5 +3278,10 @@
             "description": "Your reservation has been made.",
             "title": "It worked!"
         }
+    },
+    "modal_logout": {
+        "description_formal": "Are you sure you want to log out?",
+        "description_informal": "Are you sure you want to log out?",
+        "title": "Logout"
     }
 }

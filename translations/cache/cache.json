@@ -3004,10 +3004,6 @@
         "Berkelland"
     ],
     [
-        "implementation_name.doetegoed",
-        "Doe-tegoed"
-    ],
-    [
         "implementation_name.ede",
         "Ede"
     ],
@@ -3226,10 +3222,6 @@
     [
         "logo_alt_text.berkelland",
         "Gemeente Berkelland"
-    ],
-    [
-        "logo_alt_text.doetegoed",
-        "Doe-tegoed"
     ],
     [
         "logo_alt_text.ede",
@@ -3674,6 +3666,18 @@
     [
         "modal_fund_help.website",
         "Website"
+    ],
+    [
+        "modal_logout.description_formal",
+        "Weet u zeker dat u wilt uitloggen?"
+    ],
+    [
+        "modal_logout.description_informal",
+        "Weet je zeker dat je wilt uitloggen?"
+    ],
+    [
+        "modal_logout.title",
+        "Uitloggen"
     ],
     [
         "modal_photo_cropper.cancel",
