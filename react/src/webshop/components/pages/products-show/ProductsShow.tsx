@@ -51,8 +51,8 @@ export default function ProductsShow() {
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [product, setProduct] = useState<Product>(null);
     const [provider, setProvider] = useState<Provider>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
-    const [payoutTransactions, setPayoutTransactions] = useState<Array<PayoutTransaction>>(null);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
 
@@ -110,7 +110,7 @@ export default function ProductsShow() {
 
         payoutTransactionService
             .list()
-            .then((res) => setPayoutTransactions(res.data.data))
+            .then((res) => setPayouts(res.data.data))
             .finally(() => setProgress(100));
     }, [setProgress, payoutTransactionService]);
 
@@ -142,7 +142,7 @@ export default function ProductsShow() {
             fetchPayouts();
         } else {
             setVouchers([]);
-            setPayoutTransactions([]);
+            setPayouts([]);
         }
     }, [authIdentity, fetchPayouts, fetchVouchers]);
 
@@ -240,12 +240,7 @@ export default function ProductsShow() {
                             )}
                         </div>
 
-                        <ProductFundsCard
-                            funds={funds}
-                            product={product}
-                            vouchers={vouchers}
-                            payoutTransactions={payoutTransactions}
-                        />
+                        <ProductFundsCard funds={funds} product={product} vouchers={vouchers} payouts={payouts} />
 
                         {provider && (
                             <div className="block block-organizations">

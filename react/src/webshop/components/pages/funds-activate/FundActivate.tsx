@@ -76,9 +76,16 @@ export default function FundActivate() {
     });
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
-    const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
-    const [vouchersActive, setVouchersActive] = useState<Array<Voucher>>(null);
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
+    const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
+
+    const payoutsActive = useMemo(() => {
+        return payouts?.filter((payout) => payout.fund.id === fund?.id && !payout.expired);
+    }, [fund?.id, payouts]);
+
+    const vouchersActive = useMemo(() => {
+        return vouchers?.filter((voucher) => voucher.fund_id === fund?.id && !voucher.expired);
+    }, [fund?.id, vouchers]);
 
     const [criteriaChecked, setCriteriaChecked] = useState(false);
     const [criteriaCheckedWarning, setCriteriaCheckedWarning] = useState(false);
@@ -89,11 +96,9 @@ export default function FundActivate() {
 
     const [fetchingData, setFetchingData] = useState(false);
 
-    const validFund = useCallback(() => fund && fund.id === parseInt(id), [fund, id]);
-
     const getTimeToSkipDigid = useCallback(
         (identity: Identity, fund: Fund, witOffset = true) => {
-            if (!identity || !validFund()) {
+            if (!identity || !fund) {
                 return null;
             }
 
@@ -107,7 +112,7 @@ export default function FundActivate() {
 
             return Math.max(fund.bsn_confirmation_time - (identity.bsn_time + timeOffset), 0);
         },
-        [appConfigs.bsn_confirmation_offset, validFund],
+        [appConfigs.bsn_confirmation_offset],
     );
 
     const skipBsnLimit = useMemo(() => {
@@ -321,7 +326,7 @@ export default function FundActivate() {
     const handleDigiDResponse = useCallback(() => {
         const { digid_success, digid_error } = digidResponse;
 
-        if ((!digid_success && !digid_error) || !validFund()) {
+        if ((!digid_success && !digid_error) || !fund) {
             return;
         }
 
@@ -361,50 +366,40 @@ export default function FundActivate() {
                 });
             }, 1000);
         }
-    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse, validFund]);
+    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse]);
 
-    const fetchFund = useCallback(() => {
+    const fetchFund = useCallback(
+        (id: number) => {
+            setProgress(0);
+
+            fundService
+                .read(id, { check_criteria: 1 })
+                .then((res) => setFund(res.data.data))
+                .finally(() => setProgress(100));
+        },
+        [fundService, setProgress],
+    );
+
+    const fetchVouchers = useCallback(() => {
         setProgress(0);
 
-        fundService
-            .read(parseInt(id), { check_criteria: 1 })
-            .then((res) => setFund(res.data.data))
+        voucherService
+            .list()
+            .then((res) => setVouchers(res.data.data))
             .finally(() => setProgress(100));
-    }, [fundService, setProgress, id]);
+    }, [voucherService, setProgress]);
 
-    const fetchVouchers = useCallback(
-        (fund: Fund) => {
-            setProgress(0);
+    const fetchPayouts = useCallback(() => {
+        setProgress(0);
 
-            voucherService
-                .list()
-                .then((res) => {
-                    setVouchers(res.data.data);
-                    setVouchersActive(
-                        res.data.data.filter((voucher) => voucher.fund_id === fund.id && !voucher.expired),
-                    );
-                })
-                .finally(() => setProgress(100));
-        },
-        [voucherService, setProgress],
-    );
-
-    const fetchPayouts = useCallback(
-        (fund: Fund) => {
-            setProgress(0);
-
-            payoutTransactionService
-                .list()
-                .then((res) => {
-                    setPayouts(res.data.data.filter((payout) => payout.fund.id === fund.id && !payout.voucher_expired));
-                })
-                .finally(() => setProgress(100));
-        },
-        [setProgress, payoutTransactionService],
-    );
+        payoutTransactionService
+            .list()
+            .then((res) => setPayouts(res.data.data))
+            .finally(() => setProgress(100));
+    }, [setProgress, payoutTransactionService]);
 
     const fetchFundRequests = useCallback(() => {
-        if (!authIdentity || !validFund()) {
+        if (!authIdentity || !fund) {
             return setFundRequests(null);
         }
 
@@ -418,7 +413,7 @@ export default function FundActivate() {
                 navigateState('fund', { id: id });
             })
             .finally(() => setProgress(100));
-    }, [authIdentity, fund, fundRequestService, id, navigateState, pushDanger, setProgress, validFund]);
+    }, [authIdentity, fund, fundRequestService, id, navigateState, pushDanger, setProgress]);
 
     const getAvailableOptions = useCallback(
         (fund: Fund) => {
@@ -469,19 +464,14 @@ export default function FundActivate() {
     );
 
     useEffect(() => {
-        fetchFund();
-    }, [fetchFund]);
+        setFund(null);
+        fetchFund(parseInt(id));
+    }, [fetchFund, id]);
 
     useEffect(() => {
-        if (!authIdentity || !validFund()) {
-            setVouchers(null);
-            setVouchersActive(null);
-            setPayouts(null);
-        } else {
-            fetchVouchers(fund);
-            fetchPayouts(fund);
-        }
-    }, [authIdentity, fetchPayouts, fetchVouchers, fund, validFund]);
+        fetchPayouts();
+        fetchVouchers();
+    }, [fetchPayouts, fetchVouchers]);
 
     useEffect(() => {
         fetchAuthIdentity().then();
@@ -496,20 +486,20 @@ export default function FundActivate() {
     }, [handleDigiDResponse]);
 
     useEffect(() => {
-        if (!validFund() || !vouchers || !fundRequests) {
+        if (!fund || !vouchers || !fundRequests) {
             return;
         }
 
         initState(fund);
-    }, [fund, initState, vouchers, fundRequests, validFund]);
+    }, [fund, initState, vouchers, fundRequests]);
 
     useEffect(() => {
-        if (!validFund() || !vouchersActive || !payouts || !fundRequests) {
+        if (!fund || !vouchersActive || !payoutsActive || !fundRequests) {
             return;
         }
 
         const request = fundRequests?.find(
-            (request) => request.state === 'pending' || (request.state === 'approved' && request.active_current_period),
+            (request) => request.state === 'pending' || (request.state === 'approved' && request.current_period),
         );
 
         if (request) {
@@ -529,7 +519,7 @@ export default function FundActivate() {
         }
 
         // Payout already received, go to the payouts
-        if (payouts?.length > 0) {
+        if (payoutsActive?.length > 0) {
             return navigateState('payouts');
         }
 
@@ -539,7 +529,7 @@ export default function FundActivate() {
                 .then((voucher) => navigateState('voucher', { number: voucher.number }))
                 .catch(() => navigateState('fund', { id: fund.id }));
         }
-    }, [applyFund, fund, navigateState, vouchersActive, fundRequests, payouts, validFund]);
+    }, [applyFund, fund, navigateState, vouchersActive, fundRequests, payoutsActive]);
 
     useInterval(() => {
         const { timeToSkipBsn } = getTimeToSkip();
@@ -549,12 +539,6 @@ export default function FundActivate() {
             pushInfo('DigiD session expired.', 'You need to confirm your Identity by DigiD again.');
         }
     }, 1000);
-
-    useEffect(() => {
-        if (fund && fund.id !== parseInt(id)) {
-            setFund(null);
-        }
-    }, [fund, id]);
 
     useEffect(() => {
         if (fund) {
@@ -598,7 +582,7 @@ export default function FundActivate() {
                                             )}
                                         </div>
                                     </h3>
-                                    <div className="sign_up-options">
+                                    <div className="sign_up-options" data-dusk={'fundRequestOptions'}>
                                         {options?.includes('code') && (
                                             <div
                                                 className="sign_up-option"
@@ -1046,7 +1030,7 @@ export default function FundActivate() {
                             <div
                                 className="sign_up-pane"
                                 data-dusk={
-                                    fundRequest.state === 'approved' ? 'approvedFundRequest' : 'existsFundRequest'
+                                    fundRequest.state === 'approved' ? 'approvedFundRequest' : 'existingFundRequest'
                                 }>
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">

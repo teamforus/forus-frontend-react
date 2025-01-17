@@ -14,13 +14,13 @@ import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTrans
 export default function SearchItemsList({
     items,
     display,
+    payouts,
     vouchers,
-    payoutTransactions,
 }: {
     items: Array<SearchItem & { stateParams?: object }>;
     display: 'list' | 'grid';
+    payouts: Array<PayoutTransaction>;
     vouchers: Array<Voucher>;
-    payoutTransactions: Array<PayoutTransaction>;
 }) {
     const productService = useProductService();
 
@@ -58,7 +58,7 @@ export default function SearchItemsList({
                         <FundsListItem
                             fund={{ ...item.resource, description: getDescription(item.description_text) } as Fund}
                             vouchers={vouchers}
-                            payoutTransactions={payoutTransactions}
+                            payouts={payouts}
                             display={'search'}
                             stateParams={item.stateParams || null}
                         />

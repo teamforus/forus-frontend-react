@@ -22,13 +22,13 @@ import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTrans
 export default function ProductFundsCard({
     product,
     funds,
-    payoutTransactions,
+    payouts = [],
     vouchers = [],
 }: {
-    product: Product;
     funds: Array<Fund>;
+    product: Product;
+    payouts: Array<PayoutTransaction>;
     vouchers: Array<Voucher>;
-    payoutTransactions: Array<PayoutTransaction>;
 }) {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
@@ -61,13 +61,13 @@ export default function ProductFundsCard({
                 ...productFund,
                 ...fundMetaBuilder(
                     { ...funds.find((fund) => fund.id == productFund.id), ...productFund },
+                    payouts,
                     vouchers,
-                    payoutTransactions,
                     appConfigs,
                 ),
             })),
         };
-    }, [product, funds, vouchers, productService, fundMetaBuilder, payoutTransactions, appConfigs]);
+    }, [product, funds, vouchers, productService, fundMetaBuilder, payouts, appConfigs]);
 
     const listFunds = useMemo(() => {
         return productMeta?.funds.filter((fund) => !onlyAvailableFunds || fund.meta.isReservationAvailable);

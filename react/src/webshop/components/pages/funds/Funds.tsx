@@ -45,9 +45,9 @@ export default function Funds() {
 
     const [tags, setTags] = useState<Array<Partial<Tag>>>(null);
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
-    const [payoutTransactions, setPayoutTransactions] = useState<Array<PayoutTransaction>>(null);
 
     const filter = useFilter({
         q: '',
@@ -108,7 +108,7 @@ export default function Funds() {
 
         payoutTransactionService
             .list()
-            .then((res) => setPayoutTransactions(res.data.data))
+            .then((res) => setPayouts(res.data.data))
             .finally(() => setProgress(100));
     }, [setProgress, payoutTransactionService]);
 
@@ -130,11 +130,11 @@ export default function Funds() {
 
     useEffect(() => {
         if (authIdentity) {
-            fetchVouchers();
             fetchPayouts();
+            fetchVouchers();
         } else {
+            setPayouts([]);
             setVouchers([]);
-            setPayoutTransactions([]);
         }
     }, [authIdentity, fetchPayouts, fetchVouchers]);
 
@@ -226,7 +226,7 @@ export default function Funds() {
                                     fund={fund}
                                     funds={funds.data}
                                     vouchers={vouchers || []}
-                                    payoutTransactions={payoutTransactions}
+                                    payouts={payouts}
                                 />
                             ))}
                         </div>

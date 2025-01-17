@@ -17,16 +17,16 @@ import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTrans
 export default function FundsListItem({
     fund,
     funds,
-    vouchers,
     display,
-    payoutTransactions,
+    payouts,
+    vouchers,
     stateParams = null,
 }: {
-    display: 'list' | 'search';
     fund: Fund;
-    vouchers: Array<Voucher>;
     funds?: Array<Fund>;
-    payoutTransactions: Array<PayoutTransaction>;
+    display: 'list' | 'search';
+    payouts: Array<PayoutTransaction>;
+    vouchers: Array<Voucher>;
     stateParams?: object;
 }) {
     const [applyingFund, setApplyingFund] = React.useState(false);
@@ -39,7 +39,7 @@ export default function FundsListItem({
     const pushSuccess = usePushSuccess();
     const showTakenByPartnerModal = useShowTakenByPartnerModal();
 
-    const fundMeta = useFundMeta(fund, vouchers, payoutTransactions, appConfigs);
+    const fundMeta = useFundMeta(fund, payouts, vouchers, appConfigs);
 
     const onApplySuccess = useCallback(
         (vouchers: Voucher) => {

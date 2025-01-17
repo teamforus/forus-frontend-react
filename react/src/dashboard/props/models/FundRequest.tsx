@@ -56,5 +56,5 @@ export default interface FundRequest {
     person_breadcrumbs?: Array<FundRequestApiPerson>;
     payouts?: Array<PayoutTransaction>;
     vouchers?: Array<Voucher>;
-    active_current_period?: boolean;
+    current_period?: boolean;
 }

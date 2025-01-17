@@ -7,13 +7,13 @@ import PayoutTransaction from '../../../dashboard/props/models/PayoutTransaction
 
 export default function useFundMeta(
     fund: Fund,
+    payouts: Array<PayoutTransaction>,
     vouchers: Array<Voucher>,
-    payoutTransactions: Array<PayoutTransaction>,
     configs: AppConfigProp,
 ) {
     const fundMetaBuilder = useFundMetaBuilder();
 
     return useMemo(() => {
-        return fundMetaBuilder(fund, vouchers, payoutTransactions, configs);
-    }, [fundMetaBuilder, fund, vouchers, payoutTransactions, configs]);
+        return fundMetaBuilder(fund, payouts, vouchers, configs);
+    }, [fundMetaBuilder, fund, vouchers, payouts, configs]);
 }

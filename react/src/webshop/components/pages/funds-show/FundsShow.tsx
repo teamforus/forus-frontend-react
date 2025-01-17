@@ -46,10 +46,10 @@ export default function FundsShow() {
     const { showBack } = useStateParams<{ showBack: boolean }>();
 
     const [fund, setFund] = useState<Fund>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
-    const [payoutTransactions, setPayoutTransactions] = useState<Array<PayoutTransaction>>(null);
 
-    const fundMeta = useFundMeta(fund, vouchers || [], payoutTransactions || [], appConfigs);
+    const fundMeta = useFundMeta(fund, payouts || [], vouchers || [], appConfigs);
 
     const recordsByTypesKey = useMemo(async () => {
         return recordTypesService.list().then((res) => {
@@ -100,7 +100,7 @@ export default function FundsShow() {
 
         payoutTransactionService
             .list()
-            .then((res) => setPayoutTransactions(res.data.data))
+            .then((res) => setPayouts(res.data.data))
             .finally(() => setProgress(100));
     }, [setProgress, payoutTransactionService]);
 
@@ -123,11 +123,11 @@ export default function FundsShow() {
 
     useEffect(() => {
         if (authIdentity) {
-            fetchVouchers();
             fetchPayouts();
+            fetchVouchers();
         } else {
             setVouchers([]);
-            setPayoutTransactions([]);
+            setPayouts([]);
         }
     }, [authIdentity, fetchPayouts, fetchVouchers]);
 

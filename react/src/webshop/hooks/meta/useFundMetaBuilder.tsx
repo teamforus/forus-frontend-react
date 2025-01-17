@@ -6,18 +6,13 @@ import PayoutTransaction from '../../../dashboard/props/models/PayoutTransaction
 
 export default function useFundMetaBuilder() {
     return useCallback(
-        (
-            fund: Fund,
-            vouchers: Array<Voucher>,
-            payoutTransactions: Array<PayoutTransaction>,
-            configs: AppConfigProp,
-        ) => {
-            if (!fund || !vouchers) {
+        (fund: Fund, payouts: Array<PayoutTransaction>, vouchers: Array<Voucher>, configs: AppConfigProp) => {
+            if (!fund || !vouchers || !payouts) {
                 return null;
             }
 
             const vouchersList = vouchers.filter((voucher) => voucher.fund_id == fund.id && !voucher.expired);
-            const payoutsList = payoutTransactions.filter((payout) => payout.fund.id == fund.id);
+            const payoutsList = payouts.filter((payout) => payout.fund.id == fund.id);
 
             const isApplicable =
                 !fund.received &&

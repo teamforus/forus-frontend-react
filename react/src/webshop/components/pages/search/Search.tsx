@@ -73,10 +73,10 @@ export default function Search() {
     ]);
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
-    const [payoutTransactions, setPayoutTransactions] = useState<Array<PayoutTransaction>>(null);
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
@@ -169,7 +169,7 @@ export default function Search() {
 
         payoutTransactionService
             .list()
-            .then((res) => setPayoutTransactions(res.data.data))
+            .then((res) => setPayouts(res.data.data))
             .finally(() => setProgress(100));
     }, [setProgress, payoutTransactionService]);
 
@@ -217,7 +217,7 @@ export default function Search() {
             fetchPayouts();
         } else {
             setVouchers([]);
-            setPayoutTransactions([]);
+            setPayouts([]);
         }
     }, [authIdentity, fetchPayouts, fetchVouchers]);
 
@@ -409,7 +409,7 @@ export default function Search() {
                         <SearchItemsList
                             items={searchItems.data}
                             vouchers={vouchers}
-                            payoutTransactions={payoutTransactions}
+                            payouts={payouts}
                             display={displayType}
                         />
                     )}
