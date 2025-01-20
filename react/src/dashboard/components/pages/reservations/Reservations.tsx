@@ -105,6 +105,7 @@ export default function Reservations() {
         { key: 'expired', name: 'Verlopen' }, // Expired
         { key: 'canceled', name: 'Geannuleerd door aanbieder' }, // Canceled by provider
         { key: 'canceled_by_client', name: 'Geannuleerd door aanvrager' }, // Canceled by client
+        { key: 'canceled_by_sponsor', name: 'Geannuleerd door sponsor' }, // Canceled by sponsor
         ...(activeOrganization.can_view_provider_extra_payments ? extraPaymentStates : []), // Extra payment states
     ]);
 
