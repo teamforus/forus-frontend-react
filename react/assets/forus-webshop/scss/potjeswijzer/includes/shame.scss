@@ -2,22 +2,6 @@
     color: #666 !important;
 }
 
-.block {
-    @media screen and (max-width: 1000px) {
-        &.block-navbar {
-            .navbar-logo {
-                img {
-                    display: none;
-
-                    &.hover {
-                        display: block;
-                    }
-                }
-            }
-        }
-    }
-}
-
 .section {
     &.section-faq {
         .faq {

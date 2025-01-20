@@ -6,8 +6,8 @@ $primaryColorLight: #b31869;
 
 :root {
     // navbar
-    --bg-nav: #f7f8fa;
-    --tc-nav-hov: #{$primaryColor};
+    --navbar-menu-background: #f7f8fa;
+    --navbar-menu-item-color-hover: #{$primaryColor};
 
     // navbar (auth) (default button)
     --tc-auth-btn: #fff;
