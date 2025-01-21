@@ -18,6 +18,7 @@ export default {
         status: {
             canceled: 'Geannuleerd door aanbieder',
             canceled_by_client: 'Geannuleerd door aanvrager',
+            canceled_by_sponsor: 'Geannuleerd door sponsor',
             accepted: 'Geaccepteerd',
             pending: 'In afwachting',
             rejected: 'Geweigerd',
