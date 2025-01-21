@@ -1,5 +1,4 @@
 import React, { Fragment, useMemo } from 'react';
-import { TopNavbar } from '../top-navbar/TopNavbar';
 import BlockLoader from '../block-loader/BlockLoader';
 import BlockLoaderBreadcrumbs from '../block-loader/BlockLoaderBreadcrumbs';
 import BlockBreadcrumbs, { Breadcrumb } from '../block-breadcrumbs/BlockBreadcrumbs';
@@ -46,8 +45,6 @@ export default function BlockShowcase({
 
     return (
         <div className={`block block-showcase ${className || ''}`}>
-            <TopNavbar />
-
             <main id="main-content">
                 {wrapper ? (
                     <div className={'wrapper'}>
