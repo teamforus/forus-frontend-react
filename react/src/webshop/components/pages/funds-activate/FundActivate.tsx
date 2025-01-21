@@ -39,9 +39,9 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
-import { isWithinInterval } from 'date-fns';
-import { dateParse } from '../../../../dashboard/helpers/dates';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import usePayoutTransactionService from '../../../services/PayoutTransactionService';
+import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -60,6 +60,7 @@ export default function FundActivate() {
     const voucherService = useVoucherService();
     const identityService = useIdentityService();
     const fundRequestService = useFundRequestService();
+    const payoutTransactionService = usePayoutTransactionService();
 
     const setTitle = useSetTitle();
     const pushInfo = usePushInfo();
@@ -75,8 +76,16 @@ export default function FundActivate() {
     });
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
-    const [vouchersActive, setVouchersActive] = useState<Array<Voucher>>(null);
+
+    const payoutsActive = useMemo(() => {
+        return payouts?.filter((payout) => payout.fund.id === fund?.id && !payout.expired);
+    }, [fund?.id, payouts]);
+
+    const vouchersActive = useMemo(() => {
+        return vouchers?.filter((voucher) => voucher.fund_id === fund?.id && !voucher.expired);
+    }, [fund?.id, vouchers]);
 
     const [criteriaChecked, setCriteriaChecked] = useState(false);
     const [criteriaCheckedWarning, setCriteriaCheckedWarning] = useState(false);
@@ -359,32 +368,35 @@ export default function FundActivate() {
         }
     }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse]);
 
-    const fetchFund = useCallback(() => {
-        setProgress(0);
+    const fetchFund = useCallback(
+        (id: number) => {
+            setProgress(0);
 
-        fundService
-            .read(parseInt(id), { check_criteria: 1 })
-            .then((res) => setFund(res.data.data))
-            .finally(() => setProgress(100));
-    }, [fundService, setProgress, id]);
+            fundService
+                .read(id, { check_criteria: 1 })
+                .then((res) => setFund(res.data.data))
+                .finally(() => setProgress(100));
+        },
+        [fundService, setProgress],
+    );
 
     const fetchVouchers = useCallback(() => {
-        if (!authIdentity || !fund) {
-            setVouchers(null);
-            setVouchersActive(null);
-            return;
-        }
-
         setProgress(0);
 
         voucherService
             .list()
-            .then((res) => {
-                setVouchers(res.data.data);
-                setVouchersActive(res.data.data.filter((voucher) => voucher.fund_id === fund.id && !voucher.expired));
-            })
+            .then((res) => setVouchers(res.data.data))
             .finally(() => setProgress(100));
-    }, [authIdentity, fund, voucherService, setProgress]);
+    }, [voucherService, setProgress]);
+
+    const fetchPayouts = useCallback(() => {
+        setProgress(0);
+
+        payoutTransactionService
+            .list()
+            .then((res) => setPayouts(res.data.data))
+            .finally(() => setProgress(100));
+    }, [setProgress, payoutTransactionService]);
 
     const fetchFundRequests = useCallback(() => {
         if (!authIdentity || !fund) {
@@ -452,12 +464,14 @@ export default function FundActivate() {
     );
 
     useEffect(() => {
-        fetchFund();
-    }, [fetchFund]);
+        setFund(null);
+        fetchFund(parseInt(id));
+    }, [fetchFund, id]);
 
     useEffect(() => {
+        fetchPayouts();
         fetchVouchers();
-    }, [fetchVouchers]);
+    }, [fetchPayouts, fetchVouchers]);
 
     useEffect(() => {
         fetchAuthIdentity().then();
@@ -480,21 +494,13 @@ export default function FundActivate() {
     }, [fund, initState, vouchers, fundRequests]);
 
     useEffect(() => {
-        if (!fund || !vouchersActive || !fundRequests) {
+        if (!fund || !vouchersActive || !payoutsActive || !fundRequests) {
             return;
         }
 
-        const request = fundRequests?.find((request) => {
-            return (
-                request.state === 'pending' ||
-                (request.state === 'approved' &&
-                    vouchersActive?.length > 0 &&
-                    isWithinInterval(dateParse(request.created_at, 'yyyy-MM-dd HH:mm:ss'), {
-                        start: dateParse(fund.start_date),
-                        end: dateParse(fund.end_date),
-                    }))
-            );
-        });
+        const request = fundRequests?.find(
+            (request) => request.state === 'pending' || (request.state === 'approved' && request.current_period),
+        );
 
         if (request) {
             setFundRequest(request);
@@ -512,13 +518,18 @@ export default function FundActivate() {
             return navigateState('voucher', { number: vouchersActive[0]?.number });
         }
 
+        // Payout already received, go to the payouts
+        if (payoutsActive?.length > 0) {
+            return navigateState('payouts');
+        }
+
         // All the criteria are meet, request the voucher
         if (fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
             applyFund(fund)
                 .then((voucher) => navigateState('voucher', { number: voucher.number }))
                 .catch(() => navigateState('fund', { id: fund.id }));
         }
-    }, [applyFund, fund, navigateState, vouchersActive, fundRequests]);
+    }, [applyFund, fund, navigateState, vouchersActive, fundRequests, payoutsActive]);
 
     useInterval(() => {
         const { timeToSkipBsn } = getTimeToSkip();
@@ -571,7 +582,7 @@ export default function FundActivate() {
                                             )}
                                         </div>
                                     </h3>
-                                    <div className="sign_up-options">
+                                    <div className="sign_up-options" data-dusk={'fundRequestOptions'}>
                                         {options?.includes('code') && (
                                             <div
                                                 data-dusk="codeOption"
@@ -1021,7 +1032,11 @@ export default function FundActivate() {
                         )}
 
                         {state == 'fund_already_applied' && fundRequest && (
-                            <div className="sign_up-pane">
+                            <div
+                                className="sign_up-pane"
+                                data-dusk={
+                                    fundRequest.state === 'approved' ? 'approvedFundRequest' : 'existingFundRequest'
+                                }>
                                 <div className="sign_up-pane-header">
                                     <h2 className="sign_up-pane-header-title">
                                         {translate(

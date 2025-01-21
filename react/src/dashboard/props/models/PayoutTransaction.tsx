@@ -25,6 +25,7 @@ export default interface PayoutTransaction {
     amount_preset_id?: number;
     transfer_in?: number;
     transfer_in_pending?: boolean;
+    expired?: boolean;
     fund: {
         id: number;
         name: string;
