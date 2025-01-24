@@ -90,6 +90,7 @@ export default function FundRequestStepConfirmCriteria({
                             onClick={onSubmitConfirmCriteria}
                             tabIndex={0}
                             type="button"
+                            data-dusk="nextStepButton"
                             role="button">
                             {translate('fund_request.sign_up.pane.footer.next')}
                             <em className="mdi mdi-chevron-right icon-right" />

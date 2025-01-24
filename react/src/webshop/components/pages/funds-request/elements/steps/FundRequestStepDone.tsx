@@ -47,7 +47,7 @@ export default function FundRequestStepDone({
                     </div>
                 </div>
             ) : (
-                <div className="sign_up-pane">
+                <div className="sign_up-pane" data-dusk="fundRequestSuccess">
                     <h2 className="sign_up-pane-header">Aanvraag ontvangen</h2>
                     <div className="sign_up-pane-body">
                         <div className="row">

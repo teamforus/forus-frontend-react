@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 export default function UIControlStep({
     id,
+    dataDusk = null,
     min = null,
     max = null,
     name,
@@ -13,6 +14,7 @@ export default function UIControlStep({
     className,
 }: {
     id?: string;
+    dataDusk?: string;
     min?: number;
     max?: number;
     name?: string;
@@ -34,12 +36,14 @@ export default function UIControlStep({
         <div
             className={classNames(`ui-control ui-control-step`, className)}
             role={role}
+            data-dusk={dataDusk}
             aria-label="Aanpassen"
             aria-valuenow={value}
             aria-valuemin={min}
             aria-valuemax={max}>
             <input type="number" name={name} id={id} value={value} hidden={true} readOnly={true} />
             <div
+                data-dusk="decreaseStep"
                 className="ui-control-step-icon"
                 onKeyDown={(e) => (e.key == 'Enter' ? decrease() : null)}
                 onClick={decrease}
@@ -52,6 +56,7 @@ export default function UIControlStep({
             <div className="ui-control-step-value">{value?.toString()}</div>
 
             <div
+                data-dusk="increaseStep"
                 className="ui-control-step-icon"
                 onKeyDown={(e) => (e.key == 'Enter' ? increase() : null)}
                 onClick={increase}
