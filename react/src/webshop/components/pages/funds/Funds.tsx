@@ -24,6 +24,8 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import usePayoutTransactionService from '../../../services/PayoutTransactionService';
+import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 
 export default function Funds() {
     const envData = useEnvData();
@@ -39,9 +41,11 @@ export default function Funds() {
     const fundService = useFundService();
     const voucherService = useVoucherService();
     const organizationService = useOrganizationService();
+    const payoutTransactionService = usePayoutTransactionService();
 
     const [tags, setTags] = useState<Array<Partial<Tag>>>(null);
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
 
@@ -99,6 +103,15 @@ export default function Funds() {
             .finally(() => setProgress(100));
     }, [voucherService, setProgress]);
 
+    const fetchPayouts = useCallback(() => {
+        setProgress(0);
+
+        payoutTransactionService
+            .list()
+            .then((res) => setPayouts(res.data.data))
+            .finally(() => setProgress(100));
+    }, [setProgress, payoutTransactionService]);
+
     const fetchOrganizations = useCallback(() => {
         setProgress(0);
 
@@ -117,11 +130,13 @@ export default function Funds() {
 
     useEffect(() => {
         if (authIdentity) {
+            fetchPayouts();
             fetchVouchers();
         } else {
-            setVouchers(null);
+            setPayouts([]);
+            setVouchers([]);
         }
-    }, [authIdentity, fetchVouchers]);
+    }, [authIdentity, fetchPayouts, fetchVouchers]);
 
     useEffect(() => {
         if (!appConfigs.funds.list) {
@@ -149,7 +164,7 @@ export default function Funds() {
             aside={
                 organizations &&
                 tags && (
-                    <div className="showcase-aside-block">
+                    <div className="showcase-aside-block" data-dusk="fundsSearchForm">
                         <div className="form-group">
                             <label className="form-label" htmlFor="search">
                                 {translate('funds.labels.search')}
@@ -159,6 +174,7 @@ export default function Funds() {
                                 value={filter.values.q}
                                 onChangeValue={(q) => filter.update({ q })}
                                 ariaLabel="Zoeken"
+                                dataDusk="fundsSearchInput"
                             />
                         </div>
                         <div className="form-group">
@@ -202,7 +218,7 @@ export default function Funds() {
                     {appConfigs.pages.funds && <CmsBlocks page={appConfigs.pages.funds} />}
 
                     {funds?.data?.length > 0 && (
-                        <div className="block block-funds-list" id="funds_list">
+                        <div className="block block-funds-list" id="funds_list" data-dusk="fundsList">
                             {funds?.data.map((fund) => (
                                 <FundsListItem
                                     key={fund.id}
@@ -210,6 +226,7 @@ export default function Funds() {
                                     fund={fund}
                                     funds={funds.data}
                                     vouchers={vouchers || []}
+                                    payouts={payouts}
                                 />
                             ))}
                         </div>

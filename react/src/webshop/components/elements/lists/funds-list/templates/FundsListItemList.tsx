@@ -99,6 +99,7 @@ export default function FundsListItemList({
                     <div className="fund-actions">
                         <button
                             type="button"
+                            data-dusk="activateButton"
                             className="button button-primary button-xs"
                             onClick={(e) => applyFund(e, fund)}>
                             {translate('list_blocks.fund_item_list.buttons.is_applicable')}
@@ -112,6 +113,7 @@ export default function FundsListItemList({
                         <StateNavLink
                             customElement={'button'}
                             name={'fund-requests'}
+                            dataDusk="pendingButton"
                             params={{ fund_id: fund.id }}
                             className="button button-text button-xs"
                             ng-click="$dir.goToFundRequests($event)">
