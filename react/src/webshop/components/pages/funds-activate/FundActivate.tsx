@@ -95,6 +95,7 @@ export default function FundActivate() {
     const [options, setOptions] = useState(null);
 
     const [fetchingData, setFetchingData] = useState(false);
+    const [applyingFund, setApplyingFund] = useState(false);
 
     const getTimeToSkipDigid = useCallback(
         (identity: Identity, fund: Fund, witOffset = true) => {
@@ -142,21 +143,26 @@ export default function FundActivate() {
 
     // Apply for the fund
     const applyFund = useCallback(
-        function (fund: Fund): Promise<Voucher> {
-            return new Promise((resolve, reject) => {
-                fundService
-                    .apply(fund.id)
-                    .then((res) => {
-                        pushSuccess(`Succes! ${res.data.data.fund.name} tegoed geactiveerd!`);
-                        resolve(res.data.data);
-                    })
-                    .catch((err: ResponseError) => {
-                        pushDanger(err.data.message);
-                        reject(err);
-                    });
-            });
+        function (fund: Fund) {
+            if (applyingFund) {
+                return;
+            }
+
+            setApplyingFund(true);
+
+            fundService
+                .apply(fund.id)
+                .then((res) => {
+                    pushSuccess(`Succes! ${res.data.data.fund.name} tegoed geactiveerd!`);
+                    navigateState('voucher', { number: res.data.data.number });
+                })
+                .catch((err: ResponseError) => {
+                    pushDanger(err.data.message);
+                    navigateState('fund', { id: fund.id });
+                })
+                .finally(() => setApplyingFund(false));
         },
-        [fundService, pushDanger, pushSuccess],
+        [applyingFund, fundService, navigateState, pushDanger, pushSuccess],
     );
 
     const codeForm = useFormBuilder({ code: '' }, (values) => {
@@ -525,9 +531,7 @@ export default function FundActivate() {
 
         // All the criteria are meet, request the voucher
         if (fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
-            applyFund(fund)
-                .then((voucher) => navigateState('voucher', { number: voucher.number }))
-                .catch(() => navigateState('fund', { id: fund.id }));
+            applyFund(fund);
         }
     }, [applyFund, fund, navigateState, vouchersActive, fundRequests, payoutsActive]);
 
