@@ -56,7 +56,6 @@ const globalConfigs = {
         'config.flags': {
             fundsMenu: true,
             show2FAMenu: true,
-            logoExtension: '.svg',
             showStartButton: true,
             genericSearch: true,
         },

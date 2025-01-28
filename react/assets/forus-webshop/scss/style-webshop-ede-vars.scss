@@ -6,17 +6,24 @@ $primaryColorLight: #3558a2;
 
 :root {
     // navbar
-    --bg-nav: #3558a2;
-    --tc-nav-hov: #cdcdcd;
-    --tc-nav: #ffffff;
-    --logo-padding: 30px 0px;
-    --logo-height: 75px;
+    --navbar-menu-gap: 12px;
+    --navbar-menu-order: 2;
+    --navbar-menu-background: #3558a2;
+    --navbar-menu-item-padding: 16px 10px;
+    --navbar-menu-item-color: #ffffff;
+    --navbar-menu-item-color-hover: #ffffff;
+    --navbar-menu-item-background: transparent;
+    --navbar-menu-item-background-hover: #354B89;
+
+    --navbar-search-order: 1;
+    --navbar-search-padding: 30px 0px;
+    --navbar-logo-height: 75px;
 
     // navbar (auth)
     --tc-auth-menu: #3558a2;
     --tc-auth-btn: #fff;
     --btn-auth-bg: #3558a2;
-    --btn-auth-border: #fff;
+    --btn-auth-border: #3558a2;
 
     // navbar (start modal primary)
     --tc-start-btn: #fff;

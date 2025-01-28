@@ -1,87 +1,8 @@
 .block {
-    &.block-navbar {
-        .block-auth {
-            .button {
-                &.button-primary {
-                    &:hover {
-                        background-color: #a21522;
-                    }
-                }
-            }
-        }
-
-        .block-subnav {
-            background-color: #ffffff;
-        }
-
-        .navbar-list {
-            .navbar-item-wrapper {
-                .navbar-item {
-                    &:hover {
-                        &:before {
-                            background: #ffffff;
-                        }
-                    }
-
-                    &.active {
-                        &:before {
-                            top: auto;
-                            bottom: 0;
-                        }
-                    }
-                }
-
-                .navbar-item.active:before {
-                    top: auto;
-                    bottom: 0;
-                    background: #ffffff;
-                }
-
-                .navbar-item.hover:before {
-                    top: auto;
-                    bottom: 0;
-                    background: #ffffff;
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: 1000px) {
-        &.block-navbar {
-            .navbar-inner {
-                order: 2;
-            }
-
-            .block-navbar-search {
-                max-width: 760px;
-            }
-        }
-    }
-
     .block-subnav {
         background-color: #77b431;
     }
 
-    @media screen and (max-width: 1000px) {
-        &.block-navbar {
-            position: sticky;
-            background-color: #0071B8;
-            
-            .navbar-inner {
-                background-color: var(--bg_2);
-            }
-
-            .navbar-logo {
-                img {
-                    display: none;
-
-                    &.hover {
-                        display: block;
-                    }
-                }
-            }
-        }
-    }
 
     &.block-profile {
         .profile-aside {

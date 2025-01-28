@@ -840,8 +840,6 @@ export default function ModalVouchersUpload({
                             return false;
                         });
 
-                    console.log('valid', valid);
-
                     if (!valid) {
                         return false;
                     }
