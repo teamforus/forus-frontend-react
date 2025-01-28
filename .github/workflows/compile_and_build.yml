@@ -6,8 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 21
 
@@ -19,10 +19,3 @@ jobs:
         
       - name: Build
         run: npm run build-dev -- --env only="webshop.general,dashboard.sponsor,dashboard.provider,dashboard.validator"
-
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: Dist
-          path: dist/*
-          retention-days: 1

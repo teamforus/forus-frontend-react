@@ -54,6 +54,9 @@ export default {
         midden_drenthe: {
             funds: 'Regelingen',
         },
+        wadenheuvel: {
+            funds: 'Regelingen',
+        },
     },
     buttons: {
         westerkwartier: {

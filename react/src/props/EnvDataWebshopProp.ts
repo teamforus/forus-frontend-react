@@ -36,7 +36,6 @@ export default interface EnvDataWebshopProp {
 
         flags: {
             genericSearch?: boolean;
-            genericSearchUseToggle?: boolean;
             showAccountSidebar?: boolean;
             showOnlyUsedCategories?: boolean;
             show2FAMenu?: boolean;
@@ -52,6 +51,7 @@ export default interface EnvDataWebshopProp {
             productsMenu?: boolean;
             providersMenu?: boolean;
             providersSignUpMenu?: boolean;
+            navbarCombined?: boolean;
 
             noPrintOption?: boolean;
             activateFirstFund?: boolean;
@@ -66,7 +66,6 @@ export default interface EnvDataWebshopProp {
             productDetailsOnlyAvailableFunds?: boolean;
 
             productsAlign?: 'left' | 'center' | 'right';
-            logoExtension?: '.svg' | '.png';
 
             menuItems?: Array<{
                 id?: string;

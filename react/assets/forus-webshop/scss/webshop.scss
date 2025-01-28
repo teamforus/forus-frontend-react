@@ -13,7 +13,6 @@
 @import '_common/layout/footer';
 @import '_common/layout/grid';
 @import '_common/layout/header';
-@import '_common/layout/navigation';
 
 // COMPONENTS
 @import '_common/components/breadcrumbs';
@@ -100,6 +99,8 @@
 @import '_common/sections/blocks/block-error-page';
 @import '_common/sections/blocks/block-about-me_app';
 @import '_common/sections/blocks/block-app_links';
+@import '_common/sections/blocks/block-navbar-mobile';
+@import '_common/sections/blocks/block-navbar-desktop';
 @import '_common/sections/blocks/block-navbar-search';
 @import '_common/sections/blocks/block-search-results';
 

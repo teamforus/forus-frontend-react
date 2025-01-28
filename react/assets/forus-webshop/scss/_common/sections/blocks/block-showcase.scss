@@ -400,10 +400,6 @@
         flex-direction: column;
         z-index: 2;
 
-        .block-navbar {
-            margin: 0;
-        }
-
         .showcase-wrapper {
             width: 100%;
             height: 100%;
@@ -500,10 +496,6 @@
     }
 
     @media screen and (max-width: 1000px) {
-        .block-navbar {
-            margin: 0 0 0;
-        }
-
         .showcase-title {
             font: 700 16px/26px var(--base-font);
             margin: 0 0 0;

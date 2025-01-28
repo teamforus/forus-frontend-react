@@ -12,6 +12,7 @@ import useAppConfigs from '../hooks/useAppConfigs';
 import LayoutFooter from './elements/LayoutFooter';
 import Printable from '../../dashboard/modules/printable/components/Printable';
 import ErrorBoundaryHandler from '../../dashboard/components/elements/error-boundary-handler/ErrorBoundaryHandler';
+import { TopNavbar } from '../components/elements/top-navbar/TopNavbar';
 
 export const Layout = ({ children }: { children: React.ReactElement }) => {
     const { route } = useStateRoutes();
@@ -57,6 +58,7 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
 
                     {isReady && (
                         <section className={`${layout == LayoutType.dashboard ? 'app app-content' : ''}`}>
+                            <TopNavbar />
                             {children}
                         </section>
                     )}

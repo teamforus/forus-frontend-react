@@ -5,11 +5,15 @@ $primaryColorLight: #2a2a7f;
 
 :root {
     // navbar
-    --bg-nav: #2a2a7f;
-    --tc-nav-hov: #ececec;
-    --tc-nav: #ffffff;
-    --logo-padding: 25px 0px;
-    --logo-height: 100px;
+    --navbar-menu-background: #2a2a7f;
+    --navbar-menu-item-color-hover: #ececec;
+    --navbar-menu-item-color: #ffffff;
+    --navbar-search-padding: 25px 0px;
+    --navbar-logo-height: 100px;
+
+    // Nav item line position
+    --navbar-menu-item-line-position-top: auto;
+    --navbar-menu-item-line-position-bottom: 0;
 
     // navbar (auth)
     --tc-auth-menu: #2a2a7f;

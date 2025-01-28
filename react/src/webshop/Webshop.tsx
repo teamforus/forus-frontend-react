@@ -82,7 +82,6 @@ function RouterSelector({ children, envData }: { envData: EnvDataProp; children:
  */
 export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): React.ReactElement {
     envData.config.flags = {
-        logoExtension: '.svg',
         showAccountSidebar: true,
 
         // menu settings

@@ -2,14 +2,6 @@
 @import "vergoedingen/includes/fonts";
 @import "vergoedingen/includes/shame";
 
-#main-content {
-    padding-top: 80px;
-
-    @media screen and (max-width: 1000px) {
-        padding-top: 0;
-    }
-}
-
 // BLOCKS
 @import "vergoedingen/sections/blocks/block-sign_up";
 @import "vergoedingen/sections/blocks/block-organization-info";

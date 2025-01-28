@@ -8,32 +8,6 @@
     }
 }
 
-.block {
-    &.block-navbar {
-        .navbar-list {
-            .navbar-item-wrapper {
-                .navbar-item.active:before {
-                    top: auto;
-                    bottom: 0;
-                    background: #01689B;
-                }
-            }
-        }
-
-        .block-subnav {
-            background-color: #F5F5F5;
-        }
-
-        .block-navbar-search {
-            .search-form.form {
-                .form-control {
-                    border-radius: 5px;
-                }
-            }
-        }
-    }
-}
-
 @media screen and (min-width: 1000px) {
     .section {
         &.section-header {

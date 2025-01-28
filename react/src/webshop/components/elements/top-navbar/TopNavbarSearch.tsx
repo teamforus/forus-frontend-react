@@ -1,7 +1,6 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigateState, useStateRoutes } from '../../../modules/state_router/Router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import useEnvData from '../../../hooks/useEnvData';
 import { mainContext } from '../../../contexts/MainContext';
 import ClickOutside from '../../../../dashboard/components/elements/click-outside/ClickOutside';
 import {
@@ -33,11 +32,11 @@ export type SearchResultLocal = {
     providers: SearchResultGroupLocal;
 };
 
-export default function TopNavbarSearch() {
-    const envData = useEnvData();
+export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boolean }) {
     const appConfigs = useAppConfigs();
     const { route } = useStateRoutes();
     const { setShowSearchBox, searchFilter } = useContext(mainContext);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const translate = useTranslate();
     const navigateState = useNavigateState();
@@ -117,13 +116,9 @@ export default function TopNavbarSearch() {
     );
 
     const hideSearchBox = useCallback(() => {
-        if (!envData.config?.flags?.genericSearchUseToggle && window.innerWidth >= 1000) {
-            return;
-        }
-
         setShowSearchBox(false);
         hideDropDown();
-    }, [envData?.config?.flags?.genericSearchUseToggle, setShowSearchBox, hideDropDown]);
+    }, [setShowSearchBox, hideDropDown]);
 
     useEffect(() => {
         setLastQuery(filters.activeValues.q);
@@ -158,7 +153,7 @@ export default function TopNavbarSearch() {
     }, [filterUpdate, globalQuery]);
 
     return (
-        <div className={`block block-navbar-search ${dropdown ? 'block-navbar-search-results' : ''}`}>
+        <div className={classNames(`block block-navbar-search`, dropdown && 'block-navbar-search-results')}>
             <form
                 onSubmit={(e) => {
                     e?.preventDefault();
@@ -170,7 +165,10 @@ export default function TopNavbarSearch() {
                 }}
                 className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
                 <ClickOutside onClickOutside={hideSearchBox}>
-                    <div className="search-area">
+                    <div
+                        className="search-area"
+                        onFocus={() => setSearchFocused(true)}
+                        onBlur={() => setSearchFocused(false)}>
                         <label id="search-label" htmlFor="genericSearch" className="navbar-search-label">
                             {translate(`top_navbar_search.placeholders.search_${appConfigs.communication_type}`)}
                         </label>
@@ -180,21 +178,31 @@ export default function TopNavbarSearch() {
                         <input
                             id="genericSearch"
                             type="text"
-                            className={classNames('form-control', (searchFocused || dropdown) && 'focused')}
+                            ref={inputRef}
+                            className={classNames(
+                                'form-control',
+                                'navbar-search-input',
+                                (searchFocused || dropdown) && 'focused',
+                            )}
+                            autoFocus={autoFocus}
                             autoComplete={'off'}
                             value={filters.values.q}
                             onChange={(e) => filters.update({ q: e.target.value })}
                             onKeyDown={cancelSearch}
                             aria-labelledby="search-label"
-                            onFocus={() => setSearchFocused(true)}
-                            onBlur={() => setSearchFocused(false)}
                             aria-haspopup={true}
                         />
                         {filters.values.q && (
                             <div
                                 className="search-reset"
-                                onClick={() => filters.update({ q: '' })}
-                                onKeyDown={clickOnKeyEnter}
+                                onClick={(e) => {
+                                    e?.stopPropagation();
+                                    filters.update({ q: '' });
+                                    inputRef?.current?.focus();
+                                }}
+                                onKeyDown={(e) => {
+                                    clickOnKeyEnter(e, true);
+                                }}
                                 tabIndex={0}
                                 aria-label="Sluit zoeken"
                                 role="button">

@@ -2,21 +2,30 @@
 $primaryColor: #0d4379;
 $primaryColorLight: #0d4379;
 
-@import url("https://fonts.googleapis.com/css?family=Verdana");
+@import url('https://fonts.googleapis.com/css?family=Verdana');
 
 :root {
     // navbar
-    --bg-nav: #f5f5f5;
-    --tc-nav-hov: #4a60b3;
-    --tc-nav: #6b6b80;
-    --logo-padding: 20px 0px;
-    --logo-height: 90px;
+    --navbar-menu-background: #f5f5f5;
+    --navbar-search-background: #f5f5f5;
+    --navbar-menu-item-color-hover: #4a60b3;
+    --navbar-menu-item-color: #6b6b80;
+    --navbar-search-padding: 20px 0px;
+    --navbar-logo-height: 90px;
+
+    // Nav item line position
+    --navbar-menu-item-line-position-top: auto;
+    --navbar-menu-item-line-position-bottom: 0;
+
+    // Search bar
+    --search-bar-label-top: -18px;
+    --search-bar-label-background: transparent;
 
     // navbar (auth)
     --tc-auth-menu: #ffffff;
     --tc-auth-btn: #ffffff;
     --btn-auth-bg: #0d4379;
-    --btn-auth-border: #ffffff;
+    --btn-auth-border: #0d4379;
 
     // navbar (start modal primary)
     --tc-start-btn: #ffffff;
@@ -24,7 +33,7 @@ $primaryColorLight: #0d4379;
     --btn-start-btn: #609609;
     --btn-start-border: transparent;
 
-    --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
+    --bg-values: url('../img/splash-top-b.jpg') no-repeat center 100%;
 
     // base font
     --base-font: Arial, Verdana;
@@ -72,7 +81,7 @@ $primaryColorLight: #0d4379;
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
 
     // Label sets
-    --label-set-hover-background: #{rgba($primaryColor, .8)};
+    --label-set-hover-background: #{rgba($primaryColor, 0.8)};
 
     //- Showcase
     --showcase-fullscreen-bottom-offset: 155px;

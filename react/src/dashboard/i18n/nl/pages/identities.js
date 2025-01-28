@@ -21,20 +21,27 @@ export default {
         actions: 'Acties',
     },
     tooltips: {
-        id: 'ID',
-        given_name: 'Voornaam',
-        family_name: 'Achternaam',
-        email: 'E-mail adres',
-        bsn: 'BSN',
-        birth_date: 'Geboorte datum',
-        last_activity: 'Laatste inlog',
-        postal_code: 'Postcode',
-        vouchers_count: 'Aantal tegoeden',
+        id: 'Dit is een unieke identificatiecode die automatisch wordt gegenereerd voor elke persoon in het systeem. Het helpt om elke persoon individueel te identificeren.',
+        given_name:
+            'Dit veld bevat de voornaam van de persoon. Het is belangrijk voor persoonlijke communicatie en identificatie.',
+        family_name:
+            'Dit veld bevat de achternaam van de persoon. Samen met de voornaam zorgt dit voor een volledige naamweergave.',
+        email: 'Dit veld bevat het e-mailadres van de persoon. Het wordt gebruikt voor communicatie en meldingen binnen het platform en dient tevens als inlogmethode.',
+        bsn: 'Dit staat voor "Burger Service Nummer". Het is een uniek identificatienummer dat wordt gebruikt door de overheid om personen te identificeren in verschillende administratieve processen.',
+        birth_date:
+            'Dit veld bevat de geboortedatum van de persoon. Het is belangrijk voor persoonlijke identificatie, ondersteuning bij het gebruik, en om per regio inzicht te krijgen in de aanvraag en het gebruik van regelingen.',
+        last_activity:
+            'Dit veld toont de datum en tijd waarop de persoon voor het laatst heeft ingelogd op het platform. Dit helpt om de activiteit van de persoon te monitoren.',
+        postal_code:
+            'Dit veld bevat de postcode van de persoon. Dit helpt bij persoonlijke identificatie, ondersteuning bij het gebruik, en om per regio inzicht te krijgen in de aanvraag en het gebruik van regelingen.',
+        vouchers_count:
+            'Dit veld toont het aantal tegoeden (vouchers) dat momenteel aan de persoon is toegekend. Dit geeft inzicht in de financiële of materiële ondersteuning die de persoon heeft ontvangen via het platform.',
         mobile: 'Mobiele telefoonnummer',
-        city: 'Woonplaats',
-        house_number: 'Huisnummer',
-        house_number_addition: 'Huisnummer toevoeging',
-        street: 'Straatnaam',
+        city: 'Dit veld bevat de woonplaats van de persoon. Het helpt bij persoonlijke identificatie, ondersteuning bij het gebruik, en om per regio inzicht te krijgen in de aanvraag en het gebruik van regelingen.',
+        house_number:
+            'Een numerieke aanduiding die door de gemeente aan een object is toegekend (volgens NEN 5825:2002).',
+        house_number_addition: 'Extra toevoegingen aan het huisnummer, zoals toegekend door de gemeente.',
+        street: 'De officiële, door de gemeente vastgestelde naam van een straat.',
         created_at: 'Gemaakt op',
     },
     bank_accounts: {
