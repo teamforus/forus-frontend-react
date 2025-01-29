@@ -1,9 +1,10 @@
-import { ResponseProp } from '../props/ApiResponses';
+import { ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Announcement from '../props/models/Announcement';
 import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
+import Language from '../props/models/Language';
 
 export type AppConfigProp = {
     add_money: boolean;
@@ -194,6 +195,7 @@ export type AppConfigProp = {
     show_voucher_map: boolean;
     show_product_map: boolean;
     page_title_suffix?: string;
+    languages: Array<Language>;
 };
 
 export class ConfigService<T = AppConfigProp> {
@@ -209,7 +211,7 @@ export class ConfigService<T = AppConfigProp> {
      */
     public prefix = '/platform';
 
-    public get(type: string): Promise<ResponseProp<T>> {
+    public get(type: string): Promise<ResponseSimple<T>> {
         return this.apiRequest.get(`${this.prefix}/config/${type}`);
     }
 }

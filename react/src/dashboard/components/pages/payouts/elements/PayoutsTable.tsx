@@ -146,7 +146,7 @@ export default function PayoutsTable({
                                             <TableDateTime value={transaction.transfer_at_locale} />
                                         </td>
                                         <td>
-                                            <div className="text-medium text-primary">
+                                            <div className="text-semibold text-primary">
                                                 {transaction.payment_type_locale.title}
                                             </div>
                                             <div
@@ -161,7 +161,7 @@ export default function PayoutsTable({
                                                     <div
                                                         title={relation.value}
                                                         className={
-                                                            relation.type === 'bsn' ? 'text-primary text-medium' : ''
+                                                            relation.type === 'bsn' ? 'text-primary text-semibold' : ''
                                                         }
                                                         key={relation.id}>
                                                         {strLimit(relation.value)}

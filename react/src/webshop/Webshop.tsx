@@ -25,12 +25,9 @@ import i18nNL from './i18n/i18n-nl.mjs';
 import i18nEN from './i18n/translated/en-US.json';
 import CookieBanner from './modules/cookie_banner/CookieBanner';
 import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
+import { isValidLocaleString } from '../dashboard/helpers/url';
 
-const locale = ['en', 'nl'].includes(localStorage.getItem('locale')) ? localStorage.getItem('locale') : 'nl';
-
-if (localStorage.getItem('locale') && localStorage.getItem('locale') !== locale) {
-    localStorage.setItem('locale', localStorage.getItem('locale'));
-}
+const locale = localStorage.getItem('locale');
 
 i18n.use(initReactI18next)
     .init({
@@ -38,7 +35,7 @@ i18n.use(initReactI18next)
             en: { translation: i18nEN },
             nl: { translation: i18nNL },
         },
-        lng: locale,
+        lng: isValidLocaleString(locale) ? locale : 'nl',
         fallbackLng: 'nl',
         // https://www.i18next.com/translation-function/interpolation#unescape
         interpolation: { escapeValue: true },

@@ -763,6 +763,7 @@ export default {
         buttons: {
             add: 'Organisatie toevoegen',
             edit: 'Organisatie instellingen',
+            translations: 'Vertalingen instellingen',
             contacts: 'Organisatie berichten',
             notifications_preferences: 'Notificatievoorkeuren',
         },

@@ -184,6 +184,7 @@ export default {
     languages: {
         en: 'Engels',
         nl: 'Nederlands',
+        ar: 'Arabic',
     },
     email_service_switch: {
         confirm: 'Breng me naar mijn e-mail',

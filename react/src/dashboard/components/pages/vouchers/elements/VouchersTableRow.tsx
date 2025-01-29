@@ -75,11 +75,11 @@ export default function VouchersTableRow({
             </td>
 
             <td>
-                <div className="text-md text-muted-dark text-medium">{voucher.source_locale}</div>
+                <div className="text-md text-muted-dark text-semibold">{voucher.source_locale}</div>
             </td>
 
             <td>
-                <div className="text-md text-muted-dark text-medium">{voucher.product ? 'Product' : 'Budget'}</div>
+                <div className="text-md text-muted-dark text-semibold">{voucher.product ? 'Product' : 'Budget'}</div>
             </td>
 
             {!voucher.product ? (
@@ -92,7 +92,7 @@ export default function VouchersTableRow({
                 </td>
             ) : (
                 <td>
-                    <div className="text-primary text-medium" title={voucher.product.organization.name}>
+                    <div className="text-primary text-semibold" title={voucher.product.organization.name}>
                         {strLimit(voucher.product.organization.name, 32)}
                     </div>
                     <div className="text-strong text-md text-muted-dark" title={voucher.product.name}>
@@ -110,7 +110,7 @@ export default function VouchersTableRow({
             </td>
 
             <td>
-                <div className="text-primary text-medium">{strLimit(voucher.fund.name, 32)}</div>
+                <div className="text-primary text-semibold">{strLimit(voucher.fund.name, 32)}</div>
 
                 <div className="text-strong text-md text-muted-dark">
                     {strLimit(voucher.fund.implementation?.name, 32)}
@@ -118,13 +118,13 @@ export default function VouchersTableRow({
             </td>
 
             <td>
-                <div className="text-medium text-primary">{voucher.created_at_locale.split(' - ')[0]}</div>
+                <div className="text-semibold text-primary">{voucher.created_at_locale.split(' - ')[0]}</div>
 
                 <div className="text-strong text-md text-muted-dark">{voucher.created_at_locale.split(' - ')[1]}</div>
             </td>
 
             <td>
-                <div className="text-medium text-primary">{voucher.expire_at_locale.split(',')[0]}</div>
+                <div className="text-semibold text-primary">{voucher.expire_at_locale.split(',')[0]}</div>
 
                 <div className="text-strong text-md text-muted-dark">{voucher.expire_at_locale.split(',')[1]}</div>
             </td>

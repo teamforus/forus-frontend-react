@@ -261,7 +261,7 @@ export default function ProviderFundsTable({
                                                     </div>
                                                     <div className="collapsable-content">
                                                         <div
-                                                            className="text-primary text-medium"
+                                                            className="text-primary text-semibold"
                                                             title={providerFund.fund.name}>
                                                             {strLimit(providerFund.fund.name, 32)}
                                                         </div>

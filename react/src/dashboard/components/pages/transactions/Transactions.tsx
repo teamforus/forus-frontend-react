@@ -829,7 +829,7 @@ export default function Transactions() {
                                                 </td>
                                             )}
                                             <td>
-                                                <div className={'text-medium text-primary'}>
+                                                <div className={'text-semibold text-primary'}>
                                                     {transaction.created_at_locale.split(' - ')[0]}
                                                 </div>
                                                 <div className={'text-strong text-md text-muted-dark'}>
@@ -850,7 +850,7 @@ export default function Transactions() {
                                             )}
                                             {isSponsor && (
                                                 <td>
-                                                    <div className="text-medium text-primary">
+                                                    <div className="text-semibold text-primary">
                                                         {transaction.payment_type_locale.title}
                                                     </div>
                                                     <div
@@ -872,7 +872,7 @@ export default function Transactions() {
                                                 <Fragment>
                                                     {transaction.non_cancelable_at_locale ? (
                                                         <td>
-                                                            <div className={'text-medium text-primary'}>
+                                                            <div className={'text-semibold text-primary'}>
                                                                 {transaction.non_cancelable_at_locale}
                                                             </div>
                                                         </td>
@@ -1057,7 +1057,7 @@ export default function Transactions() {
                                                 {transactionBulk.voucher_transactions_amount_locale}
                                             </td>
                                             <td>
-                                                <div className="text-medium text-primary">
+                                                <div className="text-semibold text-primary">
                                                     {transactionBulk.created_at_locale.split(' - ')[0]}
                                                 </div>
                                                 <div className="text-strong text-md text-muted-dark">

@@ -53,6 +53,8 @@ export type SelectControlOptionsProp<T> = {
     onOptionsScroll: (e: UIEvent<HTMLElement>) => void;
     disabled?: boolean;
     rawValue?: unknown;
+    propKey?: string | null;
+    propValue?: string | null;
 };
 
 export default function SelectControl<T>({
@@ -249,5 +251,7 @@ export default function SelectControl<T>({
         className,
         rawValue: value,
         disabled,
+        propKey,
+        propValue,
     });
 }
