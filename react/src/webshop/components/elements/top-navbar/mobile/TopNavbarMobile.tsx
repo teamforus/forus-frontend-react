@@ -32,8 +32,9 @@ export const TopNavbarMobile = () => {
             e.preventDefault();
 
             setShowSearchBox((showSearchBox) => !showSearchBox);
+            setMobileMenuOpened(false);
         },
-        [setShowSearchBox],
+        [setMobileMenuOpened, setShowSearchBox],
     );
 
     const openMobileMenu = useCallback(
@@ -44,8 +45,9 @@ export const TopNavbarMobile = () => {
             }
 
             setMobileMenuOpened((mobileMenuOpened) => !mobileMenuOpened);
+            setShowSearchBox(false);
         },
-        [setMobileMenuOpened],
+        [setMobileMenuOpened, setShowSearchBox],
     );
 
     const langSelector = useLangSelector();

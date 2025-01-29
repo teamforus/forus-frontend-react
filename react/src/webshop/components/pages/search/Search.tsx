@@ -21,6 +21,8 @@ import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNe
 import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
 import { clickOnKeyEnter, clickOnKeyEnterOrSpace } from '../../../../dashboard/helpers/wcag';
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
+import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
+import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 
 export default function Search() {
     const authIdentity = useAuthIdentity();
@@ -33,6 +35,7 @@ export default function Search() {
     const voucherService = useVoucherService();
     const organizationService = useOrganizationService();
     const productCategoryService = useProductCategoryService();
+    const payoutTransactionService = usePayoutTransactionService();
 
     const { searchFilter } = useContext(mainContext);
 
@@ -70,6 +73,7 @@ export default function Search() {
     ]);
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
+    const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
@@ -152,17 +156,22 @@ export default function Search() {
     }, [filterValuesActive]);
 
     const fetchVouchers = useCallback(() => {
-        if (authIdentity) {
-            setProgress(0);
+        setProgress(0);
 
-            return voucherService
-                .list()
-                .then((res) => setVouchers(res.data.data))
-                .finally(() => setProgress(100));
-        }
+        voucherService
+            .list()
+            .then((res) => setVouchers(res.data.data))
+            .finally(() => setProgress(100));
+    }, [setProgress, voucherService]);
 
-        return setVouchers([]);
-    }, [authIdentity, setProgress, voucherService]);
+    const fetchPayouts = useCallback(() => {
+        setProgress(0);
+
+        payoutTransactionService
+            .list()
+            .then((res) => setPayouts(res.data.data))
+            .finally(() => setProgress(100));
+    }, [setProgress, payoutTransactionService]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -203,8 +212,14 @@ export default function Search() {
     }, [fetchFunds]);
 
     useEffect(() => {
-        fetchVouchers();
-    }, [fetchVouchers]);
+        if (authIdentity) {
+            fetchVouchers();
+            fetchPayouts();
+        } else {
+            setVouchers([]);
+            setPayouts([]);
+        }
+    }, [authIdentity, fetchPayouts, fetchVouchers]);
 
     useEffect(() => {
         fetchOrganizations();
@@ -391,7 +406,12 @@ export default function Search() {
                     </div>
 
                     {searchItems?.data?.length > 0 && (
-                        <SearchItemsList items={searchItems.data} vouchers={vouchers} display={displayType} />
+                        <SearchItemsList
+                            items={searchItems.data}
+                            vouchers={vouchers}
+                            payouts={payouts}
+                            display={displayType}
+                        />
                     )}
 
                     {searchItems?.data?.length == 0 && (
