@@ -103,7 +103,7 @@ export default function OrganizationsTranslations() {
                                     inline={true}
                                     inlineSize={'lg'}
                                     label={'Vertalingen inschakelen'}
-                                    error={form.errors.translations_enabled}
+                                    error={form.errors?.translations_enabled}
                                     input={(id) => (
                                         <Fragment>
                                             <CheckboxControl
@@ -137,7 +137,7 @@ export default function OrganizationsTranslations() {
                                     inline={true}
                                     inlineSize={'lg'}
                                     label={'Daglimiet'}
-                                    error={form.errors.translations_daily_limit}
+                                    error={form.errors?.translations_daily_limit}
                                     input={(id) => (
                                         <FormGroupInfo
                                             info={
@@ -164,7 +164,7 @@ export default function OrganizationsTranslations() {
                                     inline={true}
                                     inlineSize={'lg'}
                                     label={'Weeklimiet'}
-                                    error={form.errors.translations_weekly_limit}
+                                    error={form.errors?.translations_weekly_limit}
                                     input={(id) => (
                                         <FormGroupInfo
                                             info={
@@ -193,7 +193,7 @@ export default function OrganizationsTranslations() {
                                     inline={true}
                                     inlineSize={'lg'}
                                     label={'Maandlimiet'}
-                                    error={form.errors.translations_monthly_limit}
+                                    error={form.errors?.translations_monthly_limit}
                                     input={(id) => (
                                         <FormGroupInfo
                                             info={
