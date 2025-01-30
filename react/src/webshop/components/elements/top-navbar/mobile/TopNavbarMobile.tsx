@@ -94,7 +94,7 @@ export const TopNavbarMobile = () => {
 
                 {envData.config?.flags?.genericSearch ? (
                     <div
-                        className="navbar-mobile-button"
+                        className={classNames('navbar-mobile-button', showSearchBox && 'active')}
                         onClick={(e) => {
                             e.stopPropagation();
                             toggleSearchBox(e);
