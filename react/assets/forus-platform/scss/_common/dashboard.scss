@@ -208,10 +208,18 @@ body {
         padding: 30px 0;
         position: relative;
         z-index: 2;
+        width: 100%;
+        max-width: 1470px;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        @extend .wrapper;
+        flex-direction: column;
+        gap: 30px;
+        margin: 0 auto;
+
+        .app-header-row {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+        }
 
         .header-logo {
             float: left;
@@ -604,142 +612,164 @@ body {
     }
 
     &.app-container {
-        margin-bottom: 80px;
-        @extend .wrapper;
-        @include cf();
+        width: 100%;
+        max-width: 1470px;
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        margin: 0 auto;
     }
 
     &.app-sidebar {
-        width: 280px;
-        min-height: 200px;
-        float: left;
-        padding-right: 30px;
+        flex: 0 0 280px;
+        padding-left: 8px;
 
         .sidebar-nav {
             display: flex;
             flex-direction: column;
+            gap: 5px;
+            padding-bottom: 100px;
 
-            .sidebar-nav-item {
-                position: relative;
-                padding: 7.5px 0 7.5px 35px;
-                margin-bottom: 5px;
-                display: block;
-                font: 500 13px/20px var(--base-font);
+            .sidebar-nav-group {
+                display: flex;
+                flex-direction: column;
+                background: transparent;
                 transition: 0.4s;
-                color: #646f79;
 
-                .sidebar-nav-item-icon {
-                    top: 3.5px;
-                    left: 0;
-                    position: absolute;
+                .sidebar-nav-group-header {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    border-radius: 3px;
+                    transition: background-color 0.4s;
 
-                    img {
-                        opacity: 1;
-                        float: left;
-                        width: 28px;
-                        height: 28px;
-                        transition: 0.4s;
+                    .sidebar-nav-group-header-icon {
+                        display: flex;
+                        flex: 0 0 32px;
+                        position: relative;
 
-                        &.active,
-                        &.hover {
-                            opacity: 0;
+                        svg {
+                            display: block;
                         }
 
-                        &.hover {
-                            margin-left: -28px;
+                        .sidebar-nav-group-header-icon-default {
+                            opacity: 1;
+                            transition: opacity 0.4s;
+                        }
+
+                        .sidebar-nav-group-header-icon-active {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            opacity: 0;
+                            transition: opacity 0.4s;
+                        }
+                    }
+
+                    .sidebar-nav-group-header-title {
+                        display: flex;
+                        flex: 1 1 auto;
+                        font: 600 14px/20px var(--base-font);
+                        padding: 6px 0;
+                        transition: color 0.4s;
+                    }
+
+                    .sidebar-nav-group-header-toggle {
+                        display: flex;
+                        flex: 0 0 32px;
+                        height: 32px;
+                        justify-content: center;
+                        align-items: center;
+                        color: #b0bec5;
+                        font-size: 20px;
+                        transition: color 0.4s;
+                    }
+
+                    &:hover {
+                        background: #426993;
+
+                        .sidebar-nav-group-header-icon {
+                            .sidebar-nav-group-header-icon-default {
+                                opacity: 0;
+                            }
+
+                            .sidebar-nav-group-header-icon-active {
+                                opacity: 1;
+                            }
+                        }
+
+                        .sidebar-nav-group-header-title {
+                            color: #fff;
+                        }
+
+                        .sidebar-nav-group-header-toggle {
+                            color: #fff;
+                        }
+                    }
+                }
+
+                .sidebar-nav-group-items {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0 0 0 22px;
+                    border-left: 2px solid var(--border-color);
+                    padding: 8px 0 6px;
+
+                    .sidebar-nav-group-item {
+                        padding: 5px 10px 5px 20px;
+                        font: 500 14px/20px var(--base-font);
+                        color: #151b26;
+                        text-decoration: none;
+                        margin-left: -2px;
+                        border-left: 2px solid var(--border-color);
+
+                        &:hover {
+                            color: #426993;
+                            text-decoration: underline;
                         }
 
                         &.active {
-                            margin-left: -28px;
+                            color: #134478;
+                            border-left: 2px solid #134478;
                         }
                     }
                 }
 
-                .sidebar-nav-item-arrow {
-                    opacity: 0;
-                    top: 50%;
-                    right: 0;
-                    position: absolute;
-                    transform: translate(0, -50%);
+                &.sidebar-nav-group-active {
+                    & > .sidebar-nav-group-header {
+                        background: #134478;
+                        border-radius: 3px;
 
-                    .mdi {
-                        font-size: 20px;
-                        line-height: 20px;
-                        float: right;
-                    }
-                }
+                        .sidebar-nav-group-header-icon {
+                            .sidebar-nav-group-header-icon-default {
+                                opacity: 0;
+                            }
 
-                &:focus,
-                &:hover {
-                    color: #009ef4;
-                    text-decoration: none;
-                }
-
-                &.active {
-                    color: #004195;
-                }
-
-                &:hover:not(.active) {
-                    .sidebar-nav-item-icon {
-                        img {
-                            opacity: 0;
-
-                            &.hover {
+                            .sidebar-nav-group-header-icon-active {
                                 opacity: 1;
                             }
                         }
-                    }
-                }
 
-                &.active {
-                    .sidebar-nav-item-arrow {
-                        opacity: 1;
-                    }
+                        .sidebar-nav-group-header-title {
+                            color: #fff;
+                        }
 
-                    .sidebar-nav-item-icon {
-                        img {
-                            opacity: 0;
-
-                            &.active {
-                                opacity: 1;
-                            }
+                        .sidebar-nav-group-header-toggle {
+                            color: #fff;
                         }
                     }
-                }
-            }
-
-            .sidebar-nav-devider {
-                border-bottom: 1px solid #d4d9dd;
-                width: 100%;
-                height: 1px;
-                padding: 15px 0 0;
-                margin: 0 0 20px;
-            }
-
-            .sidebar-section-title {
-                font: 500 14px/20px var(--base-font);
-                padding: 20px 0 15px;
-                color: #000000;
-                cursor: default;
-
-                &:first-child {
-                    padding: 10px 0 15px;
                 }
             }
         }
     }
 
     &.app-content {
-        width: calc(100% - 280px);
-        float: left;
-        padding: 10px 0;
-    }
-
-    &.app-footer {
-        width: 100%;
-        text-align: center;
-        padding: 25px 0;
-        flex-shrink: 0;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
     }
 
     @media screen and (max-width: 1300px) {
@@ -1517,7 +1547,7 @@ body {
                             display: flex;
                             flex-direction: row;
                             gap: 0;
-                            color: #646F79;
+                            color: #646f79;
                             cursor: pointer;
 
                             .mdi {
@@ -1533,7 +1563,7 @@ body {
                     }
 
                     .keyvalue-value-history-body {
-                        background: #F7F9FC;
+                        background: #f7f9fc;
                         border-radius: var(--border-radius);
                         border: 1px solid var(--border-color);
                         padding: 5px 15px;
@@ -1548,7 +1578,7 @@ body {
                             padding: 6px 0;
                             font: 500 12px/20px var(--base-font);
                             border-bottom: 1px solid var(--border-color);
-                            color: #646F79;
+                            color: #646f79;
 
                             strong {
                                 color: #000;
@@ -4569,7 +4599,6 @@ body {
             width: 660px;
             margin: 0 auto;
             text-align: center;
-            background: assetUrl('img/upload-bg.png') no-repeat 50% 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;

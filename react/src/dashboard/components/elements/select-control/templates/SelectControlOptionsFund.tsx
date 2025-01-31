@@ -78,7 +78,7 @@ export default function SelectControlOptionsFund<T>({
                             <img
                                 src={
                                     (modelValue?.raw as Fund)?.logo?.sizes?.thumbnail ||
-                                    assetUrl('/assets/img/menu/icon-my_funds.svg')
+                                    assetUrl('/assets/img/icon-my_funds.svg')
                                 }
                                 alt=""
                             />
