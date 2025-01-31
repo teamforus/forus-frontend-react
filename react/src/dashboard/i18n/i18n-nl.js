@@ -694,6 +694,13 @@ export default {
         buttons: {
             view: 'Bekijken',
         },
+        empty_title: {
+            pending:
+                "Er zijn momenteel geen aanbieders die actie benodigd hebben. Bekijk de tabbladen 'Actief' en 'Inactief' om eerder beoordeelde aanbieders te bekijken.",
+            active: "Er zijn momenteel geen actieve aanbieders. Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
+            rejected:
+                "Er zijn momenteel geen inactieve aanbieders. Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
+        },
     },
 
     // ORGANIZATION VALIDATORS = organization-validators.pug

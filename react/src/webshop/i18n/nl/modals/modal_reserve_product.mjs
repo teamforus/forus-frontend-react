@@ -110,6 +110,7 @@ export default {
     buttons: {
         cancel: 'Annuleren',
         back: 'Terug',
+        next: 'Volgende',
         confirm: 'Bevestigen',
         submit: 'Indienen',
         adjust: 'Terug',

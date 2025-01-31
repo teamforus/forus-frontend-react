@@ -545,7 +545,7 @@ export default function SponsorProviderOrganizations() {
                 <LoaderTableCard
                     loading={loading}
                     empty={providerOrganizations.meta.total == 0}
-                    emptyTitle={'Je hebt nog geen verzoeken van aanbieders'}>
+                    emptyTitle={translate(`provider_organizations.empty_title.${filterActiveValues.state_group}`)}>
                     <div className="card-section">
                         <div className="card-block card-block-table">
                             {configsElement}

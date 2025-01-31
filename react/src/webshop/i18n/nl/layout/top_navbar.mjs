@@ -10,7 +10,7 @@ export default {
         signup: 'Uitleg aanbieders',
         search: 'Zoek',
         menu: {
-            show: 'Meer',
+            show: 'Menu',
             close: 'Sluiten',
         },
         westerkwartier: {

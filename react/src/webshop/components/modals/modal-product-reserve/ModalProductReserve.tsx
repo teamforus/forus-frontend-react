@@ -619,7 +619,7 @@ export default function ModalProductReserve({
                                         className="button button-primary button-sm"
                                         data-dusk="btnSelectVoucher"
                                         onClick={() => selectVoucher(vouchersList[0])}>
-                                        {translate('modal_reserve_product.buttons.confirm')}
+                                        {translate('modal_reserve_product.buttons.next')}
                                     </button>
                                 </div>
                             </div>
@@ -830,7 +830,7 @@ export default function ModalProductReserve({
                                 {translate('modal_reserve_product.buttons.back')}
                             </button>
                             <button className="button button-primary button-sm" type="submit" data-dusk="btnSubmit">
-                                {translate('popup_auth.buttons.submit')}
+                                {translate('modal_reserve_product.buttons.next')}
                             </button>
                         </div>
                     </div>
@@ -962,7 +962,7 @@ export default function ModalProductReserve({
                                 {translate('modal_reserve_product.buttons.back')}
                             </button>
                             <button className="button button-primary button-sm" type="submit" data-dusk="btnSubmit">
-                                {translate('popup_auth.buttons.submit')}
+                                {translate('modal_reserve_product.buttons.next')}
                             </button>
                         </div>
                     </div>
@@ -1035,7 +1035,7 @@ export default function ModalProductReserve({
                                 {translate('modal_reserve_product.buttons.back')}
                             </button>
                             <button className="button button-primary button-sm" type="submit" data-dusk="btnSubmit">
-                                {translate('popup_auth.buttons.submit')}
+                                {translate('modal_reserve_product.buttons.next')}
                             </button>
                         </div>
                     </div>
