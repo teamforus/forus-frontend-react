@@ -288,7 +288,7 @@
             "identity": "Profile",
             "menu": {
                 "close": "Close",
-                "show": "More"
+                "show": "Menu"
             },
             "midden_drenthe": {
                 "funds": "Regulations"
@@ -315,6 +315,9 @@
             },
             "westerkwartier": {
                 "funds": "Jars"
+            },
+            "wadenheuvel": {
+                "funds": "Regulations"
             }
         },
         "user_menu": {
@@ -1646,13 +1649,11 @@
             "title": "Transactions",
             "top_up": "Upgraded"
         },
-        "voucher": {
-            "history": {
-                "status": {
-                    "expired": "Expired"
-                },
-                "title": "Status"
-            }
+        "history": {
+            "status": {
+                "expired": "Expired"
+            },
+            "title": "Expenditures"
         }
     },
     "vouchers": {
@@ -2626,7 +2627,8 @@
                 "expired": "Expired",
                 "pending": "In anticipation",
                 "rejected": "Denied",
-                "waiting": "Waiting for payment"
+                "waiting": "Waiting for payment",
+                "canceled_by_sponsor": "Cancelled by sponsor"
             },
             "pay_extra": "Continue to pay"
         },
@@ -3181,7 +3183,8 @@
             "confirm": "Confirm",
             "go_to_reservation": "Go to reservation",
             "processing": "Process",
-            "submit": "Submit"
+            "submit": "Submit",
+            "next": "Next"
         },
         "cancel": "Cancel",
         "choose_credit": "Choose the credit to pay with",
