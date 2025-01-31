@@ -237,6 +237,12 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         ),
                     },
                     {
+                        name: 'Vertalingen',
+                        state: 'organizations-translations',
+                        stateParams: { organizationId: organization?.id },
+                        show: hasPermission(organization, 'manage_implementation'),
+                    },
+                    {
                         name: 'Regelcheck',
                         state: 'pre-check',
                         stateParams: { organizationId: organization?.id },
