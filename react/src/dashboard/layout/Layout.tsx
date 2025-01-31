@@ -61,7 +61,7 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
                         {layout == LayoutType.dashboard && activeOrganization && <LayoutAside />}
 
                         {isReady && (
-                            <section className={`${layout == LayoutType.dashboard ? 'app app-content' : ''}`}>
+                            <section className={`app app-content`}>
                                 <ErrorBoundaryHandler
                                     type={
                                         [LayoutType.landingClearNew, LayoutType.landingClear].includes(layout)

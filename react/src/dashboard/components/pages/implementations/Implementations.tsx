@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useImplementationService from '../../../services/ImplementationService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
@@ -24,7 +24,6 @@ export default function Implementations() {
 
     const [paginatorKey] = useState('implementations');
     const [implementations, setImplementations] = useState<PaginationData<Implementation>>(null);
-    const prevImplementations = useRef(null);
 
     const filter = useFilter({
         q: '',
@@ -51,15 +50,6 @@ export default function Implementations() {
     useEffect(() => {
         fetchImplementations();
     }, [fetchImplementations]);
-
-    useEffect(() => {
-        // if it's first fetch and there is only one implementation - redirect to it
-        if (!prevImplementations.current && implementations?.meta?.total === 1) {
-            return goToImplementation(implementations.data[0]);
-        }
-
-        prevImplementations.current = implementations;
-    }, [goToImplementation, implementations]);
 
     if (!implementations) {
         return <LoadingCard />;
