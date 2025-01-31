@@ -232,7 +232,7 @@ body {
         }
 
         .header-organization-switcher {
-            width: 260px;
+            width: 265px;
 
             .select-control {
                 width: 100%;
@@ -621,13 +621,13 @@ body {
     }
 
     &.app-sidebar {
-        flex: 0 0 280px;
+        flex: 0 0 260px;
         padding-left: 8px;
 
         .sidebar-nav {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             padding-bottom: 100px;
 
             .sidebar-nav-group {
@@ -642,6 +642,7 @@ body {
                     align-items: flex-start;
                     border-radius: 3px;
                     transition: background-color 0.4s;
+                    gap: 6px;
 
                     .sidebar-nav-group-header-icon {
                         display: flex;
@@ -671,7 +672,7 @@ body {
                     .sidebar-nav-group-header-title {
                         display: flex;
                         flex: 1 1 auto;
-                        font: 600 14px/20px var(--base-font);
+                        font: 500 13px/20px var(--base-font);
                         padding: 6px 0;
                         transition: color 0.4s;
                     }
@@ -713,13 +714,13 @@ body {
                 .sidebar-nav-group-items {
                     display: flex;
                     flex-direction: column;
-                    margin: 0 0 0 22px;
+                    margin: 0 0 0 14px;
                     border-left: 2px solid var(--border-color);
-                    padding: 8px 0 6px;
+                    padding: 4px 0;
 
                     .sidebar-nav-group-item {
-                        padding: 5px 10px 5px 20px;
-                        font: 500 14px/20px var(--base-font);
+                        padding: 5px 10px 5px 22px;
+                        font: 500 13px/20px var(--base-font);
                         color: #151b26;
                         text-decoration: none;
                         margin-left: -2px;

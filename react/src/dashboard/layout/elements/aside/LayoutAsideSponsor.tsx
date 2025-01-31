@@ -125,10 +125,10 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 ]}
             />
 
-            {/* Verstrekkingen */}
+            {/* Toekenningen */}
             <LayoutAsideNavGroup
                 id="menu_vouchers"
-                name={'Verstrekkingen'}
+                name={'Toekenningen'}
                 icon={<IconVouchers />}
                 iconActive={<IconVouchersActive />}
                 pinnedGroups={pinnedGroups}
