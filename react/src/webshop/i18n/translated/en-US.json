@@ -3156,7 +3156,8 @@
     },
     "languages": {
         "en": "English",
-        "nl": "Dutch"
+        "nl": "Dutch",
+        "ar": "Arabic"
     },
     "modal_physical_card_unlink": {
         "body": {
