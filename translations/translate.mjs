@@ -16,17 +16,40 @@ const translated = targetLanguages.reduce((obj, lang) => ({ ...obj, [lang]: [] }
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Calculate total characters for translation preview
+const totalLength = cacheAdded.reduce((sum, entry) => {
+    return sum + (entry[1] ? entry[1].length : 0);
+}, 0);
+
+console.log(`Total characters to be translated: ${totalLength}`);
+
 for (let i = 0; i < targetLanguages.length; i++) {
     const lang = targetLanguages[i];
 
     console.log(`Processing: ${lang}`);
 
     for (let j = 0; j < cacheAdded.length; j++) {
-        const _line = cacheAdded[j][1]
-            ? removeKeepTags(await translateValue(wrapVariablesWithTags(cacheAdded[j][1]), sourceLanguage, lang))
-            : '';
+        let _line = '';
+        let attempts = 0;
 
-        await delay(100);
+        while (attempts < 10) {
+            try {
+                _line = cacheAdded[j][1]
+                    ? removeKeepTags(
+                          await translateValue(wrapVariablesWithTags(cacheAdded[j][1]), sourceLanguage, lang),
+                      )
+                    : '';
+                break; // Exit retry loop on success
+            } catch (error) {
+                attempts++;
+                console.error(`Error translating (${lang}) [Attempt ${attempts}]:`, error);
+
+                if (attempts < 10) {
+                    await delay(1000); // Wait 1 sec before retrying
+                }
+            }
+        }
+
         translated[lang].push([cacheAdded[j][0], _line]);
 
         showProgressBar(j, cacheAdded.length);
