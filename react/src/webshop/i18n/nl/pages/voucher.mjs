@@ -108,11 +108,9 @@ export default {
         button: 'Bon insturen',
     },
 
-    voucher: {
-        history: {
-            title: 'Status',
-            status: { expired: 'Verlopen' },
-        },
+    history: {
+        title: 'Uitgaven',
+        status: { expired: 'Verlopen' },
     },
 
     transactions: {
