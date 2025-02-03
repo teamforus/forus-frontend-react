@@ -19,7 +19,8 @@
     "translations-prepare": "node translations/prepare.mjs",
     "translations-translate": "node translations/translate.mjs",
     "translations-apply": "node translations/apply.mjs",
-    "translations-update-cache": "node translations/update-cache.mjs"
+    "translations-update-cache": "node translations/update-cache.mjs",
+    "translations-run-all": "npm run translations-prepare && npm run translations-translate && npm run translations-apply && npm run translations-update-cache"
   },
   "author": "",
   "license": "ISC",

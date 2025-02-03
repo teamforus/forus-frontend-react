@@ -23,6 +23,9 @@ import StateHashPrefixRedirect from '../dashboard/modules/state_router/StateHash
 import { TitleProvider } from './contexts/TitleContext';
 import i18nNL from './i18n/i18n-nl.mjs';
 import i18nEN from './i18n/translated/en-US.json';
+import i18nRU from './i18n/translated/ru.json';
+import i18nPL from './i18n/translated/pl.json';
+import i18nAR from './i18n/translated/ar.json';
 import CookieBanner from './modules/cookie_banner/CookieBanner';
 import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
 import { isValidLocaleString } from '../dashboard/helpers/url';
@@ -34,6 +37,9 @@ i18n.use(initReactI18next)
         resources: {
             en: { translation: i18nEN },
             nl: { translation: i18nNL },
+            ru: { translation: i18nRU },
+            pl: { translation: i18nPL },
+            ar: { translation: i18nAR },
         },
         lng: isValidLocaleString(locale) ? locale : 'nl',
         fallbackLng: 'nl',
