@@ -1,7 +1,7 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import {
     removeKeepTags,
-    translateValue,
+    translateBatch,
     wrapVariablesWithTags,
     showProgressBar,
     sourceLanguage,
@@ -9,12 +9,9 @@ import {
     sortFlattenObjectByKey,
     cachePath,
 } from './helpers.mjs';
-import { writeFileSync } from 'node:fs';
 
 const cacheAdded = JSON.parse(readFileSync(`${cachePath}/cache_added.json`).toString());
 const translated = targetLanguages.reduce((obj, lang) => ({ ...obj, [lang]: [] }), {});
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Calculate total characters for translation preview
 const totalLength = cacheAdded.reduce((sum, entry) => {
@@ -23,36 +20,26 @@ const totalLength = cacheAdded.reduce((sum, entry) => {
 
 console.log(`Total characters to be translated: ${totalLength}`);
 
+const BATCH_SIZE = 500;
+
 for (let i = 0; i < targetLanguages.length; i++) {
     const lang = targetLanguages[i];
 
     console.log(`Processing: ${lang}`);
 
-    for (let j = 0; j < cacheAdded.length; j++) {
-        let _line = '';
-        let attempts = 0;
+    for (let j = 0; j < cacheAdded.length; j += BATCH_SIZE) {
+        const batch = cacheAdded.slice(j, j + BATCH_SIZE).map(([key, value]) => ({
+            key,
+            text: value ? wrapVariablesWithTags(value) : '',
+        }));
 
-        while (attempts < 10) {
-            try {
-                _line = cacheAdded[j][1]
-                    ? removeKeepTags(
-                          await translateValue(wrapVariablesWithTags(cacheAdded[j][1]), sourceLanguage, lang),
-                      )
-                    : '';
-                break; // Exit retry loop on success
-            } catch (error) {
-                attempts++;
-                console.error(`Error translating (${lang}) [Attempt ${attempts}]:`, error);
+        let translatedBatch = await translateBatch(batch, sourceLanguage, lang);
 
-                if (attempts < 10) {
-                    await delay(1000); // Wait 1 sec before retrying
-                }
-            }
+        for (let k = 0; k < batch.length; k++) {
+            translated[lang].push([batch[k].key, removeKeepTags(translatedBatch[k] || '')]);
         }
 
-        translated[lang].push([cacheAdded[j][0], _line]);
-
-        showProgressBar(j, cacheAdded.length);
+        showProgressBar(Math.min(j + BATCH_SIZE, cacheAdded.length), cacheAdded.length);
     }
 }
 
