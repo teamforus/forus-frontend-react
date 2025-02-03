@@ -4084,6 +4084,10 @@
         "Ga naar reservering"
     ],
     [
+        "modal_reserve_product.buttons.next",
+        "Volgende"
+    ],
+    [
         "modal_reserve_product.buttons.processing",
         "Verwerken"
     ],
@@ -6760,6 +6764,10 @@
         "Geannuleerd door aanvrager"
     ],
     [
+        "reservation.labels.status.canceled_by_sponsor",
+        "Geannuleerd door sponsor"
+    ],
+    [
         "reservation.labels.status.canceled_payment_canceled",
         "Bijbetaling geannuleerd"
     ],
@@ -7653,7 +7661,7 @@
     ],
     [
         "top_navbar.items.menu.show",
-        "Meer"
+        "Menu"
     ],
     [
         "top_navbar.items.midden_drenthe.funds",
@@ -7698,6 +7706,10 @@
     [
         "top_navbar.items.waalwijk.funds",
         "Aanvragen"
+    ],
+    [
+        "top_navbar.items.wadenheuvel.funds",
+        "Regelingen"
     ],
     [
         "top_navbar.items.westerkwartier.funds",
@@ -7956,6 +7968,14 @@
         "Wilt u uw reservering voor aankoop annuleren?"
     ],
     [
+        "voucher.history.status.expired",
+        "Verlopen"
+    ],
+    [
+        "voucher.history.title",
+        "Uitgaven"
+    ],
+    [
         "voucher.labels.add",
         "Bij"
     ],
@@ -8162,14 +8182,6 @@
     [
         "voucher.voucher_card_combined.labels.redirect_to",
         "Wilt u nog een vergoeding aanvragen?"
-    ],
-    [
-        "voucher.voucher.history.status.expired",
-        "Verlopen"
-    ],
-    [
-        "voucher.voucher.history.title",
-        "Status"
     ],
     [
         "vouchers.breadcrumbs.home",
