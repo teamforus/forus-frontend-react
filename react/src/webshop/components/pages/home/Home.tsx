@@ -176,7 +176,7 @@ export default function Home() {
                             <h1 className="header-title" data-dusk="headerTitle">
                                 {translate(
                                     `home.header.${envData.client_key}.title`,
-                                    { implementation: appConfigs.implementation_name },
+                                    { implementation: appConfigs.implementation?.name },
                                     'home.header.title',
                                 )}
                             </h1>

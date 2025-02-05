@@ -111,7 +111,9 @@
     "app_footer": {
         "columns": {
             "links": "Links",
-            "me_app": "Die Me-App herunterladen"
+            "me_app": "Die Me-App herunterladen",
+            "follow_us": "Folgen Sie uns auf:",
+            "site_info": "Informationen zum Standort"
         },
         "links": {
             "accessibility": "Erklärung zur Zugänglichkeit",
@@ -120,7 +122,8 @@
             "terms_and_conditions": "Allgemeine Bedingungen und Konditionen"
         },
         "me_app_more_info": "Erfahren Sie mehr über die Me-App",
-        "provider_sign_up": "Als Anbieter registrieren"
+        "provider_sign_up": "Als Anbieter registrieren",
+        "sponsor_logo_alt": "Logo des Sponsors"
     },
     "auth_start": {
         "example": "Geben Sie eine gültige E-Mail-Adresse ein, z. B. naam@voorbeeld. <strong>com</strong>"
@@ -537,10 +540,10 @@
                 "title_log_digid": "Einzelanmeldung mit DigiD"
             },
             "labels": {
-                "has_app": "Anmeldung mit Me-app &gt;",
-                "no_app": "Ich möchte mich mit meiner E-Mail-Adresse anmelden &gt;",
-                "restore_with_digid_formal": "Haben Sie vergessen, welche E-Mail-Adresse Sie verwendet haben? &gt;",
-                "restore_with_digid_informal": "Haben Sie vergessen, welche E-Mail-Adresse Sie verwendet haben? &gt;"
+                "has_app": "Anmeldung mit Me-app >",
+                "no_app": "Ich möchte mich mit meiner E-Mail-Adresse anmelden >",
+                "restore_with_digid_formal": "Haben Sie vergessen, welche E-Mail-Adresse Sie verwendet haben? >",
+                "restore_with_digid_informal": "Haben Sie vergessen, welche E-Mail-Adresse Sie verwendet haben? >"
             },
             "pane": {
                 "criterion_any": "{{ name }}' ' kann ein beliebiger Wert sein.",
@@ -698,9 +701,9 @@
             }
         },
         "labels": {
-            "age": "&lt; 18 Jahre alt",
+            "age": "< 18 Jahre alt",
             "agelimit": "Altersgrenze",
-            "amount": "&lt; € 1118.46",
+            "amount": "< € 1118.46",
             "categories_label": "Sie können Ihr Guthaben bis zu aktivieren:",
             "category": "Kategorie",
             "children": "Kinder",
@@ -1083,7 +1086,7 @@
                 "cta_av": "",
                 "subtitle_av": "Im Westerkwartier gibt es viele verschiedene Töpfe, oft mehr als man denkt. Diese Website ermöglicht es Ihnen, Töpfe zu beantragen, zu verwalten und auszugeben."
             },
-            "signup_cta": "Lesen Sie mehr &gt;",
+            "signup_cta": "Lesen Sie mehr >",
             "subtitle": "{{fund}}Willkommen auf der Website von . {{fund}} Haben Sie eine Zuweisung von der Gemeinde für ? Dann können Sie das Angebot und das Geld, das Sie ausgeben können, hier sehen.",
             "subtitle_av": "{{fund}}Hier können Sie sich für das Programm bewerben und das Angebot einsehen. Nachdem Sie sich beworben haben, können Sie auch sehen, wie viel Geld Sie ausgeben können.",
             "subtitle_multi": "{{org_name}} {{org_name}} Willkommen im Webshop von Haben Sie eine Prämie erhalten durch ? Dann können Sie hier das Angebot und das Geld sehen, das Sie ausgeben können.",
@@ -1204,7 +1207,8 @@
             "show_more": "Mehr anzeigen",
             "total": "Insgesamt",
             "view_explanation": "Erklärung ansehen",
-            "why": "Warum?"
+            "why": "Warum?",
+            "activate": "Aktivieren Sie"
         },
         "product_item_grid": {
             "bookmark": "Zur Wunschliste hinzufügen"
@@ -2177,7 +2181,10 @@
             "no_data": "Keine Daten",
             "out_of_stock": "Keine Lagerbestände mehr"
         },
-        "tooltip": "Wie oft Sie dieses Angebot noch in Anspruch nehmen können"
+        "tooltip": "Wie oft Sie dieses Angebot noch in Anspruch nehmen können",
+        "price": {
+            "free": "Kostenlos"
+        }
     },
     "products": {
         "breadcrumbs": {
@@ -2185,13 +2192,13 @@
             "products": "Angebot"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Überall"
         },
         "filters": {
@@ -2242,7 +2249,9 @@
             "security": "Sicherheit",
             "sessions": "Sitzungen",
             "share": "Teilen Sie",
-            "vouchers": "Kredit"
+            "vouchers": "Kredit",
+            "me_app": "Me-app",
+            "provider_sign_up": "Als Anbieter registrieren"
         },
         "header": {
             "subtitle": "Lassen Sie Ihren persönlichen QR-Code von einem Prüfer scannen.",
@@ -2352,13 +2361,13 @@
             "providers": "Anbieter"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Überall"
         },
         "filters": {
@@ -2718,7 +2727,21 @@
         "title": "Zwei-Faktor-Authentifizierung",
         "unknown_error": "Unbekannte Fehlermeldung.",
         "verification_codes_sent": "Die Verifizierungscodes wurden per SMS verschickt",
-        "vouchers_restrict": "Es gibt einen oder mehrere Gutscheine aus einem Fonds, die diese Einrichtung einschränken"
+        "vouchers_restrict": "Es gibt einen oder mehrere Gutscheine aus einem Fonds, die diese Einrichtung einschränken",
+        "providers": {
+            "authenticator": {
+                "title": "Authenticator-Anwendung"
+            },
+            "phone": {
+                "title": "SMS-Überprüfung"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1Passwort-Authentifikator",
+            "authenticator_google": "Google-Authentifikator",
+            "authenticator_lastpass": "LastPass-Authentifikator",
+            "authenticator_microsoft": "Microsoft-Authentifikator"
+        }
     },
     "security_sessions": {
         "breadcrumbs": {
@@ -2846,9 +2869,9 @@
     "test": "{{name}} {{foo}}",
     "top_navbar_search": {
         "noresult": {
-            "funds_label": "Alle Credits anzeigen &gt;",
-            "products_label": "Alle Angebote anzeigen &gt;",
-            "providers_label": "Alle Anbieter anzeigen &gt;",
+            "funds_label": "Alle Credits anzeigen >",
+            "products_label": "Alle Angebote anzeigen >",
+            "providers_label": "Alle Anbieter anzeigen >",
             "subtitle": "{{ query }}Es wurden keine Ergebnisse für \" \" gefunden. Bitte versuchen Sie es erneut mit anderen Suchbegriffen."
         },
         "placeholders": {
@@ -2956,7 +2979,7 @@
                 "activate": "Krüge"
             },
             "products": "Angebot",
-            "profile": "Profil &gt;",
+            "profile": "Profil >",
             "providers": "Anbieter",
             "records": "Meine persönlichen Daten",
             "reimbursements": "Kostendeckung",
@@ -3116,7 +3139,9 @@
             "labels": {
                 "contact_provider": "Haben Sie Fragen zu diesem Angebot? Dann kontaktieren Sie uns bitte.",
                 "contact_sponsor": "Haben Sie Fragen? Kontaktieren Sie uns.",
-                "description": "1.<br/><br/>Klicken Sie auf Angebot und wählen Sie eine Aktivität aus und buchen Sie sie. ODER 2. Bringen Sie den QR-Code zum Anbieter. Der Anbieter wird den QR-Code scannen und Ihre Aktivität reservieren."
+                "description": "1.<br/><br/>Klicken Sie auf Angebot und wählen Sie eine Aktivität aus und buchen Sie sie. ODER 2. Bringen Sie den QR-Code zum Anbieter. Der Anbieter wird den QR-Code scannen und Ihre Aktivität reservieren.",
+                "email": "E-Mail Adresse:",
+                "phone": "Rufnummer:"
             },
             "lost_my_pass": "Ich habe meinen Pass verloren",
             "qrcode": {
@@ -3287,5 +3312,28 @@
         },
         "description": "Diese Seite befindet sich im Aufbau.",
         "title": "Laufende Arbeiten"
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "Die Töpfe prüfen",
+            "home": "Startseite"
+        },
+        "funds": "Mittel",
+        "next_step": "Weiter",
+        "no_value": "---",
+        "of": "von",
+        "previous_step": "Vorheriger Schritt",
+        "search": "Suche",
+        "show_less": "Weniger anzeigen",
+        "show_more": "Mehr anzeigen",
+        "advice": "Stellungnahme",
+        "all_categories": "Alle Kategorien",
+        "all_organizations": "Alle Organisationen",
+        "almost_there": "Sie sind fast am Ziel!",
+        "change_answers": "Antworten ändern",
+        "download_pdf": "Als PDF herunterladen",
+        "total_amount": "Gesamtbetrag",
+        "total_offers": "Gesamtes Angebot",
+        "your_data": "Ihre Daten"
     }
 }

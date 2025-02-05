@@ -38,6 +38,8 @@ export default {
                 '2. Neem de QR-code mee naar de aanbieder. Deze scant de QR-code en reserveert uw activiteit.',
             contact_sponsor: 'Vragen? Neem contact met ons op.',
             contact_provider: 'Heeft u vragen over dit aanbod? Neem dan contact met ons op.',
+            email: 'E-mailadres:',
+            phone: 'Telefoonnummer:',
         },
         footer: {
             actions: {

@@ -261,7 +261,8 @@
             "show_more": "Daha fazla göster",
             "total": "Toplam",
             "view_explanation": "Açıklamayı görüntüle",
-            "why": "Neden?"
+            "why": "Neden?",
+            "activate": "Etkinleştir"
         },
         "product_item_grid": {
             "bookmark": "İstek listesine ekle"
@@ -387,13 +388,13 @@
             "products": "Teklif"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Her yerde"
         },
         "filters": {
@@ -500,7 +501,21 @@
         "title": "İki faktörlü kimlik doğrulama",
         "unknown_error": "Bilinmeyen hata mesajı.",
         "verification_codes_sent": "Doğrulama kodları SMS ile gönderildi",
-        "vouchers_restrict": "Bu kurumu kısıtlayan bir fondan bir veya daha fazla kupon var"
+        "vouchers_restrict": "Bu kurumu kısıtlayan bir fondan bir veya daha fazla kupon var",
+        "providers": {
+            "authenticator": {
+                "title": "Authenticator uygulaması"
+            },
+            "phone": {
+                "title": "SMS Doğrulama"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1Parola doğrulayıcı",
+            "authenticator_google": "Google kimlik doğrulayıcı",
+            "authenticator_lastpass": "LastPass Kimlik Doğrulayıcı",
+            "authenticator_microsoft": "Microsoft Authenticator"
+        }
     },
     "security_sessions": {
         "breadcrumbs": {
@@ -629,7 +644,7 @@
                 "activate": "Kavanozlar"
             },
             "products": "Teklif",
-            "profile": "Profil &gt;",
+            "profile": "Profil >",
             "providers": "Sağlayıcılar",
             "records": "Kişisel bilgilerim",
             "reimbursements": "Maliyet geri kazanımı",
@@ -886,10 +901,10 @@
                 "title_log_digid": "DigiD ile tek oturum açma"
             },
             "labels": {
-                "has_app": "Me-app ile oturum açın &gt;",
-                "no_app": "E-posta adresimle giriş yapmak istiyorum &gt;",
-                "restore_with_digid_formal": "Hangi e-posta adresini kullandığınızı unuttunuz mu? &gt;",
-                "restore_with_digid_informal": "Hangi e-posta adresini kullandığınızı unuttunuz mu? &gt;"
+                "has_app": "Me-app ile oturum açın >",
+                "no_app": "E-posta adresimle giriş yapmak istiyorum >",
+                "restore_with_digid_formal": "Hangi e-posta adresini kullandığınızı unuttunuz mu? >",
+                "restore_with_digid_informal": "Hangi e-posta adresini kullandığınızı unuttunuz mu? >"
             },
             "pane": {
                 "criterion_any": "{{ name }}' ' herhangi bir değer olabilir.",
@@ -1097,9 +1112,9 @@
             }
         },
         "labels": {
-            "age": "&lt; 18 yaş",
+            "age": "< 18 yaş",
             "agelimit": "Yaş sınırı",
-            "amount": "&lt; € 1118.46",
+            "amount": "< € 1118.46",
             "categories_label": "Kredinizi en fazla şu kadar etkinleştirebilirsiniz:",
             "category": "Kategori",
             "children": "Çocuklar",
@@ -1419,7 +1434,7 @@
                 "cta_av": "",
                 "subtitle_av": "Westerkwartier'de birçok farklı kumbara vardır, genellikle düşündüğünüzden daha fazladır. Bu web sitesi kumbaralara başvurmanızı, bunları yönetmenizi ve harcamanızı sağlar."
             },
-            "signup_cta": "Daha fazla oku &gt;",
+            "signup_cta": "Daha fazla oku >",
             "subtitle": "{{fund}}'nin web sitesine hoş geldiniz. {{fund}} Belediyeden bir tahsisatınız var mı? O zaman teklifi ve harcayabileceğiniz parayı burada görebilirsiniz.",
             "subtitle_av": "{{fund}}'nin web sitesine hoş geldiniz. Programa başvurabilir ve teklifi buradan görüntüleyebilirsiniz. Başvurduktan sonra ne kadar para harcayabileceğinizi de görebilirsiniz.",
             "subtitle_multi": "{{org_name}} {{org_name}} Web mağazasına hoş geldiniz aracılığıyla bir ödül mü aldınız? O zaman teklifi ve harcayabileceğiniz parayı burada görebilirsiniz.",
@@ -1485,13 +1500,13 @@
             "providers": "Sağlayıcılar"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Her yerde"
         },
         "filters": {
@@ -1730,7 +1745,10 @@
             "no_data": "Veri yok",
             "out_of_stock": "Artık stok yok"
         },
-        "tooltip": "Bu tekliften daha kaç kez yararlanabilirsiniz"
+        "tooltip": "Bu tekliften daha kaç kez yararlanabilirsiniz",
+        "price": {
+            "free": "Ücretsiz"
+        }
     },
     "records_create": {
         "buttons": {
@@ -1827,7 +1845,9 @@
             "labels": {
                 "contact_provider": "Bu teklif hakkında herhangi bir sorunuz var mı? Varsa, lütfen bizimle iletişime geçin.",
                 "contact_sponsor": "Herhangi bir sorunuz var mı? Bize ulaşın.",
-                "description": "1.<br/><br/>Teklif'e tıklayın ve bir etkinlik seçip rezervasyon yapın. VEYA 2. QR kodunu sağlayıcıya götürün. QR kodunu sağlayıcıya götürün. Sağlayıcı QR kodunu tarayacak ve etkinliğinizi rezerve edecektir."
+                "description": "1.<br/><br/>Teklif'e tıklayın ve bir etkinlik seçip rezervasyon yapın. VEYA 2. QR kodunu sağlayıcıya götürün. QR kodunu sağlayıcıya götürün. Sağlayıcı QR kodunu tarayacak ve etkinliğinizi rezerve edecektir.",
+                "email": "E-posta adresi:",
+                "phone": "Telefon numarası:"
             },
             "lost_my_pass": "Geçiş kartımı kaybettim.",
             "qrcode": {
@@ -3148,7 +3168,9 @@
     "app_footer": {
         "columns": {
             "links": "Bağlantılar",
-            "me_app": "Me uygulamasını indirin"
+            "me_app": "Me uygulamasını indirin",
+            "follow_us": "Bizi takip edin:",
+            "site_info": "Site bilgileri"
         },
         "links": {
             "accessibility": "Erişilebilirlik beyanı",
@@ -3157,7 +3179,8 @@
             "terms_and_conditions": "Genel hüküm ve koşullar"
         },
         "me_app_more_info": "Me uygulaması hakkında daha fazla bilgi edinin",
-        "provider_sign_up": "Sağlayıcı olarak kaydolun"
+        "provider_sign_up": "Sağlayıcı olarak kaydolun",
+        "sponsor_logo_alt": "Sponsor logosu"
     },
     "block_funds": {
         "labels": {
@@ -3259,7 +3282,9 @@
             "security": "Güvenlik",
             "sessions": "Oturumlar",
             "share": "Paylaş",
-            "vouchers": "Kredi"
+            "vouchers": "Kredi",
+            "me_app": "Me-app",
+            "provider_sign_up": "Sağlayıcı olarak kaydolun"
         },
         "header": {
             "subtitle": "Kişisel QR kodunuzun bir hakem tarafından taranmasını sağlayın.",
@@ -3271,9 +3296,9 @@
     },
     "top_navbar_search": {
         "noresult": {
-            "funds_label": "Tüm kredileri görüntüle &gt;",
-            "products_label": "Tüm teklifleri görüntüle &gt;",
-            "providers_label": "Tüm sağlayıcıları görüntüle &gt;",
+            "funds_label": "Tüm kredileri görüntüle >",
+            "products_label": "Tüm teklifleri görüntüle >",
+            "providers_label": "Tüm sağlayıcıları görüntüle >",
             "subtitle": "{{ query }}\" \" için sonuç bulunamadı. Lütfen diğer arama terimleriyle tekrar deneyin."
         },
         "placeholders": {
@@ -3287,5 +3312,28 @@
             "products_label": "Teklif",
             "providers_label": "Sağlayıcılar"
         }
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "Tencere kontrolü",
+            "home": "Ev"
+        },
+        "funds": "Fonlar",
+        "next_step": "Sonraki",
+        "no_value": "---",
+        "of": "itibaren",
+        "previous_step": "Önceki adım",
+        "search": "Arama",
+        "show_less": "Daha az göster",
+        "show_more": "Daha fazla göster",
+        "advice": "Görüş",
+        "all_categories": "Tüm kategoriler",
+        "all_organizations": "Tüm kuruluşlar",
+        "almost_there": "Neredeyse vardınız!",
+        "change_answers": "Cevapları değiştirin",
+        "download_pdf": "PDF olarak indir",
+        "total_amount": "Toplam tutar",
+        "total_offers": "Toplam teklif",
+        "your_data": "Verileriniz"
     }
 }

@@ -158,7 +158,9 @@ export type AppConfigProp = {
     records?: { list: boolean };
     funds?: { list: boolean; fund_requests: boolean };
     banner?: Media;
-    implementation_name?: string;
+    implementation?: {
+        name?: string;
+    };
     products_hard_limit?: number;
     products_soft_limit?: number;
     pages: {

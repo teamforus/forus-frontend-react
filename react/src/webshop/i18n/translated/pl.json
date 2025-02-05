@@ -111,7 +111,9 @@
     "app_footer": {
         "columns": {
             "links": "Linki",
-            "me_app": "Pobierz aplikację Me"
+            "me_app": "Pobierz aplikację Me",
+            "follow_us": "Śledź nas na:",
+            "site_info": "Informacje o witrynie"
         },
         "links": {
             "accessibility": "Oświadczenie o dostępności",
@@ -120,7 +122,8 @@
             "terms_and_conditions": "Ogólne warunki handlowe"
         },
         "me_app_more_info": "Dowiedz się więcej o aplikacji Me",
-        "provider_sign_up": "Zarejestruj się jako dostawca"
+        "provider_sign_up": "Zarejestruj się jako dostawca",
+        "sponsor_logo_alt": "Logo sponsora"
     },
     "auth_start": {
         "example": "Wprowadź prawidłowy adres e-mail, np. <strong>naam@voorbeeld.com</strong>."
@@ -537,10 +540,10 @@
                 "title_log_digid": "Pojedyncze logowanie z DigiD"
             },
             "labels": {
-                "has_app": "Zaloguj się za pomocą aplikacji Me &gt;",
-                "no_app": "Chcę zalogować się przy użyciu mojego adresu e-mail &gt;",
-                "restore_with_digid_formal": "Zapomniałeś, jakiego adresu e-mail użyłeś? &gt;",
-                "restore_with_digid_informal": "Zapomniałeś, jakiego adresu e-mail użyłeś? &gt;"
+                "has_app": "Zaloguj się za pomocą aplikacji Me >",
+                "no_app": "Chcę zalogować się przy użyciu mojego adresu e-mail >",
+                "restore_with_digid_formal": "Zapomniałeś, jakiego adresu e-mail użyłeś? >",
+                "restore_with_digid_informal": "Zapomniałeś, jakiego adresu e-mail użyłeś? >"
             },
             "pane": {
                 "criterion_any": "{{ name }}' ' może być dowolną wartością.",
@@ -698,9 +701,9 @@
             }
         },
         "labels": {
-            "age": "&lt; 18 lat",
+            "age": "< 18 lat",
             "agelimit": "Limit wieku",
-            "amount": "&lt; € 1118.46",
+            "amount": "< € 1118.46",
             "categories_label": "Kredyt można aktywować do kwoty",
             "category": "Kategoria",
             "children": "Dzieci",
@@ -1083,7 +1086,7 @@
                 "cta_av": "",
                 "subtitle_av": "W Westerkwartier istnieje wiele różnych pul, często więcej niż myślisz. Ta strona internetowa umożliwia ubieganie się o pule, zarządzanie nimi i ich wydawanie."
             },
-            "signup_cta": "Czytaj więcej &gt;",
+            "signup_cta": "Czytaj więcej >",
             "subtitle": "{{fund}}Witamy na stronie internetowej . {{fund}} Czy masz przydział z gminy na ? Wtedy możesz zobaczyć ofertę i pieniądze, które możesz wydać tutaj.",
             "subtitle_av": "{{fund}}Witamy na stronie internetowej programu . Tutaj można złożyć wniosek i zapoznać się z ofertą. Po złożeniu wniosku możesz również sprawdzić, ile pieniędzy możesz wydać.",
             "subtitle_multi": "{{org_name}} {{org_name}} Witamy w sklepie internetowym Czy otrzymałeś nagrodę za pośrednictwem ? Następnie możesz zobaczyć ofertę i pieniądze, które możesz wydać tutaj.",
@@ -1204,7 +1207,8 @@
             "show_more": "Pokaż więcej",
             "total": "Łącznie",
             "view_explanation": "Wyświetl wyjaśnienie",
-            "why": "Dlaczego?"
+            "why": "Dlaczego?",
+            "activate": "Aktywuj"
         },
         "product_item_grid": {
             "bookmark": "Dodaj do listy życzeń"
@@ -2177,7 +2181,10 @@
             "no_data": "Brak danych",
             "out_of_stock": "Koniec z zapasami"
         },
-        "tooltip": "Ile razy jeszcze możesz skorzystać z tej oferty?"
+        "tooltip": "Ile razy jeszcze możesz skorzystać z tej oferty?",
+        "price": {
+            "free": "Darmowy"
+        }
     },
     "products": {
         "breadcrumbs": {
@@ -2185,13 +2192,13 @@
             "products": "Oferta"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Wszędzie"
         },
         "filters": {
@@ -2242,7 +2249,9 @@
             "security": "Bezpieczeństwo",
             "sessions": "Sesje",
             "share": "Udział",
-            "vouchers": "Kredyt"
+            "vouchers": "Kredyt",
+            "me_app": "Me-app",
+            "provider_sign_up": "Zarejestruj się jako dostawca"
         },
         "header": {
             "subtitle": "Twój osobisty kod QR powinien zostać zeskanowany przez recenzenta.",
@@ -2352,13 +2361,13 @@
             "providers": "Dostawcy"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Wszędzie"
         },
         "filters": {
@@ -2718,7 +2727,21 @@
         "title": "Uwierzytelnianie dwuskładnikowe",
         "unknown_error": "Nieznany komunikat o błędzie.",
         "verification_codes_sent": "Kody weryfikacyjne zostały wysłane za pośrednictwem wiadomości SMS",
-        "vouchers_restrict": "Istnieje co najmniej jeden kupon z funduszu, który ogranicza tę instytucję"
+        "vouchers_restrict": "Istnieje co najmniej jeden kupon z funduszu, który ogranicza tę instytucję",
+        "providers": {
+            "authenticator": {
+                "title": "Aplikacja Authenticator"
+            },
+            "phone": {
+                "title": "Weryfikacja SMS"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1Hasło uwierzytelniające",
+            "authenticator_google": "Program uwierzytelniający Google",
+            "authenticator_lastpass": "LastPass Authenticator",
+            "authenticator_microsoft": "Microsoft Authenticator"
+        }
     },
     "security_sessions": {
         "breadcrumbs": {
@@ -2846,9 +2869,9 @@
     "test": "{{name}} {{foo}}",
     "top_navbar_search": {
         "noresult": {
-            "funds_label": "Wyświetl wszystkie kredyty &gt;",
-            "products_label": "Wyświetl wszystkie oferty &gt;",
-            "providers_label": "Wyświetl wszystkich dostawców &gt;",
+            "funds_label": "Wyświetl wszystkie kredyty >",
+            "products_label": "Wyświetl wszystkie oferty >",
+            "providers_label": "Wyświetl wszystkich dostawców >",
             "subtitle": "{{ query }}Nie znaleziono żadnych wyników dla słowa \" \". Spróbuj ponownie z innymi słowami wyszukiwania."
         },
         "placeholders": {
@@ -2956,7 +2979,7 @@
                 "activate": "Słoiki"
             },
             "products": "Oferta",
-            "profile": "Profil &gt;",
+            "profile": "Profil >",
             "providers": "Dostawcy",
             "records": "Moje dane osobowe",
             "reimbursements": "Zwrot kosztów",
@@ -3116,7 +3139,9 @@
             "labels": {
                 "contact_provider": "Czy masz jakieś pytania dotyczące tej oferty? Jeśli tak, prosimy o kontakt.",
                 "contact_sponsor": "Masz pytania? Skontaktuj się z nami.",
-                "description": "1.<br/><br/>Kliknij Ofertę, wybierz i zarezerwuj aktywność. LUB 2. Zabierz kod QR do dostawcy. Dostawca zeskanuje kod QR i zarezerwuje aktywność."
+                "description": "1.<br/><br/>Kliknij Ofertę, wybierz i zarezerwuj aktywność. LUB 2. Zabierz kod QR do dostawcy. Dostawca zeskanuje kod QR i zarezerwuje aktywność.",
+                "email": "Adres e-mail:",
+                "phone": "Numer telefonu:"
             },
             "lost_my_pass": "Straciłem przepustkę",
             "qrcode": {
@@ -3287,5 +3312,28 @@
         },
         "description": "Ta strona jest w budowie.",
         "title": "Prace w toku"
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "Kontrola garnków",
+            "home": "Strona główna"
+        },
+        "funds": "Fundusze",
+        "next_step": "Następny",
+        "no_value": "---",
+        "of": "z",
+        "previous_step": "Poprzedni krok",
+        "search": "Wyszukiwanie",
+        "show_less": "Pokaż mniej",
+        "show_more": "Pokaż więcej",
+        "advice": "Opinia",
+        "all_categories": "Wszystkie kategorie",
+        "all_organizations": "Wszystkie organizacje",
+        "almost_there": "Już prawie!",
+        "change_answers": "Zmiana odpowiedzi",
+        "download_pdf": "Pobierz jako PDF",
+        "total_amount": "Całkowita kwota",
+        "total_offers": "Całkowita oferta",
+        "your_data": "Twoje dane"
     }
 }
