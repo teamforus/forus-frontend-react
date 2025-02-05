@@ -64,7 +64,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Klaarzetten',
                         state: 'csv-validation',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'validate_records'),
+                        show: hasPermission(organization, ['validate_records', 'manage_validators'], false),
                     },
                     {
                         id: 'fund_requests',
