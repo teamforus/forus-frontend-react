@@ -32,7 +32,7 @@ export function ModalButton({
                     setDisabledByClick(true);
                 }
 
-                button.onClick(e);
+                button.onClick(e, setDisabledByClick);
             }}>
             {button.icon && !button.iconEnd && <em className={`mdi mdi-${button.icon} icon-start`} />}
             {button.text || text}
