@@ -45,12 +45,12 @@ export default function LayoutAsideNavGroup({
     }, [items]);
 
     const groupState = useMemo(() => {
-        if (state) {
+        if (state && show) {
             return { state, stateParams };
         }
 
-        return activeItems[0] ? { state: activeItems[0].state, stateParams: activeItems[0].stateParams } : null;
-    }, [state, stateParams, activeItems]);
+        return activeItems?.[0] ? { state: activeItems[0].state, stateParams: activeItems[0].stateParams } : null;
+    }, [show, state, stateParams, activeItems]);
 
     const isActive = useMemo(() => {
         const activeState = activeRoute?.state?.name;
@@ -85,7 +85,7 @@ export default function LayoutAsideNavGroup({
         }
     }, [isActive]);
 
-    if (!groupState?.state && show) {
+    if (!groupState?.state) {
         return null;
     }
 

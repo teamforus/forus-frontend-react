@@ -39,7 +39,7 @@ export default function LayoutAsideValidator({ organization }: { organization: O
                         name: 'Klaarzetten',
                         state: 'csv-validation',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'validate_records'),
+                        show: hasPermission(organization, ['validate_records', 'manage_validators'], false),
                     },
                 ]}
             />
