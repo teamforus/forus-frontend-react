@@ -217,7 +217,7 @@ export default function ProvidersShow() {
                                                             <div className="office-labels">
                                                                 <div className="label label-default">
                                                                     {provider?.business_type?.name ||
-                                                                        'Geen aanbieder type'}
+                                                                        translate('provider.details.type_none')}
                                                                 </div>
                                                             </div>
                                                             {(office.phone || provider.phone || provider.email) && (

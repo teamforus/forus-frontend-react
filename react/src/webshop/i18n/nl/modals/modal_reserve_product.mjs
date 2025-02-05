@@ -5,6 +5,7 @@ export default {
     add_email: 'Toevoegen',
     cancel: 'Annuleren',
     skip: 'Overslaan',
+    voucher_image_alt: 'Tegoeden',
     header: {
         title: 'Maak een reservering',
     },

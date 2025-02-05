@@ -7,9 +7,11 @@ import { useProductReservationService } from '../../../../services/ProductReserv
 import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
 import ModalProductReserveCancel from '../../../modals/ModalProductReserveCancel';
 import usePushSuccess from '../../../../../dashboard/hooks/usePushSuccess';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function useCancelReservation(onDelete?: () => void) {
     const openModal = useOpenModal();
+    const translate = useTranslate();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
@@ -31,15 +33,15 @@ export default function useCancelReservation(onDelete?: () => void) {
                         productReservationService
                             .cancel(reservation.id)
                             .then(() => {
-                                pushSuccess('Reservering geannuleerd.');
+                                pushSuccess(translate('push.success'), translate('push.reservation.canceled'));
                                 onDelete?.();
                             })
-                            .catch((err: ResponseError) => pushDanger('Error.', err.data.message))
+                            .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message))
                             .finally(() => setProgress(100));
                     }}
                 />
             ));
         },
-        [onDelete, openModal, productReservationService, pushDanger, pushSuccess, setProgress],
+        [onDelete, openModal, productReservationService, pushDanger, pushSuccess, setProgress, translate],
     );
 }

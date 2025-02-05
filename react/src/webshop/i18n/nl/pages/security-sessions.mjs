@@ -14,6 +14,7 @@ export default {
         provider: 'Aanbieders beheeromgeving',
         validator: 'Beoordelaar beheeromgeving',
         webshop: 'Webshop',
+        me_app: 'Me-app',
     },
     buttons: {
         show_all_locations: 'Bekijk alle locaties',

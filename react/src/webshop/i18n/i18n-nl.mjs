@@ -1,5 +1,8 @@
-import buttons from './nl/components/buttons.mjs';
+import push from './nl/components/push.mjs';
 import navbar from './nl/components/navbar.mjs';
+import buttons from './nl/components/buttons.mjs';
+import read_speaker from './nl/components/read_speaker.mjs';
+import cookie_banner from './nl/components/cookie_banner.mjs';
 import top_navbar from './nl/layout/top_navbar.mjs';
 
 import signup_options from './nl/pages/signup-options.mjs';
@@ -191,6 +194,7 @@ export default {
     email_service_switch: {
         confirm: 'Breng me naar mijn e-mail',
     },
+    logo_title: `Naar de homepage van :host`,
     logo_alt_text: {
         general: 'Forus',
         berkelland: 'Gemeente Berkelland',
@@ -213,8 +217,11 @@ export default {
     },
 
     // COMPONENTS
-    buttons: buttons,
+    push: push,
     navbar: navbar,
+    buttons: buttons,
+    read_speaker: read_speaker,
+    cookie_banner: cookie_banner,
 
     // LAYOUT
     top_navbar: top_navbar,

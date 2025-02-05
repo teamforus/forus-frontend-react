@@ -131,8 +131,14 @@ export default function Profile() {
                                         <div className="card-section-pane" key={index}>
                                             <BlockKeyValueList
                                                 items={[
-                                                    { label: 'IBAN', value: bank_account.iban },
-                                                    { label: 'Tenaam stelling', value: bank_account.name },
+                                                    {
+                                                        label: translate('profile.bank_accounts.iban'),
+                                                        value: bank_account.iban,
+                                                    },
+                                                    {
+                                                        label: translate('profile.bank_accounts.name'),
+                                                        value: bank_account.name,
+                                                    },
                                                 ]}
                                             />
                                         </div>

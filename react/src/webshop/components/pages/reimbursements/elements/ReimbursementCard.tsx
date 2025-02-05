@@ -39,11 +39,11 @@ export default function ReimbursementCard({
                     reimbursementService
                         .destroy(reimbursement.id)
                         .then(() => {
-                            pushSuccess('Declaratie geannuleerd.');
+                            pushSuccess(translate('push.success'), translate('push.reimbursement.canceled'));
                             navigateState('reimbursements');
                             onDelete();
                         })
-                        .catch((err: ResponseError) => pushDanger('Error.', err.data.message))
+                        .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message))
                         .finally(() => setProgress(100));
                 }
             });
@@ -57,6 +57,7 @@ export default function ReimbursementCard({
             reimbursementService,
             setProgress,
             onDelete,
+            translate,
         ],
     );
 

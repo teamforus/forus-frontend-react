@@ -151,6 +151,7 @@ export default {
         },
     },
     delete_voucher: {
+        title: 'Annuleer reservering',
         popup_form: {
             title: 'Wilt u uw reservering voor aankoop annuleren?',
             description:

@@ -21,10 +21,7 @@ export default {
     confirm: 'Bevestigen',
     require_2fa_always: 'Altijd bevestiging vereisen met 2FA',
     require_2fa_ip: 'Als IP-adres in de afgelopen 48 uur gebruikt, geen 2FA vereisen.',
-    saved: 'Opgeslagen!',
-    error: 'Error',
     unknown_error: 'Onbekende foutmelding.',
-    failed: 'Mislukt!',
 
     providers: {
         authenticator: {

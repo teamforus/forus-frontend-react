@@ -121,11 +121,11 @@ export default function Home() {
             <ModalNotification
                 modal={modal}
                 type={'confirm'}
-                title={'Sessie verlopen'}
+                title={translate('modal.logout.title')}
                 header={translate('modal.logout.description')}
                 mdiIconType="primary"
                 mdiIconClass={'information-outline'}
-                confirmBtnText={'Inloggen'}
+                confirmBtnText={translate('modal.logout.confirm')}
                 onConfirm={() => navigateState('start', {}, { reload: true })}
             />
         ));
