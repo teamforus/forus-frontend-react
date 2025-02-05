@@ -49,7 +49,7 @@ export default function LayoutAsideNavGroup({
             return { state, stateParams };
         }
 
-        return activeItems[0] ? { state: activeItems[0].state, stateParams: activeItems[0].stateParams } : null;
+        return activeItems?.[0] ? { state: activeItems[0].state, stateParams: activeItems[0].stateParams } : null;
     }, [show, state, stateParams, activeItems]);
 
     const isActive = useMemo(() => {
