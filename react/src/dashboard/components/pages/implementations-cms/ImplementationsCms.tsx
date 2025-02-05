@@ -77,6 +77,11 @@ export default function ImplementationsCms() {
         { value: true, label: 'Ja' },
     ]);
 
+    const [privacyAndTermsState] = useState([
+        { value: false, label: 'Nee' },
+        { value: true, label: 'Ja' },
+    ]);
+
     const [announcementTypes] = useState([
         { value: 'warning', label: 'Waarschuwing' },
         { value: 'success', label: 'Succes' },
@@ -113,6 +118,8 @@ export default function ImplementationsCms() {
         description_html?: string;
         description_alignment?: string;
         informal_communication?: boolean;
+        show_privacy_checkbox?: boolean;
+        show_terms_checkbox?: boolean;
         announcement?: {
             type?: string;
             title?: string;
@@ -264,6 +271,8 @@ export default function ImplementationsCms() {
                 page_title_suffix: implementation.page_title_suffix,
                 description_alignment: implementation.description_alignment,
                 informal_communication: implementation.informal_communication,
+                show_terms_checkbox: implementation.show_terms_checkbox,
+                show_privacy_checkbox: implementation.show_privacy_checkbox,
                 announcement: {
                     type: announcementTypes[0].value,
                     active: announcementState[0].value,
@@ -648,6 +657,58 @@ export default function ImplementationsCms() {
                                         </div>
                                     </Fragment>
                                 )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card-section card-section-primary">
+                        <div className="row">
+                            <div className="col col-lg-9">
+                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
+                                    <label className="form-label" htmlFor="show_privacy_checkbox">
+                                        {translate('implementation_edit.labels.show_privacy_checkbox')}
+                                    </label>
+                                    <div className="form-offset">
+                                        <SelectControl
+                                            id="show_privacy_checkbox"
+                                            className="form-control"
+                                            propKey="value"
+                                            propValue="label"
+                                            allowSearch={false}
+                                            options={privacyAndTermsState}
+                                            value={form.values?.show_privacy_checkbox}
+                                            onChange={(value?: boolean) => {
+                                                form.update({ show_privacy_checkbox: value });
+                                            }}
+                                            optionsComponent={SelectControlOptions}
+                                        />
+
+                                        <FormError error={form.errors.show_privacy_checkbox} />
+                                    </div>
+                                </div>
+
+                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
+                                    <label className="form-label" htmlFor="show_terms_checkbox">
+                                        {translate('implementation_edit.labels.show_terms_checkbox')}
+                                    </label>
+                                    <div className="form-offset">
+                                        <SelectControl
+                                            id="show_terms_checkbox"
+                                            className="form-control"
+                                            propKey="value"
+                                            propValue="label"
+                                            allowSearch={false}
+                                            options={privacyAndTermsState}
+                                            value={form.values?.show_terms_checkbox}
+                                            onChange={(value?: boolean) => {
+                                                form.update({ show_terms_checkbox: value });
+                                            }}
+                                            optionsComponent={SelectControlOptions}
+                                        />
+
+                                        <FormError error={form.errors.show_terms_checkbox} />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

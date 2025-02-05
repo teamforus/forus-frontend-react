@@ -24,6 +24,7 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
 import BindLinksInside from '../../elements/bind-links-inside/BindLinksInside';
+import { webshopUrl } from '../../../../dashboard/helpers/url';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -56,6 +57,7 @@ export default function Start() {
     const digIdService = useDigiDService();
     const identityService = useIdentityService();
 
+    const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const [authEmailRestoreSent, setAuthEmailRestoreSent] = useState<boolean>(null);
     const [authEmailConfirmationSent, setAuthEmailConfirmationSent] = useState<boolean>(false);
 
@@ -63,19 +65,29 @@ export default function Start() {
 
     const hasPrivacy = useMemo(() => {
         return (
-            envData.config?.flags?.privacyPage &&
+            appConfigs?.show_privacy_checkbox &&
+            appConfigs?.pages.privacy &&
             (!envData.config?.flags?.startPage?.combineColumns || state === 'email')
         );
-    }, [envData, state]);
+    }, [appConfigs, envData, state]);
+
+    const hasTerms = useMemo(() => {
+        return (
+            appConfigs?.show_terms_checkbox &&
+            appConfigs?.pages.terms_and_conditions &&
+            (!envData.config?.flags?.startPage?.combineColumns || state === 'email')
+        );
+    }, [appConfigs, envData, state]);
 
     const authForm = useFormBuilder(
         {
             email: '',
             target: target || 'fundRequest',
             privacy: false,
+            terms: false,
         },
         async (values) => {
-            if (!values.privacy && hasPrivacy) {
+            if ((!values.privacy && hasPrivacy) || (!values.terms && hasTerms)) {
                 // prevent submit if policy exist and not checked
                 authForm.setIsLocked(false);
                 return;
@@ -208,8 +220,88 @@ export default function Start() {
         }
     }, [envData, setTitle, translate]);
 
+    useEffect(() => {
+        if ((!authForm?.values?.privacy && hasPrivacy) || (!authForm?.values?.terms && hasTerms)) {
+            setDisableSubmitBtn(true);
+        } else {
+            setDisableSubmitBtn(false);
+        }
+    }, [authForm?.values?.privacy, authForm?.values?.terms, hasPrivacy, hasTerms]);
+
+    const privacyCheckbox = useCallback(() => {
+        const privacyUrl = webshopUrl(getStateRouteUrl('privacy'), appConfigs);
+
+        return hasPrivacy ? (
+            <div className="row">
+                <div className="col col-lg-12">
+                    <br className="hidden-lg" />
+                    <label
+                        className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
+                        htmlFor="privacy"
+                        tabIndex={2}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                            clickOnKeyEnter(e);
+                        }}>
+                        <input
+                            type="checkbox"
+                            className={'sign_up-privacy-checkbox'}
+                            checked={authForm.values.privacy}
+                            onChange={(e) => {
+                                authForm.update({ privacy: e.target.checked });
+                                e.target?.parentElement?.focus();
+                            }}
+                            id="privacy"
+                        />
+                        <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
+                            <strong>
+                                <TranslateHtml i18n={'auth.privacy_link.text'} values={{ link_url: privacyUrl }} />
+                            </strong>
+                        </BindLinksInside>
+                    </label>
+                </div>
+            </div>
+        ) : null;
+    }, [appConfigs, authForm, hasPrivacy]);
+
+    const termsCheckbox = useCallback(() => {
+        const termsUrl = webshopUrl(getStateRouteUrl('terms_and_conditions'), appConfigs);
+
+        return hasTerms ? (
+            <div className="row">
+                <div className="col col-lg-12">
+                    <br className="hidden-lg" />
+                    <label
+                        className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
+                        htmlFor="terms"
+                        tabIndex={2}
+                        onKeyDown={(e) => {
+                            e.stopPropagation();
+                            clickOnKeyEnter(e);
+                        }}>
+                        <input
+                            type="checkbox"
+                            className={'sign_up-privacy-checkbox'}
+                            checked={authForm.values.terms}
+                            onChange={(e) => {
+                                authForm.update({ terms: e.target.checked });
+                                e.target?.parentElement?.focus();
+                            }}
+                            id="terms"
+                        />
+                        <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
+                            <strong>
+                                <TranslateHtml i18n={'auth.terms_link.text'} values={{ link_url: termsUrl }} />
+                            </strong>
+                        </BindLinksInside>
+                    </label>
+                </div>
+            </div>
+        ) : null;
+    }, [appConfigs, authForm, hasTerms]);
+
     const inlineEmailForm = useCallback(
-        (showPolicy = true) => (
+        (showCheckboxes = true) => (
             <form className="form" onSubmit={authForm.submit} data-dusk="authEmailForm">
                 <div className="row">
                     <div className="form-group col col-lg-9">
@@ -242,7 +334,7 @@ export default function Start() {
                             id={'submit'}
                             className="button button-primary button-fill"
                             type="submit"
-                            disabled={showPolicy && !authForm.values.privacy && envData.config.flags.privacyPage}
+                            disabled={showCheckboxes && disableSubmitBtn}
                             data-dusk="authEmailFormSubmit"
                             tabIndex={4}>
                             {translate('popup_auth.buttons.submit')}
@@ -250,43 +342,11 @@ export default function Start() {
                     </div>
                 </div>
 
-                {showPolicy && envData.config.flags.privacyPage && (
-                    <div className="row">
-                        <div className="col col-lg-12">
-                            <br className="hidden-lg" />
-                            <label
-                                className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
-                                htmlFor="privacy"
-                                tabIndex={2}
-                                onKeyDown={(e) => {
-                                    e.stopPropagation();
-                                    clickOnKeyEnter(e);
-                                }}>
-                                <input
-                                    type="checkbox"
-                                    className={'sign_up-privacy-checkbox'}
-                                    checked={authForm.values.privacy}
-                                    onChange={(e) => {
-                                        authForm.update({ privacy: e.target.checked });
-                                        e.target?.parentElement?.focus();
-                                    }}
-                                    id="privacy"
-                                />
-                                <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
-                                    <strong>
-                                        <TranslateHtml
-                                            i18n={'auth.privacy_link.text'}
-                                            values={{ link_url: getStateRouteUrl('privacy') }}
-                                        />
-                                    </strong>
-                                </BindLinksInside>
-                            </label>
-                        </div>
-                    </div>
-                )}
+                {showCheckboxes && privacyCheckbox()}
+                {showCheckboxes && termsCheckbox()}
             </form>
         ),
-        [authForm, envData?.config?.flags?.privacyPage, translate],
+        [authForm, disableSubmitBtn, privacyCheckbox, termsCheckbox, translate],
     );
 
     const qrOption = (

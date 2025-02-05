@@ -63,4 +63,6 @@ export default interface Implementation {
     pre_check_banner_title: string;
     allow_per_fund_notification_templates?: boolean;
     page_title_suffix?: string;
+    show_terms_checkbox?: boolean;
+    show_privacy_checkbox?: boolean;
 }

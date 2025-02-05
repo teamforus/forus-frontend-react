@@ -1,12 +1,10 @@
-import React, { Fragment, useMemo, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import UIControlText from '../../../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import FormError from '../../../../../../dashboard/components/elements/forms/errors/FormError';
-import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import Fund from '../../../../../props/models/Fund';
 import useFormBuilder from '../../../../../../dashboard/hooks/useFormBuilder';
 import { useIdentityEmailsService } from '../../../../../../dashboard/services/IdentityEmailService';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import useEnvData from '../../../../../hooks/useEnvData';
 import FundRequestGoBackButton from '../FundRequestGoBackButton';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import TranslateHtml from '../../../../../../dashboard/components/elements/translate-html/TranslateHtml';
@@ -14,6 +12,9 @@ import EmailProviderLink from '../../../../../../dashboard/components/pages/auth
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAppConfigs from '../../../../../hooks/useAppConfigs';
 import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
+import BindLinksInside from '../../../../elements/bind-links-inside/BindLinksInside';
+import { getStateRouteUrl } from '../../../../../modules/state_router/Router';
+import { webshopUrl } from '../../../../../../dashboard/helpers/url';
 
 export default function FundRequestStepEmailSetup({
     fund,
@@ -30,20 +31,29 @@ export default function FundRequestStepEmailSetup({
     progress: React.ReactElement;
     bsnWarning: React.ReactElement;
 }) {
-    const envData = useEnvData();
     const assetUrl = useAssetUrl();
     const appConfigs = useAppConfigs();
 
     const translate = useTranslate();
     const identityEmailsService = useIdentityEmailsService();
 
+    const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const [emailSubmitted, setEmailSubmitted] = useState(false);
     const emailSetupRequired = useMemo(() => fund?.email_required, [fund?.email_required]);
 
-    const emailForm = useFormBuilder<{ email: string; privacy: boolean }>(
+    const hasPrivacy = useMemo(() => {
+        return appConfigs?.show_privacy_checkbox && appConfigs?.pages.privacy;
+    }, [appConfigs]);
+
+    const hasTerms = useMemo(() => {
+        return appConfigs?.show_terms_checkbox && appConfigs?.pages.terms_and_conditions;
+    }, [appConfigs]);
+
+    const emailForm = useFormBuilder<{ email: string; privacy: boolean; terms: boolean }>(
         {
             email: ``,
             privacy: false,
+            terms: false,
         },
         (values) => {
             identityEmailsService
@@ -55,6 +65,14 @@ export default function FundRequestStepEmailSetup({
                 .finally(() => emailForm.setIsLocked(false));
         },
     );
+
+    useEffect(() => {
+        if ((!emailForm?.values?.privacy && hasPrivacy) || (!emailForm?.values?.terms && hasTerms)) {
+            setDisableSubmitBtn(true);
+        } else {
+            setDisableSubmitBtn(false);
+        }
+    }, [emailForm?.values?.privacy, emailForm?.values?.terms, hasPrivacy, hasTerms]);
 
     return (
         <Fragment>
@@ -120,7 +138,7 @@ export default function FundRequestStepEmailSetup({
                                         <div className="form-label hide-sm">&nbsp;</div>
                                         <button
                                             className="button button-primary button-fill"
-                                            disabled={!emailForm.values.privacy && envData.config?.flags?.privacyPage}
+                                            disabled={disableSubmitBtn}
                                             type="submit"
                                             tabIndex={0}>
                                             {translate('popup_auth.buttons.submit')}
@@ -145,12 +163,12 @@ export default function FundRequestStepEmailSetup({
                                 </div>
                             )}
 
-                            {envData.config?.flags?.privacyPage && (
+                            {hasPrivacy ? (
                                 <div className="row">
                                     <div className="col col-lg-12">
                                         <br className="hidden-lg" />
                                         <label
-                                            className="sign_up-pane-text"
+                                            className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
                                             htmlFor="privacy"
                                             tabIndex={0}
                                             onKeyDown={(e) => {
@@ -166,23 +184,62 @@ export default function FundRequestStepEmailSetup({
                                                 }}
                                                 id="privacy"
                                             />
-                                            Ik heb de{' '}
-                                            <StateNavLink
-                                                name={'privacy'}
-                                                tabIndex={0}
-                                                target={'_blank'}
-                                                onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
-                                                    e.stopPropagation();
-                                                    clickOnKeyEnter(e);
-                                                }}
-                                                className="text-primary-light sign_up-pane-link">
-                                                privacyverklaring
-                                            </StateNavLink>{' '}
-                                            gelezen
+                                            <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
+                                                <strong>
+                                                    <TranslateHtml
+                                                        i18n={'auth.privacy_link.text'}
+                                                        values={{
+                                                            link_url: webshopUrl(
+                                                                getStateRouteUrl('privacy'),
+                                                                appConfigs,
+                                                            ),
+                                                        }}
+                                                    />
+                                                </strong>
+                                            </BindLinksInside>
                                         </label>
                                     </div>
                                 </div>
-                            )}
+                            ) : null}
+
+                            {hasTerms ? (
+                                <div className="row">
+                                    <div className="col col-lg-12">
+                                        <br className="hidden-lg" />
+                                        <label
+                                            className="sign_up-pane-text sign_up-pane-text-sm sign_up-privacy"
+                                            htmlFor="terms"
+                                            tabIndex={0}
+                                            onKeyDown={(e) => {
+                                                e.stopPropagation();
+                                                clickOnKeyEnter(e);
+                                            }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={emailForm.values.terms}
+                                                onChange={(e) => {
+                                                    emailForm.update({ terms: e.target.checked });
+                                                    e.target?.parentElement?.focus();
+                                                }}
+                                                id="terms"
+                                            />
+                                            <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
+                                                <strong>
+                                                    <TranslateHtml
+                                                        i18n={'auth.terms_link.text'}
+                                                        values={{
+                                                            link_url: webshopUrl(
+                                                                getStateRouteUrl('terms_and_conditions'),
+                                                                appConfigs,
+                                                            ),
+                                                        }}
+                                                    />
+                                                </strong>
+                                            </BindLinksInside>
+                                        </label>
+                                    </div>
+                                </div>
+                            ) : null}
                         </form>
                     </div>
 
@@ -194,7 +251,7 @@ export default function FundRequestStepEmailSetup({
                             !emailSetupRequired && (
                                 <button
                                     className="button button-text button-text-padless"
-                                    disabled={envData.config.flags.privacyPage && !emailForm.values.privacy}
+                                    disabled={disableSubmitBtn}
                                     onClick={nextStep}
                                     role="button"
                                     tabIndex={0}>
