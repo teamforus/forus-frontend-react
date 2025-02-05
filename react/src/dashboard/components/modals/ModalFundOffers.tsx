@@ -139,7 +139,7 @@ export default function ModalFundOffers({
                                                         name={'products-show'}
                                                         params={{ organizationId: organization.id, id: offer.id }}
                                                         target={'_blank'}
-                                                        className={'text-primary text-medium'}>
+                                                        className={'text-primary text-semibold'}>
                                                         {strLimit(offer.name, 45)}
                                                     </StateNavLink>
                                                 </td>

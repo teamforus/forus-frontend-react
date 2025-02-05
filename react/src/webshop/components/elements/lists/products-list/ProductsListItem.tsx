@@ -5,6 +5,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import ProductsListItemGrid from './templates/ProductsListItemGrid';
 import ProductsListItemList from './templates/ProductsListItemList';
 import ProductsListItemSearch from './templates/ProductsListItemSearch';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function ProductsListItem({
     display,
@@ -19,12 +20,13 @@ export default function ProductsListItem({
     stateParams?: object;
     onToggleBookmark?: (product: Product) => void;
 }) {
+    const translate = useTranslate();
     const bookmarkProductToggle = useBookmarkProductToggle();
 
     const price = useMemo(() => {
         if (productType == 'subsidies') {
             if (product.price_type === 'regular' && product.price_min == '0.00') {
-                return 'Gratis';
+                return translate('product.price.free');
             }
 
             if (product.price_type === 'regular' && product.price_min != '0.00') {
@@ -37,7 +39,7 @@ export default function ProductsListItem({
         }
 
         return product.price_locale;
-    }, [product, productType]);
+    }, [product, productType, translate]);
 
     const toggleBookmark = useCallback(
         async (e: React.MouseEvent) => {

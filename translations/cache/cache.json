@@ -356,12 +356,20 @@
         "https://westerkwartier.forus.io/"
     ],
     [
+        "app_footer.columns.follow_us",
+        "Volg ons op:"
+    ],
+    [
         "app_footer.columns.links",
         "Links"
     ],
     [
         "app_footer.columns.me_app",
         "Download de Me-app"
+    ],
+    [
+        "app_footer.columns.site_info",
+        "Site informatie"
     ],
     [
         "app_footer.links.accessibility",
@@ -386,6 +394,10 @@
     [
         "app_footer.provider_sign_up",
         "Aanmelden als aanbieder"
+    ],
+    [
+        "app_footer.sponsor_logo_alt",
+        "Sponsor logo"
     ],
     [
         "auth_start.example",
@@ -3076,6 +3088,10 @@
         "Winterswijk"
     ],
     [
+        "languages.ar",
+        "Arabic"
+    ],
+    [
         "languages.en",
         "Engels"
     ],
@@ -3126,6 +3142,10 @@
     [
         "list_blocks.fund_item_search.status.active",
         "Actief"
+    ],
+    [
+        "list_blocks.funds_list_pre_check.activate",
+        "Activeren"
     ],
     [
         "list_blocks.funds_list_pre_check.apply_parent_fund",
@@ -4380,6 +4400,26 @@
         "U bent automatisch uitgelogd door 15 minuten aan inactiviteit."
     ],
     [
+        "navbar.goereeoverflakkee.funds",
+        "Regelingen"
+    ],
+    [
+        "navbar.vergoedingen.funds",
+        "Alle vergoedingen"
+    ],
+    [
+        "navbar.vergoedingen.funds3",
+        "Meedoen"
+    ],
+    [
+        "navbar.vergoedingen.funds47",
+        "Busvoordeel"
+    ],
+    [
+        "navbar.vergoedingen.funds50",
+        "Inkomenstoeslag"
+    ],
+    [
         "not_found.breadcrumbs.home",
         "Home"
     ],
@@ -5060,6 +5100,82 @@
         "De e-mailadressen komen niet overeen"
     ],
     [
+        "pre_check.advice",
+        "Advies"
+    ],
+    [
+        "pre_check.all_categories",
+        "Alle categorieën"
+    ],
+    [
+        "pre_check.all_organizations",
+        "Alle organisaties"
+    ],
+    [
+        "pre_check.almost_there",
+        "Je bent er bijna!"
+    ],
+    [
+        "pre_check.breadcrumb.check",
+        "De Potjes check"
+    ],
+    [
+        "pre_check.breadcrumb.home",
+        "Home"
+    ],
+    [
+        "pre_check.change_answers",
+        "Wijzig antwoorden"
+    ],
+    [
+        "pre_check.download_pdf",
+        "Download als PDF"
+    ],
+    [
+        "pre_check.funds",
+        "Fondsen"
+    ],
+    [
+        "pre_check.next_step",
+        "Volgende"
+    ],
+    [
+        "pre_check.no_value",
+        "---"
+    ],
+    [
+        "pre_check.of",
+        "van"
+    ],
+    [
+        "pre_check.previous_step",
+        "Vorige stap"
+    ],
+    [
+        "pre_check.search",
+        "Zoeken"
+    ],
+    [
+        "pre_check.show_less",
+        "Toon minder"
+    ],
+    [
+        "pre_check.show_more",
+        "Toon meer"
+    ],
+    [
+        "pre_check.total_amount",
+        "Totaal bedrag"
+    ],
+    [
+        "pre_check.total_offers",
+        "Totaal aanbod"
+    ],
+    [
+        "pre_check.your_data",
+        "Uw gegevens"
+    ],
+    [
         "preferences_emails.breadcrumbs.home",
         "Home"
     ],
@@ -5704,6 +5820,10 @@
         "U heeft geen tegoed om dit aanbod mee te reserveren"
     ],
     [
+        "product.price.free",
+        "Gratis"
+    ],
+    [
         "product.status.active",
         "Actief"
     ],
@@ -5880,6 +6000,10 @@
         "Aanvragen"
     ],
     [
+        "profile_menu.buttons.me_app",
+        "Me-app"
+    ],
+    [
         "profile_menu.buttons.notification_preferences",
         "Notificatievoorkeuren"
     ],
@@ -5894,6 +6018,10 @@
     [
         "profile_menu.buttons.profile",
         "Gegevens"
+    ],
+    [
+        "profile_menu.buttons.provider_sign_up",
+        "Aanmelden als aanbieder"
     ],
     [
         "profile_menu.buttons.records",
@@ -7000,6 +7128,22 @@
         "Foto's"
     ],
     [
+        "security_2fa.app_providers.authenticator_1password",
+        "1Password authenticator"
+    ],
+    [
+        "security_2fa.app_providers.authenticator_google",
+        "Google authenticator"
+    ],
+    [
+        "security_2fa.app_providers.authenticator_lastpass",
+        "LastPass Authenticator"
+    ],
+    [
+        "security_2fa.app_providers.authenticator_microsoft",
+        "Microsoft Authenticator"
+    ],
+    [
         "security_2fa.breadcrumbs.home",
         "Home"
     ],
@@ -7042,6 +7186,14 @@
     [
         "security_2fa.number_confirmed",
         "Nummer bevestigd"
+    ],
+    [
+        "security_2fa.providers.authenticator.title",
+        "Authenticator app"
+    ],
+    [
+        "security_2fa.providers.phone.title",
+        "SMS Verificatie"
     ],
     [
         "security_2fa.remember_ip",
@@ -7316,7 +7468,7 @@
         "Home"
     ],
     [
-        "sitemap.breadcrumbs.search",
+        "sitemap.breadcrumbs.sitemap",
         "Sitemap"
     ],
     [
@@ -7918,6 +8070,14 @@
     [
         "voucher.card.labels.description",
         "1. Klik op Aanbod en kies en reserveer een activiteit.<br/>OF<br/>2. Neem de QR-code mee naar de aanbieder. Deze scant de QR-code en reserveert uw activiteit."
+    ],
+    [
+        "voucher.card.labels.email",
+        "E-mailadres:"
+    ],
+    [
+        "voucher.card.labels.phone",
+        "Telefoonnummer:"
     ],
     [
         "voucher.card.lost_my_pass",

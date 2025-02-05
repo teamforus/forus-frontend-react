@@ -82,7 +82,7 @@ export default function ProvidersTableItem({
                             />
                         </div>
                         <div className="collapsable-content">
-                            <div className="text-primary text-medium">{strLimit(providerOrganization.name, 40)}</div>
+                            <div className="text-primary text-semibold">{strLimit(providerOrganization.name, 40)}</div>
                         </div>
                     </div>
                 </td>

@@ -69,7 +69,7 @@ export default function SponsorProductsChangesTable({
                                         .filter((item) => item.state === 'approved')
                                         .map((fund) => fund.name)
                                         ?.join(', ')}>
-                                    <div className={'text-primary text-medium'}>
+                                    <div className={'text-primary text-semibold'}>
                                         {product.funds.filter((item) => item.state === 'approved').length}/
                                         {product.funds.length}
                                     </div>

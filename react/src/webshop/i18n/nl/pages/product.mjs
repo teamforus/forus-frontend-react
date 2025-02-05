@@ -37,6 +37,9 @@ export default {
         no_data: 'Geen data',
         free: 'Gratis',
     },
+    price: {
+        free: 'Gratis',
+    },
     buttons: {
         buy: 'Reserveren',
         buy_label: 'Open Reserveringsformulier',

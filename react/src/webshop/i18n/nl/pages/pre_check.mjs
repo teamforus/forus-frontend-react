@@ -1,0 +1,23 @@
+export default {
+    breadcrumb: {
+        home: 'Home',
+        check: 'De Potjes check',
+    },
+    of: 'van',
+    no_value: '---',
+    show_more: 'Toon meer',
+    show_less: 'Toon minder',
+    search: 'Zoeken',
+    previous_step: 'Vorige stap',
+    next_step: 'Volgende',
+    funds: 'Fondsen',
+    your_data: 'Uw gegevens',
+    advice: 'Advies',
+    almost_there: 'Je bent er bijna!',
+    total_amount: 'Totaal bedrag',
+    total_offers: 'Totaal aanbod',
+    download_pdf: 'Download als PDF',
+    change_answers: 'Wijzig antwoorden',
+    all_categories: 'Alle categorieën',
+    all_organizations: 'Alle organisaties',
+};

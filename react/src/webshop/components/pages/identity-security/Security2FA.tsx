@@ -160,7 +160,11 @@ export default function Security2FA() {
                                 </div>
                                 <div className="auth-2fa-item-details">
                                     <div className="auth-2fa-item-title">
-                                        {provider_type.title}
+                                        {provider_type?.type == 'authenticator' &&
+                                            translate('security_2fa.providers.authenticator.title')}
+
+                                        {provider_type?.type == 'phone' &&
+                                            translate('security_2fa.providers.phone.title')}
 
                                         {activeProvidersByKey[provider_type.type] ? (
                                             <div className="auth-2fa-item-date">

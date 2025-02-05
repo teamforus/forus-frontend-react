@@ -252,7 +252,10 @@ export default function Modal2FASetup({
     }, [onKeyDown]);
 
     useEffect(() => {
-        const providers = auth2FAState.providers.filter((provider) => provider.type == type);
+        const providers = auth2FAState.providers
+            .filter((provider) => provider.type == type)
+            .map((provider) => ({ ...provider, name: translate('security_2fa.app_providers.' + provider.key) }));
+
         const active_providers = auth2FAState.active_providers.filter((item) => item.provider_type.type == type);
 
         setAuth2FA((auth2FA) => (auth2FA ? auth2FA : active_providers.find((auth_2fa) => auth_2fa)));
@@ -264,7 +267,7 @@ export default function Modal2FASetup({
         return () => {
             unbindEvents();
         };
-    }, [type, bindEvents, unbindEvents, auth2FAState]);
+    }, [type, bindEvents, unbindEvents, auth2FAState, translate]);
 
     // should set up
     useEffect(() => {

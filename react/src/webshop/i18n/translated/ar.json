@@ -1,0 +1,3350 @@
+{
+    "auth_start": {
+        "example": "أدخل عنوان بريد إلكتروني صالح، على سبيل المثال <strong>naam@voorbeeld.com</strong>"
+    },
+    "auth": {
+        "": "المصادقة الثنائية",
+        "back": "رجوع",
+        "back_start": "العودة إلى تسجيل الدخول",
+        "choose_option": "اختر خياراً",
+        "logout": "تسجيل الخروج",
+        "options": {
+            "digid": {
+                "description": "افتح شاشة تسجيل الدخول إلى DigiD",
+                "title": "DigiD"
+            },
+            "email": {
+                "description": "تلقي رابط تسجيل الدخول عبر البريد الإلكتروني",
+                "title": "عنوان البريد الإلكتروني"
+            },
+            "qr": {
+                "description": "امسح رمز الاستجابة السريعة ضوئياً باستخدام تطبيق <u>Me</u>",
+                "title": "تطبيقي"
+            }
+        },
+        "privacy_link": {
+            "text": "لقد قرأت <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">بيان الخصوصية</a> "
+        },
+        "push": {
+            "link_used": {
+                "title": "تم استخدام هذا الرابط بالفعل أو أنه غير صالح."
+            }
+        },
+        "qr": {
+            "title": "تسجيل الدخول"
+        },
+        "restore": {
+            "label": "لم يعد بإمكانك تسجيل الدخول بعد الآن؟",
+            "link": "استعادة الحساب مع DigiD",
+            "title": "استعادة الحساب"
+        },
+        "setup_2fa_title": "إعداد المصادقة الثنائية",
+        "sign_in_up_title": "إنشاء حساب أو بدء تطبيق؟"
+    },
+    "blocks": {
+        "block_exception": {
+            "description": "نعتذر، لقد حدث خطأ غير متوقع من جانبنا. يرجى المحاولة مرة أخرى.",
+            "go_home": "اذهب إلى المنزل",
+            "title": "عفوًا، حدث خطأ ما",
+            "try_again": "إعادة المحاولة"
+        }
+    },
+    "bookmarked_products": {
+        "empty": {
+            "button": "عرض العرض",
+            "title": "لم تتم إضافة أي عروض حتى الآن."
+        },
+        "title": "قائمة أمنياتي",
+        "view_grid": "الصور",
+        "view_list": "القائمة"
+    },
+    "buttons": {
+        "add": "إضافة",
+        "back": "رجوع",
+        "buy": "اشترِ",
+        "cancel": "إلغاء",
+        "close": "إغلاق",
+        "confirm": "تأكيد",
+        "copy": "نسخ",
+        "create": "إنشاء بيانات شخصية",
+        "details": "عرض التفاصيل",
+        "join": "التسجيل",
+        "next": "التالي",
+        "read_more": "اقرأ المزيد",
+        "read_more_about_system": "اقرأ المزيد عن كيفية عمل النظام",
+        "send": "أرسل لي بريد إلكتروني",
+        "share": "شارك",
+        "show_map": "عرض الخريطة",
+        "show_more": "عرض المزيد",
+        "skip": "تخطي",
+        "start": "ابدأ",
+        "submit": "إرسال",
+        "use": "الاستخدام",
+        "validate": "الموافقة"
+    },
+    "confirm_reimbursement_destroy": {
+        "confirm_btn": "تأكيد",
+        "description": "هل أنت متأكد من رغبتك في إلغاء طلب المطالبة؟",
+        "title": "إلغاء الإعلان؟"
+    },
+    "confirm_taken_by_partner": {
+        "close_btn": "تأكيد",
+        "description": "ستصلك هذه الرسالة لأن الرصيد تم تفعيله من قبل أحد أفراد العائلة أو ولي الأمر. يتوفر الرصيد في حساب الشخص الذي قام بتفعيله أولاً.",
+        "header": "تم تفعيل هذا الرصيد بالفعل",
+        "title": "تفعيل الائتمان"
+    },
+    "custom_page_state_titles": {
+        "goereeoverflakkee": {
+            "funds": "المخططات{{pageTitleSuffix}}"
+        },
+        "vergoedingen": {
+            "funds": "جميع الرسوم{{pageTitleSuffix}}"
+        }
+    },
+    "email_service_switch": {
+        "confirm": "خذني إلى بريدي الإلكتروني"
+    },
+    "explanation": {
+        "breadcrumbs": {
+            "explanation": "الشرح",
+            "home": "الصفحة الرئيسية"
+        }
+    },
+    "global": {
+        "2fa_restriction": {
+            "emails": {
+                "button": "إعداد المصادقة الثنائية",
+                "description": "لضمان أمن البيانات الشخصية وحمايتها في متجر الويب شوب (webshop)، من الإلزامي توثيق الحسابات. يجب على المستخدمين تقديم طريقة لتحديد الهوية قبل الوصول إلى الوظائف التي يمكن من خلالها إدخال البيانات الشخصية أو إجراء تعديلات على الحساب.",
+                "title": "المصادقة الثنائية مطلوبة لإدارة عناوين البريد الإلكتروني."
+            },
+            "reasons": {
+                "description": "لاستخدام خيارات ووظائف معينة، يحتاج المستخدمون إلى استخدام طريقة مصادقة ثانية. وهذا يعزز الأمان ويضمن أن المستخدمين المصرح لهم فقط هم من يمكنهم الوصول إلى الميزات، مما يجعل الحسابات أكثر أماناً.",
+                "title": "تتطلب الاعتمادات التالية مصادقة ثنائية العامل."
+            },
+            "reimbursements": {
+                "button": "إعداد المصادقة الثنائية",
+                "description": "لضمان أمن البيانات الشخصية وحمايتها في متجر الويب شوب (webshop)، من الإلزامي توثيق الحسابات. يجب على المستخدمين تقديم طريقة لتحديد الهوية قبل الوصول إلى الوظائف التي يمكن من خلالها إدخال البيانات الشخصية أو إجراء تعديلات على الحساب.",
+                "title": "المصادقة الثنائية مطلوبة لإرسال المطالبات."
+            },
+            "sessions": {
+                "button": "إعداد المصادقة الثنائية",
+                "description": "لضمان أمن البيانات الشخصية وحمايتها في متجر الويب شوب (webshop)، من الإلزامي توثيق الحسابات. يجب على المستخدمين تقديم طريقة لتحديد الهوية قبل الوصول إلى الوظائف التي يمكن من خلالها إدخال البيانات الشخصية أو إجراء تعديلات على الحساب.",
+                "title": "المصادقة بعاملين مطلوبة لإدارة جلسات تسجيل الدخول."
+            }
+        },
+        "app_links": {
+            "app_store": "التنزيل من متجر التطبيقات",
+            "google_play": "اكتشف ذلك على جوجل بلاي"
+        },
+        "card_2fa_warning": {
+            "2fa_policy": {
+                "required": {
+                    "description": "للاستفادة من هذا المخطط، يجب على المستخدم استخدام طريقة تحقق ثانية بعد التطبيق.",
+                    "title": "تفرض هذه اللائحة استخدام المصادقة ذات العاملين"
+                },
+                "restrict_features": {
+                    "description": "لاستخدام خيارات ووظائف معينة مرتبطة بهذا المخطط، يجب على المستخدم استخدام طريقة مصادقة ثانية.",
+                    "title": "تفرض هذه اللائحة استخدام المصادقة ذات العاملين لوظائف معينة"
+                },
+                "show_less": "اعرض أقل",
+                "show_more": "اعرض المزيد"
+            },
+            "email_restrictions": {
+                "description": "المصادقة الثنائية مطلوبة لإدارة عناوين البريد الإلكتروني.",
+                "title": "قيود البريد الإلكتروني"
+            },
+            "reimbursement_restrictions": {
+                "description": "المصادقة الثنائية مطلوبة لإرسال المطالبات.",
+                "title": "قيود الإعلانات"
+            },
+            "session_restrictions": {
+                "description": "المصادقة بعاملين مطلوبة لإدارة جلسات تسجيل الدخول.",
+                "title": "قيود الجلسات"
+            }
+        },
+        "file_item": {
+            "download_file": "تنزيل الملف",
+            "remove_file": "حذف الملف",
+            "view_file": "عرض الملف"
+        },
+        "file_uploader": {
+            "attachments": "المرفقات",
+            "max_files": "الحد الأقصى. {[ العدد ]} الملفات",
+            "max_size": "الحد الأقصى للحجم 8 ميغابايت",
+            "or": "أو",
+            "title": "تحميل مستند",
+            "upload_button": "تحميل مستند"
+        },
+        "info_box": {
+            "2fa_description": "لمزيد من المعلومات حول المصادقة الثنائية (2FA)، تفضل بزيارتنا:",
+            "help_center_article": "مقالة مركز المساعدة"
+        },
+        "map_marker": {
+            "address": "العنوان",
+            "email": "البريد الإلكتروني",
+            "organization_type": "نوع المنظمة",
+            "phone": "الهاتف",
+            "view_details": "عرض التفاصيل"
+        },
+        "showcase": {
+            "filters": "التصفية"
+        },
+        "voucher_records": {
+            "hide_details": "إخفاء جميع التفاصيل",
+            "show_details": "إظهار كل التفاصيل"
+        }
+    },
+    "implementation_name": {
+        "berkelland": "بيركيلاند",
+        "ede": "إيد",
+        "eemsdelta": "إيمزدلتا",
+        "forus": "منصة فورس و ",
+        "geertruidenberg": "غيرترويدنبرغ",
+        "general": "جنرال لواء",
+        "goereeoverflakkee": "جويري-أوفرفلاكي",
+        "groningen": "ستادجرسباس",
+        "hartvanwestbrabant": "HvWB",
+        "heumen": "هيومين",
+        "kerstpakket": "باقة عيد الميلاد",
+        "noordoostpolder": "حزمة المشاركة",
+        "oostgelre": "أوستجيلر",
+        "potjeswijzer": "دليل الأواني",
+        "schagen": "شاجين",
+        "vergoedingen": "الرسوم",
+        "waalwijk": "باسويزر",
+        "westerkwartier": "فيستركوارتييه",
+        "winterswijk": "وينترسفيك"
+    },
+    "languages": {
+        "ar": "اللغة العربية",
+        "en": "اللغة الإنجليزية",
+        "nl": "اللغة الهولندية"
+    },
+    "list_blocks": {
+        "fund_item_list": {
+            "buttons": {
+                "check_status": "التحقق من الحالة",
+                "is_applicable": "الطلب"
+            },
+            "show_less": "اعرض أقل",
+            "show_more": "اعرض المزيد",
+            "status": {
+                "activateable": "قابل للتفعيل",
+                "active": "نشط",
+                "is_applicable": "قابل للطلب",
+                "is_pending": "في انتظار"
+            }
+        },
+        "fund_item_search": {
+            "buttons": {
+                "is_applicable": "الطلب",
+                "is_pending": "في انتظار"
+            },
+            "status": {
+                "active": "نشط"
+            }
+        },
+        "funds_list_pre_check": {
+            "apply_parent_fund": "يمكنك التقدم بطلب للحصول على هذا البرنامج من خلال التقدم بطلب للحصول على البرنامج التالي:",
+            "apply_related_funds": "إذا تقدمت بطلب للحصول على هذا المخطط، يمكنك أيضًا التقدم مباشرةً بطلب للحصول على مخططات أخرى. ينطبق هذا على قائمة المخططات التالية:",
+            "conditions": "الشروط",
+            "explanation": "الشرح",
+            "external_website": "عرض الموقع الخارجي",
+            "good_chance": "فرصة جيدة",
+            "hide_explanation": "إخفاء الشرح",
+            "low_chance": "احتمالية منخفضة",
+            "medium_chance": "متوسط الاحتمالات",
+            "no_indication": "لا يوجد مؤشر",
+            "not_available": "غير متوفر",
+            "product_voucher": "قسيمة المنتج",
+            "show_less": "اعرض أقل",
+            "show_more": "اعرض المزيد",
+            "total": "الإجمالي",
+            "view_explanation": "عرض الشرح",
+            "why": "لماذا؟",
+            "activate": "تفعيل"
+        },
+        "product_item_grid": {
+            "bookmark": "إضافة إلى قائمة الرغبات"
+        },
+        "product_item_list": {
+            "bookmark": "إضافة إلى قائمة الرغبات"
+        },
+        "product_item_search": {
+            "free": "مجاناً"
+        },
+        "provider_item_list": {
+            "no_data": "لا توجد بيانات",
+            "open_provider": "المزود المفتوح",
+            "show_locations": "عرض المواقع"
+        }
+    },
+    "logo_alt_text": {
+        "berkelland": "بلدية بيركيلاند",
+        "ede": "إيد",
+        "eemsdelta": "بلدية دلتا إيمز",
+        "geertruidenberg": "بلدية غيرترويدنبرغ",
+        "general": "فورس",
+        "goereeoverflakkee": "بلدية غويري-أوفرفلاكي",
+        "groningen": "ستادجرسباس",
+        "hartvanwestbrabant": "مكان العمل",
+        "heumen": "بلدية هيومين",
+        "kerstpakket": "باقة عيد الميلاد",
+        "noordoostpolder": "بلدية نوردوشتبولدر",
+        "oostgelre": "بلدية أوست جيلر",
+        "potjeswijzer": "دليل الأواني",
+        "schagen": "بلدية شاجن",
+        "vergoedingen": "شعار بلدية نايميخن",
+        "waalwijk": "مرر بحكمة",
+        "westerkwartier": "بلدية فيستركفارتييه",
+        "winterswijk": "بلدية وينترسفيك"
+    },
+    "notifications": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "notifications": "الإشعارات"
+        },
+        "columns": {
+            "date": "التاريخ",
+            "details": "الإخطار"
+        },
+        "title": "الإشعارات"
+    },
+    "page_state_loading_titles": {
+        "actions": "العرض{{pageTitleSuffix}}",
+        "fund": "الصندوق{{pageTitleSuffix}}",
+        "fund-request-show": "الطلب{{pageTitleSuffix}}",
+        "fund-requests": "الطلب{{pageTitleSuffix}}",
+        "home": "متجر ويب شوب{{pageTitleSuffix}}",
+        "product": "العرض{{pageTitleSuffix}}",
+        "products": "العرض{{pageTitleSuffix}}",
+        "provider": "المزود{{pageTitleSuffix}}",
+        "reimbursement": "إعلان{{pageTitleSuffix}}",
+        "reimbursement-edit": "تحرير استرداد التكاليف{{pageTitleSuffix}}",
+        "voucher": "رصيدك{{pageTitleSuffix}}"
+    },
+    "page_state_titles": {
+        "accessibility": "بيان إمكانية الوصول{{pageTitleSuffix}}",
+        "actions": "العرض{{fund_name}}{{pageTitleSuffix}}",
+        "auth-link": "تسجيل الدخول{{pageTitleSuffix}}",
+        "bookmarked-products": "قائمة أمنياتي{{pageTitleSuffix}}",
+        "confirmation-email": "تأكيد البريد الإلكتروني{{pageTitleSuffix}}",
+        "explanation": "شرح طلبات السداد{{pageTitleSuffix}}",
+        "fund": "{{fund_name}}{{pageTitleSuffix}}",
+        "fund-activate": "تفعيل {{fund_name}}{{pageTitleSuffix}}",
+        "fund-apply": "الطلب{{pageTitleSuffix}}",
+        "fund-request-clarification": "طلب ملحق{{pageTitleSuffix}}",
+        "fund-request-show": "الطلب {{fund_name}}{{pageTitleSuffix}}",
+        "fund-requests": "الطلب{{pageTitleSuffix}}",
+        "funds": "الطلب{{pageTitleSuffix}}",
+        "funds-apply": "الطلب{{pageTitleSuffix}}",
+        "home": "{{implementation}}{{pageTitleSuffix}}",
+        "identity-emails": "إعدادات البريد الإلكتروني{{pageTitleSuffix}}",
+        "kindpakket": "المحفظة - باقة الطفل{{pageTitleSuffix}}",
+        "me": "أنا{{pageTitleSuffix}}",
+        "me-app": "أنا-التطبيق{{pageTitleSuffix}}",
+        "notifications": "الإشعارات{{pageTitleSuffix}}",
+        "platform": "منصة فورس{{pageTitleSuffix}}",
+        "portfolio": "المحفظة{{pageTitleSuffix}}",
+        "preferences-notifications": "تفضيلات الإخطار{{pageTitleSuffix}}",
+        "privacy": "بيان الخصوصية{{pageTitleSuffix}}",
+        "product": "{{product_name}} العرض - من {{organization_name}}{{pageTitleSuffix}}",
+        "products": "العرض{{fund_name}}{{pageTitleSuffix}}",
+        "products-apply": "عرض الشراء{{pageTitleSuffix}}",
+        "products-show": "العرض{{pageTitleSuffix}}",
+        "provider": "الموفر - {{provider_name}}{{pageTitleSuffix}}",
+        "provider-office": "مؤسسة المزود{{pageTitleSuffix}}",
+        "providers": "المزودون{{pageTitleSuffix}}",
+        "record-create": "إضافة بيانات شخصية{{pageTitleSuffix}}",
+        "record-validate": "الموافقة على البيانات الشخصية{{pageTitleSuffix}}",
+        "record-validations": "الموافقات{{pageTitleSuffix}}",
+        "records": "البيانات الشخصية{{pageTitleSuffix}}",
+        "reimbursement": "إعلان - {{code}}{{pageTitleSuffix}}",
+        "reimbursement-edit": "تعديل استرداد التكاليف - تعديل استرداد التكاليف - {{code}}{{pageTitleSuffix}}",
+        "reimbursements": "الإعلانات{{pageTitleSuffix}}",
+        "reimbursements-create": "استرداد الرسوم الجديدة{{pageTitleSuffix}}",
+        "reservation-show": "الحجز{{pageTitleSuffix}}",
+        "reservations": "الحجوزات{{pageTitleSuffix}}",
+        "restore-email": "تسجيل الدخول عبر البريد الإلكتروني{{pageTitleSuffix}}",
+        "search-result": "نتائج البحث{{pageTitleSuffix}}",
+        "security-2fa": "الأمن{{pageTitleSuffix}}",
+        "security-sessions": "الجلسات الأمنية{{pageTitleSuffix}}",
+        "sign-up": "التسجيل{{pageTitleSuffix}}",
+        "sitemap": "خريطة الموقع{{pageTitleSuffix}}",
+        "start": "ابدأ تسجيل الدخول{{pageTitleSuffix}}",
+        "terms_and_conditions": "الشروط والأحكام العامة{{pageTitleSuffix}}",
+        "voucher": "ائتمانك - {{fund_name}}{{pageTitleSuffix}}",
+        "vouchers": "رصيدي{{pageTitleSuffix}}"
+    },
+    "page_title": "منصة فورس",
+    "product_bookmark_push": {
+        "go_to_bookmarks": "انتقل إلى قائمة أمنياتي",
+        "list_message": "{{ total }} توجد عروض في قائمة الرغبات",
+        "removed": "{{ name }} تمت إزالته من قائمة الأمنيات!"
+    },
+    "products": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "products": "العرض"
+        },
+        "distances": {
+            "3": "< أقل من 3 كم",
+            "5": "< أقل من 5 كم",
+            "10": "< أقل من 10 كم",
+            "15": "< أقل من 15 كم",
+            "25": "< 25 كم",
+            "50": "< أقل من 50 كم",
+            "75": "< 75 كم",
+            "everywhere": "في كل مكان"
+        },
+        "filters": {
+            "all_categories": "اختر الفئة...",
+            "all_funds": "جميع الائتمانات...",
+            "all_products": "العرض الكامل",
+            "all_providers": "حدد المزود...",
+            "all_sub_categories": "اختر الفئة الفرعية...",
+            "bookmarked": "قائمة أمنياتي",
+            "category": "الفئة",
+            "distance": "المسافة",
+            "fund": "الائتمان",
+            "postcode": "الرمز البريدي",
+            "providers": "المزودون",
+            "search": "عرض البحث",
+            "sort": "فرز",
+            "sub_category": "الفئة الفرعية"
+        },
+        "sort": {
+            "created_at_asc": "الأقدم أولاً",
+            "created_at_desc": "الجديد الأول",
+            "most_popular": "الأكثر طلباً",
+            "name_asc": "الاسم (تصاعدي)",
+            "name_desc": "الاسم (تنازلياً)",
+            "price_asc": "السعر (تصاعدي)",
+            "price_desc": "السعر (تنازلياً)"
+        },
+        "title": "العرض",
+        "view": {
+            "grid": "الصور",
+            "list": "القائمة"
+        }
+    },
+    "provider_sign_up": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "sign_up_provider": "التسجيل كمقدم خدمات"
+        },
+        "button": {
+            "login": "ثم قم بتسجيل الدخول",
+            "register": "التسجيل"
+        },
+        "description": {
+            "already_account": "هل لديك حساب بالفعل؟",
+            "fill_form": "من خلال ملء النموذج عبر الإنترنت، فإنك تقوم بتسجيل مؤسستك كمقدم خدمة. يستغرق تعبئته حوالي 15 دقيقة.",
+            "read_instruction": "اقرأ التعليمات في كل خطوة بعناية."
+        },
+        "heading": "التسجيل كمقدم خدمات",
+        "heading_screen_reader": "التسجيل"
+    },
+    "providers_office": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "providers": "المزودون"
+        },
+        "details": {
+            "address": "العنوان",
+            "email": "عنوان البريد الإلكتروني",
+            "phone": "رقم الهاتف",
+            "title": "معلومات الفرع",
+            "type": "نوع مقدم الخدمة",
+            "type_none": "لم يتم تحديد أي نوع"
+        },
+        "providers": {
+            "office_thumbnail_alt": "الصورة المصغرة للمكتب",
+            "show_more": "إظهار/إخفاء معلومات حول الموفر",
+            "title": "المزود",
+            "type_none": "لم يتم تحديد أي نوع"
+        },
+        "title": "المزودون",
+        "working_hours": {
+            "not_set": "لم يحدد مقدم الخدمة ساعات العمل. اتصل بمقدم الخدمة لمعرفة ساعات العمل.",
+            "title": "ساعات العمل"
+        }
+    },
+    "push_notification_group": {
+        "adjust": "ضبط",
+        "auto_close_after": "{{ dismissTime }} إغلاق تلقائي بعد ثوانٍ",
+        "auto_close_disabled": "تم تعطيل الإغلاق التلقائي",
+        "hide_notifications": "{{ count }} إخفاء + إشعارات",
+        "show_notifications": "{{ count }} عرض + إشعارات"
+    },
+    "security_2fa": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "security_2fa": "المصادقة الثنائية"
+        },
+        "confirm": "تأكيد",
+        "disable": "إيقاف التشغيل",
+        "disabled": "معاق",
+        "enable": "التمكين",
+        "enabled_on": "ممكّنة: ",
+        "error": "خطأ",
+        "failed": "فشل!",
+        "municipality_restrict": "لا يمكن تغيير هذه الإعدادات بسبب الشروط التي وضعتها البلدية",
+        "number_confirmed": "تم تأكيد الرقم",
+        "remember_ip": "تذكر عنوان IP",
+        "require_2fa_always": "اطلب دائمًا التأكيد باستخدام المصادقة الثنائية (2FA)",
+        "require_2fa_ip": "إذا تم استخدام عنوان IP في آخر 48 ساعة، فلا تطلب المصادقة الثنائية (2FA).",
+        "saved": "تم الحفظ!",
+        "settings": "الإعدادات",
+        "sms_message": "رسالة نصية قصيرة",
+        "subtitle": "أضف طبقة أمان إضافية إلى حسابك من خلال تمكين المصادقة الثنائية. يمكنك الاختيار من بين طرق المصادقة التالية: تطبيق Authenticator والمصادقة عبر الرسائل النصية القصيرة.",
+        "title": "المصادقة الثنائية",
+        "unknown_error": "رسالة خطأ غير معروفة.",
+        "verification_codes_sent": "تم إرسال رموز التحقق عبر الرسائل النصية القصيرة",
+        "vouchers_restrict": "هناك قسيمة واحدة أو أكثر من صندوق تقيد هذه المؤسسة",
+        "providers": {
+            "authenticator": {
+                "title": "تطبيق Authenticator"
+            },
+            "phone": {
+                "title": "التحقق من الرسائل النصية القصيرة"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1مصادقة كلمة المرور",
+            "authenticator_google": "مصادقة Google",
+            "authenticator_lastpass": "مُوثِّق LastPass Authenticator",
+            "authenticator_microsoft": "موثق مايكروسوفت"
+        }
+    },
+    "security_sessions": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "security_sessions": "الأمن"
+        },
+        "buttons": {
+            "show_all_locations": "شاهد جميع المواقع",
+            "terminate_all_sessions": "إنهاء جميع الجلسات",
+            "terminate_session": "نهاية الجلسة"
+        },
+        "clients": {
+            "general": "غير معروف",
+            "provider": "بيئة إدارة المزودين",
+            "sponsor": "بيئة إدارة الكفيل",
+            "validator": "بيئة إدارة المقيّم",
+            "webshop": "متجر ويب شوب"
+        },
+        "details": {
+            "last_activity": "أحدث الأنشطة",
+            "started_at": "بدأت الجلسة"
+        },
+        "labels": {
+            "current": "الحالي",
+            "online": "عبر الإنترنت"
+        },
+        "title": "الأمن"
+    },
+    "terms_and_conditions": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "terms_and_conditions": "الشروط والأحكام العامة"
+        }
+    },
+    "test": "{{name}} {{foo}}",
+    "top_navbar": {
+        "buttons": {
+            "authorize": "تسجيل الدخول إلى التطبيق",
+            "ede": {
+                "activate": "المخططات"
+            },
+            "funds": "الطلب",
+            "geertruidenberg": {
+                "activate": "الطلب"
+            },
+            "groningen": {
+                "activate": "الطلب",
+                "voucher": "بطاقة مدينتي"
+            },
+            "heumen": {
+                "activate": "تفعيل"
+            },
+            "login": "تسجيل الدخول",
+            "logout": "تسجيل الخروج",
+            "mobile": {
+                "dropdown": {
+                    "authorize": "تسجيل الدخول إلى التطبيق",
+                    "berkelland": {
+                        "funds": "تفعيل"
+                    },
+                    "bookmarked_products": "قائمة أمنياتي",
+                    "ede": {
+                        "funds": "المخططات"
+                    },
+                    "explanation": "الشرح",
+                    "fund_requests": "الطلب",
+                    "funds": "جميع الاعتمادات",
+                    "geertruidenberg": {
+                        "funds": "المخططات"
+                    },
+                    "groningen": {
+                        "funds": "الطلب",
+                        "vouchers": "بطاقة مدينتي"
+                    },
+                    "heumen": {
+                        "funds": "تفعيل"
+                    },
+                    "home": "الصفحة الرئيسية",
+                    "noordoostpolder": {
+                        "funds": "المخططات"
+                    },
+                    "notifications": "الإشعارات",
+                    "oostgelre": {
+                        "funds": "تفعيل"
+                    },
+                    "payouts": "المدفوعات",
+                    "potjeswijzer": {
+                        "funds": "البرطمانات"
+                    },
+                    "preferences_emails": "إعدادات البريد الإلكتروني",
+                    "preferences_notifications": "تفضيلات الإخطار",
+                    "records": "الملف الشخصي",
+                    "reimbursements": "استرداد التكاليف",
+                    "reservations": "الحجوزات",
+                    "schagen": {
+                        "funds": "المخططات"
+                    },
+                    "security": "الأمن",
+                    "sessions": "الجلسات",
+                    "vergoedingen": {
+                        "funds": "الرسوم"
+                    },
+                    "vouchers": "أرصدتي",
+                    "waalwijk": {
+                        "funds": "الطلب"
+                    },
+                    "westerkwartier": {
+                        "funds": "الطلب"
+                    },
+                    "winterswijk": {
+                        "funds": "تفعيل"
+                    }
+                },
+                "groningen": {
+                    "voucher": "بطاقة مدينتي"
+                },
+                "more": "المزيد",
+                "profile": "الملف الشخصي",
+                "request": "الطلب",
+                "voucher": "أرصدتي"
+            },
+            "noordoostpolder": {
+                "activate": "المخططات"
+            },
+            "potjeswijzer": {
+                "activate": "البرطمانات"
+            },
+            "products": "العرض",
+            "profile": "الملف الشخصي >",
+            "providers": "المزودون",
+            "records": "بياناتي الشخصية",
+            "reimbursements": "استرداد التكاليف",
+            "subsidies": "العرض",
+            "vergoedingen": {
+                "activate": "الرسوم",
+                "login": "تسجيل الدخول/التسجيل"
+            },
+            "voucher": "أرصدتي",
+            "waalwijk": {
+                "activate": "الطلب"
+            },
+            "westerkwartier": {
+                "activate": "الطلب"
+            }
+        },
+        "items": {
+            "ede": {
+                "explanation": "الأسئلة المتداولة",
+                "funds": "شرح للمقيمين"
+            },
+            "eemsdelta": {
+                "funds": "المخططات"
+            },
+            "explanation": "الشرح",
+            "funds": "تفعيل",
+            "geertruidenberg": {
+                "funds": "المخططات"
+            },
+            "groningen": {
+                "explanation": "كيف تعمل؟",
+                "funds": "الطلب"
+            },
+            "hartvanwestbrabant": {
+                "funds": "المخططات"
+            },
+            "heumen": {
+                "funds": "تفعيل"
+            },
+            "home": "الصفحة الرئيسية",
+            "identity": "الملف الشخصي",
+            "menu": {
+                "close": "إغلاق",
+                "show": "قائمة الطعام"
+            },
+            "midden_drenthe": {
+                "funds": "المخططات"
+            },
+            "noordoostpolder": {
+                "funds": "المخططات"
+            },
+            "potjeswijzer": {
+                "funds": "البرطمانات"
+            },
+            "products": "العرض",
+            "providers": "المزودون",
+            "schagen": {
+                "funds": "المخططات"
+            },
+            "search": "بحث",
+            "signup": "مقدمو الشرح",
+            "subsidies": "العرض",
+            "vergoedingen": {
+                "funds": "الرسوم"
+            },
+            "waalwijk": {
+                "funds": "الطلب"
+            },
+            "wadenheuvel": {
+                "funds": "المخططات"
+            },
+            "westerkwartier": {
+                "funds": "البرطمانات"
+            }
+        },
+        "user_menu": {
+            "auth_as": "تم تسجيل الدخول باسم:",
+            "authorize": "تخويل الجهاز",
+            "bookmarks": "قائمة أمنياتي",
+            "fund_requests": "الطلب",
+            "logout": "تسجيل الخروج",
+            "my_vouchers": "أرصدتي",
+            "notifications": "الإشعارات",
+            "payouts": "المدفوعات",
+            "preferences_emails": "إعدادات البريد الإلكتروني",
+            "preferences_notifications": "تفضيلات الإخطار",
+            "providers": "المزودون",
+            "reimbursements": "استرداد التكاليف",
+            "reservations": "الحجوزات",
+            "security_2fa": "الأمن",
+            "security_sessions": "الجلسات"
+        }
+    },
+    "week_days": {
+        "0": "الإثنين",
+        "1": "الثلاثاء",
+        "2": "الأربعاء",
+        "3": "الخميس",
+        "4": "الجمعة",
+        "5": "يوم السبت",
+        "6": "يوم الأحد"
+    },
+    "fund_activate": {
+        "cards": {
+            "back": "رجوع",
+            "backoffice_error_no_response": {
+                "contacts": "لمزيد من المعلومات، اتصل ببلدية نايميخن.",
+                "description": "{{fund_name}} عذرًا، لقد فشل طلبك للأسف.",
+                "heading": "لقد فشلت",
+                "title": "حدث خطأ فني، يرجى المحاولة مرة أخرى في وقت لاحق."
+            },
+            "backoffice_error_not_eligible": {
+                "contacts": "لمزيد من المعلومات، اتصل ببلدية نايميخن.",
+                "description": "{{fund_name}} عذرًا، لقد فشل طلبك للأسف.",
+                "heading": "لقد فشلت",
+                "title": "فشل الطلب. أنت لا تستوفي الشروط."
+            },
+            "backoffice_error_not_resident": {
+                "contacts": "لمزيد من المعلومات أو الاستفسارات، يُرجى الاتصال ببلدية نايميخن.<br /> عنوان البريد الإلكتروني: <a class=\"txt_link var\" href=\"mailto:{{email_value}}\">{{email_label}}</a> <br /> رقم الهاتف {{phone}}",
+                "description": "وفقاً لسجلاتنا، أنت لست مقيماً في بلدية نايميخن. {{fund_name}} ينطبق ذلك فقط على المقيمين في بلدية نايميخن. <br /> <br /> قد يكون لبلديتك لوائح تنظيمية تكون مؤهلاً لها. يرجى الاتصال بالبلدية التي تعيش فيها لمعرفة المزيد.",
+                "title": "فشل الطلب"
+            },
+            "backoffice_error_taken_by_partner": {
+                "contacts": "إذا كنت ترغب في تقديم اعتراض على ذلك أو لديك أي أسئلة، يرجى الاتصال بنا. <br /> عنوان البريد الإلكتروني <a class=\"txt_link var\" href=\"mailto:{{email_value}}\">{{email_label}}</a> <br /> رقم الهاتف {{phone}}",
+                "description": "وفقًا لمعلوماتنا، فقد تلقينا بالفعل طلبًا من شريكك. لذلك، لا يمكن تقديم طلب.",
+                "title": "فشل الطلب"
+            },
+            "code": {
+                "aria_label": "أدخل رمز تفعيل الصندوق",
+                "title": "أدخل رمز التفعيل الخاص بك"
+            },
+            "digid": {
+                "confirm": "أقر بأنني أمتثل للشروط المذكورة أعلاه",
+                "loading": "يُرجى الانتظار لحظة، حيث تتم معالجة الطلب الآن"
+            },
+            "not_available": {
+                "contacts": "{{name}}اتصل بنا .",
+                "description": "{{name}}لا يمكنك التسجيل في .",
+                "title": "فشل الطلب"
+            },
+            "taken_by_partner": {
+                "contacts": "{{name}}للأسئلة، اتصل بـ .",
+                "description": "<br /> ستصلك هذه الرسالة لأن الرصيد تم تفعيله من قبل أحد أفراد العائلة أو ولي الأمر. <br /><br /> <br /> يتوفر الرصيد في حساب الشخص الذي قام بتفعيله أولاً.",
+                "heading": "فشل الطلب",
+                "title": "تم تفعيل هذا الرصيد بالفعل"
+            }
+        },
+        "header": {
+            "title": "تأكد من دخلك",
+            "vergoedingen": {
+                "title": "أنت توافق على الشروط والأحكام"
+            }
+        },
+        "options": {
+            "code": {
+                "description": "تابع لتفعيل رصيدك باستخدام رمز التفعيل",
+                "title": "لدي رمز التفعيل"
+            },
+            "digid": {
+                "description": "افتح شاشة تسجيل الدخول إلى DigiD",
+                "title": "DigiD"
+            },
+            "request": {
+                "description": "تصفح نموذج الطلب لطلب الحصول على ائتمان",
+                "title": "أريد طلب ائتمان"
+            }
+        }
+    },
+    "fund_request_clarification": {
+        "block_title": "{{ fund_name }} طلب ملحق",
+        "buttons": {
+            "back": "رجوع",
+            "submit": "تأكيد"
+        },
+        "done": {
+            "desc": "لقد تم إرسال طلب التقديم الخاص بك، وسوف تتلقى رسالة بريد إلكتروني عندما تتم معالجة طلبك.",
+            "title": "تم إرسال طلب الملحق."
+        },
+        "labels": {
+            "attachment": "الملحق",
+            "message": "الرسالة",
+            "question": "سؤال"
+        },
+        "not_pending": {
+            "desc": "لقد أرسلت رداً بالفعل.",
+            "title": "اكتمل الطلب"
+        },
+        "placeholder": "رسالتك..."
+    },
+    "fund_request": {
+        "approved_request_exists": "يوجد طلب معتمد بالفعل. يرجى الاتصال بالمسؤول.",
+        "breadcrumbs": {
+            "fund_request": "طلب # طلب{{ id }}",
+            "home": "الصفحة الرئيسية"
+        },
+        "bsn_record_is_mandatory": "الحصول على شهادة البكالوريوس إلزامي لتقديم الطلب.",
+        "bsn_warning": {
+            "description": "يرجى ملاحظة! يجب أن تكون قد أكملت نموذج الطلب بحلول <strong>{{value}}</strong>وإلا فقم بتسجيل الدخول مرة أخرى باستخدام DigiD وابدأ التقديم مرة أخرى."
+        },
+        "buttons": {
+            "back": "رجوع"
+        },
+        "declined": {
+            "no_note": "لا توجد ملاحظة",
+            "title": "سبب الرفض"
+        },
+        "details": {
+            "created_at": "تم التقديم في:",
+            "fund_name": "اسم الصندوق:",
+            "id": "بطاقة الهوية:",
+            "number_of_records": "عدد البيانات الشخصية:",
+            "title": "حالة الطلب"
+        },
+        "digid_expired": {
+            "description": "سجّل الدخول مرة أخرى باستخدام DigiD وابدأ تشغيل التطبيق مرة أخرى.",
+            "sign_in": {
+                "description": "سجّل الدخول مرة أخرى باستخدام DigiD للبدء من جديد.",
+                "title": "DigiD"
+            },
+            "title": "انتهت صلاحية جلسة DigiD"
+        },
+        "fund_not_active": "الصندوق الذي تحاول التقدم بطلب للحصول عليه غير نشط.",
+        "invalid_endpoint": "لا يوجد وصول إلى هذا التطبيق",
+        "not_requester": "أنت لست مالك هذا التطبيق.",
+        "received": {
+            "title": "تم الاستلام"
+        },
+        "record": {
+            "answer": "تمت الإجابة",
+            "answer_btn": "الرد",
+            "cancel_btn": "إلغاء",
+            "new": "رسالة جديدة",
+            "new_message": "طلب جديد",
+            "send_btn": "إرسال",
+            "view": "عرض"
+        },
+        "records": {
+            "title": "التفاصيل الخاصة بي"
+        },
+        "sign_up": {
+            "app": {
+                "description_bottom": "يُستخدم تطبيق Me لتسجيل الدخول بسهولة وأمان، وإجراء المدفوعات وإدارة الأرصدة.",
+                "description_top": "امسح رمز الاستجابة السريعة الموجود على اليمين باستخدام الماسح الضوئي QR في تطبيق Me.",
+                "title": "تسجيل الدخول باستخدام تطبيق Me"
+            },
+            "block_title": "{{ fund_name }} التطبيقات",
+            "digid": {
+                "button": "تسجيل الدخول",
+                "description": "استعادة الحساب عن طريق تسجيل الدخول مرة أخرى باستخدام DigiD",
+                "title": "استرداد الحساب"
+            },
+            "fund_already_applied": {
+                "buttons": {
+                    "open_fund_request": "عرض التطبيق"
+                },
+                "information": "سيتم تقييم الطلب في أقرب وقت ممكن، وقد يستغرق ذلك عدة أسابيع.  إذا لم يكن الطلب كاملاً، فقد تكون هناك حاجة إلى مزيد من المعلومات.  في هذه الحالة، سيتم إرسال رسالة عبر البريد الإلكتروني. اضغط على الزر أدناه لعرض حالة الطلب.",
+                "subtitle": {
+                    "approved": "تمت الموافقة على الطلب في {{ date }}",
+                    "approved_partly": "تمت الموافقة على الطلب جزئيًا على {{ date }}",
+                    "declined": "تم رفض الطلب في {{ date }}",
+                    "disregarded": "تم رفض الطلب في {{ date }}",
+                    "pending": "تم تقديم الطلب في {{ date }}"
+                },
+                "title": {
+                    "approved": "تمت الموافقة على الطلب",
+                    "approved_partly": "تمت الموافقة على الطلب جزئياً",
+                    "declined": "تم رفض الطلب",
+                    "disregarded": "تم رفض الطلب",
+                    "pending": "الطلب قيد الانتظار"
+                }
+            },
+            "header": {
+                "main": "{{ fund_name }} التطبيق",
+                "title": "التسجيل",
+                "title_log_digid": "تسجيل دخول واحد مع DigiD"
+            },
+            "labels": {
+                "has_app": "تسجيل الدخول باستخدام تطبيقي >",
+                "no_app": "أريد تسجيل الدخول باستخدام عنوان بريدي الإلكتروني >",
+                "restore_with_digid_formal": "هل نسيت عنوان البريد الإلكتروني الذي استخدمته؟ >",
+                "restore_with_digid_informal": "هل نسيت عنوان البريد الإلكتروني الذي استخدمته؟ >"
+            },
+            "pane": {
+                "criterion_any": "'' يمكن أن تكون أي قيمة.",
+                "criterion_less": "{{ value }} '{{ name }}' يجب أن يكون أقل من .",
+                "criterion_less_or_equal": "{{ name }} {{ value }}' ' يجب أن يكون أقل من أو يساوي .",
+                "criterion_more": "{{ value }} '{{ name }}' يجب أن يكون أكثر من .",
+                "criterion_more_or_equal": "{{ name }} {{ value }}' ' يجب أن يكون أكثر أو يساوي .",
+                "criterion_same": "{{ name }} {{ value }} \" \" يجب أن تكون .",
+                "footer": {
+                    "next": "الخطوة التالية",
+                    "prev": "الخطوة السابقة"
+                },
+                "header_title": "لمحة عامة",
+                "text": "نحتاج إلى المزيد من البيانات. يرجى اتباع الخطوات التالية:"
+            },
+            "record_checkbox": {
+                "children_nth": "{{value}} أعلن أن لديّ أطفالاً",
+                "default": "أقر بالالتزام بالشروط المذكورة أعلاه",
+                "kindpakket_2018_eligible": "نعم، أقر بأني أستحق باقة الأطفال.",
+                "kindpakket_eligible": "نعم، أقر بأني أستحق باقة الأطفال.",
+                "social_assistance_standard": "أوافق على التحقق من دخلي. يتم ذلك عن طريق مقارنة بياناتي في ملفات البلدية أو عن طريق طلب المواصفات."
+            },
+            "subtitles": {
+                "step_1": "من خلال هذا النموذج عبر الإنترنت، يمكنك التقدم بطلب للحصول على الأموال المتاحة. ",
+                "step_2": "فهو يتحقق مما إذا كنت تستوفي الشروط بالفعل، ويمكنك التوقف بينهما والمتابعة في وقت آخر."
+            }
+        },
+        "steps": {
+            "step": "الخطوة {{step}}",
+            "step_out_of": "الخطوة {{step}}"
+        },
+        "title": "طلب # طلب{{ id }}"
+    },
+    "fund_requests": {
+        "breadcrumbs": {
+            "fund_requests": "الطلب",
+            "home": "الصفحة الرئيسية"
+        },
+        "card": {
+            "created_at": "تم التقديم في:",
+            "id": "بطاقة الهوية",
+            "img_alt": "صورة الصندوق",
+            "questions_count": "{{count}} رسالة جديدة"
+        },
+        "empty": {
+            "button": "انتقل إلى الصناديق",
+            "subtitle": "ليس لديك حالياً أي طلبات تمويل",
+            "title": "لا توجد طلبات تمويل"
+        },
+        "filters": {
+            "active": "نشط",
+            "archive": "الأرشيف"
+        },
+        "title": "الطلب"
+    },
+    "fund": {
+        "breadcrumbs": {
+            "back": "رجوع",
+            "home": "الصفحة الرئيسية"
+        },
+        "criterias": {
+            "email": "البريد الإلكتروني:",
+            "enddate": "تاريخ الانتهاء",
+            "fixed_amount": "الحد الأقصى للرصيد:",
+            "label": "التفاصيل",
+            "multiplied_amount": "رصيد لكل شخص:",
+            "phone": "رقم الهاتف"
+        },
+        "details": {
+            "by": "صادر عن:",
+            "end_date": "تاريخ الانتهاء",
+            "start_date": "تاريخ البدء"
+        },
+        "header": {
+            "criteria": "{{ nth }}الشروط ( )",
+            "title": "{{fund_name}} سجِّل الآن"
+        },
+        "pending_request": {
+            "title": "نحن نتحقق من طلبك"
+        }
+    },
+    "me": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "me": "نبذة عن تطبيق Me"
+        },
+        "description": "تطبيق Me هو عبارة عن محفظة رقمية وسجِّل نقدي في جهاز واحد. تستخدم البلديات تطبيق Me-app لإصدار الأرصدة. باستخدام التطبيق، يمكن للمقيمين إدارة أرصدتهم بسهولة. يستخدم مقدمو الخدمات التطبيق لمسح رموز QR.",
+        "download": {
+            "description": "قم بتنزيل تطبيق Me من متاجر التطبيقات أدناه. <a href=\"{{download_link}}\">انقر هنا لفتح متجر التطبيقات المناسب مباشرةً</a> على هاتفك أو جهازك اللوحي.",
+            "title": "قم بتنزيل Me على هاتفك أو جهازك اللوحي"
+        },
+        "title": "نبذة عن تطبيق Me"
+    },
+    "signup_options": {
+        "buttons": {
+            "start": "ابدأ"
+        },
+        "header": {
+            "subtitle": "هل تقدم وعاءً مالياً؟ هل تقدم منتجات أو خدمات تتناسب مع أحد الأوعية؟ <br/>هل أنت على اتصال بمقدمي الطلبات ويمكنك المساعدة في تحديد من يحق له الحصول على وعاء مالي؟ إذا كان الأمر كذلك، قم بالتسجيل أدناه.",
+            "title": "معلومات للمنظمات"
+        },
+        "labels": {
+            "description_providers": "بصفتك مقدم خدمة، فإنك تقدم منتجات أو خدمات يمكن الدفع مقابلها من الأواني المختلفة.",
+            "description_sponsor": "<br>بصفتك راعياً، يمكنك توفير الأواني وتحديد مقدمي الخدمات والمتقدمين الذين يُسمح لهم بالمشاركة في وعاء (أوعية) برنامجك. على سبيل المثال، بالنسبة لوعاء الكمبيوتر، يمكنك السماح لمحلات الكمبيوتر وتلاميذ المدارس ذوي الدخل المنخفض.",
+            "description_validator": "بصفتك المقيِّم، تقوم بتقييم المعلومات من المقيِّمين، مثل الدخل ومكان الإقامة والعمر.",
+            "title_provider": "التسجيل كمقدم خدمات",
+            "title_sponsor": "التسجيل كراعٍ",
+            "title_validator": "التسجيل كمقيّم"
+        }
+    },
+    "funds": {
+        "breadcrumbs": {
+            "funds": "الطلب",
+            "home": "الصفحة الرئيسية"
+        },
+        "buttons": {
+            "already_received": "فتح الائتمان",
+            "check_status": "التحقق من الحالة",
+            "groningen": {
+                "start_request": "الطلب"
+            },
+            "IIT": {
+                "already_received": "الطلب"
+            },
+            "is_applicable": "تفعيل",
+            "is_pending": "قيد التنفيذ",
+            "more": "عرض المزيد",
+            "potjeswijzer": {
+                "start_request": "الطلب"
+            },
+            "start_request": "تفعيل"
+        },
+        "criteria": {
+            "key": "{{key}}"
+        },
+        "filters": {
+            "all_organizations": "جميع المنظمات",
+            "all_tags": "جميع الفئات"
+        },
+        "funds": {
+            "berkelland": {
+                "title": "تفعيل"
+            },
+            "geertruidenberg": {
+                "title": "تفعيل"
+            },
+            "goereeoverflakkee": {
+                "title": "المخططات"
+            },
+            "oostgelre": {
+                "title": "تفعيل"
+            },
+            "potjeswijzer": {
+                "title": "البرطمانات"
+            },
+            "schagen": {
+                "title": "المخططات"
+            },
+            "vergoedingen": {
+                "title": "جميع الرسوم"
+            },
+            "winterswijk": {
+                "title": "تفعيل"
+            }
+        },
+        "header": {
+            "berkelland": {
+                "subtitle": "فيما يلي المخططات التي يمكنك تفعيلها.",
+                "title": "تفعيل"
+            },
+            "oostgelre": {
+                "subtitle": "فيما يلي المخططات التي يمكنك تفعيلها.",
+                "title": "تفعيل"
+            },
+            "potjeswijzer": {
+                "subtitle": "يمكنك الاطلاع أدناه على بعض الأواني التي يمكنك التقدم بطلب للحصول عليها. هل ينتابك الفضول لمعرفة أي منها يوجد غيرها؟ إذن اتصل بـ: xxxx",
+                "title": "البرطمانات"
+            },
+            "subtitle": "",
+            "title": "الطلب",
+            "winterswijk": {
+                "subtitle": "فيما يلي المخططات التي يمكنك تفعيلها.",
+                "title": "تفعيل"
+            }
+        },
+        "labels": {
+            "age": "< أقل من 18 سنة",
+            "agelimit": "الحد العمري",
+            "amount": "< € 1118.46",
+            "categories_label": "يمكنك تفعيل رصيدك حتى:",
+            "category": "الفئة",
+            "children": "الأطفال",
+            "count": "1",
+            "criteria": "الشروط",
+            "income": "حد الدخل",
+            "location": "الموقع",
+            "office": "بلدية زويدهورن",
+            "organization": "المنظمة",
+            "search": "بحث"
+        },
+        "status": {
+            "activateable": "قابل للتفعيل",
+            "active": "نشط",
+            "denied": "مرفوض",
+            "is_applicable": "التسجيل",
+            "is_pending": "قيد التنفيذ"
+        }
+    },
+    "home": {
+        "blog": {
+            "name": "المدونة: تطبيقان جديدان لمنصتنا",
+            "title": "مدونتنا"
+        },
+        "faq": {
+            "berkelland": {
+                "eight": "من خلال تسجيل الدخول إلى المتجر الإلكتروني، يمكنك عرض رصيدك. تظهر الصلاحية أيضاً على صفحة الرصيد.",
+                "eleven": "نعم، يمكنك ذلك. ثم اتصل بـ Fijnder، 0544-474200",
+                "faq_eight": "ما هي مدة صلاحية الرصيد؟",
+                "faq_eleven": "لقد أنجبت طفلاً آخر، هل أنا مؤهلة للحصول على رصيد أعلى؟",
+                "faq_fifteen": "ما هي المنظمات التي يمكن أن تقدم لي الدعم أيضاً؟",
+                "faq_five": "كيف يمكنني معرفة مقدار الرصيد المتبقي لدي؟",
+                "faq_four": "لقد فقدت رصيدي. ماذا يجب أن أفعل؟",
+                "faq_fourteen": "أرى عروضاً على المتجر الإلكتروني، كيف يمكنني شراء منتج أو خدمة؟",
+                "faq_nine": "هل يمكنني استبدال الرصيد نقداً؟",
+                "faq_one": "كيف يمكنني تفعيل ترتيبات الأطفال و/أو ترتيبات ميدوين؟",
+                "faq_seven": "هل يجب إنفاق الرصيد دفعة واحدة؟",
+                "faq_six": "هل يمكنني استبدال/إرجاع شيء اشتريته؟",
+                "faq_ten": "هل يمكنني شراء شيء من مزود آخر غير مدرج في المتجر الإلكتروني؟",
+                "faq_thirteen": "هل يمكنني إعطاء الفضل لشخص آخر؟",
+                "faq_three": "{{fund}} لدى أي مزودين يمكنني الإنفاق؟",
+                "faq_twelve": "كيف يمكنني التأهل لخطط الأطفال و/أو باقة مشاركة الكبار؟",
+                "faq_two": "كيف يمكنني تسجيل الدخول إلى المتجر الإلكتروني؟",
+                "fifteen": "<br> للأسئلة المتعلقة بالرعاية الاجتماعية والصحة والسكن والرعاية والعمل والمشاركة والأمور المالية، يمكنك أيضًا زيارة <a target='_blank' href='https://www.berkellandwijzer.nl'>www.berkellandwijzer.nl</a> للأسئلة المتعلقة بدعم الدخل، من بين أمور أخرى، يمكنك الاتصال بـ Fijnder.",
+                "five": "بعد كل عملية دفع، يتم إرسال رسالة بريد إلكتروني تحتوي على الرصيد الحالي، بالإضافة إلى ذلك، يمكنك عرض الرصيد عن طريق تسجيل الدخول إلى المتجر الإلكتروني أو باستخدام تطبيق Me.",
+                "four": "يمكنك دائمًا العثور على رصيدك من خلال تسجيل الدخول إلى متجر الويب أو طباعته أو إرساله إلى بريدك الإلكتروني أو الحصول عليه دائمًا باستخدام تطبيق Me.",
+                "fourteen": "سجّل الدخول إلى المتجر الإلكتروني وانقر على \"عرض\". ثم اختر العرض الذي تريده وانقر على \"حجز\". ثم اختر الرصيد الذي تريد حجز العرض به. يتم خصم مبلغ العرض من رصيدك ويتم حجز العرض لك. سترى أيضاً الحجز في قائمة الحجوزات على الموقع الإلكتروني. تتم عملية الدفع الفعلية عندما يتم مسح رمز الاستجابة السريعة في العرض. ما زلت لا تستخدم العرض؟ يمكنك بعد ذلك إلغاء الحجز. إذا كان لديك أي مبلغ متبقٍ بعد الدفع، يمكنك متابعة التسوق بهذا المبلغ.",
+                "nine": "لا، لن تحصل على قيمة الرصيد نقدًا.",
+                "one": "انقر على \"ابدأ\" في أعلى اليمين. أدخل عنوان بريدك الإلكتروني ورمز التفعيل (8 أحرف) الذي استلمته برسالة. ثم انقر على \"إرسال\". تم إنشاء ملفك الشخصي وتم تفعيل رصيدك!",
+                "seven": "لا، ليس عليك إنفاق الرصيد دفعة واحدة.",
+                "six": "الإرجاع غير ممكن للأسف. قد يكون الاستبدال ممكناً، اسأل بائع التجزئة عن الإمكانيات.",
+                "ten": "لا، لا يمكن إنفاق الرصيد إلا لدى البائعين المدرجين في المتجر الإلكتروني. يمكنك تنبيه أحد بائعي التجزئة إلى طلب الانضمام وجعلهم يتصلون بـ Fijnder، 0544-474200.",
+                "thirteen": "لا، الرصيد شخصي بحت. لا يجوز لك إعطاء الرصيد لأي شخص آخر. إذا استخدم شخص آخر رصيدك، فسيتم خصمه من المبلغ الخاص بك.",
+                "three": "يمكنك العثور على نظرة عامة على جميع مقدمي الخدمات على متجر الويب. انتقل إلى 'نظرة عامة على جميع مقدمي الخدمات",
+                "title": "الأسئلة المتداولة",
+                "twelve": "إذا كنت تعتقد أنه يحق لك الحصول على برنامج الطفل، فاتصل بـ Fijnder، على الرقم 0474200-0544. سوف يتحققون مما إذا كنت تستوفي الشروط. <br>جميع المقيمين البالغين الذين لديهم حد أدنى للدخل (حتى 130% من مستوى المساعدة) مؤهلون للحصول على ترتيب ميدوين. إذا كنت تعتقد أنك مؤهل للحصول على ترتيب ميدوين، يُرجى الاتصال بـ Fijnder، على الرقم 0544-474200. سوف يتحققون مما إذا كنت تستوفي الشروط.",
+                "two": "يمكن القيام بذلك بعدة طرق، أسهلها عن طريق البريد الإلكتروني. انقر على \"تسجيل الدخول\" في أعلى اليمين. اختر \"تسجيل الدخول عن طريق البريد الإلكتروني\". أدخل عنوان البريد الإلكتروني الذي استخدمته أيضًا أثناء التفعيل وانقر على \"إرسال\". افتح البريد الإلكتروني وانقر على الرابط الذي تلقيته لتسجيل الدخول."
+            },
+            "eight": "{{start_date}} يسري الرصيد لمدة عام واحد من .",
+            "eleven": "نعم، يمكنك ذلك. في هذه الحالة، يرجى الاتصال بالبلدية.",
+            "faq_eight": "ما هي مدة صلاحية ائتماني؟",
+            "faq_eleven": "لقد أنجبت طفلاً آخر، هل أنا مؤهلة للحصول على رصيد أعلى؟",
+            "faq_five": "كيف يمكنني معرفة مقدار الرصيد المتبقي لدي؟",
+            "faq_four": "لقد فقدت رصيدي. ماذا يجب أن أفعل؟",
+            "faq_fourteen": "أرى عروضاً على المتجر الإلكتروني، كيف يمكنني شراء منتج أو خدمة؟",
+            "faq_nine": "هل يمكنني استبدال الرصيد نقداً؟",
+            "faq_one": "{{fund}} كيف يمكنني التفعيل؟",
+            "faq_seven": "هل يجب إنفاق الرصيد دفعة واحدة؟",
+            "faq_six": "هل يمكنني استبدال/إرجاع شيء اشتريته؟",
+            "faq_ten": "هل يمكنني شراء شيء من مزود آخر غير مدرج في الموقع الإلكتروني؟",
+            "faq_thirteen": "هل يمكنني إعطاء الفضل لشخص آخر؟",
+            "faq_three": "{{fund}} لدى أي مزودين يمكنني الإنفاق؟",
+            "faq_twelve": "{{fund}}كيف أتأهل لـ ?",
+            "faq_two": "كيف يمكنني تسجيل الدخول إلى المتجر الإلكتروني؟",
+            "five": "بعد كل عملية دفع، يتم إرسال رسالة بريد إلكتروني تحتوي على الرصيد الحالي، بالإضافة إلى ذلك، يمكنك عرض الرصيد عن طريق تسجيل الدخول إلى المتجر الإلكتروني أو باستخدام تطبيق Me.",
+            "four": "يمكنك دائمًا العثور على رصيدك (رمز الاستجابة السريعة) عن طريق تسجيل الدخول إلى متجر الويب أو طباعة الرمز أو إرساله إلى بريدك الإلكتروني أو الحصول عليه دائمًا باستخدام تطبيق Me.",
+            "fourteen": "سجّل الدخول إلى المتجر الإلكتروني وانقر على \"عرض\". ثم اختر العرض الذي تريده وانقر على \"حجز\". ثم اختر الرصيد الذي تريد حجز العرض به. يتم خصم مبلغ العرض من رصيدك ويتم حجز العرض لك. سترى أيضاً الحجز في قائمة الحجوزات على الموقع الإلكتروني. تتم عملية الدفع الفعلية عندما يتم مسح رمز الاستجابة السريعة في العرض. ما زلت لا تستخدم العرض؟ يمكنك بعد ذلك إلغاء الحجز. إذا كان لديك أي مبلغ متبقٍ بعد الدفع، يمكنك متابعة التسوق بهذا المبلغ.",
+            "nine": "لا، لن تحصل على قيمة الرصيد نقدًا.",
+            "noordoostpolder": {
+                "eight": "من خلال تسجيل الدخول إلى المتجر الإلكتروني، يمكنك عرض رصيدك. تظهر الصلاحية أيضاً على صفحة الرصيد.",
+                "eleven": "الرصيد مخصص للأطفال من سن 4 إلى 17 سنة. هل بلغ طفلك 4 سنوات؟ إذن يمكنك التقدم بطلب للحصول على الائتمان، (0527) 63 39 11. أو قم بتنزيل نموذج الطلب: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https: </a>//www.noordoostpolder.nl/meedoenpakket ",
+                "faq_eight": "ما هي مدة صلاحية الرصيد؟",
+                "faq_fourteen": "أرى عروضاً على المتجر الإلكتروني، كيف يمكنني شراء عرض؟",
+                "faq_nine": "هل يمكنني استبدال الرصيد نقداً؟",
+                "faq_one": "كيف يمكنني تفعيل Meedoenpakket؟",
+                "faq_six": "هل يمكنني استبدال/إرجاع شيء اشتريته؟",
+                "faq_thirteen": "هل يمكنني إعطاء الفضل لشخص آخر؟",
+                "faq_three": "لدى أي مزودين يمكنني إنفاق الرصيد؟",
+                "faq_twelve": "هل أنا أو طفلي مؤهلان للحصول على الائتمان؟",
+                "five": "بعد كل عملية دفع، يتم إرسال رسالة بريد إلكتروني تحتوي على الرصيد الحالي، بالإضافة إلى ذلك، يمكنك عرض الرصيد عن طريق تسجيل الدخول إلى المتجر الإلكتروني أو باستخدام تطبيق Me.",
+                "four": "يمكنك دائمًا العثور على رصيدك عن طريق تسجيل الدخول إلى متجر الويب أو طباعة الرصيد أو إرساله إلى بريدك الإلكتروني أو الحصول عليه دائمًا باستخدام تطبيق Me.",
+                "fourteen": "سجّل الدخول إلى المتجر الإلكتروني وانقر على \"عرض\". ثم اختر العرض الذي تريده وانقر على \"حجز\". ثم اختر الرصيد الذي تريد حجز العرض به. يتم خصم مبلغ العرض من رصيدك ويتم حجز العرض لك. سترى أيضاً الحجز في قائمة الحجوزات على الموقع الإلكتروني. تتم عملية الدفع الفعلية عندما يتم مسح رمز الاستجابة السريعة في العرض. ما زلت لا تستخدم العرض؟ يمكنك بعد ذلك إلغاء الحجز. إذا كان لديك أي مبلغ متبقٍ بعد الدفع، يمكنك متابعة التسوق بهذا المبلغ.",
+                "nine": "لا، لن يتم الدفع لك قيمة الرصيد في أموال الاتصال.",
+                "one": "انقر على \"بدء التطبيق\" في الأعلى. أدخل عنوان بريدك الإلكتروني ورمز التفعيل الذي استلمته برسالة. ثم انقر على \"إرسال\". يتم إنشاء حسابك ويتم تفعيل رصيد ميدوين الخاص بك! يمكنك تفعيل رمز تفعيل واحد لكل عنوان بريد إلكتروني. هل لديك العديد من رموز التفعيل؟ إذن استخدم عناوين بريد إلكتروني متعددة.",
+                "seven": "لا، ليس عليك إنفاق الرصيد دفعة واحدة.",
+                "six": "لا، لا يمكنك الاستبدال أو الإرجاع.",
+                "ten": "لا، لا يمكن إنفاق الرصيد إلا مع مقدمي الخدمات المدرجين في المتجر الإلكتروني. يمكنك أن تطلب من مقدم الخدمة التسجيل عبر طلب الانضمام أو الاتصال بالبلدية، (0527) 63 39 11.",
+                "thirteen": "لا، الرصيد شخصي بحت. لا يجوز لك إعطاء الرصيد لأي شخص آخر. إذا استخدم شخص آخر رصيدك، فسيتم خصمه من المبلغ الخاص بك.",
+                "three": "يمكنك العثور على نظرة عامة على جميع مقدمي الخدمات في متجر الويب تحت عنوان \"مقدمو الخدمات\".",
+                "twelve": "إن Meedoenpakket مخصص للأطفال الذين تتراوح أعمارهم بين 4 و17 عامًا من ذوي الدخل المنخفض. يمكن للمتقاعدين ذوي الدخل المنخفض أيضًا التقدم بطلب للحصول على Meedoenpakket. إذا كنت تعتقد أن لك أو لطفلك (أطفالك) الحق في الحصول على الائتمان، يمكنك التقدم بطلب. اتصل بالرقم (0527) 69 93 93 11 أو قم بتنزيل نموذج الطلب: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https: </a>//www.noordoostpolder.nl/meedoenpakket "
+            },
+            "one": "انقر على \"ابدأ\" في أعلى الصفحة. استخدم عنوان بريدك الإلكتروني الخاص بك ثم أدخل رمز التفعيل الخاص بك.",
+            "oostgelre": {
+                "eight": "من خلال تسجيل الدخول إلى المتجر الإلكتروني، يمكنك عرض رصيدك. تظهر الصلاحية أيضاً على صفحة الرصيد.",
+                "eleven": "نعم، يمكنك ذلك. ثم اتصل بـ Fijnder، 0544-474200",
+                "faq_eight": "ما هي مدة صلاحية الرصيد؟",
+                "faq_eleven": "لقد أنجبت طفلاً آخر، هل أنا مؤهلة للحصول على رصيد أعلى؟",
+                "faq_fifteen": "ما هي المنظمات التي يمكن أن تقدم لي الدعم أيضاً؟",
+                "faq_five": "كيف يمكنني معرفة مقدار الرصيد المتبقي لدي؟",
+                "faq_four": "لقد فقدت رصيدي. ماذا يجب أن أفعل؟",
+                "faq_fourteen": "أرى عروضاً على المتجر الإلكتروني، كيف يمكنني شراء منتج أو خدمة؟",
+                "faq_nine": "هل يمكنني استبدال الرصيد نقداً؟",
+                "faq_one": "كيف يمكنني تفعيل ترتيب الطفل؟",
+                "faq_seven": "هل يجب إنفاق الرصيد دفعة واحدة؟",
+                "faq_six": "هل يمكنني استبدال/إرجاع شيء اشتريته؟",
+                "faq_ten": "هل يمكنني شراء شيء من مزود آخر غير مدرج في المتجر الإلكتروني؟",
+                "faq_thirteen": "هل يمكنني إعطاء الفضل لشخص آخر؟",
+                "faq_three": "{{fund}} لدى أي مزودين يمكنني الإنفاق؟",
+                "faq_twelve": "كيف أتأهل لبرنامج الطفل؟",
+                "faq_two": "كيف يمكنني تسجيل الدخول إلى المتجر الإلكتروني؟",
+                "fifteen": "يمكن لبنك الملابس دعمك من خلال توفير الملابس والأحذية والمنسوجات. يمكنك زيارتهم مرتين في السنة، حيث تحتاج إلى إحالة.<br/><br/><br/><br/>يمكن العثور على مزيد من المعلومات على <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a> يمكن أن يدعمك Stichting leergeld في التكاليف المدرسية أو الرياضية، عندما لا يغطي Fijnder هذه التكاليف، ويمكن العثور على مزيد من المعلومات على<a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a> يمكنك استعارة الألعاب من بنك الألعاب، وتحتاج إلى إحالة.<br/><br/>يمكن العثور على مزيد من المعلومات على <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a> يمكن لبنك الطعام أن يدعمك عندما لا يكون لديك دخل كافٍ لشراء البقالة، وتحتاج إلى إحالة لبنك الطعام.<br/><br/>يمكنك العثور على مزيد من المعلومات على <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a> للحصول على دعم مالي إضافي، يمكنك الاتصال بصندوق الشباب الرياضي لبلدية بيركيلاند وبلدية فينترسفيك.<br/><br/>يمكنك العثور على الشروط على <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a> يمكن لمؤسسة جاريج جوب دعمك فيما يتعلق بحفلات الأطفال. لمزيد من المعلومات، يرجى زيارة<a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>",
+                "five": "بعد كل عملية دفع، يتم إرسال رسالة بريد إلكتروني تحتوي على الرصيد الحالي، بالإضافة إلى ذلك، يمكنك عرض الرصيد عن طريق تسجيل الدخول إلى المتجر الإلكتروني أو باستخدام تطبيق Me.",
+                "four": "يمكنك دائمًا العثور على رصيدك من خلال تسجيل الدخول إلى متجر الويب أو طباعته أو إرساله إلى بريدك الإلكتروني أو الحصول عليه دائمًا باستخدام تطبيق Me.",
+                "fourteen": "سجّل الدخول إلى المتجر الإلكتروني وانقر على \"عرض\". ثم اختر العرض الذي تريده وانقر على \"حجز\". ثم اختر الرصيد الذي تريد حجز العرض به. يتم خصم مبلغ العرض من رصيدك ويتم حجز العرض لك. سترى أيضاً الحجز في قائمة الحجوزات على الموقع الإلكتروني. تتم عملية الدفع الفعلية عندما يتم مسح رمز الاستجابة السريعة في العرض. ما زلت لا تستخدم العرض؟ يمكنك بعد ذلك إلغاء الحجز. إذا كان لديك أي مبلغ متبقٍ بعد الدفع، يمكنك متابعة التسوق بهذا المبلغ.",
+                "nine": "لا، لن تحصل على قيمة الرصيد نقدًا.",
+                "one": "انقر فوق \"ابدأ\" في أعلى اليمين. أدخل عنوان بريدك الإلكتروني ورمز التفعيل الذي استلمته برسالة. ثم اضغط على \"إرسال\". تم إنشاء ملفك الشخصي وتم تفعيل رصيدك في برنامج الطفل!",
+                "seven": "لا، ليس عليك إنفاق الرصيد دفعة واحدة.",
+                "six": "الإرجاع غير ممكن للأسف. قد يكون الاستبدال ممكناً، اسأل بائع التجزئة عن الإمكانيات.",
+                "ten": "لا، لا يمكن إنفاق الرصيد إلا لدى البائعين المدرجين في المتجر الإلكتروني. يمكنك تنبيه أحد بائعي التجزئة إلى طلب الانضمام وجعلهم يتصلون بـ Fijnder، 0544-474200.",
+                "thirteen": "لا، الرصيد شخصي بحت. لا يجوز لك إعطاء الرصيد لأي شخص آخر. إذا استخدم شخص آخر رصيدك، فسيتم خصمه من المبلغ الخاص بك.",
+                "three": "يمكنك العثور على نظرة عامة على جميع مقدمي الخدمات على متجر الويب. انتقل إلى 'نظرة عامة على جميع مقدمي الخدمات",
+                "title": "الأسئلة المتداولة",
+                "twelve": "إذا كنت تعتقد أنه يحق لك الحصول على برنامج الطفل، فاتصل بـ Fijnder، على الرقم 0474200-0544. سوف يتحققون مما إذا كنت تستوفي الشروط.",
+                "two": "يمكن القيام بذلك بعدة طرق، أسهلها عن طريق البريد الإلكتروني. انقر على \"تسجيل الدخول\" في أعلى اليمين. اختر \"تسجيل الدخول عن طريق البريد الإلكتروني\". أدخل عنوان البريد الإلكتروني الذي استخدمته أيضًا أثناء التفعيل وانقر على \"إرسال\". افتح البريد الإلكتروني وانقر على الرابط الذي تلقيته لتسجيل الدخول."
+            },
+            "potjeswijzer": {
+                "faq_one": "كيف يمكنني التقدم بطلب للحصول على قعادة؟",
+                "one": "انقر على \"بدء التطبيق\" في الأعلى. أدخل عنوان بريدك الإلكتروني واستخدم رابط تسجيل الدخول في صندوق البريد الإلكتروني الموثوق به الخاص بك. ثم قم بتسجيل الدخول باستخدام DigiD الخاص بك. تحقق من استيفائك للشروط!"
+            },
+            "seven": "لا، ليس عليك إنفاق الرصيد دفعة واحدة.",
+            "six": "لا، لا يمكنك الاستبدال أو الإرجاع. قد يكون الاستبدال ممكناً، اسأل مقدم الخدمة عن الإمكانيات.",
+            "ten": "لا، يمكنك فقط إنفاق الرصيد لدى مقدمي الخدمات المدرجين على الموقع الإلكتروني.",
+            "thirteen": "لا، الرصيد شخصي بحت. لا يجوز لك إعطاء الرصيد لأي شخص آخر. إذا استخدم شخص آخر رصيدك، فسيتم تخفيض المبلغ الخاص بك.",
+            "three": "يمكنك العثور على نظرة عامة على جميع مقدمي الخدمات على متجر الويب. انتقل إلى 'نظرة عامة على جميع مقدمي الخدمات",
+            "title": "الأسئلة المتداولة {{client_key}}",
+            "twelve": "{{fund}}إذا كنت تعتقد أنه يحق لك، اتصل بالبلدية. ستقوم البلدية بعد ذلك بالتحقق مما إذا كنت تستوفي الشروط.",
+            "two": "يمكنك تسجيل الدخول بعدة طرق. أسهل طريقة هي عن طريق البريد الإلكتروني. انقر على \"تسجيل الدخول\" في أعلى اليمين. اختر \"تسجيل الدخول عن طريق البريد الإلكتروني\". أدخل عنوان البريد الإلكتروني الذي استخدمته أيضًا أثناء التفعيل وانقر على \"إرسال\". افتح بريدك الإلكتروني وانقر على الرابط الذي تلقيته لتسجيل الدخول.",
+            "westerkwartier": {
+                "eight": "من خلال تسجيل الدخول إلى الموقع الإلكتروني، يمكنك عرض رصيدك ضمن \"رصيدي\". بجانب الرصيد، انقر على \"فتح\". تُظهر هذه الصفحة أيضًا الصلاحية.",
+                "faq_eight": "ما هي مدة صلاحية ائتماني؟",
+                "faq_fourteen": "أرى عروضاً على المتجر الإلكتروني، كيف يمكنني شراء منتج أو خدمة؟",
+                "faq_one": "كيف يمكنني تفعيل باقة الطفل؟",
+                "faq_ten": "هل يمكنني شراء شيء من مزود آخر غير مدرج على الموقع الإلكتروني؟",
+                "faq_three": "لدى أي مزودين يمكنني إنفاق الرصيد؟",
+                "faq_twelve": "كيف أتأهل للحصول على باقة الطفل؟",
+                "fourteen": "سجّل الدخول إلى المتجر الإلكتروني وانقر على \"عرض\". ثم اختر العرض الذي تريده وانقر على \"حجز\". ثم اختر الرصيد الذي تريد حجز العرض به. يتم خصم مبلغ العرض من رصيدك ويتم حجز العرض لك. سترى أيضاً الحجز في قائمة الحجوزات على الموقع الإلكتروني. تتم عملية الدفع الفعلية عندما يتم مسح رمز الاستجابة السريعة في العرض. ما زلت لا تستخدم العرض؟ يمكنك بعد ذلك إلغاء الحجز. إذا كان لديك أي مبلغ متبقٍ بعد الدفع، يمكنك متابعة التسوق بهذا المبلغ.",
+                "one": "انقر على \"بدء التطبيق\" في الأعلى. أدخل عنوان بريدك الإلكتروني وقم بتسجيل الدخول باستخدام DigiD. يتم إنشاء حسابك وتفعيل رصيدك!",
+                "ten": "لا، يمكنك فقط إنفاق الرصيد مع مقدمي الخدمة المدرجين على الموقع الإلكتروني. يمكنك أن تطلب من مقدم الخدمة التسجيل.",
+                "three": "يمكنك العثور على نظرة عامة على جميع مقدمي الخدمات على متجر الويب. انقر على \"مقدمي الخدمات\".",
+                "twelve": "إذا كنت تعتقد أنه يحق لك الحصول على باقة الطفل، فاتصل بالبلدية على رقم الهاتف: 0594 14. ستقوم البلدية بعد ذلك بالتحقق مما إذا كنت تستوفي الشروط."
+            },
+            "winterswijk": {
+                "eight": "من خلال تسجيل الدخول إلى المتجر الإلكتروني، يمكنك عرض رصيدك. تظهر الصلاحية أيضاً على صفحة الرصيد.",
+                "eleven": "نعم، يمكنك ذلك. ثم اتصل بـ Fijnder، 0544-474200",
+                "faq_eight": "ما هي مدة صلاحية الرصيد؟",
+                "faq_eleven": "لقد أنجبت طفلاً آخر، هل أنا مؤهلة للحصول على رصيد أعلى؟",
+                "faq_fifteen": "ما هي المنظمات التي يمكن أن تقدم لي الدعم أيضاً؟",
+                "faq_five": "كيف يمكنني معرفة مقدار الرصيد المتبقي لدي؟",
+                "faq_four": "لقد فقدت رصيدي. ماذا يجب أن أفعل؟",
+                "faq_fourteen": "أرى عروضاً على المتجر الإلكتروني، كيف يمكنني شراء منتج أو خدمة؟",
+                "faq_nine": "هل يمكنني استبدال الرصيد نقداً؟",
+                "faq_one": "كيف يمكنني تفعيل ترتيب الطفل؟",
+                "faq_seven": "هل يجب إنفاق الرصيد دفعة واحدة؟",
+                "faq_six": "هل يمكنني استبدال/إرجاع شيء اشتريته؟",
+                "faq_ten": "هل يمكنني شراء شيء من مزود آخر غير مدرج في المتجر الإلكتروني؟",
+                "faq_thirteen": "هل يمكنني إعطاء الفضل لشخص آخر؟",
+                "faq_three": "{{fund}} لدى أي مزودين يمكنني الإنفاق؟",
+                "faq_twelve": "كيف أتأهل لبرنامج الطفل؟",
+                "faq_two": "كيف يمكنني تسجيل الدخول إلى المتجر الإلكتروني؟",
+                "fifteen": "يمكن لبنك الملابس دعمك من خلال توفير الملابس والأحذية والمنسوجات. يمكنك زيارتهم مرتين في السنة، حيث تحتاج إلى إحالة.<br/><br/><br/><br/>يمكن العثور على مزيد من المعلومات على <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a> يمكن أن يدعمك Stichting leergeld في التكاليف المدرسية أو الرياضية، عندما لا يغطي Fijnder هذه التكاليف، ويمكن العثور على مزيد من المعلومات على<a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a> يمكنك استعارة الألعاب من بنك الألعاب، وتحتاج إلى إحالة.<br/><br/>يمكن العثور على مزيد من المعلومات على <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a> يمكن لبنك الطعام أن يدعمك عندما لا يكون لديك دخل كافٍ لشراء البقالة، وتحتاج إلى إحالة لبنك الطعام.<br/><br/>يمكنك العثور على مزيد من المعلومات على <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a> للحصول على دعم مالي إضافي، يمكنك الاتصال بصندوق الشباب الرياضي لبلدية بيركيلاند وبلدية فينترسفيك.<br/><br/>يمكنك العثور على الشروط على <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a> يمكن لمؤسسة جاريج جوب دعمك فيما يتعلق بحفلات الأطفال. لمزيد من المعلومات، يرجى زيارة<a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>",
+                "five": "بعد كل عملية دفع، يتم إرسال رسالة بريد إلكتروني تحتوي على الرصيد الحالي، بالإضافة إلى ذلك، يمكنك عرض الرصيد عن طريق تسجيل الدخول إلى المتجر الإلكتروني أو باستخدام تطبيق Me.",
+                "four": "يمكنك دائمًا العثور على رصيدك من خلال تسجيل الدخول إلى متجر الويب أو طباعته أو إرساله إلى بريدك الإلكتروني أو الحصول عليه دائمًا باستخدام تطبيق Me.",
+                "fourteen": "سجّل الدخول إلى المتجر الإلكتروني وانقر على \"عرض\". ثم اختر العرض الذي تريده وانقر على \"حجز\". ثم اختر الرصيد الذي تريد حجز العرض به. يتم خصم مبلغ العرض من رصيدك ويتم حجز العرض لك. سترى أيضاً الحجز في قائمة الحجوزات على الموقع الإلكتروني. تتم عملية الدفع الفعلية عندما يتم مسح رمز الاستجابة السريعة في العرض. ما زلت لا تستخدم العرض؟ يمكنك بعد ذلك إلغاء الحجز. إذا كان لديك أي مبلغ متبقٍ بعد الدفع، يمكنك متابعة التسوق بهذا المبلغ.",
+                "nine": "لا، لن تحصل على قيمة الرصيد نقدًا.",
+                "one": "انقر فوق \"ابدأ\" في أعلى اليمين. أدخل عنوان بريدك الإلكتروني ورمز التفعيل الذي استلمته برسالة. ثم اضغط على \"إرسال\". تم إنشاء ملفك الشخصي وتم تفعيل رصيدك في برنامج الطفل!",
+                "seven": "لا، ليس عليك إنفاق الرصيد دفعة واحدة.",
+                "six": "الإرجاع غير ممكن للأسف. قد يكون الاستبدال ممكناً، اسأل بائع التجزئة عن الإمكانيات.",
+                "ten": "لا، لا يمكن إنفاق الرصيد إلا لدى البائعين المدرجين في المتجر الإلكتروني. يمكنك تنبيه أحد بائعي التجزئة إلى طلب الانضمام وجعلهم يتصلون بـ Fijnder، 0544-474200.",
+                "thirteen": "لا، الرصيد شخصي بحت. لا يجوز لك إعطاء الرصيد لأي شخص آخر. إذا استخدم شخص آخر رصيدك، فسيتم خصمه من المبلغ الخاص بك.",
+                "three": "يمكنك العثور على نظرة عامة على جميع مقدمي الخدمات على متجر الويب. انتقل إلى 'نظرة عامة على جميع مقدمي الخدمات",
+                "title": "الأسئلة المتداولة",
+                "twelve": "إذا كنت تعتقد أنه يحق لك الحصول على برنامج الطفل، فاتصل بـ Fijnder، على الرقم 0474200-0544. سوف يتحققون مما إذا كنت تستوفي الشروط.",
+                "two": "يمكن القيام بذلك بعدة طرق، أسهلها عن طريق البريد الإلكتروني. انقر على \"تسجيل الدخول\" في أعلى اليمين. اختر \"تسجيل الدخول عن طريق البريد الإلكتروني\". أدخل عنوان البريد الإلكتروني الذي استخدمته أيضًا أثناء التفعيل وانقر على \"إرسال\". افتح البريد الإلكتروني وانقر على الرابط الذي تلقيته لتسجيل الدخول."
+            }
+        },
+        "guide": {
+            "berkelland": {
+                "five": "انتقل إلى \"العرض\" أو نظرة عامة على جميع مقدمي الخدمة لمعرفة أين يمكنك إنفاق الرصيد أو شراء منتج أو خدمة. انتقل إلى المزوِّد وأظهر رمز الاستجابة السريعة المقابل لاستلام المنتج أو الخدمة.",
+                "four": "في \"أرصدتي\" يوجد أيضاً رمز QR شخصي. يمكنك استخدام رمز الاستجابة السريعة هذا للدفع لمقدم الخدمة حيث تريد القيام بنشاط ما. يمكنك طباعة رمز الاستجابة السريعة أو إرساله بالبريد الإلكتروني أو إظهاره على هاتفك من خلال تسجيل الدخول إلى التطبيق <a href='#!/me' tartget='_blank'><u><i>أنا</i></u></a>. التطبيق <a href='#!/me' tartget='_blank'><u><i>\"أنا - فورس</i></u></a> يمكن تنزيله من متجر Google Playstore ومتجر التطبيقات.",
+                "one": "لقد تلقيت رسالة من Fijnder. تحتوي الرسالة على رمز التفعيل.",
+                "stepfive": "الخطوة رقم 5",
+                "stepfour": "الخطوة رقم 4",
+                "stepone": "الخطوة رقم 1",
+                "stepthree": "الخطوة رقم 3",
+                "steptwo": "الخطوة رقم 2",
+                "three": "ثم انقر على \"العروض\". ستجد هناك جميع الأنشطة والدورات التدريبية. يمكنك أيضًا الاطلاع على رصيدك. يمكنك العثور على رصيدك بالنقر على \"رصيدي\" في الأعلى.",
+                "title": "كيف تعمل",
+                "two": "انقر على زر \"ابدأ\" لإدخال رمز التفعيل الخاص بك. استخدم عنوان بريدك الإلكتروني الخاص بك."
+            },
+            "five": "انقر على \"العرض\" للاطلاع على العرض. إذا نقرت على \"رصيدي\"، سترى مقدار الرصيد الذي لديك.",
+            "four": "يمكنك استخدام الرصيد للدفع لدى مقدمي الخدمة المشاركين. يقوم مقدم الخدمة بمسح الرمز الخاص بك. سيتم بعد ذلك خصم الرصيد تلقائياً. من خلال قائمة مقدمي الخدمات المشاركين وصفحة \"العروض\"، يمكنك معرفة أين وعلى ماذا يمكنك إنفاق رصيدك.",
+            "noordoostpolder": {
+                "five": "انقر على \"العروض\" للاطلاع على العروض. إذا نقرت على \"رصيدي\"، فسترى مقدار الرصيد الذي لديك.",
+                "four": "يمكنك استخدام رمز الاستجابة السريعة للدفع لدى مقدمي الخدمة المشاركين. يقوم مقدم الخدمة بمسح الرمز الخاص بك. ثم يتم خصم الرصيد تلقائياً. يمكنك اصطحاب رمز الاستجابة السريعة معك عن طريق طباعته أو إرساله بالبريد الإلكتروني أو استخدام تطبيق Me.",
+                "one": "لقد تلقيت رسالة من البلدية تحتوي على رمز تفعيل لـ Meedoenpakket.",
+                "three": "إذا كنت قد استلمت Meedoenpakket، يمكنك العثور على رمز الاستجابة السريعة الذي يمكنك استخدامه للدفع من خلال النقر على \"أرصدتي\".",
+                "two": "انقر فوق <u>ابدأ</u> لإدخال عنوان بريدك الإلكتروني ورمز التفعيل. استخدم عنوان بريداً إلكترونياً مختلفاً لكل رمز تفعيل."
+            },
+            "one": "لقد تلقيت رسالة من البلدية. تحتوي الرسالة على رمز التفعيل.",
+            "oostgelre": {
+                "five": "انتقل إلى \"العرض\" أو نظرة عامة على جميع مقدمي الخدمة لمعرفة أين يمكنك إنفاق الرصيد أو شراء منتج أو خدمة. انتقل إلى المزوِّد وأظهر رمز الاستجابة السريعة المقابل لاستلام المنتج أو الخدمة.",
+                "four": "في \"أرصدتي\" يوجد أيضاً رمز QR شخصي. يمكنك استخدام رمز الاستجابة السريعة هذا للدفع لمقدم الخدمة حيث تريد القيام بنشاط ما. يمكنك طباعة رمز الاستجابة السريعة أو إرساله بالبريد الإلكتروني أو إظهاره على هاتفك من خلال تسجيل الدخول إلى التطبيق <a href='#!/me' tartget='_blank'><u><i>أنا</i></u></a>. التطبيق <a href='#!/me' tartget='_blank'><u><i>\"أنا - فورس</i></u></a> يمكن تنزيله من متجر Google Playstore ومتجر التطبيقات.",
+                "one": "لقد تلقيت رسالة من Fijnder. تحتوي الرسالة على رمز التفعيل.",
+                "stepfive": "الخطوة رقم 5",
+                "stepfour": "الخطوة رقم 4",
+                "stepone": "الخطوة رقم 1",
+                "stepthree": "الخطوة رقم 3",
+                "steptwo": "الخطوة رقم 2",
+                "three": "ثم انقر على \"العروض\". ستجد هناك جميع الأنشطة والدورات التدريبية. يمكنك أيضًا الاطلاع على رصيدك. يمكنك العثور على رصيدك بالنقر على \"رصيدي\" في الأعلى.",
+                "title": "كيف تعمل",
+                "two": "انقر على زر \"ابدأ\" لإدخال رمز التفعيل الخاص بك. استخدم عنوان بريدك الإلكتروني الخاص بك."
+            },
+            "potjeswijzer": {
+                "five": "انتقل إلى \"العرض\" أو نظرة عامة على جميع مقدمي الخدمة لمعرفة أين يمكنك إنفاق رصيدك أو شراء منتج أو خدمة. انتقل إلى المزوِّد وأظهر رمز الاستجابة السريعة المقابل لاستلام منتجك أو خدمتك.",
+                "four": "هل تمت الموافقة على طلبك؟ بعد ذلك ستحصل على الرصيد. باستخدام رمز الاستجابة السريعة، يمكنك الذهاب إلى مقدم الخدمة لإجراء عملية الدفع.",
+                "one": "انقر على زر \"ابدأ\" لبدء تشغيل التطبيق.",
+                "three": "سترى نظرة عامة على الأواني المتاحة. هل ترى وعاءً تريده؟ انقر على \"تقديم طلب\" واملأ بياناتك. ستتم معالجة طلبك.",
+                "two": "سجّل الدخول باستخدام عنوان بريدك الإلكتروني الخاص بك."
+            },
+            "stepfive": "الخطوة 5",
+            "stepfour": "الخطوة 4",
+            "stepone": "الخطوة 1",
+            "stepthree": "الخطوة 3",
+            "steptwo": "الخطوة 2",
+            "three": "ثم انقر على \"العروض\". ستجد هناك جميع الأنشطة والدورات التدريبية. يمكنك أيضاً الاطلاع على رصيدك. يمكنك العثور على رصيدك بالنقر على \"رصيدي\" في الأعلى.",
+            "title": "كيف تعمل",
+            "two": "انقر على زر <u>ابدأ</u> لإدخال رمز التفعيل الخاص بك. استخدم عنوان بريدك الإلكتروني الخاص بك.",
+            "westerkwartier": {
+                "five": "انقر على \"العروض\" للاطلاع على العروض. إذا نقرت على \"رصيدي\"، فسترى مقدار الرصيد الذي لديك.",
+                "four": "يمكنك استخدام رمز الاستجابة السريعة للدفع لدى مقدمي الخدمة المشاركين. يقوم مقدم الخدمة بمسح الرمز الخاص بك. ثم يتم خصم الرصيد تلقائياً. يمكنك اصطحاب رمز الاستجابة السريعة معك عن طريق طباعته أو إرساله بالبريد الإلكتروني أو استخدام تطبيق Me.",
+                "one": "لقد تلقيت رسالة من البلدية حول باقة الطفل.",
+                "three": "إذا كنت قد استلمت رصيداً، يمكنك العثور على رمز الاستجابة السريعة الذي يمكنك استخدامه للدفع من خلال النقر على \"رصيدي\". ثم انقر على \"العروض\". ستجد هناك جميع المنتجات والخدمات.",
+                "two": "انقر على زر \"بدء التطبيق\" لبدء تشغيل التطبيق الخاص بك. استخدم عنوان بريدك الإلكتروني الخاص بك وقم بتسجيل الدخول باستخدام DigiD."
+            },
+            "winterswijk": {
+                "five": "انتقل إلى \"العرض\" أو نظرة عامة على جميع مقدمي الخدمة لمعرفة أين يمكنك إنفاق الرصيد أو شراء منتج أو خدمة. انتقل إلى المزوِّد وأظهر رمز الاستجابة السريعة المقابل لاستلام المنتج أو الخدمة.",
+                "four": "في \"أرصدتي\" يوجد أيضاً رمز QR شخصي. يمكنك استخدام رمز الاستجابة السريعة هذا للدفع لمقدم الخدمة حيث تريد القيام بنشاط ما. يمكنك طباعة رمز الاستجابة السريعة أو إرساله بالبريد الإلكتروني أو إظهاره على هاتفك من خلال تسجيل الدخول إلى التطبيق <a href='#!/me' tartget='_blank'><u><i>أنا</i></u></a>. التطبيق <a href='#!/me' tartget='_blank'><u><i>\"أنا - فورس</i></u></a> يمكن تنزيله من متجر Google Playstore ومتجر التطبيقات.",
+                "one": "لقد تلقيت رسالة من Fijnder. تحتوي الرسالة على رمز التفعيل.",
+                "stepfive": "الخطوة رقم 5",
+                "stepfour": "الخطوة رقم 4",
+                "stepone": "الخطوة رقم 1",
+                "stepthree": "الخطوة رقم 3",
+                "steptwo": "الخطوة رقم 2",
+                "three": "ثم انقر على \"العروض\". ستجد هناك جميع الأنشطة والدورات التدريبية. يمكنك أيضًا الاطلاع على رصيدك. يمكنك العثور على رصيدك بالنقر على \"رصيدي\" في الأعلى.",
+                "title": "كيف تعمل",
+                "two": "انقر على زر \"ابدأ\" لإدخال رمز التفعيل الخاص بك. استخدم عنوان بريدك الإلكتروني الخاص بك."
+            }
+        },
+        "header": {
+            "auth_button": "حمّلني",
+            "auth_cta": "تحقق من أرصدتك واصطحبها معك باستخدام تطبيق Me.",
+            "berkelland": {
+                "cta": "انقر فوق \"ابدأ\" وأدخل رمز التفعيل الخاص بك. يمكن العثور على هذا الرمز في الرسالة التي تلقيتها بشأن برنامج الطفل.",
+                "subtitle_multi": "مرحباً بك في الموقع الإلكتروني لبرنامج الطفل التابع لبلدية بيركيلاند. هل تلقيت تخصيصاً لمخطط الطفل من خلال Fijnder؟ إذا كان الأمر كذلك، يمكنك هنا الاطلاع على العرض والأموال التي يمكنك إنفاقها.",
+                "title_multi": "مخطط الأطفال بلدية بيركيلاند"
+            },
+            "button": "تسجيل الدخول",
+            "button_av": "الطلب",
+            "cta": "انقر فوق \"ابدأ\" وأدخل رمز التفعيل الخاص بك. {{fund}} يمكن العثور على هذا الرمز في الرسالة التي تلقيتها حول",
+            "cta_av": "{{fund}}هل تستوفي شروط ?",
+            "cta_multi": "انقر فوق \"ابدأ\" وأدخل رمز التفعيل الخاص بك. يمكن العثور على هذا الرمز في الرسالة التي تلقيتها",
+            "header_note": "",
+            "noordoostpolder": {
+                "cta": "انقر فوق \"ابدأ\" للتسجيل. يمكنك القيام بذلك باستخدام عنوان بريدك الإلكتروني ورمز التفعيل من الرسالة. هل أنت مؤهل للحصول على Meedoenpakket ولكنك لم تستلم رمز التفعيل؟ يرجى الاتصال بالبلدية عبر الهاتف على الرقم 0527 633911.",
+                "subtitle": "مرحبًا بك في الموقع الإلكتروني الخاص بـ Meedoenpakket لبلدية نوردوستبولدر. هنا يمكنك معرفة مدى ارتفاع رصيد Meedoen الخاص بك وما يمكنك إنفاقه عليه.",
+                "title": "حزمة المشاركة"
+            },
+            "oostgelre": {
+                "cta": "انقر فوق \"ابدأ\" وأدخل رمز التفعيل الخاص بك. يمكن العثور على هذا الرمز في الرسالة التي تلقيتها بشأن برنامج الطفل.",
+                "subtitle_multi": "مرحبًا بك في الموقع الإلكتروني لبرنامج الطفل التابع لبلدية أوست جيلر. هل تلقيت تخصيصًا لمخطط الطفل عن طريق Fijnder؟ إذن يمكنك الاطلاع على العرض والأموال التي يمكنك إنفاقها هنا.",
+                "title": "مخطط الطفل بلدية أوست جيلري",
+                "title_multi": "مخطط الطفل بلدية أوست جيلري"
+            },
+            "potjeswijzer": {
+                "button_av": "ابدأ",
+                "cta_av": "",
+                "subtitle_av": "هناك العديد من الأواني المختلفة داخل Westerkwartier، وغالباً ما تكون أكثر مما تعتقد. يتيح لك هذا الموقع الإلكتروني إمكانية التقدم بطلب للحصول على الأواني وإدارتها وإنفاقها."
+            },
+            "signup_cta": "اقرأ المزيد >",
+            "subtitle": "{{fund}}مرحبًا بك في الموقع الإلكتروني لـ . {{fund}} هل لديك تخصيص من البلدية لـ ? ثم يمكنك الاطلاع على العرض والأموال التي يمكنك إنفاقها هنا.",
+            "subtitle_av": "{{fund}}مرحبًا بك في الموقع الإلكتروني لـ . يمكنك التقدم بطلب للحصول على البرنامج والاطلاع على العرض هنا. بعد التقديم، يمكنك أيضاً معرفة المبلغ المالي الذي يمكنك إنفاقه.",
+            "subtitle_multi": "{{org_name}} {{org_name}} مرحبًا بك في متجر الويب الخاص بـ هل حصلت على جائزة من خلال ؟ ثم يمكنك الاطلاع على العرض والأموال التي يمكنك إنفاقها هنا.",
+            "title": "{{implementation}}",
+            "title_multi": "متجر ويب شوب {{org_name}}",
+            "vergoedingen": {
+                "button": "تسجيل الدخول/التسجيل"
+            },
+            "westerkwartier": {
+                "button_av": "ابدأ",
+                "cta_av": "",
+                "subtitle_av": "هناك العديد من الأواني المختلفة داخل Westerkwartier، وغالباً ما تكون أكثر مما تعتقد. يتيح لك هذا الموقع الإلكتروني إمكانية التقدم بطلب للحصول على الأواني وإدارتها وإنفاقها."
+            },
+            "winterswijk": {
+                "cta": "انقر فوق \"ابدأ\" وأدخل رمز التفعيل الخاص بك. يمكن العثور على هذا الرمز في الرسالة التي تلقيتها بشأن برنامج الطفل.",
+                "header_note": "المصور: ه. فان أومن",
+                "subtitle_multi": "مرحبًا بك في الموقع الإلكتروني لبرنامج الطفل التابع لبلدية فينترسفيك. هل تلقيت تخصيصًا لمخطط الطفل عبر Fijnder؟ ثم يمكنك الاطلاع على العرض والأموال التي يمكنك إنفاقها هنا.",
+                "title_multi": "مخطط الطفل بلدية فينترسفيك"
+            }
+        },
+        "how_it_works": "كيف تعمل؟",
+        "leergeld": {
+            "description": "يهدف ليرجيلد نيميغن إلى السماح لجميع الأطفال في نيميغن بالمشاركة. بالنسبة للأطفال من الأسر ذات الدخل المنخفض، يمكن أن يكون ذلك مشكلة. تقدم ليرغيلد نيميغن لهؤلاء الأطفال الذين تتراوح أعمارهم بين 0 و17 عاماً فرصة المشاركة في جميع أنواع الأنشطة.",
+            "help_for_child": "مساعدة لطفلك",
+            "more_info": "مزيد من المعلومات حول ستيشتينج ليرجيلد نيميغن",
+            "title": "مؤسسة ليرجيلد نيميغن"
+        },
+        "map": {
+            "show": "عرض الخريطة",
+            "subtitle": "ابحث عن المواقع والمرافق القريبة منك.",
+            "title": "عرض خريطتنا"
+        },
+        "nijmegen": {
+            "bus_benefit_subscription": "تذكرة استحقاق الحافلة",
+            "collective_health_insurance": "التأمين الصحي التكميلي الجماعي (CAZ)",
+            "description": "لدى بلدية نايميخن بدلات مختلفة لذوي الدخل المنخفض. خذ بعين الاعتبار Meedoenregeling، حيث يحصل السكان ذوو الدخل المنخفض على 150 يورو كحد أقصى للأنشطة الثقافية والرياضية والتعليمية. أو، على سبيل المثال، بطاقة مزايا الحافلات. جميع البدلات مذكورة أدناه.",
+            "individual_income_allowance": "ملحق الدخل الفردي",
+            "more_info": "المزيد من الرسوم من بلدية نايميخن",
+            "participation_scheme": "مخطط المشاركة",
+            "special_assistance": "المساعدة الخاصة",
+            "study_allowance": "بدل الدراسة",
+            "tax_relief": "الإعفاء من الضرائب البلدية",
+            "title": "بلدية نايميخن"
+        },
+        "pre_check": {
+            "take_check": "قم بإجراء الفحص"
+        },
+        "product": {
+            "search": "البحث عن منتج أو خدمة",
+            "select": "اختر الفئة...",
+            "title": "العرض"
+        }
+    },
+    "not_found": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "not_found": "الصفحة غير موجودة"
+        }
+    },
+    "provider": {
+        "breadcrumbs": {
+            "back": "رجوع",
+            "home": "الصفحة الرئيسية",
+            "providers": "المزودون"
+        },
+        "description": {
+            "title": "الوصف"
+        },
+        "details": {
+            "email": "عنوان البريد الإلكتروني",
+            "phone": "رقم الهاتف",
+            "title": "معلومات المزود",
+            "type": "نوع مقدم الخدمة:",
+            "type_none": "لا يوجد نوع الموفر"
+        },
+        "funds": {
+            "title": "الفروع"
+        },
+        "title": "المزودون"
+    },
+    "providers": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "providers": "المزودون"
+        },
+        "distances": {
+            "3": "< أقل من 3 كم",
+            "5": "< أقل من 5 كم",
+            "10": "< أقل من 10 كم",
+            "15": "< أقل من 15 كم",
+            "25": "< 25 كم",
+            "50": "< أقل من 50 كم",
+            "75": "< 75 كم",
+            "everywhere": "في كل مكان"
+        },
+        "filters": {
+            "all_categories": "اختر الفئة...",
+            "all_funds": "جميع الائتمانات...",
+            "all_products": "العرض الكامل",
+            "all_providers": "حدد المزود...",
+            "all_sub_categories": "اختر الفئة الفرعية...",
+            "all_types": "جميع الأنواع...",
+            "bookmarked": "قائمة أمنياتي",
+            "category": "الفئة",
+            "distance": "المسافة",
+            "fund": "الائتمان",
+            "map_title": "اختر مزوداً لمزيد من المعلومات",
+            "postcode": "الرمز البريدي",
+            "provider_type": "نوع مقدم الخدمة",
+            "providers": "المزودون",
+            "result": "يوجد <div class=\"showcase-result-count\">{{ total }}</div> مزودين موجودين.",
+            "search": "بحث",
+            "sort": "فرز",
+            "sub_category": "الفئة الفرعية"
+        },
+        "items": {
+            "labels": {
+                "open_provider": "المزود المفتوح",
+                "show_locations": "عرض المواقع"
+            }
+        },
+        "sort": {
+            "name_asc": "الاسم (تصاعدي)",
+            "name_desc": "الاسم (تنازلياً)"
+        },
+        "title": "المزودون",
+        "view": {
+            "list": "القائمة",
+            "map": "الخريطة"
+        }
+    },
+    "search": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "search": "نتائج البحث"
+        },
+        "entities": {
+            "funds": "الائتمان",
+            "products": "العرض",
+            "providers": "المزودون"
+        },
+        "filters": {
+            "all_categories": "اختر الفئة...",
+            "all_funds": "اختر الاعتمادات...",
+            "all_providers": "حدد المزود...",
+            "all_sub_categories": "اختر الفئة الفرعية...",
+            "category": "الفئة",
+            "found_for": "{{ query }}وجدت لـ \"\"",
+            "funds": "الائتمان",
+            "highlighted": "مميز",
+            "providers": "المزودون",
+            "sort": "فرز"
+        },
+        "sort_by": {
+            "created_at_asc": "الأقدم أولاً",
+            "created_at_desc": "الجديد الأول"
+        },
+        "title": "نتائج البحث",
+        "view": {
+            "list": "القائمة",
+            "photos": "الصور"
+        }
+    },
+    "signup": {
+        "items": {
+            "berkelland": {
+                "start_email": "بدء التفعيل"
+            },
+            "digid": "افتح شاشة تسجيل الدخول إلى DigiD",
+            "ede": {
+                "digid": "افتح شاشة تسجيل الدخول إلى DigiD",
+                "header": "سجّل الدخول هنا",
+                "pane_text": "",
+                "restore_header": "",
+                "restore_title": "استعادة الحساب",
+                "signup": "",
+                "title": "تسجيل الدخول"
+            },
+            "errors": {
+                "email": {
+                    "type_mismatch": "يرجى إدخال عنوان بريد إلكتروني صالح، على سبيل المثال naam@voorbeeld.com",
+                    "value_missing": "يرجى إدخال عنوان بريد إلكتروني صالح، على سبيل المثال naam@voorbeeld.com."
+                }
+            },
+            "geertruidenberg": {
+                "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
+            },
+            "goereeoverflakkee": {
+                "start_email": "التسجيل"
+            },
+            "groningen": {
+                "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
+            },
+            "header": "سجّل الدخول هنا",
+            "heumen": {
+                "start_email": "بدء التفعيل"
+            },
+            "noordoostpolder": {
+                "start_email": "بدء التفعيل"
+            },
+            "oostgelre": {
+                "start_email": "بدء التفعيل"
+            },
+            "page_title": "تسجيل الدخول{{pageTitleSuffix}}",
+            "pane_text": "تسجيل الدخول إلى حساب موجود",
+            "potjeswijzer": {
+                "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
+            },
+            "restore_header": "",
+            "restore_title": "استعادة الحساب",
+            "schagen": {
+                "start_email": "ابدأ"
+            },
+            "signup_option": "اتخذ خياراً للمتابعة",
+            "start_email": "بدء التطبيق",
+            "title": "تسجيل الدخول",
+            "vergoedingen": {
+                "restore_title": "استعادة الحساب",
+                "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة",
+                "title": "تسجيل الدخول"
+            },
+            "waalwijk": {
+                "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
+            },
+            "winterswijk": {
+                "start_email": "بدء التفعيل"
+            }
+        }
+    },
+    "sitemap": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "sitemap": "خريطة الموقع"
+        },
+        "title": "خريطة الموقع"
+    },
+    "wip": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "not_found": "الصفحة غير موجودة"
+        },
+        "description": "هذه الصفحة قيد الإنشاء.",
+        "title": "العمل قيد التنفيذ"
+    },
+    "meapp_index": {
+        "buttons": {
+            "join": "التسجيل"
+        },
+        "download": {
+            "android": "حمّلني للأندرويد",
+            "ios": "حمّلني لنظام iOS"
+        },
+        "functions": {
+            "app": "يخزن التطبيق ملفاً شخصياً للمستخدم، ويسمح هذا الملف الشخصي بإعادة استخدام البيانات للانضمام إلى مخططات أخرى.",
+            "apply": "التسجيل",
+            "criterion": "إذا كنت تستوفي المعايير المحددة للبلدية. يمكنك التقدم بطلب للحصول على ائتمان. يمكنك إدارة هذا الائتمان في Me. باستخدام Me، يمكنك إجراء مدفوعات آمنة.",
+            "header": {
+                "title": "الميزات"
+            },
+            "pin": "لديك خيار إنشاء ملف تعريف ثم تأمينه باستخدام رقم تعريف شخصي.",
+            "profile": "إنشاء ملف تعريف",
+            "profileb": "الملف الشخصي",
+            "vouchers": "الائتمان",
+            "webshop": "سجّل الدخول إلى متجر الويب مع Me. ويمكنك القيام بذلك عن طريق مسح رمز الاستجابة السريعة مع Me الذي يقدمه المتجر الإلكتروني."
+        },
+        "header": {
+            "description": "ملف تعريف لتسجيل الدخول، مما يتيح لك إدارة الأرصدة وإجراء مدفوعات آمنة",
+            "title_forus": "لمحة عن باقة عيد الميلاد",
+            "title_general": "ملف تعريف لمنصة Forus",
+            "title_westerkwartier": "ملف تعريف لباقة الطفل",
+            "title_zuidhorn": "ملف تعريف لباقة الطفل"
+        },
+        "navbar": {
+            "me": "أنا",
+            "municipality": "البلدية",
+            "provider": "المزود",
+            "shop": "متجر ويب شوب"
+        }
+    },
+    "product": {
+        "breadcrumbs": {
+            "back": "رجوع",
+            "home": "الصفحة الرئيسية",
+            "products": "العرض",
+            "subsidies": "العرض"
+        },
+        "buttons": {
+            "buy": "الحجز",
+            "buy_label": "فتح استمارة الحجز",
+            "groningen": {
+                "request": "الطلب"
+            },
+            "open_voucher": "فتح الائتمان",
+            "potjeswijzer": {
+                "request": "الطلب"
+            },
+            "request": "تفعيل"
+        },
+        "funds": {
+            "fund": "ائتمان:",
+            "not_available_label": "الحجز",
+            "not_available_value": "غير متوفر",
+            "title": "الائتمان"
+        },
+        "labels": {
+            "category": "الفئة:",
+            "description": "الوصف:",
+            "discount": "خصم:",
+            "expire": "صالحة حتى:",
+            "expire_prefix": "",
+            "find": "يمكنك أن تجدنا هنا",
+            "fund": "الطلب",
+            "funds_card_btn_text": "الانتقال إلى الاعتمادات",
+            "funds_card_description": "هل تريد معرفة الرصيد الذي يمكنك استخدامه في هذا العرض؟ ثم انتقل إلى نظرة عامة على الرصيد!",
+            "funds_card_title": "المعلومات الائتمانية",
+            "limit": "الرصيد المتبقي",
+            "max_limit": "الحد الأقصى للشخص الواحد:",
+            "pay_from_voucher": "أنت تدفع من الرصيد",
+            "price": "السعر:"
+        },
+        "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
+        "map": {
+            "title": "المواقع على الخريطة"
+        },
+        "no_vouchers": "ليس لديك رصيد لحجز هذا العرض مع",
+        "status": {
+            "active": "نشط",
+            "free": "مجاناً",
+            "no_data": "لا توجد بيانات",
+            "out_of_stock": "لا مزيد من المخزون"
+        },
+        "tooltip": "كم مرة أخرى يمكنك الاستفادة من هذا العرض",
+        "price": {
+            "free": "مجاناً"
+        }
+    },
+    "records_create": {
+        "buttons": {
+            "back": "رجوع",
+            "cancel": "إلغاء",
+            "choose": {
+                "c_description": "اختر نوع البيانات الشخصية التي تريد إنشاءها.",
+                "category": "اختر الفئة",
+                "description": "حدد الفئة التي تريد إضافة البيانات الشخصية إليها.",
+                "type": "اختر النوع"
+            },
+            "confirm": "تأكيد",
+            "next": "التالي",
+            "text": "النص",
+            "type": "نوع البيانات الشخصية"
+        },
+        "header": {
+            "title": "إنشاء البيانات الشخصية"
+        }
+    },
+    "records_validate": {
+        "buttons": {
+            "send": "الشحن"
+        },
+        "header": {
+            "title": "بياناتي الشخصية"
+        },
+        "labels": {
+            "validators": "المقيّمون"
+        },
+        "status": {
+            "hold": "الانتظار"
+        }
+    },
+    "records_validations": {
+        "buttons": {
+            "send": "إرسال طلب موافقة"
+        },
+        "header": {
+            "title": "بياناتي الشخصية"
+        },
+        "labels": {
+            "count": "الموافقات",
+            "validations": "الموافقات"
+        }
+    },
+    "records": {
+        "buttons": {
+            "create": "إنشاء بيانات شخصية",
+            "validate": "الموافقة"
+        },
+        "header": {
+            "title": "البيانات الشخصية"
+        },
+        "labels": {
+            "count": "المراجعات"
+        }
+    },
+    "voucher": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "voucher": "{{ title }}",
+            "voucher_physical": "أنت {{ title }}",
+            "vouchers": "أرصدتي"
+        },
+        "buttons": {
+            "details": "عرض التفاصيل",
+            "send": "أرسل لي بريد إلكتروني"
+        },
+        "card": {
+            "activate_my_pass": "تفعيل بطاقتي",
+            "cancel": "إلغاء",
+            "delete": "إلغاء الحجز",
+            "expire": "صالحة حتى:",
+            "expired": "منتهية الصلاحية",
+            "footer": {
+                "actions": {
+                    "mail": "أرسل لي بريد إلكتروني",
+                    "open_in_me": "فتح في التطبيق",
+                    "physical_card_use": "ممر بلاستيكي",
+                    "print": "الطباعة",
+                    "share": "المشاركة مع المزود"
+                },
+                "tooltips": {
+                    "mail": "أرسل الرصيد لنفسك عبر البريد الإلكتروني",
+                    "open_in_me": "أنا",
+                    "print": "اطبع الرصيد",
+                    "share": "مشاركة الرصيد مع المزود"
+                }
+            },
+            "header": {
+                "title": "كيف تعمل؟"
+            },
+            "labels": {
+                "contact_provider": "هل لديك أي أسئلة حول هذا العرض؟ إذا كان الأمر كذلك، يُرجى الاتصال بنا.",
+                "contact_sponsor": "هل لديك أي أسئلة؟ اتصل بنا",
+                "description": "1.<br/><br/>انقر على العرض واختر النشاط واحجزه. أو 2. خذ رمز الاستجابة السريعة إلى مقدم الخدمة. سيقوم مقدم الخدمة بمسح رمز الاستجابة السريعة وحجز نشاطك.",
+                "email": "عنوان البريد الإلكتروني",
+                "phone": "رقم الهاتف"
+            },
+            "lost_my_pass": "لقد فقدت بطاقتي",
+            "qrcode": {
+                "description": "{{fund_name}} هذا هو رصيدك مع رمز الاستجابة السريعة.",
+                "productdescription": "هذا هو حجزك مع رمز الاستجابة السريعة."
+            },
+            "share": "شارك",
+            "stop_participation": "إيقاف المشاركة",
+            "used": "مستعمل",
+            "used_on": "مستخدمة على",
+            "valid_until": "صالحة حتى"
+        },
+        "delete_voucher": {
+            "buttons": {
+                "close": "إغلاق",
+                "submit": "تأكيد"
+            },
+            "popup_form": {
+                "description": "يمكنك إلغاء الحجز للتنازل عن عملية الشراء. إذا كنت لا ترغب في إلغاء عملية الشراء هذه، انقر على \"إغلاق\".",
+                "title": "هل تريد إلغاء الحجز قبل الشراء؟"
+            }
+        },
+        "history": {
+            "status": {
+                "expired": "منتهية الصلاحية"
+            },
+            "title": "النفقات"
+        },
+        "labels": {
+            "add": "في",
+            "expire": "صالحة حتى:",
+            "fund": "الصندوق",
+            "info": "<span style='font-style: italic;'>هل تبحث عن مقدم خدمة غير موجود على الخريطة؟ يمكنك أن تطلب من مقدم الخدمة المشاركة. يمكن لمقدم الخدمة التقديم على مدار العام.</span>",
+            "offers": "هل ترغب في الحصول على معلومات عن العرض الكامل؟ إذن اتصل بمقدم الخدمة.",
+            "office": "المواقع التي يمكنك فيها استرداد هذا الحجز.",
+            "offices": "المزودون",
+            "productdetail": "معلومات التوريد",
+            "requirements": "للاطلاع على شروط وأحكام هذا العرض اتصل بمزود الخدمة.",
+            "shopdetail": "معلومات المزود",
+            "subtract": "إيقاف التشغيل",
+            "transactions": "النفقات",
+            "voucher": "اطبع رصيدك أو أرسله لنفسك بالبريد. خذ رمز الاستجابة السريعة إلى مقدم الخدمة وقم بمسحه ضوئياً."
+        },
+        "physical_card": {
+            "alt": "المرور الفعلي: ' {[ العنوان ]}''",
+            "buttons": {
+                "lost_pass": "لقد فقدت بطاقتي",
+                "reactivate": "تفعيل"
+            },
+            "card_number": "رقم المرور",
+            "title": "تفعيل بطاقتي"
+        },
+        "reimbursement": {
+            "button": "إرسال القسيمة",
+            "description": "استرد التكاليف المتكبدة عن طريق إرسال تفاصيل عملية الشراء والفاتورة أو الإيصال.",
+            "title": "استرداد التكاليف"
+        },
+        "share_voucher": {
+            "buttons": {
+                "cancel": "إلغاء",
+                "confirm": "إغلاق",
+                "submit": "إرسال"
+            },
+            "close": "إغلاق",
+            "labels": {
+                "send_copy": "أرسل بريداً إلكترونياً كدليل على نفسك أيضاً",
+                "share_note": "رسالة لمقدم الخدمة"
+            },
+            "popup_form": {
+                "description": "يمكنك مشاركة حجزك مع مقدم الخدمة لتمكين الشراء عن بُعد. إذا كان العرض يتعلق بنشاط أو خدمة ما: اكتب في الحقل أدناه المعلومات الإضافية التي يطلبها مقدم الخدمة للمشاركة، مثل: اسمك ورقم هاتفك.",
+                "title": "ملاحظة! يرجى إرسال رسالة إلى مقدم الخدمة قبل مشاركة رمز الاستجابة السريعة."
+            },
+            "popup_sent": {
+                "description": "استلم مقدم الخدمة الحجز ورسالتك. اتصل بمزود الخدمة أو قم بزيارة المزود لسحب العرض.",
+                "title": "تم إرسال حجزك إلى مقدم الخدمة.",
+                "title_modal": "شارك"
+            },
+            "reason_placeholder": "رسالة لمقدم الخدمة"
+        },
+        "title": "{{ title }}",
+        "title_physical": "أنت {{ title }}",
+        "transactions": {
+            "add": "إضافة",
+            "bank_transfer": "التحويل المصرفي",
+            "expired_on": "انتهت صلاحيته في {[ التاريخ]}",
+            "no_spending": "لا توجد نفقات",
+            "reservation": "الحجز",
+            "subtract": "الطرح",
+            "title": "المعاملات",
+            "top_up": "ترقية"
+        },
+        "voucher_card_combined": {
+            "header": {
+                "title": "كيف تعمل؟"
+            },
+            "labels": {
+                "contact_sponsor": "هل لديك أي أسئلة؟",
+                "contact_sponsor_details": "اتصل بنا إذاً.",
+                "how_it_works": "لقد استلمنا طلبك. سوف تتلقى قراراً بشأن طلبك في غضون 8 أسابيع.",
+                "IIT": {
+                    "how_it_works": "لقد استلمنا طلبك. سوف تتلقى قراراً بشأن طلبك في غضون 8 أسابيع.",
+                    "redirect_to": "هل ما زلت ترغب في التقدم بطلب للحصول على تعويض؟"
+                },
+                "meedoenregeling_volwassenen_ww": {
+                    "how_it_works": "هل تكبدت نفقات تندرج ضمن هذا النظام؟ طالب باسترداد نفقاتك من خلال تقديم إيصال. بعد الموافقة، ستحصل على المبلغ في حسابك المصرفي الشخصي.",
+                    "redirect_to": "تكاليف الاسترداد؟"
+                },
+                "redirect_to": "هل ما زلت ترغب في التقدم بطلب للحصول على تعويض؟"
+            }
+        }
+    },
+    "vouchers": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "vouchers": "أرصدتي"
+        },
+        "card": {
+            "deactivated": "معطلة",
+            "delete": "إزالة",
+            "expire": "صالحة حتى:",
+            "expired": "منتهية الصلاحية",
+            "number": "العدد",
+            "unused": "غير مستخدم",
+            "used": "مستعمل"
+        },
+        "empty": {
+            "button": "تفعيل أو طلب ائتمان",
+            "subtitle": "ليس لديك حالياً أي أرصدة معتمدة",
+            "title": "لا توجد اعتمادات"
+        },
+        "filters": {
+            "active": "نشط",
+            "archive": "الأرشيف"
+        },
+        "labels": {
+            "actions": "الإجراء",
+            "expire": "صالحة حتى:",
+            "expired_on": "انتهت صلاحيتها في:",
+            "generated": "تم إنشاؤها",
+            "last": "العدد الأخير",
+            "none": "لا يوجد",
+            "open_voucher": "مفتوح",
+            "show_transactions": "عرض المعاملات",
+            "subtract": "(أف)",
+            "transactions": "النفقات",
+            "used": "مستعمل",
+            "used_on": "مستخدمة على:"
+        },
+        "reimbursement": {
+            "button": "إرسال القسيمة",
+            "title": "استرداد التكاليف"
+        },
+        "title": "أرصدتي"
+    },
+    "accessibility": {
+        "breadcrumbs": {
+            "accessibility": "بيان إمكانية الوصول",
+            "home": "الصفحة الرئيسية"
+        },
+        "content": {
+            "accessibilityOverview": "{{organization_name}} تتوفر قائمة حالية وكاملة بإعلانات إمكانية الوصول تحت مسؤولية البلدية عبر الرابط التالي:",
+            "alternative": "البديل: [ما إذا كان البديل المتاح متاحًا؛ وإذا كان الأمر كذلك، فما هو البديل].",
+            "available_online": "جميع نتائج التقييم والبحث التي تستند إليها المطالبة متاحة على الإنترنت (انظر تحت عنوان <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#evaluatie-en-onderzoekresultaten-voldoet-gedeeltelijk\">التقييم ونتائج البحث</a>",
+            "cause": "السبب: [سبب تعذر استيفاء الشرط (حتى الآن)].",
+            "complianceCriteria1": "تغطي الدراسة جميع المحتويات التي يجب أن تكون متاحة وفقًا للمرسوم المؤقت بشأن إمكانية النفاذ الرقمي الحكومي;",
+            "complianceCriteria2": "تستند الدراسة إلى بيانات القياس والمسح التي لا يزيد عمرها عن 12 شهرًا;",
+            "complianceCriteria3": "تم إجراء التقييم اليدوي وفقًا لطريقة تقييم موثقة بشكل كافٍ؛ <a href=\"https://w3.org/TR/WCAG-EM/\">WCAG-EM</a> أو ما يعادلها;",
+            "complianceCriteria4": "تم استخدام أداة اختبار تستند إلى الخوارزميات الموثقة من قبل مجموعة مجتمع <a href=\"https://act-rules.github.io/pages/about/\">Auto-WCAG</a> للاختبارات (شبه) التلقائية;",
+            "complianceCriteria5": "يتم تسجيل جميع نتائج الدراسة بدقة وبشكل لا لبس فيه وقابل للتكرار في شكل مقروء بشري أو في شكل مقروء آلياً <a href=\"https://www.w3.org/WAI/standards-guidelines/earl/\">EARL</a>;",
+            "complianceCriteria6": "يُشار إلى كل انحراف فردي عن المتطلبات التي تم العثور عليها أثناء التحقيق ولم يمكن تصحيحها:",
+            "complianceStatusDescription1": "{{organization_name}} تعلن البلدية أن هذا الموقع الإلكتروني يتوافق جزئياً مع المرسوم الحكومي المؤقت لإمكانية الوصول الرقمي.",
+            "complianceStatusDescription2": "أظهرت الدراسات الاستقصائية لإمكانية الوصول أنه لم يتم الوفاء بجميع المتطلبات. وبالنسبة لكل انحراف فردي عن المتطلبات، فإن السبب معروف والنتيجة موصوفة، وقد تم اتخاذ تدابير لإزالة الانحراف وتم وضع تخطيط ملموس بموعد تنفيذ التدابير.",
+            "complianceStatusLinkDescription": "انظر تحت عنوان <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#toelichting-op-de-nalevingsstatus\" target=\"_blank\" rel=\"noreferrer\">ملاحظات حول حالة الامتثال</a> لمزيد من المعلومات التفصيلية.",
+            "complianceStatusTitle": "حالة الامتثال",
+            "declarationDescription1": "{{date}} {{organization_name}}تم إعداد هذا البيان بموافقة المدير المسؤول في البلدية .",
+            "declarationDescription2": "{{revision_date}}تمت آخر مراجعة لتوقيت واكتمال ودقة هذا البيان في .",
+            "declarationTitle": "صياغة هذا البيان",
+            "description": "الوصف:[وصف موجز للحالة الشاذة]",
+            "deviations": "(انظر تحت عنوان <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#afwijkingen-voldoet-gedeeltelijk\">الاستثناءات</a>)",
+            "deviationsTitle": "الانحرافات",
+            "disproportionateBurden": "فرصة للإشارة إلى ما إذا كان تنفيذ التدبير سيخلق <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#onevenredige-last\">عبئًا غير متناسب</a>: [نعم/لا] [شرح إذا كانت الإجابة على السؤال \"نعم\"].",
+            "effect": "التأثير: [تأثير الاستثناء على الأشخاص ذوي الإعاقة].",
+            "enforcementProcedureDescription1": "هل أنت غير راضٍ عن الطريقة التي تم التعامل بها مع شكواك؟ أم أننا لم نستجب في الوقت المناسب؟",
+            "enforcementProcedureDescription2": "ثم يمكنك <a href=\"https://www.nationaleombudsman.nl/klacht-indienen/uw-klacht\">[الاتصال بأمين المظالم الوطني].</a>",
+            "enforcementProcedureTitle": "إجراءات الإنفاذ",
+            "expectationsList1": "ستتلقى إشعاراً بالاستلام في غضون 5 أيام عمل.",
+            "expectationsList2": "سنبلغك بالتقدم المحرز والنتيجة.",
+            "expectationsList3": "في غضون 3 أسابيع، سيتم استكمال طلبك.",
+            "expectationsTitle": "ما الذي يمكن أن تتوقعه منا؟",
+            "explanationComplianceStatusDescription1": "يدعم هذا القسم أيضًا الادعاء بأن المتطلبات المنصوص عليها في مرسوم إمكانية الوصول الرقمي المؤقت قد تم الوفاء بها جزئيًا.",
+            "explanationComplianceStatusDescription2": "{{implementation_name}} {{organization_name}} {{organization_name}} تم فحص الموقع الإلكتروني للتحقق من إمكانية الوصول، ويوضح التقرير، وفقاً للبلدية، أنه تم استيفاء جميع الميزات المذكورة أدناه:",
+            "explanationComplianceStatusTitle": "ملاحظات حول حالة الامتثال",
+            "feedbackAndContactDescription": "هل تواجه مشكلة في إمكانية وصول ذوي الاحتياجات الخاصة؟ أو هل لديك سؤال أو تعليق حول إمكانية الوصول؟",
+            "feedbackAndContactEmail": "ثم اتصل بنا عبر <a href=\"mailto:{{ contact_email }}\">جيرترويدنبرغ</a> أو {{telephone_number}}",
+            "feedbackAndContactTitle": "الملاحظات وتفاصيل الاتصال",
+            "introParagraph1": "{{organization_name}} تهدف البلدية إلى إتاحة الوصول إلى معلوماتها وخدماتها عبر الإنترنت، وفقًا للمرسوم المؤقت بشأن إمكانية الوصول الرقمي إلى الحكومة.",
+            "introParagraph2": "{{implementation_name}} {{organization_name}} ينطبق بيان إمكانية الوصول هذا على محتوى الموقع الإلكتروني الذي يقع ضمن نطاق المرسوم المؤقت بشأن إمكانية الوصول الرقمي للحكومة.",
+            "linksIntro": "{{implementation_name}} {{organization_name}} الروابط التي يمكن العثور فيها على محتوى الموقع الإلكتروني:",
+            "mainDomainTitle": "المجال الرئيسي:",
+            "measure": "الإجراء: [الإجراء (الإجراءات) الواجب اتخاذها لإزالة الانحراف].",
+            "outsideScopeDescription": "انظر المادة 2، الفقرة الثانية من المادة 2 من المرسوم المؤقت بشأن إمكانية الوصول الرقمي الحكومي.",
+            "outsideScopeLink": "https://zoek.officielebekendmakingen.nl/stb-2018-141.html#d17e165",
+            "outsideScopeTitle": "المحتوى الخارج عن نطاق المرسوم المؤقت بشأن إمكانية النفاذ الرقمي الحكومي",
+            "planning": "الجدول الزمني: [الموعد النهائي الذي سيتم فيه تصحيح الانحراف]",
+            "referenceNumber": "[الرقم المرجعي]",
+            "sc1_1_1": {
+                "alternative": "البديل: لا يوجد حل بديل لهذه المشكلة.",
+                "cause": "السبب: لم تتم إضافة نص بديل في مرجع الصورة.",
+                "description": "الوصف: يفتقد عنصر img سمة بديل. (نص بديل للصورة)",
+                "disproportionateBurden": "هل يفرض تنفيذ التدبير عبئًا غير متناسب؟ لا",
+                "effect": "النتيجة: يمكن أن يؤثر النص البديل المفقود على وظيفة أدوات تحويل الكلام إلى نص.",
+                "measure": "الإجراء: سيقوم مشرفو المواقع بنشر نص بديل للصورة.",
+                "planning": "التخطيط: 01-06-2020",
+                "title": "SC 1.1.1.1 - المحتوى غير النصي [المستوى أ]"
+            },
+            "sc4_1_2_1": {
+                "alternative": "البديل: لا يوجد حل بديل لهذه المشكلة.",
+                "cause": "السبب: عدم الاستخدام المتسق لعناصر الربط",
+                "description": "الوصف: تم العثور على عنصر الارتباط مع وجود سمة href صالحة، ولكن لم يتم تحديد محتوى رابط.",
+                "disproportionateBurden": "هل يفرض تنفيذ التدبير عبئًا غير متناسب؟ لا",
+                "effect": "العواقب: لا توجد عواقب سلبية مباشرة على المستخدم.",
+                "measure": "الإجراء: سيقوم مشرف الموقع بإعادة تقييم عنصر الارتساء وإزالته أو تقديم المعلومات المطلوبة",
+                "planning": "التخطيط: 01-06-2020",
+                "title": "SC 4.1.2 - الاسم والدور والقيمة [المستوى أ]"
+            },
+            "technicalDeviationsTitle": "الانحرافات الفنية"
+        },
+        "title": "بيان إمكانية الوصول",
+        "vars": {
+            "geertruidenberg": {
+                "accessibility_link": "https://www.geertruidenberg.nl/en/node/781",
+                "contact_email": "communicatie@geertruidenberg.nl",
+                "implementation_name": "مخططات الأطفال",
+                "organization_name": "غيرترويدنبرغ",
+                "telephone_number": "14 0162",
+                "website": "https://kindregeling.geertruidenberg.nl"
+            },
+            "groningen": {
+                "accessibility_link": "https://gemeente.groningen.nl/toegankelijkheid",
+                "contact_email": "stadjerspas@groningen.nl",
+                "implementation_name": "ستادجرسباس",
+                "organization_name": "جرونينجن",
+                "telephone_number": "14 050",
+                "website": "https://stadjerspas.gemeente.groningen.nl"
+            },
+            "noordoostpolder": {
+                "accessibility_link": "https://www.noordoostpolder.nl/toegankelijkheid",
+                "contact_email": "info@noordoostpolder.nl",
+                "implementation_name": "حزمة المشاركة",
+                "organization_name": "شمال شرق بولدر",
+                "telephone_number": "0527 63 39 11",
+                "website": "https://noordoostpolder.forus.io/"
+            },
+            "westerkwartier": {
+                "accessibility_link": "www.westerkwartier.nl/toegankelijkheid",
+                "contact_email": "webmaster@westerkwartier.nl",
+                "implementation_name": "باقة الطفل",
+                "organization_name": "فيستركوارتييه",
+                "telephone_number": "14 0594",
+                "website": "https://westerkwartier.forus.io/"
+            }
+        }
+    },
+    "error_page": {
+        "404": {
+            "button": "العودة إلى المنزل",
+            "title": "الصفحة غير موجودة"
+        }
+    },
+    "error": {
+        "home_button": "العودة إلى الصفحة الرئيسية",
+        "messages": {
+            "digid_0001": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0002": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0003": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0004": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0030": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0032": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0033": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0040": "لقد قمت بإلغاء محاولة تسجيل الدخول هذه. يرجى المحاولة مرة أخرى إذا لزم الأمر للمتابعة.",
+            "digid_0050": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0070": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0080": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_0099": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_010c": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_api_0000": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "digid_error_0040": "لقد قمت بإلغاء محاولة تسجيل الدخول هذه. يرجى المحاولة مرة أخرى إذا لزم الأمر للمتابعة.",
+            "digid_error_403": "فشل تسجيل الدخول إلى هذه المؤسسة. يرجى المحاولة مرة أخرى لاحقاً. لا يزال غير ناجح؟ سجّل الدخول إلى My DigiD. هذه هي الطريقة التي يمكنك من خلالها التحقق مما إذا كان DigiD الخاص بك يعمل بشكل صحيح. قد يكون هناك عطل في المؤسسة التي تقوم بتسجيل الدخول إليها.",
+            "digid_uid_dont_match": "يختلف رقم BSN الذي قمت باسترجاعه باستخدام DigiD مع رقم BSN المرتبط بهذا الملف الشخصي، ابدأ طلبًا جديدًا.",
+            "digid_uid_not_found": "رقم BSN هذا غير معروف في النظام، ابدأ طلبك لإنشاء حساب.",
+            "digid_uid_used": "تم تسجيل عنوان بريد إلكتروني مختلف لهذا الرقم BSN. لتسجيل الدخول إلى حسابك، يجب عليك استخدام عنوان البريد الإلكتروني المسجل لدينا.<br/><br/> لا يمكنك تذكر عنوان البريد الإلكتروني هذا أو هل لديك عنوان بريد إلكتروني جديد؟ <br/> إذن استعد حسابك بالضغط <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">هنا</a> أو الزر أدناه.</br>",
+            "digid_unknown_error": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "unknown_error": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات."
+        },
+        "start_button": "استعادة الحساب",
+        "titles": {
+            "digid_0001": "رسالة الخطأ",
+            "digid_0002": "رسالة الخطأ",
+            "digid_0003": "رسالة الخطأ",
+            "digid_0004": "رسالة الخطأ",
+            "digid_0030": "رسالة الخطأ",
+            "digid_0032": "رسالة الخطأ",
+            "digid_0033": "رسالة الخطأ",
+            "digid_0040": "DigiD - تم إلغاء محاولة تسجيل الدخول.",
+            "digid_0050": "رسالة الخطأ",
+            "digid_0070": "رسالة الخطأ",
+            "digid_0080": "رسالة الخطأ",
+            "digid_0099": "رسالة الخطأ",
+            "digid_010c": "رسالة الخطأ",
+            "digid_api_0000": "حدث خطأ أثناء التقديم.",
+            "digid_error_0040": "DigiD - تم إلغاء محاولة تسجيل الدخول.",
+            "digid_error_403": "رسالة خطأ غير معروفة",
+            "digid_uid_dont_match": "رقم BSN معروف بالفعل لهذا الملف الشخصي",
+            "digid_uid_not_found": "رقم BSN هذا غير معروف في النظام",
+            "digid_uid_used": "رقم BSN المستخدم بالفعل.",
+            "digid_unknown_error": "حدث خطأ في الاتصال مع DigiD.",
+            "unknown_error": "رسالة خطأ غير معروفة"
+        }
+    },
+    "payouts": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "payouts": "المدفوعات"
+        },
+        "buttons": {
+            "show_less": "معلومات أقل",
+            "show_more": "المزيد من المعلومات"
+        },
+        "empty": {
+            "button": "انتقل إلى الصناديق",
+            "subtitle": "ليس لديك حالياً أي مدفوعات",
+            "title": "لا توجد مدفوعات"
+        },
+        "labels": {
+            "created_at": "تم الدفع عند",
+            "iban_from": "رقم الحساب المصرفي الدولي (من)",
+            "iban_to": "رقم الحساب المصرفي الدولي (إلى)",
+            "iban_to_name": "اسم رقم الحساب المصرفي الدولي (إلى)"
+        },
+        "search": "بحث",
+        "title": "المدفوعات"
+    },
+    "preferences_emails": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "preferences_emails": "إعدادات البريد الإلكتروني"
+        },
+        "buttons": {
+            "send_again": "إعادة إرسال بريد إلكتروني للتأكيد",
+            "set_primary": "التعيين كعنوان البريد الإلكتروني الرئيسي"
+        },
+        "create": {
+            "buttons": {
+                "add_more": "إضافة عنوان بريد إلكتروني آخر",
+                "add_new": "إضافة بريد إلكتروني",
+                "send": "إضافة"
+            },
+            "labels": {
+                "email": "عنوان البريد الإلكتروني"
+            },
+            "title": "إضافة عنوان بريد إلكتروني"
+        },
+        "email_added": {
+            "description_formal": "لقد تلقيت بريداً إلكترونياً على عنوان البريد الإلكتروني الذي أدخلته للتو. افتح بريدك الإلكتروني وانقر فوق تأكيد.",
+            "description_informal": "لقد تلقيت بريداً إلكترونياً على عنوان البريد الإلكتروني الذي أدخلته للتو. افتح بريدك الإلكتروني وانقر فوق تأكيد.",
+            "title_formal": "تأكيد عنوان بريدك الإلكتروني",
+            "title_informal": "تأكيد عنوان بريدك الإلكتروني "
+        },
+        "labels": {
+            "not_confirmed": "غير مؤكد",
+            "primary": "عنوان البريد الإلكتروني الرئيسي"
+        },
+        "title": "إعدادات البريد الإلكتروني",
+        "usage": {
+            "notifications": "تلقي الإشعارات",
+            "sign_in": "تلقي بريد إلكتروني لتسجيل الدخول"
+        }
+    },
+    "preferences_notifications": {
+        "auto_close_after": "يتم إغلاق التنبيهات المنبثقة تلقائياً بعد {القيمة} ثانية.",
+        "auto_close_disabled": "تم تعطيل الإغلاق التلقائي",
+        "auto_close_disabled_description": "تم تعطيل الإغلاق التلقائي للإشعارات المنبثقة.",
+        "auto_close_enabled": "تم تمكين الإغلاق التلقائي",
+        "auto_close_enabled_description": "يتم تمكين إغلاق التنبيهات المنبثقة تلقائياً.",
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "preferences_notifications": "تفضيلات الإخطار"
+        },
+        "errors": {
+            "expired": "انتهت صلاحية هذا الرمز المميز",
+            "not_found": "هذا الرمز المميز غير صالح",
+            "not-pending": "لقد تم تعديل إعدادات الإعلام بالفعل عبر هذا الرابط"
+        },
+        "new_time_enabled": "تم تمكين الوقت الجديد",
+        "no_email_button": "إضافة بريد إلكتروني",
+        "no_email_description": "يُرجى إضافة عنوان البريد الإلكتروني لتلقي إشعارات البريد الإلكتروني.",
+        "no_email_title": "ليس لديك حالياً بريد إلكتروني مرتبط بحسابك",
+        "popups": {
+            "auto_close_info": "تمكين الإغلاق التلقائي للإشعارات لضبط وقت عرض الإشعارات.",
+            "times": {
+                "5": "5 ثوانٍ",
+                "10": "10 ثوانٍ",
+                "15": "15 ثانية",
+                "30": "30 ثانية",
+                "60": "60 ثانية"
+            },
+            "title": "الإشعارات المنبثقة"
+        },
+        "push_notifications_dismiss_time": {
+            "bookmarks": {
+                "description": "إخفاء إشعارات النظام تلقائياً بعد إضافة المنتجات المفضلة أو إزالتها.",
+                "title": "إغلاق الإشعارات حول المنتجات المفضلة تلقائياً"
+            },
+            "webshop": {
+                "description": "إخفاء إعلامات النظام تلقائياً بعد تنفيذ إجراء ما.",
+                "title": "الإخطارات العامة تغلق تلقائياً"
+            }
+        },
+        "push_notifications_preferences": {
+            "title": "إعدادات وقت عرض الإشعارات"
+        },
+        "subscribe": "نعم، أريد تلقي إشعارات.",
+        "subscribe_desc_formal": "{{email}}مع عنوان البريد الإلكتروني هذا \"\"، أنت حالياً غير مشترك في جميع الإشعارات. إذا كنت ترغب في تلقي الإشعارات، يمكنك إعداد ذلك لكل إشعار أدناه.",
+        "subscribe_desc_informal": "{{email}}باستخدام عنوان البريد الإلكتروني هذا \"\" أنت حالياً غير مشترك في جميع الإشعارات. إذا كنت ترغب في تلقي الإشعارات، يمكنك إعداد ذلك لكل إشعار أدناه.",
+        "title": "تفضيلات الإخطار",
+        "title_email_preferences": "إشعارات البريد الإلكتروني",
+        "title_emails_turned_of": "إلغاء الاشتراك من جميع رسائل البريد الإلكتروني",
+        "title_emails_turned_on": "اشترك في جميع رسائل البريد الإلكتروني",
+        "title_push_preferences": "دفع الإشعارات عبر التطبيق",
+        "types": {
+            "digest": {
+                "daily_requester": {
+                    "description": "احصل على ملخص بالبريد الإلكتروني يتضمن العروض ومقدمي الخدمات الذين تمت إضافتهم إلى المتجر الإلكتروني.",
+                    "title": "ملخص العروض الجديدة على المتجر الإلكتروني"
+                }
+            },
+            "funds": {
+                "balance_warning": {
+                    "description": "تلقي إشعار عبر البريد الإلكتروني عندما يقل رصيد أحد الصناديق عن الحد المعين مسبقاً.",
+                    "title": "الإجراء المطلوب: تجديد الرصيد"
+                },
+                "fund_expires": {
+                    "description": "استلام إشعار بالبريد الإلكتروني قبل شهر واحد من تاريخ الانتهاء.",
+                    "title": "تذكير بتاريخ انتهاء الرصيد"
+                },
+                "new_fund_applicable": {
+                    "description": "تلقي إشعارًا بالبريد الإلكتروني عند إنشاء صندوق جديد يمكنك التقدم بطلب للحصول عليه.",
+                    "title": "صندوق جديد يمكنك التقدم بطلب للحصول على"
+                },
+                "new_fund_created": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند إنشاء صندوق جديد.",
+                    "title": "صندوق جديد تم إنشاؤه"
+                },
+                "new_fund_started": {
+                    "description": "استلم إشعاراً بالبريد الإلكتروني عند بدء أحد الصناديق التي اشتركت فيها ويمكنك توقع العملاء.",
+                    "title": "إطلاق الصندوق"
+                },
+                "product_added": {
+                    "description": "احصل على إشعار بالبريد الإلكتروني عند إضافة عرض جديد.",
+                    "title": "عرض جديد مضاف"
+                },
+                "product_reserved": {
+                    "description": "تلقي إشعاراً بالبريد الإلكتروني عند حجز عرض ما.",
+                    "title": "العرض محجوز"
+                },
+                "product_sold_out": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند نفاذ العرض.",
+                    "title": "تم بيع جميع العروض"
+                },
+                "provider_applied": {
+                    "description": "تلقي إشعار عبر البريد الإلكتروني عند تقدم أحد مقدمي الخدمات بطلب للحصول على تمويل.",
+                    "title": "تسجيل مزود الخدمة"
+                },
+                "provider_approved": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند قبول أحد مقدمي الخدمات في أحد الصناديق.",
+                    "title": "طلب مقدم الخدمة مقبول"
+                },
+                "provider_rejected": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند رفض أحد مقدمي الخدمات لأحد الصناديق.",
+                    "title": "رفض مقدم الطلب"
+                }
+            },
+            "validations": {
+                "new_validation_request": {
+                    "description": "تلقي إشعار بالبريد الإلكتروني عند تقديم طلب تحقق جديد.",
+                    "title": "طلب التحقق الجديد"
+                },
+                "you_added_as_validator": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند إضافتك إلى أحد الصناديق كمراجع.",
+                    "title": "تمت إضافته كمقيم"
+                }
+            },
+            "voucher": {
+                "assigned": {
+                    "description": "تلقي إشعاراً فورياً عند إضافة رصيد جديد.",
+                    "title": "رصيد جديد تم تفعيله أو منحه."
+                },
+                "transaction": {
+                    "description": "تلقي إشعاراً فورياً عند نجاح عملية الدفع.",
+                    "title": "تم الدفع بنجاح"
+                }
+            },
+            "vouchers": {
+                "payment_success": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند نجاح عملية الدفع.",
+                    "title": "تم الدفع بنجاح"
+                },
+                "send_voucher": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند إرسال رصيد إلى نفسك.",
+                    "title": "أرسل رصيداً لنفسك"
+                },
+                "share_product": {
+                    "description": "تلقي إشعاراً عبر البريد الإلكتروني عند مشاركة حجز عرض معك.",
+                    "title": "عرض الحجز المشترك"
+                }
+            }
+        },
+        "unsubscribe": "إلغاء الاشتراك من جميع إشعارات البريد الإلكتروني",
+        "unsubscribe_button": "إلغاء الاشتراك",
+        "unsubscribe_desc": "أريد إلغاء الاشتراك من جميع إشعارات البريد الإلكتروني."
+    },
+    "privacy": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "privacy": "بيان الخصوصية"
+        },
+        "five": "ستتلقى إشعارات حول استخدامك وعروض الموفر. يمكنك إيقاف تشغيل ذلك بنفسك بعد التطبيق في تفضيلات الإشعارات عند تسجيل الدخول إلى الموقع الإلكتروني.",
+        "four": "يتم استخدام البيانات للتحقق مما إذا كان يحق لك الاستفادة من المخطط وتجنب التخصيصات المزدوجة. تعتمد البيانات المطلوبة على المخطط.",
+        "groningen": {
+            "eight": "لديك دائمًا الحق في عرض و/أو تعديل و/أو حذف بياناتك الشخصية. يمكنك العثور على البيانات الشخصية التي أدخلتها في حسابك على Stadjerspas.",
+            "five": "سيتم إضافة الأطفال الذين يعيشون في المنزل حتى سن 18 عاماً إلى حسابك تلقائياً.",
+            "four": "يتيح لنا ذلك معرفة ما إذا كان يحق لك الحصول على بطاقة المدينة.",
+            "nine": "اطلع على <a href='https://gemeente.groningen.nl/privacyverklaring' target='_blank'> بيان الخصوصية العام </a> لبلدية جرونينجن. للاستفسارات، يُرجى الاتصال ببلدية جرونينجن على الهاتف: 050 14.",
+            "one": "عند التقدم بطلب للحصول على Stadjerspas، يتم تخزين البيانات التالية.",
+            "seven": "نود أن نبقيك على اطلاع دائم باستخدامك. هل رصيدك ينخفض؟ سنقوم بإخطارك بذلك. مفيد دائماً! بالطبع، يمكنك إيقاف تشغيل هذا بنفسك إذا كنت لا تريد هذه الرسائل.",
+            "six": "يتيح لك ذلك أن ترى بنفسك ما استهلكته ومقدار الرصيد المتبقي لديك. يرى مقدم الخدمة وبلدية جرونينجن أيضًا ما تم استهلاكه. لكن لا يمكنهم رؤية أن هذه هي نفقاتك.",
+            "three": "وبهذا، نبحث عن بياناتك ولا يتعين عليك ملء بياناتك مراراً وتكراراً.",
+            "title": "بيان الخصوصية",
+            "title_eight": "نظرة ثاقبة على بياناتك",
+            "title_five": "عدد الأطفال",
+            "title_four": "بيانات الدخل",
+            "title_nine": "هل تريد معرفة المزيد أو لديك أسئلة؟",
+            "title_seven": "تلقي رسائل حول بطاقة المدينة الخاصة بك",
+            "title_six": "نفقات وائتمانات ستاديرسباس",
+            "title_three": "رقم خدمة المواطن (BSN)",
+            "title_two": "عنوان البريد الإلكتروني",
+            "two": "هذا ضروري لإنشاء حسابك وضمان إمكانية الوصول إليه لاحقاً."
+        },
+        "one": "سيتم تخزين البيانات التالية:",
+        "seven": "لديك الحق في الوصول إلى بياناتك وتعديلها وحذفها. لمزيد من المعلومات، أو إذا كانت لديك أي أسئلة، يُرجى الاطلاع على إشعار الخصوصية العام للبلدية.",
+        "six": "تُستخدم البيانات أيضًا إذا كنت بحاجة إلى دعم في استخدام النظام. تتم معالجة البيانات بسرية ولا يتم الكشف عنها لأطراف ثالثة لأغراض أخرى. <br> ستجد في النظام وفي تطبيق الهاتف المحمول المقابل نظرة عامة على البيانات التي أدخلتها.",
+        "three": "بحيث يمكنك رؤية الأرصدة التي استخدمتها. يرى مقدمو الخدمات والبلدية أيضًا ما تم استخدامه، لكنهم لا يرون أنك استخدمته.",
+        "title": "بيان الخصوصية",
+        "title_five": "تلقي معلومات حول النظام",
+        "title_four": "إدخالاتك الأخرى",
+        "title_seven": "نظرة ثاقبة على بياناتك",
+        "title_six": "استخدام بياناتك",
+        "title_three": "نفقاتك",
+        "title_two": "عنوان بريدك الإلكتروني",
+        "two": "لإنشاء حسابك والوصول إلى رصيدك"
+    },
+    "profile": {
+        "account": {
+            "active_since": "نشط منذ",
+            "last_login": "آخر تسجيل دخول",
+            "title": "تفاصيل الحساب"
+        },
+        "bank_accounts": {
+            "title": "الحساب البنكي"
+        },
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "profile": "البيانات"
+        },
+        "contacts": {
+            "cancel": "إلغاء",
+            "edit": "تحرير",
+            "extra_email": "عنوان بريد إلكتروني إضافي {{number}}",
+            "extra_email_info": "يمكن تغيير عنوان البريد الإلكتروني في صفحة <a class='text-inherit text-semibold text-underline' target='_blank' href='{{link_url}}'>\"إعدادات البريد الإلكتروني\"</a>. هنا، يمكن إضافة عنوان بريد إلكتروني جديد وتعيين عنوان البريد الإلكتروني الرئيسي.",
+            "primary_email": "عنوان البريد الإلكتروني الرئيسي",
+            "save": "الحفظ",
+            "title": "تحرير تفاصيل الاتصال"
+        },
+        "history": {
+            "title": "{{count}} مرات التعديل"
+        },
+        "personal": {
+            "bsn": "BSN",
+            "title": "البيانات الشخصية"
+        },
+        "title": "البيانات"
+    },
+    "reimbursements": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "reimbursement": "إرسال القسيمة",
+            "reimbursements": "استرداد التكاليف"
+        },
+        "create_card": {
+            "button": "إرسال القسيمة",
+            "title": "استرداد التكاليف"
+        },
+        "details": {
+            "buttons": {
+                "cancel": "إلغاء",
+                "edit": "التغيير"
+            },
+            "labels": {
+                "amount": "المبلغ",
+                "decline_reason": "سبب الرفض",
+                "description": "تعليق",
+                "fund": "المخطط",
+                "iban": "رقم الحساب المصرفي الدولي (IBAN)",
+                "iban_name": "إسناد",
+                "sponsor": "الإعلان في",
+                "title": "العنوان"
+            },
+            "title": "بيانات الإعلان"
+        },
+        "empty": {
+            "button": "إرسال القسيمة",
+            "description": "ليس لديك حالياً أي إعلانات",
+            "title": "لا توجد إعلانات"
+        },
+        "form_buttons": {
+            "cancel": "إلغاء",
+            "save_for_later": "احفظها لوقت لاحق",
+            "submit": "إرسال"
+        },
+        "form": {
+            "amount": "المبلغ €",
+            "description": "الوصف",
+            "file_upload_title": "قم بتحميل الإيصال أو الفاتورة أو الفاتورة",
+            "iban": "رقم الحساب المصرفي الدولي (IBAN)",
+            "iban_name": "اسم صاحب الحساب",
+            "iban_tooltip": "يجب أن يكون رقم IBAN بصيغة NL89BANK0123123456789.",
+            "title": "عنوان الإعلان",
+            "voucher": "الائتمان",
+            "voucher_tooltip": "اختر الرصيد الذي تريد استخدامه لاسترداد رسومك."
+        },
+        "item": {
+            "buttons": {
+                "cancel": "إلغاء"
+            },
+            "labels": {
+                "accepted_at": "تم قبولها على:",
+                "approved_at": "صُرفت في:",
+                "declined_at": "مرفوض في:",
+                "submitted_at": "تم التقديم في:"
+            },
+            "number": "رقم الإعلان:",
+            "states": {
+                "accepted": "مقبولة",
+                "declined": "مرفوض",
+                "declined_at": "تم الرفض في:",
+                "expired": "منتهية الصلاحية",
+                "expired_at": "انتهت صلاحيتها في:",
+                "pending": "في انتظار"
+            }
+        },
+        "no_email": {
+            "add_email": "إضافة عنوان البريد الإلكتروني",
+            "description": "إذا كانت هناك أسئلة حول المطالبة، فلا يمكن إجراء أي اتصال.<br /> ألا توجد إمكانية لتقديم عنوان بريد إلكتروني؟ إذا كان الأمر كذلك، يرجى تقديم تفاصيل الاتصال الأخرى.<br /><br />",
+            "skip_email": "المتابعة بدون عنوان بريد إلكتروني",
+            "title": "لا يوجد عنوان بريد إلكتروني معروف."
+        },
+        "states": {
+            "all": "الكل",
+            "approved": "المصروفات",
+            "declined": "مرفوض",
+            "draft": "لم يتم تقديمه بعد",
+            "pending": "في انتظار"
+        },
+        "subtitle": "يلزم وجود رصيد نشط لتقديم المطالبة.",
+        "title": "استرداد التكاليف",
+        "title_create": "استرداد الرسوم الجديدة",
+        "title_edit": "رقم الإعلان: #{{code}}",
+        "types": {
+            "active": "نشط",
+            "archived": "الأرشيف"
+        }
+    },
+    "reservation": {
+        "details": {
+            "labels": {
+                "amount": "مدفوعة من الرصيد",
+                "amount_extra": "أجر إضافي مدفوع ذاتي",
+                "fund_name": "اسم الصندوق",
+                "id": "بطاقة الهوية",
+                "price": "المبلغ",
+                "title": "العنوان"
+            },
+            "loading": "التحميل",
+            "title": "تفاصيل الحجز"
+        },
+        "expired": "عذرًا، تم إلغاء حجزك أثناء عملية الدفع لأن المنتج المحدد تم بيعه بالكامل.",
+        "expiring": "يُرجى ملاحظة أن هناك <strong>{ينتهي في} دقائق</strong> متبقية لتنفيذ الدفعة الإضافية. وإلا فسيتم إلغاء الحجز تلقائياً.",
+        "extra_amount_refund": {
+            "amount": "المبلغ",
+            "date": "التاريخ",
+            "state": "الحالة",
+            "title": "تفاصيل السداد"
+        },
+        "extra_amount": {
+            "date": "التاريخ",
+            "method": "الطريقة",
+            "mount": "الدفع الذاتي",
+            "refunded": "مستردة",
+            "status": "الحالة"
+        },
+        "labels": {
+            "cancel": "إلغاء",
+            "canceled_at": "تم الإلغاء في:",
+            "code": "رقم الحجز",
+            "created_at": "تم الإنشاء على:",
+            "expired_at": "انتهت صلاحيتها في:",
+            "pay_extra": "الشروع في الدفع",
+            "rejected_at": "تم الرفض في:",
+            "status": {
+                "accepted": "مقبولة",
+                "canceled": "تم الإلغاء من قبل المزود",
+                "canceled_by_client": "ألغيت من قبل مقدم الطلب",
+                "canceled_by_sponsor": "ألغيت من قبل الراعي",
+                "canceled_payment_canceled": "ألغيت الدفعة الإضافية",
+                "canceled_payment_expired": "انتهت صلاحية الدفع الإضافية",
+                "canceled_payment_failed": "فشل الدفع الإضافي",
+                "expired": "منتهية الصلاحية",
+                "pending": "في انتظار",
+                "rejected": "مرفوض",
+                "waiting": "في انتظار الدفع"
+            }
+        }
+    },
+    "reservations": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "reservation": "الحجز",
+            "reservations": "الحجوزات"
+        },
+        "card": {
+            "actions": {
+                "hide_all_details": "إخفاء جميع التفاصيل",
+                "proceed_to_payment": "الشروع في الدفع",
+                "show_all_details": "إظهار كل التفاصيل"
+            },
+            "details": {
+                "paid_from_credit": "مدفوعة من الرصيد",
+                "paid_via_bank_transfer": "الدفع الإضافي عن طريق التحويل المصرفي",
+                "total_product_price": "سعر المنتج بالكامل",
+                "view_all_details": "عرض كل التفاصيل"
+            },
+            "remaining_minutes": "{{ minutes }} دقائق معدودة",
+            "value": {
+                "paid_by_self": "الدفع الذاتي",
+                "product_price": "سعر المنتج"
+            }
+        },
+        "empty": {
+            "subtitle": "لا توجد تحفظات حالياً",
+            "title": "لا توجد تحفظات"
+        },
+        "filters": {
+            "all_funds": "جميع الائتمانات...",
+            "all_providers": "حدد المزود...",
+            "fund": "الائتمان",
+            "provider": "المزودون",
+            "search": "بحث",
+            "search_aria_label": "بحث",
+            "state": "الحالة"
+        },
+        "states": {
+            "accepted": "مقبولة",
+            "all": "حدد الحالة...",
+            "canceled": "تم الإلغاء",
+            "pending": "في انتظار",
+            "rejected": "مرفوض"
+        },
+        "subtitle": "يجب قبول الحجز من قبل مقدم الخدمة. تتبع حالة حجوزاتك على هذه الصفحة.",
+        "title": "الحجوزات",
+        "types": {
+            "active": "نشط",
+            "archived": "الأرشيف"
+        }
+    },
+    "voucher_printable": {
+        "budget_voucher": {
+            "labels": {
+                "contact_us": "اتصل بـ",
+                "description": "{{printableTitle}} هذا هو رصيدك مع رمز الاستجابة السريعة",
+                "show_to": "أظهر هذا الرصيد لدى أحد مزودي القسم، متاح على:",
+                "use_for": "استخدم هذا الرصيد لـ"
+            }
+        },
+        "default": {
+            "labels": {
+                "contact": {
+                    "email": "عنوان البريد الإلكتروني",
+                    "have_questions": "{{printableTitle}}هل لديك أي أسئلة حول ''؟",
+                    "phone": "رقم الهاتف"
+                },
+                "purchases_notice": "لا يمكن إرجاع المشتريات بهذا الرصيد"
+            }
+        },
+        "product_voucher": {
+            "labels": {
+                "contact_us": "ثم اتصل بمزود الخدمة.",
+                "description": "{{printableTitle}}هذا هو \" رصيدك \" الخاص بك مع رمز الاستجابة السريعة",
+                "show_to": "أظهر هذا الرصيد مرة واحدة لدى مقدم الخدمة المعني:",
+                "use_for": "استخدم هذا الرصيد لـ"
+            }
+        }
+    },
+    "expired_identity": {
+        "buttons": {
+            "close": "إغلاق",
+            "confirm": "تأكيد"
+        },
+        "description": "للأسف، فشل تسجيل الدخول. تم استخدام الرابط بالفعل أو لم يعد صالحاً. يرجى طلب رابط تسجيل دخول جديد.",
+        "header": {
+            "title": "انتهت صلاحية الرابط"
+        },
+        "title": "تم استخدام رابط تسجيل الدخول بالفعل أو لم يعد صالحًا"
+    },
+    "modal_2fa_deactivate": {
+        "2fa_disabled": "تم تعطيل المصادقة ذات العاملين بنجاح",
+        "2fa_disabled_description": "تم تعطيل المصادقة ذات العاملين بنجاح",
+        "cancel": "إلغاء",
+        "code_resent": "لقد قمنا بإعادة إرسال الرمز.",
+        "confirm": "تأكيد",
+        "disable_2fa": "تعطيل المصادقة الثنائية",
+        "enter_2fa_code": "للمتابعة، أدخل رمز الأمان الخاص بالمصادقة الثنائية.",
+        "enter_2fa_code_deactivation": "أدخل رمز المصادقة الثنائية لإلغاء التفعيل",
+        "enter_app_code": "أدخل الرمز المكون من 6 أرقام من داخل التطبيق",
+        "enter_sms_code": "أدخل رمز الرسالة النصية القصيرة المكون من 6 أرقام",
+        "error_404": "حدث خطأ. يرجى تحديث الصفحة.",
+        "failed": "فشل!",
+        "resend_code": "إعادة إرسال الرمز",
+        "seconds": "{الوقت} ثانية (ثوانٍ)",
+        "success": "نجحت!",
+        "unknown_error": "خطأ غير معروف.",
+        "verify": "تحقق"
+    },
+    "modal_2fa_setup": {
+        "2fa": "المصادقة الثنائية",
+        "2fa_success": "تم إعداد المصادقة الثنائية بنجاح",
+        "already_have_app": "إذا كان لديك تطبيق Google Authenticator بالفعل، فاتبع الخطوات التالية:",
+        "back": "رجوع",
+        "cancel": "إلغاء",
+        "choose": "اختر",
+        "code_resent": "لقد قمنا بإعادة إرسال الرمز.",
+        "confirm": "تأكيد",
+        "dont_have_app": "إذا لم يكن لديك تطبيق {الاسم},",
+        "download_from": "هل يمكنك تنزيله من",
+        "enter_2fa_code": "للمتابعة، أدخل رمز الأمان الخاص بالمصادقة الثنائية.",
+        "enter_app_code": "أدخل الرمز المكون من 6 أرقام من داخل التطبيق",
+        "enter_app_code_6_digits": "للمتابعة، أدخل رمز الأمان المكون من 6 أرقام من {مقدم الخدمة}",
+        "enter_key": "أدخل مفتاح التثبيت: {السر}",
+        "enter_phone": "للمتابعة، أدخل رقم هاتفك",
+        "enter_sms_code": "أدخل رمز الرسالة النصية القصيرة المكون من 6 أرقام",
+        "enter_sms_code_6_digits": "للمتابعة، يُرجى إدخال رمز الرسالة النصية القصيرة المكون من 6 أرقام المرسلة إلى رقم هاتفك.",
+        "errors": {
+            "code_sent": "حدث خطأ ما أثناء إرسال الرسالة النصية القصيرة. هل تم إدخال رقم الهاتف الصحيح؟ إذا لم يكن كذلك، حاول مرة أخرى."
+        },
+        "extra_security": "تم إعداد المصادقة الثنائية بنجاح. أصبح حسابك الآن أكثر أماناً.",
+        "failed": "فشل!",
+        "in_app_select": "في التطبيق، حدد",
+        "link_phone": "ربط رقم هاتفك",
+        "or": "ما إذا كان",
+        "phone_number": "رقم الهاتف",
+        "resend_code": "إعادة إرسال الرمز",
+        "scan_qr": "مسح رمز الاستجابة السريعة ضوئياً",
+        "seconds": "{الوقت} ثانية (ثوانٍ)",
+        "select_auth_app": "حدد تطبيق المصادقة الذي تريد استخدامه.",
+        "setup_2fa": "إعداد المصادقة الثنائية",
+        "setup_account": "إعداد الحساب",
+        "success": "نجحت!",
+        "successful_login": "لقد نجح الأمر!",
+        "unknown_error": "خطأ غير معروف.",
+        "verify": "تحقق",
+        "welcome_back": "لقد قمت بتسجيل الدخول بنجاح باستخدام المصادقة الثنائية. مرحباً بعودتك!"
+    },
+    "modal_fund_help": {
+        "chat": "الدردشة",
+        "close": "إغلاق",
+        "email": "البريد الإلكتروني",
+        "go_to_admin": "الانتقال إلى بيئة الإدارة",
+        "header_title": "كتلة مساعدة الصندوق",
+        "help_title": "عنوان مساعدة الصندوق",
+        "phone": "الهاتف",
+        "website": "الموقع الإلكتروني"
+    },
+    "modal_logout": {
+        "description_formal": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
+        "description_informal": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
+        "title": "تسجيل الخروج"
+    },
+    "modal_photo_cropper": {
+        "cancel": "إلغاء",
+        "choose_another": "اختر صورة أخرى",
+        "close": "إغلاق",
+        "error": "خطأ!",
+        "instructions": "على اليسار سترى الصورة الأصلية وعلى اليمين الأمثلة. استخدم المربع في الصورة اليسرى لوضع الصورة.",
+        "invalid_file": "الملف الذي تم تحميله ليس صورة صالحة، الرجاء تجربة ملف آخر.",
+        "invalid_image": "الملف المحدد ليس صورة صالحة.",
+        "loading": "التحميل",
+        "move_and_resize": "نقل وتغيير الحجم",
+        "next": "التالي",
+        "previous": "السابق",
+        "rotate_left": "أدر 90 درجة عكس اتجاه عقارب الساعة",
+        "rotate_right": "أدرها 90 درجة في اتجاه عقارب الساعة",
+        "some_invalid_files": "بعض الملفات المحددة ليست صوراً صالحة ويتم تخطيها.",
+        "submit": "إرسال",
+        "upload_document": "تحميل مستند"
+    },
+    "modal_physical_card_unlink": {
+        "body": {
+            "block_card": "{{cardNumber}} هل ترغب في حظر تصريحك برقم المرور؟",
+            "card_blocked": "{{cardNumber}} تم حظر رقم المرور الخاص بك!"
+        },
+        "buttons": {
+            "block": "المربع",
+            "cancel": "إلغاء",
+            "close": "إغلاق",
+            "request_new": "اطلب تصريح مرور جديد"
+        },
+        "header": {
+            "block_card": "منع المرور",
+            "card_blocked": "تم حظر التمرير"
+        }
+    },
+    "modal_physical_card": {
+        "buttons": {
+            "close": "إغلاق",
+            "confirm_card": {
+                "adjust": "ضبط",
+                "submit": "تأكيد"
+            },
+            "link_card": {
+                "submit_code": "تأكيد"
+            },
+            "request_new_card": {
+                "confirm": "تأكيد",
+                "order_by_email": "الطلب عن طريق البريد"
+            }
+        },
+        "modal_section": {
+            "confirm_card": {
+                "description": "بعد التحقق، انقر فوق تأكيد أو تعديل التفاصيل.",
+                "header": "تحقق من البيانات",
+                "title": "تحقق من البيانات:"
+            },
+            "link_card_success": {
+                "description": "{{fundName}}تصريح المرور الخاص بك مرتبط بـ !",
+                "title": "باس مرتبط!"
+            },
+            "link_card_unlink": {
+                "buttons": {
+                    "cancel": "إلغاء",
+                    "submit": "المربع"
+                },
+                "title": "منع المرور"
+            },
+            "link_card": {
+                "description": "<br/><br/>يوجد على بطاقتك رمز QR، يوجد أدناه رمزك الشخصي. إذا قمت بإعادة تفعيل البطاقة القديمة يمكنك الاستمرار في استخدامها. هل تحتاج إلى مساعدة؟  اتصل بالرقم 14 050 من الاثنين إلى الجمعة من الساعة 9:00 إلى الساعة 12:00.",
+                "subtitle": "أدخل رمز العميل الشخصي",
+                "title": "تفعيل بطاقتك القديمة"
+            },
+            "request_card_success": {
+                "description": "لقد تلقيت رسالة بريد إلكتروني تؤكد طلبك.",
+                "heading": "سيتم إرسال البطاقة إلى العنوان:",
+                "title": "لقد تم طلب تصريح المرور الخاص بك!"
+            },
+            "request_new_card": {
+                "address": "اسم الشارع",
+                "address_placeholder": "اسم الشارع",
+                "city": "الموقع",
+                "city_placeholder": "الموقع",
+                "description": "املأ تفاصيل عنوانك. سيتم إرسال البطاقة إليك بالبريد.",
+                "email_to_me": "أرسل لي بريد إلكتروني",
+                "house": "رقم المنزل",
+                "house_addition": "إضافة رقم المنزل",
+                "house_addition_placeholder": "إضافة رقم المنزل",
+                "house_placeholder": "رقم المنزل",
+                "open_in_app": "فتح في التطبيق",
+                "order": "الطلب",
+                "postcode": "الرمز البريدي",
+                "postcode_placeholder": "الرمز البريدي",
+                "print_pass": "طباعة رمز الاستجابة السريعة",
+                "subtitle": "بطاقتك الرقمية",
+                "title": "اطلب تصريح مرور"
+            },
+            "type_selection": {
+                "card_new": {
+                    "description": "<br/>ليس لديك تصريح مرور بعد؟ اطلب تصريح مرور جديد.",
+                    "title": "اطلب تصريح مرور"
+                },
+                "card_old": {
+                    "description": "<br/>هل لديك تصريح مرور بالفعل؟ أعد تفعيل تصريح المرور الخاص بك.",
+                    "success": "باس مرتبط!",
+                    "title": "إعادة تنشيط البطاقة القديمة"
+                },
+                "subtitle": "هذه هي خيارات نقل رمز الاستجابة السريعة إلى الموفر:",
+                "title": "استخدم رمز الاستجابة السريعة الخاص بي"
+            }
+        }
+    },
+    "modal_pin_code": {
+        "and_open_app": "وفتح التطبيق الخاص بي",
+        "choose": "اختر",
+        "close": "إغلاق",
+        "download": "تنزيل",
+        "enter_code": "أدخل رمز الاقتران الخاص بالتطبيق Me",
+        "link": "الرابط",
+        "login": "تسجيل الدخول إلى التطبيق",
+        "step1_image_alt": "لقطة شاشة شاشة تسجيل الدخول إلى تطبيقي",
+        "step1_title": "الخطوة 1",
+        "step2_image_alt": "لقطة شاشة شاشة تسجيل الدخول إلى التطبيق، حدد اتصال",
+        "step2_title": "الخطوة 2",
+        "unknown_code": "رمز غير معروف"
+    },
+    "modal_product_reserve_cancel": {
+        "buttons": {
+            "cancel": "إلغاء",
+            "close": "إغلاق",
+            "confirm": "تأكيد"
+        },
+        "contact_provider": "اتصل ب ",
+        "description_not_cancelable": "تم قبول هذا الحجز بالفعل من قِبل مقدم الخدمة. للإلغاء، يُرجى الاتصال بمقدم الخدمة خلال 14 يوماً من تاريخ الحجز.",
+        "description_pending": {
+            "formal": "يمكنك حجز العرض مرة أخرى بعد الإلغاء حتى نفاذ الكمية.",
+            "informal": "يمكنك حجز العرض مرة أخرى بعد الإلغاء حتى نفاذ الكمية."
+        },
+        "header_not_cancelable": {
+            "title": "اتصل بنا {{organizationName}}"
+        },
+        "header_pending": {
+            "title_formal": "هل أنت متأكد من رغبتك في إلغاء الحجز؟",
+            "title_informal": "هل أنت متأكد من رغبتك في إلغاء الحجز؟"
+        },
+        "title": "إلغاء الحجز"
+    },
+    "modal_product_reserve_extra_payment": {
+        "buttons": {
+            "adjust": "رجوع",
+            "submit": "تأكيد"
+        },
+        "header": {
+            "subtitle": "يتم سداد المدفوعات الإضافية عبر IDeal.",
+            "title": "اختر بنكاً"
+        }
+    },
+    "modal_reserve_product": {
+        "add_email": "إضافة",
+        "buttons": {
+            "adjust": "رجوع",
+            "back": "رجوع",
+            "cancel": "إلغاء",
+            "confirm": "تأكيد",
+            "go_to_reservation": "الانتقال إلى الحجز",
+            "next": "التالي",
+            "processing": "العملية",
+            "submit": "إرسال"
+        },
+        "cancel": "إلغاء",
+        "choose_credit": "اختر الرصيد الذي ستدفع به",
+        "close": "إغلاق",
+        "confirm_notes": {
+            "buttons": {
+                "adjust": "رجوع",
+                "submit": "تأكيد"
+            },
+            "header": {
+                "title": "تأكيد الحجز"
+            },
+            "labels": {
+                "birth_date": "تاريخ الميلاد ",
+                "city": "المكان:",
+                "empty": "فارغة",
+                "first_name": "الاسم الأول ",
+                "house_nr": "رقم المنزل",
+                "house_nr_addition": "إضافة رقم المنزل:",
+                "last_name": "اللقب ",
+                "notes": "ملاحظة: ",
+                "phone": "رقم الهاتف ",
+                "postal_code": "الرمز البريدي",
+                "street": "الشارع:"
+            },
+            "modal_section": {
+                "title": "تحقق من التفاصيل الخاصة بك:"
+            }
+        },
+        "description_formal": "سوف تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
+        "description_formal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
+        "description_informal": "هل تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
+        "description_informal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
+        "email_setup_description": "أضف عنوان بريدك الإلكتروني لتلقي الرسائل.",
+        "email_setup_title": "إضافة عنوان البريد الإلكتروني",
+        "error": {
+            "close": "إغلاق",
+            "description": "تعذر إكمال الحجز. يرجى المحاولة مرة أخرى لاحقاً.",
+            "title": "خطأ!"
+        },
+        "extra_payment_description": "المدفوعات الإضافية",
+        "extra_payment": {
+            "external_link": "يؤدي الرابط إلى موقع إلكتروني خارجي.",
+            "extra_payment": "دفع مبلغ إضافي بنفسك",
+            "header": {
+                "subtitle": "سيتعين عليك دفع رسوم إضافية لإتمام الحجز.",
+                "title": "المدفوعات الإضافية"
+            },
+            "offer_cost": "تكلفة العرض",
+            "remaining_credit": "المتبقي على الائتمان"
+        },
+        "fill_notes": {
+            "header": {
+                "subtitle": "{{provider_name}} املأ بياناتك لإجراء الحجز.",
+                "title": "أدخل بياناتك"
+            },
+            "labels": {
+                "address": "العنوان",
+                "address_optional": "العنوان (اختياري)",
+                "birth_date": "تاريخ الميلاد",
+                "birth_date_optional": "تاريخ الميلاد (اختياري)",
+                "city": "الموقع",
+                "first_name": "الاسم الأول",
+                "house_nr": "رقم المنزل",
+                "house_nr_addition": "إضافة رقم المنزل",
+                "last_name": "اللقب",
+                "notes": "ملاحظة (اختياري)",
+                "phone": "رقم الهاتف",
+                "phone_optional": "رقم الهاتف (اختياري)",
+                "postal_code": "الرمز البريدي",
+                "street": "الشارع"
+            },
+            "max_characters": "كحد أقصى. 400 حرف",
+            "placeholders": {
+                "address": "العنوان",
+                "birth_date": "تاريخ الميلاد",
+                "city": "الموقع",
+                "first_name": "الاسم الأول",
+                "last_name": "اللقب",
+                "notes": "تعليق",
+                "phone": "رقم الهاتف",
+                "postal_code": "الرمز البريدي",
+                "street": "الشارع"
+            }
+        },
+        "header": {
+            "title": "قم بالحجز"
+        },
+        "multiple_vouchers_warning": "لا يوجد رصيد كافٍ في بعض قسائمك. باستخدام إحدى هذه القسائم، سيتعين عليك دفع المبلغ الناقص في نهاية الحجز.",
+        "single_voucher_warning": "لا يوجد رصيد غير كافٍ في رصيدك، يجب عليك دفع المبلغ الناقص في نهاية الحجز عبر إحدى طرق الدفع المتاحة.",
+        "skip": "تخطي",
+        "success": {
+            "close": "إغلاق",
+            "description": "تم إجراء الحجز الخاص بك.",
+            "title": "لقد نجح الأمر!"
+        }
+    },
+    "modal": {
+        "buttons": {
+            "cancel": "إلغاء",
+            "close": "إغلاق",
+            "confirm": "تأكيد"
+        },
+        "logout": {
+            "description": "يتم تسجيل خروجك تلقائياً بعد 15 دقيقة من عدم النشاط."
+        }
+    },
+    "open_in_me": {
+        "app_header": {
+            "subtitle_formal": "أدخل الأرقام الستة التي تظهر في تطبيقك أدناه",
+            "subtitle_informal": "أدخل الأرقام الستة التي تظهر في تطبيقك أدناه",
+            "title": "أدخل الرمز"
+        },
+        "authorize": {
+            "close": "إلغاء",
+            "submit": "ربط التطبيق"
+        },
+        "body": {
+            "use_app": "يمكن استخدام التطبيق لإدارة الأرصدة وتسجيل الدخول بسهولة."
+        },
+        "buttons": {
+            "close": "إغلاق",
+            "send": "الشحن",
+            "skip": "تخطي"
+        },
+        "header": {
+            "title": "افتح تطبيق In Me"
+        },
+        "sms": {
+            "button": {
+                "send": "إرسال",
+                "skip": "تخطي"
+            },
+            "description_formal": "أدخل رقم هاتفك في حقل الإدخال أدناه لتلقي رسالة نصية تحتوي على رابط التنزيل.",
+            "description_informal": "أدخل رقم هاتفك وستصلك رسالة نصية قصيرة تحتوي على رابط التنزيل.",
+            "error": {
+                "try_later": "حاول مرة أخرى في وقت لاحق."
+            },
+            "sent": "تم إرسال رسالة نصية.",
+            "sent_description": "لم تتلقى رسالة؟ قم <i>بتحميلي</i> من الرابط <strong class=\"text-strong text-primary\">www.forus.io/DL</strong> على هاتفك المحمول.",
+            "subdescription_formal": "إذا لم تصلك رسالة نصية، يمكنك تنزيل <i>Me</i> من الرابط <strong class=\"text-strong\">www.forus.io/DL</strong> على هاتفك المحمول.",
+            "subdescription_informal": "إذا لم تصلك رسالة نصية، يمكنك <i>تنزيلي</i> من الرابط <strong class=\"text-strong text-primary\">www.forus.io/DL</strong> على هاتفك المحمول.",
+            "title_formal": "حمّلني على هاتفك المحمول",
+            "title_informal": "حمّلني على هاتفك المحمول"
+        }
+    },
+    "pdf_preview": {
+        "buttons": {
+            "close": "إغلاق"
+        },
+        "header": {
+            "title": "عينة PDF"
+        }
+    },
+    "popup_auth": {
+        "buttons": {
+            "cancel": "إلغاء",
+            "confirm": "التالي",
+            "mail": "تسجيل الدخول عبر البريد الإلكتروني",
+            "qrcode": "تسجيل الدخول عبر تطبيق Me",
+            "submit": "تأكيد"
+        },
+        "header": {
+            "subtitle_formal": "أدخل عنوان بريدك الإلكتروني لتلقي رابط لتسجيل الدخول.",
+            "subtitle_informal": "أدخل عنوان بريدك الإلكتروني لتلقي رابط لتسجيل الدخول.",
+            "subtitle_succes_formal": "لقد تلقيت بريداً إلكترونياً على عنوان البريد الإلكتروني الذي أدخلته للتو. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على الزر الأزرق في البريد الإلكتروني.",
+            "subtitle_succes_informal": "لقد تلقيت بريداً إلكترونياً على عنوان البريد الإلكتروني الذي أدخلته للتو. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على الزر الأزرق في البريد الإلكتروني.",
+            "subtitle_we_succes_formal": "لقد تلقيت بريدًا إلكترونيًا على <strong class=\"text-primary\">{{email}}</strong>. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على \"تأكيد\" في البريد الإلكتروني.",
+            "subtitle_we_succes_informal": "لقد تلقيت بريداً إلكترونياً على <strong class=\"text-primary\">{{email}}</strong>. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على \"تأكيد\" في البريد الإلكتروني.",
+            "title": "البريد الإلكتروني المرسل",
+            "title_existing_user_succes_formal": "تحقق من بريدك الإلكتروني",
+            "title_existing_user_succes_informal": "تحقق من بريدك الإلكتروني",
+            "title_sr": "ابدأ تسجيل الدخول",
+            "title_succes_formal": "يرجى تأكيد أن لديك إمكانية الوصول إلى عنوان البريد الإلكتروني هذا.",
+            "title_succes_informal": "تأكد من أن لديك حق الوصول إلى عنوان البريد الإلكتروني هذا."
+        },
+        "input": {
+            "code": "رمز التفعيل",
+            "coding": "أدخل رمز التفعيل",
+            "confirmation": "تأكيد عنوان بريدك الإلكتروني",
+            "mail": "عنوان البريد الإلكتروني",
+            "mailing": "البريد الإلكتروني"
+        },
+        "labels": {
+            "activate": "الخطوة 1 من 3: إنشاء حساب المتجر.",
+            "activate_code": "الخطوة 3 من 3: قم بتفعيل رصيدك.",
+            "berkelland": {
+                "mail": "قم بإنشاء حساب قبل أن تتمكن من متابعة التفعيل."
+            },
+            "code": "<br />أدخل رمز التفعيل الذي تلقيته برسالة.<strong>ملاحظة:</strong> يمكنك استخدام رمز تفعيل واحد لكل عنوان بريد إلكتروني. أغلق هذه النافذة إذا كنت قد استخدمت رمز التفعيل بالفعل.",
+            "codeactivated": "لقد استخدمت بالفعل رمز التفعيل. لا يمكن استخدام رمز آخر.",
+            "dont_have_account": "ليس لديك حساب وتريد إنشاء حساب باستخدام رمز التفعيل؟",
+            "isactivated": "لقد تم تفعيل رصيدك بالفعل.",
+            "join": "التسجيل",
+            "link": "أدخل عنوان بريدك الإلكتروني لتلقي رابط لتسجيل الدخول.",
+            "mail": "<strong>يرجى ملاحظة</strong>: استخدم عنوان بريدك الإلكتروني الخاص بك.<br /> {{fund}} يمكنك استخدام كود تفعيل واحد كحد أقصى لكل عنوان بريد إلكتروني لكل سنة.",
+            "mail_sent": "رسالة بريد إلكتروني في طريقها إليك!",
+            "mobilecode": "أدخل رمز الدخول إلى تطبيق Me الخاص بك.",
+            "noordoostpolder": {
+                "mail": "قم بإنشاء حساب قبل أن تتمكن من متابعة التفعيل."
+            },
+            "oostgelre": {
+                "mail": "قم بإنشاء حساب قبل أن تتمكن من متابعة التفعيل."
+            },
+            "scancode": "امسح رمز الاستجابة السريعة هذا باستخدام جهاز آخر قمت بتسجيل الدخول إليه بالفعل.",
+            "timelimit": "سيتم تسجيل خروجك تلقائياً بعد 15 دقيقة من عدم النشاط.",
+            "voucher_email": "لقد نجح الأمر!",
+            "warning": "أغلق هذه النافذة وانقر على \"تسجيل الدخول\" إذا كنت قد استخدمت رمز التفعيل من قبل.",
+            "westerkwartier": {
+                "mail": "قم بإنشاء حساب قبل أن تتمكن من متابعة التفعيل."
+            },
+            "winterswijk": {
+                "mail": "قم بإنشاء حساب قبل أن تتمكن من متابعة التفعيل."
+            },
+            "zuidhorn": {
+                "mail": "<strong>يرجى ملاحظة</strong>: استخدم عنوان بريدك الإلكتروني الخاص بك.<br /> يمكنك استخدام كود تفعيل واحد كحد أقصى لـ Kindpakket في السنة لكل عنوان بريد إلكتروني."
+            }
+        },
+        "notifications": {
+            "confirmation": "لقد نجح الأمر!",
+            "invalid": "رمز التفعيل غير صالح أو تم استخدامه بالفعل.",
+            "link_formal": "تم إرسال بريد إلكتروني إلى <strong class=\"text-primary\">{{email}}</strong><br/>. انقر على الرابط للتسجيل.",
+            "link_informal": "تم إرسال بريد إلكتروني إلى <strong class=\"text-primary\">{{email}}</strong><br/>. انقر على الرابط للتسجيل.",
+            "voucher_email": "تم إرسال رمز الاستجابة السريعة."
+        },
+        "pin_code": {
+            "confirmation": {
+                "buttons": {
+                    "confirm": "التالي",
+                    "try_again": "إعادة المحاولة"
+                },
+                "description": "بعد خمس إلى 10 ثوانٍ، يتم إقران التطبيق. هل نجح الأمر؟ ثم انقر فوق التالي.",
+                "notice_formal": "هل ما زلت ترى الأرقام الستة في التطبيق بعد 30 ثانية؟ إذن حاول مرة أخرى.",
+                "notice_informal": "هل ما زلت ترى الأرقام الستة في التطبيق بعد 30 ثانية؟ إذن حاول مرة أخرى.",
+                "title_formal": "سيتم ربط التطبيق بحسابك",
+                "title_informal": "سيتم ربط التطبيق بحسابك"
+            }
+        },
+        "restore_formal": "هل نسيت عنوان البريد الإلكتروني الذي استخدمته؟",
+        "restore_informal": "هل نسيت عنوان البريد الإلكتروني الذي استخدمته؟",
+        "restore_subtitle_formal": "استعادة حسابك عن طريق تسجيل الدخول مرة أخرى باستخدام DigiD",
+        "restore_subtitle_informal": "استعادة حسابك عن طريق تسجيل الدخول مرة أخرى باستخدام DigiD",
+        "validation": {
+            "email_confirmation": "عناوين البريد الإلكتروني غير متطابقة"
+        }
+    },
+    "reimbursement_confirmation": {
+        "buttons": {
+            "cancel": "إلغاء",
+            "close": "إغلاق",
+            "confirm": "تأكيد"
+        },
+        "description": "تحقق من التفاصيل قبل إرسال المطالبة.",
+        "title": "تقديم المطالبة"
+    },
+    "app_footer": {
+        "columns": {
+            "links": "الروابط",
+            "me_app": "قم بتنزيل تطبيق Me",
+            "follow_us": "تابعنا على",
+            "site_info": "معلومات الموقع"
+        },
+        "links": {
+            "accessibility": "بيان إمكانية الوصول",
+            "privacy": "بيان الخصوصية",
+            "sitemap": "خريطة الموقع",
+            "terms_and_conditions": "الشروط والأحكام العامة"
+        },
+        "me_app_more_info": "تعرّف على المزيد حول تطبيق Me",
+        "provider_sign_up": "التسجيل كمقدم خدمات",
+        "sponsor_logo_alt": "شعار الراعي"
+    },
+    "block_funds": {
+        "labels": {
+            "subtitle": "لا توجد نتائج",
+            "title": "النتائج"
+        }
+    },
+    "block_notifications": {
+        "labels": {
+            "subtitle": "عندما يقوم شخص ما بإجراء ما، يتضمنك على هذا الموقع الإلكتروني، سيتم عرض إشعار بذلك هنا.",
+            "title": "الإشعارات"
+        }
+    },
+    "block_products": {
+        "buttons": {
+            "more": "عرض المزيد"
+        },
+        "header": {
+            "title_budget": "العرض",
+            "title_subsidies": "العرض"
+        },
+        "input": {
+            "placeholder": "البحث عن المنتجات أو الخدمات"
+        },
+        "labels": {
+            "discount": "خصم",
+            "new": "بالنسبة لـ",
+            "old": "من",
+            "subtitle": "للأسف! لم نعثر على نتائج لبحثك.",
+            "title": "لا توجد نتيجة بحث"
+        }
+    },
+    "block_providers": {
+        "empty": {
+            "subtitle": "للأسف! لم نجد أي مزودين لبحثك",
+            "title": "لا توجد نتيجة بحث"
+        }
+    },
+    "empty_block": {
+        "guide": "استخدم رمز التفعيل"
+    },
+    "fund_criterion": {
+        "buttons": {
+            "add": "إضافة",
+            "validate": "الموافقة"
+        },
+        "labels": {
+            "general": {
+                "location": "جرونينجن"
+            },
+            "value": "البيانات الشخصية المفقودة من ملفك الشخصي",
+            "westerkwartier": {
+                "location": "فيستركوارتييه"
+            },
+            "zuidhorn": {
+                "location": "زويدهورن"
+            }
+        },
+        "status": {
+            "invalid": "غير صالح",
+            "valid": "سارية المفعول"
+        }
+    },
+    "maps": {
+        "cancel": "إلغاء",
+        "labels": {
+            "address": "العنوان",
+            "email": "عنوان البريد الإلكتروني",
+            "organization_type": "نوع المنظمة",
+            "phone": "رقم الهاتف",
+            "website": "الموقع الإلكتروني"
+        },
+        "no_data": "لا توجد بيانات"
+    },
+    "paginator": {
+        "buttons": {
+            "first": "أولاً",
+            "last": "الأحدث",
+            "wcag_page": "الصفحة"
+        },
+        "labels": {
+            "from": "من"
+        }
+    },
+    "profile_menu": {
+        "buttons": {
+            "bookmarks": "قائمة أمنياتي",
+            "copy": "نسخ",
+            "email_settings": "إعدادات البريد الإلكتروني",
+            "fund_requests": "الطلب",
+            "funds": "الطلب",
+            "notification_preferences": "تفضيلات الإخطار",
+            "notifications": "الإشعارات",
+            "payouts": "المدفوعات",
+            "profile": "البيانات",
+            "records": "البيانات الشخصية",
+            "reimbursements": "استرداد التكاليف",
+            "reservations": "الحجوزات",
+            "security": "الأمن",
+            "sessions": "الجلسات",
+            "share": "شارك",
+            "vouchers": "الائتمان",
+            "me_app": "أنا-التطبيق",
+            "provider_sign_up": "التسجيل كمقدم خدمات"
+        },
+        "header": {
+            "subtitle": "قم بمسح رمز الاستجابة السريعة الشخصي الخاص بك بواسطة أحد المراجعين.",
+            "title": "رمز الاستجابة السريعة الشخصي الخاص بك"
+        },
+        "labels": {
+            "address": "العنوان:"
+        }
+    },
+    "top_navbar_search": {
+        "noresult": {
+            "funds_label": "عرض جميع الاعتمادات >",
+            "products_label": "عرض جميع العروض >",
+            "providers_label": "عرض جميع مقدمي الخدمات >",
+            "subtitle": "{{ query }}لم يتم العثور على نتائج لـ \"\". يرجى المحاولة مرة أخرى باستخدام مصطلحات بحث أخرى."
+        },
+        "placeholders": {
+            "search_formal": "ما الذي تبحث عنه؟",
+            "search_informal": "ما الذي تبحث عنه؟"
+        },
+        "result": {
+            "all_label": "جميع النتائج",
+            "btn": "عرض جميع النتائج",
+            "funds_label": "الائتمان",
+            "products_label": "العرض",
+            "providers_label": "المزودون"
+        }
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "التحقق من الأواني",
+            "home": "الصفحة الرئيسية"
+        },
+        "funds": "الأموال",
+        "next_step": "التالي",
+        "no_value": "---",
+        "of": "من",
+        "previous_step": "الخطوة السابقة",
+        "search": "بحث",
+        "show_less": "اعرض أقل",
+        "show_more": "اعرض المزيد",
+        "advice": "الرأي",
+        "all_categories": "جميع الفئات",
+        "all_organizations": "جميع المنظمات",
+        "almost_there": "لقد أوشكت على الانتهاء!",
+        "change_answers": "تغيير الإجابات",
+        "download_pdf": "التنزيل بصيغة PDF",
+        "total_amount": "المبلغ الإجمالي",
+        "total_offers": "إجمالي العرض",
+        "your_data": "بياناتك"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "جميع الرسوم",
+            "funds3": "شارك",
+            "funds47": "مزايا الحافلات",
+            "funds50": "ملحق الدخل"
+        },
+        "goereeoverflakkee": {
+            "funds": "المخططات"
+        }
+    }
+}

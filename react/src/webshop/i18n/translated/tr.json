@@ -1,0 +1,3350 @@
+{
+    "auth_start": {
+        "example": "Geçerli bir e-posta adresi girin, örneğin <strong>naam@voorbeeld.com</strong>"
+    },
+    "auth": {
+        "": "İki faktörlü kimlik doğrulama",
+        "back": "Geri",
+        "back_start": "Girişe geri dön",
+        "choose_option": "Bir seçenek seçin",
+        "logout": "Oturum Kapatma",
+        "options": {
+            "digid": {
+                "description": "DigiD giriş ekranını açın",
+                "title": "DigiD"
+            },
+            "email": {
+                "description": "E-posta ile bir giriş bağlantısı alın",
+                "title": "E-posta adresi"
+            },
+            "qr": {
+                "description": "<u>Me</u> uygulaması ile bir QR kodu tarayın",
+                "title": "Benim uygulamam"
+            }
+        },
+        "privacy_link": {
+            "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">Gizlilik bildirimini</a> okudum"
+        },
+        "push": {
+            "link_used": {
+                "title": "Bu bağlantı zaten kullanılmış veya geçersiz."
+            }
+        },
+        "qr": {
+            "title": "Giriş"
+        },
+        "restore": {
+            "label": "Artık giriş yapamıyor musunuz?",
+            "link": "DigiD ile hesabı geri yükleme",
+            "title": "Hesabı geri yükle"
+        },
+        "setup_2fa_title": "İki faktörlü kimlik doğrulamayı ayarlama",
+        "sign_in_up_title": "Bir hesap oluşturun veya bir başvuru başlatın?"
+    },
+    "blocks": {
+        "block_exception": {
+            "description": "Özür dileriz, tarafımızdan beklenmeyen bir hata meydana geldi. Lütfen tekrar deneyiniz.",
+            "go_home": "Eve git",
+            "title": "Oops, bir şeyler ters gitti",
+            "try_again": "Yeniden Dene"
+        }
+    },
+    "bookmarked_products": {
+        "empty": {
+            "button": "Teklifi görüntüleyin",
+            "title": "Henüz teklif eklenmedi."
+        },
+        "title": "Dilek listem",
+        "view_grid": "Fotoğraflar",
+        "view_list": "Liste"
+    },
+    "buttons": {
+        "add": "Ekle",
+        "back": "Geri",
+        "buy": "Satın Al",
+        "cancel": "İptal",
+        "close": "Kapat",
+        "confirm": "Onaylayın",
+        "copy": "Anlaşıldı",
+        "create": "Kişisel veri oluşturma",
+        "details": "Detayları görüntüle",
+        "join": "Kaydolun",
+        "next": "Sonraki",
+        "read_more": "Daha fazla bilgi edinin",
+        "read_more_about_system": "SISTEMIN NASIL ÇALIŞTIĞI HAKKINDA DAHA FAZLA BILGI EDININ",
+        "send": "Bana e-posta gönderin",
+        "share": "Paylaş",
+        "show_map": "Haritayı görüntüle",
+        "show_more": "Daha fazla görüntüle",
+        "skip": "Atla",
+        "start": "başla",
+        "submit": "Gönder",
+        "use": "Kullanım",
+        "validate": "Onaylamak"
+    },
+    "confirm_reimbursement_destroy": {
+        "confirm_btn": "Onaylayın",
+        "description": "Talep talebini iptal etmek istediğinizden emin misiniz?",
+        "title": "Beyannameyi iptal etmek mi?"
+    },
+    "confirm_taken_by_partner": {
+        "close_btn": "Onaylayın",
+        "description": "Kredi bir aile üyesi veya vasi tarafından etkinleştirildiği için bu mesajı alırsınız. Kredi, ilk etkinleştiren kişinin hesabında kullanılabilir.",
+        "header": "Bu kredi zaten etkinleştirildi",
+        "title": "Krediyi etkinleştirin"
+    },
+    "custom_page_state_titles": {
+        "goereeoverflakkee": {
+            "funds": "Şemalar{{pageTitleSuffix}}"
+        },
+        "vergoedingen": {
+            "funds": "Tüm ücretler{{pageTitleSuffix}}"
+        }
+    },
+    "email_service_switch": {
+        "confirm": "Beni e-postama götür"
+    },
+    "explanation": {
+        "breadcrumbs": {
+            "explanation": "Açıklama",
+            "home": "Ev"
+        }
+    },
+    "global": {
+        "2fa_restriction": {
+            "emails": {
+                "button": "İki faktörlü kimlik doğrulamayı ayarlama",
+                "description": "Web mağazasında kişisel verilerin güvenliğini ve korunmasını sağlamak için hesapların doğrulanması zorunludur. Kullanıcılar, kişisel verilerin girilebileceği veya hesap ayarlamalarının yapılabileceği işlevlere erişmeden önce bir kimlik belirleme yöntemi sağlamalıdır.",
+                "title": "E-posta adreslerini yönetmek için iki faktörlü kimlik doğrulama gereklidir."
+            },
+            "reasons": {
+                "description": "Belirli seçenekleri ve işlevleri kullanmak için kullanıcıların ikinci bir kimlik doğrulama yöntemi kullanması gerekir. Bu, güvenliği güçlendirir ve yalnızca yetkili kullanıcıların özelliklere erişebilmesini sağlar, böylece hesapları daha güvenli hale getirir.",
+                "title": "Aşağıdaki krediler iki faktörlü kimlik doğrulama gerektirir."
+            },
+            "reimbursements": {
+                "button": "İki faktörlü kimlik doğrulamayı ayarlama",
+                "description": "Web mağazasında kişisel verilerin güvenliğini ve korunmasını sağlamak için hesapların doğrulanması zorunludur. Kullanıcılar, kişisel verilerin girilebileceği veya hesap ayarlamalarının yapılabileceği işlevlere erişmeden önce bir kimlik belirleme yöntemi sağlamalıdır.",
+                "title": "Taleplerin gönderilmesi için iki faktörlü kimlik doğrulama gereklidir."
+            },
+            "sessions": {
+                "button": "İki faktörlü kimlik doğrulamayı ayarlama",
+                "description": "Web mağazasında kişisel verilerin güvenliğini ve korunmasını sağlamak için hesapların doğrulanması zorunludur. Kullanıcılar, kişisel verilerin girilebileceği veya hesap ayarlamalarının yapılabileceği işlevlere erişmeden önce bir kimlik belirleme yöntemi sağlamalıdır.",
+                "title": "Oturum açma oturumlarını yönetmek için iki faktörlü kimlik doğrulama gereklidir."
+            }
+        },
+        "app_links": {
+            "app_store": "App Store'dan indirin",
+            "google_play": "Google Play'de öğrenin"
+        },
+        "card_2fa_warning": {
+            "2fa_policy": {
+                "required": {
+                    "description": "Bu şemadan yararlanmak için kullanıcının başvurudan sonra ikinci bir doğrulama yöntemi kullanması gerekir.",
+                    "title": "Bu düzenleme iki faktörlü kimlik doğrulama kullanımını zorunlu kılmaktadır"
+                },
+                "restrict_features": {
+                    "description": "Bu şema ile ilişkili belirli seçenekleri ve işlevleri kullanmak için kullanıcının ikinci bir kimlik doğrulama yöntemi kullanması gerekir.",
+                    "title": "Bu düzenleme, belirli işlevler için iki faktörlü kimlik doğrulama kullanılmasını zorunlu kılmaktadır"
+                },
+                "show_less": "Daha az göster",
+                "show_more": "Daha fazla göster"
+            },
+            "email_restrictions": {
+                "description": "E-posta adreslerini yönetmek için iki faktörlü kimlik doğrulama gereklidir.",
+                "title": "E-posta kısıtlamaları"
+            },
+            "reimbursement_restrictions": {
+                "description": "Taleplerin gönderilmesi için iki faktörlü kimlik doğrulama gereklidir.",
+                "title": "Beyan kısıtlamaları"
+            },
+            "session_restrictions": {
+                "description": "Oturum açma oturumlarını yönetmek için iki faktörlü kimlik doğrulama gereklidir.",
+                "title": "Oturum kısıtlamaları"
+            }
+        },
+        "file_item": {
+            "download_file": "Dosyayı indirin",
+            "remove_file": "Dosya silme",
+            "view_file": "Dosyayı görüntüle"
+        },
+        "file_uploader": {
+            "attachments": "Ekler",
+            "max_files": "Maks. {[ count ]} dosyalar",
+            "max_size": "maks. boyut 8Mb",
+            "or": "veya",
+            "title": "Bir belge yükleyin",
+            "upload_button": "Bir belge yükleyin"
+        },
+        "info_box": {
+            "2fa_description": "2FA hakkında daha fazla bilgi için bizi ziyaret edin:",
+            "help_center_article": "Yardım merkezi makalesi"
+        },
+        "map_marker": {
+            "address": "Adres",
+            "email": "E-posta",
+            "organization_type": "Organizasyon Türü",
+            "phone": "Telefon",
+            "view_details": "Detayları görüntüle"
+        },
+        "showcase": {
+            "filters": "Filtre"
+        },
+        "voucher_records": {
+            "hide_details": "Tüm detayları gizle",
+            "show_details": "Tüm detayları göster"
+        }
+    },
+    "implementation_name": {
+        "berkelland": "Berkelland",
+        "ede": "Ede",
+        "eemsdelta": "Eemsdelta",
+        "forus": "Forus platformu &amp; ",
+        "geertruidenberg": "Geertruidenberg",
+        "general": "Genel",
+        "goereeoverflakkee": "Goeree-Overflakkee",
+        "groningen": "Stadjerspas",
+        "hartvanwestbrabant": "HvWB",
+        "heumen": "Heumen",
+        "kerstpakket": "Noel paketi",
+        "noordoostpolder": "Katılım paketi",
+        "oostgelre": "Oostgelre",
+        "potjeswijzer": "Tencere kılavuzu",
+        "schagen": "Schagen",
+        "vergoedingen": "Ücretler",
+        "waalwijk": "Paswijzer",
+        "westerkwartier": "Westerkwartier",
+        "winterswijk": "Winterswijk"
+    },
+    "languages": {
+        "ar": "Arapça",
+        "en": "İngilizce",
+        "nl": "Hollandaca"
+    },
+    "list_blocks": {
+        "fund_item_list": {
+            "buttons": {
+                "check_status": "Durumu kontrol edin",
+                "is_applicable": "İstek"
+            },
+            "show_less": "Daha az göster",
+            "show_more": "Daha fazla göster",
+            "status": {
+                "activateable": "Etkinleştirilebilir",
+                "active": "Aktif",
+                "is_applicable": "Talep Edilebilir",
+                "is_pending": "Beklenti içinde"
+            }
+        },
+        "fund_item_search": {
+            "buttons": {
+                "is_applicable": "İstek",
+                "is_pending": "Beklenti içinde"
+            },
+            "status": {
+                "active": "Aktif"
+            }
+        },
+        "funds_list_pre_check": {
+            "apply_parent_fund": "Aşağıdaki programa başvurarak bu programa başvurabilirsiniz:",
+            "apply_related_funds": "Bu programa başvurursanız, diğer programlara da doğrudan başvurabilirsiniz. Bu, aşağıdaki program listesi için geçerlidir:",
+            "conditions": "Koşullar",
+            "explanation": "Açıklama",
+            "external_website": "Harici web sitesini görüntüle",
+            "good_chance": "İyi şans",
+            "hide_explanation": "Açıklamayı gizle",
+            "low_chance": "Düşük olasılık",
+            "medium_chance": "Ortalama olasılık",
+            "no_indication": "Belirti yok",
+            "not_available": "Mevcut değil",
+            "product_voucher": "Ürün kuponu",
+            "show_less": "Daha az göster",
+            "show_more": "Daha fazla göster",
+            "total": "Toplam",
+            "view_explanation": "Açıklamayı görüntüle",
+            "why": "Neden?",
+            "activate": "Etkinleştir"
+        },
+        "product_item_grid": {
+            "bookmark": "İstek listesine ekle"
+        },
+        "product_item_list": {
+            "bookmark": "İstek listesine ekle"
+        },
+        "product_item_search": {
+            "free": "Ücretsiz"
+        },
+        "provider_item_list": {
+            "no_data": "Veri yok",
+            "open_provider": "Açık sağlayıcı",
+            "show_locations": "Yerleri göster"
+        }
+    },
+    "logo_alt_text": {
+        "berkelland": "Berkelland Belediyesi",
+        "ede": "Ede",
+        "eemsdelta": "Eems Deltası Belediyesi",
+        "geertruidenberg": "Geertruidenberg Belediyesi",
+        "general": "Forus",
+        "goereeoverflakkee": "Goeree-Overflakkee Belediyesi",
+        "groningen": "Stadjerspas",
+        "hartvanwestbrabant": "İşyeri",
+        "heumen": "Heumen Belediyesi",
+        "kerstpakket": "Noel paketi",
+        "noordoostpolder": "Noordoostpolder Belediyesi",
+        "oostgelre": "Oost Gelre Belediyesi",
+        "potjeswijzer": "Tencere kılavuzu",
+        "schagen": "Schagen Belediyesi",
+        "vergoedingen": "logo Nijmegen Belediyesi",
+        "waalwijk": "Geçiş Noktası",
+        "westerkwartier": "Westerkwartier Belediyesi",
+        "winterswijk": "Winterswijk Belediyesi"
+    },
+    "notifications": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "notifications": "Bildirimler"
+        },
+        "columns": {
+            "date": "Tarih",
+            "details": "Bildirim"
+        },
+        "title": "Bildirimler"
+    },
+    "page_state_loading_titles": {
+        "actions": "Teklif{{pageTitleSuffix}}",
+        "fund": "Fon{{pageTitleSuffix}}",
+        "fund-request-show": "İstek{{pageTitleSuffix}}",
+        "fund-requests": "İstek{{pageTitleSuffix}}",
+        "home": "Webshop{{pageTitleSuffix}}",
+        "product": "Teklif{{pageTitleSuffix}}",
+        "products": "Teklif{{pageTitleSuffix}}",
+        "provider": "Sağlayıcı{{pageTitleSuffix}}",
+        "reimbursement": "Beyanname{{pageTitleSuffix}}",
+        "reimbursement-edit": "Maliyet kurtarma düzenlemesi{{pageTitleSuffix}}",
+        "voucher": "Krediniz{{pageTitleSuffix}}"
+    },
+    "page_state_titles": {
+        "accessibility": "Erişilebilirlik beyanı{{pageTitleSuffix}}",
+        "actions": "Teklif{{fund_name}}{{pageTitleSuffix}}",
+        "auth-link": "Giriş{{pageTitleSuffix}}",
+        "bookmarked-products": "Dilek listem{{pageTitleSuffix}}",
+        "confirmation-email": "E-postayı onayla{{pageTitleSuffix}}",
+        "explanation": "Geri ödeme uygulamalarına ilişkin açıklama{{pageTitleSuffix}}",
+        "fund": "{{fund_name}}{{pageTitleSuffix}}",
+        "fund-activate": "Etkinleştir {{fund_name}}{{pageTitleSuffix}}",
+        "fund-apply": "İstek{{pageTitleSuffix}}",
+        "fund-request-clarification": "Ek talep{{pageTitleSuffix}}",
+        "fund-request-show": "İstek {{fund_name}}{{pageTitleSuffix}}",
+        "fund-requests": "İstek{{pageTitleSuffix}}",
+        "funds": "İstek{{pageTitleSuffix}}",
+        "funds-apply": "İstek{{pageTitleSuffix}}",
+        "home": "{{implementation}}{{pageTitleSuffix}}",
+        "identity-emails": "E-posta ayarları{{pageTitleSuffix}}",
+        "kindpakket": "Portföy - Çocuk paketi{{pageTitleSuffix}}",
+        "me": "Ben{{pageTitleSuffix}}",
+        "me-app": "Me-app{{pageTitleSuffix}}",
+        "notifications": "Bildirimler{{pageTitleSuffix}}",
+        "platform": "Forus Platform{{pageTitleSuffix}}",
+        "portfolio": "Portföy{{pageTitleSuffix}}",
+        "preferences-notifications": "Bildirim tercihleri{{pageTitleSuffix}}",
+        "privacy": "Gizlilik beyanı{{pageTitleSuffix}}",
+        "product": "{{product_name}} Teklif - of {{organization_name}}{{pageTitleSuffix}}",
+        "products": "Teklif{{fund_name}}{{pageTitleSuffix}}",
+        "products-apply": "Teklif Satın Al{{pageTitleSuffix}}",
+        "products-show": "Teklif{{pageTitleSuffix}}",
+        "provider": "Sağlayıcı - {{provider_name}}{{pageTitleSuffix}}",
+        "provider-office": "Sağlayıcı kuruluş{{pageTitleSuffix}}",
+        "providers": "Sağlayıcılar{{pageTitleSuffix}}",
+        "record-create": "Kişisel veri ekleme{{pageTitleSuffix}}",
+        "record-validate": "Kişisel verileri onaylama{{pageTitleSuffix}}",
+        "record-validations": "Onaylar{{pageTitleSuffix}}",
+        "records": "Kişisel veriler{{pageTitleSuffix}}",
+        "reimbursement": "Beyanname - {{code}}{{pageTitleSuffix}}",
+        "reimbursement-edit": "Maliyet kurtarma düzenlemesi - {{code}}{{pageTitleSuffix}}",
+        "reimbursements": "Beyanlar{{pageTitleSuffix}}",
+        "reimbursements-create": "Yeni ücretlerin geri alınması{{pageTitleSuffix}}",
+        "reservation-show": "Rezervasyon{{pageTitleSuffix}}",
+        "reservations": "Rezervasyonlar{{pageTitleSuffix}}",
+        "restore-email": "E-posta ile giriş yapın{{pageTitleSuffix}}",
+        "search-result": "Arama sonuçları{{pageTitleSuffix}}",
+        "security-2fa": "Güvenlik{{pageTitleSuffix}}",
+        "security-sessions": "Güvenlik oturumları{{pageTitleSuffix}}",
+        "sign-up": "Kaydolun{{pageTitleSuffix}}",
+        "sitemap": "Site Haritası{{pageTitleSuffix}}",
+        "start": "Oturum açmayı başlat{{pageTitleSuffix}}",
+        "terms_and_conditions": "Genel hüküm ve koşullar{{pageTitleSuffix}}",
+        "voucher": "Krediniz - {{fund_name}}{{pageTitleSuffix}}",
+        "vouchers": "Kredim{{pageTitleSuffix}}"
+    },
+    "page_title": "Forus platformu",
+    "product_bookmark_push": {
+        "go_to_bookmarks": "Dilek listeme git",
+        "list_message": "{{ total }} İstek listesinde teklifler var",
+        "removed": "{{ name }} dilek listesinden çıkarıldı!"
+    },
+    "products": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "products": "Teklif"
+        },
+        "distances": {
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
+            "everywhere": "Her yerde"
+        },
+        "filters": {
+            "all_categories": "Kategori seçin...",
+            "all_funds": "Tüm krediler...",
+            "all_products": "Tam teklif",
+            "all_providers": "Sağlayıcı seçin...",
+            "all_sub_categories": "Alt kategori seçin...",
+            "bookmarked": "Dilek listem",
+            "category": "Kategori",
+            "distance": "Mesafe",
+            "fund": "Kredi",
+            "postcode": "Posta kodu",
+            "providers": "Sağlayıcılar",
+            "search": "Arama teklifi",
+            "sort": "Sırala",
+            "sub_category": "Alt Kategori"
+        },
+        "sort": {
+            "created_at_asc": "Önce en yaşlı",
+            "created_at_desc": "Yeni ilk",
+            "most_popular": "En çok arananlar",
+            "name_asc": "İsim (artan)",
+            "name_desc": "İsim (azalan)",
+            "price_asc": "Fiyat (artan)",
+            "price_desc": "Fiyat (azalan)"
+        },
+        "title": "Teklif",
+        "view": {
+            "grid": "Fotoğraflar",
+            "list": "Liste"
+        }
+    },
+    "provider_sign_up": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "sign_up_provider": "Sağlayıcı olarak kaydolun"
+        },
+        "button": {
+            "login": "Sonra giriş yapın",
+            "register": "Kaydolun"
+        },
+        "description": {
+            "already_account": "Zaten bir hesabınız var mı?",
+            "fill_form": "Çevrimiçi formu doldurarak kuruluşunuzu bir sağlayıcı olarak kaydettirmiş olursunuz. Formu doldurmak yaklaşık 15 dakika sürer.",
+            "read_instruction": "Her adımdaki talimatları dikkatlice okuyun."
+        },
+        "heading": "Sağlayıcı olarak kaydolun",
+        "heading_screen_reader": "Kaydolun"
+    },
+    "providers_office": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "providers": "Sağlayıcılar"
+        },
+        "details": {
+            "address": "Adres",
+            "email": "E-posta adresi",
+            "phone": "Telefon numarası",
+            "title": "Şube bilgileri",
+            "type": "Sağlayıcı türü",
+            "type_none": "Seçilen tür yok"
+        },
+        "providers": {
+            "office_thumbnail_alt": "ofis küçük resmi",
+            "show_more": "Sağlayıcı hakkındaki bilgileri göster/gizle",
+            "title": "Sağlayıcı",
+            "type_none": "Seçilen tür yok"
+        },
+        "title": "Sağlayıcılar",
+        "working_hours": {
+            "not_set": "Sağlayıcı çalışma saatlerini belirlememiştir. Çalışma saatleri için sağlayıcı ile iletişime geçin.",
+            "title": "Çalışma saatleri"
+        }
+    },
+    "push_notification_group": {
+        "adjust": "Ayarla",
+        "auto_close_after": "{{ dismissTime }} Saniyeler sonra otomatik kapanma",
+        "auto_close_disabled": "Otomatik kapanma devre dışı",
+        "hide_notifications": "{{ count }} Gizle + bildirimler",
+        "show_notifications": "{{ count }} Göster + bildirimler"
+    },
+    "security_2fa": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "security_2fa": "İki faktörlü kimlik doğrulama"
+        },
+        "confirm": "Onaylayın",
+        "disable": "Kapatın",
+        "disabled": "Engelli",
+        "enable": "Etkinleştir",
+        "enabled_on": "Etkinleştirildi: ",
+        "error": "Hata",
+        "failed": "Başarısız!",
+        "municipality_restrict": "Bu ayarlar belediye tarafından belirlenen koşullar nedeniyle değiştirilemez",
+        "number_confirmed": "Onaylanan sayı",
+        "remember_ip": "IP adresini hatırla",
+        "require_2fa_always": "Her zaman 2FA ile onay gerektirir",
+        "require_2fa_ip": "IP adresi son 48 saat içinde kullanılmışsa, 2FA gerektirmez.",
+        "saved": "Kurtuldum!",
+        "settings": "Ayarlar",
+        "sms_message": "SMS Mesajı",
+        "subtitle": "İki faktörlü kimlik doğrulamayı etkinleştirerek hesabınıza ekstra bir güvenlik katmanı ekleyin. Aşağıdaki kimlik doğrulama yöntemlerinden birini seçebilirsiniz: Authenticator uygulaması ve SMS kimlik doğrulaması.",
+        "title": "İki faktörlü kimlik doğrulama",
+        "unknown_error": "Bilinmeyen hata mesajı.",
+        "verification_codes_sent": "Doğrulama kodları SMS ile gönderildi",
+        "vouchers_restrict": "Bu kurumu kısıtlayan bir fondan bir veya daha fazla kupon var",
+        "providers": {
+            "authenticator": {
+                "title": "Authenticator uygulaması"
+            },
+            "phone": {
+                "title": "SMS Doğrulama"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1Parola doğrulayıcı",
+            "authenticator_google": "Google kimlik doğrulayıcı",
+            "authenticator_lastpass": "LastPass Kimlik Doğrulayıcı",
+            "authenticator_microsoft": "Microsoft Authenticator"
+        }
+    },
+    "security_sessions": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "security_sessions": "Güvenlik"
+        },
+        "buttons": {
+            "show_all_locations": "Tüm konumları gör",
+            "terminate_all_sessions": "Tüm oturumları sonlandırın",
+            "terminate_session": "Oturum sonu"
+        },
+        "clients": {
+            "general": "Bilinmiyor",
+            "provider": "Sağlayıcılar yönetim ortamı",
+            "sponsor": "Sponsor yönetim ortamı",
+            "validator": "Değerlendirici yönetim ortamı",
+            "webshop": "Webshop"
+        },
+        "details": {
+            "last_activity": "Son etkinlik",
+            "started_at": "Oturum başladı"
+        },
+        "labels": {
+            "current": "Güncel",
+            "online": "Çevrimiçi"
+        },
+        "title": "Güvenlik"
+    },
+    "terms_and_conditions": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "terms_and_conditions": "Genel hüküm ve koşullar"
+        }
+    },
+    "test": "{{name}} {{foo}}",
+    "top_navbar": {
+        "buttons": {
+            "authorize": "Uygulamaya giriş yapın",
+            "ede": {
+                "activate": "Şemalar"
+            },
+            "funds": "İstek",
+            "geertruidenberg": {
+                "activate": "İstek"
+            },
+            "groningen": {
+                "activate": "İstek",
+                "voucher": "Şehir Kartım"
+            },
+            "heumen": {
+                "activate": "Etkinleştir"
+            },
+            "login": "Giriş",
+            "logout": "Oturum Kapatma",
+            "mobile": {
+                "dropdown": {
+                    "authorize": "Uygulamaya giriş yapın",
+                    "berkelland": {
+                        "funds": "Etkinleştir"
+                    },
+                    "bookmarked_products": "Dilek listem",
+                    "ede": {
+                        "funds": "Şemalar"
+                    },
+                    "explanation": "Açıklama",
+                    "fund_requests": "İstek",
+                    "funds": "Tüm krediler",
+                    "geertruidenberg": {
+                        "funds": "Şemalar"
+                    },
+                    "groningen": {
+                        "funds": "İstek",
+                        "vouchers": "Şehir Kartım"
+                    },
+                    "heumen": {
+                        "funds": "Etkinleştir"
+                    },
+                    "home": "Ev",
+                    "noordoostpolder": {
+                        "funds": "Şemalar"
+                    },
+                    "notifications": "Bildirimler",
+                    "oostgelre": {
+                        "funds": "Etkinleştir"
+                    },
+                    "payouts": "Ödemeler",
+                    "potjeswijzer": {
+                        "funds": "Kavanozlar"
+                    },
+                    "preferences_emails": "E-posta ayarları",
+                    "preferences_notifications": "Bildirim tercihleri",
+                    "records": "Profil",
+                    "reimbursements": "Maliyet geri kazanımı",
+                    "reservations": "Rezervasyonlar",
+                    "schagen": {
+                        "funds": "Şemalar"
+                    },
+                    "security": "Güvenlik",
+                    "sessions": "Oturumlar",
+                    "vergoedingen": {
+                        "funds": "Ücretler"
+                    },
+                    "vouchers": "Kredilerim",
+                    "waalwijk": {
+                        "funds": "İstek"
+                    },
+                    "westerkwartier": {
+                        "funds": "İstek"
+                    },
+                    "winterswijk": {
+                        "funds": "Etkinleştir"
+                    }
+                },
+                "groningen": {
+                    "voucher": "Şehir Kartım"
+                },
+                "more": "Daha fazla",
+                "profile": "Profil",
+                "request": "İstek",
+                "voucher": "Kredilerim"
+            },
+            "noordoostpolder": {
+                "activate": "Şemalar"
+            },
+            "potjeswijzer": {
+                "activate": "Kavanozlar"
+            },
+            "products": "Teklif",
+            "profile": "Profil >",
+            "providers": "Sağlayıcılar",
+            "records": "Kişisel bilgilerim",
+            "reimbursements": "Maliyet geri kazanımı",
+            "subsidies": "Teklif",
+            "vergoedingen": {
+                "activate": "Ücretler",
+                "login": "Oturum açma / kayıt olma"
+            },
+            "voucher": "Kredilerim",
+            "waalwijk": {
+                "activate": "İstek"
+            },
+            "westerkwartier": {
+                "activate": "İstek"
+            }
+        },
+        "items": {
+            "ede": {
+                "explanation": "Sıkça sorulan sorular",
+                "funds": "Açıklama sakinleri"
+            },
+            "eemsdelta": {
+                "funds": "Şemalar"
+            },
+            "explanation": "Açıklama",
+            "funds": "Etkinleştir",
+            "geertruidenberg": {
+                "funds": "Şemalar"
+            },
+            "groningen": {
+                "explanation": "Nasıl çalışıyor?",
+                "funds": "İstek"
+            },
+            "hartvanwestbrabant": {
+                "funds": "Şemalar"
+            },
+            "heumen": {
+                "funds": "Etkinleştir"
+            },
+            "home": "Ev",
+            "identity": "Profil",
+            "menu": {
+                "close": "Kapat",
+                "show": "Menü"
+            },
+            "midden_drenthe": {
+                "funds": "Şemalar"
+            },
+            "noordoostpolder": {
+                "funds": "Şemalar"
+            },
+            "potjeswijzer": {
+                "funds": "Kavanozlar"
+            },
+            "products": "Teklif",
+            "providers": "Sağlayıcılar",
+            "schagen": {
+                "funds": "Şemalar"
+            },
+            "search": "Arama",
+            "signup": "Açıklama sağlayıcıları",
+            "subsidies": "Teklif",
+            "vergoedingen": {
+                "funds": "Ücretler"
+            },
+            "waalwijk": {
+                "funds": "İstek"
+            },
+            "wadenheuvel": {
+                "funds": "Şemalar"
+            },
+            "westerkwartier": {
+                "funds": "Kavanozlar"
+            }
+        },
+        "user_menu": {
+            "auth_as": "Olarak giriş yaptı:",
+            "authorize": "Cihazı yetkilendirin",
+            "bookmarks": "Dilek listem",
+            "fund_requests": "İstek",
+            "logout": "Oturum Kapatma",
+            "my_vouchers": "Kredilerim",
+            "notifications": "Bildirimler",
+            "payouts": "Ödemeler",
+            "preferences_emails": "E-posta ayarları",
+            "preferences_notifications": "Bildirim tercihleri",
+            "providers": "Sağlayıcılar",
+            "reimbursements": "Maliyet geri kazanımı",
+            "reservations": "Rezervasyonlar",
+            "security_2fa": "Güvenlik",
+            "security_sessions": "Oturumlar"
+        }
+    },
+    "week_days": {
+        "0": "Pazartesi",
+        "1": "Salı",
+        "2": "Çarşamba",
+        "3": "Perşembe",
+        "4": "Cuma",
+        "5": "Cumartesi",
+        "6": "Pazar"
+    },
+    "fund_activate": {
+        "cards": {
+            "back": "Geri",
+            "backoffice_error_no_response": {
+                "contacts": "Daha fazla bilgi için Nijmegen Belediyesi ile irtibata geçiniz.",
+                "description": "{{fund_name}} Üzgünüz, talebiniz ne yazık ki başarısız oldu.",
+                "heading": "Başarısız oldu",
+                "title": "Teknik bir hata oluştu, lütfen daha sonra tekrar deneyin."
+            },
+            "backoffice_error_not_eligible": {
+                "contacts": "Daha fazla bilgi için Nijmegen Belediyesi ile irtibata geçiniz.",
+                "description": "{{fund_name}} Üzgünüz, talebiniz ne yazık ki başarısız oldu.",
+                "heading": "Başarısız oldu",
+                "title": "Başvuru başarısız oldu. Koşulları karşılamıyorsunuz."
+            },
+            "backoffice_error_not_resident": {
+                "contacts": "Daha fazla bilgi veya sorularınız için lütfen Nijmegen Belediyesi ile irtibata geçiniz.<br /> E-posta adresi: <a class=\"txt_link var\" href=\"mailto:{{email_value}}\">{{email_label}}</a> <br /> Telefon no: {{phone}}",
+                "description": "Kayıtlarımıza göre Nijmegen Belediyesi'nde ikamet etmiyorsunuz. {{fund_name}} Bu uygulama sadece Nijmegen Belediyesi sakinleri için geçerlidir. <br /> <br /> Kendi belediyenizin uygun olduğunuz düzenlemeleri olabilir. Daha fazla bilgi edinmek için lütfen yaşadığınız belediyeye başvurun.",
+                "title": "İstek başarısız oldu"
+            },
+            "backoffice_error_taken_by_partner": {
+                "contacts": "Bunun için bir itirazda bulunmak isterseniz veya herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin. <br /> E-posta adresi: <a class=\"txt_link var\" href=\"mailto:{{email_value}}\">{{email_label}}</a> <br /> Telefon no: {{phone}}",
+                "description": "Bilgilerimize göre, ortağınızdan zaten bir başvuru aldık. Bu nedenle başvuru yapmanız mümkün değildir.",
+                "title": "İstek başarısız oldu"
+            },
+            "code": {
+                "aria_label": "Fon aktivasyon kodunu girin",
+                "title": "Aktivasyon kodunuzu girin"
+            },
+            "digid": {
+                "confirm": "Yukarıdaki koşullara uyduğumu beyan ederim",
+                "loading": "Lütfen bir dakika bekleyin, talep işleme alınıyor"
+            },
+            "not_available": {
+                "contacts": "{{name}}İletişim .",
+                "description": "{{name}}için kayıt yaptıramazsınız.",
+                "title": "İstek başarısız oldu"
+            },
+            "taken_by_partner": {
+                "contacts": "{{name}}Sorularınız için iletişime geçin.",
+                "description": "<br /> Kredi bir aile üyesi veya vasi tarafından etkinleştirildiği için bu mesajı alırsınız. <br /><br /> <br /> Kredi, ilk etkinleştiren kişinin hesabında kullanılabilir.",
+                "heading": "İstek başarısız oldu",
+                "title": "Bu kredi zaten etkinleştirildi"
+            }
+        },
+        "header": {
+            "title": "Gelirinizi teyit edin",
+            "vergoedingen": {
+                "title": "Hüküm ve koşulları kabul ediyorsunuz"
+            }
+        },
+        "options": {
+            "code": {
+                "description": "Bir aktivasyon kodu kullanarak kredinizi etkinleştirmeye devam edin",
+                "title": "Bir aktivasyon kodum var"
+            },
+            "digid": {
+                "description": "DigiD giriş ekranını açın",
+                "title": "DigiD"
+            },
+            "request": {
+                "description": "Kredi talebinde bulunmak için başvuru formunu doldurun",
+                "title": "Kredi talebinde bulunmak istiyorum"
+            }
+        }
+    },
+    "fund_request": {
+        "approved_request_exists": "Onaylanmış bir başvuru zaten mevcut. Lütfen yönetici ile iletişime geçin.",
+        "breadcrumbs": {
+            "fund_request": "İstek #{{ id }}",
+            "home": "Ev"
+        },
+        "bsn_record_is_mandatory": "Başvuru yapabilmek için BSN sahibi olmak zorunludur.",
+        "bsn_warning": {
+            "description": "Lütfen dikkat! Başvuru formunu şu tarihe kadar doldurmuş olmanız gerekmektedir <strong>{{value}}</strong>aksi takdirde DigiD ile tekrar oturum açın ve uygulamayı yeniden başlatın."
+        },
+        "buttons": {
+            "back": "Geri"
+        },
+        "declined": {
+            "no_note": "Not yok",
+            "title": "Reddetme nedeni"
+        },
+        "details": {
+            "created_at": "Gönderilme tarihi:",
+            "fund_name": "Fon adı:",
+            "id": "KIMLIK:",
+            "number_of_records": "Kişisel veri sayısı:",
+            "title": "Başvuru durumu"
+        },
+        "digid_expired": {
+            "description": "DigiD ile tekrar oturum açın ve uygulamayı tekrar başlatın.",
+            "sign_in": {
+                "description": "Baştan başlamak için DigiD ile tekrar giriş yapın.",
+                "title": "DigiD"
+            },
+            "title": "DigiD oturumunun süresi doldu"
+        },
+        "fund_not_active": "Başvurmaya çalıştığınız fon aktif değil.",
+        "invalid_endpoint": "Bu uygulamaya erişim yok",
+        "not_requester": "Bu uygulamanın sahibi siz değilsiniz.",
+        "received": {
+            "title": "Alındı"
+        },
+        "record": {
+            "answer": "Cevaplandı",
+            "answer_btn": "Yanıtla",
+            "cancel_btn": "İptal",
+            "new": "yeni mesaj",
+            "new_message": "Yeni istek",
+            "send_btn": "Gönder",
+            "view": "Görünüm"
+        },
+        "records": {
+            "title": "Benim bilgilerim"
+        },
+        "sign_up": {
+            "app": {
+                "description_bottom": "Me uygulaması oturum açmak, ödeme yapmak ve bakiyeleri kolay ve güvenli bir şekilde yönetmek için kullanılır.",
+                "description_top": "Me uygulamasındaki QR tarayıcıyı kullanarak sağdaki QR kodunu tarayın.",
+                "title": "Me uygulaması ile giriş yapın"
+            },
+            "block_title": "{{ fund_name }} uygulamalar",
+            "digid": {
+                "button": "Giriş",
+                "description": "DigiD ile tekrar giriş yaparak hesabı geri yükleyin",
+                "title": "Hesap kurtarma"
+            },
+            "fund_already_applied": {
+                "buttons": {
+                    "open_fund_request": "Başvuruyu görüntüle"
+                },
+                "information": "Başvuru mümkün olan en kısa sürede değerlendirilecektir, bu birkaç hafta sürebilir.  Başvuru eksiksiz değilse, daha fazla bilgi gerekebilir.  Bu durumda e-posta ile bir mesaj gönderilecektir. Başvurunun durumunu görüntülemek için aşağıdaki düğmeye basın.",
+                "subtitle": {
+                    "approved": "Başvuru şu tarihte onaylanmıştır {{ date }}",
+                    "approved_partly": "Başvuru şu tarihte kısmen onaylanmıştır {{ date }}",
+                    "declined": "Başvuru şu gerekçeyle reddedildi {{ date }}",
+                    "disregarded": "Başvuru şu gerekçeyle reddedildi {{ date }}",
+                    "pending": "Başvuru şu tarihte yapılmıştır {{ date }}"
+                },
+                "title": {
+                    "approved": "Başvuru onaylanmıştır",
+                    "approved_partly": "Başvuru kısmen onaylanmıştır",
+                    "declined": "Başvuru reddedildi",
+                    "disregarded": "Başvuru reddedildi",
+                    "pending": "Başvuru beklemede"
+                }
+            },
+            "header": {
+                "main": "{{ fund_name }} uygulama",
+                "title": "Kaydolun",
+                "title_log_digid": "DigiD ile tek oturum açma"
+            },
+            "labels": {
+                "has_app": "Me-app ile oturum açın >",
+                "no_app": "E-posta adresimle giriş yapmak istiyorum >",
+                "restore_with_digid_formal": "Hangi e-posta adresini kullandığınızı unuttunuz mu? >",
+                "restore_with_digid_informal": "Hangi e-posta adresini kullandığınızı unuttunuz mu? >"
+            },
+            "pane": {
+                "criterion_any": "{{ name }}' ' herhangi bir değer olabilir.",
+                "criterion_less": "{{ name }} {{ value }} ' ' 'den küçük olmalıdır.",
+                "criterion_less_or_equal": "{{ name }} {{ value }}' ' 'den küçük veya eşit olmalıdır.",
+                "criterion_more": "{{ name }} {{ value }} ' 'den daha fazla olmalıdır.",
+                "criterion_more_or_equal": "{{ name }} {{ value }}' ' 'den fazla veya eşit olmalıdır.",
+                "criterion_same": "{{ name }} {{ value }} ' ' olmalıdır.",
+                "footer": {
+                    "next": "Sonraki adım",
+                    "prev": "Önceki adım"
+                },
+                "header_title": "Genel Bakış",
+                "text": "Biraz daha veriye ihtiyacımız var. Lütfen aşağıdaki adımları uygulayın:"
+            },
+            "record_checkbox": {
+                "children_nth": "{{value}} Çocuklarım olduğunu beyan ederim",
+                "default": "Yukarıdaki koşullara uyacağımı beyan ederim",
+                "kindpakket_2018_eligible": "Evet, çocuk paketi almaya hakkım olduğunu beyan ederim.",
+                "kindpakket_eligible": "Evet, çocuk paketi almaya hakkım olduğunu beyan ederim.",
+                "social_assistance_standard": "Gelirimin kontrol edilmesini kabul ediyorum. Bu, belediye dosyalarındaki verilerimle karşılaştırılarak veya şartname talep edilerek yapılır."
+            },
+            "subtitles": {
+                "step_1": "Bu çevrimiçi form aracılığıyla mevcut fonlar için başvuruda bulunabilirsiniz. ",
+                "step_2": "Koşulları zaten karşılayıp karşılamadığınızı kontrol eder ve arada ara verip başka bir zaman devam edebilirsiniz."
+            }
+        },
+        "steps": {
+            "step": "Adım {{step}}",
+            "step_out_of": "Adım {{step}}"
+        },
+        "title": "İstek #{{ id }}"
+    },
+    "fund": {
+        "breadcrumbs": {
+            "back": "Geri",
+            "home": "Ev"
+        },
+        "criterias": {
+            "email": "E-Mail:",
+            "enddate": "Bitiş tarihi:",
+            "fixed_amount": "Maksimum kredi:",
+            "label": "Detaylar",
+            "multiplied_amount": "Kişi başı kredi:",
+            "phone": "Telefon numarası:"
+        },
+        "details": {
+            "by": "Yayınlayan:",
+            "end_date": "Bitiş tarihi:",
+            "start_date": "Başlangıç tarihi:"
+        },
+        "header": {
+            "criteria": "{{ nth }}Koşullar ( )",
+            "title": "{{fund_name}} KAYIT OL"
+        },
+        "pending_request": {
+            "title": "Başvurunuzu kontrol ediyoruz"
+        }
+    },
+    "me": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "me": "Me uygulaması hakkında"
+        },
+        "description": "Me uygulaması dijital bir cüzdan ve yazar kasadır. Belediyeler kredi vermek için Me-uygulamasını kullanmaktadır. Uygulama sayesinde vatandaşlar kredilerini kolayca yönetebilir. Sağlayıcılar QR kodlarını taramak için uygulamayı kullanır.",
+        "download": {
+            "description": "Me uygulamasını aşağıdaki uygulama mağazalarından indirin. Telefonunuzda veya tabletinizde <a href=\"{{download_link}}\">ilgili uygulama mağazasını doğrudan</a> açmak <a href=\"{{download_link}}\">için buraya tıklayın</a>.",
+            "title": "Beni telefonunuza veya tabletinize indirin"
+        },
+        "title": "Me uygulaması hakkında"
+    },
+    "signup_options": {
+        "buttons": {
+            "start": "Başlangıç"
+        },
+        "header": {
+            "subtitle": "Finansal bir pot sunuyor musunuz? Kumbaralardan birine uygun ürün veya hizmetler sunuyor musunuz? <br/>Başvuru sahipleriyle iletişim halinde misiniz ve kimlerin destek almaya hak kazandığını belirlemeye yardımcı olabilir misiniz? Eğer öyleyse, aşağıdan kaydolun.",
+            "title": "Kuruluşlar için bilgiler"
+        },
+        "labels": {
+            "description_providers": "Bir sağlayıcı olarak, çeşitli kumbaralardan ödenebilecek ürün veya hizmetler sunarsınız.",
+            "description_sponsor": "<br>Sponsor olarak, kumbaraları kullanıma açarsınız ve kumbaralarınıza hangi sağlayıcıların ve başvuru sahiplerinin katılabileceğine karar verirsiniz. Örneğin, bir bilgisayar kavanozu için bilgisayar mağazalarına ve düşük gelirli okul çocuklarına izin verebilirsiniz.",
+            "description_validator": "Değerlendirici olarak, aavranger'lardan gelen gelir, ikamet yeri ve yaş gibi bilgileri değerlendirirsiniz.",
+            "title_provider": "Sağlayıcı Olarak Kaydolun",
+            "title_sponsor": "Sponsor Olarak Kaydolun",
+            "title_validator": "Değerlendirici olarak kaydolun"
+        }
+    },
+    "fund_request_clarification": {
+        "block_title": "{{ fund_name }} ek talep",
+        "buttons": {
+            "back": "Geri",
+            "submit": "Onaylayın"
+        },
+        "done": {
+            "desc": "Gönderim talebiniz gönderildi, talebiniz işleme alındığında bir e-posta alacaksınız.",
+            "title": "Ek talep gönderildi."
+        },
+        "labels": {
+            "attachment": "Annex",
+            "message": "Mesaj",
+            "question": "Soru"
+        },
+        "not_pending": {
+            "desc": "Zaten bir yanıt gönderdiniz.",
+            "title": "Başvuru tamamlandı"
+        },
+        "placeholder": "Mesajınız..."
+    },
+    "fund_requests": {
+        "breadcrumbs": {
+            "fund_requests": "İstek",
+            "home": "Ev"
+        },
+        "card": {
+            "created_at": "Gönderilme tarihi:",
+            "id": "KIMLIK",
+            "img_alt": "fon görüntüsü",
+            "questions_count": "{{count}} yeni mesaj"
+        },
+        "empty": {
+            "button": "Fonlara gidin",
+            "subtitle": "Şu anda fon başvurunuz yok",
+            "title": "Fon başvurusu yok"
+        },
+        "filters": {
+            "active": "Aktif",
+            "archive": "Arşiv"
+        },
+        "title": "İstek"
+    },
+    "funds": {
+        "breadcrumbs": {
+            "funds": "İstek",
+            "home": "Ev"
+        },
+        "buttons": {
+            "already_received": "Açık kredi",
+            "check_status": "Durumu kontrol edin",
+            "groningen": {
+                "start_request": "İstek"
+            },
+            "IIT": {
+                "already_received": "İstek"
+            },
+            "is_applicable": "Etkinleştir",
+            "is_pending": "Devam ediyor",
+            "more": "Daha fazla görüntüle",
+            "potjeswijzer": {
+                "start_request": "İstek"
+            },
+            "start_request": "Etkinleştir"
+        },
+        "criteria": {
+            "key": "{{key}}"
+        },
+        "filters": {
+            "all_organizations": "Tüm kuruluşlar",
+            "all_tags": "Tüm kategoriler"
+        },
+        "funds": {
+            "berkelland": {
+                "title": "Etkinleştir"
+            },
+            "geertruidenberg": {
+                "title": "Etkinleştir"
+            },
+            "goereeoverflakkee": {
+                "title": "Şemalar"
+            },
+            "oostgelre": {
+                "title": "Etkinleştir"
+            },
+            "potjeswijzer": {
+                "title": "Kavanozlar"
+            },
+            "schagen": {
+                "title": "Şemalar"
+            },
+            "vergoedingen": {
+                "title": "Tüm ücretler"
+            },
+            "winterswijk": {
+                "title": "Etkinleştir"
+            }
+        },
+        "header": {
+            "berkelland": {
+                "subtitle": "Aşağıda etkinleştirebileceğiniz planlar yer almaktadır.",
+                "title": "Etkinleştir"
+            },
+            "oostgelre": {
+                "subtitle": "Aşağıda etkinleştirebileceğiniz planlar yer almaktadır.",
+                "title": "Etkinleştir"
+            },
+            "potjeswijzer": {
+                "subtitle": "Aşağıda başvurabileceğiniz kumbaralardan bazılarını görebilirsiniz. Başka hangileri olduğunu merak ediyor musunuz? O zaman iletişime geçin: xxxx",
+                "title": "Kavanozlar"
+            },
+            "subtitle": "",
+            "title": "İstek",
+            "winterswijk": {
+                "subtitle": "Aşağıda etkinleştirebileceğiniz planlar yer almaktadır.",
+                "title": "Etkinleştir"
+            }
+        },
+        "labels": {
+            "age": "< 18 yaş",
+            "agelimit": "Yaş sınırı",
+            "amount": "< € 1118.46",
+            "categories_label": "Kredinizi en fazla şu kadar etkinleştirebilirsiniz:",
+            "category": "Kategori",
+            "children": "Çocuklar",
+            "count": "1",
+            "criteria": "Koşullar",
+            "income": "Gelir sınırı",
+            "location": "Konum",
+            "office": "Zuidhorn Belediyesi",
+            "organization": "Organizasyon",
+            "search": "Arama"
+        },
+        "status": {
+            "activateable": "Etkinleştirilebilir",
+            "active": "Aktif",
+            "denied": "Reddedildi",
+            "is_applicable": "Kaydolun",
+            "is_pending": "Devam ediyor"
+        }
+    },
+    "provider": {
+        "breadcrumbs": {
+            "back": "Geri",
+            "home": "Ev",
+            "providers": "Sağlayıcılar"
+        },
+        "description": {
+            "title": "Açıklama"
+        },
+        "details": {
+            "email": "E-posta adresi:",
+            "phone": "Telefon numarası:",
+            "title": "Sağlayıcı bilgileri",
+            "type": "Sağlayıcı türü:",
+            "type_none": "Sağlayıcı türü yok"
+        },
+        "funds": {
+            "title": "Şubeler"
+        },
+        "title": "Sağlayıcılar"
+    },
+    "home": {
+        "blog": {
+            "name": "Blog: Platformumuzun iki yeni uygulaması",
+            "title": "Bizim blogumuz"
+        },
+        "faq": {
+            "berkelland": {
+                "eight": "Web mağazasına giriş yaparak kredinizi görüntüleyebilirsiniz. Geçerlilik süresi kredi sayfasında da gösterilir.",
+                "eleven": "Evet, görüşebilirsiniz. O zaman Fijnder ile iletişime geçin, 0544-474200.",
+                "faq_eight": "Kredi ne kadar süreyle geçerlidir?",
+                "faq_eleven": "Başka bir çocuğum daha oldu, daha yüksek kredi alma hakkım var mı?",
+                "faq_fifteen": "Hangi kuruluşlar bana destek sunabilir?",
+                "faq_five": "Ne kadar kredim kaldığını nasıl görebilirim?",
+                "faq_four": "Kredimi kaybettim. Ne yapmam gerekiyor?",
+                "faq_fourteen": "Web mağazasında teklifler görüyorum, bir ürün veya hizmeti nasıl satın alabilirim?",
+                "faq_nine": "Krediyi nakit parayla değiştirebilir miyim?",
+                "faq_one": "Çocuk Düzenlemelerini ve/veya Meedoenarrangement'ı nasıl etkinleştirebilirim?",
+                "faq_seven": "Kredi hemen harcanmalı mı?",
+                "faq_six": "Satın aldığım bir şeyi değiştirebilir miyim/iade edebilir miyim?",
+                "faq_ten": "Web mağazasında listelenmeyen başka bir sağlayıcıdan bir şey satın alabilir miyim?",
+                "faq_thirteen": "Övgüyü başkasına verebilir miyim?",
+                "faq_three": "{{fund}} Hangi sağlayıcılarda harcama yapabilirim?",
+                "faq_twelve": "Çocuk Programlarına ve/veya Yetişkin Katılım Paketine nasıl hak kazanabilirim?",
+                "faq_two": "Web mağazasına nasıl giriş yapabilirim?",
+                "fifteen": "<br> Sosyal yardım, sağlık, barınma, bakım, çalışma, katılım ve para konularındaki sorularınız için <a target='_blank' href='https://www.berkellandwijzer.nl'>www.berkellandwijzer.nl</a> adresini ziyaret edebilirsiniz. Gelir desteği ve diğer konulardaki sorularınız için lütfen Fijnder ile iletişime geçin.",
+                "five": "Her ödemeden sonra, mevcut krediyi içeren bir e-posta gönderilir, ayrıca web mağazasına giriş yaparak veya Me uygulamasını kullanarak krediyi görüntüleyebilirsiniz.",
+                "four": "Kredinizi web mağazasında oturum açarak her zaman bulabilir, yazdırabilir, e-postanıza gönderebilir veya Me uygulamasını kullanarak her zaman elinizin altında bulundurabilirsiniz.",
+                "fourteen": "Web mağazasına giriş yapın ve 'Teklif'e tıklayın. Ardından istediğiniz teklifi seçin ve 'Rezerve Et' seçeneğine tıklayın. Ardından teklifi rezerve etmek için krediyi seçin. Teklif tutarı kredinizden düşülür ve teklif sizin için rezerve edilir. Rezervasyonu web sitesindeki rezervasyonlar listesinde de göreceksiniz. Asıl ödeme, QR kodunu teklife okuttuğunuzda gerçekleşir. Hala teklifi kullanmıyor musunuz? O zaman rezervasyonu iptal edebilirsiniz. Ödemeden sonra kalan tutarınız varsa, bu tutarla alışverişe devam edebilirsiniz.",
+                "nine": "Hayır, kredinin değeri size nakit olarak ödenmeyecektir.",
+                "one": "Sağ üstteki 'Başlat'a tıklayın. E-posta adresinizi ve mektupla aldığınız aktivasyon kodunu (8 karakter) girin. Ardından 'Gönder'e tıklayın. Profiliniz oluşturuldu ve krediniz etkinleştirildi!",
+                "seven": "Hayır, krediyi tek seferde harcamak zorunda değilsiniz.",
+                "six": "İade ne yazık ki mümkün değildir. Değişim mümkün olabilir, olasılıklar hakkında perakendeciye danışın.",
+                "ten": "Hayır, kredi yalnızca web mağazasında listelenen satıcılarda harcanabilir. Bir perakendeciyi katılım başvurusu konusunda uyarabilir ve 0544-474200 numaralı telefondan Fijnder ile iletişime geçmesini sağlayabilirsiniz.",
+                "thirteen": "Hayır, kredi kesinlikle kişiseldir. Krediyi başka birine veremezsiniz. Kredinizi başka biri kullanırsa, kendi tutarınızdan düşülecektir.",
+                "three": "Web mağazasında tüm sağlayıcılara genel bir bakış bulabilirsiniz. 'Tüm sağlayıcılara genel bakış'a gidin",
+                "title": "Sıkça sorulan sorular",
+                "twelve": "Çocuk Programı almaya hakkınız olduğunu düşünüyorsanız 0544-474200 numaralı telefondan Fijnder ile iletişime geçin. Koşulları karşılayıp karşılamadığınızı kontrol edeceklerdir. <br>Asgari gelire sahip (%130 yardım seviyesine kadar) tüm yetişkin sakinler Meedoen Düzenlemesi için uygundur. Meedoenarrangement için uygun olduğunuzu düşünüyorsanız, lütfen 0544-474200 numaralı telefondan Fijnder ile iletişime geçin. Koşulları karşılayıp karşılamadığınızı kontrol edeceklerdir.",
+                "two": "Bu, en kolayı e-posta olmak üzere çeşitli şekillerde yapılabilir. Sağ üstteki 'Oturum aç' seçeneğine tıklayın. 'E-posta ile giriş yap'ı seçin. Aktivasyon sırasında da kullandığınız e-posta adresini girin ve 'Gönder'e tıklayın. E-postayı açın ve oturum açmak için aldığınız bağlantıya tıklayın."
+            },
+            "eight": "{{start_date}} Kredi, tarihinden itibaren bir yıl süreyle geçerlidir.",
+            "eleven": "Evet, olabilir. Bu durumda lütfen belediyeye başvurun.",
+            "faq_eight": "Kredim ne kadar süreyle geçerlidir?",
+            "faq_eleven": "Başka bir çocuğum daha oldu, daha yüksek kredi alma hakkım var mı?",
+            "faq_five": "Ne kadar kredim kaldığını nasıl görebilirim?",
+            "faq_four": "Kredimi kaybettim. Ne yapmam gerekiyor?",
+            "faq_fourteen": "Web mağazasında teklifler görüyorum, bir ürün veya hizmeti nasıl satın alabilirim?",
+            "faq_nine": "Krediyi nakit parayla değiştirebilir miyim?",
+            "faq_one": "{{fund}} Nasıl aktive edebilirim?",
+            "faq_seven": "Kredi hemen harcanmalı mı?",
+            "faq_six": "Satın aldığım bir şeyi değiştirebilir miyim/iade edebilir miyim?",
+            "faq_ten": "Web sitesinde listelenmeyen başka bir sağlayıcıdan bir şey satın alabilir miyim?",
+            "faq_thirteen": "Övgüyü başkasına verebilir miyim?",
+            "faq_three": "{{fund}} Hangi sağlayıcılarda harcama yapabilirim?",
+            "faq_twelve": "{{fund}}Nasıl hak kazanabilirim?",
+            "faq_two": "Web mağazasına nasıl giriş yapabilirim?",
+            "five": "Her ödemeden sonra, mevcut krediyi içeren bir e-posta gönderilir, ayrıca web mağazasına giriş yaparak veya Me uygulamasını kullanarak krediyi görüntüleyebilirsiniz.",
+            "four": "Kredinizi (QR kodu) web mağazasına giriş yaparak her zaman bulabilir, kodu yazdırabilir, e-postanıza gönderebilir veya Me uygulamasını kullanarak her zaman elinizin altında bulundurabilirsiniz.",
+            "fourteen": "Web mağazasına giriş yapın ve 'Teklif'e tıklayın. Ardından istediğiniz teklifi seçin ve 'Rezerve Et' seçeneğine tıklayın. Ardından teklifi rezerve etmek için krediyi seçin. Teklif tutarı kredinizden düşülür ve teklif sizin için rezerve edilir. Rezervasyonu web sitesindeki rezervasyonlar listesinde de göreceksiniz. Asıl ödeme, QR kodunu teklife okuttuğunuzda gerçekleşir. Hala teklifi kullanmıyor musunuz? O zaman rezervasyonu iptal edebilirsiniz. Ödemeden sonra kalan tutarınız varsa, bu tutarla alışverişe devam edebilirsiniz.",
+            "nine": "Hayır, kredinin değeri size nakit olarak ödenmeyecektir.",
+            "noordoostpolder": {
+                "eight": "Web mağazasına giriş yaparak kredinizi görüntüleyebilirsiniz. Geçerlilik süresi kredi sayfasında da gösterilir.",
+                "eleven": "Kredi, 4 ila 17 yaş arası çocuklara yöneliktir. Çocuğunuz 4 yaşına girdi mi? Daha sonra kredi için başvurabilirsiniz, (0527) 63 39 11. Ya da başvuru formunu indirebilirsiniz: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https: </a>//www.noordoostpolder.nl/meedoenpakket ",
+                "faq_eight": "Kredi ne kadar süreyle geçerlidir?",
+                "faq_fourteen": "Web mağazasında teklifler görüyorum, nasıl teklif satın alabilirim?",
+                "faq_nine": "Krediyi nakit parayla değiştirebilir miyim?",
+                "faq_one": "Meedoenpakket'i nasıl aktive edebilirim?",
+                "faq_six": "Satın aldığım bir şeyi değiştirebilir miyim/iade edebilir miyim?",
+                "faq_thirteen": "Övgüyü başkasına verebilir miyim?",
+                "faq_three": "Krediyi hangi sağlayıcılarda harcayabilirim?",
+                "faq_twelve": "Ben veya çocuğum kredi için uygun muyum?",
+                "five": "Her ödemeden sonra, mevcut krediyi içeren bir e-posta gönderilir, ayrıca web mağazasına giriş yaparak veya Me uygulamasını kullanarak krediyi görüntüleyebilirsiniz.",
+                "four": "Kredinizi her zaman web mağazasında oturum açarak bulabilir, krediyi yazdırabilir, e-postanıza gönderebilir veya Me uygulamasını kullanarak her zaman elinizin altında bulundurabilirsiniz.",
+                "fourteen": "Web mağazasına giriş yapın ve 'Teklif'e tıklayın. Ardından istediğiniz teklifi seçin ve 'Rezerve Et' seçeneğine tıklayın. Ardından teklifi rezerve etmek için krediyi seçin. Teklif tutarı kredinizden düşülür ve teklif sizin için rezerve edilir. Rezervasyonu web sitesindeki rezervasyonlar listesinde de göreceksiniz. Asıl ödeme, QR kodunu teklife okuttuğunuzda gerçekleşir. Hala teklifi kullanmıyor musunuz? O zaman rezervasyonu iptal edebilirsiniz. Ödemeden sonra kalan tutarınız varsa, bu tutarla alışverişe devam edebilirsiniz.",
+                "nine": "Hayır, kredinin değeri size temas parası olarak ödenmeyecektir.",
+                "one": "En üstteki 'Uygulamayı başlat' seçeneğine tıklayın. E-posta adresinizi ve mektupla aldığınız aktivasyon kodunu girin. Ardından 'Gönder'e tıklayın. Hesabınız oluşturulur ve Meedoen krediniz etkinleştirilir! Her e-posta adresi için 1 aktivasyon kodu etkinleştirebilirsiniz. Birden fazla aktivasyon kodunuz mu var? O zaman birden fazla e-posta adresi kullanın.",
+                "seven": "Hayır, krediyi tek seferde harcamak zorunda değilsiniz.",
+                "six": "Hayır, değişim veya iade yapamazsınız.",
+                "ten": "Hayır, kredi sadece web mağazasında listelenen sağlayıcılarda kullanılabilir. Bir sağlayıcıdan katılım uygulaması aracılığıyla kaydolmasını isteyebilir veya belediye ile iletişime geçebilirsiniz, (0527) 63 39 11.",
+                "thirteen": "Hayır, kredi kesinlikle kişiseldir. Krediyi başka birine veremezsiniz. Kredinizi başka biri kullanırsa, kendi tutarınızdan düşülecektir.",
+                "three": "Tüm sağlayıcıların genel bir görünümünü web mağazasında 'Sağlayıcılar' altında bulabilirsiniz.",
+                "twelve": "Meedoenpakket, ebeveynleri düşük gelirli olan 4 ila 17 yaş arası çocuklara yöneliktir. Düşük gelirli emekliler de Meedoenpakket için başvurabilir. Kendinizin veya çocuklarınızın krediye hak kazandığını düşünüyorsanız, başvuruda bulunabilirsiniz. (0527) 69 93 11 numaralı telefonu arayın veya başvuru formunu indirin: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https: </a>//www.noordoostpolder.nl/meedoenpakket "
+            },
+            "one": "Sayfanın üst kısmındaki 'Başlat'a tıklayın. Kendi e-posta adresinizi kullanın ve ardından aktivasyon kodunuzu girin.",
+            "oostgelre": {
+                "eight": "Web mağazasına giriş yaparak kredinizi görüntüleyebilirsiniz. Geçerlilik süresi kredi sayfasında da gösterilir.",
+                "eleven": "Evet, görüşebilirsiniz. O zaman Fijnder ile iletişime geçin, 0544-474200.",
+                "faq_eight": "Kredi ne kadar süreyle geçerlidir?",
+                "faq_eleven": "Başka bir çocuğum daha oldu, daha yüksek kredi alma hakkım var mı?",
+                "faq_fifteen": "Hangi kuruluşlar bana destek sunabilir?",
+                "faq_five": "Ne kadar kredim kaldığını nasıl görebilirim?",
+                "faq_four": "Kredimi kaybettim. Ne yapmam gerekiyor?",
+                "faq_fourteen": "Web mağazasında teklifler görüyorum, bir ürün veya hizmeti nasıl satın alabilirim?",
+                "faq_nine": "Krediyi nakit parayla değiştirebilir miyim?",
+                "faq_one": "Çocuk Düzenlemesini nasıl etkinleştirebilirim?",
+                "faq_seven": "Kredi hemen harcanmalı mı?",
+                "faq_six": "Satın aldığım bir şeyi değiştirebilir miyim/iade edebilir miyim?",
+                "faq_ten": "Web mağazasında listelenmeyen başka bir sağlayıcıdan bir şey satın alabilir miyim?",
+                "faq_thirteen": "Övgüyü başkasına verebilir miyim?",
+                "faq_three": "{{fund}} Hangi sağlayıcılarda harcama yapabilirim?",
+                "faq_twelve": "Çocuk Programına nasıl hak kazanabilirim?",
+                "faq_two": "Web mağazasına nasıl giriş yapabilirim?",
+                "fifteen": "Giysi bankası size giysi, ayakkabı ve tekstil ürünleri sağlayarak destek olabilir. Yılda iki kez ziyaret edebilirsiniz, bunun için sevk almanız gerekir.<br/><br/><br/><br/>Daha fazla bilgi için: http: <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>//www.kledingbankwinterswijk.nl/home.aspx</a> Stichting leergeld, Fijnder tarafından karşılanmayan okul veya spor masraflarınızda size destek olabilir, daha fazla bilgi için: https:<a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>//leergeldoostachterhoek.nl/welkom</a> Oyuncak bankasından oyuncak ödünç alabilirsiniz, bunun için bir yönlendirme gereklidir.<br/><br/>Daha fazla bilgi için: http:<a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>//www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a> Yiyecek bankası, yiyecek almak için yeterli geliriniz olmadığında size destek olabilir, yiyecek bankası için bir yönlendirmeye ihtiyacınız vardır.<br/><br/>Daha fazla bilgi için<a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a> Berkelland Belediyesi ve Winterswijk Belediyesi Gençlik Spor Fonu ile irtibata geçebilirsiniz.<br/><br/>Koşulları <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a> adresinde bulabilirsiniz Jarige Job vakfı çocuk partileri konusunda size destek olabilir. Daha fazla bilgi için lütfen <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a> adresini ziyaret edin.",
+                "five": "Her ödemeden sonra, mevcut krediyi içeren bir e-posta gönderilir, ayrıca web mağazasına giriş yaparak veya Me uygulamasını kullanarak krediyi görüntüleyebilirsiniz.",
+                "four": "Kredinizi web mağazasında oturum açarak her zaman bulabilir, yazdırabilir, e-postanıza gönderebilir veya Me uygulamasını kullanarak her zaman elinizin altında bulundurabilirsiniz.",
+                "fourteen": "Web mağazasına giriş yapın ve 'Teklif'e tıklayın. Ardından istediğiniz teklifi seçin ve 'Rezerve Et' seçeneğine tıklayın. Ardından teklifi rezerve etmek için krediyi seçin. Teklif tutarı kredinizden düşülür ve teklif sizin için rezerve edilir. Rezervasyonu web sitesindeki rezervasyonlar listesinde de göreceksiniz. Asıl ödeme, QR kodunu teklife okuttuğunuzda gerçekleşir. Hala teklifi kullanmıyor musunuz? O zaman rezervasyonu iptal edebilirsiniz. Ödemeden sonra kalan tutarınız varsa, bu tutarla alışverişe devam edebilirsiniz.",
+                "nine": "Hayır, kredinin değeri size nakit olarak ödenmeyecektir.",
+                "one": "Sağ üstteki 'Başlat'a tıklayın. E-posta adresinizi ve mektupla aldığınız aktivasyon kodunu girin. Ardından 'Gönder'e tıklayın. Profiliniz oluşturuldu ve Çocuk Programı krediniz etkinleştirildi!",
+                "seven": "Hayır, krediyi tek seferde harcamak zorunda değilsiniz.",
+                "six": "İade ne yazık ki mümkün değildir. Değişim mümkün olabilir, olasılıklar hakkında perakendeciye danışın.",
+                "ten": "Hayır, kredi yalnızca web mağazasında listelenen satıcılarda harcanabilir. Bir perakendeciyi katılım başvurusu konusunda uyarabilir ve 0544-474200 numaralı telefondan Fijnder ile iletişime geçmesini sağlayabilirsiniz.",
+                "thirteen": "Hayır, kredi kesinlikle kişiseldir. Krediyi başka birine veremezsiniz. Kredinizi başka biri kullanırsa, kendi tutarınızdan düşülecektir.",
+                "three": "Web mağazasında tüm sağlayıcılara genel bir bakış bulabilirsiniz. 'Tüm sağlayıcılara genel bakış'a gidin",
+                "title": "Sıkça sorulan sorular",
+                "twelve": "Çocuk Programı almaya hakkınız olduğunu düşünüyorsanız 0544-474200 numaralı telefondan Fijnder ile iletişime geçin. Koşulları karşılayıp karşılamadığınızı kontrol edeceklerdir.",
+                "two": "Bu, en kolayı e-posta olmak üzere çeşitli şekillerde yapılabilir. Sağ üstteki 'Oturum aç' seçeneğine tıklayın. 'E-posta ile giriş yap'ı seçin. Aktivasyon sırasında da kullandığınız e-posta adresini girin ve 'Gönder'e tıklayın. E-postayı açın ve oturum açmak için aldığınız bağlantıya tıklayın."
+            },
+            "potjeswijzer": {
+                "faq_one": "Lazımlık için nasıl başvurabilirim?",
+                "one": "En üstteki 'Uygulamayı başlat' seçeneğine tıklayın. E-posta adresinizi girin ve kendi güvenilir e-posta kutunuzdaki giriş bağlantısını kullanın. Ardından kendi DigiD'nizi kullanarak giriş yapın. Koşulları karşıladığınızı kontrol edin!"
+            },
+            "seven": "Hayır, krediyi tek seferde harcamak zorunda değilsiniz.",
+            "six": "Hayır, değişim veya iade yapamazsınız. Değişim mümkün olabilir, sağlayıcıya olasılıklar hakkında bilgi verin.",
+            "ten": "Hayır, krediyi yalnızca web sitesinde listelenen sağlayıcılarda harcayabilirsiniz.",
+            "thirteen": "Hayır, kredi kesinlikle kişiseldir. Krediyi başka birine veremezsiniz. Kredinizi başka biri kullanırsa, kendi miktarınız azalacaktır.",
+            "three": "Web mağazasında tüm sağlayıcılara genel bir bakış bulabilirsiniz. 'Tüm sağlayıcılara genel bakış'a gidin",
+            "title": "Sıkça sorulan sorular {{client_key}}",
+            "twelve": "{{fund}}Eğer hakkınız olduğunu düşünüyorsanız, belediyeye başvurun. Belediye daha sonra koşulları karşılayıp karşılamadığınızı kontrol edecektir.",
+            "two": "Birkaç şekilde giriş yapabilirsiniz. En kolay yol e-posta ile giriş yapmaktır. Sağ üstteki 'Oturum aç' seçeneğine tıklayın. 'E-posta ile giriş yap'ı seçin. Aktivasyon sırasında da kullandığınız e-posta adresini girin ve 'Gönder'e tıklayın. E-postanızı açın ve oturum açmak için aldığınız bağlantıya tıklayın.",
+            "westerkwartier": {
+                "eight": "Web sitesine giriş yaparak, kredinizi 'Kredim' altında görüntüleyebilirsiniz. Kredinin yanında 'Aç'a tıklayın. Bu sayfa aynı zamanda geçerliliği de gösterir.",
+                "faq_eight": "Kredim ne kadar süreyle geçerlidir?",
+                "faq_fourteen": "Web mağazasında teklifler görüyorum, bir ürün veya hizmeti nasıl satın alabilirim?",
+                "faq_one": "Çocuk Paketini nasıl aktive edebilirim?",
+                "faq_ten": "Web sitesinde listelenmeyen başka bir sağlayıcıdan bir şey satın alabilir miyim?",
+                "faq_three": "Krediyi hangi sağlayıcılarda harcayabilirim?",
+                "faq_twelve": "Çocuk Paketine nasıl hak kazanabilirim?",
+                "fourteen": "Web mağazasına giriş yapın ve 'Teklif'e tıklayın. Ardından istediğiniz teklifi seçin ve 'Rezerve Et' seçeneğine tıklayın. Ardından teklifi rezerve etmek için krediyi seçin. Teklif tutarı kredinizden düşülür ve teklif sizin için rezerve edilir. Rezervasyonu web sitesindeki rezervasyonlar listesinde de göreceksiniz. Asıl ödeme, QR kodunu teklife okuttuğunuzda gerçekleşir. Hala teklifi kullanmıyor musunuz? O zaman rezervasyonu iptal edebilirsiniz. Ödemeden sonra kalan tutarınız varsa, bu tutarla alışverişe devam edebilirsiniz.",
+                "one": "En üstteki 'Uygulamayı başlat' seçeneğine tıklayın. E-posta adresinizi girin ve DigiD ile giriş yapın. Hesabınız oluşturulur ve krediniz etkinleştirilir!",
+                "ten": "Hayır, krediyi yalnızca web sitesinde listelenen sağlayıcılarla harcayabilirsiniz. Bir sağlayıcıdan kaydolmasını isteyebilirsiniz.",
+                "three": "Web mağazasında tüm sağlayıcılara genel bir bakış bulabilirsiniz. 'Sağlayıcılar' üzerine tıklayın.",
+                "twelve": "Çocuk Paketi'nden yararlanmaya hakkınız olduğunu düşünüyorsanız, 14 0594 numaralı telefondan belediyeye başvurun. Belediye daha sonra koşulları karşılayıp karşılamadığınızı kontrol edecektir."
+            },
+            "winterswijk": {
+                "eight": "Web mağazasına giriş yaparak kredinizi görüntüleyebilirsiniz. Geçerlilik süresi kredi sayfasında da gösterilir.",
+                "eleven": "Evet, görüşebilirsiniz. O zaman Fijnder ile iletişime geçin, 0544-474200.",
+                "faq_eight": "Kredi ne kadar süreyle geçerlidir?",
+                "faq_eleven": "Başka bir çocuğum daha oldu, daha yüksek kredi alma hakkım var mı?",
+                "faq_fifteen": "Hangi kuruluşlar bana destek sunabilir?",
+                "faq_five": "Ne kadar kredim kaldığını nasıl görebilirim?",
+                "faq_four": "Kredimi kaybettim. Ne yapmam gerekiyor?",
+                "faq_fourteen": "Web mağazasında teklifler görüyorum, bir ürün veya hizmeti nasıl satın alabilirim?",
+                "faq_nine": "Krediyi nakit parayla değiştirebilir miyim?",
+                "faq_one": "Çocuk Düzenlemesini nasıl etkinleştirebilirim?",
+                "faq_seven": "Kredi hemen harcanmalı mı?",
+                "faq_six": "Satın aldığım bir şeyi değiştirebilir miyim/iade edebilir miyim?",
+                "faq_ten": "Web mağazasında listelenmeyen başka bir sağlayıcıdan bir şey satın alabilir miyim?",
+                "faq_thirteen": "Övgüyü başkasına verebilir miyim?",
+                "faq_three": "{{fund}} Hangi sağlayıcılarda harcama yapabilirim?",
+                "faq_twelve": "Çocuk Programına nasıl hak kazanabilirim?",
+                "faq_two": "Web mağazasına nasıl giriş yapabilirim?",
+                "fifteen": "Giysi bankası size giysi, ayakkabı ve tekstil ürünleri sağlayarak destek olabilir. Yılda iki kez ziyaret edebilirsiniz, bunun için sevk almanız gerekir.<br/><br/><br/><br/>Daha fazla bilgi için: http: <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>//www.kledingbankwinterswijk.nl/home.aspx</a> Stichting leergeld, Fijnder tarafından karşılanmayan okul veya spor masraflarınızda size destek olabilir, daha fazla bilgi için: https:<a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>//leergeldoostachterhoek.nl/welkom</a> Oyuncak bankasından oyuncak ödünç alabilirsiniz, bunun için bir yönlendirme gereklidir.<br/><br/>Daha fazla bilgi için: http:<a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>//www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a> Yiyecek bankası, yiyecek almak için yeterli geliriniz olmadığında size destek olabilir, yiyecek bankası için bir yönlendirmeye ihtiyacınız vardır.<br/><br/>Daha fazla bilgi için<a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a> Berkelland Belediyesi ve Winterswijk Belediyesi Gençlik Spor Fonu ile irtibata geçebilirsiniz.<br/><br/>Koşulları <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a> adresinde bulabilirsiniz Jarige Job vakfı çocuk partileri konusunda size destek olabilir. Daha fazla bilgi için lütfen <a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a> adresini ziyaret edin.",
+                "five": "Her ödemeden sonra, mevcut krediyi içeren bir e-posta gönderilir, ayrıca web mağazasına giriş yaparak veya Me uygulamasını kullanarak krediyi görüntüleyebilirsiniz.",
+                "four": "Kredinizi web mağazasında oturum açarak her zaman bulabilir, yazdırabilir, e-postanıza gönderebilir veya Me uygulamasını kullanarak her zaman elinizin altında bulundurabilirsiniz.",
+                "fourteen": "Web mağazasına giriş yapın ve 'Teklif'e tıklayın. Ardından istediğiniz teklifi seçin ve 'Rezerve Et' seçeneğine tıklayın. Ardından teklifi rezerve etmek için krediyi seçin. Teklif tutarı kredinizden düşülür ve teklif sizin için rezerve edilir. Rezervasyonu web sitesindeki rezervasyonlar listesinde de göreceksiniz. Asıl ödeme, QR kodunu teklife okuttuğunuzda gerçekleşir. Hala teklifi kullanmıyor musunuz? O zaman rezervasyonu iptal edebilirsiniz. Ödemeden sonra kalan tutarınız varsa, bu tutarla alışverişe devam edebilirsiniz.",
+                "nine": "Hayır, kredinin değeri size nakit olarak ödenmeyecektir.",
+                "one": "Sağ üstteki 'Başlat'a tıklayın. E-posta adresinizi ve mektupla aldığınız aktivasyon kodunu girin. Ardından 'Gönder'e tıklayın. Profiliniz oluşturuldu ve Çocuk Programı krediniz etkinleştirildi!",
+                "seven": "Hayır, krediyi tek seferde harcamak zorunda değilsiniz.",
+                "six": "İade ne yazık ki mümkün değildir. Değişim mümkün olabilir, olasılıklar hakkında perakendeciye danışın.",
+                "ten": "Hayır, kredi yalnızca web mağazasında listelenen satıcılarda harcanabilir. Bir perakendeciyi katılım başvurusu konusunda uyarabilir ve 0544-474200 numaralı telefondan Fijnder ile iletişime geçmesini sağlayabilirsiniz.",
+                "thirteen": "Hayır, kredi kesinlikle kişiseldir. Krediyi başka birine veremezsiniz. Kredinizi başka biri kullanırsa, kendi tutarınızdan düşülecektir.",
+                "three": "Web mağazasında tüm sağlayıcılara genel bir bakış bulabilirsiniz. 'Tüm sağlayıcılara genel bakış'a gidin",
+                "title": "Sıkça sorulan sorular",
+                "twelve": "Çocuk Programı almaya hakkınız olduğunu düşünüyorsanız 0544-474200 numaralı telefondan Fijnder ile iletişime geçin. Koşulları karşılayıp karşılamadığınızı kontrol edeceklerdir.",
+                "two": "Bu, en kolayı e-posta olmak üzere çeşitli şekillerde yapılabilir. Sağ üstteki 'Oturum aç' seçeneğine tıklayın. 'E-posta ile giriş yap'ı seçin. Aktivasyon sırasında da kullandığınız e-posta adresini girin ve 'Gönder'e tıklayın. E-postayı açın ve oturum açmak için aldığınız bağlantıya tıklayın."
+            }
+        },
+        "guide": {
+            "berkelland": {
+                "five": "Krediyi nerede harcayabileceğinizi veya bir ürün veya hizmet satın alabileceğinizi görmek için 'Teklif'e veya tüm sağlayıcılara genel bakışa gidin. Sağlayıcıya gidin ve ürününüzü veya hizmetinizi almak için ilgili QR kodunu gösterin.",
+                "four": "'Kredilerim' bölümünde kişisel bir QR kodu da bulunmaktadır. Bu QR kodunu, bir etkinlik yapmak istediğiniz yerdeki sağlayıcıya ödeme yapmak için kullanırsınız. QR kodunu yazdırabilir, kendinize e-posta ile gönderebilir veya uygulamaya giriş yaparak telefonunuzda gösterebilirsiniz <a href='#!/me' tartget='_blank'><u><i>Ben</i></u></a>. Uygulama <a href='#!/me' tartget='_blank'><u><i>'Ben - Forus'</i></u></a> Google Playstore ve App Store'dan indirilebilir.",
+                "one": "Fijnder'den bir mektup aldınız. Mektup bir aktivasyon kodu içeriyor.",
+                "stepfive": "Adım #5",
+                "stepfour": "Adım #4",
+                "stepone": "Adım #1",
+                "stepthree": "Adım #3",
+                "steptwo": "Adım 2",
+                "three": "Ardından 'Teklifler' üzerine tıklayın. Orada tüm faaliyetleri ve kursları bulacaksınız. Ayrıca kredinizi de görebilirsiniz. Kredinizi en üstteki 'Kredim' seçeneğine tıklayarak bulabilirsiniz.",
+                "title": "Nasıl çalışır",
+                "two": "Aktivasyon kodunuzu girmek için 'Başlat' düğmesine tıklayın. Kendi e-posta adresinizi kullanın."
+            },
+            "five": "Teklifi görmek için 'Teklif' üzerine tıklayın. 'Kredim'e tıklarsanız, ne kadar krediniz olduğunu görürsünüz.",
+            "four": "Krediyi katılımcı sağlayıcılarda ödeme yapmak için kullanırsınız. Sağlayıcı kodunuzu tarar. Kredi daha sonra otomatik olarak borçlandırılacaktır. Katılımcı sağlayıcıların listesi ve 'Teklifler' sayfası aracılığıyla kredinizi nerede ve ne için harcayabileceğinizi görebilirsiniz.",
+            "noordoostpolder": {
+                "five": "Teklifleri görmek için 'Teklifler' üzerine tıklayın. 'Kredim'e tıklarsanız, ne kadar krediniz olduğunu görürsünüz.",
+                "four": "Katılımcı sağlayıcılarda ödeme yapmak için QR kodunu kullanırsınız. Sağlayıcı kodunuzu tarar. Ardından kredi otomatik olarak borçlandırılır. QR kodunu yazdırarak, kendinize e-posta ile göndererek veya Me uygulamasını kullanarak yanınızda götürebilirsiniz.",
+                "one": "Belediyeden Meedoenpakket için bir aktivasyon kodu içeren bir mektup aldınız.",
+                "three": "Bir Meedoenpakket aldıysanız, ödeme yapmak için kullanabileceğiniz QR kodunu 'Kredilerim' üzerine tıklayarak bulabilirsiniz.",
+                "two": "E-posta adresinizi ve aktivasyon kodunuzu girmek için <u>Başlat</u> 'a tıklayın. Her aktivasyon kodu için farklı bir e-posta adresi kullanın."
+            },
+            "one": "Belediyeden bir mektup aldınız. Mektupta bir aktivasyon kodu bulunmaktadır.",
+            "oostgelre": {
+                "five": "Krediyi nerede harcayabileceğinizi veya bir ürün veya hizmet satın alabileceğinizi görmek için 'Teklif'e veya tüm sağlayıcılara genel bakışa gidin. Sağlayıcıya gidin ve ürününüzü veya hizmetinizi almak için ilgili QR kodunu gösterin.",
+                "four": "'Kredilerim' bölümünde kişisel bir QR kodu da bulunmaktadır. Bu QR kodunu, bir etkinlik yapmak istediğiniz yerdeki sağlayıcıya ödeme yapmak için kullanırsınız. QR kodunu yazdırabilir, kendinize e-posta ile gönderebilir veya uygulamaya giriş yaparak telefonunuzda gösterebilirsiniz <a href='#!/me' tartget='_blank'><u><i>Ben</i></u></a>. Uygulama <a href='#!/me' tartget='_blank'><u><i>'Ben - Forus'</i></u></a> Google Playstore ve App Store'dan indirilebilir.",
+                "one": "Fijnder'den bir mektup aldınız. Mektup bir aktivasyon kodu içeriyor.",
+                "stepfive": "Adım #5",
+                "stepfour": "Adım #4",
+                "stepone": "Adım #1",
+                "stepthree": "Adım #3",
+                "steptwo": "Adım 2",
+                "three": "Ardından 'Teklifler' üzerine tıklayın. Orada tüm faaliyetleri ve kursları bulacaksınız. Ayrıca kredinizi de görebilirsiniz. Kredinizi en üstteki 'Kredim' seçeneğine tıklayarak bulabilirsiniz.",
+                "title": "Nasıl çalışır",
+                "two": "Aktivasyon kodunuzu girmek için 'Başlat' düğmesine tıklayın. Kendi e-posta adresinizi kullanın."
+            },
+            "potjeswijzer": {
+                "five": "Kredinizi nerede harcayabileceğinizi veya bir ürün veya hizmet satın alabileceğinizi görmek için 'Teklif'e veya tüm sağlayıcılara genel bakışa gidin. Sağlayıcıya gidin ve ürününüzü veya hizmetinizi almak için ilgili QR kodunu gösterin.",
+                "four": "Başvurunuz onaylandı mı? O zaman krediye erişiminiz olacak. QR kodu ile ödemeyi yapmak için sağlayıcıya gidebilirsiniz.",
+                "one": "Başvurunuzu başlatmak için 'Başlat' düğmesine tıklayın.",
+                "three": "Mevcut lazımlıklara genel bir bakış göreceksiniz. İstediğiniz bir lazımlık görüyor musunuz? 'Başvur'a tıklayın ve bilgilerinizi girin. Talebiniz işleme alınacaktır.",
+                "two": "Kendi e-posta adresinizle oturum açın."
+            },
+            "stepfive": "Adım 5",
+            "stepfour": "Adım 4",
+            "stepone": "Adım 1",
+            "stepthree": "Adım 3",
+            "steptwo": "Adım 2",
+            "three": "Ardından 'Teklifler' üzerine tıklayın. Orada tüm faaliyetleri ve kursları bulacaksınız. Ayrıca kredinizi de görebilirsiniz. Kredinizi en üstteki 'Kredim' seçeneğine tıklayarak bulabilirsiniz.",
+            "title": "Nasıl çalışır",
+            "two": "Aktivasyon kodunuzu girmek için <u>Başlat</u> düğmesine tıklayın. Kendi e-posta adresinizi kullanın.",
+            "westerkwartier": {
+                "five": "Teklifleri görmek için 'Teklifler' üzerine tıklayın. 'Kredim'e tıklarsanız, ne kadar krediniz olduğunu görürsünüz.",
+                "four": "Katılımcı sağlayıcılarda ödeme yapmak için QR kodunu kullanırsınız. Sağlayıcı kodunuzu tarar. Ardından kredi otomatik olarak borçlandırılır. QR kodunu yazdırarak, kendinize e-posta ile göndererek veya Me uygulamasını kullanarak yanınızda götürebilirsiniz.",
+                "one": "Belediyeden Çocuk Paketi ile ilgili bir mektup aldınız.",
+                "three": "Bir kredi aldıysanız, ödeme yapmak için kullanabileceğiniz QR kodunu 'Kredim'e tıklayarak bulabilirsiniz. Ardından 'Teklifler'e tıklayın. Orada tüm ürün ve hizmetleri bulacaksınız.",
+                "two": "Başvurunuzu başlatmak için 'Başvuruyu başlat' düğmesine tıklayın. Kendi e-posta adresinizi kullanın ve DigiD ile giriş yapın."
+            },
+            "winterswijk": {
+                "five": "Krediyi nerede harcayabileceğinizi veya bir ürün veya hizmet satın alabileceğinizi görmek için 'Teklif'e veya tüm sağlayıcılara genel bakışa gidin. Sağlayıcıya gidin ve ürününüzü veya hizmetinizi almak için ilgili QR kodunu gösterin.",
+                "four": "'Kredilerim' bölümünde kişisel bir QR kodu da bulunmaktadır. Bu QR kodunu, bir etkinlik yapmak istediğiniz yerdeki sağlayıcıya ödeme yapmak için kullanırsınız. QR kodunu yazdırabilir, kendinize e-posta ile gönderebilir veya uygulamaya giriş yaparak telefonunuzda gösterebilirsiniz <a href='#!/me' tartget='_blank'><u><i>Ben</i></u></a>. Uygulama <a href='#!/me' tartget='_blank'><u><i>'Ben - Forus'</i></u></a> Google Playstore ve App Store'dan indirilebilir.",
+                "one": "Fijnder'den bir mektup aldınız. Mektup bir aktivasyon kodu içeriyor.",
+                "stepfive": "Adım #5",
+                "stepfour": "Adım #4",
+                "stepone": "Adım #1",
+                "stepthree": "Adım #3",
+                "steptwo": "Adım 2",
+                "three": "Ardından 'Teklifler' üzerine tıklayın. Orada tüm faaliyetleri ve kursları bulacaksınız. Ayrıca kredinizi de görebilirsiniz. Kredinizi en üstteki 'Kredim' seçeneğine tıklayarak bulabilirsiniz.",
+                "title": "Nasıl çalışır",
+                "two": "Aktivasyon kodunuzu girmek için 'Başlat' düğmesine tıklayın. Kendi e-posta adresinizi kullanın."
+            }
+        },
+        "header": {
+            "auth_button": "İndir Beni",
+            "auth_cta": "Me uygulamasını kullanarak kredilerinizi kontrol edin ve yanınıza alın.",
+            "berkelland": {
+                "cta": "'Başlat'a tıklayın ve aktivasyon kodunuzu girin. Bu kod, Çocuk Programı hakkında aldığınız mektupta bulunabilir.",
+                "subtitle_multi": "Berkelland Belediyesi Çocuk Programı web sitesine hoş geldiniz. Fijnder aracılığıyla Çocuk Programı için bir tahsisat aldınız mı? Eğer öyleyse, burada teklifi ve harcayabileceğiniz parayı görebilirsiniz.",
+                "title_multi": "Berkelland Belediyesi Çocuk Planı"
+            },
+            "button": "Giriş",
+            "button_av": "İstek",
+            "cta": "'Başlat'a tıklayın ve aktivasyon kodunuzu girin. {{fund}} Bu kod size gönderilen mektupta bulunabilir.",
+            "cta_av": "{{fund}}Koşullarını karşılıyor musunuz?",
+            "cta_multi": "'Başlat'a tıklayın ve aktivasyon kodunuzu girin. Bu kod aldığınız mektupta bulunabilir",
+            "header_note": "",
+            "noordoostpolder": {
+                "cta": "Kaydolmak için 'Başlat'a tıklayın. Bunu e-posta adresinizi ve mektuptaki aktivasyon kodunu kullanarak yapabilirsiniz. Meedoenpakket için uygunsunuz ancak aktivasyon kodunu almadınız mı? Lütfen 0527 633911 numaralı telefondan belediye ile iletişime geçin.",
+                "subtitle": "Noordoostpolder Belediyesi'nin Meedoenpakket web sitesine hoş geldiniz. Burada Meedoen kredinizin ne kadar yüksek olduğunu ve nelere harcayabileceğinizi görebilirsiniz.",
+                "title": "Katılım paketi"
+            },
+            "oostgelre": {
+                "cta": "'Başlat'a tıklayın ve aktivasyon kodunuzu girin. Bu kod, Çocuk Programı hakkında aldığınız mektupta bulunabilir.",
+                "subtitle_multi": "Oost Gelre Belediyesi'nin Çocuk Programı web sitesine hoş geldiniz. Fijnder aracılığıyla Çocuk Programı için bir tahsisat aldınız mı? O zaman teklifi ve harcayabileceğiniz parayı burada görebilirsiniz.",
+                "title": "Oost Gelre çocuk şeması belediyesi",
+                "title_multi": "Çocuk planı Oost Gelre Belediyesi"
+            },
+            "potjeswijzer": {
+                "button_av": "Başlangıç",
+                "cta_av": "",
+                "subtitle_av": "Westerkwartier'de birçok farklı kumbara vardır, genellikle düşündüğünüzden daha fazladır. Bu web sitesi kumbaralara başvurmanızı, bunları yönetmenizi ve harcamanızı sağlar."
+            },
+            "signup_cta": "Daha fazla oku >",
+            "subtitle": "{{fund}}'nin web sitesine hoş geldiniz. {{fund}} Belediyeden bir tahsisatınız var mı? O zaman teklifi ve harcayabileceğiniz parayı burada görebilirsiniz.",
+            "subtitle_av": "{{fund}}'nin web sitesine hoş geldiniz. Programa başvurabilir ve teklifi buradan görüntüleyebilirsiniz. Başvurduktan sonra ne kadar para harcayabileceğinizi de görebilirsiniz.",
+            "subtitle_multi": "{{org_name}} {{org_name}} Web mağazasına hoş geldiniz aracılığıyla bir ödül mü aldınız? O zaman teklifi ve harcayabileceğiniz parayı burada görebilirsiniz.",
+            "title": "{{implementation}}",
+            "title_multi": "Webshop {{org_name}}",
+            "vergoedingen": {
+                "button": "Oturum açma / kayıt olma"
+            },
+            "westerkwartier": {
+                "button_av": "Başlangıç",
+                "cta_av": "",
+                "subtitle_av": "Westerkwartier'de birçok farklı kumbara vardır, genellikle düşündüğünüzden daha fazladır. Bu web sitesi kumbaralara başvurmanızı, bunları yönetmenizi ve harcamanızı sağlar."
+            },
+            "winterswijk": {
+                "cta": "'Başlat'a tıklayın ve aktivasyon kodunuzu girin. Bu kod, Çocuk Programı hakkında aldığınız mektupta bulunabilir.",
+                "header_note": "Fotoğrafçı: H. van Ommen",
+                "subtitle_multi": "Winterswijk Belediyesi Çocuk Programı web sitesine hoş geldiniz. Fijnder aracılığıyla Çocuk Programı için bir tahsisat aldınız mı? O zaman teklifi ve harcayabileceğiniz parayı burada görebilirsiniz.",
+                "title_multi": "Çocuk programı Winterswijk Belediyesi"
+            }
+        },
+        "how_it_works": "Nasıl çalışıyor?",
+        "leergeld": {
+            "description": "Leergeld Nijmegen, Nijmegen'deki tüm çocukların katılımını hedeflemektedir. Düşük gelirli ailelerin çocukları için bu bir sorun olabilir. Leergeld Nijmegen, 0-17 yaş arası bu çocuklara her türlü etkinliğe katılma fırsatı sunmaktadır.",
+            "help_for_child": "Çocuğunuz için yardım",
+            "more_info": "Stichting Leergeld Nijmegen hakkında daha fazla bilgi",
+            "title": "Vakıf Leergeld Nijmegen"
+        },
+        "map": {
+            "show": "Haritayı göster",
+            "subtitle": "Yakınınızdaki yerleri ve tesisleri bulun.",
+            "title": "Haritamızı görüntüleyin"
+        },
+        "nijmegen": {
+            "bus_benefit_subscription": "Otobüs avantaj kartı",
+            "collective_health_insurance": "Toplu tamamlayıcı sağlık sigortası (CAZ)",
+            "description": "Nijmegen Belediyesi, düşük gelirli insanlar için çeşitli ödeneklere sahiptir. Düşük gelirli sakinlerin kültürel, spor ve eğitim faaliyetleri için en fazla 150 € aldığı Meedoenregeling'i düşünün. Ya da örneğin otobüs yardım kartı. Tüm ödenekler aşağıda listelenmiştir.",
+            "individual_income_allowance": "Bireysel gelir takviyesi",
+            "more_info": "Nijmegen Belediyesi'nden daha fazla ücret",
+            "participation_scheme": "Katılım planı",
+            "special_assistance": "Özel yardım",
+            "study_allowance": "Çalışma ödeneği",
+            "tax_relief": "Belediye vergisinden feragat",
+            "title": "Nijmegen Belediyesi"
+        },
+        "pre_check": {
+            "take_check": "Kontrolü yapın"
+        },
+        "product": {
+            "search": "Bir ürün veya hizmet arayın",
+            "select": "Kategori seçin...",
+            "title": "Teklif"
+        }
+    },
+    "not_found": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "not_found": "Sayfa bulunamadı"
+        }
+    },
+    "providers": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "providers": "Sağlayıcılar"
+        },
+        "distances": {
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
+            "everywhere": "Her yerde"
+        },
+        "filters": {
+            "all_categories": "Kategori seçin...",
+            "all_funds": "Tüm krediler...",
+            "all_products": "Tam teklif",
+            "all_providers": "Sağlayıcı seçin...",
+            "all_sub_categories": "Alt kategori seçin...",
+            "all_types": "Her türlü...",
+            "bookmarked": "Dilek listem",
+            "category": "Kategori",
+            "distance": "Mesafe",
+            "fund": "Kredi",
+            "map_title": "Daha fazla bilgi için bir sağlayıcı seçin",
+            "postcode": "Posta kodu",
+            "provider_type": "Sağlayıcı türü",
+            "providers": "Sağlayıcılar",
+            "result": "Şunlar var <div class=\"showcase-result-count\">{{ total }}</div> sağlayıcılar bulundu.",
+            "search": "Arama",
+            "sort": "Sırala",
+            "sub_category": "Alt Kategori"
+        },
+        "items": {
+            "labels": {
+                "open_provider": "Açık sağlayıcı",
+                "show_locations": "Yerleri göster"
+            }
+        },
+        "sort": {
+            "name_asc": "İsim (artan)",
+            "name_desc": "İsim (azalan)"
+        },
+        "title": "Sağlayıcılar",
+        "view": {
+            "list": "Liste",
+            "map": "Harita"
+        }
+    },
+    "search": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "search": "Arama sonuçları"
+        },
+        "entities": {
+            "funds": "Kredi",
+            "products": "Teklif",
+            "providers": "Sağlayıcılar"
+        },
+        "filters": {
+            "all_categories": "Kategori seçin...",
+            "all_funds": "Kredileri seçin...",
+            "all_providers": "Sağlayıcı seçin...",
+            "all_sub_categories": "Alt kategori seçin...",
+            "category": "Kategori",
+            "found_for": "{{ query }}\" \" için bulundu",
+            "funds": "Kredi",
+            "highlighted": "Öne Çıkanlar",
+            "providers": "Sağlayıcılar",
+            "sort": "Sırala"
+        },
+        "sort_by": {
+            "created_at_asc": "Önce en yaşlı",
+            "created_at_desc": "Yeni ilk"
+        },
+        "title": "Arama sonuçları",
+        "view": {
+            "list": "Liste",
+            "photos": "Fotoğraflar"
+        }
+    },
+    "signup": {
+        "items": {
+            "berkelland": {
+                "start_email": "Etkinleştirmeyi başlat"
+            },
+            "digid": "DigiD giriş ekranını açın",
+            "ede": {
+                "digid": "DigiD giriş ekranını açın",
+                "header": "Buradan giriş yapın",
+                "pane_text": "",
+                "restore_header": "",
+                "restore_title": "Hesabı geri yükle",
+                "signup": "",
+                "title": "Giriş"
+            },
+            "errors": {
+                "email": {
+                    "type_mismatch": "Lütfen geçerli bir e-posta adresi girin, örneğin naam@voorbeeld.com",
+                    "value_missing": "Lütfen geçerli bir e-posta adresi girin, örneğin naam@voorbeeld.com."
+                }
+            },
+            "geertruidenberg": {
+                "signup_option": "Devam etmek için DigiD ile giriş yapın"
+            },
+            "goereeoverflakkee": {
+                "start_email": "Kaydolun"
+            },
+            "groningen": {
+                "signup_option": "Devam etmek için DigiD ile giriş yapın"
+            },
+            "header": "Buradan giriş yapın",
+            "heumen": {
+                "start_email": "Etkinleştirmeyi başlat"
+            },
+            "noordoostpolder": {
+                "start_email": "Etkinleştirmeyi başlat"
+            },
+            "oostgelre": {
+                "start_email": "Etkinleştirmeyi başlat"
+            },
+            "page_title": "Giriş{{pageTitleSuffix}}",
+            "pane_text": "Mevcut bir hesaba giriş yapın",
+            "potjeswijzer": {
+                "signup_option": "Devam etmek için DigiD ile giriş yapın"
+            },
+            "restore_header": "",
+            "restore_title": "Hesabı geri yükle",
+            "schagen": {
+                "start_email": "Başlangıç"
+            },
+            "signup_option": "Devam etmek için bir seçim yapın",
+            "start_email": "Uygulamayı başlat",
+            "title": "Giriş",
+            "vergoedingen": {
+                "restore_title": "Hesabı geri yükle",
+                "signup_option": "Devam etmek için DigiD ile giriş yapın",
+                "title": "Giriş"
+            },
+            "waalwijk": {
+                "signup_option": "Devam etmek için DigiD ile giriş yapın"
+            },
+            "winterswijk": {
+                "start_email": "Etkinleştirmeyi başlat"
+            }
+        }
+    },
+    "sitemap": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "sitemap": "Site Haritası"
+        },
+        "title": "Site Haritası"
+    },
+    "wip": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "not_found": "Sayfa bulunamadı"
+        },
+        "description": "Bu sayfa yapım aşamasındadır.",
+        "title": "Çalışmalar devam ediyor"
+    },
+    "meapp_index": {
+        "buttons": {
+            "join": "Kaydolun"
+        },
+        "download": {
+            "android": "Android için Beni İndir",
+            "ios": "iOS için Beni İndir"
+        },
+        "functions": {
+            "app": "Uygulama kullanıcının bir profilini saklar, bu profil verilerin diğer programlara katılmak için yeniden kullanılmasını sağlar.",
+            "apply": "Kaydolun",
+            "criterion": "Bir belediyenin belirlenmiş kriterlerini karşılıyorsanız. Kredi için başvurabilirsiniz. Bu krediyi Me'de yönetebilirsiniz. Me ile güvenli ödeme yapabilirsiniz.",
+            "header": {
+                "title": "Özellikler"
+            },
+            "pin": "Bir profil oluşturma ve ardından bunu bir PIN ile güvence altına alma seçeneğiniz vardır.",
+            "profile": "Bir profil oluşturun",
+            "profileb": "Profil",
+            "vouchers": "Kredi",
+            "webshop": "Benimle web mağazasında oturum açın. Bunu, web mağazasının sunduğu QR kodunu Me ile tarayarak yaparsınız."
+        },
+        "header": {
+            "description": "Oturum açmak için bir profil, kredileri yönetmenize ve güvenli ödemeler yapmanıza olanak tanır",
+            "title_forus": "Noel paketi için bir profil",
+            "title_general": "Forus Platformu için bir profil",
+            "title_westerkwartier": "Çocuk Paketi için bir profil",
+            "title_zuidhorn": "Çocuk Paketi için bir profil"
+        },
+        "navbar": {
+            "me": "Ben",
+            "municipality": "Belediye",
+            "provider": "Sağlayıcı",
+            "shop": "Webshop"
+        }
+    },
+    "product": {
+        "breadcrumbs": {
+            "back": "Geri",
+            "home": "Ev",
+            "products": "Teklif",
+            "subsidies": "Teklif"
+        },
+        "buttons": {
+            "buy": "Rezervasyon",
+            "buy_label": "Açık rezervasyon formu",
+            "groningen": {
+                "request": "İstek"
+            },
+            "open_voucher": "Açık kredi",
+            "potjeswijzer": {
+                "request": "İstek"
+            },
+            "request": "Etkinleştir"
+        },
+        "funds": {
+            "fund": "Kredi:",
+            "not_available_label": "Rezervasyon",
+            "not_available_value": "Mevcut değil",
+            "title": "Kredi"
+        },
+        "labels": {
+            "category": "Kategori:",
+            "description": "Açıklama:",
+            "discount": "İndirim:",
+            "expire": "Şu tarihe kadar geçerlidir:",
+            "expire_prefix": "",
+            "find": "Bizi burada bulabilirsiniz",
+            "fund": "İstek",
+            "funds_card_btn_text": "Kredilere git",
+            "funds_card_description": "Bu teklif için hangi krediyi kullanabileceğinizi bilmek ister misiniz? O zaman krediye genel bakışa gidin!",
+            "funds_card_title": "Kredi bilgileri",
+            "limit": "Kalan kredi:",
+            "max_limit": "Kişi başına maksimum:",
+            "pay_from_voucher": "Krediden ödeme yaparsınız:",
+            "price": "Fiyat:"
+        },
+        "low_amount": "Yeterli bakiyeye sahip krediniz yok.",
+        "map": {
+            "title": "Harita üzerindeki konumlar"
+        },
+        "no_vouchers": "Bu teklifi rezerve etmek için krediniz yok",
+        "status": {
+            "active": "Aktif",
+            "free": "Ücretsiz",
+            "no_data": "Veri yok",
+            "out_of_stock": "Artık stok yok"
+        },
+        "tooltip": "Bu tekliften daha kaç kez yararlanabilirsiniz",
+        "price": {
+            "free": "Ücretsiz"
+        }
+    },
+    "records_create": {
+        "buttons": {
+            "back": "Geri",
+            "cancel": "İptal",
+            "choose": {
+                "c_description": "Oluşturmak istediğiniz kişisel veri türünü seçin.",
+                "category": "Kategori seçin",
+                "description": "Kişisel verileri eklemek istediğiniz kategoriyi seçin.",
+                "type": "Tip seçin"
+            },
+            "confirm": "Onaylayın",
+            "next": "Sonraki",
+            "text": "Metin",
+            "type": "Kişisel veri türü"
+        },
+        "header": {
+            "title": "Kişisel veri oluşturma"
+        }
+    },
+    "records_validate": {
+        "buttons": {
+            "send": "Nakliye"
+        },
+        "header": {
+            "title": "Kişisel bilgilerim"
+        },
+        "labels": {
+            "validators": "Değerlendiriciler"
+        },
+        "status": {
+            "hold": "Bekliyorum"
+        }
+    },
+    "records_validations": {
+        "buttons": {
+            "send": "Onay isteği gönderin"
+        },
+        "header": {
+            "title": "Kişisel bilgilerim"
+        },
+        "labels": {
+            "count": "Onaylar",
+            "validations": "Onaylar"
+        }
+    },
+    "records": {
+        "buttons": {
+            "create": "Kişisel veri oluşturma",
+            "validate": "Onaylamak"
+        },
+        "header": {
+            "title": "Kişisel veriler"
+        },
+        "labels": {
+            "count": "Yorumlar"
+        }
+    },
+    "voucher": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "voucher": "{{ title }}",
+            "voucher_physical": "Senin {{ title }}",
+            "vouchers": "Kredilerim"
+        },
+        "buttons": {
+            "details": "Detayları görüntüle",
+            "send": "Bana e-posta gönderin"
+        },
+        "card": {
+            "activate_my_pass": "Geçiş kartımı etkinleştir",
+            "cancel": "İptal",
+            "delete": "Rezervasyonu iptal et",
+            "expire": "Şu tarihe kadar geçerlidir:",
+            "expired": "Süresi doldu",
+            "footer": {
+                "actions": {
+                    "mail": "Bana e-posta gönderin",
+                    "open_in_me": "Uygulamada aç",
+                    "physical_card_use": "Plastik geçiş",
+                    "print": "Yazdır",
+                    "share": "Sağlayıcı ile paylaşın"
+                },
+                "tooltips": {
+                    "mail": "Krediyi kendinize e-posta ile gönderin",
+                    "open_in_me": "Ben",
+                    "print": "Kredinin çıktısını alın",
+                    "share": "Krediyi sağlayıcı ile paylaşın"
+                }
+            },
+            "header": {
+                "title": "Nasıl çalışıyor?"
+            },
+            "labels": {
+                "contact_provider": "Bu teklif hakkında herhangi bir sorunuz var mı? Varsa, lütfen bizimle iletişime geçin.",
+                "contact_sponsor": "Herhangi bir sorunuz var mı? Bize ulaşın.",
+                "description": "1.<br/><br/>Teklif'e tıklayın ve bir etkinlik seçip rezervasyon yapın. VEYA 2. QR kodunu sağlayıcıya götürün. QR kodunu sağlayıcıya götürün. Sağlayıcı QR kodunu tarayacak ve etkinliğinizi rezerve edecektir.",
+                "email": "E-posta adresi:",
+                "phone": "Telefon numarası:"
+            },
+            "lost_my_pass": "Geçiş kartımı kaybettim.",
+            "qrcode": {
+                "description": "{{fund_name}} Bu, QR kodlu kredinizdir.",
+                "productdescription": "Bu, QR kodlu rezervasyonunuzdur."
+            },
+            "share": "Paylaş",
+            "stop_participation": "Katılımı durdurun",
+            "used": "Kullanılmış",
+            "used_on": "Kullanılmış",
+            "valid_until": "Şu tarihe kadar geçerlidir"
+        },
+        "delete_voucher": {
+            "buttons": {
+                "close": "Kapat",
+                "submit": "Onaylayın"
+            },
+            "popup_form": {
+                "description": "Satın alma işleminden vazgeçmek için rezervasyonunuzu iptal edebilirsiniz. Bu satın alma işlemini iptal etmek istemiyorsanız \"kapat\" düğmesine tıklayın.",
+                "title": "Rezervasyonunuzu satın almadan önce iptal etmek mi istiyorsunuz?"
+            }
+        },
+        "history": {
+            "status": {
+                "expired": "Süresi doldu"
+            },
+            "title": "Harcamalar"
+        },
+        "labels": {
+            "add": "At",
+            "expire": "Şu tarihe kadar geçerlidir:",
+            "fund": "Fon",
+            "info": "<span style='font-style: italic;'>Haritada olmayan bir sağlayıcı mı arıyorsunuz? Bir sağlayıcıdan katılmasını isteyebilirsiniz. Bir sağlayıcı yıl boyunca başvurabilir.</span>",
+            "offers": "Teklifin tamamı hakkında bilgi almak ister misiniz? O zaman sağlayıcı ile iletişime geçin.",
+            "office": "Bu rezervasyonu kullanabileceğiniz yerler.",
+            "offices": "Sağlayıcılar",
+            "productdetail": "Tedarik bilgileri",
+            "requirements": "Bu teklifin hüküm ve koşulları için sağlayıcı ile iletişime geçin.",
+            "shopdetail": "Sağlayıcı bilgileri",
+            "subtract": "Kapalı",
+            "transactions": "Harcamalar",
+            "voucher": "Kredinizin çıktısını alın veya kendinize postalayın. QR kodunu sağlayıcıya götürün ve tarattırın."
+        },
+        "physical_card": {
+            "alt": "Fiziksel geçiş: '{[ title ]}'",
+            "buttons": {
+                "lost_pass": "Geçiş kartımı kaybettim.",
+                "reactivate": "Etkinleştir"
+            },
+            "card_number": "Geçiş numarası",
+            "title": "Geçiş kartımı etkinleştir"
+        },
+        "reimbursement": {
+            "button": "Kupon gönder",
+            "description": "Satın alma işleminizin ayrıntılarını ve fatura veya makbuzu göndererek yaptığınız masrafları geri alın.",
+            "title": "Maliyet geri kazanımı"
+        },
+        "share_voucher": {
+            "buttons": {
+                "cancel": "İptal",
+                "confirm": "Kapat",
+                "submit": "Gönder"
+            },
+            "close": "Kapat",
+            "labels": {
+                "send_copy": "Kendinize de kanıt olarak e-posta gönderin",
+                "share_note": "Sağlayıcı için mesaj"
+            },
+            "popup_form": {
+                "description": "Uzaktan satın almayı etkinleştirmek için rezervasyonunuzu sağlayıcı ile paylaşabilirsiniz. Teklif bir etkinlik veya hizmetle ilgiliyse: katılım için sağlayıcı tarafından istenen adınız ve telefon numaranız gibi ek bilgileri aşağıdaki alana yazın.",
+                "title": "Not! QR kodunu paylaşmadan önce lütfen sağlayıcıya bir mesaj gönderin."
+            },
+            "popup_sent": {
+                "description": "Sağlayıcı rezervasyonu ve mesajınızı aldı. Sağlayıcı ile irtibata geçin veya teklifi kaldırmak için sağlayıcıyı ziyaret edin.",
+                "title": "Rezervasyonunuz sağlayıcıya gönderildi.",
+                "title_modal": "Paylaş"
+            },
+            "reason_placeholder": "Sağlayıcı için mesaj"
+        },
+        "title": "{{ title }}",
+        "title_physical": "Senin {{ title }}",
+        "transactions": {
+            "add": "Ekle",
+            "bank_transfer": "Banka havalesi",
+            "expired_on": "Süresi {[ tarih ]} tarihinde doldu",
+            "no_spending": "Masraf yok",
+            "reservation": "Rezervasyon",
+            "subtract": "Çıkarma",
+            "title": "İşlemler",
+            "top_up": "Yükseltilmiş"
+        },
+        "voucher_card_combined": {
+            "header": {
+                "title": "Nasıl çalışıyor?"
+            },
+            "labels": {
+                "contact_sponsor": "Sorusu olan var mı?",
+                "contact_sponsor_details": "O zaman bizimle iletişime geçin.",
+                "how_it_works": "Başvurunuzu aldık. Başvurunuzla ilgili kararı 8 hafta içinde alacaksınız.",
+                "IIT": {
+                    "how_it_works": "Başvurunuzu aldık. Başvurunuzla ilgili kararı 8 hafta içinde alacaksınız.",
+                    "redirect_to": "Hala geri ödeme için başvurmak istiyor musunuz?"
+                },
+                "meedoenregeling_volwassenen_ww": {
+                    "how_it_works": "Bu program kapsamına giren harcamalar yaptınız mı? Bir makbuz ibraz ederek harcamalarınızı geri talep edin. Onaylandıktan sonra, tutarı kişisel banka hesabınıza alacaksınız.",
+                    "redirect_to": "Geri alma masrafları?"
+                },
+                "redirect_to": "Hala geri ödeme için başvurmak istiyor musunuz?"
+            }
+        }
+    },
+    "vouchers": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "vouchers": "Kredilerim"
+        },
+        "card": {
+            "deactivated": "Devre dışı bırakıldı",
+            "delete": "Kaldırmak",
+            "expire": "Şu tarihe kadar geçerlidir:",
+            "expired": "Süresi doldu",
+            "number": "Sayı",
+            "unused": "Kullanılmamış",
+            "used": "Kullanılmış"
+        },
+        "empty": {
+            "button": "Etkinleştirin veya kredi talep edin",
+            "subtitle": "Şu anda hiç krediniz yok",
+            "title": "Kredi yok"
+        },
+        "filters": {
+            "active": "Aktif",
+            "archive": "Arşiv"
+        },
+        "labels": {
+            "actions": "Eylem",
+            "expire": "Şu tarihe kadar geçerlidir:",
+            "expired_on": "Son kullanma tarihi:",
+            "generated": "Oluşturuldu",
+            "last": "Son sayı",
+            "none": "Hayır",
+            "open_voucher": "Açık",
+            "show_transactions": "İşlemleri görüntüle",
+            "subtract": "(Af)",
+            "transactions": "Harcamalar",
+            "used": "Kullanılmış",
+            "used_on": "Kullanılmış:"
+        },
+        "reimbursement": {
+            "button": "Kupon gönder",
+            "title": "Maliyet geri kazanımı"
+        },
+        "title": "Kredilerim"
+    },
+    "accessibility": {
+        "breadcrumbs": {
+            "accessibility": "Erişilebilirlik beyanı",
+            "home": "Ev"
+        },
+        "content": {
+            "accessibilityOverview": "{{organization_name}} Belediyenin sorumluluğundaki erişilebilirlik beyanlarının güncel ve eksiksiz bir listesine aşağıdaki bağlantıdan ulaşabilirsiniz:",
+            "alternative": "Alternatif: [erişilebilir bir alternatifin mevcut olup olmadığı; mevcutsa hangisi olduğu].",
+            "available_online": "Talebin dayandığı tüm değerlendirme ve araştırma sonuçları çevrimiçi olarak mevcuttur ( <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#evaluatie-en-onderzoekresultaten-voldoet-gedeeltelijk\">Değerlendirme ve araştırma sonuçları</a> başlığı altına bakınız)",
+            "cause": "Neden: [gereksinimin (henüz) karşılanamamasının nedeni].",
+            "complianceCriteria1": "Çalışma, Dijital Devlet Erişilebilirliği Geçici Kararnamesi uyarınca erişilebilir kılınması gereken tüm içerikleri kapsamaktadır;",
+            "complianceCriteria2": "çalışma 12 aydan eski olmayan ölçüm ve anket verilerine dayanmaktadır;",
+            "complianceCriteria3": "manuel değerlendirme, <a href=\"https://w3.org/TR/WCAG-EM/\">WCAG-EM</a> veya eşdeğeri, yeterli şekilde belgelenmiş bir değerlendirme yöntemine uygun olarak gerçekleştirilmiştir;",
+            "complianceCriteria4": "(Yarı) otomatik testler için <a href=\"https://act-rules.github.io/pages/about/\">Auto-WCAG</a> Topluluk Grubu tarafından belgelenen algoritmalara dayalı bir test aracı kullanılmıştır;",
+            "complianceCriteria5": "tüm çalışma sonuçları doğru, açık ve tekrarlanabilir bir şekilde insan tarafından okunabilir formatta VEYA makine tarafından okunabilir formatta <a href=\"https://www.w3.org/WAI/standards-guidelines/earl/\">EARL</a> olarak kaydedilir;",
+            "complianceCriteria6": "İnceleme sırasında tespit edilen ve düzeltilemeyen her bir gereklilikten sapma için belirtilir:",
+            "complianceStatusDescription1": "{{organization_name}} Belediye, bu web sitesinin Geçici Hükümet Dijital Erişilebilirlik Kararnamesi ile kısmen uyumlu olduğunu beyan eder.",
+            "complianceStatusDescription2": "Erişilebilirlik araştırmaları tüm gerekliliklerin henüz karşılanmadığını göstermiştir. Gereksinimlerden her bir sapma için neden bilinmekte ve sonuç tanımlanmakta, sapmayı ortadan kaldırmak için önlemler alınmış ve önlemlerin ne zaman uygulanacağına dair somut bir planlama yapılmıştır.",
+            "complianceStatusLinkDescription": "Daha ayrıntılı bilgi için <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#toelichting-op-de-nalevingsstatus\" target=\"_blank\" rel=\"noreferrer\">Uyumluluk durumuna ilişkin notlar</a> başlığına bakınız.",
+            "complianceStatusTitle": "Uyumluluk durumu",
+            "declarationDescription1": "{{date}} {{organization_name}}Bu beyan, Belediye'nin sorumlu müdürünün onayı ile hazırlanmıştır.",
+            "declarationDescription2": "{{revision_date}}Bu beyanın güncelliği, eksiksizliği ve doğruluğu en son . tarihinde gözden geçirilmiştir.",
+            "declarationTitle": "Bu bildirinin hazırlanması",
+            "description": "Açıklama:[anomalinin kısa açıklaması]",
+            "deviations": "( <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#afwijkingen-voldoet-gedeeltelijk\">Derogasyonlar</a> başlığı altına bakınız)",
+            "deviationsTitle": "Sapmalar",
+            "disproportionateBurden": "Tedbirin uygulanmasının <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#onevenredige-last\">orantısız</a> bir <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#onevenredige-last\">yük</a> oluşturup oluşturmayacağını belirtme fırsatı: [evet/hayır] [sorunun cevabı 'evet' ise açıklama].",
+            "effect": "Etki: [derogasyonun engelli kişiler üzerindeki etkisi].",
+            "enforcementProcedureDescription1": "Şikayetinizin ele alınış şeklinden memnun değil misiniz? Ya da zamanında yanıt vermedik mi?",
+            "enforcementProcedureDescription2": "<a href=\"https://www.nationaleombudsman.nl/klacht-indienen/uw-klacht\">O</a> zaman <a href=\"https://www.nationaleombudsman.nl/klacht-indienen/uw-klacht\">[Ulusal Ombudsman ile iletişime geç</a>ebilirsiniz <a href=\"https://www.nationaleombudsman.nl/klacht-indienen/uw-klacht\">].</a>",
+            "enforcementProcedureTitle": "Uygulama prosedürü",
+            "expectationsList1": "Size 5 iş günü içinde teslim aldığınıza dair bir onay belgesi gönderilecektir.",
+            "expectationsList2": "İlerleme ve sonuç hakkında sizi bilgilendireceğiz.",
+            "expectationsList3": "3 hafta içinde talebiniz tamamlanacaktır.",
+            "expectationsTitle": "Bizden ne bekleyebilirsiniz?",
+            "explanationComplianceStatusDescription1": "Bu bölüm, Geçici Dijital Erişilebilirlik Kararnamesinde belirtilen gerekliliklerin kısmen karşılandığı iddiasını daha da kanıtlamaktadır.",
+            "explanationComplianceStatusDescription2": "{{implementation_name}} {{organization_name}} {{organization_name}} Web sitesi erişilebilirlik açısından incelenmiş ve Belediye'ye göre rapor, aşağıda listelenen tüm özelliklerin karşılandığını göstermektedir:",
+            "explanationComplianceStatusTitle": "Uyumluluk durumuna ilişkin notlar",
+            "feedbackAndContactDescription": "Bir erişilebilirlik sorunuyla mı karşılaşıyorsunuz? Ya da erişilebilirlik hakkında bir sorunuz veya yorumunuz mu var?",
+            "feedbackAndContactEmail": "O zaman bizimle <a href=\"mailto:{{ contact_email }}\">Geertruidenberg</a> veya {{telephone_number}}",
+            "feedbackAndContactTitle": "Geri bildirim ve iletişim bilgileri",
+            "introParagraph1": "{{organization_name}} Belediye, Devlete Dijital Erişilebilirlik Hakkında Geçici Kararname uyarınca kendi çevrimiçi bilgi ve hizmetlerini erişilebilir hale getirmeyi amaçlamaktadır.",
+            "introParagraph2": "{{implementation_name}} {{organization_name}} Bu erişilebilirlik beyanı, Devlet için Dijital Erişilebilirlik Hakkında Geçici Kararname kapsamına giren web sitesinin içeriği için geçerlidir.",
+            "linksIntro": "{{implementation_name}} {{organization_name}} Web sitesinin içeriğinin bulunabileceği bağlantılar:",
+            "mainDomainTitle": "ana alan:",
+            "measure": "Önlem: [sapmayı ortadan kaldırmak için alınacak önlem(ler)].",
+            "outsideScopeDescription": "Dijital Devlet Erişilebilirliğine İlişkin Geçici Kararnamenin 2. Maddesinin ikinci fıkrasına bakınız.",
+            "outsideScopeLink": "https://zoek.officielebekendmakingen.nl/stb-2018-141.html#d17e165",
+            "outsideScopeTitle": "Dijital Devlet Erişilebilirliğine İlişkin Geçici Kararname kapsamı dışındaki içerikler",
+            "planning": "program: [sapmanın düzeltileceği son tarih]",
+            "referenceNumber": "[referans numarası]",
+            "sc1_1_1": {
+                "alternative": "Alternatif: Bu sorun için alternatif bir çözüm bulunmamaktadır.",
+                "cause": "Neden: Görsel referansına alternatif metin eklenmemiş.",
+                "description": "Açıklama: Bir img öğesinin alt niteliği eksik. (resim için alternatif metin)",
+                "disproportionateBurden": "Tedbirin uygulanması orantısız bir yük getiriyor mu? Hayır",
+                "effect": "Sonuç: Eksik alternatif metin, konuşmadan metne araçlarının işlevselliğini etkileyebilir.",
+                "measure": "Önlem: Web yöneticileri görsele alternatif metin yayınlayacaktır.",
+                "planning": "planlama: 01-06-2020",
+                "title": "SC 1.1.1 - Metin dışı içerik [seviye A]"
+            },
+            "sc4_1_2_1": {
+                "alternative": "Alternatif: Bu sorun için alternatif bir çözüm bulunmamaktadır.",
+                "cause": "Neden: Çapa elemanlarının tutarlı kullanımı yok",
+                "description": "Açıklama: Çapa Öğesi geçerli bir href özniteliğiyle bulundu, ancak bağlantı içeriği belirtilmedi.",
+                "disproportionateBurden": "Tedbirin uygulanması orantısız bir yük getiriyor mu? Hayır",
+                "effect": "Sonuç: Kullanıcı için doğrudan olumsuz bir sonuç yoktur.",
+                "measure": "Önlem: Web yöneticisi bağlantı öğesini yeniden değerlendirecek ve kaldıracak veya gerekli bilgileri sağlayacaktır",
+                "planning": "planlama: 01-06-2020",
+                "title": "SC 4.1.2 - İsim, rol, değer [seviye A]"
+            },
+            "technicalDeviationsTitle": "Teknik sapmalar"
+        },
+        "title": "Erişilebilirlik beyanı",
+        "vars": {
+            "geertruidenberg": {
+                "accessibility_link": "https://www.geertruidenberg.nl/en/node/781",
+                "contact_email": "communicatie@geertruidenberg.nl",
+                "implementation_name": "Çocuk programları",
+                "organization_name": "Geertruidenberg",
+                "telephone_number": "14 0162",
+                "website": "https://kindregeling.geertruidenberg.nl"
+            },
+            "groningen": {
+                "accessibility_link": "https://gemeente.groningen.nl/toegankelijkheid",
+                "contact_email": "stadjerspas@groningen.nl",
+                "implementation_name": "Stadjerspas",
+                "organization_name": "Groningen",
+                "telephone_number": "14 050",
+                "website": "https://stadjerspas.gemeente.groningen.nl"
+            },
+            "noordoostpolder": {
+                "accessibility_link": "https://www.noordoostpolder.nl/toegankelijkheid",
+                "contact_email": "info@noordoostpolder.nl",
+                "implementation_name": "Katılım paketi",
+                "organization_name": "Kuzeydoğu Polder",
+                "telephone_number": "0527 63 39 11",
+                "website": "https://noordoostpolder.forus.io/"
+            },
+            "westerkwartier": {
+                "accessibility_link": "www.westerkwartier.nl/toegankelijkheid",
+                "contact_email": "webmaster@westerkwartier.nl",
+                "implementation_name": "Çocuk paketi",
+                "organization_name": "Westerkwartier",
+                "telephone_number": "14 0594",
+                "website": "https://westerkwartier.forus.io/"
+            }
+        }
+    },
+    "error_page": {
+        "404": {
+            "button": "Eve dönüş",
+            "title": "Sayfa bulunamadı"
+        }
+    },
+    "error": {
+        "home_button": "Ana sayfaya geri dön",
+        "messages": {
+            "digid_0001": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0002": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0003": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0004": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0030": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0032": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0033": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0040": "Bu giriş denemesini iptal ettiniz. Devam etmek için lütfen tekrar deneyin.",
+            "digid_0050": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0070": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0080": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_0099": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_010c": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_api_0000": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "digid_error_0040": "Bu giriş denemesini iptal ettiniz. Devam etmek için lütfen tekrar deneyin.",
+            "digid_error_403": "Bu kuruluşa giriş başarısız oldu. Lütfen daha sonra tekrar deneyin. Hala başarılı değil mi? My DigiD'de oturum açın. DigiD'nizin düzgün çalışıp çalışmadığını bu şekilde kontrol edebilirsiniz. Giriş yaptığınız kuruluşta bir arıza olabilir.",
+            "digid_uid_dont_match": "DigiD ile aldığınız BSN numarası, bu profile bağlı BSN numarasıyla farklıdır, yeni bir başvuru başlatın.",
+            "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor, bir hesap oluşturmak için başvurunuzu başlatın.",
+            "digid_uid_used": "Bu BSN numarası için farklı bir e-posta adresi kaydedilmiştir. Hesabınıza giriş yapmak için bize kayıtlı e-posta adresini kullanmanız gerekmektedir.<br/><br/> Bunun hangi e-posta adresi olduğunu hatırlayamıyor musunuz veya yeni bir e-posta adresiniz mi var? <br/> O zaman <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">buraya</a> veya aşağıdaki düğmeye tıklayarak hesabınızı geri yükleyin.</br>",
+            "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin."
+        },
+        "start_button": "Hesabı geri yükle",
+        "titles": {
+            "digid_0001": "Hata mesajı",
+            "digid_0002": "Hata mesajı",
+            "digid_0003": "Hata mesajı",
+            "digid_0004": "Hata mesajı",
+            "digid_0030": "Hata mesajı",
+            "digid_0032": "Hata mesajı",
+            "digid_0033": "Hata mesajı",
+            "digid_0040": "DigiD - Giriş denemesi iptal edildi.",
+            "digid_0050": "Hata mesajı",
+            "digid_0070": "Hata mesajı",
+            "digid_0080": "Hata mesajı",
+            "digid_0099": "Hata mesajı",
+            "digid_010c": "Hata mesajı",
+            "digid_api_0000": "Başvuru sırasında bir hata oluştu.",
+            "digid_error_0040": "DigiD - Giriş denemesi iptal edildi.",
+            "digid_error_403": "Bilinmeyen hata mesajı",
+            "digid_uid_dont_match": "Bu profil için bir BSN numarası zaten biliniyor",
+            "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor",
+            "digid_uid_used": "BSN numarası zaten kullanılıyor.",
+            "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu.",
+            "unknown_error": "Bilinmeyen hata mesajı"
+        }
+    },
+    "payouts": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "payouts": "Ödemeler"
+        },
+        "buttons": {
+            "show_less": "Daha az bilgi",
+            "show_more": "Daha fazla bilgi"
+        },
+        "empty": {
+            "button": "Fonlara gidin",
+            "subtitle": "Şu anda hiçbir ödemeniz yok",
+            "title": "Ödeme yok"
+        },
+        "labels": {
+            "created_at": "Ödenen",
+            "iban_from": "IBAN (kimden)",
+            "iban_to": "IBAN (için)",
+            "iban_to_name": "IBAN adı (için)"
+        },
+        "search": "Arama",
+        "title": "Ödemeler"
+    },
+    "preferences_emails": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "preferences_emails": "E-posta ayarları"
+        },
+        "buttons": {
+            "send_again": "Onay e-postasını yeniden gönder",
+            "set_primary": "Ana e-posta adresi olarak ayarla"
+        },
+        "create": {
+            "buttons": {
+                "add_more": "Başka bir e-posta adresi ekleyin",
+                "add_new": "E-posta ekle",
+                "send": "Ekle"
+            },
+            "labels": {
+                "email": "E-posta adresi"
+            },
+            "title": "Bir e-posta adresi ekleyin"
+        },
+        "email_added": {
+            "description_formal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. E-postanızı açın ve onayla düğmesine tıklayın.",
+            "description_informal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. E-postanızı açın ve onayla düğmesine tıklayın.",
+            "title_formal": "E-posta adresinizi onaylayın",
+            "title_informal": "E-posta adresinizi onaylayın "
+        },
+        "labels": {
+            "not_confirmed": "Onaylanmadı",
+            "primary": "Ana e-posta adresi"
+        },
+        "title": "E-posta ayarları",
+        "usage": {
+            "notifications": "Bildirimleri alır",
+            "sign_in": "Oturum açma e-postası alır"
+        }
+    },
+    "preferences_notifications": {
+        "auto_close_after": "Açılır bildirimler {değer} saniye sonra otomatik olarak kapatılır.",
+        "auto_close_disabled": "Otomatik kapanma devre dışı",
+        "auto_close_disabled_description": "Açılır bildirimlerin otomatik olarak kapatılması devre dışı bırakıldı.",
+        "auto_close_enabled": "Otomatik kapatma etkinleştirildi",
+        "auto_close_enabled_description": "Açılır bildirimleri otomatik olarak kapatma etkinleştirildi.",
+        "breadcrumbs": {
+            "home": "Ev",
+            "preferences_notifications": "Bildirim tercihleri"
+        },
+        "errors": {
+            "expired": "Bu belirtecin süresi doldu",
+            "not_found": "Bu belirteç geçersiz",
+            "not-pending": "Bildirim ayarları bu bağlantı üzerinden zaten ayarlanmıştır"
+        },
+        "new_time_enabled": "Yeni saat etkinleştirildi",
+        "no_email_button": "E-posta ekle",
+        "no_email_description": "E-posta bildirimleri almak için lütfen e-posta adresinizi ekleyin.",
+        "no_email_title": "Şu anda hesabınızla ilişkili bir e-postanız yok",
+        "popups": {
+            "auto_close_info": "Bildirimlerin görüntülenme süresini ayarlamak için bildirimlerin otomatik kapanmasını etkinleştirin.",
+            "times": {
+                "5": "5 saniye",
+                "10": "10 saniye",
+                "15": "15 saniye",
+                "30": "30 saniye",
+                "60": "60 saniye"
+            },
+            "title": "Açılır bildirimler"
+        },
+        "push_notifications_dismiss_time": {
+            "bookmarks": {
+                "description": "Favori ürünler eklendikten veya kaldırıldıktan sonra sistem bildirimlerini otomatik olarak gizleyin.",
+                "title": "Favori ürünlerle ilgili bildirimleri otomatik olarak kapatın"
+            },
+            "webshop": {
+                "description": "Bir eylem gerçekleştirildikten sonra sistem bildirimlerini otomatik olarak gizleyin.",
+                "title": "Genel bildirimler otomatik kapanır"
+            }
+        },
+        "push_notifications_preferences": {
+            "title": "Bildirimlerin görüntülenme zamanı için ayarlar"
+        },
+        "subscribe": "Evet, bildirim almak istiyorum.",
+        "subscribe_desc_formal": "{{email}}Bu e-posta adresi \" \" ile şu anda tüm bildirimlere aboneliğiniz bulunmamaktadır. Bildirim almak istiyorsanız, bunu aşağıdaki bildirim başına ayarlayabilirsiniz.",
+        "subscribe_desc_informal": "{{email}}Bu e-posta adresi \" \" ile şu anda tüm bildirimlere aboneliğiniz bulunmamaktadır. Bildirim almak istiyorsanız, bunu aşağıdaki bildirim başına ayarlayabilirsiniz.",
+        "title": "Bildirim tercihleri",
+        "title_email_preferences": "E-posta bildirimleri",
+        "title_emails_turned_of": "Tüm e-posta aboneliklerinden çıkın",
+        "title_emails_turned_on": "Tüm e-postalara abone olun",
+        "title_push_preferences": "Uygulama üzerinden anlık bildirimler",
+        "types": {
+            "digest": {
+                "daily_requester": {
+                    "description": "Web mağazasına hangi tekliflerin ve sağlayıcıların eklendiğini içeren bir e-posta özeti alın.",
+                    "title": "Web mağazasındaki yeni tekliflerin özeti"
+                }
+            },
+            "funds": {
+                "balance_warning": {
+                    "description": "Bir fonun bakiyesi önceden belirlenmiş limitin altına düştüğünde bir e-posta bildirimi alın.",
+                    "title": "Gerekli eylem: bakiyeyi yenileyin"
+                },
+                "fund_expires": {
+                    "description": "Bitiş tarihinden 1 ay önce bir e-posta bildirimi alın.",
+                    "title": "Kredi bitiş tarihi hatırlatması"
+                },
+                "new_fund_applicable": {
+                    "description": "Başvurabileceğiniz yeni bir fon oluşturulduğunda e-posta bildirimi alın.",
+                    "title": "Başvurabileceğiniz yeni fon"
+                },
+                "new_fund_created": {
+                    "description": "Yeni bir fon oluşturulduğunda e-posta bildirimi alın.",
+                    "title": "Yeni fon oluşturuldu"
+                },
+                "new_fund_started": {
+                    "description": "Abone olduğunuz bir fon başladığında bir e-posta bildirimi alın ve müşterileri bekleyebilirsiniz.",
+                    "title": "Fon başlatıldı"
+                },
+                "product_added": {
+                    "description": "Yeni bir teklif eklendiğinde e-posta bildirimi alın.",
+                    "title": "Yeni teklif eklendi"
+                },
+                "product_reserved": {
+                    "description": "Bir teklif rezerve edildiğinde e-posta bildirimi alın.",
+                    "title": "Teklif saklıdır"
+                },
+                "product_sold_out": {
+                    "description": "Bir teklif tükendiğinde e-posta bildirimi alın.",
+                    "title": "Teklif tükendi"
+                },
+                "provider_applied": {
+                    "description": "Bir sağlayıcı bir fon için başvurduğunda e-posta bildirimi alın.",
+                    "title": "Sağlayıcı kaydı"
+                },
+                "provider_approved": {
+                    "description": "Bir sağlayıcı bir fon için kabul edildiğinde bir e-posta bildirimi alın.",
+                    "title": "Sağlayıcı başvurusu kabul edildi"
+                },
+                "provider_rejected": {
+                    "description": "Bir fon için bir sağlayıcı reddedildiğinde bir e-posta bildirimi alın.",
+                    "title": "Başvuru sağlayıcısı reddedildi"
+                }
+            },
+            "validations": {
+                "new_validation_request": {
+                    "description": "Yeni bir doğrulama talebi yapıldığında bir e-posta bildirimi alın.",
+                    "title": "Yeni doğrulama talebi"
+                },
+                "you_added_as_validator": {
+                    "description": "Bir fona hakem olarak eklendiğinizde e-posta bildirimi alın.",
+                    "title": "Değerlendirici olarak eklendi"
+                }
+            },
+            "voucher": {
+                "assigned": {
+                    "description": "Yeni bir kredi eklendiğinde anlık bildirim alın.",
+                    "title": "Yeni kredi etkinleştirildi veya verildi."
+                },
+                "transaction": {
+                    "description": "Bir ödeme başarılı olduğunda anlık bildirim alın.",
+                    "title": "Ödeme başarılı"
+                }
+            },
+            "vouchers": {
+                "payment_success": {
+                    "description": "Ödeme başarılı olduğunda bir e-posta bildirimi alın.",
+                    "title": "Ödeme başarılı"
+                },
+                "send_voucher": {
+                    "description": "Kendinize bir kredi gönderdiğinizde bir e-posta bildirimi alın.",
+                    "title": "Kendinize bir kredi gönderin"
+                },
+                "share_product": {
+                    "description": "Bir teklif rezervasyonu sizinle paylaşıldığında bir e-posta bildirimi alın.",
+                    "title": "Rezervasyon teklifi paylaşıldı"
+                }
+            }
+        },
+        "unsubscribe": "Tüm e-posta bildirimleri aboneliğinden çıkın",
+        "unsubscribe_button": "Abonelikten çık",
+        "unsubscribe_desc": "Tüm e-posta bildirimleri aboneliğinden çıkmak istiyorum."
+    },
+    "privacy": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "privacy": "Gizlilik beyanı"
+        },
+        "five": "Kullanımınız ve sağlayıcı teklifleri hakkında bildirimler alacaksınız. Bunu uygulamadan sonra web sitesine giriş yaptığınızda bildirim tercihlerinde kendiniz kapatabilirsiniz.",
+        "four": "Veriler, programa hak kazanıp kazanmadığınızı kontrol etmek ve çifte tahsisi önlemek için kullanılır. Hangi verilerin talep edileceği programa bağlıdır.",
+        "groningen": {
+            "eight": "Kişisel verilerinizi her zaman görüntüleme, değiştirme ve/veya silme hakkına sahipsiniz. Girmiş olduğunuz kişisel verileri Stadjerspas hesabınızda bulabilirsiniz.",
+            "five": "Evde yaşayan 18 yaşına kadar olan çocuklar otomatik olarak hesabınıza yatırılacaktır.",
+            "four": "Bu, Şehir Kartı almaya hakkınız olup olmadığını görmemizi sağlar.",
+            "nine": "Groningen Belediyesi'nin <a href='https://gemeente.groningen.nl/privacyverklaring' target='_blank'> genel gizlilik bildirimini </a> görüntüleyin. Sorularınız için lütfen 14 050 numaralı telefondan Groningen Belediyesini arayın.",
+            "one": "Stadjerspas'a başvururken aşağıdaki veriler saklanır.",
+            "seven": "Kullanımınız hakkında sizi bilgilendirmek isteriz. Kredileriniz azalıyor mu? O zaman sizi bilgilendireceğiz. Her zaman faydalıdır! Elbette, bu mesajları istemiyorsanız bunu kendiniz kapatabilirsiniz.",
+            "six": "Bu sayede ne kadar kullandığınızı ve ne kadar krediniz kaldığını kendiniz görebilirsiniz. Sağlayıcı ve Groningen belediyesi de ne tüketildiğini görür. Ancak bunun sizin harcamanız olduğunu göremezler.",
+            "three": "Bu sayede bilgilerinize bakıyoruz ve bilgilerinizi tekrar tekrar doldurmak zorunda kalmıyorsunuz.",
+            "title": "Gizlilik beyanı",
+            "title_eight": "Verilerinize ilişkin içgörü",
+            "title_five": "Çocuk sayısı",
+            "title_four": "Gelir verileri",
+            "title_nine": "Daha fazla bilgi edinmek veya sorularınız mı var?",
+            "title_seven": "Şehir Kartınız hakkında mesajlar alma",
+            "title_six": "Stadjerspas giderleri ve kredileri",
+            "title_three": "Vatandaş hizmet numarası (BSN)",
+            "title_two": "E-posta adresi",
+            "two": "Bu, hesabınızı oluşturmak ve daha sonra erişebilmenizi sağlamak için gereklidir."
+        },
+        "one": "Aşağıdaki veriler saklanacaktır:",
+        "seven": "Verilerinize erişme, bunları değiştirme ve silme hakkına sahipsiniz. Daha fazla bilgi için veya herhangi bir sorunuz varsa, lütfen belediyenin genel gizlilik bildirimine bakın.",
+        "six": "Veriler, sistemi kullanırken desteğe ihtiyaç duymanız halinde de kullanılır. Veriler gizli olarak işlenir ve başka amaçlarla üçüncü taraflara ifşa edilmez. <br> Sistemde ve ilgili mobil uygulamada, girdiğiniz verilere genel bir bakış bulacaksınız.",
+        "three": "Böylece hangi kredileri kullandığınızı görebilirsiniz. Sağlayıcılar ve belediye de ne kullanıldığını görür, ancak sizin kullandığınızı görmezler.",
+        "title": "Gizlilik beyanı",
+        "title_five": "Sistem hakkında bilgi alın",
+        "title_four": "Diğer girişleriniz",
+        "title_seven": "Verilerinize ilişkin içgörü",
+        "title_six": "Verilerinizin kullanımı",
+        "title_three": "Harcamalarınız",
+        "title_two": "E-posta adresiniz",
+        "two": "Hesabınızı oluşturmak ve kredinize erişmek için."
+    },
+    "profile": {
+        "account": {
+            "active_since": "O zamandan beri aktif",
+            "last_login": "Son giriş",
+            "title": "Hesap bilgileri"
+        },
+        "bank_accounts": {
+            "title": "Banka hesabı"
+        },
+        "breadcrumbs": {
+            "home": "Ev",
+            "profile": "Veri"
+        },
+        "contacts": {
+            "cancel": "İptal",
+            "edit": "Düzenle",
+            "extra_email": "Ek e-posta adresi {{number}}",
+            "extra_email_info": "E-posta adresi <a class='text-inherit text-semibold text-underline' target='_blank' href='{{link_url}}'>'E-posta ayarları'</a> sayfasından değiştirilebilir. Burada yeni bir e-posta adresi eklenebilir ve ana e-posta adresi ayarlanabilir.",
+            "primary_email": "Ana e-posta adresi",
+            "save": "Kaydet",
+            "title": "İletişim bilgilerini düzenleme"
+        },
+        "history": {
+            "title": "{{count}} düzenlenmiş zamanlar"
+        },
+        "personal": {
+            "bsn": "BSN",
+            "title": "Kişisel veriler"
+        },
+        "title": "Veri"
+    },
+    "reimbursements": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "reimbursement": "Kupon gönder",
+            "reimbursements": "Maliyet geri kazanımı"
+        },
+        "create_card": {
+            "button": "Kupon gönder",
+            "title": "Maliyet geri kazanımı"
+        },
+        "details": {
+            "buttons": {
+                "cancel": "İptal",
+                "edit": "Değişim"
+            },
+            "labels": {
+                "amount": "Miktar",
+                "decline_reason": "Düşüş nedeni",
+                "description": "Yorum",
+                "fund": "Şema",
+                "iban": "IBAN",
+                "iban_name": "Ascription of",
+                "sponsor": "Beyan etmek",
+                "title": "Başlık"
+            },
+            "title": "Beyan verileri"
+        },
+        "empty": {
+            "button": "Kupon gönder",
+            "description": "Şu anda hiçbir beyanınız yok",
+            "title": "Beyan yok"
+        },
+        "form_buttons": {
+            "cancel": "İptal",
+            "save_for_later": "Daha sonrası için kaydet",
+            "submit": "Gönder"
+        },
+        "form": {
+            "amount": "Tutar €",
+            "description": "Açıklama",
+            "file_upload_title": "Makbuz, fatura veya fişinizi yükleyin",
+            "iban": "IBAN numarası",
+            "iban_name": "Hesap sahibinin adı",
+            "iban_tooltip": "IBAN numarası NL89BANK0123456789 formatında olmalıdır.",
+            "title": "Beyannamenin başlığı",
+            "voucher": "Kredi",
+            "voucher_tooltip": "Ücretlerinizi geri almak için kullanmak istediğiniz krediyi seçin."
+        },
+        "item": {
+            "buttons": {
+                "cancel": "İptal"
+            },
+            "labels": {
+                "accepted_at": "Kabul edildi:",
+                "approved_at": "Ödemesi yapıldı:",
+                "declined_at": "Reddedildi:",
+                "submitted_at": "Gönderilme tarihi:"
+            },
+            "number": "Beyanname numarası:",
+            "states": {
+                "accepted": "Kabul Edildi",
+                "declined": "Reddedildi",
+                "declined_at": "Reddedildi:",
+                "expired": "Süresi doldu",
+                "expired_at": "Son kullanma tarihi:",
+                "pending": "Beklenti içinde"
+            }
+        },
+        "no_email": {
+            "add_email": "E-posta adresi ekle",
+            "description": "Taleple ilgili sorular varsa, iletişim kurulamaz.<br /> E-posta adresi vermeniz mümkün değil mi? Eğer öyleyse, lütfen diğer iletişim bilgilerini verin.<br /><br />",
+            "skip_email": "E-posta adresi olmadan devam edin",
+            "title": "E-posta adresi bilinmemektedir."
+        },
+        "states": {
+            "all": "Tümü",
+            "approved": "Ödenmiş",
+            "declined": "Reddedildi",
+            "draft": "Henüz gönderilmedi",
+            "pending": "Beklenti içinde"
+        },
+        "subtitle": "Talepte bulunmak için aktif bir kredi gereklidir.",
+        "title": "Maliyet geri kazanımı",
+        "title_create": "Yeni ücretlerin geri alınması",
+        "title_edit": "Beyanname numarası: #{{code}}",
+        "types": {
+            "active": "Aktif",
+            "archived": "Arşiv"
+        }
+    },
+    "reservation": {
+        "details": {
+            "labels": {
+                "amount": "Krediden ödendi",
+                "amount_extra": "Kendi kendine ödenen ekstra",
+                "fund_name": "Fon adı",
+                "id": "KIMLIK",
+                "price": "Miktar",
+                "title": "Başlık"
+            },
+            "loading": "Yükleniyor",
+            "title": "Rezervasyon detayları"
+        },
+        "expired": "Üzgünüz, seçilen ürün tükendiği için ödeme işlemi sırasında rezervasyonunuz iptal edildi.",
+        "expiring": "Lütfen ek ödemeyi gerçekleştirmek için <strong>{sona eren} dakikalar</strong> kaldığını unutmayın. Aksi takdirde rezervasyon otomatik olarak iptal edilecektir.",
+        "extra_amount_refund": {
+            "amount": "Miktar",
+            "date": "Tarih",
+            "state": "Durum",
+            "title": "Geri ödeme detayları"
+        },
+        "extra_amount": {
+            "date": "Tarih",
+            "method": "Yöntem",
+            "mount": "Kendi kendine ödeme",
+            "refunded": "İade Edildi",
+            "status": "Durum"
+        },
+        "labels": {
+            "cancel": "İptal",
+            "canceled_at": "İptal edildi:",
+            "code": "Rezervasyon numarası:",
+            "created_at": "Oluşturuldu:",
+            "expired_at": "Son kullanma tarihi:",
+            "pay_extra": "Ödemeye devam edin",
+            "rejected_at": "Reddedildi:",
+            "status": {
+                "accepted": "Kabul Edildi",
+                "canceled": "Sağlayıcı tarafından iptal edildi",
+                "canceled_by_client": "Başvuru sahibi tarafından iptal edildi",
+                "canceled_by_sponsor": "Sponsor tarafından iptal edildi",
+                "canceled_payment_canceled": "Ek ödeme iptal edildi",
+                "canceled_payment_expired": "Ek ödemenin süresi doldu",
+                "canceled_payment_failed": "Ek ödeme başarısız",
+                "expired": "Süresi doldu",
+                "pending": "Beklenti içinde",
+                "rejected": "Reddedildi",
+                "waiting": "Ödeme için bekliyorum"
+            }
+        }
+    },
+    "reservations": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "reservation": "Rezervasyon",
+            "reservations": "Rezervasyonlar"
+        },
+        "card": {
+            "actions": {
+                "hide_all_details": "Tüm detayları gizle",
+                "proceed_to_payment": "Ödemeye devam edin",
+                "show_all_details": "Tüm detayları göster"
+            },
+            "details": {
+                "paid_from_credit": "Krediden ödendi",
+                "paid_via_bank_transfer": "Banka havalesi yoluyla ek ödeme",
+                "total_product_price": "Tam ürün fiyatı",
+                "view_all_details": "Tüm detayları görüntüle"
+            },
+            "remaining_minutes": "{{ minutes }} Hala dakikalar",
+            "value": {
+                "paid_by_self": "Kendinden ödemeli",
+                "product_price": "Ürün fiyatı"
+            }
+        },
+        "empty": {
+            "subtitle": "Şu anda rezervasyon yok",
+            "title": "Rezervasyon yok"
+        },
+        "filters": {
+            "all_funds": "Tüm krediler...",
+            "all_providers": "Sağlayıcı seçin...",
+            "fund": "Kredi",
+            "provider": "Sağlayıcılar",
+            "search": "Arama",
+            "search_aria_label": "Arama",
+            "state": "Durum"
+        },
+        "states": {
+            "accepted": "Kabul Edildi",
+            "all": "Durum seçiniz...",
+            "canceled": "İptal Edildi",
+            "pending": "Beklenti içinde",
+            "rejected": "Reddedildi"
+        },
+        "subtitle": "Bir rezervasyonun sağlayıcı tarafından kabul edilmesi gerekir. Rezervasyonlarınızın durumunu bu sayfadan takip edin.",
+        "title": "Rezervasyonlar",
+        "types": {
+            "active": "Aktif",
+            "archived": "Arşiv"
+        }
+    },
+    "voucher_printable": {
+        "budget_voucher": {
+            "labels": {
+                "contact_us": "İletişim:",
+                "description": "{{printableTitle}} Bu sizin QR kodlu krediniz",
+                "show_to": "Bu krediyi şu adreste bulunan borç sağlayıcılarından birinde gösterin:",
+                "use_for": "Bu krediyi şunun için kullanın:"
+            }
+        },
+        "default": {
+            "labels": {
+                "contact": {
+                    "email": "E-posta adresi",
+                    "have_questions": "{{printableTitle}}' ' hakkında herhangi bir sorunuz var mı?",
+                    "phone": "Telefon numarası"
+                },
+                "purchases_notice": "Bu kredi ile yapılan satın alımlar iade edilemez"
+            }
+        },
+        "product_voucher": {
+            "labels": {
+                "contact_us": "Ardından sağlayıcıyla iletişime geçin.",
+                "description": "{{printableTitle}}Bu, QR kodlu ' ' kredinizdir",
+                "show_to": "Bu krediyi ilgili sağlayıcıda bir kez gösterin:",
+                "use_for": "Bu krediyi şunun için kullanın:"
+            }
+        }
+    },
+    "expired_identity": {
+        "buttons": {
+            "close": "Kapat",
+            "confirm": "Onaylayın"
+        },
+        "description": "Maalesef oturum açma işlemi başarısız oldu. Bağlantı zaten kullanılmış veya artık geçerli değil. Lütfen yeni bir giriş bağlantısı talep edin.",
+        "header": {
+            "title": "Bağlantının süresi doldu"
+        },
+        "title": "Oturum açma bağlantısı zaten kullanılmış veya artık geçerli değil"
+    },
+    "modal_2fa_deactivate": {
+        "2fa_disabled": "İki faktörlü kimlik doğrulama başarıyla devre dışı bırakıldı",
+        "2fa_disabled_description": "İki faktörlü kimlik doğrulamanız başarıyla devre dışı bırakıldı",
+        "cancel": "İptal",
+        "code_resent": "Kodu yeniden gönderdik.",
+        "confirm": "Onaylayın",
+        "disable_2fa": "İki faktörlü kimlik doğrulamayı devre dışı bırakma",
+        "enter_2fa_code": "Devam etmek için iki faktörlü kimlik doğrulama güvenlik kodunu girin.",
+        "enter_2fa_code_deactivation": "Devre dışı bırakmak için iki faktörlü kimlik doğrulama kodunu girin",
+        "enter_app_code": "Uygulama içinden 6 haneli kodu girin",
+        "enter_sms_code": "6 haneli SMS kodunu girin",
+        "error_404": "Bir hata meydana geldi. Lütfen sayfayı yenileyin.",
+        "failed": "Başarısız!",
+        "resend_code": "Kodu yeniden gönder",
+        "seconds": "{zaman} saniye(ler)",
+        "success": "Başarılı!",
+        "unknown_error": "Bilinmeyen hata.",
+        "verify": "Doğrulama"
+    },
+    "modal_2fa_setup": {
+        "2fa": "İki faktörlü kimlik doğrulama",
+        "2fa_success": "İki faktörlü kimlik doğrulama başarıyla ayarlandı",
+        "already_have_app": "Google Authenticator uygulamasına zaten sahipseniz, aşağıdaki adımları izleyin:",
+        "back": "Geri",
+        "cancel": "İptal",
+        "choose": "Seçiniz",
+        "code_resent": "Kodu yeniden gönderdik.",
+        "confirm": "Onaylayın",
+        "dont_have_app": "Eğer {name} uygulamasına sahip değilseniz,",
+        "download_from": "Şu adresten indirebilir misiniz",
+        "enter_2fa_code": "Devam etmek için iki faktörlü kimlik doğrulama güvenlik kodunu girin.",
+        "enter_app_code": "Uygulama içinden 6 haneli kodu girin",
+        "enter_app_code_6_digits": "Devam etmek için {sağlayıcı}'dan 6 haneli güvenlik kodunu girin",
+        "enter_key": "Bir kurulum anahtarı girin: {secret}",
+        "enter_phone": "Devam etmek için telefon numaranızı girin",
+        "enter_sms_code": "6 haneli SMS kodunu girin",
+        "enter_sms_code_6_digits": "Devam etmek için lütfen telefon numaranıza gönderilen 6 haneli SMS kodunu girin.",
+        "errors": {
+            "code_sent": "SMS gönderilirken bir şeyler yanlış gitti. Doğru telefon numarası girildi mi? Değilse, tekrar deneyin."
+        },
+        "extra_security": "İki faktörlü kimlik doğrulamanız başarıyla ayarlandı. Hesabınız artık daha da güvenli.",
+        "failed": "Başarısız!",
+        "in_app_select": "Uygulamada şunları seçin",
+        "link_phone": "Telefon numaranızı bağlayın",
+        "or": "Olup olmadığı",
+        "phone_number": "Telefon numarası",
+        "resend_code": "Kodu yeniden gönder",
+        "scan_qr": "QR kodunu tarayın",
+        "seconds": "{zaman} saniye(ler)",
+        "select_auth_app": "Kullanmak istediğiniz kimlik doğrulama uygulamasını seçin.",
+        "setup_2fa": "İki faktörlü kimlik doğrulamayı ayarlama",
+        "setup_account": "Hesap oluşturun",
+        "success": "Başarılı!",
+        "successful_login": "İşe yaradı!",
+        "unknown_error": "Bilinmeyen hata.",
+        "verify": "Doğrulama",
+        "welcome_back": "İki faktörlü kimlik doğrulama ile başarıyla giriş yaptınız. Tekrar hoş geldiniz!"
+    },
+    "modal_fund_help": {
+        "chat": "Sohbet",
+        "close": "Kapat",
+        "email": "E-posta",
+        "go_to_admin": "Yönetim ortamına gidin",
+        "header_title": "Fon Yardım Bloğu",
+        "help_title": "Fon Yardım Başlığı",
+        "phone": "Telefon",
+        "website": "Web sitesi"
+    },
+    "modal_logout": {
+        "description_formal": "Oturumu kapatmak istediğinizden emin misiniz?",
+        "description_informal": "Oturumu kapatmak istediğinizden emin misiniz?",
+        "title": "Oturum Kapatma"
+    },
+    "modal_photo_cropper": {
+        "cancel": "İptal",
+        "choose_another": "Diğer resmi seçin",
+        "close": "Kapat",
+        "error": "Hata!",
+        "instructions": "Solda orijinal görüntüyü, sağda ise örnekleri göreceksiniz. Resmi konumlandırmak için soldaki resimdeki kutuyu kullanın.",
+        "invalid_file": "Yüklenen dosya geçerli bir resim değil, lütfen başka bir dosya deneyin.",
+        "invalid_image": "Seçilen dosya geçerli bir resim değil.",
+        "loading": "Yükleniyor",
+        "move_and_resize": "Taşı ve yeniden boyutlandır",
+        "next": "Sonraki",
+        "previous": "Önceki",
+        "rotate_left": "Saat yönünün tersine 90 derece döndürün",
+        "rotate_right": "Saat yönünde 90 derece döndürün",
+        "some_invalid_files": "Seçilen dosyalardan bazıları geçerli görüntüler değildir ve atlanır.",
+        "submit": "Gönder",
+        "upload_document": "Bir belge yükleyin"
+    },
+    "modal_physical_card_unlink": {
+        "body": {
+            "block_card": "{{cardNumber}} Geçiş kartınızı geçiş numarası ile bloke etmek ister misiniz?",
+            "card_blocked": "{{cardNumber}} Geçiş numaranız bloke edildi!"
+        },
+        "buttons": {
+            "block": "Blok",
+            "cancel": "İptal",
+            "close": "Kapat",
+            "request_new": "Yeni geçiş kartı sipariş edin"
+        },
+        "header": {
+            "block_card": "Pasınızı engelleyin",
+            "card_blocked": "Pas engellendi!"
+        }
+    },
+    "modal_physical_card": {
+        "buttons": {
+            "close": "Kapat",
+            "confirm_card": {
+                "adjust": "Ayarla",
+                "submit": "Onaylayın"
+            },
+            "link_card": {
+                "submit_code": "Onaylayın"
+            },
+            "request_new_card": {
+                "confirm": "Onaylayın",
+                "order_by_email": "Posta ile sipariş"
+            }
+        },
+        "modal_section": {
+            "confirm_card": {
+                "description": "Kontrol ettikten sonra onayla'ya tıklayın veya ayrıntıları değiştirin.",
+                "header": "Verileri kontrol edin",
+                "title": "Verileri kontrol edin:"
+            },
+            "link_card_success": {
+                "description": "{{fundName}}Geçiş kartınız size bağlı!",
+                "title": "Pas bağlantılı!"
+            },
+            "link_card_unlink": {
+                "buttons": {
+                    "cancel": "İptal",
+                    "submit": "Blok"
+                },
+                "title": "Pasınızı engelleyin"
+            },
+            "link_card": {
+                "description": "<br/><br/>Geçiş kartınızın üzerinde bir QR kodu bulunmaktadır, aşağıda kişisel kodunuz yer almaktadır. Eski geçiş kartınızı yeniden etkinleştirirseniz kullanmaya devam edebilirsiniz. Yardıma mı ihtiyacınız var?  Pazartesi - Cuma 9.00 - 12.00 arası 14 050'yi arayın.",
+                "subtitle": "Kişisel müşteri kodunuzu girin",
+                "title": "Eski geçiş kartınızı etkinleştirin"
+            },
+            "request_card_success": {
+                "description": "Siparişinizi onaylayan bir e-posta aldınız.",
+                "heading": "Geçiş kartı adrese gönderilecektir:",
+                "title": "Geçiş kartınız sipariş edildi!"
+            },
+            "request_new_card": {
+                "address": "Sokak adı",
+                "address_placeholder": "Sokak adı",
+                "city": "Konum",
+                "city_placeholder": "Konum",
+                "description": "Adres bilgilerinizi doldurun. Geçiş kartınız size posta yoluyla gönderilecektir.",
+                "email_to_me": "Bana e-posta gönderin",
+                "house": "Ev numarası",
+                "house_addition": "Ev numarası ekleme",
+                "house_addition_placeholder": "Ev numarası ekleme",
+                "house_placeholder": "Ev numarası",
+                "open_in_app": "Uygulamada aç",
+                "order": "Sipariş verme",
+                "postcode": "Posta kodu",
+                "postcode_placeholder": "Posta kodu",
+                "print_pass": "QR kodu yazdır",
+                "subtitle": "Dijital geçiş kartınız:",
+                "title": "Geçiş kartı sipariş edin"
+            },
+            "type_selection": {
+                "card_new": {
+                    "description": "<br/>Henüz geçiş kartınız yok mu? Yeni bir geçiş kartı sipariş edin.",
+                    "title": "Geçiş kartı sipariş edin"
+                },
+                "card_old": {
+                    "description": "<br/>Zaten bir geçiş kartınız mı var? Geçiş kartınızı yeniden etkinleştirin.",
+                    "success": "Pas bağlantılı!",
+                    "title": "Eski kartı yeniden etkinleştirin"
+                },
+                "subtitle": "Bunlar, QR kodunuzu sağlayıcıya götürmek için seçeneklerdir:",
+                "title": "QR kodumu kullanın"
+            }
+        }
+    },
+    "modal_pin_code": {
+        "and_open_app": "ve ben uygulamasını açın",
+        "choose": "Seçiniz",
+        "close": "Kapat",
+        "download": "İndir",
+        "enter_code": "Me uygulaması eşleştirme kodunu girin",
+        "link": "Bağlantı",
+        "login": "Uygulamaya giriş yapın",
+        "step1_image_alt": "Me-app giriş ekranı ekran görüntüsü",
+        "step1_title": "Adım 1",
+        "step2_image_alt": "Me-app giriş ekranı ekran görüntüsü, bağlan'ı seçin",
+        "step2_title": "Adım 2",
+        "unknown_code": "Bilinmeyen kod"
+    },
+    "modal_product_reserve_cancel": {
+        "buttons": {
+            "cancel": "İptal",
+            "close": "Kapat",
+            "confirm": "Onaylayın"
+        },
+        "contact_provider": "İletişim ",
+        "description_not_cancelable": "Bu rezervasyon sağlayıcı tarafından zaten kabul edilmiştir. İptal etmek için lütfen rezervasyon tarihinden itibaren 14 gün içinde sağlayıcıyla iletişime geçin.",
+        "description_pending": {
+            "formal": "Teklifi iptal ettikten sonra stoklar tükenene kadar tekrar rezervasyon yapabilirsiniz.",
+            "informal": "Teklifi iptal ettikten sonra stoklar tükenene kadar tekrar rezervasyon yapabilirsiniz."
+        },
+        "header_not_cancelable": {
+            "title": "İletişim {{organizationName}}"
+        },
+        "header_pending": {
+            "title_formal": "Rezervasyonu iptal etmek istediğinizden emin misiniz?",
+            "title_informal": "Rezervasyonu iptal etmek istediğinizden emin misiniz?"
+        },
+        "title": "Rezervasyonu iptal et"
+    },
+    "modal_product_reserve_extra_payment": {
+        "buttons": {
+            "adjust": "Geri",
+            "submit": "Onaylayın"
+        },
+        "header": {
+            "subtitle": "Ek ödemeler IDeal üzerinden yapılır.",
+            "title": "Bir banka seçin"
+        }
+    },
+    "modal_reserve_product": {
+        "add_email": "Ekle",
+        "buttons": {
+            "adjust": "Geri",
+            "back": "Geri",
+            "cancel": "İptal",
+            "confirm": "Onaylayın",
+            "go_to_reservation": "Rezervasyona git",
+            "next": "Sonraki",
+            "processing": "Süreç",
+            "submit": "Gönder"
+        },
+        "cancel": "İptal",
+        "choose_credit": "Ödeme yapacağınız krediyi seçin",
+        "close": "Kapat",
+        "confirm_notes": {
+            "buttons": {
+                "adjust": "Geri",
+                "submit": "Onaylayın"
+            },
+            "header": {
+                "title": "Rezervasyonunuzu onaylayın"
+            },
+            "labels": {
+                "birth_date": "Doğum tarihi: ",
+                "city": "Yer:",
+                "empty": "Boş",
+                "first_name": "İlk isim: ",
+                "house_nr": "Ev numarası:",
+                "house_nr_addition": "Ev numarası ekleme:",
+                "last_name": "Soyadı: ",
+                "notes": "Not: ",
+                "phone": "Telefon numarası: ",
+                "postal_code": "Posta kodu:",
+                "street": "Sokak:"
+            },
+            "modal_section": {
+                "title": "Bilgilerinizi kontrol edin:"
+            }
+        },
+        "description_formal": "Sen kullanacaksın <strong>{{fund}}</strong><br/>Bu rezervasyon için kredi. Rezervasyon mu yapıyorsunuz? O zaman kişisel verilerinizi sağlayıcı ile paylaşmamızı kabul etmiş olursunuz.",
+        "description_formal_time": "{{ days_to_cancel }} Rezervasyonu onaylandıktan sonraki günler içinde de iptal edebilirsiniz.",
+        "description_informal": "Sen kendi <strong>{{fund}}</strong><br/>Bu rezervasyon için kredi. Rezervasyon mu yapıyorsunuz? O zaman kişisel verilerinizi sağlayıcı ile paylaşmamızı kabul etmiş olursunuz.",
+        "description_informal_time": "{{ days_to_cancel }} Rezervasyonu onaylandıktan sonraki günler içinde de iptal edebilirsiniz.",
+        "email_setup_description": "Mesaj almak için e-posta adresinizi ekleyin.",
+        "email_setup_title": "E-posta adresi ekle",
+        "error": {
+            "close": "Kapat",
+            "description": "Rezervasyon tamamlanamadı. Lütfen daha sonra tekrar deneyin.",
+            "title": "Yanlış!"
+        },
+        "extra_payment_description": "Ek ödeme",
+        "extra_payment": {
+            "external_link": "Bağlantı harici bir web sitesine yönlendiriyor.",
+            "extra_payment": "Kendinize fazladan ödeme yapmak",
+            "header": {
+                "subtitle": "Rezervasyonunuzu tamamlamak için ek bir ücret ödemeniz gerekecektir.",
+                "title": "Ek ödeme"
+            },
+            "offer_cost": "Teklifin maliyeti",
+            "remaining_credit": "Kalan kredi"
+        },
+        "fill_notes": {
+            "header": {
+                "subtitle": "{{provider_name}} rezervasyon yapmak için bilgilerinizi doldurun.",
+                "title": "Bilgilerinizi girin"
+            },
+            "labels": {
+                "address": "Adres",
+                "address_optional": "Adres (isteğe bağlı)",
+                "birth_date": "Doğum tarihi",
+                "birth_date_optional": "Doğum tarihi (isteğe bağlı)",
+                "city": "Konum",
+                "first_name": "İlk isim",
+                "house_nr": "Ev numarası",
+                "house_nr_addition": "Ev numarası ekleme",
+                "last_name": "Soyadı",
+                "notes": "Not (isteğe bağlı)",
+                "phone": "Telefon numarası",
+                "phone_optional": "Telefon numarası (isteğe bağlı)",
+                "postal_code": "Posta kodu",
+                "street": "Sokak"
+            },
+            "max_characters": "Maks. 400 karakter",
+            "placeholders": {
+                "address": "Adres",
+                "birth_date": "Doğum tarihi",
+                "city": "Konum",
+                "first_name": "İlk isim",
+                "last_name": "Soyadı",
+                "notes": "Yorum",
+                "phone": "Telefon numarası",
+                "postal_code": "Posta kodu",
+                "street": "Sokak"
+            }
+        },
+        "header": {
+            "title": "Rezervasyon yaptırın"
+        },
+        "multiple_vouchers_warning": "Bazı kuponlarınızda yeterli bakiye bulunmamaktadır. Bu kuponlardan birini kullanarak, eksik tutarı rezervasyon sonunda ödemeniz gerekecektir.",
+        "single_voucher_warning": "Kredinizde yetersiz bakiye varsa, eksik tutarı rezervasyon sonunda mevcut ödeme yöntemlerinden biri ile ödemeniz gerekir.",
+        "skip": "Atla",
+        "success": {
+            "close": "Kapat",
+            "description": "Rezervasyonunuz yapılmıştır.",
+            "title": "İşe yaradı!"
+        }
+    },
+    "modal": {
+        "buttons": {
+            "cancel": "İptal",
+            "close": "Kapat",
+            "confirm": "Onaylayın"
+        },
+        "logout": {
+            "description": "Hareketsiz kaldığınız 15 dakika içinde otomatik olarak oturumu kapatırsınız."
+        }
+    },
+    "open_in_me": {
+        "app_header": {
+            "subtitle_formal": "Uygulamanızda görünen altı rakamı aşağıya girin",
+            "subtitle_informal": "Uygulamanızda görünen altı rakamı aşağıya girin",
+            "title": "Kodu girin"
+        },
+        "authorize": {
+            "close": "İptal",
+            "submit": "Uygulamayı bağlayın"
+        },
+        "body": {
+            "use_app": "Uygulama, bakiyeleri yönetmek ve kolayca giriş yapmak için kullanılabilir."
+        },
+        "buttons": {
+            "close": "Kapat",
+            "send": "Nakliye",
+            "skip": "Atla"
+        },
+        "header": {
+            "title": "in Me uygulamasını açın"
+        },
+        "sms": {
+            "button": {
+                "send": "Gönder",
+                "skip": "Atla"
+            },
+            "description_formal": "İndirme bağlantısını içeren bir kısa mesaj almak için aşağıdaki giriş alanına telefon numaranızı girin.",
+            "description_informal": "Telefon numaranızı girin ve indirme bağlantısını içeren bir SMS alın.",
+            "error": {
+                "try_later": "Daha sonra tekrar deneyin."
+            },
+            "sent": "Bir kısa mesaj gönderildi.",
+            "sent_description": "Mesaj almadınız mı? Cep telefonunuza <strong class=\"text-strong text-primary\">www.forus.io/DL</strong> linkinden <i>Me</i> 'yi indirin.",
+            "subdescription_formal": "Kısa mesaj almazsanız, cep telefonunuzdaki <strong class=\"text-strong\">www.forus.io/DL</strong> bağlantısından <i>Me</i> 'yi indirebilirsiniz.",
+            "subdescription_informal": "Kısa mesaj almazsanız, cep telefonunuzdaki <strong class=\"text-strong text-primary\">www.forus.io/DL</strong> bağlantısından <i>Me</i> 'yi indirebilirsiniz.",
+            "title_formal": "Beni cep telefonunuza indirin",
+            "title_informal": "Beni cep telefonunuza indirin"
+        }
+    },
+    "pdf_preview": {
+        "buttons": {
+            "close": "Kapat"
+        },
+        "header": {
+            "title": "PDF örneği"
+        }
+    },
+    "popup_auth": {
+        "buttons": {
+            "cancel": "İptal",
+            "confirm": "Sonraki",
+            "mail": "E-posta ile giriş yapın",
+            "qrcode": "Me uygulaması üzerinden giriş yapın",
+            "submit": "Onaylayın"
+        },
+        "header": {
+            "subtitle_formal": "Giriş yapmak için bir bağlantı almak üzere e-posta adresinizi girin.",
+            "subtitle_informal": "Giriş yapmak için bir bağlantı almak üzere e-posta adresinizi girin.",
+            "subtitle_succes_formal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki mavi düğmeye tıklayın.",
+            "subtitle_succes_informal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki mavi düğmeye tıklayın.",
+            "subtitle_we_succes_formal": "Şu tarihte bir e-posta aldınız <strong class=\"text-primary\">{{email}}</strong>. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki \"Onayla\" seçeneğine tıklayın.",
+            "subtitle_we_succes_informal": "adresinden bir e-posta aldınız <strong class=\"text-primary\">{{email}}</strong>. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki \"Onayla\" seçeneğine tıklayın.",
+            "title": "E-posta gönderildi",
+            "title_existing_user_succes_formal": "E-postanı kontrol et.",
+            "title_existing_user_succes_informal": "E-postanı kontrol et.",
+            "title_sr": "Oturum açmayı başlat",
+            "title_succes_formal": "Bu e-posta adresine erişiminiz olduğunu onaylayın.",
+            "title_succes_informal": "Bu e-posta adresine erişiminiz olduğunu onaylayın."
+        },
+        "input": {
+            "code": "Aktivasyon kodu",
+            "coding": "Aktivasyon kodunu girin",
+            "confirmation": "E-posta adresinizi onaylayın",
+            "mail": "E-posta adresi",
+            "mailing": "E-posta"
+        },
+        "labels": {
+            "activate": "Adım 1/3: Mağaza hesabı oluşturun.",
+            "activate_code": "Adım 3/3: Kredinizi etkinleştirin.",
+            "berkelland": {
+                "mail": "Etkinleştirmeye devam edebilmeniz için önce bir hesap oluşturun."
+            },
+            "code": "<br />Mektupla aldığınız aktivasyon kodunu girin.<strong>Not:</strong> Her e-posta adresi için bir aktivasyon kodu kullanabilirsiniz. Zaten bir aktivasyon kodu kullandıysanız bu pencereyi kapatın.",
+            "codeactivated": "Zaten bir aktivasyon kodu kullandınız. Bir tane daha kullanmanız mümkün değildir.",
+            "dont_have_account": "Hesabınız yok ve bir aktivasyon kodu kullanarak bir hesap oluşturmak mı istiyorsunuz?",
+            "isactivated": "Krediniz zaten etkinleştirildi.",
+            "join": "Kaydolun",
+            "link": "Giriş yapmak için bir bağlantı almak üzere e-posta adresinizi girin.",
+            "mail": "<strong>Lütfen dikkat</strong>: kendi e-posta adresinizi kullanın.<br /> {{fund}} Her e-posta adresi için yılda en fazla bir aktivasyon kodu kullanabilirsiniz.",
+            "mail_sent": "Bir e-posta yolda!",
+            "mobilecode": "Me uygulaması erişim kodunuzu girin.",
+            "noordoostpolder": {
+                "mail": "Etkinleştirmeye devam edebilmeniz için önce bir hesap oluşturun."
+            },
+            "oostgelre": {
+                "mail": "Etkinleştirmeye devam edebilmeniz için önce bir hesap oluşturun."
+            },
+            "scancode": "Bu QR Kodunu zaten oturum açmış olduğunuz başka bir cihazla tarayın.",
+            "timelimit": "İşlem yapmadığınız 15 dakikanın ardından otomatik olarak oturumunuz kapatılacaktır.",
+            "voucher_email": "İşe yaradı!",
+            "warning": "Bu pencereyi kapatın ve aktivasyon kodunu daha önce kullandıysanız 'Giriş' düğmesine tıklayın.",
+            "westerkwartier": {
+                "mail": "Etkinleştirmeye devam edebilmeniz için önce bir hesap oluşturun."
+            },
+            "winterswijk": {
+                "mail": "Etkinleştirmeye devam edebilmeniz için önce bir hesap oluşturun."
+            },
+            "zuidhorn": {
+                "mail": "<strong>Lütfen dikkat</strong>: kendi e-posta adresinizi kullanın.<br /> Kindpakket için e-posta adresi başına yılda en fazla bir aktivasyon kodu kullanabilirsiniz."
+            }
+        },
+        "notifications": {
+            "confirmation": "İşe yaradı!",
+            "invalid": "Aktivasyon kodu geçersiz veya zaten kullanılmış.",
+            "link_formal": "Bir e-posta gönderildi <strong class=\"text-primary\">{{email}}</strong><br/>. Kaydolmak için bağlantıya tıklayın.",
+            "link_informal": "Bir e-posta gönderildi <strong class=\"text-primary\">{{email}}</strong><br/>. Kaydolmak için bağlantıya tıklayın.",
+            "voucher_email": "QR kodu gönderildi."
+        },
+        "pin_code": {
+            "confirmation": {
+                "buttons": {
+                    "confirm": "Sonraki",
+                    "try_again": "Yeniden Dene"
+                },
+                "description": "Beş ila 10 saniye sonra uygulama eşleştirilir. Başarılı oldu mu? Sonra ileri'ye tıklayın.",
+                "notice_formal": "Uygulamada 30 saniye sonra hala altı rakamı görüyor musunuz? O zaman tekrar deneyin.",
+                "notice_informal": "Uygulamada 30 saniye sonra hala altı rakamı görüyor musunuz? O zaman tekrar deneyin.",
+                "title_formal": "Uygulama hesabınıza bağlanacaktır",
+                "title_informal": "Uygulama hesabınıza bağlanacaktır"
+            }
+        },
+        "restore_formal": "Hangi e-posta adresini kullandığınızı unuttunuz mu?",
+        "restore_informal": "Hangi e-posta adresini kullandığınızı unuttunuz mu?",
+        "restore_subtitle_formal": "DigiD ile tekrar giriş yaparak hesabınızı geri yükleyin",
+        "restore_subtitle_informal": "DigiD ile tekrar giriş yaparak hesabınızı geri yükleyin",
+        "validation": {
+            "email_confirmation": "E-posta adresleri eşleşmiyor"
+        }
+    },
+    "reimbursement_confirmation": {
+        "buttons": {
+            "cancel": "İptal",
+            "close": "Kapat",
+            "confirm": "Onaylayın"
+        },
+        "description": "Talebi göndermeden önce ayrıntıları kontrol edin.",
+        "title": "Talep gönderin"
+    },
+    "app_footer": {
+        "columns": {
+            "links": "Bağlantılar",
+            "me_app": "Me uygulamasını indirin",
+            "follow_us": "Bizi takip edin:",
+            "site_info": "Site bilgileri"
+        },
+        "links": {
+            "accessibility": "Erişilebilirlik beyanı",
+            "privacy": "Gizlilik beyanı",
+            "sitemap": "Site Haritası",
+            "terms_and_conditions": "Genel hüküm ve koşullar"
+        },
+        "me_app_more_info": "Me uygulaması hakkında daha fazla bilgi edinin",
+        "provider_sign_up": "Sağlayıcı olarak kaydolun",
+        "sponsor_logo_alt": "Sponsor logosu"
+    },
+    "block_funds": {
+        "labels": {
+            "subtitle": "Sonuç yok",
+            "title": "Sonuçlar"
+        }
+    },
+    "block_notifications": {
+        "labels": {
+            "subtitle": "Birisi bu web sitesinde sizi ilgilendiren bir işlem yaptığında, bunun bir bildirimi burada görüntülenecektir.",
+            "title": "Bildirimler"
+        }
+    },
+    "block_products": {
+        "buttons": {
+            "more": "Daha fazla görüntüle"
+        },
+        "header": {
+            "title_budget": "Teklif",
+            "title_subsidies": "Teklif"
+        },
+        "input": {
+            "placeholder": "Ürün veya hizmet arama"
+        },
+        "labels": {
+            "discount": "İndirim",
+            "new": "İçin",
+            "old": "Kimden",
+            "subtitle": "Ne yazık ki! Aramanız için hiçbir sonuç bulamadık.",
+            "title": "Arama sonucu yok"
+        }
+    },
+    "block_providers": {
+        "empty": {
+            "subtitle": "Ne yazık ki! Aramanız için hiçbir sağlayıcı bulamadık",
+            "title": "Arama sonucu yok"
+        }
+    },
+    "empty_block": {
+        "guide": "Aktivasyon kodunu kullanın"
+    },
+    "fund_criterion": {
+        "buttons": {
+            "add": "Ekle",
+            "validate": "Onaylamak"
+        },
+        "labels": {
+            "general": {
+                "location": "Groningen"
+            },
+            "value": "Profilinizde eksik olan kişisel veriler",
+            "westerkwartier": {
+                "location": "Westerkwartier"
+            },
+            "zuidhorn": {
+                "location": "Zuidhorn"
+            }
+        },
+        "status": {
+            "invalid": "Geçersiz",
+            "valid": "Geçerli"
+        }
+    },
+    "maps": {
+        "cancel": "İptal",
+        "labels": {
+            "address": "Adres",
+            "email": "E-posta adresi",
+            "organization_type": "Organizasyon tipi",
+            "phone": "Telefon numarası",
+            "website": "Web sitesi"
+        },
+        "no_data": "Veri yok"
+    },
+    "paginator": {
+        "buttons": {
+            "first": "Birinci",
+            "last": "En son",
+            "wcag_page": "Sayfa"
+        },
+        "labels": {
+            "from": "itibaren"
+        }
+    },
+    "profile_menu": {
+        "buttons": {
+            "bookmarks": "Dilek listem",
+            "copy": "Anlaşıldı",
+            "email_settings": "E-posta ayarları",
+            "fund_requests": "İstek",
+            "funds": "İstek",
+            "notification_preferences": "Bildirim tercihleri",
+            "notifications": "Bildirimler",
+            "payouts": "Ödemeler",
+            "profile": "Veri",
+            "records": "Kişisel veriler",
+            "reimbursements": "Maliyet geri kazanımı",
+            "reservations": "Rezervasyonlar",
+            "security": "Güvenlik",
+            "sessions": "Oturumlar",
+            "share": "Paylaş",
+            "vouchers": "Kredi",
+            "me_app": "Me-app",
+            "provider_sign_up": "Sağlayıcı olarak kaydolun"
+        },
+        "header": {
+            "subtitle": "Kişisel QR kodunuzun bir hakem tarafından taranmasını sağlayın.",
+            "title": "Kişisel QR kodunuz"
+        },
+        "labels": {
+            "address": "Adres:"
+        }
+    },
+    "top_navbar_search": {
+        "noresult": {
+            "funds_label": "Tüm kredileri görüntüle >",
+            "products_label": "Tüm teklifleri görüntüle >",
+            "providers_label": "Tüm sağlayıcıları görüntüle >",
+            "subtitle": "{{ query }}\" \" için sonuç bulunamadı. Lütfen diğer arama terimleriyle tekrar deneyin."
+        },
+        "placeholders": {
+            "search_formal": "Ne arıyorsunuz?",
+            "search_informal": "Ne arıyorsunuz?"
+        },
+        "result": {
+            "all_label": "Tüm sonuçlar",
+            "btn": "Tüm sonuçları görüntüle",
+            "funds_label": "Kredi",
+            "products_label": "Teklif",
+            "providers_label": "Sağlayıcılar"
+        }
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "Tencere kontrolü",
+            "home": "Ev"
+        },
+        "funds": "Fonlar",
+        "next_step": "Sonraki",
+        "no_value": "---",
+        "of": "itibaren",
+        "previous_step": "Önceki adım",
+        "search": "Arama",
+        "show_less": "Daha az göster",
+        "show_more": "Daha fazla göster",
+        "advice": "Görüş",
+        "all_categories": "Tüm kategoriler",
+        "all_organizations": "Tüm kuruluşlar",
+        "almost_there": "Neredeyse vardınız!",
+        "change_answers": "Cevapları değiştirin",
+        "download_pdf": "PDF olarak indir",
+        "total_amount": "Toplam tutar",
+        "total_offers": "Toplam teklif",
+        "your_data": "Verileriniz"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Tüm ücretler",
+            "funds3": "Katılmak",
+            "funds47": "Otobüs yardımı",
+            "funds50": "Gelir takviyesi"
+        },
+        "goereeoverflakkee": {
+            "funds": "Şemalar"
+        }
+    }
+}

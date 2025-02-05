@@ -1,4 +1,5 @@
 import buttons from './nl/components/buttons.mjs';
+import navbar from './nl/components/navbar.mjs';
 import top_navbar from './nl/layout/top_navbar.mjs';
 
 import signup_options from './nl/pages/signup-options.mjs';
@@ -48,6 +49,7 @@ import sitemap from './nl/pages/sitemap.mjs';
 import not_found from './nl/pages/not_found.mjs';
 import wip from './nl/pages/wip.mjs';
 import me from './nl/pages/me.mjs';
+import pre_check from './nl/pages/pre_check.mjs';
 
 import popup_auth from './nl/modals/modal-auth.mjs';
 import open_in_me from './nl/modals/modal-open-in-me.mjs';
@@ -184,6 +186,7 @@ export default {
     languages: {
         en: 'Engels',
         nl: 'Nederlands',
+        ar: 'Arabic',
     },
     email_service_switch: {
         confirm: 'Breng me naar mijn e-mail',
@@ -211,6 +214,7 @@ export default {
 
     // COMPONENTS
     buttons: buttons,
+    navbar: navbar,
 
     // LAYOUT
     top_navbar: top_navbar,
@@ -340,6 +344,7 @@ export default {
                 'Als u deze regeling aanvraagt, kunt u ook direct andere regelingen aanvragen. Dit geldt voor de volgende lijst met regelingen:',
             apply_parent_fund: 'Deze regeling kunt u aanvragen door een aanvraag te doen voor de volgende regeling:',
             not_available: 'Niet beschikbaar',
+            activate: 'Activeren',
             total: 'Totaal',
             hide_explanation: 'Verberg de uitleg',
             view_explanation: 'Bekijk de uitleg',
@@ -411,6 +416,7 @@ export default {
     sitemap: sitemap,
     wip: wip,
     not_found: not_found,
+    pre_check: pre_check,
 
     meapp_index: meapp_index,
     product: product,

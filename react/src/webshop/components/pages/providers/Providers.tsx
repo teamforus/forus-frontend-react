@@ -394,7 +394,7 @@ export default function Providers() {
                         {!filterValues.show_map && appConfigs.pages.provider && (
                             <StateNavLink name={'sign-up'} className="button button-primary hide-sm">
                                 <em className="mdi mdi-store-outline" aria-hidden="true" />
-                                Aanmelden als aanbieder
+                                {translate('profile_menu.buttons.provider_sign_up')}
                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                             </StateNavLink>
                         )}
@@ -411,7 +411,7 @@ export default function Providers() {
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
                                 <div className={`showcase-filters-item ${filterValues.show_map ? 'hide-sm' : ''}`}>
-                                    <label className="form-label">Sorteer</label>
+                                    <label className="form-label">{translate('providers.filters.sort')}</label>
                                     <SelectControl
                                         id={'sort_by'}
                                         allowSearch={false}

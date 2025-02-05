@@ -198,18 +198,20 @@ export default function FundsPreCheck() {
 
         tagService
             .list({ type: 'funds', per_page: 1000 })
-            .then((res) => setTags([{ id: null, name: 'Alle categorieën' }, ...res.data.data]))
+            .then((res) => setTags([{ id: null, name: translate('pre_check.all_categories') }, ...res.data.data]))
             .finally(() => setProgress(100));
-    }, [tagService, setProgress]);
+    }, [setProgress, tagService, translate]);
 
     const fetchOrganizations = useCallback(() => {
         setProgress(0);
 
         organizationService
             .list({ type: 'sponsor' })
-            .then((res) => setOrganizations([{ id: null, name: 'Alle organisaties' }, ...res.data.data]))
+            .then((res) =>
+                setOrganizations([{ id: null, name: translate('pre_check.all_organizations') }, ...res.data.data]),
+            )
             .finally(() => setProgress(100));
-    }, [organizationService, setProgress]);
+    }, [organizationService, setProgress, translate]);
 
     const fetchPreCheck = useCallback(() => {
         setProgress(0);
@@ -262,7 +264,7 @@ export default function FundsPreCheck() {
     const PreCheckProgress = useCallback(
         ({ id }: { id?: string }) => (
             <div id={id} className={`pre-check-progress ${totals ? 'pre-check-progress-complete' : ''}`}>
-                <div className="pre-check-progress-title">Uw gegevens</div>
+                <div className="pre-check-progress-title">{translate('pre_check.your_data')}</div>
                 <div className="pre-check-progress-steps">
                     {preChecks?.map((preCheck, index) => (
                         <div
@@ -283,7 +285,9 @@ export default function FundsPreCheck() {
                                                     <strong>{preCheckRecord.input_value}</strong>
                                                 )}
                                                 {!preCheckRecord.input_value && preCheckRecord.input_value != '0' && (
-                                                    <strong className="text-muted">---</strong>
+                                                    <strong className="text-muted">
+                                                        {translate('pre_check.no_value')}
+                                                    </strong>
                                                 )}
                                             </div>
                                         ))}
@@ -296,8 +300,10 @@ export default function FundsPreCheck() {
                         <div className="pre-check-progress-step-icon" />
                         <div className="pre-check-progress-questions">
                             <div className="pre-check-progress-question">
-                                <div className="pre-check-progress-question-title">Advies</div>
-                                <div className="pre-check-progress-question-answer">Je bent er bijna!</div>
+                                <div className="pre-check-progress-question-title">{translate('pre_check.advice')}</div>
+                                <div className="pre-check-progress-question-answer">
+                                    {translate('pre_check.almost_there')}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -308,11 +314,15 @@ export default function FundsPreCheck() {
                         <div className="pre-check-totals">
                             <div className="block block-key-value-list">
                                 <div className="block-key-value-list-item">
-                                    <div className="key-value-list-item-label">Totaal bedrag</div>
+                                    <div className="key-value-list-item-label">
+                                        {translate('pre_check.total_amount')}
+                                    </div>
                                     <div className="key-value-list-item-value">{totals.products_amount_total}</div>
                                 </div>
                                 <div className="block-key-value-list-item">
-                                    <div className="key-value-list-item-label">Totaal aanbod</div>
+                                    <div className="key-value-list-item-label">
+                                        {translate('pre_check.total_offers')}
+                                    </div>
                                     <div className="key-value-list-item-value">{totals.products_count_total}</div>
                                 </div>
                             </div>
@@ -323,25 +333,28 @@ export default function FundsPreCheck() {
                                 className="button button-download button-fill button-sm"
                                 type="button"
                                 onClick={downloadPDF}>
-                                Download als PDF
+                                {translate('pre_check.download_pdf')}
                             </button>
                             <button
                                 className="button button-light button-fill button-sm"
                                 type="button"
                                 onClick={changeAnswers}>
-                                Wijzig antwoorden
+                                {translate('pre_check.change_answers')}
                             </button>
                         </div>
                     </Fragment>
                 )}
             </div>
         ),
-        [activeStepIndex, changeAnswers, downloadPDF, preChecks, totals],
+        [activeStepIndex, changeAnswers, downloadPDF, preChecks, totals, translate],
     );
 
     return (
         <BlockShowcase
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: 'De Potjes check' }]}
+            breadcrumbItems={[
+                { name: translate('pre_check.breadcrumb.home'), state: 'home' },
+                { name: translate('pre_check.breadcrumb.check') },
+            ]}
             breadcrumbWrapper={true}>
             {preChecks && appConfigs && (
                 <div className="block block-fund-pre-check">
@@ -357,7 +370,7 @@ export default function FundsPreCheck() {
                                     <div className="progress-pie">
                                         <ProgressPie
                                             attrImg={{ style: { width: '70px' } }}
-                                            title={activeStepIndex + 1 + ' van ' + preChecks.length}
+                                            title={`${activeStepIndex + 1} ${translate('pre_check.of')} ${preChecks.length}`}
                                             size={100}
                                             progress={(activeStepIndex + 1) / preChecks.length}
                                             color="#315EFD"
@@ -365,7 +378,7 @@ export default function FundsPreCheck() {
                                             strokeWidth={0}
                                         />
                                         <div className="progress-pie-text">
-                                            {activeStepIndex + 1} van {preChecks.length}
+                                            {activeStepIndex + 1} {translate('pre_check.of')} {preChecks.length}
                                         </div>
                                     </div>
                                     <div className="progress-pie-info">
@@ -378,7 +391,7 @@ export default function FundsPreCheck() {
                                                     {record.title_short}: &nbsp;
                                                 </div>
                                                 <div className="progress-pie-info-details-value">
-                                                    {record?.input_value || '---'}
+                                                    {record?.input_value || translate('pre_check.no_value')}
                                                 </div>
                                             </div>
                                         ))}
@@ -393,12 +406,12 @@ export default function FundsPreCheck() {
                                             aria-controls={'preCheckMoreInfo'}>
                                             {showMorePreCheckInfo ? (
                                                 <Fragment>
-                                                    Toon minder
-                                                    <em className="mdi mdi-chevron-up icon-right"> </em>
+                                                    {translate('pre_check.show_less')}
+                                                    <em className="mdi mdi-chevron-up icon-right"></em>
                                                 </Fragment>
                                             ) : (
                                                 <Fragment>
-                                                    Toon meer
+                                                    {translate('pre_check.show_more')}
                                                     <em className="mdi mdi-chevron-down icon-right" />
                                                 </Fragment>
                                             )}
@@ -426,7 +439,7 @@ export default function FundsPreCheck() {
                                                 <UIControlText
                                                     value={filter.values.q}
                                                     onChangeValue={(q) => filter.update({ q })}
-                                                    ariaLabel="Zoeken"
+                                                    ariaLabel={translate('pre_check.search')}
                                                 />
                                             </div>
 
@@ -668,12 +681,12 @@ export default function FundsPreCheck() {
                                                         type="button"
                                                         onClick={prev}
                                                         disabled={activeStepIndex == 0}>
-                                                        Vorige stap
+                                                        {translate('pre_check.previous_step')}
                                                     </button>
                                                 </div>
                                                 <div className="flex flex-grow flex-end">
                                                     <button className="button button-primary button-sm" type="submit">
-                                                        Volgende
+                                                        {translate('pre_check.next_step')}
                                                     </button>
                                                 </div>
                                             </div>
@@ -684,7 +697,7 @@ export default function FundsPreCheck() {
                                         <div className="pre-check-step-section-results">
                                             <div className="showcase-content-header hide-sm">
                                                 <h1 className="showcase-filters-title">
-                                                    <span>Fondsen</span>
+                                                    <span>{translate('pre_check.funds')}</span>
                                                     <div className="showcase-filters-title-count">
                                                         {totals.funds.length}
                                                     </div>

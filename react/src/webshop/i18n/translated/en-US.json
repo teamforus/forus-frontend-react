@@ -244,7 +244,7 @@
                 "activate": "Jars"
             },
             "products": "Offer",
-            "profile": "Profile &gt;",
+            "profile": "Profile >",
             "providers": "Providers",
             "records": "My personal data",
             "reimbursements": "Cost recovery",
@@ -412,13 +412,13 @@
             "products": "Offer"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Everywhere"
         },
         "filters": {
@@ -677,10 +677,10 @@
                 "title_log_digid": "One-time login with DigiD"
             },
             "labels": {
-                "has_app": "Sign in with Me app &gt;",
-                "no_app": "I want to log in with my e-mail address &gt;",
-                "restore_with_digid_formal": "Forgot which email address you used? &gt;",
-                "restore_with_digid_informal": "Forgot which email address you used? &gt;"
+                "has_app": "Sign in with Me app >",
+                "no_app": "I want to log in with my e-mail address >",
+                "restore_with_digid_formal": "Forgot which email address you used? >",
+                "restore_with_digid_informal": "Forgot which email address you used? >"
             },
             "pane": {
                 "criterion_any": "'{{ name }}' can be any value.",
@@ -838,9 +838,9 @@
             }
         },
         "labels": {
-            "age": "&lt; 18 years old",
+            "age": "< 18 years old",
             "agelimit": "Age limit",
-            "amount": "&lt; € 1118.46",
+            "amount": "< € 1118.46",
             "categories_label": "You can activate your credit through:",
             "category": "Category",
             "children": "Children",
@@ -1139,7 +1139,7 @@
                 "cta_av": "",
                 "subtitle_av": "There are many different pots within the Westerkwartier, often more than you think. This website allows you to apply for, manage and spend pots."
             },
-            "signup_cta": "Read more &gt;",
+            "signup_cta": "Read more >",
             "subtitle": "Welcome to the website of {{fund}}. Do you have an award from the municipality for {{fund}}? Then you can see here the offer and the money you can spend.",
             "subtitle_av": "Welcome to the website of the {{fund}}. Here you can apply for the scheme and view the offer. After applying, you can also see how much money you can spend.",
             "subtitle_multi": "Welcome to the webshop of {{org_name}} Have you received an award through {{org_name}}? Then you can see the offer and the money you can spend here.",
@@ -1232,13 +1232,13 @@
             "providers": "Providers"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Everywhere"
         },
         "filters": {
@@ -1447,7 +1447,10 @@
             "no_data": "No data",
             "out_of_stock": "No more stock"
         },
-        "tooltip": "How often you can still take advantage of this offer"
+        "tooltip": "How often you can still take advantage of this offer",
+        "price": {
+            "free": "Free"
+        }
     },
     "records_create": {
         "buttons": {
@@ -1617,7 +1620,9 @@
             "labels": {
                 "contact_provider": "Do you have questions about this offer? If so, please contact us.",
                 "contact_sponsor": "Questions? Please contact us.",
-                "description": "1. Click on Offer and choose and reserve an activity.<br/>OR<br/>2. Take the QR code to the provider. The provider will scan the QR code and reserve your activity."
+                "description": "1. Click on Offer and choose and reserve an activity.<br/>OR<br/>2. Take the QR code to the provider. The provider will scan the QR code and reserve your activity.",
+                "email": "E-mail address:",
+                "phone": "Phone number:"
             },
             "qrcode": {
                 "description": "This is your {{fund_name}} credit with a QR code.",
@@ -2488,7 +2493,9 @@
     "app_footer": {
         "columns": {
             "links": "Links",
-            "me_app": "Download the Me app"
+            "me_app": "Download the Me app",
+            "follow_us": "Follow us on:",
+            "site_info": "Site information"
         },
         "links": {
             "accessibility": "Accessibility Statement",
@@ -2497,7 +2504,8 @@
             "terms_and_conditions": "General conditions"
         },
         "me_app_more_info": "Learn more about the Me app",
-        "provider_sign_up": "Register as a provider"
+        "provider_sign_up": "Register as a provider",
+        "sponsor_logo_alt": "Sponsor logo"
     },
     "block_funds": {
         "labels": {
@@ -2599,7 +2607,9 @@
             "security": "Security",
             "sessions": "Sessions",
             "share": "Share",
-            "vouchers": "Credit"
+            "vouchers": "Credit",
+            "me_app": "Me-app",
+            "provider_sign_up": "Register as a provider"
         },
         "header": {
             "subtitle": "Have your personal QR code scanned by a reviewer.",
@@ -2662,9 +2672,9 @@
     },
     "top_navbar_search": {
         "noresult": {
-            "funds_label": "View all credits &gt;",
-            "products_label": "View all offerings &gt;",
-            "providers_label": "View all providers &gt;",
+            "funds_label": "View all credits >",
+            "products_label": "View all offerings >",
+            "providers_label": "View all providers >",
             "subtitle": "No results found for \"{{ query }}\". Please try again with other search terms."
         },
         "placeholders": {
@@ -2799,7 +2809,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Home",
-            "search": "Sitemap"
+            "sitemap": "Sitemap"
         },
         "title": "Sitemap"
     },
@@ -2942,7 +2952,8 @@
             "show_more": "Show more",
             "total": "Total",
             "view_explanation": "View explanation",
-            "why": "Why?"
+            "why": "Why?",
+            "activate": "Activate"
         },
         "product_item_grid": {
             "bookmark": "Add to wish list"
@@ -2983,7 +2994,21 @@
         "unknown_error": "Unknown error message.",
         "verification_codes_sent": "Verification codes were sent via SMS",
         "vouchers_restrict": "There are one or more vouchers from a fund that limit this institution",
-        "subtitle": "Add an extra layer of security to your account by enabling two-factor authentication. You can choose from the following authentication methods: Authenticator app and SMS authentication."
+        "subtitle": "Add an extra layer of security to your account by enabling two-factor authentication. You can choose from the following authentication methods: Authenticator app and SMS authentication.",
+        "providers": {
+            "authenticator": {
+                "title": "Authenticator app"
+            },
+            "phone": {
+                "title": "SMS Verification"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1Password authenticator",
+            "authenticator_google": "Google authenticator",
+            "authenticator_lastpass": "LastPass Authenticator",
+            "authenticator_microsoft": "Microsoft Authenticator"
+        }
     },
     "modal_2fa_deactivate": {
         "2fa_disabled": "Two-factor authentication has been successfully disabled",
@@ -3156,7 +3181,8 @@
     },
     "languages": {
         "en": "English",
-        "nl": "Dutch"
+        "nl": "Dutch",
+        "ar": "Arabic"
     },
     "modal_physical_card_unlink": {
         "body": {
@@ -3286,5 +3312,39 @@
         "description_formal": "Are you sure you want to log out?",
         "description_informal": "Are you sure you want to log out?",
         "title": "Logout"
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "The Pots check",
+            "home": "Home"
+        },
+        "funds": "Funds",
+        "next_step": "Next",
+        "no_value": "---",
+        "of": "from",
+        "previous_step": "Previous step",
+        "search": "Search",
+        "show_less": "Show less",
+        "show_more": "Show more",
+        "advice": "Opinion",
+        "all_categories": "All categories",
+        "all_organizations": "All organizations",
+        "almost_there": "You're almost there!",
+        "change_answers": "Change answers",
+        "download_pdf": "Download as PDF",
+        "total_amount": "Total amount",
+        "total_offers": "Total supply",
+        "your_data": "Your data"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "All fees",
+            "funds3": "Participate",
+            "funds47": "Bus Advantage",
+            "funds50": "Income Supplement"
+        },
+        "goereeoverflakkee": {
+            "funds": "Regulations"
+        }
     }
 }

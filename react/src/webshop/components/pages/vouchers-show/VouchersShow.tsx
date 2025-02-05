@@ -594,10 +594,10 @@ export default function VouchersShow() {
                                                     })}
                                                 </div>
                                                 <div className="card-value card-value-sm">
-                                                    E-mailadres:{' '}
+                                                    {translate('voucher.card.labels.email') + ' '}
                                                     <strong>{voucherCard.fund?.organization?.email}</strong>
                                                     <br />
-                                                    Telefoonnummer:{' '}
+                                                    {translate('voucher.card.labels.phone') + ' '}
                                                     <strong>{voucherCard.fund?.organization?.phone}</strong>
                                                 </div>
                                             </div>
@@ -632,10 +632,10 @@ export default function VouchersShow() {
                                                     {translate('voucher.card.labels.contact_sponsor')}
                                                 </div>
                                                 <div className="card-value card-value-sm">
-                                                    E-mailadres:{' '}
+                                                    {translate('voucher.card.labels.email') + ' '}
                                                     <strong>{voucherCard.product.organization.email}</strong>
                                                     <br />
-                                                    Telefoonnummer:{' '}
+                                                    {translate('voucher.card.labels.phone') + ' '}
                                                     <strong>{voucherCard.product.organization.phone}</strong>
                                                 </div>
                                             </div>

@@ -27,13 +27,13 @@ import LayoutAsideGroupOrganization from './groups/LayoutAsideGroupOrganization'
 import LayoutAsideGroupPersonal from './groups/LayoutAsideGroupPersonal';
 import LayoutAsideGroupHelp from './groups/LayoutAsideGroupHelp';
 import { usePinnedMenuGroups } from './hooks/usePinnedMenuGroups';
+import useIsSponsorPanel from '../../../hooks/useIsSponsorPanel';
 
 export default function LayoutAsideSponsor({ organization }: { organization: Organization }) {
     const appConfigs = useAppConfigs();
-    const [pinnedGroups, setPinnedGroups] = usePinnedMenuGroups('pinnedMenuGroupsSponsor');
+    const isSponsorPanel = useIsSponsorPanel();
 
-    const { allow_bi_connection, allow_pre_checks } = organization;
-    const { allow_payouts, allow_profiles } = organization;
+    const [pinnedGroups, setPinnedGroups] = usePinnedMenuGroups('pinnedMenuGroupsSponsor');
 
     return (
         <div className="sidebar-nav">
@@ -119,7 +119,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         state: 'identities',
                         stateParams: { organizationId: organization?.id },
                         show:
-                            allow_profiles &&
+                            organization.allow_profiles &&
                             hasPermission(organization, ['view_identities', 'manage_identities'], false),
                     },
                 ]}
@@ -156,7 +156,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Uitbetalingen',
                         state: 'payouts',
                         stateParams: { organizationId: organization?.id },
-                        show: allow_payouts && hasPermission(organization, 'manage_payouts'),
+                        show: organization.allow_payouts && hasPermission(organization, 'manage_payouts'),
                     },
                 ]}
             />
@@ -237,10 +237,19 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         ),
                     },
                     {
+                        name: 'Vertalingen',
+                        state: 'organizations-translations',
+                        stateParams: { organizationId: organization?.id },
+                        show:
+                            isSponsorPanel &&
+                            organization.allow_translations &&
+                            hasPermission(organization, 'manage_implementation'),
+                    },
+                    {
                         name: 'Regelcheck',
                         state: 'pre-check',
                         stateParams: { organizationId: organization?.id },
-                        show: allow_pre_checks && hasPermission(organization, 'manage_implementation'),
+                        show: organization.allow_pre_checks && hasPermission(organization, 'manage_implementation'),
                     },
                     {
                         name: 'Systeemberichten',
@@ -270,7 +279,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'BI-tool',
                         state: 'bi-connection',
                         stateParams: { organizationId: organization?.id },
-                        show: allow_bi_connection && hasPermission(organization, 'manage_bi_connection'),
+                        show: organization.allow_bi_connection && hasPermission(organization, 'manage_bi_connection'),
                     },
                 ]}
             />
