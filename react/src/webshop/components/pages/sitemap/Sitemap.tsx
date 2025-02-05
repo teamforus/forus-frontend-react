@@ -21,7 +21,7 @@ export default function Sitemap() {
                 { name: translate('sitemap.breadcrumbs.sitemap') },
             ]}>
             <div className="block block-sitemap">
-                <h1>Sitemap</h1>
+                <h1>{translate('sitemap.title')}</h1>
                 <ul>
                     <li>
                         <StateNavLink name="home">{translate('top_navbar.items.home')}</StateNavLink>

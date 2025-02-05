@@ -2856,7 +2856,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Startseite",
-            "search": "Inhaltsverzeichnis"
+            "sitemap": "Inhaltsverzeichnis"
         },
         "title": "Inhaltsverzeichnis"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "Gesamtbetrag",
         "total_offers": "Gesamtes Angebot",
         "your_data": "Ihre Daten"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Alle Gebühren",
+            "funds3": "Teilnehmen",
+            "funds47": "Busvorteil",
+            "funds50": "Einkommensergänzung"
+        },
+        "goereeoverflakkee": {
+            "funds": "Schemata"
+        }
     }
 }

@@ -1646,7 +1646,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "الصفحة الرئيسية",
-            "search": "خريطة الموقع"
+            "sitemap": "خريطة الموقع"
         },
         "title": "خريطة الموقع"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "المبلغ الإجمالي",
         "total_offers": "إجمالي العرض",
         "your_data": "بياناتك"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "جميع الرسوم",
+            "funds3": "شارك",
+            "funds47": "مزايا الحافلات",
+            "funds50": "ملحق الدخل"
+        },
+        "goereeoverflakkee": {
+            "funds": "المخططات"
+        }
     }
 }

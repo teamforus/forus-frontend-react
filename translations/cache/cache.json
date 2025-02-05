@@ -4400,6 +4400,26 @@
         "U bent automatisch uitgelogd door 15 minuten aan inactiviteit."
     ],
     [
+        "navbar.goereeoverflakkee.funds",
+        "Regelingen"
+    ],
+    [
+        "navbar.vergoedingen.funds",
+        "Alle vergoedingen"
+    ],
+    [
+        "navbar.vergoedingen.funds3",
+        "Meedoen"
+    ],
+    [
+        "navbar.vergoedingen.funds47",
+        "Busvoordeel"
+    ],
+    [
+        "navbar.vergoedingen.funds50",
+        "Inkomenstoeslag"
+    ],
+    [
         "not_found.breadcrumbs.home",
         "Home"
     ],
@@ -7448,7 +7468,7 @@
         "Home"
     ],
     [
-        "sitemap.breadcrumbs.search",
+        "sitemap.breadcrumbs.sitemap",
         "Sitemap"
     ],
     [

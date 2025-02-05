@@ -2856,7 +2856,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Accueil",
-            "search": "Plan du site"
+            "sitemap": "Plan du site"
         },
         "title": "Plan du site"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "Montant total",
         "total_offers": "Offre totale",
         "your_data": "Vos données"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Tous les frais",
+            "funds3": "Participer",
+            "funds47": "Prestation de bus",
+            "funds50": "Supplément de revenu"
+        },
+        "goereeoverflakkee": {
+            "funds": "Régimes"
+        }
     }
 }

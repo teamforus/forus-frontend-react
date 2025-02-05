@@ -2856,7 +2856,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Главная",
-            "search": "Карта сайта"
+            "sitemap": "Карта сайта"
         },
         "title": "Карта сайта"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "Общая сумма",
         "total_offers": "Общее предложение",
         "your_data": "Ваши данные"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Все сборы",
+            "funds3": "Участвуйте",
+            "funds47": "Льгота на автобус",
+            "funds50": "Прибавка к доходу"
+        },
+        "goereeoverflakkee": {
+            "funds": "Схемы"
+        }
     }
 }

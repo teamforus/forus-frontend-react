@@ -2856,7 +2856,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Strona główna",
-            "search": "Sitemap"
+            "sitemap": "Sitemap"
         },
         "title": "Sitemap"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "Całkowita kwota",
         "total_offers": "Całkowita oferta",
         "your_data": "Twoje dane"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Wszystkie opłaty",
+            "funds3": "Uczestniczyć",
+            "funds47": "Korzyści z autobusu",
+            "funds50": "Dodatek do dochodu"
+        },
+        "goereeoverflakkee": {
+            "funds": "Programy"
+        }
     }
 }

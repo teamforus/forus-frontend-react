@@ -2809,7 +2809,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Home",
-            "search": "Sitemap"
+            "sitemap": "Sitemap"
         },
         "title": "Sitemap"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "Total amount",
         "total_offers": "Total supply",
         "your_data": "Your data"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "All fees",
+            "funds3": "Participate",
+            "funds47": "Bus Advantage",
+            "funds50": "Income Supplement"
+        },
+        "goereeoverflakkee": {
+            "funds": "Regulations"
+        }
     }
 }

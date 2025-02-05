@@ -1,4 +1,5 @@
 import buttons from './nl/components/buttons.mjs';
+import navbar from './nl/components/navbar.mjs';
 import top_navbar from './nl/layout/top_navbar.mjs';
 
 import signup_options from './nl/pages/signup-options.mjs';
@@ -213,6 +214,7 @@ export default {
 
     // COMPONENTS
     buttons: buttons,
+    navbar: navbar,
 
     // LAYOUT
     top_navbar: top_navbar,

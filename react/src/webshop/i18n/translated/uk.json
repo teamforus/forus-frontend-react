@@ -2856,7 +2856,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Головна сторінка",
-            "search": "Карта сайту"
+            "sitemap": "Карта сайту"
         },
         "title": "Карта сайту"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "Загальна сума",
         "total_offers": "Загальна пропозиція",
         "your_data": "Ваші дані"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Всі збори",
+            "funds3": "Беріть участь",
+            "funds47": "Автобусна пільга",
+            "funds50": "Доповнення до доходу"
+        },
+        "goereeoverflakkee": {
+            "funds": "Схеми"
+        }
     }
 }

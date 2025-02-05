@@ -1646,7 +1646,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Ev",
-            "search": "Site Haritası"
+            "sitemap": "Site Haritası"
         },
         "title": "Site Haritası"
     },
@@ -3335,5 +3335,16 @@
         "total_amount": "Toplam tutar",
         "total_offers": "Toplam teklif",
         "your_data": "Verileriniz"
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Tüm ücretler",
+            "funds3": "Katılmak",
+            "funds47": "Otobüs yardımı",
+            "funds50": "Gelir takviyesi"
+        },
+        "goereeoverflakkee": {
+            "funds": "Şemalar"
+        }
     }
 }
