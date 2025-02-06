@@ -13,7 +13,6 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import InfoBox from '../../elements/info-box/InfoBox';
 import FormGroup from '../../elements/forms/controls/FormGroup';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
-import { capitalize } from 'lodash';
 import { currencyFormat, numberFormat } from '../../../helpers/string';
 
 export default function OrganizationsTranslations() {
@@ -294,11 +293,11 @@ export default function OrganizationsTranslations() {
                     <div className="card-section card-section-primary">
                         <div className="row block block-markdown">
                             <div className="col col-xs-12 col-sm-6 col-md-4">
-                                <h4 className={'text-strong'}> Today</h4>
+                                <h4 className={'text-strong'}>Vandaag</h4>
                                 <ul className={'text-medium'}>
-                                    <li>Characters Used: {numberFormat(parseInt(stats?.day?.total?.symbols))}</li>
+                                    <li>Gebruikte tekens: {numberFormat(parseInt(stats?.day?.total?.symbols))}</li>
                                     <li className="text-semibold">
-                                        <span className="text-semibold">Calculation:</span>{' '}
+                                        <span className="text-semibold">Berekening:</span>{' '}
                                         {currencyFormat(parseInt(stats?.day?.total?.symbols)) +
                                             ' / ' +
                                             currencyFormat(activeOrganization?.translations_daily_limit)}
@@ -307,24 +306,26 @@ export default function OrganizationsTranslations() {
                                                 const type = stats?.day?.count_per_type[key];
                                                 return (
                                                     <li key={key}>
-                                                        <span className="text-semibold">{capitalize(key) + 's'}:</span>{' '}
+                                                        <span className="text-semibold">{key}:</span>{' '}
                                                         {type.symbols.toLocaleString()} or ~ {type.cost}
                                                     </li>
                                                 );
                                             })}
                                         </ul>
                                     </li>
-                                    <li className="text-semibold">Cost estimation: {stats?.day?.total?.cost}</li>
+                                    <li className="text-semibold">
+                                        Schatting van de kosten: {stats?.day?.total?.cost}
+                                    </li>
                                 </ul>
                             </div>
                             <div className="col col-xs-12 col-sm-6 col-md-4">
-                                <h4 className={'text-strong'}>This week</h4>
+                                <h4 className={'text-strong'}>Deze week</h4>
                                 <ul className={'text-medium'}>
                                     <li className="text-semibold">
-                                        Characters Used: {numberFormat(parseInt(stats?.week?.total?.symbols))}
+                                        Gebruikte tekens: {numberFormat(parseInt(stats?.week?.total?.symbols))}
                                     </li>
                                     <li>
-                                        <span className="text-semibold">Calculation:</span>{' '}
+                                        <span className="text-semibold">Berekening:</span>{' '}
                                         {currencyFormat(parseInt(stats?.week?.total?.symbols)) +
                                             ' / ' +
                                             currencyFormat(activeOrganization?.translations_weekly_limit)}
@@ -333,24 +334,26 @@ export default function OrganizationsTranslations() {
                                                 const type = stats?.week?.count_per_type[key];
                                                 return (
                                                     <li key={key}>
-                                                        <span className="text-semibold">{capitalize(key) + 's'}:</span>{' '}
+                                                        <span className="text-semibold">{key}:</span>{' '}
                                                         {type.symbols.toLocaleString()} or ~ {type.cost}
                                                     </li>
                                                 );
                                             })}
                                         </ul>
                                     </li>
-                                    <li className="text-semibold">Cost estimation: {stats?.week?.total?.cost}</li>
+                                    <li className="text-semibold">
+                                        Schatting van de kosten: {stats?.week?.total?.cost}
+                                    </li>
                                 </ul>
                             </div>
                             <div className="col col-xs-12 col-sm-6 col-md-4">
-                                <h4 className={'text-strong'}>This month</h4>
+                                <h4 className={'text-strong'}>Deze maand</h4>
                                 <ul className={'text-medium'}>
                                     <li className="text-semibold">
-                                        Characters Used: {numberFormat(parseInt(stats?.month?.total?.symbols))}
+                                        Gebruikte tekens: {numberFormat(parseInt(stats?.month?.total?.symbols))}
                                     </li>
                                     <li>
-                                        <span className="text-semibold">Calculation:</span>{' '}
+                                        <span className="text-semibold">Berekening:</span>{' '}
                                         {currencyFormat(parseInt(stats?.month?.total?.symbols)) +
                                             ' / ' +
                                             currencyFormat(activeOrganization?.translations_monthly_limit)}
@@ -359,14 +362,16 @@ export default function OrganizationsTranslations() {
                                                 const type = stats?.month?.count_per_type[key];
                                                 return (
                                                     <li key={key}>
-                                                        <span className="text-semibold">{capitalize(key) + 's'}:</span>{' '}
+                                                        <span className="text-semibold">{key}:</span>{' '}
                                                         {type.symbols.toLocaleString()} or ~ {type.cost}
                                                     </li>
                                                 );
                                             })}
                                         </ul>
                                     </li>
-                                    <li className="text-semibold">Cost estimation: {stats?.month?.total?.cost}</li>
+                                    <li className="text-semibold">
+                                        Schatting van de kosten: {stats?.month?.total?.cost}
+                                    </li>
                                 </ul>
                             </div>
                         </div>
