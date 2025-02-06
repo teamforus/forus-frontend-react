@@ -31,11 +31,13 @@ export default class ApiRequestService<T = null> {
      * Make request headers
      */
     private makeHeaders() {
+        const envData = ApiRequestService.envData;
+
         return {
             Accept: 'application/json',
-            'Accept-Language': localStorage.locale || 'nl',
-            'Client-Key': ApiRequestService.envData?.client_key,
-            'Client-Type': ApiRequestService.envData?.client_type,
+            'Accept-Language': envData?.client_type === 'webshop' ? localStorage.locale || 'nl' : 'nl',
+            'Client-Key': envData?.client_key,
+            'Client-Type': envData?.client_type,
             'Content-Type': 'application/json',
             ...(localStorage.active_account ? { Authorization: 'Bearer ' + localStorage.active_account } : {}),
         };

@@ -2,6 +2,13 @@ export default {
     start: 'Start',
     open_home: `Terug naar hoofdpagina`,
     main_menu: 'Hoofdmenu',
+    start_button: {
+        potjeswijzer: 'Start aanvraag',
+        geertruidenberg: 'Start aanvraag',
+        hartvanwestbrabant: 'Start aanvraag',
+        midden_drenthe: 'Tegoed activeren',
+        berg_en_dal: 'Tegoed activeren',
+    },
     items: {
         home: 'Home',
         funds: 'Activeren',

@@ -3159,7 +3159,14 @@
         },
         "main_menu": "Menu principal",
         "open_home": "Retour à la page principale",
-        "start": "Démarrage"
+        "start": "Démarrage",
+        "start_button": {
+            "berg_en_dal": "Activer le crédit",
+            "geertruidenberg": "Démarrer la demande",
+            "hartvanwestbrabant": "Démarrer la demande",
+            "midden_drenthe": "Activer le crédit",
+            "potjeswijzer": "Démarrer la demande"
+        }
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3429,9 +3436,9 @@
     "navbar": {
         "vergoedingen": {
             "funds": "Tous les frais",
-            "funds3": "Participer",
-            "funds47": "Prestation de bus",
-            "funds50": "Supplément de revenu"
+            "funds_bus": "Prestation de bus",
+            "funds_iit": "Supplément de revenu",
+            "funds_meedoen": "Participer"
         },
         "goereeoverflakkee": {
             "funds": "Régimes"

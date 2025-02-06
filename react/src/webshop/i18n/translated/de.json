@@ -3159,7 +3159,14 @@
         },
         "main_menu": "Hauptmenü",
         "open_home": "Zurück zur Hauptseite",
-        "start": "Start"
+        "start": "Start",
+        "start_button": {
+            "berg_en_dal": "Kredit aktivieren",
+            "geertruidenberg": "Anwendung starten",
+            "hartvanwestbrabant": "Anwendung starten",
+            "midden_drenthe": "Kredit aktivieren",
+            "potjeswijzer": "Anwendung starten"
+        }
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3429,9 +3436,9 @@
     "navbar": {
         "vergoedingen": {
             "funds": "Alle Gebühren",
-            "funds3": "Teilnehmen",
-            "funds47": "Busvorteil",
-            "funds50": "Einkommensergänzung"
+            "funds_bus": "Busvorteil",
+            "funds_iit": "Einkommensergänzung",
+            "funds_meedoen": "Teilnehmen"
         },
         "goereeoverflakkee": {
             "funds": "Schemata"
