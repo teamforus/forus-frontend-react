@@ -29,10 +29,20 @@ export const TopNavbarDesktopUser = () => {
                             <button
                                 className="button button-primary-outline"
                                 onClick={() => startFundRequest({ restore_with_email: 1 })}
-                                aria-label={envData.config.flags.showStartButtonText || translate('top_navbar.start')}
+                                aria-label={translate(
+                                    'top_navbar.start_button.' + envData.client_key,
+                                    null,
+                                    'top_navbar.start',
+                                )}
                                 role="button">
                                 <em className="mdi mdi-plus-circle" />
-                                <span>{envData.config.flags.showStartButtonText || translate('top_navbar.start')}</span>
+                                <span>
+                                    {translate(
+                                        'top_navbar.start_button.' + envData.client_key,
+                                        null,
+                                        'top_navbar.start',
+                                    )}
+                                </span>
                             </button>
                         )}
 
