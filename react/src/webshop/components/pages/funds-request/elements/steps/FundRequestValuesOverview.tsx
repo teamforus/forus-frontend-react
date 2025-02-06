@@ -143,7 +143,7 @@ export default function FundRequestValuesOverview({
                             onClick={onSubmitRequest}
                             role="button"
                             tabIndex={0}>
-                            {translate('fund_request.sign_up.pane.footer.applt')}
+                            {translate('fund_request.sign_up.pane.footer.apply')}
                             <em className="mdi mdi-chevron-right icon-right" />
                         </button>
                     }
