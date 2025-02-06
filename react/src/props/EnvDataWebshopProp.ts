@@ -59,7 +59,6 @@ export default interface EnvDataWebshopProp {
 
             // home
             showStartButton?: boolean;
-            showStartButtonText?: string;
 
             showFooterSponsorLogo?: boolean;
             productDetailsOnlyAvailableFunds?: boolean;

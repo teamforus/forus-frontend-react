@@ -742,7 +742,14 @@
         },
         "main_menu": "القائمة الرئيسية",
         "open_home": "العودة إلى الصفحة الرئيسية",
-        "start": "ابدأ"
+        "start": "ابدأ",
+        "start_button": {
+            "berg_en_dal": "تفعيل الائتمان",
+            "geertruidenberg": "بدء التطبيق",
+            "hartvanwestbrabant": "بدء التطبيق",
+            "midden_drenthe": "تفعيل الائتمان",
+            "potjeswijzer": "بدء التطبيق"
+        }
     },
     "week_days": {
         "0": "الإثنين",
@@ -3429,9 +3436,9 @@
     "navbar": {
         "vergoedingen": {
             "funds": "جميع الرسوم",
-            "funds3": "شارك",
-            "funds47": "مزايا الحافلات",
-            "funds50": "ملحق الدخل"
+            "funds_bus": "مزايا الحافلات",
+            "funds_iit": "ملحق الدخل",
+            "funds_meedoen": "شارك"
         },
         "goereeoverflakkee": {
             "funds": "المخططات"
@@ -3490,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "اقرأ لـ",
         "tooltip": "اطلب قراءة النص باستخدام ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "اختياري",
+        "required": "إلزامي"
     }
 }

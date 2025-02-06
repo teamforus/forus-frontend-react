@@ -3159,7 +3159,14 @@
         },
         "main_menu": "Главное меню",
         "open_home": "Назад к главной странице",
-        "start": "Начало"
+        "start": "Начало",
+        "start_button": {
+            "berg_en_dal": "Активировать кредит",
+            "geertruidenberg": "Начать применение",
+            "hartvanwestbrabant": "Начать применение",
+            "midden_drenthe": "Активировать кредит",
+            "potjeswijzer": "Начать применение"
+        }
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3429,9 +3436,9 @@
     "navbar": {
         "vergoedingen": {
             "funds": "Все сборы",
-            "funds3": "Участвуйте",
-            "funds47": "Льгота на автобус",
-            "funds50": "Прибавка к доходу"
+            "funds_bus": "Льгота на автобус",
+            "funds_iit": "Прибавка к доходу",
+            "funds_meedoen": "Участвуйте"
         },
         "goereeoverflakkee": {
             "funds": "Схемы"
@@ -3490,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "Читать для",
         "tooltip": "Зачитывайте текст с помощью веб-ридера ReadSpeaker"
+    },
+    "form": {
+        "optional": "Дополнительно",
+        "required": "Обязательно"
     }
 }

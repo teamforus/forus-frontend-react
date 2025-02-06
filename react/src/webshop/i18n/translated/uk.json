@@ -3159,7 +3159,14 @@
         },
         "main_menu": "Головне меню",
         "open_home": "Повернутися на головну сторінку",
-        "start": "Старт"
+        "start": "Старт",
+        "start_button": {
+            "berg_en_dal": "Активувати кредит",
+            "geertruidenberg": "Запустити програму",
+            "hartvanwestbrabant": "Запустити програму",
+            "midden_drenthe": "Активувати кредит",
+            "potjeswijzer": "Запустити програму"
+        }
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3429,9 +3436,9 @@
     "navbar": {
         "vergoedingen": {
             "funds": "Всі збори",
-            "funds3": "Беріть участь",
-            "funds47": "Автобусна пільга",
-            "funds50": "Доповнення до доходу"
+            "funds_bus": "Автобусна пільга",
+            "funds_iit": "Доповнення до доходу",
+            "funds_meedoen": "Беріть участь"
         },
         "goereeoverflakkee": {
             "funds": "Схеми"
@@ -3490,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "Читати для",
         "tooltip": "Зачитайте текст за допомогою ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "Необов'язково",
+        "required": "Обов'язково"
     }
 }

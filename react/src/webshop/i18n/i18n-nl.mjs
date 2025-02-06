@@ -1,3 +1,4 @@
+import form from './nl/components/form.mjs';
 import push from './nl/components/push.mjs';
 import navbar from './nl/components/navbar.mjs';
 import buttons from './nl/components/buttons.mjs';
@@ -218,6 +219,7 @@ export default {
 
     // COMPONENTS
     push: push,
+    form: form,
     navbar: navbar,
     buttons: buttons,
     read_speaker: read_speaker,

@@ -341,7 +341,14 @@
         },
         "main_menu": "Main menu",
         "open_home": "Back to main page",
-        "start": "Start"
+        "start": "Start",
+        "start_button": {
+            "berg_en_dal": "Activate credit",
+            "geertruidenberg": "Start application",
+            "hartvanwestbrabant": "Start application",
+            "midden_drenthe": "Activate credit",
+            "potjeswijzer": "Start application"
+        }
     },
     "auth_start": {
         "example": "Enter a valid email address, for example <strong>naam@voorbeeld.com</strong>"
@@ -3429,9 +3436,9 @@
     "navbar": {
         "vergoedingen": {
             "funds": "All fees",
-            "funds3": "Participate",
-            "funds47": "Bus Advantage",
-            "funds50": "Income Supplement"
+            "funds_bus": "Bus Advantage",
+            "funds_iit": "Income Supplement",
+            "funds_meedoen": "Participate"
         },
         "goereeoverflakkee": {
             "funds": "Regulations"
@@ -3490,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "Read for",
         "tooltip": "Have the text read aloud with ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "Optional",
+        "required": "Mandatory"
     }
 }

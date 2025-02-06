@@ -980,6 +980,14 @@
         "Home"
     ],
     [
+        "form.optional",
+        "Optioneel"
+    ],
+    [
+        "form.required",
+        "Verplicht"
+    ],
+    [
         "fund_activate.cards.back",
         "Terug"
     ],
@@ -4668,16 +4676,16 @@
         "Alle vergoedingen"
     ],
     [
-        "navbar.vergoedingen.funds3",
-        "Meedoen"
-    ],
-    [
-        "navbar.vergoedingen.funds47",
+        "navbar.vergoedingen.funds_bus",
         "Busvoordeel"
     ],
     [
-        "navbar.vergoedingen.funds50",
+        "navbar.vergoedingen.funds_iit",
         "Inkomenstoeslag"
+    ],
+    [
+        "navbar.vergoedingen.funds_meedoen",
+        "Meedoen"
     ],
     [
         "not_found.breadcrumbs.home",
@@ -8246,6 +8254,26 @@
     [
         "top_navbar.start",
         "Start"
+    ],
+    [
+        "top_navbar.start_button.berg_en_dal",
+        "Tegoed activeren"
+    ],
+    [
+        "top_navbar.start_button.geertruidenberg",
+        "Start aanvraag"
+    ],
+    [
+        "top_navbar.start_button.hartvanwestbrabant",
+        "Start aanvraag"
+    ],
+    [
+        "top_navbar.start_button.midden_drenthe",
+        "Tegoed activeren"
+    ],
+    [
+        "top_navbar.start_button.potjeswijzer",
+        "Start aanvraag"
     ],
     [
         "top_navbar.user_menu.aria_label",
