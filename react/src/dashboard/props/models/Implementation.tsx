@@ -1,6 +1,7 @@
 import Media from './Media';
 import Announcement from './Announcement';
 import ImplementationPage from './ImplementationPage';
+import Language from './Language';
 
 export default interface Implementation {
     id: number;
@@ -63,4 +64,5 @@ export default interface Implementation {
     pre_check_banner_title: string;
     allow_per_fund_notification_templates?: boolean;
     page_title_suffix?: string;
+    languages?: Array<Language>;
 }

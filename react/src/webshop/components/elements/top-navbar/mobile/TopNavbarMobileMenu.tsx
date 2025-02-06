@@ -75,7 +75,7 @@ export default function TopNavbarMobileMenu() {
     return (
         <div className="block block-mobile-menu" ref={selectorRef} onKeyDown={onKeyDown} onBlur={onBlur}>
             <div className="mobile-menu-group mobile-menu-group-main">
-                <div className="mobile-menu-group-header">Hoofdmenu</div>
+                <div className="mobile-menu-group-header">{translate('top_navbar.main_menu')}</div>
                 <div className="mobile-menu-items">
                     {menuItems.map((menuItem) => (
                         <Fragment key={menuItem.id}>
@@ -119,7 +119,7 @@ export default function TopNavbarMobileMenu() {
                 </div>
             </div>
             <div className="mobile-menu-group">
-                <div className="mobile-menu-group-header">Persoonlijk</div>
+                <div className="mobile-menu-group-header">{translate('top_navbar.user_menu.title')}</div>
                 <div className="mobile-menu-items">
                     {authIdentity && vouchers?.length > 0 && (
                         <StateNavLink

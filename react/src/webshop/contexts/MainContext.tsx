@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContext } from 'react';
 import { AppConfigProp, useConfigService } from '../../dashboard/services/ConfigService';
 import EnvDataWebshopProp from '../../props/EnvDataWebshopProp';
 import useFilter from '../../dashboard/hooks/useFilter';
 import FilterScope from '../../dashboard/types/FilterScope';
 import { useStateRoutes } from '../modules/state_router/Router';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import Language from '../../dashboard/props/models/Language';
 
 interface AuthMemoProps {
     envData?: EnvDataWebshopProp;
@@ -21,26 +24,53 @@ interface AuthMemoProps {
     cookiesAccepted?: boolean;
     setSearchQuery?: React.Dispatch<React.SetStateAction<string>>;
     searchFilter?: FilterScope<{ q: string }>;
+    language?: string;
+    setLanguage?: React.Dispatch<React.SetStateAction<string>>;
+    changeLanguage?: (locale: string) => void;
+    languages?: Array<Language>;
 }
 
 const mainContext = createContext<AuthMemoProps>(null);
 const { Provider } = mainContext;
 
 const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElement; cookiesAccepted?: boolean }) => {
+    const configService = useConfigService();
+
+    const navigate = useNavigate();
+
     const [envData, setEnvData] = useState<EnvDataWebshopProp>(null);
-    const [appConfigs, setAppConfigs] = useState(null);
+    const [appConfigs, setAppConfigs] = useState<AppConfigProp>(null);
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [mobileMenuOpened, setMobileMenuOpened] = useState(false);
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const { route } = useStateRoutes();
+    const { i18n } = useTranslation();
+    const [language, setLanguage] = useState(i18n.language);
 
-    const configService = useConfigService();
+    const languages = useMemo(() => {
+        return appConfigs?.languages;
+    }, [appConfigs?.languages]);
 
     const searchFilter = useFilter({
         q: '',
     });
 
     const { update: searchFilterUpdate } = searchFilter;
+
+    const changeLanguage = useCallback(
+        (lang: string) => {
+            setLanguage(lang);
+            localStorage.setItem('locale', lang);
+            navigate(0);
+        },
+        [navigate],
+    );
+
+    useEffect(() => {
+        if (languages?.length > 0 && !languages.map((item) => item.locale).includes(language)) {
+            changeLanguage(languages?.find((item) => item.base).locale);
+        }
+    }, [changeLanguage, language, languages]);
 
     useEffect(() => {
         if (!envData?.type) {
@@ -71,6 +101,10 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
                 setUserMenuOpened,
                 searchFilter,
                 cookiesAccepted,
+                language,
+                setLanguage,
+                languages,
+                changeLanguage,
             }}>
             {children}
         </Provider>

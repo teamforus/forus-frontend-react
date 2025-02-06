@@ -332,8 +332,8 @@ export default function ReimbursementsView() {
                                                 <div
                                                     className={
                                                         reimbursement.identity_email
-                                                            ? 'text-medium text-black'
-                                                            : 'text-medium text-muted'
+                                                            ? 'text-semibold text-black'
+                                                            : 'text-semibold text-muted'
                                                     }>
                                                     {reimbursement.identity_email || 'Geen E-mail'}
                                                 </div>
@@ -347,13 +347,13 @@ export default function ReimbursementsView() {
                                                     <div
                                                         className={`${
                                                             reimbursement.identity_bsn
-                                                                ? 'text-medium text-black'
-                                                                : 'text-medium text-muted'
+                                                                ? 'text-semibold text-black'
+                                                                : 'text-semibold text-muted'
                                                         }`}>
                                                         {reimbursement.identity_bsn || 'Geen BSN'}
                                                     </div>
                                                 ) : (
-                                                    <div className="text-medium text-muted">Not available</div>
+                                                    <div className="text-semibold text-muted">Not available</div>
                                                 )}
                                             </td>
 
@@ -361,7 +361,9 @@ export default function ReimbursementsView() {
                                                 <div className="text-strong text-md text-primary">
                                                     {translate('reimbursements.labels.fund')}
                                                 </div>
-                                                <div className="text-medium text-black">{reimbursement.fund.name}</div>
+                                                <div className="text-semibold text-black">
+                                                    {reimbursement.fund.name}
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -371,7 +373,7 @@ export default function ReimbursementsView() {
                                                     {translate('reimbursements.labels.employee')}
                                                 </div>
                                                 <div
-                                                    className={`text-medium ${
+                                                    className={`text-semibold ${
                                                         reimbursement.employee_id ? 'text-black' : 'text-muted'
                                                     }`}>
                                                     {reimbursement.employee?.email || 'Niet toegewezen'}
@@ -382,7 +384,7 @@ export default function ReimbursementsView() {
                                                 <div className="text-strong text-md text-primary">
                                                     {translate('reimbursements.labels.lead_time')}
                                                 </div>
-                                                <div className="text-medium text-black">
+                                                <div className="text-semibold text-black">
                                                     {reimbursement.lead_time_locale}
                                                 </div>
                                             </td>
@@ -401,7 +403,7 @@ export default function ReimbursementsView() {
                                                         </div>
                                                     )}
 
-                                                    <div className="text-medium text-black">
+                                                    <div className="text-semibold text-black">
                                                         {reimbursement.expire_at_locale}
                                                     </div>
                                                 </td>
@@ -412,7 +414,7 @@ export default function ReimbursementsView() {
                                                     <div className="text-strong text-md text-primary">
                                                         {translate('reimbursements.labels.resolved_at')}
                                                     </div>
-                                                    <div className="text-medium text-black">
+                                                    <div className="text-semibold text-black">
                                                         {reimbursement.resolved_at_locale}
                                                     </div>
                                                 </td>

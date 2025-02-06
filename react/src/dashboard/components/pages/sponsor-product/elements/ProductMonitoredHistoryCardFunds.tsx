@@ -62,7 +62,7 @@ export default function ProductMonitoredHistoryCardFunds({
                                             <a
                                                 title={'Bekijk aanbod op webshop'}
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="text-primary text-medium flex flex-gap-sm text-underline"
+                                                className="text-primary text-semibold flex flex-gap-sm text-underline"
                                                 href={fund.url_product}
                                                 target={'_blank'}
                                                 rel="noreferrer">

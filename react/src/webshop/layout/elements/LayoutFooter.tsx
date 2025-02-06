@@ -34,14 +34,16 @@ export default function LayoutFooter() {
             <div className="wrapper">
                 <div className="block block-footer">
                     <div className="row">
-                        <h2 className="sr-only">Site informatie</h2>
+                        <h2 className="sr-only">{translate('app_footer.columns.site_info')}</h2>
                         <div className="col col-md-4">
                             {appConfigs?.pages?.footer_contact_details?.description_html && (
                                 <Markdown content={appConfigs?.pages?.footer_contact_details?.description_html || ''} />
                             )}
                             {appConfigs.social_medias.length > 0 && (
                                 <div className="footer-social-medias">
-                                    <div className="footer-social-media-title">Volg ons op:</div>
+                                    <div className="footer-social-media-title">
+                                        {translate('app_footer.columns.follow_us')}
+                                    </div>
                                     <div className="footer-social-media-icons flex">
                                         {appConfigs.social_medias?.map((social_media, index) => (
                                             <a
@@ -122,7 +124,7 @@ export default function LayoutFooter() {
                                             {envData.config.flags.showFooterSponsorLogo && (
                                                 <img
                                                     className="footer-sponsor-logo-img"
-                                                    alt="Sponsor logo"
+                                                    alt={translate('app_footer.sponsor_logo_alt')}
                                                     src={assetUrl('/assets/img/logo-footer.png')}
                                                 />
                                             )}

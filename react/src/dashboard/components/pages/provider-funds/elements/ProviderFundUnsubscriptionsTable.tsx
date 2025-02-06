@@ -278,7 +278,7 @@ export default function ProviderFundUnsubscriptionsTable({
                                                         />
                                                     </div>
                                                     <div className="collapsable-content">
-                                                        <div className="text-primary text-medium">
+                                                        <div className="text-primary text-semibold">
                                                             {unsubscription.fund_provider.fund.name}
                                                         </div>
                                                         <a

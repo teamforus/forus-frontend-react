@@ -23,5 +23,7 @@ export default {
         security: 'Beveiliging',
         fund_requests: 'Aanvragen',
         payouts: 'Uitbetalingen',
+        me_app: 'Me-app',
+        provider_sign_up: 'Aanmelden als aanbieder',
     },
 };

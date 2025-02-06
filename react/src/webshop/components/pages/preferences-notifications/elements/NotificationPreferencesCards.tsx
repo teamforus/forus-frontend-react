@@ -72,12 +72,12 @@ export default function NotificationPreferencesCards({
             emailPreferenceService
                 .update(data)
                 .then((res) => {
-                    pushSuccess('Opgeslagen!');
+                    pushSuccess(translate('push.saved'));
                     setPreferences(filterOptions(res.data.data));
                 })
-                .catch((err) => pushDanger('Mislukt!', err.data.message));
+                .catch((err) => pushDanger(translate('push.error'), err.data.message));
         },
-        [emailPreferenceService, filterOptions, pushDanger, pushSuccess],
+        [emailPreferenceService, filterOptions, pushDanger, pushSuccess, translate],
     );
 
     const toggleSubscription = useCallback(

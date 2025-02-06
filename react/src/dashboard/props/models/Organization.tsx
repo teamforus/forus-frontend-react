@@ -20,6 +20,31 @@ export interface SponsorProviderOrganization extends Organization {
     employees: Array<Employee>;
 }
 
+export interface TranslationStats {
+    total: {
+        symbols: string;
+        cost: string;
+    };
+    count_per_type: {
+        [key: string]: {
+            symbols: string;
+            cost: string;
+        };
+    };
+    total_per_locale: {
+        [key: string]: {
+            symbols: string;
+            cost: string;
+        };
+    };
+    total_per_type_and_locale: {
+        [key: string]: {
+            symbols: string;
+            cost: string;
+        };
+    };
+}
+
 export default interface Organization {
     id: number;
     identity_address: string;
@@ -92,6 +117,23 @@ export default interface Organization {
         value?: string;
         organization_id?: number;
     }>;
+    allow_translations?: boolean;
+    translations_enabled?: boolean;
+    translations_monthly_limit?: number;
+    translations_monthly_limit_max?: number;
+    translations_weekly_limit?: number;
+    translations_daily_limit?: number;
+    translations_price_per_mill?: number;
+    translations_languages?: Array<{
+        id?: number;
+        name?: string;
+        locale?: string;
+    }>;
+    translations_usage?: {
+        month: TranslationStats;
+        week: TranslationStats;
+        day: TranslationStats;
+    };
     bank_statement_details?: {
         bank_transaction_id?: boolean;
         bank_transaction_date?: boolean;

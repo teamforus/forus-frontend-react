@@ -60,7 +60,7 @@ export default function ProvidersTableItemFunds({
                                                 />
                                             </div>
                                             <div className="collapsable-content">
-                                                <div className="text-primary text-medium">
+                                                <div className="text-primary text-semibold">
                                                     {strLimit(fundProvider.fund.name, 40)}
                                                 </div>
                                                 <div className="text-strong text-md text-muted-dark">
