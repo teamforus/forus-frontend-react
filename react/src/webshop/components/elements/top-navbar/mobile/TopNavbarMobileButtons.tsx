@@ -30,10 +30,10 @@ export default function TopNavbarMobileButtons() {
                 <button
                     className="navbar-mobile-auth-button button button-primary-outline"
                     onClick={() => startFundRequest({ restore_with_email: 1 })}
-                    aria-label={envData.config.flags.showStartButtonText || 'Start'}
+                    aria-label={envData.config.flags.showStartButtonText || translate('top_navbar.start')}
                     role="button">
                     <em className="mdi mdi-plus-circle icon-start" />
-                    {envData.config.flags.showStartButtonText || 'Start'}
+                    {envData.config.flags.showStartButtonText || translate('top_navbar.start')}
                 </button>
             )}
 

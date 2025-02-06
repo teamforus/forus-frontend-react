@@ -219,7 +219,10 @@
         },
         "title": "Ma liste de souhaits",
         "view_grid": "Photos",
-        "view_list": "Liste"
+        "view_list": "Liste",
+        "breadcrumbs": {
+            "home": "Accueil"
+        }
     },
     "buttons": {
         "add": "Ajouter",
@@ -463,7 +466,8 @@
             "description": "Attention ! Vous devez avoir rempli le formulaire de candidature au plus tard le <strong>{{value}}</strong>Sinon, vous devez vous reconnecter à DigiD et recommencer le processus de candidature."
         },
         "buttons": {
-            "back": "Retour"
+            "back": "Retour",
+            "send": "Expédition"
         },
         "declined": {
             "no_note": "Pas de note",
@@ -554,7 +558,8 @@
                 "criterion_same": "{{ name }} {{ value }} ' ' devrait être .",
                 "footer": {
                     "next": "Prochaine étape",
-                    "prev": "Étape précédente"
+                    "prev": "Étape précédente",
+                    "apply": "Demander"
                 },
                 "header_title": "Vue d'ensemble",
                 "text": "Nous avons besoin de plus de données. Veuillez suivre les étapes suivantes :"
@@ -569,6 +574,48 @@
             "subtitles": {
                 "step_1": "Grâce à ce formulaire en ligne, vous pouvez demander les fonds disponibles. ",
                 "step_2": "Il vérifie si vous remplissez déjà les conditions, et vous pouvez vous interrompre entre les deux et continuer à un autre moment."
+            },
+            "fund_request_confirm_criteria": {
+                "confirm_income": "Confirmez vos revenus",
+                "confirm_meet_conditions": "Je déclare que je respecte les conditions susmentionnées.",
+                "declare_conditions": "Vous êtes sur le point d'introduire une demande de participation. Vous devez déclarer que vous remplissez les conditions.",
+                "processing_request": "Veuillez patienter un instant, la demande est en cours de traitement.",
+                "provide_correct_info": "Je sais que le fait de fournir des informations inexactes est punissable, que je dois rembourser toute taxe perçue indûment ou en trop et que je peux être condamné à une amende."
+            },
+            "fund_request_contact_info": {
+                "title": "Coordonnées de la personne à contacter"
+            },
+            "fund_request_email_setup": {
+                "continue_without_email": "Poursuivre sans e-mail",
+                "email_required": "Pour continuer avec la demande, veuillez entrer votre adresse e-mail",
+                "email_sent": "Courriel envoyé",
+                "email_sent_screen": "Un e-mail de confirmation a été envoyé",
+                "no_email_info": "Si vous ne laissez pas d'adresse e-mail, vous ne recevrez pas les messages essentiels tels que l'e-mail avec le code QR ou lorsqu'il y a eu une transaction. En outre, vous ne pourrez vous connecter qu'avec DigiD.",
+                "sign_up_with_email": "S'identifier avec l'adresse e-mail",
+                "skip": "Sauter",
+                "warning": "Remarque !"
+            },
+            "fund_request_overview": {
+                "application_summary": "Aperçu de la demande",
+                "check_information": "Veuillez vérifier ci-dessous que les informations que vous avez saisies sont correctes. Vous pouvez revenir aux étapes précédentes à l'aide du bouton ",
+                "contact_info": "Coordonnées indiquées :",
+                "correct_information": "Les données sont-elles correctes ? Cliquez ensuite sur l'icône ",
+                "none": "Non",
+                "previous_step": "Étape précédente.",
+                "submit_application": "Question à."
+            },
+            "fund_request_step_criteria": {
+                "make_a_choice": "Choisissez une option"
+            },
+            "fund_request_step_done": {
+                "application_processing": "Votre demande a été reçue. La demande sera traitée dans les 10 jours ouvrables. Vous recevrez un e-mail à ce sujet.",
+                "application_received": "Demande reçue",
+                "back": "Retour",
+                "error_occurred": "Une erreur s'est produite lors de l'application.",
+                "leave_form": "Formulaire de congé",
+                "reason": "Raison :",
+                "sent": "Envoyé !",
+                "sign_up": "S'inscrire"
             }
         },
         "steps": {
@@ -595,7 +642,8 @@
         },
         "filters": {
             "active": "Actif",
-            "archive": "Archives"
+            "archive": "Archives",
+            "all_funds": "Tous les crédits..."
         },
         "title": "Demande"
     },
@@ -1266,7 +1314,8 @@
             "description": "Téléchargez l'application Me via les magasins d'applications ci-dessous. <a href=\"{{download_link}}\">Cliquez ici pour</a> ouvrir <a href=\"{{download_link}}\">directement</a> le <a href=\"{{download_link}}\">magasin d'applications approprié</a> sur votre téléphone ou votre tablette.",
             "title": "Téléchargez Me sur votre téléphone ou tablette"
         },
-        "title": "À propos de l'application Me"
+        "title": "À propos de l'application Me",
+        "img_alt": "Me-app"
     },
     "meapp_index": {
         "buttons": {
@@ -1315,10 +1364,8 @@
         "enter_app_code": "Saisir le code à 6 chiffres à partir de l'application",
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "error_404": "Une erreur s'est produite. Veuillez actualiser la page.",
-        "failed": "Échec !",
         "resend_code": "Renvoyer le code",
         "seconds": "{heure} seconde(s)",
-        "success": "Une réussite !",
         "unknown_error": "Erreur inconnue.",
         "verify": "Vérifier"
     },
@@ -1344,7 +1391,6 @@
             "code_sent": "Un problème s'est produit lors de l'envoi du SMS. Le numéro de téléphone saisi est-il correct ? Si ce n'est pas le cas, réessayez."
         },
         "extra_security": "Votre authentification à deux facteurs a été configurée avec succès. Votre compte est désormais plus sûr.",
-        "failed": "Échec !",
         "in_app_select": "Dans l'application, sélectionnez",
         "link_phone": "Liez votre numéro de téléphone",
         "or": "La question de savoir si le",
@@ -1355,11 +1401,12 @@
         "select_auth_app": "Sélectionnez l'application d'authentification que vous souhaitez utiliser.",
         "setup_2fa": "Mise en place de l'authentification à deux facteurs",
         "setup_account": "Ouvrir un compte",
-        "success": "Une réussite !",
         "successful_login": "Cela a fonctionné !",
         "unknown_error": "Erreur inconnue.",
         "verify": "Vérifier",
-        "welcome_back": "Vous vous êtes connecté avec succès à l'aide de l'authentification à deux facteurs. Nous sommes heureux de vous revoir !"
+        "welcome_back": "Vous vous êtes connecté avec succès à l'aide de l'authentification à deux facteurs. Nous sommes heureux de vous revoir !",
+        "download_from_app_store": "App Store",
+        "download_from_play_store": "Play Store"
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -1380,7 +1427,6 @@
         "cancel": "Annuler",
         "choose_another": "Sélectionner une autre image",
         "close": "Fermer",
-        "error": "Erreur !",
         "instructions": "À gauche, vous verrez l'image originale et à droite, les exemples. Utilisez la boîte dans l'image de gauche pour positionner l'image.",
         "invalid_file": "Le fichier téléchargé n'est pas une image valide, veuillez essayer un autre fichier.",
         "invalid_image": "Le fichier sélectionné n'est pas une image valide.",
@@ -1392,7 +1438,8 @@
         "rotate_right": "Tourner de 90 degrés dans le sens des aiguilles d'une montre",
         "some_invalid_files": "Certains des fichiers sélectionnés ne sont pas des images valides et sont ignorés.",
         "submit": "Soumettre",
-        "upload_document": "Télécharger un document"
+        "upload_document": "Télécharger un document",
+        "number": "Afficher le numéro de l'image : {{ number }}"
     },
     "modal_physical_card_unlink": {
         "body": {
@@ -1422,7 +1469,8 @@
             },
             "request_new_card": {
                 "confirm": "Confirmer",
-                "order_by_email": "Commande par courrier"
+                "order_by_email": "Commande par courrier",
+                "cancel": "Annuler"
             }
         },
         "modal_section": {
@@ -1445,7 +1493,11 @@
             "link_card": {
                 "description": "<br/><br/>Un code QR figure sur votre carte, en dessous se trouve votre code personnel. Si vous réactivez l'ancienne carte, vous pouvez continuer à l'utiliser. Besoin d'aide ?  Appelez le 14 050 du lundi au vendredi de 9h00 à 12h00.",
                 "subtitle": "Entrez votre code client personnel",
-                "title": "Activez votre ancien pass"
+                "title": "Activez votre ancien pass",
+                "alt_text": "Passe physique : {{ fund_name }}",
+                "enter_physical_card_number": "Saisir le numéro de la carte physique",
+                "no_old_card": "Pas d'ancien laissez-passer ?",
+                "order_card": "Commander un laissez-passer"
             },
             "request_card_success": {
                 "description": "Vous avez reçu un e-mail confirmant votre commande.",
@@ -1637,7 +1689,8 @@
             "close": "Fermer",
             "description": "Votre réservation a été effectuée.",
             "title": "Cela a fonctionné !"
-        }
+        },
+        "voucher_image_alt": "Crédit"
     },
     "modal": {
         "buttons": {
@@ -1646,7 +1699,26 @@
             "confirm": "Confirmer"
         },
         "logout": {
-            "description": "Vous êtes automatiquement déconnecté après 15 minutes d'inactivité."
+            "description": "Vous êtes automatiquement déconnecté après 15 minutes d'inactivité.",
+            "confirm": "Connexion",
+            "title": "Session expirée"
+        },
+        "email_voucher_to_me": {
+            "description": "Envoyer le code QR à mon adresse e-mail",
+            "title": "Envoyez-moi un courriel"
+        },
+        "session": {
+            "description": "La fin de la session peut entraîner votre déconnexion. Voulez-vous continuer ?",
+            "header": "Fin de la session",
+            "title": "Fin de la session"
+        },
+        "sessions": {
+            "description": "Vous êtes maintenant déconnecté sur tous les appareils, voulez-vous continuer ?",
+            "title": "Fin de toutes les sessions"
+        },
+        "share_voucher": {
+            "description": "Vous pouvez partager votre réservation avec le prestataire pour permettre l'achat à distance. Si l'offre concerne une activité ou un service : saisissez dans le champ ci-dessous les informations supplémentaires requises par le prestataire pour la participation, telles que : votre nom et votre numéro de téléphone.",
+            "title": "Remarque ! Veuillez envoyer un message au fournisseur avant de partager le code QR."
         }
     },
     "not_found": {
@@ -2146,7 +2218,8 @@
             "potjeswijzer": {
                 "request": "Demande"
             },
-            "request": "Activer"
+            "request": "Activer",
+            "bookmark": "Ajouter à la liste de souhaits"
         },
         "funds": {
             "fund": "Crédit :",
@@ -2268,7 +2341,9 @@
             "title": "Détails du compte"
         },
         "bank_accounts": {
-            "title": "Compte bancaire"
+            "title": "Compte bancaire",
+            "iban": "IBAN",
+            "name": "Ascription"
         },
         "breadcrumbs": {
             "home": "Accueil",
@@ -2284,7 +2359,11 @@
             "title": "Modifier les coordonnées"
         },
         "history": {
-            "title": "{{count}} fois édité"
+            "title": "{{count}} fois édité",
+            "from": "de",
+            "modified_by": "Modifié par",
+            "to": "à",
+            "you": "vous"
         },
         "personal": {
             "bsn": "BSN",
@@ -2504,7 +2583,8 @@
                 "sponsor": "Déclarer à",
                 "title": "Titre"
             },
-            "title": "Données de la déclaration"
+            "title": "Données de la déclaration",
+            "code": "Nombre : #:code"
         },
         "empty": {
             "button": "Soumettre un coupon",
@@ -2618,7 +2698,8 @@
                 "rejected": "Refusé",
                 "waiting": "En attente de paiement"
             }
-        }
+        },
+        "title": "Détails de l'appoint"
     },
     "reservations": {
         "breadcrumbs": {
@@ -2713,14 +2794,11 @@
         "disabled": "Handicapés",
         "enable": "Activer",
         "enabled_on": "Activé : ",
-        "error": "Erreur",
-        "failed": "Échec !",
         "municipality_restrict": "Ces paramètres ne peuvent pas être modifiés en raison des conditions fixées par la municipalité.",
         "number_confirmed": "Nombre confirmé",
         "remember_ip": "Mémoriser l'adresse IP",
         "require_2fa_always": "Toujours demander une confirmation avec 2FA",
         "require_2fa_ip": "Si l'adresse IP a été utilisée au cours des dernières 48 heures, ne pas exiger le 2FA.",
-        "saved": "Sauvé !",
         "settings": "Paramètres",
         "sms_message": "Message SMS",
         "subtitle": "Ajoutez un niveau de sécurité supplémentaire à votre compte en activant l'authentification à deux facteurs. Vous pouvez choisir parmi les méthodes d'authentification suivantes : Authenticator app et authentification par SMS.",
@@ -2758,7 +2836,8 @@
             "provider": "Environnement de gestion des prestataires",
             "sponsor": "Environnement de la gestion des sponsors",
             "validator": "Environnement de gestion des évaluateurs",
-            "webshop": "Boutique en ligne"
+            "webshop": "Boutique en ligne",
+            "me_app": "Me-app"
         },
         "details": {
             "last_activity": "Dernière activité",
@@ -2883,7 +2962,11 @@
             "btn": "Voir tous les résultats",
             "funds_label": "Crédit",
             "products_label": "Offre",
-            "providers_label": "Fournisseurs"
+            "providers_label": "Fournisseurs",
+            "found_results": "{{count}} résultats trouvés..."
+        },
+        "aria": {
+            "close_search": "Supprimer la recherche"
         }
     },
     "top_navbar": {
@@ -3070,8 +3153,13 @@
             "reimbursements": "Recouvrement des coûts",
             "reservations": "Réservations",
             "security_2fa": "Sécurité",
-            "security_sessions": "Sessions"
-        }
+            "security_sessions": "Sessions",
+            "aria_label": "Menu utilisateur",
+            "title": "Personnel"
+        },
+        "main_menu": "Menu principal",
+        "open_home": "Retour à la page principale",
+        "start": "Démarrage"
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3162,7 +3250,8 @@
             "popup_form": {
                 "description": "Vous pouvez annuler votre réservation pour renoncer à l'achat. Si vous ne souhaitez pas annuler cet achat, cliquez sur \"fermer\".",
                 "title": "Vous souhaitez annuler votre réservation avant l'achat ?"
-            }
+            },
+            "title": "Annuler la réservation"
         },
         "history": {
             "status": {
@@ -3334,7 +3423,8 @@
         "download_pdf": "Télécharger en PDF",
         "total_amount": "Montant total",
         "total_offers": "Offre totale",
-        "your_data": "Vos données"
+        "your_data": "Vos données",
+        "record_required": "{{ title }} Ce champ est obligatoire."
     },
     "navbar": {
         "vergoedingen": {
@@ -3346,5 +3436,59 @@
         "goereeoverflakkee": {
             "funds": "Régimes"
         }
+    },
+    "cookie_banner": {
+        "accept_all": "Accepter et passer à autre chose",
+        "analytics": "Cookies analytiques",
+        "analytics_description": "Ce site web utilise des cookies analytiques pour collecter des statistiques anonymes sur la façon dont les visiteurs utilisent notre site web. Ces informations nous aident à améliorer le site et à le rendre plus convivial.",
+        "description": "Ce site web utilise des cookies pour améliorer l'expérience globale de l'utilisateur. En cliquant sur \"Accepter et continuer\", vous consentez à l'utilisation de cookies telle que décrite dans la déclaration de confidentialité.",
+        "functional_only": "Uniquement nécessaire pour le site web",
+        "local_storage": "Stockage local",
+        "local_storage_description": "Le stockage local est utilisé pour garantir que le site web fonctionne correctement et que les utilisateurs restent connectés.",
+        "manage_cookies": "Gérer les cookies",
+        "privacy_policy": "Déclaration de confidentialité",
+        "settings": "Paramètres des cookies",
+        "settings_description": "Ce site web utilise des cookies pour le faire fonctionner le mieux possible, pour améliorer l'expérience de l'utilisateur et pour collecter des statistiques anonymes.",
+        "storage_info": "Ce site web n'utilise que des cookies analytiques et de stockage local :",
+        "title": "Ce site web utilise des cookies",
+        "view": "Voir le "
+    },
+    "logo_title": "Vers la page d'accueil de :host",
+    "push": {
+        "deleted": "Supprimé !",
+        "error": "Échec !",
+        "fund_activation": {
+            "digid_success": "Connecté avec DigiD.",
+            "success": "Crédit {nom_du_fonds} activé !"
+        },
+        "pre_check": {
+            "downloaded": "Le téléchargement commencera dans quelques instants.",
+            "not_available": "Cette page n'est pas disponible."
+        },
+        "preferences_emails": {
+            "verification_resent": "L'email de vérification a de nouveau été envoyé !"
+        },
+        "profile": {
+            "updated": "Les informations ont été mises à jour."
+        },
+        "reimbursement_edit": {
+            "saved": "La demande de déclaration a été enregistrée.",
+            "submitted": "La demande de déclaration a été soumise pour examen."
+        },
+        "reimbursement": {
+            "canceled": "Déclaration annulée."
+        },
+        "reservation": {
+            "canceled": "Réservation annulée."
+        },
+        "saved": "Sauvé !",
+        "sessions": {
+            "terminated": "Terminé !"
+        },
+        "success": "Une réussite !"
+    },
+    "read_speaker": {
+        "read_aloud": "Lire pour",
+        "tooltip": "Faites lire le texte à haute voix avec ReadSpeaker webReader"
     }
 }

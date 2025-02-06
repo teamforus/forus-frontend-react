@@ -51,9 +51,11 @@ export default function FundRequests() {
 
         fundService
             .list({ per_page: 100 })
-            .then((res) => setFunds([{ name: 'Alle tegoeden', id: null }, ...res.data.data]))
+            .then((res) => {
+                setFunds([{ name: translate('fund_requests.filters.all_funds'), id: null }, ...res.data.data]);
+            })
             .finally(() => setProgress(100));
-    }, [fundService, setProgress]);
+    }, [fundService, setProgress, translate]);
 
     useEffect(() => {
         fetchFunds();

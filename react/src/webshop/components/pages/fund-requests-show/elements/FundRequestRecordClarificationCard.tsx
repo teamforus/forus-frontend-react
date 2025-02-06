@@ -40,7 +40,7 @@ export default function FundRequestRecordClarificationCard({
         fundRequestClarificationService
             .update(fundRequest.id, clarification.id, values)
             .then((res) => {
-                pushSuccess('Succes!');
+                pushSuccess(translate('push.success'));
 
                 record.clarifications = record.clarifications.map((item) => {
                     return item.id === res.data.data.id ? res.data.data : item;

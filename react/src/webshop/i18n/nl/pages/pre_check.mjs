@@ -9,6 +9,7 @@ export default {
     show_less: 'Toon minder',
     search: 'Zoeken',
     previous_step: 'Vorige stap',
+    record_required: 'Het {{ title }} veld is verplicht.',
     next_step: 'Volgende',
     funds: 'Fondsen',
     your_data: 'Uw gegevens',

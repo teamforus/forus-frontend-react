@@ -45,6 +45,7 @@ export default {
         buy_label: 'Open Reserveringsformulier',
         request: 'Activeren',
         open_voucher: 'Open tegoed',
+        bookmark: 'Toevoegen aan verlanglijstje',
         groningen: {
             request: 'Aanvragen',
         },

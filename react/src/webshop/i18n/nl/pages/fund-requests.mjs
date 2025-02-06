@@ -12,6 +12,7 @@ export default {
     filters: {
         active: 'Actief',
         archive: 'Archief',
+        all_funds: 'Alle tegoeden...',
     },
     card: {
         id: 'ID',

@@ -56,7 +56,10 @@
         },
         "title": "Dilek listem",
         "view_grid": "Fotoğraflar",
-        "view_list": "Liste"
+        "view_list": "Liste",
+        "breadcrumbs": {
+            "home": "Ev"
+        }
     },
     "buttons": {
         "add": "Ekle",
@@ -487,14 +490,11 @@
         "disabled": "Engelli",
         "enable": "Etkinleştir",
         "enabled_on": "Etkinleştirildi: ",
-        "error": "Hata",
-        "failed": "Başarısız!",
         "municipality_restrict": "Bu ayarlar belediye tarafından belirlenen koşullar nedeniyle değiştirilemez",
         "number_confirmed": "Onaylanan sayı",
         "remember_ip": "IP adresini hatırla",
         "require_2fa_always": "Her zaman 2FA ile onay gerektirir",
         "require_2fa_ip": "IP adresi son 48 saat içinde kullanılmışsa, 2FA gerektirmez.",
-        "saved": "Kurtuldum!",
         "settings": "Ayarlar",
         "sms_message": "SMS Mesajı",
         "subtitle": "İki faktörlü kimlik doğrulamayı etkinleştirerek hesabınıza ekstra bir güvenlik katmanı ekleyin. Aşağıdaki kimlik doğrulama yöntemlerinden birini seçebilirsiniz: Authenticator uygulaması ve SMS kimlik doğrulaması.",
@@ -532,7 +532,8 @@
             "provider": "Sağlayıcılar yönetim ortamı",
             "sponsor": "Sponsor yönetim ortamı",
             "validator": "Değerlendirici yönetim ortamı",
-            "webshop": "Webshop"
+            "webshop": "Webshop",
+            "me_app": "Me-app"
         },
         "details": {
             "last_activity": "Son etkinlik",
@@ -735,8 +736,13 @@
             "reimbursements": "Maliyet geri kazanımı",
             "reservations": "Rezervasyonlar",
             "security_2fa": "Güvenlik",
-            "security_sessions": "Oturumlar"
-        }
+            "security_sessions": "Oturumlar",
+            "aria_label": "Kullanıcı menüsü",
+            "title": "Kişisel"
+        },
+        "main_menu": "Ana menü",
+        "open_home": "Ana sayfaya geri dön",
+        "start": "Başlangıç"
     },
     "week_days": {
         "0": "Pazartesi",
@@ -824,7 +830,8 @@
             "description": "Lütfen dikkat! Başvuru formunu şu tarihe kadar doldurmuş olmanız gerekmektedir <strong>{{value}}</strong>aksi takdirde DigiD ile tekrar oturum açın ve uygulamayı yeniden başlatın."
         },
         "buttons": {
-            "back": "Geri"
+            "back": "Geri",
+            "send": "Nakliye"
         },
         "declined": {
             "no_note": "Not yok",
@@ -915,7 +922,8 @@
                 "criterion_same": "{{ name }} {{ value }} ' ' olmalıdır.",
                 "footer": {
                     "next": "Sonraki adım",
-                    "prev": "Önceki adım"
+                    "prev": "Önceki adım",
+                    "apply": "Sor"
                 },
                 "header_title": "Genel Bakış",
                 "text": "Biraz daha veriye ihtiyacımız var. Lütfen aşağıdaki adımları uygulayın:"
@@ -930,6 +938,48 @@
             "subtitles": {
                 "step_1": "Bu çevrimiçi form aracılığıyla mevcut fonlar için başvuruda bulunabilirsiniz. ",
                 "step_2": "Koşulları zaten karşılayıp karşılamadığınızı kontrol eder ve arada ara verip başka bir zaman devam edebilirsiniz."
+            },
+            "fund_request_confirm_criteria": {
+                "confirm_income": "Gelirinizi teyit edin",
+                "confirm_meet_conditions": "Yukarıdaki koşullara uyduğumu beyan ederim.",
+                "declare_conditions": "Bir katılım programına başvurmak üzeresiniz. Koşulları karşıladığınızı beyan etmelisiniz.",
+                "processing_request": "Lütfen bir dakika bekleyin, talep işleme alınıyor.",
+                "provide_correct_info": "Yanlış bilgi vermenin cezalandırılabileceğini, haksız veya fazla alınan herhangi bir ücreti geri ödemem gerektiğini ve para cezasına çarptırılabileceğimi biliyorum."
+            },
+            "fund_request_contact_info": {
+                "title": "İletişim bilgileri"
+            },
+            "fund_request_email_setup": {
+                "continue_without_email": "E-posta olmadan devam etme",
+                "email_required": "Başvuruya devam etmek için lütfen e-posta adresinizi girin",
+                "email_sent": "E-posta gönderildi",
+                "email_sent_screen": "Bir onay e-postası gönderildi",
+                "no_email_info": "Bir e-posta adresi bırakmazsanız, QR kodlu e-posta gibi önemli mesajları veya bir işlem yapıldığında alamazsınız. Ayrıca, yalnızca DigiD ile giriş yapabilirsiniz.",
+                "sign_up_with_email": "E-posta adresi ile oturum açın",
+                "skip": "Atla",
+                "warning": "Dikkat!"
+            },
+            "fund_request_overview": {
+                "application_summary": "Talebe genel bakış",
+                "check_information": "Lütfen girdiğiniz bilgilerin doğru olup olmadığını aşağıdan kontrol edin. ile önceki adımlara geri dönebilirsiniz. ",
+                "contact_info": "Belirtilen iletişim bilgileri:",
+                "correct_information": "Ayrıntılar doğru mu? Daha sonra ",
+                "none": "Hayır",
+                "previous_step": "Önceki adım.",
+                "submit_application": "Soru sormak için."
+            },
+            "fund_request_step_criteria": {
+                "make_a_choice": "Birini seçin"
+            },
+            "fund_request_step_done": {
+                "application_processing": "Başvurunuz alınmıştır. Başvuru 10 iş günü içerisinde işleme alınacaktır. Bununla ilgili bir e-posta alacaksınız.",
+                "application_received": "Başvuru alındı",
+                "back": "Geri",
+                "error_occurred": "Başvuru sırasında bir hata oluştu.",
+                "leave_form": "İzin formu",
+                "reason": "Sebep:",
+                "sent": "Gönderdim!",
+                "sign_up": "Kaydolun"
             }
         },
         "steps": {
@@ -974,7 +1024,8 @@
             "description": "Me uygulamasını aşağıdaki uygulama mağazalarından indirin. Telefonunuzda veya tabletinizde <a href=\"{{download_link}}\">ilgili uygulama mağazasını doğrudan</a> açmak <a href=\"{{download_link}}\">için buraya tıklayın</a>.",
             "title": "Beni telefonunuza veya tabletinize indirin"
         },
-        "title": "Me uygulaması hakkında"
+        "title": "Me uygulaması hakkında",
+        "img_alt": "Me-app"
     },
     "signup_options": {
         "buttons": {
@@ -1032,7 +1083,8 @@
         },
         "filters": {
             "active": "Aktif",
-            "archive": "Arşiv"
+            "archive": "Arşiv",
+            "all_funds": "Tüm krediler..."
         },
         "title": "İstek"
     },
@@ -1710,7 +1762,8 @@
             "potjeswijzer": {
                 "request": "İstek"
             },
-            "request": "Etkinleştir"
+            "request": "Etkinleştir",
+            "bookmark": "İstek listesine ekle"
         },
         "funds": {
             "fund": "Kredi:",
@@ -1868,7 +1921,8 @@
             "popup_form": {
                 "description": "Satın alma işleminden vazgeçmek için rezervasyonunuzu iptal edebilirsiniz. Bu satın alma işlemini iptal etmek istemiyorsanız \"kapat\" düğmesine tıklayın.",
                 "title": "Rezervasyonunuzu satın almadan önce iptal etmek mi istiyorsunuz?"
-            }
+            },
+            "title": "Rezervasyonu iptal et"
         },
         "history": {
             "status": {
@@ -2416,7 +2470,9 @@
             "title": "Hesap bilgileri"
         },
         "bank_accounts": {
-            "title": "Banka hesabı"
+            "title": "Banka hesabı",
+            "iban": "IBAN",
+            "name": "Ascription"
         },
         "breadcrumbs": {
             "home": "Ev",
@@ -2432,7 +2488,11 @@
             "title": "İletişim bilgilerini düzenleme"
         },
         "history": {
-            "title": "{{count}} düzenlenmiş zamanlar"
+            "title": "{{count}} düzenlenmiş zamanlar",
+            "from": "itibaren",
+            "modified_by": "Tarafından değiştirildi",
+            "to": "için",
+            "you": "sen"
         },
         "personal": {
             "bsn": "BSN",
@@ -2465,7 +2525,8 @@
                 "sponsor": "Beyan etmek",
                 "title": "Başlık"
             },
-            "title": "Beyan verileri"
+            "title": "Beyan verileri",
+            "code": "Numara: #:code"
         },
         "empty": {
             "button": "Kupon gönder",
@@ -2579,7 +2640,8 @@
                 "rejected": "Reddedildi",
                 "waiting": "Ödeme için bekliyorum"
             }
-        }
+        },
+        "title": "Yükleme ayrıntıları"
     },
     "reservations": {
         "breadcrumbs": {
@@ -2683,10 +2745,8 @@
         "enter_app_code": "Uygulama içinden 6 haneli kodu girin",
         "enter_sms_code": "6 haneli SMS kodunu girin",
         "error_404": "Bir hata meydana geldi. Lütfen sayfayı yenileyin.",
-        "failed": "Başarısız!",
         "resend_code": "Kodu yeniden gönder",
         "seconds": "{zaman} saniye(ler)",
-        "success": "Başarılı!",
         "unknown_error": "Bilinmeyen hata.",
         "verify": "Doğrulama"
     },
@@ -2712,7 +2772,6 @@
             "code_sent": "SMS gönderilirken bir şeyler yanlış gitti. Doğru telefon numarası girildi mi? Değilse, tekrar deneyin."
         },
         "extra_security": "İki faktörlü kimlik doğrulamanız başarıyla ayarlandı. Hesabınız artık daha da güvenli.",
-        "failed": "Başarısız!",
         "in_app_select": "Uygulamada şunları seçin",
         "link_phone": "Telefon numaranızı bağlayın",
         "or": "Olup olmadığı",
@@ -2723,11 +2782,12 @@
         "select_auth_app": "Kullanmak istediğiniz kimlik doğrulama uygulamasını seçin.",
         "setup_2fa": "İki faktörlü kimlik doğrulamayı ayarlama",
         "setup_account": "Hesap oluşturun",
-        "success": "Başarılı!",
         "successful_login": "İşe yaradı!",
         "unknown_error": "Bilinmeyen hata.",
         "verify": "Doğrulama",
-        "welcome_back": "İki faktörlü kimlik doğrulama ile başarıyla giriş yaptınız. Tekrar hoş geldiniz!"
+        "welcome_back": "İki faktörlü kimlik doğrulama ile başarıyla giriş yaptınız. Tekrar hoş geldiniz!",
+        "download_from_app_store": "App Store",
+        "download_from_play_store": "Play Store"
     },
     "modal_fund_help": {
         "chat": "Sohbet",
@@ -2748,7 +2808,6 @@
         "cancel": "İptal",
         "choose_another": "Diğer resmi seçin",
         "close": "Kapat",
-        "error": "Hata!",
         "instructions": "Solda orijinal görüntüyü, sağda ise örnekleri göreceksiniz. Resmi konumlandırmak için soldaki resimdeki kutuyu kullanın.",
         "invalid_file": "Yüklenen dosya geçerli bir resim değil, lütfen başka bir dosya deneyin.",
         "invalid_image": "Seçilen dosya geçerli bir resim değil.",
@@ -2760,7 +2819,8 @@
         "rotate_right": "Saat yönünde 90 derece döndürün",
         "some_invalid_files": "Seçilen dosyalardan bazıları geçerli görüntüler değildir ve atlanır.",
         "submit": "Gönder",
-        "upload_document": "Bir belge yükleyin"
+        "upload_document": "Bir belge yükleyin",
+        "number": "Resim numarasını göster: {{ number }}"
     },
     "modal_physical_card_unlink": {
         "body": {
@@ -2790,7 +2850,8 @@
             },
             "request_new_card": {
                 "confirm": "Onaylayın",
-                "order_by_email": "Posta ile sipariş"
+                "order_by_email": "Posta ile sipariş",
+                "cancel": "İptal"
             }
         },
         "modal_section": {
@@ -2813,7 +2874,11 @@
             "link_card": {
                 "description": "<br/><br/>Geçiş kartınızın üzerinde bir QR kodu bulunmaktadır, aşağıda kişisel kodunuz yer almaktadır. Eski geçiş kartınızı yeniden etkinleştirirseniz kullanmaya devam edebilirsiniz. Yardıma mı ihtiyacınız var?  Pazartesi - Cuma 9.00 - 12.00 arası 14 050'yi arayın.",
                 "subtitle": "Kişisel müşteri kodunuzu girin",
-                "title": "Eski geçiş kartınızı etkinleştirin"
+                "title": "Eski geçiş kartınızı etkinleştirin",
+                "alt_text": "Fiziksel geçiş: {{ fund_name }}",
+                "enter_physical_card_number": "Fiziksel kartın numarasını girin",
+                "no_old_card": "Eski kart yok mu?",
+                "order_card": "Geçiş kartı sipariş edin"
             },
             "request_card_success": {
                 "description": "Siparişinizi onaylayan bir e-posta aldınız.",
@@ -3005,7 +3070,8 @@
             "close": "Kapat",
             "description": "Rezervasyonunuz yapılmıştır.",
             "title": "İşe yaradı!"
-        }
+        },
+        "voucher_image_alt": "Kredi"
     },
     "modal": {
         "buttons": {
@@ -3014,7 +3080,26 @@
             "confirm": "Onaylayın"
         },
         "logout": {
-            "description": "Hareketsiz kaldığınız 15 dakika içinde otomatik olarak oturumu kapatırsınız."
+            "description": "Hareketsiz kaldığınız 15 dakika içinde otomatik olarak oturumu kapatırsınız.",
+            "confirm": "Giriş",
+            "title": "Oturum süresi doldu"
+        },
+        "email_voucher_to_me": {
+            "description": "QR kodunu e-posta adresime gönderin",
+            "title": "Bana e-posta gönderin"
+        },
+        "session": {
+            "description": "Oturumu sonlandırmak çıkış yapmanıza neden olabilir, devam etmek ister misiniz?",
+            "header": "Oturum sonu",
+            "title": "Oturum sonu"
+        },
+        "sessions": {
+            "description": "Şu anda tüm cihazlardan çıkış yapmış durumdasınız, devam etmek istiyor musunuz?",
+            "title": "Tüm oturumları sonlandırın"
+        },
+        "share_voucher": {
+            "description": "Uzaktan satın almayı etkinleştirmek için rezervasyonunuzu sağlayıcı ile paylaşabilirsiniz. Teklif bir etkinlik veya hizmetle ilgiliyse: katılım için sağlayıcı tarafından istenen adınız ve telefon numaranız gibi ek bilgileri aşağıdaki alana yazın.",
+            "title": "Not! QR kodunu paylaşmadan önce lütfen sağlayıcıya bir mesaj gönderin."
         }
     },
     "open_in_me": {
@@ -3310,7 +3395,11 @@
             "btn": "Tüm sonuçları görüntüle",
             "funds_label": "Kredi",
             "products_label": "Teklif",
-            "providers_label": "Sağlayıcılar"
+            "providers_label": "Sağlayıcılar",
+            "found_results": "{{count}} sonuçlar bulundu..."
+        },
+        "aria": {
+            "close_search": "Aramayı sil"
         }
     },
     "pre_check": {
@@ -3334,7 +3423,8 @@
         "download_pdf": "PDF olarak indir",
         "total_amount": "Toplam tutar",
         "total_offers": "Toplam teklif",
-        "your_data": "Verileriniz"
+        "your_data": "Verileriniz",
+        "record_required": "{{ title }} Bu alan zorunludur."
     },
     "navbar": {
         "vergoedingen": {
@@ -3346,5 +3436,59 @@
         "goereeoverflakkee": {
             "funds": "Şemalar"
         }
+    },
+    "cookie_banner": {
+        "accept_all": "Kabullenin ve yolunuza devam edin",
+        "analytics": "Analitik çerezler",
+        "analytics_description": "Bu web sitesi, ziyaretçilerin web sitemizi nasıl kullandıkları hakkında anonim istatistikler toplamak için analitik çerezler kullanır. Bu bilgiler, web sitesini geliştirmemize ve daha kullanıcı dostu hale getirmemize yardımcı olur.",
+        "description": "Bu web sitesi, genel kullanıcı deneyimini iyileştirmek için çerezler kullanmaktadır. \"Kabul Et ve Devam Et\" seçeneğine tıklayarak, çerezlerin Gizlilik Bildiriminde açıklandığı şekilde kullanılmasına izin vermiş olursunuz.",
+        "functional_only": "Sadece web sitesi için gerekli",
+        "local_storage": "Yerel depolama",
+        "local_storage_description": "Yerel depolama, web sitesinin düzgün çalışmasını ve kullanıcıların oturumlarının açık kalmasını sağlamak için kullanılır.",
+        "manage_cookies": "Çerezleri yönet",
+        "privacy_policy": "Gizlilik beyanı",
+        "settings": "Çerez ayarları",
+        "settings_description": "Bu web sitesi, web sitesinin mümkün olduğunca iyi çalışmasını sağlamak, kullanıcı deneyimini iyileştirmek ve anonim istatistikler toplamak için çerezler kullanır.",
+        "storage_info": "Bu web sitesi yalnızca yerel depolama ve analitik çerezler kullanır:",
+        "title": "Bu web sitesi çerezleri kullanır",
+        "view": "Görüntüle "
+    },
+    "logo_title": "Ana sayfasına :host",
+    "push": {
+        "deleted": "Silindi!",
+        "error": "Başarısız!",
+        "fund_activation": {
+            "digid_success": "DigiD ile giriş yapıldı.",
+            "success": "{fon_adı} kredisi etkinleştirildi!"
+        },
+        "pre_check": {
+            "downloaded": "İndirme işlemi birkaç dakika içinde başlayacaktır.",
+            "not_available": "Bu sayfa mevcut değil."
+        },
+        "preferences_emails": {
+            "verification_resent": "Doğrulama e-postası tekrar gönderildi!"
+        },
+        "profile": {
+            "updated": "Bilgiler güncellenmiştir."
+        },
+        "reimbursement_edit": {
+            "saved": "Beyanname talebi kaydedildi.",
+            "submitted": "Beyanname talebi incelenmek üzere sunulmuştur."
+        },
+        "reimbursement": {
+            "canceled": "Beyanname iptal edildi."
+        },
+        "reservation": {
+            "canceled": "Rezervasyon iptal edildi."
+        },
+        "saved": "Kurtuldum!",
+        "sessions": {
+            "terminated": "Sonlandırıldı!"
+        },
+        "success": "Başarılı!"
+    },
+    "read_speaker": {
+        "read_aloud": "Okumak için",
+        "tooltip": "ReadSpeaker webReader ile metnin okunmasını sağlayın"
     }
 }

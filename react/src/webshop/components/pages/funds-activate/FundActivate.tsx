@@ -132,13 +132,13 @@ export default function FundActivate() {
                 .then((res) => (document.location = res.data.redirect_url))
                 .catch((err: ResponseError) => {
                     if (err.status === 403 && err.data.message) {
-                        return pushDanger(err.data.message);
+                        return pushDanger(translate('push.error'), err.data.message);
                     }
 
                     navigateState('error', { errorCode: err.headers['error-code'] });
                 });
         },
-        [digIdService, navigateState, pushDanger],
+        [digIdService, navigateState, pushDanger, translate],
     );
 
     // Apply for the fund
@@ -153,16 +153,19 @@ export default function FundActivate() {
             fundService
                 .apply(fund.id)
                 .then((res) => {
-                    pushSuccess(`Succes! ${res.data.data.fund.name} tegoed geactiveerd!`);
+                    pushSuccess(
+                        translate('push.success'),
+                        translate('push.fund_activation.success', { fund_name: res.data.data.fund.name }),
+                    );
                     navigateState('voucher', { number: res.data.data.number });
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger(err.data.message);
+                    pushDanger(translate('push.error'), err.data.message);
                     navigateState('fund', { id: fund.id });
                 })
                 .finally(() => setApplyingFund(false));
         },
-        [applyingFund, fundService, navigateState, pushDanger, pushSuccess],
+        [applyingFund, fundService, navigateState, pushDanger, pushSuccess, translate],
     );
 
     const codeForm = useFormBuilder({ code: '' }, (values) => {
@@ -200,7 +203,12 @@ export default function FundActivate() {
                     ));
                 } else {
                     openModal((modal) => (
-                        <ModalNotification modal={modal} type={'info'} title={'Error'} description={err.data.message} />
+                        <ModalNotification
+                            modal={modal}
+                            type={'info'}
+                            title={translate('push.error')}
+                            description={err.data.message}
+                        />
                     ));
                 }
 
@@ -268,7 +276,7 @@ export default function FundActivate() {
                     })
                     .catch((err: ResponseError) => {
                         if (err.status === 403 && err.data.message) {
-                            pushDanger(err.data.message);
+                            pushDanger(translate('push.error'), err.data.message);
                         }
 
                         if (err.data?.meta || err.status == 429) {
@@ -289,6 +297,7 @@ export default function FundActivate() {
             });
         },
         [
+            translate,
             fetchingData,
             fund,
             fundRequestIsAvailable,
@@ -342,7 +351,7 @@ export default function FundActivate() {
                 name: 'fund-activate',
                 params: { id: fund.id },
                 icon: 'mdi-arrow-left',
-                text: 'Ga terug naar de startpagina',
+                text: translate('error.home_button'),
                 button: true,
             };
 
@@ -361,7 +370,7 @@ export default function FundActivate() {
 
         // digid sign-in flow
         if (digid_success == 'signed_up' || digid_success == 'signed_in') {
-            pushSuccess('Succes! Ingelogd met DigiD.');
+            pushSuccess(translate('push.success'), translate('push.fund_activation.digid_success'));
 
             window.setTimeout(() => {
                 selectDigiDOption(fund);
@@ -372,7 +381,7 @@ export default function FundActivate() {
                 });
             }, 1000);
         }
-    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse]);
+    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse, translate]);
 
     const fetchFund = useCallback(
         (id: number) => {
@@ -415,11 +424,11 @@ export default function FundActivate() {
             .index(fund.id)
             .then((res) => setFundRequests(res.data.data))
             .catch((err: ResponseError) => {
-                pushDanger('Mislukt!', err.data.message);
+                pushDanger(translate('push.error'), err.data.message);
                 navigateState('fund', { id: id });
             })
             .finally(() => setProgress(100));
-    }, [authIdentity, fund, fundRequestService, id, navigateState, pushDanger, setProgress]);
+    }, [authIdentity, fund, fundRequestService, id, navigateState, pushDanger, setProgress, translate]);
 
     const getAvailableOptions = useCallback(
         (fund: Fund) => {

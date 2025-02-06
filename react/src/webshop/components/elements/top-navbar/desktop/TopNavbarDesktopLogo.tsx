@@ -17,7 +17,7 @@ export const TopNavbarDesktopLogo = () => {
             <img
                 src={assetUrl(`/assets/img/logo-normal.svg`)}
                 alt={translate(`logo_alt_text.${envData.client_key}`, {}, envData.client_key)}
-                title={`Naar de homepage van ${window.location.host}`}
+                title={translate(`logo_title`, { host: window.location.host })}
             />
         </StateNavLink>
     );

@@ -219,7 +219,10 @@
         },
         "title": "Moja lista życzeń",
         "view_grid": "Zdjęcia",
-        "view_list": "Lista"
+        "view_list": "Lista",
+        "breadcrumbs": {
+            "home": "Strona główna"
+        }
     },
     "buttons": {
         "add": "Dodaj",
@@ -463,7 +466,8 @@
             "description": "Uwaga! Musisz wypełnić formularz zgłoszeniowy do <strong>{{value}}</strong>w przeciwnym razie zaloguj się ponownie w DigiD i rozpocznij aplikację od nowa."
         },
         "buttons": {
-            "back": "Powrót"
+            "back": "Powrót",
+            "send": "Wysyłka"
         },
         "declined": {
             "no_note": "Brak notatki",
@@ -554,7 +558,8 @@
                 "criterion_same": "{{ name }} {{ value }} ' ' powinno być .",
                 "footer": {
                     "next": "Następny krok",
-                    "prev": "Poprzedni krok"
+                    "prev": "Poprzedni krok",
+                    "apply": "Zapytaj"
                 },
                 "header_title": "Przegląd",
                 "text": "Potrzebujemy więcej danych. Wykonaj następujące kroki:"
@@ -569,6 +574,48 @@
             "subtitles": {
                 "step_1": "Za pośrednictwem tego formularza online można ubiegać się o dostępne środki. ",
                 "step_2": "Sprawdza, czy spełniłeś już warunki i możesz przerwać w międzyczasie i kontynuować w innym momencie."
+            },
+            "fund_request_confirm_criteria": {
+                "confirm_income": "Potwierdź swój dochód",
+                "confirm_meet_conditions": "Oświadczam, że spełniam powyższe warunki.",
+                "declare_conditions": "Zamierzasz złożyć wniosek o udział w programie. Musisz zadeklarować, że spełniasz warunki.",
+                "processing_request": "Poczekaj chwilę, żądanie jest przetwarzane.",
+                "provide_correct_info": "Wiem, że podanie niedokładnych informacji jest karalne, że muszę zwrócić wszelkie nienależnie lub nadmiernie pobrane opłaty oraz że mogę zostać ukarany grzywną."
+            },
+            "fund_request_contact_info": {
+                "title": "Dane kontaktowe"
+            },
+            "fund_request_email_setup": {
+                "continue_without_email": "Kontynuacja bez wiadomości e-mail",
+                "email_required": "Aby kontynuować aplikację, wprowadź swój adres e-mail",
+                "email_sent": "E-mail wysłany",
+                "email_sent_screen": "Wiadomość e-mail z potwierdzeniem została wysłana",
+                "no_email_info": "Jeśli nie zostawisz adresu e-mail, nie będziesz otrzymywać ważnych wiadomości, takich jak e-mail z kodem QR lub gdy dokonano transakcji. Ponadto możesz zalogować się tylko za pomocą DigiD.",
+                "sign_up_with_email": "Zaloguj się za pomocą adresu e-mail",
+                "skip": "Pomiń",
+                "warning": "Uwaga!"
+            },
+            "fund_request_overview": {
+                "application_summary": "Przegląd żądań",
+                "check_information": "Sprawdź poniżej, czy wprowadzone dane są poprawne. Możesz wrócić do poprzednich kroków za pomocą przycisku ",
+                "contact_info": "Podane dane kontaktowe:",
+                "correct_information": "Czy dane są poprawne? Następnie kliknij przycisk ",
+                "none": "Nie",
+                "previous_step": "Poprzedni krok.",
+                "submit_application": "Pytanie do."
+            },
+            "fund_request_step_criteria": {
+                "make_a_choice": "Wybierz jedną"
+            },
+            "fund_request_step_done": {
+                "application_processing": "Twoje zgłoszenie zostało odebrane. Wniosek zostanie rozpatrzony w ciągu 10 dni roboczych. Otrzymasz wiadomość e-mail na ten temat.",
+                "application_received": "Otrzymany wniosek",
+                "back": "Powrót",
+                "error_occurred": "Wystąpił błąd podczas aplikacji.",
+                "leave_form": "Formularz urlopowy",
+                "reason": "Powód:",
+                "sent": "Wysłane!",
+                "sign_up": "Zarejestruj się"
             }
         },
         "steps": {
@@ -595,7 +642,8 @@
         },
         "filters": {
             "active": "Aktywny",
-            "archive": "Archiwum"
+            "archive": "Archiwum",
+            "all_funds": "Wszystkie kredyty..."
         },
         "title": "Żądanie"
     },
@@ -1266,7 +1314,8 @@
             "description": "Pobierz aplikację Me z poniższych sklepów z aplikacjami. <a href=\"{{download_link}}\">Kliknij tutaj, aby bezpośrednio</a> otworzyć <a href=\"{{download_link}}\">odpowiedni sklep z aplikacjami</a> na telefonie lub tablecie.",
             "title": "Pobierz aplikację Me na swój telefon lub tablet"
         },
-        "title": "Informacje o aplikacji Me"
+        "title": "Informacje o aplikacji Me",
+        "img_alt": "Me-app"
     },
     "meapp_index": {
         "buttons": {
@@ -1315,10 +1364,8 @@
         "enter_app_code": "Wprowadź 6-cyfrowy kod z poziomu aplikacji.",
         "enter_sms_code": "Wprowadź 6-cyfrowy kod SMS",
         "error_404": "Wystąpił błąd. Odśwież stronę.",
-        "failed": "Nie udało się!",
         "resend_code": "Wyślij ponownie kod",
         "seconds": "{time} second(s)",
-        "success": "Sukces!",
         "unknown_error": "Nieznany błąd.",
         "verify": "Weryfikacja"
     },
@@ -1344,7 +1391,6 @@
             "code_sent": "Coś poszło nie tak podczas wysyłania wiadomości SMS. Czy wprowadzono prawidłowy numer telefonu? Jeśli nie, spróbuj ponownie."
         },
         "extra_security": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie skonfigurowane. Twoje konto jest teraz dodatkowo zabezpieczone.",
-        "failed": "Nie udało się!",
         "in_app_select": "W aplikacji wybierz",
         "link_phone": "Połącz swój numer telefonu",
         "or": "Czy",
@@ -1355,11 +1401,12 @@
         "select_auth_app": "Wybierz aplikację uwierzytelniającą, której chcesz użyć.",
         "setup_2fa": "Konfigurowanie uwierzytelniania dwuskładnikowego",
         "setup_account": "Konfiguracja konta",
-        "success": "Sukces!",
         "successful_login": "Udało się!",
         "unknown_error": "Nieznany błąd.",
         "verify": "Weryfikacja",
-        "welcome_back": "Pomyślnie zalogowano się przy użyciu uwierzytelniania dwuskładnikowego. Witamy ponownie!"
+        "welcome_back": "Pomyślnie zalogowano się przy użyciu uwierzytelniania dwuskładnikowego. Witamy ponownie!",
+        "download_from_app_store": "App Store",
+        "download_from_play_store": "Sklep Play"
     },
     "modal_fund_help": {
         "chat": "Czat",
@@ -1380,7 +1427,6 @@
         "cancel": "Anuluj",
         "choose_another": "Wybierz inny obraz",
         "close": "Zamknij",
-        "error": "Błąd!",
         "instructions": "Po lewej stronie znajduje się oryginalny obraz, a po prawej przykłady. Użyj pola na lewym obrazie, aby ustawić obraz.",
         "invalid_file": "Przesłany plik nie jest prawidłowym obrazem, spróbuj użyć innego pliku.",
         "invalid_image": "Wybrany plik nie jest prawidłowym obrazem.",
@@ -1392,7 +1438,8 @@
         "rotate_right": "Obrót o 90 stopni zgodnie z ruchem wskazówek zegara",
         "some_invalid_files": "Niektóre z wybranych plików nie są poprawnymi obrazami i są pomijane.",
         "submit": "Prześlij",
-        "upload_document": "Prześlij dokument"
+        "upload_document": "Prześlij dokument",
+        "number": "Pokaż numer obrazu: {{ number }}"
     },
     "modal_physical_card_unlink": {
         "body": {
@@ -1422,7 +1469,8 @@
             },
             "request_new_card": {
                 "confirm": "Potwierdzenie",
-                "order_by_email": "Zamówienie pocztą"
+                "order_by_email": "Zamówienie pocztą",
+                "cancel": "Anuluj"
             }
         },
         "modal_section": {
@@ -1445,7 +1493,11 @@
             "link_card": {
                 "description": "<br/><br/>Na karnecie znajduje się kod QR, poniżej znajduje się Twój osobisty kod. Jeśli ponownie aktywujesz stary karnet, możesz nadal z niego korzystać. Potrzebujesz pomocy?  Zadzwoń pod numer 14 050 od poniedziałku do piątku w godzinach od 9:00 do 12:00.",
                 "subtitle": "Wprowadź swój osobisty kod klienta",
-                "title": "Aktywacja starej przepustki"
+                "title": "Aktywacja starej przepustki",
+                "alt_text": "Fizyczna przepustka: {{ fund_name }}",
+                "enter_physical_card_number": "Wprowadź numer karty fizycznej",
+                "no_old_card": "Brak starej przepustki?",
+                "order_card": "Zamów karnet"
             },
             "request_card_success": {
                 "description": "Otrzymałeś wiadomość e-mail z potwierdzeniem zamówienia.",
@@ -1637,7 +1689,8 @@
             "close": "Zamknij",
             "description": "Rezerwacja została dokonana.",
             "title": "Udało się!"
-        }
+        },
+        "voucher_image_alt": "Kredyt"
     },
     "modal": {
         "buttons": {
@@ -1646,7 +1699,26 @@
             "confirm": "Potwierdzenie"
         },
         "logout": {
-            "description": "Użytkownik jest automatycznie wylogowywany po 15 minutach bezczynności."
+            "description": "Użytkownik jest automatycznie wylogowywany po 15 minutach bezczynności.",
+            "confirm": "Logowanie",
+            "title": "Sesja wygasła"
+        },
+        "email_voucher_to_me": {
+            "description": "Wyślij kod QR na mój adres e-mail",
+            "title": "Email do mnie"
+        },
+        "session": {
+            "description": "Zakończenie sesji może spowodować wylogowanie, chcesz kontynuować?",
+            "header": "Koniec sesji",
+            "title": "Koniec sesji"
+        },
+        "sessions": {
+            "description": "Jesteś teraz wylogowany na wszystkich urządzeniach, czy chcesz kontynuować?",
+            "title": "Zakończenie wszystkich sesji"
+        },
+        "share_voucher": {
+            "description": "Możesz udostępnić swoją rezerwację dostawcy, aby umożliwić zakup na odległość. Jeśli oferta dotyczy aktywności lub usługi: wpisz w polu poniżej dodatkowe informacje wymagane przez dostawcę w celu uczestnictwa, takie jak: imię i nazwisko oraz numer telefonu.",
+            "title": "Uwaga! Przed udostępnieniem kodu QR należy wysłać wiadomość do dostawcy."
         }
     },
     "not_found": {
@@ -2146,7 +2218,8 @@
             "potjeswijzer": {
                 "request": "Żądanie"
             },
-            "request": "Aktywuj"
+            "request": "Aktywuj",
+            "bookmark": "Dodaj do listy życzeń"
         },
         "funds": {
             "fund": "Kredyt:",
@@ -2268,7 +2341,9 @@
             "title": "Szczegóły konta"
         },
         "bank_accounts": {
-            "title": "Konto bankowe"
+            "title": "Konto bankowe",
+            "iban": "IBAN",
+            "name": "Napis"
         },
         "breadcrumbs": {
             "home": "Strona główna",
@@ -2284,7 +2359,11 @@
             "title": "Edycja danych kontaktowych"
         },
         "history": {
-            "title": "{{count}} edytowane czasy"
+            "title": "{{count}} edytowane czasy",
+            "from": "z",
+            "modified_by": "Zmodyfikowany przez",
+            "to": "do",
+            "you": "ty"
         },
         "personal": {
             "bsn": "BSN",
@@ -2504,7 +2583,8 @@
                 "sponsor": "Deklaracja na",
                 "title": "Tytuł"
             },
-            "title": "Dane deklaracji"
+            "title": "Dane deklaracji",
+            "code": "Numer: #:kod"
         },
         "empty": {
             "button": "Prześlij kupon",
@@ -2618,7 +2698,8 @@
                 "rejected": "Odmowa",
                 "waiting": "Oczekiwanie na płatność"
             }
-        }
+        },
+        "title": "Szczegóły doładowania"
     },
     "reservations": {
         "breadcrumbs": {
@@ -2713,14 +2794,11 @@
         "disabled": "Wyłączony",
         "enable": "Włącz",
         "enabled_on": "Włączone: ",
-        "error": "Błąd",
-        "failed": "Nie udało się!",
         "municipality_restrict": "Ustawień tych nie można zmienić ze względu na warunki określone przez gminę",
         "number_confirmed": "Liczba potwierdzona",
         "remember_ip": "Zapamiętaj adres IP",
         "require_2fa_always": "Zawsze wymagaj potwierdzenia za pomocą 2FA",
         "require_2fa_ip": "Jeśli adres IP był używany w ciągu ostatnich 48 godzin, nie wymagaj 2FA.",
-        "saved": "Ocalony!",
         "settings": "Ustawienia",
         "sms_message": "Wiadomość SMS",
         "subtitle": "Dodaj dodatkową warstwę zabezpieczeń do swojego konta, włączając uwierzytelnianie dwuskładnikowe. Do wyboru są następujące metody uwierzytelniania: Aplikacja Authenticator i uwierzytelnianie SMS.",
@@ -2758,7 +2836,8 @@
             "provider": "Środowisko zarządzania dostawcami",
             "sponsor": "Środowisko zarządzania sponsorami",
             "validator": "Środowisko zarządzania asesorami",
-            "webshop": "Sklep internetowy"
+            "webshop": "Sklep internetowy",
+            "me_app": "Me-app"
         },
         "details": {
             "last_activity": "Najnowsza aktywność",
@@ -2883,7 +2962,11 @@
             "btn": "Wyświetl wszystkie wyniki",
             "funds_label": "Kredyt",
             "products_label": "Oferta",
-            "providers_label": "Dostawcy"
+            "providers_label": "Dostawcy",
+            "found_results": "{{count}} wyniki znalezione..."
+        },
+        "aria": {
+            "close_search": "Usuń wyszukiwanie"
         }
     },
     "top_navbar": {
@@ -3070,8 +3153,13 @@
             "reimbursements": "Zwrot kosztów",
             "reservations": "Rezerwacje",
             "security_2fa": "Bezpieczeństwo",
-            "security_sessions": "Sesje"
-        }
+            "security_sessions": "Sesje",
+            "aria_label": "Menu użytkownika",
+            "title": "Osobiste"
+        },
+        "main_menu": "Menu główne",
+        "open_home": "Powrót do strony głównej",
+        "start": "Start"
     },
     "voucher_printable": {
         "budget_voucher": {
@@ -3162,7 +3250,8 @@
             "popup_form": {
                 "description": "Możesz anulować rezerwację, aby zrezygnować z zakupu. Jeśli nie chcesz anulować zakupu, kliknij przycisk \"Zamknij\".",
                 "title": "Chcesz anulować rezerwację przed zakupem?"
-            }
+            },
+            "title": "Anuluj rezerwację"
         },
         "history": {
             "status": {
@@ -3334,7 +3423,8 @@
         "download_pdf": "Pobierz jako PDF",
         "total_amount": "Całkowita kwota",
         "total_offers": "Całkowita oferta",
-        "your_data": "Twoje dane"
+        "your_data": "Twoje dane",
+        "record_required": "{{ title }} Pole jest obowiązkowe."
     },
     "navbar": {
         "vergoedingen": {
@@ -3346,5 +3436,59 @@
         "goereeoverflakkee": {
             "funds": "Programy"
         }
+    },
+    "cookie_banner": {
+        "accept_all": "Zaakceptuj i idź dalej",
+        "analytics": "Analityczne pliki cookie",
+        "analytics_description": "Ta strona internetowa wykorzystuje analityczne pliki cookie do zbierania anonimowych statystyk dotyczących sposobu, w jaki odwiedzający korzystają z naszej strony internetowej. Informacje te pomagają nam ulepszać witrynę i czynić ją bardziej przyjazną dla użytkownika.",
+        "description": "Ta strona używa plików cookie, aby poprawić ogólne wrażenia użytkownika. Klikając \"Akceptuj i kontynuuj\", wyrażasz zgodę na korzystanie z plików cookie zgodnie z opisem w Oświadczeniu o ochronie prywatności.",
+        "functional_only": "Potrzebne tylko dla strony internetowej",
+        "local_storage": "Lokalna pamięć masowa",
+        "local_storage_description": "Lokalna pamięć masowa jest wykorzystywana w celu zapewnienia prawidłowego funkcjonowania strony internetowej i zapewnienia, że użytkownicy pozostają zalogowani.",
+        "manage_cookies": "Zarządzanie plikami cookie",
+        "privacy_policy": "Oświadczenie o ochronie prywatności",
+        "settings": "Ustawienia plików cookie",
+        "settings_description": "Ta strona internetowa wykorzystuje pliki cookie, aby zapewnić jak najlepsze funkcjonowanie witryny, poprawić komfort użytkowania i gromadzić anonimowe statystyki.",
+        "storage_info": "Ta witryna korzysta wyłącznie z lokalnych i analitycznych plików cookie:",
+        "title": "Ta strona używa plików cookie",
+        "view": "Wyświetl "
+    },
+    "logo_title": "Do strony głównej :host",
+    "push": {
+        "deleted": "Usunięty!",
+        "error": "Nie udało się!",
+        "fund_activation": {
+            "digid_success": "Zalogowany za pomocą DigiD.",
+            "success": "Kredyt {nazwa_funduszu} aktywowany!"
+        },
+        "pre_check": {
+            "downloaded": "Pobieranie rozpocznie się za kilka chwil.",
+            "not_available": "Ta strona jest niedostępna."
+        },
+        "preferences_emails": {
+            "verification_resent": "E-mail weryfikacyjny wysłany ponownie!"
+        },
+        "profile": {
+            "updated": "Informacje zostały zaktualizowane."
+        },
+        "reimbursement_edit": {
+            "saved": "Żądanie deklaracji zostało zapisane.",
+            "submitted": "Wniosek o deklarację został przesłany do przeglądu."
+        },
+        "reimbursement": {
+            "canceled": "Deklaracja anulowana."
+        },
+        "reservation": {
+            "canceled": "Rezerwacja anulowana."
+        },
+        "saved": "Ocalony!",
+        "sessions": {
+            "terminated": "Zakończone!"
+        },
+        "success": "Sukces!"
+    },
+    "read_speaker": {
+        "read_aloud": "Czytaj za",
+        "tooltip": "Odczytaj tekst za pomocą ReadSpeaker webReader"
     }
 }

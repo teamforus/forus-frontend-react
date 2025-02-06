@@ -139,9 +139,9 @@ export default function FundsPreCheck() {
         preCheckService
             .calculateTotals({ ...filter.activeValues, records })
             .then((res) => setTotals(res.data))
-            .catch((res) => pushDanger(res.data.message))
+            .catch((res) => pushDanger(translate('push.error'), res.data.message))
             .finally(() => setProgress(100));
-    }, [setProgress, filter.activeValues, preCheckService, preChecks, pushDanger]);
+    }, [setProgress, filter.activeValues, preCheckService, preChecks, pushDanger, translate]);
 
     const changeAnswers = useCallback(() => {
         setTotals(null);
@@ -156,7 +156,7 @@ export default function FundsPreCheck() {
         preCheckService
             .downloadPDF({ ...filter.values, records })
             .then((res) => {
-                pushSuccess('Succes!', 'De download begint over enkele ogenblikken.');
+                pushSuccess(translate('push.success'), translate('push.pre_check.downloaded'));
 
                 fileService.downloadFile(
                     `pre-check_${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}.pdf`,
@@ -164,9 +164,9 @@ export default function FundsPreCheck() {
                     res.headers['Content-Type'] + ';charset=utf-8;',
                 );
             })
-            .catch((err: ResponseError) => pushDanger(err.data.message))
+            .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message))
             .finally(() => setProgress(100));
-    }, [fileService, filter.values, preCheckService, preChecks, pushDanger, pushSuccess, setProgress]);
+    }, [fileService, filter.values, preCheckService, preChecks, pushDanger, pushSuccess, setProgress, translate]);
 
     const prev = useCallback(() => {
         setActiveStepIndex(Math.max(activeStepIndex - 1, 0));
@@ -256,10 +256,10 @@ export default function FundsPreCheck() {
 
     useEffect(() => {
         if (!appConfigs.pre_check_enabled) {
-            pushDanger('Deze pagina is niet beschikbaar.');
+            pushDanger(translate('push.error'), translate('push.pre_check.not_available'));
             navigateState('home');
         }
-    }, [appConfigs.pre_check_enabled, navigateState, pushDanger]);
+    }, [appConfigs.pre_check_enabled, navigateState, pushDanger, translate]);
 
     const PreCheckProgress = useCallback(
         ({ id }: { id?: string }) => (
@@ -668,7 +668,9 @@ export default function FundsPreCheck() {
                                                             preCheckRecord.record_type.key,
                                                         ) && (
                                                             <div className="form-error">
-                                                                Het {preCheckRecord?.title} veld is verplicht.
+                                                                {translate('pre_check.record_required', {
+                                                                    title: preCheckRecord?.title,
+                                                                })}
                                                             </div>
                                                         )}
                                                     </div>

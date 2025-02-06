@@ -556,6 +556,10 @@
         "Opnieuw proberen"
     ],
     [
+        "bookmarked_products.breadcrumbs.home",
+        "Home"
+    ],
+    [
         "bookmarked_products.empty.button",
         "Bekijk het aanbod"
     ],
@@ -690,6 +694,62 @@
     [
         "confirm_taken_by_partner.title",
         "Tegoed activeren"
+    ],
+    [
+        "cookie_banner.accept_all",
+        "Accepteren en doorgaan"
+    ],
+    [
+        "cookie_banner.analytics",
+        "Analytische cookies"
+    ],
+    [
+        "cookie_banner.analytics_description",
+        "Deze website gebruikt analytische cookies om geanonimiseerde statistieken te verzamelen over hoe bezoekers onze website gebruiken. Deze informatie helpt ons om de website te verbeteren en gebruiksvriendelijker te maken."
+    ],
+    [
+        "cookie_banner.description",
+        "Deze website maakt gebruik van cookies om de algehele gebruikerservaring te verbeteren. Door op \"Accepteren en doorgaan\" te klikken, wordt ingestemd met het gebruik van cookies zoals omschreven in de Privacyverklaring."
+    ],
+    [
+        "cookie_banner.functional_only",
+        "Alleen nodig voor de website"
+    ],
+    [
+        "cookie_banner.local_storage",
+        "Local storage"
+    ],
+    [
+        "cookie_banner.local_storage_description",
+        "Local storage wordt gebruikt om ervoor te zorgen dat de website goed functioneert en dat gebruikers ingelogd blijven."
+    ],
+    [
+        "cookie_banner.manage_cookies",
+        "Beheer cookies"
+    ],
+    [
+        "cookie_banner.privacy_policy",
+        "Privacyverklaring"
+    ],
+    [
+        "cookie_banner.settings",
+        "Cookie-instellingen"
+    ],
+    [
+        "cookie_banner.settings_description",
+        "Deze website gebruikt cookies om de website zo goed mogelijk te laten functioneren, de gebruikservaring te verbeteren en om geanonimiseerde statistieken te verzamelen."
+    ],
+    [
+        "cookie_banner.storage_info",
+        "Deze website gebruikt alleen local storage en analytische cookies:"
+    ],
+    [
+        "cookie_banner.title",
+        "Deze website gebruikt cookies"
+    ],
+    [
+        "cookie_banner.view",
+        "Bekijk de "
     ],
     [
         "custom_page_state_titles.goereeoverflakkee.funds",
@@ -1156,6 +1216,10 @@
         "Terug"
     ],
     [
+        "fund_request.buttons.send",
+        "Verzenden"
+    ],
+    [
         "fund_request.declined.no_note",
         "No note"
     ],
@@ -1324,6 +1388,126 @@
         "De aanvraag is in behandeling"
     ],
     [
+        "fund_request.sign_up.fund_request_confirm_criteria.confirm_income",
+        "Bevestig uw inkomen"
+    ],
+    [
+        "fund_request.sign_up.fund_request_confirm_criteria.confirm_meet_conditions",
+        "Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden."
+    ],
+    [
+        "fund_request.sign_up.fund_request_confirm_criteria.declare_conditions",
+        "U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet."
+    ],
+    [
+        "fund_request.sign_up.fund_request_confirm_criteria.processing_request",
+        "Een moment geduld, het verzoek wordt verwerkt."
+    ],
+    [
+        "fund_request.sign_up.fund_request_confirm_criteria.provide_correct_info",
+        "Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen."
+    ],
+    [
+        "fund_request.sign_up.fund_request_contact_info.title",
+        "Contactgegevens"
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.continue_without_email",
+        "Verder zonder e-mail"
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.email_required",
+        "Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven"
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.email_sent",
+        "E-mail verstuurd"
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.email_sent_screen",
+        "Er is een e-mail te bevestiging verstuurd"
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.no_email_info",
+        "Als u geen e-mailadres achterlaat ontvangt u geen essentiële berichten zoals de e-mail met de QR-code of wanneer er een transactie is geweest. Daarnaast kan u alleen inloggen met DigiD."
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.sign_up_with_email",
+        "Aanmelden met e-mailadres"
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.skip",
+        "Overslaan"
+    ],
+    [
+        "fund_request.sign_up.fund_request_email_setup.warning",
+        "Let op!"
+    ],
+    [
+        "fund_request.sign_up.fund_request_overview.application_summary",
+        "Aanvraag overzicht"
+    ],
+    [
+        "fund_request.sign_up.fund_request_overview.check_information",
+        "Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar eerdere stappen met de knop "
+    ],
+    [
+        "fund_request.sign_up.fund_request_overview.contact_info",
+        "Opgegeven contactgegevens:"
+    ],
+    [
+        "fund_request.sign_up.fund_request_overview.correct_information",
+        "Kloppen de gegevens? Klik dan op de knop "
+    ],
+    [
+        "fund_request.sign_up.fund_request_overview.none",
+        "Geen"
+    ],
+    [
+        "fund_request.sign_up.fund_request_overview.previous_step",
+        "Vorige stap."
+    ],
+    [
+        "fund_request.sign_up.fund_request_overview.submit_application",
+        "Vraag aan."
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_criteria.make_a_choice",
+        "Maak een keuze"
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.application_processing",
+        "Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail."
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.application_received",
+        "Aanvraag ontvangen"
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.back",
+        "Terug"
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.error_occurred",
+        "Er is een fout opgetreden tijdens het aanvragen."
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.leave_form",
+        "Verlaat formulier"
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.reason",
+        "Reden:"
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.sent",
+        "Verzonden!"
+    ],
+    [
+        "fund_request.sign_up.fund_request_step_done.sign_up",
+        "Aanmelden"
+    ],
+    [
         "fund_request.sign_up.header.main",
         "{{ fund_name }} aanvraag"
     ],
@@ -1374,6 +1558,10 @@
     [
         "fund_request.sign_up.pane.criterion_same",
         "'{{ name }}' moet {{ value }} zijn."
+    ],
+    [
+        "fund_request.sign_up.pane.footer.apply",
+        "Vraag aan"
     ],
     [
         "fund_request.sign_up.pane.footer.next",
@@ -1470,6 +1658,10 @@
     [
         "fund_requests.filters.active",
         "Actief"
+    ],
+    [
+        "fund_requests.filters.all_funds",
+        "Alle tegoeden..."
     ],
     [
         "fund_requests.filters.archive",
@@ -3312,6 +3504,10 @@
         "Gemeente Winterswijk"
     ],
     [
+        "logo_title",
+        "Naar de homepage van :host"
+    ],
+    [
         "maps.cancel",
         "Annuleren"
     ],
@@ -3358,6 +3554,10 @@
     [
         "me.download.title",
         "Download Me op je telefoon of tablet"
+    ],
+    [
+        "me.img_alt",
+        "Me-app"
     ],
     [
         "me.title",
@@ -3492,20 +3692,12 @@
         "Er is een fout opgetreden. Vernieuw de pagina."
     ],
     [
-        "modal_2fa_deactivate.failed",
-        "Mislukt!"
-    ],
-    [
         "modal_2fa_deactivate.resend_code",
         "Code opnieuw verzenden"
     ],
     [
         "modal_2fa_deactivate.seconds",
         "{time} seconde(n)"
-    ],
-    [
-        "modal_2fa_deactivate.success",
-        "Gelukt!"
     ],
     [
         "modal_2fa_deactivate.unknown_error",
@@ -3556,6 +3748,14 @@
         "Kun je deze downloaden vanuit de"
     ],
     [
+        "modal_2fa_setup.download_from_app_store",
+        "App Store"
+    ],
+    [
+        "modal_2fa_setup.download_from_play_store",
+        "Play Store"
+    ],
+    [
         "modal_2fa_setup.enter_2fa_code",
         "Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in."
     ],
@@ -3590,10 +3790,6 @@
     [
         "modal_2fa_setup.extra_security",
         "Je tweefactorauthenticatie is succesvol ingesteld. Je account is nu extra beveiligd."
-    ],
-    [
-        "modal_2fa_setup.failed",
-        "Mislukt!"
     ],
     [
         "modal_2fa_setup.in_app_select",
@@ -3634,10 +3830,6 @@
     [
         "modal_2fa_setup.setup_account",
         "Account instellen"
-    ],
-    [
-        "modal_2fa_setup.success",
-        "Gelukt!"
     ],
     [
         "modal_2fa_setup.successful_login",
@@ -3712,10 +3904,6 @@
         "Sluiten"
     ],
     [
-        "modal_photo_cropper.error",
-        "Error!"
-    ],
-    [
         "modal_photo_cropper.instructions",
         "Links ziet u de originele afbeelding en rechts de voorbeelden. Gebruik het vakje in de linker afbeelding om de foto te positioneren."
     ],
@@ -3738,6 +3926,10 @@
     [
         "modal_photo_cropper.next",
         "Volgende"
+    ],
+    [
+        "modal_photo_cropper.number",
+        "Toon afbeelding nummer: {{ number }}"
     ],
     [
         "modal_photo_cropper.previous",
@@ -3812,6 +4004,10 @@
         "Bevestigen"
     ],
     [
+        "modal_physical_card.buttons.request_new_card.cancel",
+        "Annuleer"
+    ],
+    [
         "modal_physical_card.buttons.request_new_card.confirm",
         "Bevestigen"
     ],
@@ -3852,8 +4048,24 @@
         "Blokkeer je pas"
     ],
     [
+        "modal_physical_card.modal_section.link_card.alt_text",
+        "Fysieke pas: {{ fund_name }}"
+    ],
+    [
         "modal_physical_card.modal_section.link_card.description",
         "Op je pasje staat een QR-code, hieronder staat je persoonlijke code.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.<br/>Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00."
+    ],
+    [
+        "modal_physical_card.modal_section.link_card.enter_physical_card_number",
+        "Voer het nummer van de fysieke pas in"
+    ],
+    [
+        "modal_physical_card.modal_section.link_card.no_old_card",
+        "Geen oude pas?"
+    ],
+    [
+        "modal_physical_card.modal_section.link_card.order_card",
+        "Bestel een pas"
     ],
     [
         "modal_physical_card.modal_section.link_card.subtitle",
@@ -4384,6 +4596,10 @@
         "Het is gelukt!"
     ],
     [
+        "modal_reserve_product.voucher_image_alt",
+        "Tegoeden"
+    ],
+    [
         "modal.buttons.cancel",
         "Annuleren"
     ],
@@ -4396,8 +4612,52 @@
         "Bevestigen"
     ],
     [
+        "modal.email_voucher_to_me.description",
+        "Stuur de QR-code naar mijn e-mailadres"
+    ],
+    [
+        "modal.email_voucher_to_me.title",
+        "E-mail naar mij"
+    ],
+    [
+        "modal.logout.confirm",
+        "Inloggen"
+    ],
+    [
         "modal.logout.description",
         "U bent automatisch uitgelogd door 15 minuten aan inactiviteit."
+    ],
+    [
+        "modal.logout.title",
+        "Sessie verlopen"
+    ],
+    [
+        "modal.session.description",
+        "De sessie beëindigen kan er voor zorgen dat u uitgelogd raakt, wilt u doorgaan?"
+    ],
+    [
+        "modal.session.header",
+        "Beëindig sessie"
+    ],
+    [
+        "modal.session.title",
+        "Einde sessie"
+    ],
+    [
+        "modal.sessions.description",
+        "U wordt nu uitgelogd op alle apparaten, wilt u doorgaan?"
+    ],
+    [
+        "modal.sessions.title",
+        "Beëindig alle sessies"
+    ],
+    [
+        "modal.share_voucher.description",
+        "U kunt uw reservering met de aanbieder delen om koop op afstand mogelijk te maken. Als het aanbod een activiteit of dienst betreft: typ in het onderstaande veld extra informatie die de aanbieder vereist voor deelname, zoals: uw naam en telefoonnummer."
+    ],
+    [
+        "modal.share_voucher.title",
+        "Let op! Stuur een bericht naar de aanbieder voordat u de QR-code deelt."
     ],
     [
         "navbar.goereeoverflakkee.funds",
@@ -5152,6 +5412,10 @@
         "Vorige stap"
     ],
     [
+        "pre_check.record_required",
+        "Het {{ title }} veld is verplicht."
+    ],
+    [
         "pre_check.search",
         "Zoeken"
     ],
@@ -5712,6 +5976,10 @@
         "Aanbod"
     ],
     [
+        "product.buttons.bookmark",
+        "Toevoegen aan verlanglijstje"
+    ],
+    [
         "product.buttons.buy",
         "Reserveren"
     ],
@@ -6076,6 +6344,14 @@
         "Accountgegevens"
     ],
     [
+        "profile.bank_accounts.iban",
+        "IBAN"
+    ],
+    [
+        "profile.bank_accounts.name",
+        "Tenaam stelling"
+    ],
+    [
         "profile.bank_accounts.title",
         "Bankrekening"
     ],
@@ -6116,8 +6392,24 @@
         "Contactgegevens aanpassen"
     ],
     [
+        "profile.history.from",
+        "van"
+    ],
+    [
+        "profile.history.modified_by",
+        "Gewijzigd door"
+    ],
+    [
         "profile.history.title",
         "{{count}} keer bewerkt"
+    ],
+    [
+        "profile.history.to",
+        "naar"
+    ],
+    [
+        "profile.history.you",
+        "jou"
     ],
     [
         "profile.personal.bsn",
@@ -6432,6 +6724,74 @@
         "Show +{{ count }} notifications"
     ],
     [
+        "push.deleted",
+        "Verwijderd!"
+    ],
+    [
+        "push.error",
+        "Mislukt!"
+    ],
+    [
+        "push.fund_activation.digid_success",
+        "Ingelogd met DigiD."
+    ],
+    [
+        "push.fund_activation.success",
+        "{fund_name} tegoed geactiveerd!"
+    ],
+    [
+        "push.pre_check.downloaded",
+        "De download begint over enkele ogenblikken."
+    ],
+    [
+        "push.pre_check.not_available",
+        "Deze pagina is niet beschikbaar."
+    ],
+    [
+        "push.preferences_emails.verification_resent",
+        "Verificatie e-mail opnieuw verstuurd!"
+    ],
+    [
+        "push.profile.updated",
+        "De informatie is bijgewerkt."
+    ],
+    [
+        "push.reimbursement_edit.saved",
+        "Declaratie verzoek is opgeslagen."
+    ],
+    [
+        "push.reimbursement_edit.submitted",
+        "Declaratie verzoek is ingediend voor beoordeling."
+    ],
+    [
+        "push.reimbursement.canceled",
+        "Declaratie geannuleerd."
+    ],
+    [
+        "push.reservation.canceled",
+        "Reservering geannuleerd."
+    ],
+    [
+        "push.saved",
+        "Opgeslagen!"
+    ],
+    [
+        "push.sessions.terminated",
+        "Terminated!"
+    ],
+    [
+        "push.success",
+        "Gelukt!"
+    ],
+    [
+        "read_speaker.read_aloud",
+        "Lees voor"
+    ],
+    [
+        "read_speaker.tooltip",
+        "Laat de tekst voorlezen met ReadSpeaker webReader"
+    ],
+    [
         "records_create.buttons.back",
         "Terug"
     ],
@@ -6570,6 +6930,10 @@
     [
         "reimbursements.details.buttons.edit",
         "Wijzigen"
+    ],
+    [
+        "reimbursements.details.code",
+        "Nummer: #:code"
     ],
     [
         "reimbursements.details.labels.amount",
@@ -6924,6 +7288,10 @@
         "Wachten op betaling"
     ],
     [
+        "reservation.title",
+        "Bijbetalingsgegevens"
+    ],
+    [
         "reservations.breadcrumbs.home",
         "Home"
     ],
@@ -7172,14 +7540,6 @@
         "Ingeschakeld: "
     ],
     [
-        "security_2fa.error",
-        "Error"
-    ],
-    [
-        "security_2fa.failed",
-        "Mislukt!"
-    ],
-    [
         "security_2fa.municipality_restrict",
         "Deze instellingen kunnen niet worden aangepast vanwege de voorwaarden die door de gemeente zijn gesteld"
     ],
@@ -7206,10 +7566,6 @@
     [
         "security_2fa.require_2fa_ip",
         "Als IP-adres in de afgelopen 48 uur gebruikt, geen 2FA vereisen."
-    ],
-    [
-        "security_2fa.saved",
-        "Opgeslagen!"
     ],
     [
         "security_2fa.settings",
@@ -7262,6 +7618,10 @@
     [
         "security_sessions.clients.general",
         "Onbekend"
+    ],
+    [
+        "security_sessions.clients.me_app",
+        "Me-app"
     ],
     [
         "security_sessions.clients.provider",
@@ -7488,6 +7848,10 @@
         "{{name}} {{foo}}"
     ],
     [
+        "top_navbar_search.aria.close_search",
+        "Zoekopdracht wissen"
+    ],
+    [
         "top_navbar_search.noresult.funds_label",
         "Bekijk alle tegoeden >"
     ],
@@ -7518,6 +7882,10 @@
     [
         "top_navbar_search.result.btn",
         "Bekijk alle resultaten"
+    ],
+    [
+        "top_navbar_search.result.found_results",
+        "{{count}} resultaten gevonden..."
     ],
     [
         "top_navbar_search.result.funds_label",
@@ -7868,6 +8236,22 @@
         "Potjes"
     ],
     [
+        "top_navbar.main_menu",
+        "Hoofdmenu"
+    ],
+    [
+        "top_navbar.open_home",
+        "Terug naar hoofdpagina"
+    ],
+    [
+        "top_navbar.start",
+        "Start"
+    ],
+    [
+        "top_navbar.user_menu.aria_label",
+        "Gebruikersmenu"
+    ],
+    [
         "top_navbar.user_menu.auth_as",
         "Ingelogd als:"
     ],
@@ -7926,6 +8310,10 @@
     [
         "top_navbar.user_menu.security_sessions",
         "Sessies"
+    ],
+    [
+        "top_navbar.user_menu.title",
+        "Persoonlijk"
     ],
     [
         "voucher_printable.budget_voucher.labels.contact_us",
@@ -8126,6 +8514,10 @@
     [
         "voucher.delete_voucher.popup_form.title",
         "Wilt u uw reservering voor aankoop annuleren?"
+    ],
+    [
+        "voucher.delete_voucher.title",
+        "Annuleer reservering"
     ],
     [
         "voucher.history.status.expired",

@@ -37,13 +37,13 @@ export default function MeApp() {
                 </div>
                 <div className="me_app-images">
                     <div className="me_app-image">
-                        <img src={assetUrl('/assets/img/me/app-1.jpg')} alt="Me-app" />
+                        <img src={assetUrl('/assets/img/me/app-1.jpg')} alt={translate('me.img_alt')} />
                     </div>
                     <div className="me_app-image">
-                        <img src={assetUrl('/assets/img/me/app-2.jpg')} alt="Me-app" />
+                        <img src={assetUrl('/assets/img/me/app-2.jpg')} alt={translate('me.img_alt')} />
                     </div>
                     <div className="me_app-image">
-                        <img src={assetUrl('/assets/img/me/app-3.jpg')} alt="Me-app" />
+                        <img src={assetUrl('/assets/img/me/app-3.jpg')} alt={translate('me.img_alt')} />
                     </div>
                 </div>
             </div>

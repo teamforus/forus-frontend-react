@@ -278,7 +278,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     onKeyDown={clickOnKeyEnter}
                                     role="button"
                                     tabIndex={0}
-                                    aria-label="Toevoegen aan verlanglijstje"
+                                    aria-label={translate('product.buttons.bookmark')}
                                     aria-pressed={!!filterValues.bookmarked}>
                                     <em className="mdi mdi-cards-heart-outline" />
 

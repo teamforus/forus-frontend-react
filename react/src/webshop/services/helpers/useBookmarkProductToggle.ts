@@ -54,7 +54,10 @@ export default function useBookmarkProductToggle() {
             }
 
             return await productService.removeBookmark(product.id).then((res) => {
-                pushSuccess(translate('product_bookmark_push.removed', { name: product.name }));
+                pushSuccess(
+                    translate('push.success'),
+                    translate('product_bookmark_push.removed', { name: product.name }),
+                );
                 return res.data.data.bookmarked;
             });
         },

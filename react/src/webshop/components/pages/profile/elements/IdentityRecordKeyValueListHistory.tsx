@@ -27,16 +27,17 @@ export default function IdentityRecordKeyValueListHistory({ records }: { records
                             data-nth={`${records.length - index}/${records.length}`}>
                             <em className="mdi mdi-clock-outline key-value-list-item-value-history-body-item-icon" />
                             <div>
-                                {'Gewijzigd door '}
-                                <strong className="text-strong">{item.sponsor ? item.sponsor_name : 'jou'}</strong>{' '}
+                                {translate('profile.history.modified_by')}{' '}
+                                <strong className="text-strong">
+                                    {item.sponsor ? item.sponsor_name : translate('profile.history.you')}
+                                </strong>{' '}
                             </div>
                             <div>{`${item.created_at_locale}`}</div>
                             <div className="hide-sm">•</div>
                             <div>
-                                {` van `}
+                                {translate('profile.history.from')}{' '}
                                 <strong>{`'${records[index + 1]?.value_locale || ''}'`}</strong>
-                                {' naar '}
-                                <strong>{`'${item.value_locale || ''}'`}</strong>
+                                {translate('profile.history.to')} <strong>{`'${item.value_locale || ''}'`}</strong>
                             </div>
                         </div>
                     ))}

@@ -28,9 +28,15 @@ export default {
 
     history: {
         title: '{{count}} keer bewerkt',
+        modified_by: 'Gewijzigd door',
+        you: 'jou',
+        from: 'van',
+        to: 'naar',
     },
 
     bank_accounts: {
         title: 'Bankrekening',
+        iban: 'IBAN',
+        name: 'Tenaam stelling',
     },
 };

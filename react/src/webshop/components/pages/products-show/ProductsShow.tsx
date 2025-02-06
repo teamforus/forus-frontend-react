@@ -229,7 +229,7 @@ export default function ProductsShow() {
                                     onKeyDown={clickOnKeyEnter}
                                     role={'button'}
                                     tabIndex={0}
-                                    aria-label="Toevoegen aan verlanglijstje"
+                                    aria-label={translate('product.buttons.bookmark')}
                                     aria-pressed={product.bookmarked}>
                                     {product.bookmarked ? (
                                         <em className="mdi mdi-cards-heart" />

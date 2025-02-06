@@ -33,7 +33,7 @@ export default function VoucherCard({
                 <ModalNotification
                     modal={modal}
                     type={'confirm'}
-                    title={'Annuleer reservering'}
+                    title={translate('voucher.delete_voucher.popup_form.title')}
                     mdiIconType={'warning'}
                     mdiIconClass="alert-outline"
                     description={translate('voucher.delete_voucher.popup_form.description')}

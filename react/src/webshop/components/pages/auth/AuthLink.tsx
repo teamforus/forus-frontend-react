@@ -32,7 +32,7 @@ export default function AuthLink() {
                 }
             })
             .catch(() => {
-                pushDanger(translate('auth.push.link_used.title'));
+                pushDanger(translate('push.error'), translate('auth.push.link_used.title'));
                 navigateState('home');
             });
     }, [
