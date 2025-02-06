@@ -3497,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "Читати для",
         "tooltip": "Зачитайте текст за допомогою ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "Необов'язково",
+        "required": "Обов'язково"
     }
 }

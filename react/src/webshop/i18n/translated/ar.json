@@ -3497,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "اقرأ لـ",
         "tooltip": "اطلب قراءة النص باستخدام ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "اختياري",
+        "required": "إلزامي"
     }
 }

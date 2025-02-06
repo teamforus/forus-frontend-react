@@ -3497,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "Okumak için",
         "tooltip": "ReadSpeaker webReader ile metnin okunmasını sağlayın"
+    },
+    "form": {
+        "optional": "Opsiyonel",
+        "required": "Zorunlu"
     }
 }

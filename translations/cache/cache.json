@@ -980,6 +980,14 @@
         "Home"
     ],
     [
+        "form.optional",
+        "Optioneel"
+    ],
+    [
+        "form.required",
+        "Verplicht"
+    ],
+    [
         "fund_activate.cards.back",
         "Terug"
     ],

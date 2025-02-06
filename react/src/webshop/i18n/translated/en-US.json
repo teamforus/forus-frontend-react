@@ -3497,5 +3497,9 @@
     "read_speaker": {
         "read_aloud": "Read for",
         "tooltip": "Have the text read aloud with ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "Optional",
+        "required": "Mandatory"
     }
 }
