@@ -7,6 +7,7 @@ export default {
     description:
         'De Me-app is een digitale portemonnee en kassa in één. Gemeenten gebruiken de Me-app voor het uitgeven van tegoeden. Met de app kunnen inwoners gemakkelijk hun tegoeden beheren. Aanbieders gebruiken de app om QR-codes te scannen.',
 
+    img_alt: 'Me-app',
     download: {
         title: 'Download Me op je telefoon of tablet',
         description:

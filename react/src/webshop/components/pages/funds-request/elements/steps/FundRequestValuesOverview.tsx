@@ -46,18 +46,17 @@ export default function FundRequestValuesOverview({
             {progress}
 
             <div className="sign_up-pane">
-                <h2 className="sign_up-pane-header">Aanvraag overzicht</h2>
+                <h2 className="sign_up-pane-header">
+                    {translate('fund_request.sign_up.fund_request_overview.application_summary')}
+                </h2>
                 <div className="sign_up-pane-body">
                     <p className="sign_up-pane-text">
-                        <span>
-                            Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar
-                            eerdere stappen met de knop{' '}
-                        </span>
-                        <strong>Vorige stap.</strong>
+                        <span>{translate('fund_request.sign_up.fund_request_overview.check_information')}</span>
+                        <strong>{translate('fund_request.sign_up.fund_request_overview.previous_step')}</strong>
                     </p>
                     <p className="sign_up-pane-text">
-                        <span>Kloppen de gegevens? Klik dan op de knop </span>
-                        <strong>Vraag aan.</strong>
+                        <span>{translate('fund_request.sign_up.fund_request_overview.correct_information')}</span>
+                        <strong>{translate('fund_request.sign_up.fund_request_overview.submit_application')}</strong>
                     </p>
 
                     <FundRequestHelpBlock fund={fund} />
@@ -117,8 +116,12 @@ export default function FundRequestValuesOverview({
                 {(contactInformation || emailSetupShow) && (
                     <div className="sign_up-pane-body">
                         <p className=" sign_up-pane-text" />
-                        <div className=" text-strong">Opgegeven contactgegevens:</div>
-                        <span>{contactInformation || 'Geen'}</span>
+                        <div className=" text-strong">
+                            {translate('fund_request.sign_up.fund_request_overview.contact_info')}
+                        </div>
+                        <span>
+                            {contactInformation || translate('fund_request.sign_up.fund_request_overview.none')}
+                        </span>
                         <p />
                     </div>
                 )}
@@ -140,7 +143,7 @@ export default function FundRequestValuesOverview({
                             onClick={onSubmitRequest}
                             role="button"
                             tabIndex={0}>
-                            Vraag aan
+                            {translate('fund_request.sign_up.pane.footer.apply')}
                             <em className="mdi mdi-chevron-right icon-right" />
                         </button>
                     }

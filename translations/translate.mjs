@@ -1,7 +1,7 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import {
     removeKeepTags,
-    translateValue,
+    translateBatch,
     wrapVariablesWithTags,
     showProgressBar,
     sourceLanguage,
@@ -9,27 +9,37 @@ import {
     sortFlattenObjectByKey,
     cachePath,
 } from './helpers.mjs';
-import { writeFileSync } from 'node:fs';
 
 const cacheAdded = JSON.parse(readFileSync(`${cachePath}/cache_added.json`).toString());
 const translated = targetLanguages.reduce((obj, lang) => ({ ...obj, [lang]: [] }), {});
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// Calculate total characters for translation preview
+const totalLength = cacheAdded.reduce((sum, entry) => {
+    return sum + (entry[1] ? entry[1].length : 0);
+}, 0);
+
+console.log(`Total characters to be translated: ${totalLength}`);
+
+const BATCH_SIZE = 500;
 
 for (let i = 0; i < targetLanguages.length; i++) {
     const lang = targetLanguages[i];
 
     console.log(`Processing: ${lang}`);
 
-    for (let j = 0; j < cacheAdded.length; j++) {
-        const _line = cacheAdded[j][1]
-            ? removeKeepTags(await translateValue(wrapVariablesWithTags(cacheAdded[j][1]), sourceLanguage, lang))
-            : '';
+    for (let j = 0; j < cacheAdded.length; j += BATCH_SIZE) {
+        const batch = cacheAdded.slice(j, j + BATCH_SIZE).map(([key, value]) => ({
+            key,
+            text: value ? wrapVariablesWithTags(value) : '',
+        }));
 
-        await delay(100);
-        translated[lang].push([cacheAdded[j][0], _line]);
+        let translatedBatch = await translateBatch(batch, sourceLanguage, lang);
 
-        showProgressBar(j, cacheAdded.length);
+        for (let k = 0; k < batch.length; k++) {
+            translated[lang].push([batch[k].key, removeKeepTags(translatedBatch[k] || '')]);
+        }
+
+        showProgressBar(Math.min(j + BATCH_SIZE, cacheAdded.length), cacheAdded.length);
     }
 }
 

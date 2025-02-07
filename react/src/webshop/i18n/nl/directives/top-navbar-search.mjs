@@ -9,11 +9,15 @@ export default {
         funds_label: 'Tegoeden',
         products_label: 'Aanbod',
         btn: 'Bekijk alle resultaten',
+        found_results: '{{count}} resultaten gevonden...',
     },
     noresult: {
         subtitle: 'Geen resultaten gevonden voor ”{{ query }}". Probeer het nog een keer met andere zoektermen.',
         providers_label: 'Bekijk alle aanbieders >',
         funds_label: 'Bekijk alle tegoeden >',
         products_label: 'Bekijk al het aanbod >',
+    },
+    aria: {
+        close_search: 'Zoekopdracht wissen',
     },
 };

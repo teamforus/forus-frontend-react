@@ -1,0 +1,3505 @@
+{
+    "accessibility": {
+        "breadcrumbs": {
+            "accessibility": "Oświadczenie o dostępności",
+            "home": "Strona główna"
+        },
+        "content": {
+            "accessibilityOverview": "{{organization_name}} Aktualna i pełna lista deklaracji dostępności, za które odpowiedzialna jest gmina, dostępna jest pod poniższym linkiem:",
+            "alternative": "Alternatywa: [czy dostępna jest dostępna alternatywa, a jeśli tak, to jaka].",
+            "available_online": "wszystkie oceny i wyniki badań, na których opiera się wniosek, są dostępne online (patrz pod nagłówkiem <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#evaluatie-en-onderzoekresultaten-voldoet-gedeeltelijk\">Ocena i wyniki badań</a>",
+            "cause": "Przyczyna: [powód, dla którego wymóg nie mógł (jeszcze) zostać spełniony].",
+            "complianceCriteria1": "Badanie obejmuje wszystkie treści, które muszą być dostępne zgodnie z tymczasowym dekretem w sprawie dostępności cyfrowej administracji publicznej;",
+            "complianceCriteria2": "Badanie opiera się na danych pomiarowych i ankietowych nie starszych niż 12 miesięcy;",
+            "complianceCriteria3": "ręczna ocena została przeprowadzona zgodnie z odpowiednio udokumentowaną metodą oceny; <a href=\"https://w3.org/TR/WCAG-EM/\">WCAG-EM</a> lub równoważną;",
+            "complianceCriteria4": "Do (półautomatycznych) testów wykorzystano narzędzie testowe oparte na algorytmach udokumentowanych przez <a href=\"https://act-rules.github.io/pages/about/\">Auto-WCAG</a> Community Group;",
+            "complianceCriteria5": "wszystkie wyniki badań są dokładnie, jednoznacznie i powtarzalnie rejestrowane w formacie czytelnym dla człowieka LUB w formacie <a href=\"https://www.w3.org/WAI/standards-guidelines/earl/\">EARL</a> nadającym się do odczytu maszynowego;",
+            "complianceCriteria6": "dla każdego indywidualnego odchylenia od wymagań stwierdzonego podczas dochodzenia, którego nie można było naprawić:",
+            "complianceStatusDescription1": "{{organization_name}} Gmina oświadcza, że niniejsza strona internetowa jest częściowo zgodna z tymczasowym rządowym dekretem o dostępności cyfrowej.",
+            "complianceStatusDescription2": "Badania dostępności wykazały, że nie wszystkie wymagania są jeszcze spełnione. Dla każdego indywidualnego odchylenia od wymagań znana jest przyczyna i opisane są konsekwencje, podjęto środki w celu wyeliminowania odchylenia i konkretnie zaplanowano, kiedy środki zostaną wdrożone.",
+            "complianceStatusLinkDescription": "Więcej szczegółowych informacji można znaleźć w sekcji <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#toelichting-op-de-nalevingsstatus\" target=\"_blank\" rel=\"noreferrer\">Uwagi dotyczące statusu zgodności</a>.",
+            "complianceStatusTitle": "Status zgodności",
+            "declarationDescription1": "{{date}} {{organization_name}}Niniejsze oświadczenie zostało sporządzone za zgodą właściwego dyrektora gminy.",
+            "declarationDescription2": "{{revision_date}}Aktualność, kompletność i dokładność niniejszego oświadczenia zostały ostatnio zweryfikowane pod adresem .",
+            "declarationTitle": "Opracowanie niniejszego oświadczenia",
+            "description": "Opis:[krótki opis anomalii]",
+            "deviations": "(patrz pod nagłówkiem <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#afwijkingen-voldoet-gedeeltelijk\">Odstępstwa</a>)",
+            "deviationsTitle": "Odchylenia",
+            "disproportionateBurden": "możliwość wskazania, czy wdrożenie środka spowodowałoby <a href=\"https://www.toegankelijkheidsverklaring.nl/verklaringen/367/preview#onevenredige-last\">nieproporcjonalne</a> obciążenie: [tak/nie] [wyjaśnienie, jeśli odpowiedź na pytanie brzmi \"tak\"].",
+            "effect": "Wpływ: [wpływ odstępstwa na osoby niepełnosprawne].",
+            "enforcementProcedureDescription1": "Czy jesteś niezadowolony ze sposobu, w jaki Twoja skarga została rozpatrzona? A może nie odpowiedzieliśmy na czas?",
+            "enforcementProcedureDescription2": "Następnie możesz <a href=\"https://www.nationaleombudsman.nl/klacht-indienen/uw-klacht\">[skontaktować się z Krajowym Rzecznikiem Praw Obywatelskich].</a>",
+            "enforcementProcedureTitle": "Procedura egzekwowania",
+            "expectationsList1": "Potwierdzenie odbioru otrzymasz w ciągu 5 dni roboczych.",
+            "expectationsList2": "Poinformujemy Cię o postępach i wynikach.",
+            "expectationsList3": "Wniosek zostanie zrealizowany w ciągu 3 tygodni.",
+            "expectationsTitle": "Czego możesz od nas oczekiwać?",
+            "explanationComplianceStatusDescription1": "Ta sekcja dodatkowo uzasadnia twierdzenie, że wymagania określone w tymczasowym dekrecie o dostępności cyfrowej zostały częściowo spełnione.",
+            "explanationComplianceStatusDescription2": "{{implementation_name}} {{organization_name}} {{organization_name}} Strona internetowa została sprawdzona pod kątem dostępności, a raport wykazuje, według władz miejskich, że wszystkie wymienione poniżej cechy zostały spełnione:",
+            "explanationComplianceStatusTitle": "Uwagi dotyczące statusu zgodności",
+            "feedbackAndContactDescription": "Czy masz problem z dostępnością? A może masz pytanie lub uwagę na temat dostępności?",
+            "feedbackAndContactEmail": "Następnie skontaktuj się z nami za pośrednictwem <a href=\"mailto:{{ contact_email }}\">Geertruidenberg</a> lub {{telephone_number}}",
+            "feedbackAndContactTitle": "Informacje zwrotne i dane kontaktowe",
+            "introParagraph1": "{{organization_name}} Gmina dąży do udostępnienia własnych informacji i usług online, zgodnie z tymczasowym dekretem w sprawie dostępności cyfrowej dla administracji rządowej.",
+            "introParagraph2": "{{implementation_name}} {{organization_name}} Niniejsze oświadczenie o dostępności ma zastosowanie do treści strony internetowej, która wchodzi w zakres tymczasowego dekretu w sprawie dostępności cyfrowej dla administracji rządowej.",
+            "linksIntro": "{{implementation_name}} {{organization_name}} Linki, pod którymi można znaleźć zawartość strony:",
+            "mainDomainTitle": "główna domena:",
+            "measure": "Środek zaradczy: [środki, które należy podjąć w celu wyeliminowania odchylenia].",
+            "outsideScopeDescription": "Zob. art. 2 akapit drugi tymczasowego dekretu w sprawie dostępności administracji cyfrowej.",
+            "outsideScopeLink": "https://zoek.officielebekendmakingen.nl/stb-2018-141.html#d17e165",
+            "outsideScopeTitle": "Treści nieobjęte zakresem tymczasowego dekretu w sprawie dostępności cyfrowej administracji publicznej",
+            "planning": "harmonogram: [termin, w którym odchylenie zostanie usunięte]",
+            "referenceNumber": "[numer referencyjny]",
+            "sc1_1_1": {
+                "alternative": "Alternatywa: Nie ma alternatywnego rozwiązania tego problemu.",
+                "cause": "Przyczyna: Brak alternatywnego tekstu w odnośniku do obrazu.",
+                "description": "Opis: W elemencie img brakuje atrybutu alt. (alternatywny tekst dla obrazu)",
+                "disproportionateBurden": "Czy wdrożenie środka stanowi nieproporcjonalne obciążenie? Nie",
+                "effect": "Konsekwencja: Brak tekstu alternatywnego może wpłynąć na funkcjonalność narzędzi zamiany mowy na tekst.",
+                "measure": "Środek zaradczy: Webmasterzy będą publikować tekst alternatywny do obrazu.",
+                "planning": "planowanie: 01-06-2020",
+                "title": "SC 1.1.1 - Treści nietekstowe [poziom A]"
+            },
+            "sc4_1_2_1": {
+                "alternative": "Alternatywa: Nie ma alternatywnego rozwiązania tego problemu.",
+                "cause": "Przyczyna: Brak spójnego użycia elementów kotwiących",
+                "description": "Opis: Znaleziono element zakotwiczenia z prawidłowym atrybutem href, ale nie określono zawartości łącza.",
+                "disproportionateBurden": "Czy wdrożenie środka stanowi nieproporcjonalne obciążenie? Nie",
+                "effect": "Konsekwencje: Nie ma bezpośrednich negatywnych konsekwencji dla użytkownika.",
+                "measure": "Środek zaradczy: webmaster ponownie oceni element zakotwiczenia i usunie go lub poda wymagane informacje.",
+                "planning": "planowanie: 01-06-2020",
+                "title": "SC 4.1.2 - Nazwa, rola, wartość [poziom A]"
+            },
+            "technicalDeviationsTitle": "Odchylenia techniczne"
+        },
+        "title": "Oświadczenie o dostępności",
+        "vars": {
+            "geertruidenberg": {
+                "accessibility_link": "https://www.geertruidenberg.nl/en/node/781",
+                "contact_email": "communicatie@geertruidenberg.nl",
+                "implementation_name": "Programy dla dzieci",
+                "organization_name": "Geertruidenberg",
+                "telephone_number": "14 0162",
+                "website": "https://kindregeling.geertruidenberg.nl"
+            },
+            "groningen": {
+                "accessibility_link": "https://gemeente.groningen.nl/toegankelijkheid",
+                "contact_email": "stadjerspas@groningen.nl",
+                "implementation_name": "Stadjerspas",
+                "organization_name": "Groningen",
+                "telephone_number": "14 050",
+                "website": "https://stadjerspas.gemeente.groningen.nl"
+            },
+            "noordoostpolder": {
+                "accessibility_link": "https://www.noordoostpolder.nl/toegankelijkheid",
+                "contact_email": "info@noordoostpolder.nl",
+                "implementation_name": "Pakiet uczestnictwa",
+                "organization_name": "Polder północno-wschodni",
+                "telephone_number": "0527 63 39 11",
+                "website": "https://noordoostpolder.forus.io/"
+            },
+            "westerkwartier": {
+                "accessibility_link": "www.westerkwartier.nl/toegankelijkheid",
+                "contact_email": "webmaster@westerkwartier.nl",
+                "implementation_name": "Pakiet dla dzieci",
+                "organization_name": "Westerkwartier",
+                "telephone_number": "14 0594",
+                "website": "https://westerkwartier.forus.io/"
+            }
+        }
+    },
+    "app_footer": {
+        "columns": {
+            "links": "Linki",
+            "me_app": "Pobierz aplikację Me",
+            "follow_us": "Śledź nas na:",
+            "site_info": "Informacje o witrynie"
+        },
+        "links": {
+            "accessibility": "Oświadczenie o dostępności",
+            "privacy": "Oświadczenie o ochronie prywatności",
+            "sitemap": "Sitemap",
+            "terms_and_conditions": "Ogólne warunki handlowe"
+        },
+        "me_app_more_info": "Dowiedz się więcej o aplikacji Me",
+        "provider_sign_up": "Zarejestruj się jako dostawca",
+        "sponsor_logo_alt": "Logo sponsora"
+    },
+    "auth_start": {
+        "example": "Wprowadź prawidłowy adres e-mail, np. <strong>naam@voorbeeld.com</strong>."
+    },
+    "auth": {
+        "": "Uwierzytelnianie dwuskładnikowe",
+        "back": "Powrót",
+        "back_start": "Powrót do logowania",
+        "choose_option": "Wybierz opcję",
+        "logout": "Wylogowanie",
+        "options": {
+            "digid": {
+                "description": "Otwórz ekran logowania DigiD",
+                "title": "DigiD"
+            },
+            "email": {
+                "description": "Otrzymanie linku do logowania przez e-mail",
+                "title": "Adres e-mail"
+            },
+            "qr": {
+                "description": "Zeskanuj kod QR za pomocą aplikacji <u>Me</u>",
+                "title": "Moja aplikacja"
+            }
+        },
+        "privacy_link": {
+            "text": "Zapoznałem się z <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">oświadczeniem</a> o ochronie prywatności"
+        },
+        "push": {
+            "link_used": {
+                "title": "Ten link został już użyty lub jest nieprawidłowy."
+            }
+        },
+        "qr": {
+            "title": "Logowanie"
+        },
+        "restore": {
+            "label": "Nie możesz się zalogować?",
+            "link": "Przywracanie konta za pomocą DigiD",
+            "title": "Przywracanie konta"
+        },
+        "setup_2fa_title": "Konfigurowanie uwierzytelniania dwuskładnikowego",
+        "sign_in_up_title": "Założyć konto lub rozpocząć aplikację?"
+    },
+    "block_funds": {
+        "labels": {
+            "subtitle": "Brak wyników",
+            "title": "Wyniki"
+        }
+    },
+    "block_notifications": {
+        "labels": {
+            "subtitle": "Gdy ktoś wykona czynność, która dotyczy użytkownika na tej stronie, powiadomienie o tym zostanie wyświetlone tutaj.",
+            "title": "Powiadomienia"
+        }
+    },
+    "block_products": {
+        "buttons": {
+            "more": "Zobacz więcej"
+        },
+        "header": {
+            "title_budget": "Oferta",
+            "title_subsidies": "Oferta"
+        },
+        "input": {
+            "placeholder": "Wyszukiwanie produktów lub usług"
+        },
+        "labels": {
+            "discount": "Zniżka",
+            "new": "Dla",
+            "old": "Od",
+            "subtitle": "Niestety! Nie znaleźliśmy żadnych wyników wyszukiwania.",
+            "title": "Brak wyników wyszukiwania"
+        }
+    },
+    "block_providers": {
+        "empty": {
+            "subtitle": "Niestety! Nie znaleźliśmy żadnych dostawców dla Twojego wyszukiwania",
+            "title": "Brak wyników wyszukiwania"
+        }
+    },
+    "blocks": {
+        "block_exception": {
+            "description": "Przepraszamy, wystąpił nieoczekiwany błąd po naszej stronie. Spróbuj ponownie.",
+            "go_home": "Idź do domu",
+            "title": "Ups, coś poszło nie tak",
+            "try_again": "Ponów próbę"
+        }
+    },
+    "bookmarked_products": {
+        "empty": {
+            "button": "Zobacz ofertę",
+            "title": "Nie dodano jeszcze żadnych ofert."
+        },
+        "title": "Moja lista życzeń",
+        "view_grid": "Zdjęcia",
+        "view_list": "Lista",
+        "breadcrumbs": {
+            "home": "Strona główna"
+        }
+    },
+    "buttons": {
+        "add": "Dodaj",
+        "back": "Powrót",
+        "buy": "Kup",
+        "cancel": "Anuluj",
+        "close": "Zamknij",
+        "confirm": "Potwierdzenie",
+        "copy": "Kopia",
+        "create": "Tworzenie danych osobowych",
+        "details": "Zobacz szczegóły",
+        "join": "Zarejestruj się",
+        "next": "Następny",
+        "read_more": "Czytaj więcej",
+        "read_more_about_system": "PRZECZYTAJ WIĘCEJ O TYM, JAK DZIAŁA SYSTEM",
+        "send": "E-mail do mnie",
+        "share": "Udział",
+        "show_map": "Wyświetl mapę",
+        "show_more": "Zobacz więcej",
+        "skip": "Pomiń",
+        "start": "start",
+        "submit": "Wyślij",
+        "use": "Użycie",
+        "validate": "Zatwierdzić"
+    },
+    "confirm_reimbursement_destroy": {
+        "confirm_btn": "Potwierdzenie",
+        "description": "Czy na pewno chcesz anulować wniosek?",
+        "title": "Anulować deklarację?"
+    },
+    "confirm_taken_by_partner": {
+        "close_btn": "Potwierdzenie",
+        "description": "Otrzymujesz tę wiadomość, ponieważ kredyt został aktywowany przez członka rodziny lub opiekuna. Kredyt jest dostępny na koncie osoby, która aktywowała go jako pierwsza.",
+        "header": "Ten kredyt został już aktywowany",
+        "title": "Aktywacja kredytu"
+    },
+    "custom_page_state_titles": {
+        "goereeoverflakkee": {
+            "funds": "Programy{{pageTitleSuffix}}"
+        },
+        "vergoedingen": {
+            "funds": "Wszystkie opłaty{{pageTitleSuffix}}"
+        }
+    },
+    "email_service_switch": {
+        "confirm": "Zabierz mnie do mojego e-maila"
+    },
+    "empty_block": {
+        "guide": "Użyj kodu aktywacyjnego"
+    },
+    "error_page": {
+        "404": {
+            "button": "Powrót do domu",
+            "title": "Nie znaleziono strony"
+        }
+    },
+    "error": {
+        "home_button": "Wróć do strony głównej",
+        "messages": {
+            "digid_0001": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0002": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0003": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0004": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0030": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0032": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0033": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0040": "Ta próba logowania została anulowana. Spróbuj ponownie, jeśli to konieczne, aby kontynuować.",
+            "digid_0050": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0070": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0080": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_0099": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_010c": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_api_0000": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "digid_error_0040": "Ta próba logowania została anulowana. Spróbuj ponownie, jeśli to konieczne, aby kontynuować.",
+            "digid_error_403": "Logowanie do tej organizacji nie powiodło się. Spróbuj ponownie później. Nadal się nie udało? Zaloguj się do My DigiD. W ten sposób można sprawdzić, czy DigiD działa prawidłowo. Może wystąpić awaria w organizacji, w której się logujesz.",
+            "digid_uid_dont_match": "Numer BSN pobrany za pomocą DigiD różni się od numeru BSN powiązanego z tym profilem, rozpocznij nową aplikację.",
+            "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie, uruchom aplikację, aby utworzyć konto.",
+            "digid_uid_used": "Dla tego numeru BSN zarejestrowano inny adres e-mail. Aby zalogować się na swoje konto, należy użyć zarejestrowanego adresu e-mail.<br/><br/> Nie pamiętasz, który to adres e-mail lub masz nowy? <br/> Przywróć swoje konto, klikając <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">tutaj</a> lub przycisk poniżej.</br>",
+            "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje."
+        },
+        "start_button": "Przywracanie konta",
+        "titles": {
+            "digid_0001": "Komunikat o błędzie",
+            "digid_0002": "Komunikat o błędzie",
+            "digid_0003": "Komunikat o błędzie",
+            "digid_0004": "Komunikat o błędzie",
+            "digid_0030": "Komunikat o błędzie",
+            "digid_0032": "Komunikat o błędzie",
+            "digid_0033": "Komunikat o błędzie",
+            "digid_0040": "DigiD - Próba logowania została anulowana.",
+            "digid_0050": "Komunikat o błędzie",
+            "digid_0070": "Komunikat o błędzie",
+            "digid_0080": "Komunikat o błędzie",
+            "digid_0099": "Komunikat o błędzie",
+            "digid_010c": "Komunikat o błędzie",
+            "digid_api_0000": "Wystąpił błąd podczas aplikacji.",
+            "digid_error_0040": "DigiD - Próba logowania została anulowana.",
+            "digid_error_403": "Nieznany komunikat o błędzie",
+            "digid_uid_dont_match": "Numer BSN jest już znany dla tego profilu",
+            "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie",
+            "digid_uid_used": "Numer BSN został już użyty.",
+            "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD.",
+            "unknown_error": "Nieznany komunikat o błędzie"
+        }
+    },
+    "expired_identity": {
+        "buttons": {
+            "close": "Zamknij",
+            "confirm": "Potwierdzenie"
+        },
+        "description": "Niestety logowanie nie powiodło się. Link został już użyty lub nie jest już ważny. Poproś o nowy link logowania.",
+        "header": {
+            "title": "Link wygasł"
+        },
+        "title": "Link do logowania został już użyty lub jest nieważny."
+    },
+    "explanation": {
+        "breadcrumbs": {
+            "explanation": "Wyjaśnienie",
+            "home": "Strona główna"
+        }
+    },
+    "fund_activate": {
+        "cards": {
+            "back": "Powrót",
+            "backoffice_error_no_response": {
+                "contacts": "Aby uzyskać więcej informacji, skontaktuj się z gminą Nijmegen.",
+                "description": "{{fund_name}} Przepraszamy, prośba nie powiodła się.",
+                "heading": "Nie udało się",
+                "title": "Wystąpił błąd techniczny, spróbuj ponownie później."
+            },
+            "backoffice_error_not_eligible": {
+                "contacts": "Aby uzyskać więcej informacji, skontaktuj się z gminą Nijmegen.",
+                "description": "{{fund_name}} Przepraszamy, prośba nie powiodła się.",
+                "heading": "Nie udało się",
+                "title": "Aplikacja nie powiodła się. Nie spełniasz warunków."
+            },
+            "backoffice_error_not_resident": {
+                "contacts": "Aby uzyskać więcej informacji lub zadać pytania, prosimy o kontakt z gminą Nijmegen.<br /> Adres e-mail: <a class=\"txt_link var\" href=\"mailto:{{email_value}}\">{{email_label}}</a> <br /> Nr telefonu: {{phone}}",
+                "description": "Według naszych danych nie jesteś mieszkańcem gminy Nijmegen. {{fund_name}} Dotyczy to tylko mieszkańców gminy Nijmegen. <br /> <br /> W Twojej gminie mogą obowiązywać przepisy, do których się kwalifikujesz. Skontaktuj się z gminą, w której mieszkasz, aby dowiedzieć się więcej.",
+                "title": "Żądanie nie powiodło się"
+            },
+            "backoffice_error_taken_by_partner": {
+                "contacts": "Jeśli chcesz zgłosić sprzeciw lub masz jakiekolwiek pytania, skontaktuj się z nami. <br /> Adres e-mail: <a class=\"txt_link var\" href=\"mailto:{{email_value}}\">{{email_label}}</a> <br /> Nr telefonu: {{phone}}",
+                "description": "Według naszych informacji otrzymaliśmy już wniosek od Twojego partnera. W związku z tym złożenie wniosku nie jest możliwe.",
+                "title": "Żądanie nie powiodło się"
+            },
+            "code": {
+                "aria_label": "Wprowadź kod aktywacyjny funduszu",
+                "title": "Wprowadź kod aktywacyjny"
+            },
+            "digid": {
+                "confirm": "Oświadczam, że spełniam powyższe warunki",
+                "loading": "Poczekaj chwilę, żądanie jest przetwarzane"
+            },
+            "not_available": {
+                "contacts": "{{name}}Kontakt .",
+                "description": "{{name}}Nie można zarejestrować się na .",
+                "title": "Żądanie nie powiodło się"
+            },
+            "taken_by_partner": {
+                "contacts": "{{name}}W razie pytań prosimy o kontakt.",
+                "description": "<br /> Otrzymujesz tę wiadomość, ponieważ kredyt został aktywowany przez członka rodziny lub opiekuna. <br /><br /> <br /> Kredyt jest dostępny na koncie osoby, która aktywowała go jako pierwsza.",
+                "heading": "Żądanie nie powiodło się",
+                "title": "Ten kredyt został już aktywowany"
+            }
+        },
+        "header": {
+            "title": "Potwierdź swój dochód",
+            "vergoedingen": {
+                "title": "Użytkownik wyraża zgodę na warunki"
+            }
+        },
+        "options": {
+            "code": {
+                "description": "Przejdź do aktywacji kredytu za pomocą kodu aktywacyjnego",
+                "title": "Mam kod aktywacyjny"
+            },
+            "digid": {
+                "description": "Otwórz ekran logowania DigiD",
+                "title": "DigiD"
+            },
+            "request": {
+                "description": "Przejdź przez formularz wniosku o kredyt",
+                "title": "Chcę poprosić o kredyt"
+            }
+        }
+    },
+    "fund_criterion": {
+        "buttons": {
+            "add": "Dodaj",
+            "validate": "Zatwierdzić"
+        },
+        "labels": {
+            "general": {
+                "location": "Groningen"
+            },
+            "value": "Brak danych osobowych w profilu użytkownika",
+            "westerkwartier": {
+                "location": "Westerkwartier"
+            },
+            "zuidhorn": {
+                "location": "Zuidhorn"
+            }
+        },
+        "status": {
+            "invalid": "Nieprawidłowy",
+            "valid": "Ważny"
+        }
+    },
+    "fund_request_clarification": {
+        "block_title": "{{ fund_name }} wniosek o uzupełnienie",
+        "buttons": {
+            "back": "Powrót",
+            "submit": "Potwierdzenie"
+        },
+        "done": {
+            "desc": "Twoje zgłoszenie zostało wysłane, a po jego przetworzeniu otrzymasz wiadomość e-mail.",
+            "title": "Żądanie uzupełnienia wysłane."
+        },
+        "labels": {
+            "attachment": "Załącznik",
+            "message": "Wiadomość",
+            "question": "Pytanie"
+        },
+        "not_pending": {
+            "desc": "Odpowiedź została już przesłana.",
+            "title": "Aplikacja wypełniona"
+        },
+        "placeholder": "Twoja wiadomość..."
+    },
+    "fund_request": {
+        "approved_request_exists": "Zatwierdzona aplikacja już istnieje. Prosimy o kontakt z administratorem.",
+        "breadcrumbs": {
+            "fund_request": "Żądanie #{{ id }}",
+            "home": "Strona główna"
+        },
+        "bsn_record_is_mandatory": "BSN jest obowiązkowe do złożenia wniosku.",
+        "bsn_warning": {
+            "description": "Uwaga! Musisz wypełnić formularz zgłoszeniowy do <strong>{{value}}</strong>w przeciwnym razie zaloguj się ponownie w DigiD i rozpocznij aplikację od nowa."
+        },
+        "buttons": {
+            "back": "Powrót",
+            "send": "Wysyłka"
+        },
+        "declined": {
+            "no_note": "Brak notatki",
+            "title": "Powód odmowy"
+        },
+        "details": {
+            "created_at": "Zgłoszono dnia:",
+            "fund_name": "Nazwa funduszu:",
+            "id": "ID:",
+            "number_of_records": "Liczba danych osobowych:",
+            "title": "Status aplikacji"
+        },
+        "digid_expired": {
+            "description": "Zaloguj się ponownie w DigiD i ponownie uruchom aplikację.",
+            "sign_in": {
+                "description": "Zaloguj się ponownie za pomocą DigiD, aby rozpocząć od nowa.",
+                "title": "DigiD"
+            },
+            "title": "Sesja DigiD wygasła"
+        },
+        "fund_not_active": "Fundusz, którego dotyczy wniosek, jest nieaktywny.",
+        "invalid_endpoint": "Brak dostępu do tej aplikacji",
+        "not_requester": "Nie jesteś właścicielem tej aplikacji.",
+        "received": {
+            "title": "Otrzymano"
+        },
+        "record": {
+            "answer": "Odpowiedź",
+            "answer_btn": "Odpowiedź",
+            "cancel_btn": "Anuluj",
+            "new": "nowa wiadomość",
+            "new_message": "Nowe żądanie",
+            "send_btn": "Wyślij",
+            "view": "Widok"
+        },
+        "records": {
+            "title": "Moje dane"
+        },
+        "sign_up": {
+            "app": {
+                "description_bottom": "Aplikacja Me służy do łatwego i bezpiecznego logowania, dokonywania płatności i zarządzania saldami.",
+                "description_top": "Zeskanuj kod QR po prawej stronie za pomocą skanera QR w aplikacji Me.",
+                "title": "Zaloguj się za pomocą aplikacji Me"
+            },
+            "block_title": "{{ fund_name }} aplikacje",
+            "digid": {
+                "button": "Logowanie",
+                "description": "Przywróć konto, logując się ponownie za pomocą DigiD",
+                "title": "Odzyskiwanie konta"
+            },
+            "fund_already_applied": {
+                "buttons": {
+                    "open_fund_request": "Wyświetl aplikację"
+                },
+                "information": "Wniosek zostanie rozpatrzony tak szybko, jak to możliwe, co może potrwać kilka tygodni.  Jeśli wniosek nie jest kompletny, może być wymagane podanie dodatkowych informacji.  W takim przypadku zostanie wysłana wiadomość e-mail. Naciśnij poniższy przycisk, aby wyświetlić status wniosku.",
+                "subtitle": {
+                    "approved": "Wniosek został zatwierdzony w dniu {{ date }}",
+                    "approved_partly": "Wniosek został częściowo zatwierdzony w dniu {{ date }}",
+                    "declined": "Wniosek został odrzucony w dniu {{ date }}",
+                    "disregarded": "Wniosek został odrzucony w dniu {{ date }}",
+                    "pending": "Wniosek został złożony w dniu {{ date }}"
+                },
+                "title": {
+                    "approved": "Wniosek został zatwierdzony",
+                    "approved_partly": "Wniosek został częściowo zatwierdzony",
+                    "declined": "Wniosek został odrzucony",
+                    "disregarded": "Wniosek został odrzucony",
+                    "pending": "Wniosek oczekuje na rozpatrzenie"
+                }
+            },
+            "header": {
+                "main": "{{ fund_name }} aplikacja",
+                "title": "Zarejestruj się",
+                "title_log_digid": "Pojedyncze logowanie z DigiD"
+            },
+            "labels": {
+                "has_app": "Zaloguj się za pomocą aplikacji Me >",
+                "no_app": "Chcę zalogować się przy użyciu mojego adresu e-mail >",
+                "restore_with_digid_formal": "Zapomniałeś, jakiego adresu e-mail użyłeś? >",
+                "restore_with_digid_informal": "Zapomniałeś, jakiego adresu e-mail użyłeś? >"
+            },
+            "pane": {
+                "criterion_any": "{{ name }}' ' może być dowolną wartością.",
+                "criterion_less": "{{ name }} {{ value }} ' ' powinna być mniejsza niż .",
+                "criterion_less_or_equal": "{{ name }} {{ value }}' ' musi być mniejsza lub równa .",
+                "criterion_more": "{{ name }} {{ value }} ' ' powinno być więcej niż .",
+                "criterion_more_or_equal": "{{ name }} {{ value }}' ' musi być większa lub równa .",
+                "criterion_same": "{{ name }} {{ value }} ' ' powinno być .",
+                "footer": {
+                    "next": "Następny krok",
+                    "prev": "Poprzedni krok",
+                    "apply": "Zapytaj"
+                },
+                "header_title": "Przegląd",
+                "text": "Potrzebujemy więcej danych. Wykonaj następujące kroki:"
+            },
+            "record_checkbox": {
+                "children_nth": "{{value}} Oświadczam, że mam dzieci",
+                "default": "Oświadczam, że spełniam powyższe warunki",
+                "kindpakket_2018_eligible": "Tak, oświadczam, że przysługuje mi pakiet dziecięcy.",
+                "kindpakket_eligible": "Tak, oświadczam, że przysługuje mi pakiet dziecięcy.",
+                "social_assistance_standard": "Wyrażam zgodę na sprawdzenie moich dochodów. Odbywa się to poprzez porównanie moich danych w aktach gminy lub zażądanie specyfikacji."
+            },
+            "subtitles": {
+                "step_1": "Za pośrednictwem tego formularza online można ubiegać się o dostępne środki. ",
+                "step_2": "Sprawdza, czy spełniłeś już warunki i możesz przerwać w międzyczasie i kontynuować w innym momencie."
+            },
+            "fund_request_confirm_criteria": {
+                "confirm_income": "Potwierdź swój dochód",
+                "confirm_meet_conditions": "Oświadczam, że spełniam powyższe warunki.",
+                "declare_conditions": "Zamierzasz złożyć wniosek o udział w programie. Musisz zadeklarować, że spełniasz warunki.",
+                "processing_request": "Poczekaj chwilę, żądanie jest przetwarzane.",
+                "provide_correct_info": "Wiem, że podanie niedokładnych informacji jest karalne, że muszę zwrócić wszelkie nienależnie lub nadmiernie pobrane opłaty oraz że mogę zostać ukarany grzywną."
+            },
+            "fund_request_contact_info": {
+                "title": "Dane kontaktowe"
+            },
+            "fund_request_email_setup": {
+                "continue_without_email": "Kontynuacja bez wiadomości e-mail",
+                "email_required": "Aby kontynuować aplikację, wprowadź swój adres e-mail",
+                "email_sent": "E-mail wysłany",
+                "email_sent_screen": "Wiadomość e-mail z potwierdzeniem została wysłana",
+                "no_email_info": "Jeśli nie zostawisz adresu e-mail, nie będziesz otrzymywać ważnych wiadomości, takich jak e-mail z kodem QR lub gdy dokonano transakcji. Ponadto możesz zalogować się tylko za pomocą DigiD.",
+                "sign_up_with_email": "Zaloguj się za pomocą adresu e-mail",
+                "skip": "Pomiń",
+                "warning": "Uwaga!"
+            },
+            "fund_request_overview": {
+                "application_summary": "Przegląd żądań",
+                "check_information": "Sprawdź poniżej, czy wprowadzone dane są poprawne. Możesz wrócić do poprzednich kroków za pomocą przycisku ",
+                "contact_info": "Podane dane kontaktowe:",
+                "correct_information": "Czy dane są poprawne? Następnie kliknij przycisk ",
+                "none": "Nie",
+                "previous_step": "Poprzedni krok.",
+                "submit_application": "Pytanie do."
+            },
+            "fund_request_step_criteria": {
+                "make_a_choice": "Wybierz jedną"
+            },
+            "fund_request_step_done": {
+                "application_processing": "Twoje zgłoszenie zostało odebrane. Wniosek zostanie rozpatrzony w ciągu 10 dni roboczych. Otrzymasz wiadomość e-mail na ten temat.",
+                "application_received": "Otrzymany wniosek",
+                "back": "Powrót",
+                "error_occurred": "Wystąpił błąd podczas aplikacji.",
+                "leave_form": "Formularz urlopowy",
+                "reason": "Powód:",
+                "sent": "Wysłane!",
+                "sign_up": "Zarejestruj się"
+            }
+        },
+        "steps": {
+            "step": "Krok {{step}}",
+            "step_out_of": "Krok {{step}}"
+        },
+        "title": "Żądanie #{{ id }}"
+    },
+    "fund_requests": {
+        "breadcrumbs": {
+            "fund_requests": "Żądanie",
+            "home": "Strona główna"
+        },
+        "card": {
+            "created_at": "Zgłoszono dnia:",
+            "id": "ID",
+            "img_alt": "obraz funduszu",
+            "questions_count": "{{count}} nowa wiadomość"
+        },
+        "empty": {
+            "button": "Przejdź do funduszy",
+            "subtitle": "Obecnie nie masz żadnych wniosków o fundusze",
+            "title": "Brak wniosków o fundusze"
+        },
+        "filters": {
+            "active": "Aktywny",
+            "archive": "Archiwum",
+            "all_funds": "Wszystkie kredyty..."
+        },
+        "title": "Żądanie"
+    },
+    "fund": {
+        "breadcrumbs": {
+            "back": "Powrót",
+            "home": "Strona główna"
+        },
+        "criterias": {
+            "email": "E-mail:",
+            "enddate": "Data zakończenia:",
+            "fixed_amount": "Maksymalny kredyt:",
+            "label": "Szczegóły",
+            "multiplied_amount": "Kredyt na osobę:",
+            "phone": "Numer telefonu:"
+        },
+        "details": {
+            "by": "Wydane przez:",
+            "end_date": "Data zakończenia:",
+            "start_date": "Data rozpoczęcia:"
+        },
+        "header": {
+            "criteria": "{{ nth }}Warunki ( )",
+            "title": "{{fund_name}} zarejestruj się"
+        },
+        "pending_request": {
+            "title": "Sprawdzamy Twoją aplikację"
+        }
+    },
+    "funds": {
+        "breadcrumbs": {
+            "funds": "Żądanie",
+            "home": "Strona główna"
+        },
+        "buttons": {
+            "already_received": "Otwarty kredyt",
+            "check_status": "Sprawdź status",
+            "groningen": {
+                "start_request": "Żądanie"
+            },
+            "IIT": {
+                "already_received": "Żądanie"
+            },
+            "is_applicable": "Aktywuj",
+            "is_pending": "W toku",
+            "more": "Zobacz więcej",
+            "potjeswijzer": {
+                "start_request": "Żądanie"
+            },
+            "start_request": "Aktywuj"
+        },
+        "criteria": {
+            "key": "{{key}}"
+        },
+        "filters": {
+            "all_organizations": "Wszystkie organizacje",
+            "all_tags": "Wszystkie kategorie"
+        },
+        "funds": {
+            "berkelland": {
+                "title": "Aktywuj"
+            },
+            "geertruidenberg": {
+                "title": "Aktywuj"
+            },
+            "goereeoverflakkee": {
+                "title": "Programy"
+            },
+            "oostgelre": {
+                "title": "Aktywuj"
+            },
+            "potjeswijzer": {
+                "title": "Słoiki"
+            },
+            "schagen": {
+                "title": "Programy"
+            },
+            "vergoedingen": {
+                "title": "Wszystkie opłaty"
+            },
+            "winterswijk": {
+                "title": "Aktywuj"
+            }
+        },
+        "header": {
+            "berkelland": {
+                "subtitle": "Poniżej znajdują się schematy, które można aktywować.",
+                "title": "Aktywuj"
+            },
+            "oostgelre": {
+                "subtitle": "Poniżej znajdują się schematy, które można aktywować.",
+                "title": "Aktywuj"
+            },
+            "potjeswijzer": {
+                "subtitle": "Poniżej możesz zobaczyć niektóre z pul, o które możesz się ubiegać. Jesteś ciekawy, jakie są inne? W takim razie skontaktuj się z: xxxx",
+                "title": "Słoiki"
+            },
+            "subtitle": "",
+            "title": "Żądanie",
+            "winterswijk": {
+                "subtitle": "Poniżej znajdują się schematy, które można aktywować.",
+                "title": "Aktywuj"
+            }
+        },
+        "labels": {
+            "age": "< 18 lat",
+            "agelimit": "Limit wieku",
+            "amount": "< € 1118.46",
+            "categories_label": "Kredyt można aktywować do kwoty",
+            "category": "Kategoria",
+            "children": "Dzieci",
+            "count": "1",
+            "criteria": "Warunki",
+            "income": "Limit dochodu",
+            "location": "Lokalizacja",
+            "office": "Gmina Zuidhorn",
+            "organization": "Organizacja",
+            "search": "Wyszukiwanie"
+        },
+        "status": {
+            "activateable": "Aktywowalny",
+            "active": "Aktywny",
+            "denied": "Odmowa",
+            "is_applicable": "Zarejestruj się",
+            "is_pending": "W toku"
+        }
+    },
+    "global": {
+        "2fa_restriction": {
+            "emails": {
+                "button": "Konfigurowanie uwierzytelniania dwuskładnikowego",
+                "description": "Aby zapewnić bezpieczeństwo i ochronę danych osobowych w sklepie internetowym, obowiązkowe jest uwierzytelnianie kont. Użytkownicy muszą podać metodę identyfikacji przed uzyskaniem dostępu do funkcji, w których można wprowadzać dane osobowe lub dokonywać zmian na koncie.",
+                "title": "Do zarządzania adresami e-mail wymagane jest uwierzytelnianie dwuskładnikowe."
+            },
+            "reasons": {
+                "description": "Aby korzystać z niektórych opcji i funkcji, użytkownicy muszą użyć drugiej metody uwierzytelniania. Wzmacnia to bezpieczeństwo i zapewnia, że tylko autoryzowani użytkownicy mogą uzyskać dostęp do funkcji, dzięki czemu konta są bezpieczniejsze.",
+                "title": "Następujące kredyty wymagają uwierzytelniania dwuskładnikowego."
+            },
+            "reimbursements": {
+                "button": "Konfigurowanie uwierzytelniania dwuskładnikowego",
+                "description": "Aby zapewnić bezpieczeństwo i ochronę danych osobowych w sklepie internetowym, obowiązkowe jest uwierzytelnianie kont. Użytkownicy muszą podać metodę identyfikacji przed uzyskaniem dostępu do funkcji, w których można wprowadzać dane osobowe lub dokonywać zmian na koncie.",
+                "title": "Do składania wniosków wymagane jest uwierzytelnianie dwuskładnikowe."
+            },
+            "sessions": {
+                "button": "Konfigurowanie uwierzytelniania dwuskładnikowego",
+                "description": "Aby zapewnić bezpieczeństwo i ochronę danych osobowych w sklepie internetowym, obowiązkowe jest uwierzytelnianie kont. Użytkownicy muszą podać metodę identyfikacji przed uzyskaniem dostępu do funkcji, w których można wprowadzać dane osobowe lub dokonywać zmian na koncie.",
+                "title": "Do zarządzania sesjami logowania wymagane jest uwierzytelnianie dwuskładnikowe."
+            }
+        },
+        "app_links": {
+            "app_store": "Pobierz z App Store",
+            "google_play": "Dowiedz się więcej w Google Play"
+        },
+        "card_2fa_warning": {
+            "2fa_policy": {
+                "required": {
+                    "description": "Aby skorzystać z tego systemu, użytkownik musi użyć drugiej metody weryfikacji po aplikacji.",
+                    "title": "Rozporządzenie to nakazuje stosowanie uwierzytelniania dwuskładnikowego"
+                },
+                "restrict_features": {
+                    "description": "Aby korzystać z niektórych opcji i funkcji związanych z tym schematem, użytkownik musi użyć drugiej metody uwierzytelniania.",
+                    "title": "Rozporządzenie to nakazuje stosowanie uwierzytelniania dwuskładnikowego dla niektórych funkcji"
+                },
+                "show_less": "Pokaż mniej",
+                "show_more": "Pokaż więcej"
+            },
+            "email_restrictions": {
+                "description": "Do zarządzania adresami e-mail wymagane jest uwierzytelnianie dwuskładnikowe.",
+                "title": "Ograniczenia dotyczące poczty e-mail"
+            },
+            "reimbursement_restrictions": {
+                "description": "Do składania wniosków wymagane jest uwierzytelnianie dwuskładnikowe.",
+                "title": "Ograniczenia dotyczące deklaracji"
+            },
+            "session_restrictions": {
+                "description": "Do zarządzania sesjami logowania wymagane jest uwierzytelnianie dwuskładnikowe.",
+                "title": "Ograniczenia sesji"
+            }
+        },
+        "file_item": {
+            "download_file": "Pobierz plik",
+            "remove_file": "Usuń plik",
+            "view_file": "Wyświetl plik"
+        },
+        "file_uploader": {
+            "attachments": "Załączniki",
+            "max_files": "Maks. plików {[ count ]}",
+            "max_size": "maks. rozmiar 8 MB",
+            "or": "lub",
+            "title": "Prześlij dokument",
+            "upload_button": "Prześlij dokument"
+        },
+        "info_box": {
+            "2fa_description": "Aby uzyskać więcej informacji na temat 2FA, odwiedź naszą stronę:",
+            "help_center_article": "Artykuł w centrum pomocy"
+        },
+        "map_marker": {
+            "address": "Adres",
+            "email": "E-mail",
+            "organization_type": "Typ organizacji",
+            "phone": "Telefon",
+            "view_details": "Zobacz szczegóły"
+        },
+        "showcase": {
+            "filters": "Filtr"
+        },
+        "voucher_records": {
+            "hide_details": "Ukryj wszystkie szczegóły",
+            "show_details": "Pokaż wszystkie szczegóły"
+        }
+    },
+    "home": {
+        "blog": {
+            "name": "Blog: Dwa nowe wdrożenia naszej platformy",
+            "title": "Nasz blog"
+        },
+        "faq": {
+            "berkelland": {
+                "eight": "Po zalogowaniu się do sklepu internetowego można wyświetlić swój kredyt. Ważność jest również wyświetlana na stronie kredytu.",
+                "eleven": "Tak, możesz. W takim razie skontaktuj się z Fijnder, 0544-474200.",
+                "faq_eight": "Jak długo ważny jest kredyt?",
+                "faq_eleven": "Urodziłam kolejne dziecko, czy kwalifikuję się do wyższego kredytu?",
+                "faq_fifteen": "Które organizacje mogą zaoferować mi wsparcie?",
+                "faq_five": "Jak mogę sprawdzić, ile środków mi pozostało?",
+                "faq_four": "Straciłem zdolność kredytową. Co powinienem zrobić?",
+                "faq_fourteen": "Widzę oferty w sklepie internetowym, jak mogę kupić produkt lub usługę?",
+                "faq_nine": "Czy mogę wymienić kredyt na gotówkę?",
+                "faq_one": "W jaki sposób mogę aktywować opcję Child Arrangements i/lub Meedoenarrangement?",
+                "faq_seven": "Czy kredyt powinien zostać wydany od razu?",
+                "faq_six": "Czy mogę wymienić/zwrócić zakupioną rzecz?",
+                "faq_ten": "Czy mogę kupić coś od innego dostawcy, który nie jest wymieniony w sklepie internetowym?",
+                "faq_thirteen": "Czy mogę przypisać zasługi komuś innemu?",
+                "faq_three": "{{fund}} U których dostawców mogę wydać pieniądze?",
+                "faq_twelve": "Jak zakwalifikować się do programów dla dzieci i/lub pakietu dla dorosłych?",
+                "faq_two": "Jak mogę zalogować się do sklepu internetowego?",
+                "fifteen": "<br> W przypadku pytań dotyczących opieki społecznej, zdrowia, zakwaterowania, opieki, pracy, uczestnictwa i spraw finansowych można również odwiedzić stronę <a target='_blank' href='https://www.berkellandwijzer.nl'>www.berkellandwijzer.nl</a>. W przypadku pytań dotyczących m.in. wsparcia dochodu można skontaktować się z firmą Fijnder.",
+                "five": "Po każdej płatności wysyłana jest wiadomość e-mail z aktualną kwotą środków, a ponadto można ją wyświetlić, logując się do sklepu internetowego lub korzystając z aplikacji Me.",
+                "four": "Możesz zawsze znaleźć swój kredyt, logując się do sklepu internetowego, wydrukować go, wysłać na swój adres e-mail lub zawsze mieć go pod ręką, korzystając z aplikacji Me.",
+                "fourteen": "Zaloguj się do sklepu internetowego i kliknij \"Oferta\". Następnie wybierz żądaną ofertę i kliknij \"Zarezerwuj\". Następnie wybierz kredyt, za pomocą którego chcesz zarezerwować ofertę. Kwota oferty zostanie odjęta od Twojego kredytu, a oferta zostanie dla Ciebie zarezerwowana. Rezerwacja będzie również widoczna na liście rezerwacji na stronie internetowej. Faktyczna płatność następuje po zeskanowaniu kodu QR przy ofercie. Nadal nie korzystasz z oferty? W takim razie możesz anulować rezerwację. Jeśli po dokonaniu płatności pozostała Ci jakaś kwota, możesz kontynuować zakupy z tą kwotą.",
+                "nine": "Nie, wartość kredytu nie zostanie wypłacona w gotówce.",
+                "one": "Kliknij \"Start\" w prawym górnym rogu. Wprowadź swój adres e-mail i kod aktywacyjny (8 znaków), który otrzymałeś listownie. Następnie kliknij \"Wyślij\". Twój profil został utworzony, a kredyt aktywowany!",
+                "seven": "Nie, nie musisz wydawać środków za jednym razem.",
+                "six": "Zwrot nie jest niestety możliwy. Wymiana może być możliwa, należy zapytać sprzedawcę o możliwości.",
+                "ten": "Nie, środki można wydać tylko u sprzedawców wymienionych w sklepie internetowym. Możesz powiadomić sprzedawcę o dołączeniu do aplikacji i poprosić go o kontakt z Fijnder, 0544-474200.",
+                "thirteen": "Nie, kredyt jest ściśle osobisty. Nie możesz go przekazać nikomu innemu. Jeśli ktoś inny skorzysta z Twojego kredytu, zostanie on odjęty od Twojej kwoty.",
+                "three": "Przegląd wszystkich dostawców można znaleźć w sklepie internetowym. Przejdź do \"Przegląd wszystkich dostawców",
+                "title": "Często zadawane pytania",
+                "twelve": "Jeśli uważasz, że masz prawo do programu Child Scheme, skontaktuj się z Fijnder, 0544-474200. Sprawdzą oni, czy spełniasz warunki. <br>Wszyscy dorośli mieszkańcy o minimalnym dochodzie (do 130% poziomu pomocy) kwalifikują się do Meedoenarrangement. Jeśli uważasz, że kwalifikujesz się do Meedoenarrangement, skontaktuj się z Fijnder, 0544-474200. Sprawdzą oni, czy spełniasz warunki.",
+                "two": "Można to zrobić na kilka sposobów, z których najprostszym jest wysłanie wiadomości e-mail. Kliknij \"Zaloguj się\" w prawym górnym rogu. Wybierz \"Zaloguj się przez e-mail\". Wprowadź adres e-mail użyty podczas aktywacji i kliknij \"Wyślij\". Otwórz wiadomość e-mail i kliknij otrzymany link, aby się zalogować."
+            },
+            "eight": "{{start_date}} Kredyt jest ważny przez rok od .",
+            "eleven": "Tak, można. W takim przypadku należy skontaktować się z gminą.",
+            "faq_eight": "Jak długo ważny jest mój kredyt?",
+            "faq_eleven": "Urodziłam kolejne dziecko, czy kwalifikuję się do wyższego kredytu?",
+            "faq_five": "Jak mogę sprawdzić, ile środków mi pozostało?",
+            "faq_four": "Straciłem zdolność kredytową. Co powinienem zrobić?",
+            "faq_fourteen": "Widzę oferty w sklepie internetowym, jak mogę kupić produkt lub usługę?",
+            "faq_nine": "Czy mogę wymienić kredyt na gotówkę?",
+            "faq_one": "{{fund}} Jak mogę aktywować?",
+            "faq_seven": "Czy kredyt powinien zostać wydany od razu?",
+            "faq_six": "Czy mogę wymienić/zwrócić zakupioną rzecz?",
+            "faq_ten": "Czy mogę kupić coś od innego dostawcy niewymienionego na stronie?",
+            "faq_thirteen": "Czy mogę przypisać zasługi komuś innemu?",
+            "faq_three": "{{fund}} U których dostawców mogę wydać pieniądze?",
+            "faq_twelve": "{{fund}}Jak mogę się zakwalifikować?",
+            "faq_two": "Jak mogę zalogować się do sklepu internetowego?",
+            "five": "Po każdej płatności wysyłana jest wiadomość e-mail z aktualną kwotą środków, a ponadto można ją wyświetlić, logując się do sklepu internetowego lub korzystając z aplikacji Me.",
+            "four": "Możesz zawsze znaleźć swój kredyt (kod QR), logując się do sklepu internetowego, wydrukować kod, wysłać go na swój adres e-mail lub zawsze mieć go pod ręką, korzystając z aplikacji Me.",
+            "fourteen": "Zaloguj się do sklepu internetowego i kliknij \"Oferta\". Następnie wybierz żądaną ofertę i kliknij \"Zarezerwuj\". Następnie wybierz kredyt, za pomocą którego chcesz zarezerwować ofertę. Kwota oferty zostanie odjęta od Twojego kredytu, a oferta zostanie dla Ciebie zarezerwowana. Rezerwacja będzie również widoczna na liście rezerwacji na stronie internetowej. Faktyczna płatność następuje po zeskanowaniu kodu QR przy ofercie. Nadal nie korzystasz z oferty? W takim razie możesz anulować rezerwację. Jeśli po dokonaniu płatności pozostała Ci jakaś kwota, możesz kontynuować zakupy z tą kwotą.",
+            "nine": "Nie, wartość kredytu nie zostanie wypłacona w gotówce.",
+            "noordoostpolder": {
+                "eight": "Po zalogowaniu się do sklepu internetowego można wyświetlić swój kredyt. Ważność jest również wyświetlana na stronie kredytu.",
+                "eleven": "Kredyt przeznaczony jest dla dzieci w wieku od 4 do 17 lat. Twoje dziecko skończyło 4 lata? W takim razie możesz złożyć wniosek o kredyt, (0527) 63 39 11. Lub pobierz formularz wniosku: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https: </a>//www.noordoostpolder.nl/meedoenpakket ",
+                "faq_eight": "Jak długo ważny jest kredyt?",
+                "faq_fourteen": "Widzę oferty w sklepie internetowym, jak mogę kupić ofertę?",
+                "faq_nine": "Czy mogę wymienić kredyt na gotówkę?",
+                "faq_one": "Jak mogę aktywować Meedoenpakket?",
+                "faq_six": "Czy mogę wymienić/zwrócić zakupioną rzecz?",
+                "faq_thirteen": "Czy mogę przypisać zasługi komuś innemu?",
+                "faq_three": "U których dostawców mogę wydać kredyt?",
+                "faq_twelve": "Czy ja lub moje dziecko kwalifikujemy się do otrzymania kredytu?",
+                "five": "Po każdej płatności wysyłana jest wiadomość e-mail z aktualną kwotą środków, a ponadto można ją wyświetlić, logując się do sklepu internetowego lub korzystając z aplikacji Me.",
+                "four": "Możesz zawsze znaleźć swój kredyt, logując się do sklepu internetowego, wydrukować kredyt, wysłać go na swój adres e-mail lub zawsze mieć go pod ręką, korzystając z aplikacji Me.",
+                "fourteen": "Zaloguj się do sklepu internetowego i kliknij \"Oferta\". Następnie wybierz żądaną ofertę i kliknij \"Zarezerwuj\". Następnie wybierz kredyt, za pomocą którego chcesz zarezerwować ofertę. Kwota oferty zostanie odjęta od Twojego kredytu, a oferta zostanie dla Ciebie zarezerwowana. Rezerwacja będzie również widoczna na liście rezerwacji na stronie internetowej. Faktyczna płatność następuje po zeskanowaniu kodu QR przy ofercie. Nadal nie korzystasz z oferty? W takim razie możesz anulować rezerwację. Jeśli po dokonaniu płatności pozostała Ci jakaś kwota, możesz kontynuować zakupy z tą kwotą.",
+                "nine": "Nie, nie otrzymasz wartości kredytu w pieniądzu kontaktowym.",
+                "one": "Kliknij \"Rozpocznij aplikację\" u góry. Wprowadź swój adres e-mail i kod aktywacyjny otrzymany listownie. Następnie kliknij \"Wyślij\". Twoje konto zostanie utworzone, a kredyt Meedoen zostanie aktywowany! Na jeden adres e-mail można aktywować 1 kod aktywacyjny. Masz kilka kodów aktywacyjnych? Użyj kilku adresów e-mail.",
+                "seven": "Nie, nie musisz wydawać środków za jednym razem.",
+                "six": "Nie, nie można dokonać wymiany ani zwrotu.",
+                "ten": "Nie, kredyt można wydać tylko u usługodawców wymienionych w sklepie internetowym. Możesz poprosić dostawcę o zarejestrowanie się za pośrednictwem aplikacji lub skontaktować się z gminą, (0527) 63 39 11.",
+                "thirteen": "Nie, kredyt jest ściśle osobisty. Nie możesz go przekazać nikomu innemu. Jeśli ktoś inny wykorzysta Twój kredyt, zostanie on odjęty od Twojej kwoty.",
+                "three": "Przegląd wszystkich dostawców można znaleźć w sklepie internetowym w sekcji \"Dostawcy\".",
+                "twelve": "Meedoenpakket jest przeznaczony dla dzieci w wieku od 4 do 17 lat, których rodzice mają niskie dochody. Emeryci o niskich dochodach również mogą ubiegać się o Meedoenpakket. Jeśli uważasz, że Ty lub Twoje dziecko (dzieci) jesteście uprawnieni do kredytu, możesz złożyć wniosek. Zadzwoń pod numer (0527) 69 93 11 lub pobierz formularz wniosku: <a target='_blank' href='https://www.noordoostpolder.nl/meedoenpakket'> https: </a>//www.noordoostpolder.nl/meedoenpakket. "
+            },
+            "one": "Kliknij \"Start\" w górnej części strony. Użyj własnego adresu e-mail, a następnie wprowadź kod aktywacyjny.",
+            "oostgelre": {
+                "eight": "Po zalogowaniu się do sklepu internetowego można wyświetlić swój kredyt. Ważność jest również wyświetlana na stronie kredytu.",
+                "eleven": "Tak, możesz. W takim razie skontaktuj się z Fijnder, 0544-474200.",
+                "faq_eight": "Jak długo ważny jest kredyt?",
+                "faq_eleven": "Urodziłam kolejne dziecko, czy kwalifikuję się do wyższego kredytu?",
+                "faq_fifteen": "Które organizacje mogą zaoferować mi wsparcie?",
+                "faq_five": "Jak mogę sprawdzić, ile środków mi pozostało?",
+                "faq_four": "Straciłem zdolność kredytową. Co powinienem zrobić?",
+                "faq_fourteen": "Widzę oferty w sklepie internetowym, jak mogę kupić produkt lub usługę?",
+                "faq_nine": "Czy mogę wymienić kredyt na gotówkę?",
+                "faq_one": "Jak mogę aktywować Child Arrangement?",
+                "faq_seven": "Czy kredyt powinien zostać wydany od razu?",
+                "faq_six": "Czy mogę wymienić/zwrócić zakupioną rzecz?",
+                "faq_ten": "Czy mogę kupić coś od innego dostawcy, który nie jest wymieniony w sklepie internetowym?",
+                "faq_thirteen": "Czy mogę przypisać zasługi komuś innemu?",
+                "faq_three": "{{fund}} U których dostawców mogę wydać pieniądze?",
+                "faq_twelve": "Jak zakwalifikować się do programu dla dzieci?",
+                "faq_two": "Jak mogę zalogować się do sklepu internetowego?",
+                "fifteen": "Bank odzieży może zapewnić wsparcie w postaci ubrań, butów i tekstyliów. Można go odwiedzać dwa razy w roku, w tym celu potrzebne jest skierowanie.<br/><br/><br/><br/>Więcej informacji można znaleźć na stronie <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a> Stichting leergeld może pomóc w pokryciu kosztów szkolnych lub sportowych, jeśli koszty te nie są pokrywane przez Fijnder, więcej informacji można znaleźć na stronie<a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a> Możesz wypożyczyć zabawki z banku zabawek, potrzebne jest skierowanie.<br/><br/>Więcej informacji można znaleźć na stronie <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a> Bank żywności może udzielić wsparcia, jeśli nie masz wystarczających dochodów, aby kupić artykuły spożywcze.<br/><br/>Więcej informacji można znaleźć na stronie <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a> Aby uzyskać dodatkowe wsparcie finansowe, można skontaktować się z młodzieżowym funduszem sportowym gminy Berkelland i gminy Winterswijk.<br/><br/>Warunki można znaleźć na stronie <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a> Fundacja Jarige Job może pomóc w organizacji imprez dla dzieci. Więcej informacji można znaleźć na stronie<a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>",
+                "five": "Po każdej płatności wysyłana jest wiadomość e-mail z aktualną kwotą środków, a ponadto można ją wyświetlić, logując się do sklepu internetowego lub korzystając z aplikacji Me.",
+                "four": "Możesz zawsze znaleźć swój kredyt, logując się do sklepu internetowego, wydrukować go, wysłać na swój adres e-mail lub zawsze mieć go pod ręką, korzystając z aplikacji Me.",
+                "fourteen": "Zaloguj się do sklepu internetowego i kliknij \"Oferta\". Następnie wybierz żądaną ofertę i kliknij \"Zarezerwuj\". Następnie wybierz kredyt, za pomocą którego chcesz zarezerwować ofertę. Kwota oferty zostanie odjęta od Twojego kredytu, a oferta zostanie dla Ciebie zarezerwowana. Rezerwacja będzie również widoczna na liście rezerwacji na stronie internetowej. Faktyczna płatność następuje po zeskanowaniu kodu QR przy ofercie. Nadal nie korzystasz z oferty? W takim razie możesz anulować rezerwację. Jeśli po dokonaniu płatności pozostała Ci jakaś kwota, możesz kontynuować zakupy z tą kwotą.",
+                "nine": "Nie, wartość kredytu nie zostanie wypłacona w gotówce.",
+                "one": "Kliknij \"Start\" w prawym górnym rogu. Wprowadź swój adres e-mail i kod aktywacyjny otrzymany listownie. Następnie kliknij \"Wyślij\". Twój profil został utworzony, a kredyt Child Scheme został aktywowany!",
+                "seven": "Nie, nie musisz wydawać środków za jednym razem.",
+                "six": "Zwrot nie jest niestety możliwy. Wymiana może być możliwa, zapytaj sprzedawcę o możliwości.",
+                "ten": "Nie, środki można wydać tylko u sprzedawców wymienionych w sklepie internetowym. Możesz powiadomić sprzedawcę o dołączeniu do aplikacji i poprosić go o kontakt z Fijnder, 0544-474200.",
+                "thirteen": "Nie, kredyt jest ściśle osobisty. Nie możesz go przekazać nikomu innemu. Jeśli ktoś inny skorzysta z Twojego kredytu, zostanie on odjęty od Twojej kwoty.",
+                "three": "Przegląd wszystkich dostawców można znaleźć w sklepie internetowym. Przejdź do \"Przegląd wszystkich dostawców",
+                "title": "Często zadawane pytania",
+                "twelve": "Jeśli uważasz, że masz prawo do programu Child Scheme, skontaktuj się z Fijnder, 0544-474200. Sprawdzą oni, czy spełniasz warunki.",
+                "two": "Można to zrobić na kilka sposobów, z których najprostszym jest wysłanie wiadomości e-mail. Kliknij \"Zaloguj się\" w prawym górnym rogu. Wybierz \"Zaloguj się przez e-mail\". Wprowadź adres e-mail użyty podczas aktywacji i kliknij \"Wyślij\". Otwórz wiadomość e-mail i kliknij otrzymany link, aby się zalogować."
+            },
+            "potjeswijzer": {
+                "faq_one": "Jak mogę ubiegać się o Potty?",
+                "one": "Kliknij \"Rozpocznij aplikację\" u góry. Wprowadź swój adres e-mail i użyj linku do logowania we własnej zaufanej skrzynce e-mail. Następnie zaloguj się przy użyciu własnego DigiD. Sprawdź, czy spełniasz warunek!"
+            },
+            "seven": "Nie, nie musisz wydawać środków za jednym razem.",
+            "six": "Nie, nie można dokonać wymiany ani zwrotu. Wymiana może być możliwa, zapytaj dostawcę o możliwości.",
+            "ten": "Nie, środki można wydać tylko u dostawców wymienionych na stronie internetowej.",
+            "thirteen": "Nie, kredyt jest ściśle osobisty. Nie możesz go przekazać nikomu innemu. Jeśli ktoś inny skorzysta z Twojego kredytu, Twoja kwota zostanie zmniejszona.",
+            "three": "Przegląd wszystkich dostawców można znaleźć w sklepie internetowym. Przejdź do \"Przegląd wszystkich dostawców",
+            "title": "Często zadawane pytania {{client_key}}",
+            "twelve": "{{fund}}Jeśli uważasz, że jesteś uprawniony, skontaktuj się z gminą. Następnie gmina sprawdzi, czy spełniasz warunki.",
+            "two": "Możesz zalogować się na kilka sposobów. Najprostszym sposobem jest e-mail. Kliknij \"Zaloguj się\" w prawym górnym rogu. Wybierz \"Zaloguj się przez e-mail\". Wprowadź adres e-mail użyty podczas aktywacji i kliknij \"Wyślij\". Otwórz wiadomość e-mail i kliknij otrzymany link, aby się zalogować.",
+            "westerkwartier": {
+                "eight": "Po zalogowaniu się na stronie internetowej można wyświetlić swój kredyt w sekcji \"Mój kredyt\". Obok kredytu kliknij \"Otwórz\". Ta strona pokazuje również ważność.",
+                "faq_eight": "Jak długo ważny jest mój kredyt?",
+                "faq_fourteen": "Widzę oferty w sklepie internetowym, jak mogę kupić produkt lub usługę?",
+                "faq_one": "Jak mogę aktywować pakiet dziecięcy?",
+                "faq_ten": "Czy mogę kupić coś od innego dostawcy niewymienionego na stronie?",
+                "faq_three": "U których dostawców mogę wydać kredyt?",
+                "faq_twelve": "Jak zakwalifikować się do pakietu dla dzieci?",
+                "fourteen": "Zaloguj się do sklepu internetowego i kliknij \"Oferta\". Następnie wybierz żądaną ofertę i kliknij \"Zarezerwuj\". Następnie wybierz kredyt, za pomocą którego chcesz zarezerwować ofertę. Kwota oferty zostanie odjęta od Twojego kredytu, a oferta zostanie dla Ciebie zarezerwowana. Rezerwacja będzie również widoczna na liście rezerwacji na stronie internetowej. Faktyczna płatność następuje po zeskanowaniu kodu QR przy ofercie. Nadal nie korzystasz z oferty? W takim razie możesz anulować rezerwację. Jeśli po dokonaniu płatności pozostała Ci jakaś kwota, możesz kontynuować zakupy z tą kwotą.",
+                "one": "Kliknij \"Rozpocznij aplikację\" u góry. Wprowadź swój adres e-mail i zaloguj się do DigiD. Twoje konto zostanie utworzone, a kredyt aktywowany!",
+                "ten": "Nie, środki można wydać tylko u dostawców wymienionych na stronie internetowej. Możesz poprosić dostawcę o zarejestrowanie się.",
+                "three": "Przegląd wszystkich dostawców można znaleźć w sklepie internetowym. Kliknij na \"Dostawcy\".",
+                "twelve": "Jeśli uważasz, że masz prawo do pakietu dla dzieci, skontaktuj się z gminą pod numerem telefonu: 14 0594. Następnie gmina sprawdzi, czy spełniasz warunki."
+            },
+            "winterswijk": {
+                "eight": "Po zalogowaniu się do sklepu internetowego można wyświetlić swój kredyt. Ważność jest również wyświetlana na stronie kredytu.",
+                "eleven": "Tak, możesz. W takim razie skontaktuj się z Fijnder, 0544-474200.",
+                "faq_eight": "Jak długo ważny jest kredyt?",
+                "faq_eleven": "Urodziłam kolejne dziecko, czy kwalifikuję się do wyższego kredytu?",
+                "faq_fifteen": "Które organizacje mogą zaoferować mi wsparcie?",
+                "faq_five": "Jak mogę sprawdzić, ile środków mi pozostało?",
+                "faq_four": "Straciłem zdolność kredytową. Co powinienem zrobić?",
+                "faq_fourteen": "Widzę oferty w sklepie internetowym, jak mogę kupić produkt lub usługę?",
+                "faq_nine": "Czy mogę wymienić kredyt na gotówkę?",
+                "faq_one": "Jak mogę aktywować program dla dzieci?",
+                "faq_seven": "Czy kredyt powinien zostać wydany od razu?",
+                "faq_six": "Czy mogę wymienić/zwrócić zakupioną rzecz?",
+                "faq_ten": "Czy mogę kupić coś od innego dostawcy, który nie jest wymieniony w sklepie internetowym?",
+                "faq_thirteen": "Czy mogę przypisać zasługi komuś innemu?",
+                "faq_three": "{{fund}} U których dostawców mogę wydać pieniądze?",
+                "faq_twelve": "Jak zakwalifikować się do programu dla dzieci?",
+                "faq_two": "Jak mogę zalogować się do sklepu internetowego?",
+                "fifteen": "Bank odzieży może zapewnić wsparcie w postaci ubrań, butów i tekstyliów. Można go odwiedzać dwa razy w roku, w tym celu potrzebne jest skierowanie.<br/><br/><br/><br/>Więcej informacji można znaleźć na stronie <a target='_blank' href='http://www.kledingbankwinterswijk.nl/home.aspx'>http://www.kledingbankwinterswijk.nl/home.aspx</a> Stichting leergeld może pomóc w pokryciu kosztów szkolnych lub sportowych, jeśli koszty te nie są pokrywane przez Fijnder, więcej informacji można znaleźć na stronie<a target='_blank' href='https://leergeldoostachterhoek.nl/welkom'>https://leergeldoostachterhoek.nl/welkom</a> Możesz wypożyczyć zabawki z banku zabawek, potrzebne jest skierowanie.<br/><br/>Więcej informacji można znaleźć na stronie <a target='_blank' href='http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen/'>http://www.speelgoedbankoostachterhoek.nl/speelgoed-doneren/ophalen</a> Bank żywności może udzielić wsparcia, jeśli nie masz wystarczających dochodów, aby kupić artykuły spożywcze.<br/><br/>Więcej informacji można znaleźć na stronie <a target='_blank' href='https://voedselbankachterhoek.nl/'>https://voedselbankachterhoek.nl</a> Aby uzyskać dodatkowe wsparcie finansowe, można skontaktować się z Funduszem Sportu Młodzieżowego dla gminy Berkelland i gminy Winterswijk.<br/><br/>Warunki można znaleźć na stronie <a target='_blank' href='https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders/'>https://jeugdfondssportencultuur.nl/voor-wie/voor-ouders</a> Fundacja Jarige Job może pomóc w organizacji imprez dla dzieci. Więcej informacji można znaleźć na stronie<a target='_blank' href='https://www.stichtingjarigejob.nl'>https://www.stichtingjarigejob.nl</a>",
+                "five": "Po każdej płatności wysyłana jest wiadomość e-mail z aktualną kwotą środków, a ponadto można ją wyświetlić, logując się do sklepu internetowego lub korzystając z aplikacji Me.",
+                "four": "Możesz zawsze znaleźć swój kredyt, logując się do sklepu internetowego, wydrukować go, wysłać na swój adres e-mail lub zawsze mieć go pod ręką, korzystając z aplikacji Me.",
+                "fourteen": "Zaloguj się do sklepu internetowego i kliknij \"Oferta\". Następnie wybierz żądaną ofertę i kliknij \"Zarezerwuj\". Następnie wybierz kredyt, za pomocą którego chcesz zarezerwować ofertę. Kwota oferty zostanie odjęta od Twojego kredytu, a oferta zostanie dla Ciebie zarezerwowana. Rezerwacja będzie również widoczna na liście rezerwacji na stronie internetowej. Faktyczna płatność następuje po zeskanowaniu kodu QR przy ofercie. Nadal nie korzystasz z oferty? W takim razie możesz anulować rezerwację. Jeśli po dokonaniu płatności pozostała Ci jakaś kwota, możesz kontynuować zakupy z tą kwotą.",
+                "nine": "Nie, wartość kredytu nie zostanie wypłacona w gotówce.",
+                "one": "Kliknij \"Start\" w prawym górnym rogu. Wprowadź swój adres e-mail i kod aktywacyjny otrzymany listownie. Następnie kliknij \"Wyślij\". Twój profil został utworzony, a kredyt Child Scheme został aktywowany!",
+                "seven": "Nie, nie musisz wydawać środków za jednym razem.",
+                "six": "Zwrot nie jest niestety możliwy. Wymiana może być możliwa, należy zapytać sprzedawcę o możliwości.",
+                "ten": "Nie, środki można wydać tylko u sprzedawców wymienionych w sklepie internetowym. Możesz powiadomić sprzedawcę o dołączeniu do aplikacji i poprosić go o kontakt z Fijnder, 0544-474200.",
+                "thirteen": "Nie, kredyt jest ściśle osobisty. Nie możesz go przekazać nikomu innemu. Jeśli ktoś inny skorzysta z Twojego kredytu, zostanie on odjęty od Twojej kwoty.",
+                "three": "Przegląd wszystkich dostawców można znaleźć w sklepie internetowym. Przejdź do \"Przegląd wszystkich dostawców",
+                "title": "Często zadawane pytania",
+                "twelve": "Jeśli uważasz, że masz prawo do programu Child Scheme, skontaktuj się z Fijnder, 0544-474200. Sprawdzą oni, czy spełniasz warunki.",
+                "two": "Można to zrobić na kilka sposobów, z których najprostszym jest wysłanie wiadomości e-mail. Kliknij \"Zaloguj się\" w prawym górnym rogu. Wybierz \"Zaloguj się przez e-mail\". Wprowadź adres e-mail użyty podczas aktywacji i kliknij \"Wyślij\". Otwórz wiadomość e-mail i kliknij otrzymany link, aby się zalogować."
+            }
+        },
+        "guide": {
+            "berkelland": {
+                "five": "Przejdź do \"Oferty\" lub przeglądu wszystkich dostawców, aby zobaczyć, gdzie możesz wydać środki lub kupić produkt lub usługę. Przejdź do dostawcy i pokaż odpowiedni kod QR, aby otrzymać produkt lub usługę.",
+                "four": "W zakładce \"Moje kredyty\" znajduje się również osobisty kod QR. Za pomocą tego kodu QR płacisz dostawcy, u którego chcesz wykonać daną czynność. Kod QR można wydrukować, wysłać e-mailem lub wyświetlić na telefonie, logując się do aplikacji. <a href='#!/me' tartget='_blank'><u><i>Ja</i></u></a>. Aplikacja <a href='#!/me' tartget='_blank'><u><i>\"Me - Forus</i></u></a> można pobrać z Google Playstore i App Store.",
+                "one": "Otrzymałeś list od firmy Fijnder. List zawiera kod aktywacyjny.",
+                "stepfive": "Krok #5",
+                "stepfour": "Krok #4",
+                "stepone": "Krok #1",
+                "stepthree": "Krok #3",
+                "steptwo": "Krok #2",
+                "three": "Następnie kliknij \"Oferty\". Znajdziesz tam wszystkie aktywności i kursy. Możesz również zobaczyć swoje kredyty, klikając \"Moje kredyty\" u góry.",
+                "title": "Jak to działa",
+                "two": "Kliknij przycisk \"Start\", aby wprowadzić kod aktywacyjny. Użyj własnego adresu e-mail."
+            },
+            "five": "Kliknij \"Oferta\", aby zobaczyć ofertę. Jeśli klikniesz \"Mój kredyt\", zobaczysz, ile masz kredytu.",
+            "four": "Używasz kredytu, aby płacić u uczestniczących w programie usługodawców. Dostawca usług skanuje kod. Środki zostaną automatycznie pobrane. Na liście uczestniczących usługodawców i na stronie \"Oferty\" można sprawdzić, gdzie i na co można wydać środki.",
+            "noordoostpolder": {
+                "five": "Kliknij \"Oferty\", aby zobaczyć oferty. Jeśli klikniesz \"Mój kredyt\", zobaczysz, ile masz kredytu.",
+                "four": "Używasz kodu QR do płacenia u uczestniczących usługodawców. Dostawca usług skanuje kod. Następnie środki są automatycznie pobierane. Kod QR można zabrać ze sobą, drukując go, wysyłając do siebie e-mailem lub korzystając z aplikacji Me.",
+                "one": "Otrzymałeś list od gminy z kodem aktywacyjnym dla Meedoenpakket.",
+                "three": "Jeśli otrzymałeś Meedoenpakket, możesz znaleźć kod QR, którego możesz użyć do zapłaty, klikając \"Moje kredyty\".",
+                "two": "Kliknij przycisk <u>Start</u>, aby wprowadzić adres e-mail i kod aktywacyjny. Dla każdego kodu aktywacyjnego należy użyć innego adresu e-mail."
+            },
+            "one": "Otrzymałeś list od gminy. List zawiera kod aktywacyjny.",
+            "oostgelre": {
+                "five": "Przejdź do \"Oferty\" lub przeglądu wszystkich dostawców, aby zobaczyć, gdzie możesz wydać środki lub kupić produkt lub usługę. Przejdź do dostawcy i pokaż odpowiedni kod QR, aby otrzymać produkt lub usługę.",
+                "four": "W zakładce \"Moje kredyty\" znajduje się również osobisty kod QR. Za pomocą tego kodu QR płacisz dostawcy, u którego chcesz wykonać daną czynność. Kod QR można wydrukować, wysłać e-mailem lub wyświetlić na telefonie, logując się do aplikacji. <a href='#!/me' tartget='_blank'><u><i>Ja</i></u></a>. Aplikacja <a href='#!/me' tartget='_blank'><u><i>\"Me - Forus</i></u></a> można pobrać z Google Playstore i App Store.",
+                "one": "Otrzymałeś list od firmy Fijnder. List zawiera kod aktywacyjny.",
+                "stepfive": "Krok #5",
+                "stepfour": "Krok #4",
+                "stepone": "Krok #1",
+                "stepthree": "Krok #3",
+                "steptwo": "Krok #2",
+                "three": "Następnie kliknij \"Oferty\". Znajdziesz tam wszystkie aktywności i kursy. Możesz również zobaczyć swoje kredyty, klikając \"Moje kredyty\" u góry.",
+                "title": "Jak to działa",
+                "two": "Kliknij przycisk \"Start\", aby wprowadzić kod aktywacyjny. Użyj własnego adresu e-mail."
+            },
+            "potjeswijzer": {
+                "five": "Przejdź do \"Oferty\" lub przeglądu wszystkich dostawców, aby zobaczyć, gdzie możesz wydać środki lub kupić produkt lub usługę. Przejdź do dostawcy i pokaż odpowiedni kod QR, aby otrzymać produkt lub usługę.",
+                "four": "Czy Twój wniosek został zatwierdzony? Następnie otrzymasz dostęp do kredytu. Za pomocą kodu QR możesz przejść do dostawcy, aby dokonać płatności.",
+                "one": "Kliknij przycisk \"Start\", aby uruchomić aplikację.",
+                "three": "Zobaczysz przegląd dostępnych nocników. Czy widzisz nocnik, który chcesz? Kliknij \"Złóż wniosek\" i podaj swoje dane. Twoje zgłoszenie zostanie przetworzone.",
+                "two": "Zaloguj się przy użyciu własnego adresu e-mail."
+            },
+            "stepfive": "Krok 5",
+            "stepfour": "Krok 4",
+            "stepone": "Krok 1",
+            "stepthree": "Krok 3",
+            "steptwo": "Krok 2",
+            "three": "Następnie kliknij \"Oferty\". Znajdziesz tam wszystkie aktywności i kursy. Możesz również zobaczyć swoje kredyty. Możesz znaleźć swój kredyt, klikając \"Mój kredyt\" u góry.",
+            "title": "Jak to działa",
+            "two": "Kliknij przycisk <u>Start</u>, aby wprowadzić kod aktywacyjny. Użyj własnego adresu e-mail.",
+            "westerkwartier": {
+                "five": "Kliknij \"Oferty\", aby zobaczyć oferty. Jeśli klikniesz \"Mój kredyt\", zobaczysz, ile masz kredytu.",
+                "four": "Używasz kodu QR do płacenia u uczestniczących usługodawców. Dostawca usług skanuje kod. Następnie środki są automatycznie pobierane. Kod QR można zabrać ze sobą, drukując go, wysyłając do siebie e-mailem lub korzystając z aplikacji Me.",
+                "one": "Otrzymałeś od gminy pismo dotyczące pakietu dla dzieci.",
+                "three": "Jeśli otrzymałeś kredyt, możesz znaleźć kod QR, którego możesz użyć do zapłaty, klikając \"Mój kredyt\". Następnie kliknij \"Oferty\". Znajdziesz tam wszystkie produkty i usługi.",
+                "two": "Kliknij przycisk \"Rozpocznij aplikację\", aby rozpocząć aplikację. Użyj własnego adresu e-mail i zaloguj się w DigiD."
+            },
+            "winterswijk": {
+                "five": "Przejdź do \"Oferty\" lub przeglądu wszystkich dostawców, aby zobaczyć, gdzie możesz wydać środki lub kupić produkt lub usługę. Przejdź do dostawcy i pokaż odpowiedni kod QR, aby otrzymać produkt lub usługę.",
+                "four": "W sekcji \"Moje kredyty\" znajduje się również osobisty kod QR. Za pomocą tego kodu QR możesz zapłacić dostawcy, u którego chcesz wykonać daną czynność. Kod QR można wydrukować, wysłać e-mailem lub wyświetlić w telefonie, logując się do aplikacji. <a href='#!/me' tartget='_blank'><u><i>Ja</i></u></a>. Aplikacja <a href='#!/me' tartget='_blank'><u><i>\"Me - Forus</i></u></a> można pobrać z Google Playstore i App Store.",
+                "one": "Otrzymałeś list od firmy Fijnder. List zawiera kod aktywacyjny.",
+                "stepfive": "Krok #5",
+                "stepfour": "Krok #4",
+                "stepone": "Krok #1",
+                "stepthree": "Krok #3",
+                "steptwo": "Krok #2",
+                "three": "Następnie kliknij \"Oferty\". Znajdziesz tam wszystkie aktywności i kursy. Możesz również zobaczyć swoje kredyty, klikając \"Moje kredyty\" u góry.",
+                "title": "Jak to działa",
+                "two": "Kliknij przycisk \"Start\", aby wprowadzić kod aktywacyjny. Użyj własnego adresu e-mail."
+            }
+        },
+        "header": {
+            "auth_button": "Pobierz mnie",
+            "auth_cta": "Sprawdź swoje kredyty i zabierz je ze sobą za pomocą aplikacji Me.",
+            "berkelland": {
+                "cta": "Kliknij \"Start\" i wprowadź kod aktywacyjny. Kod ten można znaleźć w otrzymanym liście dotyczącym programu dla dzieci.",
+                "subtitle_multi": "Witamy na stronie internetowej programu dla dzieci gminy Berkelland. Czy otrzymałeś przydział na program dla dzieci za pośrednictwem Fijnder? Jeśli tak, tutaj możesz zobaczyć ofertę i pieniądze, które możesz wydać.",
+                "title_multi": "Program dla dzieci gmina Berkelland"
+            },
+            "button": "Logowanie",
+            "button_av": "Żądanie",
+            "cta": "Kliknij \"Start\" i wprowadź kod aktywacyjny. {{fund}} Kod ten można znaleźć w otrzymanym liście dotyczącym",
+            "cta_av": "{{fund}}Czy spełniasz warunki ?",
+            "cta_multi": "Kliknij \"Start\" i wprowadź kod aktywacyjny. Kod ten można znaleźć w otrzymanym liście",
+            "header_note": "",
+            "noordoostpolder": {
+                "cta": "Kliknij \"Start\", aby się zarejestrować. Możesz to zrobić, używając swojego adresu e-mail i kodu aktywacyjnego z listu. Czy kwalifikujesz się do Meedoenpakket, ale nie otrzymałeś kodu aktywacyjnego? Prosimy o kontakt telefoniczny z gminą pod numerem 0527 633911.",
+                "subtitle": "Witamy na stronie internetowej Meedoenpakket gminy Noordoostpolder. Tutaj możesz sprawdzić, jak wysoki jest Twój kredyt Meedoen i na co możesz go wydać.",
+                "title": "Pakiet uczestnictwa"
+            },
+            "oostgelre": {
+                "cta": "Kliknij \"Start\" i wprowadź kod aktywacyjny. Kod ten można znaleźć w otrzymanym liście dotyczącym programu dla dzieci.",
+                "subtitle_multi": "Witamy na stronie internetowej programu dla dzieci w gminie Oost Gelre. Czy otrzymałeś przydział w ramach programu dla dzieci za pośrednictwem Fijnder? Tutaj możesz zobaczyć ofertę i pieniądze, które możesz wydać.",
+                "title": "Program na rzecz dzieci gmina Oost Gelre",
+                "title_multi": "Program na rzecz dzieci gmina Oost Gelre"
+            },
+            "potjeswijzer": {
+                "button_av": "Start",
+                "cta_av": "",
+                "subtitle_av": "W Westerkwartier istnieje wiele różnych pul, często więcej niż myślisz. Ta strona internetowa umożliwia ubieganie się o pule, zarządzanie nimi i ich wydawanie."
+            },
+            "signup_cta": "Czytaj więcej >",
+            "subtitle": "{{fund}}Witamy na stronie internetowej . {{fund}} Czy masz przydział z gminy na ? Wtedy możesz zobaczyć ofertę i pieniądze, które możesz wydać tutaj.",
+            "subtitle_av": "{{fund}}Witamy na stronie internetowej programu . Tutaj można złożyć wniosek i zapoznać się z ofertą. Po złożeniu wniosku możesz również sprawdzić, ile pieniędzy możesz wydać.",
+            "subtitle_multi": "{{org_name}} {{org_name}} Witamy w sklepie internetowym Czy otrzymałeś nagrodę za pośrednictwem ? Następnie możesz zobaczyć ofertę i pieniądze, które możesz wydać tutaj.",
+            "title": "{{implementation}}",
+            "title_multi": "Sklep internetowy {{org_name}}",
+            "vergoedingen": {
+                "button": "Logowanie / rejestracja"
+            },
+            "westerkwartier": {
+                "button_av": "Start",
+                "cta_av": "",
+                "subtitle_av": "W Westerkwartier istnieje wiele różnych pul, często więcej niż myślisz. Ta strona internetowa umożliwia ubieganie się o pule, zarządzanie nimi i ich wydawanie."
+            },
+            "winterswijk": {
+                "cta": "Kliknij \"Start\" i wprowadź kod aktywacyjny. Kod ten można znaleźć w otrzymanym liście dotyczącym programu dla dzieci.",
+                "header_note": "Fotograf: H. van Ommen",
+                "subtitle_multi": "Witamy na stronie internetowej programu dla dzieci gminy Winterswijk. Czy otrzymałeś przydział w ramach programu dla dzieci za pośrednictwem Fijnder? Tutaj możesz zobaczyć ofertę i pieniądze, które możesz wydać.",
+                "title_multi": "Program na rzecz dzieci w gminie Winterswijk"
+            }
+        },
+        "how_it_works": "Jak to działa?",
+        "leergeld": {
+            "description": "Leergeld Nijmegen ma na celu umożliwienie udziału wszystkim dzieciom w Nijmegen. Dla dzieci z rodzin o niskich dochodach może to stanowić problem. Leergeld Nijmegen oferuje tym dzieciom w wieku od 0 do 17 lat możliwość uczestniczenia we wszelkiego rodzaju zajęciach.",
+            "help_for_child": "Pomoc dla dziecka",
+            "more_info": "Więcej informacji o Stichting Leergeld Nijmegen",
+            "title": "Fundacja Leergeld Nijmegen"
+        },
+        "map": {
+            "show": "Pokaż mapę",
+            "subtitle": "Znajdź lokalizacje i obiekty w pobliżu.",
+            "title": "Zobacz naszą mapę"
+        },
+        "nijmegen": {
+            "bus_benefit_subscription": "Karta Bus Benefit",
+            "collective_health_insurance": "Zbiorowe dodatkowe ubezpieczenie zdrowotne (CAZ)",
+            "description": "Gmina Nijmegen oferuje różne dodatki dla osób o niskich dochodach. Weźmy pod uwagę Meedoenregeling, w ramach którego mieszkańcy o niskich dochodach otrzymują maksymalnie 150 euro na zajęcia kulturalne, sportowe i edukacyjne. Lub, na przykład, bilet autobusowy. Wszystkie dodatki są wymienione poniżej.",
+            "individual_income_allowance": "Indywidualny dodatek do dochodu",
+            "more_info": "Więcej opłat od gminy Nijmegen",
+            "participation_scheme": "Program uczestnictwa",
+            "special_assistance": "Pomoc specjalna",
+            "study_allowance": "Dodatek na naukę",
+            "tax_relief": "Zwolnienie z podatku gminnego",
+            "title": "Gmina Nijmegen"
+        },
+        "pre_check": {
+            "take_check": "Sprawdź"
+        },
+        "product": {
+            "search": "Wyszukiwanie produktu lub usługi",
+            "select": "Wybierz kategorię...",
+            "title": "Oferta"
+        }
+    },
+    "implementation_name": {
+        "berkelland": "Berkelland",
+        "ede": "Ede",
+        "eemsdelta": "Eemsdelta",
+        "forus": "Platforma Forus &amp; ",
+        "geertruidenberg": "Geertruidenberg",
+        "general": "Ogólne",
+        "goereeoverflakkee": "Goeree-Overflakkee",
+        "groningen": "Stadjerspas",
+        "hartvanwestbrabant": "HvWB",
+        "heumen": "Heumen",
+        "kerstpakket": "Pakiet świąteczny",
+        "noordoostpolder": "Pakiet uczestnictwa",
+        "oostgelre": "Oostgelre",
+        "potjeswijzer": "Przewodnik po garnkach",
+        "schagen": "Schagen",
+        "vergoedingen": "Opłaty",
+        "waalwijk": "Paswijzer",
+        "westerkwartier": "Westerkwartier",
+        "winterswijk": "Winterswijk"
+    },
+    "languages": {
+        "ar": "Arabski",
+        "en": "Angielski",
+        "nl": "Holenderski"
+    },
+    "list_blocks": {
+        "fund_item_list": {
+            "buttons": {
+                "check_status": "Sprawdź status",
+                "is_applicable": "Żądanie"
+            },
+            "show_less": "Pokaż mniej",
+            "show_more": "Pokaż więcej",
+            "status": {
+                "activateable": "Aktywowalny",
+                "active": "Aktywny",
+                "is_applicable": "Na żądanie",
+                "is_pending": "W oczekiwaniu"
+            }
+        },
+        "fund_item_search": {
+            "buttons": {
+                "is_applicable": "Żądanie",
+                "is_pending": "W oczekiwaniu"
+            },
+            "status": {
+                "active": "Aktywny"
+            }
+        },
+        "funds_list_pre_check": {
+            "apply_parent_fund": "Możesz ubiegać się o udział w tym programie, składając wniosek o udział w następującym programie:",
+            "apply_related_funds": "Jeśli aplikujesz do tego programu, możesz również bezpośrednio aplikować do innych programów. Dotyczy to następującej listy programów:",
+            "conditions": "Warunki",
+            "explanation": "Wyjaśnienie",
+            "external_website": "Zobacz zewnętrzną stronę internetową",
+            "good_chance": "Duża szansa",
+            "hide_explanation": "Ukryj wyjaśnienie",
+            "low_chance": "Niskie prawdopodobieństwo",
+            "medium_chance": "Średnie prawdopodobieństwo",
+            "no_indication": "Brak wskazań",
+            "not_available": "Niedostępne",
+            "product_voucher": "Kupon na produkt",
+            "show_less": "Pokaż mniej",
+            "show_more": "Pokaż więcej",
+            "total": "Łącznie",
+            "view_explanation": "Wyświetl wyjaśnienie",
+            "why": "Dlaczego?",
+            "activate": "Aktywuj"
+        },
+        "product_item_grid": {
+            "bookmark": "Dodaj do listy życzeń"
+        },
+        "product_item_list": {
+            "bookmark": "Dodaj do listy życzeń"
+        },
+        "product_item_search": {
+            "free": "Darmowy"
+        },
+        "provider_item_list": {
+            "no_data": "Brak danych",
+            "open_provider": "Otwarty dostawca",
+            "show_locations": "Pokaż lokalizacje"
+        }
+    },
+    "logo_alt_text": {
+        "berkelland": "Gmina Berkelland",
+        "ede": "Ede",
+        "eemsdelta": "Gmina Eems Delta",
+        "geertruidenberg": "Gmina Geertruidenberg",
+        "general": "Forus",
+        "goereeoverflakkee": "Gmina Goeree-Overflakkee",
+        "groningen": "Stadjerspas",
+        "hartvanwestbrabant": "Miejsce pracy",
+        "heumen": "Gmina Heumen",
+        "kerstpakket": "Pakiet świąteczny",
+        "noordoostpolder": "Gmina Noordoostpolder",
+        "oostgelre": "Gmina Oost Gelre",
+        "potjeswijzer": "Przewodnik po garnkach",
+        "schagen": "Gmina Schagen",
+        "vergoedingen": "logo Gmina Nijmegen",
+        "waalwijk": "Pass Wise",
+        "westerkwartier": "Gmina Westerkwartier",
+        "winterswijk": "Gmina Winterswijk"
+    },
+    "maps": {
+        "cancel": "Anuluj",
+        "labels": {
+            "address": "Adres",
+            "email": "Adres e-mail",
+            "organization_type": "Typ organizacji",
+            "phone": "Numer telefonu",
+            "website": "Strona internetowa"
+        },
+        "no_data": "Brak danych"
+    },
+    "me": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "me": "Informacje o aplikacji Me"
+        },
+        "description": "Aplikacja Me to cyfrowy portfel i kasa fiskalna w jednym. Gminy używają aplikacji Me do wydawania kredytów. Dzięki aplikacji mieszkańcy mogą łatwo zarządzać swoimi kredytami. Dostawcy używają aplikacji do skanowania kodów QR.",
+        "download": {
+            "description": "Pobierz aplikację Me z poniższych sklepów z aplikacjami. <a href=\"{{download_link}}\">Kliknij tutaj, aby bezpośrednio</a> otworzyć <a href=\"{{download_link}}\">odpowiedni sklep z aplikacjami</a> na telefonie lub tablecie.",
+            "title": "Pobierz aplikację Me na swój telefon lub tablet"
+        },
+        "title": "Informacje o aplikacji Me",
+        "img_alt": "Me-app"
+    },
+    "meapp_index": {
+        "buttons": {
+            "join": "Zarejestruj się"
+        },
+        "download": {
+            "android": "Pobierz Me na Androida",
+            "ios": "Download Me dla iOS"
+        },
+        "functions": {
+            "app": "Aplikacja przechowuje profil użytkownika, który pozwala na ponowne wykorzystanie danych do dołączenia do innych programów.",
+            "apply": "Zarejestruj się",
+            "criterion": "Jeśli spełniasz określone kryteria gminy. Możesz ubiegać się o kredyt. Możesz zarządzać tym kredytem w aplikacji Me. Dzięki Me możesz dokonywać bezpiecznych płatności.",
+            "header": {
+                "title": "Cechy"
+            },
+            "pin": "Użytkownik ma możliwość utworzenia profilu, a następnie zabezpieczenia go kodem PIN.",
+            "profile": "Utwórz profil",
+            "profileb": "Profil",
+            "vouchers": "Kredyt",
+            "webshop": "Zaloguj się do sklepu internetowego za pomocą aplikacji Me. W tym celu należy zeskanować za pomocą aplikacji Me kod QR prezentowany przez sklep internetowy."
+        },
+        "header": {
+            "description": "Profil do logowania, umożliwiający zarządzanie kredytami i dokonywanie bezpiecznych płatności.",
+            "title_forus": "Profil dla paczki świątecznej",
+            "title_general": "Profil dla platformy Forus",
+            "title_westerkwartier": "Profil dla pakietu dziecięcego",
+            "title_zuidhorn": "Profil dla pakietu dziecięcego"
+        },
+        "navbar": {
+            "me": "Ja",
+            "municipality": "Gmina",
+            "provider": "Dostawca",
+            "shop": "Sklep internetowy"
+        }
+    },
+    "modal_2fa_deactivate": {
+        "2fa_disabled": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie wyłączone",
+        "2fa_disabled_description": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie wyłączone",
+        "cancel": "Anuluj",
+        "code_resent": "Ponownie wysłaliśmy kod.",
+        "confirm": "Potwierdzenie",
+        "disable_2fa": "Wyłączanie uwierzytelniania dwuskładnikowego",
+        "enter_2fa_code": "Aby kontynuować, wprowadź kod bezpieczeństwa uwierzytelniania dwuskładnikowego.",
+        "enter_2fa_code_deactivation": "Wprowadź kod uwierzytelniania dwuskładnikowego w celu dezaktywacji.",
+        "enter_app_code": "Wprowadź 6-cyfrowy kod z poziomu aplikacji.",
+        "enter_sms_code": "Wprowadź 6-cyfrowy kod SMS",
+        "error_404": "Wystąpił błąd. Odśwież stronę.",
+        "resend_code": "Wyślij ponownie kod",
+        "seconds": "{time} second(s)",
+        "unknown_error": "Nieznany błąd.",
+        "verify": "Weryfikacja"
+    },
+    "modal_2fa_setup": {
+        "2fa": "Uwierzytelnianie dwuskładnikowe",
+        "2fa_success": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie skonfigurowane",
+        "already_have_app": "Jeśli masz już aplikację Google Authenticator, wykonaj poniższe czynności:",
+        "back": "Powrót",
+        "cancel": "Anuluj",
+        "choose": "Wybierz",
+        "code_resent": "Ponownie wysłaliśmy kod.",
+        "confirm": "Potwierdzenie",
+        "dont_have_app": "Jeśli nie masz aplikacji {nazwa},",
+        "download_from": "Czy można go pobrać ze strony",
+        "enter_2fa_code": "Aby kontynuować, wprowadź kod bezpieczeństwa uwierzytelniania dwuskładnikowego.",
+        "enter_app_code": "Wprowadź 6-cyfrowy kod z poziomu aplikacji.",
+        "enter_app_code_6_digits": "Aby kontynuować, wprowadź 6-cyfrowy kod bezpieczeństwa od {dostawcy}.",
+        "enter_key": "Wprowadź klucz instalacji: {secret}",
+        "enter_phone": "Aby kontynuować, wprowadź swój numer telefonu",
+        "enter_sms_code": "Wprowadź 6-cyfrowy kod SMS",
+        "enter_sms_code_6_digits": "Aby kontynuować, wprowadź 6-cyfrowy kod SMS wysłany na Twój numer telefonu.",
+        "errors": {
+            "code_sent": "Coś poszło nie tak podczas wysyłania wiadomości SMS. Czy wprowadzono prawidłowy numer telefonu? Jeśli nie, spróbuj ponownie."
+        },
+        "extra_security": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie skonfigurowane. Twoje konto jest teraz dodatkowo zabezpieczone.",
+        "in_app_select": "W aplikacji wybierz",
+        "link_phone": "Połącz swój numer telefonu",
+        "or": "Czy",
+        "phone_number": "Numer telefonu",
+        "resend_code": "Wyślij ponownie kod",
+        "scan_qr": "Skanowanie kodu QR",
+        "seconds": "{time} second(s)",
+        "select_auth_app": "Wybierz aplikację uwierzytelniającą, której chcesz użyć.",
+        "setup_2fa": "Konfigurowanie uwierzytelniania dwuskładnikowego",
+        "setup_account": "Konfiguracja konta",
+        "successful_login": "Udało się!",
+        "unknown_error": "Nieznany błąd.",
+        "verify": "Weryfikacja",
+        "welcome_back": "Pomyślnie zalogowano się przy użyciu uwierzytelniania dwuskładnikowego. Witamy ponownie!",
+        "download_from_app_store": "App Store",
+        "download_from_play_store": "Sklep Play"
+    },
+    "modal_fund_help": {
+        "chat": "Czat",
+        "close": "Zamknij",
+        "email": "E-mail",
+        "go_to_admin": "Przejdź do środowiska administracyjnego",
+        "header_title": "Blok pomocy finansowej",
+        "help_title": "Tytuł pomocy funduszu",
+        "phone": "Telefon",
+        "website": "Strona internetowa"
+    },
+    "modal_logout": {
+        "description_formal": "Czy na pewno chcesz się wylogować?",
+        "description_informal": "Czy na pewno chcesz się wylogować?",
+        "title": "Wylogowanie"
+    },
+    "modal_photo_cropper": {
+        "cancel": "Anuluj",
+        "choose_another": "Wybierz inny obraz",
+        "close": "Zamknij",
+        "instructions": "Po lewej stronie znajduje się oryginalny obraz, a po prawej przykłady. Użyj pola na lewym obrazie, aby ustawić obraz.",
+        "invalid_file": "Przesłany plik nie jest prawidłowym obrazem, spróbuj użyć innego pliku.",
+        "invalid_image": "Wybrany plik nie jest prawidłowym obrazem.",
+        "loading": "Ładowanie",
+        "move_and_resize": "Przenoszenie i zmiana rozmiaru",
+        "next": "Następny",
+        "previous": "Poprzedni",
+        "rotate_left": "Obrót o 90 stopni w kierunku przeciwnym do ruchu wskazówek zegara",
+        "rotate_right": "Obrót o 90 stopni zgodnie z ruchem wskazówek zegara",
+        "some_invalid_files": "Niektóre z wybranych plików nie są poprawnymi obrazami i są pomijane.",
+        "submit": "Prześlij",
+        "upload_document": "Prześlij dokument",
+        "number": "Pokaż numer obrazu: {{ number }}"
+    },
+    "modal_physical_card_unlink": {
+        "body": {
+            "block_card": "{{cardNumber}} Czy chcesz zablokować przepustkę za pomocą numeru przepustki?",
+            "card_blocked": "{{cardNumber}} Twój numer został zablokowany!"
+        },
+        "buttons": {
+            "block": "Blok",
+            "cancel": "Anuluj",
+            "close": "Zamknij",
+            "request_new": "Zamów nową przepustkę"
+        },
+        "header": {
+            "block_card": "Zablokować przepustkę",
+            "card_blocked": "Podanie zablokowane!"
+        }
+    },
+    "modal_physical_card": {
+        "buttons": {
+            "close": "Zamknij",
+            "confirm_card": {
+                "adjust": "Regulacja",
+                "submit": "Potwierdzenie"
+            },
+            "link_card": {
+                "submit_code": "Potwierdzenie"
+            },
+            "request_new_card": {
+                "confirm": "Potwierdzenie",
+                "order_by_email": "Zamówienie pocztą",
+                "cancel": "Anuluj"
+            }
+        },
+        "modal_section": {
+            "confirm_card": {
+                "description": "Po sprawdzeniu kliknij przycisk Potwierdź lub zmodyfikuj szczegóły.",
+                "header": "Sprawdź dane",
+                "title": "Sprawdź dane:"
+            },
+            "link_card_success": {
+                "description": "{{fundName}}Twoja przepustka jest powiązana z Twoim !",
+                "title": "Pas połączony!"
+            },
+            "link_card_unlink": {
+                "buttons": {
+                    "cancel": "Anuluj",
+                    "submit": "Blok"
+                },
+                "title": "Zablokować przepustkę"
+            },
+            "link_card": {
+                "description": "<br/><br/>Na karnecie znajduje się kod QR, poniżej znajduje się Twój osobisty kod. Jeśli ponownie aktywujesz stary karnet, możesz nadal z niego korzystać. Potrzebujesz pomocy?  Zadzwoń pod numer 14 050 od poniedziałku do piątku w godzinach od 9:00 do 12:00.",
+                "subtitle": "Wprowadź swój osobisty kod klienta",
+                "title": "Aktywacja starej przepustki",
+                "alt_text": "Fizyczna przepustka: {{ fund_name }}",
+                "enter_physical_card_number": "Wprowadź numer karty fizycznej",
+                "no_old_card": "Brak starej przepustki?",
+                "order_card": "Zamów karnet"
+            },
+            "request_card_success": {
+                "description": "Otrzymałeś wiadomość e-mail z potwierdzeniem zamówienia.",
+                "heading": "Przepustka zostanie wysłana na podany adres:",
+                "title": "Przepustka została zamówiona!"
+            },
+            "request_new_card": {
+                "address": "Nazwa ulicy",
+                "address_placeholder": "Nazwa ulicy",
+                "city": "Lokalizacja",
+                "city_placeholder": "Lokalizacja",
+                "description": "Podaj swoje dane adresowe. Przepustka zostanie wysłana pocztą.",
+                "email_to_me": "Email do mnie",
+                "house": "Numer domu",
+                "house_addition": "Dodanie numeru domu",
+                "house_addition_placeholder": "Dodanie numeru domu",
+                "house_placeholder": "Numer domu",
+                "open_in_app": "Otwórz w aplikacji",
+                "order": "Zamawianie",
+                "postcode": "Kod pocztowy",
+                "postcode_placeholder": "Kod pocztowy",
+                "print_pass": "Drukuj kod QR",
+                "subtitle": "Twoja cyfrowa przepustka:",
+                "title": "Zamów karnet"
+            },
+            "type_selection": {
+                "card_new": {
+                    "description": "<br/>Nie masz jeszcze przepustki? Zamów nową przepustkę.",
+                    "title": "Zamów karnet"
+                },
+                "card_old": {
+                    "description": "<br/>Masz już przepustkę? Aktywuj ją ponownie.",
+                    "success": "Pas połączony!",
+                    "title": "Reaktywacja starej przepustki"
+                },
+                "subtitle": "Są to opcje umożliwiające przesłanie kodu QR do dostawcy:",
+                "title": "Użyj mojego kodu QR"
+            }
+        }
+    },
+    "modal_pin_code": {
+        "and_open_app": "i otwórz aplikację me",
+        "choose": "Wybierz",
+        "close": "Zamknij",
+        "download": "Pobierz",
+        "enter_code": "Wprowadź kod parowania aplikacji Me",
+        "link": "Link",
+        "login": "Zaloguj się do aplikacji",
+        "step1_image_alt": "Zrzut ekranu logowania do aplikacji Me",
+        "step1_title": "Krok 1",
+        "step2_image_alt": "Zrzut ekranu logowania do aplikacji Me, wybierz połącz",
+        "step2_title": "Krok 2",
+        "unknown_code": "Nieznany kod"
+    },
+    "modal_product_reserve_cancel": {
+        "buttons": {
+            "cancel": "Anuluj",
+            "close": "Zamknij",
+            "confirm": "Potwierdzenie"
+        },
+        "contact_provider": "Kontakt ",
+        "description_not_cancelable": "Ta rezerwacja została już zaakceptowana przez dostawcę. Aby anulować rezerwację, należy skontaktować się z usługodawcą w ciągu 14 dni od daty rezerwacji.",
+        "description_pending": {
+            "formal": "Ofertę można zarezerwować ponownie po jej anulowaniu do wyczerpania zapasów.",
+            "informal": "Ofertę można zarezerwować ponownie po jej anulowaniu do wyczerpania zapasów."
+        },
+        "header_not_cancelable": {
+            "title": "Kontakt {{organizationName}}"
+        },
+        "header_pending": {
+            "title_formal": "Czy na pewno chcesz anulować rezerwację?",
+            "title_informal": "Czy na pewno chcesz anulować rezerwację?"
+        },
+        "title": "Anuluj rezerwację"
+    },
+    "modal_product_reserve_extra_payment": {
+        "buttons": {
+            "adjust": "Powrót",
+            "submit": "Potwierdzenie"
+        },
+        "header": {
+            "subtitle": "Dodatkowe płatności są dokonywane za pośrednictwem IDeal.",
+            "title": "Wybierz bank"
+        }
+    },
+    "modal_reserve_product": {
+        "add_email": "Dodaj",
+        "buttons": {
+            "adjust": "Powrót",
+            "back": "Powrót",
+            "cancel": "Anuluj",
+            "confirm": "Potwierdzenie",
+            "go_to_reservation": "Przejdź do rezerwacji",
+            "next": "Następny",
+            "processing": "Proces",
+            "submit": "Prześlij"
+        },
+        "cancel": "Anuluj",
+        "choose_credit": "Wybierz kredyt, którym chcesz zapłacić",
+        "close": "Zamknij",
+        "confirm_notes": {
+            "buttons": {
+                "adjust": "Powrót",
+                "submit": "Potwierdzenie"
+            },
+            "header": {
+                "title": "Potwierdź rezerwację"
+            },
+            "labels": {
+                "birth_date": "Data urodzenia: ",
+                "city": "Miejsce:",
+                "empty": "Pusty",
+                "first_name": "Imię: ",
+                "house_nr": "Numer domu:",
+                "house_nr_addition": "Dodanie numeru domu:",
+                "last_name": "Nazwisko: ",
+                "notes": "Uwaga: ",
+                "phone": "Numer telefonu: ",
+                "postal_code": "Kod pocztowy:",
+                "street": "Ulica:"
+            },
+            "modal_section": {
+                "title": "Sprawdź swoje dane:"
+            }
+        },
+        "description_formal": "Wykorzystasz swój <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim przypadku zgadzasz się na udostępnienie przez nas Twoich danych osobowych dostawcy.",
+        "description_formal_time": "{{ days_to_cancel }} Rezerwację można anulować w ciągu kilku dni od jej potwierdzenia.",
+        "description_informal": "Używasz swojego <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim przypadku zgadzasz się, że udostępniamy Twoje dane osobowe dostawcy.",
+        "description_informal_time": "{{ days_to_cancel }} Rezerwację można anulować w ciągu kilku dni od jej potwierdzenia.",
+        "email_setup_description": "Dodaj swój adres e-mail, aby otrzymywać wiadomości.",
+        "email_setup_title": "Dodaj adres e-mail",
+        "error": {
+            "close": "Zamknij",
+            "description": "Nie udało się dokończyć rezerwacji. Spróbuj ponownie później.",
+            "title": "Błąd!"
+        },
+        "extra_payment_description": "Dodatkowa płatność",
+        "extra_payment": {
+            "external_link": "Link prowadzi do zewnętrznej strony internetowej.",
+            "extra_payment": "Płacenie dodatkowo samemu",
+            "header": {
+                "subtitle": "Aby dokończyć rezerwację, należy uiścić dodatkową opłatę.",
+                "title": "Dodatkowa płatność"
+            },
+            "offer_cost": "Koszt oferty",
+            "remaining_credit": "Pozostała kwota kredytu"
+        },
+        "fill_notes": {
+            "header": {
+                "subtitle": "{{provider_name}} Wpisz swoje dane, aby dokonać rezerwacji.",
+                "title": "Wprowadź swoje dane"
+            },
+            "labels": {
+                "address": "Adres",
+                "address_optional": "Adres (opcjonalnie)",
+                "birth_date": "Data urodzenia",
+                "birth_date_optional": "Data urodzenia (opcjonalnie)",
+                "city": "Lokalizacja",
+                "first_name": "Imię",
+                "house_nr": "Numer domu",
+                "house_nr_addition": "Dodanie numeru domu",
+                "last_name": "Nazwisko",
+                "notes": "Uwaga (opcjonalnie)",
+                "phone": "Numer telefonu",
+                "phone_optional": "Numer telefonu (opcjonalnie)",
+                "postal_code": "Kod pocztowy",
+                "street": "ul."
+            },
+            "max_characters": "Maks. 400 znaków",
+            "placeholders": {
+                "address": "Adres",
+                "birth_date": "Data urodzenia",
+                "city": "Lokalizacja",
+                "first_name": "Imię",
+                "last_name": "Nazwisko",
+                "notes": "Komentarz",
+                "phone": "Numer telefonu",
+                "postal_code": "Kod pocztowy",
+                "street": "ul."
+            }
+        },
+        "header": {
+            "title": "Dokonaj rezerwacji"
+        },
+        "multiple_vouchers_warning": "Niektóre vouchery nie mają wystarczającego salda. Korzystając z jednego z tych voucherów, będziesz musiał zapłacić brakującą kwotę na koniec rezerwacji.",
+        "single_voucher_warning": "W przypadku niewystarczającego salda na koncie należy dopłacić brakującą kwotę po zakończeniu rezerwacji za pomocą jednej z dostępnych metod płatności.",
+        "skip": "Pomiń",
+        "success": {
+            "close": "Zamknij",
+            "description": "Rezerwacja została dokonana.",
+            "title": "Udało się!"
+        },
+        "voucher_image_alt": "Kredyt"
+    },
+    "modal": {
+        "buttons": {
+            "cancel": "Anuluj",
+            "close": "Zamknij",
+            "confirm": "Potwierdzenie"
+        },
+        "logout": {
+            "description": "Użytkownik jest automatycznie wylogowywany po 15 minutach bezczynności.",
+            "confirm": "Logowanie",
+            "title": "Sesja wygasła"
+        },
+        "email_voucher_to_me": {
+            "description": "Wyślij kod QR na mój adres e-mail",
+            "title": "Email do mnie"
+        },
+        "session": {
+            "description": "Zakończenie sesji może spowodować wylogowanie, chcesz kontynuować?",
+            "header": "Koniec sesji",
+            "title": "Koniec sesji"
+        },
+        "sessions": {
+            "description": "Jesteś teraz wylogowany na wszystkich urządzeniach, czy chcesz kontynuować?",
+            "title": "Zakończenie wszystkich sesji"
+        },
+        "share_voucher": {
+            "description": "Możesz udostępnić swoją rezerwację dostawcy, aby umożliwić zakup na odległość. Jeśli oferta dotyczy aktywności lub usługi: wpisz w polu poniżej dodatkowe informacje wymagane przez dostawcę w celu uczestnictwa, takie jak: imię i nazwisko oraz numer telefonu.",
+            "title": "Uwaga! Przed udostępnieniem kodu QR należy wysłać wiadomość do dostawcy."
+        }
+    },
+    "not_found": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "not_found": "Nie znaleziono strony"
+        }
+    },
+    "notifications": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "notifications": "Powiadomienia"
+        },
+        "columns": {
+            "date": "Data",
+            "details": "Powiadomienie"
+        },
+        "title": "Powiadomienia"
+    },
+    "open_in_me": {
+        "app_header": {
+            "subtitle_formal": "Wprowadź poniżej sześć cyfr wyświetlanych w aplikacji",
+            "subtitle_informal": "Wprowadź poniżej sześć cyfr wyświetlanych w aplikacji",
+            "title": "Wprowadź kod"
+        },
+        "authorize": {
+            "close": "Anuluj",
+            "submit": "Połącz aplikację"
+        },
+        "body": {
+            "use_app": "Aplikacja może być używana do zarządzania saldami i łatwego logowania."
+        },
+        "buttons": {
+            "close": "Zamknij",
+            "send": "Wysyłka",
+            "skip": "Pomiń"
+        },
+        "header": {
+            "title": "Otwórz aplikację in Me"
+        },
+        "sms": {
+            "button": {
+                "send": "Wyślij",
+                "skip": "Pomiń"
+            },
+            "description_formal": "Wprowadź swój numer telefonu w polu poniżej, aby otrzymać wiadomość tekstową z linkiem do pobrania.",
+            "description_informal": "Wprowadź swój numer telefonu i odbierz wiadomość SMS z linkiem do pobrania.",
+            "error": {
+                "try_later": "Spróbuj ponownie później."
+            },
+            "sent": "Wiadomość tekstowa została wysłana.",
+            "sent_description": "Nie otrzymałeś wiadomości? Pobierz aplikację <i>Me</i> z łącza <strong class=\"text-strong text-primary\">www.forus.io/DL</strong> na swój telefon komórkowy.",
+            "subdescription_formal": "Jeśli nie otrzymasz wiadomości tekstowej, możesz pobrać aplikację <i>Me</i> ze strony <strong class=\"text-strong\">www.forus.io/DL</strong> na swój telefon komórkowy.",
+            "subdescription_informal": "Jeśli nie otrzymasz wiadomości tekstowej, możesz pobrać aplikację <i>Me</i> ze strony <strong class=\"text-strong text-primary\">www.forus.io/DL</strong> na swój telefon komórkowy.",
+            "title_formal": "Pobierz Me na swój telefon komórkowy",
+            "title_informal": "Pobierz Me na swój telefon komórkowy"
+        }
+    },
+    "page_state_loading_titles": {
+        "actions": "Oferta{{pageTitleSuffix}}",
+        "fund": "Fundusz{{pageTitleSuffix}}",
+        "fund-request-show": "Żądanie{{pageTitleSuffix}}",
+        "fund-requests": "Żądanie{{pageTitleSuffix}}",
+        "home": "Sklep internetowy{{pageTitleSuffix}}",
+        "product": "Oferta{{pageTitleSuffix}}",
+        "products": "Oferta{{pageTitleSuffix}}",
+        "provider": "Dostawca{{pageTitleSuffix}}",
+        "reimbursement": "Deklaracja{{pageTitleSuffix}}",
+        "reimbursement-edit": "Edycja zwrotu kosztów{{pageTitleSuffix}}",
+        "voucher": "Twój kredyt{{pageTitleSuffix}}"
+    },
+    "page_state_titles": {
+        "accessibility": "Oświadczenie o dostępności{{pageTitleSuffix}}",
+        "actions": "Oferta{{fund_name}}{{pageTitleSuffix}}",
+        "auth-link": "Logowanie{{pageTitleSuffix}}",
+        "bookmarked-products": "Moja lista życzeń{{pageTitleSuffix}}",
+        "confirmation-email": "Potwierdź e-mail{{pageTitleSuffix}}",
+        "explanation": "Wyjaśnienie wniosków o zwrot kosztów{{pageTitleSuffix}}",
+        "fund": "{{fund_name}}{{pageTitleSuffix}}",
+        "fund-activate": "Aktywuj {{fund_name}}{{pageTitleSuffix}}",
+        "fund-apply": "Żądanie{{pageTitleSuffix}}",
+        "fund-request-clarification": "Wniosek o uzupełnienie{{pageTitleSuffix}}",
+        "fund-request-show": "Żądanie {{fund_name}}{{pageTitleSuffix}}",
+        "fund-requests": "Żądanie{{pageTitleSuffix}}",
+        "funds": "Żądanie{{pageTitleSuffix}}",
+        "funds-apply": "Żądanie{{pageTitleSuffix}}",
+        "home": "{{implementation}}{{pageTitleSuffix}}",
+        "identity-emails": "Ustawienia poczty e-mail{{pageTitleSuffix}}",
+        "kindpakket": "Portfolio - pakiet dla dzieci{{pageTitleSuffix}}",
+        "me": "Ja{{pageTitleSuffix}}",
+        "me-app": "Me-app{{pageTitleSuffix}}",
+        "notifications": "Powiadomienia{{pageTitleSuffix}}",
+        "platform": "Platforma Forus{{pageTitleSuffix}}",
+        "portfolio": "Portfolio{{pageTitleSuffix}}",
+        "preferences-notifications": "Preferencje powiadomień{{pageTitleSuffix}}",
+        "privacy": "Oświadczenie o ochronie prywatności{{pageTitleSuffix}}",
+        "product": "{{product_name}} Oferta - of {{organization_name}}{{pageTitleSuffix}}",
+        "products": "Oferta{{fund_name}}{{pageTitleSuffix}}",
+        "products-apply": "Kup ofertę{{pageTitleSuffix}}",
+        "products-show": "Oferta{{pageTitleSuffix}}",
+        "provider": "Dostawca - {{provider_name}}{{pageTitleSuffix}}",
+        "provider-office": "Ustanowienie dostawcy{{pageTitleSuffix}}",
+        "providers": "Dostawcy{{pageTitleSuffix}}",
+        "record-create": "Dodawanie danych osobowych{{pageTitleSuffix}}",
+        "record-validate": "Zatwierdzanie danych osobowych{{pageTitleSuffix}}",
+        "record-validations": "Zatwierdzenia{{pageTitleSuffix}}",
+        "records": "Dane osobowe{{pageTitleSuffix}}",
+        "reimbursement": "Deklaracja - {{code}}{{pageTitleSuffix}}",
+        "reimbursement-edit": "Edycja zwrotu kosztów - {{code}}{{pageTitleSuffix}}",
+        "reimbursements": "Deklaracje{{pageTitleSuffix}}",
+        "reimbursements-create": "Odzyskiwanie nowych opłat{{pageTitleSuffix}}",
+        "reservation-show": "Rezerwacja{{pageTitleSuffix}}",
+        "reservations": "Rezerwacje{{pageTitleSuffix}}",
+        "restore-email": "Logowanie przez e-mail{{pageTitleSuffix}}",
+        "search-result": "Wyniki wyszukiwania{{pageTitleSuffix}}",
+        "security-2fa": "Bezpieczeństwo{{pageTitleSuffix}}",
+        "security-sessions": "Sesje bezpieczeństwa{{pageTitleSuffix}}",
+        "sign-up": "Zarejestruj się{{pageTitleSuffix}}",
+        "sitemap": "Sitemap{{pageTitleSuffix}}",
+        "start": "Rozpocznij logowanie{{pageTitleSuffix}}",
+        "terms_and_conditions": "Ogólne warunki handlowe{{pageTitleSuffix}}",
+        "voucher": "Twój kredyt - {{fund_name}}{{pageTitleSuffix}}",
+        "vouchers": "Mój kredyt{{pageTitleSuffix}}"
+    },
+    "page_title": "Platforma Forus",
+    "paginator": {
+        "buttons": {
+            "first": "Pierwszy",
+            "last": "Najnowsze",
+            "wcag_page": "Strona"
+        },
+        "labels": {
+            "from": "z"
+        }
+    },
+    "payouts": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "payouts": "Wypłaty"
+        },
+        "buttons": {
+            "show_less": "Mniej informacji",
+            "show_more": "Więcej informacji"
+        },
+        "empty": {
+            "button": "Przejdź do funduszy",
+            "subtitle": "Obecnie nie masz żadnych wypłat",
+            "title": "Brak wypłat"
+        },
+        "labels": {
+            "created_at": "Wypłacone w dniu",
+            "iban_from": "IBAN (od)",
+            "iban_to": "IBAN (do)",
+            "iban_to_name": "Nazwa IBAN (do)"
+        },
+        "search": "Wyszukiwanie",
+        "title": "Wypłaty"
+    },
+    "pdf_preview": {
+        "buttons": {
+            "close": "Zamknij"
+        },
+        "header": {
+            "title": "Próbka PDF"
+        }
+    },
+    "popup_auth": {
+        "buttons": {
+            "cancel": "Anuluj",
+            "confirm": "Następny",
+            "mail": "Zaloguj się przez e-mail",
+            "qrcode": "Zaloguj się za pomocą aplikacji Me",
+            "submit": "Potwierdzenie"
+        },
+        "header": {
+            "subtitle_formal": "Wprowadź swój adres e-mail, aby otrzymać link do logowania.",
+            "subtitle_informal": "Wprowadź swój adres e-mail, aby otrzymać link do logowania.",
+            "subtitle_succes_formal": "Otrzymałeś wiadomość e-mail na podany adres e-mail. Przejdź do skrzynki odbiorczej i otwórz wiadomość e-mail o temacie \"Potwierdź e-mail\" i kliknij niebieski przycisk w wiadomości e-mail.",
+            "subtitle_succes_informal": "Otrzymałeś wiadomość e-mail na podany adres e-mail. Przejdź do skrzynki odbiorczej i otwórz wiadomość e-mail o temacie \"Potwierdź e-mail\" i kliknij niebieski przycisk w wiadomości e-mail.",
+            "subtitle_we_succes_formal": "Otrzymałeś wiadomość e-mail na adres <strong class=\"text-primary\">{{email}}</strong>. Przejdź do skrzynki odbiorczej i otwórz wiadomość e-mail o temacie \"Potwierdź e-mail\" i kliknij \"Potwierdź\" w wiadomości e-mail.",
+            "subtitle_we_succes_informal": "Otrzymałeś wiadomość e-mail na adres <strong class=\"text-primary\">{{email}}</strong>. Przejdź do skrzynki odbiorczej i otwórz wiadomość e-mail z tematem \"Potwierdź e-mail\" i kliknij \"Potwierdź\" w wiadomości e-mail.",
+            "title": "E-mail wysłany",
+            "title_existing_user_succes_formal": "Sprawdź pocztę e-mail.",
+            "title_existing_user_succes_informal": "Sprawdź pocztę e-mail.",
+            "title_sr": "Rozpocznij logowanie",
+            "title_succes_formal": "Potwierdź, że masz dostęp do tego adresu e-mail.",
+            "title_succes_informal": "Potwierdź, że masz dostęp do tego adresu e-mail."
+        },
+        "input": {
+            "code": "Kod aktywacyjny",
+            "coding": "Wprowadź kod aktywacyjny",
+            "confirmation": "Potwierdź swój adres e-mail",
+            "mail": "Adres e-mail",
+            "mailing": "E-mail"
+        },
+        "labels": {
+            "activate": "Krok 1 z 3: Utwórz konto w sklepie.",
+            "activate_code": "Krok 3 z 3: Aktywuj swój kredyt.",
+            "berkelland": {
+                "mail": "Utwórz konto przed przystąpieniem do aktywacji."
+            },
+            "code": "<br />Wprowadź kod aktywacyjny otrzymany listownie.<strong>Uwaga:</strong> Na jeden adres e-mail można użyć jednego kodu aktywacyjnego. Zamknij to okno, jeśli kod aktywacyjny został już użyty.",
+            "codeactivated": "Kod aktywacyjny został już użyty. Użycie kolejnego kodu nie jest możliwe.",
+            "dont_have_account": "Nie masz konta i chcesz je utworzyć za pomocą kodu aktywacyjnego?",
+            "isactivated": "Twój kredyt został już aktywowany.",
+            "join": "Zarejestruj się",
+            "link": "Wprowadź swój adres e-mail, aby otrzymać link do logowania.",
+            "mail": "<strong>Uwaga</strong>: należy użyć własnego adresu e-mail.<br /> {{fund}} Na jeden adres e-mail można użyć maksymalnie jednego kodu aktywacyjnego na rok.",
+            "mail_sent": "Wiadomość e-mail jest już w drodze!",
+            "mobilecode": "Wprowadź kod dostępu do aplikacji Me.",
+            "noordoostpolder": {
+                "mail": "Utwórz konto przed przystąpieniem do aktywacji."
+            },
+            "oostgelre": {
+                "mail": "Utwórz konto przed przystąpieniem do aktywacji."
+            },
+            "scancode": "Zeskanuj ten kod QR za pomocą innego urządzenia, na którym jesteś już zalogowany.",
+            "timelimit": "Użytkownik zostanie automatycznie wylogowany po 15 minutach bezczynności.",
+            "voucher_email": "Udało się!",
+            "warning": "Zamknij to okno i kliknij \"Zaloguj się\", jeśli wcześniej użyłeś kodu aktywacyjnego.",
+            "westerkwartier": {
+                "mail": "Utwórz konto przed przystąpieniem do aktywacji."
+            },
+            "winterswijk": {
+                "mail": "Utwórz konto przed przystąpieniem do aktywacji."
+            },
+            "zuidhorn": {
+                "mail": "<strong>Uwaga</strong>: należy użyć własnego adresu e-mail.<br /> Możesz użyć maksymalnie jednego kodu aktywacyjnego Kindpakket na rok na jeden adres e-mail."
+            }
+        },
+        "notifications": {
+            "confirmation": "Udało się!",
+            "invalid": "Kod aktywacyjny jest nieprawidłowy lub został już użyty.",
+            "link_formal": "Wiadomość e-mail została wysłana do <strong class=\"text-primary\">{{email}}</strong><br/>Kliknij łącze, aby się zarejestrować.",
+            "link_informal": "Wiadomość e-mail została wysłana do <strong class=\"text-primary\">{{email}}</strong><br/>Kliknij łącze, aby się zarejestrować.",
+            "voucher_email": "Kod QR został wysłany."
+        },
+        "pin_code": {
+            "confirmation": {
+                "buttons": {
+                    "confirm": "Następny",
+                    "try_again": "Ponów próbę"
+                },
+                "description": "Po pięciu do 10 sekundach aplikacja zostanie sparowana. Czy parowanie się powiodło? Następnie kliknij przycisk Dalej.",
+                "notice_formal": "Czy nadal widzisz sześć cyfr w aplikacji po 30 sekundach? Spróbuj ponownie.",
+                "notice_informal": "Czy nadal widzisz sześć cyfr w aplikacji po 30 sekundach? Następnie spróbuj ponownie.",
+                "title_formal": "Aplikacja zostanie połączona z kontem użytkownika",
+                "title_informal": "Aplikacja zostanie połączona z kontem użytkownika"
+            }
+        },
+        "restore_formal": "Zapomniałeś adresu e-mail, którego użyłeś?",
+        "restore_informal": "Zapomniałeś, którego adresu e-mail użyłeś?",
+        "restore_subtitle_formal": "Przywróć swoje konto, logując się ponownie za pomocą DigiD",
+        "restore_subtitle_informal": "Przywróć swoje konto, logując się ponownie za pomocą DigiD",
+        "validation": {
+            "email_confirmation": "Adresy e-mail nie są zgodne"
+        }
+    },
+    "preferences_emails": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "preferences_emails": "Ustawienia poczty e-mail"
+        },
+        "buttons": {
+            "send_again": "Ponowne wysłanie wiadomości e-mail z potwierdzeniem",
+            "set_primary": "Ustaw jako główny adres e-mail"
+        },
+        "create": {
+            "buttons": {
+                "add_more": "Dodaj kolejny adres e-mail",
+                "add_new": "Dodaj e-mail",
+                "send": "Dodaj"
+            },
+            "labels": {
+                "email": "Adres e-mail"
+            },
+            "title": "Dodaj adres e-mail"
+        },
+        "email_added": {
+            "description_formal": "Otrzymałeś wiadomość e-mail na podany adres e-mail. Otwórz wiadomość e-mail i kliknij przycisk Potwierdź.",
+            "description_informal": "Otrzymałeś wiadomość e-mail na podany adres e-mail. Otwórz wiadomość e-mail i kliknij przycisk Potwierdź.",
+            "title_formal": "Potwierdź swój adres e-mail",
+            "title_informal": "Potwierdź swój adres e-mail "
+        },
+        "labels": {
+            "not_confirmed": "Nie potwierdzono",
+            "primary": "Główny adres e-mail"
+        },
+        "title": "Ustawienia poczty e-mail",
+        "usage": {
+            "notifications": "Odbiera powiadomienia",
+            "sign_in": "Otrzymuje wiadomość e-mail z logowaniem"
+        }
+    },
+    "preferences_notifications": {
+        "auto_close_after": "Powiadomienia wyskakujące są automatycznie zamykane po {wartość} sekundach.",
+        "auto_close_disabled": "Automatyczne zamykanie jest wyłączone",
+        "auto_close_disabled_description": "Automatyczne zamykanie wyskakujących powiadomień jest wyłączone.",
+        "auto_close_enabled": "Automatyczne zamykanie jest włączone",
+        "auto_close_enabled_description": "Automatyczne zamykanie wyskakujących powiadomień jest włączone.",
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "preferences_notifications": "Preferencje powiadomień"
+        },
+        "errors": {
+            "expired": "Ten token wygasł",
+            "not_found": "Ten token jest nieprawidłowy",
+            "not-pending": "Ustawienia powiadomień zostały już dostosowane za pośrednictwem tego linku"
+        },
+        "new_time_enabled": "Nowy czas jest włączony",
+        "no_email_button": "Dodaj e-mail",
+        "no_email_description": "Dodaj adres e-mail, aby otrzymywać powiadomienia pocztą elektroniczną.",
+        "no_email_title": "Obecnie z kontem nie jest powiązany żaden adres e-mail",
+        "popups": {
+            "auto_close_info": "Włącz automatyczne zamykanie powiadomień, aby dostosować czas ich wyświetlania.",
+            "times": {
+                "5": "5 sekund",
+                "10": "10 sekund",
+                "15": "15 sekund",
+                "30": "30 sekund",
+                "60": "60 sekund"
+            },
+            "title": "Powiadomienia wyskakujące"
+        },
+        "push_notifications_dismiss_time": {
+            "bookmarks": {
+                "description": "Automatyczne ukrywanie powiadomień systemowych po dodaniu lub usunięciu ulubionych produktów.",
+                "title": "Automatyczne zamykanie powiadomień o ulubionych produktach"
+            },
+            "webshop": {
+                "description": "Automatyczne ukrywanie powiadomień systemowych po wykonaniu akcji.",
+                "title": "Automatyczne zamykanie powiadomień ogólnych"
+            }
+        },
+        "push_notifications_preferences": {
+            "title": "Ustawienia czasu wyświetlania powiadomień"
+        },
+        "subscribe": "Tak, chcę otrzymywać powiadomienia.",
+        "subscribe_desc_formal": "{{email}}Podając adres e-mail \" \", użytkownik nie otrzymuje obecnie żadnych powiadomień. Jeśli chcesz otrzymywać powiadomienia, możesz skonfigurować to dla każdego powiadomienia poniżej.",
+        "subscribe_desc_informal": "{{email}}Używając tego adresu e-mail \" \", nie subskrybujesz obecnie wszystkich powiadomień. Jeśli chcesz otrzymywać powiadomienia, możesz skonfigurować to dla każdego powiadomienia poniżej.",
+        "title": "Preferencje powiadomień",
+        "title_email_preferences": "Powiadomienia e-mail",
+        "title_emails_turned_of": "Rezygnacja z subskrypcji wszystkich wiadomości e-mail",
+        "title_emails_turned_on": "Subskrybuj wszystkie wiadomości e-mail",
+        "title_push_preferences": "Powiadomienia push za pośrednictwem aplikacji",
+        "types": {
+            "digest": {
+                "daily_requester": {
+                    "description": "Otrzymuj e-mail z podsumowaniem ofert i dostawców dodanych do sklepu internetowego.",
+                    "title": "Podsumowanie nowych ofert w sklepie internetowym"
+                }
+            },
+            "funds": {
+                "balance_warning": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy saldo funduszu spadnie poniżej ustawionego limitu.",
+                    "title": "Wymagane działanie: uzupełnienie salda"
+                },
+                "fund_expires": {
+                    "description": "Otrzymaj powiadomienie e-mail na 1 miesiąc przed datą zakończenia.",
+                    "title": "Przypomnienie o dacie zakończenia kredytu"
+                },
+                "new_fund_applicable": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy zostanie utworzony nowy fundusz, do którego możesz aplikować.",
+                    "title": "Nowy fundusz, do którego można aplikować"
+                },
+                "new_fund_created": {
+                    "description": "Otrzymuj powiadomienia e-mail o utworzeniu nowego funduszu.",
+                    "title": "Utworzono nowy fundusz"
+                },
+                "new_fund_started": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy subskrybowany fundusz zostanie uruchomiony i możesz spodziewać się klientów.",
+                    "title": "Uruchomiony fundusz"
+                },
+                "product_added": {
+                    "description": "Otrzymuj powiadomienia e-mail o dodaniu nowej oferty.",
+                    "title": "Dodano nową ofertę"
+                },
+                "product_reserved": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy oferta zostanie zarezerwowana.",
+                    "title": "Oferta zarezerwowana"
+                },
+                "product_sold_out": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy oferta zostanie wyprzedana.",
+                    "title": "Oferta wyprzedana"
+                },
+                "provider_applied": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy dostawca złoży wniosek o fundusz.",
+                    "title": "Rejestracja dostawcy"
+                },
+                "provider_approved": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy dostawca zostanie zaakceptowany do funduszu.",
+                    "title": "Aplikacja dostawcy zaakceptowana"
+                },
+                "provider_rejected": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy dostawca funduszu zostanie odrzucony.",
+                    "title": "Dostawca aplikacji odrzucony"
+                }
+            },
+            "validations": {
+                "new_validation_request": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy pojawi się nowe żądanie walidacji.",
+                    "title": "Nowe żądanie walidacji"
+                },
+                "you_added_as_validator": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy zostaniesz dodany do funduszu jako recenzent.",
+                    "title": "Dodano jako asesora"
+                }
+            },
+            "voucher": {
+                "assigned": {
+                    "description": "Otrzymuj powiadomienia push o dodaniu nowego kredytu.",
+                    "title": "Aktywowano lub przyznano nowy kredyt."
+                },
+                "transaction": {
+                    "description": "Otrzymuj powiadomienia push, gdy płatność się powiedzie.",
+                    "title": "Płatność powiodła się"
+                }
+            },
+            "vouchers": {
+                "payment_success": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy płatność się powiedzie.",
+                    "title": "Płatność powiodła się"
+                },
+                "send_voucher": {
+                    "description": "Otrzymuj powiadomienia e-mail, gdy wyślesz kredyt do siebie.",
+                    "title": "Wyślij kredyt do siebie"
+                },
+                "share_product": {
+                    "description": "Otrzymuj powiadomienia e-mail o udostępnieniu rezerwacji oferty.",
+                    "title": "Wspólna oferta rezerwacji"
+                }
+            }
+        },
+        "unsubscribe": "Rezygnacja z subskrypcji wszystkich powiadomień e-mail",
+        "unsubscribe_button": "Zrezygnuj z subskrypcji",
+        "unsubscribe_desc": "Chcę zrezygnować z subskrypcji wszystkich powiadomień e-mail."
+    },
+    "privacy": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "privacy": "Oświadczenie o ochronie prywatności"
+        },
+        "five": "Będziesz otrzymywać powiadomienia o swoim użytkowaniu i ofertach dostawców. Możesz to wyłączyć samodzielnie po uruchomieniu aplikacji w preferencjach powiadomień po zalogowaniu się do witryny.",
+        "four": "Dane te są wykorzystywane do sprawdzenia, czy użytkownik jest uprawniony do korzystania z programu i uniknięcia podwójnych przydziałów. Wymagane dane zależą od programu.",
+        "groningen": {
+            "eight": "Użytkownik zawsze ma prawo do przeglądania, modyfikowania i/lub usuwania swoich danych osobowych. Wprowadzone dane osobowe można znaleźć na koncie Stadjerspas.",
+            "five": "Dzieci mieszkające w domu do 18 roku życia zostaną automatycznie dopisane do konta.",
+            "four": "Pozwoli nam to sprawdzić, czy użytkownik jest uprawniony do otrzymania karty City Pass.",
+            "nine": "Zobacz <a href='https://gemeente.groningen.nl/privacyverklaring' target='_blank'> ogólne oświadczenie o ochronie prywatności </a> gminy Groningen. W przypadku pytań prosimy o kontakt z gminą Groningen pod numerem tel.: 14 050.",
+            "one": "Podczas składania wniosku o Stadjerspas przechowywane są następujące dane.",
+            "seven": "Chcemy informować Cię na bieżąco o Twoim wykorzystaniu. Czy Twoje kredyty są na wyczerpaniu? Powiadomimy Cię o tym. Zawsze przydatne! Oczywiście możesz to wyłączyć, jeśli nie chcesz otrzymywać takich wiadomości.",
+            "six": "Dzięki temu można sprawdzić, ile środków zostało wykorzystanych i ile pozostało do wykorzystania. Dostawca i gmina Groningen również widzą, co zostało zużyte. Nie widzą jednak, że są to wydatki użytkownika.",
+            "three": "Dzięki temu sprawdzimy Twoje dane i nie będziesz musiał wypełniać ich w kółko.",
+            "title": "Oświadczenie o ochronie prywatności",
+            "title_eight": "Wgląd w dane",
+            "title_five": "Liczba dzieci",
+            "title_four": "Dane dotyczące dochodu",
+            "title_nine": "Chcesz dowiedzieć się więcej lub masz pytania?",
+            "title_seven": "Otrzymywanie wiadomości dotyczących karty City Pass",
+            "title_six": "Wydatki i kredyty Stadjerspas",
+            "title_three": "Numer usługi dla obywateli (BSN)",
+            "title_two": "Adres e-mail",
+            "two": "Jest to konieczne do utworzenia konta i zapewnienia późniejszego dostępu do niego."
+        },
+        "one": "Przechowywane będą następujące dane:",
+        "seven": "Użytkownik ma prawo dostępu do swoich danych, ich modyfikowania i usuwania. Aby uzyskać więcej informacji lub w przypadku jakichkolwiek pytań, należy zapoznać się z ogólną informacją o ochronie prywatności gminy.",
+        "six": "Dane te są również wykorzystywane, jeśli użytkownik potrzebuje wsparcia w korzystaniu z systemu. Dane są przetwarzane w sposób poufny i nie są ujawniane stronom trzecim do innych celów. <br> W systemie i odpowiedniej aplikacji mobilnej znajduje się przegląd wprowadzonych danych.",
+        "three": "Dzięki temu można zobaczyć, jakie kredyty zostały wykorzystane. Dostawcy i gmina również widzą, co zostało wykorzystane, ale nie widzą, że Ty to wykorzystałeś.",
+        "title": "Oświadczenie o ochronie prywatności",
+        "title_five": "Otrzymywanie informacji o systemie",
+        "title_four": "Pozostałe wpisy",
+        "title_seven": "Wgląd w dane",
+        "title_six": "Wykorzystanie danych użytkownika",
+        "title_three": "Twoje wydatki",
+        "title_two": "Twój adres e-mail",
+        "two": "Aby utworzyć konto i uzyskać dostęp do kredytu."
+    },
+    "product_bookmark_push": {
+        "go_to_bookmarks": "Przejdź do mojej listy życzeń",
+        "list_message": "{{ total }} Na liście życzeń znajdują się oferty",
+        "removed": "{{ name }} został usunięty z listy życzeń!"
+    },
+    "product": {
+        "breadcrumbs": {
+            "back": "Powrót",
+            "home": "Strona główna",
+            "products": "Oferta",
+            "subsidies": "Oferta"
+        },
+        "buttons": {
+            "buy": "Rezerwacja",
+            "buy_label": "Otwarty formularz rezerwacji",
+            "groningen": {
+                "request": "Żądanie"
+            },
+            "open_voucher": "Otwarty kredyt",
+            "potjeswijzer": {
+                "request": "Żądanie"
+            },
+            "request": "Aktywuj",
+            "bookmark": "Dodaj do listy życzeń"
+        },
+        "funds": {
+            "fund": "Kredyt:",
+            "not_available_label": "Rezerwacja",
+            "not_available_value": "Niedostępne",
+            "title": "Kredyt"
+        },
+        "labels": {
+            "category": "Kategoria:",
+            "description": "Opis:",
+            "discount": "Zniżka:",
+            "expire": "Ważne do:",
+            "expire_prefix": "",
+            "find": "Można nas znaleźć tutaj",
+            "fund": "Żądanie",
+            "funds_card_btn_text": "Przejdź do kredytów",
+            "funds_card_description": "Chcesz wiedzieć, który kredyt możesz wykorzystać w ramach tej oferty? Przejdź do przeglądu kredytów!",
+            "funds_card_title": "Informacje kredytowe",
+            "limit": "Pozostały kredyt:",
+            "max_limit": "Maksymalnie na osobę:",
+            "pay_from_voucher": "Płacisz z kredytu:",
+            "price": "Cena:"
+        },
+        "low_amount": "Nie masz kredytu z wystarczającym saldem.",
+        "map": {
+            "title": "Lokalizacje na mapie"
+        },
+        "no_vouchers": "Nie masz kredytu, aby zarezerwować tę ofertę",
+        "status": {
+            "active": "Aktywny",
+            "free": "Darmowy",
+            "no_data": "Brak danych",
+            "out_of_stock": "Koniec z zapasami"
+        },
+        "tooltip": "Ile razy jeszcze możesz skorzystać z tej oferty?",
+        "price": {
+            "free": "Darmowy"
+        }
+    },
+    "products": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "products": "Oferta"
+        },
+        "distances": {
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
+            "everywhere": "Wszędzie"
+        },
+        "filters": {
+            "all_categories": "Wybierz kategorię...",
+            "all_funds": "Wszystkie kredyty...",
+            "all_products": "Pełna oferta",
+            "all_providers": "Wybierz dostawcę...",
+            "all_sub_categories": "Wybierz podkategorię...",
+            "bookmarked": "Moja lista życzeń",
+            "category": "Kategoria",
+            "distance": "Odległość",
+            "fund": "Kredyt",
+            "postcode": "Kod pocztowy",
+            "providers": "Dostawcy",
+            "search": "Oferta wyszukiwania",
+            "sort": "Sortuj",
+            "sub_category": "Podkategoria"
+        },
+        "sort": {
+            "created_at_asc": "Najstarszy pierwszy",
+            "created_at_desc": "Nowy pierwszy",
+            "most_popular": "Najbardziej poszukiwany",
+            "name_asc": "Nazwa (rosnąco)",
+            "name_desc": "Nazwa (malejąco)",
+            "price_asc": "Cena (rosnąco)",
+            "price_desc": "Cena (malejąco)"
+        },
+        "title": "Oferta",
+        "view": {
+            "grid": "Zdjęcia",
+            "list": "Lista"
+        }
+    },
+    "profile_menu": {
+        "buttons": {
+            "bookmarks": "Moja lista życzeń",
+            "copy": "Kopia",
+            "email_settings": "Ustawienia poczty e-mail",
+            "fund_requests": "Żądanie",
+            "funds": "Żądanie",
+            "notification_preferences": "Preferencje powiadomień",
+            "notifications": "Powiadomienia",
+            "payouts": "Wypłaty",
+            "profile": "Dane",
+            "records": "Dane osobowe",
+            "reimbursements": "Zwrot kosztów",
+            "reservations": "Rezerwacje",
+            "security": "Bezpieczeństwo",
+            "sessions": "Sesje",
+            "share": "Udział",
+            "vouchers": "Kredyt",
+            "me_app": "Me-app",
+            "provider_sign_up": "Zarejestruj się jako dostawca"
+        },
+        "header": {
+            "subtitle": "Twój osobisty kod QR powinien zostać zeskanowany przez recenzenta.",
+            "title": "Twój osobisty kod QR"
+        },
+        "labels": {
+            "address": "Adres:"
+        }
+    },
+    "profile": {
+        "account": {
+            "active_since": "Aktywny od",
+            "last_login": "Ostatnie logowanie",
+            "title": "Szczegóły konta"
+        },
+        "bank_accounts": {
+            "title": "Konto bankowe",
+            "iban": "IBAN",
+            "name": "Napis"
+        },
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "profile": "Dane"
+        },
+        "contacts": {
+            "cancel": "Anuluj",
+            "edit": "Edytuj",
+            "extra_email": "Dodatkowy adres e-mail {{number}}",
+            "extra_email_info": "Adres e-mail można zmienić na stronie <a class='text-inherit text-semibold text-underline' target='_blank' href='{{link_url}}'>\"Ustawienia e-mail\"</a>. W tym miejscu można dodać nowy adres e-mail i ustawić główny adres e-mail.",
+            "primary_email": "Główny adres e-mail",
+            "save": "Zapisz",
+            "title": "Edycja danych kontaktowych"
+        },
+        "history": {
+            "title": "{{count}} edytowane czasy",
+            "from": "z",
+            "modified_by": "Zmodyfikowany przez",
+            "to": "do",
+            "you": "ty"
+        },
+        "personal": {
+            "bsn": "BSN",
+            "title": "Dane osobowe"
+        },
+        "title": "Dane"
+    },
+    "provider_sign_up": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "sign_up_provider": "Zarejestruj się jako dostawca"
+        },
+        "button": {
+            "login": "Następnie zaloguj się",
+            "register": "Zarejestruj się"
+        },
+        "description": {
+            "already_account": "Czy masz już konto?",
+            "fill_form": "Wypełniając formularz online, rejestrujesz swoją organizację jako dostawcę. Wypełnienie formularza zajmuje około 15 minut.",
+            "read_instruction": "Przeczytaj uważnie instrukcje w każdym kroku."
+        },
+        "heading": "Zarejestruj się jako dostawca",
+        "heading_screen_reader": "Zarejestruj się"
+    },
+    "provider": {
+        "breadcrumbs": {
+            "back": "Powrót",
+            "home": "Strona główna",
+            "providers": "Dostawcy"
+        },
+        "description": {
+            "title": "Opis"
+        },
+        "details": {
+            "email": "Adres e-mail:",
+            "phone": "Numer telefonu:",
+            "title": "Informacje o dostawcy",
+            "type": "Typ dostawcy:",
+            "type_none": "Brak typu dostawcy"
+        },
+        "funds": {
+            "title": "Oddziały"
+        },
+        "title": "Dostawcy"
+    },
+    "providers_office": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "providers": "Dostawcy"
+        },
+        "details": {
+            "address": "Adres",
+            "email": "Adres e-mail",
+            "phone": "Numer telefonu",
+            "title": "Informacje o oddziale",
+            "type": "Typ dostawcy",
+            "type_none": "Nie wybrano typu"
+        },
+        "providers": {
+            "office_thumbnail_alt": "miniaturka biura",
+            "show_more": "Pokaż/ukryj informacje o dostawcy",
+            "title": "Dostawca",
+            "type_none": "Nie wybrano typu"
+        },
+        "title": "Dostawcy",
+        "working_hours": {
+            "not_set": "Dostawca nie ustalił godzin otwarcia. Skontaktuj się z dostawcą, aby uzyskać informacje o godzinach otwarcia.",
+            "title": "Godziny otwarcia"
+        }
+    },
+    "providers": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "providers": "Dostawcy"
+        },
+        "distances": {
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
+            "everywhere": "Wszędzie"
+        },
+        "filters": {
+            "all_categories": "Wybierz kategorię...",
+            "all_funds": "Wszystkie kredyty...",
+            "all_products": "Pełna oferta",
+            "all_providers": "Wybierz dostawcę...",
+            "all_sub_categories": "Wybierz podkategorię...",
+            "all_types": "Wszystkie rodzaje...",
+            "bookmarked": "Moja lista życzeń",
+            "category": "Kategoria",
+            "distance": "Odległość",
+            "fund": "Kredyt",
+            "map_title": "Wybierz dostawcę, aby uzyskać więcej informacji",
+            "postcode": "Kod pocztowy",
+            "provider_type": "Typ dostawcy",
+            "providers": "Dostawcy",
+            "result": "Są <div class=\"showcase-result-count\">{{ total }}</div> dostawców.",
+            "search": "Wyszukiwanie",
+            "sort": "Sortuj",
+            "sub_category": "Podkategoria"
+        },
+        "items": {
+            "labels": {
+                "open_provider": "Otwarty dostawca",
+                "show_locations": "Pokaż lokalizacje"
+            }
+        },
+        "sort": {
+            "name_asc": "Nazwa (rosnąco)",
+            "name_desc": "Nazwa (malejąco)"
+        },
+        "title": "Dostawcy",
+        "view": {
+            "list": "Lista",
+            "map": "Mapa"
+        }
+    },
+    "push_notification_group": {
+        "adjust": "Regulacja",
+        "auto_close_after": "{{ dismissTime }} Automatyczne zamknięcie po kilku sekundach",
+        "auto_close_disabled": "Automatyczne zamykanie jest wyłączone",
+        "hide_notifications": "{{ count }} Ukryj + powiadomienia",
+        "show_notifications": "{{ count }} Pokaż + powiadomienia"
+    },
+    "records_create": {
+        "buttons": {
+            "back": "Powrót",
+            "cancel": "Anuluj",
+            "choose": {
+                "c_description": "Wybierz typ danych osobowych, które chcesz utworzyć.",
+                "category": "Wybierz kategorię",
+                "description": "Wybierz kategorię, do której chcesz dodać dane osobowe.",
+                "type": "Wybierz typ"
+            },
+            "confirm": "Potwierdzenie",
+            "next": "Następny",
+            "text": "Tekst",
+            "type": "Typ danych osobowych"
+        },
+        "header": {
+            "title": "Tworzenie danych osobowych"
+        }
+    },
+    "records_validate": {
+        "buttons": {
+            "send": "Wysyłka"
+        },
+        "header": {
+            "title": "Moje dane osobowe"
+        },
+        "labels": {
+            "validators": "Asesorzy"
+        },
+        "status": {
+            "hold": "Oczekiwanie"
+        }
+    },
+    "records_validations": {
+        "buttons": {
+            "send": "Wyślij prośbę o zatwierdzenie"
+        },
+        "header": {
+            "title": "Moje dane osobowe"
+        },
+        "labels": {
+            "count": "Zatwierdzenia",
+            "validations": "Zatwierdzenia"
+        }
+    },
+    "records": {
+        "buttons": {
+            "create": "Tworzenie danych osobowych",
+            "validate": "Zatwierdzić"
+        },
+        "header": {
+            "title": "Dane osobowe"
+        },
+        "labels": {
+            "count": "Recenzje"
+        }
+    },
+    "reimbursement_confirmation": {
+        "buttons": {
+            "cancel": "Anuluj",
+            "close": "Zamknij",
+            "confirm": "Potwierdzenie"
+        },
+        "description": "Sprawdź szczegóły przed wysłaniem wniosku.",
+        "title": "Zgłoszenie roszczenia"
+    },
+    "reimbursements": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "reimbursement": "Prześlij kupon",
+            "reimbursements": "Zwrot kosztów"
+        },
+        "create_card": {
+            "button": "Prześlij kupon",
+            "title": "Zwrot kosztów"
+        },
+        "details": {
+            "buttons": {
+                "cancel": "Anuluj",
+                "edit": "Zmiana"
+            },
+            "labels": {
+                "amount": "Kwota",
+                "decline_reason": "Przyczyna spadku",
+                "description": "Komentarz",
+                "fund": "Schemat",
+                "iban": "IBAN",
+                "iban_name": "Przypisanie",
+                "sponsor": "Deklaracja na",
+                "title": "Tytuł"
+            },
+            "title": "Dane deklaracji",
+            "code": "Numer: #:kod"
+        },
+        "empty": {
+            "button": "Prześlij kupon",
+            "description": "Obecnie nie masz żadnych deklaracji",
+            "title": "Brak deklaracji"
+        },
+        "form_buttons": {
+            "cancel": "Anuluj",
+            "save_for_later": "Zapisz na później",
+            "submit": "Prześlij"
+        },
+        "form": {
+            "amount": "Kwota €",
+            "description": "Opis",
+            "file_upload_title": "Prześlij paragon, fakturę lub rachunek",
+            "iban": "Numer IBAN",
+            "iban_name": "Nazwa posiadacza konta",
+            "iban_tooltip": "Numer IBAN musi mieć format NL89BANK0123456789.",
+            "title": "Tytuł oświadczenia",
+            "voucher": "Kredyt",
+            "voucher_tooltip": "Wybierz kredyt, którego chcesz użyć do odzyskania opłat."
+        },
+        "item": {
+            "buttons": {
+                "cancel": "Anuluj"
+            },
+            "labels": {
+                "accepted_at": "Zaakceptowano na:",
+                "approved_at": "Wypłacono w dniu:",
+                "declined_at": "Odrzucono w dniu:",
+                "submitted_at": "Zgłoszono dnia:"
+            },
+            "number": "Numer deklaracji:",
+            "states": {
+                "accepted": "Przyjęte",
+                "declined": "Odmowa",
+                "declined_at": "Odmowa na:",
+                "expired": "Wygasł",
+                "expired_at": "Wygasł w dniu:",
+                "pending": "W oczekiwaniu"
+            }
+        },
+        "no_email": {
+            "add_email": "Dodaj adres e-mail",
+            "description": "W przypadku pytań dotyczących roszczenia nie można nawiązać kontaktu.<br /> Czy nie ma możliwości podania adresu e-mail? Jeśli tak, prosimy o podanie innych danych kontaktowych.<br /><br />",
+            "skip_email": "Kontynuuj bez adresu e-mail",
+            "title": "Nie jest znany adres e-mail."
+        },
+        "states": {
+            "all": "Wszystkie",
+            "approved": "Wypłacono",
+            "declined": "Odrzucono",
+            "draft": "Jeszcze nie przesłano",
+            "pending": "W oczekiwaniu"
+        },
+        "subtitle": "Do złożenia wniosku wymagany jest aktywny kredyt.",
+        "title": "Zwrot kosztów",
+        "title_create": "Odzyskiwanie nowych opłat",
+        "title_edit": "Numer deklaracji: #{{code}}",
+        "types": {
+            "active": "Aktywny",
+            "archived": "Archiwum"
+        }
+    },
+    "reservation": {
+        "details": {
+            "labels": {
+                "amount": "Opłacone z kredytu",
+                "amount_extra": "Płatne dodatkowo",
+                "fund_name": "Nazwa funduszu",
+                "id": "ID",
+                "price": "Kwota",
+                "title": "Tytuł"
+            },
+            "loading": "Ładowanie",
+            "title": "Szczegóły rezerwacji"
+        },
+        "expired": "Przepraszamy, rezerwacja została anulowana podczas procesu realizacji zakupu, ponieważ wybrany produkt został wyprzedany.",
+        "expiring": "Należy pamiętać, że na dokonanie dodatkowej płatności pozostało <strong>{expiresIn} minut</strong>. W przeciwnym razie rezerwacja zostanie automatycznie anulowana.",
+        "extra_amount_refund": {
+            "amount": "Kwota",
+            "date": "Data",
+            "state": "Status",
+            "title": "Szczegóły spłaty"
+        },
+        "extra_amount": {
+            "date": "Data",
+            "method": "Metoda",
+            "mount": "Płatność własna",
+            "refunded": "Zwrócone",
+            "status": "Status"
+        },
+        "labels": {
+            "cancel": "Anuluj",
+            "canceled_at": "Anulowane w dniu:",
+            "code": "Numer rezerwacji:",
+            "created_at": "Utworzono dnia:",
+            "expired_at": "Wygasł w dniu:",
+            "pay_extra": "Przejdź do płatności",
+            "rejected_at": "Odmowa na:",
+            "status": {
+                "accepted": "Przyjęte",
+                "canceled": "Anulowane przez dostawcę",
+                "canceled_by_client": "Anulowane przez wnioskodawcę",
+                "canceled_by_sponsor": "Anulowane przez sponsora",
+                "canceled_payment_canceled": "Dodatkowa płatność anulowana",
+                "canceled_payment_expired": "Dodatkowa płatność wygasła",
+                "canceled_payment_failed": "Dodatkowa płatność nie powiodła się",
+                "expired": "Wygasł",
+                "pending": "W oczekiwaniu",
+                "rejected": "Odmowa",
+                "waiting": "Oczekiwanie na płatność"
+            }
+        },
+        "title": "Szczegóły doładowania"
+    },
+    "reservations": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "reservation": "Rezerwacja",
+            "reservations": "Rezerwacje"
+        },
+        "card": {
+            "actions": {
+                "hide_all_details": "Ukryj wszystkie szczegóły",
+                "proceed_to_payment": "Przejdź do płatności",
+                "show_all_details": "Pokaż wszystkie szczegóły"
+            },
+            "details": {
+                "paid_from_credit": "Opłacone z kredytu",
+                "paid_via_bank_transfer": "Dodatkowa płatność przelewem bankowym",
+                "total_product_price": "Pełna cena produktu",
+                "view_all_details": "Zobacz wszystkie szczegóły"
+            },
+            "remaining_minutes": "{{ minutes }} Wciąż minuty",
+            "value": {
+                "paid_by_self": "Płatne we własnym zakresie",
+                "product_price": "Cena produktu"
+            }
+        },
+        "empty": {
+            "subtitle": "Obecnie brak rezerwacji",
+            "title": "Brak zastrzeżeń"
+        },
+        "filters": {
+            "all_funds": "Wszystkie kredyty...",
+            "all_providers": "Wybierz dostawcę...",
+            "fund": "Kredyt",
+            "provider": "Dostawcy",
+            "search": "Wyszukiwanie",
+            "search_aria_label": "Wyszukiwanie",
+            "state": "Status"
+        },
+        "states": {
+            "accepted": "Przyjęte",
+            "all": "Wybierz status...",
+            "canceled": "Anulowane",
+            "pending": "W oczekiwaniu",
+            "rejected": "Odmowa"
+        },
+        "subtitle": "Rezerwacja musi zostać zaakceptowana przez dostawcę. Status rezerwacji można śledzić na tej stronie.",
+        "title": "Rezerwacje",
+        "types": {
+            "active": "Aktywny",
+            "archived": "Archiwum"
+        }
+    },
+    "search": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "search": "Wyniki wyszukiwania"
+        },
+        "entities": {
+            "funds": "Kredyt",
+            "products": "Oferta",
+            "providers": "Dostawcy"
+        },
+        "filters": {
+            "all_categories": "Wybierz kategorię...",
+            "all_funds": "Wybierz kredyty...",
+            "all_providers": "Wybierz dostawcę...",
+            "all_sub_categories": "Wybierz podkategorię...",
+            "category": "Kategoria",
+            "found_for": "{{ query }}znaleziono dla \" \"",
+            "funds": "Kredyt",
+            "highlighted": "Polecane",
+            "providers": "Dostawcy",
+            "sort": "Sortuj"
+        },
+        "sort_by": {
+            "created_at_asc": "Najstarszy pierwszy",
+            "created_at_desc": "Nowy pierwszy"
+        },
+        "title": "Wyniki wyszukiwania",
+        "view": {
+            "list": "Lista",
+            "photos": "Zdjęcia"
+        }
+    },
+    "security_2fa": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "security_2fa": "Uwierzytelnianie dwuskładnikowe"
+        },
+        "confirm": "Potwierdzenie",
+        "disable": "Wyłącz",
+        "disabled": "Wyłączony",
+        "enable": "Włącz",
+        "enabled_on": "Włączone: ",
+        "municipality_restrict": "Ustawień tych nie można zmienić ze względu na warunki określone przez gminę",
+        "number_confirmed": "Liczba potwierdzona",
+        "remember_ip": "Zapamiętaj adres IP",
+        "require_2fa_always": "Zawsze wymagaj potwierdzenia za pomocą 2FA",
+        "require_2fa_ip": "Jeśli adres IP był używany w ciągu ostatnich 48 godzin, nie wymagaj 2FA.",
+        "settings": "Ustawienia",
+        "sms_message": "Wiadomość SMS",
+        "subtitle": "Dodaj dodatkową warstwę zabezpieczeń do swojego konta, włączając uwierzytelnianie dwuskładnikowe. Do wyboru są następujące metody uwierzytelniania: Aplikacja Authenticator i uwierzytelnianie SMS.",
+        "title": "Uwierzytelnianie dwuskładnikowe",
+        "unknown_error": "Nieznany komunikat o błędzie.",
+        "verification_codes_sent": "Kody weryfikacyjne zostały wysłane za pośrednictwem wiadomości SMS",
+        "vouchers_restrict": "Istnieje co najmniej jeden kupon z funduszu, który ogranicza tę instytucję",
+        "providers": {
+            "authenticator": {
+                "title": "Aplikacja Authenticator"
+            },
+            "phone": {
+                "title": "Weryfikacja SMS"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1Hasło uwierzytelniające",
+            "authenticator_google": "Program uwierzytelniający Google",
+            "authenticator_lastpass": "LastPass Authenticator",
+            "authenticator_microsoft": "Microsoft Authenticator"
+        }
+    },
+    "security_sessions": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "security_sessions": "Bezpieczeństwo"
+        },
+        "buttons": {
+            "show_all_locations": "Zobacz wszystkie lokalizacje",
+            "terminate_all_sessions": "Zakończenie wszystkich sesji",
+            "terminate_session": "Koniec sesji"
+        },
+        "clients": {
+            "general": "Nieznany",
+            "provider": "Środowisko zarządzania dostawcami",
+            "sponsor": "Środowisko zarządzania sponsorami",
+            "validator": "Środowisko zarządzania asesorami",
+            "webshop": "Sklep internetowy",
+            "me_app": "Me-app"
+        },
+        "details": {
+            "last_activity": "Najnowsza aktywność",
+            "started_at": "Sesja rozpoczęta"
+        },
+        "labels": {
+            "current": "Aktualny",
+            "online": "Online"
+        },
+        "title": "Bezpieczeństwo"
+    },
+    "signup_options": {
+        "buttons": {
+            "start": "Start"
+        },
+        "header": {
+            "subtitle": "Czy oferujesz pulę finansową? Czy oferujesz produkty lub usługi, które pasują do jednej z pul? <br/>Czy masz kontakt z wnioskodawcami i możesz pomóc w ustaleniu, kto jest uprawniony do otrzymania puli? Jeśli tak, zarejestruj się poniżej.",
+            "title": "Informacje dla organizacji"
+        },
+        "labels": {
+            "description_providers": "Jako dostawca oferujesz produkty lub usługi, za które można płacić z różnych pul.",
+            "description_sponsor": "<br>Jako sponsor udostępniasz pule i decydujesz, którzy dostawcy i wnioskodawcy mogą w nich uczestniczyć. Na przykład w przypadku słoika komputerowego można zezwolić na udział sklepom komputerowym i uczniom o niskich dochodach.",
+            "description_validator": "Jako asesor oceniasz informacje uzyskane od aavrangerów, np. dochód, miejsce zamieszkania i wiek.",
+            "title_provider": "Zarejestruj się jako dostawca",
+            "title_sponsor": "Zarejestruj się jako sponsor",
+            "title_validator": "Zarejestruj się jako asesor"
+        }
+    },
+    "signup": {
+        "items": {
+            "berkelland": {
+                "start_email": "Rozpoczęcie aktywacji"
+            },
+            "digid": "Otwórz ekran logowania DigiD",
+            "ede": {
+                "digid": "Otwórz ekran logowania DigiD",
+                "header": "Zaloguj się tutaj",
+                "pane_text": "",
+                "restore_header": "",
+                "restore_title": "Przywracanie konta",
+                "signup": "",
+                "title": "Logowanie"
+            },
+            "errors": {
+                "email": {
+                    "type_mismatch": "Wprowadź prawidłowy adres e-mail, np. naam@voorbeeld.com.",
+                    "value_missing": "Wprowadź prawidłowy adres e-mail, np. naam@voorbeeld.com."
+                }
+            },
+            "geertruidenberg": {
+                "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
+            },
+            "goereeoverflakkee": {
+                "start_email": "Zarejestruj się"
+            },
+            "groningen": {
+                "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
+            },
+            "header": "Zaloguj się tutaj",
+            "heumen": {
+                "start_email": "Rozpoczęcie aktywacji"
+            },
+            "noordoostpolder": {
+                "start_email": "Rozpoczęcie aktywacji"
+            },
+            "oostgelre": {
+                "start_email": "Rozpoczęcie aktywacji"
+            },
+            "page_title": "Logowanie{{pageTitleSuffix}}",
+            "pane_text": "Zaloguj się do istniejącego konta",
+            "potjeswijzer": {
+                "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
+            },
+            "restore_header": "",
+            "restore_title": "Przywracanie konta",
+            "schagen": {
+                "start_email": "Start"
+            },
+            "signup_option": "Dokonaj wyboru, aby kontynuować",
+            "start_email": "Rozpoczęcie aplikacji",
+            "title": "Logowanie",
+            "vergoedingen": {
+                "restore_title": "Przywracanie konta",
+                "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować",
+                "title": "Logowanie"
+            },
+            "waalwijk": {
+                "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
+            },
+            "winterswijk": {
+                "start_email": "Rozpoczęcie aktywacji"
+            }
+        }
+    },
+    "sitemap": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "sitemap": "Sitemap"
+        },
+        "title": "Sitemap"
+    },
+    "terms_and_conditions": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "terms_and_conditions": "Ogólne warunki handlowe"
+        }
+    },
+    "test": "{{name}} {{foo}}",
+    "top_navbar_search": {
+        "noresult": {
+            "funds_label": "Wyświetl wszystkie kredyty >",
+            "products_label": "Wyświetl wszystkie oferty >",
+            "providers_label": "Wyświetl wszystkich dostawców >",
+            "subtitle": "{{ query }}Nie znaleziono żadnych wyników dla słowa \" \". Spróbuj ponownie z innymi słowami wyszukiwania."
+        },
+        "placeholders": {
+            "search_formal": "Czego szukasz?",
+            "search_informal": "Czego szukasz?"
+        },
+        "result": {
+            "all_label": "Wszystkie wyniki",
+            "btn": "Wyświetl wszystkie wyniki",
+            "funds_label": "Kredyt",
+            "products_label": "Oferta",
+            "providers_label": "Dostawcy",
+            "found_results": "{{count}} wyniki znalezione..."
+        },
+        "aria": {
+            "close_search": "Usuń wyszukiwanie"
+        }
+    },
+    "top_navbar": {
+        "buttons": {
+            "authorize": "Zaloguj się do aplikacji",
+            "ede": {
+                "activate": "Programy"
+            },
+            "funds": "Żądanie",
+            "geertruidenberg": {
+                "activate": "Żądanie"
+            },
+            "groningen": {
+                "activate": "Żądanie",
+                "voucher": "Moja karta miejska"
+            },
+            "heumen": {
+                "activate": "Aktywuj"
+            },
+            "login": "Logowanie",
+            "logout": "Wylogowanie",
+            "mobile": {
+                "dropdown": {
+                    "authorize": "Zaloguj się do aplikacji",
+                    "berkelland": {
+                        "funds": "Aktywuj"
+                    },
+                    "bookmarked_products": "Moja lista życzeń",
+                    "ede": {
+                        "funds": "Programy"
+                    },
+                    "explanation": "Wyjaśnienie",
+                    "fund_requests": "Żądanie",
+                    "funds": "Wszystkie kredyty",
+                    "geertruidenberg": {
+                        "funds": "Programy"
+                    },
+                    "groningen": {
+                        "funds": "Żądanie",
+                        "vouchers": "Moja karta miejska"
+                    },
+                    "heumen": {
+                        "funds": "Aktywuj"
+                    },
+                    "home": "Strona główna",
+                    "noordoostpolder": {
+                        "funds": "Programy"
+                    },
+                    "notifications": "Powiadomienia",
+                    "oostgelre": {
+                        "funds": "Aktywuj"
+                    },
+                    "payouts": "Wypłaty",
+                    "potjeswijzer": {
+                        "funds": "Słoiki"
+                    },
+                    "preferences_emails": "Ustawienia poczty e-mail",
+                    "preferences_notifications": "Preferencje powiadomień",
+                    "records": "Profil",
+                    "reimbursements": "Zwrot kosztów",
+                    "reservations": "Rezerwacje",
+                    "schagen": {
+                        "funds": "Programy"
+                    },
+                    "security": "Bezpieczeństwo",
+                    "sessions": "Sesje",
+                    "vergoedingen": {
+                        "funds": "Opłaty"
+                    },
+                    "vouchers": "Moje kredyty",
+                    "waalwijk": {
+                        "funds": "Żądanie"
+                    },
+                    "westerkwartier": {
+                        "funds": "Żądanie"
+                    },
+                    "winterswijk": {
+                        "funds": "Aktywuj"
+                    }
+                },
+                "groningen": {
+                    "voucher": "Moja karta miejska"
+                },
+                "more": "Więcej",
+                "profile": "Profil",
+                "request": "Żądanie",
+                "voucher": "Moje kredyty"
+            },
+            "noordoostpolder": {
+                "activate": "Programy"
+            },
+            "potjeswijzer": {
+                "activate": "Słoiki"
+            },
+            "products": "Oferta",
+            "profile": "Profil >",
+            "providers": "Dostawcy",
+            "records": "Moje dane osobowe",
+            "reimbursements": "Zwrot kosztów",
+            "subsidies": "Oferta",
+            "vergoedingen": {
+                "activate": "Opłaty",
+                "login": "Logowanie / rejestracja"
+            },
+            "voucher": "Moje kredyty",
+            "waalwijk": {
+                "activate": "Żądanie"
+            },
+            "westerkwartier": {
+                "activate": "Żądanie"
+            }
+        },
+        "items": {
+            "ede": {
+                "explanation": "Często zadawane pytania",
+                "funds": "Wyjaśnienie mieszkańców"
+            },
+            "eemsdelta": {
+                "funds": "Programy"
+            },
+            "explanation": "Wyjaśnienie",
+            "funds": "Aktywuj",
+            "geertruidenberg": {
+                "funds": "Programy"
+            },
+            "groningen": {
+                "explanation": "Jak to działa?",
+                "funds": "Żądanie"
+            },
+            "hartvanwestbrabant": {
+                "funds": "Programy"
+            },
+            "heumen": {
+                "funds": "Aktywuj"
+            },
+            "home": "Strona główna",
+            "identity": "Profil",
+            "menu": {
+                "close": "Zamknij",
+                "show": "Menu"
+            },
+            "midden_drenthe": {
+                "funds": "Programy"
+            },
+            "noordoostpolder": {
+                "funds": "Programy"
+            },
+            "potjeswijzer": {
+                "funds": "Słoiki"
+            },
+            "products": "Oferta",
+            "providers": "Dostawcy",
+            "schagen": {
+                "funds": "Programy"
+            },
+            "search": "Wyszukiwanie",
+            "signup": "Wyjaśnienie dostawców",
+            "subsidies": "Oferta",
+            "vergoedingen": {
+                "funds": "Opłaty"
+            },
+            "waalwijk": {
+                "funds": "Żądanie"
+            },
+            "wadenheuvel": {
+                "funds": "Programy"
+            },
+            "westerkwartier": {
+                "funds": "Słoiki"
+            }
+        },
+        "user_menu": {
+            "auth_as": "Zalogowany jako:",
+            "authorize": "Autoryzuj urządzenie",
+            "bookmarks": "Moja lista życzeń",
+            "fund_requests": "Żądanie",
+            "logout": "Wylogowanie",
+            "my_vouchers": "Moje kredyty",
+            "notifications": "Powiadomienia",
+            "payouts": "Wypłaty",
+            "preferences_emails": "Ustawienia poczty e-mail",
+            "preferences_notifications": "Preferencje powiadomień",
+            "providers": "Dostawcy",
+            "reimbursements": "Zwrot kosztów",
+            "reservations": "Rezerwacje",
+            "security_2fa": "Bezpieczeństwo",
+            "security_sessions": "Sesje",
+            "aria_label": "Menu użytkownika",
+            "title": "Osobiste"
+        },
+        "main_menu": "Menu główne",
+        "open_home": "Powrót do strony głównej",
+        "start": "Start",
+        "start_button": {
+            "berg_en_dal": "Aktywacja kredytu",
+            "geertruidenberg": "Rozpoczęcie aplikacji",
+            "hartvanwestbrabant": "Rozpoczęcie aplikacji",
+            "midden_drenthe": "Aktywacja kredytu",
+            "potjeswijzer": "Rozpoczęcie aplikacji"
+        }
+    },
+    "voucher_printable": {
+        "budget_voucher": {
+            "labels": {
+                "contact_us": "Kontakt:",
+                "description": "{{printableTitle}} To jest Twój kredyt z kodem QR",
+                "show_to": "Pokaż ten kredyt u jednego z dostawców usług dept, dostępny pod adresem:",
+                "use_for": "Wykorzystaj ten kredyt na:"
+            }
+        },
+        "default": {
+            "labels": {
+                "contact": {
+                    "email": "Adres e-mail",
+                    "have_questions": "{{printableTitle}}Czy masz jakieś pytania dotyczące ''?",
+                    "phone": "Numer telefonu"
+                },
+                "purchases_notice": "Zakupów z wykorzystaniem tego kredytu nie można zwrócić"
+            }
+        },
+        "product_voucher": {
+            "labels": {
+                "contact_us": "Następnie skontaktuj się z dostawcą.",
+                "description": "{{printableTitle}}To jest Twój ' ' kredyt z kodem QR",
+                "show_to": "Pokaż ten kredyt raz u odpowiedniego dostawcy:",
+                "use_for": "Wykorzystaj ten kredyt na:"
+            }
+        }
+    },
+    "voucher": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "voucher": "{{ title }}",
+            "voucher_physical": "Twój {{ title }}",
+            "vouchers": "Moje kredyty"
+        },
+        "buttons": {
+            "details": "Zobacz szczegóły",
+            "send": "Email do mnie"
+        },
+        "card": {
+            "activate_my_pass": "Aktywuj moją przepustkę",
+            "cancel": "Anuluj",
+            "delete": "Anuluj rezerwację",
+            "expire": "Ważne do:",
+            "expired": "Wygasł",
+            "footer": {
+                "actions": {
+                    "mail": "Email do mnie",
+                    "open_in_me": "Otwórz w aplikacji",
+                    "physical_card_use": "Plastikowa przepustka",
+                    "print": "Drukuj",
+                    "share": "Udostępnianie dostawcy"
+                },
+                "tooltips": {
+                    "mail": "Wyślij kredyt do siebie pocztą e-mail",
+                    "open_in_me": "Ja",
+                    "print": "Wydrukuj kredyt",
+                    "share": "Podziel się kredytem z dostawcą"
+                }
+            },
+            "header": {
+                "title": "Jak to działa?"
+            },
+            "labels": {
+                "contact_provider": "Czy masz jakieś pytania dotyczące tej oferty? Jeśli tak, prosimy o kontakt.",
+                "contact_sponsor": "Masz pytania? Skontaktuj się z nami.",
+                "description": "1.<br/><br/>Kliknij Ofertę, wybierz i zarezerwuj aktywność. LUB 2. Zabierz kod QR do dostawcy. Dostawca zeskanuje kod QR i zarezerwuje aktywność.",
+                "email": "Adres e-mail:",
+                "phone": "Numer telefonu:"
+            },
+            "lost_my_pass": "Straciłem przepustkę",
+            "qrcode": {
+                "description": "{{fund_name}} To jest Twój kredyt z kodem QR.",
+                "productdescription": "Jest to rezerwacja z kodem QR."
+            },
+            "share": "Udział",
+            "stop_participation": "Zaprzestanie uczestnictwa",
+            "used": "Używany",
+            "used_on": "Używany na",
+            "valid_until": "Ważne do"
+        },
+        "delete_voucher": {
+            "buttons": {
+                "close": "Zamknij",
+                "submit": "Potwierdzenie"
+            },
+            "popup_form": {
+                "description": "Możesz anulować rezerwację, aby zrezygnować z zakupu. Jeśli nie chcesz anulować zakupu, kliknij przycisk \"Zamknij\".",
+                "title": "Chcesz anulować rezerwację przed zakupem?"
+            },
+            "title": "Anuluj rezerwację"
+        },
+        "history": {
+            "status": {
+                "expired": "Wygasł"
+            },
+            "title": "Wydatki"
+        },
+        "labels": {
+            "add": "Przy",
+            "expire": "Ważne do:",
+            "fund": "Fundusz",
+            "info": "<span style='font-style: italic;'>Szukasz dostawcy, którego nie ma na mapie? Możesz poprosić dostawcę o udział. Dostawca może składać wnioski przez cały rok.</span>",
+            "offers": "Chcesz uzyskać informacje na temat pełnej oferty? Skontaktuj się z dostawcą.",
+            "office": "Lokalizacje, w których można zrealizować rezerwację.",
+            "offices": "Dostawcy",
+            "productdetail": "Informacje o dostawie",
+            "requirements": "Aby zapoznać się z warunkami tej oferty, należy skontaktować się z dostawcą.",
+            "shopdetail": "Informacje o dostawcy",
+            "subtract": "Wył.",
+            "transactions": "Wydatki",
+            "voucher": "Wydrukuj swój kredyt lub wyślij go sobie pocztą. Zanieś kod QR do dostawcy usług i zeskanuj go."
+        },
+        "physical_card": {
+            "alt": "Physical pass: '{[ title ]}'",
+            "buttons": {
+                "lost_pass": "Straciłem przepustkę",
+                "reactivate": "Aktywuj"
+            },
+            "card_number": "Numer przepustki",
+            "title": "Aktywuj moją przepustkę"
+        },
+        "reimbursement": {
+            "button": "Prześlij kupon",
+            "description": "Odzyskaj poniesione koszty, przesyłając szczegóły zakupu oraz rachunek lub paragon.",
+            "title": "Zwrot kosztów"
+        },
+        "share_voucher": {
+            "buttons": {
+                "cancel": "Anuluj",
+                "confirm": "Zamknij",
+                "submit": "Wyślij"
+            },
+            "close": "Zamknij",
+            "labels": {
+                "send_copy": "Wyślij e-mail jako dowód również do siebie",
+                "share_note": "Wiadomość dla dostawcy"
+            },
+            "popup_form": {
+                "description": "Możesz udostępnić swoją rezerwację dostawcy, aby umożliwić zakup na odległość. Jeśli oferta dotyczy aktywności lub usługi: wpisz w polu poniżej dodatkowe informacje wymagane przez dostawcę w celu uczestnictwa, takie jak: imię i nazwisko oraz numer telefonu.",
+                "title": "Uwaga! Przed udostępnieniem kodu QR należy wysłać wiadomość do dostawcy."
+            },
+            "popup_sent": {
+                "description": "Dostawca otrzymał rezerwację i Twoją wiadomość. Skontaktuj się z dostawcą lub odwiedź go, aby usunąć ofertę.",
+                "title": "Twoja rezerwacja została wysłana do dostawcy.",
+                "title_modal": "Udział"
+            },
+            "reason_placeholder": "Wiadomość dla dostawcy"
+        },
+        "title": "{{ title }}",
+        "title_physical": "Twój {{ title }}",
+        "transactions": {
+            "add": "Dodaj",
+            "bank_transfer": "Przelew bankowy",
+            "expired_on": "Wygasła w dniu {[ data ]}",
+            "no_spending": "Brak wydatków",
+            "reservation": "Rezerwacja",
+            "subtract": "Odejmowanie",
+            "title": "Transakcje",
+            "top_up": "Ulepszony"
+        },
+        "voucher_card_combined": {
+            "header": {
+                "title": "Jak to działa?"
+            },
+            "labels": {
+                "contact_sponsor": "Jakieś pytania?",
+                "contact_sponsor_details": "Następnie skontaktuj się z nami.",
+                "how_it_works": "Otrzymaliśmy Twoje zgłoszenie. Decyzję w sprawie wniosku otrzymasz w ciągu 8 tygodni.",
+                "IIT": {
+                    "how_it_works": "Otrzymaliśmy Twoje zgłoszenie. Decyzję w sprawie wniosku otrzymasz w ciągu 8 tygodni.",
+                    "redirect_to": "Czy nadal chcesz ubiegać się o zwrot kosztów?"
+                },
+                "meedoenregeling_volwassenen_ww": {
+                    "how_it_works": "Czy poniosłeś wydatki objęte tym programem? Złóż wniosek o zwrot wydatków, przedstawiając paragon. Po zatwierdzeniu otrzymasz kwotę na swoje osobiste konto bankowe.",
+                    "redirect_to": "Odzyskać koszty?"
+                },
+                "redirect_to": "Czy nadal chcesz ubiegać się o zwrot kosztów?"
+            }
+        }
+    },
+    "vouchers": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "vouchers": "Moje kredyty"
+        },
+        "card": {
+            "deactivated": "Dezaktywowany",
+            "delete": "Usunąć",
+            "expire": "Ważne do:",
+            "expired": "Wygasł",
+            "number": "Liczba",
+            "unused": "Nieużywany",
+            "used": "Używany"
+        },
+        "empty": {
+            "button": "Aktywacja lub wniosek o kredyt",
+            "subtitle": "Obecnie nie masz żadnych kredytów",
+            "title": "Brak kredytów"
+        },
+        "filters": {
+            "active": "Aktywny",
+            "archive": "Archiwum"
+        },
+        "labels": {
+            "actions": "Działanie",
+            "expire": "Ważne do:",
+            "expired_on": "Wygasł w dniu:",
+            "generated": "Utworzony",
+            "last": "Ostatni numer",
+            "none": "Nie",
+            "open_voucher": "Otwarty",
+            "show_transactions": "Wyświetlanie transakcji",
+            "subtract": "(Af)",
+            "transactions": "Wydatki",
+            "used": "Używany",
+            "used_on": "Używany na:"
+        },
+        "reimbursement": {
+            "button": "Prześlij kupon",
+            "title": "Zwrot kosztów"
+        },
+        "title": "Moje kredyty"
+    },
+    "week_days": {
+        "0": "Poniedziałek",
+        "1": "Wtorek",
+        "2": "Środa",
+        "3": "Czwartek",
+        "4": "Piątek",
+        "5": "Sobota",
+        "6": "Niedziela"
+    },
+    "wip": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "not_found": "Nie znaleziono strony"
+        },
+        "description": "Ta strona jest w budowie.",
+        "title": "Prace w toku"
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "Kontrola garnków",
+            "home": "Strona główna"
+        },
+        "funds": "Fundusze",
+        "next_step": "Następny",
+        "no_value": "---",
+        "of": "z",
+        "previous_step": "Poprzedni krok",
+        "search": "Wyszukiwanie",
+        "show_less": "Pokaż mniej",
+        "show_more": "Pokaż więcej",
+        "advice": "Opinia",
+        "all_categories": "Wszystkie kategorie",
+        "all_organizations": "Wszystkie organizacje",
+        "almost_there": "Już prawie!",
+        "change_answers": "Zmiana odpowiedzi",
+        "download_pdf": "Pobierz jako PDF",
+        "total_amount": "Całkowita kwota",
+        "total_offers": "Całkowita oferta",
+        "your_data": "Twoje dane",
+        "record_required": "{{ title }} Pole jest obowiązkowe."
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "Wszystkie opłaty",
+            "funds_bus": "Korzyści z autobusu",
+            "funds_iit": "Dodatek do dochodu",
+            "funds_meedoen": "Uczestniczyć"
+        },
+        "goereeoverflakkee": {
+            "funds": "Programy"
+        }
+    },
+    "cookie_banner": {
+        "accept_all": "Zaakceptuj i idź dalej",
+        "analytics": "Analityczne pliki cookie",
+        "analytics_description": "Ta strona internetowa wykorzystuje analityczne pliki cookie do zbierania anonimowych statystyk dotyczących sposobu, w jaki odwiedzający korzystają z naszej strony internetowej. Informacje te pomagają nam ulepszać witrynę i czynić ją bardziej przyjazną dla użytkownika.",
+        "description": "Ta strona używa plików cookie, aby poprawić ogólne wrażenia użytkownika. Klikając \"Akceptuj i kontynuuj\", wyrażasz zgodę na korzystanie z plików cookie zgodnie z opisem w Oświadczeniu o ochronie prywatności.",
+        "functional_only": "Potrzebne tylko dla strony internetowej",
+        "local_storage": "Lokalna pamięć masowa",
+        "local_storage_description": "Lokalna pamięć masowa jest wykorzystywana w celu zapewnienia prawidłowego funkcjonowania strony internetowej i zapewnienia, że użytkownicy pozostają zalogowani.",
+        "manage_cookies": "Zarządzanie plikami cookie",
+        "privacy_policy": "Oświadczenie o ochronie prywatności",
+        "settings": "Ustawienia plików cookie",
+        "settings_description": "Ta strona internetowa wykorzystuje pliki cookie, aby zapewnić jak najlepsze funkcjonowanie witryny, poprawić komfort użytkowania i gromadzić anonimowe statystyki.",
+        "storage_info": "Ta witryna korzysta wyłącznie z lokalnych i analitycznych plików cookie:",
+        "title": "Ta strona używa plików cookie",
+        "view": "Wyświetl "
+    },
+    "logo_title": "Do strony głównej :host",
+    "push": {
+        "deleted": "Usunięty!",
+        "error": "Nie udało się!",
+        "fund_activation": {
+            "digid_success": "Zalogowany za pomocą DigiD.",
+            "success": "Kredyt {nazwa_funduszu} aktywowany!"
+        },
+        "pre_check": {
+            "downloaded": "Pobieranie rozpocznie się za kilka chwil.",
+            "not_available": "Ta strona jest niedostępna."
+        },
+        "preferences_emails": {
+            "verification_resent": "E-mail weryfikacyjny wysłany ponownie!"
+        },
+        "profile": {
+            "updated": "Informacje zostały zaktualizowane."
+        },
+        "reimbursement_edit": {
+            "saved": "Żądanie deklaracji zostało zapisane.",
+            "submitted": "Wniosek o deklarację został przesłany do przeglądu."
+        },
+        "reimbursement": {
+            "canceled": "Deklaracja anulowana."
+        },
+        "reservation": {
+            "canceled": "Rezerwacja anulowana."
+        },
+        "saved": "Ocalony!",
+        "sessions": {
+            "terminated": "Zakończone!"
+        },
+        "success": "Sukces!"
+    },
+    "read_speaker": {
+        "read_aloud": "Czytaj za",
+        "tooltip": "Odczytaj tekst za pomocą ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "Opcjonalnie",
+        "required": "Obowiązkowe"
+    }
+}

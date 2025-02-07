@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import React, { HTMLAttributes, ReactElement } from 'react';
 import { getStateRouteUrl, useNavigateState } from './Router';
+import classNames from 'classnames';
 
 export default function StateNavLink({
     name,
@@ -85,9 +86,9 @@ export default function StateNavLink({
             onKeyDown={onKeyDown}
             end={activeExact}
             tabIndex={tabIndex}
-            className={({ isActive, isPending }) =>
-                ['state-nav-link', className, isPending ? 'pending' : '', isActive ? activeClass : ''].join(' ')
-            }
+            className={({ isActive, isPending }) => {
+                return classNames('state-nav-link', className, isPending && 'pending', isActive && activeClass);
+            }}
             state={state}
             to={getStateRouteUrl(name, params, query)}>
             {children}

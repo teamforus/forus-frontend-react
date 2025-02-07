@@ -64,10 +64,10 @@ export default function IdentityContactInformationCard({
                 .then((res) => {
                     setProfile(res.data);
                     setEditContacts(false);
-                    pushSuccess('Gelukt!', 'De informatie is bijgewerkt.');
+                    pushSuccess(translate('push.success'), translate('push.profile.updated'));
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Error!', err.data.message);
+                    pushDanger(translate('push.error'), err.data.message);
                     form.setErrors(err.data.errors);
                 })
                 .finally(() => {

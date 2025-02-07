@@ -163,7 +163,7 @@ export default function Vouchers() {
         fetchVouchers();
     }, [fetchVouchers]);
 
-    if (!vouchers) {
+    if (!vouchers || !funds) {
         return <LoadingCard />;
     }
 

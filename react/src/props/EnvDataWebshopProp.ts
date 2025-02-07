@@ -20,7 +20,6 @@ export default interface EnvDataWebshopProp {
         disable_cookie_banner?: boolean;
         default_title?: string;
         allow_indexing?: boolean;
-        language_selector?: boolean;
 
         me_app_link?: string;
         ios_ipad_link?: string;
@@ -60,7 +59,6 @@ export default interface EnvDataWebshopProp {
 
             // home
             showStartButton?: boolean;
-            showStartButtonText?: string;
 
             showFooterSponsorLogo?: boolean;
             productDetailsOnlyAvailableFunds?: boolean;

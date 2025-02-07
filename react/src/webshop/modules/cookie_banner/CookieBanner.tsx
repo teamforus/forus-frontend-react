@@ -5,6 +5,7 @@ import CookieBannerToggle from './CookieBannerToggle';
 import StateNavLink from '../state_router/StateNavLink';
 import EnvDataWebshopProp from '../../../props/EnvDataWebshopProp';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import useTranslate from '../../../dashboard/hooks/useTranslate';
 
 export default function CookieBanner({
     envData,
@@ -13,6 +14,7 @@ export default function CookieBanner({
     envData: EnvDataWebshopProp;
     setAllowOptionalCookies: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+    const translate = useTranslate();
     const { matomo_url, matomo_site_id, site_improve_analytics_id, aws_rum } = envData?.config || {};
     const { disable_cookie_banner } = envData?.config || {};
     const [showConfigs, setShowConfigs] = useState(false);
@@ -55,20 +57,18 @@ export default function CookieBanner({
                     <div className="cookie-banner-icon">
                         <IconCookies />
                     </div>
-                    <div className="cookie-banner-title">Deze website gebruikt cookies</div>
+                    <div className="cookie-banner-title">{translate('cookie_banner.title')}</div>
                     <div className="cookie-banner-description">
-                        Deze website maakt gebruik van cookies om de algehele gebruikerservaring te verbeteren. Door op
-                        {'"Accepteren en doorgaan"'} te klikken, wordt ingestemd met het gebruik van cookies zoals
-                        omschreven in de Privacyverklaring.
+                        {translate('cookie_banner.description')}
                         <br />
                         <br />
-                        Bekijk de{' '}
+                        {translate('cookie_banner.view')}
                         <StateNavLink
                             name="privacy"
                             target={'_blank'}
                             className={'cookie-banner-description-link'}
                             tabIndex={1}>
-                            <strong>Privacyverklaring</strong>
+                            <strong>{translate('cookie_banner.privacy_policy')}</strong>
                         </StateNavLink>
                         .
                     </div>
@@ -77,13 +77,13 @@ export default function CookieBanner({
                             className="button button-primary button-sm cookie-banner-button"
                             onClick={onAcceptAll}
                             tabIndex={1}>
-                            Accepteren en doorgaan
+                            {translate('cookie_banner.accept_all')}
                         </button>
                         <button
                             className="button button-light button-sm cookie-banner-button"
                             onClick={onDisableOptional}
                             tabIndex={1}>
-                            Alleen nodig voor de website
+                            {translate('cookie_banner.functional_only')}
                         </button>
                     </div>
                     <div
@@ -95,7 +95,7 @@ export default function CookieBanner({
                             setTimeout(() => closeRef.current?.focus());
                         }}
                         className="cookie-banner-config">
-                        Beheer cookies
+                        {translate('cookie_banner.manage_cookies')}
                         <em className="mdi mdi-open-in-new" />
                     </div>
                 </Fragment>
@@ -104,7 +104,7 @@ export default function CookieBanner({
                     <div className="cookie-configs-header">
                         <div className="cookie-configs-wrapper">
                             <div className="cookie-configs-header-title">
-                                Cookie-instellingen
+                                {translate('cookie_banner.settings')}
                                 <div
                                     tabIndex={1}
                                     ref={closeRef}
@@ -114,43 +114,29 @@ export default function CookieBanner({
                                 />
                             </div>
                             <div className="cookie-configs-header-description">
-                                Deze website gebruikt cookies om de website zo goed mogelijk te laten functioneren, de
-                                gebruikservaring te verbeteren en om geanonimiseerde statistieken te verzamelen.
+                                {translate('cookie_banner.settings_description')}
                             </div>
                         </div>
                     </div>
                     <div className="cookie-configs-body">
                         <div className="cookie-configs-wrapper">
-                            <div className="cookie-configs-body-title">
-                                Deze website gebruikt alleen local storage en analytische cookies:
-                            </div>
+                            <div className="cookie-configs-body-title">{translate('cookie_banner.storage_info')}</div>
 
                             <div className="cookie-configs-toggles">
                                 <CookieBannerToggle
                                     disabled={true}
                                     accepted={functionalAccepted}
                                     setAccepted={setFunctionalAccepted}
-                                    title={'Local storage'}
-                                    description={
-                                        <Fragment>
-                                            Local storage wordt gebruikt om ervoor te zorgen dat de website goed
-                                            functioneert en dat gebruikers ingelogd blijven.
-                                        </Fragment>
-                                    }
+                                    title={translate('cookie_banner.local_storage')}
+                                    description={translate('cookie_banner.local_storage_description')}
                                 />
                                 <div className="cookie-configs-toggle-separator" />
                                 <CookieBannerToggle
                                     disabled={false}
                                     accepted={optionalAccepted}
                                     setAccepted={setOptionalAccepted}
-                                    title={'Analytische cookies'}
-                                    description={
-                                        <Fragment>
-                                            Deze website gebruikt analytische cookies om geanonimiseerde statistieken te
-                                            verzamelen over hoe bezoekers onze website gebruiken. Deze informatie helpt
-                                            ons om de website te verbeteren en gebruiksvriendelijker te maken.
-                                        </Fragment>
-                                    }
+                                    title={translate('cookie_banner.analytics')}
+                                    description={translate('cookie_banner.analytics_description')}
                                 />
                             </div>
                         </div>
@@ -162,7 +148,7 @@ export default function CookieBanner({
                                     className="button button-primary button-sm cookie-banner-button"
                                     onClick={onAcceptAll}
                                     tabIndex={1}>
-                                    Accepteren en doorgaan
+                                    {translate('cookie_banner.accept_all')}
                                 </button>
                             )}
 
@@ -170,7 +156,7 @@ export default function CookieBanner({
                                 className="button button-light button-sm cookie-banner-button"
                                 onClick={onDisableOptional}
                                 tabIndex={1}>
-                                Alleen nodig voor de website
+                                {translate('cookie_banner.functional_only')}
                             </button>
                         </div>
                     </div>

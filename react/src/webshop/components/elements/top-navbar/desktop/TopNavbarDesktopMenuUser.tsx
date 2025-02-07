@@ -70,7 +70,7 @@ export const TopNavbarDesktopMenuUser = () => {
                 onKeyDown={clickOnKeyEnter}
                 role="button"
                 ref={menuRef}
-                aria-label="Gebruikersmenu">
+                aria-label={translate('top_navbar.user_menu.aria_label')}>
                 <div className="navbar-desktop-user-avatar">
                     {envData?.config?.flags?.navbarCombined ? <IdentityAvatarAccount /> : <IdentityAvatar />}
                 </div>

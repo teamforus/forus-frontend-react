@@ -32,13 +32,17 @@ export default function Error() {
                         <div className="block-wrapper">
                             <div className="sign_up-pane">
                                 <div className="sign_up-pane-header text-danger">
-                                    {translate(`error.titles.${errorCode}`, transParams, 'Onbekende foutmelding')}
+                                    {translate(
+                                        `error.titles.${errorCode}`,
+                                        transParams,
+                                        translate('error.titles.unknown_error'),
+                                    )}
                                 </div>
                                 <div className="sign_up-pane-body text-center">
                                     <TranslateHtml
                                         component={<p className="sign_up-pane-text" />}
                                         i18n={`error.messages.${errorCode}`}
-                                        i18nDefault={'Onbekende foutmelding'}
+                                        i18nDefault={translate('error.titles.unknown_error')}
                                         values={transParams}
                                     />
 

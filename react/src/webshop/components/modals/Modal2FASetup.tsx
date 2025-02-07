@@ -116,10 +116,7 @@ export default function Modal2FASetup({
             })
             .catch((err: ResponseError) => {
                 setPhoneNumberError(err?.data?.errors?.phone);
-                pushDanger(
-                    translate('modal_2fa_setup.failed'),
-                    err.data?.message || translate('modal_2fa_setup.unknown_error'),
-                );
+                pushDanger(translate('push.error'), err.data?.message || translate('modal_2fa_setup.unknown_error'));
             });
     }, [blockResend, goToStep, identity2FAService, phoneNumber, pushDanger, translate]);
 
@@ -131,7 +128,7 @@ export default function Modal2FASetup({
                 goToStep('provider_select');
             })
             .catch((err: ResponseError) => {
-                pushDanger(err.data?.message || translate('modal_2fa_setup.unknown_error'));
+                pushDanger(translate('push.error'), err.data?.message || translate('modal_2fa_setup.unknown_error'));
 
                 if (err.status == 429) {
                     cancel();
@@ -174,7 +171,10 @@ export default function Modal2FASetup({
                 })
                 .catch((err: ResponseError) => {
                     setActivateAuthErrors(err.data?.errors?.code);
-                    pushDanger(err.data?.message || translate('modal_2fa_setup.unknown_error'));
+                    pushDanger(
+                        translate('push.error'),
+                        err.data?.message || translate('modal_2fa_setup.unknown_error'),
+                    );
                 })
                 .finally(() => unlock());
         },
@@ -195,9 +195,12 @@ export default function Modal2FASetup({
                     setVerifyAuthErrors(null);
                     goToStep('success');
                 })
-                .catch((res) => {
-                    setVerifyAuthErrors(res.data?.errors?.code);
-                    pushDanger(res.data?.message || translate('modal_2fa_setup.unknown_error'));
+                .catch((err: ResponseError) => {
+                    setVerifyAuthErrors(err.data?.errors?.code);
+                    pushDanger(
+                        translate('push.error'),
+                        err.data?.message || translate('modal_2fa_setup.unknown_error'),
+                    );
                 })
                 .finally(() => unlock());
         },
@@ -218,12 +221,9 @@ export default function Modal2FASetup({
                 .then(
                     () =>
                         notify
-                            ? pushSuccess(
-                                  translate('modal_2fa_setup.success'),
-                                  translate('modal_2fa_setup.code_resent'),
-                              )
+                            ? pushSuccess(translate('push.success'), translate('modal_2fa_setup.code_resent'))
                             : false,
-                    (res) => pushDanger(translate('modal_2fa_setup.failed'), res?.data?.message),
+                    (err: ResponseError) => pushDanger(translate('push.error'), err?.data?.message),
                 )
                 .then(() => setSendingCode(false));
         },
@@ -252,7 +252,10 @@ export default function Modal2FASetup({
     }, [onKeyDown]);
 
     useEffect(() => {
-        const providers = auth2FAState.providers.filter((provider) => provider.type == type);
+        const providers = auth2FAState.providers
+            .filter((provider) => provider.type == type)
+            .map((provider) => ({ ...provider, name: translate('security_2fa.app_providers.' + provider.key) }));
+
         const active_providers = auth2FAState.active_providers.filter((item) => item.provider_type.type == type);
 
         setAuth2FA((auth2FA) => (auth2FA ? auth2FA : active_providers.find((auth_2fa) => auth_2fa)));
@@ -264,7 +267,7 @@ export default function Modal2FASetup({
         return () => {
             unbindEvents();
         };
-    }, [type, bindEvents, unbindEvents, auth2FAState]);
+    }, [type, bindEvents, unbindEvents, auth2FAState, translate]);
 
     // should set up
     useEffect(() => {
@@ -343,9 +346,14 @@ export default function Modal2FASetup({
                                             {translate('modal_2fa_setup.dont_have_app', { name: provider.name })}
                                         </strong>
                                         {translate('modal_2fa_setup.download_from')}
-                                        <strong className="text-strong">Play Store</strong>
+                                        <strong className="text-strong">
+                                            {translate('modal_2fa_setup.download_from_play_store')}
+                                        </strong>
                                         {translate('modal_2fa_setup.or')}
-                                        <strong className="text-strong">App Store</strong>.
+                                        <strong className="text-strong">
+                                            {translate('modal_2fa_setup.download_from_app_store')}
+                                        </strong>
+                                        .
                                     </div>
 
                                     <div className="modal-section-description text-left">

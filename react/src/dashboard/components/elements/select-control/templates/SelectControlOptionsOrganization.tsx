@@ -176,6 +176,23 @@ export default function SelectControlOptionsOrganization<T>({
                                 </StateNavLink>
                             )}
 
+                            {isSponsorPanel &&
+                                hasPermission(activeOrganization, 'manage_organization') &&
+                                activeOrganization.allow_translations && (
+                                    <StateNavLink
+                                        name={'organizations-translations'}
+                                        params={{ organizationId: (modelValue?.raw as Organization)?.id }}
+                                        onClick={() => setShowOptions(false)}
+                                        className="select-control-switcher-setting">
+                                        <div className="select-control-switcher-setting-icon">
+                                            <em className="mdi mdi-translate-variant" />
+                                        </div>
+                                        <div className="select-control-switcher-setting-name">
+                                            {translate('organizations.buttons.translations')}
+                                        </div>
+                                    </StateNavLink>
+                                )}
+
                             {hasPermission(activeOrganization, 'manage_organization') && (
                                 <StateNavLink
                                     name={'organizations-edit'}

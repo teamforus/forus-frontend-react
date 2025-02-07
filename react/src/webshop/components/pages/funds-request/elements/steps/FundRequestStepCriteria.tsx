@@ -224,7 +224,9 @@ export default function FundRequestStepCriteria({
                                     onChange={(input_value?: string) => {
                                         setCriterion(criterion.id, { input_value: input_value });
                                     }}
-                                    placeholder={`Maak een keuze`}
+                                    placeholder={translate(
+                                        'fund_request.sign_up.fund_request_step_criteria.make_a_choice',
+                                    )}
                                 />
                             )}
 
@@ -357,7 +359,7 @@ export default function FundRequestStepCriteria({
                             </button>
                         ) : (
                             <button className="button button-primary" type="submit" role="button" tabIndex={0}>
-                                Verzenden
+                                {translate('fund_request.buttons.send')}
                             </button>
                         )
                     }

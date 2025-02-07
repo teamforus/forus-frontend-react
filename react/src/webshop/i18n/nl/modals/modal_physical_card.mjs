@@ -21,6 +21,10 @@ export default {
                 'Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.',
                 'Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00.',
             ].join('<br/>'),
+            no_old_card: 'Geen oude pas?',
+            order_card: 'Bestel een pas',
+            enter_physical_card_number: 'Voer het nummer van de fysieke pas in',
+            alt_text: 'Fysieke pas: {{ fund_name }}',
         },
         request_new_card: {
             title: 'Bestel een pas',
@@ -75,6 +79,7 @@ export default {
         request_new_card: {
             order_by_email: 'Per post bestellen',
             confirm: 'Bevestigen',
+            cancel: 'Annuleer',
         },
     },
 };

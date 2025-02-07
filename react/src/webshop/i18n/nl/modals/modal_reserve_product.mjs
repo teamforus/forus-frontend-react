@@ -5,6 +5,7 @@ export default {
     add_email: 'Toevoegen',
     cancel: 'Annuleren',
     skip: 'Overslaan',
+    voucher_image_alt: 'Tegoeden',
     header: {
         title: 'Maak een reservering',
     },
@@ -110,6 +111,7 @@ export default {
     buttons: {
         cancel: 'Annuleren',
         back: 'Terug',
+        next: 'Volgende',
         confirm: 'Bevestigen',
         submit: 'Indienen',
         adjust: 'Terug',

@@ -60,7 +60,10 @@ export default function BookmarkedProducts() {
 
     return (
         <BlockShowcaseProfile
-            breadcrumbItems={[{ name: 'Home', state: 'home' }, { name: translate('bookmarked_products.title') }]}
+            breadcrumbItems={[
+                { name: translate('bookmarked_products.breadcrumbs.home'), state: 'home' },
+                { name: translate('bookmarked_products.title') },
+            ]}
             profileHeader={
                 products && (
                     <div className="profile-content-header clearfix">

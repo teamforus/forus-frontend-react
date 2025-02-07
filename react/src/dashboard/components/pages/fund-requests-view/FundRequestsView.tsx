@@ -208,12 +208,15 @@ export default function FundRequestsView() {
                     }
                     buttonCancel={{ onClick: modal.close }}
                     buttonSubmit={{
-                        onClick: () => {
+                        onClick: (_e, setDisabled) => {
+                            setDisabled(true);
                             modal.close();
+
                             fundRequestService
                                 .approve(activeOrganization.id, fundRequestMeta.id)
                                 .then(() => reloadRequest())
                                 .catch((err: ResponseError) => {
+                                    setDisabled(false);
                                     showInfoModal(
                                         'Validatie van persoonsgegeven mislukt.',
                                         `Reden: ${err.data.message}`,

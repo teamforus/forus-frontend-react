@@ -93,6 +93,8 @@ import Products from '../components/pages/products/Products';
 import SponsorProducts from '../components/pages/sponsor-products/SponsorProducts';
 import SponsorProductView from '../components/pages/sponsor-product/SponsorProductView';
 import Identities from '../components/pages/identities/Identities';
+import OrganizationsTranslations from '../components/pages/organizations-translations/OrganizationsTranslations';
+import ImplementationsTranslations from '../components/pages/implementations-cookies/ImplementationsTranslations';
 
 const router = new RouterBuilder();
 
@@ -383,6 +385,12 @@ router.state('implementations-cookies', <ImplementationsCookies />, {
     fallbackState: 'organizations',
 });
 
+router.state('implementations-translations', <ImplementationsTranslations />, {
+    path: `/organisaties/:organizationId/implementaties/:id/vertalingen`,
+    altPath: `/organizations/:organizationId/implementations/:id/translations`,
+    fallbackState: 'organizations',
+});
+
 router.state('implementations-digid', <ImplementationsDigid />, {
     path: `/organisaties/:organizationId/implementaties/:id/digid`,
     altPath: `/organizations/:organizationId/implementations/:id/digid`,
@@ -434,6 +442,12 @@ router.state('bi-connection', <BiConnection />, {
 router.state('organizations-contacts', <OrganizationsContacts />, {
     path: `/organisaties/:organizationId/contacten`,
     altPath: `/organizations/:organizationId/contacts`,
+    fallbackState: 'organizations',
+});
+
+router.state('organizations-translations', <OrganizationsTranslations />, {
+    path: `/organisaties/:organizationId/vertalingen`,
+    altPath: `/organizations/:organizationId/translations`,
     fallbackState: 'organizations',
 });
 

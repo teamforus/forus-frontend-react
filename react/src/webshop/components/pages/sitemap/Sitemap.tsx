@@ -21,7 +21,7 @@ export default function Sitemap() {
                 { name: translate('sitemap.breadcrumbs.sitemap') },
             ]}>
             <div className="block block-sitemap">
-                <h1>Sitemap</h1>
+                <h1>{translate('sitemap.title')}</h1>
                 <ul>
                     <li>
                         <StateNavLink name="home">{translate('top_navbar.items.home')}</StateNavLink>
@@ -67,10 +67,10 @@ export default function Sitemap() {
                         </StateNavLink>
                     </li>
                     <li>
-                        <StateNavLink name="me-app">Me-app</StateNavLink>
+                        <StateNavLink name="me-app">{translate('profile_menu.buttons.me_app')}</StateNavLink>
                     </li>
                     <li>
-                        <StateNavLink name="sign-up">Aanmelden als aanbieder</StateNavLink>
+                        <StateNavLink name="sign-up">{translate('profile_menu.buttons.provider_sign_up')}</StateNavLink>
                     </li>
                 </ul>
                 {authIdentity && (

@@ -175,7 +175,7 @@ export default function TransactionBulkTransactionsTable({
                                         </td>
 
                                         <td>
-                                            <div className="text-primary text-medium">
+                                            <div className="text-primary text-semibold">
                                                 {transaction.created_at_locale.split(' - ')[0]}
                                             </div>
                                             <div className="text-strong text-md text-muted-dark">

@@ -31,8 +31,8 @@ export default function ModalPhysicalCardUnlink({
                 onPhysicalCardUnlinked();
                 setState('unlinked');
             })
-            .catch((err: ResponseError) => pushDanger(err.data?.message));
-    }, [onPhysicalCardUnlinked, physicalCardsService, pushDanger, voucher]);
+            .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data?.message));
+    }, [onPhysicalCardUnlinked, physicalCardsService, pushDanger, voucher, translate]);
 
     const requestNewCard = useCallback(() => {
         onClose?.(true);
