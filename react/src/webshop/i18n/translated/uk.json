@@ -148,9 +148,6 @@
                 "title": "Мій додаток"
             }
         },
-        "privacy_link": {
-            "text": "Я прочитав <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">заяву про конфіденційність</a> "
-        },
         "push": {
             "link_used": {
                 "title": "Це посилання вже використовувалося або є недійсним."
@@ -165,7 +162,13 @@
             "title": "Відновити обліковий запис"
         },
         "setup_2fa_title": "Налаштування двофакторної автентифікації",
-        "sign_in_up_title": "Створити обліковий запис або запустити додаток?"
+        "sign_in_up_title": "Створити обліковий запис або запустити додаток?",
+        "privacy_link": {
+            "text": "Я прочитав <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">заяву про конфіденційність</a> "
+        },
+        "terms_link": {
+            "text": "Я погоджуюся з <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">умовами та положеннями</a>"
+        }
     },
     "block_funds": {
         "labels": {

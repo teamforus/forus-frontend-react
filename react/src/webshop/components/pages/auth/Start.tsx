@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authContext } from '../../../contexts/AuthContext';
-import { getStateRouteUrl, useNavigateState, useStateParams } from '../../../modules/state_router/Router';
+import { useNavigateState, useStateHref, useStateParams } from '../../../modules/state_router/Router';
 import { useAuthService } from '../../../services/AuthService';
 import useFormBuilder from '../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
@@ -24,7 +24,6 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import SignUpFooter from '../../elements/sign-up/SignUpFooter';
 import BindLinksInside from '../../elements/bind-links-inside/BindLinksInside';
-import { webshopUrl } from '../../../../dashboard/helpers/url';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -37,6 +36,9 @@ export default function Start() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
+
+    const termsUrl = useStateHref('terms_and_conditions');
+    const privacyUrl = useStateHref('privacy');
 
     const { target } = useStateParams<{ target?: string }>();
     const [state, setState] = useState<string>('start');
@@ -63,7 +65,7 @@ export default function Start() {
 
     const signedIn = useMemo(() => !!token, [token]);
 
-    const hasPrivacy = useMemo(() => {
+    const showPrivacy = useMemo(() => {
         return (
             appConfigs?.show_privacy_checkbox &&
             appConfigs?.pages.privacy &&
@@ -71,7 +73,7 @@ export default function Start() {
         );
     }, [appConfigs, envData, state]);
 
-    const hasTerms = useMemo(() => {
+    const showTerms = useMemo(() => {
         return (
             appConfigs?.show_terms_checkbox &&
             appConfigs?.pages.terms_and_conditions &&
@@ -87,7 +89,7 @@ export default function Start() {
             terms: false,
         },
         async (values) => {
-            if ((!values.privacy && hasPrivacy) || (!values.terms && hasTerms)) {
+            if ((!values.privacy && showPrivacy) || (!values.terms && showTerms)) {
                 // prevent submit if policy exist and not checked
                 authForm.setIsLocked(false);
                 return;
@@ -221,17 +223,15 @@ export default function Start() {
     }, [envData, setTitle, translate]);
 
     useEffect(() => {
-        if ((!authForm?.values?.privacy && hasPrivacy) || (!authForm?.values?.terms && hasTerms)) {
+        if ((!authForm?.values?.privacy && showPrivacy) || (!authForm?.values?.terms && showTerms)) {
             setDisableSubmitBtn(true);
         } else {
             setDisableSubmitBtn(false);
         }
-    }, [authForm?.values?.privacy, authForm?.values?.terms, hasPrivacy, hasTerms]);
+    }, [authForm?.values?.privacy, authForm?.values?.terms, showPrivacy, showTerms]);
 
     const privacyCheckbox = useCallback(() => {
-        const privacyUrl = webshopUrl(getStateRouteUrl('privacy'), appConfigs);
-
-        return hasPrivacy ? (
+        return showPrivacy ? (
             <div className="row">
                 <div className="col col-lg-12">
                     <br className="hidden-lg" />
@@ -262,12 +262,10 @@ export default function Start() {
                 </div>
             </div>
         ) : null;
-    }, [appConfigs, authForm, hasPrivacy]);
+    }, [authForm, showPrivacy, privacyUrl]);
 
     const termsCheckbox = useCallback(() => {
-        const termsUrl = webshopUrl(getStateRouteUrl('terms_and_conditions'), appConfigs);
-
-        return hasTerms ? (
+        return showTerms ? (
             <div className="row">
                 <div className="col col-lg-12">
                     <br className="hidden-lg" />
@@ -298,7 +296,7 @@ export default function Start() {
                 </div>
             </div>
         ) : null;
-    }, [appConfigs, authForm, hasTerms]);
+    }, [authForm, showTerms, termsUrl]);
 
     const inlineEmailForm = useCallback(
         (showCheckboxes = true) => (

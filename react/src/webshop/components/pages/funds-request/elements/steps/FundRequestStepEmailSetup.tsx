@@ -13,8 +13,7 @@ import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useAppConfigs from '../../../../../hooks/useAppConfigs';
 import SignUpFooter from '../../../../elements/sign-up/SignUpFooter';
 import BindLinksInside from '../../../../elements/bind-links-inside/BindLinksInside';
-import { getStateRouteUrl } from '../../../../../modules/state_router/Router';
-import { webshopUrl } from '../../../../../../dashboard/helpers/url';
+import { useStateHref } from '../../../../../modules/state_router/Router';
 
 export default function FundRequestStepEmailSetup({
     fund,
@@ -36,6 +35,9 @@ export default function FundRequestStepEmailSetup({
 
     const translate = useTranslate();
     const identityEmailsService = useIdentityEmailsService();
+
+    const termsUrl = useStateHref('terms_and_conditions');
+    const privacyUrl = useStateHref('privacy');
 
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const [emailSubmitted, setEmailSubmitted] = useState(false);
@@ -197,12 +199,7 @@ export default function FundRequestStepEmailSetup({
                                                 <strong>
                                                     <TranslateHtml
                                                         i18n={'auth.privacy_link.text'}
-                                                        values={{
-                                                            link_url: webshopUrl(
-                                                                getStateRouteUrl('privacy'),
-                                                                appConfigs,
-                                                            ),
-                                                        }}
+                                                        values={{ link_url: privacyUrl }}
                                                     />
                                                 </strong>
                                             </BindLinksInside>
@@ -236,12 +233,7 @@ export default function FundRequestStepEmailSetup({
                                                 <strong>
                                                     <TranslateHtml
                                                         i18n={'auth.terms_link.text'}
-                                                        values={{
-                                                            link_url: webshopUrl(
-                                                                getStateRouteUrl('terms_and_conditions'),
-                                                                appConfigs,
-                                                            ),
-                                                        }}
+                                                        values={{ link_url: termsUrl }}
                                                     />
                                                 </strong>
                                             </BindLinksInside>

@@ -148,9 +148,6 @@
                 "title": "Ich-App"
             }
         },
-        "privacy_link": {
-            "text": "Ich habe die <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">Datenschutzbestimmungen</a> gelesen"
-        },
         "push": {
             "link_used": {
                 "title": "Dieser Link wurde bereits verwendet oder ist ungültig."
@@ -165,7 +162,13 @@
             "title": "Konto wiederherstellen"
         },
         "setup_2fa_title": "Einrichten der Zwei-Faktor-Authentifizierung",
-        "sign_in_up_title": "Ein Konto erstellen oder eine Bewerbung starten?"
+        "sign_in_up_title": "Ein Konto erstellen oder eine Bewerbung starten?",
+        "privacy_link": {
+            "text": "Ich habe die <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Datenschutzbestimmungen</a> gelesen"
+        },
+        "terms_link": {
+            "text": "Ich stimme den <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Bedingungen und Konditionen</a> zu"
+        }
     },
     "block_funds": {
         "labels": {

@@ -199,8 +199,8 @@ export type AppConfigProp = {
     show_voucher_map: boolean;
     show_product_map: boolean;
     page_title_suffix?: string;
-    show_terms_checkbox?: string;
-    show_privacy_checkbox?: string;
+    show_terms_checkbox?: boolean;
+    show_privacy_checkbox?: boolean;
     languages: Array<Language>;
 };
 

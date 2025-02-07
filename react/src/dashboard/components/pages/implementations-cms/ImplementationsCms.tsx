@@ -25,6 +25,7 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import PhotoSelectorData from '../../elements/photo-selector/types/PhotoSelectorData';
 import useTranslate from '../../../hooks/useTranslate';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
+import FormGroup from '../../elements/forms/controls/FormGroup';
 
 export default function ImplementationsCms() {
     const { id } = useParams();
@@ -664,51 +665,79 @@ export default function ImplementationsCms() {
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-lg-9">
-                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
-                                    <label className="form-label" htmlFor="show_privacy_checkbox">
-                                        {translate('implementation_edit.labels.show_privacy_checkbox')}
-                                    </label>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            id="show_privacy_checkbox"
-                                            className="form-control"
-                                            propKey="value"
-                                            propValue="label"
-                                            allowSearch={false}
-                                            options={privacyAndTermsState}
-                                            value={form.values?.show_privacy_checkbox}
-                                            onChange={(value?: boolean) => {
-                                                form.update({ show_privacy_checkbox: value });
-                                            }}
-                                            optionsComponent={SelectControlOptions}
-                                        />
-
-                                        <FormError error={form.errors.show_privacy_checkbox} />
-                                    </div>
-                                </div>
-
-                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
-                                    <label className="form-label" htmlFor="show_terms_checkbox">
-                                        {translate('implementation_edit.labels.show_terms_checkbox')}
-                                    </label>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            id="show_terms_checkbox"
-                                            className="form-control"
-                                            propKey="value"
-                                            propValue="label"
-                                            allowSearch={false}
-                                            options={privacyAndTermsState}
-                                            value={form.values?.show_terms_checkbox}
-                                            onChange={(value?: boolean) => {
-                                                form.update({ show_terms_checkbox: value });
-                                            }}
-                                            optionsComponent={SelectControlOptions}
-                                        />
-
-                                        <FormError error={form.errors.show_terms_checkbox} />
-                                    </div>
-                                </div>
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    label={translate('implementation_edit.labels.show_privacy_checkbox')}
+                                    error={form.errors.show_privacy_checkbox}
+                                    input={(id) => (
+                                        <FormGroupInfo
+                                            info={
+                                                <Fragment>
+                                                    <p>
+                                                        Activeer deze instelling als de gebruiker akkoord moet gaan met
+                                                        de privacyvoorwaarden op de website. Op de aanmeldpagina
+                                                        verschijnt een checkbox.
+                                                    </p>
+                                                    <p>
+                                                        <strong>Belangrijk!</strong> Zorg ervoor dat de privacypagina is
+                                                        ingesteld in het CMS, zodat de link naar deze pagina goed werkt.
+                                                    </p>
+                                                </Fragment>
+                                            }>
+                                            <SelectControl
+                                                id={id}
+                                                className="form-control"
+                                                propKey="value"
+                                                propValue="label"
+                                                allowSearch={false}
+                                                options={privacyAndTermsState}
+                                                value={form.values?.show_privacy_checkbox}
+                                                onChange={(value?: boolean) => {
+                                                    form.update({ show_privacy_checkbox: value });
+                                                }}
+                                                optionsComponent={SelectControlOptions}
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    label={translate('implementation_edit.labels.show_terms_checkbox')}
+                                    error={form.errors.show_terms_checkbox}
+                                    input={(id) => (
+                                        <FormGroupInfo
+                                            info={
+                                                <Fragment>
+                                                    <p>
+                                                        Activeer deze instelling als de gebruiker akkoord moet gaan met
+                                                        de voorwaarden van de website. Op de aanmeldpagina verschijnt
+                                                        een checkbox.
+                                                    </p>
+                                                    <p>
+                                                        <strong>Belangrijk!</strong> Zorg ervoor dat de voorwaarden
+                                                        pagina is ingesteld in het CMS, zodat de link naar deze pagina
+                                                        goed werkt.
+                                                    </p>
+                                                </Fragment>
+                                            }>
+                                            <SelectControl
+                                                id={id}
+                                                className="form-control"
+                                                propKey="value"
+                                                propValue="label"
+                                                allowSearch={false}
+                                                options={privacyAndTermsState}
+                                                value={form.values?.show_terms_checkbox}
+                                                onChange={(value?: boolean) => {
+                                                    form.update({ show_terms_checkbox: value });
+                                                }}
+                                                optionsComponent={SelectControlOptions}
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
                             </div>
                         </div>
                     </div>
