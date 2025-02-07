@@ -165,7 +165,7 @@ export default function ModalPhysicalCardType({
                             onClick={modal.close}
                             tabIndex={0}
                             onKeyDown={clickOnKeyEnter}
-                            aria-label="Sluiten"
+                            aria-label={translate('modal_physical_card.buttons.close')}
                             role="button"
                         />
 
@@ -187,11 +187,12 @@ export default function ModalPhysicalCardType({
                                     />
                                 </div>
                                 <div className="modal-section-description">
-                                    Geen oude pas?{' '}
+                                    {translate('modal_physical_card.modal_section.link_card.no_old_card')}{' '}
                                     <strong className={'clickable'} onClick={() => requestPhysicalCard()}>
-                                        Bestel een pas
+                                        {translate('modal_physical_card.modal_section.link_card.order_card')}
                                     </strong>
                                 </div>
+
                                 <PincodeControl
                                     className="block-pincode-phone"
                                     value={activateCodeForm.values.code}
@@ -200,15 +201,21 @@ export default function ModalPhysicalCardType({
                                     blockCount={3}
                                     valueType={'num'}
                                     cantDeleteSize={3}
-                                    ariaLabel={'Voer het nummer van de fysieke pas in'}
+                                    ariaLabel={translate(
+                                        'modal_physical_card.modal_section.link_card.enter_physical_card_number',
+                                    )}
                                 />
+
                                 <FormError className={'text-center'} error={activateCodeForm.errors.code} />
+
                                 <div className="modal-section-icon">
                                     <img
                                         src={assetUrl(
                                             '/assets/img/icon-physical-cards/icon-physical-cards-preview.svg',
                                         )}
-                                        alt={`Fysieke pas: ${voucher.fund.name}`}
+                                        alt={translate('modal_physical_card.modal_section.link_card.alt_text', {
+                                            fund_name: voucher.fund.name,
+                                        })}
                                     />
                                 </div>
                             </div>
@@ -233,7 +240,7 @@ export default function ModalPhysicalCardType({
                                 onClick={modal.close}
                                 tabIndex={0}
                                 onKeyDown={clickOnKeyEnter}
-                                aria-label="Sluiten"
+                                aria-label={translate('modal_physical_card.buttons.close')}
                                 role="button"
                             />
                             <h2 className="modal-header-title" id="physicalCardTypeDialogTitle">
@@ -355,7 +362,9 @@ export default function ModalPhysicalCardType({
                                         src={assetUrl(
                                             '/assets/img/icon-physical-cards/icon-physical-cards-preview-variant.png',
                                         )}
-                                        alt={`Fysieke pas: '${voucher.fund.name}'`}
+                                        alt={translate('modal_physical_card.modal_section.link_card.alt_text', {
+                                            fund_name: voucher.fund.name,
+                                        })}
                                     />
                                 </div>
                                 <div className="modal-section-title">
@@ -475,7 +484,7 @@ export default function ModalPhysicalCardType({
                                     className="button button-light button-sm flex-center"
                                     type="button"
                                     onClick={modal.close}>
-                                    Annuleer
+                                    {translate('modal_physical_card.buttons.request_new_card.cancel')}
                                 </button>
                                 <div className="flex flex-grow hide-sm">&nbsp;</div>
                                 <button className="button button-primary button-sm flex-center" type="submit">
@@ -493,7 +502,7 @@ export default function ModalPhysicalCardType({
                             onClick={modal.close}
                             tabIndex={0}
                             onKeyDown={clickOnKeyEnter}
-                            aria-label="Sluiten"
+                            aria-label={translate('modal_physical_card.buttons.close')}
                             role="button"
                         />
 
@@ -549,7 +558,7 @@ export default function ModalPhysicalCardType({
                             onClick={modal.close}
                             tabIndex={0}
                             onKeyDown={clickOnKeyEnter}
-                            aria-label="Sluiten"
+                            aria-label={translate('modal_physical_card.buttons.close')}
                             role="button"
                         />
                         <div className="modal-header">
@@ -587,7 +596,7 @@ export default function ModalPhysicalCardType({
                             onClick={modal.close}
                             tabIndex={0}
                             onKeyDown={clickOnKeyEnter}
-                            aria-label="Sluiten"
+                            aria-label={translate('modal_physical_card.buttons.close')}
                             role="button"
                         />
 

@@ -1,88 +1,120 @@
 import React from 'react';
-import LayoutAsideNavItem from './LayoutAsideNavItem';
-import { hasPermission } from '../../../helpers/utils';
+import LayoutAsideNavGroup from './elements/LayoutAsideNavGroup';
 import Organization from '../../../props/models/Organization';
+import { hasPermission } from '../../../helpers/utils';
+import {
+    IconOverview,
+    IconOverviewActive,
+    IconSales,
+    IconSalesActive,
+    IconFinancial,
+    IconFinancialActive,
+} from './icons/LayoutAsideIcons';
+import LayoutAsideGroupOrganization from './groups/LayoutAsideGroupOrganization';
+import LayoutAsideGroupPersonal from './groups/LayoutAsideGroupPersonal';
+import LayoutAsideGroupHelp from './groups/LayoutAsideGroupHelp';
+import { usePinnedMenuGroups } from './hooks/usePinnedMenuGroups';
 
 export default function LayoutAsideProvider({ organization }: { organization: Organization }) {
+    const [pinnedGroups, setPinnedGroups] = usePinnedMenuGroups('pinnedMenuGroupsProvider');
+
     return (
         <div className="sidebar-nav">
-            <div className="sidebar-section-title">Organisatie</div>
-            <LayoutAsideNavItem
-                name={'Overzicht'}
-                icon={'provider-overview'}
-                route={'provider-overview'}
-                routeParams={{ organizationId: organization?.id }}
+            {/* Overzicht */}
+            <LayoutAsideNavGroup
+                id="menu_overview"
+                name="Overzicht"
+                state="provider-overview"
+                stateParams={{ organizationId: organization?.id }}
                 show={hasPermission(organization, 'manage_employees')}
-                id={'provider-overview'}
+                icon={<IconOverview />}
+                iconActive={<IconOverviewActive />}
+                pinnedGroups={pinnedGroups}
+                setPinnedGroups={setPinnedGroups}
             />
-            <LayoutAsideNavItem
-                name={'Vestigingen'}
-                icon={'offices'}
-                route={'offices'}
-                routeParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, 'manage_offices')}
-                id={'offices'}
+
+            {/* Verkoop */}
+            <LayoutAsideNavGroup
+                id="menu_sales"
+                name="Verkoop"
+                icon={<IconSales />}
+                iconActive={<IconSalesActive />}
+                pinnedGroups={pinnedGroups}
+                setPinnedGroups={setPinnedGroups}
+                dusk={'asideMenuGroupSales'}
+                items={[
+                    {
+                        id: 'products',
+                        name: 'Aanbod',
+                        state: 'products',
+                        stateParams: { organizationId: organization?.id },
+                        show: hasPermission(organization, 'manage_products'),
+                    },
+                    {
+                        id: 'reservations',
+                        name: 'Reserveringen',
+                        state: 'reservations',
+                        stateParams: { organizationId: organization?.id },
+                        show: hasPermission(organization, 'scan_vouchers'),
+                        dusk: 'reservationsPage',
+                    },
+                    {
+                        id: 'funds',
+                        name: 'Fondsen',
+                        state: 'provider-funds',
+                        stateParams: { organizationId: organization?.id },
+                        show: hasPermission(organization, 'manage_provider_funds'),
+                    },
+                ]}
             />
-            <LayoutAsideNavItem
-                name={'Transacties'}
-                icon={'transactions'}
-                route={'transactions'}
-                routeParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, 'view_finances')}
-                id={'transactions'}
+
+            {/* Financieel */}
+            <LayoutAsideNavGroup
+                id="menu_financial"
+                name="Financieel"
+                icon={<IconFinancial />}
+                iconActive={<IconFinancialActive />}
+                pinnedGroups={pinnedGroups}
+                setPinnedGroups={setPinnedGroups}
+                items={[
+                    {
+                        id: 'transactions',
+                        name: 'Transacties',
+                        state: 'transactions',
+                        stateParams: { organizationId: organization?.id },
+                        show: hasPermission(organization, 'view_finances'),
+                    },
+                    {
+                        id: 'payment-methods',
+                        name: 'Bijbetaalmethoden',
+                        state: 'payment-methods',
+                        stateParams: { organizationId: organization?.id },
+                        show:
+                            organization?.can_view_provider_extra_payments &&
+                            hasPermission(organization, 'manage_payment_methods'),
+                    },
+                ]}
             />
-            <LayoutAsideNavItem
-                name={'Fondsen'}
-                icon={'funds'}
-                route={'provider-funds'}
-                routeParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, 'manage_provider_funds')}
-                id={'funds'}
+
+            {/* Organisatie */}
+            <LayoutAsideGroupOrganization
+                organization={organization}
+                pinnedGroups={pinnedGroups}
+                setPinnedGroups={setPinnedGroups}
             />
-            <LayoutAsideNavItem
-                name={'Aanbod'}
-                icon={'products'}
-                route={'products'}
-                routeParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, 'manage_products')}
-                id={'products'}
+
+            {/* Persoonlijke instellingen */}
+            <LayoutAsideGroupPersonal
+                organization={organization}
+                pinnedGroups={pinnedGroups}
+                setPinnedGroups={setPinnedGroups}
             />
-            <LayoutAsideNavItem
-                name={'Reserveringen'}
-                icon={'reservations'}
-                route={'reservations'}
-                routeParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, 'scan_vouchers')}
-                id={'reservations'}
-                dusk={'reservationsPage'}
-            />
-            <LayoutAsideNavItem
-                name={'Medewerkers'}
-                icon={'list'}
-                route={'employees'}
-                routeParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, 'manage_employees')}
-                id={'employees'}
-                dusk={'employeesPage'}
-            />
-            <LayoutAsideNavItem
-                name={'Bijbetaal methodes'}
-                icon={'payment-methods'}
-                route={'payment-methods'}
-                routeParams={{ organizationId: organization?.id }}
-                show={
-                    organization?.can_view_provider_extra_payments &&
-                    hasPermission(organization, 'manage_payment_methods')
-                }
-                id={'payment-methods'}
-            />
-            <LayoutAsideNavItem
-                name={'Beveiliging'}
-                icon={'organization-security'}
-                route={'organization-security'}
-                routeParams={{ organizationId: organization?.id }}
-                show={organization.allow_2fa_restrictions && hasPermission(organization, 'manage_organization')}
-                id={'requesters'}
+
+            {/* Ondersteuning */}
+            <LayoutAsideGroupHelp
+                organization={organization}
+                pinnedGroups={pinnedGroups}
+                setPinnedGroups={setPinnedGroups}
             />
         </div>
     );

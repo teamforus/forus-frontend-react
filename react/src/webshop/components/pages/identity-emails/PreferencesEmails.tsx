@@ -44,7 +44,7 @@ export default function PreferencesEmails() {
             identityEmailService
                 .resendVerification(emailId)
                 .then(() => {
-                    pushSuccess('Verificatie e-mail opnieuw verstuurd!');
+                    pushSuccess(translate('push.success'), translate('push.preferences_emails.verification_resent'));
 
                     setEmailDisableTimeout(
                         window.setTimeout(() => {
@@ -62,7 +62,7 @@ export default function PreferencesEmails() {
                 })
                 .finally(() => setProgress(100));
         },
-        [emailDisabled, identityEmailService, pushSuccess, setProgress],
+        [emailDisabled, identityEmailService, pushSuccess, setProgress, translate],
     );
 
     const fetchEmails = useCallback(() => {
@@ -81,11 +81,11 @@ export default function PreferencesEmails() {
             }
 
             identityEmailService.makePrimary(email.id).then(() => {
-                pushSuccess('Opgeslagen!');
+                pushSuccess(translate('push.saved'));
                 fetchEmails();
             });
         },
-        [emailDisabled, identityEmailService, pushSuccess, fetchEmails],
+        [emailDisabled, identityEmailService, pushSuccess, fetchEmails, translate],
     );
 
     const deleteEmail = useCallback(
@@ -95,11 +95,11 @@ export default function PreferencesEmails() {
             }
 
             identityEmailService.delete(email.id).then(() => {
-                pushSuccess('Verwijderd!');
+                pushSuccess(translate('push.deleted'));
                 fetchEmails();
             });
         },
-        [emailDisabled, fetchEmails, identityEmailService, pushSuccess],
+        [emailDisabled, fetchEmails, identityEmailService, pushSuccess, translate],
     );
 
     const form = useFormBuilder({ email: '' }, (values) => {

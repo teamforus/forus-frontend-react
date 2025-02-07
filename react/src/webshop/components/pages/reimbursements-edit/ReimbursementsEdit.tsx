@@ -95,9 +95,9 @@ export default function ReimbursementsEdit() {
                     form.errors = null;
 
                     if (res.data.data.state === 'pending') {
-                        pushSuccess('Gelukt!', 'Declaratie verzoek is ingediend voor beoordeling.');
+                        pushSuccess(translate('push.success'), translate('push.reimbursement_edit.submitted'));
                     } else {
-                        pushSuccess('Gelukt!', 'Declaratie verzoek is opgeslagen.');
+                        pushSuccess(translate('push.success'), translate('push.reimbursement_edit.saved'));
                     }
 
                     navigateState('reimbursements');
@@ -106,7 +106,7 @@ export default function ReimbursementsEdit() {
                     form.setIsLocked(false);
                     form.setErrors(err.data.errors || null);
                     setFiles(setFilesErrors(files, form.errors));
-                    pushDanger('Error!', err.data.message);
+                    pushDanger(translate('push.error'), err.data.message);
                     setGeneralErrorMsg(err.data.message);
                 })
                 .finally(() => setProgress(100));

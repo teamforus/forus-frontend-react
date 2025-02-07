@@ -95,15 +95,39 @@ export function addOrUpdate(flattenedArray, key, value) {
     return flattenedArray;
 }
 
-export async function translateValue(value, fromLang, toLang) {
+export async function translateBatch(entries, fromLang, toLang) {
     if (deeplEnv.testMode) {
-        return `${toLang}: ${value}`;
+        return entries.map(({ text }) => (typeof text === 'string' && text.trim() !== '' ? `${toLang}: ${text}` : ''));
     }
 
-    const res = await translator.translateText(value, fromLang, toLang, {
+    const validEntries = [];
+    const originalIndices = [];
+
+    entries.forEach(({ text }, index) => {
+        if (typeof text === 'string' && text.trim() !== '') {
+            validEntries.push(text);
+            originalIndices.push(index);
+        }
+    });
+
+    if (validEntries.length === 0) {
+        return entries.map(() => '');
+    }
+
+    const results = await translator.translateText(validEntries, fromLang, toLang, {
         ignoreTags: 'keep',
         tagHandling: 'xml',
     });
 
-    return res?.text;
+    if (!Array.isArray(results)) {
+        throw new Error('DeepL response is not an array');
+    }
+
+    const translatedTexts = new Array(entries.length).fill('');
+
+    originalIndices.forEach((originalIndex, resultIndex) => {
+        translatedTexts[originalIndex] = results[resultIndex].text;
+    });
+
+    return translatedTexts;
 }

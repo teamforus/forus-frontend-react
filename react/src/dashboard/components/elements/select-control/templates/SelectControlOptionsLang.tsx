@@ -27,6 +27,7 @@ export default function SelectControlOptionsLang<T>({
     onOptionsScroll,
     rawValue,
     disabled,
+    propKey,
 }: SelectControlOptionsProp<T>) {
     const [controlId] = useState('select_control_' + uniqueId());
     const input = useRef(null);
@@ -66,7 +67,7 @@ export default function SelectControlOptionsLang<T>({
                     title={placeholderValue || placeholder}>
                     <em className="mdi mdi-web lang-control-search-icon" />
                     <span className="lang-control-search-placeholder">
-                        {modelValue?.raw['code']?.toUpperCase() ||
+                        {modelValue?.raw[propKey]?.toUpperCase() ||
                             placeholderValue?.toUpperCase() ||
                             rawValue?.toString()?.toUpperCase()}
                     </span>
@@ -130,7 +131,7 @@ export default function SelectControlOptionsLang<T>({
                                 role="option">
                                 {option.labelFormat?.map((str, index) => (
                                     <Fragment key={str.id}>
-                                        {option?.raw?.['code']?.toUpperCase() || ''}
+                                        {option?.raw?.[propKey]?.toUpperCase() || ''}
                                         <div className="lang-control-option-separator" />
                                         <div className="lang-control-option-name">
                                             {index != 1 ? <span>{str.value}</span> : <strong>{str.value}</strong>}

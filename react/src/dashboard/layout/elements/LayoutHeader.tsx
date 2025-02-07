@@ -107,13 +107,13 @@ export const LayoutHeader = () => {
 
     return (
         <header className="app app-header">
-            <div className="wrapper">
-                {/*System announcements*/}
-                {organizationAnnouncements && <Announcements announcements={organizationAnnouncements} />}
-                {/*System announcements*/}
-                {appConfigs?.announcements && <Announcements announcements={appConfigs?.announcements} />}
-            </div>
-            <div className="wrapper flex-row relative">
+            {/* Organization announcements */}
+            {organizationAnnouncements?.length > 0 && <Announcements announcements={organizationAnnouncements} />}
+
+            {/* System announcements */}
+            {appConfigs?.announcements?.length > 0 && <Announcements announcements={appConfigs?.announcements} />}
+
+            <div className="app-header-row">
                 {!activeOrganization && (
                     <a href="" className="header-logo">
                         <img alt="Logo" className="header-logo-img" src={assetUrl('/assets/img/logo.svg')} />

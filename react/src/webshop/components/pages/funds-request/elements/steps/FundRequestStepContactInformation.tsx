@@ -33,7 +33,9 @@ export default function FundRequestStepContactInformation({
 
             <div className="sign_up-pane">
                 <form onSubmit={(e) => onSubmitContactInformation(e)}>
-                    <h2 className="sign_up-pane-header">Contactgegevens</h2>
+                    <h2 className="sign_up-pane-header">
+                        {translate('fund_request.sign_up.fund_request_contact_info.title')}
+                    </h2>
                     <div className="sign_up-pane-body">
                         <p className="sign_up-pane-text text-center">
                             {fund.contact_info_message_text || fund.contact_info_message_default}
@@ -41,7 +43,7 @@ export default function FundRequestStepContactInformation({
 
                         <div className="form-group">
                             <label className="form-label" htmlFor="fund_request_contact_info">
-                                Contactgegevens
+                                {translate('fund_request.sign_up.fund_request_contact_info.title')}
                             </label>
                             <textarea
                                 className="form-control r-n"
@@ -72,6 +74,7 @@ export default function FundRequestStepContactInformation({
                                 role="button"
                                 tabIndex={0}>
                                 Vraag aan
+                                {translate('fund_request.sign_up.pane.footer.next')}
                                 <em className="mdi mdi-chevron-right icon-right" />
                             </button>
                         }

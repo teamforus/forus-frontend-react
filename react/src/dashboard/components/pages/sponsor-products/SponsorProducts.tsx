@@ -173,7 +173,7 @@ export default function SponsorProducts() {
                                     value={view}
                                     setValue={(view: 'products' | 'history') => setView(view)}
                                     tabs={[
-                                        { value: 'products', label: 'Aanbod' },
+                                        { value: 'products', label: 'Alle' },
                                         { value: 'history', label: 'Wijzigingen' },
                                     ]}
                                 />

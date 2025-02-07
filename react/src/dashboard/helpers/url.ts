@@ -7,3 +7,12 @@ export const assetUrl = (uri: string, envData: EnvDataProp) => {
 export const thumbnailUrl = (type: string, envData: EnvDataProp) => {
     return assetUrl(`/assets/img/placeholders/${type}-thumbnail.png`, envData);
 };
+
+export const isValidLocaleString = (locale: string) => {
+    try {
+        new Intl.NumberFormat(locale);
+        return true;
+    } catch {
+        return false;
+    }
+};

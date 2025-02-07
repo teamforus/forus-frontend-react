@@ -159,6 +159,8 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                     e?.preventDefault();
                     e?.stopPropagation();
 
+                    hideSearchBox();
+
                     if (!isSearchResultPage) {
                         navigateState('search-result', {}, { q: filters.values.q });
                     }
@@ -204,7 +206,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                     clickOnKeyEnter(e, true);
                                 }}
                                 tabIndex={0}
-                                aria-label="Sluit zoeken"
+                                aria-label={translate('top_navbar_search.aria.close_search')}
                                 role="button">
                                 <em className="mdi mdi-close" />
                             </div>
@@ -312,8 +314,11 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                                     <StateNavLink
                                                         name={'search-result'}
                                                         query={{ q: lastQuery, [itemKey]: 1 }}
+                                                        onClick={() => hideSearchBox()}
                                                         className="search-result-group-link hide-sm">
-                                                        {`${results?.[itemKey]?.count} resultaten gevonden...`}
+                                                        {translate('top_navbar_search.result.found_results', {
+                                                            count: results?.[itemKey]?.count,
+                                                        })}
                                                     </StateNavLink>
                                                 )}
                                             </div>
@@ -341,7 +346,9 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                                             name="search-result"
                                                             query={{ q: lastQuery, [itemKey]: 1 }}
                                                             className="search-result-group-link show-sm">
-                                                            {`${results?.[itemKey]?.count} resultaten gevonden...`}
+                                                            {translate('top_navbar_search.result.found_results', {
+                                                                count: results?.[itemKey]?.count,
+                                                            })}
                                                         </StateNavLink>
                                                     )}
                                                 </div>

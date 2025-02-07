@@ -121,11 +121,11 @@ export default function Home() {
             <ModalNotification
                 modal={modal}
                 type={'confirm'}
-                title={'Sessie verlopen'}
+                title={translate('modal.logout.title')}
                 header={translate('modal.logout.description')}
                 mdiIconType="primary"
                 mdiIconClass={'information-outline'}
-                confirmBtnText={'Inloggen'}
+                confirmBtnText={translate('modal.logout.confirm')}
                 onConfirm={() => navigateState('start', {}, { reload: true })}
             />
         ));
@@ -176,7 +176,7 @@ export default function Home() {
                             <h1 className="header-title" data-dusk="headerTitle">
                                 {translate(
                                     `home.header.${envData.client_key}.title`,
-                                    { implementation: appConfigs.implementation_name },
+                                    { implementation: appConfigs.implementation?.name },
                                     'home.header.title',
                                 )}
                             </h1>

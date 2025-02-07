@@ -40,11 +40,11 @@ export default function SecuritySessions() {
         provider: translate('security_sessions.clients.provider'),
         validator: translate('security_sessions.clients.validator'),
         webshop: translate('security_sessions.clients.webshop'),
-        'app-me_ap': 'Me-app',
-        'app-me_ap-android': 'Me-app',
-        'app-me_ap-ios': 'Me-app',
-        'me_app-android': 'Me-app',
-        'me_app-is': 'Me-app ',
+        'app-me_ap': translate('security_sessions.clients.me_app'),
+        'app-me_ap-android': translate('security_sessions.clients.me_app'),
+        'app-me_ap-ios': translate('security_sessions.clients.me_app'),
+        'me_app-android': translate('security_sessions.clients.me_app'),
+        'me_app-is': translate('security_sessions.clients.me_app'),
     });
 
     const fetchSessions = useCallback(() => {
@@ -82,9 +82,9 @@ export default function SecuritySessions() {
                     .terminate(session.uid)
                     .then(() => {
                         fetchSessions();
-                        pushSuccess('Terminated!');
+                        pushSuccess(translate('push.success'), translate('push.sessions.terminated'));
                     })
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+                    .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data?.message))
                     .finally(() => setProgress(100));
             };
 
@@ -92,17 +92,17 @@ export default function SecuritySessions() {
                 <ModalNotification
                     modal={modal}
                     type={'confirm'}
-                    title={'Einde sessie'}
-                    header={'Beëindig sessie'}
+                    title={translate('modal.session.title')}
+                    header={translate('modal.session.header')}
                     mdiIconType={'primary'}
                     mdiIconClass={'information-outline'}
-                    description={'De sessie beëindigen kan er voor zorgen dat u uitgelogd raakt, wilt u doorgaan?'}
+                    description={translate('modal.session.description')}
                     onCancel={() => modal.close()}
                     onConfirm={() => onDone(modal)}
                 />
             ));
         },
-        [fetchSessions, sessionService, openModal, pushDanger, pushSuccess, setProgress],
+        [fetchSessions, sessionService, openModal, pushDanger, pushSuccess, setProgress, translate],
     );
 
     const terminateAllSessions = useCallback(() => {
@@ -115,9 +115,9 @@ export default function SecuritySessions() {
                 .then(() => {
                     signOut();
                     navigateState('home');
-                    pushSuccess('Terminated!');
+                    pushSuccess(translate('push.success'), translate('push.sessions.terminated'));
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+                .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data?.message))
                 .finally(() => setProgress(100));
         };
 
@@ -125,12 +125,12 @@ export default function SecuritySessions() {
             <ModalNotification
                 modal={modal}
                 type={'confirm'}
-                title={'Beëindig alle sessies'}
-                description={'U wordt nu uitgelogd op alle apparaten, wilt u doorgaan?'}
+                title={translate('modal.sessions.title')}
+                description={translate('modal.sessions.description')}
                 onConfirm={() => onDone(modal)}
             />
         ));
-    }, [navigateState, openModal, pushDanger, pushSuccess, sessionService, setProgress, signOut]);
+    }, [navigateState, openModal, pushDanger, pushSuccess, sessionService, setProgress, signOut, translate]);
 
     useEffect(() => {
         if (auth2faRestricted === false) {

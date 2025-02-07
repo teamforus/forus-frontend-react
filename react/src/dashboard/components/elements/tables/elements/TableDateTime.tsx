@@ -8,7 +8,7 @@ export default function TableDateTime({ value }: { value: string }) {
 
     return value.includes(' - ') ? (
         <Fragment>
-            <div className="text-primary text-medium">{value?.split(' - ')[0]}</div>
+            <div className="text-primary text-semibold">{value?.split(' - ')[0]}</div>
             <div>{value?.split(' - ')[1]}</div>
         </Fragment>
     ) : (

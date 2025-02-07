@@ -53,6 +53,8 @@ export type SelectControlOptionsProp<T> = {
     onOptionsScroll: (e: UIEvent<HTMLElement>) => void;
     disabled?: boolean;
     rawValue?: unknown;
+    propKey?: string | null;
+    propValue?: string | null;
 };
 
 export default function SelectControl<T>({
@@ -118,7 +120,7 @@ export default function SelectControl<T>({
 
         setOptionsFiltered(
             options.map((option: OptionType<T>) => {
-                const end = -(option.raw[propValue].length - (option._index + search_len));
+                const end = -(option.raw[propValue]?.length - (option._index + search_len));
                 const labelFormat = allowSearch
                     ? [
                           { id: uniqueId(), value: option.raw[propValue].slice(0, option._index) },
@@ -202,7 +204,7 @@ export default function SelectControl<T>({
         setOptionsPrepared(
             options?.map((option) => ({
                 id: uniqueId(),
-                label: option[propValue].toString().toLowerCase(),
+                label: option[propValue]?.toString()?.toLowerCase() || '',
                 value: null,
                 raw: option,
             })) || [],
@@ -249,5 +251,7 @@ export default function SelectControl<T>({
         className,
         rawValue: value,
         disabled,
+        propKey,
+        propValue,
     });
 }

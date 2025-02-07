@@ -33,7 +33,9 @@ export default function FundRequestStepConfirmCriteria({
             {progress}
 
             <div className="sign_up-pane">
-                <div className="sign_up-pane-header">Bevestig uw inkomen</div>
+                <div className="sign_up-pane-header">
+                    {translate('fund_request.sign_up.fund_request_confirm_criteria.confirm_income')}
+                </div>
 
                 {!submitInProgress ? (
                     <div className="sign_up-pane-body">
@@ -43,8 +45,7 @@ export default function FundRequestStepConfirmCriteria({
 
                         {!['IIT', 'bus_2020', 'meedoen'].includes(fund.key) && (
                             <p className="sign_up-pane-text">
-                                U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan
-                                de voorwaarden voldoet.
+                                {translate('fund_request.sign_up.fund_request_confirm_criteria.declare_conditions')}
                             </p>
                         )}
 
@@ -53,7 +54,9 @@ export default function FundRequestStepConfirmCriteria({
                                 checked={confirmCriteria || false}
                                 onChangeValue={(checked) => setConfirmCriteria(checked)}
                                 id="confirm_criteria"
-                                label="Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden."
+                                label={translate(
+                                    'fund_request.sign_up.fund_request_confirm_criteria.confirm_meet_conditions',
+                                )}
                             />
                         </p>
 
@@ -63,7 +66,9 @@ export default function FundRequestStepConfirmCriteria({
                                     checked={confirmCriteriaWarning || false}
                                     onChangeValue={(checked) => setConfirmCriteriaWarning(checked)}
                                     id="confirm_criteria_warning"
-                                    label="Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen."
+                                    label={translate(
+                                        'fund_request.sign_up.fund_request_confirm_criteria.provide_correct_info',
+                                    )}
                                 />
                             </p>
                         )}
@@ -75,7 +80,7 @@ export default function FundRequestStepConfirmCriteria({
                             <div className="mdi mdi-loading mdi-spin" />
                         </div>
                         <div className="sign_up-pane-text text-center text-muted">
-                            Een moment geduld, het verzoek wordt verwerkt.
+                            {translate('fund_request.sign_up.fund_request_confirm_criteria.processing_request')}
                         </div>
                         <br />
                     </div>

@@ -259,7 +259,7 @@ export default function PrevalidatedTable({
                                                 />
                                             </FilterItemToggle>
 
-                                            <FilterItemToggle label={translate('prevalidated_table.status.active')}>
+                                            <FilterItemToggle label={translate('prevalidated_table.labels.active')}>
                                                 <SelectControl
                                                     className="form-control"
                                                     propKey={'key'}

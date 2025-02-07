@@ -38,6 +38,8 @@ export default {
                 '2. Neem de QR-code mee naar de aanbieder. Deze scant de QR-code en reserveert uw activiteit.',
             contact_sponsor: 'Vragen? Neem contact met ons op.',
             contact_provider: 'Heeft u vragen over dit aanbod? Neem dan contact met ons op.',
+            email: 'E-mailadres:',
+            phone: 'Telefoonnummer:',
         },
         footer: {
             actions: {
@@ -108,11 +110,9 @@ export default {
         button: 'Bon insturen',
     },
 
-    voucher: {
-        history: {
-            title: 'Status',
-            status: { expired: 'Verlopen' },
-        },
+    history: {
+        title: 'Uitgaven',
+        status: { expired: 'Verlopen' },
     },
 
     transactions: {
@@ -151,6 +151,7 @@ export default {
         },
     },
     delete_voucher: {
+        title: 'Annuleer reservering',
         popup_form: {
             title: 'Wilt u uw reservering voor aankoop annuleren?',
             description:

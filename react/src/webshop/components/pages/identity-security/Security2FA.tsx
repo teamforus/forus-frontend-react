@@ -47,14 +47,11 @@ export default function Security2FA() {
             .update(values)
             .then((res) => {
                 setAuth2FAState(res.data.data);
-                pushSuccess(translate('security_2fa.saved'));
+                pushSuccess(translate('push.saved'));
             })
             .catch((err: ResponseError) => {
                 form.setErrors(err.data.errors);
-                pushDanger(
-                    translate('security_2fa.error'),
-                    err.data?.message || translate('security_2fa.unknown_error'),
-                );
+                pushDanger(translate('push.error'), err.data?.message || translate('security_2fa.unknown_error'));
             })
             .finally(() => {
                 form.setIsLocked(false);
@@ -74,10 +71,7 @@ export default function Security2FA() {
                 setAuth2FAState(res.data.data);
             })
             .catch((err: ResponseError) =>
-                pushDanger(
-                    translate('security_2fa.failed'),
-                    err.data?.message || translate('security_2fa.unknown_error'),
-                ),
+                pushDanger(translate('push.error'), err.data?.message || translate('security_2fa.unknown_error')),
             )
             .finally(() => setProgress(100));
     }, [identity2FAService, setProgress, pushDanger, updateIdentity, translate]);
@@ -160,7 +154,11 @@ export default function Security2FA() {
                                 </div>
                                 <div className="auth-2fa-item-details">
                                     <div className="auth-2fa-item-title">
-                                        {provider_type.title}
+                                        {provider_type?.type == 'authenticator' &&
+                                            translate('security_2fa.providers.authenticator.title')}
+
+                                        {provider_type?.type == 'phone' &&
+                                            translate('security_2fa.providers.phone.title')}
 
                                         {activeProvidersByKey[provider_type.type] ? (
                                             <div className="auth-2fa-item-date">

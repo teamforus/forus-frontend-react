@@ -178,7 +178,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                                 disabled={!fund.allow_direct_requests}
                                 onClick={(e) => applyFund(e)}>
                                 {fund.allow_direct_requests
-                                    ? '‘Activeren’'
+                                    ? translate('list_blocks.funds_list_pre_check.activate')
                                     : translate('list_blocks.funds_list_pre_check.not_available')}
                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                             </button>

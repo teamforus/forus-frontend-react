@@ -255,12 +255,7 @@ export default function ModalPhotoCropper({
                             return [...cropperFiles];
                         });
                     })
-                    .catch(() =>
-                        pushDanger(
-                            translate('modal_photo_cropper.error'),
-                            translate('modal_photo_cropper.invalid_image'),
-                        ),
-                    )
+                    .catch(() => pushDanger(translate('push.error'), translate('modal_photo_cropper.invalid_image')))
                     .finally(() => (input.files = null));
             });
 
@@ -285,14 +280,11 @@ export default function ModalPhotoCropper({
             setCropperFiles(validFiles);
 
             if (invalidFiles.length && validFiles.length) {
-                return pushDanger(
-                    translate('modal_photo_cropper.error'),
-                    translate('modal_photo_cropper.some_invalid_files'),
-                );
+                return pushDanger(translate('push.error'), translate('modal_photo_cropper.some_invalid_files'));
             }
 
             if (invalidFiles.length && !validFiles.length) {
-                pushDanger(translate('modal_photo_cropper.error'), translate('modal_photo_cropper.invalid_file'));
+                pushDanger(translate('push.error'), translate('modal_photo_cropper.invalid_file'));
                 modal.close();
             }
         });
@@ -370,7 +362,7 @@ export default function ModalPhotoCropper({
                                             onKeyDown={clickOnKeyEnter}
                                             className={`cropper-pagination-item ${index === fileIndex ? 'active' : ''}`}
                                             onClick={() => setFileIndex(index)}
-                                            aria-label={`Toon afbeelding nummer: ${index + 1}`}
+                                            aria-label={translate('modal_photo_cropper.number', { number: index + 1 })}
                                         />
                                     ))}
                                 </div>

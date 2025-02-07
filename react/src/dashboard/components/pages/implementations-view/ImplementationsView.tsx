@@ -112,6 +112,17 @@ export default function ImplementationsView() {
                     </div>
 
                     <div className="card-section-actions">
+                        {activeOrganization.allow_translations &&
+                            hasPermission(activeOrganization, 'manage_implementation') && (
+                                <StateNavLink
+                                    name={'implementations-translations'}
+                                    params={{ id: implementation.id, organizationId: implementation.organization_id }}
+                                    className={`button button-default`}>
+                                    <em className="mdi mdi-translate-variant icon-start" />
+                                    Vertalingen
+                                </StateNavLink>
+                            )}
+
                         {hasPermission(activeOrganization, 'manage_implementation') && (
                             <StateNavLink
                                 name={'implementations-cookies'}

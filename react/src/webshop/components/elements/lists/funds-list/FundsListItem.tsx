@@ -13,6 +13,7 @@ import FundsListItemModel from '../../../../services/types/FundsListItemModel';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useFundMeta from '../../../../hooks/meta/useFundMeta';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function FundsListItem({
     fund,
@@ -30,6 +31,7 @@ export default function FundsListItem({
     stateParams?: object;
 }) {
     const [applyingFund, setApplyingFund] = React.useState(false);
+    const translate = useTranslate();
     const appConfigs = useAppConfigs();
 
     const fundService = useFundService();
@@ -43,7 +45,10 @@ export default function FundsListItem({
 
     const onApplySuccess = useCallback(
         (vouchers: Voucher) => {
-            pushSuccess('Tegoed geactiveerd.');
+            pushSuccess(
+                translate('push.success'),
+                translate('push.fund_activation.success', { fund_name: vouchers?.fund?.name }),
+            );
 
             if (funds?.length === 1) {
                 return navigateState('voucher', { number: vouchers.number });
@@ -51,7 +56,7 @@ export default function FundsListItem({
                 document.location.reload();
             }
         },
-        [funds?.length, navigateState, pushSuccess],
+        [funds?.length, navigateState, pushSuccess, translate],
     );
 
     const applyFund = useCallback(
@@ -73,11 +78,11 @@ export default function FundsListItem({
                 .apply(fund.id)
                 .then(
                     (res) => onApplySuccess(res.data.data),
-                    (res) => pushDanger(res.data.message),
+                    (res) => pushDanger(translate('push.error'), res.data.message),
                 )
                 .finally(() => setApplyingFund(false));
         },
-        [applyingFund, fundService, onApplySuccess, pushDanger, showTakenByPartnerModal],
+        [applyingFund, fundService, onApplySuccess, pushDanger, showTakenByPartnerModal, translate],
     );
 
     if (!fundMeta) {

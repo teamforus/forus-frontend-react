@@ -64,7 +64,7 @@ export default function ReimbursementsTable({
                                         <td>
                                             {/* Email */}
                                             <div
-                                                className="text-primary text-medium"
+                                                className="text-primary text-semibold"
                                                 data-dusk={`reimbursementIdentityEmail${reimbursement.id}`}>
                                                 {strLimit(reimbursement.identity_email, 25) || 'Geen E-mail'}
                                             </div>
@@ -79,7 +79,7 @@ export default function ReimbursementsTable({
                                             )}
                                         </td>
                                         <td>
-                                            <div className="text-primary text-medium">
+                                            <div className="text-primary text-semibold">
                                                 {strLimit(reimbursement.fund.name, 25)}
                                             </div>
                                             <div className="text-strong text-md text-muted-dark">
@@ -93,7 +93,7 @@ export default function ReimbursementsTable({
                                         </td>
 
                                         <td>
-                                            <div className="text-primary text-medium">
+                                            <div className="text-primary text-semibold">
                                                 {reimbursement.created_at_locale.split(' - ')[0]}
                                             </div>
                                             <div className="text-strong text-md text-muted-dark">

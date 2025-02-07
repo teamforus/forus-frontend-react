@@ -53,10 +53,10 @@ export default function ReimbursementsShow() {
                     reimbursementService
                         .destroy(reimbursement.id)
                         .then(() => {
-                            pushSuccess('Declaratie geannuleerd.');
+                            pushSuccess(translate('push.success'), translate('push.reimbursement.canceled'));
                             navigateState('reimbursements');
                         })
-                        .catch((err: ResponseError) => pushDanger('Error.', err.data.message))
+                        .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message))
                         .finally(() => setProgress(100));
                 }
             });
@@ -69,6 +69,7 @@ export default function ReimbursementsShow() {
             reimbursement,
             reimbursementService,
             setProgress,
+            translate,
         ],
     );
 
@@ -96,7 +97,7 @@ export default function ReimbursementsShow() {
                         <div className="flex">
                             <div className="flex flex-grow flex-center">
                                 <h1 className="profile-content-title flex flex-center flex-vertical">
-                                    Nummer: #{reimbursement.code}
+                                    {translate('reimbursements.details.code', { code: reimbursement.code })}
                                 </h1>
                             </div>
                             <div className="flex flex-center hide-sm">
@@ -128,7 +129,7 @@ export default function ReimbursementsShow() {
                                         data-dusk="reimbursementDetailsPageDeleteBtn"
                                         onClick={(e) => cancelReimbursement(e)}>
                                         <em className="mdi mdi-trash-can-outline icon-start" />
-                                        Annuleren
+                                        {translate('reimbursements.details.buttons.cancel')}
                                     </div>
                                 )}
                             </div>

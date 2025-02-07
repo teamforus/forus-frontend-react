@@ -37,11 +37,15 @@ export default {
         no_data: 'Geen data',
         free: 'Gratis',
     },
+    price: {
+        free: 'Gratis',
+    },
     buttons: {
         buy: 'Reserveren',
         buy_label: 'Open Reserveringsformulier',
         request: 'Activeren',
         open_voucher: 'Open tegoed',
+        bookmark: 'Toevoegen aan verlanglijstje',
         groningen: {
             request: 'Aanvragen',
         },

@@ -32,8 +32,9 @@ export const TopNavbarMobile = () => {
             e.preventDefault();
 
             setShowSearchBox((showSearchBox) => !showSearchBox);
+            setMobileMenuOpened(false);
         },
-        [setShowSearchBox],
+        [setMobileMenuOpened, setShowSearchBox],
     );
 
     const openMobileMenu = useCallback(
@@ -44,8 +45,9 @@ export const TopNavbarMobile = () => {
             }
 
             setMobileMenuOpened((mobileMenuOpened) => !mobileMenuOpened);
+            setShowSearchBox(false);
         },
-        [setMobileMenuOpened],
+        [setMobileMenuOpened, setShowSearchBox],
     );
 
     const langSelector = useLangSelector();
@@ -79,7 +81,7 @@ export const TopNavbarMobile = () => {
                 <StateNavLink
                     name={'home'}
                     className="navbar-mobile-logo"
-                    title={`Terug naar hoofdpagina`}
+                    title={translate('top_navbar.open_home')}
                     disabled={route?.state?.name === 'home'}
                     tabIndex={0}>
                     <img

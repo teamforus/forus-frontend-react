@@ -217,7 +217,7 @@ export default function EventLogsTable({
                                     {logs.data.map((log) => (
                                         <tr key={log.id}>
                                             <td>
-                                                <div className="text-medium text-primary nowrap">
+                                                <div className="text-semibold text-primary nowrap">
                                                     {log.created_at_locale.split(' - ')[0]}
                                                 </div>
                                                 <div className="text-strong text-md text-muted-dark nowrap">
