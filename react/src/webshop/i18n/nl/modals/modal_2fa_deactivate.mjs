@@ -1,8 +1,6 @@
 export default {
     disable_2fa: 'Tweefactorauthenticatie uitschakelen',
-    success: 'Gelukt!',
     code_resent: 'We hebben de code opnieuw verstuurd.',
-    failed: 'Mislukt!',
     unknown_error: 'Onbekende fout.',
     error_404: 'Er is een fout opgetreden. Vernieuw de pagina.',
     enter_2fa_code: 'Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in.',

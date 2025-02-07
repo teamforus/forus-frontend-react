@@ -129,7 +129,7 @@ export default function BlockCardEmails({
                                                 <TableDateTime value={emailLog.created_at_locale} />
                                             </td>
                                             <td>
-                                                <div className={'text-medium'}>{emailLog.subject}</div>
+                                                <div className={'text-semibold'}>{emailLog.subject}</div>
                                                 <div className={'text-md ellipsis'}>
                                                     {strLimit(
                                                         trimStart(
@@ -141,13 +141,13 @@ export default function BlockCardEmails({
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className={'text-primary text-medium'}>
+                                                <div className={'text-primary text-semibold'}>
                                                     {emailLog.to_address || <TableEmptyValue />}
                                                 </div>
                                                 <div>{emailLog.to_name || <TableEmptyValue />}</div>
                                             </td>
                                             <td>
-                                                <div className={'text-primary text-medium'}>
+                                                <div className={'text-primary text-semibold'}>
                                                     {emailLog.from_address || <TableEmptyValue />}
                                                 </div>
                                                 <div>{emailLog.from_name || <TableEmptyValue />}</div>

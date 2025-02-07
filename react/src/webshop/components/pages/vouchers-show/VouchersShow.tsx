@@ -96,7 +96,7 @@ export default function VouchersShow() {
                 <ModalNotification
                     modal={modal}
                     type={'confirm'}
-                    title={'Annuleer reservering'}
+                    title={translate('voucher.delete_voucher.title')}
                     description={translate('voucher.delete_voucher.popup_form.description')}
                     mdiIconType={'warning'}
                     mdiIconClass={'alert-outline'}
@@ -134,10 +134,10 @@ export default function VouchersShow() {
                 <ModalNotification
                     modal={modal}
                     type={'confirm'}
-                    title={'E-mail naar mij'}
+                    title={translate('modal.email_voucher_to_me.title')}
                     mdiIconType="primary"
                     mdiIconClass={'email-open-outline'}
-                    description={'Stuur de QR-code naar mijn e-mailadres'}
+                    description={translate('modal.email_voucher_to_me.description')}
                     onConfirm={() => {
                         voucherService.sendToEmail(voucher.number).then(() => {
                             const emailServiceUrl = helperService.getEmailServiceProviderUrl(authIdentity?.email);
@@ -146,7 +146,7 @@ export default function VouchersShow() {
                                 <ModalNotification
                                     modal={modal}
                                     type="action-result"
-                                    title="E-mail naar mij"
+                                    title={translate('modal.email_voucher_to_me.title')}
                                     header={translate('popup_auth.notifications.confirmation')}
                                     mdiIconType="success"
                                     mdiIconClass="check-circle-outline"
@@ -594,10 +594,10 @@ export default function VouchersShow() {
                                                     })}
                                                 </div>
                                                 <div className="card-value card-value-sm">
-                                                    E-mailadres:{' '}
+                                                    {translate('voucher.card.labels.email') + ' '}
                                                     <strong>{voucherCard.fund?.organization?.email}</strong>
                                                     <br />
-                                                    Telefoonnummer:{' '}
+                                                    {translate('voucher.card.labels.phone') + ' '}
                                                     <strong>{voucherCard.fund?.organization?.phone}</strong>
                                                 </div>
                                             </div>
@@ -632,10 +632,10 @@ export default function VouchersShow() {
                                                     {translate('voucher.card.labels.contact_sponsor')}
                                                 </div>
                                                 <div className="card-value card-value-sm">
-                                                    E-mailadres:{' '}
+                                                    {translate('voucher.card.labels.email') + ' '}
                                                     <strong>{voucherCard.product.organization.email}</strong>
                                                     <br />
-                                                    Telefoonnummer:{' '}
+                                                    {translate('voucher.card.labels.phone') + ' '}
                                                     <strong>{voucherCard.product.organization.phone}</strong>
                                                 </div>
                                             </div>

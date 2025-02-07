@@ -1,4 +1,5 @@
 export default {
+    title: 'Bijbetalingsgegevens',
     details: {
         title: 'Details van de reservering',
         loading: 'Loading',

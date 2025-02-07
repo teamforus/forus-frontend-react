@@ -18,6 +18,13 @@ export const currencyFormat = (value: number, currency = '€ ') => {
     return currency + (value % 1 == 0 ? string.slice(0, -2) + '-' : string);
 };
 
+export const numberFormat = (number: number, showFractions: boolean = false) => {
+    return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: showFractions ? 2 : 0,
+        maximumFractionDigits: showFractions ? 2 : 0,
+    }).format(number);
+};
+
 export const fileSize = (size: number): string => {
     const i = Math.floor(Math.log(size) / Math.log(1024));
     const val = size / Math.pow(1024, i);

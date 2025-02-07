@@ -1,9 +1,10 @@
-import { ResponseProp } from '../props/ApiResponses';
+import { ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Announcement from '../props/models/Announcement';
 import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
+import Language from '../props/models/Language';
 
 export type AppConfigProp = {
     add_money: boolean;
@@ -157,7 +158,9 @@ export type AppConfigProp = {
     records?: { list: boolean };
     funds?: { list: boolean; fund_requests: boolean };
     banner?: Media;
-    implementation_name?: string;
+    implementation?: {
+        name?: string;
+    };
     products_hard_limit?: number;
     products_soft_limit?: number;
     pages: {
@@ -198,6 +201,7 @@ export type AppConfigProp = {
     page_title_suffix?: string;
     show_terms_checkbox?: string;
     show_privacy_checkbox?: string;
+    languages: Array<Language>;
 };
 
 export class ConfigService<T = AppConfigProp> {
@@ -213,7 +217,7 @@ export class ConfigService<T = AppConfigProp> {
      */
     public prefix = '/platform';
 
-    public get(type: string): Promise<ResponseProp<T>> {
+    public get(type: string): Promise<ResponseSimple<T>> {
         return this.apiRequest.get(`${this.prefix}/config/${type}`);
     }
 }

@@ -1,6 +1,7 @@
 import Media from './Media';
 import Announcement from './Announcement';
 import ImplementationPage from './ImplementationPage';
+import Language from './Language';
 
 export default interface Implementation {
     id: number;
@@ -65,4 +66,5 @@ export default interface Implementation {
     page_title_suffix?: string;
     show_terms_checkbox?: boolean;
     show_privacy_checkbox?: boolean;
+    languages?: Array<Language>;
 }

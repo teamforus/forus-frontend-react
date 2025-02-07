@@ -163,7 +163,7 @@ export default function ModalProductReserve({
                     setStep(STEP_RESERVATION_FINISHED);
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger(err?.data?.message || err?.data?.errors?.product_id?.[0]);
+                    pushDanger(translate('push.error'), err?.data?.message || err?.data?.errors?.product_id?.[0]);
                     form.setErrors(err.data.errors);
 
                     if (err.status >= 500 || err?.data?.errors?.product_id?.length > 0) {
@@ -195,19 +195,19 @@ export default function ModalProductReserve({
             form.setIsLocked(false);
 
             if (errors.product_id) {
-                errors.product_id?.forEach((error) => pushDanger(error));
+                errors.product_id?.forEach((error) => pushDanger(translate('push.error'), error));
                 setStep(STEP_ERROR);
                 setErrorMessage(err?.data?.errors?.product_id?.[0]);
                 return;
             }
 
             if (!errors.product_id && message) {
-                pushDanger(message);
+                pushDanger(translate('push.error'), message);
             }
 
             setStep(address ? STEP_FILL_ADDRESS : user_note ? STEP_FILL_NOTES : STEP_FILL_DATA);
         },
-        [STEP_ERROR, STEP_FILL_ADDRESS, STEP_FILL_DATA, STEP_FILL_NOTES, form, pushDanger],
+        [STEP_ERROR, STEP_FILL_ADDRESS, STEP_FILL_DATA, STEP_FILL_NOTES, form, pushDanger, translate],
     );
 
     const validateFields = useCallback(
@@ -506,7 +506,7 @@ export default function ModalProductReserve({
                                                     voucher?.fund?.organization?.logo?.sizes?.thumbnail ||
                                                     assetUrl('/assets/img/placeholders/fund-thumbnail.png')
                                                 }
-                                                alt="voucher image"
+                                                alt={translate('modal_reserve_product.voucher_image_alt')}
                                             />
                                         </div>
                                         <div className="voucher-details">

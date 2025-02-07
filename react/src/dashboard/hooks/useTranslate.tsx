@@ -14,7 +14,7 @@ export default function useTranslate<
     return useCallback(
         (ns: Ns, options?: object, fallback?: string) => {
             options = {
-                implementation: appConfigs?.implementation_name,
+                implementation: appConfigs?.implementation?.name,
                 pageTitleSuffix: appConfigs?.page_title_suffix && ` - ${appConfigs?.page_title_suffix}`,
                 ...(options as unknown as object),
             } as never;
@@ -23,6 +23,6 @@ export default function useTranslate<
 
             return !value || value === ns ? t(fallback || (ns as string), options as unknown as KPref) : value;
         },
-        [appConfigs?.implementation_name, appConfigs?.page_title_suffix, t],
+        [appConfigs?.implementation?.name, appConfigs?.page_title_suffix, t],
     );
 }

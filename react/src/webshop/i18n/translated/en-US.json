@@ -244,7 +244,7 @@
                 "activate": "Jars"
             },
             "products": "Offer",
-            "profile": "Profile &gt;",
+            "profile": "Profile >",
             "providers": "Providers",
             "records": "My personal data",
             "reimbursements": "Cost recovery",
@@ -335,7 +335,19 @@
             "reimbursements": "Cost recovery",
             "reservations": "Reservations",
             "security_2fa": "Security",
-            "security_sessions": "Sessions"
+            "security_sessions": "Sessions",
+            "aria_label": "User menu",
+            "title": "Personal"
+        },
+        "main_menu": "Main menu",
+        "open_home": "Back to main page",
+        "start": "Start",
+        "start_button": {
+            "berg_en_dal": "Activate credit",
+            "geertruidenberg": "Start application",
+            "hartvanwestbrabant": "Start application",
+            "midden_drenthe": "Activate credit",
+            "potjeswijzer": "Start application"
         }
     },
     "auth_start": {
@@ -390,7 +402,10 @@
         },
         "title": "My wish list",
         "view_grid": "Photos",
-        "view_list": "List"
+        "view_list": "List",
+        "breadcrumbs": {
+            "home": "Home"
+        }
     },
     "explanation": {
         "breadcrumbs": {
@@ -415,13 +430,13 @@
             "products": "Offer"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Everywhere"
         },
         "filters": {
@@ -487,7 +502,8 @@
             "provider": "Providers management environment",
             "sponsor": "Sponsor management environment",
             "validator": "Assessor management environment",
-            "webshop": "Webshop"
+            "webshop": "Webshop",
+            "me_app": "Me-app"
         },
         "details": {
             "last_activity": "Latest activity",
@@ -603,7 +619,8 @@
             "description": "Notice! You must complete the application form before <strong>{{value}}</strong>, otherwise you must log in again with DigiD and start the application again."
         },
         "buttons": {
-            "back": "Back"
+            "back": "Back",
+            "send": "Shipping"
         },
         "declined": {
             "no_note": "No note",
@@ -680,10 +697,10 @@
                 "title_log_digid": "One-time login with DigiD"
             },
             "labels": {
-                "has_app": "Sign in with Me app &gt;",
-                "no_app": "I want to log in with my e-mail address &gt;",
-                "restore_with_digid_formal": "Forgot which email address you used? &gt;",
-                "restore_with_digid_informal": "Forgot which email address you used? &gt;"
+                "has_app": "Sign in with Me app >",
+                "no_app": "I want to log in with my e-mail address >",
+                "restore_with_digid_formal": "Forgot which email address you used? >",
+                "restore_with_digid_informal": "Forgot which email address you used? >"
             },
             "pane": {
                 "criterion_any": "'{{ name }}' can be any value.",
@@ -694,7 +711,8 @@
                 "criterion_same": "'{{ name }}' should be {{ value }}.",
                 "footer": {
                     "next": "Next Step",
-                    "prev": "Previous step"
+                    "prev": "Previous step",
+                    "apply": "Question to"
                 },
                 "header_title": "Overview",
                 "text": "We need some more data. Please go through the following steps:"
@@ -709,6 +727,48 @@
             "subtitles": {
                 "step_1": "This online form allows you to apply for available funds. ",
                 "step_2": "It looks at whether you already meet conditions, and you can break off in the interim and continue at another time."
+            },
+            "fund_request_confirm_criteria": {
+                "confirm_income": "Confirm your income",
+                "confirm_meet_conditions": "I certify that I comply with the above conditions.",
+                "declare_conditions": "You are about to apply for a participation scheme. You must certify that you meet the requirements.",
+                "processing_request": "Please wait a moment, the request is being processed.",
+                "provide_correct_info": "I know that providing inaccurate information is punishable, that I have to repay an unjustified or excess fee, and that I can be fined."
+            },
+            "fund_request_contact_info": {
+                "title": "Contact details"
+            },
+            "fund_request_email_setup": {
+                "continue_without_email": "Continuing without email",
+                "email_required": "To proceed with the application, please provide your email address",
+                "email_sent": "E-mail sent",
+                "email_sent_screen": "An email confirmation has been sent",
+                "no_email_info": "If you do not leave an email address, you will not receive essential messages such as the email with the QR code or when there has been a transaction. In addition, you can only log in with DigiD.",
+                "sign_up_with_email": "Sign in with email address",
+                "skip": "Skip",
+                "warning": "Note!"
+            },
+            "fund_request_overview": {
+                "application_summary": "Request Overview",
+                "check_information": "Please check below that the information you entered is correct. You can go back to previous steps with the button ",
+                "contact_info": "Stated contact information:",
+                "correct_information": "Are the details correct? Then click on the button ",
+                "none": "No",
+                "previous_step": "Previous step.",
+                "submit_application": "Question to."
+            },
+            "fund_request_step_criteria": {
+                "make_a_choice": "Choose one"
+            },
+            "fund_request_step_done": {
+                "application_processing": "Your application has been received. The application will be processed within 10 business days. You will receive an email about this.",
+                "application_received": "Application received",
+                "back": "Back",
+                "error_occurred": "An error occurred while applying.",
+                "leave_form": "Leave form",
+                "reason": "Reason:",
+                "sent": "Sent!",
+                "sign_up": "Sign up"
             }
         },
         "steps": {
@@ -735,7 +795,8 @@
         },
         "filters": {
             "active": "Active",
-            "archive": "Archive"
+            "archive": "Archive",
+            "all_funds": "All credits..."
         },
         "title": "Request"
     },
@@ -841,9 +902,9 @@
             }
         },
         "labels": {
-            "age": "&lt; 18 years old",
+            "age": "< 18 years old",
             "agelimit": "Age limit",
-            "amount": "&lt; € 1118.46",
+            "amount": "< € 1118.46",
             "categories_label": "You can activate your credit through:",
             "category": "Category",
             "children": "Children",
@@ -1142,7 +1203,7 @@
                 "cta_av": "",
                 "subtitle_av": "There are many different pots within the Westerkwartier, often more than you think. This website allows you to apply for, manage and spend pots."
             },
-            "signup_cta": "Read more &gt;",
+            "signup_cta": "Read more >",
             "subtitle": "Welcome to the website of {{fund}}. Do you have an award from the municipality for {{fund}}? Then you can see here the offer and the money you can spend.",
             "subtitle_av": "Welcome to the website of the {{fund}}. Here you can apply for the scheme and view the offer. After applying, you can also see how much money you can spend.",
             "subtitle_multi": "Welcome to the webshop of {{org_name}} Have you received an award through {{org_name}}? Then you can see the offer and the money you can spend here.",
@@ -1206,7 +1267,8 @@
             "description": "Download the Me app from the app stores below. <a href=\"{{download_link}}\">Click here to directly</a> open <a href=\"{{download_link}}\">the appropriate app store</a> on your phone or tablet.",
             "title": "Download Me on your phone or tablet"
         },
-        "title": "About the Me app"
+        "title": "About the Me app",
+        "img_alt": "Me-app"
     },
     "provider": {
         "breadcrumbs": {
@@ -1235,13 +1297,13 @@
             "providers": "Providers"
         },
         "distances": {
-            "3": "&lt; 3 km",
-            "5": "&lt; 5 km",
-            "10": "&lt; 10 km",
-            "15": "&lt; 15 km",
-            "25": "&lt; 25 km",
-            "50": "&lt; 50 km",
-            "75": "&lt; 75 km",
+            "3": "< 3 km",
+            "5": "< 5 km",
+            "10": "< 10 km",
+            "15": "< 15 km",
+            "25": "< 25 km",
+            "50": "< 50 km",
+            "75": "< 75 km",
             "everywhere": "Everywhere"
         },
         "filters": {
@@ -1415,7 +1477,8 @@
             "potjeswijzer": {
                 "request": "Request"
             },
-            "request": "Activate"
+            "request": "Activate",
+            "bookmark": "Add to wish list"
         },
         "funds": {
             "fund": "Credit:",
@@ -1450,7 +1513,10 @@
             "no_data": "No data",
             "out_of_stock": "No more stock"
         },
-        "tooltip": "How often you can still take advantage of this offer"
+        "tooltip": "How often you can still take advantage of this offer",
+        "price": {
+            "free": "Free"
+        }
     },
     "records_create": {
         "buttons": {
@@ -1522,7 +1588,8 @@
             "popup_form": {
                 "description": "You can cancel your reservation to waive the purchase. If you do not wish to cancel this purchase, click \"close\".",
                 "title": "Want to cancel your reservation before purchase?"
-            }
+            },
+            "title": "Cancel reservation"
         },
         "labels": {
             "add": "At",
@@ -1620,7 +1687,9 @@
             "labels": {
                 "contact_provider": "Do you have questions about this offer? If so, please contact us.",
                 "contact_sponsor": "Questions? Please contact us.",
-                "description": "1. Click on Offer and choose and reserve an activity.<br/>OR<br/>2. Take the QR code to the provider. The provider will scan the QR code and reserve your activity."
+                "description": "1. Click on Offer and choose and reserve an activity.<br/>OR<br/>2. Take the QR code to the provider. The provider will scan the QR code and reserve your activity.",
+                "email": "E-mail address:",
+                "phone": "Phone number:"
             },
             "qrcode": {
                 "description": "This is your {{fund_name}} credit with a QR code.",
@@ -2116,7 +2185,9 @@
             "title": "Account information"
         },
         "bank_accounts": {
-            "title": "Bank account"
+            "title": "Bank account",
+            "iban": "IBAN",
+            "name": "Attribution"
         },
         "breadcrumbs": {
             "home": "Home",
@@ -2132,7 +2203,11 @@
             "title": "Modify contact information"
         },
         "history": {
-            "title": "{{count}} edited times"
+            "title": "{{count}} edited times",
+            "from": "from",
+            "modified_by": "Modified by",
+            "to": "to",
+            "you": "you"
         },
         "personal": {
             "bsn": "BSN",
@@ -2161,7 +2236,8 @@
                 "sponsor": "Declaring at",
                 "title": "Title"
             },
-            "title": "Claim data"
+            "title": "Claim data",
+            "code": "Number: #:code"
         },
         "empty": {
             "button": "Submit coupon",
@@ -2291,7 +2367,6 @@
         "enter_sms_code": "Enter the 6-digit SMS code",
         "enter_sms_code_6_digits": "To proceed, please enter the 6-digit SMS code sent to your phone number.",
         "extra_security": "Your two-factor authentication has been successfully set up. Your account is now extra secure.",
-        "failed": "Failed!",
         "in_app_select": "In the app, select",
         "link_phone": "Link your phone number",
         "or": "Whether the",
@@ -2302,11 +2377,12 @@
         "select_auth_app": "Select the authentication app you want to use.",
         "setup_2fa": "Setting up two-factor authentication",
         "setup_account": "Account setup",
-        "success": "Successful!",
         "successful_login": "It worked!",
         "unknown_error": "Unknown error.",
         "verify": "Verify",
-        "welcome_back": "You have successfully logged in with two-factor authentication. Welcome back!"
+        "welcome_back": "You have successfully logged in with two-factor authentication. Welcome back!",
+        "download_from_app_store": "App Store",
+        "download_from_play_store": "Play Store"
     },
     "modal_product_reserve_cancel": {
         "description_not_cancelable": "This reservation has already been accepted by the provider. To cancel within 14 days of the date of the reservation, please contact the provider.",
@@ -2346,7 +2422,26 @@
             "confirm": "Confirm"
         },
         "logout": {
-            "description": "You are automatically logged out by 15 minutes of inactivity."
+            "description": "You are automatically logged out by 15 minutes of inactivity.",
+            "confirm": "Login",
+            "title": "Session expired"
+        },
+        "email_voucher_to_me": {
+            "description": "Send the QR code to my email address",
+            "title": "Email to me"
+        },
+        "session": {
+            "description": "Ending the session may cause you to be logged out, would you like to continue?",
+            "header": "End session",
+            "title": "End of session"
+        },
+        "sessions": {
+            "description": "You are now logged out on all devices, would you like to continue?",
+            "title": "End all sessions"
+        },
+        "share_voucher": {
+            "description": "You can share your reservation with the provider to enable distance buying. If the offer involves an activity or service: type in the field below additional information the provider requires for participation, such as: your name and phone number.",
+            "title": "Caution! Please send a message to the provider before sharing the QR code."
         }
     },
     "open_in_me": {
@@ -2491,7 +2586,9 @@
     "app_footer": {
         "columns": {
             "links": "Links",
-            "me_app": "Download the Me app"
+            "me_app": "Download the Me app",
+            "follow_us": "Follow us on:",
+            "site_info": "Site information"
         },
         "links": {
             "accessibility": "Accessibility Statement",
@@ -2500,7 +2597,8 @@
             "terms_and_conditions": "General conditions"
         },
         "me_app_more_info": "Learn more about the Me app",
-        "provider_sign_up": "Register as a provider"
+        "provider_sign_up": "Register as a provider",
+        "sponsor_logo_alt": "Sponsor logo"
     },
     "block_funds": {
         "labels": {
@@ -2602,7 +2700,9 @@
             "security": "Security",
             "sessions": "Sessions",
             "share": "Share",
-            "vouchers": "Credit"
+            "vouchers": "Credit",
+            "me_app": "Me-app",
+            "provider_sign_up": "Register as a provider"
         },
         "header": {
             "subtitle": "Have your personal QR code scanned by a reviewer.",
@@ -2661,13 +2761,14 @@
             "mount": "Self additional payment",
             "refunded": "Refunded",
             "status": "Status"
-        }
+        },
+        "title": "Top-up data"
     },
     "top_navbar_search": {
         "noresult": {
-            "funds_label": "View all credits &gt;",
-            "products_label": "View all offerings &gt;",
-            "providers_label": "View all providers &gt;",
+            "funds_label": "View all credits >",
+            "products_label": "View all offerings >",
+            "providers_label": "View all providers >",
             "subtitle": "No results found for \"{{ query }}\". Please try again with other search terms."
         },
         "placeholders": {
@@ -2679,7 +2780,11 @@
             "btn": "View all results",
             "funds_label": "Credit",
             "products_label": "Offer",
-            "providers_label": "Providers"
+            "providers_label": "Providers",
+            "found_results": "{{count}} results found..."
+        },
+        "aria": {
+            "close_search": "Delete search"
         }
     },
     "providers_office": {
@@ -2802,7 +2907,7 @@
     "sitemap": {
         "breadcrumbs": {
             "home": "Home",
-            "search": "Sitemap"
+            "sitemap": "Sitemap"
         },
         "title": "Sitemap"
     },
@@ -2945,7 +3050,8 @@
             "show_more": "Show more",
             "total": "Total",
             "view_explanation": "View explanation",
-            "why": "Why?"
+            "why": "Why?",
+            "activate": "Activate"
         },
         "product_item_grid": {
             "bookmark": "Add to wish list"
@@ -2972,21 +3078,32 @@
         "disabled": "Disabled",
         "enable": "Enable",
         "enabled_on": "Enabled: ",
-        "error": "Error",
-        "failed": "Failed!",
         "municipality_restrict": "These settings cannot be changed because of conditions set by the municipality",
         "number_confirmed": "Number confirmed",
         "remember_ip": "Remember IP address",
         "require_2fa_always": "Always require confirmation with 2FA",
         "require_2fa_ip": "If IP address used within the past 48 hours, do not require 2FA.",
-        "saved": "Saved!",
         "settings": "Settings",
         "sms_message": "SMS Message",
         "title": "Two-factor authentication",
         "unknown_error": "Unknown error message.",
         "verification_codes_sent": "Verification codes were sent via SMS",
         "vouchers_restrict": "There are one or more vouchers from a fund that limit this institution",
-        "subtitle": "Add an extra layer of security to your account by enabling two-factor authentication. You can choose from the following authentication methods: Authenticator app and SMS authentication."
+        "subtitle": "Add an extra layer of security to your account by enabling two-factor authentication. You can choose from the following authentication methods: Authenticator app and SMS authentication.",
+        "providers": {
+            "authenticator": {
+                "title": "Authenticator app"
+            },
+            "phone": {
+                "title": "SMS Verification"
+            }
+        },
+        "app_providers": {
+            "authenticator_1password": "1Password authenticator",
+            "authenticator_google": "Google authenticator",
+            "authenticator_lastpass": "LastPass Authenticator",
+            "authenticator_microsoft": "Microsoft Authenticator"
+        }
     },
     "modal_2fa_deactivate": {
         "2fa_disabled": "Two-factor authentication has been successfully disabled",
@@ -2999,10 +3116,8 @@
         "enter_2fa_code_deactivation": "Enter two-factor authentication code for deactivation",
         "enter_app_code": "Enter the 6-digit code from within the app",
         "enter_sms_code": "Enter the 6-digit SMS code",
-        "failed": "Failed!",
         "resend_code": "Resend code",
         "seconds": "{time} second(s)",
-        "success": "Successful!",
         "unknown_error": "Unknown error.",
         "verify": "Verify",
         "error_404": "An error has occurred. Please refresh the page."
@@ -3021,7 +3136,6 @@
         "cancel": "Cancel",
         "choose_another": "Choose other image",
         "close": "Close",
-        "error": "Error!",
         "instructions": "On the left you can see the original image and on the right you can see the examples. Use the box in the left image to position the picture.",
         "invalid_file": "Uploaded file is not a valid image, please try another file.",
         "invalid_image": "Selected file is not a valid image.",
@@ -3033,7 +3147,8 @@
         "rotate_right": "Turn 90 degrees clockwise",
         "some_invalid_files": "Some of the selected files are not valid images and are skipped.",
         "submit": "Submit",
-        "upload_document": "Upload a document"
+        "upload_document": "Upload a document",
+        "number": "Show image number: {{ number }}"
     },
     "modal_physical_card": {
         "buttons": {
@@ -3047,7 +3162,8 @@
             },
             "request_new_card": {
                 "confirm": "Confirm",
-                "order_by_email": "Order by mail"
+                "order_by_email": "Order by mail",
+                "cancel": "Cancel"
             }
         },
         "modal_section": {
@@ -3070,7 +3186,11 @@
             "link_card": {
                 "description": "On your pass is a QR code, below is your personal code.<br/>If you reactivate the old pass you can continue to use it.<br/>Need help?  Call 14 050 Monday through Friday 9 a.m. to noon.",
                 "subtitle": "Enter your personal customer code",
-                "title": "Activate your old pass"
+                "title": "Activate your old pass",
+                "alt_text": "Physical Pass: {{ fund_name }}",
+                "enter_physical_card_number": "Enter the number of the physical pass",
+                "no_old_card": "No old pass?",
+                "order_card": "Order a pass"
             },
             "request_card_success": {
                 "description": "You have received an email confirming your order.",
@@ -3159,7 +3279,8 @@
     },
     "languages": {
         "en": "English",
-        "nl": "Dutch"
+        "nl": "Dutch",
+        "ar": "Arabic"
     },
     "modal_physical_card_unlink": {
         "body": {
@@ -3283,11 +3404,105 @@
             "close": "Close",
             "description": "Your reservation has been made.",
             "title": "It worked!"
-        }
+        },
+        "voucher_image_alt": "Credit"
     },
     "modal_logout": {
         "description_formal": "Are you sure you want to log out?",
         "description_informal": "Are you sure you want to log out?",
         "title": "Logout"
+    },
+    "pre_check": {
+        "breadcrumb": {
+            "check": "The Pots check",
+            "home": "Home"
+        },
+        "funds": "Funds",
+        "next_step": "Next",
+        "no_value": "---",
+        "of": "from",
+        "previous_step": "Previous step",
+        "search": "Search",
+        "show_less": "Show less",
+        "show_more": "Show more",
+        "advice": "Opinion",
+        "all_categories": "All categories",
+        "all_organizations": "All organizations",
+        "almost_there": "You're almost there!",
+        "change_answers": "Change answers",
+        "download_pdf": "Download as PDF",
+        "total_amount": "Total amount",
+        "total_offers": "Total supply",
+        "your_data": "Your data",
+        "record_required": "The {{ title }} field is required."
+    },
+    "navbar": {
+        "vergoedingen": {
+            "funds": "All fees",
+            "funds_bus": "Bus Advantage",
+            "funds_iit": "Income Supplement",
+            "funds_meedoen": "Participate"
+        },
+        "goereeoverflakkee": {
+            "funds": "Regulations"
+        }
+    },
+    "cookie_banner": {
+        "accept_all": "Accept and move on",
+        "analytics": "Analytical cookies",
+        "analytics_description": "This website uses analytical cookies to collect anonymized statistics about how visitors use our website. This information helps us to improve the website and make it more user-friendly.",
+        "description": "This website uses cookies to improve the overall user experience. Clicking \"Accept and Continue\" constitutes consent to the use of cookies as described in the Privacy Statement.",
+        "functional_only": "Needed only for the website",
+        "local_storage": "Local storage",
+        "local_storage_description": "Local storage is used to ensure that the website functions properly and that users remain logged in.",
+        "manage_cookies": "Manage cookies",
+        "privacy_policy": "Privacy Statement",
+        "settings": "Cookie Settings",
+        "settings_description": "This website uses cookies to make the website function as well as possible, to improve the user experience and to collect anonymous statistics.",
+        "storage_info": "This website uses only local storage and analytical cookies:",
+        "title": "This website uses cookies",
+        "view": "View the "
+    },
+    "logo_title": "To the homepage of :host",
+    "push": {
+        "deleted": "Deleted!",
+        "error": "Failed!",
+        "fund_activation": {
+            "digid_success": "Logged in with DigiD.",
+            "success": "{fund_name} credit activated!"
+        },
+        "pre_check": {
+            "downloaded": "The download will begin in a few moments.",
+            "not_available": "This page is not available."
+        },
+        "preferences_emails": {
+            "verification_resent": "Verification email sent again!"
+        },
+        "profile": {
+            "updated": "The information has been updated."
+        },
+        "reimbursement_edit": {
+            "saved": "Declaration request has been saved.",
+            "submitted": "Claim request has been submitted for review."
+        },
+        "reimbursement": {
+            "canceled": "Declaration canceled."
+        },
+        "reservation": {
+            "canceled": "Reservation canceled."
+        },
+        "saved": "Saved!",
+        "sessions": {
+            "terminated": "Terminated!"
+        },
+        "success": "Successful!"
+    },
+    "read_speaker": {
+        "read_aloud": "Read for",
+        "tooltip": "Have the text read aloud with ReadSpeaker webReader"
+    },
+    "form": {
+        "optional": "Optional",
+        "required": "Mandatory"
     }
 }

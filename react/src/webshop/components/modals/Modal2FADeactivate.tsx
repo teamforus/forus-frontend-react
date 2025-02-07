@@ -56,12 +56,9 @@ export default function Modal2FADeactivate({
                 .then(
                     () =>
                         notify
-                            ? pushSuccess(
-                                  translate('modal_2fa_deactivate.success'),
-                                  translate('modal_2fa_deactivate.code_resent'),
-                              )
+                            ? pushSuccess(translate('push.success'), translate('modal_2fa_deactivate.code_resent'))
                             : false,
-                    (res) => pushDanger(translate('modal_2fa_deactivate.failed'), res?.data?.message),
+                    (res) => pushDanger(translate('push.error'), res?.data?.message),
                 )
                 .then(() => setSendingCode(false));
         },
@@ -90,6 +87,7 @@ export default function Modal2FADeactivate({
                 .catch((res) => {
                     setErrorCode(res?.data?.errors?.code || null);
                     pushDanger(
+                        translate('push.error'),
                         res.status === 404
                             ? translate('modal_2fa_deactivate.error_404')
                             : res.data?.message || translate('modal_2fa_deactivate.unknown_error'),

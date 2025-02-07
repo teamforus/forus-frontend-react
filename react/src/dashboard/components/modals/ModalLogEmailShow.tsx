@@ -37,7 +37,7 @@ export default function ModalLogEmailShow({
                                     <div className="email-log-overview-col">
                                         <div className="email-log-label">Ontvanger</div>
                                         <div className="email-log-value">
-                                            <div className={'text-primary text-medium'}>
+                                            <div className={'text-primary text-semibold'}>
                                                 {emailLog.to_address || <TableEmptyValue />}
                                             </div>
                                             <div>{emailLog.to_name || <TableEmptyValue />}</div>
@@ -46,7 +46,7 @@ export default function ModalLogEmailShow({
                                     <div className="email-log-overview-col">
                                         <div className="email-log-label">Afzender</div>
                                         <div className="email-log-value">
-                                            <div className={'text-primary text-medium'}>
+                                            <div className={'text-primary text-semibold'}>
                                                 {emailLog.from_address || <TableEmptyValue />}
                                             </div>
                                             <div>{emailLog.from_name || <TableEmptyValue />}</div>

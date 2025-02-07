@@ -390,6 +390,14 @@ export default {
         },
     },
 
+    push_notification_group: {
+        auto_close_after: 'Automatisch sluiten na {{ dismissTime }} seconden',
+        auto_close_disabled: 'Automatisch sluiten is uitgeschakeld',
+        adjust: 'Aanpassen',
+        hide_notifications: 'Hide +{{ count }} notifications',
+        show_notifications: 'Show +{{ count }} notifications',
+    },
+
     // EDIT IMPLEMENTATION = implementation-edit.pug
     implementation_edit: {
         header: {
@@ -772,6 +780,7 @@ export default {
         buttons: {
             add: 'Organisatie toevoegen',
             edit: 'Organisatie instellingen',
+            translations: 'Vertalingen instellingen',
             contacts: 'Organisatie berichten',
             notifications_preferences: 'Notificatievoorkeuren',
         },

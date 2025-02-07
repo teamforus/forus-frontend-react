@@ -57,6 +57,7 @@ export default {
 
     buttons: {
         back: 'Terug',
+        send: 'Verzenden',
     },
 
     // VALIDATION REQUEST FOR FUNDS = fund_request.pug
@@ -79,7 +80,55 @@ export default {
             footer: {
                 prev: 'Vorige stap',
                 next: 'Volgende stap',
+                apply: 'Vraag aan',
             },
+        },
+        fund_request_overview: {
+            application_summary: 'Aanvraag overzicht',
+            check_information:
+                'Controleer hieronder of de gegevens die u heeft ingevuld juist zijn. U kunt terug naar eerdere stappen met de knop ',
+            previous_step: 'Vorige stap.',
+            correct_information: 'Kloppen de gegevens? Klik dan op de knop ',
+            submit_application: 'Vraag aan.',
+            contact_info: 'Opgegeven contactgegevens:',
+            none: 'Geen',
+        },
+        fund_request_email_setup: {
+            email_sent_screen: 'Er is een e-mail te bevestiging verstuurd',
+            email_sent: 'E-mail verstuurd',
+            sign_up_with_email: 'Aanmelden met e-mailadres',
+            email_required: 'Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven',
+            continue_without_email: 'Verder zonder e-mail',
+            warning: 'Let op!',
+            no_email_info:
+                'Als u geen e-mailadres achterlaat ontvangt u geen essentiële berichten zoals de e-mail met de QR-code of wanneer er een transactie is geweest. Daarnaast kan u alleen inloggen met DigiD.',
+            skip: 'Overslaan',
+        },
+        fund_request_step_done: {
+            sign_up: 'Aanmelden',
+            error_occurred: 'Er is een fout opgetreden tijdens het aanvragen.',
+            reason: 'Reden:',
+            leave_form: 'Verlaat formulier',
+            application_received: 'Aanvraag ontvangen',
+            sent: 'Verzonden!',
+            application_processing:
+                'Je aanvraag is ontvangen. De aanvraag wordt binnen 10 werkdagen verwerkt. Je ontvangt hierover een e-mail.',
+            back: 'Terug',
+        },
+        fund_request_step_criteria: {
+            make_a_choice: 'Maak een keuze',
+        },
+        fund_request_contact_info: {
+            title: 'Contactgegevens',
+        },
+        fund_request_confirm_criteria: {
+            confirm_income: 'Bevestig uw inkomen',
+            declare_conditions:
+                'U staat op het punt om een meedoenregeling aan te vragen. U dient te verklaren dat u aan de voorwaarden voldoet.',
+            confirm_meet_conditions: 'Ik verklaar dat ik voldoe aan de bovenstaande voorwaarden.',
+            provide_correct_info:
+                'Ik weet dat het verstrekken van onjuiste informatie strafbaar is, dat ik een onterecht of een teveel ontvangen vergoeding terug moet betalen en dat ik een boete kan krijgen.',
+            processing_request: 'Een moment geduld, het verzoek wordt verwerkt.',
         },
         header: {
             main: '{{ fund_name }} aanvraag',

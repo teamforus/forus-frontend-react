@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function FormLabel({
     htmlFor,
@@ -10,6 +11,8 @@ export default function FormLabel({
     children?: React.ReactNode;
     info: { type?: 'required' | 'optional'; start?: boolean };
 }) {
+    const translate = useTranslate();
+
     return (
         <label className="form-label" htmlFor={htmlFor}>
             {children}
@@ -20,7 +23,11 @@ export default function FormLabel({
                     info?.type === 'optional' && 'form-label-info-optional',
                     info?.type === 'required' && 'form-label-info-required',
                 )}>
-                {info?.type === 'required' ? 'Verplicht' : info?.type === 'optional' ? 'Optioneel' : ''}
+                {info?.type === 'required'
+                    ? translate('form.required')
+                    : info?.type === 'optional'
+                      ? translate('form.optional')
+                      : ''}
             </div>
         </label>
     );

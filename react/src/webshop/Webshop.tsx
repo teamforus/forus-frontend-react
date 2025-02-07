@@ -23,22 +23,33 @@ import StateHashPrefixRedirect from '../dashboard/modules/state_router/StateHash
 import { TitleProvider } from './contexts/TitleContext';
 import i18nNL from './i18n/i18n-nl.mjs';
 import i18nEN from './i18n/translated/en-US.json';
+import i18nRU from './i18n/translated/ru.json';
+import i18nPL from './i18n/translated/pl.json';
+import i18nAR from './i18n/translated/ar.json';
+import i18nDE from './i18n/translated/de.json';
+import i18nFR from './i18n/translated/fr.json';
+import i18nTR from './i18n/translated/tr.json';
+import i18nUK from './i18n/translated/uk.json';
 import CookieBanner from './modules/cookie_banner/CookieBanner';
 import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
+import { isValidLocaleString } from '../dashboard/helpers/url';
 
-const locale = ['en', 'nl'].includes(localStorage.getItem('locale')) ? localStorage.getItem('locale') : 'nl';
-
-if (localStorage.getItem('locale') && localStorage.getItem('locale') !== locale) {
-    localStorage.setItem('locale', localStorage.getItem('locale'));
-}
+const locale = localStorage.getItem('locale');
 
 i18n.use(initReactI18next)
     .init({
         resources: {
             en: { translation: i18nEN },
             nl: { translation: i18nNL },
+            ru: { translation: i18nRU },
+            pl: { translation: i18nPL },
+            ar: { translation: i18nAR },
+            de: { translation: i18nDE },
+            fr: { translation: i18nFR },
+            tr: { translation: i18nTR },
+            uk: { translation: i18nUK },
         },
-        lng: locale,
+        lng: isValidLocaleString(locale) ? locale : 'nl',
         fallbackLng: 'nl',
         // https://www.i18next.com/translation-function/interpolation#unescape
         interpolation: { escapeValue: true },

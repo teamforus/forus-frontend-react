@@ -226,7 +226,7 @@ export default function ReservationsShow() {
                                 onClick={() => setShowReservationExtraAmount(!showReservationExtraAmount)}>
                                 <div className="card-header-wrapper">
                                     <em className="mdi mdi-menu-down card-header-arrow" />
-                                    <h2 className="card-heading card-heading-lg">Bijbetalingsgegevens</h2>
+                                    <h2 className="card-heading card-heading-lg">{translate('reservation.title')}</h2>
                                 </div>
                             </div>
 

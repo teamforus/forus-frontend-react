@@ -222,12 +222,15 @@ export default function FundRequest() {
                 .then((res) => {
                     fetchAuthIdentity().then(() => {
                         navigateState('voucher', { number: res.data.data.number });
-                        pushSuccess(`Succes! ${fund.name} tegoed geactiveerd!`);
+                        pushSuccess(
+                            translate('push.success'),
+                            translate('push.fund_activation.success', { fund_name: fund?.name }),
+                        );
                     });
                 })
-                .catch((err: ResponseError) => pushDanger(err.data.message));
+                .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message));
         },
-        [fetchAuthIdentity, fundService, navigateState, pushDanger, pushSuccess],
+        [fetchAuthIdentity, fundService, navigateState, pushDanger, pushSuccess, translate],
     );
 
     const submitRequest = useCallback(() => {
@@ -310,13 +313,13 @@ export default function FundRequest() {
                 .then((res) => (document.location = res.data.redirect_url))
                 .catch((err) => {
                     if (err.status === 403 && err.data.message) {
-                        return pushDanger(err.data.message);
+                        return pushDanger(translate('push.error'), err.data.message);
                     }
 
                     navigateState('error', { errorCode: err.headers('error-code') });
                 });
         }
-    }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity]);
+    }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
 
     const transformInvalidCriteria = useCallback(
         function (item: FundCriterion): LocalCriterion {

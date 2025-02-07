@@ -1,4 +1,14 @@
 export default {
+    start: 'Start',
+    open_home: `Terug naar hoofdpagina`,
+    main_menu: 'Hoofdmenu',
+    start_button: {
+        potjeswijzer: 'Start aanvraag',
+        geertruidenberg: 'Start aanvraag',
+        hartvanwestbrabant: 'Start aanvraag',
+        midden_drenthe: 'Tegoed activeren',
+        berg_en_dal: 'Tegoed activeren',
+    },
     items: {
         home: 'Home',
         funds: 'Activeren',
@@ -169,6 +179,8 @@ export default {
         },
     },
     user_menu: {
+        title: 'Persoonlijk',
+        aria_label: 'Gebruikersmenu',
         auth_as: 'Ingelogd als:',
         my_vouchers: 'Mijn tegoeden',
         authorize: 'Authorize device',

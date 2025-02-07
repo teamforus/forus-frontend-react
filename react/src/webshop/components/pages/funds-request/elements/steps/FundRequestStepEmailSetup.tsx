@@ -80,8 +80,12 @@ export default function FundRequestStepEmailSetup({
 
             {emailSubmitted ? (
                 <div className="sign_up-pane">
-                    <h1 className="sr-only">Er is een e-mail te bevestiging verstuurd</h1>
-                    <h2 className="sign_up-pane-header">E-mail verstuurd</h2>
+                    <h1 className="sr-only">
+                        {translate('fund_request.sign_up.fund_request_email_setup.email_sent_screen')}
+                    </h1>
+                    <h2 className="sign_up-pane-header">
+                        {translate('fund_request.sign_up.fund_request_email_setup.email_sent')}
+                    </h2>
 
                     <div className="sign_up-pane-body">
                         <div className="sign_up-email_sent">
@@ -109,13 +113,15 @@ export default function FundRequestStepEmailSetup({
             ) : (
                 <div className="sign_up-pane">
                     <div className="sign_up-pane-header">
-                        <h2 className="sign_up-pane-header-title">Aanmelden met e-mailadres</h2>
+                        <h2 className="sign_up-pane-header-title">
+                            {translate('fund_request.sign_up.fund_request_email_setup.sign_up_with_email')}
+                        </h2>
                     </div>
                     <div className="sign_up-pane-body">
                         <form onSubmit={emailForm.submit}>
                             {emailSetupRequired && (
                                 <p className="sign_up-pane-text">
-                                    Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven
+                                    {translate('fund_request.sign_up.fund_request_email_setup.email_required')}
                                 </p>
                             )}
                             <div className="form-group">
@@ -153,12 +159,15 @@ export default function FundRequestStepEmailSetup({
                                         <div className="sign_up-info-title-icon">
                                             <div className="mdi mdi-information-outline" />
                                         </div>
-                                        Verder zonder e-mail
+                                        {translate(
+                                            'fund_request.sign_up.fund_request_email_setup.continue_without_email',
+                                        )}
                                     </div>
                                     <div className="sign_up-info-description">
-                                        <span className="text-strong">Let op! </span>Als u geen e-mailadres achterlaat
-                                        ontvangt u geen essentiele berichten zoals de e-mail met de QR-code of wanneer
-                                        er een transactie is geweest. Daarnaast kan u alleen inloggen met DigiD.
+                                        <span className="text-strong">
+                                            {translate('fund_request.sign_up.fund_request_email_setup.warning')}{' '}
+                                        </span>
+                                        {translate('fund_request.sign_up.fund_request_email_setup.no_email_info')}
                                     </div>
                                 </div>
                             )}
@@ -255,7 +264,7 @@ export default function FundRequestStepEmailSetup({
                                     onClick={nextStep}
                                     role="button"
                                     tabIndex={0}>
-                                    Overslaan
+                                    {translate('fund_request.sign_up.fund_request_email_setup.skip')}
                                     <em className="mdi mdi-chevron-right icon-right" />
                                 </button>
                             )
