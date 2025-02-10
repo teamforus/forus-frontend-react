@@ -24,6 +24,7 @@ export default function FundRequestGoBackButton({
                     name="fund-activate"
                     params={{ id: fund?.id }}
                     role="link"
+                    dataDusk="prevStepButton"
                     tabIndex={tabIndex}>
                     <em className="mdi mdi-chevron-left icon-left" />
                     {translate('fund_request.buttons.back')}
@@ -33,6 +34,7 @@ export default function FundRequestGoBackButton({
                     className="button button-text button-text-padless"
                     onClick={prevStep}
                     role="button"
+                    data-dusk="prevStepButton"
                     tabIndex={tabIndex}>
                     <div className="mdi mdi-chevron-left icon-left" />
                     {translate('fund_request.buttons.back')}

@@ -49,7 +49,7 @@ export default function FundRequestBsnWarning({
     }, [appConfigs?.bsn_confirmation_offset, authIdentity.bsn_time, fund, setDigidExpired]);
 
     return bsnWarningShow ? (
-        <div className="sign_up-pane-warning">
+        <div className="sign_up-pane-warning" data-dusk="bsnWarning">
             <div className="warning-icon">
                 <div className="mdi mdi-alert-circle-outline" />
             </div>

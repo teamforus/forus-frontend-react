@@ -224,6 +224,7 @@ export default function FundRequestStepCriteria({
                                     onChange={(input_value?: string) => {
                                         setCriterion(criterion.id, { input_value: input_value });
                                     }}
+                                    dusk="selectControl"
                                     placeholder={translate(
                                         'fund_request.sign_up.fund_request_step_criteria.make_a_choice',
                                     )}
@@ -237,6 +238,7 @@ export default function FundRequestStepCriteria({
                                     id={`criterion_${criterion.id}`}
                                     label={criterion.label}
                                     slim={true}
+                                    dataDusk="controlCheckbox"
                                     onChangeValue={(checked) => {
                                         setCriterion(criterion.id, {
                                             is_checked: checked,
@@ -256,6 +258,7 @@ export default function FundRequestStepCriteria({
                                     name={criterion.record_type.key}
                                     min={0}
                                     max={32}
+                                    dataDusk="controlStep"
                                 />
                             )}
 
@@ -273,6 +276,7 @@ export default function FundRequestStepCriteria({
                                         });
                                     }}
                                     id={`criterion_${criterion.id}`}
+                                    dataDusk="controlDate"
                                 />
                             )}
 
@@ -282,6 +286,7 @@ export default function FundRequestStepCriteria({
                                     value={criterion.input_value ? parseFloat(criterion.input_value) : null}
                                     name={criterion.record_type.key}
                                     id={`criterion_${criterion.id}`}
+                                    dataDusk="controlNumber"
                                     onChangeValue={(value) => {
                                         setCriterion(criterion.id, { input_value: (value || '').toString() });
                                     }}
@@ -294,6 +299,7 @@ export default function FundRequestStepCriteria({
                                     value={criterion.input_value}
                                     name={criterion.record_type.key}
                                     id={`criterion_${criterion.id}`}
+                                    dataDusk="controlText"
                                     onChange={(e) => {
                                         setCriterion(criterion.id, { input_value: e.target.value });
                                     }}
@@ -307,6 +313,7 @@ export default function FundRequestStepCriteria({
                                     min={0}
                                     name={criterion.record_type.key}
                                     id={`criterion_${criterion.id}`}
+                                    dataDusk="controlCurrency"
                                     onChangeValue={(value) => {
                                         setCriterion(criterion.id, { input_value: (value || '').toString() });
                                     }}
@@ -342,6 +349,7 @@ export default function FundRequestStepCriteria({
                             role="button"
                             className="button button-text button-text-padless"
                             onClick={onPrevStep}
+                            data-dusk="prevStepButton"
                             tabIndex={0}>
                             <em className="mdi mdi-chevron-left icon-left" />
                             {translate('fund_request.sign_up.pane.footer.prev')}
@@ -353,12 +361,18 @@ export default function FundRequestStepCriteria({
                                 className="button button-text button-text-padless"
                                 type="submit"
                                 role="button"
+                                data-dusk="nextStepButton"
                                 tabIndex={0}>
                                 {translate('fund_request.sign_up.pane.footer.next')}
                                 <em className="mdi mdi-chevron-right icon-right" />
                             </button>
                         ) : (
-                            <button className="button button-primary" type="submit" role="button" tabIndex={0}>
+                            <button
+                                className="button button-primary"
+                                type="submit"
+                                role="button"
+                                data-dusk="submitButton"
+                                tabIndex={0}>
                                 {translate('fund_request.buttons.send')}
                             </button>
                         )

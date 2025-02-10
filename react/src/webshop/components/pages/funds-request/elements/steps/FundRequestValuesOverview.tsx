@@ -142,6 +142,7 @@ export default function FundRequestValuesOverview({
                             className="button button-primary button-sm"
                             onClick={onSubmitRequest}
                             role="button"
+                            data-dusk="submitButton"
                             tabIndex={0}>
                             {translate('fund_request.sign_up.pane.footer.apply')}
                             <em className="mdi mdi-chevron-right icon-right" />

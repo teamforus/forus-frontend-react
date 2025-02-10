@@ -598,6 +598,7 @@ export default function FundActivate() {
                                     <div className="sign_up-options" data-dusk={'fundRequestOptions'}>
                                         {options?.includes('code') && (
                                             <div
+                                                data-dusk="codeOption"
                                                 className="sign_up-option"
                                                 onClick={() => setState('code')}
                                                 onKeyDown={clickOnKeyEnter}
@@ -622,6 +623,7 @@ export default function FundActivate() {
 
                                         {options?.includes('digid') && (
                                             <div
+                                                data-dusk="digidOption"
                                                 className="sign_up-option"
                                                 onClick={() => selectDigiDOption(fund)}
                                                 onKeyDown={clickOnKeyEnter}
@@ -651,6 +653,7 @@ export default function FundActivate() {
                                                 state={{ from: 'fund-activate' }}
                                                 tabIndex={0}
                                                 onKeyDown={clickOnKeyEnter}
+                                                dataDusk="requestOption"
                                                 className="sign_up-option">
                                                 <div className="sign_up-option-media">
                                                     <img
@@ -700,6 +703,7 @@ export default function FundActivate() {
                                         <div className="form-group" />
                                         <div className="form-group text-center">
                                             <button
+                                                data-dusk="codeFormSubmit"
                                                 className={`button button-primary`}
                                                 disabled={codeForm.values.code.length != 8 || codeForm.isLoading}
                                                 type="submit">
@@ -771,6 +775,7 @@ export default function FundActivate() {
                                                 className="button button-text button-text-padless"
                                                 onClick={confirmCriteria}
                                                 role="button"
+                                                data-dusk="nextStepButton"
                                                 tabIndex={0}>
                                                 {translate('fund_request.sign_up.pane.footer.next')}
                                                 <em className="mdi mdi-chevron-right icon-right" />
