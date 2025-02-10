@@ -603,7 +603,7 @@ export default function FundRequest() {
     return (
         <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {!digiExpired && (
-                <div className="block block-sign_up">
+                <div className="block block-sign_up" data-dusk="fundRequestForm">
                     <div className="block-wrapper form">
                         {steps[step] == 'email_setup' && (
                             <FundRequestStepEmailSetup
@@ -737,7 +737,7 @@ export default function FundRequest() {
             )}
 
             {digiExpired && (
-                <div className="block block-sign_up">
+                <div className="block block-sign_up" data-dusk="digidExpired">
                     <div className="block-wrapper form">
                         <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
 

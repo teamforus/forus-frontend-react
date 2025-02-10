@@ -10,6 +10,7 @@ export default function UIControlDate({
     onChange,
     placeholder = null,
     className,
+    dataDusk = null,
 }: {
     id?: string;
     dateMin?: Date;
@@ -19,13 +20,14 @@ export default function UIControlDate({
     onChange: (date?: Date) => void;
     placeholder?: string;
     className?: string;
+    dataDusk?: string;
 }) {
     const reset = useCallback(() => {
         onChange(null);
     }, [onChange]);
 
     return (
-        <div id={id} className={`ui-control ui-control-date ${className}`}>
+        <div id={id} className={`ui-control ui-control-date ${className}`} data-dusk={dataDusk}>
             <DatePickerControl
                 dateFormat={format || null}
                 value={value}
