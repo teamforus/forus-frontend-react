@@ -25,6 +25,7 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import PhotoSelectorData from '../../elements/photo-selector/types/PhotoSelectorData';
 import useTranslate from '../../../hooks/useTranslate';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
+import FormGroup from '../../elements/forms/controls/FormGroup';
 
 export default function ImplementationsCms() {
     const { id } = useParams();
@@ -77,6 +78,11 @@ export default function ImplementationsCms() {
         { value: true, label: 'Ja' },
     ]);
 
+    const [privacyAndTermsState] = useState([
+        { value: false, label: 'Nee' },
+        { value: true, label: 'Ja' },
+    ]);
+
     const [announcementTypes] = useState([
         { value: 'warning', label: 'Waarschuwing' },
         { value: 'success', label: 'Succes' },
@@ -113,6 +119,8 @@ export default function ImplementationsCms() {
         description_html?: string;
         description_alignment?: string;
         informal_communication?: boolean;
+        show_privacy_checkbox?: boolean;
+        show_terms_checkbox?: boolean;
         announcement?: {
             type?: string;
             title?: string;
@@ -264,6 +272,8 @@ export default function ImplementationsCms() {
                 page_title_suffix: implementation.page_title_suffix,
                 description_alignment: implementation.description_alignment,
                 informal_communication: implementation.informal_communication,
+                show_terms_checkbox: implementation.show_terms_checkbox,
+                show_privacy_checkbox: implementation.show_privacy_checkbox,
                 announcement: {
                     type: announcementTypes[0].value,
                     active: announcementState[0].value,
@@ -648,6 +658,86 @@ export default function ImplementationsCms() {
                                         </div>
                                     </Fragment>
                                 )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card-section card-section-primary">
+                        <div className="row">
+                            <div className="col col-lg-9">
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    label={translate('implementation_edit.labels.show_privacy_checkbox')}
+                                    error={form.errors.show_privacy_checkbox}
+                                    input={(id) => (
+                                        <FormGroupInfo
+                                            info={
+                                                <Fragment>
+                                                    <p>
+                                                        Activeer deze instelling als de gebruiker akkoord moet gaan met
+                                                        de privacyvoorwaarden op de website. Op de aanmeldpagina
+                                                        verschijnt een checkbox.
+                                                    </p>
+                                                    <p>
+                                                        <strong>Belangrijk!</strong> Zorg ervoor dat de privacypagina is
+                                                        ingesteld in het CMS, zodat de link naar deze pagina goed werkt.
+                                                    </p>
+                                                </Fragment>
+                                            }>
+                                            <SelectControl
+                                                id={id}
+                                                className="form-control"
+                                                propKey="value"
+                                                propValue="label"
+                                                allowSearch={false}
+                                                options={privacyAndTermsState}
+                                                value={form.values?.show_privacy_checkbox}
+                                                onChange={(value?: boolean) => {
+                                                    form.update({ show_privacy_checkbox: value });
+                                                }}
+                                                optionsComponent={SelectControlOptions}
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    label={translate('implementation_edit.labels.show_terms_checkbox')}
+                                    error={form.errors.show_terms_checkbox}
+                                    input={(id) => (
+                                        <FormGroupInfo
+                                            info={
+                                                <Fragment>
+                                                    <p>
+                                                        Activeer deze instelling als de gebruiker akkoord moet gaan met
+                                                        de voorwaarden van de website. Op de aanmeldpagina verschijnt
+                                                        een checkbox.
+                                                    </p>
+                                                    <p>
+                                                        <strong>Belangrijk!</strong> Zorg ervoor dat de voorwaarden
+                                                        pagina is ingesteld in het CMS, zodat de link naar deze pagina
+                                                        goed werkt.
+                                                    </p>
+                                                </Fragment>
+                                            }>
+                                            <SelectControl
+                                                id={id}
+                                                className="form-control"
+                                                propKey="value"
+                                                propValue="label"
+                                                allowSearch={false}
+                                                options={privacyAndTermsState}
+                                                value={form.values?.show_terms_checkbox}
+                                                onChange={(value?: boolean) => {
+                                                    form.update({ show_terms_checkbox: value });
+                                                }}
+                                                optionsComponent={SelectControlOptions}
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
                             </div>
                         </div>
                     </div>
