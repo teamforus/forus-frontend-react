@@ -14,6 +14,7 @@ import InfoBox from '../../elements/info-box/InfoBox';
 import FormGroup from '../../elements/forms/controls/FormGroup';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import { currencyFormat, numberFormat } from '../../../helpers/string';
+import OrganizationsTranslationsStatsColumn from './elements/OrganizationsTranslationsStatsColumn';
 
 export default function OrganizationsTranslations() {
     const activeOrganization = useActiveOrganization();
@@ -292,88 +293,21 @@ export default function OrganizationsTranslations() {
                     </div>
                     <div className="card-section card-section-primary">
                         <div className="row block block-markdown">
-                            <div className="col col-xs-12 col-sm-6 col-md-4">
-                                <h4 className={'text-strong'}>Vandaag</h4>
-                                <ul className={'text-medium'}>
-                                    <li>Gebruikte tekens: {numberFormat(parseInt(stats?.day?.total?.symbols))}</li>
-                                    <li className="text-semibold">
-                                        <span className="text-semibold">Berekening:</span>{' '}
-                                        {currencyFormat(parseInt(stats?.day?.total?.symbols)) +
-                                            ' / ' +
-                                            currencyFormat(activeOrganization?.translations_daily_limit)}
-                                        <ul style={{ margin: '0 0' }}>
-                                            {Object.keys(stats?.day?.count_per_type).map((key) => {
-                                                const type = stats?.day?.count_per_type[key];
-                                                return (
-                                                    <li key={key}>
-                                                        <span className="text-semibold">{key}:</span>{' '}
-                                                        {type.symbols.toLocaleString()} or ~ {type.cost}
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    </li>
-                                    <li className="text-semibold">
-                                        Schatting van de kosten: {stats?.day?.total?.cost}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="col col-xs-12 col-sm-6 col-md-4">
-                                <h4 className={'text-strong'}>Deze week</h4>
-                                <ul className={'text-medium'}>
-                                    <li className="text-semibold">
-                                        Gebruikte tekens: {numberFormat(parseInt(stats?.week?.total?.symbols))}
-                                    </li>
-                                    <li>
-                                        <span className="text-semibold">Berekening:</span>{' '}
-                                        {currencyFormat(parseInt(stats?.week?.total?.symbols)) +
-                                            ' / ' +
-                                            currencyFormat(activeOrganization?.translations_weekly_limit)}
-                                        <ul style={{ margin: '0 0' }}>
-                                            {Object.keys(stats?.week?.count_per_type).map((key) => {
-                                                const type = stats?.week?.count_per_type[key];
-                                                return (
-                                                    <li key={key}>
-                                                        <span className="text-semibold">{key}:</span>{' '}
-                                                        {type.symbols.toLocaleString()} or ~ {type.cost}
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    </li>
-                                    <li className="text-semibold">
-                                        Schatting van de kosten: {stats?.week?.total?.cost}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="col col-xs-12 col-sm-6 col-md-4">
-                                <h4 className={'text-strong'}>Deze maand</h4>
-                                <ul className={'text-medium'}>
-                                    <li className="text-semibold">
-                                        Gebruikte tekens: {numberFormat(parseInt(stats?.month?.total?.symbols))}
-                                    </li>
-                                    <li>
-                                        <span className="text-semibold">Berekening:</span>{' '}
-                                        {currencyFormat(parseInt(stats?.month?.total?.symbols)) +
-                                            ' / ' +
-                                            currencyFormat(activeOrganization?.translations_monthly_limit)}
-                                        <ul style={{ margin: '0 0' }}>
-                                            {Object.keys(stats?.month?.count_per_type).map((key) => {
-                                                const type = stats?.month?.count_per_type[key];
-                                                return (
-                                                    <li key={key}>
-                                                        <span className="text-semibold">{key}:</span>{' '}
-                                                        {type.symbols.toLocaleString()} or ~ {type.cost}
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    </li>
-                                    <li className="text-semibold">
-                                        Schatting van de kosten: {stats?.month?.total?.cost}
-                                    </li>
-                                </ul>
-                            </div>
+                            <OrganizationsTranslationsStatsColumn
+                                title={'Vandaag'}
+                                organization={activeOrganization}
+                                stats={stats?.day}
+                            />
+                            <OrganizationsTranslationsStatsColumn
+                                title={'Deze week'}
+                                organization={activeOrganization}
+                                stats={stats?.week}
+                            />
+                            <OrganizationsTranslationsStatsColumn
+                                title={'Deze maand'}
+                                organization={activeOrganization}
+                                stats={stats?.month}
+                            />
                         </div>
                     </div>
                 </div>

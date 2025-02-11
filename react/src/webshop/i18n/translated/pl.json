@@ -3291,7 +3291,10 @@
                 "reactivate": "Aktywuj"
             },
             "card_number": "Numer przepustki",
-            "title": "Aktywuj moją przepustkę"
+            "title": "Aktywuj moją przepustkę",
+            "less_details": "Ukryj wszystkie szczegóły",
+            "more_details": "Pokaż wszystkie szczegóły",
+            "personal_date": "Dane osobowe"
         },
         "reimbursement": {
             "button": "Prześlij kupon",

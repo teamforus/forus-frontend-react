@@ -8628,6 +8628,18 @@
         "Pasnummer"
     ],
     [
+        "voucher.physical_card.less_details",
+        "Verberg alle details"
+    ],
+    [
+        "voucher.physical_card.more_details",
+        "Toon alle details"
+    ],
+    [
+        "voucher.physical_card.personal_date",
+        "Persoonsgegevens"
+    ],
+    [
         "voucher.physical_card.title",
         "Activeer mijn pas"
     ],

@@ -3291,7 +3291,10 @@
                 "reactivate": "Activer"
             },
             "card_number": "Numéro de passage",
-            "title": "Activer mon pass"
+            "title": "Activer mon pass",
+            "less_details": "Cacher tous les détails",
+            "more_details": "Afficher tous les détails",
+            "personal_date": "Données personnelles"
         },
         "reimbursement": {
             "button": "Soumettre un coupon",
