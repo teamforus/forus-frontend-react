@@ -896,7 +896,7 @@ export default function FundActivate() {
                                 <div className="sign_up-pane-body text-center">
                                     <p className="sign_up-pane-text">
                                         <TranslateHtml
-                                            i18n={'fund_activate.cards.taken_by_partner.description'}
+                                            i18n={'fund_activate.cards.backoffice_error_not_resident.description'}
                                             values={{ fund_name: fund.name }}
                                         />
                                     </p>
@@ -908,7 +908,7 @@ export default function FundActivate() {
                                     </div>
                                     <p className="sign_up-pane-text text-center">
                                         <TranslateHtml
-                                            i18n={'fund_activate.cards.taken_by_partner.contacts'}
+                                            i18n={'fund_activate.cards.backoffice_error_not_resident.contacts'}
                                             values={{
                                                 fund_name: fund.name,
                                                 email_value: 'inkomensondersteuning@nijmegen.nl',
