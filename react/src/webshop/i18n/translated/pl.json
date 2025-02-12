@@ -2676,9 +2676,9 @@
         "extra_amount": {
             "date": "Data",
             "method": "Metoda",
-            "mount": "Płatność własna",
             "refunded": "Zwrócone",
-            "status": "Status"
+            "status": "Status",
+            "amount": "Płatność własna"
         },
         "labels": {
             "cancel": "Anuluj",

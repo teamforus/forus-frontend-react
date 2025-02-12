@@ -2761,9 +2761,9 @@
         "extra_amount": {
             "date": "Date",
             "method": "Method",
-            "mount": "Self additional payment",
             "refunded": "Refunded",
-            "status": "Status"
+            "status": "Status",
+            "amount": "Self additional payment"
         },
         "title": "Top-up data"
     },

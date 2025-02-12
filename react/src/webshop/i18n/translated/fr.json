@@ -2676,9 +2676,9 @@
         "extra_amount": {
             "date": "Date",
             "method": "Méthode",
-            "mount": "Autofinancement",
             "refunded": "Remboursé",
-            "status": "Statut"
+            "status": "Statut",
+            "amount": "Autofinancement"
         },
         "labels": {
             "cancel": "Annuler",

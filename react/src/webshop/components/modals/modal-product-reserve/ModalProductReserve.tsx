@@ -1359,20 +1359,20 @@ export default function ModalProductReserve({
                             <div className="payment-details">
                                 <div className="payment-amount">
                                     <div className="payment-key">
-                                        {translate('product_reserve_extra_payment.offer_cost')}
+                                        {translate('modal_reserve_product.extra_payment.offer_cost')}
                                     </div>
                                     <div className="payment-value">{product.price_locale}</div>
                                 </div>
                                 <div className="payment-amount">
                                     <div className="payment-key">
-                                        {translate('product_reserve_extra_payment.remaining_credit')}
+                                        {translate('modal_reserve_product.extra_payment.remaining_credit')}
                                     </div>
                                     <div className="payment-value">{voucher.amount_locale}</div>
                                 </div>
                                 <div className="divider" />
                                 <div className="payment-amount">
                                     <div className="payment-key">
-                                        {translate('product_reserve_extra_payment.extra_payment')}
+                                        {translate('modal_reserve_product.extra_payment.extra_payment')}
                                     </div>
                                     <div className="payment-value bold">{currencyFormat(voucher.amount_extra)}</div>
                                 </div>
@@ -1382,7 +1382,7 @@ export default function ModalProductReserve({
                                     <em className="mdi mdi-information-outline" />
                                 </div>
                                 <div className="block-warning-content">
-                                    {translate('product_reserve_extra_payment.external_link')}
+                                    {translate('modal_reserve_product.extra_payment.external_link')}
                                 </div>
                             </div>
                         </div>
@@ -1419,8 +1419,8 @@ export default function ModalProductReserve({
                                     data-dusk="btnConfirmSubmit">
                                     {submitting && <div className="mdi mdi-loading mdi-spin icon-start" />}
                                     {submitting
-                                        ? translate('modal_reserve_product.buttons.buttons.processing')
-                                        : translate('modal_reserve_product.buttons.buttons.submit')}
+                                        ? translate('modal_reserve_product.buttons.processing')
+                                        : translate('modal_reserve_product.buttons.submit')}
                                 </button>
                             )}
                         </div>

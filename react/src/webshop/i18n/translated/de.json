@@ -2676,9 +2676,9 @@
         "extra_amount": {
             "date": "Datum",
             "method": "Methode",
-            "mount": "Selbstzahler",
             "refunded": "Erstattet",
-            "status": "Status"
+            "status": "Status",
+            "amount": "Selbstzahler"
         },
         "labels": {
             "cancel": "Abbrechen",

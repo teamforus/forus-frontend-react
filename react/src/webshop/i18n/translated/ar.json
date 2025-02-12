@@ -2628,9 +2628,9 @@
         "extra_amount": {
             "date": "التاريخ",
             "method": "الطريقة",
-            "mount": "الدفع الذاتي",
             "refunded": "مستردة",
-            "status": "الحالة"
+            "status": "الحالة",
+            "amount": "الدفع الذاتي"
         },
         "labels": {
             "cancel": "إلغاء",

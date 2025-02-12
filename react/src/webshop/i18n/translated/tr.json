@@ -2628,9 +2628,9 @@
         "extra_amount": {
             "date": "Tarih",
             "method": "Yöntem",
-            "mount": "Kendi kendine ödeme",
             "refunded": "İade Edildi",
-            "status": "Durum"
+            "status": "Durum",
+            "amount": "Kendi kendine ödeme"
         },
         "labels": {
             "cancel": "İptal",

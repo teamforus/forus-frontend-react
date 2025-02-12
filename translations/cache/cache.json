@@ -7208,16 +7208,16 @@
         "Details van terugbetaling"
     ],
     [
+        "reservation.extra_amount.amount",
+        "Zelf bijbetaal"
+    ],
+    [
         "reservation.extra_amount.date",
         "Datum"
     ],
     [
         "reservation.extra_amount.method",
         "Methode"
-    ],
-    [
-        "reservation.extra_amount.mount",
-        "Zelf bijbetaal"
     ],
     [
         "reservation.extra_amount.refunded",
