@@ -31,6 +31,33 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                 margin-right: 5px;
                 color: #979797;
             }
+
+            &.mobile-menu-language-group-header {
+                background:  #FFFFFF;
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+                align-items: center;
+                justify-content: flex-start;
+
+                .mdi {
+                    margin: 0;
+                }
+
+                .mobile-menu-language-group-header-prefix {
+                    color: #646464;
+                }
+
+                .mobile-menu-language-group-header-name {
+                    flex: 1 1 auto;
+                }
+
+                .mobile-menu-language-group-header-icon {
+                    .mdi {
+                        color: #282B39;
+                    }
+                }
+            }
         }
 
         .mobile-menu-items {
@@ -100,6 +127,24 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                         font: normal normal normal 24px/1 "Material Design Icons";
                         font-size: 18px;
                         color: #282B39;
+                    }
+                }
+
+                &.mobile-menu-item-language {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 5px;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    .mobile-menu-item-language-separator {
+                        width: 1px;
+                        height: 8px;
+                        background: var(--border-color);
+                    }
+
+                    .mobile-menu-item-language-name {
+                        flex: 1 1 auto;
                     }
                 }
     

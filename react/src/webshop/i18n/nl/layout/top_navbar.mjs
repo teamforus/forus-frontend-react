@@ -9,6 +9,9 @@ export default {
         midden_drenthe: 'Tegoed activeren',
         berg_en_dal: 'Tegoed activeren',
     },
+    language: {
+        prefix: 'Uw taal:',
+    },
     items: {
         home: 'Home',
         funds: 'Activeren',
