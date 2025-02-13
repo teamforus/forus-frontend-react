@@ -22,9 +22,6 @@
                 "title": "Benim uygulamam"
             }
         },
-        "privacy_link": {
-            "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">Gizlilik bildirimini</a> okudum"
-        },
         "push": {
             "link_used": {
                 "title": "Bu bağlantı zaten kullanılmış veya geçersiz."
@@ -39,7 +36,13 @@
             "title": "Hesabı geri yükle"
         },
         "setup_2fa_title": "İki faktörlü kimlik doğrulamayı ayarlama",
-        "sign_in_up_title": "Bir hesap oluşturun veya bir başvuru başlatın?"
+        "sign_in_up_title": "Bir hesap oluşturun veya bir başvuru başlatın?",
+        "privacy_link": {
+            "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Gizlilik bildirimini</a> okudum"
+        },
+        "terms_link": {
+            "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Hüküm ve koşulları</a> kabul ediyorum"
+        }
     },
     "blocks": {
         "block_exception": {

@@ -55,7 +55,6 @@ export default interface EnvDataWebshopProp {
             noPrintOption?: boolean;
             activateFirstFund?: boolean;
             accessibilityPage?: boolean;
-            privacyPage?: boolean;
 
             // home
             showStartButton?: boolean;

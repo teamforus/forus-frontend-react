@@ -396,22 +396,30 @@ export default function FundActivate() {
     );
 
     const fetchVouchers = useCallback(() => {
+        if (!authIdentity || !fund) {
+            return setVouchers(null);
+        }
+
         setProgress(0);
 
         voucherService
             .list()
             .then((res) => setVouchers(res.data.data))
             .finally(() => setProgress(100));
-    }, [voucherService, setProgress]);
+    }, [authIdentity, fund, setProgress, voucherService]);
 
     const fetchPayouts = useCallback(() => {
+        if (!authIdentity || !fund) {
+            return setPayouts(null);
+        }
+
         setProgress(0);
 
         payoutTransactionService
             .list()
             .then((res) => setPayouts(res.data.data))
             .finally(() => setProgress(100));
-    }, [setProgress, payoutTransactionService]);
+    }, [authIdentity, fund, setProgress, payoutTransactionService]);
 
     const fetchFundRequests = useCallback(() => {
         if (!authIdentity || !fund) {
@@ -598,6 +606,7 @@ export default function FundActivate() {
                                     <div className="sign_up-options" data-dusk={'fundRequestOptions'}>
                                         {options?.includes('code') && (
                                             <div
+                                                data-dusk="codeOption"
                                                 className="sign_up-option"
                                                 onClick={() => setState('code')}
                                                 onKeyDown={clickOnKeyEnter}
@@ -622,6 +631,7 @@ export default function FundActivate() {
 
                                         {options?.includes('digid') && (
                                             <div
+                                                data-dusk="digidOption"
                                                 className="sign_up-option"
                                                 onClick={() => selectDigiDOption(fund)}
                                                 onKeyDown={clickOnKeyEnter}
@@ -651,6 +661,7 @@ export default function FundActivate() {
                                                 state={{ from: 'fund-activate' }}
                                                 tabIndex={0}
                                                 onKeyDown={clickOnKeyEnter}
+                                                dataDusk="requestOption"
                                                 className="sign_up-option">
                                                 <div className="sign_up-option-media">
                                                     <img
@@ -700,6 +711,7 @@ export default function FundActivate() {
                                         <div className="form-group" />
                                         <div className="form-group text-center">
                                             <button
+                                                data-dusk="codeFormSubmit"
                                                 className={`button button-primary`}
                                                 disabled={codeForm.values.code.length != 8 || codeForm.isLoading}
                                                 type="submit">
@@ -771,6 +783,7 @@ export default function FundActivate() {
                                                 className="button button-text button-text-padless"
                                                 onClick={confirmCriteria}
                                                 role="button"
+                                                data-dusk="nextStepButton"
                                                 tabIndex={0}>
                                                 {translate('fund_request.sign_up.pane.footer.next')}
                                                 <em className="mdi mdi-chevron-right icon-right" />
@@ -883,7 +896,7 @@ export default function FundActivate() {
                                 <div className="sign_up-pane-body text-center">
                                     <p className="sign_up-pane-text">
                                         <TranslateHtml
-                                            i18n={'fund_activate.cards.taken_by_partner.description'}
+                                            i18n={'fund_activate.cards.backoffice_error_not_resident.description'}
                                             values={{ fund_name: fund.name }}
                                         />
                                     </p>
@@ -895,7 +908,7 @@ export default function FundActivate() {
                                     </div>
                                     <p className="sign_up-pane-text text-center">
                                         <TranslateHtml
-                                            i18n={'fund_activate.cards.taken_by_partner.contacts'}
+                                            i18n={'fund_activate.cards.backoffice_error_not_resident.contacts'}
                                             values={{
                                                 fund_name: fund.name,
                                                 email_value: 'inkomensondersteuning@nijmegen.nl',

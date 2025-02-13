@@ -166,6 +166,7 @@ export type AppConfigProp = {
     pages: {
         home: ImplementationPage;
         funds: ImplementationPage;
+        privacy: ImplementationPage;
         products: ImplementationPage;
         provider: ImplementationPage;
         providers: ImplementationPage;
@@ -173,6 +174,7 @@ export type AppConfigProp = {
         block_home_products: ImplementationPage;
         footer_app_info: ImplementationPage;
         footer_opening_times: ImplementationPage;
+        terms_and_conditions: ImplementationPage;
         footer_contact_details: ImplementationPage;
     };
     has_productboard_integration: boolean;
@@ -197,6 +199,8 @@ export type AppConfigProp = {
     show_voucher_map: boolean;
     show_product_map: boolean;
     page_title_suffix?: string;
+    show_terms_checkbox?: boolean;
+    show_privacy_checkbox?: boolean;
     languages: Array<Language>;
 };
 

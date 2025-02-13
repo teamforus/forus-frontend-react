@@ -148,9 +148,6 @@
                 "title": "Moja aplikacja"
             }
         },
-        "privacy_link": {
-            "text": "Zapoznałem się z <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">oświadczeniem</a> o ochronie prywatności"
-        },
         "push": {
             "link_used": {
                 "title": "Ten link został już użyty lub jest nieprawidłowy."
@@ -165,7 +162,13 @@
             "title": "Przywracanie konta"
         },
         "setup_2fa_title": "Konfigurowanie uwierzytelniania dwuskładnikowego",
-        "sign_in_up_title": "Założyć konto lub rozpocząć aplikację?"
+        "sign_in_up_title": "Założyć konto lub rozpocząć aplikację?",
+        "privacy_link": {
+            "text": "Zapoznałem się z <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">oświadczeniem</a> o ochronie prywatności"
+        },
+        "terms_link": {
+            "text": "Zgadzam się na <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">warunki i postanowienia</a>"
+        }
     },
     "block_funds": {
         "labels": {
