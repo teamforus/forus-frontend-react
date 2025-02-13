@@ -4421,7 +4421,7 @@
     ],
     [
         "modal_reserve_product.description_informal",
-        "Je gebruikt jouw <strong>{{fund}}</strong> tegoed voor deze reservering.<br/>Plaatst je een reservering? Dan gaat je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder."
+        "Je gebruikt jouw <strong>{{fund}}</strong> tegoed voor deze reservering.<br/>Plaats je een reservering? Dan ga je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder."
     ],
     [
         "modal_reserve_product.description_informal_time",
@@ -6422,6 +6422,18 @@
     [
         "profile.history.you",
         "jou"
+    ],
+    [
+        "profile.household.house_composition",
+        "Gezinssamenstelling"
+    ],
+    [
+        "profile.household.living_arrangement",
+        "Leefvorm"
+    ],
+    [
+        "profile.household.title",
+        "Huishouden"
     ],
     [
         "profile.personal.bsn",

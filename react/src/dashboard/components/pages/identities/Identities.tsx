@@ -201,10 +201,23 @@ export default function Identities() {
                                             className={'tr-clickable'}
                                             customElement={'tr'}>
                                             <td>{identity.id}</td>
-                                            <td>{identity?.records?.given_name?.[0]?.value || <TableEmptyValue />}</td>
-                                            <td>{identity?.records?.family_name?.[0]?.value || <TableEmptyValue />}</td>
+                                            <td>
+                                                {identity?.records?.given_name?.[0]?.value_locale || (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
+                                            <td>
+                                                {identity?.records?.family_name?.[0]?.value_locale || (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
                                             <td>{identity.email || <TableEmptyValue />}</td>
                                             <td>{identity.bsn || <TableEmptyValue />}</td>
+                                            <td>
+                                                {identity?.records?.client_number?.[0]?.value_locale || (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
                                             <td>
                                                 <TableDateOnly
                                                     value={identity?.records?.birth_date?.[0]?.value_locale}
@@ -213,17 +226,35 @@ export default function Identities() {
                                             <td>
                                                 <TableDateTime value={identity.last_activity_at_locale} />
                                             </td>
-                                            <td>{identity?.records?.city?.[0]?.value || <TableEmptyValue />}</td>
-                                            <td>{identity?.records?.street?.[0]?.value || <TableEmptyValue />}</td>
+                                            <td>{identity?.records?.city?.[0]?.value_locale || <TableEmptyValue />}</td>
                                             <td>
-                                                {identity?.records?.house_number?.[0]?.value || <TableEmptyValue />}
+                                                {identity?.records?.street?.[0]?.value_locale || <TableEmptyValue />}
                                             </td>
                                             <td>
-                                                {identity?.records?.house_number_addition?.[0]?.value || (
+                                                {identity?.records?.house_number?.[0]?.value_locale || (
                                                     <TableEmptyValue />
                                                 )}
                                             </td>
-                                            <td>{identity?.records?.postal_code?.[0]?.value || <TableEmptyValue />}</td>
+                                            <td>
+                                                {identity?.records?.house_number_addition?.[0]?.value_locale || (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
+                                            <td>
+                                                {identity?.records?.postal_code?.[0]?.value_locale || (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
+                                            <td>
+                                                {identity?.records?.municipality_name?.[0]?.value_locale || (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
+                                            <td>
+                                                {identity?.records?.neighborhood_name?.[0]?.value_locale || (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
 
                                             <td className={'table-td-actions'}>
                                                 <TableRowActions

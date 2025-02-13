@@ -78,6 +78,7 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
             'family_name',
             'email',
             'bsn',
+            'client_number',
             'birth_date',
             'last_activity',
             'city',
@@ -85,6 +86,8 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
             'house_number',
             'house_number_addition',
             'postal_code',
+            'municipality_name',
+            'neighborhood_name',
         ].filter((item) => item);
 
         return list.map((key) => ({

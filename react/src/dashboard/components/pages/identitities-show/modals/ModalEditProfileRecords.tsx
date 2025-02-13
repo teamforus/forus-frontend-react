@@ -14,6 +14,7 @@ import RecordType from '../../../../props/models/RecordType';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
 import useTranslate from '../../../../hooks/useTranslate';
+import SelectControl from '../../../elements/select-control/SelectControl';
 
 export default function ModalEditProfileRecords({
     modal,
@@ -39,11 +40,18 @@ export default function ModalEditProfileRecords({
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
+    const types = recordTypes.map((type) => type.key.toString());
 
     const pushApiError = usePushApiError();
 
     const form = useFormBuilder<{ [key in ProfileRecordTypes]: string }>(
-        Object.keys(values).reduce((list, key) => ({ ...list, [key]: values[key] }), {}) as {
+        Object.keys(values).reduce((list, key) => {
+            if (types.includes(key)) {
+                return { ...list, [key]: values[key] };
+            }
+
+            return list;
+        }, {}) as {
             [key in ProfileRecordTypes]: string;
         },
         (values) => {
@@ -120,14 +128,28 @@ export default function ModalEditProfileRecords({
                                         onChange={(date) => form.update({ [recordType.key]: dateFormat(date) })}
                                     />
                                 ) : (
-                                    <input
-                                        id={id}
-                                        type={'text'}
-                                        className="form-control"
-                                        value={form.values[recordType.key] || ''}
-                                        placeholder={recordType.name}
-                                        onChange={(e) => form.update({ [recordType.key]: e.target.value })}
-                                    />
+                                    <Fragment>
+                                        {recordType?.type === 'select' ? (
+                                            <SelectControl
+                                                id={id}
+                                                value={form.values[recordType.key] || ''}
+                                                propKey={'value'}
+                                                propValue={'name'}
+                                                options={[{ value: '', name: 'Selecteer...' }, ...recordType.options]}
+                                                placeholder={recordType.name}
+                                                onChange={(value: string) => form.update({ [recordType.key]: value })}
+                                            />
+                                        ) : (
+                                            <input
+                                                id={id}
+                                                type={'text'}
+                                                className="form-control"
+                                                value={form.values[recordType.key] || ''}
+                                                placeholder={recordType.name}
+                                                onChange={(e) => form.update({ [recordType.key]: e.target.value })}
+                                            />
+                                        )}
+                                    </Fragment>
                                 )}
                             </FormGroupInfo>
                         )}

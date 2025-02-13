@@ -15,6 +15,11 @@ export default {
         active_since: 'Actief sinds',
         last_login: 'Laatste inlog',
     },
+    household: {
+        title: 'Huishouden',
+        house_composition: 'Gezinssamenstelling',
+        living_arrangement: 'Leefvorm',
+    },
     contacts: {
         title: 'Contactgegevens aanpassen',
         primary_email: 'Hoofd e-mailadres',
