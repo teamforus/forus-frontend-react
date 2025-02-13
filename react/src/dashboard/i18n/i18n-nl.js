@@ -440,6 +440,8 @@ export default {
             footer_opening_times: 'Footer openingstijden content',
             footer_app_info: 'Footer download de Me-app content',
             cms_media_links: 'Social media links',
+            show_terms_checkbox: 'Toon voorwaarden checkbox',
+            show_privacy_checkbox: 'Toon privacy checkbox',
         },
         implementations_table: {
             title: "Webshop pagina's",

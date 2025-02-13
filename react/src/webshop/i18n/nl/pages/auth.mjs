@@ -27,7 +27,11 @@ export default {
     },
 
     privacy_link: {
-        text: 'Ik heb de <a tabIndex="3" class="text-primary-light sign_up-pane-link" name="privacy" target="_blank" href="{{ link_url }}">privacyverklaring</a> gelezen',
+        text: 'Ik heb de <a tabIndex="3" class="text-primary-light sign_up-pane-link" target="_blank" href="{{ link_url }}">privacyverklaring</a> gelezen',
+    },
+
+    terms_link: {
+        text: 'Ik ga akkoord met de <a tabIndex="3" class="text-primary-light sign_up-pane-link" target="_blank" href="{{ link_url }}">voorwaarden</a>',
     },
 
     qr: {

@@ -16,7 +16,7 @@ export default function FormGroup({
     id?: string;
     error?: string | Array<string>;
     inline?: boolean;
-    inlineSize?: 'sm' | 'md' | 'lg';
+    inlineSize?: 'sm' | 'md' | 'lg' | 'xl';
     label?: string | React.ReactElement | Array<React.ReactElement>;
     input?: (input_id: string) => React.ReactElement;
     required?: boolean;
@@ -32,6 +32,7 @@ export default function FormGroup({
                 inlineSize === 'sm' && 'form-group-inline-sm',
                 inlineSize === 'md' && 'form-group-inline-md',
                 inlineSize === 'lg' && 'form-group-inline-lg',
+                inlineSize === 'xl' && 'form-group-inline-xl',
                 error && 'form-group-error',
                 className,
             )}>

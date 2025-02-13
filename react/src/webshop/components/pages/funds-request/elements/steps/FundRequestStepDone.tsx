@@ -53,7 +53,7 @@ export default function FundRequestStepDone({
                     </div>
                 </div>
             ) : (
-                <div className="sign_up-pane">
+                <div className="sign_up-pane" data-dusk="fundRequestSuccess">
                     <h2 className="sign_up-pane-header">
                         {translate('fund_request.sign_up.fund_request_step_done.application_received')}
                     </h2>

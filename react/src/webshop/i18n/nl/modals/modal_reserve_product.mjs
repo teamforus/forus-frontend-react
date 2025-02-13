@@ -16,7 +16,7 @@ export default {
     ].join('<br/>'),
     description_informal: [
         'Je gebruikt jouw <strong>{{fund}}</strong> tegoed voor deze reservering.',
-        'Plaatst je een reservering? Dan gaat je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder.',
+        'Plaats je een reservering? Dan ga je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder.',
     ].join('<br/>'),
 
     description_formal_time: 'De reservering kunt u na bevestiging nog binnen {{ days_to_cancel }} dagen annuleren. ',

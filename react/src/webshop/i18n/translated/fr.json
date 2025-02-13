@@ -148,9 +148,6 @@
                 "title": "Mon application"
             }
         },
-        "privacy_link": {
-            "text": "J'ai lu la <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">déclaration de confidentialité</a> "
-        },
         "push": {
             "link_used": {
                 "title": "Ce lien a déjà été utilisé ou n'est pas valide."
@@ -165,7 +162,13 @@
             "title": "Restaurer le compte"
         },
         "setup_2fa_title": "Mise en place de l'authentification à deux facteurs",
-        "sign_in_up_title": "Créer un compte ou lancer une candidature ?"
+        "sign_in_up_title": "Créer un compte ou lancer une candidature ?",
+        "privacy_link": {
+            "text": "J'ai lu la <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">déclaration de confidentialité</a> "
+        },
+        "terms_link": {
+            "text": "J'accepte les <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">termes et conditions</a>"
+        }
     },
     "block_funds": {
         "labels": {

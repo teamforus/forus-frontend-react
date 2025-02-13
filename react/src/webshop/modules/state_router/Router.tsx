@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { generatePath, matchRoutes, useLocation, useNavigate, createSearchParams } from 'react-router-dom';
+import { generatePath, matchRoutes, useLocation, useNavigate, createSearchParams, useHref } from 'react-router-dom';
 import { CurrentRoute, RouteState } from './RouterProps';
 import router from '../../router/routes';
 import { NavigateOptions } from 'react-router';
@@ -45,6 +45,10 @@ export const useNavigateState = () => {
         },
         [navigate],
     );
+};
+
+export const useStateHref = (name: string, params = {}, query = {}) => {
+    return useHref(getStateRouteUrl(name, params, query));
 };
 
 export const useStateRoutes = (): { routes: Array<RouteState>; route: CurrentRoute } => {

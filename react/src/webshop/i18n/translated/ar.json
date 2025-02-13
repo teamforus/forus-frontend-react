@@ -22,9 +22,6 @@
                 "title": "تطبيقي"
             }
         },
-        "privacy_link": {
-            "text": "لقد قرأت <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" name=\"privacy\" target=\"_blank\" href=\"{{ link_url }}\">بيان الخصوصية</a> "
-        },
         "push": {
             "link_used": {
                 "title": "تم استخدام هذا الرابط بالفعل أو أنه غير صالح."
@@ -39,7 +36,13 @@
             "title": "استعادة الحساب"
         },
         "setup_2fa_title": "إعداد المصادقة الثنائية",
-        "sign_in_up_title": "إنشاء حساب أو بدء تطبيق؟"
+        "sign_in_up_title": "إنشاء حساب أو بدء تطبيق؟",
+        "privacy_link": {
+            "text": "لقد قرأت <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">بيان الخصوصية</a> "
+        },
+        "terms_link": {
+            "text": "أوافق على <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">الشروط والأحكام</a>"
+        }
     },
     "blocks": {
         "block_exception": {
