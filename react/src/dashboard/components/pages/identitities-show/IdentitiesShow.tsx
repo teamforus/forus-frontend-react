@@ -167,10 +167,7 @@ export default function IdentitiesShow() {
                             label: recordTypesByKey?.marital_status?.name,
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.marital_status} />,
                         },
-                        {
-                            label: 'BSN',
-                            value: identity?.bsn,
-                        },
+                        ...(activeOrganization.bsn_enabled ? [{ label: 'BSN', value: identity?.bsn }] : []),
                         {
                             label: recordTypesByKey?.client_number?.name,
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.client_number} />,

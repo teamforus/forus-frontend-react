@@ -25,6 +25,7 @@ import { NumberParam, StringParam } from 'use-query-params';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableDateOnly from '../../elements/tables/elements/TableDateOnly';
+import useIdentityExportService from '../../../services/exports/useIdentityExportService';
 
 export default function Identities() {
     const translate = useTranslate();
@@ -34,6 +35,7 @@ export default function Identities() {
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
+    const identityExportService = useIdentityExportService();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
     const [loading, setLoading] = useState(false);
@@ -75,11 +77,21 @@ export default function Identities() {
         },
     );
 
-    const { headElement, configsElement } = useConfigurableTable(sponsorIdentitiesService.getColumns(), {
-        filter: filter,
-        sortable: false,
-        hasTooltips: true,
-    });
+    const { headElement, configsElement } = useConfigurableTable(
+        sponsorIdentitiesService.getColumns(activeOrganization),
+        { filter: filter, sortable: false, hasTooltips: true },
+    );
+
+    const { resetFilters: resetFilters, setShow } = filter;
+
+    const exportIdentities = useCallback(() => {
+        setShow(false);
+
+        identityExportService.exportData(activeOrganization.id, {
+            ...filter.activeValues,
+            per_page: null,
+        });
+    }, [activeOrganization.id, filter.activeValues, setShow, identityExportService]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -107,8 +119,6 @@ export default function Identities() {
         },
         [activeOrganization.id, setProgress, sponsorIdentitiesService, pushApiError],
     );
-
-    const { resetFilters: resetFilters } = filter;
 
     useEffect(() => {
         fetchIdentities(filterValuesActive);
@@ -175,6 +185,16 @@ export default function Identities() {
                                     placeholder={translate('payouts.labels.search')}
                                 />
                             </FilterItemToggle>
+
+                            <div className="form-actions">
+                                <button
+                                    className="button button-primary button-wide"
+                                    onClick={exportIdentities}
+                                    disabled={identities.meta.total == 0}>
+                                    <em className="mdi mdi-download icon-start" />
+                                    {translate('components.dropdown.export', { total: identities.meta.total })}
+                                </button>
+                            </div>
                         </CardHeaderFilter>
                     </div>
                 </div>
@@ -212,7 +232,9 @@ export default function Identities() {
                                                 )}
                                             </td>
                                             <td>{identity.email || <TableEmptyValue />}</td>
-                                            <td>{identity.bsn || <TableEmptyValue />}</td>
+                                            {activeOrganization.bsn_enabled && (
+                                                <td>{identity.bsn || <TableEmptyValue />}</td>
+                                            )}
                                             <td>
                                                 {identity?.records?.client_number?.[0]?.value_locale || (
                                                     <TableEmptyValue />
