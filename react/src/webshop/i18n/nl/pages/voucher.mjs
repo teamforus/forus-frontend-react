@@ -97,6 +97,9 @@ export default {
         title: 'Activeer mijn pas',
         alt: "Fysieke pas: '{[ title ]}'",
         card_number: 'Pasnummer',
+        personal_date: 'Persoonsgegevens',
+        less_details: 'Verberg alle details',
+        more_details: 'Toon alle details',
         buttons: {
             reactivate: 'Activeer',
             lost_pass: 'Ik ben mijn pas kwijt',

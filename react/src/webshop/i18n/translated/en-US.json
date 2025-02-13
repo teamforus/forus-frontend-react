@@ -1613,7 +1613,10 @@
             },
             "title": "Activate my pass",
             "alt": "Physical pass: '{[ title ]}'",
-            "card_number": "Pass number"
+            "card_number": "Pass number",
+            "less_details": "Hide all details",
+            "more_details": "Show all details",
+            "personal_date": "Personal data"
         },
         "share_voucher": {
             "buttons": {
@@ -2763,9 +2766,9 @@
         "extra_amount": {
             "date": "Date",
             "method": "Method",
-            "mount": "Self additional payment",
             "refunded": "Refunded",
-            "status": "Status"
+            "status": "Status",
+            "amount": "Self additional payment"
         },
         "title": "Top-up data"
     },

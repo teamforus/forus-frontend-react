@@ -1962,7 +1962,10 @@
                 "reactivate": "Etkinleştir"
             },
             "card_number": "Geçiş numarası",
-            "title": "Geçiş kartımı etkinleştir"
+            "title": "Geçiş kartımı etkinleştir",
+            "less_details": "Tüm detayları gizle",
+            "more_details": "Tüm detayları göster",
+            "personal_date": "Kişisel veriler"
         },
         "reimbursement": {
             "button": "Kupon gönder",
@@ -2630,9 +2633,9 @@
         "extra_amount": {
             "date": "Tarih",
             "method": "Yöntem",
-            "mount": "Kendi kendine ödeme",
             "refunded": "İade Edildi",
-            "status": "Durum"
+            "status": "Durum",
+            "amount": "Kendi kendine ödeme"
         },
         "labels": {
             "cancel": "İptal",
