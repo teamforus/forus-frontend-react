@@ -3169,6 +3169,9 @@
             "hartvanwestbrabant": "Запустити програму",
             "midden_drenthe": "Активувати кредит",
             "potjeswijzer": "Запустити програму"
+        },
+        "language": {
+            "prefix": "Твоя мова:"
         }
     },
     "voucher_printable": {

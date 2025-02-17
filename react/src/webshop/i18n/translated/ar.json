@@ -752,6 +752,9 @@
             "hartvanwestbrabant": "بدء التطبيق",
             "midden_drenthe": "تفعيل الائتمان",
             "potjeswijzer": "بدء التطبيق"
+        },
+        "language": {
+            "prefix": "لغتك"
         }
     },
     "week_days": {

@@ -3169,6 +3169,9 @@
             "hartvanwestbrabant": "Rozpoczęcie aplikacji",
             "midden_drenthe": "Aktywacja kredytu",
             "potjeswijzer": "Rozpoczęcie aplikacji"
+        },
+        "language": {
+            "prefix": "Twój język:"
         }
     },
     "voucher_printable": {
