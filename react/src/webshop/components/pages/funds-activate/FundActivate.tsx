@@ -396,22 +396,30 @@ export default function FundActivate() {
     );
 
     const fetchVouchers = useCallback(() => {
+        if (!authIdentity || !fund) {
+            return setVouchers(null);
+        }
+
         setProgress(0);
 
         voucherService
             .list()
             .then((res) => setVouchers(res.data.data))
             .finally(() => setProgress(100));
-    }, [voucherService, setProgress]);
+    }, [authIdentity, fund, setProgress, voucherService]);
 
     const fetchPayouts = useCallback(() => {
+        if (!authIdentity || !fund) {
+            return setPayouts(null);
+        }
+
         setProgress(0);
 
         payoutTransactionService
             .list()
             .then((res) => setPayouts(res.data.data))
             .finally(() => setProgress(100));
-    }, [setProgress, payoutTransactionService]);
+    }, [authIdentity, fund, setProgress, payoutTransactionService]);
 
     const fetchFundRequests = useCallback(() => {
         if (!authIdentity || !fund) {
@@ -888,7 +896,7 @@ export default function FundActivate() {
                                 <div className="sign_up-pane-body text-center">
                                     <p className="sign_up-pane-text">
                                         <TranslateHtml
-                                            i18n={'fund_activate.cards.taken_by_partner.description'}
+                                            i18n={'fund_activate.cards.backoffice_error_not_resident.description'}
                                             values={{ fund_name: fund.name }}
                                         />
                                     </p>
@@ -900,7 +908,7 @@ export default function FundActivate() {
                                     </div>
                                     <p className="sign_up-pane-text text-center">
                                         <TranslateHtml
-                                            i18n={'fund_activate.cards.taken_by_partner.contacts'}
+                                            i18n={'fund_activate.cards.backoffice_error_not_resident.contacts'}
                                             values={{
                                                 fund_name: fund.name,
                                                 email_value: 'inkomensondersteuning@nijmegen.nl',
