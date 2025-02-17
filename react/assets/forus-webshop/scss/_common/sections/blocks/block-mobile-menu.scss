@@ -102,6 +102,7 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                 display: flex;
                 flex-direction: row;
                 gap: 8px;
+                color: #282b39;
                 align-items: center;
                 justify-content: flex-start;
                 font: 600 14px / var(--item-line-height) var(--base-font);
@@ -124,6 +125,10 @@ $footer_base_font: 'Open Sans', arial, sans-serif;
                     font-size: 18px;
                     line-height: var(--item-line-height);
                     height: var(--item-line-height);
+                }
+
+                &.mobile-menu-item-language-active {
+                    color: #000;
                 }
             }
         }
