@@ -2,6 +2,7 @@ import React, { Fragment, useMemo, useState } from 'react';
 import useMainContext from './useMainContext';
 import { clickOnKeyEnter } from '../../dashboard/helpers/wcag';
 import useTranslate from '../../dashboard/hooks/useTranslate';
+import classNames from 'classnames';
 
 export default function useMobileLangSelector() {
     const { language, languages, changeLanguage } = useMainContext();
@@ -16,29 +17,37 @@ export default function useMobileLangSelector() {
         const languageResource = languages?.filter((lang) => lang.locale === language)?.[0];
 
         return (
-            <Fragment>
+            <div className="mobile-menu-languages">
                 <div
-                    className="mobile-menu-group-header mobile-menu-language-group-header"
+                    className={classNames(
+                        'mobile-menu-languages-header',
+                        showOptions && 'mobile-menu-languages-header-active',
+                    )}
                     onKeyDown={clickOnKeyEnter}
                     tabIndex={0}
                     onClick={() => setShowOptions(!showOptions)}>
-                    <em className="mdi mdi-web" />
-                    <div className="mobile-menu-language-group-header-prefix">
-                        {translate('top_navbar.language.prefix')}
+                    <div className="mobile-menu-languages-header-icon">
+                        <em className="mdi mdi-web" />
                     </div>
-                    <div className="mobile-menu-language-group-header-name">
-                        {languageResource.locale.toUpperCase()} - {languageResource.name}
+                    <div className="mobile-menu-languages-header-name">
+                        <div className="mobile-menu-languages-header-name-prefix">
+                            {translate('top_navbar.language.prefix')}
+                        </div>
+                        {`${languageResource.locale.toUpperCase()} - ${languageResource.name}`}
                     </div>
-                    <span className="mobile-menu-language-group-header-icon">
-                        <em className={showOptions ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'} />
-                    </span>
+                    <div className="mobile-menu-languages-header-toggle">
+                        <em className={showOptions ? 'mdi mdi-chevron-down' : 'mdi mdi-chevron-right'} />
+                    </div>
                 </div>
 
                 {showOptions && (
-                    <div className="mobile-menu-items">
+                    <Fragment>
                         {languages.map((lang) => (
                             <div
-                                className="mobile-menu-item mobile-menu-item-language"
+                                className={classNames(
+                                    'mobile-menu-item-language',
+                                    languageResource.locale === lang.locale && 'mobile-menu-item-language-active',
+                                )}
                                 key={lang.locale}
                                 onKeyDown={clickOnKeyEnter}
                                 tabIndex={0}
@@ -51,9 +60,9 @@ export default function useMobileLangSelector() {
                                 )}
                             </div>
                         ))}
-                    </div>
+                    </Fragment>
                 )}
-            </Fragment>
+            </div>
         );
     }, [changeLanguage, language, languages, showOptions, translate]);
 }
