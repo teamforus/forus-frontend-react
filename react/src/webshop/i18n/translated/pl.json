@@ -2373,7 +2373,12 @@
             "bsn": "BSN",
             "title": "Dane osobowe"
         },
-        "title": "Dane"
+        "title": "Dane",
+        "household": {
+            "house_composition": "Skład rodziny",
+            "living_arrangement": "Żywa forma",
+            "title": "Gospodarstwo domowe"
+        }
     },
     "provider_sign_up": {
         "breadcrumbs": {
@@ -2677,9 +2682,9 @@
         "extra_amount": {
             "date": "Data",
             "method": "Metoda",
-            "mount": "Płatność własna",
             "refunded": "Zwrócone",
-            "status": "Status"
+            "status": "Status",
+            "amount": "Płatność własna"
         },
         "labels": {
             "cancel": "Anuluj",
@@ -3295,7 +3300,10 @@
                 "reactivate": "Aktywuj"
             },
             "card_number": "Numer przepustki",
-            "title": "Aktywuj moją przepustkę"
+            "title": "Aktywuj moją przepustkę",
+            "less_details": "Ukryj wszystkie szczegóły",
+            "more_details": "Pokaż wszystkie szczegóły",
+            "personal_date": "Dane osobowe"
         },
         "reimbursement": {
             "button": "Prześlij kupon",

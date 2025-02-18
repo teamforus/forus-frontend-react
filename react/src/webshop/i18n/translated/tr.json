@@ -1965,7 +1965,10 @@
                 "reactivate": "Etkinleştir"
             },
             "card_number": "Geçiş numarası",
-            "title": "Geçiş kartımı etkinleştir"
+            "title": "Geçiş kartımı etkinleştir",
+            "less_details": "Tüm detayları gizle",
+            "more_details": "Tüm detayları göster",
+            "personal_date": "Kişisel veriler"
         },
         "reimbursement": {
             "button": "Kupon gönder",
@@ -2512,7 +2515,12 @@
             "bsn": "BSN",
             "title": "Kişisel veriler"
         },
-        "title": "Veri"
+        "title": "Veri",
+        "household": {
+            "house_composition": "Aile yapısı",
+            "living_arrangement": "Yaşayan form",
+            "title": "Hane halkı"
+        }
     },
     "reimbursements": {
         "breadcrumbs": {
@@ -2629,9 +2637,9 @@
         "extra_amount": {
             "date": "Tarih",
             "method": "Yöntem",
-            "mount": "Kendi kendine ödeme",
             "refunded": "İade Edildi",
-            "status": "Durum"
+            "status": "Durum",
+            "amount": "Kendi kendine ödeme"
         },
         "labels": {
             "cancel": "İptal",

@@ -1965,7 +1965,10 @@
                 "reactivate": "تفعيل"
             },
             "card_number": "رقم المرور",
-            "title": "تفعيل بطاقتي"
+            "title": "تفعيل بطاقتي",
+            "less_details": "إخفاء جميع التفاصيل",
+            "more_details": "إظهار كل التفاصيل",
+            "personal_date": "البيانات الشخصية"
         },
         "reimbursement": {
             "button": "إرسال القسيمة",
@@ -2512,7 +2515,12 @@
             "bsn": "BSN",
             "title": "البيانات الشخصية"
         },
-        "title": "البيانات"
+        "title": "البيانات",
+        "household": {
+            "house_composition": "تكوين الأسرة",
+            "living_arrangement": "الشكل الحي",
+            "title": "الأسرة المعيشية"
+        }
     },
     "reimbursements": {
         "breadcrumbs": {
@@ -2629,9 +2637,9 @@
         "extra_amount": {
             "date": "التاريخ",
             "method": "الطريقة",
-            "mount": "الدفع الذاتي",
             "refunded": "مستردة",
-            "status": "الحالة"
+            "status": "الحالة",
+            "amount": "الدفع الذاتي"
         },
         "labels": {
             "cancel": "إلغاء",

@@ -2373,7 +2373,12 @@
             "bsn": "BSN",
             "title": "Персональные данные"
         },
-        "title": "Данные"
+        "title": "Данные",
+        "household": {
+            "house_composition": "Состав семьи",
+            "living_arrangement": "Живая форма",
+            "title": "Домашнее хозяйство"
+        }
     },
     "provider_sign_up": {
         "breadcrumbs": {
@@ -2677,9 +2682,9 @@
         "extra_amount": {
             "date": "Дата",
             "method": "Метод",
-            "mount": "Самостоятельная оплата",
             "refunded": "Возмещено",
-            "status": "Статус"
+            "status": "Статус",
+            "amount": "Самостоятельная оплата"
         },
         "labels": {
             "cancel": "Отмена",
@@ -3295,7 +3300,10 @@
                 "reactivate": "Активируйте"
             },
             "card_number": "Номер пропуска",
-            "title": "Активируйте мой пропуск"
+            "title": "Активируйте мой пропуск",
+            "less_details": "Скрыть все детали",
+            "more_details": "Показать все детали",
+            "personal_date": "Персональные данные"
         },
         "reimbursement": {
             "button": "Отправить купон",

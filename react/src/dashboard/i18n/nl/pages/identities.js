@@ -8,6 +8,7 @@ export default {
         family_name: 'Achternaam',
         email: 'E-mail adres',
         bsn: 'BSN',
+        client_number: 'Klantnummer',
         birth_date: 'Geboorte datum',
         last_login: 'Laatste inlog',
         last_activity: 'Laatste handeling',
@@ -17,6 +18,8 @@ export default {
         city: 'Woonplaats',
         house_number: 'Huisnummer',
         house_number_addition: 'Huisnummer toevoeging',
+        municipality_name: 'Gemeentenaam',
+        neighborhood_name: 'Woonwijk',
         street: 'Straatnaam',
         created_at: 'Gemaakt op',
         actions: 'Acties',
@@ -29,6 +32,8 @@ export default {
             'Dit veld bevat de achternaam van de persoon. Samen met de voornaam zorgt dit voor een volledige naamweergave.',
         email: 'Dit veld bevat het e-mailadres van de persoon. Het wordt gebruikt voor communicatie en meldingen binnen het platform en dient tevens als inlogmethode.',
         bsn: 'Dit staat voor "Burger Service Nummer". Het is een uniek identificatienummer dat wordt gebruikt door de overheid om personen te identificeren in verschillende administratieve processen.',
+        client_number:
+            'Uniek nummer toegekend door het systeem van de organisatie, zodat een relatie kan worden geïdentificeerd. Ook wel Persoon-organisatierelatie ID (UID) genoemd.',
         birth_date:
             'Dit veld bevat de geboortedatum van de persoon. Het is belangrijk voor persoonlijke identificatie, ondersteuning bij het gebruik, en om per regio inzicht te krijgen in de aanvraag en het gebruik van regelingen.',
         last_login:
@@ -44,6 +49,9 @@ export default {
         house_number:
             'Een numerieke aanduiding die door de gemeente aan een object is toegekend (volgens NEN 5825:2002).',
         house_number_addition: 'Extra toevoegingen aan het huisnummer, zoals toegekend door de gemeente.',
+        municipality_name: 'De naam van de wijk, zoals die door het CBS wordt gebruikt.',
+        neighborhood_name:
+            'De samenstelling van het huishouden, inclusief het aantal en de relaties van personen die samenwonen.',
         street: 'De officiële, door de gemeente vastgestelde naam van een straat.',
         created_at: 'Gemaakt op',
     },
@@ -62,6 +70,8 @@ export default {
         },
     },
     record_info: {
+        client_number:
+            'Uniek nummer toegekend door het systeem van de organisatie, zodat een relatie kan worden geïdentificeerd. Ook wel Persoon-organisatierelatie ID (UID) genoemd.',
         given_name: 'De samenvoeging van alle exemplaren van voornaam van de persoon.',
         family_name: 'De familienaam of geslachtsnaam die aangeeft dat de persoon tot een specifieke familie behoort.',
         email: 'Het adres waaronder de persoon per elektronische post bereikbaar is. Dit is het hoofd e-mailadres van de persoon en wordt gebruikt om in te loggen op de website en systeemberichten te ontvangen.',
@@ -82,6 +92,15 @@ export default {
         house_number: 'De numerieke aanduiding zoals deze door de gemeente aan het object is toegekend.',
         house_number_addition: 'De huisnummertoevoeging zoals deze door de gemeente aan het object is toegekend.',
         street: 'De officiële door de gemeente vastgestelde naam van een straat waar de persoon woonachtig is.',
+        house_composition: 'house_composition',
+        gender: 'Een aanduiding die aangeeft of de ingeschrevene een man of vrouw is, of dat het geslacht onbekend is.',
+        age: 'De leeftijd van de persoon in jaren.',
+        municipality_name: 'De naam van de wijk, zoals die door het CBS wordt gebruikt.',
+        neighborhood_name:
+            'De samenstelling van het huishouden, inclusief het aantal en de relaties van personen die samenwonen.',
+        living_arrangement:
+            'De manier waarop de persoon samenleeft binnen een huishouden, zoals alleenstaanden, gezinnen, of woongroepen.',
+        marital_status: 'De rechtstoestand van een persoon ten aanzien van huwelijk of geregistreerd partnerschap.',
     },
     buttons: {
         clear_filter: 'Wis filter',

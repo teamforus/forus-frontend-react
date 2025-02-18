@@ -88,7 +88,59 @@ export default function Profile() {
                                             <IdentityRecordKeyValueListHistory records={profile.records.birth_date} />
                                         ),
                                     },
+                                    {
+                                        label: recordTypesByKey?.age?.name,
+                                        value: <IdentityRecordKeyValueListHistory records={profile.records.age} />,
+                                    },
+                                    {
+                                        label: recordTypesByKey?.gender?.name,
+                                        value: <IdentityRecordKeyValueListHistory records={profile.records.gender} />,
+                                    },
+                                    {
+                                        label: recordTypesByKey?.marital_status?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.marital_status}
+                                            />
+                                        ),
+                                    },
                                     { label: translate('profile.personal.bsn'), value: profile?.bsn },
+                                    {
+                                        label: recordTypesByKey?.client_number?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.client_number}
+                                            />
+                                        ),
+                                    },
+                                ]}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <div className="card-header">
+                            <h2 className="card-title">{translate('profile.household.title')}</h2>
+                        </div>
+                        <div className="card-section">
+                            <BlockKeyValueList
+                                items={[
+                                    {
+                                        label: recordTypesByKey?.house_composition?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.house_composition}
+                                            />
+                                        ),
+                                    },
+                                    {
+                                        label: recordTypesByKey?.living_arrangement?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.living_arrangement}
+                                            />
+                                        ),
+                                    },
                                 ]}
                             />
                         </div>

@@ -2373,7 +2373,12 @@
             "bsn": "BSN",
             "title": "Données personnelles"
         },
-        "title": "Données"
+        "title": "Données",
+        "household": {
+            "house_composition": "Composition de la famille",
+            "living_arrangement": "Forme vivante",
+            "title": "Ménage"
+        }
     },
     "provider_sign_up": {
         "breadcrumbs": {
@@ -2677,9 +2682,9 @@
         "extra_amount": {
             "date": "Date",
             "method": "Méthode",
-            "mount": "Autofinancement",
             "refunded": "Remboursé",
-            "status": "Statut"
+            "status": "Statut",
+            "amount": "Autofinancement"
         },
         "labels": {
             "cancel": "Annuler",
@@ -3295,7 +3300,10 @@
                 "reactivate": "Activer"
             },
             "card_number": "Numéro de passage",
-            "title": "Activer mon pass"
+            "title": "Activer mon pass",
+            "less_details": "Cacher tous les détails",
+            "more_details": "Afficher tous les détails",
+            "personal_date": "Données personnelles"
         },
         "reimbursement": {
             "button": "Soumettre un coupon",
