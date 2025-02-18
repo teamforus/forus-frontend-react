@@ -752,6 +752,9 @@
             "hartvanwestbrabant": "Uygulamayı başlat",
             "midden_drenthe": "Krediyi etkinleştirin",
             "potjeswijzer": "Uygulamayı başlat"
+        },
+        "language": {
+            "prefix": "Senin dilin:"
         }
     },
     "week_days": {
