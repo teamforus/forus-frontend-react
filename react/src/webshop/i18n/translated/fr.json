@@ -3174,6 +3174,9 @@
             "hartvanwestbrabant": "Démarrer la demande",
             "midden_drenthe": "Activer le crédit",
             "potjeswijzer": "Démarrer la demande"
+        },
+        "language": {
+            "prefix": "Votre langue :"
         }
     },
     "voucher_printable": {

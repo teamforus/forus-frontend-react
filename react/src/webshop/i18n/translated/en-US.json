@@ -348,6 +348,9 @@
             "hartvanwestbrabant": "Start application",
             "midden_drenthe": "Activate credit",
             "potjeswijzer": "Start application"
+        },
+        "language": {
+            "prefix": "Your language:"
         }
     },
     "auth_start": {

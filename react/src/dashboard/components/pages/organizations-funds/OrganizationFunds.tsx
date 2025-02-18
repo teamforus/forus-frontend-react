@@ -437,7 +437,6 @@ export default function OrganizationFunds() {
                                                                     )}
 
                                                                 {hasPermission(activeOrganization, 'view_finances') &&
-                                                                    fund.balance_provider == 'top_ups' &&
                                                                     fund.key &&
                                                                     fund.state != 'closed' && (
                                                                         <a
