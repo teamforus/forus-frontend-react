@@ -2480,7 +2480,8 @@
         "account": {
             "active_since": "نشط منذ",
             "last_login": "آخر تسجيل دخول",
-            "title": "تفاصيل الحساب"
+            "title": "تفاصيل الحساب",
+            "last_activity": "الإجراء الأخير"
         },
         "bank_accounts": {
             "title": "الحساب البنكي",
@@ -3019,7 +3020,6 @@
         },
         "description_formal": "سوف تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
         "description_formal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
-        "description_informal": "هل تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
         "description_informal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
         "email_setup_description": "أضف عنوان بريدك الإلكتروني لتلقي الرسائل.",
         "email_setup_title": "إضافة عنوان البريد الإلكتروني",
@@ -3084,7 +3084,8 @@
             "description": "تم إجراء الحجز الخاص بك.",
             "title": "لقد نجح الأمر!"
         },
-        "voucher_image_alt": "الائتمان"
+        "voucher_image_alt": "الائتمان",
+        "description_informal": "أنت تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة."
     },
     "modal": {
         "buttons": {

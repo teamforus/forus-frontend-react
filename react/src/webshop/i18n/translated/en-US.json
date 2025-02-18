@@ -2185,7 +2185,8 @@
         "account": {
             "active_since": "Active since",
             "last_login": "Last login",
-            "title": "Account information"
+            "title": "Account information",
+            "last_activity": "Final act"
         },
         "bank_accounts": {
             "title": "Bank account",
@@ -3343,7 +3344,6 @@
         },
         "description_formal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal information with the provider.",
         "description_formal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation. ",
-        "description_informal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal data with the provider.",
         "description_informal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation.",
         "email_setup_description": "Add your email address to receive messages.",
         "email_setup_title": "Add email address",
@@ -3408,7 +3408,8 @@
             "description": "Your reservation has been made.",
             "title": "It worked!"
         },
-        "voucher_image_alt": "Credit"
+        "voucher_image_alt": "Credit",
+        "description_informal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you making a reservation? Then you agree that we share your personal data with the provider."
     },
     "modal_logout": {
         "description_formal": "Are you sure you want to log out?",

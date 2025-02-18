@@ -2480,7 +2480,8 @@
         "account": {
             "active_since": "O zamandan beri aktif",
             "last_login": "Son giriş",
-            "title": "Hesap bilgileri"
+            "title": "Hesap bilgileri",
+            "last_activity": "Son eylem"
         },
         "bank_accounts": {
             "title": "Banka hesabı",
@@ -3019,7 +3020,6 @@
         },
         "description_formal": "Sen kullanacaksın <strong>{{fund}}</strong><br/>Bu rezervasyon için kredi. Rezervasyon mu yapıyorsunuz? O zaman kişisel verilerinizi sağlayıcı ile paylaşmamızı kabul etmiş olursunuz.",
         "description_formal_time": "{{ days_to_cancel }} Rezervasyonu onaylandıktan sonraki günler içinde de iptal edebilirsiniz.",
-        "description_informal": "Sen kendi <strong>{{fund}}</strong><br/>Bu rezervasyon için kredi. Rezervasyon mu yapıyorsunuz? O zaman kişisel verilerinizi sağlayıcı ile paylaşmamızı kabul etmiş olursunuz.",
         "description_informal_time": "{{ days_to_cancel }} Rezervasyonu onaylandıktan sonraki günler içinde de iptal edebilirsiniz.",
         "email_setup_description": "Mesaj almak için e-posta adresinizi ekleyin.",
         "email_setup_title": "E-posta adresi ekle",
@@ -3084,7 +3084,8 @@
             "description": "Rezervasyonunuz yapılmıştır.",
             "title": "İşe yaradı!"
         },
-        "voucher_image_alt": "Kredi"
+        "voucher_image_alt": "Kredi",
+        "description_informal": "Sen kendi <strong>{{fund}}</strong><br/>Bu rezervasyon için kredi. Rezervasyon mu yapıyorsunuz? O zaman kişisel verilerinizi sağlayıcı ile paylaşmamızı kabul etmiş olursunuz."
     },
     "modal": {
         "buttons": {

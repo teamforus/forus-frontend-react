@@ -1628,7 +1628,6 @@
         },
         "description_formal": "Wykorzystasz swój <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim przypadku zgadzasz się na udostępnienie przez nas Twoich danych osobowych dostawcy.",
         "description_formal_time": "{{ days_to_cancel }} Rezerwację można anulować w ciągu kilku dni od jej potwierdzenia.",
-        "description_informal": "Używasz swojego <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim przypadku zgadzasz się, że udostępniamy Twoje dane osobowe dostawcy.",
         "description_informal_time": "{{ days_to_cancel }} Rezerwację można anulować w ciągu kilku dni od jej potwierdzenia.",
         "email_setup_description": "Dodaj swój adres e-mail, aby otrzymywać wiadomości.",
         "email_setup_title": "Dodaj adres e-mail",
@@ -1693,7 +1692,8 @@
             "description": "Rezerwacja została dokonana.",
             "title": "Udało się!"
         },
-        "voucher_image_alt": "Kredyt"
+        "voucher_image_alt": "Kredyt",
+        "description_informal": "Używasz swojego <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim razie zgadzasz się, że udostępniamy Twoje dane osobowe dostawcy."
     },
     "modal": {
         "buttons": {
@@ -2341,7 +2341,8 @@
         "account": {
             "active_since": "Aktywny od",
             "last_login": "Ostatnie logowanie",
-            "title": "Szczegóły konta"
+            "title": "Szczegóły konta",
+            "last_activity": "Ostatnia akcja"
         },
         "bank_accounts": {
             "title": "Konto bankowe",
