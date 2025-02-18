@@ -107,6 +107,10 @@ export default function Profile() {
                                     },
                                     {
                                         label: translate('profile.account.last_login'),
+                                        value: profile?.last_login_at_locale,
+                                    },
+                                    {
+                                        label: translate('profile.account.last_activity'),
                                         value: profile?.last_activity_at_locale,
                                     },
                                 ]}

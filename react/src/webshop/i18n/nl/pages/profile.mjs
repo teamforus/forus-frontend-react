@@ -14,6 +14,7 @@ export default {
         title: 'Accountgegevens',
         active_since: 'Actief sinds',
         last_login: 'Laatste inlog',
+        last_activity: 'Laatste handeling',
     },
     contacts: {
         title: 'Contactgegevens aanpassen',

@@ -79,6 +79,7 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
             'email',
             'bsn',
             'birth_date',
+            'last_login',
             'last_activity',
             'city',
             'street',

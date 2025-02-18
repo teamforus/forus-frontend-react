@@ -211,6 +211,9 @@ export default function Identities() {
                                                 />
                                             </td>
                                             <td>
+                                                <TableDateTime value={identity.last_login_at_locale} />
+                                            </td>
+                                            <td>
                                                 <TableDateTime value={identity.last_activity_at_locale} />
                                             </td>
                                             <td>{identity?.records?.city?.[0]?.value || <TableEmptyValue />}</td>

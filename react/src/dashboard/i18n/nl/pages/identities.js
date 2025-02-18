@@ -9,7 +9,8 @@ export default {
         email: 'E-mail adres',
         bsn: 'BSN',
         birth_date: 'Geboorte datum',
-        last_activity: 'Laatste inlog',
+        last_login: 'Laatste inlog',
+        last_activity: 'Laatste handeling',
         postal_code: 'Postcode',
         vouchers_count: 'Aantal tegoeden',
         mobile: 'Mobiele telefoonnummer',
@@ -30,6 +31,8 @@ export default {
         bsn: 'Dit staat voor "Burger Service Nummer". Het is een uniek identificatienummer dat wordt gebruikt door de overheid om personen te identificeren in verschillende administratieve processen.',
         birth_date:
             'Dit veld bevat de geboortedatum van de persoon. Het is belangrijk voor persoonlijke identificatie, ondersteuning bij het gebruik, en om per regio inzicht te krijgen in de aanvraag en het gebruik van regelingen.',
+        last_login:
+            'Dit veld toont de datum en tijd waarop de persoon voor het laatst heeft ingelogd op het platform. Dit helpt om de activiteit van de persoon te monitoren.',
         last_activity:
             'Dit veld toont de datum en tijd waarop de persoon voor het laatst heeft ingelogd op het platform. Dit helpt om de activiteit van de persoon te monitoren.',
         postal_code:
@@ -71,7 +74,6 @@ export default {
         emails_verified_3:
             'Het tweede extra adres waaronder de persoon per elektronische post bereikbaar is. Dit is het eerste extra e-mailadres. De persoon kan het e-mailadres als hoofdadres instellen in het persoonlijke account op de website.',
         birth_date: 'De datum van geboorte van de persoon.',
-        last_activity: 'Lorem Ipsum - dolor sit amet!',
         postal_code:
             'De officiële codering van TNT Post voor een Nederlands postadres, bestaande uit een numeriek deel en een alfabetisch deel.',
         telephone: 'Het telefoonnummer waaronder de persoon bereikbaar is.',
