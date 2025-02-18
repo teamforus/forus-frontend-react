@@ -163,7 +163,8 @@ export default function IdentitiesShow() {
                     items={[
                         { label: 'Accountnummer', value: identity?.id },
                         { label: 'Actief sinds', value: identity?.created_at_locale },
-                        { label: 'Laatste inlog', value: identity?.last_activity_at_locale },
+                        { label: 'Laatste inlog', value: identity?.last_login_at_locale },
+                        { label: 'Laatste handeling', value: identity?.last_activity_at_locale },
                     ]}
                 />
             </Card>
