@@ -3169,6 +3169,9 @@
             "hartvanwestbrabant": "Начать применение",
             "midden_drenthe": "Активировать кредит",
             "potjeswijzer": "Начать применение"
+        },
+        "language": {
+            "prefix": "Ваш язык:"
         }
     },
     "voucher_printable": {
