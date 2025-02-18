@@ -92,7 +92,6 @@ export default interface Fund {
         auth_2fa_restrict_reimbursements?: boolean;
         auth_2fa_restrict_bi_connections?: boolean;
     };
-    balance_provider: string;
     allow_fund_requests?: boolean;
     allow_prevalidations?: boolean;
     tags: Array<Tag>;
