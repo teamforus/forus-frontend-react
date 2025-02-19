@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { ModalState } from '../../../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import Organization from '../../../../props/models/Organization';
@@ -15,6 +15,7 @@ import DatePickerControl from '../../../elements/forms/controls/DatePickerContro
 import { dateFormat, dateParse } from '../../../../helpers/dates';
 import useTranslate from '../../../../hooks/useTranslate';
 import SelectControl from '../../../elements/select-control/SelectControl';
+import { differenceInYears } from 'date-fns';
 
 export default function ModalEditProfileRecords({
     modal,
@@ -72,6 +73,10 @@ export default function ModalEditProfileRecords({
         },
     );
 
+    const calculatedAge = useCallback((value: string) => {
+        return value ? Math.max(differenceInYears(new Date(), dateParse(value)), 0) : null;
+    }, []);
+
     const { submit: formSubmit } = form;
 
     return (
@@ -113,47 +118,74 @@ export default function ModalEditProfileRecords({
             })}
             {recordTypes?.map((recordType) => {
                 return (
-                    <FormGroup
-                        key={recordType.key}
-                        inline={true}
-                        inlineSize={'lg'}
-                        label={recordType.name}
-                        error={form.errors?.[recordType.key]}
-                        input={(id) => (
-                            <FormGroupInfo info={translate('identities.record_info.' + recordType.key)}>
-                                {recordType.key === 'birth_date' ? (
-                                    <DatePickerControl
-                                        value={dateParse(form.values[recordType.key] || '')}
-                                        placeholder={recordType.name}
-                                        onChange={(date) => form.update({ [recordType.key]: dateFormat(date) })}
-                                    />
-                                ) : (
-                                    <Fragment>
-                                        {recordType?.type === 'select' ? (
-                                            <SelectControl
-                                                id={id}
-                                                value={form.values[recordType.key] || ''}
-                                                propKey={'value'}
-                                                propValue={'name'}
-                                                options={[{ value: '', name: 'Selecteer...' }, ...recordType.options]}
-                                                placeholder={recordType.name}
-                                                onChange={(value: string) => form.update({ [recordType.key]: value })}
-                                            />
-                                        ) : (
-                                            <input
-                                                id={id}
-                                                type={'text'}
-                                                className="form-control"
-                                                value={form.values[recordType.key] || ''}
-                                                placeholder={recordType.name}
-                                                onChange={(e) => form.update({ [recordType.key]: e.target.value })}
-                                            />
-                                        )}
-                                    </Fragment>
+                    <Fragment key={recordType.key}>
+                        <FormGroup
+                            inline={true}
+                            inlineSize={'lg'}
+                            label={recordType.name}
+                            error={form.errors?.[recordType.key]}
+                            input={(id) => (
+                                <FormGroupInfo info={translate('identities.record_info.' + recordType.key)}>
+                                    {recordType.key === 'birth_date' ? (
+                                        <DatePickerControl
+                                            value={dateParse(form.values[recordType.key] || '')}
+                                            placeholder={recordType.name}
+                                            onChange={(date) => form.update({ [recordType.key]: dateFormat(date) })}
+                                        />
+                                    ) : (
+                                        <Fragment>
+                                            {recordType?.type === 'select' ? (
+                                                <SelectControl
+                                                    id={id}
+                                                    value={form.values[recordType.key] || ''}
+                                                    propKey={'value'}
+                                                    propValue={'name'}
+                                                    options={[
+                                                        { value: '', name: 'Selecteer...' },
+                                                        ...recordType.options,
+                                                    ]}
+                                                    placeholder={recordType.name}
+                                                    onChange={(value: string) =>
+                                                        form.update({ [recordType.key]: value })
+                                                    }
+                                                />
+                                            ) : (
+                                                <input
+                                                    id={id}
+                                                    type={'text'}
+                                                    className="form-control"
+                                                    value={form.values[recordType.key] || ''}
+                                                    placeholder={recordType.name}
+                                                    onChange={(e) => form.update({ [recordType.key]: e.target.value })}
+                                                />
+                                            )}
+                                        </Fragment>
+                                    )}
+                                </FormGroupInfo>
+                            )}
+                        />
+
+                        {recordType?.key === 'birth_date' && (
+                            <FormGroup
+                                inline={true}
+                                inlineSize={'lg'}
+                                label={'Leeftijd'}
+                                input={(id) => (
+                                    <FormGroupInfo info={translate('identities.record_info.age')}>
+                                        <input
+                                            id={id}
+                                            disabled={true}
+                                            type={'text'}
+                                            className="form-control"
+                                            value={calculatedAge(form.values.birth_date)?.toString() || ''}
+                                            placeholder={recordType.name}
+                                            onChange={(e) => form.update({ [recordType.key]: e.target.value })}
+                                        />
+                                    </FormGroupInfo>
                                 )}
-                            </FormGroupInfo>
+                            />
                         )}
-                    />
+                    </Fragment>
                 );
             })}
         </Modal>

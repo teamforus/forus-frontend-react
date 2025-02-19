@@ -23,6 +23,8 @@ import IdentityBankAccountsCard from './cards/IdentityBankAccountsCard';
 import IdentityVouchersCard from './cards/IdentityVouchersCard';
 import IdentityPayoutsCard from './cards/IdentityPayoutsCard';
 import IdentityRecordKeyValueWithHistory from './elements/IdentityRecordKeyValueWithHistory';
+import { differenceInYears } from 'date-fns';
+import { dateParse } from '../../../helpers/dates';
 
 export default function IdentitiesShow() {
     const openModal = useOpenModal();
@@ -53,6 +55,12 @@ export default function IdentitiesShow() {
     const otherEmails = useMemo(() => {
         return identity?.email_verified ? identity?.email_verified : [];
     }, [identity?.email_verified]);
+
+    const identityCalculatedAge = useMemo(() => {
+        return identity?.records?.birth_date?.[0]?.value
+            ? Math.max(differenceInYears(new Date(), dateParse(identity?.records?.birth_date?.[0]?.value)), 0)
+            : null;
+    }, [identity?.records?.birth_date]);
 
     const fetchIdentity = useCallback(() => {
         setProgress(0);
@@ -133,7 +141,6 @@ export default function IdentitiesShow() {
                                 'given_name',
                                 'family_name',
                                 'birth_date',
-                                'age',
                                 'gender',
                                 'marital_status',
                                 'client_number',
@@ -156,8 +163,8 @@ export default function IdentitiesShow() {
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.birth_date} />,
                         },
                         {
-                            label: recordTypesByKey?.age?.name,
-                            value: <IdentityRecordKeyValueWithHistory records={identity.records.age} />,
+                            label: 'Leeftijd',
+                            value: identityCalculatedAge,
                         },
                         {
                             label: recordTypesByKey?.gender?.name,

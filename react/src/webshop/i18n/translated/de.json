@@ -1314,8 +1314,8 @@
         },
         "description": "Die Me-App ist eine digitale Geldbörse und eine Registrierkasse in einem. Die Kommunen nutzen die Me-App, um Kredite zu vergeben. Mit der App können die Einwohner ihre Guthaben einfach verwalten. Anbieter nutzen die App, um QR-Codes zu scannen.",
         "download": {
-            "description": "Laden Sie die Me-App aus den unten stehenden App-Stores herunter. <a href=\"{{download_link}}\">Klicken Sie hier, um den entsprechenden App-Store direkt</a> auf Ihrem Telefon oder Tablet zu öffnen.",
-            "title": "Laden Sie Me auf Ihr Handy oder Tablet herunter"
+            "title": "Laden Sie Me auf Ihr Handy oder Tablet herunter",
+            "description": "Laden Sie die Me-App aus den unten stehenden App-Stores herunter. <a href=\"{{ download_link }}\">Klicken Sie hier, um den entsprechenden App-Store direkt</a> auf Ihrem Telefon oder Tablet zu öffnen."
         },
         "title": "Über die Me-App",
         "img_alt": "Me-app"
@@ -2370,7 +2370,8 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Persönliche Daten"
+            "title": "Persönliche Daten",
+            "age": "Alter"
         },
         "title": "Daten",
         "household": {

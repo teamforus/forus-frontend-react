@@ -1314,8 +1314,8 @@
         },
         "description": "Aplikacja Me to cyfrowy portfel i kasa fiskalna w jednym. Gminy używają aplikacji Me do wydawania kredytów. Dzięki aplikacji mieszkańcy mogą łatwo zarządzać swoimi kredytami. Dostawcy używają aplikacji do skanowania kodów QR.",
         "download": {
-            "description": "Pobierz aplikację Me z poniższych sklepów z aplikacjami. <a href=\"{{download_link}}\">Kliknij tutaj, aby bezpośrednio</a> otworzyć <a href=\"{{download_link}}\">odpowiedni sklep z aplikacjami</a> na telefonie lub tablecie.",
-            "title": "Pobierz aplikację Me na swój telefon lub tablet"
+            "title": "Pobierz aplikację Me na swój telefon lub tablet",
+            "description": "Pobierz aplikację Me z poniższych sklepów z aplikacjami. <a href=\"{{ download_link }}\">Kliknij tutaj, aby bezpośrednio otworzyć odpowiedni sklep z aplikacjami</a> na telefonie lub tablecie."
         },
         "title": "Informacje o aplikacji Me",
         "img_alt": "Me-app"
@@ -2370,7 +2370,8 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Dane osobowe"
+            "title": "Dane osobowe",
+            "age": "Wiek"
         },
         "title": "Dane",
         "household": {

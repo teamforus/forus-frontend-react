@@ -8,6 +8,7 @@ export default {
     personal: {
         title: 'Persoonsgegevens',
         bsn: 'BSN',
+        age: 'Leeftijd',
     },
 
     account: {
