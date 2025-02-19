@@ -207,7 +207,6 @@
                     },
                     "preferences_emails": "Email settings",
                     "preferences_notifications": "Notification preferences",
-                    "records": "Profile",
                     "reimbursements": "Cost recovery",
                     "reservations": "Reservations",
                     "schagen": {
@@ -227,7 +226,8 @@
                     },
                     "winterswijk": {
                         "funds": "Activate"
-                    }
+                    },
+                    "profile": "Data"
                 },
                 "groningen": {
                     "voucher": "My City Pass"
@@ -337,7 +337,8 @@
             "security_2fa": "Security",
             "security_sessions": "Sessions",
             "aria_label": "User menu",
-            "title": "Personal"
+            "title": "Personal",
+            "profile": "Data"
         },
         "main_menu": "Main menu",
         "open_home": "Back to main page",
@@ -1267,8 +1268,8 @@
         },
         "description": "The Me app is a digital wallet and cash register in one. Municipalities use the Me app to issue credits. The app allows residents to easily manage their balances. Providers use the app to scan QR codes.",
         "download": {
-            "description": "Download the Me app from the app stores below. <a href=\"{{download_link}}\">Click here to directly</a> open <a href=\"{{download_link}}\">the appropriate app store</a> on your phone or tablet.",
-            "title": "Download Me on your phone or tablet"
+            "title": "Download Me on your phone or tablet",
+            "description": "Download the Me app from the app stores below. <a href=\"{{ download_link }}\">Click here to directly open the appropriate app store</a> on your phone or tablet."
         },
         "title": "About the Me app",
         "img_alt": "Me-app"
@@ -2217,9 +2218,15 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Personal data"
+            "title": "Personal data",
+            "age": "Age"
         },
-        "title": "Data"
+        "title": "Data",
+        "household": {
+            "house_composition": "Family composition",
+            "living_arrangement": "Living Form",
+            "title": "Household"
+        }
     },
     "reimbursements": {
         "breadcrumbs": {

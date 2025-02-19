@@ -45,7 +45,14 @@ export type ProfileRecordTypes =
     | 'street'
     | 'house_number'
     | 'house_number_addition'
-    | 'postal_code';
+    | 'client_number'
+    | 'postal_code'
+    | 'house_composition'
+    | 'gender'
+    | 'neighborhood_name'
+    | 'living_arrangement'
+    | 'marital_status'
+    | 'municipality_name';
 
 export type ProfileRecords = { [key in ProfileRecordTypes]: RecordType };
 export type ProfileRecordValues = { [key in ProfileRecordTypes]: string };

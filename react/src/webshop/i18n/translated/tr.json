@@ -611,7 +611,6 @@
                     },
                     "preferences_emails": "E-posta ayarları",
                     "preferences_notifications": "Bildirim tercihleri",
-                    "records": "Profil",
                     "reimbursements": "Maliyet geri kazanımı",
                     "reservations": "Rezervasyonlar",
                     "schagen": {
@@ -631,7 +630,8 @@
                     },
                     "winterswijk": {
                         "funds": "Etkinleştir"
-                    }
+                    },
+                    "profile": "Veri"
                 },
                 "groningen": {
                     "voucher": "Şehir Kartım"
@@ -741,7 +741,8 @@
             "security_2fa": "Güvenlik",
             "security_sessions": "Oturumlar",
             "aria_label": "Kullanıcı menüsü",
-            "title": "Kişisel"
+            "title": "Kişisel",
+            "profile": "Veri"
         },
         "main_menu": "Ana menü",
         "open_home": "Ana sayfaya geri dön",
@@ -1034,8 +1035,8 @@
         },
         "description": "Me uygulaması dijital bir cüzdan ve yazar kasadır. Belediyeler kredi vermek için Me-uygulamasını kullanmaktadır. Uygulama sayesinde vatandaşlar kredilerini kolayca yönetebilir. Sağlayıcılar QR kodlarını taramak için uygulamayı kullanır.",
         "download": {
-            "description": "Me uygulamasını aşağıdaki uygulama mağazalarından indirin. Telefonunuzda veya tabletinizde <a href=\"{{download_link}}\">ilgili uygulama mağazasını doğrudan</a> açmak <a href=\"{{download_link}}\">için buraya tıklayın</a>.",
-            "title": "Beni telefonunuza veya tabletinize indirin"
+            "title": "Beni telefonunuza veya tabletinize indirin",
+            "description": "Me uygulamasını aşağıdaki uygulama mağazalarından indirin. Telefonunuzda veya tabletinizde <a href=\"{{ download_link }}\">ilgili uygulama mağazasını doğrudan açmak için buraya tıklayın</a>."
         },
         "title": "Me uygulaması hakkında",
         "img_alt": "Me-app"
@@ -2512,9 +2513,15 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Kişisel veriler"
+            "title": "Kişisel veriler",
+            "age": "Yaş"
         },
-        "title": "Veri"
+        "title": "Veri",
+        "household": {
+            "house_composition": "Aile yapısı",
+            "living_arrangement": "Yaşayan form",
+            "title": "Hane halkı"
+        }
     },
     "reimbursements": {
         "breadcrumbs": {
