@@ -1644,25 +1644,6 @@
             "reason_placeholder": "Message for provider",
             "close": "Close"
         },
-        "voucher_card_combined": {
-            "header": {
-                "title": "How does it work?"
-            },
-            "labels": {
-                "contact_sponsor": "Do you have any questions?",
-                "contact_sponsor_details": "If so, please contact us.",
-                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                "IIT": {
-                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                    "redirect_to": "Do you still want to apply for reimbursement?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
-                    "redirect_to": "Reclaim expenses?"
-                },
-                "redirect_to": "Do you still want to apply for reimbursement?"
-            }
-        },
         "breadcrumbs": {
             "home": "Home",
             "voucher": "{{ title }}",
@@ -1733,6 +1714,25 @@
                 "expired": "Expired"
             },
             "title": "Expenditures"
+        },
+        "card_combined": {
+            "header": {
+                "title": "How does it work?"
+            },
+            "labels": {
+                "contact_sponsor": "Do you have any questions?",
+                "contact_sponsor_details": "If so, please contact us.",
+                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                "IIT": {
+                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                    "redirect_to": "Do you still want to apply for reimbursement?"
+                },
+                "meedoenregeling_volwassenen_ww": {
+                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
+                    "redirect_to": "Reclaim expenses?"
+                },
+                "redirect_to": "Do you still want to apply for reimbursement?"
+            }
         }
     },
     "vouchers": {

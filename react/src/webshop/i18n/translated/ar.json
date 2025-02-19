@@ -2010,7 +2010,7 @@
             "title": "المعاملات",
             "top_up": "ترقية"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "كيف تعمل؟"
             },
@@ -3094,7 +3094,7 @@
             "title": "لقد نجح الأمر!"
         },
         "voucher_image_alt": "الائتمان",
-        "description_informal": "أنت تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة."
+        "description_informal": "يمكنك استخدام <strong>{{fund}}</strong> رصيدك لهذا الحجز.<br/>هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة."
     },
     "modal": {
         "buttons": {
