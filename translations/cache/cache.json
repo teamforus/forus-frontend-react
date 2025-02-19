@@ -3561,7 +3561,7 @@
     ],
     [
         "me.download.description",
-        "Download de Me-app via onderstaande app stores. <a href=\"{{download_link}}\">Klik hier om direct de juiste app store</a> te openen op je telefoon of tablet."
+        "Download de Me-app via onderstaande app stores. <a href=\"{{ download_link }}\">Klik hier om direct de juiste app store</a> te openen op je telefoon of tablet."
     ],
     [
         "me.download.title",
@@ -4421,7 +4421,7 @@
     ],
     [
         "modal_reserve_product.description_informal",
-        "Je gebruikt jouw <strong>{{fund}}</strong> tegoed voor deze reservering.<br/>Plaatst je een reservering? Dan gaat je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder."
+        "Je gebruikt jouw <strong>{{fund}}</strong> tegoed voor deze reservering.<br/>Plaats je een reservering? Dan ga je ermee akkoord dat wij je persoonlijke gegevens delen met de aanbieder."
     ],
     [
         "modal_reserve_product.description_informal_time",
@@ -6424,6 +6424,22 @@
         "jou"
     ],
     [
+        "profile.household.house_composition",
+        "Gezinssamenstelling"
+    ],
+    [
+        "profile.household.living_arrangement",
+        "Leefvorm"
+    ],
+    [
+        "profile.household.title",
+        "Huishouden"
+    ],
+    [
+        "profile.personal.age",
+        "Leeftijd"
+    ],
+    [
         "profile.personal.bsn",
         "BSN"
     ],
@@ -8024,8 +8040,8 @@
         "Notificatievoorkeuren"
     ],
     [
-        "top_navbar.buttons.mobile.dropdown.records",
-        "Profiel"
+        "top_navbar.buttons.mobile.dropdown.profile",
+        "Gegevens"
     ],
     [
         "top_navbar.buttons.mobile.dropdown.reimbursements",
@@ -8326,6 +8342,10 @@
     [
         "top_navbar.user_menu.preferences_notifications",
         "Notificatievoorkeuren"
+    ],
+    [
+        "top_navbar.user_menu.profile",
+        "Gegevens"
     ],
     [
         "top_navbar.user_menu.providers",

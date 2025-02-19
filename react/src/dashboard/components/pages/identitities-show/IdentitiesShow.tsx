@@ -23,6 +23,8 @@ import IdentityBankAccountsCard from './cards/IdentityBankAccountsCard';
 import IdentityVouchersCard from './cards/IdentityVouchersCard';
 import IdentityPayoutsCard from './cards/IdentityPayoutsCard';
 import IdentityRecordKeyValueWithHistory from './elements/IdentityRecordKeyValueWithHistory';
+import { differenceInYears } from 'date-fns';
+import { dateParse } from '../../../helpers/dates';
 
 export default function IdentitiesShow() {
     const openModal = useOpenModal();
@@ -53,6 +55,12 @@ export default function IdentitiesShow() {
     const otherEmails = useMemo(() => {
         return identity?.email_verified ? identity?.email_verified : [];
     }, [identity?.email_verified]);
+
+    const identityCalculatedAge = useMemo(() => {
+        return identity?.records?.birth_date?.[0]?.value
+            ? Math.max(differenceInYears(new Date(), dateParse(identity?.records?.birth_date?.[0]?.value)), 0)
+            : null;
+    }, [identity?.records?.birth_date]);
 
     const fetchIdentity = useCallback(() => {
         setProgress(0);
@@ -86,7 +94,7 @@ export default function IdentitiesShow() {
                     disabledFields={disabledFields}
                     onDone={fetchIdentity}
                     identity={identity}
-                    recordTypes={recordTypes?.filter((item) => recordTypeKyes.includes(item.key))}
+                    recordTypes={recordTypeKyes?.map((filter) => recordTypes?.find((item) => filter === item.key))}
                     values={recordsByKey}
                     organization={activeOrganization}
                     bodyOverflowVisible={bodyOverflowVisible}
@@ -129,12 +137,14 @@ export default function IdentitiesShow() {
                         text: 'Bewerken',
                         icon: 'pencil-outline',
                         onClick: () =>
-                            editProfileRecords(
-                                'Wijzig persoonsgegevens',
-                                ['given_name', 'family_name', 'birth_date'],
-                                [],
-                                true,
-                            ),
+                            editProfileRecords('Wijzig persoonsgegevens', [
+                                'given_name',
+                                'family_name',
+                                'birth_date',
+                                'gender',
+                                'marital_status',
+                                'client_number',
+                            ]),
                     },
                 ]}>
                 <CardBlockKeyValue
@@ -152,7 +162,53 @@ export default function IdentitiesShow() {
                             label: recordTypesByKey?.birth_date?.name,
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.birth_date} />,
                         },
-                        { label: 'BSN', value: identity?.bsn },
+                        {
+                            label: 'Leeftijd',
+                            value: identityCalculatedAge,
+                        },
+                        {
+                            label: recordTypesByKey?.gender?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.gender} />,
+                        },
+                        {
+                            label: recordTypesByKey?.marital_status?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.marital_status} />,
+                        },
+                        ...(activeOrganization.bsn_enabled ? [{ label: 'BSN', value: identity?.bsn }] : []),
+                        {
+                            label: recordTypesByKey?.client_number?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.client_number} />,
+                        },
+                    ]}
+                />
+            </Card>
+
+            <Card
+                title={'Huishouden'}
+                buttons={[
+                    hasPermission(activeOrganization, 'manage_identities') && {
+                        text: 'Bewerken',
+                        icon: 'pencil-outline',
+                        onClick: () =>
+                            editProfileRecords(
+                                'Wijzig huishouden',
+                                ['house_composition', 'living_arrangement'],
+                                [],
+                                true,
+                            ),
+                    },
+                ]}>
+                <CardBlockKeyValue
+                    size={'md'}
+                    items={[
+                        {
+                            label: recordTypesByKey?.house_composition?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.house_composition} />,
+                        },
+                        {
+                            label: recordTypesByKey?.living_arrangement?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.living_arrangement} />,
+                        },
                     ]}
                 />
             </Card>
@@ -177,15 +233,7 @@ export default function IdentitiesShow() {
                         onClick: () => {
                             editProfileRecords(
                                 'Wijzig contactgegevens',
-                                [
-                                    'telephone',
-                                    'mobile',
-                                    'city',
-                                    'street',
-                                    'house_number',
-                                    'house_number_addition',
-                                    'postal_code',
-                                ],
+                                ['telephone', 'mobile'],
                                 [
                                     { label: 'Hoofd e-mailadres', value: identity.email, key: 'email' },
                                     ...otherEmails.map((email, index) => ({
@@ -214,6 +262,32 @@ export default function IdentitiesShow() {
                             label: recordTypesByKey?.mobile?.name,
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.mobile} />,
                         },
+                    ]}
+                />
+            </Card>
+
+            <Card
+                title={'Adresgegevens'}
+                buttons={[
+                    hasPermission(activeOrganization, 'manage_identities') && {
+                        text: 'Bewerken',
+                        icon: 'pencil-outline',
+                        onClick: () => {
+                            editProfileRecords('Wijzig adresgegevens', [
+                                'city',
+                                'street',
+                                'house_number',
+                                'house_number_addition',
+                                'postal_code',
+                                'neighborhood_name',
+                                'municipality_name',
+                            ]);
+                        },
+                    },
+                ]}>
+                <CardBlockKeyValue
+                    size={'md'}
+                    items={[
                         {
                             label: recordTypesByKey?.city?.name,
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.city} />,
@@ -235,6 +309,14 @@ export default function IdentitiesShow() {
                         {
                             label: recordTypesByKey?.postal_code?.name,
                             value: <IdentityRecordKeyValueWithHistory records={identity.records.postal_code} />,
+                        },
+                        {
+                            label: recordTypesByKey?.neighborhood_name?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.neighborhood_name} />,
+                        },
+                        {
+                            label: recordTypesByKey?.municipality_name?.name,
+                            value: <IdentityRecordKeyValueWithHistory records={identity.records.municipality_name} />,
                         },
                     ]}
                 />

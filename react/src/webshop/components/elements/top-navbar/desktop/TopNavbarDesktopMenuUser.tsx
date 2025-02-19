@@ -177,6 +177,10 @@ export const TopNavbarDesktopMenuUser = () => {
                                 <em className="mdi mdi-cog-outline" />
                                 {translate('top_navbar.user_menu.preferences_notifications')}
                             </StateNavLink>
+                            <StateNavLink id="profile" name="profile" className="auth-user-menu-item" tabIndex={0}>
+                                <em className="mdi mdi-account-check" />
+                                {translate('top_navbar.user_menu.profile')}
+                            </StateNavLink>
                             {envData.config.sessions && (
                                 <StateNavLink name={'security-sessions'} className="auth-user-menu-item" tabIndex={0}>
                                     <em className="mdi mdi-shield-account" />
