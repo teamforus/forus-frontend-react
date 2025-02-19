@@ -2676,9 +2676,9 @@
         "extra_amount": {
             "date": "Datum",
             "method": "Methode",
-            "mount": "Selbstzahler",
             "refunded": "Erstattet",
-            "status": "Status"
+            "status": "Status",
+            "amount": "Selbstzahler"
         },
         "labels": {
             "cancel": "Abbrechen",
@@ -3294,7 +3294,10 @@
                 "reactivate": "Aktivieren Sie"
             },
             "card_number": "Pass-Nummer",
-            "title": "Meinen Pass aktivieren"
+            "title": "Meinen Pass aktivieren",
+            "less_details": "Alle Details ausblenden",
+            "more_details": "Alle Details anzeigen",
+            "personal_date": "Persönliche Daten"
         },
         "reimbursement": {
             "button": "Coupon einreichen",

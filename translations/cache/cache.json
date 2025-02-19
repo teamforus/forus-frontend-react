@@ -7208,16 +7208,16 @@
         "Details van terugbetaling"
     ],
     [
+        "reservation.extra_amount.amount",
+        "Zelf bijbetaal"
+    ],
+    [
         "reservation.extra_amount.date",
         "Datum"
     ],
     [
         "reservation.extra_amount.method",
         "Methode"
-    ],
-    [
-        "reservation.extra_amount.mount",
-        "Zelf bijbetaal"
     ],
     [
         "reservation.extra_amount.refunded",
@@ -8630,6 +8630,18 @@
     [
         "voucher.physical_card.card_number",
         "Pasnummer"
+    ],
+    [
+        "voucher.physical_card.less_details",
+        "Verberg alle details"
+    ],
+    [
+        "voucher.physical_card.more_details",
+        "Toon alle details"
+    ],
+    [
+        "voucher.physical_card.personal_date",
+        "Persoonsgegevens"
     ],
     [
         "voucher.physical_card.title",
