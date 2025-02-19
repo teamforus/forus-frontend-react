@@ -3034,7 +3034,6 @@
                     },
                     "preferences_emails": "Ustawienia poczty e-mail",
                     "preferences_notifications": "Preferencje powiadomień",
-                    "records": "Profil",
                     "reimbursements": "Zwrot kosztów",
                     "reservations": "Rezerwacje",
                     "schagen": {
@@ -3054,7 +3053,8 @@
                     },
                     "winterswijk": {
                         "funds": "Aktywuj"
-                    }
+                    },
+                    "profile": "Dane"
                 },
                 "groningen": {
                     "voucher": "Moja karta miejska"
@@ -3164,7 +3164,8 @@
             "security_2fa": "Bezpieczeństwo",
             "security_sessions": "Sesje",
             "aria_label": "Menu użytkownika",
-            "title": "Osobiste"
+            "title": "Osobiste",
+            "profile": "Dane"
         },
         "main_menu": "Menu główne",
         "open_home": "Powrót do strony głównej",

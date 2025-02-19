@@ -611,7 +611,6 @@
                     },
                     "preferences_emails": "إعدادات البريد الإلكتروني",
                     "preferences_notifications": "تفضيلات الإخطار",
-                    "records": "الملف الشخصي",
                     "reimbursements": "استرداد التكاليف",
                     "reservations": "الحجوزات",
                     "schagen": {
@@ -631,7 +630,8 @@
                     },
                     "winterswijk": {
                         "funds": "تفعيل"
-                    }
+                    },
+                    "profile": "البيانات"
                 },
                 "groningen": {
                     "voucher": "بطاقة مدينتي"
@@ -741,7 +741,8 @@
             "security_2fa": "الأمن",
             "security_sessions": "الجلسات",
             "aria_label": "قائمة المستخدم",
-            "title": "شخصي"
+            "title": "شخصي",
+            "profile": "البيانات"
         },
         "main_menu": "القائمة الرئيسية",
         "open_home": "العودة إلى الصفحة الرئيسية",

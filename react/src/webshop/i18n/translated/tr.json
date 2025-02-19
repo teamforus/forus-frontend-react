@@ -611,7 +611,6 @@
                     },
                     "preferences_emails": "E-posta ayarları",
                     "preferences_notifications": "Bildirim tercihleri",
-                    "records": "Profil",
                     "reimbursements": "Maliyet geri kazanımı",
                     "reservations": "Rezervasyonlar",
                     "schagen": {
@@ -631,7 +630,8 @@
                     },
                     "winterswijk": {
                         "funds": "Etkinleştir"
-                    }
+                    },
+                    "profile": "Veri"
                 },
                 "groningen": {
                     "voucher": "Şehir Kartım"
@@ -741,7 +741,8 @@
             "security_2fa": "Güvenlik",
             "security_sessions": "Oturumlar",
             "aria_label": "Kullanıcı menüsü",
-            "title": "Kişisel"
+            "title": "Kişisel",
+            "profile": "Veri"
         },
         "main_menu": "Ana menü",
         "open_home": "Ana sayfaya geri dön",

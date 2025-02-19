@@ -3034,7 +3034,6 @@
                     },
                     "preferences_emails": "Налаштування електронної пошти",
                     "preferences_notifications": "Налаштування сповіщень",
-                    "records": "Профіль",
                     "reimbursements": "Відшкодування витрат",
                     "reservations": "Бронювання",
                     "schagen": {
@@ -3054,7 +3053,8 @@
                     },
                     "winterswijk": {
                         "funds": "Активувати"
-                    }
+                    },
+                    "profile": "Дані"
                 },
                 "groningen": {
                     "voucher": "Моя міська картка"
@@ -3164,7 +3164,8 @@
             "security_2fa": "Безпека",
             "security_sessions": "Сесії",
             "aria_label": "Меню користувача",
-            "title": "Особисте"
+            "title": "Особисте",
+            "profile": "Дані"
         },
         "main_menu": "Головне меню",
         "open_home": "Повернутися на головну сторінку",

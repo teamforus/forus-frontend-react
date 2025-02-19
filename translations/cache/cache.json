@@ -8040,8 +8040,8 @@
         "Notificatievoorkeuren"
     ],
     [
-        "top_navbar.buttons.mobile.dropdown.records",
-        "Profiel"
+        "top_navbar.buttons.mobile.dropdown.profile",
+        "Gegevens"
     ],
     [
         "top_navbar.buttons.mobile.dropdown.reimbursements",
@@ -8342,6 +8342,10 @@
     [
         "top_navbar.user_menu.preferences_notifications",
         "Notificatievoorkeuren"
+    ],
+    [
+        "top_navbar.user_menu.profile",
+        "Gegevens"
     ],
     [
         "top_navbar.user_menu.providers",

@@ -207,7 +207,6 @@
                     },
                     "preferences_emails": "Email settings",
                     "preferences_notifications": "Notification preferences",
-                    "records": "Profile",
                     "reimbursements": "Cost recovery",
                     "reservations": "Reservations",
                     "schagen": {
@@ -227,7 +226,8 @@
                     },
                     "winterswijk": {
                         "funds": "Activate"
-                    }
+                    },
+                    "profile": "Data"
                 },
                 "groningen": {
                     "voucher": "My City Pass"
@@ -337,7 +337,8 @@
             "security_2fa": "Security",
             "security_sessions": "Sessions",
             "aria_label": "User menu",
-            "title": "Personal"
+            "title": "Personal",
+            "profile": "Data"
         },
         "main_menu": "Main menu",
         "open_home": "Back to main page",
