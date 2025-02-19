@@ -9,7 +9,7 @@ export default function IdentityRecordKeyValueWithHistory({ records }: { records
     return (
         <div className={'keyvalue-value-history'}>
             <div className="keyvalue-value-history-header">
-                <span>{records?.[0]?.value || <TableEmptyValue />}</span>
+                <span>{records?.[0]?.value_locale || <TableEmptyValue />}</span>
                 {records?.length > 1 && (
                     <span className="keyvalue-value-history-toggle" onClick={() => setShow(!show)}>
                         {`${records?.length} keer bewerkt`}
@@ -27,9 +27,9 @@ export default function IdentityRecordKeyValueWithHistory({ records }: { records
                                 {item.employee ? item.employee?.email || `Medewerker[${item.employee?.id}]` : 'User'}
                             </strong>{' '}
                             {`${item.created_at_locale} • van `}
-                            <strong>{`'${records[index + 1]?.value || ''}'`}</strong>
+                            <strong>{`'${records[index + 1]?.value_locale || ''}'`}</strong>
                             {' naar '}
-                            <strong>{`'${item.value || ''}'`}</strong>
+                            <strong>{`'${item.value_locale || ''}'`}</strong>
                         </div>
                     ))}
                 </div>

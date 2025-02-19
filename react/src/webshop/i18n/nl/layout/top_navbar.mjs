@@ -9,6 +9,9 @@ export default {
         midden_drenthe: 'Tegoed activeren',
         berg_en_dal: 'Tegoed activeren',
     },
+    language: {
+        prefix: 'Uw taal:',
+    },
     items: {
         home: 'Home',
         funds: 'Activeren',
@@ -127,7 +130,7 @@ export default {
                 notifications: 'Notificaties',
                 preferences_notifications: 'Notificatievoorkeuren',
                 preferences_emails: 'E-mailinstellingen',
-                records: 'Profiel',
+                profile: 'Gegevens',
                 funds: 'Alle tegoeden',
                 security: 'Beveiliging',
                 sessions: 'Sessies',
@@ -191,6 +194,7 @@ export default {
         payouts: 'Uitbetalingen',
         notifications: 'Notificaties',
         preferences_notifications: 'Notificatievoorkeuren',
+        profile: 'Gegevens',
         security_sessions: 'Sessies',
         preferences_emails: 'E-mail instellingen',
         security_2fa: 'Beveiliging',

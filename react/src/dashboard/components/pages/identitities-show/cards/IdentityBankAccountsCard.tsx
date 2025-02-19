@@ -106,7 +106,7 @@ export default function IdentityBankAccountsCard({
                 },
             ]}>
             {identity?.bank_accounts.length === 0 ? (
-                <EmptyCard title={'Geen tegoeden gevonden'} type={'card-section-content'} />
+                <EmptyCard title={'Geen bankrekening gevonden'} type={'card-section-content'} />
             ) : (
                 <CardTable columns={sponsorIdentitiesService.getBankAccountColumns()}>
                     {identity?.bank_accounts?.map((bank_account, index) => (

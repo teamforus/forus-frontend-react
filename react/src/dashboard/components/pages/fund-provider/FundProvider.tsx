@@ -130,7 +130,7 @@ export default function FundProvider() {
                                         <em className="mdi mdi-information" />
                                         <div className="tooltip-content">
                                             <div className="tooltip-text">
-                                                Per transactie betaalt u 0,29 cent (excl. btw)
+                                                Per transactie betaalt u 0,32 cent (excl. btw)
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@ export default function FundProvider() {
                     <div className="card-footer card-footer-warning card-footer-sm">
                         <div className="card-title">
                             <div className="text-small">
-                                Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,29 cent (excl. btw).
+                                Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,32 cent (excl. btw).
                             </div>
                         </div>
                     </div>

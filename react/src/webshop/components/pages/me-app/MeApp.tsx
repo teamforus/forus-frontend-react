@@ -4,6 +4,7 @@ import AppLinks from '../../elements/app-links/AppLinks';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function MeApp() {
     const envData = useEnvData();
@@ -27,7 +28,11 @@ export default function MeApp() {
                         <br />
                         <h2>{translate('me.download.title')}</h2>
                         <div className="block-description">
-                            <p>{translate('me.download.description', { download_link: envData.config.me_app_link })}</p>
+                            <TranslateHtml
+                                component={<p />}
+                                i18n={'me.download.description'}
+                                values={{ download_link: envData.config.me_app_link }}
+                            />
                         </div>
                         <AppLinks className={'hide-sm'} type={'lg'} />
                     </div>

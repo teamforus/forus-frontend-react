@@ -611,7 +611,6 @@
                     },
                     "preferences_emails": "إعدادات البريد الإلكتروني",
                     "preferences_notifications": "تفضيلات الإخطار",
-                    "records": "الملف الشخصي",
                     "reimbursements": "استرداد التكاليف",
                     "reservations": "الحجوزات",
                     "schagen": {
@@ -631,7 +630,8 @@
                     },
                     "winterswijk": {
                         "funds": "تفعيل"
-                    }
+                    },
+                    "profile": "البيانات"
                 },
                 "groningen": {
                     "voucher": "بطاقة مدينتي"
@@ -741,7 +741,8 @@
             "security_2fa": "الأمن",
             "security_sessions": "الجلسات",
             "aria_label": "قائمة المستخدم",
-            "title": "شخصي"
+            "title": "شخصي",
+            "profile": "البيانات"
         },
         "main_menu": "القائمة الرئيسية",
         "open_home": "العودة إلى الصفحة الرئيسية",
@@ -752,6 +753,9 @@
             "hartvanwestbrabant": "بدء التطبيق",
             "midden_drenthe": "تفعيل الائتمان",
             "potjeswijzer": "بدء التطبيق"
+        },
+        "language": {
+            "prefix": "لغتك"
         }
     },
     "week_days": {
@@ -1075,8 +1079,8 @@
         },
         "description": "تطبيق Me هو عبارة عن محفظة رقمية وسجِّل نقدي في جهاز واحد. تستخدم البلديات تطبيق Me-app لإصدار الأرصدة. باستخدام التطبيق، يمكن للمقيمين إدارة أرصدتهم بسهولة. يستخدم مقدمو الخدمات التطبيق لمسح رموز QR.",
         "download": {
-            "description": "قم بتنزيل تطبيق Me من متاجر التطبيقات أدناه. <a href=\"{{download_link}}\">انقر هنا لفتح متجر التطبيقات المناسب مباشرةً</a> على هاتفك أو جهازك اللوحي.",
-            "title": "قم بتنزيل Me على هاتفك أو جهازك اللوحي"
+            "title": "قم بتنزيل Me على هاتفك أو جهازك اللوحي",
+            "description": "قم بتنزيل تطبيق Me من متاجر التطبيقات أدناه. <a href=\"{{ download_link }}\">انقر هنا لفتح متجر التطبيقات المناسب مباشرةً</a> على هاتفك أو جهازك اللوحي."
         },
         "title": "نبذة عن تطبيق Me",
         "img_alt": "أنا-التطبيق"
@@ -1962,7 +1966,10 @@
                 "reactivate": "تفعيل"
             },
             "card_number": "رقم المرور",
-            "title": "تفعيل بطاقتي"
+            "title": "تفعيل بطاقتي",
+            "less_details": "إخفاء جميع التفاصيل",
+            "more_details": "إظهار كل التفاصيل",
+            "personal_date": "البيانات الشخصية"
         },
         "reimbursement": {
             "button": "إرسال القسيمة",
@@ -2003,7 +2010,7 @@
             "title": "المعاملات",
             "top_up": "ترقية"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "كيف تعمل؟"
             },
@@ -2477,7 +2484,8 @@
         "account": {
             "active_since": "نشط منذ",
             "last_login": "آخر تسجيل دخول",
-            "title": "تفاصيل الحساب"
+            "title": "تفاصيل الحساب",
+            "last_activity": "الإجراء الأخير"
         },
         "bank_accounts": {
             "title": "الحساب البنكي",
@@ -2506,9 +2514,15 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "البيانات الشخصية"
+            "title": "البيانات الشخصية",
+            "age": "العمر"
         },
-        "title": "البيانات"
+        "title": "البيانات",
+        "household": {
+            "house_composition": "تكوين الأسرة",
+            "living_arrangement": "الشكل الحي",
+            "title": "الأسرة المعيشية"
+        }
     },
     "reimbursements": {
         "breadcrumbs": {
@@ -2625,9 +2639,9 @@
         "extra_amount": {
             "date": "التاريخ",
             "method": "الطريقة",
-            "mount": "الدفع الذاتي",
             "refunded": "مستردة",
-            "status": "الحالة"
+            "status": "الحالة",
+            "amount": "الدفع الذاتي"
         },
         "labels": {
             "cancel": "إلغاء",
@@ -3016,7 +3030,6 @@
         },
         "description_formal": "سوف تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
         "description_formal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
-        "description_informal": "هل تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
         "description_informal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
         "email_setup_description": "أضف عنوان بريدك الإلكتروني لتلقي الرسائل.",
         "email_setup_title": "إضافة عنوان البريد الإلكتروني",
@@ -3081,7 +3094,8 @@
             "description": "تم إجراء الحجز الخاص بك.",
             "title": "لقد نجح الأمر!"
         },
-        "voucher_image_alt": "الائتمان"
+        "voucher_image_alt": "الائتمان",
+        "description_informal": "يمكنك استخدام <strong>{{fund}}</strong> رصيدك لهذا الحجز.<br/>هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة."
     },
     "modal": {
         "buttons": {
