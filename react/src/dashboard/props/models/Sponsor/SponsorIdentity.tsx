@@ -49,7 +49,6 @@ export type ProfileRecordTypes =
     | 'postal_code'
     | 'house_composition'
     | 'gender'
-    | 'age'
     | 'neighborhood_name'
     | 'living_arrangement'
     | 'marital_status'

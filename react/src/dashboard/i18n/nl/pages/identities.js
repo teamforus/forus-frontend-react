@@ -92,15 +92,25 @@ export default {
         house_number: 'De numerieke aanduiding zoals deze door de gemeente aan het object is toegekend.',
         house_number_addition: 'De huisnummertoevoeging zoals deze door de gemeente aan het object is toegekend.',
         street: 'De officiële door de gemeente vastgestelde naam van een straat waar de persoon woonachtig is.',
-        house_composition: 'house_composition',
+        house_composition:
+            'De samenstelling van het huishouden, inclusief het aantal en de relaties van personen die samenwonen.',
         gender: 'Een aanduiding die aangeeft of de ingeschrevene een man of vrouw is, of dat het geslacht onbekend is.',
         age: 'De leeftijd van de persoon in jaren.',
-        municipality_name: 'De naam van de wijk, zoals die door het CBS wordt gebruikt.',
-        neighborhood_name:
-            'De samenstelling van het huishouden, inclusief het aantal en de relaties van personen die samenwonen.',
+        municipality_name: 'De officiële door de gemeente vastgestelde Gemeentenaam.',
+        neighborhood_name: 'De naam van de wijk, zoals die door het CBS wordt gebruikt.',
         living_arrangement:
             'De manier waarop de persoon samenleeft binnen een huishouden, zoals alleenstaanden, gezinnen, of woongroepen.',
         marital_status: 'De rechtstoestand van een persoon ten aanzien van huwelijk of geregistreerd partnerschap.',
+    },
+    bank_account: {
+        iban: {
+            label: 'IBAN-nummer',
+            tooltip: 'Bankrekeningnummer (IBAN)',
+        },
+        iban_name: {
+            label: 'Te naam stelling',
+            tooltip: 'Tenaamstelling',
+        },
     },
     buttons: {
         clear_filter: 'Wis filter',
