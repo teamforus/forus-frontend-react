@@ -1628,7 +1628,6 @@
         },
         "description_formal": "Sie verwenden Ihr <strong>{{fund}}</strong><br/>Guthaben für diese Reservierung verwenden. Buchen Sie eine Reservierung? Dann stimmen Sie zu, dass wir Ihre persönlichen Daten mit dem Anbieter teilen.",
         "description_formal_time": "{{ days_to_cancel }} Sie können die Reservierung noch innerhalb weniger Tage nach der Bestätigung stornieren.",
-        "description_informal": "Sie verwenden Ihr <strong>{{fund}}</strong><br/>Guthaben für diese Reservierung. Nehmen Sie eine Reservierung vor? Dann stimmen Sie zu, dass wir Ihre persönlichen Daten mit dem Anbieter teilen.",
         "description_informal_time": "{{ days_to_cancel }} Sie können die Reservierung noch innerhalb weniger Tage nach der Bestätigung stornieren.",
         "email_setup_description": "Fügen Sie Ihre E-Mail-Adresse hinzu, um Nachrichten zu erhalten.",
         "email_setup_title": "E-Mail Adresse hinzufügen",
@@ -1693,7 +1692,8 @@
             "description": "Ihre Reservierung wurde vorgenommen.",
             "title": "Es hat geklappt!"
         },
-        "voucher_image_alt": "Kredit"
+        "voucher_image_alt": "Kredit",
+        "description_informal": "Sie verwenden Ihr <strong>{{fund}}</strong> Guthaben für diese Reservierung.<br/>Sie nehmen eine Reservierung vor? Dann sind Sie damit einverstanden, dass wir Ihre persönlichen Daten mit dem Anbieter teilen."
     },
     "modal": {
         "buttons": {
@@ -3338,7 +3338,7 @@
             "title": "Transaktionen",
             "top_up": "Verbessert"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Wie funktioniert das?"
             },
@@ -3351,7 +3351,7 @@
                     "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
                 },
                 "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Erstattung Ihrer Ausgaben, indem Sie eine Quittung einsenden. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
+                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Rückerstattung Ihrer Ausgaben, indem Sie eine Quittung einreichen. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
                     "redirect_to": "Kosten zurückfordern?"
                 },
                 "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"

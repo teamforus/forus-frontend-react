@@ -1643,25 +1643,6 @@
             "reason_placeholder": "Message for provider",
             "close": "Close"
         },
-        "voucher_card_combined": {
-            "header": {
-                "title": "How does it work?"
-            },
-            "labels": {
-                "contact_sponsor": "Do you have any questions?",
-                "contact_sponsor_details": "If so, please contact us.",
-                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                "IIT": {
-                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                    "redirect_to": "Do you still want to apply for reimbursement?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
-                    "redirect_to": "Reclaim expenses?"
-                },
-                "redirect_to": "Do you still want to apply for reimbursement?"
-            }
-        },
         "breadcrumbs": {
             "home": "Home",
             "voucher": "{{ title }}",
@@ -1732,6 +1713,25 @@
                 "expired": "Expired"
             },
             "title": "Expenditures"
+        },
+        "card_combined": {
+            "header": {
+                "title": "How does it work?"
+            },
+            "labels": {
+                "contact_sponsor": "Do you have any questions?",
+                "contact_sponsor_details": "If so, please contact us.",
+                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                "IIT": {
+                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                    "redirect_to": "Do you still want to apply for reimbursement?"
+                },
+                "meedoenregeling_volwassenen_ww": {
+                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
+                    "redirect_to": "Reclaim expenses?"
+                },
+                "redirect_to": "Do you still want to apply for reimbursement?"
+            }
         }
     },
     "vouchers": {
@@ -3346,7 +3346,6 @@
         },
         "description_formal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal information with the provider.",
         "description_formal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation. ",
-        "description_informal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal data with the provider.",
         "description_informal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation.",
         "email_setup_description": "Add your email address to receive messages.",
         "email_setup_title": "Add email address",
@@ -3411,7 +3410,8 @@
             "description": "Your reservation has been made.",
             "title": "It worked!"
         },
-        "voucher_image_alt": "Credit"
+        "voucher_image_alt": "Credit",
+        "description_informal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you making a reservation? Then you agree that we share your personal data with the provider."
     },
     "modal_logout": {
         "description_formal": "Are you sure you want to log out?",

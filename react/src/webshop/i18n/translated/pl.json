@@ -1628,7 +1628,6 @@
         },
         "description_formal": "Wykorzystasz swój <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim przypadku zgadzasz się na udostępnienie przez nas Twoich danych osobowych dostawcy.",
         "description_formal_time": "{{ days_to_cancel }} Rezerwację można anulować w ciągu kilku dni od jej potwierdzenia.",
-        "description_informal": "Używasz swojego <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim przypadku zgadzasz się, że udostępniamy Twoje dane osobowe dostawcy.",
         "description_informal_time": "{{ days_to_cancel }} Rezerwację można anulować w ciągu kilku dni od jej potwierdzenia.",
         "email_setup_description": "Dodaj swój adres e-mail, aby otrzymywać wiadomości.",
         "email_setup_title": "Dodaj adres e-mail",
@@ -1693,7 +1692,8 @@
             "description": "Rezerwacja została dokonana.",
             "title": "Udało się!"
         },
-        "voucher_image_alt": "Kredyt"
+        "voucher_image_alt": "Kredyt",
+        "description_informal": "Używasz swojego <strong>{{fund}}</strong> kredyt na tę rezerwację.<br/>Dokonujesz rezerwacji? W takim razie zgadzasz się, że udostępniamy Twoje dane osobowe dostawcy."
     },
     "modal": {
         "buttons": {
@@ -3338,7 +3338,7 @@
             "title": "Transakcje",
             "top_up": "Ulepszony"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Jak to działa?"
             },

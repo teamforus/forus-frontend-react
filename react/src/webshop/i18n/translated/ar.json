@@ -2009,7 +2009,7 @@
             "title": "المعاملات",
             "top_up": "ترقية"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "كيف تعمل؟"
             },
@@ -3022,7 +3022,6 @@
         },
         "description_formal": "سوف تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
         "description_formal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
-        "description_informal": "هل تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة.",
         "description_informal_time": "{{ days_to_cancel }} لا يزال بإمكانك إلغاء الحجز في غضون أيام بعد تأكيد الحجز.",
         "email_setup_description": "أضف عنوان بريدك الإلكتروني لتلقي الرسائل.",
         "email_setup_title": "إضافة عنوان البريد الإلكتروني",
@@ -3087,7 +3086,8 @@
             "description": "تم إجراء الحجز الخاص بك.",
             "title": "لقد نجح الأمر!"
         },
-        "voucher_image_alt": "الائتمان"
+        "voucher_image_alt": "الائتمان",
+        "description_informal": "يمكنك استخدام <strong>{{fund}}</strong> رصيدك لهذا الحجز.<br/>هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة."
     },
     "modal": {
         "buttons": {
