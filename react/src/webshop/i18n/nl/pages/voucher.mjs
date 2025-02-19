@@ -72,7 +72,7 @@ export default {
         cancel: 'Annuleren',
         stop_participation: 'Stop deelname',
     },
-    voucher_card_combined: {
+    card_combined: {
         header: {
             title: 'Hoe werkt het?',
         },

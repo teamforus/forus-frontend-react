@@ -2010,7 +2010,7 @@
             "title": "İşlemler",
             "top_up": "Yükseltilmiş"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Nasıl çalışıyor?"
             },
@@ -3095,7 +3095,7 @@
             "title": "İşe yaradı!"
         },
         "voucher_image_alt": "Kredi",
-        "description_informal": "Sen kendi <strong>{{fund}}</strong><br/>Bu rezervasyon için kredi. Rezervasyon mu yapıyorsunuz? O zaman kişisel verilerinizi sağlayıcı ile paylaşmamızı kabul etmiş olursunuz."
+        "description_informal": "Sen kendi <strong>{{fund}}</strong> Bu rezervasyon için kredi.<br/>Rezervasyon mu yapıyorsunuz? O zaman kişisel verilerinizi sağlayıcı ile paylaşmamızı kabul etmiş olursunuz."
     },
     "modal": {
         "buttons": {

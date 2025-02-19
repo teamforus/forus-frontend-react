@@ -1693,7 +1693,7 @@
             "title": "Es hat geklappt!"
         },
         "voucher_image_alt": "Kredit",
-        "description_informal": "Sie verwenden Ihr <strong>{{fund}}</strong><br/>Guthaben für diese Reservierung. Sie machen eine Reservierung? Dann stimmen Sie zu, dass wir Ihre persönlichen Daten mit dem Anbieter teilen."
+        "description_informal": "Sie verwenden Ihr <strong>{{fund}}</strong> Guthaben für diese Reservierung.<br/>Sie nehmen eine Reservierung vor? Dann sind Sie damit einverstanden, dass wir Ihre persönlichen Daten mit dem Anbieter teilen."
     },
     "modal": {
         "buttons": {
@@ -3346,7 +3346,7 @@
             "title": "Transaktionen",
             "top_up": "Verbessert"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Wie funktioniert das?"
             },
@@ -3359,7 +3359,7 @@
                     "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
                 },
                 "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Erstattung Ihrer Ausgaben, indem Sie eine Quittung einsenden. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
+                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Rückerstattung Ihrer Ausgaben, indem Sie eine Quittung einreichen. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
                     "redirect_to": "Kosten zurückfordern?"
                 },
                 "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
