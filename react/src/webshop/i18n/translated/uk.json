@@ -2341,7 +2341,8 @@
         "account": {
             "active_since": "Активний з",
             "last_login": "Останній вхід",
-            "title": "Реквізити рахунку"
+            "title": "Реквізити рахунку",
+            "last_activity": "Остання дія"
         },
         "bank_accounts": {
             "title": "Банківський рахунок",

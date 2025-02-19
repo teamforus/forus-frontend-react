@@ -92,6 +92,7 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
             organization.bsn_enabled ? 'bsn' : null,
             'client_number',
             'birth_date',
+            'last_login',
             'last_activity',
             'city',
             'street',

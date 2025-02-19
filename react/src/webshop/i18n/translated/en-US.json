@@ -2189,7 +2189,8 @@
         "account": {
             "active_since": "Active since",
             "last_login": "Last login",
-            "title": "Account information"
+            "title": "Account information",
+            "last_activity": "Final act"
         },
         "bank_accounts": {
             "title": "Bank account",

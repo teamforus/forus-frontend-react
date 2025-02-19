@@ -2341,7 +2341,8 @@
         "account": {
             "active_since": "Actif depuis",
             "last_login": "Dernière connexion",
-            "title": "Détails du compte"
+            "title": "Détails du compte",
+            "last_activity": "Dernière action"
         },
         "bank_accounts": {
             "title": "Compte bancaire",

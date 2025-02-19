@@ -70,6 +70,8 @@ export default interface SponsorIdentity {
     count_vouchers_active_with_balance: number;
     created_at?: string;
     created_at_locale?: string;
+    last_login_at?: string;
+    last_login_at_locale?: string;
     last_activity_at?: string;
     last_activity_at_locale?: string;
 }

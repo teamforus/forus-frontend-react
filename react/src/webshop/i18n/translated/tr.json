@@ -2484,7 +2484,8 @@
         "account": {
             "active_since": "O zamandan beri aktif",
             "last_login": "Son giriş",
-            "title": "Hesap bilgileri"
+            "title": "Hesap bilgileri",
+            "last_activity": "Son eylem"
         },
         "bank_accounts": {
             "title": "Banka hesabı",

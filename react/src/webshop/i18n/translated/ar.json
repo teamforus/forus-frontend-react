@@ -2484,7 +2484,8 @@
         "account": {
             "active_since": "نشط منذ",
             "last_login": "آخر تسجيل دخول",
-            "title": "تفاصيل الحساب"
+            "title": "تفاصيل الحساب",
+            "last_activity": "الإجراء الأخير"
         },
         "bank_accounts": {
             "title": "الحساب البنكي",
