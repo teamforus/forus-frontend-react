@@ -10,6 +10,7 @@ import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
 import Modal from '../../../modals/elements/Modal';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import FormGroup from '../../../elements/forms/controls/FormGroup';
+import useTranslate from '../../../../hooks/useTranslate';
 
 export default function ModalEditProfileBankAccount({
     id,
@@ -24,6 +25,7 @@ export default function ModalEditProfileBankAccount({
     identity: SponsorIdentity;
     organization: Organization;
 }) {
+    const translate = useTranslate();
     const setProgress = useSetProgress();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
@@ -78,16 +80,16 @@ export default function ModalEditProfileBankAccount({
             <FormGroup
                 inline={true}
                 inlineSize={'lg'}
-                label={'Te naam stelling'}
+                label={translate('identities.bank_account.iban_name.label')}
                 error={form.errors.name}
                 input={(id) => (
-                    <FormGroupInfo info={'Lorem ipsum dolor sit amet!'}>
+                    <FormGroupInfo info={translate('identities.bank_account.iban_name.tooltip')}>
                         <input
                             id={id}
                             type={'text'}
                             className="form-control"
                             defaultValue={form.values.name || ''}
-                            placeholder="Te naam stelling"
+                            placeholder={translate('identities.bank_account.iban_name.label')}
                             onChange={(e) => form.update({ name: e.target.value })}
                         />
                     </FormGroupInfo>
@@ -97,16 +99,16 @@ export default function ModalEditProfileBankAccount({
             <FormGroup
                 inline={true}
                 inlineSize={'lg'}
-                label={'IBAN-nummer'}
+                label={translate('identities.bank_account.iban.label')}
                 error={form.errors.iban}
                 input={(id) => (
-                    <FormGroupInfo info={'Lorem ipsum dolor sit amet!'}>
+                    <FormGroupInfo info={translate('identities.bank_account.iban.tooltip')}>
                         <input
                             id={id}
                             type={'text'}
                             className="form-control"
                             defaultValue={form.values.iban || ''}
-                            placeholder="IBAN-nummer"
+                            placeholder={translate('identities.bank_account.iban.label')}
                             onChange={(e) => form.update({ iban: e.target.value })}
                         />
                     </FormGroupInfo>

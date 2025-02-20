@@ -3561,7 +3561,7 @@
     ],
     [
         "me.download.description",
-        "Download de Me-app via onderstaande app stores. <a href=\"{{download_link}}\">Klik hier om direct de juiste app store</a> te openen op je telefoon of tablet."
+        "Download de Me-app via onderstaande app stores. <a href=\"{{ download_link }}\">Klik hier om direct de juiste app store</a> te openen op je telefoon of tablet."
     ],
     [
         "me.download.title",
@@ -6348,6 +6348,10 @@
         "Actief sinds"
     ],
     [
+        "profile.account.last_activity",
+        "Laatste handeling"
+    ],
+    [
         "profile.account.last_login",
         "Laatste inlog"
     ],
@@ -6434,6 +6438,10 @@
     [
         "profile.household.title",
         "Huishouden"
+    ],
+    [
+        "profile.personal.age",
+        "Leeftijd"
     ],
     [
         "profile.personal.bsn",
@@ -8036,8 +8044,8 @@
         "Notificatievoorkeuren"
     ],
     [
-        "top_navbar.buttons.mobile.dropdown.records",
-        "Profiel"
+        "top_navbar.buttons.mobile.dropdown.profile",
+        "Gegevens"
     ],
     [
         "top_navbar.buttons.mobile.dropdown.reimbursements",
@@ -8340,6 +8348,10 @@
         "Notificatievoorkeuren"
     ],
     [
+        "top_navbar.user_menu.profile",
+        "Gegevens"
+    ],
+    [
         "top_navbar.user_menu.providers",
         "Aanbieders"
     ],
@@ -8434,6 +8446,42 @@
     [
         "voucher.buttons.send",
         "E-mail naar mij"
+    ],
+    [
+        "voucher.card_combined.header.title",
+        "Hoe werkt het?"
+    ],
+    [
+        "voucher.card_combined.labels.contact_sponsor",
+        "Heeft u vragen?"
+    ],
+    [
+        "voucher.card_combined.labels.contact_sponsor_details",
+        "Neem dan contact met ons op."
+    ],
+    [
+        "voucher.card_combined.labels.how_it_works",
+        "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag."
+    ],
+    [
+        "voucher.card_combined.labels.IIT.how_it_works",
+        "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag."
+    ],
+    [
+        "voucher.card_combined.labels.IIT.redirect_to",
+        "Wilt u nog een vergoeding aanvragen?"
+    ],
+    [
+        "voucher.card_combined.labels.meedoenregeling_volwassenen_ww.how_it_works",
+        "Heeft u kosten gemaakt die binnen deze regeling vallen? Vraag uw kosten terug door een bon in te sturen. Na goedkeuring ontvangt u het bedrag op uw persoonlijke bankrekening."
+    ],
+    [
+        "voucher.card_combined.labels.meedoenregeling_volwassenen_ww.redirect_to",
+        "Kosten terugvragen?"
+    ],
+    [
+        "voucher.card_combined.labels.redirect_to",
+        "Wilt u nog een vergoeding aanvragen?"
     ],
     [
         "voucher.card.activate_my_pass",
@@ -8758,42 +8806,6 @@
     [
         "voucher.transactions.top_up",
         "Opgewaardeerd"
-    ],
-    [
-        "voucher.voucher_card_combined.header.title",
-        "Hoe werkt het?"
-    ],
-    [
-        "voucher.voucher_card_combined.labels.contact_sponsor",
-        "Heeft u vragen?"
-    ],
-    [
-        "voucher.voucher_card_combined.labels.contact_sponsor_details",
-        "Neem dan contact met ons op."
-    ],
-    [
-        "voucher.voucher_card_combined.labels.how_it_works",
-        "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag."
-    ],
-    [
-        "voucher.voucher_card_combined.labels.IIT.how_it_works",
-        "Wij hebben uw aanvraag ontvangen. U ontvangt binnen 8 weken een beslissing op uw aanvraag."
-    ],
-    [
-        "voucher.voucher_card_combined.labels.IIT.redirect_to",
-        "Wilt u nog een vergoeding aanvragen?"
-    ],
-    [
-        "voucher.voucher_card_combined.labels.meedoenregeling_volwassenen_ww.how_it_works",
-        "Heeft u kosten gemaakt die binnen deze regeling vallen? Vraag uw kosten terug door een bon in te sturen. Na goedkeuring ontvangt u het bedrag op uw persoonlijke bankrekening."
-    ],
-    [
-        "voucher.voucher_card_combined.labels.meedoenregeling_volwassenen_ww.redirect_to",
-        "Kosten terugvragen?"
-    ],
-    [
-        "voucher.voucher_card_combined.labels.redirect_to",
-        "Wilt u nog een vergoeding aanvragen?"
     ],
     [
         "vouchers.breadcrumbs.home",

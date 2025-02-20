@@ -1314,8 +1314,8 @@
         },
         "description": "L'application Me est à la fois un portefeuille numérique et une caisse enregistreuse. Les municipalités utilisent l'application Me pour émettre des crédits. Grâce à l'application, les résidents peuvent facilement gérer leurs crédits. Les prestataires utilisent l'application pour scanner les codes QR.",
         "download": {
-            "description": "Téléchargez l'application Me via les magasins d'applications ci-dessous. <a href=\"{{download_link}}\">Cliquez ici pour</a> ouvrir <a href=\"{{download_link}}\">directement</a> le <a href=\"{{download_link}}\">magasin d'applications approprié</a> sur votre téléphone ou votre tablette.",
-            "title": "Téléchargez Me sur votre téléphone ou tablette"
+            "title": "Téléchargez Me sur votre téléphone ou tablette",
+            "description": "Téléchargez l'application Me dans les magasins d'applications ci-dessous. <a href=\"{{ download_link }}\">Cliquez ici pour ouvrir directement le magasin d'applications approprié</a> sur votre téléphone ou votre tablette."
         },
         "title": "À propos de l'application Me",
         "img_alt": "Me-app"
@@ -1693,7 +1693,7 @@
             "title": "Cela a fonctionné !"
         },
         "voucher_image_alt": "Crédit",
-        "description_informal": "Vous utilisez votre <strong>{{fund}}</strong><br/>Vous effectuez une réservation ? Dans ce cas, vous acceptez que nous partagions vos données personnelles avec le fournisseur."
+        "description_informal": "Vous utilisez votre <strong>{{fund}}</strong> crédit pour cette réservation.<br/>Vous effectuez une réservation ? Dans ce cas, vous acceptez que nous partagions vos données personnelles avec le fournisseur."
     },
     "modal": {
         "buttons": {
@@ -2341,7 +2341,8 @@
         "account": {
             "active_since": "Actif depuis",
             "last_login": "Dernière connexion",
-            "title": "Détails du compte"
+            "title": "Détails du compte",
+            "last_activity": "Dernière action"
         },
         "bank_accounts": {
             "title": "Compte bancaire",
@@ -2370,7 +2371,8 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Données personnelles"
+            "title": "Données personnelles",
+            "age": "L'âge"
         },
         "title": "Données",
         "household": {
@@ -3033,7 +3035,6 @@
                     },
                     "preferences_emails": "Paramètres du courrier électronique",
                     "preferences_notifications": "Préférences de notification",
-                    "records": "Profil",
                     "reimbursements": "Recouvrement des coûts",
                     "reservations": "Réservations",
                     "schagen": {
@@ -3053,7 +3054,8 @@
                     },
                     "winterswijk": {
                         "funds": "Activer"
-                    }
+                    },
+                    "profile": "Données"
                 },
                 "groningen": {
                     "voucher": "Ma carte de ville"
@@ -3163,7 +3165,8 @@
             "security_2fa": "Sécurité",
             "security_sessions": "Sessions",
             "aria_label": "Menu utilisateur",
-            "title": "Personnel"
+            "title": "Personnel",
+            "profile": "Données"
         },
         "main_menu": "Menu principal",
         "open_home": "Retour à la page principale",
@@ -3343,7 +3346,7 @@
             "title": "Transactions",
             "top_up": "Mise à niveau"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Comment cela fonctionne-t-il ?"
             },

@@ -46,8 +46,8 @@ export default interface Session {
     identity_address: string;
     active: boolean;
     current: boolean;
-    started_at: string;
-    started_at_locale: string;
+    created_at: string;
+    created_at_locale: string;
     client_type?: string;
     client_version?: string;
     locations: Array<Location>;

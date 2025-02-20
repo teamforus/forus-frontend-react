@@ -1314,8 +1314,8 @@
         },
         "description": "Die Me-App ist eine digitale Geldbörse und eine Registrierkasse in einem. Die Kommunen nutzen die Me-App, um Kredite zu vergeben. Mit der App können die Einwohner ihre Guthaben einfach verwalten. Anbieter nutzen die App, um QR-Codes zu scannen.",
         "download": {
-            "description": "Laden Sie die Me-App aus den unten stehenden App-Stores herunter. <a href=\"{{download_link}}\">Klicken Sie hier, um den entsprechenden App-Store direkt</a> auf Ihrem Telefon oder Tablet zu öffnen.",
-            "title": "Laden Sie Me auf Ihr Handy oder Tablet herunter"
+            "title": "Laden Sie Me auf Ihr Handy oder Tablet herunter",
+            "description": "Laden Sie die Me-App aus den unten stehenden App-Stores herunter. <a href=\"{{ download_link }}\">Klicken Sie hier, um den entsprechenden App-Store direkt</a> auf Ihrem Telefon oder Tablet zu öffnen."
         },
         "title": "Über die Me-App",
         "img_alt": "Me-app"
@@ -1693,7 +1693,7 @@
             "title": "Es hat geklappt!"
         },
         "voucher_image_alt": "Kredit",
-        "description_informal": "Sie verwenden Ihr <strong>{{fund}}</strong><br/>Guthaben für diese Reservierung. Sie machen eine Reservierung? Dann sind Sie damit einverstanden, dass wir Ihre persönlichen Daten mit dem Anbieter teilen."
+        "description_informal": "Sie verwenden Ihr <strong>{{fund}}</strong> Guthaben für diese Reservierung.<br/>Sie nehmen eine Reservierung vor? Dann sind Sie damit einverstanden, dass wir Ihre persönlichen Daten mit dem Anbieter teilen."
     },
     "modal": {
         "buttons": {
@@ -2341,7 +2341,8 @@
         "account": {
             "active_since": "Aktiv seit",
             "last_login": "Letzte Anmeldung",
-            "title": "Details zum Konto"
+            "title": "Details zum Konto",
+            "last_activity": "Letzte Aktion"
         },
         "bank_accounts": {
             "title": "Bankkonto",
@@ -2370,7 +2371,8 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Persönliche Daten"
+            "title": "Persönliche Daten",
+            "age": "Alter"
         },
         "title": "Daten",
         "household": {
@@ -3033,7 +3035,6 @@
                     },
                     "preferences_emails": "E-Mail-Einstellungen",
                     "preferences_notifications": "Einstellungen für Benachrichtigungen",
-                    "records": "Profil",
                     "reimbursements": "Kostendeckung",
                     "reservations": "Reservierungen",
                     "schagen": {
@@ -3053,7 +3054,8 @@
                     },
                     "winterswijk": {
                         "funds": "Aktivieren Sie"
-                    }
+                    },
+                    "profile": "Daten"
                 },
                 "groningen": {
                     "voucher": "Meine Stadtkarte"
@@ -3163,7 +3165,8 @@
             "security_2fa": "Sicherheit",
             "security_sessions": "Sitzungen",
             "aria_label": "Benutzermenü",
-            "title": "Persönlich"
+            "title": "Persönlich",
+            "profile": "Daten"
         },
         "main_menu": "Hauptmenü",
         "open_home": "Zurück zur Hauptseite",
@@ -3343,7 +3346,7 @@
             "title": "Transaktionen",
             "top_up": "Verbessert"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Wie funktioniert das?"
             },
@@ -3356,7 +3359,7 @@
                     "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"
                 },
                 "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Erstattung Ihrer Ausgaben, indem Sie eine Quittung einsenden. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
+                    "how_it_works": "Haben Sie Ausgaben getätigt, die unter diese Regelung fallen? Beantragen Sie die Rückerstattung Ihrer Ausgaben, indem Sie eine Quittung einreichen. Nach der Genehmigung erhalten Sie den Betrag auf Ihr persönliches Bankkonto.",
                     "redirect_to": "Kosten zurückfordern?"
                 },
                 "redirect_to": "Möchten Sie immer noch eine Erstattung beantragen?"

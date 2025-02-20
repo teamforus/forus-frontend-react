@@ -10,6 +10,8 @@ import { useRecordTypeService } from '../../../../dashboard/services/RecordTypeS
 import IdentityRecordKeyValueListHistory from './elements/IdentityRecordKeyValueListHistory';
 import IdentityContactInformationCard from './cards/IdentityContactInformationCard';
 import { useProfileService } from '../../../../dashboard/services/ProfileService';
+import { differenceInYears } from 'date-fns';
+import { dateParse } from '../../../../dashboard/helpers/dates';
 
 export default function Profile() {
     const translate = useTranslate();
@@ -30,6 +32,12 @@ export default function Profile() {
             return { ...map, [recordType.key]: recordType };
         }, {}) as ProfileRecords;
     }, [recordTypes]);
+
+    const identityCalculatedAge = useMemo(() => {
+        return profile?.records?.birth_date?.[0]?.value
+            ? Math.max(differenceInYears(new Date(), dateParse(profile?.records?.birth_date?.[0]?.value)), 0)
+            : null;
+    }, [profile?.records?.birth_date]);
 
     const fetchRecordTypes = useCallback(() => {
         setProgress(0);
@@ -89,8 +97,8 @@ export default function Profile() {
                                         ),
                                     },
                                     {
-                                        label: recordTypesByKey?.age?.name,
-                                        value: <IdentityRecordKeyValueListHistory records={profile.records.age} />,
+                                        label: translate('profile.personal.age'),
+                                        value: identityCalculatedAge || '-',
                                     },
                                     {
                                         label: recordTypesByKey?.gender?.name,
@@ -159,6 +167,10 @@ export default function Profile() {
                                     },
                                     {
                                         label: translate('profile.account.last_login'),
+                                        value: profile?.last_login_at_locale,
+                                    },
+                                    {
+                                        label: translate('profile.account.last_activity'),
                                         value: profile?.last_activity_at_locale,
                                     },
                                 ]}

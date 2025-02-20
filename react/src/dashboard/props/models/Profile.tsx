@@ -9,6 +9,8 @@ export default interface Profile {
     bank_accounts?: Array<ProfileBankAccount>;
     created_at?: string;
     created_at_locale?: string;
+    last_login_at?: string;
+    last_login_at_locale?: string;
     last_activity_at?: string;
     last_activity_at_locale?: string;
 }

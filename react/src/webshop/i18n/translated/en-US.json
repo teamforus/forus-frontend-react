@@ -207,7 +207,6 @@
                     },
                     "preferences_emails": "Email settings",
                     "preferences_notifications": "Notification preferences",
-                    "records": "Profile",
                     "reimbursements": "Cost recovery",
                     "reservations": "Reservations",
                     "schagen": {
@@ -227,7 +226,8 @@
                     },
                     "winterswijk": {
                         "funds": "Activate"
-                    }
+                    },
+                    "profile": "Data"
                 },
                 "groningen": {
                     "voucher": "My City Pass"
@@ -337,7 +337,8 @@
             "security_2fa": "Security",
             "security_sessions": "Sessions",
             "aria_label": "User menu",
-            "title": "Personal"
+            "title": "Personal",
+            "profile": "Data"
         },
         "main_menu": "Main menu",
         "open_home": "Back to main page",
@@ -1267,8 +1268,8 @@
         },
         "description": "The Me app is a digital wallet and cash register in one. Municipalities use the Me app to issue credits. The app allows residents to easily manage their balances. Providers use the app to scan QR codes.",
         "download": {
-            "description": "Download the Me app from the app stores below. <a href=\"{{download_link}}\">Click here to directly</a> open <a href=\"{{download_link}}\">the appropriate app store</a> on your phone or tablet.",
-            "title": "Download Me on your phone or tablet"
+            "title": "Download Me on your phone or tablet",
+            "description": "Download the Me app from the app stores below. <a href=\"{{ download_link }}\">Click here to directly open the appropriate app store</a> on your phone or tablet."
         },
         "title": "About the Me app",
         "img_alt": "Me-app"
@@ -1643,25 +1644,6 @@
             "reason_placeholder": "Message for provider",
             "close": "Close"
         },
-        "voucher_card_combined": {
-            "header": {
-                "title": "How does it work?"
-            },
-            "labels": {
-                "contact_sponsor": "Do you have any questions?",
-                "contact_sponsor_details": "If so, please contact us.",
-                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                "IIT": {
-                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                    "redirect_to": "Do you still want to apply for reimbursement?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
-                    "redirect_to": "Reclaim expenses?"
-                },
-                "redirect_to": "Do you still want to apply for reimbursement?"
-            }
-        },
         "breadcrumbs": {
             "home": "Home",
             "voucher": "{{ title }}",
@@ -1732,6 +1714,25 @@
                 "expired": "Expired"
             },
             "title": "Expenditures"
+        },
+        "card_combined": {
+            "header": {
+                "title": "How does it work?"
+            },
+            "labels": {
+                "contact_sponsor": "Do you have any questions?",
+                "contact_sponsor_details": "If so, please contact us.",
+                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                "IIT": {
+                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                    "redirect_to": "Do you still want to apply for reimbursement?"
+                },
+                "meedoenregeling_volwassenen_ww": {
+                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
+                    "redirect_to": "Reclaim expenses?"
+                },
+                "redirect_to": "Do you still want to apply for reimbursement?"
+            }
         }
     },
     "vouchers": {
@@ -2188,7 +2189,8 @@
         "account": {
             "active_since": "Active since",
             "last_login": "Last login",
-            "title": "Account information"
+            "title": "Account information",
+            "last_activity": "Final act"
         },
         "bank_accounts": {
             "title": "Bank account",
@@ -2217,7 +2219,8 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Personal data"
+            "title": "Personal data",
+            "age": "Age"
         },
         "title": "Data",
         "household": {
