@@ -25,6 +25,7 @@ export default function SelectControlOptionsOrganization<T>({
     onInputClick,
     modelValue,
     searchOption,
+    searchAutoComplete,
     setShowOptions,
     searchInputChanged,
     onOptionsScroll,
@@ -100,6 +101,7 @@ export default function SelectControlOptionsOrganization<T>({
                                 placeholder={placeholderValue || placeholder}
                                 ref={input}
                                 value={query}
+                                autoComplete={searchAutoComplete}
                                 onClick={onInputClick}
                                 onChange={(e) => setQuery(e.target.value)}
                             />
