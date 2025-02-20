@@ -45,7 +45,14 @@ export type ProfileRecordTypes =
     | 'street'
     | 'house_number'
     | 'house_number_addition'
-    | 'postal_code';
+    | 'client_number'
+    | 'postal_code'
+    | 'house_composition'
+    | 'gender'
+    | 'neighborhood_name'
+    | 'living_arrangement'
+    | 'marital_status'
+    | 'municipality_name';
 
 export type ProfileRecords = { [key in ProfileRecordTypes]: RecordType };
 export type ProfileRecordValues = { [key in ProfileRecordTypes]: string };
@@ -63,6 +70,8 @@ export default interface SponsorIdentity {
     count_vouchers_active_with_balance: number;
     created_at?: string;
     created_at_locale?: string;
+    last_login_at?: string;
+    last_login_at_locale?: string;
     last_activity_at?: string;
     last_activity_at_locale?: string;
 }

@@ -48,12 +48,17 @@ export default function Start() {
     const [qrValue, setQrValue] = useState(null);
     const [emailValue, setEmailValue] = useState(null);
 
-    const [{ reset, logout, restore_with_digid, restore_with_email }, setQueryParams] = useQueryParams({
-        reset: BooleanParam,
-        logout: BooleanParam,
-        restore_with_digid: BooleanParam,
-        restore_with_email: BooleanParam,
-    });
+    const [{ reset, logout, restore_with_digid, restore_with_email }, setQueryParams] = useQueryParams(
+        {
+            reset: BooleanParam,
+            logout: BooleanParam,
+            restore_with_digid: BooleanParam,
+            restore_with_email: BooleanParam,
+        },
+        {
+            updateType: 'replace',
+        },
+    );
 
     const { onAuthRedirect } = useAuthService();
     const digIdService = useDigiDService();

@@ -8,12 +8,19 @@ export default {
     personal: {
         title: 'Persoonsgegevens',
         bsn: 'BSN',
+        age: 'Leeftijd',
     },
 
     account: {
         title: 'Accountgegevens',
         active_since: 'Actief sinds',
         last_login: 'Laatste inlog',
+        last_activity: 'Laatste handeling',
+    },
+    household: {
+        title: 'Huishouden',
+        house_composition: 'Gezinssamenstelling',
+        living_arrangement: 'Leefvorm',
     },
     contacts: {
         title: 'Contactgegevens aanpassen',

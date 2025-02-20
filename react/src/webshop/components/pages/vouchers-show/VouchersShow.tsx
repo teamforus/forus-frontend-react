@@ -757,19 +757,25 @@ export default function VouchersShow() {
                                         {voucherCard.records_title ? (
                                             <div className="block-card-details">
                                                 <h3 className="block-card-title block-card-title-sm text-muted-dim">
-                                                    Persoonsgegevens
+                                                    {translate('voucher.physical_card.personal_date')}
                                                 </h3>
                                                 <h2 className="block-card-title block-card-title-lg">
                                                     <strong>{voucherCard.records_title}</strong>
-                                                    <span className="text-separator" />
-                                                    <span className="text-muted-dim">
-                                                        {voucherCard.records_by_key.birth_date}
-                                                    </span>
+                                                    {voucherCard.records_by_key.birth_date && (
+                                                        <Fragment>
+                                                            <span className="text-separator" />
+                                                            <span className="text-muted-dim">
+                                                                {voucherCard.records_by_key.birth_date}
+                                                            </span>
+                                                        </Fragment>
+                                                    )}
                                                 </h2>
                                             </div>
                                         ) : (
                                             <div className="block-card-details">
-                                                <h3 className="block-card-title">Persoonsgegevens</h3>
+                                                <h3 className="block-card-title">
+                                                    {translate('voucher.physical_card.personal_date')}
+                                                </h3>
                                             </div>
                                         )}
 
@@ -777,8 +783,9 @@ export default function VouchersShow() {
                                             <div
                                                 className="button button-primary-outline button-sm"
                                                 onClick={() => setShowRecords(!showRecords)}>
-                                                {showRecords ? 'Verberg alle details' : 'Toon alle details'}
-
+                                                {showRecords
+                                                    ? translate('voucher.physical_card.less_details')
+                                                    : translate('voucher.physical_card.more_details')}
                                                 {showRecords ? (
                                                     <em className="mdi mdi-chevron-up icon-right" />
                                                 ) : (

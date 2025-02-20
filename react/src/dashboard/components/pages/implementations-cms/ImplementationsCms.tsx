@@ -207,7 +207,7 @@ export default function ImplementationsCms() {
     const { update: formUpdate } = form;
 
     const selectBanner = useCallback(
-        (mediaFile) => {
+        (mediaFile: File | Blob) => {
             setBannerMeta((meta) => ({ ...meta, mediaLoading: true }));
 
             mediaService
@@ -318,45 +318,45 @@ export default function ImplementationsCms() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header flex-row">
-                        <div className="flex flex-grow">
-                            <div className="card-title">{translate('implementation_edit.header.title')}</div>
-                        </div>
-                        <div className="flex">
-                            <a
-                                className="button button-text button-sm"
-                                href={implementation.url_webshop}
-                                target="_blank"
-                                rel="noreferrer">
-                                Open webshop
-                                <em className="mdi mdi-open-in-new icon-end" />
-                            </a>
+                    <div className="card-header card-header-next">
+                        <div className="card-title flex flex-grow">{translate('implementation_edit.header.title')}</div>
+                        <div className="card-header-actions">
+                            <div className="button-group">
+                                <a
+                                    className="button button-text button-sm"
+                                    href={implementation.url_webshop}
+                                    target="_blank"
+                                    rel="noreferrer">
+                                    Open webshop
+                                    <em className="mdi mdi-open-in-new icon-end" />
+                                </a>
 
-                            <StateNavLink
-                                name={'implementations-config'}
-                                params={{
-                                    organizationId: activeOrganization.id,
-                                    id: implementation.id,
-                                }}
-                                className="button button-default button-sm">
-                                <em className="mdi mdi-cog icon-start" />
-                                Instellingen
-                            </StateNavLink>
+                                <StateNavLink
+                                    name={'implementations-config'}
+                                    params={{
+                                        organizationId: activeOrganization.id,
+                                        id: implementation.id,
+                                    }}
+                                    className="button button-default button-sm">
+                                    <em className="mdi mdi-cog icon-start" />
+                                    Instellingen
+                                </StateNavLink>
 
-                            <StateNavLink
-                                name={'implementations-social-media'}
-                                params={{
-                                    organizationId: activeOrganization.id,
-                                    id: implementation.id,
-                                }}
-                                className="button button-default button-sm">
-                                <em className="mdi mdi-share-variant-outline icon-start" />
-                                Instellingen social
-                            </StateNavLink>
+                                <StateNavLink
+                                    name={'implementations-social-media'}
+                                    params={{
+                                        organizationId: activeOrganization.id,
+                                        id: implementation.id,
+                                    }}
+                                    className="button button-default button-sm">
+                                    <em className="mdi mdi-share-variant-outline icon-start" />
+                                    Instellingen social
+                                </StateNavLink>
 
-                            <button className="button button-primary button-sm" type="submit">
-                                {translate('funds_edit.buttons.confirm')}
-                            </button>
+                                <button className="button button-primary button-sm" type="submit">
+                                    {translate('funds_edit.buttons.confirm')}
+                                </button>
+                            </div>
                         </div>
                     </div>
 

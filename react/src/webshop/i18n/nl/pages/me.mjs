@@ -11,6 +11,6 @@ export default {
     download: {
         title: 'Download Me op je telefoon of tablet',
         description:
-            'Download de Me-app via onderstaande app stores. <a href="{{download_link}}">Klik hier om direct de juiste app store</a> te openen op je telefoon of tablet.',
+            'Download de Me-app via onderstaande app stores. <a href="{{ download_link }}">Klik hier om direct de juiste app store</a> te openen op je telefoon of tablet.',
     },
 };

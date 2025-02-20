@@ -2,7 +2,7 @@ export default {
     header: {
         title: 'Instellingen voor bijbetaalmethoden ',
         unknown_competed_at: 'Onbekend',
-        warning: 'Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,29 cent (excl. btw).',
+        warning: 'Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,32 cent (excl. btw).',
     },
     header_create: {
         title: 'Organisatiegegevens indienen',

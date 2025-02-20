@@ -10,6 +10,8 @@ import { useRecordTypeService } from '../../../../dashboard/services/RecordTypeS
 import IdentityRecordKeyValueListHistory from './elements/IdentityRecordKeyValueListHistory';
 import IdentityContactInformationCard from './cards/IdentityContactInformationCard';
 import { useProfileService } from '../../../../dashboard/services/ProfileService';
+import { differenceInYears } from 'date-fns';
+import { dateParse } from '../../../../dashboard/helpers/dates';
 
 export default function Profile() {
     const translate = useTranslate();
@@ -30,6 +32,12 @@ export default function Profile() {
             return { ...map, [recordType.key]: recordType };
         }, {}) as ProfileRecords;
     }, [recordTypes]);
+
+    const identityCalculatedAge = useMemo(() => {
+        return profile?.records?.birth_date?.[0]?.value
+            ? Math.max(differenceInYears(new Date(), dateParse(profile?.records?.birth_date?.[0]?.value)), 0)
+            : null;
+    }, [profile?.records?.birth_date]);
 
     const fetchRecordTypes = useCallback(() => {
         setProgress(0);
@@ -88,7 +96,59 @@ export default function Profile() {
                                             <IdentityRecordKeyValueListHistory records={profile.records.birth_date} />
                                         ),
                                     },
+                                    {
+                                        label: translate('profile.personal.age'),
+                                        value: identityCalculatedAge || '-',
+                                    },
+                                    {
+                                        label: recordTypesByKey?.gender?.name,
+                                        value: <IdentityRecordKeyValueListHistory records={profile.records.gender} />,
+                                    },
+                                    {
+                                        label: recordTypesByKey?.marital_status?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.marital_status}
+                                            />
+                                        ),
+                                    },
                                     { label: translate('profile.personal.bsn'), value: profile?.bsn },
+                                    {
+                                        label: recordTypesByKey?.client_number?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.client_number}
+                                            />
+                                        ),
+                                    },
+                                ]}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <div className="card-header">
+                            <h2 className="card-title">{translate('profile.household.title')}</h2>
+                        </div>
+                        <div className="card-section">
+                            <BlockKeyValueList
+                                items={[
+                                    {
+                                        label: recordTypesByKey?.house_composition?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.house_composition}
+                                            />
+                                        ),
+                                    },
+                                    {
+                                        label: recordTypesByKey?.living_arrangement?.name,
+                                        value: (
+                                            <IdentityRecordKeyValueListHistory
+                                                records={profile.records.living_arrangement}
+                                            />
+                                        ),
+                                    },
                                 ]}
                             />
                         </div>
@@ -107,6 +167,10 @@ export default function Profile() {
                                     },
                                     {
                                         label: translate('profile.account.last_login'),
+                                        value: profile?.last_login_at_locale,
+                                    },
+                                    {
+                                        label: translate('profile.account.last_activity'),
                                         value: profile?.last_activity_at_locale,
                                     },
                                 ]}
