@@ -915,6 +915,8 @@ export default function ModalProductReserve({
                                 steps={steps}
                                 finalStep={STEP_RESERVATION_FINISHED}
                             />
+                        </div>
+                        <div className="modal-section">
                             <BlockReservationAddress
                                 address={address}
                                 setAddress={setAddress}

@@ -7,11 +7,17 @@
 
     .address-overview {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         padding: 15px;
         border-bottom: 1px solid var(--border-color);
-        gap: 12px;
-        align-items: center;
+        gap: 10px;
+
+        .address-overview-row {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            width: 100%;
+        }
 
         .address-overview-icon {
             flex: 0 0 42px;
@@ -89,5 +95,35 @@
         display: flex;
         flex-direction: row;
         padding: 15px;
+        gap: 10px;
+
+        .button {
+            margin-right: 0;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .address-overview {
+            flex-wrap: wrap;
+            align-items: flex-start;
+
+            .address-overview-icon {
+                flex: 0 0 36px;
+                height: 36px;
+                line-height: 36px;
+                font-size: 20px;
+            }
+
+            .address-overview-actions {
+                .button {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .address-actions {
+            flex-direction: column;
+        }
     }
 }

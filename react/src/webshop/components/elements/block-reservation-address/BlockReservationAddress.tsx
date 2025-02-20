@@ -6,6 +6,7 @@ import useFormBuilder from '../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import { useProductReservationService } from '../../../services/ProductReservationService';
 import Product from '../../../props/models/Product';
+import useIsMobile from '../../../hooks/useIsMobile';
 
 export type AddressType = {
     postal_code?: string;
@@ -31,6 +32,7 @@ export default function BlockReservationAddress({
 }) {
     const [editing, setEditing] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const isMobile = useIsMobile();
 
     const translate = useTranslate();
     const productReservationService = useProductReservationService();
@@ -86,6 +88,16 @@ export default function BlockReservationAddress({
         return !!(address?.city && address?.street && address?.house_nr && address?.postal_code);
     }, []);
 
+    const editButton = (
+        <button
+            className={classNames('button button-sm', isMobile ? 'button-light button-fill' : 'button-text')}
+            onClick={() => setEditing(true)}
+            data-dusk="productReserveAddressPreviewEdit">
+            <em className="mdi mdi-pencil-outline icon-start" />
+            Wijzigen
+        </button>
+    );
+
     useEffect(() => {
         if (!address) {
             setEditing(true);
@@ -102,29 +114,22 @@ export default function BlockReservationAddress({
                 <div
                     className={classNames('address-overview', editing && 'address-overview-edit')}
                     data-dusk={'productReserveAddressPreview'}>
-                    <div className="address-overview-icon">
-                        <em className="mdi mdi-map-marker-radius-outline" />
-                    </div>
-                    <div className="address-overview-details">
-                        <div className="address-overview-details-title">Adres wijzigen</div>
-                        <div
-                            className="address-overview-details-subtitle"
-                            data-dusk={'productReserveAddressPreviewText'}>
-                            {getAddressString(address)}
+                    <div className="address-overview-row">
+                        <div className="address-overview-icon">
+                            <em className="mdi mdi-map-marker-radius-outline" />
                         </div>
+                        <div className="address-overview-details">
+                            <div className="address-overview-details-title">Adres wijzigen</div>
+                            <div
+                                className="address-overview-details-subtitle"
+                                data-dusk={'productReserveAddressPreviewText'}>
+                                {getAddressString(address)}
+                            </div>
+                        </div>
+                        {!isMobile && !editing && <div className="address-overview-actions">{editButton}</div>}
                     </div>
 
-                    <div className="address-overview-actions">
-                        {!editing && (
-                            <button
-                                className="button button-text button-sm"
-                                onClick={() => setEditing(true)}
-                                data-dusk="productReserveAddressPreviewEdit">
-                                <em className="mdi mdi-pencil-outline icon-start" />
-                                Wijzigen
-                            </button>
-                        )}
-                    </div>
+                    {isMobile && !editing && <div className="address-overview-row">{editButton}</div>}
                 </div>
             )}
             {editing && (
@@ -147,7 +152,7 @@ export default function BlockReservationAddress({
                         </div>
                         <div className="col col-xs-12 col-lg-6">
                             <div className="row">
-                                <div className="col col-xs-12 col-lg-6 form-group">
+                                <div className="col col-xs-6 col-lg-6 form-group">
                                     <label className="form-label" htmlFor="reservation_modal_house_nr">
                                         {translate('modal_reserve_product.fill_notes.labels.house_nr')}
                                     </label>
@@ -161,7 +166,7 @@ export default function BlockReservationAddress({
                                     />
                                     <FormError error={form.errors?.house_nr} />
                                 </div>
-                                <div className="col col-xs-12 col-lg-6 form-group">
+                                <div className="col col-xs-6 col-lg-6 form-group">
                                     <label className="form-label" htmlFor="reservation_modal_house_nr_addition">
                                         {translate('modal_reserve_product.fill_notes.labels.house_nr_addition')}
                                     </label>
@@ -213,59 +218,57 @@ export default function BlockReservationAddress({
             )}
             {editing && (
                 <div className="address-actions">
-                    <div className="button-group">
+                    <button
+                        type="button"
+                        className="button button-light button-sm"
+                        disabled={Object.values(form.values).filter((value) => !!value).length === 0}
+                        data-dusk="productReserveAddressFormClear"
+                        onClick={() =>
+                            form.update({
+                                postal_code: '',
+                                street: '',
+                                house_nr: '',
+                                house_nr_addition: '',
+                                city: '',
+                            })
+                        }>
+                        Velden leeg maken
+                    </button>
+
+                    <div className="flex flex-grow hide-sm" />
+
+                    {addressFilled(address) && (
                         <button
                             type="button"
                             className="button button-light button-sm"
-                            disabled={Object.values(form.values).filter((value) => !!value).length === 0}
-                            data-dusk="productReserveAddressFormClear"
-                            onClick={() =>
-                                form.update({
-                                    postal_code: '',
-                                    street: '',
-                                    house_nr: '',
-                                    house_nr_addition: '',
-                                    city: '',
-                                })
-                            }>
-                            Velden leeg maken
+                            data-dusk="productReserveAddressFormCancel"
+                            disabled={submitting}
+                            onClick={() => {
+                                setEditing(false);
+                                form.update(address);
+                                onAddressSubmit(false, address);
+                            }}>
+                            Annuleren
                         </button>
-                    </div>
-                    <div className="flex flex-grow" />
-                    <div className="button-group">
-                        {addressFilled(address) && (
-                            <button
-                                type="button"
-                                className="button button-light button-sm"
-                                data-dusk="productReserveAddressFormCancel"
-                                disabled={submitting}
-                                onClick={() => {
-                                    setEditing(false);
-                                    form.update(address);
-                                    onAddressSubmit(false, address);
-                                }}>
-                                Annuleren
-                            </button>
-                        )}
-                        {!addressProfile && (
-                            <button
-                                type="button"
-                                className="button button-primary-outline button-sm"
-                                disabled={submitting || !addressFilled(form.values)}
-                                data-dusk="productReserveAddressFormApply"
-                                onClick={() => form.submit(null, { save: false })}>
-                                Doorgaan zonder opslaan
-                            </button>
-                        )}
+                    )}
+                    {!addressProfile && (
                         <button
                             type="button"
-                            className="button button-primary button-sm"
+                            className="button button-primary-outline button-sm"
                             disabled={submitting || !addressFilled(form.values)}
-                            data-dusk="productReserveAddressFormSave"
-                            onClick={() => form.submit(null, { save: true })}>
-                            Opslaan en doorgaan
+                            data-dusk="productReserveAddressFormApply"
+                            onClick={() => form.submit(null, { save: false })}>
+                            Doorgaan zonder opslaan
                         </button>
-                    </div>
+                    )}
+                    <button
+                        type="button"
+                        className="button button-primary button-sm"
+                        disabled={submitting || !addressFilled(form.values)}
+                        data-dusk="productReserveAddressFormSave"
+                        onClick={() => form.submit(null, { save: true })}>
+                        Opslaan en doorgaan
+                    </button>
                 </div>
             )}
         </div>
