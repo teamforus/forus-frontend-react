@@ -136,12 +136,15 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                                                                 alt={provider.provider.name}
                                                             />
 
-                                                            {provider.nr_transactions > 0 &&
-                                                                (showTransactions.includes(provider.id) ? (
+                                                            {provider.nr_transactions > 0 ? (
+                                                                showTransactions.includes(provider.id) ? (
                                                                     <em className="mdi mdi-menu-down td-menu-icon" />
                                                                 ) : (
                                                                     <em className="mdi mdi-menu-right td-menu-icon" />
-                                                                ))}
+                                                                )
+                                                            ) : (
+                                                                <div style={{ width: '10px' }} />
+                                                            )}
 
                                                             <strong>{provider.provider.name}</strong>
                                                         </div>

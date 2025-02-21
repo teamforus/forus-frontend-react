@@ -194,11 +194,9 @@ export default function ImplementationsNotifications() {
             {implementations.meta.total > 0 && (
                 <div className="card-heading">
                     <div className="flex flex-horizontal">
-                        <div className="flex flex-grow flex-vertical flex-center">
-                            <div>
-                                Systeemberichten
-                                <Tooltip text={translate('system_notifications.header.tooltip')} />
-                            </div>
+                        <div className="flex flex-grow flex-horizontal flex-start flex-align-items-center flex-gap-sm">
+                            Systeemberichten
+                            <Tooltip text={translate('system_notifications.header.tooltip')} />
                         </div>
                         <div className="flex">
                             <div className="button-group">

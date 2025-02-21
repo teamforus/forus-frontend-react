@@ -705,11 +705,15 @@ export default {
             view: 'Bekijken',
         },
         empty_title: {
-            pending:
-                "Er zijn momenteel geen aanbieders die actie benodigd hebben. Bekijk de tabbladen 'Actief' en 'Inactief' om eerder beoordeelde aanbieders te bekijken.",
-            active: "Er zijn momenteel geen actieve aanbieders. Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
+            pending: 'Er zijn momenteel geen aanbieders die actie benodigd hebben.',
+            active: 'Er zijn momenteel geen actieve aanbieders.',
+            rejected: 'Er zijn momenteel geen inactieve aanbieders.',
+        },
+        empty_description: {
+            pending: "Bekijk de tabbladen 'Actief' en 'Inactief' om eerder beoordeelde aanbieders te bekijken.",
+            active: "Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
             rejected:
-                "Er zijn momenteel geen inactieve aanbieders. Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
+                "Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
         },
     },
 

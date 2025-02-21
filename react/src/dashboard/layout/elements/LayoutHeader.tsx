@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback, useContext, useEffect, useState } from 'react';
+import React, { MouseEventHandler, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { mainContext } from '../../contexts/MainContext';
 import { strLimit } from '../../helpers/string';
 
@@ -84,8 +84,12 @@ export const LayoutHeader = () => {
         validator: 'Beoordelaar',
     });
 
+    const announcements = useMemo(() => {
+        return [...(organizationAnnouncements || []), ...(appConfigs?.announcements || [])];
+    }, [appConfigs?.announcements, organizationAnnouncements]);
+
     const openAuthPincodeModal = useCallback(
-        (e) => {
+        (e: React.MouseEvent) => {
             e?.preventDefault();
             setShowIdentityMenu(false);
             openModal((modal) => {
@@ -107,11 +111,8 @@ export const LayoutHeader = () => {
 
     return (
         <header className="app app-header">
-            {/* Organization announcements */}
-            {organizationAnnouncements?.length > 0 && <Announcements announcements={organizationAnnouncements} />}
-
-            {/* System announcements */}
-            {appConfigs?.announcements?.length > 0 && <Announcements announcements={appConfigs?.announcements} />}
+            {/* Announcements */}
+            {announcements?.length > 0 && <Announcements announcements={announcements} />}
 
             <div className="app-header-row">
                 {!activeOrganization && (

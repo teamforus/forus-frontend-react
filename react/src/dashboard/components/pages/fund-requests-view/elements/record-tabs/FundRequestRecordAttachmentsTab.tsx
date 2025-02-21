@@ -40,7 +40,7 @@ export default function FundRequestRecordAttachmentsTab({
     );
 
     return (
-        <div className="block block-attachments-list">
+        <div className="block block-attachments-list block-attachments-list-half">
             <div className="block-attachments-inner">
                 {attachments.map((attachment) => (
                     <a
