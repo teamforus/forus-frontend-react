@@ -354,7 +354,9 @@ export default function Search() {
                                     {' ' + translate('search.filters.found_for', { query: filterValuesActive.q })}
                                 </Fragment>
                             )}
-                            <div className="showcase-filters-title-count">{searchItems?.meta?.total}</div>
+                            <div className="showcase-filters-title-count" data-nosnippet="true">
+                                {searchItems?.meta?.total}
+                            </div>
                         </div>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
