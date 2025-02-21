@@ -211,7 +211,9 @@ export default function Funds() {
                     <div className="showcase-content-header">
                         <h1 className="showcase-filters-title">
                             {translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title')}
-                            <div className="showcase-filters-title-count">{funds?.meta?.total}</div>
+                            <div className="showcase-filters-title-count" data-nosnippet="true">
+                                {funds?.meta?.total}
+                            </div>
                         </h1>
                     </div>
 
