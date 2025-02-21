@@ -85,6 +85,7 @@ export default function ModalProductReserve({
     const [STEP_ERROR] = useState(8);
 
     const [submitting, setSubmitting] = useState(false);
+    const [skipAddress, setSkipAddress] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string>();
     const [reservationId, setReservationId] = useState(null);
     const [isEditingAddress, setIsEditingAddress] = useState<boolean>(false);
@@ -155,7 +156,7 @@ export default function ModalProductReserve({
             setSubmitting(true);
 
             productReservationService
-                .reserve({ ...values, ...address, voucher_id: voucher.id, product_id: product.id })
+                .reserve({ ...values, ...(skipAddress ? {} : address), voucher_id: voucher.id, product_id: product.id })
                 .then((res) => {
                     setSubmitting(false);
                     setReservationId(res.data.id);
@@ -878,6 +879,7 @@ export default function ModalProductReserve({
                     className="modal-window form form-compact"
                     onSubmit={(e) => {
                         e?.preventDefault();
+                        setSkipAddress(false);
 
                         if (addressFilled(address) || product.reservation.address !== 'optional') {
                             validateAddress(address)
@@ -943,6 +945,18 @@ export default function ModalProductReserve({
                             <button className="button button-light button-sm" type="button" onClick={back}>
                                 {translate('modal_reserve_product.buttons.back')}
                             </button>
+                            {addressFilled(address) && product.reservation.address === 'optional' && (
+                                <button
+                                    className="button button-primary-outline button-sm"
+                                    type="button"
+                                    data-dusk="btnSkip"
+                                    onClick={() => {
+                                        setSkipAddress(true);
+                                        setStep((step) => step + 1);
+                                    }}>
+                                    {translate('modal_reserve_product.buttons.skip')}
+                                </button>
+                            )}
                             <button
                                 className="button button-primary button-sm"
                                 type="submit"
@@ -1115,11 +1129,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.street')}
                                         </div>
                                         <div
+                                            data-dusk="overviewValueStreet"
                                             className={classNames(
                                                 `overview-item-value`,
-                                                !address?.street && 'overview-item-value-empty',
+                                                (!address?.street || skipAddress) && 'overview-item-value-empty',
                                             )}>
-                                            {address?.street || emptyText}
+                                            {(!skipAddress && address?.street) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1130,11 +1145,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.house_nr')}
                                         </div>
                                         <div
+                                            data-dusk="overviewValueHouseNr"
                                             className={classNames(
                                                 `overview-item-value`,
-                                                !address?.house_nr && 'overview-item-value-empty',
+                                                (!address?.house_nr || skipAddress) && 'overview-item-value-empty',
                                             )}>
-                                            {address?.house_nr || emptyText}
+                                            {(!skipAddress && address?.house_nr) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1145,11 +1161,13 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.house_nr_addition')}
                                         </div>
                                         <div
+                                            data-dusk="overviewValueHouseNrAddition"
                                             className={classNames(
                                                 `overview-item-value`,
-                                                !address?.house_nr_addition && 'overview-item-value-empty',
+                                                (!address?.house_nr_addition || skipAddress) &&
+                                                    'overview-item-value-empty',
                                             )}>
-                                            {address?.house_nr_addition || emptyText}
+                                            {(!skipAddress && address?.house_nr_addition) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1160,11 +1178,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.postal_code')}
                                         </div>
                                         <div
+                                            data-dusk="overviewValuePostalCode"
                                             className={classNames(
                                                 `overview-item-value`,
-                                                !address?.postal_code && 'overview-item-value-empty',
+                                                (!address?.postal_code || skipAddress) && 'overview-item-value-empty',
                                             )}>
-                                            {address?.postal_code || emptyText}
+                                            {(!skipAddress && address?.postal_code) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1175,11 +1194,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.city')}
                                         </div>
                                         <div
+                                            data-dusk="overviewValueCity"
                                             className={classNames(
                                                 `overview-item-value`,
-                                                !address?.city && 'overview-item-value-empty',
+                                                (!address?.city || skipAddress) && 'overview-item-value-empty',
                                             )}>
-                                            {translate(address?.city || emptyText)}
+                                            {(!skipAddress && address?.city) || emptyText}
                                         </div>
                                     </div>
                                 )}

@@ -3322,7 +3322,8 @@
             "go_to_reservation": "Go to reservation",
             "processing": "Process",
             "submit": "Submit",
-            "next": "Next"
+            "next": "Next",
+            "skip": "Skip"
         },
         "cancel": "Cancel",
         "choose_credit": "Choose the credit to pay with",
