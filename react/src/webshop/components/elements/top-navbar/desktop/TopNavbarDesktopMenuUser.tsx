@@ -110,6 +110,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                 <em className="mdi mdi-ticket-percent-outline" />
                                 {translate('top_navbar.user_menu.my_vouchers')}
                             </StateNavLink>
+
                             <div
                                 id="open_pincode_popup"
                                 tabIndex={0}
@@ -120,6 +121,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                 <em className="mdi mdi-cellphone" />
                                 {translate('top_navbar.user_menu.authorize')}
                             </div>
+
                             <StateNavLink
                                 id="bookmarked_products"
                                 name={'bookmarked-products'}
@@ -128,6 +130,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                 <em className="mdi mdi-cards-heart-outline" />
                                 {translate('top_navbar.user_menu.bookmarks')}
                             </StateNavLink>
+
                             <StateNavLink
                                 id="reservations"
                                 name={'reservations'}
@@ -136,6 +139,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                 <em className="mdi mdi-calendar-outline" />
                                 {translate('top_navbar.user_menu.reservations')}
                             </StateNavLink>
+
                             {appConfigs.has_reimbursements && (
                                 <StateNavLink
                                     id="reimbursements"
@@ -146,6 +150,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                     {translate('top_navbar.user_menu.reimbursements')}
                                 </StateNavLink>
                             )}
+
                             <StateNavLink
                                 id="fund-requests"
                                 name={'fund-requests'}
@@ -155,6 +160,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                 <em className="mdi mdi-card-account-details-outline" />
                                 {translate('top_navbar.user_menu.fund_requests')}
                             </StateNavLink>
+
                             {appConfigs.has_payouts && (
                                 <StateNavLink
                                     id="payouts"
@@ -165,10 +171,12 @@ export const TopNavbarDesktopMenuUser = () => {
                                     {translate('top_navbar.user_menu.payouts')}
                                 </StateNavLink>
                             )}
+
                             <StateNavLink name={'notifications'} className="auth-user-menu-item" tabIndex={0}>
                                 <em className="mdi mdi-bell-outline" />
                                 {translate('top_navbar.user_menu.notifications')}
                             </StateNavLink>
+
                             <StateNavLink
                                 id="notification_preferences"
                                 name="preferences-notifications"
@@ -177,16 +185,21 @@ export const TopNavbarDesktopMenuUser = () => {
                                 <em className="mdi mdi-cog-outline" />
                                 {translate('top_navbar.user_menu.preferences_notifications')}
                             </StateNavLink>
-                            <StateNavLink id="profile" name="profile" className="auth-user-menu-item" tabIndex={0}>
-                                <em className="mdi mdi-account-check" />
-                                {translate('top_navbar.user_menu.profile')}
-                            </StateNavLink>
+
+                            {authIdentity?.profile && (
+                                <StateNavLink id="profile" name="profile" className="auth-user-menu-item" tabIndex={0}>
+                                    <em className="mdi mdi-account-check" />
+                                    {translate('top_navbar.user_menu.profile')}
+                                </StateNavLink>
+                            )}
+
                             {envData.config.sessions && (
                                 <StateNavLink name={'security-sessions'} className="auth-user-menu-item" tabIndex={0}>
                                     <em className="mdi mdi-shield-account" />
                                     {translate('top_navbar.user_menu.security_sessions')}
                                 </StateNavLink>
                             )}
+
                             <StateNavLink
                                 id="identity_emails"
                                 name="identity-emails"

@@ -563,7 +563,7 @@ export default function ModalProductReserve({
                                                 <button
                                                     className="button button-primary button-sm"
                                                     onClick={() => selectVoucher(voucher)}>
-                                                    {translate('modal_reserve_product.choose')}
+                                                    {translate('modal_reserve_product.choose_credit')}
                                                 </button>
                                             </div>
                                         )}
