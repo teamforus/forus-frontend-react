@@ -139,6 +139,8 @@ export default interface Organization {
         bank_transaction_date?: boolean;
         bank_transaction_time?: boolean;
         bank_reservation_number?: boolean;
+        bank_reservation_first_name?: boolean;
+        bank_reservation_last_name?: boolean;
         bank_branch_number?: boolean;
         bank_branch_id?: boolean;
         bank_branch_name?: boolean;
