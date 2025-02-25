@@ -62,7 +62,7 @@ export default function VoucherCard({
             </div>
             <div className="voucher-details">
                 <h2 className="voucher-name" data-dusk="voucherName">
-                    <span className={'show-sm'}>#{voucherCard.number}</span> {voucherCard.title}
+                    <span className={'voucher-name-number'}>#{voucherCard.number}</span> {voucherCard.title}
                 </h2>
 
                 <div className="voucher-organization">
