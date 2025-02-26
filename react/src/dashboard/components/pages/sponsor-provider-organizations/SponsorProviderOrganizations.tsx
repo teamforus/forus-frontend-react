@@ -29,6 +29,7 @@ import ProvidersTableItem from './elements/ProvidersTableItem';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
+import classNames from 'classnames';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
@@ -210,46 +211,42 @@ export default function SponsorProviderOrganizations() {
     return (
         <Fragment>
             {requests > 0 && (
-                <div className="card">
-                    <div
-                        className={`card-block card-block-requests ${
-                            requestsExpired > 0
-                                ? 'card-block-requests-danger'
-                                : requestsPending > 0
-                                  ? 'card-block-requests-warning'
-                                  : ''
-                        }`}>
-                        <StateNavLink
-                            name={'sponsor-fund-unsubscriptions'}
-                            params={{ organizationId: activeOrganization.id }}
-                            className="card-section flex">
-                            {requestsExpired > 0 && (
-                                <div className="card-heading">
-                                    <em className="mdi mdi-alert" />
-                                    Urgente afmeldingen ({requestsExpired})
-                                </div>
-                            )}
-
-                            {requestsExpired == 0 && requestsPending > 0 && (
-                                <div className="card-heading">
-                                    <em className="mdi mdi-alert-circle" />
-                                    Afmeldingen ({requestsPending})
-                                </div>
-                            )}
-
-                            {requestsExpired == 0 && requestsPending == 0 && (
-                                <div className="card-heading">
-                                    <em className="mdi mdi-alert-circle" />
-                                    Geen nieuwe afmeldingen
-                                </div>
-                            )}
-
-                            <div className="button button-text pull-right">
-                                Bekijken
-                                <em className="mdi mdi-arrow-right icon-end" />
+                <div
+                    className={classNames(
+                        'card-block card-block-requests',
+                        requestsExpired > 0 && 'card-block-requests-danger',
+                        requestsPending > 0 && 'card-block-requests-warning',
+                    )}>
+                    <StateNavLink
+                        name={'sponsor-fund-unsubscriptions'}
+                        params={{ organizationId: activeOrganization.id }}
+                        className="card-section flex">
+                        {requestsExpired > 0 && (
+                            <div className="card-heading">
+                                <em className="mdi mdi-alert" />
+                                Urgente afmeldingen ({requestsExpired})
                             </div>
-                        </StateNavLink>
-                    </div>
+                        )}
+
+                        {requestsExpired == 0 && requestsPending > 0 && (
+                            <div className="card-heading">
+                                <em className="mdi mdi-alert-circle" />
+                                Afmeldingen ({requestsPending})
+                            </div>
+                        )}
+
+                        {requestsExpired == 0 && requestsPending == 0 && (
+                            <div className="card-heading">
+                                <em className="mdi mdi-alert-circle" />
+                                Geen nieuwe afmeldingen
+                            </div>
+                        )}
+
+                        <div className="button button-text pull-right">
+                            Bekijken
+                            <em className="mdi mdi-arrow-right icon-end" />
+                        </div>
+                    </StateNavLink>
                 </div>
             )}
 
@@ -545,7 +542,10 @@ export default function SponsorProviderOrganizations() {
                 <LoaderTableCard
                     loading={loading}
                     empty={providerOrganizations.meta.total == 0}
-                    emptyTitle={translate(`provider_organizations.empty_title.${filterActiveValues.state_group}`)}>
+                    emptyTitle={translate(`provider_organizations.empty_title.${filterActiveValues.state_group}`)}
+                    emptyDescription={translate(
+                        `provider_organizations.empty_description.${filterActiveValues.state_group}`,
+                    )}>
                     <div className="card-section">
                         <div className="card-block card-block-table">
                             {configsElement}
