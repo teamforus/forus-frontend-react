@@ -123,6 +123,8 @@ export default function Reimbursements() {
                                     propKey={'id'}
                                     value={filters.values.fund_id}
                                     options={funds}
+                                    multiline={true}
+                                    allowSearch={true}
                                     onChange={(fund_id?: number) => filters.update({ fund_id })}
                                 />
                             </div>

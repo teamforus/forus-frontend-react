@@ -21,6 +21,7 @@ type SelectControlProps<T> = {
     scrollSize?: number;
     dusk?: string;
     optionsComponent?: FunctionComponent<SelectControlOptionsProp<T>>;
+    multiline?: boolean | { selected: boolean; options: boolean };
 };
 
 export interface OptionType<T> {
@@ -55,6 +56,7 @@ export type SelectControlOptionsProp<T> = {
     rawValue?: unknown;
     propKey?: string | null;
     propValue?: string | null;
+    multiline?: boolean | { selected: boolean; options: boolean };
 };
 
 export default function SelectControl<T>({
@@ -74,6 +76,7 @@ export default function SelectControl<T>({
     scrollSize = 50,
     optionsComponent = SelectControlOptions,
     dusk = null,
+    multiline,
 }: SelectControlProps<T>) {
     const [query, setQuery] = useState('');
     const [modelValue, setModelValue] = useState(null);
@@ -253,5 +256,6 @@ export default function SelectControl<T>({
         disabled,
         propKey,
         propValue,
+        multiline,
     });
 }
