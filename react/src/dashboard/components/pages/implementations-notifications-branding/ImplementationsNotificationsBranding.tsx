@@ -136,24 +136,9 @@ export default function ImplementationsNotificationsBranding() {
     return (
         <Fragment>
             <div className="card-heading">
-                <div className="flex flex-horizontal">
-                    <div className="flex flex-grow flex-vertical flex-center">
-                        <div>
-                            Handtekening en huisstijl&nbsp;
-                            <Tooltip text={translate('system_notifications.header.tooltip')} />
-                        </div>
-                    </div>
-                    <div className="flex">
-                        <div className="button-group">
-                            <StateNavLink
-                                name={'implementation-notifications'}
-                                params={{ organizationId: activeOrganization.id }}
-                                className="button button-text">
-                                <em className="mdi mdi-chevron-left icon-start" />
-                                Terug
-                            </StateNavLink>
-                        </div>
-                    </div>
+                <div className="flex flex-grow flex-horizontal flex-start flex-align-items-center flex-gap-sm">
+                    Handtekening en huisstijl&nbsp;
+                    <Tooltip text={translate('system_notifications.header.tooltip')} />
                 </div>
             </div>
 
@@ -162,11 +147,11 @@ export default function ImplementationsNotificationsBranding() {
                     <div className="card-header">
                         <div className="card-title">Huisstijl</div>
                     </div>
-                    <div className="card-section">
+                    <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-lg-9 col-lg-12">
                                 <div className="form">
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group form-group-inline form-group-inline-xl">
                                         <label className="form-label">Logo</label>
                                         <div className="form-offset">
                                             <PhotoSelector
@@ -186,7 +171,7 @@ export default function ImplementationsNotificationsBranding() {
                                         </div>
                                     </div>
 
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group form-group-inline form-group-inline-xl">
                                         <label className="form-label">Kleur van de elementen</label>
                                         <div className="form-offset">
                                             <input
@@ -200,7 +185,7 @@ export default function ImplementationsNotificationsBranding() {
                                             <Tooltip text="Kleur van knoppen en links in de e-mailberichten." />
                                         </div>
                                     </div>
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group form-group-inline form-group-inline-xl">
                                         <label className="form-label">Handtekening</label>
                                         <div className="form-offset">
                                             <MarkdownEditor

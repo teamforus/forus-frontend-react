@@ -2010,7 +2010,7 @@
             "title": "المعاملات",
             "top_up": "ترقية"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "كيف تعمل؟"
             },
@@ -2998,7 +2998,8 @@
             "go_to_reservation": "الانتقال إلى الحجز",
             "next": "التالي",
             "processing": "العملية",
-            "submit": "إرسال"
+            "submit": "إرسال",
+            "skip": "تخطي"
         },
         "cancel": "إلغاء",
         "choose_credit": "اختر الرصيد الذي ستدفع به",
@@ -3095,7 +3096,7 @@
             "title": "لقد نجح الأمر!"
         },
         "voucher_image_alt": "الائتمان",
-        "description_informal": "أنت تستخدم رصيدك <strong>{{fund}}</strong><br/>رصيدك لهذا الحجز هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة."
+        "description_informal": "يمكنك استخدام <strong>{{fund}}</strong> رصيدك لهذا الحجز.<br/>هل تقوم بالحجز؟ إذن أنت توافق على مشاركة بياناتك الشخصية مع مقدم الخدمة."
     },
     "modal": {
         "buttons": {

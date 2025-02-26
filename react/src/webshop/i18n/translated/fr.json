@@ -1596,7 +1596,8 @@
             "go_to_reservation": "Aller à la réservation",
             "next": "Suivant",
             "processing": "Processus",
-            "submit": "Soumettre"
+            "submit": "Soumettre",
+            "skip": "Sauter"
         },
         "cancel": "Annuler",
         "choose_credit": "Choisir le crédit pour payer",
@@ -1693,7 +1694,7 @@
             "title": "Cela a fonctionné !"
         },
         "voucher_image_alt": "Crédit",
-        "description_informal": "Vous utilisez votre <strong>{{fund}}</strong><br/>Vous effectuez une réservation ? Dans ce cas, vous acceptez que nous partagions vos données personnelles avec le fournisseur."
+        "description_informal": "Vous utilisez votre <strong>{{fund}}</strong> crédit pour cette réservation.<br/>Vous effectuez une réservation ? Dans ce cas, vous acceptez que nous partagions vos données personnelles avec le fournisseur."
     },
     "modal": {
         "buttons": {
@@ -3346,7 +3347,7 @@
             "title": "Transactions",
             "top_up": "Mise à niveau"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Comment cela fonctionne-t-il ?"
             },

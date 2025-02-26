@@ -1596,7 +1596,8 @@
             "go_to_reservation": "Przejdź do rezerwacji",
             "next": "Następny",
             "processing": "Proces",
-            "submit": "Prześlij"
+            "submit": "Prześlij",
+            "skip": "Pomiń"
         },
         "cancel": "Anuluj",
         "choose_credit": "Wybierz kredyt, którym chcesz zapłacić",
@@ -1693,7 +1694,7 @@
             "title": "Udało się!"
         },
         "voucher_image_alt": "Kredyt",
-        "description_informal": "Używasz swojego <strong>{{fund}}</strong><br/>Czy dokonujesz rezerwacji? W takim razie zgadzasz się, że udostępniamy Twoje dane osobowe dostawcy."
+        "description_informal": "Używasz swojego <strong>{{fund}}</strong> kredyt na tę rezerwację.<br/>Dokonujesz rezerwacji? W takim razie zgadzasz się, że udostępniamy Twoje dane osobowe dostawcy."
     },
     "modal": {
         "buttons": {
@@ -3346,7 +3347,7 @@
             "title": "Transakcje",
             "top_up": "Ulepszony"
         },
-        "voucher_card_combined": {
+        "card_combined": {
             "header": {
                 "title": "Jak to działa?"
             },
