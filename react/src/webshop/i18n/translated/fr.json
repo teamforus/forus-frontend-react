@@ -1596,7 +1596,8 @@
             "go_to_reservation": "Aller à la réservation",
             "next": "Suivant",
             "processing": "Processus",
-            "submit": "Soumettre"
+            "submit": "Soumettre",
+            "skip": "Sauter"
         },
         "cancel": "Annuler",
         "choose_credit": "Choisir le crédit pour payer",
@@ -2341,7 +2342,8 @@
         "account": {
             "active_since": "Actif depuis",
             "last_login": "Dernière connexion",
-            "title": "Détails du compte"
+            "title": "Détails du compte",
+            "last_activity": "Dernière action"
         },
         "bank_accounts": {
             "title": "Compte bancaire",

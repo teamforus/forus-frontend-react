@@ -1596,7 +1596,8 @@
             "go_to_reservation": "Zur Buchung gehen",
             "next": "Weiter",
             "processing": "Prozess",
-            "submit": "Einreichen"
+            "submit": "Einreichen",
+            "skip": "Überspringen"
         },
         "cancel": "Abbrechen",
         "choose_credit": "Wählen Sie das Guthaben, mit dem Sie bezahlen möchten",
@@ -2341,7 +2342,8 @@
         "account": {
             "active_since": "Aktiv seit",
             "last_login": "Letzte Anmeldung",
-            "title": "Details zum Konto"
+            "title": "Details zum Konto",
+            "last_activity": "Letzte Aktion"
         },
         "bank_accounts": {
             "title": "Bankkonto",

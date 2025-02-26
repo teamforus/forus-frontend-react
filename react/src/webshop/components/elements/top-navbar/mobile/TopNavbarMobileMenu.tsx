@@ -264,6 +264,20 @@ export default function TopNavbarMobileMenu() {
                         </StateNavLink>
                     )}
 
+                    {authIdentity?.profile && (
+                        <StateNavLink
+                            className="mobile-menu-item"
+                            name="profile"
+                            onClick={hideMobileMenu}
+                            aria-current={route.state?.name == 'profile' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
+                            tabIndex={0}
+                            role="link">
+                            <em className="mobile-menu-item-icon mdi mdi-account-check" />
+                            {translate('top_navbar.buttons.mobile.dropdown.profile')}
+                        </StateNavLink>
+                    )}
+
                     {authIdentity && envData.config.sessions && (
                         <StateNavLink
                             className="mobile-menu-item"

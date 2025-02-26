@@ -2484,7 +2484,8 @@
         "account": {
             "active_since": "نشط منذ",
             "last_login": "آخر تسجيل دخول",
-            "title": "تفاصيل الحساب"
+            "title": "تفاصيل الحساب",
+            "last_activity": "الإجراء الأخير"
         },
         "bank_accounts": {
             "title": "الحساب البنكي",
@@ -2997,7 +2998,8 @@
             "go_to_reservation": "الانتقال إلى الحجز",
             "next": "التالي",
             "processing": "العملية",
-            "submit": "إرسال"
+            "submit": "إرسال",
+            "skip": "تخطي"
         },
         "cancel": "إلغاء",
         "choose_credit": "اختر الرصيد الذي ستدفع به",

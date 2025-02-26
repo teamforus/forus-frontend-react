@@ -208,7 +208,7 @@ export default function SecuritySessions() {
                                                             {translate('security_sessions.details.started_at')}
                                                         </div>
                                                         <div className="session-property-value">
-                                                            {session.started_at_locale}
+                                                            {session.created_at_locale}
                                                         </div>
                                                     </div>
                                                 </div>

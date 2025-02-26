@@ -10,7 +10,8 @@ export default {
         bsn: 'BSN',
         client_number: 'Klantnummer',
         birth_date: 'Geboorte datum',
-        last_activity: 'Laatste inlog',
+        last_login: 'Laatste inlog',
+        last_activity: 'Laatste handeling',
         postal_code: 'Postcode',
         vouchers_count: 'Aantal tegoeden',
         mobile: 'Mobiele telefoonnummer',
@@ -35,8 +36,10 @@ export default {
             'Uniek nummer toegekend door het systeem van de organisatie, zodat een relatie kan worden geïdentificeerd. Ook wel Persoon-organisatierelatie ID (UID) genoemd.',
         birth_date:
             'Dit veld bevat de geboortedatum van de persoon. Het is belangrijk voor persoonlijke identificatie, ondersteuning bij het gebruik, en om per regio inzicht te krijgen in de aanvraag en het gebruik van regelingen.',
+        last_login:
+            'Dit veld toont de datum en tijd waarop de persoon voor het laatst een sessie is gestart op het platform. Dit helpt om inzicht te krijgen in de recente activiteit en betrokkenheid van de persoon.',
         last_activity:
-            'Dit veld toont de datum en tijd waarop de persoon voor het laatst heeft ingelogd op het platform. Dit helpt om de activiteit van de persoon te monitoren.',
+            'Dit veld toont de datum en tijd van de meest recente actie die de persoon op het platform heeft uitgevoerd. Dit biedt inzicht in de actuele interactie van de persoon binnen het systeem.',
         postal_code:
             'Dit veld bevat de postcode van de persoon. Dit helpt bij persoonlijke identificatie, ondersteuning bij het gebruik, en om per regio inzicht te krijgen in de aanvraag en het gebruik van regelingen.',
         vouchers_count:

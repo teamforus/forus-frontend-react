@@ -1596,7 +1596,8 @@
             "go_to_reservation": "Przejdź do rezerwacji",
             "next": "Następny",
             "processing": "Proces",
-            "submit": "Prześlij"
+            "submit": "Prześlij",
+            "skip": "Pomiń"
         },
         "cancel": "Anuluj",
         "choose_credit": "Wybierz kredyt, którym chcesz zapłacić",
@@ -2341,7 +2342,8 @@
         "account": {
             "active_since": "Aktywny od",
             "last_login": "Ostatnie logowanie",
-            "title": "Szczegóły konta"
+            "title": "Szczegóły konta",
+            "last_activity": "Ostatnia akcja"
         },
         "bank_accounts": {
             "title": "Konto bankowe",
