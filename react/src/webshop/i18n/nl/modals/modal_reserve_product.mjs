@@ -114,6 +114,7 @@ export default {
         next: 'Volgende',
         confirm: 'Bevestigen',
         submit: 'Indienen',
+        skip: 'Overslaan',
         adjust: 'Terug',
         processing: 'Verwerken',
         go_to_reservation: 'Ga naar reservering',
