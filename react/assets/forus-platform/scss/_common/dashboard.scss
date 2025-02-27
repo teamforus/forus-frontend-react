@@ -1586,10 +1586,12 @@ body {
                             padding: 6px 0;
                             font: 500 12px/20px var(--base-font);
                             border-bottom: 1px solid var(--border-color);
+                            word-break: break-word;
                             color: #646f79;
 
                             strong {
                                 color: #000;
+                                display: contents;
                             }
 
                             &:last-child {

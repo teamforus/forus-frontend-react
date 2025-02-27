@@ -11,7 +11,6 @@ import useProductCategoryService from '../../../../dashboard/services/ProductCat
 import Organization from '../../../../dashboard/props/models/Organization';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
-import SelectControlOptions from '../../../../dashboard/components/elements/select-control/templates/SelectControlOptions';
 import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useAppConfigs from '../../../hooks/useAppConfigs';
@@ -305,10 +304,10 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                 id={'select_provider'}
                                 value={filterValues.organization_id}
                                 propKey={'id'}
+                                multiline={true}
                                 allowSearch={true}
                                 onChange={(organization_id: number) => filterUpdate({ organization_id })}
                                 options={organizations || []}
-                                optionsComponent={SelectControlOptions}
                             />
                         </div>
 
@@ -320,11 +319,11 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                             <SelectControl
                                 id={'select_category'}
                                 propKey={'id'}
+                                multiline={true}
                                 allowSearch={true}
                                 value={filterValues.product_category_id}
                                 onChange={(id: number) => filterUpdate({ product_category_id: id })}
                                 options={productCategories || []}
-                                optionsComponent={SelectControlOptions}
                             />
                         </div>
 
@@ -339,9 +338,9 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     propKey={'id'}
                                     value={filterValues.product_sub_category_id}
                                     onChange={(id: number) => filterUpdate({ product_sub_category_id: id })}
+                                    multiline={true}
                                     allowSearch={true}
                                     options={productSubCategories || []}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </div>
                         )}
@@ -355,10 +354,10 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     id={'select_fund'}
                                     propKey={'id'}
                                     value={filterValues.fund_id}
+                                    multiline={true}
                                     allowSearch={true}
                                     onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                     options={funds || []}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             )}
                         </div>
@@ -388,10 +387,10 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         id={'distance'}
                                         propKey={'id'}
                                         value={filterValues.distance}
+                                        multiline={true}
                                         allowSearch={true}
                                         onChange={(distance: number) => filterUpdate({ distance })}
                                         options={distances || []}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={errors?.distance} />
                                 </div>
@@ -436,7 +435,6 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                                 })?.value || {},
                                             );
                                         }}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 </div>
                                 <div className="label-tab-set">
