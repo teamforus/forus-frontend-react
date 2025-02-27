@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import ClickOutside from '../../click-outside/ClickOutside';
 import { uniqueId } from 'lodash';
 import { SelectControlOptionsProp } from '../SelectControl';
@@ -25,11 +25,20 @@ export default function SelectControlOptions<T>({
     searchInputChanged,
     onOptionsScroll,
     disabled,
+    multiline = { selected: false, options: true },
 }: SelectControlOptionsProp<T>) {
     const [controlId] = useState('select_control_' + uniqueId());
     const input = useRef(null);
     const selectorRef = useRef<HTMLDivElement>(null);
     const placeholderRef = useRef<HTMLLabelElement>(null);
+
+    const multilineSelected = useMemo(() => {
+        return multiline === true || (typeof multiline === 'object' && multiline?.selected === true);
+    }, [multiline]);
+
+    const multilineOptions = useMemo(() => {
+        return multiline === true || (typeof multiline === 'object' && multiline?.options === true);
+    }, [multiline]);
 
     const { onKeyDown, onBlur } = useSelectControlKeyEventHandlers(
         selectorRef,
@@ -52,7 +61,13 @@ export default function SelectControlOptions<T>({
             ref={selectorRef}
             onKeyDown={onKeyDown}
             onBlur={onBlur}>
-            <div className={['select-control-input', showOptions ? 'options' : ''].filter((item) => item).join(' ')}>
+            <div
+                className={classNames(
+                    'select-control-input',
+                    showOptions && 'options',
+                    multilineOptions && 'multiline-options',
+                    multilineSelected && 'multiline-selected',
+                )}>
                 {/* Placeholder */}
                 <label
                     htmlFor={controlId}

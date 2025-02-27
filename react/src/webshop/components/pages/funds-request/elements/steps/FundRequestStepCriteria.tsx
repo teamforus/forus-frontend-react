@@ -228,6 +228,7 @@ export default function FundRequestStepCriteria({
                                     placeholder={translate(
                                         'fund_request.sign_up.fund_request_step_criteria.make_a_choice',
                                     )}
+                                    multiline={true}
                                 />
                             )}
 

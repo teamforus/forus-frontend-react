@@ -10,7 +10,6 @@ import useTimer from '../../../dashboard/hooks/useTimer';
 import Auth2FAProvider from '../../../dashboard/props/models/Auth2FAProvider';
 import { ResponseError } from '../../../dashboard/props/ApiResponses';
 import SelectControl from '../../../dashboard/components/elements/select-control/SelectControl';
-import SelectControlOptions from '../../../dashboard/components/elements/select-control/templates/SelectControlOptions';
 import QrCode from '../../../dashboard/components/elements/qr-code/QrCode';
 import PhoneControl from '../../../dashboard/components/elements/forms/controls/PhoneControl';
 import FormError from '../../../dashboard/components/elements/forms/errors/FormError';
@@ -336,7 +335,7 @@ export default function Modal2FASetup({
                                                 onChange={(provider: Auth2FAProvider) => setProvider(provider)}
                                                 options={providers}
                                                 allowSearch={false}
-                                                optionsComponent={SelectControlOptions}
+                                                multiline={true}
                                             />
                                         </div>
                                     </div>

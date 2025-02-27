@@ -248,6 +248,7 @@ export default function Security2FA() {
                                             form.update({ auth_2fa_remember_ip });
                                         }}
                                         options={auth2FARememberIpOptions}
+                                        multiline={true}
                                     />
                                 ) : (
                                     <input

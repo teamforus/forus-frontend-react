@@ -239,6 +239,10 @@ export default function IdentityContactInformationCard({
                                 ),
                             },
                             {
+                                label: recordTypesByKey?.postal_code?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.postal_code} />,
+                            },
+                            {
                                 label: recordTypesByKey?.neighborhood_name?.name,
                                 value: (
                                     <IdentityRecordKeyValueListHistory records={profile.records.neighborhood_name} />

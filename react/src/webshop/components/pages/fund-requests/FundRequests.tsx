@@ -128,6 +128,7 @@ export default function FundRequests() {
                                     value={filterValues.fund_id}
                                     propKey={'id'}
                                     options={funds}
+                                    multiline={true}
                                     onChange={(fund_id?: number) => filterUpdate({ fund_id })}
                                 />
                             </div>

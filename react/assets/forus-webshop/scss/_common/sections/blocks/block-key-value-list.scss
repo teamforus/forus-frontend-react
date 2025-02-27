@@ -84,9 +84,15 @@
                         border-bottom: 1px solid var(--border-color);
                         color: #646f79;
                         position: relative;
+                        word-break: break-word;
 
                         strong {
                             color: #000;
+                            display: contents;
+                        }
+
+                        div {
+                            display: contents;
                         }
 
                         .key-value-list-item-value-history-body-item-icon {
@@ -148,6 +154,10 @@
                         .key-value-list-item-value-history-body-item {
                             flex-direction: column;
                             gap: 0;
+
+                            div {
+                                display: block;
+                            }
                         }
                     }
                 }

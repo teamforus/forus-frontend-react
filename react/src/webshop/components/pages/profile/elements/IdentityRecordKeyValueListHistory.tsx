@@ -33,11 +33,12 @@ export default function IdentityRecordKeyValueListHistory({ records }: { records
                                 </strong>{' '}
                             </div>
                             <div>{`${item.created_at_locale}`}</div>
-                            <div className="hide-sm">•</div>
+                            <div className="hide-sm">{' • '}</div>
                             <div>
-                                {translate('profile.history.from')}{' '}
+                                {' ' + translate('profile.history.from') + ' '}
                                 <strong>{`'${records[index + 1]?.value_locale || ''}'`}</strong>
-                                {translate('profile.history.to')} <strong>{`'${item.value_locale || ''}'`}</strong>
+                                {' ' + translate('profile.history.to') + ' '}
+                                <strong>{`'${item.value_locale || ''}'`}</strong>
                             </div>
                         </div>
                     ))}

@@ -8,7 +8,6 @@ import Fund from '../../../props/models/Fund';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import Organization from '../../../../dashboard/props/models/Organization';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
-import SelectControlOptions from '../../../../dashboard/components/elements/select-control/templates/SelectControlOptions';
 import { useFundService } from '../../../services/FundService';
 import { useTagService } from '../../../../dashboard/services/TagService';
 import useFilter from '../../../../dashboard/hooks/useFilter';
@@ -182,12 +181,12 @@ export default function Funds() {
                                 {translate('funds.labels.organization')}
                             </label>
                             <SelectControl
-                                optionsComponent={SelectControlOptions}
                                 propKey={'id'}
                                 value={filter.values.organization_id}
                                 allowSearch={true}
                                 onChange={(organization_id: number) => filter.update({ organization_id })}
                                 options={organizations || []}
+                                multiline={true}
                             />
                         </div>
                         <div className="form-group">
@@ -195,12 +194,12 @@ export default function Funds() {
                                 {translate('funds.labels.category')}
                             </label>
                             <SelectControl
-                                optionsComponent={SelectControlOptions}
                                 propKey={'id'}
                                 value={filter.values.tag_id}
                                 allowSearch={true}
                                 onChange={(tag_id: number) => filter.update({ tag_id })}
                                 options={tags || []}
+                                multiline={true}
                             />
                         </div>
                     </div>
