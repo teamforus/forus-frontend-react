@@ -780,6 +780,7 @@ export default {
         },
         labels: {
             without: 'Zonder organisatie',
+            no_results: 'Geen organisaties gevonden',
         },
         buttons: {
             add: 'Organisatie toevoegen',

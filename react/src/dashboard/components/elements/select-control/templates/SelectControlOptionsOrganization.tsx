@@ -110,7 +110,11 @@ export default function SelectControlOptionsOrganization<T>({
 
                     <div
                         className={'select-control-search-clear ' + (query ? '' : 'disabled')}
-                        onClick={() => {
+                        tabIndex={0}
+                        onKeyDown={(e) => clickOnKeyEnter(e, true)}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
                             setQuery('');
                             searchInputChanged();
                         }}>
@@ -160,6 +164,14 @@ export default function SelectControlOptionsOrganization<T>({
                                     </div>
                                 </div>
                             ))}
+
+                            {optionsFiltered.length === 0 && (
+                                <div className="select-control-option-no-results">
+                                    <div className="select-control-option-value">
+                                        {translate('organizations.labels.no_results')}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         <div className="select-control-options-actions">
