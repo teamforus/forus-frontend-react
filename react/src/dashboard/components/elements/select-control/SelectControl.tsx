@@ -1,4 +1,11 @@
-import React, { FunctionComponent, UIEvent, useCallback, useEffect, useState } from 'react';
+import React, {
+    FunctionComponent,
+    HTMLInputAutoCompleteAttribute,
+    UIEvent,
+    useCallback,
+    useEffect,
+    useState,
+} from 'react';
 import './styles/ui-select.scss';
 import { uniqueId } from 'lodash';
 import SelectControlOptions from './templates/SelectControlOptions';
@@ -21,6 +28,8 @@ type SelectControlProps<T> = {
     scrollSize?: number;
     dusk?: string;
     optionsComponent?: FunctionComponent<SelectControlOptionsProp<T>>;
+    multiline?: boolean | { selected: boolean; options: boolean };
+    searchAutoComplete?: HTMLInputAutoCompleteAttribute;
 };
 
 export interface OptionType<T> {
@@ -40,7 +49,7 @@ export type SelectControlOptionsProp<T> = {
     placeholderValue: string;
     placeholder: string;
     showOptions: boolean;
-    selectOption: (options: OptionType<T>) => void;
+    selectOption: (option: OptionType<T>) => void;
     allowSearch: boolean;
     visibleCount: number;
     setVisibleCount: (visibleCount: number) => void;
@@ -50,11 +59,13 @@ export type SelectControlOptionsProp<T> = {
     searchOption: (e: React.MouseEvent<HTMLElement>) => void;
     setShowOptions?: React.Dispatch<React.SetStateAction<boolean>>;
     searchInputChanged: () => void;
+    searchAutoComplete?: HTMLInputAutoCompleteAttribute;
     onOptionsScroll: (e: UIEvent<HTMLElement>) => void;
     disabled?: boolean;
     rawValue?: unknown;
     propKey?: string | null;
     propValue?: string | null;
+    multiline?: boolean | { selected: boolean; options: boolean };
 };
 
 export default function SelectControl<T>({
@@ -73,7 +84,9 @@ export default function SelectControl<T>({
     className = null,
     scrollSize = 50,
     optionsComponent = SelectControlOptions,
+    searchAutoComplete = 'off',
     dusk = null,
+    multiline,
 }: SelectControlProps<T>) {
     const [query, setQuery] = useState('');
     const [modelValue, setModelValue] = useState(null);
@@ -86,7 +99,7 @@ export default function SelectControl<T>({
     const [placeholderValue, setPlaceholderValue] = useState('');
 
     const findValue = useCallback(
-        (value) => {
+        (value: T | string | number | boolean) => {
             return optionsPrepared.find((option) => {
                 if (strict) {
                     return propKey ? option.raw[propKey] === value : option.raw == value;
@@ -142,7 +155,7 @@ export default function SelectControl<T>({
     }, [buildSearchedOptions]);
 
     const onInputClick = useCallback(
-        (e) => {
+        (e: React.MouseEvent<HTMLInputElement>) => {
             e.stopPropagation();
 
             if (allowSearch && autoClear) {
@@ -155,7 +168,7 @@ export default function SelectControl<T>({
     );
 
     const searchOption = useCallback(
-        (e) => {
+        (e: React.MouseEvent<HTMLElement>) => {
             e.stopPropagation();
 
             if (disabled || showOptions) {
@@ -175,7 +188,7 @@ export default function SelectControl<T>({
     );
 
     const selectOption = useCallback(
-        (option) => {
+        (option: OptionType<T>) => {
             setModelValue(option);
             setQuery('');
             onChange(propKey ? option.raw[propKey] : option.raw);
@@ -253,5 +266,7 @@ export default function SelectControl<T>({
         disabled,
         propKey,
         propValue,
+        multiline,
+        searchAutoComplete,
     });
 }

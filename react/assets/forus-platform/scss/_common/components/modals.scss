@@ -229,12 +229,20 @@
             }
 
             .modal-icon-rounded {
-                background: #fff;
-                display: inline-block;
-                padding: 23px;
-                border-radius: 50%;
-                margin: 20px 0;
-                box-shadow: 0 7px 15px rgba(#000, 0.1);
+                display: flex;
+                margin: 0 0 20px;
+                flex-direction: row;
+                justify-content: center;
+
+                img {
+                    background: #fff;
+                    border-radius: 50%;
+                    box-shadow: 0 7px 15px rgba(#000, 0.1);
+                    flex: 0 0 30px;
+                    padding: 15px;
+                    display: flex;
+                    width: 80px;
+                }
             }
 
             &.modal-body-visible {
@@ -308,6 +316,7 @@
             .modal-text {
                 font: 500 14px/22px var(--base-font);
                 color: #646f79;
+                text-align: center;
                 margin: 0 0 20px;
 
                 small {

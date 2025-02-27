@@ -144,6 +144,7 @@ export default function ModalEditProfileRecords({
                                                         { value: '', name: 'Selecteer...' },
                                                         ...recordType.options,
                                                     ]}
+                                                    multiline={true}
                                                     placeholder={recordType.name}
                                                     onChange={(value: string) =>
                                                         form.update({ [recordType.key]: value })
