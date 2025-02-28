@@ -30,6 +30,7 @@ import { useProfileService } from '../../../../dashboard/services/ProfileService
 import { ErrorResponse } from 'react-router-dom';
 import usePushSuccess from '../../../../dashboard/hooks/usePushSuccess';
 import classNames from 'classnames';
+import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 
 type VoucherType = Voucher & {
     amount_extra: number;
@@ -136,6 +137,14 @@ export default function ModalProductReserve({
     const [fields, setFields] = useState<Array<Field>>([]);
     const [emptyText] = useState(translate('modal_reserve_product.confirm_notes.labels.empty'));
     const [voucher, setVoucher] = useState<VoucherType>(null);
+
+    const customFieldBooleanOptions = useMemo(() => {
+        return [
+            { key: null, name: translate('form.placeholders.select_option') },
+            { key: 'Nee', name: 'Nee' },
+            { key: 'Ja', name: 'Ja' },
+        ];
+    }, [translate]);
 
     const addressFilled = useCallback((address: AddressType) => {
         return !!(address?.city && address?.street && address?.house_nr && address?.postal_code);
@@ -780,6 +789,20 @@ export default function ModalProductReserve({
                                                                 form.update({ ...form.values });
                                                             }}
                                                             data-dusk={field.dusk}
+                                                        />
+                                                    )}
+                                                    {field.type === 'boolean' && (
+                                                        <SelectControl
+                                                            propKey={'key'}
+                                                            value={form.values.custom_fields?.[field.key] ?? null}
+                                                            onChange={(value: string) => {
+                                                                form.values.custom_fields =
+                                                                    form.values.custom_fields || {};
+                                                                form.values.custom_fields[field.key] = value;
+                                                                form.update({ ...form.values });
+                                                            }}
+                                                            data-dusk={field.dusk}
+                                                            options={customFieldBooleanOptions}
                                                         />
                                                     )}
                                                 </div>
