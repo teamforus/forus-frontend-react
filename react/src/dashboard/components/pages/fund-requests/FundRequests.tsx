@@ -12,14 +12,13 @@ import { format } from 'date-fns';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
 import { useFileService } from '../../../services/FileService';
 import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
@@ -37,7 +36,6 @@ export default function FundRequests() {
     const appConfigs = useAppConfigs();
     const activeOrganization = useActiveOrganization();
 
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigate = useNavigate();
@@ -156,20 +154,18 @@ export default function FundRequests() {
 
     const doExport = useCallback(
         (exportType: string) => {
-            fundRequestService.export(activeOrganization.id, { ...filterActiveValues, export_type: exportType }).then(
-                (res) => {
+            fundRequestService
+                .export(activeOrganization.id, { ...filterActiveValues, export_type: exportType })
+                .then((res) => {
                     const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
                     const fileType = res.headers['content-type'] + ';charset=utf-8;';
                     const fileName = `${envData.client_type}_${activeOrganization.name}_fund-requests_${dateTime}.${exportType}`;
 
                     fileService.downloadFile(fileName, res.data, fileType);
-                },
-                (res: ResponseError) => {
-                    pushDanger('Mislukt!', res.data.message);
-                },
-            );
+                })
+                .catch(pushApiError);
         },
-        [fundRequestService, activeOrganization, filterActiveValues, envData.client_type, fileService, pushDanger],
+        [fundRequestService, activeOrganization, filterActiveValues, envData.client_type, fileService, pushApiError],
     );
 
     const exportRequests = useCallback(() => {

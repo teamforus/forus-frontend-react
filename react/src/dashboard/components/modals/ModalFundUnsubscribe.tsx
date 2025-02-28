@@ -5,7 +5,6 @@ import Organization from '../../props/models/Organization';
 import { ResponseError } from '../../props/ApiResponses';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import usePushSuccess from '../../hooks/usePushSuccess';
-import usePushDanger from '../../hooks/usePushDanger';
 import FormError from '../elements/forms/errors/FormError';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../helpers/dates';
@@ -15,6 +14,7 @@ import { addDays } from 'date-fns';
 import { clickOnKeyEnter } from '../../helpers/wcag';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalFundUnsubscribe({
     modal,
@@ -32,9 +32,9 @@ export default function ModalFundUnsubscribe({
     const [dateMin] = useState(addDays(new Date(), 1));
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundUnsubscribeService = useFundUnsubscribeService();
 
@@ -54,7 +54,7 @@ export default function ModalFundUnsubscribe({
                     onUnsubscribe?.();
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Er is iets mis gegaan.', 'Probeer het probleem op te lossen en opnieuw te versturen.');
+                    pushApiError(err);
                     form.setErrors(err.data.errors);
                 })
                 .finally(() => {

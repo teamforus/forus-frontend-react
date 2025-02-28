@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
@@ -17,7 +16,6 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 export default function ImplementationsTranslations() {
     const { id } = useParams();
 
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
@@ -31,8 +29,8 @@ export default function ImplementationsTranslations() {
         implementationService
             .read(activeOrganization.id, parseInt(id))
             .then((res) => setImplementation(res.data.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [activeOrganization.id, id, implementationService, pushDanger]);
+            .catch(pushApiError);
+    }, [activeOrganization.id, id, implementationService, pushApiError]);
 
     const form = useFormBuilder({ languages: [] }, () => {
         setProgress(0);

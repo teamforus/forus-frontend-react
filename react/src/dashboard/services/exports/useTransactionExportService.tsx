@@ -1,17 +1,17 @@
 import React, { useCallback } from 'react';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import useEnvData from '../../hooks/useEnvData';
 import useTransactionService from '../TransactionService';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
 import useMakeExporterService from './useMakeExporterService';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function useTransactionExportService() {
     const envData = useEnvData();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const openModal = useOpenModal();
+    const pushApiError = usePushApiError();
 
     const transactionService = useTransactionService();
     const { makeSections, saveExportedData } = useMakeExporterService();
@@ -28,7 +28,7 @@ export default function useTransactionExportService() {
                 transactionService
                     .export(envData.client_type, organization_id, queryFilters)
                     .then((res) => saveExportedData(data, organization_id, res))
-                    .catch((res) => pushDanger('Mislukt!', res.data.message))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
@@ -38,7 +38,7 @@ export default function useTransactionExportService() {
                 ));
             });
         },
-        [envData.client_type, makeSections, openModal, pushDanger, saveExportedData, setProgress, transactionService],
+        [envData.client_type, makeSections, openModal, pushApiError, saveExportedData, setProgress, transactionService],
     );
 
     return { exportData };

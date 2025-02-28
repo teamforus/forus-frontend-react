@@ -9,6 +9,8 @@ import PincodeControl from '../elements/forms/controls/PincodeControl';
 import Auth2FAInfoBox from '../elements/auth2fa-info-box/Auth2FAInfoBox';
 import useTimer from '../../hooks/useTimer';
 import classNames from 'classnames';
+import usePushApiError from '../../hooks/usePushApiError';
+import { ResponseError } from '../../props/ApiResponses';
 
 export default function Modal2FADeactivate({
     modal,
@@ -31,6 +33,7 @@ export default function Modal2FADeactivate({
 
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const timer = useTimer();
     const { setTimer } = timer;
 
@@ -50,13 +53,11 @@ export default function Modal2FADeactivate({
 
             identity2FAService
                 .send(auth2FA.uuid)
-                .then(
-                    () => (notify ? pushSuccess('Gelukt!', 'We hebben de code opnieuw verstuurd.') : false),
-                    (res) => pushDanger('Mislukt!', res?.data?.message),
-                )
+                .then(() => (notify ? pushSuccess('Gelukt!', 'We hebben de code opnieuw verstuurd.') : false))
+                .catch(pushApiError)
                 .then(() => setSendingCode(false));
         },
-        [auth2FA?.uuid, blockResend, identity2FAService, pushDanger, pushSuccess],
+        [auth2FA?.uuid, blockResend, identity2FAService, pushApiError, pushSuccess],
     );
 
     const deactivateProvider = useCallback(() => {
@@ -75,16 +76,24 @@ export default function Modal2FADeactivate({
                 setStep('success');
                 setErrorCode(null);
             })
-            .catch((res) => {
-                setErrorCode(res?.data?.errors?.code || null);
-                pushDanger(
-                    res.status === 404
-                        ? 'Er is een fout opgetreden. Vernieuw de pagina.'
-                        : res.data?.message || 'Unknown error.',
-                );
+            .catch((err: ResponseError) => {
+                setErrorCode(err?.data?.errors?.code || null);
+                if (err.status === 404) {
+                    return pushDanger('Er is een fout opgetreden. Vernieuw de pagina.');
+                }
+
+                pushApiError(err);
             })
             .finally(() => window.setTimeout(() => setDeactivating(false), 1000));
-    }, [auth2FA.provider_type.key, auth2FA.uuid, confirmationCode, deactivating, identity2FAService, pushDanger]);
+    }, [
+        auth2FA.provider_type.key,
+        auth2FA.uuid,
+        confirmationCode,
+        deactivating,
+        identity2FAService,
+        pushDanger,
+        pushApiError,
+    ]);
 
     const cancel = useCallback(() => {
         onCancel?.();

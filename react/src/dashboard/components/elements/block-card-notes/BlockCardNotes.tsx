@@ -1,11 +1,10 @@
 import FilterModel from '../../../types/FilterModel';
 import FormValuesModel from '../../../types/FormValuesModel';
 import { useCallback, useEffect, useState } from 'react';
-import { ApiResponse, ApiResponseSingle, PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { ApiResponse, ApiResponseSingle, PaginationData } from '../../../props/ApiResponses';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import useFilter from '../../../hooks/useFilter';
 import React from 'react';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import usePushSuccess from '../../../hooks/usePushSuccess';
@@ -18,6 +17,7 @@ import usePaginatorService from '../../../modules/paginator/services/usePaginato
 import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
 import TableRowActions from '../tables/TableRowActions';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function BlockCardNotes({
     isAssigned,
@@ -36,9 +36,9 @@ export default function BlockCardNotes({
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
 
@@ -79,7 +79,7 @@ export default function BlockCardNotes({
                                     filter.touch();
                                     pushSuccess('Gelukt!', 'Notitie verwijderd.');
                                 })
-                                .catch((res: ResponseError) => pushDanger('Foutmelding!', res.data.message))
+                                .catch(pushApiError)
                                 .finally(() => setProgress(100));
                         },
                         text: translate('modals.danger_zone.remove_note.buttons.confirm'),
@@ -87,7 +87,7 @@ export default function BlockCardNotes({
                 />
             ));
         },
-        [deleteNote, filter, openModal, pushDanger, pushSuccess, setProgress, translate],
+        [deleteNote, filter, openModal, pushApiError, pushSuccess, setProgress, translate],
     );
 
     const onAddNote = useCallback(() => {

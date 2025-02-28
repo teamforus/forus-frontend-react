@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import Fund from '../../../props/models/Fund';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { hasPermission } from '../../../helpers/utils';
@@ -18,7 +18,6 @@ import Implementation from '../../../props/models/Implementation';
 import { strLimit } from '../../../helpers/string';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import { StringParam, useQueryParams, withDefault } from 'use-query-params';
@@ -31,13 +30,14 @@ import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
     const openModal = useOpenModal();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -140,11 +140,11 @@ export default function OrganizationFunds() {
                         setQueryParams({ funds_type: 'archived' });
                         pushSuccess('Opgeslagen!');
                     })
-                    .catch((err: ResponseError) => pushDanger(err.data.message || 'Error!'))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             });
         },
-        [askConfirmation, fundService, pushDanger, pushSuccess, setProgress, setQueryParams],
+        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, setQueryParams],
     );
 
     const restoreFund = useCallback(
@@ -161,11 +161,11 @@ export default function OrganizationFunds() {
                         setQueryParams({ funds_type: 'active' });
                         pushSuccess('Opgeslagen!');
                     })
-                    .catch((err: ResponseError) => pushDanger(err.data.message || 'Error!'))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             });
         },
-        [askConfirmation, fundService, pushDanger, pushSuccess, setProgress, setQueryParams],
+        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, setQueryParams],
     );
 
     const topUpModal = useCallback(

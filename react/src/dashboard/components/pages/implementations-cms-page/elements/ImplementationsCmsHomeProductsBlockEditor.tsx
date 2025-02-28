@@ -5,9 +5,9 @@ import { ApiResponseSingle, ResponseError } from '../../../../props/ApiResponses
 import useImplementationPageService from '../../../../services/ImplementationPageService';
 import Implementation from '../../../../props/models/Implementation';
 import Organization from '../../../../props/models/Organization';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import FormError from '../../../elements/forms/errors/FormError';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ImplementationsCmsHomeProductsBlockEditor({
     pageBlock,
@@ -22,8 +22,8 @@ export default function ImplementationsCmsHomeProductsBlockEditor({
     implementation: Implementation;
     activeOrganization: Organization;
 }) {
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const implementationPageService = useImplementationPageService();
 
@@ -54,7 +54,7 @@ export default function ImplementationsCmsHomeProductsBlockEditor({
                 .catch((err: ResponseError) => {
                     resolve(false);
                     setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         });
@@ -63,7 +63,7 @@ export default function ImplementationsCmsHomeProductsBlockEditor({
         implementation.id,
         implementationPageService,
         pageBlock,
-        pushDanger,
+        pushApiError,
         setPageBlock,
         setProgress,
     ]);

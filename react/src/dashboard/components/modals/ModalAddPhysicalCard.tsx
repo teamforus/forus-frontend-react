@@ -11,7 +11,7 @@ import { usePhysicalCardService } from '../../services/PhysicalCardService';
 import { ResponseError } from '../../props/ApiResponses';
 import useTranslate from '../../hooks/useTranslate';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
-import usePushDanger from '../../hooks/usePushDanger';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalAddPhysicalCard({
     modal,
@@ -27,7 +27,7 @@ export default function ModalAddPhysicalCard({
     organization: Organization;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
     const physicalCardService = usePhysicalCardService();
@@ -48,7 +48,7 @@ export default function ModalAddPhysicalCard({
             })
             .catch((err: ResponseError) => {
                 form.setIsLocked(false);
-                pushDanger('Mislukt!', err.data.message);
+                pushApiError(err);
 
                 if (err.status === 429) {
                     return form.setErrors({ code: [err.data.message] });

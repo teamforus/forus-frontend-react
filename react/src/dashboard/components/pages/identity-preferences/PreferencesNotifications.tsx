@@ -8,16 +8,16 @@ import NotificationPreferenceCard from './elements/NotificationPreferenceCard';
 import useEnvData from '../../../hooks/useEnvData';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function PreferencesNotifications() {
     const envData = useEnvData();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const emailPreferenceService = useEmailPreferenceService();
 
@@ -92,15 +92,15 @@ export default function PreferencesNotifications() {
 
     const updatePreferences = useCallback(
         (data) => {
-            emailPreferenceService.update(data).then(
-                (res) => {
+            emailPreferenceService
+                .update(data)
+                .then((res) => {
                     pushSuccess('Opgeslagen!');
                     setPreferences(filterOptions(res.data.data));
-                },
-                (res) => pushDanger('Mislukt!', res.data.message),
-            );
+                })
+                .catch(pushApiError);
         },
-        [emailPreferenceService, filterOptions, pushDanger, pushSuccess],
+        [emailPreferenceService, filterOptions, pushApiError, pushSuccess],
     );
 
     const toggleSubscription = useCallback(

@@ -13,8 +13,8 @@ import PrevalidationRecord from '../../props/models/PrevalidationRecord';
 import { ResponseError } from '../../props/ApiResponses';
 import { dateFormat, dateParse } from '../../helpers/dates';
 import useSetProgress from '../../hooks/useSetProgress';
-import usePushDanger from '../../hooks/usePushDanger';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalCreatePrevalidation({
     fund,
@@ -29,7 +29,7 @@ export default function ModalCreatePrevalidation({
     recordTypes: Array<RecordType>;
     onCreated: () => void;
 }) {
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
     const prevalidationService = usePrevalidationService();
 
@@ -120,7 +120,7 @@ export default function ModalCreatePrevalidation({
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
                     form.setIsLocked(false);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                     setVerificationRequested(false);
                 })
                 .finally(() => setProgress(100));

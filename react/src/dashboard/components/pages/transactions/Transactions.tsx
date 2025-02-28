@@ -11,7 +11,6 @@ import useTransactionBulkService from '../../../services/TransactionBulkService'
 import { PaginationData } from '../../../props/ApiResponses';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import { strLimit } from '../../../helpers/string';
-import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import TransactionBulk from '../../../props/models/TransactionBulk';
 import useTransactionExportService from '../../../services/exports/useTransactionExportService';
@@ -40,15 +39,16 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Transactions() {
     const envData = useEnvData();
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const paginatorService = usePaginatorService();
     const activeOrganization = useActiveOrganization();
@@ -310,7 +310,7 @@ export default function Transactions() {
                         pushSuccess(`Succes!`, `Accepteer de transactie in uw mobiele app van bunq.`);
                     }
                 })
-                .catch((res) => pushDanger('Bulk betaalopdrachten mislukt', res.data.message || 'Er ging iets mis!'))
+                .catch(pushApiError)
                 .finally(() => {
                     setBuildingBulks(false);
                     updateHasPendingBulking();
@@ -322,7 +322,7 @@ export default function Transactions() {
         confirmBulkNow,
         filter.activeValues,
         navigateState,
-        pushDanger,
+        pushApiError,
         pushSuccess,
         setProgress,
         transactionBulkService,

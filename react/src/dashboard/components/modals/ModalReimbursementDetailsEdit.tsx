@@ -7,7 +7,6 @@ import useFormBuilder from '../../hooks/useFormBuilder';
 import { useReimbursementsService } from '../../services/ReimbursementService';
 import { useReimbursementCategoryService } from '../../services/ReimbursementCategoryService';
 import usePushSuccess from '../../hooks/usePushSuccess';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import FormError from '../elements/forms/errors/FormError';
 import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
@@ -15,6 +14,7 @@ import SelectControl from '../elements/select-control/SelectControl';
 import ReimbursementCategory from '../../props/models/ReimbursementCategory';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalReimbursementCategoriesEdit from '../modals/ModalReimbursementCategoriesEdit';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalReimbursementDetailsEdit({
     modal,
@@ -32,7 +32,7 @@ export default function ModalReimbursementDetailsEdit({
     className?: string;
 }) {
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
 
@@ -61,7 +61,7 @@ export default function ModalReimbursementDetailsEdit({
                     modal.close();
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                     form.setErrors(err.data.errors);
                     form.setIsLocked(false);
                 })
@@ -75,9 +75,9 @@ export default function ModalReimbursementDetailsEdit({
         reimbursementCategoryService
             .list(organization.id, { per_page: 100 })
             .then((res) => setCategories([{ id: null, name: 'Geen categorie' }, ...res.data.data]))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [organization.id, pushDanger, reimbursementCategoryService, setProgress]);
+    }, [organization.id, pushApiError, reimbursementCategoryService, setProgress]);
 
     const manageCategories = useCallback(() => {
         setShowModal(false);

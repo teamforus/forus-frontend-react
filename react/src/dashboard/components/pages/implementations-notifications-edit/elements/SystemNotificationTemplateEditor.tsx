@@ -8,7 +8,6 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
 import SystemNotification from '../../../../props/models/SystemNotification';
 import Fund from '../../../../props/models/Fund';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import useOpenModal from '../../../../hooks/useOpenModal';
@@ -21,6 +20,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import NotificationTemplate from '../../../../props/models/NotificationTemplate';
 import { uniqueId } from 'lodash';
 import useSetProgress from '../../../../hooks/useSetProgress';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type Variables = { [key: string]: string };
 
@@ -51,9 +51,9 @@ export default function SystemNotificationTemplateEditor({
 }) {
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const implementationNotificationsService = useImplementationNotificationService();
 
@@ -187,15 +187,15 @@ export default function SystemNotificationTemplateEditor({
                     cancelTemplateEdit();
                     pushSuccess('Opgeslagen', `${header.title} sjabloon opgeslagen.`);
                 })
-                .catch((res: ResponseError) => {
-                    if (res.status === 422) {
+                .catch((err: ResponseError) => {
+                    if (err.status === 422) {
                         setFormErrors({
-                            subject: res.data?.errors['templates.0.title'],
-                            content: res.data?.errors['templates.0.content'],
+                            subject: err.data?.errors['templates.0.title'],
+                            content: err.data?.errors['templates.0.content'],
                         });
                     }
 
-                    pushDanger('Fout!', 'Er is iets fout gegaan.');
+                    pushApiError(err);
                 })
                 .finally(() => {
                     form.setIsLocked(false);
@@ -206,10 +206,10 @@ export default function SystemNotificationTemplateEditor({
             form,
             compose,
             onChange,
-            pushDanger,
             pushSuccess,
             setProgress,
             markdownRaw,
+            pushApiError,
             header.title,
             organization.id,
             notification.id,

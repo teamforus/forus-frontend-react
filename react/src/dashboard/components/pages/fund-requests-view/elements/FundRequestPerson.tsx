@@ -1,10 +1,10 @@
 import Organization from '../../../../props/models/Organization';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import React, { useCallback, useState } from 'react';
 import { useFundRequestValidatorService } from '../../../../services/FundRequestValidatorService';
 import FundRequest from '../../../../props/models/FundRequest';
 import useTranslate from '../../../../hooks/useTranslate';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type FundRequestLocal = FundRequest & { bsn_expanded?: boolean };
 
@@ -16,8 +16,8 @@ export default function FundRequestPerson({
     organization: Organization;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const [fundRequest, setFundRequest] = useState<FundRequestLocal>(request);
     const [fetchingPerson, setFetchingPerson] = useState(null);
@@ -67,13 +67,13 @@ export default function FundRequestPerson({
                     fundRequest.bsn_expanded = true;
                     setBreadcrumbs(fundRequest);
                 })
-                .catch((res) => pushDanger('Mislukt', res.data.message))
+                .catch(pushApiError)
                 .finally(() => {
                     setFetchingPerson(false);
                     setProgress(100);
                 });
         },
-        [fetchingPerson, fundRequestService, organization.id, pushDanger, setProgress],
+        [fetchingPerson, fundRequestService, organization.id, pushApiError, setProgress],
     );
 
     return (

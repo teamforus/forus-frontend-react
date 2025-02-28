@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../props/ApiResponses';
@@ -28,6 +27,7 @@ import SystemNotification from '../../../props/models/SystemNotification';
 import useFundIdentitiesExportService from '../../../services/exports/useFundIdentitiesExportService';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
@@ -35,9 +35,9 @@ export default function ImplementationsNotificationsSend() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
 
     const paginatorService = usePaginatorService();
@@ -201,14 +201,14 @@ export default function ImplementationsNotificationsSend() {
     );
 
     const onError = useCallback(
-        (res: ResponseError) => {
-            pushDanger('Error!', res.data.message);
+        (err: ResponseError) => {
+            pushApiError(err);
 
-            if (res.status === 422) {
-                setErrors(res.data.errors);
+            if (err.status === 422) {
+                setErrors(err.data.errors);
             }
         },
-        [pushDanger],
+        [pushApiError],
     );
 
     const submit = useCallback(() => {
@@ -328,11 +328,11 @@ export default function ImplementationsNotificationsSend() {
 
                 setImplementation(res.data.data);
             })
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
+            .catch(pushApiError);
     }, [
         id,
         navigateState,
-        pushDanger,
+        pushApiError,
         implementationService,
         activeOrganization.id,
         activeOrganization.allow_custom_fund_notifications,
@@ -345,8 +345,8 @@ export default function ImplementationsNotificationsSend() {
                 setFunds(res.data.data);
                 setFund(res.data.data[0]);
             })
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [fundService, activeOrganization.id, implementation?.id, pushDanger]);
+            .catch(pushApiError);
+    }, [fundService, activeOrganization.id, implementation?.id, pushApiError]);
 
     const fetchFundIdentities = useCallback(() => {
         if (fund) {
@@ -355,13 +355,13 @@ export default function ImplementationsNotificationsSend() {
             fundService
                 .listIdentities(activeOrganization.id, fund.id, identitiesFilters.activeValues)
                 .then((res) => setIdentities(res.data))
-                .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+                .catch(pushApiError)
                 .finally(() => {
                     setLastIdentitiesQuery(identitiesFilters.activeValues.q);
                     setProgress(100);
                 });
         }
-    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilters?.activeValues, pushDanger]);
+    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilters?.activeValues, pushApiError]);
 
     useEffect(() => {
         if (implementation) {

@@ -6,8 +6,8 @@ import FormValuesModel from '../../types/FormValuesModel';
 import { ApiResponseSingle, ResponseError } from '../../props/ApiResponses';
 import Note from '../../props/models/Note';
 import useSetProgress from '../../hooks/useSetProgress';
-import usePushDanger from '../../hooks/usePushDanger';
 import classNames from 'classnames';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalAddNote({
     modal,
@@ -24,7 +24,7 @@ export default function ModalAddNote({
     storeNote: (values: FormValuesModel) => Promise<ApiResponseSingle<Note>>;
     onCreated: (note?: Note) => void;
 }) {
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
     const form = useFormBuilder({ description: '' }, () => {
@@ -38,7 +38,7 @@ export default function ModalAddNote({
             .catch((err: ResponseError) => {
                 form.setErrors(err?.data?.errors);
                 form.setIsLocked(false);
-                pushDanger('Mislukt!', err?.data?.message);
+                pushApiError(err);
             })
             .finally(() => setProgress(100));
     });

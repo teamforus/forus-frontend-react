@@ -7,12 +7,12 @@ import useFormBuilder from '../../../hooks/useFormBuilder';
 import FormError from '../../elements/forms/errors/FormError';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import { authContext } from '../../../contexts/AuthContext';
 import { StringParam, useQueryParam } from 'use-query-params';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function OrganizationsSecurity() {
     const activeOrganization = useActiveOrganization();
@@ -20,9 +20,9 @@ export default function OrganizationsSecurity() {
     const { updateIdentity } = useContext(authContext);
     const { setActiveOrganization } = useContext(mainContext);
 
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const [viewType = 'employees', setViewType] = useQueryParam('view_type', StringParam, {
         removeDefaultsFromUrl: true,
@@ -60,17 +60,15 @@ export default function OrganizationsSecurity() {
 
             organizationService
                 .update(activeOrganization.id, form.values)
-                .then(
-                    (res) => {
-                        pushSuccess('Opgeslagen!');
-                        setActiveOrganization(Object.assign(activeOrganization, res.data.data));
-                        updateIdentity().then();
-                    },
-                    (err) => {
-                        pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding.');
-                        form.setErrors(err.data.errors);
-                    },
-                )
+                .then((res) => {
+                    pushSuccess('Opgeslagen!');
+                    setActiveOrganization(Object.assign(activeOrganization, res.data.data));
+                    updateIdentity().then();
+                })
+                .catch((err) => {
+                    pushApiError(err);
+                    form.setErrors(err.data.errors);
+                })
                 .finally(() => {
                     setProgress(100);
                     form.setIsLocked(false);

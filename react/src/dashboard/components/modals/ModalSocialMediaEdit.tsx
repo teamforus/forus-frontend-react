@@ -11,8 +11,8 @@ import ImplementationSocialMedia from '../../props/models/ImplementationSocialMe
 import Implementation from '../../props/models/Implementation';
 import useImplementationSocialMediaService from '../../services/ImplementationSocialMediaService';
 import usePushSuccess from '../../hooks/usePushSuccess';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalSocialMediaEdit({
     modal,
@@ -31,8 +31,8 @@ export default function ModalSocialMediaEdit({
     organization: Organization;
     implementation: Implementation;
 }) {
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
     const implementationSocialMediaService = useImplementationSocialMediaService();
@@ -69,9 +69,9 @@ export default function ModalSocialMediaEdit({
                     onSubmit();
                     modal.close();
                 })
-                .catch((res: ResponseError) => {
-                    pushDanger('Error!', res?.data?.message);
-                    form.setErrors(res.data.errors);
+                .catch((err: ResponseError) => {
+                    pushApiError(err);
+                    form.setErrors(err.data.errors);
                 })
                 .finally(() => {
                     form.setIsLocked(false);

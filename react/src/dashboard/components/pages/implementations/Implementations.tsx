@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useImplementationService from '../../../services/ImplementationService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
-import usePushDanger from '../../../hooks/usePushDanger';
+import { PaginationData } from '../../../props/ApiResponses';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
@@ -12,10 +11,11 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Implementation from '../../../props/models/Implementation';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Implementations() {
     const assetUrl = useAssetUrl();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
 
@@ -44,8 +44,8 @@ export default function Implementations() {
         implementationService
             .list(activeOrganization.id, filter.activeValues)
             .then((res) => setImplementations(res.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [activeOrganization.id, filter.activeValues, implementationService, pushDanger]);
+            .catch(pushApiError);
+    }, [activeOrganization.id, filter.activeValues, implementationService, pushApiError]);
 
     useEffect(() => {
         fetchImplementations();

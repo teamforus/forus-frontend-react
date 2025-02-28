@@ -2,17 +2,16 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useProviderFundService from '../../../services/ProviderFundService';
-import { ResponseError } from '../../../props/ApiResponses';
-import usePushDanger from '../../../hooks/usePushDanger';
 import ProviderFundsTable from './elements/ProviderFundsTable';
 import ProviderFundUnsubscriptionsTable from './elements/ProviderFundUnsubscriptionsTable';
 import ProviderFundsAvailableTable from './elements/ProviderFundsAvailableTable';
 import ProviderFundInvitationsTable from './elements/ProviderFundInvitationsTable';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ProviderFunds() {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
     const providerFundService = useProviderFundService();
 
@@ -23,8 +22,8 @@ export default function ProviderFunds() {
         providerFundService
             .listAvailableFunds(activeOrganization.id, { per_page: 1 })
             .then((res) => setFundsAvailable(res.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message));
-    }, [activeOrganization.id, providerFundService, pushDanger]);
+            .catch(pushApiError);
+    }, [activeOrganization.id, providerFundService, pushApiError]);
 
     useEffect(() => {
         fetchFunds();

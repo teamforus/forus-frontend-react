@@ -5,13 +5,12 @@ import ExtraPayment from '../../../../props/models/ExtraPayment';
 import KeyValueItem from '../../../elements/key-value/KeyValueItem';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useProductReservationService from '../../../../services/ProductReservationService';
-import { ResponseError } from '../../../../props/ApiResponses';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import useEnvData from '../../../../hooks/useEnvData';
 import useTranslate from '../../../../hooks/useTranslate';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ReservationExtraPaymentDetails({
     payment,
@@ -29,9 +28,9 @@ export default function ReservationExtraPaymentDetails({
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const productReservationService = useProductReservationService();
 
@@ -44,9 +43,9 @@ export default function ReservationExtraPaymentDetails({
                 onUpdate(res.data.data);
                 pushSuccess('Opgeslagen!');
             })
-            .catch((err: ResponseError) => pushDanger(err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, productReservationService, organization.id, reservation.id, onUpdate, pushSuccess, pushDanger]);
+    }, [setProgress, productReservationService, organization.id, reservation.id, onUpdate, pushSuccess, pushApiError]);
 
     const refundExtraPayment = useCallback(
         function () {
@@ -69,7 +68,7 @@ export default function ReservationExtraPaymentDetails({
                                     onUpdate(res.data.data);
                                     pushSuccess('Refund created!');
                                 })
-                                .catch((err: ResponseError) => pushDanger(err.data.message))
+                                .catch(pushApiError)
                                 .finally(() => {
                                     setProgress(100);
                                     modal.close();
@@ -84,9 +83,9 @@ export default function ReservationExtraPaymentDetails({
             translate,
             onUpdate,
             openModal,
-            pushDanger,
             setProgress,
             pushSuccess,
+            pushApiError,
             reservation.id,
             organization.id,
             productReservationService,

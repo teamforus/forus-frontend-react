@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
-import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import ImplementationsCmsPageForm from './elements/ImplementationsCmsPageForm';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { useParams } from 'react-router-dom';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsCmsPageCreate() {
     const { implementationId } = useParams();
@@ -16,7 +15,7 @@ export default function ImplementationsCmsPageCreate() {
     const activeOrganization = useActiveOrganization();
 
     const navigateState = useNavigateState();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const implementationService = useImplementationService();
 
@@ -35,8 +34,8 @@ export default function ImplementationsCmsPageCreate() {
 
                 setImplementation(res.data.data);
             })
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
-    }, [implementationService, activeOrganization.id, implementationId, type, navigateState, pushDanger]);
+            .catch(pushApiError);
+    }, [implementationService, activeOrganization.id, implementationId, type, navigateState, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();

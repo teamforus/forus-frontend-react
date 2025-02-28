@@ -7,7 +7,7 @@ import FormError from '../elements/forms/errors/FormError';
 import { usePhysicalCardsRequestService } from '../../services/PhysicalCardsRequestService';
 import useTranslate from '../../hooks/useTranslate';
 import { ResponseError } from '../../props/ApiResponses';
-import usePushDanger from '../../hooks/usePushDanger';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalOrderPhysicalCard({
     modal,
@@ -21,7 +21,7 @@ export default function ModalOrderPhysicalCard({
     onRequested: () => void;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
     const physicalCardsRequestService = usePhysicalCardsRequestService();
@@ -56,7 +56,7 @@ export default function ModalOrderPhysicalCard({
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                     setState('form');
                 })
                 .finally(() => setProgress(100));
@@ -83,11 +83,11 @@ export default function ModalOrderPhysicalCard({
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         },
-        [form, physicalCardsRequestService, pushDanger, setProgress, voucher.address, voucher.fund.organization_id],
+        [form, physicalCardsRequestService, pushApiError, setProgress, voucher.address, voucher.fund.organization_id],
     );
 
     return (

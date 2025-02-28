@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
-import { ResponseError } from '../../../../props/ApiResponses';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import ModalNotification from '../../../modals/ModalNotification';
 import useImplementationPageService from '../../../../services/ImplementationPageService';
@@ -12,12 +10,13 @@ import ThSortable from '../../../elements/tables/ThSortable';
 import ImplementationPage from '../../../../props/models/ImplementationPage';
 import useTranslate from '../../../../hooks/useTranslate';
 import { keyBy } from 'lodash';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ImplementationsCmsPages({ implementation }: { implementation: Implementation }) {
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const implementationPageService = useImplementationPageService();
 
@@ -31,8 +30,8 @@ export default function ImplementationsCmsPages({ implementation }: { implementa
         implementationPageService
             .list(implementation.organization_id, implementation.id)
             .then((res) => setPagesByKey(keyBy(res.data.data, 'page_type')))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [implementation, implementationPageService, pushDanger]);
+            .catch(pushApiError);
+    }, [implementation, implementationPageService, pushApiError]);
 
     const deletePage = useCallback(
         (page) => {
@@ -53,14 +52,14 @@ export default function ImplementationsCmsPages({ implementation }: { implementa
                                     fetchPages();
                                     pushSuccess('Success!', 'Implementation page delete!');
                                 })
-                                .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
+                                .catch(pushApiError);
                         },
                     }}
                     buttonCancel={{ onClick: () => modal.close() }}
                 />
             ));
         },
-        [fetchPages, implementationPageService, openModal, pushDanger, pushSuccess],
+        [fetchPages, implementationPageService, openModal, pushApiError, pushSuccess],
     );
 
     useEffect(() => {

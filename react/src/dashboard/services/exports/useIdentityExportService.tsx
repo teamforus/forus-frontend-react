@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
 import useMakeExporterService from './useMakeExporterService';
 import useSponsorIdentitiesService from '../SponsorIdentitesService';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function useIdentityExportService() {
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const openModal = useOpenModal();
+    const pushApiError = usePushApiError();
 
     const identityService = useSponsorIdentitiesService();
     const { makeSections, saveExportedData } = useMakeExporterService();
@@ -26,7 +26,7 @@ export default function useIdentityExportService() {
                 identityService
                     .export(organization_id, queryFilters)
                     .then((res) => saveExportedData(data, organization_id, res))
-                    .catch((res) => pushDanger('Mislukt!', res.data.message))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
@@ -36,7 +36,7 @@ export default function useIdentityExportService() {
                 ));
             });
         },
-        [makeSections, openModal, pushDanger, saveExportedData, setProgress, identityService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, identityService],
     );
 
     return { exportData };

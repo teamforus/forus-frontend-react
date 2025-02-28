@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
-import usePushDanger from '../../../../hooks/usePushDanger';
+import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
 import useFilter from '../../../../hooks/useFilter';
@@ -14,6 +13,7 @@ import useAssetUrl from '../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import SponsorProduct, { DealHistory } from '../../../../props/models/Sponsor/SponsorProduct';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type ProductLocal = SponsorProduct & {
     allowed: boolean;
@@ -30,8 +30,8 @@ export default function SubsidyFundSponsorProducts({
     onChange: (data: FundProvider) => void;
 }) {
     const assetUrl = useAssetUrl();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const { disableProduct, deleteProduct } = useUpdateProduct();
 
@@ -72,12 +72,12 @@ export default function SubsidyFundSponsorProducts({
                     data: res.data.data.map((product) => mapProduct(product)),
                 }),
             )
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
     }, [
         mapProduct,
-        pushDanger,
         setProgress,
+        pushApiError,
         organization.id,
         organizationService,
         filter.activeValues,

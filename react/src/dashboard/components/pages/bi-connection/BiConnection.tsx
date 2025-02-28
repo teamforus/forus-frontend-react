@@ -11,7 +11,6 @@ import { useBiConnectionService } from '../../../services/BiConnectionService';
 import { chunk } from 'lodash';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
-import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import BiConnectionDataType from '../../../props/models/BiConnectionDataType';
 import { StringParam } from 'use-query-params';
@@ -25,6 +24,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import InfoBox from '../../elements/info-box/InfoBox';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function BiConnection() {
     const auth2FAState = useAuthIdentity2FAState();
@@ -33,9 +33,9 @@ export default function BiConnection() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const biConnectionService = useBiConnectionService();
 
@@ -106,7 +106,7 @@ export default function BiConnection() {
                         filtersUpdate({ view_type: 'security' });
                     }
 
-                    pushDanger(err.data?.message || 'Onbekende foutmelding!');
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setIpError(null);
@@ -152,10 +152,10 @@ export default function BiConnection() {
                     setConnection(res.data.data);
                     pushSuccess('Opgeslagen!');
                 })
-                .catch((err: ResponseError) => pushDanger(err.data?.message || 'Foutmelding!'))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         });
-    }, [setProgress, activeOrganization.id, askConfirmation, biConnectionService, pushDanger, pushSuccess]);
+    }, [setProgress, activeOrganization.id, askConfirmation, biConnectionService, pushApiError, pushSuccess]);
 
     const addIp = useCallback(() => {
         if (!ip) {

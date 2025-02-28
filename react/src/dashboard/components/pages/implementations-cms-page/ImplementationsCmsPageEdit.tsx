@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import { useParams } from 'react-router-dom';
@@ -11,12 +10,13 @@ import ImplementationPage from '../../../props/models/ImplementationPage';
 import useImplementationPageService from '../../../services/ImplementationPageService';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useSetProgress from '../../../hooks/useSetProgress';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsCmsPageEdit() {
     const { implementationId, id } = useParams();
 
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
 
@@ -37,10 +37,10 @@ export default function ImplementationsCmsPageEdit() {
                     return navigateState('implementations', { organizationId: activeOrganization.id });
                 }
 
-                pushDanger('Mislukt!', err.data.message);
+                pushApiError(err);
             })
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, implementationId, implementationService, navigateState, pushDanger, setProgress]);
+    }, [activeOrganization.id, implementationId, implementationService, navigateState, pushApiError, setProgress]);
 
     const fetchPage = useCallback(
         (id) => {
@@ -49,10 +49,10 @@ export default function ImplementationsCmsPageEdit() {
             implementationPageService
                 .read(activeOrganization.id, implementation.id, id)
                 .then((res) => setPage(res.data.data))
-                .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization.id, implementation?.id, implementationPageService, pushDanger, setProgress],
+        [activeOrganization.id, implementation?.id, implementationPageService, pushApiError, setProgress],
     );
 
     useEffect(() => {

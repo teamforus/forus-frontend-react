@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
-import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import useImplementationNotificationService from '../../../services/ImplementationNotificationService';
@@ -14,12 +12,13 @@ import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
 import useSetProgress from '../../../hooks/useSetProgress';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsNotificationsEdit() {
     const { id, implementationId } = useParams();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -38,9 +37,9 @@ export default function ImplementationsNotificationsEdit() {
         implementationService
             .read(activeOrganization.id, parseInt(implementationId))
             .then((res) => setImplementation(res.data.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [implementationService, activeOrganization.id, implementationId, pushDanger, setProgress]);
+    }, [implementationService, activeOrganization.id, implementationId, pushApiError, setProgress]);
 
     const fetchNotification = useCallback(() => {
         setProgress(0);
@@ -48,13 +47,13 @@ export default function ImplementationsNotificationsEdit() {
         implementationNotificationsService
             .read(activeOrganization.id, parseInt(implementationId), parseInt(id), { fund_id: fund?.id })
             .then((res) => setNotification(res.data.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
     }, [
         id,
         fund?.id,
-        pushDanger,
         setProgress,
+        pushApiError,
         implementationId,
         activeOrganization.id,
         implementationNotificationsService,
@@ -71,10 +70,10 @@ export default function ImplementationsNotificationsEdit() {
                     stats: 'min',
                 })
                 .then((res) => setFunds([{ id: null, name: 'Alle fondsen' }, ...res.data.data]))
-                .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         }
-    }, [setProgress, implementation, fundService, activeOrganization.id, pushDanger]);
+    }, [setProgress, implementation, fundService, activeOrganization.id, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();

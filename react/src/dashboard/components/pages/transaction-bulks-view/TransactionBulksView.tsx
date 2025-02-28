@@ -20,6 +20,7 @@ import TransactionBulkTransactionsTable from './elements/TransactionBulkTransact
 import Bank from '../../../props/models/Bank';
 import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function TransactionBulksView() {
     const envData = useEnvData();
@@ -30,6 +31,7 @@ export default function TransactionBulksView() {
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const transactionBulkService = useTransactionBulkService();
     const exporterService = useMakeExporterService();
@@ -170,9 +172,9 @@ export default function TransactionBulksView() {
 
     const onError = useCallback(
         (err: ResponseError = null) => {
-            pushDanger('Mislukt!', err?.data?.message || 'Er ging iets mis!');
+            pushApiError(err);
         },
-        [pushDanger],
+        [pushApiError],
     );
 
     const resetPaymentRequest = useCallback(() => {
@@ -269,14 +271,14 @@ export default function TransactionBulksView() {
                     pushSuccess(`Succes!`, `De bulk lijst is handmatig geaccepteerd.`);
                     fetchTransactionBulk();
                 })
-                .catch((res) => pushDanger('Mislukt!', res?.data?.message || 'Er ging iets mis!'))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         });
     }, [
         activeOrganization.id,
         confirmSetPaidExport,
         fetchTransactionBulk,
-        pushDanger,
+        pushApiError,
         pushSuccess,
         setProgress,
         transactionBulk?.id,

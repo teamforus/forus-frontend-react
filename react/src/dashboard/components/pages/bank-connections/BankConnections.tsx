@@ -19,6 +19,7 @@ import useConfirmBankConnectionDisable from './hooks/useConfirmBankConnectionDis
 import useConfirmBankNewConnection from './hooks/useConfirmBankNewConnection';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function BankConnections() {
     const activeOrganization = useActiveOrganization();
@@ -27,6 +28,7 @@ export default function BankConnections() {
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const confirmBankNewConnection = useConfirmBankNewConnection();
     const confirmBankConnectionDisable = useConfirmBankConnectionDisable();
@@ -61,9 +63,9 @@ export default function BankConnections() {
 
     const onRequestError = useCallback(
         (err: ResponseError) => {
-            pushDanger('Error', err.data.message || 'Er is iets misgegaan, probeer het later opnieuw.');
+            pushApiError(err, 'Er is iets misgegaan, probeer het later opnieuw.');
         },
-        [pushDanger],
+        [pushApiError],
     );
 
     const fetchBanks = useCallback(() => {

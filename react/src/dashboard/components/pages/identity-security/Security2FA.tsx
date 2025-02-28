@@ -7,20 +7,20 @@ import useFormBuilder from '../../../hooks/useFormBuilder';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useSetProgress from '../../../hooks/useSetProgress';
 import Modal2FASetup from '../../modals/Modal2FASetup';
 import Modal2FADeactivate from '../../modals/Modal2FADeactivate';
 import { authContext } from '../../../contexts/AuthContext';
 import { ResponseError } from '../../../props/ApiResponses';
 import useAssetUrl from '../../../hooks/useAssetUrl';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Security2FA() {
     const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const { updateIdentity } = useContext(authContext);
     const identity2FAService = useIdentity2FAService();
     const [auth2FAState, setAuth2FAState] = useState<Identity2FAState>(null);
@@ -51,7 +51,7 @@ export default function Security2FA() {
             })
             .catch((err: ResponseError) => {
                 form.setErrors(err.data.errors);
-                pushDanger('Error', err.data?.message || 'Onbekende foutmelding.');
+                pushApiError(err, 'Onbekende foutmelding.');
             })
             .finally(() => {
                 form.setIsLocked(false);
@@ -66,15 +66,13 @@ export default function Security2FA() {
 
         identity2FAService
             .status()
-            .then(
-                (res) => {
-                    updateIdentity().then();
-                    setAuth2FAState(res.data.data);
-                },
-                (err) => pushDanger('Mislukt!', err.data?.message || 'Unknown error.'),
-            )
+            .then((res) => {
+                updateIdentity().then();
+                setAuth2FAState(res.data.data);
+            })
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [identity2FAService, setProgress, pushDanger, updateIdentity]);
+    }, [identity2FAService, setProgress, pushApiError, updateIdentity]);
 
     const setupAuth2FA = useCallback(
         (type: string) => {

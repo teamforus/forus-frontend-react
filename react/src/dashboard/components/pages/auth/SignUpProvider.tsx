@@ -46,9 +46,9 @@ import useFilter from '../../../hooks/useFilter';
 import useDemoTransactionService from '../../../services/DemoTransactionService';
 import { uniq } from 'lodash';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useTranslate from '../../../hooks/useTranslate';
 import SignUpFooter from '../../../../webshop/components/elements/sign-up/SignUpFooter';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 type OfficeLocal = Office & { edit?: boolean };
 
@@ -58,7 +58,7 @@ export default function SignUpProvider() {
     const appConfigs = useAppConfigs();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const [printDebug] = useState(false);
 
@@ -347,13 +347,13 @@ export default function SignUpProvider() {
                                         });
                                     });
                                 })
-                                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                                .catch(pushApiError);
                         },
                     }}
                 />
             ));
         },
-        [officeService, openModal, pushDanger],
+        [officeService, openModal, pushApiError],
     );
 
     const addOffice = useCallback(() => {

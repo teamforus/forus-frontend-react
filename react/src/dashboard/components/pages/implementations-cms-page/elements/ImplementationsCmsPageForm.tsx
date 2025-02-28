@@ -22,6 +22,7 @@ import Faq from '../../../../props/models/Faq';
 import { uniqueId } from 'lodash';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import ImplementationsCmsHomeProductsBlockEditor from './ImplementationsCmsHomeProductsBlockEditor';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ImplementationsCmsPageForm({
     page,
@@ -36,6 +37,7 @@ export default function ImplementationsCmsPageForm({
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
 
@@ -146,7 +148,7 @@ export default function ImplementationsCmsPageForm({
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setProgress(100);
@@ -167,9 +169,9 @@ export default function ImplementationsCmsPageForm({
                         },
                     );
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                .catch(pushApiError);
         },
-        [implementation, implementationPageService, pushDanger],
+        [implementation, implementationPageService, pushApiError],
     );
 
     useEffect(() => {

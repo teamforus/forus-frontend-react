@@ -5,7 +5,6 @@ import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
@@ -24,6 +23,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import classNames from 'classnames';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ProviderFundsTable({
     type,
@@ -39,9 +39,9 @@ export default function ProviderFundsTable({
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
     const providerFundService = useProviderFundService();
@@ -119,7 +119,7 @@ export default function ProviderFundsTable({
 
                                 Promise.all(promises)
                                     .then(() => pushSuccess('Opgeslagen!'))
-                                    .catch((err) => pushDanger('Mislukt!', err.data?.message))
+                                    .catch(pushApiError)
                                     .finally(() => {
                                         setProgress(100);
                                         filter.touch();
@@ -137,7 +137,7 @@ export default function ProviderFundsTable({
             openModal,
             organization.id,
             providerFundService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
             setProgress,
             translate,
@@ -186,8 +186,8 @@ export default function ProviderFundsTable({
 
         fetchFunds(filter.activeValues)
             .then((res) => setProviderFunds(res.data))
-            .catch((err) => pushDanger('Mislukt!', err.data?.message));
-    }, [fetchFunds, filter.activeValues, pushDanger, setSelected]);
+            .catch(pushApiError);
+    }, [fetchFunds, filter.activeValues, pushApiError, setSelected]);
 
     return (
         <div className="card">

@@ -1,9 +1,8 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useFilter from '../../../../hooks/useFilter';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
+import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
@@ -18,6 +17,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_class?: string;
@@ -37,9 +37,9 @@ export default function ProviderFundInvitationsTable({
 
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
     const fundProviderInvitationsService = useFundProviderInvitationsService();
@@ -88,13 +88,13 @@ export default function ProviderFundInvitationsTable({
 
             Promise.all(promises)
                 .then(() => pushSuccess('Uitnodiging succesvol geaccepteerd!'))
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+                .catch(pushApiError)
                 .finally(() => {
                     filter.touch();
                     onChange?.();
                 });
         },
-        [filter, fundProviderInvitationsService, onChange, organization.id, pushDanger, pushSuccess],
+        [filter, fundProviderInvitationsService, onChange, organization.id, pushApiError, pushSuccess],
     );
 
     const mapProviderFunds = useCallback(
@@ -145,8 +145,8 @@ export default function ProviderFundInvitationsTable({
                     meta: res.data.meta,
                 }),
             )
-            .catch((err) => pushDanger('Mislukt!', err.data?.message));
-    }, [fetchInvitations, filter.activeValues, mapProviderFunds, pushDanger, setSelected]);
+            .catch(pushApiError);
+    }, [fetchInvitations, filter.activeValues, mapProviderFunds, pushApiError, setSelected]);
 
     return (
         <div className="card">

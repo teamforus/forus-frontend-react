@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { ApiResponseSingle, ResponseError } from '../../../../props/ApiResponses';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import { useFundService } from '../../../../services/FundService';
 import FundProvider from '../../../../props/models/FundProvider';
 import useStopActionConfirmation from './useStopActionConfirmation';
@@ -11,13 +10,14 @@ import useOpenModal from '../../../../hooks/useOpenModal';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import useTranslate from '../../../../hooks/useTranslate';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function useUpdateProduct() {
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const fundService = useFundService();
+    const pushApiError = usePushApiError();
     const stopActionConfirmation = useStopActionConfirmation();
 
     const organizationService = useOrganizationService();
@@ -35,12 +35,12 @@ export default function useUpdateProduct() {
                         resolve(res.data.data);
                     })
                     .catch((err: ResponseError) => {
-                        pushDanger('Mislukt!', err.data.message);
+                        pushApiError(err);
                         reject();
                     });
             });
         },
-        [fundService, pushDanger, pushSuccess],
+        [fundService, pushApiError, pushSuccess],
     );
 
     const disableProduct = useCallback(

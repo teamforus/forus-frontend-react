@@ -16,16 +16,16 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import { hasPermission } from '../../../../helpers/utils';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function VoucherRecords({ voucher, organization }: { voucher: Voucher; organization: Organization }) {
     const translate = useTranslate();
 
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
     const voucherRecordService = useVoucherRecordService();
@@ -46,9 +46,9 @@ export default function VoucherRecords({ voucher, organization }: { voucher: Vou
         voucherRecordService
             .list(organization.id, voucher.id, filter.activeValues)
             .then((res) => setRecords(res.data))
-            .catch((res) => pushDanger('Mislukt!', res.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [filter.activeValues, organization.id, setProgress, voucher.id, voucherRecordService, pushDanger]);
+    }, [filter.activeValues, organization.id, setProgress, voucher.id, voucherRecordService, pushApiError]);
 
     const editRecord = useCallback(
         (record: VoucherRecord = null) => {

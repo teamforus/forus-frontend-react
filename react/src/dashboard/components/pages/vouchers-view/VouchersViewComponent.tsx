@@ -260,7 +260,7 @@ export default function VouchersViewComponent() {
                                     setVoucher(res.data.data);
                                     pushSuccess('Opgeslagen!');
                                 })
-                                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+                                .catch(pushApiError)
                                 .finally(() => setProgress(100));
                         },
                         text: translate('modals.danger_zone.increase_limit_multiplier.buttons.confirm'),
@@ -268,7 +268,7 @@ export default function VouchersViewComponent() {
                 />
             ));
         },
-        [activeOrganization.id, openModal, pushDanger, pushSuccess, setProgress, translate, voucher, voucherService],
+        [activeOrganization.id, openModal, pushApiError, pushSuccess, setProgress, translate, voucher, voucherService],
     );
 
     useEffect(() => {

@@ -1,16 +1,15 @@
 import React, { useCallback } from 'react';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
 import useProductReservationService from '../ProductReservationService';
 import useMakeExporterService from './useMakeExporterService';
-import { ResponseError } from '../../props/ApiResponses';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function useProductReservationsExportService() {
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const openModal = useOpenModal();
+    const pushApiError = usePushApiError();
 
     const productReservationService = useProductReservationService();
     const { makeSections, saveExportedData } = useMakeExporterService();
@@ -27,7 +26,7 @@ export default function useProductReservationsExportService() {
                 productReservationService
                     .export(organization_id, queryFilters)
                     .then((res) => saveExportedData(data, organization_id, res))
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
@@ -37,7 +36,7 @@ export default function useProductReservationsExportService() {
                 ));
             });
         },
-        [makeSections, openModal, pushDanger, saveExportedData, setProgress, productReservationService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, productReservationService],
     );
 
     return { exportData };
