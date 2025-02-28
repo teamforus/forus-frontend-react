@@ -8,10 +8,10 @@ import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import Fund from '../../../../props/models/Fund';
 import { ResponseError } from '../../../../props/ApiResponses';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import { useFundService } from '../../../../services/FundService';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import classNames from 'classnames';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function OrganizationsFundsShowFundRequestConfigCard({
     fund,
@@ -21,9 +21,9 @@ export default function OrganizationsFundsShowFundRequestConfigCard({
     setFund: React.Dispatch<React.SetStateAction<Fund>>;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
 
@@ -72,7 +72,7 @@ export default function OrganizationsFundsShowFundRequestConfigCard({
                     form.setErrors({});
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding.');
+                    pushApiError(err);
                     form.setErrors(err.data.errors);
                 })
                 .finally(() => {

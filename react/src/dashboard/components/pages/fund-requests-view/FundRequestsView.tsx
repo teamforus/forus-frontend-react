@@ -4,7 +4,6 @@ import { useFundRequestValidatorService } from '../../../services/FundRequestVal
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import FundRequest from '../../../props/models/FundRequest';
 import useSetProgress from '../../../hooks/useSetProgress';
-import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -46,7 +45,6 @@ export default function FundRequestsView() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
@@ -350,11 +348,8 @@ export default function FundRequestsView() {
                     pushSuccess('Gelukt!', 'U bent nu toegewezen aan deze aanvraag.');
                     reloadRequest();
                 })
-                .catch((res) => {
-                    pushDanger('Mislukt!', 'U kunt op dit moment geen aanvullingsverzoek doen.');
-                    console.error(res);
-                }),
-        [fundRequestService, activeOrganization?.id, fundRequestMeta?.id, pushSuccess, reloadRequest, pushDanger],
+                .catch(pushApiError),
+        [fundRequestService, activeOrganization?.id, fundRequestMeta?.id, pushSuccess, reloadRequest, pushApiError],
     );
 
     const requestResignAllEmployeesAsSupervisor = useCallback(() => {
@@ -364,10 +359,8 @@ export default function FundRequestsView() {
                 pushSuccess('Gelukt!', 'U heeft zich afgemeld van deze aanvraag.');
                 reloadRequest();
             })
-            .catch((res: ResponseError) => {
-                pushDanger('Mislukt!', res?.data?.message);
-            });
-    }, [activeOrganization.id, fundRequestMeta, fundRequestService, pushDanger, pushSuccess, reloadRequest]);
+            .catch(pushApiError);
+    }, [activeOrganization.id, fundRequestMeta, fundRequestService, pushApiError, pushSuccess, reloadRequest]);
 
     const requestResign = useCallback(() => {
         if (!fundRequestMeta.can_resign) {
@@ -380,14 +373,12 @@ export default function FundRequestsView() {
                 pushSuccess('Gelukt!', 'U heeft zich afgemeld van deze aanvraag.');
                 reloadRequest();
             })
-            .catch(() => {
-                pushDanger('Mislukt!', 'U kunt u zelf niet van deze aanvraag afhalen.');
-            });
+            .catch(pushApiError);
     }, [
         activeOrganization,
         fundRequestMeta,
         fundRequestService,
-        pushDanger,
+        pushApiError,
         pushSuccess,
         reloadRequest,
         requestResignAllEmployeesAsSupervisor,

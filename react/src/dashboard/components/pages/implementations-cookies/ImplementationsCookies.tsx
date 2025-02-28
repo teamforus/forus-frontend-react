@@ -1,18 +1,18 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import { useParams } from 'react-router-dom';
 import Implementation from '../../../props/models/Implementation';
 import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsCookies() {
     const { id } = useParams();
 
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
 
@@ -24,16 +24,16 @@ export default function ImplementationsCookies() {
         implementationService
             .read(activeOrganization.id, parseInt(id))
             .then((res) => setImplementation(res.data.data))
-            .catch((res: ResponseError) => {
-                if (res.status === 403) {
+            .catch((err: ResponseError) => {
+                if (err.status === 403) {
                     return navigateState(
                         getStateRouteUrl('implementations', { organizationId: activeOrganization.id }),
                     );
                 }
 
-                pushDanger('Mislukt!', res.data.message);
+                pushApiError(err);
             });
-    }, [activeOrganization.id, id, implementationService, navigateState, pushDanger]);
+    }, [activeOrganization.id, id, implementationService, navigateState, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();

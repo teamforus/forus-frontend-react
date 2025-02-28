@@ -1,8 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import { ResponseError } from '../../../props/ApiResponses';
 import { useParams } from 'react-router-dom';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useSetProgress from '../../../hooks/useSetProgress';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
@@ -18,14 +16,15 @@ import SubsidyFundProducts from './elements/SubsidyFundProducts';
 import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function FundProvider() {
     const { fundId, id } = useParams();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -44,10 +43,10 @@ export default function FundProvider() {
                     pushSuccess('Opgeslagen!');
                     setFundProvider(res.data.data);
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+                .catch(pushApiError)
                 .finally(() => setSubmittingAllow(false));
         },
-        [fundProvider, fundService, pushDanger, pushSuccess],
+        [fundProvider, fundService, pushApiError, pushSuccess],
     );
 
     const fetchFundProvider = useCallback(() => {
@@ -56,9 +55,9 @@ export default function FundProvider() {
         fundService
             .readProvider(activeOrganization.id, parseInt(fundId), parseInt(id))
             .then((res) => setFundProvider(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, fundId, id, pushDanger]);
+    }, [setProgress, fundService, activeOrganization.id, fundId, id, pushApiError]);
 
     const fetchFund = useCallback(() => {
         setProgress(0);
@@ -66,9 +65,9 @@ export default function FundProvider() {
         fundService
             .readPublic(parseInt(fundId))
             .then((res) => setFund(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [fundId, fundService, pushDanger, setProgress]);
+    }, [fundId, fundService, pushApiError, setProgress]);
 
     useEffect(() => {
         fetchFund();

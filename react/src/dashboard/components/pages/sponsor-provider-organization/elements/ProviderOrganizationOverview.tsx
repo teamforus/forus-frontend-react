@@ -2,13 +2,12 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization, { SponsorProviderOrganization } from '../../../../props/models/Organization';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
-import { ResponseError } from '../../../../props/ApiResponses';
 import useConfirmFundProviderUpdate from '../hooks/useConfirmFundProviderUpdate';
 import { useFundService } from '../../../../services/FundService';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import ToggleControl from '../../../elements/forms/controls/ToggleControl';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ProviderOrganizationOverview({
     organization,
@@ -20,9 +19,9 @@ export default function ProviderOrganizationOverview({
     setFundProvider?: React.Dispatch<React.SetStateAction<FundProvider>>;
 }) {
     const assetUrl = useAssetUrl();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const confirmFundProviderUpdate = useConfirmFundProviderUpdate();
 
     const fundService = useFundService();
@@ -75,10 +74,10 @@ export default function ProviderOrganizationOverview({
                     pushSuccess('Opgeslagen!');
                     setFundProvider(res.data.data);
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [fundProvider, fundService, setFundProvider, pushDanger, pushSuccess, setProgress],
+        [fundProvider, fundService, setFundProvider, pushApiError, pushSuccess, setProgress],
     );
 
     const updateFundProviderAllow = useCallback(

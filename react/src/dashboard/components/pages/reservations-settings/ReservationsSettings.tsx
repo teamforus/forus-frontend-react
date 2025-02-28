@@ -4,7 +4,6 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useUpdateActiveOrganization from '../../../hooks/useUpdateActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../elements/select-control/SelectControl';
@@ -16,15 +15,16 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import { uniqueId } from 'lodash';
 import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ReservationsSettings() {
     const translate = useTranslate();
     const activeOrganization = useActiveOrganization();
     const updateActiveOrganization = useUpdateActiveOrganization();
 
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const organizationService = useOrganizationService();
 
@@ -70,7 +70,7 @@ export default function ReservationsSettings() {
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setProgress(100);

@@ -11,12 +11,12 @@ import Tooltip from '../../../elements/tooltip/Tooltip';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useShowRejectInfoExtraPaid from '../../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function TransactionDetails({
     transaction,
@@ -39,8 +39,8 @@ export default function TransactionDetails({
     const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
 
     const isSponsor = useMemo(() => envData.client_type == 'sponsor', [envData.client_type]);
@@ -76,14 +76,14 @@ export default function TransactionDetails({
                             text: 'Bevestigen',
                             onClick: () => {
                                 modal.close();
-                                productReservationService.reject(activeOrganization.id, reservation.id).then(
-                                    () => {
+                                productReservationService
+                                    .reject(activeOrganization.id, reservation.id)
+                                    .then(() => {
                                         pushSuccess('Opgeslagen!');
                                         fetchTransaction().then((res) => setTransaction(res.data.data));
                                         onUpdate?.();
-                                    },
-                                    (res) => pushDanger(res.data.message),
-                                );
+                                    })
+                                    .catch(pushApiError);
                             },
                         }}
                     />
@@ -96,7 +96,7 @@ export default function TransactionDetails({
             onUpdate,
             openModal,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
             setTransaction,
             showRejectInfoExtraPaid,

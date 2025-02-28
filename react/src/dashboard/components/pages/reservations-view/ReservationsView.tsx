@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -20,6 +19,7 @@ import ReservationExtraPaymentRefunds from './elements/ReservationExtraPaymentRe
 import ReservationExtraPaymentDetails from './elements/ReservationExtraPaymentDetails';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -28,9 +28,9 @@ export default function ReservationsView() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const transactionService = useTransactionService();
     const productReservationService = useProductReservationService();
@@ -50,10 +50,10 @@ export default function ReservationsView() {
             transactionService
                 .show(envData.client_type, activeOrganization.id, transaction_address)
                 .then((res) => setTransaction(res.data.data))
-                .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization.id, envData.client_type, pushDanger, setProgress, transactionService],
+        [activeOrganization.id, envData.client_type, pushApiError, setProgress, transactionService],
     );
 
     const fetchReservation = useCallback(
@@ -63,10 +63,10 @@ export default function ReservationsView() {
             productReservationService
                 .read(activeOrganization.id, reservation_id)
                 .then((res) => setReservation(res.data.data))
-                .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization.id, productReservationService, pushDanger, setProgress],
+        [activeOrganization.id, productReservationService, pushApiError, setProgress],
     );
 
     const acceptReservation = useCallback(
@@ -85,7 +85,7 @@ export default function ReservationsView() {
                             fetchTransaction(reservation.voucher_transaction?.address);
                         }
                     })
-                    .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                    .catch(pushApiError)
                     .then(() => setProgress(100));
             });
         },
@@ -94,7 +94,7 @@ export default function ReservationsView() {
             confirmReservationApproval,
             fetchTransaction,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
             setProgress,
         ],
@@ -113,7 +113,7 @@ export default function ReservationsView() {
                         pushSuccess('Opgeslagen!');
                         setReservation(res.data.data);
                     })
-                    .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                    .catch(pushApiError)
                     .then(() => setProgress(100));
             });
         },
@@ -121,7 +121,7 @@ export default function ReservationsView() {
             activeOrganization.id,
             confirmReservationRejection,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
             setProgress,
             showRejectInfoExtraPaid,

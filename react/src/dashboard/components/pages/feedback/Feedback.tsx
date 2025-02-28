@@ -6,11 +6,11 @@ import SelectControl from '../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useFeedbackService from '../../../services/FeedbackService';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { ResponseError } from '../../../props/ApiResponses';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Feedback() {
     const envData = useEnvData();
@@ -18,7 +18,7 @@ export default function Feedback() {
 
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const feedbackService = useFeedbackService();
 
@@ -48,7 +48,7 @@ export default function Feedback() {
                 .then(() => setState('success'))
                 .catch((err: ResponseError) => {
                     if (err.status == 429) {
-                        pushDanger(err?.data?.message);
+                        pushApiError(err);
                     }
 
                     if (err.status != 422) {
