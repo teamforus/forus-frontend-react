@@ -406,7 +406,9 @@ export default function Providers() {
                     <div className="showcase-content-header showcase-content-header-compact" style={{ zIndex: 4 }}>
                         <h1 className="showcase-filters-title">
                             {translate('providers.title')}
-                            <div className="showcase-filters-title-count">{providers?.meta.total}</div>
+                            <div className="showcase-filters-title-count" data-nosnippet="true">
+                                {providers?.meta.total}
+                            </div>
                         </h1>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
