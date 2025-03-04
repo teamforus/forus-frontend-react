@@ -138,7 +138,17 @@ export type AppConfigProp = {
         overlay_enabled: boolean;
         overlay_type: string;
         overlay_opacity: number;
-        banner_text_color: string;
+        banner_wide?: boolean;
+        banner_color?: string;
+        banner_background?: string;
+        banner_collapse?: boolean;
+        banner_position?: 'left' | 'center' | 'right';
+        background_image?: string;
+        banner_button?: boolean;
+        banner_button_url?: string;
+        banner_button_text?: string;
+        banner_button_type?: 'color' | 'white';
+        banner_button_target?: 'self' | '_blank';
     };
     fronts: {
         url_webshop: string;

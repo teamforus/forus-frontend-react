@@ -1,0 +1,388 @@
+import React, { useCallback, useState, useRef, useEffect, ChangeEvent, useMemo } from 'react';
+import ModalPhotoUploader from '../../modals/ModalPhotoUploader';
+import useOpenModal from '../../../hooks/useOpenModal';
+import useAssetUrl from '../../../hooks/useAssetUrl';
+import PhotoSelectorData from './types/PhotoSelectorData';
+import FormGroup from '../forms/controls/FormGroup';
+import SelectControl from '../select-control/SelectControl';
+import PhotoSelectorBannerControlColorPicker from './elements/PhotoSelectorBannerControlColorPicker';
+import classNames from 'classnames';
+import Markdown from '../../../../webshop/components/elements/markdown/Markdown';
+import PhotoSelectorBannerControl from './elements/PhotoSelectorBannerControl';
+import { hexToHsva } from '@uiw/color-convert';
+import { useMarkdownService } from '../../../services/MarkdownService';
+
+export default function PhotoSelectorBanner({
+    disabled,
+    thumbnail,
+    templateData,
+    setTemplateData,
+    selectPhoto,
+    deletePhoto,
+    title,
+    description,
+    buttonText,
+}: {
+    disabled?: boolean;
+    thumbnail?: string;
+    templateData?: PhotoSelectorData;
+    setTemplateData?: React.Dispatch<React.SetStateAction<PhotoSelectorData>>;
+    selectPhoto: (file: Blob) => void;
+    deletePhoto: () => void;
+    title?: string;
+    description?: string;
+    buttonText?: string;
+}) {
+    const [thumbnailValue, setThumbnailValue] = useState(thumbnail);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const markdownService = useMarkdownService();
+
+    const assetUrl = useAssetUrl();
+    const openModal = useOpenModal();
+    const [activeDropdown, setActiveDropdown] = useState<'style' | 'button' | 'color' | 'background' | 'overlay'>(null);
+    const [descriptionPreview, setDescriptionPreview] = useState<string>(null);
+
+    const overlayPatternUrl = useMemo(() => {
+        return assetUrl(`/assets/img/banner-patterns/${templateData.overlay_type}.svg`);
+    }, [assetUrl, templateData?.overlay_type]);
+
+    const [bannerPatterns] = useState([
+        { value: 'color', label: 'Kleur' },
+        { value: 'lines', label: 'Lijnen' },
+        { value: 'points', label: 'Punten' },
+        { value: 'dots', label: 'Stippen' },
+        { value: 'circles', label: 'Cirkels' },
+    ]);
+
+    const [bannerOpacityOptions] = useState(
+        [...new Array(10).keys()]
+            .map((n) => ++n)
+            .map((option) => ({
+                value: (option * 10).toString(),
+                label: `${(10 - option) * 10}%`,
+            })),
+    );
+
+    const onPhotoChange = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            const file = e.target.files[0];
+            e.target.value = null;
+
+            openModal((modal) => (
+                <ModalPhotoUploader
+                    type={'implementation_banner'}
+                    file={file}
+                    modal={modal}
+                    onSubmit={(file, presets) => {
+                        const thumbnail = presets.find((preset) => preset.key == 'thumbnail');
+
+                        selectPhoto(file);
+                        setThumbnailValue(thumbnail?.data);
+                    }}
+                />
+            ));
+        },
+        [openModal, selectPhoto],
+    );
+
+    useEffect(() => {
+        setThumbnailValue(thumbnail);
+    }, [thumbnail]);
+
+    useEffect(() => {
+        if (!description) {
+            return;
+        }
+
+        markdownService
+            .toHtml(description)
+            .then((res) => setDescriptionPreview(res.data.html))
+            .catch(console.error);
+    }, [description, markdownService]);
+
+    return (
+        <div className="block block-banner-editor">
+            <input type="file" hidden={true} accept={'image/*'} ref={inputRef} onChange={onPhotoChange} />
+
+            <div
+                className={classNames(
+                    'banner-editor-preview',
+                    templateData.banner_collapse && 'banner-editor-preview-collapse',
+                )}
+                style={{
+                    justifyContent: templateData.banner_position === 'right' ? 'flex-end' : 'flex-start',
+                }}>
+                <div
+                    className="banner-editor-preview-photo"
+                    style={{ backgroundImage: thumbnailValue ? 'url(' + thumbnailValue + ')' : 'none' }}>
+                    {templateData.overlay_enabled && (
+                        <div
+                            className={`banner-editor-photo-pattern`}
+                            style={{
+                                ...(templateData.overlay_type === 'color'
+                                    ? { backgroundColor: '#000' }
+                                    : { backgroundImage: `url(${overlayPatternUrl})` }),
+                                opacity: parseFloat(templateData.overlay_opacity) / 100,
+                            }}
+                        />
+                    )}
+                </div>
+                <div
+                    className="banner-editor-preview-content"
+                    style={{
+                        color: templateData?.banner_color,
+                        backgroundColor: templateData?.banner_background,
+                        flexGrow: 0,
+                        flexShrink: 0,
+                        padding:
+                            hexToHsva(templateData?.banner_background).a === 0 && !templateData?.banner_collapse
+                                ? '0px'
+                                : undefined,
+                        flexBasis: templateData.banner_collapse
+                            ? templateData.banner_position === 'center'
+                                ? '100%'
+                                : '50%'
+                            : templateData.banner_position === 'center'
+                              ? '100%'
+                              : '60%',
+                    }}>
+                    <div className="banner-editor-title">{title || 'Example of header'}</div>
+
+                    {descriptionPreview && (
+                        <Markdown content={descriptionPreview} className="banner-editor-description" />
+                    )}
+
+                    <div className="banner-editor-actions">
+                        <div
+                            className={classNames(
+                                'button button-primary button-sm',
+                                templateData?.banner_button_type === 'color' ? 'button-primary' : 'button-default',
+                            )}
+                            style={{
+                                backgroundColor: templateData?.banner_button_type === 'color' ? '#305dfb' : null,
+                            }}>
+                            {buttonText || 'Example'}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="banner-editor-controls">
+                <PhotoSelectorBannerControl
+                    label={'Header style'}
+                    value={'Setup'}
+                    controlKey={'style'}
+                    templateData={templateData}
+                    setTemplateData={setTemplateData}
+                    activeKey={activeDropdown}
+                    setActiveKey={setActiveDropdown}>
+                    <FormGroup
+                        label={'Text position:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.banner_position}
+                                options={[
+                                    { label: 'Left', value: 'left' },
+                                    { label: 'Center', value: 'center' },
+                                    { label: 'Right', value: 'right' },
+                                ]}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(banner_position: 'left' | 'center' | 'right') => {
+                                    setTemplateData({ ...templateData, banner_position });
+                                }}
+                            />
+                        )}
+                    />
+                    <FormGroup
+                        label={'Collapse content:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.banner_collapse ? 'yes' : 'no'}
+                                options={[
+                                    { label: 'Ja', value: 'yes' },
+                                    { label: 'Nee', value: 'no' },
+                                ]}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(banner_collapse: 'yes' | 'no') => {
+                                    setTemplateData({ ...templateData, banner_collapse: banner_collapse === 'yes' });
+                                }}
+                            />
+                        )}
+                    />
+                    <FormGroup
+                        label={'Background type:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.banner_wide ? 'yes' : 'no'}
+                                options={[
+                                    { label: 'Full width', value: 'yes' },
+                                    { label: 'Fixed', value: 'no' },
+                                ]}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(banner_wide: 'yes' | 'no') => {
+                                    setTemplateData({ ...templateData, banner_wide: banner_wide === 'yes' });
+                                }}
+                            />
+                        )}
+                    />
+                </PhotoSelectorBannerControl>
+
+                <PhotoSelectorBannerControl
+                    label={'Overlay'}
+                    value={'Setup'}
+                    controlKey={'overlay'}
+                    templateData={templateData}
+                    setTemplateData={setTemplateData}
+                    activeKey={activeDropdown}
+                    setActiveKey={setActiveDropdown}>
+                    <FormGroup
+                        label={'Gebruik een overlay:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.overlay_enabled ? 'yes' : 'no'}
+                                options={[
+                                    { label: 'Ja', value: 'yes' },
+                                    { label: 'Nee', value: 'no' },
+                                ]}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(overlay_enabled: 'yes' | 'no') => {
+                                    setTemplateData({ ...templateData, overlay_enabled: overlay_enabled === 'yes' });
+                                }}
+                            />
+                        )}
+                    />
+                    <FormGroup
+                        label={'Patroon:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.overlay_type}
+                                options={bannerPatterns}
+                                disabled={!templateData.overlay_enabled}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(overlay_type: string) => {
+                                    setTemplateData({ ...templateData, overlay_type });
+                                }}
+                            />
+                        )}
+                    />
+                    <FormGroup
+                        label={'Transparantie:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.overlay_opacity}
+                                options={bannerOpacityOptions}
+                                disabled={!templateData.overlay_enabled}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(overlay_opacity: string) => {
+                                    setTemplateData({ ...templateData, overlay_opacity });
+                                }}
+                            />
+                        )}
+                    />
+                </PhotoSelectorBannerControl>
+
+                <PhotoSelectorBannerControl
+                    label={'Button style'}
+                    value={'Setup'}
+                    controlKey={'button'}
+                    templateData={templateData}
+                    setTemplateData={setTemplateData}
+                    activeKey={activeDropdown}
+                    setActiveKey={setActiveDropdown}>
+                    <FormGroup
+                        label={'Style:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.banner_button_type}
+                                options={[
+                                    { label: 'Color', value: 'color' },
+                                    { label: 'White', value: 'white' },
+                                ]}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(banner_button_type: 'color' | 'white') => {
+                                    setTemplateData({ ...templateData, banner_button_type });
+                                }}
+                            />
+                        )}
+                    />
+                </PhotoSelectorBannerControl>
+
+                <PhotoSelectorBannerControl
+                    label={'Background'}
+                    value={templateData.banner_background}
+                    valueType={'color'}
+                    controlKey={'background'}
+                    templateData={templateData}
+                    setTemplateData={setTemplateData}
+                    activeKey={activeDropdown}
+                    setActiveKey={setActiveDropdown}>
+                    <FormGroup
+                        label={'Color:'}
+                        input={() => (
+                            <PhotoSelectorBannerControlColorPicker
+                                color={templateData.banner_background}
+                                onChange={(color) => {
+                                    setTemplateData({ ...templateData, banner_background: color.hexa });
+                                }}
+                                alphaFractions={5}
+                                showAlpha={true}
+                            />
+                        )}
+                    />
+                </PhotoSelectorBannerControl>
+
+                <PhotoSelectorBannerControl
+                    label={'Text'}
+                    value={templateData.banner_color}
+                    valueType={'color'}
+                    controlKey={'color'}
+                    templateData={templateData}
+                    setTemplateData={setTemplateData}
+                    activeKey={activeDropdown}
+                    setActiveKey={setActiveDropdown}>
+                    <FormGroup
+                        label={'Color:'}
+                        input={() => (
+                            <PhotoSelectorBannerControlColorPicker
+                                color={templateData.banner_color}
+                                onChange={(color) => setTemplateData({ ...templateData, banner_color: color.hex })}
+                            />
+                        )}
+                    />
+                </PhotoSelectorBannerControl>
+
+                <div className="banner-editor-controls-buttons">
+                    {templateData.media && (
+                        <button type={'button'} className="button button-default button-sm" onClick={deletePhoto}>
+                            <em className="mdi mdi-trash-can-outline icon-start" />
+                            Foto verwijderen
+                        </button>
+                    )}
+
+                    <button
+                        type={'button'}
+                        className="button button-primary button-sm"
+                        disabled={disabled}
+                        onClick={() => inputRef.current?.click()}>
+                        <em className="mdi mdi-file-image-plus icon-start" />
+                        Kies foto
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
