@@ -24,11 +24,8 @@
 
         .select-control-options {
             .select-control-option {
-                height: auto;
                 min-width: var(--option-height);
                 padding-left: 10px;
-                word-break: break-word;
-                white-space: wrap;
             }
         }
 

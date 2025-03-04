@@ -25,6 +25,11 @@ import DatePickerControl from '../../../../dashboard/components/elements/forms/c
 import { dateFormat, dateParse } from '../../../../dashboard/helpers/dates';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import BlockReservationAddress, { AddressType } from '../../elements/block-reservation-address/BlockReservationAddress';
+import { useProfileService } from '../../../../dashboard/services/ProfileService';
+import { ErrorResponse } from 'react-router-dom';
+import usePushSuccess from '../../../../dashboard/hooks/usePushSuccess';
+import classNames from 'classnames';
 
 type VoucherType = Voucher & {
     amount_extra: number;
@@ -60,10 +65,13 @@ export default function ModalProductReserve({
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const pushDanger = usePushDanger();
+    const pushSuccess = usePushSuccess();
     const navigateState = useNavigateState();
 
     const productService = useProductService();
+    const profileService = useProfileService();
     const productReservationService = useProductReservationService();
+
     const composerVoucherCardData = useComposeVoucherCardData();
 
     const [STEP_EMAIL_SETUP] = useState(0);
@@ -77,11 +85,16 @@ export default function ModalProductReserve({
     const [STEP_ERROR] = useState(8);
 
     const [submitting, setSubmitting] = useState(false);
+    const [skipAddress, setSkipAddress] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string>();
     const [reservationId, setReservationId] = useState(null);
+    const [isEditingAddress, setIsEditingAddress] = useState<boolean>(false);
     const [dateMinLimit] = useState(new Date());
 
     const provider = useMemo(() => product.organization, [product?.organization]);
+
+    const [address, setAddress] = useState<AddressType>(null);
+    const [addressProfile, setAddressProfile] = useState<AddressType>(null);
 
     const hasEmail = useMemo(() => {
         return !!authIdentity.email;
@@ -124,34 +137,26 @@ export default function ModalProductReserve({
     const [emptyText] = useState(translate('modal_reserve_product.confirm_notes.labels.empty'));
     const [voucher, setVoucher] = useState<VoucherType>(null);
 
+    const addressFilled = useCallback((address: AddressType) => {
+        return !!(address?.city && address?.street && address?.house_nr && address?.postal_code);
+    }, []);
+
     const form = useFormBuilder<{
         first_name?: string;
         last_name?: string;
-        postal_code?: string;
-        address?: string;
-        street?: string;
-        house_nr?: string;
-        house_nr_addition?: string;
-        city?: string;
         user_note?: string;
         custom_fields?: { [key: string]: string };
     }>(
         {
             first_name: '',
             last_name: '',
-            postal_code: '',
-            address: '',
-            street: '',
-            house_nr: '',
-            house_nr_addition: '',
-            city: '',
             custom_fields: {},
         },
         (values) => {
             setSubmitting(true);
 
             productReservationService
-                .reserve({ ...values, voucher_id: voucher.id, product_id: product.id })
+                .reserve({ ...values, ...(skipAddress ? {} : address), voucher_id: voucher.id, product_id: product.id })
                 .then((res) => {
                     setSubmitting(false);
                     setReservationId(res.data.id);
@@ -234,25 +239,15 @@ export default function ModalProductReserve({
         [form, next, onError, product.id, productReservationService, voucher?.id],
     );
 
-    const validateAddress = useCallback(() => {
-        productReservationService
-            .validateAddress({
-                address: form.values.postal_code ? form.values.address : null,
-                street: form.values.street,
-                house_nr: form.values.house_nr,
-                house_nr_addition: form.values.house_nr_addition,
-                city: form.values.city,
-                postal_code: form.values.postal_code,
+    const validateAddress = useCallback(
+        (address: AddressType) => {
+            return productReservationService.validateAddress({
+                ...address,
                 product_id: product?.id,
-            })
-            .then(
-                () => {
-                    form.errors = {};
-                    setStep((step) => step + 1);
-                },
-                (err) => onError(err, true),
-            );
-    }, [form, onError, product?.id, productReservationService]);
+            });
+        },
+        [product?.id, productReservationService],
+    );
 
     const confirmSubmit = useCallback(() => {
         form.submit();
@@ -311,6 +306,44 @@ export default function ModalProductReserve({
         [makeReservationField, product?.reservation?.birth_date, product?.reservation?.phone],
     );
 
+    const fetchProfileAddress = useCallback(() => {
+        profileService.profile().then((res) => {
+            const address = {
+                city: res.data?.records?.city?.[0]?.value_locale,
+                street: res.data?.records?.street?.[0]?.value_locale,
+                house_nr: res.data?.records?.house_number?.[0]?.value_locale,
+                house_nr_addition: res.data?.records?.house_number_addition?.[0]?.value_locale,
+                postal_code: res.data?.records?.postal_code?.[0]?.value_locale,
+            };
+
+            if (addressFilled(address)) {
+                setAddress(address);
+                setAddressProfile(address);
+            }
+        });
+    }, [profileService, addressFilled]);
+
+    const updateProfileAddress = useCallback(
+        (data: AddressType) => {
+            profileService
+                .update({
+                    city: data.city,
+                    street: data.street,
+                    house_number: data.house_nr,
+                    house_number_addition: data.house_nr_addition,
+                    postal_code: data.postal_code,
+                })
+                .then(() => {
+                    fetchProfileAddress();
+                    pushSuccess(translate('push.saved'));
+                })
+                .catch((err: ErrorResponse) => {
+                    pushDanger(translate('push.error'), err?.data?.message || err?.data?.errors?.product_id?.[0]);
+                });
+        },
+        [fetchProfileAddress, profileService, pushDanger, pushSuccess, translate],
+    );
+
     const addEmail = useCallback(() => {
         navigateState('identity-emails');
         modal.close();
@@ -367,6 +400,10 @@ export default function ModalProductReserve({
             fund: vouchers[0].fund.name,
         };
     }, [fundMeta?.shownExpireDate?.unix, product.name, product.organization.name, product.price, vouchers]);
+
+    useEffect(() => {
+        fetchProfileAddress();
+    }, [fetchProfileAddress]);
 
     useEffect(() => {
         updateSteps();
@@ -563,7 +600,7 @@ export default function ModalProductReserve({
                                                 <button
                                                     className="button button-primary button-sm"
                                                     onClick={() => selectVoucher(voucher)}>
-                                                    {translate('modal_reserve_product.choose')}
+                                                    {translate('modal_reserve_product.choose_credit')}
                                                 </button>
                                             </div>
                                         )}
@@ -842,7 +879,15 @@ export default function ModalProductReserve({
                     className="modal-window form form-compact"
                     onSubmit={(e) => {
                         e?.preventDefault();
-                        validateAddress();
+                        setSkipAddress(false);
+
+                        if (addressFilled(address) || product.reservation.address !== 'optional') {
+                            validateAddress(address)
+                                ?.then(() => setStep((step) => step + 1))
+                                ?.catch((err: ResponseError) => onError(err, true));
+                        } else {
+                            setStep((step) => step + 1);
+                        }
                     }}
                     data-dusk="productReserveAddress">
                     <div
@@ -874,81 +919,20 @@ export default function ModalProductReserve({
                             />
                         </div>
                         <div className="modal-section">
-                            <div className="row">
-                                <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
-                                    <label className="form-label" htmlFor="reservation_modal_street">
-                                        {translate('modal_reserve_product.fill_notes.labels.street')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="reservation_modal_street"
-                                        type="text"
-                                        value={form.values.street}
-                                        onChange={(e) => form.update({ street: e.target.value })}
-                                        data-dusk="productReserveFormStreet"
-                                    />
-                                    <FormError error={form.errors.street} />
-                                </div>
-                                <div className="col col-lg-3 col-xs-12 form-group form-group-margin">
-                                    <label className="form-label" htmlFor="reservation_modal_house_nr">
-                                        {translate('modal_reserve_product.fill_notes.labels.house_nr')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="reservation_modal_house_nr"
-                                        type="text"
-                                        value={form.values.house_nr}
-                                        onChange={(e) => form.update({ house_nr: e.target.value })}
-                                        data-dusk="productReserveFormHouseNumber"
-                                    />
-                                    <FormError error={form.errors.house_nr} />
-                                </div>
-                                <div className="col col-lg-3 col-xs-12 form-group form-group-margin">
-                                    <label className="form-label" htmlFor="reservation_modal_house_nr_addition">
-                                        {translate('modal_reserve_product.fill_notes.labels.house_nr_addition')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="reservation_modal_house_nr_addition"
-                                        type="text"
-                                        value={form.values.house_nr_addition}
-                                        onChange={(e) => form.update({ house_nr_addition: e.target.value })}
-                                        data-dusk="productReserveFormHouseNumberAddition"
-                                    />
-                                    <FormError error={form.errors.house_nr_addition} />
-                                </div>
-                            </div>
+                            <BlockReservationAddress
+                                address={address}
+                                setAddress={setAddress}
+                                addressProfile={addressProfile}
+                                product={product}
+                                setIsEditingAddress={setIsEditingAddress}
+                                onAddressSubmit={(save, values) => {
+                                    setAddress(values);
 
-                            <div className="row">
-                                <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
-                                    <label className="form-label" htmlFor="reservation_modal_postal_code">
-                                        {translate('modal_reserve_product.fill_notes.labels.postal_code')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="reservation_modal_postal_code"
-                                        type="text"
-                                        value={form.values.postal_code}
-                                        onChange={(e) => form.update({ postal_code: e.target.value })}
-                                        data-dusk="productReserveFormPostalCode"
-                                    />
-                                    <FormError error={form.errors.postal_code} />
-                                </div>
-                                <div className="col col-lg-6 col-xs-12 form-group form-group-margin">
-                                    <label className="form-label" htmlFor="reservation_modal_city">
-                                        {translate('modal_reserve_product.fill_notes.labels.city')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="reservation_modal_city"
-                                        type="text"
-                                        value={form.values.city}
-                                        onChange={(e) => form.update({ city: e.target.value })}
-                                        data-dusk="productReserveFormCity"
-                                    />
-                                    <FormError error={form.errors.city} />
-                                </div>
-                            </div>
+                                    if (save) {
+                                        updateProfileAddress(values);
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="modal-footer">
@@ -961,7 +945,26 @@ export default function ModalProductReserve({
                             <button className="button button-light button-sm" type="button" onClick={back}>
                                 {translate('modal_reserve_product.buttons.back')}
                             </button>
-                            <button className="button button-primary button-sm" type="submit" data-dusk="btnSubmit">
+                            {addressFilled(address) && product.reservation.address === 'optional' && (
+                                <button
+                                    className="button button-primary-outline button-sm"
+                                    type="button"
+                                    data-dusk="btnSkip"
+                                    onClick={() => {
+                                        setSkipAddress(true);
+                                        setStep((step) => step + 1);
+                                    }}>
+                                    {translate('modal_reserve_product.buttons.skip')}
+                                </button>
+                            )}
+                            <button
+                                className="button button-primary button-sm"
+                                type="submit"
+                                disabled={
+                                    (!addressFilled(address) && product.reservation.address !== 'optional') ||
+                                    (isEditingAddress && addressFilled(address))
+                                }
+                                data-dusk="btnSubmit">
                                 {translate('modal_reserve_product.buttons.next')}
                             </button>
                         </div>
@@ -1126,10 +1129,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.street')}
                                         </div>
                                         <div
-                                            className={`overview-item-value ${
-                                                !form.values.street ? 'overview-item-value-empty' : ''
-                                            }`}>
-                                            {form.values.street || emptyText}
+                                            data-dusk="overviewValueStreet"
+                                            className={classNames(
+                                                `overview-item-value`,
+                                                (!address?.street || skipAddress) && 'overview-item-value-empty',
+                                            )}>
+                                            {(!skipAddress && address?.street) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1140,10 +1145,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.house_nr')}
                                         </div>
                                         <div
-                                            className={`overview-item-value ${
-                                                !form.values.house_nr ? 'overview-item-value-empty' : ''
-                                            }`}>
-                                            {form.values.house_nr || emptyText}
+                                            data-dusk="overviewValueHouseNr"
+                                            className={classNames(
+                                                `overview-item-value`,
+                                                (!address?.house_nr || skipAddress) && 'overview-item-value-empty',
+                                            )}>
+                                            {(!skipAddress && address?.house_nr) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1154,10 +1161,13 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.house_nr_addition')}
                                         </div>
                                         <div
-                                            className={`overview-item-value ${
-                                                !form.values.house_nr_addition ? 'overview-item-value-empty' : ''
-                                            }`}>
-                                            {form.values.house_nr_addition || emptyText}
+                                            data-dusk="overviewValueHouseNrAddition"
+                                            className={classNames(
+                                                `overview-item-value`,
+                                                (!address?.house_nr_addition || skipAddress) &&
+                                                    'overview-item-value-empty',
+                                            )}>
+                                            {(!skipAddress && address?.house_nr_addition) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1168,10 +1178,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.postal_code')}
                                         </div>
                                         <div
-                                            className={`overview-item-value ${
-                                                !form.values.postal_code ? 'overview-item-value-empty' : ''
-                                            }`}>
-                                            {form.values.postal_code || emptyText}
+                                            data-dusk="overviewValuePostalCode"
+                                            className={classNames(
+                                                `overview-item-value`,
+                                                (!address?.postal_code || skipAddress) && 'overview-item-value-empty',
+                                            )}>
+                                            {(!skipAddress && address?.postal_code) || emptyText}
                                         </div>
                                     </div>
                                 )}
@@ -1182,10 +1194,12 @@ export default function ModalProductReserve({
                                             {translate('modal_reserve_product.confirm_notes.labels.city')}
                                         </div>
                                         <div
-                                            className={`overview-item-value ${
-                                                !form.values.city ? 'overview-item-value-empty' : ''
-                                            }`}>
-                                            {translate(form.values.city || emptyText)}
+                                            data-dusk="overviewValueCity"
+                                            className={classNames(
+                                                `overview-item-value`,
+                                                (!address?.city || skipAddress) && 'overview-item-value-empty',
+                                            )}>
+                                            {(!skipAddress && address?.city) || emptyText}
                                         </div>
                                     </div>
                                 )}

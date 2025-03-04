@@ -4336,6 +4336,10 @@
         "Verwerken"
     ],
     [
+        "modal_reserve_product.buttons.skip",
+        "Overslaan"
+    ],
+    [
         "modal_reserve_product.buttons.submit",
         "Indienen"
     ],
