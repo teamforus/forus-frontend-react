@@ -22,6 +22,7 @@ import extra_payments from './pages/extra-payments';
 import fund_request_configurations from './pages/fund-request-configurations';
 import product from './pages/product';
 import product_edit from './pages/product-edit';
+import bank_connections from './pages/bank-connections';
 
 export default {
     vouchers,
@@ -48,4 +49,5 @@ export default {
     fund_request_configurations,
     product,
     product_edit,
+    bank_connections,
 };
