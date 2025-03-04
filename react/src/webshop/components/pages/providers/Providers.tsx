@@ -7,7 +7,6 @@ import ProductCategory from '../../../../dashboard/props/models/ProductCategory'
 import useProductCategoryService from '../../../../dashboard/services/ProductCategoryService';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
-import SelectControlOptions from '../../../../dashboard/components/elements/select-control/templates/SelectControlOptions';
 import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useAppConfigs from '../../../hooks/useAppConfigs';
@@ -289,7 +288,8 @@ export default function Providers() {
                                     value={filterValues.business_type_id}
                                     onChange={(business_type_id?: number) => filterUpdate({ business_type_id })}
                                     id="business_type_id"
-                                    optionsComponent={SelectControlOptions}
+                                    multiline={true}
+                                    allowSearch={false}
                                 />
                                 <FormError error={errors?.business_type_id} />
                             </div>
@@ -302,11 +302,11 @@ export default function Providers() {
                                 <SelectControl
                                     id={'select_category'}
                                     propKey={'id'}
+                                    multiline={true}
                                     allowSearch={true}
                                     value={filterValues.product_category_id}
                                     onChange={(id: number) => filterUpdate({ product_category_id: id })}
                                     options={productCategories || []}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </div>
 
@@ -321,9 +321,9 @@ export default function Providers() {
                                         propKey={'id'}
                                         value={filterValues.product_sub_category_id}
                                         onChange={(id: number) => filterUpdate({ product_sub_category_id: id })}
+                                        multiline={true}
                                         allowSearch={true}
                                         options={productSubCategories || []}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 </div>
                             )}
@@ -337,10 +337,10 @@ export default function Providers() {
                                         id={'select_fund'}
                                         propKey={'id'}
                                         value={filterValues.fund_id}
+                                        multiline={true}
                                         allowSearch={true}
                                         onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                         options={funds || []}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 )}
                             </div>
@@ -371,10 +371,10 @@ export default function Providers() {
                                             id={'select_fund'}
                                             propKey={'id'}
                                             value={filterValues.distance}
+                                            multiline={true}
                                             allowSearch={true}
                                             onChange={(distance: number) => filterUpdate({ distance })}
                                             options={distances || []}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                         <FormError error={errors?.distance} />
                                     </div>
@@ -432,7 +432,6 @@ export default function Providers() {
                                                 })?.value || {},
                                             );
                                         }}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 </div>
                                 {appConfigs?.show_providers_map && (

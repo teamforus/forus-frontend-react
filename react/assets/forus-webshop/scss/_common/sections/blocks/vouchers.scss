@@ -59,6 +59,10 @@
                     font: 700 22px/26px var(--hf);
                     color: #00122a;
                     margin: 0 0 5px;
+
+                    .voucher-name-number {
+                        display: none;
+                    }
                 }
 
                 .voucher-organization {
@@ -429,6 +433,10 @@
                         order: 2;
                         word-break: break-word;
                         word-wrap: break-word;
+
+                        .voucher-name-number {
+                            display: contents;
+                        }
                     }
 
                     .voucher-organization {

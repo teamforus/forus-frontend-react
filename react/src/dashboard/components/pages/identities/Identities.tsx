@@ -26,6 +26,9 @@ import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableDateOnly from '../../elements/tables/elements/TableDateOnly';
 import useIdentityExportService from '../../../services/exports/useIdentityExportService';
+import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
+import { dateFormat, dateParse } from '../../../helpers/dates';
+import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 
 export default function Identities() {
     const translate = useTranslate();
@@ -43,6 +46,12 @@ export default function Identities() {
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
 
+    const [hasBsnOptions] = useState([
+        { key: 1, name: 'Ja' },
+        { key: 0, name: 'Nee' },
+        { key: null, name: 'Alle' },
+    ]);
+
     const [states] = useState([
         { key: null, name: 'Alle' },
         { key: 'pending', name: 'In afwachting' },
@@ -55,24 +64,54 @@ export default function Identities() {
         q: string;
         state: string;
         page?: number;
+        city?: string;
+        has_bsn?: number;
         fund_id?: number;
         per_page?: number;
+        postal_code?: string;
+        municipality_name?: string;
+        birth_date_to?: string;
+        birth_date_from?: string;
+        last_login_to?: string;
+        last_login_from?: string;
+        last_activity_to?: string;
+        last_activity_from?: string;
     }>(
         {
             q: '',
             state: states[0].key,
             fund_id: null,
             page: 1,
+            city: '',
+            has_bsn: null,
+            postal_code: '',
+            municipality_name: '',
+            birth_date_to: '',
+            birth_date_from: '',
+            last_login_to: '',
+            last_login_from: '',
+            last_activity_to: '',
+            last_activity_from: '',
             per_page: paginatorService.getPerPage(paginatorTransactionsKey),
         },
         {
-            throttledValues: ['q'],
+            throttledValues: ['q', 'postal_code', 'city', 'municipality_name'],
             queryParams: {
                 q: StringParam,
                 state: StringParam,
                 page: NumberParam,
+                city: StringParam,
+                has_bsn: NumberParam,
                 fund_id: NumberParam,
                 per_page: NumberParam,
+                postal_code: StringParam,
+                municipality_name: StringParam,
+                birth_date_to: StringParam,
+                birth_date_from: StringParam,
+                last_login_to: StringParam,
+                last_login_from: StringParam,
+                last_activity_to: StringParam,
+                last_activity_from: StringParam,
             },
         },
     );
@@ -183,6 +222,93 @@ export default function Identities() {
                                     value={filterValues.q}
                                     onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder={translate('payouts.labels.search')}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.birth_date_from')}>
+                                <DatePickerControl
+                                    value={dateParse(filterValues.birth_date_from)}
+                                    placeholder={translate('dd-MM-yyyy')}
+                                    onChange={(from: Date) => filterUpdate({ birth_date_from: dateFormat(from) })}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.birth_date_to')}>
+                                <DatePickerControl
+                                    value={dateParse(filterValues.birth_date_to)}
+                                    placeholder={translate('dd-MM-yyyy')}
+                                    onChange={(to: Date) => filterUpdate({ birth_date_to: dateFormat(to) })}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.postal_code')}>
+                                <input
+                                    className="form-control"
+                                    value={filterValues.postal_code}
+                                    onChange={(e) => filterUpdate({ postal_code: e.target.value })}
+                                    placeholder={translate('sponsor_products.filters.postal_code')}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.municipality')}>
+                                <input
+                                    className="form-control"
+                                    value={filterValues.municipality_name}
+                                    onChange={(e) => filterUpdate({ municipality_name: e.target.value })}
+                                    placeholder={translate('sponsor_products.filters.municipality')}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.city')}>
+                                <input
+                                    className="form-control"
+                                    value={filterValues.city}
+                                    onChange={(e) => filterUpdate({ city: e.target.value })}
+                                    placeholder={translate('sponsor_products.filters.city')}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.last_activity_from')}>
+                                <DatePickerControl
+                                    value={dateParse(filterValues.last_activity_from)}
+                                    placeholder={translate('dd-MM-yyyy')}
+                                    onChange={(from: Date) => filterUpdate({ last_activity_from: dateFormat(from) })}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.last_activity_to')}>
+                                <DatePickerControl
+                                    value={dateParse(filterValues.last_activity_to)}
+                                    placeholder={translate('dd-MM-yyyy')}
+                                    onChange={(to: Date) => filterUpdate({ last_activity_to: dateFormat(to) })}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.last_login_from')}>
+                                <DatePickerControl
+                                    value={dateParse(filterValues.last_login_from)}
+                                    placeholder={translate('dd-MM-yyyy')}
+                                    onChange={(from: Date) => filterUpdate({ last_login_from: dateFormat(from) })}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.last_login_to')}>
+                                <DatePickerControl
+                                    value={dateParse(filterValues.last_login_to)}
+                                    placeholder={translate('dd-MM-yyyy')}
+                                    onChange={(to: Date) => filterUpdate({ last_login_to: dateFormat(to) })}
+                                />
+                            </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('sponsor_products.filters.has_bsn')}>
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'key'}
+                                    allowSearch={false}
+                                    value={filterValues.has_bsn}
+                                    options={hasBsnOptions}
+                                    optionsComponent={SelectControlOptions}
+                                    onChange={(has_bsn: number) => filterUpdate({ has_bsn })}
                                 />
                             </FilterItemToggle>
 

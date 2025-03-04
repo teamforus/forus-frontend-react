@@ -125,6 +125,8 @@ export default function Reservations() {
                                 propKey={'id'}
                                 value={filters.values.fund_id}
                                 options={funds}
+                                multiline={true}
+                                allowSearch={true}
                                 onChange={(fund_id?: number) => filters.update({ fund_id })}
                             />
                         </div>
@@ -139,6 +141,8 @@ export default function Reservations() {
                                 propKey={'id'}
                                 options={organizations}
                                 onChange={(organization_id?: number) => filters.update({ organization_id })}
+                                multiline={true}
+                                allowSearch={true}
                             />
                         </div>
                         <div className="form-group">
@@ -152,6 +156,8 @@ export default function Reservations() {
                                 propKey={'value'}
                                 options={states}
                                 onChange={(state?: string) => filters.update({ state })}
+                                multiline={true}
+                                allowSearch={true}
                             />
                         </div>
                     </div>
