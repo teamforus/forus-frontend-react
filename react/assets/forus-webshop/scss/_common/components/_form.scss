@@ -232,6 +232,9 @@
                 display: block;
                 color: var(--form-control-color);
                 line-height: 24px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             &:focus {
@@ -311,7 +314,9 @@
                 line-height: 20px;
                 color: var(--dropdown-item-color);
                 background: var(--dropdown-item-background);
-                @include ellipsis();
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
 
                 strong,
                 b {
@@ -338,6 +343,22 @@
                 border-bottom-right-radius: 0;
                 border-bottom-left-radius: 0;
             }
+        }
+
+        &.multiline-selected .select-control-search .select-control-search-placeholder {
+            height: auto;
+            overflow: visible;
+            white-space: initial;
+            text-overflow: initial;
+            word-break: break-word;
+        }
+
+        &.multiline-options .select-control-options .select-control-option {
+            height: auto;
+            overflow: visible;
+            white-space: initial;
+            text-overflow: initial;
+            word-break: break-word;
         }
     }
 
@@ -1165,8 +1186,8 @@
 
     &.form-compact {
         .form-label {
-            font: 700 11px/26px var(--base-font);
-            margin: 0 0 0;
+            font: 700 11px/16px var(--base-font);
+            margin: 0 0 5px;
         }
 
         datepicker,

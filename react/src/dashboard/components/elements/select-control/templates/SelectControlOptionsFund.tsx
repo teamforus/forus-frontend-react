@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useMemo, useRef, useState } from 'react';
 import ClickOutside from '../../click-outside/ClickOutside';
 import { uniqueId } from 'lodash';
 import { SelectControlOptionsProp } from '../SelectControl';
@@ -27,12 +27,21 @@ export default function SelectControlOptionsFund<T>({
     onOptionsScroll,
     disabled,
     modelValue,
+    multiline = { selected: false, options: true },
 }: SelectControlOptionsProp<T>) {
     const [controlId] = useState('select_control_' + uniqueId());
     const input = useRef(null);
     const selectorRef = useRef<HTMLDivElement>(null);
     const placeholderRef = useRef<HTMLLabelElement>(null);
     const assetUrl = useAssetUrl();
+
+    const multilineSelected = useMemo(() => {
+        return multiline === true || (typeof multiline === 'object' && multiline?.selected === true);
+    }, [multiline]);
+
+    const multilineOptions = useMemo(() => {
+        return multiline === true || (typeof multiline === 'object' && multiline?.options === true);
+    }, [multiline]);
 
     const { onKeyDown, onBlur } = useSelectControlKeyEventHandlers(
         selectorRef,
@@ -62,7 +71,12 @@ export default function SelectControlOptionsFund<T>({
             onKeyDown={onKeyDown}
             onBlur={onBlur}>
             <div
-                className={classNames('select-control-input', showOptions && 'options')}
+                className={classNames(
+                    'select-control-input',
+                    showOptions && 'options',
+                    multilineOptions && 'multiline-options',
+                    multilineSelected && 'multiline-selected',
+                )}
                 data-dusk="selectControlFunds">
                 {/* Placeholder */}
                 <label
