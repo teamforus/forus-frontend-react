@@ -455,6 +455,7 @@ export default function FundsPreCheck() {
                                                     onChange={(organization_id: number) =>
                                                         filter.update({ organization_id })
                                                     }
+                                                    multiline={true}
                                                 />
                                             </div>
 
@@ -468,6 +469,7 @@ export default function FundsPreCheck() {
                                                     value={filter.values.tag_id}
                                                     onChange={(tag_id: number) => filter.update({ tag_id })}
                                                     options={tags}
+                                                    multiline={true}
                                                 />
                                             </div>
                                         </div>
@@ -531,6 +533,7 @@ export default function FundsPreCheck() {
                                                                         .options
                                                                 }
                                                                 placeholder={`Maak een keuze`}
+                                                                multiline={true}
                                                             />
                                                         )}
 

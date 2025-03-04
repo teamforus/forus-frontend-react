@@ -220,7 +220,7 @@
         border: 1px solid var(--border-color);
         background-color: #ffffff;
         padding: 4px 15px;
-        height: 36px;
+        min-height: 36px;
         color: var(--text-color);
         font: 500 13px/24px var(--base-font);
         transition: background-color 0.4s ease, border 0.4s ease;
@@ -272,6 +272,7 @@
         .form-group-info-control {
             display: flex;
             flex-grow: 1;
+            min-width: 0;
 
             .form-control {
                 border-top-right-radius: 0;
@@ -284,7 +285,7 @@
                 border-left: none;
                 box-shadow: none;
                 height: 100%;
-                align-items: center;
+                align-items: flex-start;
                 margin: 0;
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
@@ -635,6 +636,8 @@
                 overflow: hidden;
                 display: block;
                 height: 100%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
         }
 
@@ -730,6 +733,22 @@
                 border-bottom-right-radius: 0;
                 border-bottom-left-radius: 0;
             }
+        }
+
+        &.multiline-selected .select-control-search .select-control-search-placeholder {
+            height: auto;
+            overflow: visible;
+            white-space: initial;
+            text-overflow: initial;
+            word-break: break-word;
+        }
+
+        &.multiline-options .select-control-options .select-control-option {
+            height: auto;
+            overflow: visible;
+            white-space: initial;
+            text-overflow: initial;
+            word-break: break-word;
         }
 
         &[disabled] {

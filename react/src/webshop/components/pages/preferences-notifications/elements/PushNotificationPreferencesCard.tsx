@@ -148,6 +148,7 @@ export default function PushNotificationPreferencesCard({
                         <div className="form-group">
                             <SelectControl
                                 propKey="key"
+                                multiline={true}
                                 allowSearch={false}
                                 value={notificationsDismissTime.webshop}
                                 onChange={(time?: number) => selectDismissTime('webshop', time)}
@@ -199,6 +200,7 @@ export default function PushNotificationPreferencesCard({
                         <div className="form-group">
                             <SelectControl
                                 propKey="key"
+                                multiline={true}
                                 allowSearch={false}
                                 value={notificationsDismissTime.bookmarks}
                                 onChange={(time?: number) => selectDismissTime('bookmarks', time)}
