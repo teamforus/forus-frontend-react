@@ -67,32 +67,6 @@ h6 {
         text-align: left;
     }
 
-    &.section-header {
-        width: 1280px;
-        background-position: top center;
-        padding: 50px 0;
-        margin: 0 auto;
-        max-width: 100%;
-
-        .header-content {
-            text-align: center;
-
-            .header-description p {
-                text-align: center !important;
-            }
-
-            .header-how-it-works {
-                font: 600 20px/20px var(--base-font);
-                color: #950022;
-                text-decoration: none;
-            }
-        }
-
-        &.section-header-landing {
-            margin-top: 24px;
-        }
-    }
-
     &.section-faq {
         .faq {
             width: auto;
@@ -124,23 +98,6 @@ h6 {
     }
 
     @media screen and (min-width: 1000px) {
-        &.section-header {
-            height: 500px;
-            padding: 75px 0;
-
-            .header-content {
-                text-align: left;
-                padding: 50px 50px;
-                margin-left: 50px;
-                background-color: #ffffff;
-                text-align: left;
-
-                .header-description p {
-                    text-align: left !important;
-                }
-            }
-        }
-
         &.section-products {
             width: 100vw;
             background: #f5f5f5;

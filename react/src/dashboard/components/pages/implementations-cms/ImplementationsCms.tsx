@@ -15,7 +15,6 @@ import { useMediaService } from '../../../services/MediaService';
 import ImplementationsCmsPages from './elements/ImplementationsCmsPages';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
-import PhotoSelector from '../../elements/photo-selector/PhotoSelector';
 import MarkdownEditor from '../../elements/forms/markdown-editor/MarkdownEditor';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
@@ -26,6 +25,11 @@ import PhotoSelectorData from '../../elements/photo-selector/types/PhotoSelector
 import useTranslate from '../../../hooks/useTranslate';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import FormGroup from '../../elements/forms/controls/FormGroup';
+import InfoBox from '../../elements/info-box/InfoBox';
+import PhotoSelectorBanner from '../../elements/photo-selector/PhotoSelectorBanner';
+import ToggleControl from '../../elements/forms/controls/ToggleControl';
+import ModalNotification from '../../modals/ModalNotification';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsCms() {
     const { id } = useParams();
@@ -34,39 +38,17 @@ export default function ImplementationsCms() {
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
 
     const mediaService = useMediaService();
     const implementationService = useImplementationService();
 
-    const [resetMedia, setResetMedia] = useState(false);
     const [bannerMedia, setBannerMedia] = useState(null);
     const [showInfoBlock, setShowInfoBlock] = useState(false);
     const [implementation, setImplementation] = useState<Implementation>(null);
     const [initialCommunicationType, setInitialCommunicationType] = useState(null);
-
-    const [bannerPatterns] = useState([
-        { value: 'color', label: 'Kleur' },
-        { value: 'lines', label: 'Lijnen' },
-        { value: 'points', label: 'Punten' },
-        { value: 'dots', label: 'Stippen' },
-        { value: 'circles', label: 'Cirkels' },
-    ]);
-
-    const [headerTextColors] = useState([
-        { value: 'dark', label: 'Donker' },
-        { value: 'bright', label: 'Licht' },
-    ]);
-
-    const [bannerOpacityOptions] = useState(
-        [...new Array(10).keys()]
-            .map((n) => ++n)
-            .map((option) => ({
-                value: (option * 10).toString(),
-                label: `${(10 - option) * 10}%`,
-            })),
-    );
 
     const [communicationTypes] = useState([
         { value: true, label: 'Je/jouw' },
@@ -96,17 +78,17 @@ export default function ImplementationsCms() {
         { value: true, label: 'Ja' },
     ]);
 
-    const [bannerMetaDefault] = useState({
+    const [bannerMetaDefault] = useState<PhotoSelectorData>({
         media: null,
         mediaLoading: false,
-        auto_text_color: true,
-        patterns: bannerPatterns,
-        opacityOptions: bannerOpacityOptions,
-        headerTextColors: headerTextColors,
         overlay_enabled: false,
-        overlay_type: bannerPatterns[0].value,
-        overlay_opacity: bannerOpacityOptions[4].value,
-        header_text_color: headerTextColors[0].value,
+        overlay_type: 'color',
+        overlay_opacity: '40',
+        banner_color: '#000',
+        banner_background: '#fff',
+        banner_wide: true,
+        banner_collapse: false,
+        banner_position: 'left',
     });
 
     const [bannerMeta, setBannerMeta] = useState<PhotoSelectorData>(bannerMetaDefault);
@@ -121,6 +103,11 @@ export default function ImplementationsCms() {
         informal_communication?: boolean;
         show_privacy_checkbox?: boolean;
         show_terms_checkbox?: boolean;
+        banner_button?: boolean;
+        banner_button_target?: 'self' | '_blank';
+        banner_button_type?: 'color' | 'white';
+        banner_button_text?: string;
+        banner_button_url?: string;
         announcement?: {
             type?: string;
             title?: string;
@@ -134,22 +121,22 @@ export default function ImplementationsCms() {
     }>(null, (values) => {
         const submit = () => {
             setProgress(0);
+            const data = { ...values };
 
             const { overlay_enabled, overlay_type, overlay_opacity } = bannerMeta;
-            const header_text_color = bannerMeta.auto_text_color ? 'auto' : bannerMeta.header_text_color;
+            const { banner_collapse, banner_wide, banner_position } = bannerMeta;
+            const { banner_color, banner_background, banner_button_type } = bannerMeta;
 
-            if (resetMedia && values.banner_media_uid) {
-                mediaService
-                    .delete(values.banner_media_uid)
-                    .catch((res: ResponseError) =>
-                        pushDanger('Error, could not delete banner image!', res.data.message),
-                    );
+            if (data.banner_media_uid === implementation.banner_media_uid) {
+                delete data.banner_media_uid;
             }
 
             implementationService
                 .updateCMS(activeOrganization.id, implementation.id, {
-                    ...form.values,
-                    ...{ overlay_enabled, overlay_type, overlay_opacity, header_text_color },
+                    ...data,
+                    ...{ overlay_enabled, overlay_type, overlay_opacity },
+                    ...{ banner_collapse, banner_wide, banner_position },
+                    ...{ banner_color, banner_background, banner_button_type },
                 })
                 .then((res) => {
                     setImplementation(res.data.data);
@@ -204,7 +191,7 @@ export default function ImplementationsCms() {
         submit();
     });
 
-    const { update: formUpdate } = form;
+    const { update: formUpdate, values: formValues } = form;
 
     const selectBanner = useCallback(
         (mediaFile: File | Blob) => {
@@ -215,7 +202,6 @@ export default function ImplementationsCms() {
                 .then((res) => {
                     setBannerMedia(res.data.data);
                     setBannerMeta((meta) => ({ ...meta, media: res.data.data }));
-                    setResetMedia(false);
                     formUpdate({ banner_media_uid: res.data.data.uid });
                 })
                 .catch((res: ResponseError) => pushDanger('Error!', res.data.message))
@@ -224,11 +210,31 @@ export default function ImplementationsCms() {
         [mediaService, pushDanger, formUpdate],
     );
 
-    const resetBanner = useCallback(() => {
-        setResetMedia(true);
-        setBannerMedia(null);
-        setBannerMeta(bannerMetaDefault);
-    }, [bannerMetaDefault]);
+    const deletePhoto = useCallback(() => {
+        if (formValues?.banner_media_uid) {
+            openModal((modal) => (
+                <ModalNotification
+                    modal={modal}
+                    title={translate('offices.confirm_delete.title')}
+                    description={translate('offices.confirm_delete.description')}
+                    buttonSubmit={{
+                        onClick: () => {
+                            modal.close();
+                            mediaService.delete(formValues?.banner_media_uid).catch(pushApiError);
+                            setBannerMedia(null);
+                            formUpdate({ banner_media_uid: null });
+                        },
+                    }}
+                    buttonCancel={{
+                        onClick: () => modal.close(),
+                    }}
+                />
+            ));
+        } else {
+            setBannerMedia(null);
+            formUpdate({ banner_media_uid: null });
+        }
+    }, [openModal, translate, mediaService, formValues?.banner_media_uid, pushApiError, formUpdate]);
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -250,19 +256,12 @@ export default function ImplementationsCms() {
                 overlay_enabled: implementation.overlay_enabled,
                 overlay_opacity: implementation.overlay_opacity.toString(),
 
-                ...(implementation.header_text_color == 'auto'
-                    ? {
-                          auto_text_color: true,
-                          header_text_color: implementation.banner
-                              ? implementation.banner.is_dark
-                                  ? 'bright'
-                                  : 'dark'
-                              : 'dark',
-                      }
-                    : {
-                          auto_text_color: false,
-                          header_text_color: implementation.header_text_color,
-                      }),
+                banner_wide: implementation.banner_wide,
+                banner_collapse: implementation.banner_collapse,
+                banner_position: implementation.banner_position,
+                banner_color: implementation.banner_color,
+                banner_background: implementation.banner_background,
+                banner_button_type: implementation.banner_button_type,
             });
 
             formUpdate({
@@ -274,6 +273,11 @@ export default function ImplementationsCms() {
                 informal_communication: implementation.informal_communication,
                 show_terms_checkbox: implementation.show_terms_checkbox,
                 show_privacy_checkbox: implementation.show_privacy_checkbox,
+                banner_button: implementation.banner_button,
+                banner_button_text: implementation.banner_button_text,
+                banner_button_url: implementation.banner_button_url,
+                banner_button_target: implementation.banner_button_target,
+                banner_media_uid: implementation.banner_media_uid,
                 announcement: {
                     type: announcementTypes[0].value,
                     active: announcementState[0].value,
@@ -361,15 +365,27 @@ export default function ImplementationsCms() {
                     </div>
 
                     <div className="card-section card-section-padless">
-                        <PhotoSelector
-                            type={'implementation_banner'}
+                        <PhotoSelectorBanner
                             selectPhoto={(file) => selectBanner(file)}
-                            template={'photo-selector-banner'}
                             templateData={bannerMeta}
                             thumbnail={bannerMedia?.sizes?.medium}
-                            resetPhoto={resetBanner}
-                            updateTemplateData={setBannerMeta}
+                            deletePhoto={deletePhoto}
+                            setTemplateData={setBannerMeta}
+                            title={form.values?.title}
+                            description={form.values?.description}
+                            buttonText={form.values?.banner_button_text}
                         />
+                    </div>
+                    <div className="card-section card-section-padless">
+                        <InfoBox iconPosition={'top'} iconColor={'light'} type={'primary'} borderType={'none'}>
+                            Zorg ervoor dat tekst voor iedereen leesbaar blijft door een sterk contrast tussen titels en
+                            hun achtergrond te gebruiken. Volgens de verplichte toegankelijksheidsrichtlijnen moet de
+                            contrastverhouding ten minste 4,5:1 zijn voor normale tekst en 3:1 voor grote tekst. Plaats
+                            tekst niet direct op drukke of kleurrijke afbeeldingen en gebruik overlays of effen
+                            achtergronden om de duidelijkheid te verbeteren. Dit zorgt voor toegankelijkheid voor
+                            gebruikers met visuele beperkingen en draagt bij aan de gebruiksvriendelijkheid van de
+                            website.
+                        </InfoBox>
                     </div>
 
                     <div className="card-section card-section-primary">
@@ -401,7 +417,9 @@ export default function ImplementationsCms() {
                                             extendedOptions={true}
                                             allowAlignment={true}
                                             value={form.values?.description_html}
-                                            onChange={(value) => form.update({ description: value })}
+                                            onChange={(value) => {
+                                                form.update({ description: value });
+                                            }}
                                         />
                                     </div>
                                     <FormError error={form.errors.description} />
@@ -432,6 +450,82 @@ export default function ImplementationsCms() {
                                         <FormError error={form.errors.page_title_suffix} />
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card-section card-section-primary">
+                        <div className="row">
+                            <div className="col col-lg-9">
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    label={'Button'}
+                                    error={form.errors?.banner_button}
+                                    input={() => (
+                                        <ToggleControl
+                                            checked={form.values?.banner_button}
+                                            onChange={(e) => {
+                                                form.update({ banner_button: e.target.checked });
+                                            }}
+                                        />
+                                    )}
+                                />
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    required={true}
+                                    label={'Button text'}
+                                    error={form.errors?.banner_button_text}
+                                    input={(id) => (
+                                        <input
+                                            id={id}
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Button text"
+                                            value={form.values?.banner_button_text || ''}
+                                            onChange={(e) => form.update({ banner_button_text: e.target.value })}
+                                        />
+                                    )}
+                                />
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    required={true}
+                                    label={'Button link'}
+                                    error={form.errors?.banner_button_url}
+                                    input={(id) => (
+                                        <input
+                                            id={id}
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Button link"
+                                            value={form.values?.banner_button_url || ''}
+                                            onChange={(e) => form.update({ banner_button_url: e.target.value })}
+                                        />
+                                    )}
+                                />
+                                <FormGroup
+                                    inline={true}
+                                    inlineSize={'xl'}
+                                    required={true}
+                                    label={'Open knop koppeling in'}
+                                    error={form.errors?.banner_button_target}
+                                    input={() => (
+                                        <SelectControl
+                                            value={form.values?.banner_button_target}
+                                            propKey={'value'}
+                                            propValue={'label'}
+                                            options={[
+                                                { label: 'Zelfde tabblad', value: 'self' },
+                                                { label: 'Nieuw tabblad', value: '_blank' },
+                                            ]}
+                                            onChange={(banner_button_target: 'self' | '_blank') => {
+                                                form.update({ banner_button_target });
+                                            }}
+                                        />
+                                    )}
+                                />
                             </div>
                         </div>
                     </div>
