@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../../modules/modals/context/ModalContext';
 import { hasPermission } from '../../../helpers/utils';
 import useFormBuilder from '../../../hooks/useFormBuilder';
@@ -19,6 +19,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { ResponseError } from '../../../props/ApiResponses';
+import InfoBox from '../../elements/info-box/InfoBox';
 
 type ReimbursementLocale = Partial<Reimbursement & { id?: number; name: string }>;
 
@@ -454,25 +455,36 @@ export default function ModalVoucherTransaction({
                                 <FormError error={form.errors?.note} />
                             </div>
 
-                            <div className="form-group form-group-inline form-group-inline-md">
-                                <div className="form-label" />
-                                <div className="form-offset">
-                                    <label className="checkbox">
-                                        <input
-                                            type="checkbox"
-                                            checked={form.values.note_shared}
-                                            onChange={(e) => form.update({ note_shared: e.target.checked })}
-                                        />
-                                        <div className="checkbox-label">
-                                            <div className="checkbox-box">
-                                                <div className="mdi mdi-check" />
-                                            </div>
-                                            {translate('modals.modal_voucher_transaction.labels.note_shared')}
+                            {form.values.target === 'provider' && (
+                                <Fragment>
+                                    <div className="form-group form-group-inline form-group-inline-md">
+                                        <div className="form-label" />
+                                        <div className="form-offset">
+                                            <label className="checkbox">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={form.values.note_shared}
+                                                    onChange={(e) => form.update({ note_shared: e.target.checked })}
+                                                />
+                                                <div className="checkbox-label">
+                                                    <div className="checkbox-box">
+                                                        <div className="mdi mdi-check" />
+                                                    </div>
+                                                    {translate('modals.modal_voucher_transaction.labels.note_shared')}
+                                                </div>
+                                            </label>
                                         </div>
-                                    </label>
-                                </div>
-                                <FormError error={form.errors?.note_shared} />
-                            </div>
+                                        <FormError error={form.errors?.note_shared} />
+                                    </div>
+
+                                    <InfoBox iconPosition={'top'} type={'default'} iconColor={'primary'}>
+                                        <p>
+                                            Controleer de gegevens. Na het aanmaken kan de transactie niet worden
+                                            verwijderd.
+                                        </p>
+                                    </InfoBox>
+                                </Fragment>
+                            )}
                         </div>
                     </div>
 
