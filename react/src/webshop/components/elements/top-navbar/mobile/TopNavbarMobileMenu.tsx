@@ -16,6 +16,7 @@ import ModalAuthPincode from '../../../modals/ModalAuthPincode';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import useSelectControlKeyEventHandlers from '../../../../../dashboard/components/elements/select-control/hooks/useSelectControlKeyEventHandlers';
 import TopNavbarMobileButtons from './TopNavbarMobileButtons';
+import useMobileLangSelector from '../../../../hooks/useMobileLangSelector';
 
 export default function TopNavbarMobileMenu() {
     const translate = useTranslate();
@@ -27,6 +28,7 @@ export default function TopNavbarMobileMenu() {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const openModal = useOpenModal();
+    const langSelector = useMobileLangSelector();
 
     const authIdentity = useAuthIdentity();
     const authIdentity2FAState = useAuthIdentity2FAState();
@@ -75,6 +77,8 @@ export default function TopNavbarMobileMenu() {
     return (
         <div className="block block-mobile-menu" ref={selectorRef} onKeyDown={onKeyDown} onBlur={onBlur}>
             <div className="mobile-menu-group mobile-menu-group-main">
+                {langSelector}
+
                 <div className="mobile-menu-group-header">{translate('top_navbar.main_menu')}</div>
                 <div className="mobile-menu-items">
                     {menuItems.map((menuItem) => (
@@ -257,6 +261,20 @@ export default function TopNavbarMobileMenu() {
                             role="link">
                             <em className="mobile-menu-item-icon mdi mdi-cog-outline" />
                             {translate('top_navbar.buttons.mobile.dropdown.preferences_notifications')}
+                        </StateNavLink>
+                    )}
+
+                    {authIdentity?.profile && (
+                        <StateNavLink
+                            className="mobile-menu-item"
+                            name="profile"
+                            onClick={hideMobileMenu}
+                            aria-current={route.state?.name == 'profile' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
+                            tabIndex={0}
+                            role="link">
+                            <em className="mobile-menu-item-icon mdi mdi-account-check" />
+                            {translate('top_navbar.buttons.mobile.dropdown.profile')}
                         </StateNavLink>
                     )}
 

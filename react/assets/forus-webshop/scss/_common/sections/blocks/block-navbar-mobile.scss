@@ -10,33 +10,42 @@
         align-items: center;
 
         & > .navbar-mobile-auth-buttons {
-            padding-top: 5px;
+            padding: 10px;
         }
     }
 
     .navbar-mobile-button {
         flex: 0 0 60px;
-        height: 50px;
+        height: 68px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        font: 600 9px / 14px var(--base-font);
+        font: 500 12px / 14px var(--base-font);
         outline-offset: -2px !important;
         border-radius: 6px;
         gap: 2px;
 
         .navbar-mobile-button-icon {
-            font-size: 16px;
+            font-size: 26px;
+            line-height: 26px;
+        }
+
+        &.active {
+            font-weight: 700;
         }
     }
 
     .navbar-mobile-logo {
         display: flex;
-        height: 30px;
         flex: 1 1 auto;
         flex-direction: row;
         justify-content: center;
+
+        img {
+            max-width: 140px;
+            max-height: 36px;
+        }
     }
 
     .navbar-mobile-lang {
@@ -60,8 +69,8 @@
         gap: 10px;
 
         .navbar-mobile-auth-button {
-            padding-top: 7px;
-            padding-bottom: 7px;
+            padding-top: 9px;
+            padding-bottom: 9px;
             margin: 0 0;
             flex: 0 0 calc(50% - 5px);
             box-shadow: none;

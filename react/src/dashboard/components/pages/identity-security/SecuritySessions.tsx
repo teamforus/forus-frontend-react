@@ -191,7 +191,7 @@ export default function SecuritySessions() {
                                     </div>
                                     <div className="session-property">
                                         <div className="session-property-label">Sessie gestart:</div>
-                                        <div className="session-property-value">{session.started_at_locale}</div>
+                                        <div className="session-property-value">{session.created_at_locale}</div>
                                     </div>
                                 </div>
 

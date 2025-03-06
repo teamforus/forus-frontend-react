@@ -11,6 +11,7 @@ RUN apk update \
     iputils \
     net-tools \
     mc \
+    nano \
     wget
 
 CMD tail -f /dev/null

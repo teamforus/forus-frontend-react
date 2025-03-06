@@ -705,11 +705,15 @@ export default {
             view: 'Bekijken',
         },
         empty_title: {
-            pending:
-                "Er zijn momenteel geen aanbieders die actie benodigd hebben. Bekijk de tabbladen 'Actief' en 'Inactief' om eerder beoordeelde aanbieders te bekijken.",
-            active: "Er zijn momenteel geen actieve aanbieders. Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
+            pending: 'Er zijn momenteel geen aanbieders die actie benodigd hebben.',
+            active: 'Er zijn momenteel geen actieve aanbieders.',
+            rejected: 'Er zijn momenteel geen inactieve aanbieders.',
+        },
+        empty_description: {
+            pending: "Bekijk de tabbladen 'Actief' en 'Inactief' om eerder beoordeelde aanbieders te bekijken.",
+            active: "Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
             rejected:
-                "Er zijn momenteel geen inactieve aanbieders. Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
+                "Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
         },
     },
 
@@ -776,6 +780,7 @@ export default {
         },
         labels: {
             without: 'Zonder organisatie',
+            no_results: 'Geen organisaties gevonden',
         },
         buttons: {
             add: 'Organisatie toevoegen',
@@ -876,6 +881,16 @@ export default {
             amount: 'Bedrag',
             has_reservations: 'Heeft reserveringen',
             funds: 'Fondsen',
+            city: 'Woonplaats',
+            has_bsn: 'BSN ingevuld',
+            postal_code: 'Postcode',
+            municipality: 'Gemeente',
+            birth_date_to: 'Geboortedatum tot',
+            birth_date_from: 'Geboortedatum van',
+            last_login_from: 'Laatste login van',
+            last_login_to: 'Laatste login tot',
+            last_activity_from: 'Laatste handeling van',
+            last_activity_to: 'Laatste handeling tot',
         },
     },
 

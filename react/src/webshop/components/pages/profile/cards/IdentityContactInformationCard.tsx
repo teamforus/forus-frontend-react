@@ -143,6 +143,22 @@ export default function IdentityContactInformationCard({
                                 <FormError error={form.errors?.[field]} />
                             </div>
                         ))}
+                        <div className="form-group">
+                            <label className="form-label">{recordTypesByKey?.neighborhood_name?.name}</label>
+                            <input
+                                className="form-control"
+                                disabled={true}
+                                value={profile.records.neighborhood_name?.[0]?.value || ''}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">{recordTypesByKey?.municipality_name?.name}</label>
+                            <input
+                                className="form-control"
+                                disabled={true}
+                                value={profile.records.municipality_name?.[0]?.value || ''}
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -225,6 +241,18 @@ export default function IdentityContactInformationCard({
                             {
                                 label: recordTypesByKey?.postal_code?.name,
                                 value: <IdentityRecordKeyValueListHistory records={profile.records.postal_code} />,
+                            },
+                            {
+                                label: recordTypesByKey?.neighborhood_name?.name,
+                                value: (
+                                    <IdentityRecordKeyValueListHistory records={profile.records.neighborhood_name} />
+                                ),
+                            },
+                            {
+                                label: recordTypesByKey?.municipality_name?.name,
+                                value: (
+                                    <IdentityRecordKeyValueListHistory records={profile.records.municipality_name} />
+                                ),
                             },
                         ]}
                     />

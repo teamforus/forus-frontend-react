@@ -302,6 +302,7 @@ export default function Search() {
                                 <SelectControl
                                     id="category_id"
                                     propKey="id"
+                                    multiline={true}
                                     allowSearch={true}
                                     value={filterValues.product_category_id}
                                     onChange={(id?: number) => filterUpdate({ product_category_id: id })}
@@ -318,6 +319,7 @@ export default function Search() {
                                 <SelectControl
                                     id="fund_id"
                                     propKey="id"
+                                    multiline={true}
                                     allowSearch={true}
                                     value={filterValues.fund_id}
                                     onChange={(id?: number) => filterUpdate({ fund_id: id })}
@@ -334,6 +336,7 @@ export default function Search() {
                                 <SelectControl
                                     id="organizations_id"
                                     propKey="id"
+                                    multiline={true}
                                     allowSearch={true}
                                     value={filterValues.organization_id}
                                     onChange={(id?: number) => filterUpdate({ organization_id: id })}
@@ -354,7 +357,9 @@ export default function Search() {
                                     {' ' + translate('search.filters.found_for', { query: filterValuesActive.q })}
                                 </Fragment>
                             )}
-                            <div className="showcase-filters-title-count">{searchItems?.meta?.total}</div>
+                            <div className="showcase-filters-title-count" data-nosnippet="true">
+                                {searchItems?.meta?.total}
+                            </div>
                         </div>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">

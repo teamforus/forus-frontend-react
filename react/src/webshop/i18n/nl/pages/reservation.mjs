@@ -38,7 +38,7 @@ export default {
         status: 'Status',
         refunded: 'Terugbetaald',
         date: 'Datum',
-        mount: 'Zelf bijbetaal',
+        amount: 'Zelf bijbetaal',
         method: 'Methode',
     },
     extra_amount_refund: {

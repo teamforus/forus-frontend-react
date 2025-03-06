@@ -207,7 +207,6 @@
                     },
                     "preferences_emails": "Email settings",
                     "preferences_notifications": "Notification preferences",
-                    "records": "Profile",
                     "reimbursements": "Cost recovery",
                     "reservations": "Reservations",
                     "schagen": {
@@ -227,7 +226,8 @@
                     },
                     "winterswijk": {
                         "funds": "Activate"
-                    }
+                    },
+                    "profile": "Data"
                 },
                 "groningen": {
                     "voucher": "My City Pass"
@@ -337,7 +337,8 @@
             "security_2fa": "Security",
             "security_sessions": "Sessions",
             "aria_label": "User menu",
-            "title": "Personal"
+            "title": "Personal",
+            "profile": "Data"
         },
         "main_menu": "Main menu",
         "open_home": "Back to main page",
@@ -348,6 +349,9 @@
             "hartvanwestbrabant": "Start application",
             "midden_drenthe": "Activate credit",
             "potjeswijzer": "Start application"
+        },
+        "language": {
+            "prefix": "Your language:"
         }
     },
     "auth_start": {
@@ -1264,8 +1268,8 @@
         },
         "description": "The Me app is a digital wallet and cash register in one. Municipalities use the Me app to issue credits. The app allows residents to easily manage their balances. Providers use the app to scan QR codes.",
         "download": {
-            "description": "Download the Me app from the app stores below. <a href=\"{{download_link}}\">Click here to directly</a> open <a href=\"{{download_link}}\">the appropriate app store</a> on your phone or tablet.",
-            "title": "Download Me on your phone or tablet"
+            "title": "Download Me on your phone or tablet",
+            "description": "Download the Me app from the app stores below. <a href=\"{{ download_link }}\">Click here to directly open the appropriate app store</a> on your phone or tablet."
         },
         "title": "About the Me app",
         "img_alt": "Me-app"
@@ -1613,7 +1617,10 @@
             },
             "title": "Activate my pass",
             "alt": "Physical pass: '{[ title ]}'",
-            "card_number": "Pass number"
+            "card_number": "Pass number",
+            "less_details": "Hide all details",
+            "more_details": "Show all details",
+            "personal_date": "Personal data"
         },
         "share_voucher": {
             "buttons": {
@@ -1636,25 +1643,6 @@
             },
             "reason_placeholder": "Message for provider",
             "close": "Close"
-        },
-        "voucher_card_combined": {
-            "header": {
-                "title": "How does it work?"
-            },
-            "labels": {
-                "contact_sponsor": "Do you have any questions?",
-                "contact_sponsor_details": "If so, please contact us.",
-                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                "IIT": {
-                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
-                    "redirect_to": "Do you still want to apply for reimbursement?"
-                },
-                "meedoenregeling_volwassenen_ww": {
-                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
-                    "redirect_to": "Reclaim expenses?"
-                },
-                "redirect_to": "Do you still want to apply for reimbursement?"
-            }
         },
         "breadcrumbs": {
             "home": "Home",
@@ -1726,6 +1714,25 @@
                 "expired": "Expired"
             },
             "title": "Expenditures"
+        },
+        "card_combined": {
+            "header": {
+                "title": "How does it work?"
+            },
+            "labels": {
+                "contact_sponsor": "Do you have any questions?",
+                "contact_sponsor_details": "If so, please contact us.",
+                "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                "IIT": {
+                    "how_it_works": "We have received your application. You will receive a decision on your application within 8 weeks.",
+                    "redirect_to": "Do you still want to apply for reimbursement?"
+                },
+                "meedoenregeling_volwassenen_ww": {
+                    "how_it_works": "Have you incurred expenses that fall within this scheme? Reclaim your expenses by submitting a receipt. After approval, you will receive the amount in your personal bank account.",
+                    "redirect_to": "Reclaim expenses?"
+                },
+                "redirect_to": "Do you still want to apply for reimbursement?"
+            }
         }
     },
     "vouchers": {
@@ -2182,7 +2189,8 @@
         "account": {
             "active_since": "Active since",
             "last_login": "Last login",
-            "title": "Account information"
+            "title": "Account information",
+            "last_activity": "Final act"
         },
         "bank_accounts": {
             "title": "Bank account",
@@ -2211,9 +2219,15 @@
         },
         "personal": {
             "bsn": "BSN",
-            "title": "Personal data"
+            "title": "Personal data",
+            "age": "Age"
         },
-        "title": "Data"
+        "title": "Data",
+        "household": {
+            "house_composition": "Family composition",
+            "living_arrangement": "Living Form",
+            "title": "Household"
+        }
     },
     "reimbursements": {
         "breadcrumbs": {
@@ -2758,9 +2772,9 @@
         "extra_amount": {
             "date": "Date",
             "method": "Method",
-            "mount": "Self additional payment",
             "refunded": "Refunded",
-            "status": "Status"
+            "status": "Status",
+            "amount": "Self additional payment"
         },
         "title": "Top-up data"
     },
@@ -3308,7 +3322,8 @@
             "go_to_reservation": "Go to reservation",
             "processing": "Process",
             "submit": "Submit",
-            "next": "Next"
+            "next": "Next",
+            "skip": "Skip"
         },
         "cancel": "Cancel",
         "choose_credit": "Choose the credit to pay with",
@@ -3340,7 +3355,6 @@
         },
         "description_formal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal information with the provider.",
         "description_formal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation. ",
-        "description_informal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you placing a reservation? Then you agree that we share your personal data with the provider.",
         "description_informal_time": "You can still cancel the reservation within {{ days_to_cancel }} days after confirmation.",
         "email_setup_description": "Add your email address to receive messages.",
         "email_setup_title": "Add email address",
@@ -3405,7 +3419,8 @@
             "description": "Your reservation has been made.",
             "title": "It worked!"
         },
-        "voucher_image_alt": "Credit"
+        "voucher_image_alt": "Credit",
+        "description_informal": "You use your <strong>{{fund}}</strong> credit for this reservation.<br/>Are you making a reservation? Then you agree that we share your personal data with the provider."
     },
     "modal_logout": {
         "description_formal": "Are you sure you want to log out?",

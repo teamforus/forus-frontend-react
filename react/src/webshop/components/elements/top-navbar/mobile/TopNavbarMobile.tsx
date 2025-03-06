@@ -6,7 +6,6 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { useStateRoutes } from '../../../../modules/state_router/Router';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
-import useLangSelector from '../../../../hooks/useLangSelector';
 import classNames from 'classnames';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import TopNavbarMobileMenu from './TopNavbarMobileMenu';
@@ -50,8 +49,6 @@ export const TopNavbarMobile = () => {
         [setMobileMenuOpened, setShowSearchBox],
     );
 
-    const langSelector = useLangSelector();
-
     return (
         <div className="block block-navbar-mobile">
             {appConfigs?.announcements && (
@@ -90,11 +87,9 @@ export const TopNavbarMobile = () => {
                     />
                 </StateNavLink>
 
-                <div className="navbar-mobile-lang">{langSelector}</div>
-
                 {envData.config?.flags?.genericSearch ? (
                     <div
-                        className="navbar-mobile-button"
+                        className={classNames('navbar-mobile-button', showSearchBox && 'active')}
                         onClick={(e) => {
                             e.stopPropagation();
                             toggleSearchBox(e);

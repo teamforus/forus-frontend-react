@@ -335,13 +335,13 @@ export default function FundRequest() {
                 files: [],
                 label:
                     control_type === 'ui_control_checkbox'
-                        ? item.label || 'Ik verklaar aan de bovenstaande voorwaarden te voldoen'
+                        ? item.label || translate('fund_request.sign_up.record_checkbox.default')
                         : '',
                 input_value: fundService.getCriterionControlDefaultValue(item.record_type, item.operator),
                 control_type,
             };
         },
-        [criterionTitle, fundService],
+        [criterionTitle, fundService, translate],
     );
 
     const buildSteps = useCallback(() => {
