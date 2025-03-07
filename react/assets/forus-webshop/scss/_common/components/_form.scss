@@ -1084,6 +1084,14 @@
             &.has-info-btn {
                 .form-control:not([type='radio']):not([type='checkbox']) {
                     padding-right: 45px;
+
+                    &.select-control {
+                        .select-control-input {
+                            .select-control-icon {
+                                right: 45px;
+                            }
+                        }
+                    }
                 }
             }
         }
