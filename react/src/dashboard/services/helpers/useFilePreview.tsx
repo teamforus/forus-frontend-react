@@ -2,14 +2,13 @@ import React, { useCallback } from 'react';
 import ModalPdfPreview from '../../components/modals/ModalPdfPreview';
 import ModalImagePreview from '../../components/modals/ModalImagePreview';
 import useOpenModal from '../../hooks/useOpenModal';
-import usePushDanger from '../../hooks/usePushDanger';
 import File from '../../props/models/File';
 import { useFileService } from '../FileService';
-import { ResponseError } from '../../props/ApiResponses';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function useFilePreview() {
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const fileService = useFileService();
 
@@ -21,11 +20,11 @@ export default function useFilePreview() {
                     .then((res) => {
                         openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
                     })
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message));
+                    .catch(pushApiError);
             } else if (['png', 'jpeg', 'jpg'].includes(file.ext)) {
                 openModal((modal) => <ModalImagePreview modal={modal} imageSrc={file.url} />);
             }
         },
-        [fileService, openModal, pushDanger],
+        [fileService, openModal, pushApiError],
     );
 }

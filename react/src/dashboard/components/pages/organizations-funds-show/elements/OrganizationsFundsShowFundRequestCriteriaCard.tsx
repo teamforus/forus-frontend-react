@@ -1,14 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import Fund from '../../../../props/models/Fund';
-import { ResponseError } from '../../../../props/ApiResponses';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import { useFundService } from '../../../../services/FundService';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import FundCriteriaEditor from '../../../elements/fund-criteria-editor/FundCriteriaEditor';
 import RecordType from '../../../../props/models/RecordType';
 import FundCriterion from '../../../../props/models/FundCriterion';
 import classNames from 'classnames';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function OrganizationsFundsShowFundRequestCriteriaCard({
     fund,
@@ -19,9 +18,9 @@ export default function OrganizationsFundsShowFundRequestCriteriaCard({
     setFund: React.Dispatch<React.SetStateAction<Fund>>;
     recordTypes: Array<RecordType>;
 }) {
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
 
@@ -37,10 +36,10 @@ export default function OrganizationsFundsShowFundRequestCriteriaCard({
                     fund.criteria = Object.assign(fund.criteria, res.data.data.criteria);
                     pushSuccess('Opgeslagen!');
                 })
-                .catch((err: ResponseError) => pushDanger(err.data.message || 'Error!'))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [fund, fundService, pushDanger, pushSuccess, setProgress],
+        [fund, fundService, pushApiError, pushSuccess, setProgress],
     );
 
     return (

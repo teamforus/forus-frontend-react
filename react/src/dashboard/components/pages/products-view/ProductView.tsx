@@ -9,8 +9,7 @@ import useProductChatService from '../../../services/ProductChatService';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useOpenModal from '../../../hooks/useOpenModal';
 import Product from '../../../props/models/Product';
-import { PaginationData } from '../../../props/ApiResponses';
-import usePushDanger from '../../../hooks/usePushDanger';
+import { PaginationData, ResponseError } from '../../../props/ApiResponses';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useFilter from '../../../hooks/useFilter';
 import ModalNotification from '../../modals/ModalNotification';
@@ -22,6 +21,7 @@ import ProductDetailsBlock from './elements/ProductDetailsBlock';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import ProductFund from '../../../props/models/ProductFund';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -46,8 +46,8 @@ export default function ProductView() {
     const [fundToggles, setFundToggles] = useState({});
     const [paginatorKey] = useState('product_funds');
 
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const filter = useFilter({
         q: '',
@@ -87,9 +87,9 @@ export default function ProductView() {
             productService
                 .updateExclusions(product.organization_id, product.id, values)
                 .then(() => pushSuccess('Opgeslagen!'))
-                .catch(() => pushDanger('Fout! Er ging iets mis.'));
+                .catch((err: ResponseError) => pushApiError(err));
         },
-        [product, productService, pushDanger, pushSuccess],
+        [product, productService, pushApiError, pushSuccess],
     );
 
     const mapFundsWithChats = useCallback(

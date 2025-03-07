@@ -7,8 +7,8 @@ import FormError from '../../../elements/forms/errors/FormError';
 import { useFundService } from '../../../../services/FundService';
 import { ResponseError } from '../../../../props/ApiResponses';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useSetProgress from '../../../../hooks/useSetProgress';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function OrganizationsFundsShowConfigsCard({
     fund,
@@ -17,9 +17,9 @@ export default function OrganizationsFundsShowConfigsCard({
     fund: Fund;
     setFund: React.Dispatch<React.SetStateAction<Fund>>;
 }) {
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
 
@@ -80,7 +80,7 @@ export default function OrganizationsFundsShowConfigsCard({
                     });
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding.');
+                    pushApiError(err);
                     form.setErrors(err.data.errors);
                 })
                 .finally(() => {

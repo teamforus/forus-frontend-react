@@ -43,6 +43,7 @@ import Media from '../../../props/models/Media';
 import RecordType from '../../../props/models/RecordType';
 import FaqEditor from '../../elements/faq-editor-funds/FaqEditor';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -55,6 +56,7 @@ export default function OrganizationsFundsEdit() {
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
 
     const tagService = useTagService();
@@ -156,11 +158,11 @@ export default function OrganizationsFundsEdit() {
                 .store('fund_logo', mediaFile)
                 .then((res) => res.data?.data)
                 .catch((err: ResponseError) => {
-                    pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding!');
+                    pushApiError(err);
                     return null;
                 });
         },
-        [mediaService, pushDanger],
+        [mediaService, pushApiError],
     );
 
     const form = useFormBuilder<{

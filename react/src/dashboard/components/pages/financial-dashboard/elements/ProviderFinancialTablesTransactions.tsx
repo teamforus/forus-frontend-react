@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ThSortable from '../../../elements/tables/ThSortable';
 import { strLimit } from '../../../../helpers/string';
 import Transaction from '../../../../props/models/Transaction';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
+import { PaginationData } from '../../../../props/ApiResponses';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import useEnvData from '../../../../hooks/useEnvData';
@@ -12,10 +12,10 @@ import Organization from '../../../../props/models/Organization';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTransactionService from '../../../../services/TransactionService';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ProviderFinancialTablesTransactions({
     provider,
@@ -29,8 +29,8 @@ export default function ProviderFinancialTablesTransactions({
     const envData = useEnvData();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
 
     const paginatorService = usePaginatorService();
@@ -66,7 +66,7 @@ export default function ProviderFinancialTablesTransactions({
         transactionService
             .list(panelType, organization.id, { ...externalFilters, ...filter.activeValues })
             .then((res) => setTransactions(res.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
     }, [
         setProgress,
@@ -75,7 +75,7 @@ export default function ProviderFinancialTablesTransactions({
         organization.id,
         filter?.activeValues,
         externalFilters,
-        pushDanger,
+        pushApiError,
     ]);
 
     useEffect(() => {

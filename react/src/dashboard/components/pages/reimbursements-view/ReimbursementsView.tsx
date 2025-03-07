@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useOpenModal from '../../../hooks/useOpenModal';
@@ -15,12 +14,13 @@ import TransactionDetails from '../transactions-view/elements/TransactionDetails
 import { hasPermission } from '../../../helpers/utils';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
-import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
+import { ApiResponseSingle } from '../../../props/ApiResponses';
 import ModalReimbursementResolve from '../../modals/ModalReimbursementResolve';
 import ModalReimbursementDetailsEdit from '../../modals/ModalReimbursementDetailsEdit';
 import useFilePreview from '../../../services/helpers/useFilePreview';
 import { useFileService } from '../../../services/FileService';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ReimbursementsView() {
     const { id } = useParams();
@@ -30,10 +30,10 @@ export default function ReimbursementsView() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const filePreview = useFilePreview();
+    const pushApiError = usePushApiError();
 
     const fileService = useFileService();
     const reimbursementService = useReimbursementsService();
@@ -52,9 +52,9 @@ export default function ReimbursementsView() {
         reimbursementService
             .show(activeOrganization.id, parseInt(id))
             .then((res) => setReimbursement(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, reimbursementService, activeOrganization.id, id, pushDanger]);
+    }, [setProgress, reimbursementService, activeOrganization.id, id, pushApiError]);
 
     const handleOnReimbursementUpdated = useCallback(
         (promise: Promise<ApiResponseSingle<Reimbursement>>, successMessage: string = null) => {
@@ -65,12 +65,10 @@ export default function ReimbursementsView() {
                     setReimbursement(res.data.data);
                     pushSuccess('Success!', successMessage);
                 })
-                .catch((err: ResponseError) => {
-                    pushDanger(err.data?.title || 'Foutmelding!', err.data?.message || 'Onbekende foutmelding!');
-                })
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [pushDanger, pushSuccess, setProgress],
+        [pushApiError, pushSuccess, setProgress],
     );
 
     const assign = useCallback(() => {
@@ -109,10 +107,10 @@ export default function ReimbursementsView() {
             fileService
                 .download(file)
                 .then((res) => fileService.downloadFile(file.original_name, res.data))
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [fileService, pushDanger, setProgress],
+        [fileService, pushApiError, setProgress],
     );
 
     const hasFilePreview = useCallback((file) => {

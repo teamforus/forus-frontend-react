@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { strLimit } from '../../../../helpers/string';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
+import { PaginationData } from '../../../../props/ApiResponses';
 import Organization, { SponsorProviderOrganization } from '../../../../props/models/Organization';
 import ProvidersTableItemFunds from './ProvidersTableItemFunds';
 import { useOrganizationService } from '../../../../services/OrganizationService';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useFilter from '../../../../hooks/useFilter';
 import FundProvider from '../../../../props/models/FundProvider';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import useTranslate from '../../../../hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableRowActions from '../../../elements/tables/TableRowActions';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ProvidersTableItem({
     organization,
@@ -20,8 +20,8 @@ export default function ProvidersTableItem({
     providerOrganization: SponsorProviderOrganization;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const organizationService = useOrganizationService();
 
@@ -36,9 +36,9 @@ export default function ProvidersTableItem({
         organizationService
             .listProviders(organization.id, filter.activeValues)
             .then((res) => setFundProviders(res.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [filter.activeValues, organization.id, organizationService, pushDanger, setProgress]);
+    }, [filter.activeValues, organization.id, organizationService, pushApiError, setProgress]);
 
     useEffect(() => {
         if (showFundProviders) {

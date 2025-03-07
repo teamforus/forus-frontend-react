@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
 import useMakeExporterService from './useMakeExporterService';
 import { useFundService } from '../FundService';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function useFundIdentitiesExportService() {
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
     const { makeSections, saveExportedData } = useMakeExporterService();
@@ -25,7 +25,7 @@ export default function useFundIdentitiesExportService() {
                 fundService
                     .exportIdentities(organization_id, fund_id, queryFilters)
                     .then((res) => saveExportedData(data, organization_id, res))
-                    .catch((res) => pushDanger('Mislukt!', res.data.message))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
@@ -35,7 +35,7 @@ export default function useFundIdentitiesExportService() {
                 ));
             });
         },
-        [makeSections, openModal, pushDanger, saveExportedData, setProgress, fundService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, fundService],
     );
 
     return { exportData };

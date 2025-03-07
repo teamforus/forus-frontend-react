@@ -20,6 +20,7 @@ import MollieConnectionProfileDetails from './elements/MollieConnectionProfileDe
 import MollieConnectionForm from './elements/MollieConnectionForm';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function PaymentMethods() {
     const activeOrganization = useActiveOrganization();
@@ -30,6 +31,7 @@ export default function PaymentMethods() {
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const [loaded, setLoaded] = useState(false);
     const [privacy, setPrivacy] = useState(false);
@@ -38,12 +40,10 @@ export default function PaymentMethods() {
     const [fetchingMollieAccount, setFetchingMollieAccount] = useState(false);
 
     const onResponseError = useCallback(
-        (err: ResponseError & ResponseErrorThrottled, fallbackMessage = 'Onbekende foutmelding!') => {
-            return err.status === 429
-                ? pushDanger(err.data.meta.title, err.data.meta.message)
-                : pushDanger('Mislukt!', err.data?.message || fallbackMessage);
+        (err: ResponseError & ResponseErrorThrottled) => {
+            return err.status === 429 ? pushDanger(err.data.meta.title, err.data.meta.message) : pushApiError(err);
         },
-        [pushDanger],
+        [pushDanger, pushApiError],
     );
 
     const connect = useCallback(() => {
