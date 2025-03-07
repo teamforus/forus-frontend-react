@@ -258,8 +258,10 @@ export default function VouchersShow() {
     );
 
     useEffect(() => {
-        fetchVoucher();
-    }, [fetchVoucher]);
+        if (authIdentity) {
+            fetchVoucher();
+        }
+    }, [fetchVoucher, authIdentity]);
 
     useEffect(() => {
         if (voucher && !voucher.product && ['budget', 'subsidies'].includes(voucher?.fund?.type)) {
