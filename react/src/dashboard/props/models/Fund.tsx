@@ -45,6 +45,7 @@ export default interface Fund {
     fund_amount_locale?: string;
     type?: 'budget' | 'subsidies' | 'external';
     allow_direct_payments?: boolean;
+    fund_form_id?: number;
     archived?: boolean;
     expired?: boolean;
     request_btn_text?: string;

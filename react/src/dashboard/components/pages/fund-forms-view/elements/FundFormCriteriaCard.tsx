@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import Fund from '../../../../props/models/Fund';
 import { useFundService } from '../../../../services/FundService';
@@ -6,10 +6,9 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import FundCriteriaEditor from '../../../elements/fund-criteria-editor/FundCriteriaEditor';
 import RecordType from '../../../../props/models/RecordType';
 import FundCriterion from '../../../../props/models/FundCriterion';
-import classNames from 'classnames';
 import usePushApiError from '../../../../hooks/usePushApiError';
 
-export default function OrganizationsFundsShowFundRequestCriteriaCard({
+export default function FundFormCriteriaCard({
     fund,
     setFund,
     recordTypes,
@@ -23,8 +22,6 @@ export default function OrganizationsFundsShowFundRequestCriteriaCard({
     const pushApiError = usePushApiError();
 
     const fundService = useFundService();
-
-    const [collapsed, setCollapsed] = useState(true);
 
     const saveCriteria = useCallback(
         (criteria: Array<FundCriterion>) => {
@@ -43,32 +40,12 @@ export default function OrganizationsFundsShowFundRequestCriteriaCard({
     );
 
     return (
-        <div className="block block-collapsable form">
-            <div className="collapsable-header" onClick={() => setCollapsed(!collapsed)}>
-                <em
-                    className={classNames(
-                        'collapsable-header-icon',
-                        'mdi',
-                        collapsed ? 'mdi-menu-right' : 'mdi-menu-down',
-                    )}
-                />
-
-                <div className="collapsable-header-title">Voorwaarden bewerken</div>
-
-                {!collapsed ? (
-                    <div className="button button-default button-sm" onClick={() => setCollapsed(true)}>
-                        <em className="mdi mdi-arrow-collapse-vertical icon-start" />
-                        Inklappen
-                    </div>
-                ) : (
-                    <div className="button button-primary button-sm" onClick={() => setCollapsed(false)}>
-                        <em className="mdi mdi-arrow-expand-vertical icon-start" />
-                        Uitklappen
-                    </div>
-                )}
+        <div className="card form">
+            <div className="card-header">
+                <div className="card-title">Voorwaarden bewerken</div>
             </div>
 
-            {!collapsed && (
+            <div className="card-section card-section-primary">
                 <FundCriteriaEditor
                     fund={fund}
                     organization={fund.organization}
@@ -78,11 +55,10 @@ export default function OrganizationsFundsShowFundRequestCriteriaCard({
                     setCriteria={(criteria) => setFund({ ...fund, criteria })}
                     saveButton={true}
                     onSaveCriteria={saveCriteria}
-                    className={'flex-gap-none'}
                     bodyClassName={'collapsable-body'}
                     footerClassName={'collapsable-footer'}
                 />
-            )}
+            </div>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import Fund from '../../../../props/models/Fund';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
-import TableDateTime from '../../../elements/tables/elements/TableDateTime';
+import Fund from '../../../../../props/models/Fund';
+import EmptyCard from '../../../../elements/empty-card/EmptyCard';
+import TableDateTime from '../../../../elements/tables/elements/TableDateTime';
 
 export default function OrganizationsFundsShowFormulasCard({ fund }: { fund: Fund }) {
     return (
