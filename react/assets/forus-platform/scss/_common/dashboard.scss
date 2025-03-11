@@ -957,6 +957,8 @@ body {
                     align-items: center;
 
                     .form-control:not(.select-control) {
+                        min-height: auto !important;
+
                         &:not([type='radio']):not([type='checkbox']) {
                             height: 30px;
                             padding: 0 10px;
@@ -970,7 +972,7 @@ body {
                     }
 
                     .select-control {
-                        height: auto;
+                        min-height: auto !important;
 
                         .form-control:not([type='radio']):not([type='checkbox']) {
                             padding-right: 30px;
