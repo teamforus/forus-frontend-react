@@ -39,6 +39,27 @@ export default {
             state: 'Status',
         },
     },
+    organization_funds_forms: {
+        columns: {
+            name: 'Name',
+            fund: 'Fund',
+            steps: 'Nr. of steps',
+            status: 'Status',
+            created_at: 'Created on',
+        },
+        tooltips: {
+            name: 'Name',
+            fund: 'Fund',
+            steps: 'Nr. of steps',
+            status: 'Status',
+            created_at: 'Created on',
+        },
+        filters: {
+            search: 'Zoeken',
+            implementation: 'Implementatie',
+            state: 'Status',
+        },
+    },
     fund_criteria_editor: {
         buttons: {
             add_criteria: 'Voeg nieuwe voorwaarden toe',

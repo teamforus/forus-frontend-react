@@ -8,6 +8,7 @@ export default function TableEntityMain({
     media = false,
     mediaSize = 'sm',
     mediaRound = true,
+    mediaBorder = true,
     mediaPlaceholder,
     title,
     subtitle,
@@ -17,7 +18,8 @@ export default function TableEntityMain({
     media?: Media | false;
     mediaSize?: 'sm' | 'md';
     mediaRound?: boolean;
-    mediaPlaceholder?: 'fund' | 'organization' | 'product';
+    mediaBorder?: boolean;
+    mediaPlaceholder?: 'fund' | 'organization' | 'product' | 'form';
     title: string;
     subtitle?: string;
     collapsed?: boolean;
@@ -27,6 +29,7 @@ export default function TableEntityMain({
 
     const thumbnailUrl = useMemo(() => {
         const thumbnails = {
+            form: assetUrl('/assets/img/icon-fund-form.svg'),
             fund: assetUrl('/assets/img/placeholders/fund-thumbnail.png'),
             product: assetUrl('/assets/img/placeholders/product-thumbnail.png'),
             organization: assetUrl('/assets/img/placeholders/organization-thumbnail.png'),
@@ -51,6 +54,7 @@ export default function TableEntityMain({
                             mediaSize === 'sm' && 'td-media-sm',
                             mediaSize === 'md' && 'td-media-md',
                             mediaRound && 'td-media-round',
+                            !mediaBorder && 'td-media-borderless',
                         )}
                         src={media?.sizes.thumbnail || thumbnailUrl}
                         alt={''}

@@ -1,4 +1,4 @@
-import React, { createRef, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { createRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Fund from '../../../props/models/Fund';
 import Organization from '../../../props/models/Organization';
 import RecordType from '../../../props/models/RecordType';
@@ -26,7 +26,6 @@ export default function FundCriteriaEditor({
     recordTypes,
     saveButton,
     onSaveCriteria,
-    saveCriteriaRef,
     className,
     bodyClassName,
     footerClassName,
@@ -39,7 +38,6 @@ export default function FundCriteriaEditor({
     recordTypes: Array<RecordType>;
     saveButton?: boolean;
     onSaveCriteria?: (criteria: Array<FundCriterion>) => void;
-    saveCriteriaRef?: MutableRefObject<() => Promise<Array<FundCriterion>> | null>;
     className?: string;
     bodyClassName?: string;
     footerClassName?: string;
@@ -152,12 +150,6 @@ export default function FundCriteriaEditor({
             });
         });
     }, [criteria]);
-
-    useEffect(() => {
-        if (saveCriteriaRef) {
-            saveCriteriaRef.current = saveCriteria;
-        }
-    }, [saveCriteria, saveCriteriaRef]);
 
     return (
         <div className={classNames('block block-criteria-editor', className)} ref={elementRef}>

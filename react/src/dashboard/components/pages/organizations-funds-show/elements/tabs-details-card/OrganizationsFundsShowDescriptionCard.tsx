@@ -1,6 +1,6 @@
 import React from 'react';
-import Fund from '../../../../props/models/Fund';
-import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
+import Fund from '../../../../../props/models/Fund';
+import TranslateHtml from '../../../../elements/translate-html/TranslateHtml';
 
 export default function OrganizationsFundsShowDescriptionCard({ fund }: { fund: Fund }) {
     return (
