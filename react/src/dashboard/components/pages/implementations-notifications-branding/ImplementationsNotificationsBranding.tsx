@@ -144,7 +144,7 @@ export default function ImplementationsNotificationsBranding() {
 
             <div className="card card-collapsed">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">Huisstijl</div>
                     </div>
                     <div className="card-section card-section-primary">

@@ -117,7 +117,7 @@ export default function ImplementationsDigid() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">DigiD instellingen</div>
                     </div>
 

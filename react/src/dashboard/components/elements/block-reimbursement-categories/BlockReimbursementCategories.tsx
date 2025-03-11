@@ -121,7 +121,7 @@ export default function BlockReimbursementCategories({
     return (
         <div className="card card-last">
             {!compact && (
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">
                         {categories?.meta
                             ? `Declaratie categorieën (${categories?.meta.total})`

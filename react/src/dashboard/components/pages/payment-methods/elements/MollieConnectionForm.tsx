@@ -80,7 +80,7 @@ export default function MollieConnectionForm({
     return (
         <div className="card">
             <form className="form" onSubmit={form.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">{translate('mollie_connection.header_create.title')}</div>
                 </div>
 

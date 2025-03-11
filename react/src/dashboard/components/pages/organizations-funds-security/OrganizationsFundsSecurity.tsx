@@ -109,7 +109,7 @@ export default function OrganizationsFundsSecurity() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">Tweefactorauthenticatie voor aanvragers</div>
                     </div>
 

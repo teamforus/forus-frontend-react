@@ -462,7 +462,7 @@ export default function FundProviderProductView() {
                 product.deals_history.length > 0 &&
                 (fund.type == 'subsidies' || showHistory || productHasLimits) && (
                     <div className="card">
-                        <div className="card-header card-header-next">
+                        <div className="card-header">
                             <div className="card-title">{`Lopende en verlopen acties op: ${product.name}`}</div>
                         </div>
                         <div className="card-section card-section-padless">

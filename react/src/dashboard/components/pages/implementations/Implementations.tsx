@@ -57,7 +57,7 @@ export default function Implementations() {
 
     return (
         <div className="card card-collapsed">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">Webshops</div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters form">

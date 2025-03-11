@@ -96,7 +96,7 @@ export default function MollieConnectionProfileDetails({
         <Fragment>
             {mollieConnection.profile_active ? (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="flex flex-grow card-title">
                             {translate('mollie_connection.titles.current_profile_information')}
                         </div>
@@ -138,7 +138,7 @@ export default function MollieConnectionProfileDetails({
             ) : (
                 <div className="card">
                     <form className="form" onSubmit={form.submit}>
-                        <div className="card-header card-header-next">
+                        <div className="card-header">
                             <div className="flex flex-grow card-title">
                                 {translate('mollie_connection.header_update_profile.title')}
                             </div>

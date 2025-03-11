@@ -131,7 +131,7 @@ export default function SystemNotificationEditor({
     return (
         <div className="block block-system-notification-editor">
             <div className="card card-collapsed">
-                <div className={`card-header card-header-next ${notification.enable_all ? '' : 'card-header-danger'}`}>
+                <div className={`card-header ${notification.enable_all ? '' : 'card-header-danger'}`}>
                     <div className={`flex flex-grow card-title ${notification.enable_all ? '' : 'text-muted-dark'}`}>
                         <em className="mdi mdi-web" />
                         <span>{notification.title}</span>

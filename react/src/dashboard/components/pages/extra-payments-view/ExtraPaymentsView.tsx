@@ -94,7 +94,7 @@ export default function ExtraPaymentsView() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-vertical">
                         <div className="card-title">
                             <div className="flex-grow">

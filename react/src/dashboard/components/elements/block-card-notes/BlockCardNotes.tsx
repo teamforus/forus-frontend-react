@@ -120,7 +120,7 @@ export default function BlockCardNotes({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('notes.header.title')}({notes.meta.total})
                 </div>

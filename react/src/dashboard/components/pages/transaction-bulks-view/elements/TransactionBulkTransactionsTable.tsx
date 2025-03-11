@@ -79,7 +79,7 @@ export default function TransactionBulkTransactionsTable({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">
                     {`${translate('transactions.header.title')} (${transactions.meta.total})`}
                 </div>

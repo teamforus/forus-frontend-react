@@ -133,7 +133,7 @@ export default function ImplementationsConfig() {
             </div>
 
             <form className="card form" onSubmit={form.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">{translate('implementation_edit.header.title')}</div>
 
                     <div className="card-header-filters">

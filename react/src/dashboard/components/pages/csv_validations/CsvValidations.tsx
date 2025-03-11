@@ -63,7 +63,7 @@ export default function CsvValidations() {
     return (
         <Fragment>
             <div className="card form">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex-grow">{translate('csv_validation.header.title')}</div>
 
                     <div className="card-header-filters">

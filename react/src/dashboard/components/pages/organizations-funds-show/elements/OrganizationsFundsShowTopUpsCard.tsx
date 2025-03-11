@@ -72,7 +72,7 @@ export default function OrganizationsFundsShowTopUpsCard({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow">
                     <div className="card-title">
                         {translate(`funds_show.titles.${viewType}`)}

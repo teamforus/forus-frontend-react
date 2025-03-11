@@ -7,7 +7,7 @@ export default function ReservationExtraPaymentRefunds({ refunds }: { refunds: A
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title">
                     <span>{translate('reservation.header.refunds.title')}</span>
                     &nbsp;

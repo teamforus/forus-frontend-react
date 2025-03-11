@@ -251,7 +251,7 @@ export default function SponsorProviderOrganizations() {
             )}
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="card-title flex flex-grow">
                             {translate('provider_organizations.header.title')} ({providerOrganizations.meta.total})

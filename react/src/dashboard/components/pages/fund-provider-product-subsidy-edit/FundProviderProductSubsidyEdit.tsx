@@ -255,7 +255,7 @@ export default function FundProviderProductSubsidyEdit() {
 
             {readOnly ? (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">Subsidie starten</div>
                     </div>
                     <div className="card-section card-section-primary form">

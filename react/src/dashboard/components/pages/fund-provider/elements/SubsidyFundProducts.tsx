@@ -86,7 +86,7 @@ export default function SubsidyFundProducts({
 
     return (
         <div className="card form">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">Aanbod in beheer van {fundProvider.organization.name}</div>
 
                 <div className="card-header-filters">

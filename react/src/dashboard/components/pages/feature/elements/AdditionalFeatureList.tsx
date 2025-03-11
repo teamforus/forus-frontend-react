@@ -21,7 +21,7 @@ export default function AdditionalFeatureList({
 
     return (
         <Fragment>
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title">Andere functionaliteiten die u misschien interessant vindt</div>
             </div>
             <div className="card-section">

@@ -361,7 +361,7 @@ export default function Reservations() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="reservationsTitle">
                     {translate('reservations.header.title')} ({reservations?.meta?.total})
                 </div>

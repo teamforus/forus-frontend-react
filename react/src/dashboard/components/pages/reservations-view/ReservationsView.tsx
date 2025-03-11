@@ -172,7 +172,7 @@ export default function ReservationsView() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="flex flex-vertical">
                             <div className="card-title">
@@ -312,7 +312,7 @@ export default function ReservationsView() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Gegevens</div>
                 </div>
                 <div className="card-section">

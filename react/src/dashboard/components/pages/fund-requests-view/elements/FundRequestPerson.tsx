@@ -78,7 +78,7 @@ export default function FundRequestPerson({
 
     return (
         <div>
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">Persoonlijke gegevens &nbsp;</div>
 
                 <div className="card-header-filters">

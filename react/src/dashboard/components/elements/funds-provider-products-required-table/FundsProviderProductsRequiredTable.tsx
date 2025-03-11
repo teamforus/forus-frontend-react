@@ -17,9 +17,7 @@ export default function FundsProviderProductsRequiredTable({
 
     return (
         <div className="card card-no-shadow card-bordered card-overflow-hidden">
-            <div
-                className="card-header card-header-next card-header-md clickable"
-                onClick={() => setShowFunds(!showFunds)}>
+            <div className="card-header card-header-md clickable" onClick={() => setShowFunds(!showFunds)}>
                 <div className="card-title">
                     <div className={`mdi ${showFunds ? 'mdi-menu-down' : 'mdi-menu-right'}`} />
                     <div>Fondsen die vereisen dat u een aanbod plaatst ({funds.length})</div>

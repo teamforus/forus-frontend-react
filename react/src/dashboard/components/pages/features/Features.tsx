@@ -155,7 +155,7 @@ export default function Features() {
                 </div>
             </div>
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow">Onze functionaliteiten</div>
                     <div className="card-header-filters">
                         <div className="block block-inline-filters">

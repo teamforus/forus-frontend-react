@@ -28,7 +28,7 @@ export default function Digid({
     return (
         <Fragment>
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Beschrijving</div>
                 </div>
                 <div className="card-section">

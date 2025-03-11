@@ -26,7 +26,7 @@ export default function BackofficeApi({
     return (
         <Fragment>
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Beschrijving</div>
                 </div>
                 <div className="card-section">
@@ -156,7 +156,7 @@ export default function BackofficeApi({
                 </div>
             </div>
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Veelgestelde vragen</div>
                 </div>
                 <div className="card-section card-section-padless">

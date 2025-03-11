@@ -94,7 +94,7 @@ export default function ReservationExtraPaymentDetails({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">Transactie details van de bijbetaling</div>
 
                 {isProvider && (

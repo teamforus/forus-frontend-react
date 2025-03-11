@@ -322,7 +322,7 @@ export default function TransactionBulksView() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">
                         {translate('financial_dashboard_transaction.labels.details')}
                     </div>

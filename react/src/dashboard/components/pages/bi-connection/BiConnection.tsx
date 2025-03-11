@@ -262,7 +262,7 @@ export default function BiConnection() {
 
             <div className="card">
                 <form className="form">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">{translate('bi_connection.title')}</div>
                         <BlockLabelTabs
                             value={filterValues.view_type}

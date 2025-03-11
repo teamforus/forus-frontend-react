@@ -85,7 +85,7 @@ export default function BlockCardEmails({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">
                     Berichten&nbsp;
                     <span className="span-count">{emailLogs?.meta?.total}</span>

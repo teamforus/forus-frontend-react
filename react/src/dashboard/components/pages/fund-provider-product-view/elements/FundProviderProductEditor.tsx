@@ -105,7 +105,7 @@ export default function FundProviderProductEditor({
     return (
         <div className="card">
             <form className="form" onSubmit={form.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">Subsidie starten</div>
 
                     {deal?.active && onReset && (

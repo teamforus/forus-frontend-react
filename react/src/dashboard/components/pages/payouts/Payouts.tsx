@@ -158,7 +158,7 @@ export default function Payouts() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('payouts.header.title')} ({transactions.meta.total})
                 </div>

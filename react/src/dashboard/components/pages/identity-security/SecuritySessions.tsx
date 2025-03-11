@@ -154,7 +154,7 @@ export default function SecuritySessions() {
 
     return (
         <div className={'card'}>
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title">Huidige sessies</div>
             </div>
             <div className="card-section card-section-padless">

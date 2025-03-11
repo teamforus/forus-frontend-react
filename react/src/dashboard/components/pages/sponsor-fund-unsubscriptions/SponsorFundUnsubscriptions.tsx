@@ -91,7 +91,7 @@ export default function SponsorFundUnsubscriptions() {
             </StateNavLink>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow">Afmeldingen ({fundUnsubscribes.meta.total})</div>
                     <div className="card-header-filters">
                         <div className="block block-label-tabs pull-right">

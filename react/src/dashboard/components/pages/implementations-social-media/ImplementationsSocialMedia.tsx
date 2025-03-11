@@ -184,7 +184,7 @@ export default function ImplementationsSocialMedia() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">
                         <div className="card-title">{`Social media links (${socialMedias.meta.total})`}</div>
                     </div>

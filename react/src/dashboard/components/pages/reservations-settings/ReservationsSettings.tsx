@@ -96,7 +96,7 @@ export default function ReservationsSettings() {
                 <div className="breadcrumb-item active">Reservering instellingen</div>
             </div>
             <form className="card form" onSubmit={form.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">{translate('reservation_settings.header.title')}</div>
                     <div className="card-header-filters">
                         <div className="block block-inline-filters">

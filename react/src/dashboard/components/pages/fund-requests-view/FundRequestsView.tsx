@@ -471,7 +471,7 @@ export default function FundRequestsView() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow flex-gap">
                         <Icon />
 
@@ -662,7 +662,7 @@ export default function FundRequestsView() {
 
             {fundRequestMeta.note && (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">{translate('validation_requests.labels.note_title')}</div>
                     </div>
                     <div className="card-section">
@@ -676,7 +676,7 @@ export default function FundRequestsView() {
             )}
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">
                         {translate('validation_requests.labels.records')} ({fundRequestMeta.records.length})
                     </div>

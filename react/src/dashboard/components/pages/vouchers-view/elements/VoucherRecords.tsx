@@ -102,7 +102,7 @@ export default function VoucherRecords({ voucher, organization }: { voucher: Vou
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">
                     {translate('voucher_records.header.title')}
                     {records.meta ? ` (${records.meta.total})` : ''}

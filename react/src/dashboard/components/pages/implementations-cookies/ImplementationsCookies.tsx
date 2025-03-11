@@ -64,7 +64,7 @@ export default function ImplementationsCookies() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">Cookiemelding</div>
                     <div className="label label-success">Actief</div>
                 </div>

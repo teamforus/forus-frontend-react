@@ -336,7 +336,7 @@ export default function BankConnections() {
 
             {bank && bankConnections.meta?.total > 0 && (
                 <div className="card card-collapsed">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">Status verbindingen</div>
                     </div>
 

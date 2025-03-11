@@ -306,7 +306,7 @@ export default function VouchersViewComponent() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">
                         <div className="flex flex-vertical flex-center">
                             <div className="flex flex-vertical flex-center">#{voucher.number}</div>
@@ -505,7 +505,7 @@ export default function VouchersViewComponent() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">Tegoed details</div>
                 </div>
 
@@ -648,7 +648,7 @@ export default function VouchersViewComponent() {
 
             {voucher.note && (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">{translate('vouchers.labels.note')}</div>
                     </div>
 

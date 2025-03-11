@@ -64,7 +64,7 @@ export default function VoucherTransactions({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title">
                     {blockTitle || 'Transactions'} ({transactions.meta.total})
                 </div>

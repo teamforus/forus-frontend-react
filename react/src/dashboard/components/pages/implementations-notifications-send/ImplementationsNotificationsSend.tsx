@@ -400,7 +400,7 @@ export default function ImplementationsNotificationsSend() {
                 </div>
 
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="flex flex-grow card-title">
                             <em className="mdi mdi-account-multiple-outline" />
                             Kies een doelgroep

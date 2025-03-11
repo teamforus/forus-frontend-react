@@ -173,7 +173,7 @@ export default function Identities() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('identities.header.title')} ({identities.meta.total})
                 </div>

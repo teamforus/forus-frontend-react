@@ -345,7 +345,7 @@ export default function SystemNotificationTemplateEditor({
     return (
         <div className="card card-collapsed">
             {compose ? (
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">
                         <em className={`mdi mdi-${header.icon}`} />
                         <span>{header.title}</span>
@@ -373,8 +373,7 @@ export default function SystemNotificationTemplateEditor({
                     </div>
                 </div>
             ) : (
-                <div
-                    className={`card-header card-header-next ${enable && notification.enable_all ? '' : 'card-header-danger'}`}>
+                <div className={`card-header ${enable && notification.enable_all ? '' : 'card-header-danger'}`}>
                     <div className="flex flex-grow card-title">
                         <em className={`mdi mdi-${header.icon}`} />
                         <span>{header.title}</span>

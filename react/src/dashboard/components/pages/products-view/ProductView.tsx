@@ -209,7 +209,7 @@ export default function ProductView() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow flex-grow">
                         <div className="card-title">Fondsen</div>
                     </div>

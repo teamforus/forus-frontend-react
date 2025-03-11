@@ -191,7 +191,7 @@ export default function ReimbursementsView() {
             {reimbursement && (
                 <div className="card">
                     {reimbursement.expired && (
-                        <div className="card-header card-header-next card-header-warning card-header-sm">
+                        <div className="card-header card-header-warning card-header-sm">
                             <div className="flex flex-vertical card-title">
                                 <strong>Waarschuwing!</strong>
                                 <small>
@@ -203,7 +203,7 @@ export default function ReimbursementsView() {
                     )}
 
                     {reimbursement.deactivated && (
-                        <div className="card-header card-header-next card-header-warning card-header-sm">
+                        <div className="card-header card-header-warning card-header-sm">
                             <div className="flex flex-vertical card-title">
                                 <strong>Waarschuwing!</strong>
                                 <small>
@@ -214,7 +214,7 @@ export default function ReimbursementsView() {
                         </div>
                     )}
 
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="flex flex-grow">
                             <div className="flex flex-vertical">
                                 <div className="card-title">
@@ -430,7 +430,7 @@ export default function ReimbursementsView() {
 
             {reimbursement && (
                 <div className="card" data-dusk="reimbursementDetails">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title">Gegevens</div>
                     </div>
 
@@ -549,7 +549,7 @@ export default function ReimbursementsView() {
 
             {reimbursement && (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">Extra informatie</div>
                         <div className="block block-inline-filters">
                             {reimbursement.employee?.identity_address === authIdentity.address && (

@@ -89,7 +89,7 @@ export default function SponsorProviderOrganization() {
             <ProviderOrganizationOverview organization={providerOrganization} />
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow card-title">Fondsen en aanbod</div>
 
                     <div className="card-header-filters">
@@ -142,7 +142,7 @@ export default function SponsorProviderOrganization() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Omschrijving van aanbieder</div>
                 </div>
                 <div className="card-section">
@@ -162,7 +162,7 @@ export default function SponsorProviderOrganization() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Vestigingen</div>
                 </div>
 
@@ -196,7 +196,7 @@ export default function SponsorProviderOrganization() {
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Medewerkers</div>
                 </div>
 

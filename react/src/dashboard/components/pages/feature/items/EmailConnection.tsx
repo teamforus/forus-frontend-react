@@ -31,7 +31,7 @@ export default function EmailConnection({
     return (
         <Fragment>
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Beschrijving</div>
                 </div>
                 <div className="card-section">
@@ -205,7 +205,7 @@ export default function EmailConnection({
             </div>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Veelgestelde vragen</div>
                 </div>
                 <div className="card-section card-section-padless">

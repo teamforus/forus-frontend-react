@@ -224,7 +224,7 @@ export default function ImplementationsCmsPageForm({
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="flex flex-grow card-title">
                             {translate(`implementation_edit.labels.${pageType}`)}
                         </div>

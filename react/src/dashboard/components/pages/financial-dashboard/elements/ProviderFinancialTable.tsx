@@ -93,7 +93,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
         <Fragment>
             {providersFinances.data.length > 0 && (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="flex flex-grow card-title">Aanbieders</div>
 
                         <div className="card-header-filters">

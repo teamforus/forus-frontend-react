@@ -90,7 +90,7 @@ export default function BudgetFundProducts({
 
     return (
         <div className="card form">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow card-title">Aanbod in beheer {fundProvider.organization.name}</div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
