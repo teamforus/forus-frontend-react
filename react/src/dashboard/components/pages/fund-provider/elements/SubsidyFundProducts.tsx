@@ -85,26 +85,19 @@ export default function SubsidyFundProducts({
     }
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex-col">
-                        <div className="card-title">Aanbod in beheer van {fundProvider.organization.name}</div>
-                    </div>
-                    <div className="flex-col">
-                        <div className="card-header-drown">
-                            <div className="block block-inline-filters">
-                                <div className="form">
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                            placeholder="Zoeken"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+        <div className="card form">
+            <div className="card-header card-header-next">
+                <div className="flex flex-grow card-title">Aanbod in beheer van {fundProvider.organization.name}</div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        <div className="form-group">
+                            <input
+                                className="form-control"
+                                value={filter.values.q}
+                                onChange={(e) => filter.update({ q: e.target.value })}
+                                placeholder="Zoeken"
+                            />
                         </div>
                     </div>
                 </div>

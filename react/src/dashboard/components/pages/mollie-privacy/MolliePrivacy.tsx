@@ -18,7 +18,7 @@ export default function MolliePrivacy() {
                 <div className="breadcrumb-item active">Algemene Voorwaarden</div>
             </div>
             <div className="card">
-                <div className="card-header">
+                <div className="card-header card-header-next">
                     <div className="card-title">Algemene voorwaarden</div>
                 </div>
 

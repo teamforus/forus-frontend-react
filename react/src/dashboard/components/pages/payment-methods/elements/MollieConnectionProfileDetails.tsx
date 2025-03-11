@@ -96,23 +96,22 @@ export default function MollieConnectionProfileDetails({
         <Fragment>
             {mollieConnection.profile_active ? (
                 <div className="card">
-                    <div className="card-header">
-                        <div className="flex">
-                            <div className="flex flex-grow">
-                                <div className="card-title">
-                                    {translate('mollie_connection.titles.current_profile_information')}
-                                </div>
+                    <div className="card-header card-header-next">
+                        <div className="flex flex-grow card-title">
+                            {translate('mollie_connection.titles.current_profile_information')}
+                        </div>
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
+                                {mollieConnection.profiles.length && (
+                                    <MollieConnectionProfileSelector
+                                        profiles={mollieConnection.profiles}
+                                        currentProfile={currentProfile}
+                                        currentProfileId={currentProfileId}
+                                        onSelect={(currentProfileId) => setCurrentProfileId(currentProfileId)}
+                                        onChange={() => updateCurrentProfile(currentProfileId)}
+                                    />
+                                )}
                             </div>
-
-                            {mollieConnection.profiles.length && (
-                                <MollieConnectionProfileSelector
-                                    profiles={mollieConnection.profiles}
-                                    currentProfile={currentProfile}
-                                    currentProfileId={currentProfileId}
-                                    onSelect={(currentProfileId) => setCurrentProfileId(currentProfileId)}
-                                    onChange={() => updateCurrentProfile(currentProfileId)}
-                                />
-                            )}
                         </div>
                     </div>
 
@@ -139,23 +138,22 @@ export default function MollieConnectionProfileDetails({
             ) : (
                 <div className="card">
                     <form className="form" onSubmit={form.submit}>
-                        <div className="card-header">
-                            <div className="flex">
-                                <div className="flex flex-grow">
-                                    <div className="card-title">
-                                        {translate('mollie_connection.header_update_profile.title')}
-                                    </div>
+                        <div className="card-header card-header-next">
+                            <div className="flex flex-grow card-title">
+                                {translate('mollie_connection.header_update_profile.title')}
+                            </div>
+                            <div className="card-header-filters">
+                                <div className="block block-inline-filters">
+                                    {mollieConnection.profiles.length > 0 && (
+                                        <MollieConnectionProfileSelector
+                                            profiles={mollieConnection.profiles}
+                                            currentProfile={currentProfile}
+                                            currentProfileId={currentProfileId}
+                                            onSelect={(currentProfileId) => setCurrentProfileId(currentProfileId)}
+                                            onChange={() => updateCurrentProfile(currentProfileId)}
+                                        />
+                                    )}
                                 </div>
-
-                                {mollieConnection.profiles.length > 0 && (
-                                    <MollieConnectionProfileSelector
-                                        profiles={mollieConnection.profiles}
-                                        currentProfile={currentProfile}
-                                        currentProfileId={currentProfileId}
-                                        onSelect={(currentProfileId) => setCurrentProfileId(currentProfileId)}
-                                        onChange={() => updateCurrentProfile(currentProfileId)}
-                                    />
-                                )}
                             </div>
                         </div>
 

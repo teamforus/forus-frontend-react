@@ -544,7 +544,7 @@ export default function ProductsForm({
             )}
 
             <form className="card form" onSubmit={saveProduct}>
-                <div className="card-header">
+                <div className="card-header card-header-next">
                     <div className="card-title">
                         {translate(id ? 'product_edit.header.title_edit' : 'product_edit.header.title_add')}
                     </div>

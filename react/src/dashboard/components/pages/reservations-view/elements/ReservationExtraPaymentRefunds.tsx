@@ -7,15 +7,11 @@ export default function ReservationExtraPaymentRefunds({ refunds }: { refunds: A
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            <span>{translate('reservation.header.refunds.title')}</span>
-                            &nbsp;
-                            <span className="span-count">{refunds.length}</span>
-                        </div>
-                    </div>
+            <div className="card-header card-header-next">
+                <div className="card-title">
+                    <span>{translate('reservation.header.refunds.title')}</span>
+                    &nbsp;
+                    <span className="span-count">{refunds.length}</span>
                 </div>
             </div>
 

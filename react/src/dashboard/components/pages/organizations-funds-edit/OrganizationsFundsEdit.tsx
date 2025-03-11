@@ -467,7 +467,7 @@ export default function OrganizationsFundsEdit() {
             </div>
 
             <form className="card form" onSubmit={form.submit}>
-                <div className="card-header">
+                <div className="card-header card-header-next">
                     {!fund ? (
                         <div className="card-title">{translate('funds_edit.header.title_add')}</div>
                     ) : (

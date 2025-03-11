@@ -72,7 +72,7 @@ export default function ImplementationsCmsPages({ implementation }: { implementa
 
     return (
         <div className="card">
-            <div className="card-header">
+            <div className="card-header card-header-next">
                 <div className="card-title">{translate('implementation_edit.implementations_table.title')}</div>
             </div>
             <div className="card-section">

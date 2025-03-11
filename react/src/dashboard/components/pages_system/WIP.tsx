@@ -9,7 +9,7 @@ export default function WIP({
 }) {
     return (
         <div className="card">
-            <div className="card-header">
+            <div className="card-header card-header-next">
                 <div className="card-title">{title}</div>
             </div>
             <div className="card-body">

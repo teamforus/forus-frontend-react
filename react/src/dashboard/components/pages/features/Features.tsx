@@ -155,41 +155,35 @@ export default function Features() {
                 </div>
             </div>
             <div className="card">
-                <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">Onze functionaliteiten</div>
-                        </div>
-                        <div className="flex">
-                            <div className="flex-row">
-                                <div className="block block-inline-filters">
-                                    <div className="form">
-                                        <div className="block block-label-tabs">
-                                            <div className="label-tab-set">
-                                                {activeOptions?.map((viewType) => (
-                                                    <div
-                                                        key={viewType.value}
-                                                        className={`label-tab label-tab-sm ${
-                                                            filter.values.state == viewType.value ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => filter.update({ state: viewType.value })}>
-                                                        {viewType.name}
-                                                    </div>
-                                                ))}
+                <div className="card-header card-header-next">
+                    <div className="card-title flex flex-grow">Onze functionaliteiten</div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            <div className="form">
+                                <div className="block block-label-tabs">
+                                    <div className="label-tab-set">
+                                        {activeOptions?.map((viewType) => (
+                                            <div
+                                                key={viewType.value}
+                                                className={`label-tab label-tab-sm ${
+                                                    filter.values.state == viewType.value ? 'active' : ''
+                                                }`}
+                                                onClick={() => filter.update({ state: viewType.value })}>
+                                                {viewType.name}
                                             </div>
-                                        </div>
+                                        ))}
                                     </div>
-                                    <div className="form">
-                                        <div className="form-group">
-                                            <input
-                                                className="form-control"
-                                                type="text"
-                                                value={filter.values.q}
-                                                placeholder={translate('features.labels.search')}
-                                                onChange={(e) => filter.update({ q: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
+                            <div className="form">
+                                <div className="form-group">
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        value={filter.values.q}
+                                        placeholder={translate('features.labels.search')}
+                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                    />
                                 </div>
                             </div>
                         </div>

@@ -904,9 +904,10 @@ body {
         }
 
         .mdi {
-            margin-right: 5px;
+            margin-right: 7px;
             font-size: 20px;
-            line-height: inherit;
+            line-height: 30px;
+            height: 30px;
         }
 
         &.card-title-sm {
@@ -943,6 +944,7 @@ body {
         &.card-header-next {
             display: flex;
             flex-direction: row;
+            align-items: center;
 
             .card-header-filters {
                 display: flex;
@@ -969,6 +971,21 @@ body {
                     .form-group-inline > .form-label {
                         padding-top: 5px;
                         padding-bottom: 5px;
+                    }
+
+                    .block-label-tabs {
+                        .label-tab {
+                            height: 30px;
+                            line-height: 24px;
+                            padding-top: 2px;
+                            padding-bottom: 2px;
+                            font-size: 12px;
+
+                            .mdi {
+                                font-size: 1.36em;
+                                line-height: 24px;
+                            }
+                        }
                     }
 
                     .select-control {
@@ -1037,13 +1054,12 @@ body {
         }
 
         &.card-header-md {
-            padding: 15px 20px;
-
             .card-title {
                 font: 600 14px / 21px var(--base-font);
 
                 .mdi {
                     margin-right: 0;
+                    margin-left: -15px;
                     color: #646f79;
                 }
             }

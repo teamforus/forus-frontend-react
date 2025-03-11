@@ -172,7 +172,7 @@ export default function Security2FA() {
 
             <div className="card">
                 <form className="form form-compact" onSubmit={form.submit}>
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">Instellingen</div>
                     </div>
 

@@ -132,13 +132,12 @@ export default function ImplementationsConfig() {
                 <div className="breadcrumb-item active">Implementation page configs</div>
             </div>
 
-            <div className="card">
-                <form className="form" onSubmit={form.submit}>
-                    <div className="card-header flex flex-horizontal">
-                        <div className="flex flex-grow">
-                            <div className="card-title">{translate('implementation_edit.header.title')}</div>
-                        </div>
-                        <div className="flex">
+            <form className="card form" onSubmit={form.submit}>
+                <div className="card-header card-header-next">
+                    <div className="flex flex-grow card-title">{translate('implementation_edit.header.title')}</div>
+
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
                             <a
                                 className="button button-text button-sm"
                                 href={implementation.url_webshop}
@@ -153,74 +152,70 @@ export default function ImplementationsConfig() {
                             </button>
                         </div>
                     </div>
+                </div>
 
-                    {configs.map((config) => (
-                        <div key={config.page} className="card-section card-section-primary card-section-settings">
-                            <div className="card-title">{translate(`implementation_config.pages.${config.page}`)}</div>
-                            <div className="block block-toggles">
-                                <div className="toggle-row">
-                                    <div className="row">
-                                        {config.blocks.map((block, index, arr) => (
-                                            <div
-                                                key={block}
-                                                className={`col col-xs-12 ${
-                                                    config.blocks.length % 2 == 0 || !(index === arr.length - 1)
-                                                        ? 'col-lg-6'
-                                                        : ''
-                                                } ${
-                                                    config.blocks.length % 2 && index === arr.length - 1
-                                                        ? 'col-lg-12'
-                                                        : ''
-                                                }`}>
-                                                <div className={`toggle-item ${form.values[block] ? 'active' : ''}`}>
-                                                    <div className="toggle-label">
-                                                        <div className="flex flex-vertical">
-                                                            <div>
-                                                                {translate(`implementation_config.blocks.${block}`)}
-                                                            </div>
-                                                            <FormError error={form.errors[block]} />
+                {configs.map((config) => (
+                    <div key={config.page} className="card-section card-section-primary card-section-settings">
+                        <div className="card-title">{translate(`implementation_config.pages.${config.page}`)}</div>
+                        <div className="block block-toggles">
+                            <div className="toggle-row">
+                                <div className="row">
+                                    {config.blocks.map((block, index, arr) => (
+                                        <div
+                                            key={block}
+                                            className={`col col-xs-12 ${
+                                                config.blocks.length % 2 == 0 || !(index === arr.length - 1)
+                                                    ? 'col-lg-6'
+                                                    : ''
+                                            } ${
+                                                config.blocks.length % 2 && index === arr.length - 1 ? 'col-lg-12' : ''
+                                            }`}>
+                                            <div className={`toggle-item ${form.values[block] ? 'active' : ''}`}>
+                                                <div className="toggle-label">
+                                                    <div className="flex flex-vertical">
+                                                        <div>{translate(`implementation_config.blocks.${block}`)}</div>
+                                                        <FormError error={form.errors[block]} />
+                                                    </div>
+                                                </div>
+                                                <label className="form-toggle" htmlFor={block}>
+                                                    <input
+                                                        id={block}
+                                                        type="checkbox"
+                                                        checked={form.values[block]}
+                                                        onChange={(e) => {
+                                                            form.update({ [block]: e.target.checked });
+                                                        }}
+                                                    />
+
+                                                    <div className="form-toggle-inner flex-end">
+                                                        <div className="toggle-input">
+                                                            <div className="toggle-input-dot" />
                                                         </div>
                                                     </div>
-                                                    <label className="form-toggle" htmlFor={block}>
-                                                        <input
-                                                            id={block}
-                                                            type="checkbox"
-                                                            checked={form.values[block]}
-                                                            onChange={(e) => {
-                                                                form.update({ [block]: e.target.checked });
-                                                            }}
-                                                        />
-
-                                                        <div className="form-toggle-inner flex-end">
-                                                            <div className="toggle-input">
-                                                                <div className="toggle-input-dot" />
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
+                                                </label>
                                             </div>
-                                        ))}
-                                    </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                    ))}
-
-                    <div className="card-section card-section-primary">
-                        <div className="button-group flex-center">
-                            <StateNavLink
-                                name={'implementations-cms'}
-                                params={{ id: implementation.id, organizationId: activeOrganization.id }}
-                                className="button button-default">
-                                {translate('funds_edit.buttons.cancel')}
-                            </StateNavLink>
-                            <button className="button button-primary" type="submit">
-                                {translate('funds_edit.buttons.confirm')}
-                            </button>
-                        </div>
                     </div>
-                </form>
-            </div>
+                ))}
+
+                <div className="card-section card-section-primary">
+                    <div className="button-group flex-center">
+                        <StateNavLink
+                            name={'implementations-cms'}
+                            params={{ id: implementation.id, organizationId: activeOrganization.id }}
+                            className="button button-default">
+                            {translate('funds_edit.buttons.cancel')}
+                        </StateNavLink>
+                        <button className="button button-primary" type="submit">
+                            {translate('funds_edit.buttons.confirm')}
+                        </button>
+                    </div>
+                </div>
+            </form>
         </Fragment>
     );
 }

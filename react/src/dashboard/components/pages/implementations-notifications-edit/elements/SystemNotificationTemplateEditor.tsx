@@ -345,15 +345,13 @@ export default function SystemNotificationTemplateEditor({
     return (
         <div className="card card-collapsed">
             {compose ? (
-                <div className="card-header">
-                    <div className="flex flex-row">
-                        <div className="flex flex-pad flex-grow">
-                            <div className="card-title">
-                                <em className={`mdi mdi-${header.icon}`} />
-                                <span>{header.title}</span>
-                            </div>
-                        </div>
-                        <div className="flex flex-pad flex-end">
+                <div className="card-header card-header-next">
+                    <div className="flex flex-grow card-title">
+                        <em className={`mdi mdi-${header.icon}`} />
+                        <span>{header.title}</span>
+                    </div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
                             {edit ? (
                                 <button
                                     className="button button-default button-sm button-flat"
@@ -375,19 +373,18 @@ export default function SystemNotificationTemplateEditor({
                     </div>
                 </div>
             ) : (
-                <div className={`card-header ${enable && notification.enable_all ? '' : 'card-header-danger'}`}>
-                    <div className="flex flex-row">
-                        <div className="flex flex-pad flex-grow">
-                            <div className="card-title">
-                                <em className={`mdi mdi-${header.icon}`} />
-                                <span>{header.title}</span>
-                                &nbsp;
-                                {fund && <span>({fund.name})</span>}
-                            </div>
-                        </div>
+                <div
+                    className={`card-header card-header-next ${enable && notification.enable_all ? '' : 'card-header-danger'}`}>
+                    <div className="flex flex-grow card-title">
+                        <em className={`mdi mdi-${header.icon}`} />
+                        <span>{header.title}</span>
+                        &nbsp;
+                        {fund && <span>({fund.name})</span>}
+                    </div>
 
-                        {notification.editable && !edit && (
-                            <div className="flex flex-pad flex-vertical flex-center">
+                    {notification.editable && !edit && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <ToggleControl
                                     id={'enable_' + type}
                                     className={`form-toggle-danger ${notification.enable_all ? '' : 'form-toggle-off'}`}
@@ -403,10 +400,12 @@ export default function SystemNotificationTemplateEditor({
                                     }}
                                 />
                             </div>
-                        )}
+                        </div>
+                    )}
 
-                        {edit && (
-                            <div className="flex flex-pad flex-end">
+                    {edit && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <button
                                     className="button button-danger button-sm button-flat"
                                     onClick={() => resetToDefault()}>
@@ -421,8 +420,8 @@ export default function SystemNotificationTemplateEditor({
                                     Annuleren
                                 </button>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             )}
 

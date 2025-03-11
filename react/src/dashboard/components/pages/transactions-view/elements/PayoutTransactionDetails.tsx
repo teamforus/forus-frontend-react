@@ -17,12 +17,8 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
     return (
         <div className="block block-transaction-details">
             <div className="card card-wrapped">
-                <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">{translate('payouts.labels.details')}</div>
-                        </div>
-                    </div>
+                <div className="card-header card-header-next">
+                    <div className="card-title">{translate('payouts.labels.details')}</div>
                 </div>
                 <div className="card-section">
                     <div className="flex">

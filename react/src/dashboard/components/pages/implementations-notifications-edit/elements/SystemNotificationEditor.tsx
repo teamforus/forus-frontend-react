@@ -131,18 +131,15 @@ export default function SystemNotificationEditor({
     return (
         <div className="block block-system-notification-editor">
             <div className="card card-collapsed">
-                <div className={`card-header ${notification.enable_all ? '' : 'card-header-danger'}`}>
-                    <div className="flex flex-row">
-                        <div className="flex flex-pad flex-grow">
-                            <div className={`card-title ${notification.enable_all ? '' : 'text-muted-dark'}`}>
-                                <em className="mdi mdi-web" />
-                                <span>{notification.title}</span>
-                                <span>{translate(`system_notifications.notifications.${notification.key}.title`)}</span>
-                            </div>
-                        </div>
-
-                        {notification.editable && (
-                            <div className="flex flex-pad flex-vertical flex-center">
+                <div className={`card-header card-header-next ${notification.enable_all ? '' : 'card-header-danger'}`}>
+                    <div className={`flex flex-grow card-title ${notification.enable_all ? '' : 'text-muted-dark'}`}>
+                        <em className="mdi mdi-web" />
+                        <span>{notification.title}</span>
+                        <span>{translate(`system_notifications.notifications.${notification.key}.title`)}</span>
+                    </div>
+                    {notification.editable && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <ToggleControl
                                     id={'enable_all'}
                                     className="form-toggle-danger"
@@ -152,8 +149,8 @@ export default function SystemNotificationEditor({
                                     labelRight={false}
                                 />
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
 
                 {funds && funds.length > 0 && (

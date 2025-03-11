@@ -130,7 +130,7 @@ export default function PreferencesNotifications() {
 
             {preferences.email_unsubscribed && (
                 <div className="card">
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">{translate('notification_preferences.title_preferences')}</div>
                     </div>
 
@@ -152,7 +152,7 @@ export default function PreferencesNotifications() {
 
             {!preferences.email && (
                 <div className="card">
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">{translate('notification_preferences.title_preferences')}</div>
                     </div>
 
@@ -171,7 +171,7 @@ export default function PreferencesNotifications() {
 
             {preferences.email && !preferences.email_unsubscribed && (
                 <div className="card">
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">{translate('notification_preferences.title_preferences')}</div>
                     </div>
 

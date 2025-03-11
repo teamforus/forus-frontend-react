@@ -93,7 +93,7 @@ export default function OrganizationsTranslations() {
         <Fragment>
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">{translate('organization_translations.title')}</div>
                     </div>
                     <div className="card-section card-section-primary">
@@ -288,7 +288,7 @@ export default function OrganizationsTranslations() {
 
             {stats && (
                 <div className="card">
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">{translate('organization_translations.title_statistics')}</div>
                     </div>
                     <div className="card-section card-section-primary">

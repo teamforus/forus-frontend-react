@@ -152,41 +152,38 @@ export default function TransactionDetails({
                 </div>
             )}
             <div className="card card-wrapped">
-                <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">
-                                {translate('financial_dashboard_transaction.labels.details')}
-                            </div>
-                        </div>
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                {showDetailsPageButton && (
-                                    <StateNavLink
-                                        name={'transaction'}
-                                        className="button button-primary"
-                                        activeExact={true}
-                                        params={{
-                                            organizationId: activeOrganization.id,
-                                            address: transaction.address,
-                                        }}>
-                                        <em className="mdi mdi-eye-outline icon-start" />
-                                        Transactie details
-                                    </StateNavLink>
-                                )}
-                                {transaction.voucher_id && transaction.target !== 'payout' && isSponsor && (
-                                    <StateNavLink
-                                        name={'vouchers-show'}
-                                        params={{
-                                            organizationId: activeOrganization.id,
-                                            id: transaction.product_reservation?.voucher_id || transaction.voucher_id,
-                                        }}
-                                        className="button button-primary">
-                                        <em className="mdi mdi-eye-outline icon-start" />
-                                        Tegoed details
-                                    </StateNavLink>
-                                )}
-                            </div>
+                <div className="card-header card-header-next">
+                    <div className="flex flex-grow card-title">
+                        {translate('financial_dashboard_transaction.labels.details')}
+                    </div>
+
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            {showDetailsPageButton && (
+                                <StateNavLink
+                                    name={'transaction'}
+                                    className="button button-primary"
+                                    activeExact={true}
+                                    params={{
+                                        organizationId: activeOrganization.id,
+                                        address: transaction.address,
+                                    }}>
+                                    <em className="mdi mdi-eye-outline icon-start" />
+                                    Transactie details
+                                </StateNavLink>
+                            )}
+                            {transaction.voucher_id && transaction.target !== 'payout' && isSponsor && (
+                                <StateNavLink
+                                    name={'vouchers-show'}
+                                    params={{
+                                        organizationId: activeOrganization.id,
+                                        id: transaction.product_reservation?.voucher_id || transaction.voucher_id,
+                                    }}
+                                    className="button button-primary">
+                                    <em className="mdi mdi-eye-outline icon-start" />
+                                    Tegoed details
+                                </StateNavLink>
+                            )}
                         </div>
                     </div>
                 </div>

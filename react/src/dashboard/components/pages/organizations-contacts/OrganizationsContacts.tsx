@@ -61,7 +61,7 @@ export default function OrganizationsContacts() {
     return (
         <div className="card">
             <form className="form" onSubmit={form.submit}>
-                <div className="card-header">
+                <div className="card-header card-header-next">
                     <div className="card-title">{translate('organization_contacts.title')}</div>
                 </div>
                 <div className="card-section card-section-primary">

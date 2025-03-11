@@ -210,13 +210,11 @@ export default function FundBackofficeEdit() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header form">
-                        <div className="flex-row">
-                            <div className="flex flex-grow">
-                                <div className="card-title">Backoffice integratie</div>
-                            </div>
+                    <div className="card-header card-header-next">
+                        <div className="flex flex-grow card-title">Backoffice integratie</div>
 
-                            <div className="flex">
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <div className="form-group">
                                     {isDirty && (
                                         <div className="button button-text button-sm button-disabled button-disabled-visible">

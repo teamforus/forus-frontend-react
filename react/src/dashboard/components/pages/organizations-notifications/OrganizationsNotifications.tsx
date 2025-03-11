@@ -69,7 +69,7 @@ export default function OrganizationsNotifications() {
 
     return (
         <div className="card">
-            <div className="card-header">
+            <div className="card-header card-header-next">
                 <div className="card-title">
                     {`Notificaties ${
                         notifications?.meta.total_seen ? '(' + notifications?.meta.total_seen + ' nieuw)' : ''

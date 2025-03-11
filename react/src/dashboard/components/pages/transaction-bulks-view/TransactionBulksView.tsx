@@ -322,86 +322,78 @@ export default function TransactionBulksView() {
             </div>
 
             <div className="card">
-                <div className="card-header">
-                    <div className="flex-row">
-                        <div className="flex flex-grow">
-                            <div className="card-title">
-                                {translate('financial_dashboard_transaction.labels.details')}
+                <div className="card-header card-header-next">
+                    <div className="flex flex-grow card-title">
+                        {translate('financial_dashboard_transaction.labels.details')}
+                    </div>
+                    {canManageBulks && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
+                                {transactionBulk.bank.key === 'bng' && (
+                                    <Fragment>
+                                        {transactionBulk.state == 'draft' && (
+                                            <Fragment>
+                                                {/* Export SEPA file */}
+                                                {activeOrganization.allow_manual_bulk_processing && (
+                                                    <button
+                                                        className="button button-default button-sm"
+                                                        onClick={() => exportSepa()}>
+                                                        <em className="mdi mdi-download icon-start" />
+                                                        SEPA-bestand exporteren
+                                                    </button>
+                                                )}
+
+                                                {/* BNG: Submit bulk to BNG */}
+                                                <button
+                                                    className="button button-primary button-sm"
+                                                    onClick={() => submitPaymentRequestToBNG()}
+                                                    disabled={submittingBulk || resettingBulk}>
+                                                    {!submittingBulk && (
+                                                        <em className="mdi mdi-circle-multiple-outline icon-start" />
+                                                    )}
+                                                    {submittingBulk && (
+                                                        <em className="mdi mdi-reload mdi-spin icon-start" />
+                                                    )}
+                                                    Verstuur de bulk naar BNG
+                                                </button>
+
+                                                {/* Set paid */}
+                                                {transactionBulk.is_exported && (
+                                                    <button
+                                                        className="button button-danger button-sm"
+                                                        onClick={() => acceptManually()}>
+                                                        <em className="mdi mdi-alert-outline icon-start" />
+                                                        Markeer de bulk lijst en de transacties als betaald.
+                                                    </button>
+                                                )}
+                                            </Fragment>
+                                        )}
+                                    </Fragment>
+                                )}
+
+                                {((transactionBulk.bank.key === 'bng' && transactionBulk.state == 'pending') ||
+                                    (transactionBulk.bank.key === 'bunq' && transactionBulk.state == 'rejected')) && (
+                                    <button
+                                        className="button button-text button-narrow button-sm"
+                                        onClick={() => resetPaymentRequest()}
+                                        disabled={submittingBulk || resettingBulk}>
+                                        <em className="mdi mdi-lock-reset icon-start" />
+                                        Verstuur bulktransactie opnieuw
+                                    </button>
+                                )}
+
+                                {/* BNG: Auth url button */}
+                                {transactionBulk.bank.key === 'bng' &&
+                                    transactionBulk.state === 'pending' &&
+                                    transactionBulk.auth_url && (
+                                        <a className="button button-primary button-sm" href={transactionBulk.auth_url}>
+                                            <em className="mdi mdi-link icon-start" />
+                                            Transactie autoriseren
+                                        </a>
+                                    )}
                             </div>
                         </div>
-
-                        {canManageBulks && (
-                            <div className="flex">
-                                <div className="button-group">
-                                    {transactionBulk.bank.key === 'bng' && (
-                                        <Fragment>
-                                            {transactionBulk.state == 'draft' && (
-                                                <Fragment>
-                                                    {/* Export SEPA file */}
-                                                    {activeOrganization.allow_manual_bulk_processing && (
-                                                        <button
-                                                            className="button button-default button-sm"
-                                                            onClick={() => exportSepa()}>
-                                                            <em className="mdi mdi-download icon-start" />
-                                                            SEPA-bestand exporteren
-                                                        </button>
-                                                    )}
-
-                                                    {/* BNG: Submit bulk to BNG */}
-                                                    <button
-                                                        className="button button-primary button-sm"
-                                                        onClick={() => submitPaymentRequestToBNG()}
-                                                        disabled={submittingBulk || resettingBulk}>
-                                                        {!submittingBulk && (
-                                                            <em className="mdi mdi-circle-multiple-outline icon-start" />
-                                                        )}
-                                                        {submittingBulk && (
-                                                            <em className="mdi mdi-reload mdi-spin icon-start" />
-                                                        )}
-                                                        Verstuur de bulk naar BNG
-                                                    </button>
-
-                                                    {/* Set paid */}
-                                                    {transactionBulk.is_exported && (
-                                                        <button
-                                                            className="button button-danger button-sm"
-                                                            onClick={() => acceptManually()}>
-                                                            <em className="mdi mdi-alert-outline icon-start" />
-                                                            Markeer de bulk lijst en de transacties als betaald.
-                                                        </button>
-                                                    )}
-                                                </Fragment>
-                                            )}
-                                        </Fragment>
-                                    )}
-
-                                    {((transactionBulk.bank.key === 'bng' && transactionBulk.state == 'pending') ||
-                                        (transactionBulk.bank.key === 'bunq' &&
-                                            transactionBulk.state == 'rejected')) && (
-                                        <button
-                                            className="button button-text button-narrow button-sm"
-                                            onClick={() => resetPaymentRequest()}
-                                            disabled={submittingBulk || resettingBulk}>
-                                            <em className="mdi mdi-lock-reset icon-start" />
-                                            Verstuur bulktransactie opnieuw
-                                        </button>
-                                    )}
-
-                                    {/* BNG: Auth url button */}
-                                    {transactionBulk.bank.key === 'bng' &&
-                                        transactionBulk.state === 'pending' &&
-                                        transactionBulk.auth_url && (
-                                            <a
-                                                className="button button-primary button-sm"
-                                                href={transactionBulk.auth_url}>
-                                                <em className="mdi mdi-link icon-start" />
-                                                Transactie autoriseren
-                                            </a>
-                                        )}
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
                 <div className="card-section">
                     <div className="flex">

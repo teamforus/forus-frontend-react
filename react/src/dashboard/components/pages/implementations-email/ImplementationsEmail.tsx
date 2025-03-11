@@ -107,7 +107,7 @@ export default function ImplementationsEmail() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">Email instellingen</div>
                     </div>
 

@@ -231,7 +231,7 @@ export default function ImplementationsNotifications() {
 
             {notificationGroups.map((notificationGroup, index) => (
                 <div className="card card-collapsed" key={index}>
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">{notificationGroup.groupLabel}</div>
                     </div>
                     <div className="card-section">

@@ -98,12 +98,12 @@ export default function SubsidyFundSponsorProducts({
     }
 
     return (
-        <div className="card">
-            <div className="card-header">
-                <div className="row">
-                    <div className="col-lg-8 flex">
-                        <div className="card-title">Aanbod in beheer van {organization.name}</div>
+        <div className="card form">
+            <div className="card-header card-header-next">
+                <div className="fle flex-grow card-title">Aanbod in beheer van {organization.name}</div>
 
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         <StateNavLink
                             name={'fund-provider-product-create'}
                             params={{
@@ -111,25 +111,17 @@ export default function SubsidyFundSponsorProducts({
                                 fundProviderId: fundProvider.id,
                                 organizationId: organization.id,
                             }}
-                            className="button button-text button-text button-text-muted">
+                            className="button button-primary">
                             <em className="mdi mdi-plus-circle icon-start" />
                             Voeg een aanbod toe
                         </StateNavLink>
-                    </div>
-                    <div className="col-lg-4">
-                        <div className="card-header-drown">
-                            <div className="block block-inline-filters">
-                                <div className="form">
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            value={filter.values.q || ''}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                            placeholder="Zoeken"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="form-group">
+                            <input
+                                className="form-control"
+                                value={filter.values.q || ''}
+                                onChange={(e) => filter.update({ q: e.target.value })}
+                                placeholder="Zoeken"
+                            />
                         </div>
                     </div>
                 </div>

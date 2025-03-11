@@ -94,25 +94,29 @@ export default function ExtraPaymentsView() {
             </div>
 
             <div className="card">
-                <div className="card-header">
-                    <div className="card-title">
-                        <div className="flex-grow">
-                            <span className="text-muted">Product name:&nbsp;</span>
-                            {extraPayment.reservation.product.name}
-                            &nbsp;&nbsp;
+                <div className="card-header card-header-next">
+                    <div className="flex flex-vertical">
+                        <div className="card-title">
+                            <div className="flex-grow">
+                                <span className="text-muted">Product name:&nbsp;</span>
+                                {extraPayment.reservation.product.name}
+                                &nbsp;&nbsp;
+                            </div>
+                            <div className="flex-center">
+                                {extraPayment.reservation.expired ? (
+                                    <label className="label label-danger-light">Expired</label>
+                                ) : (
+                                    <label className={`label ${stateClass}`}>
+                                        {extraPayment.reservation.state_locale}
+                                    </label>
+                                )}
+                            </div>
                         </div>
-                        <div className="flex-center">
-                            {extraPayment.reservation.expired ? (
-                                <label className="label label-danger-light">Expired</label>
-                            ) : (
-                                <label className={`label ${stateClass}`}>{extraPayment.reservation.state_locale}</label>
-                            )}
-                        </div>
-                    </div>
-                    <div className="card-subtitle">
-                        <div className="flex">
-                            <div className="mdi mdi-clock-outline" />
-                            {extraPayment.reservation.created_at_locale}
+                        <div className="card-subtitle">
+                            <div className="flex">
+                                <div className="mdi mdi-clock-outline" />
+                                {extraPayment.reservation.created_at_locale}
+                            </div>
                         </div>
                     </div>
                 </div>

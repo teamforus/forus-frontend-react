@@ -400,15 +400,13 @@ export default function ImplementationsNotificationsSend() {
                 </div>
 
                 <div className="card">
-                    <div className="card-header">
-                        <div className="flex">
-                            <div className="flex flex-grow">
-                                <div className="card-title">
-                                    <em className="mdi mdi-account-multiple-outline" />
-                                    Kies een doelgroep
-                                </div>
-                            </div>
-                            <div className="flex">
+                    <div className="card-header card-header-next">
+                        <div className="flex flex-grow card-title">
+                            <em className="mdi mdi-account-multiple-outline" />
+                            Kies een doelgroep
+                        </div>
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 {targetGroup == 'identities' &&
                                     hasPermission(activeOrganization, 'manage_vouchers') && (
                                         <div
@@ -421,27 +419,19 @@ export default function ImplementationsNotificationsSend() {
                                         </div>
                                     )}
 
-                                <div className="flex">
-                                    <div>
-                                        <div className="block block-label-tabs">
-                                            <div className="label-tab-set">
-                                                <div
-                                                    className={`label-tab ${
-                                                        targetGroup === 'identities' ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setTargetGroup('identities')}>
-                                                    <div className="mdi mdi-account-multiple-outline label-tab-icon-start" />
-                                                    Aanvragers
-                                                </div>
-                                                <div
-                                                    className={`label-tab ${
-                                                        targetGroup === 'providers' ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setTargetGroup('providers')}>
-                                                    <div className="mdi mdi-store-outline label-tab-icon-start" />
-                                                    Aanbieders
-                                                </div>
-                                            </div>
+                                <div className="block block-label-tabs">
+                                    <div className="label-tab-set">
+                                        <div
+                                            className={`label-tab ${targetGroup === 'identities' ? 'active' : ''}`}
+                                            onClick={() => setTargetGroup('identities')}>
+                                            <div className="mdi mdi-account-multiple-outline label-tab-icon-start" />
+                                            Aanvragers
+                                        </div>
+                                        <div
+                                            className={`label-tab ${targetGroup === 'providers' ? 'active' : ''}`}
+                                            onClick={() => setTargetGroup('providers')}>
+                                            <div className="mdi mdi-store-outline label-tab-icon-start" />
+                                            Aanbieders
                                         </div>
                                     </div>
                                 </div>

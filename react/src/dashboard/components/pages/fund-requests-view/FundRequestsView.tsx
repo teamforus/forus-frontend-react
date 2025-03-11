@@ -662,7 +662,7 @@ export default function FundRequestsView() {
 
             {fundRequestMeta.note && (
                 <div className="card">
-                    <div className="card-header">
+                    <div className="card-header card-header-next">
                         <div className="card-title">{translate('validation_requests.labels.note_title')}</div>
                     </div>
                     <div className="card-section">
@@ -676,22 +676,21 @@ export default function FundRequestsView() {
             )}
 
             <div className="card">
-                <div className="card-header">
-                    <div className="flex flex-horizontal">
-                        <div className="flex flex-vertical flex-center flex-grow">
-                            <div className="card-title">
-                                {translate('validation_requests.labels.records')} ({fundRequestMeta.records.length})
-                            </div>
-                        </div>
-                        {fundRequestMeta.can_add_partner_bsn && (
-                            <div className="flex flex-row">
+                <div className="card-header card-header-next">
+                    <div className="flex flex-grow card-title">
+                        {translate('validation_requests.labels.records')} ({fundRequestMeta.records.length})
+                    </div>
+
+                    {fundRequestMeta.can_add_partner_bsn && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <button className="button button-primary button-sm" onClick={appendRecord}>
                                     <em className="mdi mdi-plus icon-start" />
                                     {translate('validation_requests.buttons.add_partner_bsn')}
                                 </button>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
                 <div className="card-section">
                     <div className="card-block card-block-table card-block-request-record">

@@ -67,7 +67,7 @@ export default function Feedback() {
             {state === 'form' && (
                 <div className="card">
                     <form className="form" onSubmit={() => setState('confirmation')}>
-                        <div className="card-header">
+                        <div className="card-header card-header-next">
                             <div className="card-title">{translate('components.feedback.title')}</div>
                         </div>
 
@@ -196,7 +196,7 @@ export default function Feedback() {
             {state === 'confirmation' && (
                 <div className="card">
                     <form className="form" onSubmit={form.submit}>
-                        <div className="card-header">
+                        <div className="card-header card-header-next">
                             <div className="card-title">{translate('components.feedback.title')}</div>
                         </div>
 
@@ -269,7 +269,7 @@ export default function Feedback() {
             {state === 'success' && (
                 <div className="card">
                     <form className="form">
-                        <div className="card-header">
+                        <div className="card-header card-header-next">
                             <div className="card-title">{translate('components.feedback.title')}</div>
                         </div>
 
@@ -311,7 +311,7 @@ export default function Feedback() {
             {state === 'error' && (
                 <div className="card">
                     <form className="form">
-                        <div className="card-header">
+                        <div className="card-header card-header-next">
                             <div className="card-title">{translate('components.feedback.title')}</div>
                         </div>
 

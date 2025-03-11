@@ -102,35 +102,28 @@ export default function VoucherRecords({ voucher, organization }: { voucher: Vou
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {translate('voucher_records.header.title')}
-                            {records.meta ? ` (${records.meta.total})` : ''}
+            <div className="card-header card-header-next">
+                <div className="flex flex-grow card-title">
+                    {translate('voucher_records.header.title')}
+                    {records.meta ? ` (${records.meta.total})` : ''}
+                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters form">
+                        <div className="form-group">
+                            <input
+                                className="form-control"
+                                type="search"
+                                value={filter.values.q}
+                                placeholder={translate('voucher_records.labels.search')}
+                                onChange={(e) => filter.update({ q: e.target.value })}
+                            />
                         </div>
-                    </div>
-                    <div className="flex">
-                        <div className="block block-inline-filters">
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        className="form-control"
-                                        type="search"
-                                        value={filter.values.q}
-                                        placeholder={translate('voucher_records.labels.search')}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
-                                    />
-                                </div>
+                        {hasPermission(organization, 'manage_vouchers') && (
+                            <div className="button button-primary button-sm" onClick={() => editRecord()}>
+                                <em className="mdi mdi-plus-circle icon-start" />
+                                {translate('voucher_records.buttons.add_record')}
                             </div>
-
-                            {hasPermission(organization, 'manage_vouchers') && (
-                                <div className="button button-primary button-sm" onClick={() => editRecord()}>
-                                    <em className="mdi mdi-plus-circle icon-start" />
-                                    {translate('voucher_records.buttons.add_record')}
-                                </div>
-                            )}
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -123,7 +123,7 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
     return (
         <form className="card form" onSubmit={form.submit}>
-            <div className="card-header">
+            <div className="card-header card-header-next">
                 <div className="card-title">
                     {translate(id ? 'offices_edit.header.title_edit' : 'offices_edit.header.title_add')}
                 </div>

@@ -64,13 +64,9 @@ export default function VoucherTransactions({
 
     return (
         <div className="card">
-            <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {blockTitle || 'Transactions'} ({transactions.meta.total})
-                        </div>
-                    </div>
+            <div className="card-header card-header-next">
+                <div className="card-title">
+                    {blockTitle || 'Transactions'} ({transactions.meta.total})
                 </div>
             </div>
 

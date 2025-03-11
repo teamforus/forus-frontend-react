@@ -86,7 +86,7 @@ export default function ImplementationsTranslations() {
             </div>
 
             <form onSubmit={form.submit} className="card">
-                <div className="card-header">
+                <div className="card-header card-header-next">
                     <div className="card-title">Vertalingen</div>
                 </div>
 

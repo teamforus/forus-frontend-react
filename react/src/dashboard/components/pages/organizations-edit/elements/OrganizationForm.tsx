@@ -169,7 +169,7 @@ export default function OrganizationForm() {
 
     return (
         <form className="card form" onSubmit={form.submit}>
-            <div className="card-header">
+            <div className="card-header card-header-next">
                 <div className="card-title">
                     {translate(
                         organizationId ? 'organization_edit.header.title_edit' : 'organization_edit.header.title_add',
