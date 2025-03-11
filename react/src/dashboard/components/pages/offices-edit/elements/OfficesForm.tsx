@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import { getStateRouteUrl, useNavigateState } from '../../../../modules/state_router/Router';
 import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import ScheduleControl from './ScheduleControl';
@@ -17,12 +16,13 @@ import OfficeSchedule from '../../../../props/models/OfficeSchedule';
 import { ResponseError } from '../../../../props/ApiResponses';
 import Media from '../../../../props/models/Media';
 import useTranslate from '../../../../hooks/useTranslate';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function OfficesForm({ organization, id }: { organization: Organization; id?: number }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
 
     const mediaService = useMediaService();
@@ -83,17 +83,15 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                 : officeService.store(organization.id, { ...values, media_uid });
 
             promise
-                .then(
-                    () => {
-                        navigateState('offices', { organizationId: organization.id });
-                        pushSuccess('Gelukt!');
-                    },
-                    (err: ResponseError) => {
-                        form.setIsLocked(false);
-                        form.setErrors(err.data.errors);
-                        pushDanger('Mislukt!', err.data.message);
-                    },
-                )
+                .then(() => {
+                    navigateState('offices', { organizationId: organization.id });
+                    pushSuccess('Gelukt!');
+                })
+                .catch((err: ResponseError) => {
+                    form.setIsLocked(false);
+                    form.setErrors(err.data.errors);
+                    pushApiError(err);
+                })
                 .finally(() => setProgress(100));
         });
     });

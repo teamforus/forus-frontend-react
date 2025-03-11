@@ -1,6 +1,4 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import { ResponseError } from '../../../../props/ApiResponses';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import { useFundService } from '../../../../services/FundService';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import FundProvider from '../../../../props/models/FundProvider';
@@ -8,6 +6,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Organization from '../../../../props/models/Organization';
 import useConfirmFundProviderUpdate from '../hooks/useConfirmFundProviderUpdate';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function FundProviderTableItem({
     fundProvider,
@@ -20,7 +19,7 @@ export default function FundProviderTableItem({
 }) {
     const pushSuccess = usePushSuccess();
     const assetUrl = useAssetUrl();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const confirmFundProviderUpdate = useConfirmFundProviderUpdate();
 
     const fundService = useFundService();
@@ -39,9 +38,9 @@ export default function FundProviderTableItem({
                     pushSuccess('Opgeslagen!');
                     onChange(res.data.data);
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                .catch(pushApiError);
         },
-        [fundService, onChange, pushDanger, pushSuccess],
+        [fundService, onChange, pushApiError, pushSuccess],
     );
 
     const updateFundProviderExcluded = useCallback(

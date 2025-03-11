@@ -8,19 +8,19 @@ import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { uniqueId } from 'lodash';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
+import { PaginationData } from '../../../../props/ApiResponses';
 import { format } from 'date-fns';
 import { useFileService } from '../../../../services/FileService';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import { FinancialFiltersQuery } from './FinancialFilters';
 import { ProviderFinancial } from '../types/FinancialStatisticTypes';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
 export default function ProviderFinancialTable({ externalFilters }: { externalFilters?: FinancialFiltersQuery }) {
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const fileService = useFileService();
@@ -46,7 +46,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
 
                 fileService.downloadFile(fileName, res.data, fileType);
             })
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+            .catch(pushApiError);
     }, [
         organizationService,
         activeOrganization.id,
@@ -54,7 +54,7 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
         externalFilters,
         filter?.activeValues,
         fileService,
-        pushDanger,
+        pushApiError,
     ]);
 
     const toggleTransactionsTable = useCallback((id: string) => {
@@ -80,8 +80,8 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                     data: res.data.data.map((provider) => ({ id: uniqueId(), ...provider })),
                 });
             })
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
-    }, [organizationService, activeOrganization?.id, filter?.activeValues, externalFilters, pushDanger]);
+            .catch(pushApiError);
+    }, [organizationService, activeOrganization?.id, filter?.activeValues, externalFilters, pushApiError]);
 
     useEffect(() => fetchProviderFinances(), [fetchProviderFinances]);
 

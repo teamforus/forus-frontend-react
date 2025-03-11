@@ -3,7 +3,6 @@ import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
@@ -26,6 +25,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type FundProviderUnsubscribeLocal = FundProviderUnsubscribe & {
     showTooltip?: boolean;
@@ -43,9 +43,9 @@ export default function ProviderFundUnsubscriptionsTable({
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
     const fundUnsubscribeService = useFundUnsubscribeService();
@@ -111,7 +111,7 @@ export default function ProviderFundUnsubscriptionsTable({
 
                             Promise.all(promises)
                                 .then(() => pushSuccess('Opgeslagen!'))
-                                .catch((res) => pushDanger('Error!', res?.data?.message))
+                                .catch(pushApiError)
                                 .finally(() => {
                                     filter.touch();
                                     modal.close();
@@ -126,7 +126,7 @@ export default function ProviderFundUnsubscriptionsTable({
                 />
             ));
         },
-        [filter, fundUnsubscribeService, onChange, openModal, organization.id, pushDanger, pushSuccess, translate],
+        [filter, fundUnsubscribeService, onChange, openModal, organization.id, pushApiError, pushSuccess, translate],
     );
 
     const fetchUnsubscriptions = useCallback(
@@ -147,8 +147,8 @@ export default function ProviderFundUnsubscriptionsTable({
 
         fetchUnsubscriptions(filter.activeValues)
             .then((res) => setFundUnsubscriptions(res.data))
-            .catch((err) => pushDanger('Mislukt!', err.data?.message));
-    }, [fetchUnsubscriptions, filter.activeValues, pushDanger, setSelected]);
+            .catch(pushApiError);
+    }, [fetchUnsubscriptions, filter.activeValues, pushApiError, setSelected]);
 
     return (
         <div className="card">

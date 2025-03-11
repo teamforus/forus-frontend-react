@@ -1,15 +1,15 @@
 import React, { Fragment, useMemo, useCallback, useState } from 'react';
-import { ResponseError, ResponseErrorData } from '../../../../props/ApiResponses';
+import { ResponseErrorData } from '../../../../props/ApiResponses';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import ImplementationPageBlock from '../../../../props/models/ImplementationPageBlock';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import FormError from '../../../elements/forms/errors/FormError';
 import { useMediaService } from '../../../../services/MediaService';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../../elements/select-control/SelectControl';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ImplementationsBlockEditorItem({
     id,
@@ -30,7 +30,7 @@ export default function ImplementationsBlockEditorItem({
     unCollapsedList: Array<string>;
     setUnCollapsedList: React.Dispatch<React.SetStateAction<Array<string>>>;
 }) {
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const mediaService = useMediaService();
 
@@ -57,9 +57,9 @@ export default function ImplementationsBlockEditorItem({
                 .then((res) => {
                     onChange({ media_uid: res.data.data.uid });
                 })
-                .catch((err: ResponseError) => pushDanger('Error!', err.data.message));
+                .catch(pushApiError);
         },
-        [mediaService, onChange, pushDanger],
+        [mediaService, onChange, pushApiError],
     );
 
     return (

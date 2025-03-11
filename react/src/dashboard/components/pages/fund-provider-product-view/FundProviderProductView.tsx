@@ -4,11 +4,9 @@ import { useParams } from 'react-router-dom';
 import SponsorProduct, { DealHistory } from '../../../props/models/Sponsor/SponsorProduct';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import { ResponseError } from '../../../props/ApiResponses';
 import FundProviderChat from '../../../props/models/FundProviderChat';
 import useOpenModal from '../../../hooks/useOpenModal';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { strLimit } from '../../../helpers/string';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import FundProviderProductEditor from './elements/FundProviderProductEditor';
@@ -24,15 +22,16 @@ import ModalFundProviderChatMessage from '../../modals/ModalFundProviderChatMess
 import useTranslate from '../../../hooks/useTranslate';
 import ProductDetailsBlock from '../products-view/elements/ProductDetailsBlock';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function FundProviderProductView() {
     const { id, fundId, fundProviderId } = useParams();
 
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
     const { updateProduct, disableProduct } = useUpdateProduct();
 
@@ -101,10 +100,10 @@ export default function FundProviderProductView() {
             );
 
             return setProduct(res.data.data);
-        } catch (res) {
-            return pushDanger('Mislukt!', res.data.message);
+        } catch (err) {
+            return pushApiError(err);
         }
-    }, [fundService, activeOrganization.id, fundId, fundProviderId, id, pushDanger]);
+    }, [fundService, activeOrganization.id, fundId, fundProviderId, id, pushApiError]);
 
     const resetLimits = useCallback(
         (deal: DealHistory) => {
@@ -128,15 +127,15 @@ export default function FundProviderProductView() {
                         setFundProvider(res.data.data);
                         fetchProduct().then(() => pushSuccess('De limieten zijn hersteld.'));
                     })
-                    .catch((err: ResponseError) => pushDanger('Foutmelding!', err.data.message))
+                    .catch(pushApiError)
                     .finally(() => setDeal(null));
             });
         },
         [
             fund?.id,
-            pushDanger,
             pushSuccess,
             fundService,
+            pushApiError,
             fetchProduct,
             fundProvider?.id,
             confirmDangerAction,
@@ -180,9 +179,9 @@ export default function FundProviderProductView() {
                 product_id: parseInt(id),
             })
             .then((res) => setFundProviderProductChat(res.data.data[0] || null))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [fundProviderChatService, activeOrganization.id, fundId, fundProviderId, id, pushDanger, setProgress]);
+    }, [fundProviderChatService, activeOrganization.id, fundId, fundProviderId, id, pushApiError, setProgress]);
 
     const showTheChat = useCallback(() => {
         if (!fundProviderProductChat) {
@@ -227,9 +226,9 @@ export default function FundProviderProductView() {
         fundService
             .readProvider(activeOrganization.id, parseInt(fundId), parseInt(fundProviderId))
             .then((res) => setFundProvider(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, fundId, fundProviderId, pushDanger]);
+    }, [setProgress, fundService, activeOrganization.id, fundId, fundProviderId, pushApiError]);
 
     const fetchFund = useCallback(() => {
         setProgress(0);
@@ -237,9 +236,9 @@ export default function FundProviderProductView() {
         fundService
             .readPublic(parseInt(fundId))
             .then((res) => setFund(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [fundId, fundService, pushDanger, setProgress]);
+    }, [fundId, fundService, pushApiError, setProgress]);
 
     useEffect(() => {
         fetchFund();
