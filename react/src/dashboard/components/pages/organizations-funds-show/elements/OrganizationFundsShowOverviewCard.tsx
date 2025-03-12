@@ -91,7 +91,7 @@ export default function OrganizationFundsShowOverviewCard({
                     {!compact && (
                         <div className="fund-actions">
                             <div className="button-group flex-end">
-                                {canManageFunds && activeOrganization.allow_2fa_restrictions && (
+                                {canManageFunds && fund.fund_form_id && (
                                     <StateNavLink
                                         className="button button-default"
                                         name="fund-form"
