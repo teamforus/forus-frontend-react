@@ -15,7 +15,6 @@ import { useNavigateState } from '../../../../modules/state_router/Router';
 import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
@@ -25,6 +24,7 @@ import useEnvData from '../../../../hooks/useEnvData';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Media from '../../../../props/models/Media';
 import useTranslate from '../../../../hooks/useTranslate';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function OrganizationForm() {
     const { organizationId } = useParams();
@@ -34,9 +34,9 @@ export default function OrganizationForm() {
     const authIdentity = useAuthIdentity();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const envData = useEnvData();
     const isProvider = useMemo(() => envData?.client_type === 'provider', [envData?.client_type]);
@@ -133,7 +133,7 @@ export default function OrganizationForm() {
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         });

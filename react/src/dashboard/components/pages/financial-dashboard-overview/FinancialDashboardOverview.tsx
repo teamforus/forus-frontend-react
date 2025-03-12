@@ -3,15 +3,14 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import FinancialOverviewFundsTable from './elements/FinancialOverviewFundsTable';
 import FinancialOverviewFundsBudgetTable from './elements/FinancialOverviewFundsBudgetTable';
 import useTranslate from '../../../hooks/useTranslate';
-import { ResponseError } from '../../../props/ApiResponses';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { FinancialOverview } from '../financial-dashboard/types/FinancialStatisticTypes';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function FinancialDashboardOverview() {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
     const activeOrganization = useActiveOrganization();
@@ -32,10 +31,10 @@ export default function FinancialDashboardOverview() {
                 fundService
                     .list(activeOrganization.id, { stats: 'all', per_page: 100, year: year })
                     .then((res) => resolve(res.data.data.filter((fund) => fund.state !== 'waiting')))
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message)),
+                    .catch(pushApiError),
             );
         },
-        [activeOrganization.id, fundService, pushDanger],
+        [activeOrganization.id, fundService, pushApiError],
     );
 
     const fetchFinancialOverview = useCallback(
@@ -44,10 +43,10 @@ export default function FinancialDashboardOverview() {
                 fundService
                     .financialOverview(activeOrganization.id, { stats: 'all', year })
                     .then((res) => resolve(res.data))
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                    .catch(pushApiError);
             });
         },
-        [activeOrganization.id, fundService, pushDanger],
+        [activeOrganization.id, fundService, pushApiError],
     );
 
     return (

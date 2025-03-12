@@ -11,11 +11,11 @@ import TransactionBulk from '../../../../props/models/TransactionBulk';
 import useTransactionService from '../../../../services/TransactionService';
 import useFilter from '../../../../hooks/useFilter';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import useEnvData from '../../../../hooks/useEnvData';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function TransactionBulkTransactionsTable({
     organization,
@@ -27,8 +27,8 @@ export default function TransactionBulkTransactionsTable({
     const envData = useEnvData();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const paginationService = usePaginatorService();
     const transactionService = useTransactionService();
@@ -61,10 +61,10 @@ export default function TransactionBulkTransactionsTable({
                     voucher_transaction_bulk_id: id,
                 })
                 .then((res) => setTransactions(res.data))
-                .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [setProgress, transactionService, envData.client_type, organization.id, filter.activeValues, pushDanger],
+        [setProgress, transactionService, envData.client_type, organization.id, filter.activeValues, pushApiError],
     );
 
     useEffect(() => {
@@ -80,13 +80,11 @@ export default function TransactionBulkTransactionsTable({
     return (
         <div className="card">
             <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {`${translate('transactions.header.title')} (${transactions.meta.total})`}
-                        </div>
-                    </div>
-                    <div className="flex">
+                <div className="flex flex-grow card-title">
+                    {`${translate('transactions.header.title')} (${transactions.meta.total})`}
+                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         <button className="button button-primary button-sm" onClick={() => exportTransactions()}>
                             <em className="mdi mdi-download icon-start" />
                             Exporteren

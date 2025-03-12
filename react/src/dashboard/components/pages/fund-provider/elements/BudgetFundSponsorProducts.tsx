@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
-import usePushDanger from '../../../../hooks/usePushDanger';
+import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
 import useFilter from '../../../../hooks/useFilter';
@@ -13,6 +12,7 @@ import useUpdateProduct from '../hooks/useUpdateProduct';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type ProductLocal = SponsorProduct & {
     allowed: boolean;
@@ -27,8 +27,8 @@ export default function BudgetFundSponsorProducts({
     organization: Organization;
     onChange: (data: FundProvider) => void;
 }) {
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const { updateProduct, deleteProduct } = useUpdateProduct();
 
     const organizationService = useOrganizationService();
@@ -71,12 +71,12 @@ export default function BudgetFundSponsorProducts({
                     data: res.data.data.map((product) => mapProduct(product)),
                 }),
             )
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
     }, [
         mapProduct,
-        pushDanger,
         setProgress,
+        pushApiError,
         organization.id,
         filter.activeValues,
         organizationService,
@@ -97,11 +97,12 @@ export default function BudgetFundSponsorProducts({
     }
 
     return (
-        <div className="card">
+        <div className="card form">
             <div className="card-header">
-                <div className="row">
-                    <div className="col-lg-8 flex">
-                        <div className="card-title">Aanbod in beheer van {organization.name}</div>
+                <div className="fle flex-grow card-title">Aanbod in beheer van {organization.name}</div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         <StateNavLink
                             name={'fund-provider-product-create'}
                             params={{
@@ -109,25 +110,17 @@ export default function BudgetFundSponsorProducts({
                                 fundProviderId: fundProvider.id,
                                 organizationId: organization.id,
                             }}
-                            className="button button-text button-text button-text-muted">
+                            className="button button-primary">
                             <em className="mdi mdi-plus-circle icon-start" />
                             Voeg een aanbod toe
                         </StateNavLink>
-                    </div>
-                    <div className="col-lg-4">
-                        <div className="card-header-drown">
-                            <div className="block block-inline-filters">
-                                <div className="form">
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                            placeholder="Zoeken"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="form-group">
+                            <input
+                                className="form-control"
+                                value={filter.values.q}
+                                onChange={(e) => filter.update({ q: e.target.value })}
+                                placeholder="Zoeken"
+                            />
                         </div>
                     </div>
                 </div>

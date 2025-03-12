@@ -13,16 +13,16 @@ import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useOpenModal from '../../../hooks/useOpenModal';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const navigate = useNavigate();
+    const pushApiError = usePushApiError();
     const authIdentity2FAState = useAuthIdentity2FAState();
 
     const { signOut } = useContext(authContext);
@@ -79,13 +79,11 @@ export default function SecuritySessions() {
 
                 sessionService
                     .terminate(session.uid)
-                    .then(
-                        () => {
-                            fetchSessions();
-                            pushSuccess('Terminated!');
-                        },
-                        (e) => pushDanger('Mislukt!', e.data?.message),
-                    )
+                    .then(() => {
+                        fetchSessions();
+                        pushSuccess('Terminated!');
+                    })
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
@@ -100,7 +98,7 @@ export default function SecuritySessions() {
                 />
             ));
         },
-        [fetchSessions, sessionService, openModal, pushDanger, pushSuccess, setProgress],
+        [fetchSessions, sessionService, openModal, pushApiError, pushSuccess, setProgress],
     );
 
     const terminateAllSessions = useCallback(() => {
@@ -110,15 +108,13 @@ export default function SecuritySessions() {
 
             sessionService
                 .terminateAll()
-                .then(
-                    () => {
-                        signOut();
-                        clearAll();
-                        navigate(getStateRouteUrl('home'));
-                        pushSuccess('Terminated!');
-                    },
-                    (e) => pushDanger('Mislukt!', e.data?.message),
-                )
+                .then(() => {
+                    signOut();
+                    clearAll();
+                    navigate(getStateRouteUrl('home'));
+                    pushSuccess('Terminated!');
+                })
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         };
 
@@ -132,7 +128,7 @@ export default function SecuritySessions() {
                 buttonSubmit={{ onClick: () => onDone(modal) }}
             />
         ));
-    }, [clearAll, navigate, openModal, pushDanger, pushSuccess, sessionService, setProgress, signOut]);
+    }, [clearAll, navigate, openModal, pushApiError, pushSuccess, sessionService, setProgress, signOut]);
 
     useEffect(() => {
         if (authIdentity2FAState?.restrictions?.sessions?.restricted == false) {

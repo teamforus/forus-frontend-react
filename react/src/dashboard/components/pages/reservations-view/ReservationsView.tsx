@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -20,6 +19,7 @@ import ReservationExtraPaymentRefunds from './elements/ReservationExtraPaymentRe
 import ReservationExtraPaymentDetails from './elements/ReservationExtraPaymentDetails';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -28,9 +28,9 @@ export default function ReservationsView() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const transactionService = useTransactionService();
     const productReservationService = useProductReservationService();
@@ -50,10 +50,10 @@ export default function ReservationsView() {
             transactionService
                 .show(envData.client_type, activeOrganization.id, transaction_address)
                 .then((res) => setTransaction(res.data.data))
-                .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization.id, envData.client_type, pushDanger, setProgress, transactionService],
+        [activeOrganization.id, envData.client_type, pushApiError, setProgress, transactionService],
     );
 
     const fetchReservation = useCallback(
@@ -63,14 +63,14 @@ export default function ReservationsView() {
             productReservationService
                 .read(activeOrganization.id, reservation_id)
                 .then((res) => setReservation(res.data.data))
-                .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization.id, productReservationService, pushDanger, setProgress],
+        [activeOrganization.id, productReservationService, pushApiError, setProgress],
     );
 
     const acceptReservation = useCallback(
-        (reservation) => {
+        (reservation: Reservation) => {
             confirmReservationApproval(reservation, () => {
                 setProgress(0);
 
@@ -85,7 +85,7 @@ export default function ReservationsView() {
                             fetchTransaction(reservation.voucher_transaction?.address);
                         }
                     })
-                    .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                    .catch(pushApiError)
                     .then(() => setProgress(100));
             });
         },
@@ -94,14 +94,14 @@ export default function ReservationsView() {
             confirmReservationApproval,
             fetchTransaction,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
             setProgress,
         ],
     );
 
     const rejectReservation = useCallback(
-        (reservation) => {
+        (reservation: Reservation) => {
             if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
                 return showRejectInfoExtraPaid();
             }
@@ -113,7 +113,7 @@ export default function ReservationsView() {
                         pushSuccess('Opgeslagen!');
                         setReservation(res.data.data);
                     })
-                    .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                    .catch(pushApiError)
                     .then(() => setProgress(100));
             });
         },
@@ -121,7 +121,7 @@ export default function ReservationsView() {
             activeOrganization.id,
             confirmReservationRejection,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
             setProgress,
             showRejectInfoExtraPaid,
@@ -173,60 +173,59 @@ export default function ReservationsView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="flex flex-vertical">
-                                <div className="card-title">
-                                    <div className="flex">
-                                        <div className="flex flex-vertical">
-                                            <div className="flex">
-                                                <span className="text-muted">Product name:&nbsp;</span>
-                                                {reservation.product.name}
-                                                &nbsp;&nbsp;
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-vertical flex-center">
-                                            <div className="flex flex-horizontal">
-                                                {reservation.expired ? (
-                                                    <label className="label label-danger-light">Expired</label>
-                                                ) : (
-                                                    <label className={`label ${stateClass}`}>
-                                                        {reservation.state_locale}
-                                                    </label>
-                                                )}
-                                            </div>
+                    <div className="flex flex-grow">
+                        <div className="flex flex-vertical">
+                            <div className="card-title">
+                                <div className="flex">
+                                    <div className="flex flex-vertical">
+                                        <div className="flex">
+                                            <span className="text-muted">Product name:&nbsp;</span>
+                                            {reservation.product.name}
+                                            &nbsp;&nbsp;
                                         </div>
                                     </div>
-                                </div>
-                                <div className="card-subtitle">
-                                    <div className="flex">
-                                        <div className="mdi mdi-clock-outline" />
-                                        {reservation.created_at_locale}
+                                    <div className="flex flex-vertical flex-center">
+                                        <div className="flex flex-horizontal">
+                                            {reservation.expired ? (
+                                                <label className="label label-danger-light">Expired</label>
+                                            ) : (
+                                                <label className={`label ${stateClass}`}>
+                                                    {reservation.state_locale}
+                                                </label>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex flex-self-start">
-                            <div className="flex-row">
-                                <div className="button-group">
-                                    {reservation.acceptable && (
-                                        <div
-                                            className="button button-primary button-sm"
-                                            onClick={() => acceptReservation(reservation)}>
-                                            <em className="mdi mdi-check icon-start" />
-                                            Accepteer
-                                        </div>
-                                    )}
-
-                                    {reservation.rejectable && (
-                                        <div
-                                            className="button button-danger button-sm"
-                                            onClick={() => rejectReservation(reservation)}>
-                                            <em className="mdi mdi-close icon-start" />
-                                            Weiger
-                                        </div>
-                                    )}
+                            <div className="card-subtitle">
+                                <div className="flex">
+                                    <div className="mdi mdi-clock-outline" />
+                                    {reservation.created_at_locale}
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card-header-filters flex-self-start">
+                        <div className="block block-inline-filters">
+                            <div className="button-group">
+                                {reservation.acceptable && (
+                                    <div
+                                        className="button button-primary button-sm"
+                                        onClick={() => acceptReservation(reservation)}>
+                                        <em className="mdi mdi-check icon-start" />
+                                        Accepteer
+                                    </div>
+                                )}
+
+                                {reservation.rejectable && (
+                                    <div
+                                        className="button button-danger button-sm"
+                                        onClick={() => rejectReservation(reservation)}>
+                                        <em className="mdi mdi-close icon-start" />
+                                        Weiger
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

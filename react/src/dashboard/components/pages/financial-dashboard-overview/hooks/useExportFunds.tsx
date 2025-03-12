@@ -1,19 +1,18 @@
 import React, { useCallback } from 'react';
 import ModalExportTypeLegacy from '../../../modals/ModalExportTypeLegacy';
 import { format } from 'date-fns';
-import { ResponseError } from '../../../../props/ApiResponses';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import { useFileService } from '../../../../services/FileService';
 import { useFundService } from '../../../../services/FundService';
 import Organization from '../../../../props/models/Organization';
 import useEnvData from '../../../../hooks/useEnvData';
-import usePushDanger from '../../../../hooks/usePushDanger';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function useExportFunds(organization: Organization) {
     const envData = useEnvData();
 
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const fileService = useFileService();
     const fundService = useFundService();
@@ -34,9 +33,9 @@ export default function useExportFunds(organization: Organization) {
 
                     fileService.downloadFile(fileName, res.data, fileType);
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                .catch(pushApiError);
         },
-        [fundService, organization.id, organization.name, envData.client_type, fileService, pushDanger],
+        [fundService, organization.id, organization.name, envData.client_type, fileService, pushApiError],
     );
 
     return useCallback(

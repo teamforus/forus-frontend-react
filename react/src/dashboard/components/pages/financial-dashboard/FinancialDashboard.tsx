@@ -8,16 +8,15 @@ import FinancialFilters, { FinancialFiltersQuery } from './elements/FinancialFil
 import { useFundService } from '../../../services/FundService';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { ProviderFinancialStatistics, ProviderFinancialFilterOptions } from './types/FinancialStatisticTypes';
-import usePushDanger from '../../../hooks/usePushDanger';
-import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function FinancialDashboard() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
 
@@ -33,17 +32,17 @@ export default function FinancialDashboard() {
             fundService
                 .readFinances(activeOrganization.id, externalFilters)
                 .then((res) => setChartData(res.data))
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         }
-    }, [activeOrganization.id, fundService, externalFilters, setProgress, pushDanger]);
+    }, [activeOrganization.id, fundService, externalFilters, setProgress, pushApiError]);
 
     useEffect(() => {
         fundService
             .readFinances(activeOrganization.id, { filters: 1 })
             .then((res) => setOptions(res.data.filters))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
-    }, [activeOrganization.id, fundService, pushDanger]);
+            .catch(pushApiError);
+    }, [activeOrganization.id, fundService, pushApiError]);
 
     if (!options) {
         return <LoadingCard />;

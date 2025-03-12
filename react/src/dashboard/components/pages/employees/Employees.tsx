@@ -14,11 +14,10 @@ import ModalTransferOrganizationOwnership from '../../modals/ModalTransferOrgani
 import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
 import { format } from 'date-fns';
 import { useFileService } from '../../../services/FileService';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useEnvData from '../../../hooks/useEnvData';
@@ -41,7 +40,6 @@ export default function Employees() {
 
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
@@ -131,19 +129,17 @@ export default function Employees() {
 
     const doExport = useCallback(
         (exportType: string) => {
-            employeeService.export(activeOrganization.id, { ...filter.activeValues, export_type: exportType }).then(
-                (res) => {
+            employeeService
+                .export(activeOrganization.id, { ...filter.activeValues, export_type: exportType })
+                .then((res) => {
                     const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
                     const fileName = `${envData.client_type}_${activeOrganization.name}_employees_${dateTime}.${exportType}`;
 
                     fileService.downloadFile(fileName, res.data, res.headers['content-type']);
-                },
-                (res: ResponseError) => {
-                    pushDanger('Mislukt!', res.data.message);
-                },
-            );
+                })
+                .catch(pushApiError);
         },
-        [pushDanger, fileService, filter.activeValues, activeOrganization, employeeService, envData.client_type],
+        [pushApiError, fileService, filter.activeValues, activeOrganization, employeeService, envData.client_type],
     );
 
     const exportEmployees = useCallback(() => {
@@ -195,14 +191,14 @@ export default function Employees() {
                                     pushSuccess('Gelukt!', 'Medewerker verwijderd.');
                                     modal.close();
                                 })
-                                .catch((res: ResponseError) => pushDanger(res.data.message));
+                                .catch(pushApiError);
                         },
                         text: translate('modals.danger_zone.remove_organization_employees.buttons.confirm'),
                     }}
                 />
             ));
         },
-        [openModal, translate, employeeService, activeOrganization.id, filter, pushSuccess, pushDanger],
+        [openModal, translate, employeeService, activeOrganization.id, filter, pushSuccess, pushApiError],
     );
 
     const canEditEmployee = useCallback(
@@ -229,7 +225,7 @@ export default function Employees() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">Medewerkers ({employees?.meta.total})</div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">

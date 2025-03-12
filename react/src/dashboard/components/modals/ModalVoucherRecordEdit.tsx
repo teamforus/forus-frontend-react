@@ -10,11 +10,12 @@ import Organization from '../../props/models/Organization';
 import { useRecordTypeService } from '../../services/RecordTypeService';
 import RecordType from '../../props/models/RecordType';
 import useVoucherRecordService from '../../services/VoucherRecordService';
-import usePushDanger from '../../hooks/usePushDanger';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import VoucherRecord from '../../props/models/VoucherRecord';
 import { dateFormat, dateParse } from '../../helpers/dates';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
+import usePushApiError from '../../hooks/usePushApiError';
+import { ResponseError } from '../../props/ApiResponses';
 
 export default function ModalVoucherRecordEdit({
     modal,
@@ -31,9 +32,9 @@ export default function ModalVoucherRecordEdit({
     className?: string;
     organization: Organization;
 }) {
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const recordTypeService = useRecordTypeService();
     const voucherRecordService = useVoucherRecordService();
@@ -68,9 +69,9 @@ export default function ModalVoucherRecordEdit({
                     pushSuccess('Gelukt!', 'Persoonsgegeven is toegevoegd!');
                     modal.close();
                 })
-                .catch((res) => {
-                    form.setErrors(res.data?.errors);
-                    pushDanger('Foutmelding!', res.data.message);
+                .catch((err: ResponseError) => {
+                    form.setErrors(err.data?.errors);
+                    pushApiError(err);
                 })
                 .finally(() => form.setIsLocked(false));
         },
@@ -100,9 +101,9 @@ export default function ModalVoucherRecordEdit({
         voucherRecordService
             .list(organization.id, voucher.id, { per_page: 100 })
             .then((res) => setExistingRecordTypes(res.data.data.map((record) => record.record_type_key)))
-            .catch((res) => pushDanger('Mislukt!', res.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [organization.id, setProgress, voucher.id, voucherRecordService, pushDanger]);
+    }, [organization.id, setProgress, voucher.id, voucherRecordService, pushApiError]);
 
     useEffect(() => {
         fetchExistingRecordTypes();

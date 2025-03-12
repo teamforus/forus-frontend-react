@@ -1,9 +1,8 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import Tooltip from '../../elements/tooltip/Tooltip';
@@ -12,12 +11,13 @@ import useImplementationNotificationService from '../../../services/Implementati
 import SystemNotification from '../../../props/models/SystemNotification';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsNotifications() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const implementationService = useImplementationService();
     const implementationNotificationsService = useImplementationNotificationService();
@@ -124,15 +124,15 @@ export default function ImplementationsNotifications() {
         implementationNotificationsService
             .list(activeOrganization.id, implementation.id)
             .then((res) => setNotifications(res.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [implementationNotificationsService, activeOrganization.id, implementation?.id, pushDanger]);
+            .catch(pushApiError);
+    }, [implementationNotificationsService, activeOrganization.id, implementation?.id, pushApiError]);
 
     const fetchImplementations = useCallback(() => {
         implementationService
             .list(activeOrganization.id)
             .then((res) => setImplementations(res.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [implementationService, activeOrganization.id, pushDanger]);
+            .catch(pushApiError);
+    }, [implementationService, activeOrganization.id, pushApiError]);
 
     useEffect(() => {
         fetchImplementations();

@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
@@ -18,14 +17,15 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import { useParams } from 'react-router-dom';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsNotificationsBranding() {
     const { id } = useParams();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
 
@@ -57,11 +57,11 @@ export default function ImplementationsNotificationsBranding() {
                 })
                 .catch((err: ResponseError) => {
                     resolve(null);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         });
-    }, [implementation?.email_logo, media, mediaFile, mediaService, pushDanger, setProgress]);
+    }, [implementation?.email_logo, media, mediaFile, mediaService, pushApiError, setProgress]);
 
     const form = useFormBuilder(
         {
@@ -96,7 +96,7 @@ export default function ImplementationsNotificationsBranding() {
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', 'Er zijn een aantal problemen opgetreden, probeer het opnieuw!');
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         },
@@ -108,8 +108,8 @@ export default function ImplementationsNotificationsBranding() {
         implementationService
             .read(activeOrganization.id, parseInt(id))
             .then((res) => setImplementation(res.data.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [implementationService, activeOrganization.id, id, pushDanger]);
+            .catch(pushApiError);
+    }, [implementationService, activeOrganization.id, id, pushApiError]);
 
     useEffect(() => {
         if (implementation) {

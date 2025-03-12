@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -16,6 +15,7 @@ import ExtraPayment from '../../../props/models/ExtraPayment';
 import ReservationExtraPaymentDetails from '../reservations-view/elements/ReservationExtraPaymentDetails';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ExtraPaymentsView() {
     const { id } = useParams();
@@ -27,8 +27,8 @@ export default function ExtraPaymentsView() {
     const productReservationService = useProductReservationService();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const [transaction, setTransaction] = useState<Transaction>(null);
     const [extraPayment, setExtraPayment] = useState<ExtraPayment>(null);
@@ -41,10 +41,10 @@ export default function ExtraPaymentsView() {
             transactionService
                 .show(envData.client_type, activeOrganization.id, transaction_address)
                 .then((res) => setTransaction(res.data.data))
-                .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization.id, envData.client_type, pushDanger, setProgress, transactionService],
+        [activeOrganization.id, envData.client_type, pushApiError, setProgress, transactionService],
     );
 
     const fetchExtraPayment = useCallback(
@@ -54,10 +54,10 @@ export default function ExtraPaymentsView() {
             extraPaymentService
                 .read(activeOrganization.id, extra_payment_id)
                 .then((res) => setExtraPayment(res.data.data))
-                .catch((res) => pushDanger('Mislukt!', res.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization.id, extraPaymentService, pushDanger, setProgress],
+        [activeOrganization.id, extraPaymentService, pushApiError, setProgress],
     );
 
     useEffect(() => {
@@ -95,24 +95,28 @@ export default function ExtraPaymentsView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="card-title">
-                        <div className="flex-grow">
-                            <span className="text-muted">Product name:&nbsp;</span>
-                            {extraPayment.reservation.product.name}
-                            &nbsp;&nbsp;
+                    <div className="flex flex-vertical">
+                        <div className="card-title">
+                            <div className="flex-grow">
+                                <span className="text-muted">Product name:&nbsp;</span>
+                                {extraPayment.reservation.product.name}
+                                &nbsp;&nbsp;
+                            </div>
+                            <div className="flex-center">
+                                {extraPayment.reservation.expired ? (
+                                    <label className="label label-danger-light">Expired</label>
+                                ) : (
+                                    <label className={`label ${stateClass}`}>
+                                        {extraPayment.reservation.state_locale}
+                                    </label>
+                                )}
+                            </div>
                         </div>
-                        <div className="flex-center">
-                            {extraPayment.reservation.expired ? (
-                                <label className="label label-danger-light">Expired</label>
-                            ) : (
-                                <label className={`label ${stateClass}`}>{extraPayment.reservation.state_locale}</label>
-                            )}
-                        </div>
-                    </div>
-                    <div className="card-subtitle">
-                        <div className="flex">
-                            <div className="mdi mdi-clock-outline" />
-                            {extraPayment.reservation.created_at_locale}
+                        <div className="card-subtitle">
+                            <div className="flex">
+                                <div className="mdi mdi-clock-outline" />
+                                {extraPayment.reservation.created_at_locale}
+                            </div>
                         </div>
                     </div>
                 </div>

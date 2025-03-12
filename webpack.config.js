@@ -303,7 +303,7 @@ module.exports = (env, argv) => {
                 failOnError: true,
                 failOnWarning: true,
                 cache: true,
-                resolvePluginsRelativeTo: __dirname,
+                configType: 'eslintrc',
             }),
         ].filter((plugin) => plugin),
 
