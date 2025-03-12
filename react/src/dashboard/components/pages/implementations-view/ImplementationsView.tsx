@@ -167,7 +167,7 @@ export default function ImplementationsView() {
             </div>
 
             <div className="card card-collapsed">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow">Fonds gekoppeld aan webshop</div>
                     <div className="card-header-filters">
                         <div className="block block-inline-filters">

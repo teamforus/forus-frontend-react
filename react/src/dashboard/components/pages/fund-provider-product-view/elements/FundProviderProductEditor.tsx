@@ -106,22 +106,18 @@ export default function FundProviderProductEditor({
         <div className="card">
             <form className="form" onSubmit={form.submit}>
                 <div className="card-header">
-                    <div className="flex flex-horizontal">
-                        <div className="flex flex-grow">
-                            <div className="card-title">Subsidie starten</div>
-                        </div>
+                    <div className="flex flex-grow card-title">Subsidie starten</div>
 
-                        {deal?.active && onReset && (
-                            <div className="flex">
-                                <div className="block block-inline-filters">
-                                    <button className="button button-text" type="button" onClick={() => onReset(deal)}>
-                                        <div className="mdi mdi-trash-can-outline icon-start" />
-                                        Remove restriction
-                                    </button>
-                                </div>
+                    {deal?.active && onReset && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
+                                <button className="button button-danger" type="button" onClick={() => onReset(deal)}>
+                                    <div className="mdi mdi-trash-can-outline icon-start" />
+                                    Beperking verwijderen
+                                </button>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
                 <div className="card-section card-section-primary form">
                     <div className="row">

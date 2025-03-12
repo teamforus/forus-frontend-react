@@ -70,7 +70,7 @@ export default function ReservationsView() {
     );
 
     const acceptReservation = useCallback(
-        (reservation) => {
+        (reservation: Reservation) => {
             confirmReservationApproval(reservation, () => {
                 setProgress(0);
 
@@ -101,7 +101,7 @@ export default function ReservationsView() {
     );
 
     const rejectReservation = useCallback(
-        (reservation) => {
+        (reservation: Reservation) => {
             if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
                 return showRejectInfoExtraPaid();
             }
@@ -173,60 +173,59 @@ export default function ReservationsView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="flex flex-vertical">
-                                <div className="card-title">
-                                    <div className="flex">
-                                        <div className="flex flex-vertical">
-                                            <div className="flex">
-                                                <span className="text-muted">Product name:&nbsp;</span>
-                                                {reservation.product.name}
-                                                &nbsp;&nbsp;
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-vertical flex-center">
-                                            <div className="flex flex-horizontal">
-                                                {reservation.expired ? (
-                                                    <label className="label label-danger-light">Expired</label>
-                                                ) : (
-                                                    <label className={`label ${stateClass}`}>
-                                                        {reservation.state_locale}
-                                                    </label>
-                                                )}
-                                            </div>
+                    <div className="flex flex-grow">
+                        <div className="flex flex-vertical">
+                            <div className="card-title">
+                                <div className="flex">
+                                    <div className="flex flex-vertical">
+                                        <div className="flex">
+                                            <span className="text-muted">Product name:&nbsp;</span>
+                                            {reservation.product.name}
+                                            &nbsp;&nbsp;
                                         </div>
                                     </div>
-                                </div>
-                                <div className="card-subtitle">
-                                    <div className="flex">
-                                        <div className="mdi mdi-clock-outline" />
-                                        {reservation.created_at_locale}
+                                    <div className="flex flex-vertical flex-center">
+                                        <div className="flex flex-horizontal">
+                                            {reservation.expired ? (
+                                                <label className="label label-danger-light">Expired</label>
+                                            ) : (
+                                                <label className={`label ${stateClass}`}>
+                                                    {reservation.state_locale}
+                                                </label>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex flex-self-start">
-                            <div className="flex-row">
-                                <div className="button-group">
-                                    {reservation.acceptable && (
-                                        <div
-                                            className="button button-primary button-sm"
-                                            onClick={() => acceptReservation(reservation)}>
-                                            <em className="mdi mdi-check icon-start" />
-                                            Accepteer
-                                        </div>
-                                    )}
-
-                                    {reservation.rejectable && (
-                                        <div
-                                            className="button button-danger button-sm"
-                                            onClick={() => rejectReservation(reservation)}>
-                                            <em className="mdi mdi-close icon-start" />
-                                            Weiger
-                                        </div>
-                                    )}
+                            <div className="card-subtitle">
+                                <div className="flex">
+                                    <div className="mdi mdi-clock-outline" />
+                                    {reservation.created_at_locale}
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card-header-filters flex-self-start">
+                        <div className="block block-inline-filters">
+                            <div className="button-group">
+                                {reservation.acceptable && (
+                                    <div
+                                        className="button button-primary button-sm"
+                                        onClick={() => acceptReservation(reservation)}>
+                                        <em className="mdi mdi-check icon-start" />
+                                        Accepteer
+                                    </div>
+                                )}
+
+                                {reservation.rejectable && (
+                                    <div
+                                        className="button button-danger button-sm"
+                                        onClick={() => rejectReservation(reservation)}>
+                                        <em className="mdi mdi-close icon-start" />
+                                        Weiger
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

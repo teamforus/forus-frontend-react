@@ -285,7 +285,7 @@ export default function PreCheck() {
     return (
         <Fragment>
             <form className="card form" onSubmit={preCheckForm.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow">{translate('funds_pre_check.header.title')}</div>
 
                     <div className="button-group">
@@ -459,7 +459,7 @@ export default function PreCheck() {
             />
 
             <form className="card form" onSubmit={bannerForm.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Homepagina banner</div>
                 </div>
 

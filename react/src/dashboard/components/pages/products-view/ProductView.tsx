@@ -210,21 +210,19 @@ export default function ProductView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex-row">
-                        <div className="flex-col flex-grow">
-                            <div className="card-title">Fondsen</div>
-                        </div>
-                        <div className="flex-col flex-grow block block-inline-filters">
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        placeholder="Zoeken"
-                                        value={filter.values.q}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
-                                    />
-                                </div>
+                    <div className="flex flex-grow flex-grow">
+                        <div className="card-title">Fondsen</div>
+                    </div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters form">
+                            <div className="form-group">
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Zoeken"
+                                    value={filter.values.q}
+                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                />
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@ export default function ProductMonitoredHistoryCard({ product }: { product: Spon
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('sponsor_products.labels.logs')} ({product.monitored_history?.length})
                 </div>

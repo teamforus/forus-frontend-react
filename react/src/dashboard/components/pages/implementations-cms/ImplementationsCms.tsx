@@ -314,10 +314,10 @@ export default function ImplementationsCms() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">{translate('implementation_edit.header.title')}</div>
-                        <div className="card-header-actions">
-                            <div className="button-group">
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <a
                                     className="button button-text button-sm"
                                     href={implementation.url_webshop}

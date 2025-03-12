@@ -210,7 +210,7 @@ export default function Offices() {
 
             {offices && (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">
                             {translate('offices.labels.offices')} ({offices?.length})
                         </div>

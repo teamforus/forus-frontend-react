@@ -58,23 +58,17 @@ export default function Implementations() {
     return (
         <div className="card card-collapsed">
             <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">Webshops</div>
-                    </div>
-                    <div className="flex">
-                        <div className="block block-inline-filters">
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        value={filter.values.q}
-                                        placeholder="Zoeken"
-                                        className="form-control"
-                                        onChange={(e) => filter.update({ q: e.target.value })}
-                                    />
-                                </div>
-                            </div>
+                <div className="flex flex-grow card-title">Webshops</div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters form">
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                value={filter.values.q}
+                                placeholder="Zoeken"
+                                className="form-control"
+                                onChange={(e) => filter.update({ q: e.target.value })}
+                            />
                         </div>
                     </div>
                 </div>

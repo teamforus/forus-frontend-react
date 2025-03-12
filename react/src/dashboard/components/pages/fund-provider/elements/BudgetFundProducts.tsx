@@ -89,26 +89,18 @@ export default function BudgetFundProducts({
     }
 
     return (
-        <div className="card">
+        <div className="card form">
             <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex-col">
-                        <div className="card-title">Aanbod in beheer {fundProvider.organization.name}</div>
-                    </div>
-                    <div className="flex-col">
-                        <div className="card-header-drown">
-                            <div className="block block-inline-filters">
-                                <div className="form">
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                            placeholder="Zoeken"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                <div className="flex flex-grow card-title">Aanbod in beheer {fundProvider.organization.name}</div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        <div className="form-group">
+                            <input
+                                className="form-control"
+                                value={filter.values.q}
+                                onChange={(e) => filter.update({ q: e.target.value })}
+                                placeholder="Zoeken"
+                            />
                         </div>
                     </div>
                 </div>

@@ -79,11 +79,10 @@ export default function FundRequestPerson({
     return (
         <div>
             <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex flex-vertical flex-center">
-                        <div className="card-heading text-muted text-muted-dark">Persoonlijke gegevens &nbsp;</div>
-                    </div>
-                    <div className="flex flex-col flex-end">
+                <div className="flex flex-grow card-title">Persoonlijke gegevens &nbsp;</div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         {fundRequest.bsn_expanded ? (
                             <button
                                 className="button button-default button-sm"
