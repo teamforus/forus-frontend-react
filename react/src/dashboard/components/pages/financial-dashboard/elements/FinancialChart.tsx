@@ -65,10 +65,8 @@ export default function FinancialChart({ chartData }: { chartData: ProviderFinan
 
     return (
         <div className="card">
-            <div className="card-header flex">
-                <div className="flex flex-grow">
-                    <div className="card-title">Grafiek</div>
-                </div>
+            <div className="card-header">
+                <div className="card-title flex flex-grow">Grafiek</div>
                 <div className="flex block block-label-tabs">
                     <div
                         className={`label-tab ${field === 'amount' ? 'active' : ''}`}

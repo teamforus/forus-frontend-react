@@ -62,7 +62,7 @@ export default function FinancialOverviewFundsTable({
 
     return (
         <div className="card card-financial form">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow tooltipped">
                     Saldo en uitgaven
                     <Tooltip text={'Saldo en uitgaven van de gekoppelde bankrekening per fonds.'} />

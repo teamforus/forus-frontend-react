@@ -11,12 +11,12 @@ import Tooltip from '../../../elements/tooltip/Tooltip';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useShowRejectInfoExtraPaid from '../../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function TransactionDetails({
     transaction,
@@ -39,8 +39,8 @@ export default function TransactionDetails({
     const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
 
     const isSponsor = useMemo(() => envData.client_type == 'sponsor', [envData.client_type]);
@@ -76,14 +76,14 @@ export default function TransactionDetails({
                             text: 'Bevestigen',
                             onClick: () => {
                                 modal.close();
-                                productReservationService.reject(activeOrganization.id, reservation.id).then(
-                                    () => {
+                                productReservationService
+                                    .reject(activeOrganization.id, reservation.id)
+                                    .then(() => {
                                         pushSuccess('Opgeslagen!');
                                         fetchTransaction().then((res) => setTransaction(res.data.data));
                                         onUpdate?.();
-                                    },
-                                    (res) => pushDanger(res.data.message),
-                                );
+                                    })
+                                    .catch(pushApiError);
                             },
                         }}
                     />
@@ -96,7 +96,7 @@ export default function TransactionDetails({
             onUpdate,
             openModal,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
             setTransaction,
             showRejectInfoExtraPaid,
@@ -153,40 +153,37 @@ export default function TransactionDetails({
             )}
             <div className="card card-wrapped">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">
-                                {translate('financial_dashboard_transaction.labels.details')}
-                            </div>
-                        </div>
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                {showDetailsPageButton && (
-                                    <StateNavLink
-                                        name={'transaction'}
-                                        className="button button-primary"
-                                        activeExact={true}
-                                        params={{
-                                            organizationId: activeOrganization.id,
-                                            address: transaction.address,
-                                        }}>
-                                        <em className="mdi mdi-eye-outline icon-start" />
-                                        Transactie details
-                                    </StateNavLink>
-                                )}
-                                {transaction.voucher_id && transaction.target !== 'payout' && isSponsor && (
-                                    <StateNavLink
-                                        name={'vouchers-show'}
-                                        params={{
-                                            organizationId: activeOrganization.id,
-                                            id: transaction.product_reservation?.voucher_id || transaction.voucher_id,
-                                        }}
-                                        className="button button-primary">
-                                        <em className="mdi mdi-eye-outline icon-start" />
-                                        Tegoed details
-                                    </StateNavLink>
-                                )}
-                            </div>
+                    <div className="flex flex-grow card-title">
+                        {translate('financial_dashboard_transaction.labels.details')}
+                    </div>
+
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            {showDetailsPageButton && (
+                                <StateNavLink
+                                    name={'transaction'}
+                                    className="button button-primary"
+                                    activeExact={true}
+                                    params={{
+                                        organizationId: activeOrganization.id,
+                                        address: transaction.address,
+                                    }}>
+                                    <em className="mdi mdi-eye-outline icon-start" />
+                                    Transactie details
+                                </StateNavLink>
+                            )}
+                            {transaction.voucher_id && transaction.target !== 'payout' && isSponsor && (
+                                <StateNavLink
+                                    name={'vouchers-show'}
+                                    params={{
+                                        organizationId: activeOrganization.id,
+                                        id: transaction.product_reservation?.voucher_id || transaction.voucher_id,
+                                    }}
+                                    className="button button-primary">
+                                    <em className="mdi mdi-eye-outline icon-start" />
+                                    Tegoed details
+                                </StateNavLink>
+                            )}
                         </div>
                     </div>
                 </div>

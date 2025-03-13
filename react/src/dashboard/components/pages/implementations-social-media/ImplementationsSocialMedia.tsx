@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
@@ -22,14 +21,15 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam } from 'use-query-params';
 import { useParams } from 'react-router-dom';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsSocialMedia() {
     const { id } = useParams();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const openModal = useOpenModal();
     const activeOrganization = useActiveOrganization();
@@ -65,9 +65,9 @@ export default function ImplementationsSocialMedia() {
                     return navigateState('implementations', { organizationId: activeOrganization.id });
                 }
 
-                pushDanger('Mislukt!', err.data.message);
+                pushApiError(err);
             });
-    }, [implementationService, activeOrganization.id, id, pushDanger, navigateState]);
+    }, [implementationService, activeOrganization.id, id, pushApiError, navigateState]);
 
     const fetchSocialMedias = useCallback(() => {
         if (implementation) {
@@ -76,7 +76,7 @@ export default function ImplementationsSocialMedia() {
             implementationSocialMediaService
                 .list(activeOrganization.id, implementation.id, filterActiveValues)
                 .then((res) => setSocialMedias(res.data))
-                .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         }
     }, [
@@ -84,7 +84,7 @@ export default function ImplementationsSocialMedia() {
         filterActiveValues,
         implementation,
         implementationSocialMediaService,
-        pushDanger,
+        pushApiError,
         setProgress,
     ]);
 
@@ -127,9 +127,7 @@ export default function ImplementationsSocialMedia() {
                                     pushSuccess('Opgeslagen!');
                                     fetchSocialMedias();
                                 })
-                                .catch((err: ResponseError) => {
-                                    pushDanger('Error!', err?.data?.message);
-                                })
+                                .catch(pushApiError)
                                 .finally(() => {
                                     setProgress(100);
                                 });
@@ -147,7 +145,7 @@ export default function ImplementationsSocialMedia() {
             implementation?.id,
             pushSuccess,
             fetchSocialMedias,
-            pushDanger,
+            pushApiError,
         ],
     );
 
@@ -187,20 +185,18 @@ export default function ImplementationsSocialMedia() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">{`Social media links (${socialMedias.meta.total})`}</div>
-                        </div>
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                <a
-                                    className="button button-primary button-sm"
-                                    onClick={() => editSocialMedia()}
-                                    id="add_social_media">
-                                    <em className="mdi mdi-plus-circle icon-start" />
-                                    Toevoegen
-                                </a>
-                            </div>
+                    <div className="flex flex-grow card-title">
+                        <div className="card-title">{`Social media links (${socialMedias.meta.total})`}</div>
+                    </div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            <a
+                                className="button button-primary button-sm"
+                                onClick={() => editSocialMedia()}
+                                id="add_social_media">
+                                <em className="mdi mdi-plus-circle icon-start" />
+                                Toevoegen
+                            </a>
                         </div>
                     </div>
                 </div>

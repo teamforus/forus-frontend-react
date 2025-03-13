@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import { useFundService } from '../../../services/FundService';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { ResponseError } from '../../../props/ApiResponses';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../elements/select-control/SelectControl';
@@ -14,15 +13,16 @@ import SelectControlOptions from '../../elements/select-control/templates/Select
 import OrganizationsFundsSecurityAuth2FAForm from './elements/OrganizationsFundsSecurityAuth2FAForm';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function OrganizationsFundsSecurity() {
     const fundId = parseInt(useParams().fundId);
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
 
@@ -49,7 +49,7 @@ export default function OrganizationsFundsSecurity() {
             .update(activeOrganization.id, fundId, values)
             .then(() => pushSuccess('Opgeslagen!'))
             .catch((err: ResponseError) => {
-                pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding.');
+                pushApiError(err);
                 form.setErrors(err.data.errors);
             })
             .finally(() => {

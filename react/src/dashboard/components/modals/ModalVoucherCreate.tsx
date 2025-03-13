@@ -23,6 +23,7 @@ import ModalNotification from './ModalNotification';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalVoucherCreate({
     funds,
@@ -43,6 +44,7 @@ export default function ModalVoucherCreate({
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const voucherService = useVoucherService();
     const productService = useProductService();
@@ -126,7 +128,7 @@ export default function ModalVoucherCreate({
                     .catch((err: ResponseError) => {
                         form.setErrors(err.data.errors);
                         form.setIsLocked(false);
-                        pushDanger('Mislukt!', err.data.message);
+                        pushApiError(err);
                     })
                     .finally(() => {
                         setProgress(100);
@@ -197,7 +199,7 @@ export default function ModalVoucherCreate({
                     }
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                     form.setErrors(err.data.errors);
                     form.setIsLocked(false);
                 })

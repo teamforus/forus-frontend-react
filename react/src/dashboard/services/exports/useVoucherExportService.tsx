@@ -8,10 +8,10 @@ import useVoucherService from '../VoucherService';
 import { useFileService } from '../FileService';
 import JSZip from 'jszip';
 import { uniqueId } from 'lodash';
-import { ResponseError } from '../../props/ApiResponses';
 import QRCode from 'easyqrcodejs';
 import useTranslate from '../../hooks/useTranslate';
 import usePushSuccess from '../../hooks/usePushSuccess';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function useVoucherExportService() {
     const pushDanger = usePushDanger();
@@ -19,6 +19,7 @@ export default function useVoucherExportService() {
     const setProgress = useSetProgress();
     const openModal = useOpenModal();
     const translate = useTranslate();
+    const pushApiError = usePushApiError();
 
     const voucherService = useVoucherService();
     const fileService = useFileService();
@@ -170,7 +171,7 @@ export default function useVoucherExportService() {
                             }, console.error)
                             .finally(() => setProgress(100));
                     })
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
@@ -199,6 +200,7 @@ export default function useVoucherExportService() {
             saveExportedData,
             setProgress,
             voucherService,
+            pushApiError,
         ],
     );
 

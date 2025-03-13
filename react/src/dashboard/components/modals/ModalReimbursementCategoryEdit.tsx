@@ -5,10 +5,10 @@ import useFormBuilder from '../../hooks/useFormBuilder';
 import { useReimbursementCategoryService } from '../../services/ReimbursementCategoryService';
 import useActiveOrganization from '../../hooks/useActiveOrganization';
 import usePushSuccess from '../../hooks/usePushSuccess';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalReimbursementCategoryEdit({
     modal,
@@ -25,7 +25,7 @@ export default function ModalReimbursementCategoryEdit({
 }) {
     const activeOrganization = useActiveOrganization();
 
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
 
@@ -49,7 +49,7 @@ export default function ModalReimbursementCategoryEdit({
                     onSubmit?.();
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Mislukt!', err.data?.message);
+                    pushApiError(err);
                     form.setErrors(err.data?.errors);
                     form.setIsLocked(false);
                 })

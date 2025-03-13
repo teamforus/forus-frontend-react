@@ -34,6 +34,7 @@ export default function ReservationFieldItem({
     const [types] = useState([
         { key: 'text', name: 'Tekst' },
         { key: 'number', name: 'Nummer' },
+        { key: 'boolean', name: 'Ja / Nee' },
     ]);
 
     const askConfirmation = useCallback(

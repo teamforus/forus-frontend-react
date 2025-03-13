@@ -18,7 +18,6 @@ import useImplementationService from '../../../services/ImplementationService';
 import { useFundService } from '../../../services/FundService';
 import usePreCheckService from '../../../services/PreCheckService';
 import { useMediaService } from '../../../services/MediaService';
-import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import PreCheckRecord from '../../../props/models/PreCheckRecord';
 import { uniqueId } from 'lodash';
@@ -28,15 +27,16 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import InfoBox from '../../elements/info-box/InfoBox';
 import PreCheckExclusionsCard from './cards/PreCheckExclusionsCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function PreCheck() {
     const activeOrganization = useActiveOrganization();
 
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
 
     const fundService = useFundService();
@@ -97,7 +97,7 @@ export default function PreCheck() {
                 })
                 .catch((err: ResponseError) => {
                     preCheckForm.setErrors(err.data.errors);
-                    pushDanger(err.data?.message || 'Onbekende foutmelding!');
+                    pushApiError(err);
                 })
                 .finally(() => preCheckForm.setIsLocked(false));
         },
@@ -124,7 +124,7 @@ export default function PreCheck() {
                 })
                 .catch((err: ResponseError) => {
                     bannerForm.setErrors(err.data.errors);
-                    pushDanger(err.data?.message || 'Onbekende foutmelding!');
+                    pushApiError(err);
                 })
                 .finally(() => bannerForm.setIsLocked(false));
         },
@@ -149,14 +149,14 @@ export default function PreCheck() {
                     .store('pre_check_banner', mediaFile)
                     .then((res) => res.data?.data)
                     .catch((err: ResponseError) => {
-                        pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding!');
+                        pushApiError(err);
                         return null;
                     });
             }
 
             return null;
         },
-        [deleteMedia, implementation?.pre_check_banner?.uid, mediaService, pushDanger],
+        [deleteMedia, implementation?.pre_check_banner?.uid, mediaService, pushApiError],
     );
 
     const transformPreCheckRecordTypes = useCallback((recordTypes) => {
@@ -285,7 +285,7 @@ export default function PreCheck() {
     return (
         <Fragment>
             <form className="card form" onSubmit={preCheckForm.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow">{translate('funds_pre_check.header.title')}</div>
 
                     <div className="button-group">
@@ -459,7 +459,7 @@ export default function PreCheck() {
             />
 
             <form className="card form" onSubmit={bannerForm.submit}>
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title">Homepagina banner</div>
                 </div>
 

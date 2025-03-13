@@ -15,6 +15,7 @@ import Tooltip from '../../elements/tooltip/Tooltip';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function FundBackofficeEdit() {
     const { fundId } = useParams();
@@ -24,6 +25,7 @@ export default function FundBackofficeEdit() {
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
 
@@ -96,7 +98,7 @@ export default function FundBackofficeEdit() {
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     form.setIsLocked(false);
@@ -151,8 +153,8 @@ export default function FundBackofficeEdit() {
                     );
                 }
             })
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [fundService, activeOrganization.id, fundId, pushSuccess, pushDanger]);
+            .catch(pushApiError);
+    }, [fundService, activeOrganization.id, fundId, pushSuccess, pushDanger, pushApiError]);
 
     const fetchImplementation = useCallback(() => {
         setProgress(0);
@@ -160,9 +162,9 @@ export default function FundBackofficeEdit() {
         fundService
             .read(activeOrganization.id, parseInt(fundId))
             .then((res) => setFund(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, fundId, pushDanger]);
+    }, [setProgress, fundService, activeOrganization.id, fundId, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();
@@ -208,13 +210,11 @@ export default function FundBackofficeEdit() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header form">
-                        <div className="flex-row">
-                            <div className="flex flex-grow">
-                                <div className="card-title">Backoffice integratie</div>
-                            </div>
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title">Backoffice integratie</div>
 
-                            <div className="flex">
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <div className="form-group">
                                     {isDirty && (
                                         <div className="button button-text button-sm button-disabled button-disabled-visible">

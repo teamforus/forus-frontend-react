@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useImplementationService from '../../../services/ImplementationService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { hasPermission } from '../../../helpers/utils';
@@ -19,14 +18,15 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsView() {
     const { id } = useParams();
 
     const navigate = useNavigate();
     const assetUrl = useAssetUrl();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const activeOrganization = useActiveOrganization();
 
@@ -42,14 +42,14 @@ export default function ImplementationsView() {
         implementationService
             .read(activeOrganization.id, parseInt(id))
             .then((res) => setImplementation(res.data.data))
-            .catch((res: ResponseError) => {
-                if (res.status === 403) {
+            .catch((err: ResponseError) => {
+                if (err.status === 403) {
                     navigate(getStateRouteUrl('implementations', { organizationId: activeOrganization.id }));
                 }
 
-                pushDanger('Mislukt!', res.data.message);
+                pushApiError(err);
             });
-    }, [activeOrganization.id, id, implementationService, navigate, pushDanger]);
+    }, [activeOrganization.id, id, implementationService, navigate, pushApiError]);
 
     const { headElement, configsElement } = useConfigurableTable(implementationService.getColumns());
 
@@ -59,9 +59,9 @@ export default function ImplementationsView() {
         fundService
             .list(activeOrganization.id, { implementation_id: parseInt(id), ...filter.activeValues })
             .then((res) => setFunds(res.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization.id, id, filter.activeValues, pushDanger]);
+    }, [setProgress, fundService, activeOrganization.id, id, filter.activeValues, pushApiError]);
 
     useEffect(() => {
         fetchImplementation();
@@ -167,7 +167,7 @@ export default function ImplementationsView() {
             </div>
 
             <div className="card card-collapsed">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow">Fonds gekoppeld aan webshop</div>
                     <div className="card-header-filters">
                         <div className="block block-inline-filters">

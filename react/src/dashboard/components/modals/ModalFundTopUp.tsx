@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ResponseError } from '../../props/ApiResponses';
-import usePushDanger from '../../hooks/usePushDanger';
 import Fund from '../../props/models/Fund';
 import { useFundService } from '../../services/FundService';
 import useActiveOrganization from '../../hooks/useActiveOrganization';
 import { useClipboardService } from '../../services/ClipboardService';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import useTranslate from '../../hooks/useTranslate';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalFundTopUp({
     fund,
@@ -21,8 +21,8 @@ export default function ModalFundTopUp({
     className?: string;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -53,10 +53,10 @@ export default function ModalFundTopUp({
                 setLoaded(true);
             })
             .catch((err: ResponseError) => {
-                pushDanger(err.data.message);
+                pushApiError(err);
                 closeModal();
             });
-    }, [activeOrganization.id, closeModal, fund.id, fundService, modal, pushDanger]);
+    }, [activeOrganization.id, closeModal, fund.id, fundService, modal, pushApiError]);
 
     return (
         <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
