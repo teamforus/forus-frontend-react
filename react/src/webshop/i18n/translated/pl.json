@@ -1375,7 +1375,6 @@
     "modal_2fa_setup": {
         "2fa": "Uwierzytelnianie dwuskładnikowe",
         "2fa_success": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie skonfigurowane",
-        "already_have_app": "Jeśli masz już aplikację Google Authenticator, wykonaj poniższe czynności:",
         "back": "Powrót",
         "cancel": "Anuluj",
         "code_resent": "Ponownie wysłaliśmy kod.",
@@ -1401,7 +1400,8 @@
         "verify": "Weryfikacja",
         "welcome_back": "Pomyślnie zalogowano się przy użyciu uwierzytelniania dwuskładnikowego. Witamy ponownie!",
         "already_have_app_steps": "1. W aplikacji wybierz opcję <strong class=\"text-strong\">Konfiguracja konta</strong><br>2. Wybierz <strong class=\"text-strong\">Skanuj kod QR</strong> lub <strong class=\"text-strong\">Wprowadź klucz instalacyjny</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> Jeśli nie masz aplikacji {{name}}, </strong>możesz ją pobrać ze <strong class=\"text-strong\">Sklepu Play</strong> lub <strong class=\"text-strong\">App Store</strong>."
+        "dont_have_app": "<strong class=\"text-strong\"> Jeśli nie masz aplikacji {{name}}, </strong>możesz ją pobrać ze <strong class=\"text-strong\">Sklepu Play</strong> lub <strong class=\"text-strong\">App Store</strong>.",
+        "already_have_app": "Jeśli masz już aplikację {{name}}, wykonaj poniższe czynności:"
     },
     "modal_fund_help": {
         "chat": "Czat",

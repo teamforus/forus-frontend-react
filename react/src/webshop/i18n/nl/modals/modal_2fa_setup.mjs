@@ -5,7 +5,7 @@ export default {
     select_auth_app: 'Selecteer de authenticatie-app die u wilt gebruiken.',
     dont_have_app:
         '<strong class="text-strong"> Als je de {{name}} app niet hebt, </strong>Kun je deze downloaden vanuit de <strong class="text-strong">Play Store</strong> of de <strong class="text-strong">App Store</strong>.',
-    already_have_app: 'Als je al de Google Authenticator-app hebt, volg dan de onderstaande stappen:',
+    already_have_app: 'Als je al de {{name}}-app hebt, volg dan de onderstaande stappen:',
     already_have_app_steps:
         '1. In de app, selecteer <strong class="text-strong">Account instellen</strong><br>2. Kies <strong class="text-strong">Scan een QR-code</strong> of de <strong class="text-strong">Voer een installatiesleutel in: {{secret}}</strong>',
     cancel: 'Annuleer',

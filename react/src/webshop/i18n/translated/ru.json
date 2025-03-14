@@ -1375,7 +1375,6 @@
     "modal_2fa_setup": {
         "2fa": "Двухфакторная аутентификация",
         "2fa_success": "Двухфакторная аутентификация успешно настроена",
-        "already_have_app": "Если у вас уже есть приложение Google Authenticator, выполните следующие действия:",
         "back": "Назад",
         "cancel": "Отмена",
         "code_resent": "Мы повторно отправили код.",
@@ -1401,7 +1400,8 @@
         "verify": "Проверьте",
         "welcome_back": "Вы успешно вошли в систему с помощью двухфакторной аутентификации. С возвращением!",
         "already_have_app_steps": "1. В приложении выберите <strong class=\"text-strong\">Настройка учетной записи</strong><br>2. Выберите <strong class=\"text-strong\">Сканировать QR-код</strong> или <strong class=\"text-strong\">Ввести ключ установки</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> Если у вас нет приложения {{name}}, </strong>вы можете загрузить его из <strong class=\"text-strong\">Play Store</strong> или <strong class=\"text-strong\">App Store</strong>."
+        "dont_have_app": "<strong class=\"text-strong\"> Если у вас нет приложения {{name}}, </strong>вы можете загрузить его из <strong class=\"text-strong\">Play Store</strong> или <strong class=\"text-strong\">App Store</strong>.",
+        "already_have_app": "Если у вас уже есть приложение {{name}}, выполните следующие действия:"
     },
     "modal_fund_help": {
         "chat": "Чат",

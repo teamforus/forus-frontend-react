@@ -1375,7 +1375,6 @@
     "modal_2fa_setup": {
         "2fa": "Zwei-Faktor-Authentifizierung",
         "2fa_success": "Zwei-Faktor-Authentifizierung erfolgreich eingerichtet",
-        "already_have_app": "Wenn Sie bereits über die Google Authenticator-App verfügen, führen Sie die folgenden Schritte aus:",
         "back": "Zurück",
         "cancel": "Abbrechen",
         "code_resent": "Wir haben den Code erneut gesendet.",
@@ -1401,7 +1400,8 @@
         "verify": "Überprüfen Sie",
         "welcome_back": "Sie haben sich erfolgreich mit der Zwei-Faktor-Authentifizierung angemeldet. Willkommen zurück!",
         "already_have_app_steps": "1. Wählen Sie in der App <strong class=\"text-strong\">Kontoeinrichtung</strong><br>2. Wählen Sie <strong class=\"text-strong\">Scannen eines QR-Codes</strong> oder <strong class=\"text-strong\">Eingabe eines Installationsschlüssels</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> Wenn Sie die App {{name}} nicht haben, </strong>können Sie sie aus dem <strong class=\"text-strong\">Play Store</strong> oder dem <strong class=\"text-strong\">App Store</strong> herunterladen."
+        "dont_have_app": "<strong class=\"text-strong\"> Wenn Sie die App {{name}} nicht haben, </strong>können Sie sie aus dem <strong class=\"text-strong\">Play Store</strong> oder dem <strong class=\"text-strong\">App Store</strong> herunterladen.",
+        "already_have_app": "Wenn Sie bereits über die App {{name}} verfügen, führen Sie die folgenden Schritte aus:"
     },
     "modal_fund_help": {
         "chat": "Chat",

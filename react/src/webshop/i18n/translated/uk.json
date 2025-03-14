@@ -1375,7 +1375,6 @@
     "modal_2fa_setup": {
         "2fa": "Двофакторна автентифікація",
         "2fa_success": "Двофакторну автентифікацію успішно налаштовано",
-        "already_have_app": "Якщо у вас вже є додаток Google Authenticator, виконайте наведені нижче дії:",
         "back": "Назад",
         "cancel": "Скасувати",
         "code_resent": "Ми обурені кодом.",
@@ -1401,7 +1400,8 @@
         "verify": "Підтвердити",
         "welcome_back": "Ви успішно увійшли за допомогою двофакторної автентифікації. З поверненням!",
         "already_have_app_steps": "1. У додатку виберіть Налаштування <strong class=\"text-strong\">облікового запису</strong><br>2. Виберіть <strong class=\"text-strong\">Відсканувати QR-код</strong> або <strong class=\"text-strong\">Ввести ключ встановлення</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> Якщо у вас немає програми {{name}} </strong>, ви можете завантажити її з <strong class=\"text-strong\">Play Store</strong> або <strong class=\"text-strong\">App Store</strong>."
+        "dont_have_app": "<strong class=\"text-strong\"> Якщо у вас немає програми {{name}} </strong>, ви можете завантажити її з <strong class=\"text-strong\">Play Store</strong> або <strong class=\"text-strong\">App Store</strong>.",
+        "already_have_app": "Якщо у вас вже є додаток {{name}}, виконайте наведені нижче дії:"
     },
     "modal_fund_help": {
         "chat": "Чат",

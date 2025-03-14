@@ -2777,7 +2777,6 @@
     "modal_2fa_setup": {
         "2fa": "المصادقة الثنائية",
         "2fa_success": "تم إعداد المصادقة الثنائية بنجاح",
-        "already_have_app": "إذا كان لديك تطبيق Google Authenticator بالفعل، فاتبع الخطوات التالية:",
         "back": "رجوع",
         "cancel": "إلغاء",
         "code_resent": "لقد قمنا بإعادة إرسال الرمز.",
@@ -2803,7 +2802,8 @@
         "verify": "تحقق",
         "welcome_back": "لقد قمت بتسجيل الدخول بنجاح باستخدام المصادقة الثنائية. مرحباً بعودتك!",
         "already_have_app_steps": "1. في التطبيق، حدد <strong class=\"text-strong\">إعداد الحساب</strong><br>2. اختر <strong class=\"text-strong\">مسح رمز الاستجابة السريعة</strong> أو <strong class=\"text-strong\">مفتاح التثبيت</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> إذا لم يكن لديك تطبيق {{name}} ، </strong>يمكنك تنزيله من <strong class=\"text-strong\">متجر Play</strong> أو <strong class=\"text-strong\">متجر التطبيقات</strong>."
+        "dont_have_app": "<strong class=\"text-strong\"> إذا لم يكن لديك تطبيق {{name}} ، </strong>يمكنك تنزيله من <strong class=\"text-strong\">متجر Play</strong> أو <strong class=\"text-strong\">متجر التطبيقات</strong>.",
+        "already_have_app": "إذا كان لديك بالفعل تطبيق {{name}} ، فاتبع الخطوات التالية:"
     },
     "modal_fund_help": {
         "chat": "الدردشة",

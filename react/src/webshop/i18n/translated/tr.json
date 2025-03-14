@@ -2777,7 +2777,6 @@
     "modal_2fa_setup": {
         "2fa": "İki faktörlü kimlik doğrulama",
         "2fa_success": "İki faktörlü kimlik doğrulama başarıyla ayarlandı",
-        "already_have_app": "Google Authenticator uygulamasına zaten sahipseniz, aşağıdaki adımları izleyin:",
         "back": "Geri",
         "cancel": "İptal",
         "code_resent": "Kodu yeniden gönderdik.",
@@ -2803,7 +2802,8 @@
         "verify": "Doğrulama",
         "welcome_back": "İki faktörlü kimlik doğrulama ile başarıyla giriş yaptınız. Tekrar hoş geldiniz!",
         "already_have_app_steps": "1. Uygulamada, <strong class=\"text-strong\">Hesap kurulumu</strong>'nu seçin<br>2. <strong class=\"text-strong\">QR kodu tara</strong> veya <strong class=\"text-strong\">Yükleme anahtarı girin öğesini</strong> seçin: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> {{name}} uygulamasına sahip değilseniz </strong>, <strong class=\"text-strong\">Play Store</strong> veya <strong class=\"text-strong\">App Store</strong>'dan indirebilirsiniz."
+        "dont_have_app": "<strong class=\"text-strong\"> {{name}} uygulamasına sahip değilseniz </strong>, <strong class=\"text-strong\">Play Store</strong> veya <strong class=\"text-strong\">App Store</strong>'dan indirebilirsiniz.",
+        "already_have_app": "{{name}} uygulamasına zaten sahipseniz, aşağıdaki adımları izleyin:"
     },
     "modal_fund_help": {
         "chat": "Sohbet",

@@ -383,7 +383,7 @@ export default function Modal2FASetup({
 
                                     <div className="modal-section-description text-left">
                                         <strong className="text-strong">
-                                            {translate('modal_2fa_setup.already_have_app')}
+                                            {translate('modal_2fa_setup.already_have_app', { name: provider.name })}
                                         </strong>
                                     </div>
 

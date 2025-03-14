@@ -1375,7 +1375,6 @@
     "modal_2fa_setup": {
         "2fa": "Authentification à deux facteurs",
         "2fa_success": "Authentification à deux facteurs configurée avec succès",
-        "already_have_app": "Si vous disposez déjà de l'application Google Authenticator, procédez comme suit :",
         "back": "Retour",
         "cancel": "Annuler",
         "code_resent": "Nous avons renvoyé le code.",
@@ -1401,7 +1400,8 @@
         "verify": "Vérifier",
         "welcome_back": "Vous vous êtes connecté avec succès à l'aide de l'authentification à deux facteurs. Nous sommes heureux de vous revoir !",
         "already_have_app_steps": "1. Dans l'application, sélectionnez <strong class=\"text-strong\">Configuration du compte</strong><br>2. Sélectionnez <strong class=\"text-strong\">Scanner un code QR</strong> ou <strong class=\"text-strong\">Entrer une clé d'installation</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> Si vous n'avez pas l'application {{name}}, </strong>vous pouvez la télécharger sur le <strong class=\"text-strong\">Play Store</strong> ou l'<strong class=\"text-strong\">App Store</strong>."
+        "dont_have_app": "<strong class=\"text-strong\"> Si vous n'avez pas l'application {{name}}, </strong>vous pouvez la télécharger sur le <strong class=\"text-strong\">Play Store</strong> ou l'<strong class=\"text-strong\">App Store</strong>.",
+        "already_have_app": "Si vous avez déjà l'application {{name}}, suivez les étapes ci-dessous :"
     },
     "modal_fund_help": {
         "chat": "Chat",

@@ -3733,7 +3733,7 @@
     ],
     [
         "modal_2fa_setup.already_have_app",
-        "Als je al de Google Authenticator-app hebt, volg dan de onderstaande stappen:"
+        "Als je al de {{name}}-app hebt, volg dan de onderstaande stappen:"
     ],
     [
         "modal_2fa_setup.already_have_app_steps",

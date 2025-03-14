@@ -2365,7 +2365,6 @@
         },
         "2fa": "Two-factor authentication",
         "2fa_success": "Two-factor authentication successfully set up",
-        "already_have_app": "If you already have the Google Authenticator app, follow the steps below:",
         "back": "Back",
         "cancel": "Cancel",
         "code_resent": "We have resent the code.",
@@ -2388,7 +2387,8 @@
         "verify": "Verify",
         "welcome_back": "You have successfully logged in with two-factor authentication. Welcome back!",
         "already_have_app_steps": "1. In the app, select <strong class=\"text-strong\">Account Setup</strong><br>2. Select <strong class=\"text-strong\">Scan a QR code</strong> or the <strong class=\"text-strong\">Enter an installation key</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
-        "dont_have_app": "<strong class=\"text-strong\"> If you do not have the {{name}} app, </strong>You can download it from the <strong class=\"text-strong\">Play Store</strong> or the <strong class=\"text-strong\">App Store</strong>."
+        "dont_have_app": "<strong class=\"text-strong\"> If you do not have the {{name}} app, </strong>You can download it from the <strong class=\"text-strong\">Play Store</strong> or the <strong class=\"text-strong\">App Store</strong>.",
+        "already_have_app": "If you already have the {{name}} app, follow the steps below:"
     },
     "modal_product_reserve_cancel": {
         "description_not_cancelable": "This reservation has already been accepted by the provider. To cancel within 14 days of the date of the reservation, please contact the provider.",
