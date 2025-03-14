@@ -148,7 +148,13 @@ export default function FundRequestsView() {
     const showInfoModal = useCallback(
         (title: string, message: string) => {
             openModal((modal) => (
-                <ModalNotification modal={modal} title={title} description={message} className="modal-md" />
+                <ModalNotification
+                    modal={modal}
+                    title={title}
+                    description={message}
+                    className="modal-md"
+                    buttonClose={{ onClick: modal.close }}
+                />
             ));
         },
         [openModal],
@@ -208,18 +214,24 @@ export default function FundRequestsView() {
                     buttonSubmit={{
                         onClick: (_e, setDisabled) => {
                             setDisabled(true);
-                            modal.close();
+                            modal.setProcessing(true);
 
                             fundRequestService
                                 .approve(activeOrganization.id, fundRequestMeta.id)
-                                .then(() => reloadRequest())
+                                .then(() => {
+                                    modal.setProcessing(false);
+                                    reloadRequest();
+                                })
                                 .catch((err: ResponseError) => {
+                                    modal.setProcessing(false);
                                     setDisabled(false);
+
                                     showInfoModal(
                                         'Validatie van persoonsgegeven mislukt.',
                                         `Reden: ${err.data.message}`,
                                     );
-                                });
+                                })
+                                .finally(() => modal.close());
                         },
                     }}
                 />

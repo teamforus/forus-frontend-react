@@ -62,6 +62,8 @@ export default function ModalApproveFundRequest({
             fund_amount_preset_id: amountValueOptions[0]?.id,
         },
         ({ type, amount, fund_amount_preset_id, note }) => {
+            modal.setProcessing(true);
+
             fundRequestService
                 .approve(
                     activeOrganization.id,
@@ -74,10 +76,13 @@ export default function ModalApproveFundRequest({
                           },
                 )
                 .then(() => {
+                    modal.setProcessing(false);
                     modal.close();
                     onDone?.();
                 })
                 .catch((err: ResponseError) => {
+                    modal.setProcessing(false);
+
                     if (err.data.errors) {
                         form.setErrors(err.data.errors);
                         form.setIsLocked(false);
@@ -98,6 +103,12 @@ export default function ModalApproveFundRequest({
                     <div className="modal-title">Aanvraag keuren en te ontvangen zaken vaststellen</div>
                 </div>
                 <div className="modal-body form">
+                    {modal?.processing && (
+                        <div className={'modal-processing'}>
+                            <em className="mdi mdi-loading mdi-spin" />
+                        </div>
+                    )}
+
                     <div className="modal-section">
                         <div className="block block-approve-fund-request">
                             <div className="approve-request-title">
@@ -279,8 +290,13 @@ export default function ModalApproveFundRequest({
 
                 <div className="modal-footer flex-horizontal flex-center">
                     <div className="button-groups">
-                        <ModalButton button={{ onClick: modal.close }} text="Sluiten" type="default" />
-                        <button type="submit" className={'button button-primary'}>
+                        <ModalButton
+                            button={{ onClick: modal.close }}
+                            disabled={modal.processing}
+                            text="Sluiten"
+                            type="default"
+                        />
+                        <button type="submit" disabled={modal.processing} className={'button button-primary'}>
                             Bevestigen
                         </button>
                     </div>

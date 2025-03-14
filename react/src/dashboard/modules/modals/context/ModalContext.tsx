@@ -16,12 +16,15 @@ export interface ModalState extends Modal {
     hidden?: boolean;
     loading?: boolean;
     loadingTimer?: number;
+    processing?: boolean;
     close?: () => void;
     setLoading?: (loaded: boolean) => void;
     setHidden?: (hidden: boolean) => void;
+    setProcessing?: (loaded: boolean) => void;
 }
 
-export type ModalOpener = (builder: (modal: ModalState) => React.ReactElement, config?: ModalConfig) => ModalState;
+export type ModalBuilder = (modal: ModalState) => React.ReactElement;
+export type ModalOpener = (builder: ModalBuilder, config?: ModalConfig) => ModalState;
 
 interface ModalsMemo {
     modals: Array<ModalState>;
@@ -41,6 +44,12 @@ const ModalsProvider = ({ children }: { children: React.ReactElement }) => {
         });
     }, []);
 
+    const setProcessing = useCallback((id: string, processing: boolean) => {
+        setModals((modals) => {
+            return [...modals.map((item) => Object.assign(item, item.id == id ? { processing } : {}))];
+        });
+    }, []);
+
     const setHidden = useCallback((id: string, hidden: boolean) => {
         setModals((modals) => {
             return [...modals.map((item) => Object.assign(item, item.id == id ? { hidden } : {}))];
@@ -49,6 +58,10 @@ const ModalsProvider = ({ children }: { children: React.ReactElement }) => {
 
     const closeModal = useCallback(
         (modal: ModalState) => {
+            if (modal.processing) {
+                return;
+            }
+
             setLoading(modal.id, true);
 
             setTimeout(() => {
@@ -60,7 +73,7 @@ const ModalsProvider = ({ children }: { children: React.ReactElement }) => {
     );
 
     const openModal = useCallback(
-        (builder, config: ModalConfig = {}) => {
+        (builder: ModalBuilder, config: ModalConfig = {}) => {
             const id = uniqueId();
             const loadingTimer = config.disableAutoLoader ? null : window.setTimeout(() => setLoading(id, false), 200);
             const modalState: ModalState = { ...config, id, loadingTimer };
@@ -70,12 +83,13 @@ const ModalsProvider = ({ children }: { children: React.ReactElement }) => {
             modalState.close = () => closeModal(modalState);
             modalState.setHidden = (loaded: boolean) => setHidden(modalState.id, loaded);
             modalState.setLoading = (loading: boolean) => setLoading(modalState.id, loading);
+            modalState.setProcessing = (loading: boolean) => setProcessing(modalState.id, loading);
 
             setModals((modals) => [...modals, modalState]);
 
             return modalState;
         },
-        [closeModal, setLoading, setHidden],
+        [closeModal, setLoading, setHidden, setProcessing],
     );
 
     return (

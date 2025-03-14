@@ -36,15 +36,39 @@ export default function ModalNotification({
             className={classNames('modal-notification', className)}
             footer={
                 <Fragment>
-                    {buttonClose && <ModalButton button={buttonClose} text="Sluiten" type="default" />}
-                    {buttonCancel && <ModalButton button={buttonCancel} text="Annuleren" type="default" />}
-                    {buttonSubmit && <ModalButton button={buttonSubmit} text="Bevestigen" type="primary" />}
+                    {buttonClose && (
+                        <ModalButton button={buttonClose} disabled={modal.processing} text="Sluiten" type="default" />
+                    )}
+
+                    {buttonCancel && (
+                        <ModalButton
+                            button={buttonCancel}
+                            disabled={modal.processing}
+                            text="Annuleren"
+                            type="default"
+                        />
+                    )}
+
+                    {buttonSubmit && (
+                        <ModalButton
+                            button={buttonSubmit}
+                            disabled={modal.processing}
+                            text="Bevestigen"
+                            type="primary"
+                        />
+                    )}
 
                     {buttons?.map((button, index) => (
                         <ModalButton key={index} button={button} text={''} type="default" submit={true} />
                     ))}
                 </Fragment>
             }>
+            {modal?.processing && (
+                <div className={'modal-processing'}>
+                    <em className="mdi mdi-loading mdi-spin" />
+                </div>
+            )}
+
             {icon && (
                 <div className="modal-icon-rounded">
                     <img src={getIcon(icon)} alt="Icon" />
