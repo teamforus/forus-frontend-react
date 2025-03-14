@@ -9,8 +9,6 @@ import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue
 import SelectControl from '../../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import useFilterNext from '../../../../modules/filter_next/useFilterNext';
-import { NumberParam, StringParam } from 'use-query-params';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
@@ -21,11 +19,17 @@ export default function FinancialOverviewFundsTable({
     fetchFunds,
     fetchFinancialOverview,
     organization,
+    year,
+    setYear,
+    setLoaded,
 }: {
     years: Array<{ id: number; name: string }>;
     fetchFunds: (year?: number) => Promise<Array<Fund>>;
     fetchFinancialOverview: (year?: number) => Promise<FinancialOverview>;
     organization: Organization;
+    year: number;
+    setYear: (year: number) => void;
+    setLoaded?: () => void;
 }) {
     const translate = useTranslate();
     const exportFunds = useExportFunds(organization);
@@ -39,22 +43,20 @@ export default function FinancialOverviewFundsTable({
 
     const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBalance());
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; year_all: number }>(
-        { q: '', year_all: new Date().getFullYear() },
-        { queryParams: { q: StringParam, year_all: NumberParam }, throttledValues: ['q'] },
-    );
-
-    useEffect(() => {
-        fetchFunds(filterValuesActive.year_all).then((funds) => setFunds(funds.filter((fund) => fund.budget)));
-    }, [fetchFunds, filterValuesActive.year_all]);
-
     useEffect(() => {
         setProgress(0);
 
-        fetchFinancialOverview(filterValuesActive.year_all)
-            .then(setFinancialOverview)
-            .finally(() => setProgress(100));
-    }, [fetchFinancialOverview, filterValuesActive.year_all, setProgress]);
+        Promise.all([
+            fetchFinancialOverview(year).then(setFinancialOverview),
+            fetchFunds(year).then((funds) => setFunds(funds.filter((fund) => fund.budget))),
+        ]).finally(() => setProgress(100));
+    }, [fetchFinancialOverview, fetchFunds, year, setProgress]);
+
+    useEffect(() => {
+        if (funds && financialOverview) {
+            setLoaded();
+        }
+    }, [financialOverview, funds, setLoaded]);
 
     if (!funds?.length || !financialOverview || !years.length) {
         return <LoadingCard />;
@@ -76,15 +78,13 @@ export default function FinancialOverviewFundsTable({
                                     options={years}
                                     propKey={'id'}
                                     allowSearch={false}
-                                    value={filterValues.year_all}
+                                    value={year}
                                     optionsComponent={SelectControlOptions}
-                                    onChange={(year?: number) => filterUpdate({ year_all: year })}
+                                    onChange={(year?: number) => setYear(year)}
                                 />
                             </div>
                         </div>
-                        <button
-                            className="button button-primary button-sm"
-                            onClick={() => exportFunds(false, filterValuesActive.year_all)}>
+                        <button className="button button-primary button-sm" onClick={() => exportFunds(false, year)}>
                             <em className="mdi mdi-download icon-start" />
                             {translate('financial_dashboard_overview.buttons.export')}
                         </button>
@@ -92,7 +92,7 @@ export default function FinancialOverviewFundsTable({
                 </div>
             </div>
 
-            {financialOverview?.year != filterValuesActive.year_all ? (
+            {financialOverview?.year != year ? (
                 <LoadingCard />
             ) : (
                 <div className="card-section">
