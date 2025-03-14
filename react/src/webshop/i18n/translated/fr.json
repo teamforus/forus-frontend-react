@@ -1378,15 +1378,11 @@
         "already_have_app": "Si vous disposez déjà de l'application Google Authenticator, procédez comme suit :",
         "back": "Retour",
         "cancel": "Annuler",
-        "choose": "Sélectionner",
         "code_resent": "Nous avons renvoyé le code.",
         "confirm": "Confirmer",
-        "dont_have_app": "Si vous n'avez pas l'application {nom},",
-        "download_from": "Pouvez-vous le télécharger à partir du site",
         "enter_2fa_code": "Pour continuer, saisissez le code de sécurité de l'authentification à deux facteurs.",
         "enter_app_code": "Saisir le code à 6 chiffres à partir de l'application",
         "enter_app_code_6_digits": "Pour continuer, entrez le code de sécurité à 6 chiffres de {fournisseur}.",
-        "enter_key": "Entrez une clé d'installation : {secret}",
         "enter_phone": "Pour continuer, entrez votre numéro de téléphone",
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "enter_sms_code_6_digits": "Pour continuer, veuillez saisir le code SMS à 6 chiffres envoyé à votre numéro de téléphone.",
@@ -1394,22 +1390,18 @@
             "code_sent": "Un problème s'est produit lors de l'envoi du SMS. Le numéro de téléphone saisi est-il correct ? Si ce n'est pas le cas, réessayez."
         },
         "extra_security": "Votre authentification à deux facteurs a été configurée avec succès. Votre compte est désormais plus sûr.",
-        "in_app_select": "Dans l'application, sélectionnez",
         "link_phone": "Liez votre numéro de téléphone",
-        "or": "La question de savoir si le",
         "phone_number": "Numéro de téléphone",
         "resend_code": "Renvoyer le code",
-        "scan_qr": "Scanner un code QR",
         "seconds": "{heure} seconde(s)",
         "select_auth_app": "Sélectionnez l'application d'authentification que vous souhaitez utiliser.",
         "setup_2fa": "Mise en place de l'authentification à deux facteurs",
-        "setup_account": "Ouvrir un compte",
         "successful_login": "Cela a fonctionné !",
         "unknown_error": "Erreur inconnue.",
         "verify": "Vérifier",
         "welcome_back": "Vous vous êtes connecté avec succès à l'aide de l'authentification à deux facteurs. Nous sommes heureux de vous revoir !",
-        "download_from_app_store": "App Store",
-        "download_from_play_store": "Play Store"
+        "already_have_app_steps": "1. Dans l'application, sélectionnez <strong class=\"text-strong\">Configuration du compte</strong><br>2. Sélectionnez <strong class=\"text-strong\">Scanner un code QR</strong> ou <strong class=\"text-strong\">Entrer une clé d'installation</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> Si vous n'avez pas l'application {{name}}, </strong>vous pouvez la télécharger sur le <strong class=\"text-strong\">Play Store</strong> ou l'<strong class=\"text-strong\">App Store</strong>."
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "En option",
-        "required": "Obligatoire"
+        "required": "Obligatoire",
+        "placeholders": {
+            "select_option": "Sélectionner une option"
+        }
     }
 }

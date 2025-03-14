@@ -988,6 +988,10 @@
         "Optioneel"
     ],
     [
+        "form.placeholders.select_option",
+        "Selecteer optie"
+    ],
+    [
         "form.required",
         "Verplicht"
     ],
@@ -3732,16 +3736,16 @@
         "Als je al de Google Authenticator-app hebt, volg dan de onderstaande stappen:"
     ],
     [
+        "modal_2fa_setup.already_have_app_steps",
+        "1. In de app, selecteer <strong class=\"text-strong\">Account instellen</strong><br>2. Kies <strong class=\"text-strong\">Scan een QR-code</strong> of de <strong class=\"text-strong\">Voer een installatiesleutel in: {{secret}}</strong>"
+    ],
+    [
         "modal_2fa_setup.back",
         "Terug"
     ],
     [
         "modal_2fa_setup.cancel",
         "Annuleer"
-    ],
-    [
-        "modal_2fa_setup.choose",
-        "Kies"
     ],
     [
         "modal_2fa_setup.code_resent",
@@ -3753,19 +3757,7 @@
     ],
     [
         "modal_2fa_setup.dont_have_app",
-        "Als je de {name} app niet hebt,"
-    ],
-    [
-        "modal_2fa_setup.download_from",
-        "Kun je deze downloaden vanuit de"
-    ],
-    [
-        "modal_2fa_setup.download_from_app_store",
-        "App Store"
-    ],
-    [
-        "modal_2fa_setup.download_from_play_store",
-        "Play Store"
+        "<strong class=\"text-strong\"> Als je de {{name}} app niet hebt, </strong>Kun je deze downloaden vanuit de <strong class=\"text-strong\">Play Store</strong> of de <strong class=\"text-strong\">App Store</strong>."
     ],
     [
         "modal_2fa_setup.enter_2fa_code",
@@ -3778,10 +3770,6 @@
     [
         "modal_2fa_setup.enter_app_code_6_digits",
         "Om door te gaan, voer de 6-cijferige beveiligingscode in van {provider}"
-    ],
-    [
-        "modal_2fa_setup.enter_key",
-        "Voer een installatiesleutel in: {secret}"
     ],
     [
         "modal_2fa_setup.enter_phone",
@@ -3804,16 +3792,8 @@
         "Je tweefactorauthenticatie is succesvol ingesteld. Je account is nu extra beveiligd."
     ],
     [
-        "modal_2fa_setup.in_app_select",
-        "In de app, selecteer"
-    ],
-    [
         "modal_2fa_setup.link_phone",
         "Koppel je telefoonnummer"
-    ],
-    [
-        "modal_2fa_setup.or",
-        "of de"
     ],
     [
         "modal_2fa_setup.phone_number",
@@ -3822,10 +3802,6 @@
     [
         "modal_2fa_setup.resend_code",
         "Code opnieuw verzenden"
-    ],
-    [
-        "modal_2fa_setup.scan_qr",
-        "Scan een QR-code"
     ],
     [
         "modal_2fa_setup.seconds",
@@ -3838,10 +3814,6 @@
     [
         "modal_2fa_setup.setup_2fa",
         "Tweefactorauthenticatie instellen"
-    ],
-    [
-        "modal_2fa_setup.setup_account",
-        "Account instellen"
     ],
     [
         "modal_2fa_setup.successful_login",

@@ -2780,15 +2780,11 @@
         "already_have_app": "Google Authenticator uygulamasına zaten sahipseniz, aşağıdaki adımları izleyin:",
         "back": "Geri",
         "cancel": "İptal",
-        "choose": "Seçiniz",
         "code_resent": "Kodu yeniden gönderdik.",
         "confirm": "Onaylayın",
-        "dont_have_app": "Eğer {name} uygulamasına sahip değilseniz,",
-        "download_from": "Şu adresten indirebilir misiniz",
         "enter_2fa_code": "Devam etmek için iki faktörlü kimlik doğrulama güvenlik kodunu girin.",
         "enter_app_code": "Uygulama içinden 6 haneli kodu girin",
         "enter_app_code_6_digits": "Devam etmek için {sağlayıcı}'dan 6 haneli güvenlik kodunu girin",
-        "enter_key": "Bir kurulum anahtarı girin: {secret}",
         "enter_phone": "Devam etmek için telefon numaranızı girin",
         "enter_sms_code": "6 haneli SMS kodunu girin",
         "enter_sms_code_6_digits": "Devam etmek için lütfen telefon numaranıza gönderilen 6 haneli SMS kodunu girin.",
@@ -2796,22 +2792,18 @@
             "code_sent": "SMS gönderilirken bir şeyler yanlış gitti. Doğru telefon numarası girildi mi? Değilse, tekrar deneyin."
         },
         "extra_security": "İki faktörlü kimlik doğrulamanız başarıyla ayarlandı. Hesabınız artık daha da güvenli.",
-        "in_app_select": "Uygulamada şunları seçin",
         "link_phone": "Telefon numaranızı bağlayın",
-        "or": "Olup olmadığı",
         "phone_number": "Telefon numarası",
         "resend_code": "Kodu yeniden gönder",
-        "scan_qr": "QR kodunu tarayın",
         "seconds": "{zaman} saniye(ler)",
         "select_auth_app": "Kullanmak istediğiniz kimlik doğrulama uygulamasını seçin.",
         "setup_2fa": "İki faktörlü kimlik doğrulamayı ayarlama",
-        "setup_account": "Hesap oluşturun",
         "successful_login": "İşe yaradı!",
         "unknown_error": "Bilinmeyen hata.",
         "verify": "Doğrulama",
         "welcome_back": "İki faktörlü kimlik doğrulama ile başarıyla giriş yaptınız. Tekrar hoş geldiniz!",
-        "download_from_app_store": "App Store",
-        "download_from_play_store": "Play Store"
+        "already_have_app_steps": "1. Uygulamada, <strong class=\"text-strong\">Hesap kurulumu</strong>'nu seçin<br>2. <strong class=\"text-strong\">QR kodu tara</strong> veya <strong class=\"text-strong\">Yükleme anahtarı girin öğesini</strong> seçin: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> {{name}} uygulamasına sahip değilseniz </strong>, <strong class=\"text-strong\">Play Store</strong> veya <strong class=\"text-strong\">App Store</strong>'dan indirebilirsiniz."
     },
     "modal_fund_help": {
         "chat": "Sohbet",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "Opsiyonel",
-        "required": "Zorunlu"
+        "required": "Zorunlu",
+        "placeholders": {
+            "select_option": "Seçeneği seçin"
+        }
     }
 }

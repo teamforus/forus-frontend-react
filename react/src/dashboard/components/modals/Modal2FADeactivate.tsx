@@ -226,7 +226,7 @@ export default function Modal2FADeactivate({
                             <div className="modal-heading">
                                 <strong>Tweefactorauthenticatie is succesvol uitgeschakeld</strong>
                             </div>
-                            <div className="modal-text">
+                            <div className="modal-text text-center">
                                 <small>Je tweefactorauthenticatie is succesvol uitgeschakeld</small>
                             </div>
                         </div>

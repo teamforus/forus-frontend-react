@@ -1378,15 +1378,11 @@
         "already_have_app": "Wenn Sie bereits über die Google Authenticator-App verfügen, führen Sie die folgenden Schritte aus:",
         "back": "Zurück",
         "cancel": "Abbrechen",
-        "choose": "Wählen Sie",
         "code_resent": "Wir haben den Code erneut gesendet.",
         "confirm": "Bestätigen Sie",
-        "dont_have_app": "Wenn Sie die App {Name} nicht haben,",
-        "download_from": "Können Sie es von der Website",
         "enter_2fa_code": "Um fortzufahren, geben Sie den Sicherheitscode für die Zwei-Faktor-Authentifizierung ein.",
         "enter_app_code": "Geben Sie den 6-stelligen Code in der App ein",
         "enter_app_code_6_digits": "Um fortzufahren, geben Sie den 6-stelligen Sicherheitscode von {Provider} ein.",
-        "enter_key": "Geben Sie einen Installationsschlüssel ein: {geheim}",
         "enter_phone": "Um fortzufahren, geben Sie Ihre Rufnummer ein",
         "enter_sms_code": "Geben Sie den 6-stelligen SMS-Code ein",
         "enter_sms_code_6_digits": "Um fortzufahren, geben Sie bitte den 6-stelligen SMS-Code ein, der Ihnen an Ihre Telefonnummer geschickt wurde.",
@@ -1394,22 +1390,18 @@
             "code_sent": "Beim Senden der SMS ist etwas schief gelaufen. Wurde die richtige Telefonnummer eingegeben? Wenn nicht, versuchen Sie es erneut."
         },
         "extra_security": "Ihre Zwei-Faktor-Authentifizierung wurde erfolgreich eingerichtet. Ihr Konto ist jetzt besonders sicher.",
-        "in_app_select": "Wählen Sie in der App",
         "link_phone": "Verknüpfen Sie Ihre Rufnummer",
-        "or": "Ob die",
         "phone_number": "Rufnummer",
         "resend_code": "Code erneut senden",
-        "scan_qr": "Scannen eines QR-Codes",
         "seconds": "{Zeit} Sekunde(n)",
         "select_auth_app": "Wählen Sie die Authentifizierungsanwendung, die Sie verwenden möchten.",
         "setup_2fa": "Einrichten der Zwei-Faktor-Authentifizierung",
-        "setup_account": "Konto einrichten",
         "successful_login": "Es hat geklappt!",
         "unknown_error": "Unbekannter Fehler.",
         "verify": "Überprüfen Sie",
         "welcome_back": "Sie haben sich erfolgreich mit der Zwei-Faktor-Authentifizierung angemeldet. Willkommen zurück!",
-        "download_from_app_store": "App-Store",
-        "download_from_play_store": "Play Store"
+        "already_have_app_steps": "1. Wählen Sie in der App <strong class=\"text-strong\">Kontoeinrichtung</strong><br>2. Wählen Sie <strong class=\"text-strong\">Scannen eines QR-Codes</strong> oder <strong class=\"text-strong\">Eingabe eines Installationsschlüssels</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> Wenn Sie die App {{name}} nicht haben, </strong>können Sie sie aus dem <strong class=\"text-strong\">Play Store</strong> oder dem <strong class=\"text-strong\">App Store</strong> herunterladen."
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "Optional",
-        "required": "Obligatorisch"
+        "required": "Obligatorisch",
+        "placeholders": {
+            "select_option": "Option auswählen"
+        }
     }
 }

@@ -1378,15 +1378,11 @@
         "already_have_app": "Если у вас уже есть приложение Google Authenticator, выполните следующие действия:",
         "back": "Назад",
         "cancel": "Отмена",
-        "choose": "Выберите",
         "code_resent": "Мы повторно отправили код.",
         "confirm": "Подтвердите",
-        "dont_have_app": "Если у вас нет приложения {name},",
-        "download_from": "Вы можете загрузить его с сайта",
         "enter_2fa_code": "Чтобы продолжить, введите код безопасности двухфакторной аутентификации.",
         "enter_app_code": "Введите 6-значный код в приложении",
         "enter_app_code_6_digits": "Чтобы продолжить, введите 6-значный код безопасности от {провайдера}",
-        "enter_key": "Введите ключ установки: {secret}",
         "enter_phone": "Чтобы продолжить, введите свой номер телефона",
         "enter_sms_code": "Введите 6-значный код SMS",
         "enter_sms_code_6_digits": "Чтобы продолжить, введите 6-значный SMS-код, отправленный на ваш номер телефона.",
@@ -1394,22 +1390,18 @@
             "code_sent": "Что-то пошло не так при отправке SMS. Введен ли правильный номер телефона? Если нет, попробуйте еще раз."
         },
         "extra_security": "Двухфакторная аутентификация успешно настроена. Теперь ваша учетная запись стала еще более безопасной.",
-        "in_app_select": "В приложении выберите",
         "link_phone": "Свяжите свой номер телефона",
-        "or": "Будет ли",
         "phone_number": "Номер телефона",
         "resend_code": "Повторная отправка кода",
-        "scan_qr": "Сканирование QR-кода",
         "seconds": "{время} секунда(ы)",
         "select_auth_app": "Выберите приложение для аутентификации, которое вы хотите использовать.",
         "setup_2fa": "Настройка двухфакторной аутентификации",
-        "setup_account": "Создайте учетную запись",
         "successful_login": "Это сработало!",
         "unknown_error": "Неизвестная ошибка.",
         "verify": "Проверьте",
         "welcome_back": "Вы успешно вошли в систему с помощью двухфакторной аутентификации. С возвращением!",
-        "download_from_app_store": "App Store",
-        "download_from_play_store": "Play Store"
+        "already_have_app_steps": "1. В приложении выберите <strong class=\"text-strong\">Настройка учетной записи</strong><br>2. Выберите <strong class=\"text-strong\">Сканировать QR-код</strong> или <strong class=\"text-strong\">Ввести ключ установки</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> Если у вас нет приложения {{name}}, </strong>вы можете загрузить его из <strong class=\"text-strong\">Play Store</strong> или <strong class=\"text-strong\">App Store</strong>."
     },
     "modal_fund_help": {
         "chat": "Чат",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "Дополнительно",
-        "required": "Обязательно"
+        "required": "Обязательно",
+        "placeholders": {
+            "select_option": "Выберите вариант"
+        }
     }
 }

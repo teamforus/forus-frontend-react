@@ -363,12 +363,15 @@
     }
 
     .select-control.select-control-country-codes {
+        z-index: 2;
+        border: none !important;
+
         .select-control-input {
             --option-height: 30px;
 
             .form-control:not([type='radio']):not([type='checkbox']).select-control-search {
                 font: 600 16px/24px var(--base-font);
-                border: none;
+                border: none !important;
                 text-align: left;
                 box-shadow: none;
                 padding-right: 30px;

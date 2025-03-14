@@ -2368,35 +2368,27 @@
         "already_have_app": "If you already have the Google Authenticator app, follow the steps below:",
         "back": "Back",
         "cancel": "Cancel",
-        "choose": "Select",
         "code_resent": "We have resent the code.",
         "confirm": "Confirm",
-        "dont_have_app": "If you don't have the {name} app,",
-        "download_from": "Can you download it from the",
         "enter_2fa_code": "To continue, enter the two-factor authentication security code.",
         "enter_app_code": "Enter the 6-digit code from within the app",
         "enter_app_code_6_digits": "To continue, enter the 6-digit security code from {provider}",
-        "enter_key": "Enter an installation key: {secret}",
         "enter_phone": "To continue, enter your phone number",
         "enter_sms_code": "Enter the 6-digit SMS code",
         "enter_sms_code_6_digits": "To proceed, please enter the 6-digit SMS code sent to your phone number.",
         "extra_security": "Your two-factor authentication has been successfully set up. Your account is now extra secure.",
-        "in_app_select": "In the app, select",
         "link_phone": "Link your phone number",
-        "or": "Whether the",
         "phone_number": "Phone number",
         "resend_code": "Resend code",
-        "scan_qr": "Scan a QR code",
         "seconds": "{time} second(s)",
         "select_auth_app": "Select the authentication app you want to use.",
         "setup_2fa": "Setting up two-factor authentication",
-        "setup_account": "Account setup",
         "successful_login": "It worked!",
         "unknown_error": "Unknown error.",
         "verify": "Verify",
         "welcome_back": "You have successfully logged in with two-factor authentication. Welcome back!",
-        "download_from_app_store": "App Store",
-        "download_from_play_store": "Play Store"
+        "already_have_app_steps": "1. In the app, select <strong class=\"text-strong\">Account Setup</strong><br>2. Select <strong class=\"text-strong\">Scan a QR code</strong> or the <strong class=\"text-strong\">Enter an installation key</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> If you do not have the {{name}} app, </strong>You can download it from the <strong class=\"text-strong\">Play Store</strong> or the <strong class=\"text-strong\">App Store</strong>."
     },
     "modal_product_reserve_cancel": {
         "description_not_cancelable": "This reservation has already been accepted by the provider. To cancel within 14 days of the date of the reservation, please contact the provider.",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "Optional",
-        "required": "Mandatory"
+        "required": "Mandatory",
+        "placeholders": {
+            "select_option": "Select option"
+        }
     }
 }
