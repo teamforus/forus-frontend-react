@@ -19,6 +19,7 @@ import Icon2faPhoneConnect from '../../../../assets/forus-webshop/resources/_web
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
+import TranslateHtml from '../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function Modal2FASetup({
     modal,
@@ -251,6 +252,14 @@ export default function Modal2FASetup({
     }, [onKeyDown]);
 
     useEffect(() => {
+        bindEvents();
+
+        return () => {
+            unbindEvents();
+        };
+    }, [bindEvents, unbindEvents]);
+
+    useEffect(() => {
         const providers = auth2FAState.providers
             .filter((provider) => provider.type == type)
             .map((provider) => ({ ...provider, name: translate('security_2fa.app_providers.' + provider.key) }));
@@ -260,13 +269,7 @@ export default function Modal2FASetup({
         setAuth2FA((auth2FA) => (auth2FA ? auth2FA : active_providers.find((auth_2fa) => auth_2fa)));
         setProvider(providers.find((provider) => provider));
         setProviders(providers);
-
-        bindEvents();
-
-        return () => {
-            unbindEvents();
-        };
-    }, [type, bindEvents, unbindEvents, auth2FAState, translate]);
+    }, [type, auth2FAState, translate]);
 
     // should set up
     useEffect(() => {
@@ -341,18 +344,10 @@ export default function Modal2FASetup({
                                     </div>
 
                                     <div className="modal-section-description text-left">
-                                        <strong className="text-strong">
-                                            {translate('modal_2fa_setup.dont_have_app', { name: provider.name })}
-                                        </strong>
-                                        {translate('modal_2fa_setup.download_from')}
-                                        <strong className="text-strong">
-                                            {translate('modal_2fa_setup.download_from_play_store')}
-                                        </strong>
-                                        {translate('modal_2fa_setup.or')}
-                                        <strong className="text-strong">
-                                            {translate('modal_2fa_setup.download_from_app_store')}
-                                        </strong>
-                                        .
+                                        <TranslateHtml
+                                            i18n={'modal_2fa_setup.dont_have_app'}
+                                            values={{ name: provider.name }}
+                                        />
                                     </div>
 
                                     <div className="modal-section-description text-left">
@@ -388,25 +383,15 @@ export default function Modal2FASetup({
 
                                     <div className="modal-section-description text-left">
                                         <strong className="text-strong">
-                                            {translate('modal_2fa_setup.already_have_app')}
+                                            {translate('modal_2fa_setup.already_have_app', { name: provider.name })}
                                         </strong>
                                     </div>
 
                                     <div className="modal-section-description text-left">
-                                        {`1. ${translate('modal_2fa_setup.in_app_select')}
-                                    `}
-                                        <strong className="text-strong">
-                                            {translate('modal_2fa_setup.setup_account')}
-                                        </strong>
-                                        <br />
-                                        {`2. ${translate('modal_2fa_setup.choose')}
-                                    `}
-                                        <strong className="text-strong">{translate('modal_2fa_setup.scan_qr')}</strong>
-                                        {` ${translate('modal_2fa_setup.or')}
-                                    `}
-                                        <strong className="text-strongEnter">
-                                            {translate('modal_2fa_setup.enter_key', { secret: auth2FA?.secret })}
-                                        </strong>
+                                        <TranslateHtml
+                                            i18n={'modal_2fa_setup.already_have_app_steps'}
+                                            values={{ secret: auth2FA?.secret }}
+                                        />
                                     </div>
                                 </div>
 
@@ -528,11 +513,15 @@ export default function Modal2FASetup({
                             <div className="modal-section-description">
                                 <div className="form-group">
                                     {type == 'phone' && (
-                                        <div className="form-label">{translate('modal_2fa_setup.enter_sms_code')}</div>
+                                        <div className="form-label flex-center">
+                                            {translate('modal_2fa_setup.enter_sms_code')}
+                                        </div>
                                     )}
 
                                     {type == 'authenticator' && (
-                                        <div className="form-label">{translate('modal_2fa_setup.enter_app_code')}</div>
+                                        <div className="form-label flex-center">
+                                            {translate('modal_2fa_setup.enter_app_code')}
+                                        </div>
                                     )}
 
                                     <PincodeControl

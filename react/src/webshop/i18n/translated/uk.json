@@ -1375,18 +1375,13 @@
     "modal_2fa_setup": {
         "2fa": "Двофакторна автентифікація",
         "2fa_success": "Двофакторну автентифікацію успішно налаштовано",
-        "already_have_app": "Якщо у вас вже є додаток Google Authenticator, виконайте наведені нижче дії:",
         "back": "Назад",
         "cancel": "Скасувати",
-        "choose": "Виберіть",
         "code_resent": "Ми обурені кодом.",
         "confirm": "Підтвердити",
-        "dont_have_app": "Якщо у вас немає програми {name},",
-        "download_from": "Ви можете завантажити його з",
         "enter_2fa_code": "Щоб продовжити, введіть код безпеки двофакторної автентифікації.",
         "enter_app_code": "Введіть 6-значний код у додатку",
         "enter_app_code_6_digits": "Щоб продовжити, введіть 6-значний код безпеки від {провайдера}",
-        "enter_key": "Введіть ключ встановлення: {secret}",
         "enter_phone": "Щоб продовжити, введіть свій номер телефону",
         "enter_sms_code": "Введіть 6-значний SMS-код",
         "enter_sms_code_6_digits": "Щоб продовжити, введіть 6-значний SMS-код, надісланий на ваш номер телефону.",
@@ -1394,22 +1389,19 @@
             "code_sent": "Щось пішло не так під час відправлення SMS. Чи правильний номер телефону введено? Якщо ні, спробуйте ще раз."
         },
         "extra_security": "Ваша двофакторна автентифікація була успішно налаштована. Ваш обліковий запис тепер додатково захищений.",
-        "in_app_select": "У додатку виберіть",
         "link_phone": "Прив'яжіть свій номер телефону",
-        "or": "Чи не буде",
         "phone_number": "Номер телефону",
         "resend_code": "Код для повторного відправлення",
-        "scan_qr": "Відскануйте QR-код",
         "seconds": "{час} секунда(и)",
         "select_auth_app": "Виберіть програму автентифікації, яку ви хочете використовувати.",
         "setup_2fa": "Налаштування двофакторної автентифікації",
-        "setup_account": "Налаштуйте обліковий запис",
         "successful_login": "Спрацювало!",
         "unknown_error": "Невідома помилка.",
         "verify": "Підтвердити",
         "welcome_back": "Ви успішно увійшли за допомогою двофакторної автентифікації. З поверненням!",
-        "download_from_app_store": "App Store",
-        "download_from_play_store": "Play Store"
+        "already_have_app_steps": "1. У додатку виберіть Налаштування <strong class=\"text-strong\">облікового запису</strong><br>2. Виберіть <strong class=\"text-strong\">Відсканувати QR-код</strong> або <strong class=\"text-strong\">Ввести ключ встановлення</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> Якщо у вас немає програми {{name}} </strong>, ви можете завантажити її з <strong class=\"text-strong\">Play Store</strong> або <strong class=\"text-strong\">App Store</strong>.",
+        "already_have_app": "Якщо у вас вже є додаток {{name}}, виконайте наведені нижче дії:"
     },
     "modal_fund_help": {
         "chat": "Чат",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "Необов'язково",
-        "required": "Обов'язково"
+        "required": "Обов'язково",
+        "placeholders": {
+            "select_option": "Виберіть варіант"
+        }
     }
 }
