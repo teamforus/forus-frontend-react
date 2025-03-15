@@ -133,7 +133,12 @@ export default function SelectControlOptionsLang<T>({
                                     <Fragment key={str.id}>
                                         {option?.raw?.[propKey]?.toUpperCase() || ''}
                                         <div className="lang-control-option-separator" />
-                                        <div className="lang-control-option-name">
+                                        <div
+                                            className={classNames(
+                                                'lang-control-option-name',
+                                                option?.raw?.[propKey]?.toUpperCase() === 'AR' &&
+                                                    'lang-control-option-name-right',
+                                            )}>
                                             {index != 1 ? <span>{str.value}</span> : <strong>{str.value}</strong>}
                                         </div>
                                         {option.id === modelValue?.id && (
