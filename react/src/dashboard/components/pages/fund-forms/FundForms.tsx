@@ -115,24 +115,18 @@ export default function FundForms() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
                     Generated forms ({fundForms.meta.total})
                 </div>
 
                 <div className="card-header-filters">
-                    <div className="block block-inline-filters">
-                        <div className="form">
-                            <div className="flex">
-                                <div>
-                                    <BlockLabelTabs
-                                        value={filterValues.state}
-                                        setValue={(value) => filterUpdate({ state: value })}
-                                        tabs={statesOptions}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                    <div className="block block-inline-filters form">
+                        <BlockLabelTabs
+                            value={filterValues.state}
+                            setValue={(value) => filterUpdate({ state: value })}
+                            tabs={statesOptions}
+                        />
 
                         <div className="flex">
                             {filter.show && (
