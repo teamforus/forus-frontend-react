@@ -414,6 +414,10 @@
                     &.td-media-round {
                         border-radius: 70px;
                     }
+
+                    &.td-media-borderless {
+                        border: none;
+                    }
                 }
 
                 .td-boolean {

@@ -31,7 +31,6 @@ import { parseInt, sortBy, uniqueId } from 'lodash';
 import { useRecordTypeService } from '../../../services/RecordTypeService';
 import { useEmployeeService } from '../../../services/EmployeeService';
 import FundCriterion from '../../../props/models/FundCriterion';
-import FundCriteriaEditor from '../../elements/fund-criteria-editor/FundCriteriaEditor';
 import FundConfigContactInfoEditor from './elements/FundConfigContactInfoEditor';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import MultiSelectControl from '../../elements/forms/controls/MultiSelectControl';
@@ -69,7 +68,7 @@ export default function OrganizationsFundsEdit() {
     const [faq, setFaq] = useState<Array<Faq & { uid: string }>>([]);
     const [fund, setFund] = useState<Fund>(null);
     const [tags, setTags] = useState<Array<Tag>>(null);
-    const [fundPhoto, setFundPhoto] = useState(null);
+    const [fundPhoto, setFundPhoto] = useState<Blob>(null);
     const [validatorEmployees, setValidatorEmployees] = useState<Array<Employee>>(null);
 
     const [showInfoBlock, setShowInfoBlock] = useState<boolean>(false);
@@ -77,7 +76,6 @@ export default function OrganizationsFundsEdit() {
     const [products, setProducts] = useState<Array<Partial<Product>>>(null);
     const [fundStates] = useState(fundService.getStates());
     const faqEditorBlock = useRef<() => Promise<boolean>>();
-    const criteriaBlockRef = useRef<() => Promise<Array<FundCriterion> | null>>();
 
     const [fundTypes] = useState([
         { value: 'budget', name: 'Waardebon' },
@@ -153,7 +151,7 @@ export default function OrganizationsFundsEdit() {
     }, [recordTypes]);
 
     const storeMedia = useCallback(
-        async (mediaFile): Promise<Media> => {
+        async (mediaFile: Blob): Promise<Media> => {
             return await mediaService
                 .store('fund_logo', mediaFile)
                 .then((res) => res.data?.data)
@@ -235,20 +233,6 @@ export default function OrganizationsFundsEdit() {
                 form.setIsLocked(false);
                 form.setErrors(res.data.errors);
             };
-
-            if (appConfigs.organizations.funds.criteria && !form.values.external_page) {
-                try {
-                    const criteria = await criteriaBlockRef.current();
-
-                    if (criteria != null) {
-                        data.criteria = criteria;
-                    } else {
-                        return form.setIsLocked(false);
-                    }
-                } catch {
-                    return form.setIsLocked(false);
-                }
-            }
 
             try {
                 await faqEditorBlock.current();
@@ -1145,29 +1129,6 @@ export default function OrganizationsFundsEdit() {
                             )}
                         </div>
                     </div>
-                )}
-
-                {appConfigs.organizations.funds.criteria && !form.values.external_page && (
-                    <Fragment>
-                        {(form.values.criteria.length > 0 || hasPermission(activeOrganization, 'manage_funds')) && (
-                            <div className="card-section card-section-primary">
-                                <div className="form-group form-group-inline">
-                                    <div className="form-label">Criteria</div>
-                                    <div className="form-offset">
-                                        <FundCriteriaEditor
-                                            fund={fund}
-                                            organization={activeOrganization}
-                                            criteria={form.values.criteria}
-                                            isEditable={!fundId || fund.criteria_editable}
-                                            setCriteria={(criteria) => form.update({ criteria })}
-                                            recordTypes={recordTypes}
-                                            saveCriteriaRef={criteriaBlockRef}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </Fragment>
                 )}
 
                 {!form.values.external_page && (

@@ -95,6 +95,8 @@ import SponsorProductView from '../components/pages/sponsor-product/SponsorProdu
 import Identities from '../components/pages/identities/Identities';
 import OrganizationsTranslations from '../components/pages/organizations-translations/OrganizationsTranslations';
 import ImplementationsTranslations from '../components/pages/implementations-cookies/ImplementationsTranslations';
+import FundForms from '../components/pages/fund-forms/FundForms';
+import FundFormsView from '../components/pages/fund-forms-view/FundFormsView';
 
 const router = new RouterBuilder();
 
@@ -566,6 +568,16 @@ router.state('fund-request', <FundRequestsView />, {
     path: `/organisaties/:organizationId/aanvragen/:id`,
     altPath: `/organizations/:organizationId/requests/:id`,
     fallbackState: 'fund-requests',
+});
+
+router.state('fund-forms', <FundForms />, {
+    path: `/organisaties/:organizationId/formulieren`,
+    altPath: `/organizations/:organizationId/forms`,
+});
+
+router.state('fund-form', <FundFormsView />, {
+    path: `/organisaties/:organizationId/formulieren/:id`,
+    altPath: `/organizations/:organizationId/forms/:id`,
 });
 
 router.state('employees', <Employees />, {
