@@ -19,6 +19,9 @@ import useConfirmBankConnectionDisable from './hooks/useConfirmBankConnectionDis
 import useConfirmBankNewConnection from './hooks/useConfirmBankNewConnection';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function BankConnections() {
     const activeOrganization = useActiveOrganization();
@@ -27,6 +30,7 @@ export default function BankConnections() {
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const confirmBankNewConnection = useConfirmBankNewConnection();
     const confirmBankConnectionDisable = useConfirmBankConnectionDisable();
@@ -41,6 +45,10 @@ export default function BankConnections() {
     const [bankConnection, setBankConnection] = useState<BankConnection>(null);
     const [bankConnections, setBankConnections] = useState<PaginationData<BankConnection>>(null);
     const [submittingConnection, setSubmittingConnection] = useState<boolean>(false);
+
+    const { headElement, configsElement } = useConfigurableTable(bankConnectionService.getColumns(), {
+        hasTooltips: true,
+    });
 
     const [{ success, error }, setQueryParams] = useQueryParams({
         success: BooleanParam,
@@ -61,9 +69,9 @@ export default function BankConnections() {
 
     const onRequestError = useCallback(
         (err: ResponseError) => {
-            pushDanger('Error', err.data.message || 'Er is iets misgegaan, probeer het later opnieuw.');
+            pushApiError(err, 'Er is iets misgegaan, probeer het later opnieuw.');
         },
-        [pushDanger],
+        [pushApiError],
     );
 
     const fetchBanks = useCallback(() => {
@@ -334,17 +342,11 @@ export default function BankConnections() {
 
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th className="th-narrow nowrap">Datum van toestemming</th>
-                                            <th>Bank</th>
-                                            <th>Verloopdatum</th>
-                                            <th>Rekening</th>
-                                            <th className="th-narrow text-right">Status</th>
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {bank &&
@@ -352,13 +354,13 @@ export default function BankConnections() {
                                                 <tr key={bankConnection.id}>
                                                     <td>{bankConnection.created_at_locale}</td>
                                                     <td>{bankConnection.bank.name}</td>
-                                                    <td>
+                                                    <td className={bankConnection.expire_at ? '' : 'text-muted'}>
                                                         {bankConnection.expire_at
                                                             ? bankConnection.expire_at_locale
                                                             : 'Geen verloopdatum'}
                                                     </td>
                                                     <td>{bankConnection.iban}</td>
-                                                    <td className="text-right">
+                                                    <td>
                                                         <div
                                                             className={
                                                                 'label ' +
@@ -369,11 +371,12 @@ export default function BankConnections() {
                                                             {bankConnection.state_locale}
                                                         </div>
                                                     </td>
+                                                    <td />
                                                 </tr>
                                             ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
 

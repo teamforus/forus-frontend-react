@@ -3,7 +3,6 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import FormError from '../../elements/forms/errors/FormError';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -13,14 +12,15 @@ import { useParams } from 'react-router-dom';
 import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsDigid() {
     const { id } = useParams();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
 
@@ -52,7 +52,7 @@ export default function ImplementationsDigid() {
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setProgress(100);
@@ -67,14 +67,14 @@ export default function ImplementationsDigid() {
         implementationService
             .read(activeOrganization.id, parseInt(id))
             .then((res) => setImplementation(res.data.data))
-            .catch((res: ResponseError) => {
-                if (res.status === 403) {
+            .catch((err: ResponseError) => {
+                if (err.status === 403) {
                     return navigateState('implementations', { organizationId: activeOrganization.id });
                 }
 
-                pushDanger('Mislukt!', res.data.message);
+                pushApiError(err);
             });
-    }, [implementationService, activeOrganization.id, id, pushDanger, navigateState]);
+    }, [implementationService, activeOrganization.id, id, pushApiError, navigateState]);
 
     useEffect(() => {
         fetchImplementation();

@@ -1,9 +1,8 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useFilter from '../../../hooks/useFilter';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import { useParams } from 'react-router-dom';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import FundProvider from '../../../props/models/FundProvider';
@@ -16,13 +15,14 @@ import type { SponsorProviderOrganization } from '../../../props/models/Organiza
 import { strLimit } from '../../../helpers/string';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function SponsorProviderOrganization() {
     const { id } = useParams();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const organizationService = useOrganizationService();
@@ -47,9 +47,9 @@ export default function SponsorProviderOrganization() {
         organizationService
             .listProviders(activeOrganization.id, { ...filter.activeValues, organization_id: id })
             .then((res) => setFundProviders(res.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, organizationService, activeOrganization.id, filter.activeValues, id, pushDanger]);
+    }, [setProgress, organizationService, activeOrganization.id, filter.activeValues, id, pushApiError]);
 
     const fetchProviderOrganization = useCallback(() => {
         setProgress(0);
@@ -57,9 +57,9 @@ export default function SponsorProviderOrganization() {
         organizationService
             .providerOrganization(activeOrganization.id, parseInt(id))
             .then((res) => setProviderOrganization(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, id, organizationService, pushDanger, setProgress]);
+    }, [activeOrganization.id, id, organizationService, pushApiError, setProgress]);
 
     useEffect(() => {
         fetchFundProviders();
@@ -90,24 +90,17 @@ export default function SponsorProviderOrganization() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex-row">
-                        <div className="flex-col">
-                            <div className="card-title">Fondsen en aanbod</div>
-                        </div>
-                        <div className="flex-col">
-                            <div className="card-header-drown">
-                                <div className="block block-inline-filters">
-                                    <div className="form">
-                                        <div className="form-group">
-                                            <input
-                                                className="form-control"
-                                                value={filter.values.q}
-                                                onChange={(e) => filter.update({ q: e.target.value })}
-                                                placeholder="Zoeken"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+                    <div className="flex flex-grow card-title">Fondsen en aanbod</div>
+
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters form">
+                            <div className="form-group">
+                                <input
+                                    className="form-control"
+                                    value={filter.values.q}
+                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    placeholder="Zoeken"
+                                />
                             </div>
                         </div>
                     </div>

@@ -5,13 +5,12 @@ import ExtraPayment from '../../../../props/models/ExtraPayment';
 import KeyValueItem from '../../../elements/key-value/KeyValueItem';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import useProductReservationService from '../../../../services/ProductReservationService';
-import { ResponseError } from '../../../../props/ApiResponses';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import useEnvData from '../../../../hooks/useEnvData';
 import useTranslate from '../../../../hooks/useTranslate';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ReservationExtraPaymentDetails({
     payment,
@@ -29,9 +28,9 @@ export default function ReservationExtraPaymentDetails({
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const productReservationService = useProductReservationService();
 
@@ -44,9 +43,9 @@ export default function ReservationExtraPaymentDetails({
                 onUpdate(res.data.data);
                 pushSuccess('Opgeslagen!');
             })
-            .catch((err: ResponseError) => pushDanger(err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, productReservationService, organization.id, reservation.id, onUpdate, pushSuccess, pushDanger]);
+    }, [setProgress, productReservationService, organization.id, reservation.id, onUpdate, pushSuccess, pushApiError]);
 
     const refundExtraPayment = useCallback(
         function () {
@@ -69,7 +68,7 @@ export default function ReservationExtraPaymentDetails({
                                     onUpdate(res.data.data);
                                     pushSuccess('Refund created!');
                                 })
-                                .catch((err: ResponseError) => pushDanger(err.data.message))
+                                .catch(pushApiError)
                                 .finally(() => {
                                     setProgress(100);
                                     modal.close();
@@ -84,9 +83,9 @@ export default function ReservationExtraPaymentDetails({
             translate,
             onUpdate,
             openModal,
-            pushDanger,
             setProgress,
             pushSuccess,
+            pushApiError,
             reservation.id,
             organization.id,
             productReservationService,
@@ -96,13 +95,11 @@ export default function ReservationExtraPaymentDetails({
     return (
         <div className="card">
             <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">Transactie details van de bijbetaling</div>
-                    </div>
+                <div className="flex flex-grow card-title">Transactie details van de bijbetaling</div>
 
-                    {isProvider && (
-                        <div className="button-group">
+                {isProvider && (
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
                             {!reservation.canceled && (
                                 <button className="button button-primary button-sm" onClick={() => fetchExtraPayment()}>
                                     <em className="mdi mdi-autorenew icon-start"></em>
@@ -120,8 +117,8 @@ export default function ReservationExtraPaymentDetails({
                                 </button>
                             )}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
 
             <div className="card-section">

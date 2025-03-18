@@ -86,25 +86,21 @@ export default function BlockCardEmails({
     return (
         <div className="card">
             <div className="card-header">
-                <div className="flex flex-horizontal">
-                    <div className="flex flex-vertical flex-grow flex-center">
-                        <div className="card-title">
-                            Berichten&nbsp;
-                            <span className="span-count">{emailLogs?.meta?.total}</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-row">
-                        <div className="block block-inline-filters">
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        type="search"
-                                        className="form-control"
-                                        placeholder="Zoeken"
-                                        value={filterValues.q}
-                                        onChange={(e) => filterUpdate({ q: e.target.value })}
-                                    />
-                                </div>
+                <div className="flex flex-grow card-title">
+                    Berichten&nbsp;
+                    <span className="span-count">{emailLogs?.meta?.total}</span>
+                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        <div className="form">
+                            <div className="form-group">
+                                <input
+                                    type="search"
+                                    className="form-control"
+                                    placeholder="Zoeken"
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
+                                />
                             </div>
                         </div>
                     </div>

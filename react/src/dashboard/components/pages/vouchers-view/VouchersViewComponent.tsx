@@ -239,7 +239,7 @@ export default function VouchersViewComponent() {
     }, [fetchVoucher, openModal, voucher]);
 
     const submitLimitMultiplier = useCallback(
-        (value) => {
+        (value: number) => {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
@@ -260,7 +260,7 @@ export default function VouchersViewComponent() {
                                     setVoucher(res.data.data);
                                     pushSuccess('Opgeslagen!');
                                 })
-                                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+                                .catch(pushApiError)
                                 .finally(() => setProgress(100));
                         },
                         text: translate('modals.danger_zone.increase_limit_multiplier.buttons.confirm'),
@@ -268,7 +268,7 @@ export default function VouchersViewComponent() {
                 />
             ));
         },
-        [activeOrganization.id, openModal, pushDanger, pushSuccess, setProgress, translate, voucher, voucherService],
+        [activeOrganization.id, openModal, pushApiError, pushSuccess, setProgress, translate, voucher, voucherService],
     );
 
     useEffect(() => {
@@ -307,124 +307,105 @@ export default function VouchersViewComponent() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">
-                                <div className="flex flex-vertical flex-center">
-                                    <div className="flex flex-vertical flex-center">#{voucher.number}</div>
-                                </div>
-                                <div className="flex flex-vertical flex-center">
-                                    {!voucher.expired && voucher.state == 'active' && (
-                                        <div className="tag tag-success tag-sm">{voucher.state_locale}</div>
-                                    )}
-                                </div>
-                                <div className="flex flex-vertical flex-center">
-                                    {!voucher.expired && voucher.state == 'pending' && (
-                                        <div className="tag tag-default tag-sm">{voucher.state_locale}</div>
-                                    )}
-                                </div>
-                                <div className="flex flex-vertical flex-center">
-                                    {!voucher.expired && voucher.state == 'deactivated' && (
-                                        <div className="tag tag-danger tag-sm">{voucher.state_locale}</div>
-                                    )}
-                                </div>
-                                <div className="flex flex-vertical flex-center">
-                                    {voucher.expired && (
-                                        <div className="tag tag-warning tag-sm">
-                                            {translate('vouchers.labels.expired')}
+                    <div className="flex flex-grow card-title">
+                        <div className="flex flex-vertical flex-center">
+                            <div className="flex flex-vertical flex-center">#{voucher.number}</div>
+                        </div>
+                        <div className="flex flex-vertical flex-center">
+                            {!voucher.expired && voucher.state == 'active' && (
+                                <div className="tag tag-success tag-sm">{voucher.state_locale}</div>
+                            )}
+                        </div>
+                        <div className="flex flex-vertical flex-center">
+                            {!voucher.expired && voucher.state == 'pending' && (
+                                <div className="tag tag-default tag-sm">{voucher.state_locale}</div>
+                            )}
+                        </div>
+                        <div className="flex flex-vertical flex-center">
+                            {!voucher.expired && voucher.state == 'deactivated' && (
+                                <div className="tag tag-danger tag-sm">{voucher.state_locale}</div>
+                            )}
+                        </div>
+                        <div className="flex flex-vertical flex-center">
+                            {voucher.expired && (
+                                <div className="tag tag-warning tag-sm">{translate('vouchers.labels.expired')}</div>
+                            )}
+                        </div>
+                    </div>
+                    {hasPermission(activeOrganization, 'manage_vouchers') && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
+                                {showMakeTransactionButton && fund?.allow_voucher_top_ups && (
+                                    <div className="button button-default button-sm" onClick={makeTopUpTransaction}>
+                                        <em className="mdi mdi-cash-plus icon-start" />
+                                        {translate('vouchers.buttons.make_top_up_transaction')}
+                                    </div>
+                                )}
+
+                                {showMakeTransactionButton && (
+                                    <div className="button button-primary button-sm" onClick={makeTransaction}>
+                                        <em className="mdi mdi-cash-fast icon-start" />
+                                        {translate('vouchers.buttons.make_transaction')}
+                                    </div>
+                                )}
+
+                                {!voucher.expired && voucher.state === 'active' && (
+                                    <div className="button button-danger button-sm" onClick={deactivateVoucher}>
+                                        <em className="mdi mdi-close icon-start" />
+                                        Deactiveren
+                                    </div>
+                                )}
+
+                                {!voucher.expired && voucher.state === 'deactivated' && !voucher.is_external && (
+                                    <div className="button button-danger button-sm" onClick={activateVoucher}>
+                                        <em className="mdi mdi-alert-outline icon-start" />
+                                        Activeren
+                                    </div>
+                                )}
+
+                                {physicalCardsAvailable && !voucher.expired && (
+                                    <div className="button button-default button-sm" onClick={orderPhysicalCard}>
+                                        <em className="mdi mdi-card-text-outline icon-start" />
+                                        Plastic pas bestellen
+                                    </div>
+                                )}
+
+                                {physicalCardsAvailable && !voucher.physical_card && (
+                                    <div className="button button-default button-sm" onClick={addPhysicalCard}>
+                                        <em className="mdi mdi-ticket-account icon-start" />
+                                        {translate('vouchers.buttons.physical_card_add')}
+                                    </div>
+                                )}
+
+                                {physicalCardsAvailable && voucher.physical_card && (
+                                    <div className="button button-default button-sm" onClick={deletePhysicalCard}>
+                                        <em className="mdi mdi-ticket-account icon-start" />
+                                        {translate('vouchers.buttons.physical_card_delete')}
+                                    </div>
+                                )}
+
+                                {!voucher.expired &&
+                                    !voucher.is_granted &&
+                                    voucher.state === 'pending' &&
+                                    !voucher.is_external && (
+                                        <div className="button button-primary button-sm" onClick={onOpenAction}>
+                                            <em className="mdi mdi-clipboard-account icon-start " />
+                                            {translate('vouchers.buttons.activate')}
                                         </div>
                                     )}
-                                </div>
+
+                                {!voucher.is_granted &&
+                                    !voucher.expired &&
+                                    voucher.state === 'active' &&
+                                    !voucher.is_external && (
+                                        <div className="button button-primary button-sm" onClick={onOpenAction}>
+                                            <em className="mdi mdi-qrcode icon-start " />
+                                            {translate('vouchers.labels.qr_code')}
+                                        </div>
+                                    )}
                             </div>
                         </div>
-
-                        {hasPermission(activeOrganization, 'manage_vouchers') && (
-                            <div className="flex flex-self-start">
-                                <div className="flex-row">
-                                    <div className="button-group">
-                                        {showMakeTransactionButton && fund?.allow_voucher_top_ups && (
-                                            <div
-                                                className="button button-default button-sm"
-                                                onClick={makeTopUpTransaction}>
-                                                <em className="mdi mdi-cash-plus icon-start" />
-                                                {translate('vouchers.buttons.make_top_up_transaction')}
-                                            </div>
-                                        )}
-
-                                        {showMakeTransactionButton && (
-                                            <div className="button button-primary button-sm" onClick={makeTransaction}>
-                                                <em className="mdi mdi-cash-fast icon-start" />
-                                                {translate('vouchers.buttons.make_transaction')}
-                                            </div>
-                                        )}
-
-                                        {!voucher.expired && voucher.state === 'active' && (
-                                            <div className="button button-danger button-sm" onClick={deactivateVoucher}>
-                                                <em className="mdi mdi-close icon-start" />
-                                                Deactiveren
-                                            </div>
-                                        )}
-
-                                        {!voucher.expired &&
-                                            voucher.state === 'deactivated' &&
-                                            !voucher.is_external && (
-                                                <div
-                                                    className="button button-danger button-sm"
-                                                    onClick={activateVoucher}>
-                                                    <em className="mdi mdi-alert-outline icon-start" />
-                                                    Activeren
-                                                </div>
-                                            )}
-
-                                        {physicalCardsAvailable && !voucher.expired && (
-                                            <div
-                                                className="button button-default button-sm"
-                                                onClick={orderPhysicalCard}>
-                                                <em className="mdi mdi-card-text-outline icon-start" />
-                                                Plastic pas bestellen
-                                            </div>
-                                        )}
-
-                                        {physicalCardsAvailable && !voucher.physical_card && (
-                                            <div className="button button-default button-sm" onClick={addPhysicalCard}>
-                                                <em className="mdi mdi-ticket-account icon-start" />
-                                                {translate('vouchers.buttons.physical_card_add')}
-                                            </div>
-                                        )}
-
-                                        {physicalCardsAvailable && voucher.physical_card && (
-                                            <div
-                                                className="button button-default button-sm"
-                                                onClick={deletePhysicalCard}>
-                                                <em className="mdi mdi-ticket-account icon-start" />
-                                                {translate('vouchers.buttons.physical_card_delete')}
-                                            </div>
-                                        )}
-
-                                        {!voucher.expired &&
-                                            !voucher.is_granted &&
-                                            voucher.state === 'pending' &&
-                                            !voucher.is_external && (
-                                                <div className="button button-primary button-sm" onClick={onOpenAction}>
-                                                    <em className="mdi mdi-clipboard-account icon-start " />
-                                                    {translate('vouchers.buttons.activate')}
-                                                </div>
-                                            )}
-
-                                        {!voucher.is_granted &&
-                                            !voucher.expired &&
-                                            voucher.state === 'active' &&
-                                            !voucher.is_external && (
-                                                <div className="button button-primary button-sm" onClick={onOpenAction}>
-                                                    <em className="mdi mdi-qrcode icon-start " />
-                                                    {translate('vouchers.labels.qr_code')}
-                                                </div>
-                                            )}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
 
                 <div className="card-section">
@@ -525,13 +506,7 @@ export default function VouchersViewComponent() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">
-                                <div className="flex flex-vertical flex-center">Tegoed details</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div className="flex flex-grow card-title">Tegoed details</div>
                 </div>
 
                 <div className="card-section">

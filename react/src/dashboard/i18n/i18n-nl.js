@@ -3,6 +3,7 @@ import modals from './nl/i18n-modals';
 import modals_danger_zone from './nl/i18n-modals-danger_zone';
 import components from './nl/i18n-components';
 import block_exception from './nl/blocks/block-exception.json';
+import api_errors from './nl/errors/api';
 
 export default {
     test: '{{name}} {{foo}}',
@@ -780,6 +781,7 @@ export default {
         },
         labels: {
             without: 'Zonder organisatie',
+            no_results: 'Geen organisaties gevonden',
         },
         buttons: {
             add: 'Organisatie toevoegen',
@@ -2047,5 +2049,8 @@ export default {
 
     blocks: {
         block_exception,
+    },
+    errors: {
+        api: api_errors,
     },
 };

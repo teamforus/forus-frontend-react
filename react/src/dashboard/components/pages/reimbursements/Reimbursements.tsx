@@ -161,7 +161,7 @@ export default function Reimbursements() {
     return (
         <Fragment>
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="card-title">
                             {translate('reimbursements.header.title')} ({reimbursements?.meta?.total})

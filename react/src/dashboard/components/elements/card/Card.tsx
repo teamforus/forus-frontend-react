@@ -18,7 +18,7 @@ export default function Card({
 }) {
     return (
         <div className={'card'}>
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">{title}</div>
                 <div className="card-header-actions">
                     {buttons && (

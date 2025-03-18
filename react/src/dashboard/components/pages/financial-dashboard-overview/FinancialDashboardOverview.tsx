@@ -1,20 +1,28 @@
-import React, { Fragment, useCallback, useMemo } from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import FinancialOverviewFundsTable from './elements/FinancialOverviewFundsTable';
 import FinancialOverviewFundsBudgetTable from './elements/FinancialOverviewFundsBudgetTable';
 import useTranslate from '../../../hooks/useTranslate';
-import { ResponseError } from '../../../props/ApiResponses';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { FinancialOverview } from '../financial-dashboard/types/FinancialStatisticTypes';
+import usePushApiError from '../../../hooks/usePushApiError';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { NumberParam } from 'use-query-params';
 
 export default function FinancialDashboardOverview() {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
     const activeOrganization = useActiveOrganization();
+
+    const [overviewLoaded, setOverviewLoaded] = useState(false);
+
+    const [, filterValuesActive, filterUpdate] = useFilterNext<{ year_all: number; year: number }>(
+        { year_all: new Date().getFullYear(), year: new Date().getFullYear() },
+        { queryParams: { year_all: NumberParam, year: NumberParam } },
+    );
 
     const years = useMemo<Array<{ id: number; name: string }>>(() => {
         const yearsList = [];
@@ -32,10 +40,10 @@ export default function FinancialDashboardOverview() {
                 fundService
                     .list(activeOrganization.id, { stats: 'all', per_page: 100, year: year })
                     .then((res) => resolve(res.data.data.filter((fund) => fund.state !== 'waiting')))
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message)),
+                    .catch(pushApiError),
             );
         },
-        [activeOrganization.id, fundService, pushDanger],
+        [activeOrganization.id, fundService, pushApiError],
     );
 
     const fetchFinancialOverview = useCallback(
@@ -44,10 +52,10 @@ export default function FinancialDashboardOverview() {
                 fundService
                     .financialOverview(activeOrganization.id, { stats: 'all', year })
                     .then((res) => resolve(res.data))
-                    .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                    .catch(pushApiError);
             });
         },
-        [activeOrganization.id, fundService, pushDanger],
+        [activeOrganization.id, fundService, pushApiError],
     );
 
     return (
@@ -59,6 +67,9 @@ export default function FinancialDashboardOverview() {
                 fetchFunds={fetchFunds}
                 fetchFinancialOverview={fetchFinancialOverview}
                 organization={activeOrganization}
+                year={filterValuesActive.year_all}
+                setYear={(year) => filterUpdate({ year_all: year })}
+                setLoaded={() => setOverviewLoaded(true)}
             />
 
             <FinancialOverviewFundsBudgetTable
@@ -66,6 +77,9 @@ export default function FinancialDashboardOverview() {
                 fetchFunds={fetchFunds}
                 fetchFinancialOverview={fetchFinancialOverview}
                 organization={activeOrganization}
+                year={filterValuesActive.year}
+                loaded={overviewLoaded}
+                setYear={(year) => filterUpdate({ year: year })}
             />
         </Fragment>
     );

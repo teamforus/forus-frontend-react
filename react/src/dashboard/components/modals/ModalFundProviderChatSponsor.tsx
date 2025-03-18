@@ -10,10 +10,9 @@ import FundProviderChatMessage from '../../props/models/FundProviderChatMessage'
 import Fund from '../../props/models/Fund';
 import FundProvider from '../../props/models/FundProvider';
 import useFundProviderChatService from '../../services/FundProviderChatService';
-import { ResponseError } from '../../props/ApiResponses';
-import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import SponsorProduct from '../../props/models/Sponsor/SponsorProduct';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalFundProviderChatSponsor({
     modal,
@@ -34,7 +33,7 @@ export default function ModalFundProviderChatSponsor({
 }) {
     const envData = useEnvData();
 
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
     const fundProviderChatService = useFundProviderChatService();
@@ -70,12 +69,10 @@ export default function ModalFundProviderChatSponsor({
                     setMessages(Object.values(groupBy(res.data.data, 'date')));
                     setTimeoutValue(setTimeout(() => scrollTheChat(forceScroll), 50));
                 })
-                .catch((res: ResponseError) => {
-                    pushDanger('Mislukt!', res.data.message);
-                })
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [fundProviderChatService, organization.id, fund.id, fundProvider.id, chat.id, pushDanger, setProgress],
+        [fundProviderChatService, organization.id, fund.id, fundProvider.id, chat.id, setProgress, pushApiError],
     );
 
     const form = useFormBuilder(

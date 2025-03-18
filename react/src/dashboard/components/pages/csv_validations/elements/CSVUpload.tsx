@@ -17,6 +17,7 @@ import { ResponseError } from '../../../../props/ApiResponses';
 import { fileSize } from '../../../../helpers/string';
 import classNames from 'classnames';
 import { fileToText } from '../../../../helpers/utils';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type RowDataPropData = { [key: string]: string };
 
@@ -40,6 +41,7 @@ export default function CSVUpload({
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const fileService = useFileService();
     const fundService = useFundService();
@@ -354,7 +356,7 @@ export default function CSVUpload({
                                     : pushDanger('Onbekende error.');
                             }
 
-                            pushDanger('Onbekende error.');
+                            pushApiError(err, 'Onbekende error.');
                             reject();
                         });
                 };
@@ -372,6 +374,7 @@ export default function CSVUpload({
             showInvalidRows,
             updateProgressBarValue,
             csvFile,
+            pushApiError,
         ],
     );
 
@@ -533,7 +536,7 @@ export default function CSVUpload({
                             : pushDanger('Onbekende error.');
                     }
 
-                    pushDanger('Onbekende error.');
+                    pushApiError(err, 'Onbekende error.');
                 });
         };
 
@@ -549,6 +552,7 @@ export default function CSVUpload({
         pushSuccess,
         showInvalidRows,
         updateProgressBarValue,
+        pushApiError,
     ]);
 
     const onConfirmUpload = useCallback(() => {

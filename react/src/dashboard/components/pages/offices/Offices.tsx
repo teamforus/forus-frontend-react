@@ -16,9 +16,8 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useSetProgress from '../../../hooks/useSetProgress';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
-import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 interface OfficeLocal extends Office {
     scheduleByDay: { [key: string]: OfficeSchedule };
@@ -34,7 +33,7 @@ export default function Offices() {
     const officeService = useOfficeService();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
 
     const [weekDays] = useState(officeService.scheduleWeekDays());
     const [offices, setOffices] = useState<Array<OfficeLocal>>(null);
@@ -79,7 +78,7 @@ export default function Offices() {
                                     fetchOffices();
                                     pushSuccess('Vestiging is verwijderd.');
                                 })
-                                .catch((err: ResponseError) => pushDanger(err.data.message));
+                                .catch(pushApiError);
                         },
                     }}
                     buttonCancel={{
@@ -88,7 +87,7 @@ export default function Offices() {
                 />
             ));
         },
-        [fetchOffices, officeService, openModal, pushDanger, pushSuccess, translate],
+        [fetchOffices, officeService, openModal, pushApiError, pushSuccess, translate],
     );
 
     const confirmHasEmployees = useCallback(() => {
@@ -211,7 +210,7 @@ export default function Offices() {
 
             {offices && (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">
                             {translate('offices.labels.offices')} ({offices?.length})
                         </div>

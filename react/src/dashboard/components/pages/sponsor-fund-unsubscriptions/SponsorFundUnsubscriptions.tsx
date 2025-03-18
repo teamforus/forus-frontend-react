@@ -1,10 +1,9 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../hooks/useSetProgress';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { createEnumParam, NumberParam } from 'use-query-params';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import useFundUnsubscribeService from '../../../services/FundUnsubscribeService';
@@ -15,12 +14,13 @@ import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function SponsorFundUnsubscriptions() {
     const activeOrganization = useActiveOrganization();
 
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
     const fundUnsubscribeService = useFundUnsubscribeService();
@@ -65,12 +65,12 @@ export default function SponsorFundUnsubscriptions() {
         fundUnsubscribeService
             .listSponsor(activeOrganization.id, filterActiveValues)
             .then((res) => setFundUnsubscribes(res.data))
-            .catch((err: ResponseError) => pushDanger(err.data.message))
+            .catch(pushApiError)
             .finally(() => {
                 setProgress(100);
                 setLoading(false);
             });
-    }, [activeOrganization.id, filterActiveValues, fundUnsubscribeService, pushDanger, setProgress]);
+    }, [activeOrganization.id, filterActiveValues, fundUnsubscribeService, pushApiError, setProgress]);
 
     useEffect(() => {
         fetchFundUnsubscribes();
@@ -91,7 +91,7 @@ export default function SponsorFundUnsubscriptions() {
             </StateNavLink>
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="card-title flex flex-grow">Afmeldingen ({fundUnsubscribes.meta.total})</div>
                     <div className="card-header-filters">
                         <div className="block block-label-tabs pull-right">

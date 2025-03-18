@@ -1,21 +1,20 @@
 import React, { Fragment, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import { useOrganizationService } from '../../../services/OrganizationService';
-import { ResponseError } from '../../../props/ApiResponses';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function TransactionSettings() {
     const activeOrganization = useActiveOrganization();
 
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const organizationService = useOrganizationService();
 
@@ -30,6 +29,8 @@ export default function TransactionSettings() {
         bank_branch_id: '6789',
         bank_branch_name: 'Voorbeeld van een vestigingsnaam',
         bank_fund_name: 'Fondsnaam',
+        bank_reservation_first_name: 'John',
+        bank_reservation_last_name: 'Doe',
         bank_note: 'Voorbeeld van een notitie van een medewerker',
     });
 
@@ -48,7 +49,7 @@ export default function TransactionSettings() {
         organizationService
             .updateBankFields(activeOrganization.id, values)
             .then(() => pushSuccess('Opgeslagen!'))
-            .catch((e: ResponseError) => pushDanger('Mislukt!', e?.data.message || 'Onbekende foutmelding.'))
+            .catch(pushApiError)
             .finally(() => form.setIsLocked(false));
     });
 
@@ -62,6 +63,8 @@ export default function TransactionSettings() {
             form.values.bank_branch_id ? testData.bank_branch_id : null,
             form.values.bank_branch_name ? testData.bank_branch_name : null,
             form.values.bank_fund_name ? testData.bank_fund_name : null,
+            form.values.bank_reservation_first_name ? testData.bank_reservation_first_name : null,
+            form.values.bank_reservation_last_name ? testData.bank_reservation_last_name : null,
             form.values.bank_note ? testData.bank_note : null,
         ]
             .filter((value) => value)
@@ -187,6 +190,36 @@ export default function TransactionSettings() {
                                             checked={!!form.values?.bank_fund_name}
                                             onChange={(e) => form.update({ bank_fund_name: e.target.checked })}
                                         />
+                                        <div className="form-group form-group-last tooltipped">
+                                            <CheckboxControl
+                                                id="bank_reservation_first_name"
+                                                title="Voornaam"
+                                                checked={!!form.values?.bank_reservation_first_name}
+                                                onChange={(e) =>
+                                                    form.update({ bank_reservation_first_name: e.target.checked })
+                                                }
+                                            />
+                                            <Tooltip
+                                                text={
+                                                    'Voornaam wordt alleen weergegeven wanneer de transactie is gestart via een reservering.'
+                                                }
+                                            />
+                                        </div>
+                                        <div className="form-group form-group-last tooltipped">
+                                            <CheckboxControl
+                                                id="bank_reservation_last_name"
+                                                title="Achternaam"
+                                                checked={!!form.values?.bank_reservation_last_name}
+                                                onChange={(e) =>
+                                                    form.update({ bank_reservation_last_name: e.target.checked })
+                                                }
+                                            />
+                                            <Tooltip
+                                                text={
+                                                    'Achternaam wordt alleen weergegeven wanneer de transactie is gestart via een reservering.'
+                                                }
+                                            />
+                                        </div>
                                         <CheckboxControl
                                             id="bank_note"
                                             title="Notitie"
@@ -313,6 +346,20 @@ export default function TransactionSettings() {
                                                         Fondsnaam:
                                                         <span className="block-info-list-item-value">
                                                             {testData.bank_fund_name} • 3-100 karakters
+                                                        </span>
+                                                    </li>
+
+                                                    <li className="block-info-list-item">
+                                                        Voornaam:
+                                                        <span className="block-info-list-item-value">
+                                                            {testData.bank_reservation_first_name} • 3-100 karakters
+                                                        </span>
+                                                    </li>
+
+                                                    <li className="block-info-list-item">
+                                                        Achternaam:
+                                                        <span className="block-info-list-item-value">
+                                                            {testData.bank_reservation_last_name} • 3-100 karakters
                                                         </span>
                                                     </li>
 

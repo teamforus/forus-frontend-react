@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Record from '../../../../props/models/Record';
-import { ResponseError, ResponseErrorData } from '../../../../props/ApiResponses';
+import { ResponseErrorData } from '../../../../props/ApiResponses';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
 import FormError from '../../../elements/forms/errors/FormError';
@@ -8,8 +8,8 @@ import { useRecordTypeService } from '../../../../services/RecordTypeService';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import RecordType from '../../../../props/models/RecordType';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function VoucherRecordsEditor({
     errors,
@@ -21,8 +21,8 @@ export default function VoucherRecordsEditor({
     setRecords: (records: Array<Record>) => void;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const recordTypeService = useRecordTypeService();
 
@@ -60,9 +60,9 @@ export default function VoucherRecordsEditor({
                 setRecordTypes(types);
                 setRecordType(types[0]);
             })
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [pushDanger, recordTypeService, setProgress]);
+    }, [pushApiError, recordTypeService, setProgress]);
 
     useEffect(() => {
         fetchRecordTypes();

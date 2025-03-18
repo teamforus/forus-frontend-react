@@ -5,7 +5,6 @@ import FormError from '../elements/forms/errors/FormError';
 import Voucher from '../../props/models/Voucher';
 import useVoucherService from '../../services/VoucherService';
 import useActiveOrganization from '../../hooks/useActiveOrganization';
-import usePushDanger from '../../hooks/usePushDanger';
 import QrCode from '../elements/qr-code/QrCode';
 import SelectControl from '../elements/select-control/SelectControl';
 import { ResponseError } from '../../props/ApiResponses';
@@ -16,6 +15,7 @@ import VoucherQrCodePrintable from '../../../webshop/components/printable/Vouche
 import useOpenPrintable from '../../hooks/useOpenPrintable';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import Fund from '../../props/models/Fund';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalVoucherQRCode({
     fund,
@@ -36,8 +36,8 @@ export default function ModalVoucherQRCode({
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const openPrintable = useOpenPrintable();
     const activeOrganization = useActiveOrganization();
 
@@ -78,10 +78,10 @@ export default function ModalVoucherQRCode({
                     onAssigned(res.data.data);
                     setSuccess(true);
                 })
-                .catch((res: ResponseError) => {
-                    form.setErrors(res.data.errors);
+                .catch((err: ResponseError) => {
+                    form.setErrors(err.data.errors);
                     form.setIsLocked(false);
-                    pushDanger('Error!', res.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     form.setIsLocked(false);

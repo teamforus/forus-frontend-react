@@ -122,25 +122,21 @@ export default function BlockReimbursementCategories({
         <div className="card card-last">
             {!compact && (
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">
-                                {categories?.meta
-                                    ? `Declaratie categorieën (${categories?.meta.total})`
-                                    : `Declaratie categorieën`}
-                            </div>
-                        </div>
+                    <div className="flex flex-grow card-title">
+                        {categories?.meta
+                            ? `Declaratie categorieën (${categories?.meta.total})`
+                            : `Declaratie categorieën`}
+                    </div>
 
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                <a
-                                    className="button button-primary button-sm"
-                                    id="add_reimbursement_category"
-                                    onClick={() => editReimbursementCategory()}>
-                                    <em className="mdi mdi-plus-circle icon-start" />
-                                    {translate('Toevoegen')}
-                                </a>
-                            </div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            <a
+                                className="button button-primary button-sm"
+                                id="add_reimbursement_category"
+                                onClick={() => editReimbursementCategory()}>
+                                <em className="mdi mdi-plus-circle icon-start" />
+                                {translate('Toevoegen')}
+                            </a>
                         </div>
                     </div>
                 </div>

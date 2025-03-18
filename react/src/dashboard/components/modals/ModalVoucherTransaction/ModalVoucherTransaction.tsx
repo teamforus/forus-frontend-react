@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../../modules/modals/context/ModalContext';
 import { hasPermission } from '../../../helpers/utils';
 import useFormBuilder from '../../../hooks/useFormBuilder';
@@ -9,7 +9,6 @@ import Fund from '../../../props/models/Fund';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import { useReimbursementsService } from '../../../services/ReimbursementService';
 import useVoucherService from '../../../services/VoucherService';
-import usePushDanger from '../../../hooks/usePushDanger';
 import SelectControl from '../../elements/select-control/SelectControl';
 import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import FormError from '../../elements/forms/errors/FormError';
@@ -18,6 +17,9 @@ import ModalVoucherTransactionPreview from './ModalVoucherTransactionPreview';
 import Reimbursement from '../../../props/models/Reimbursement';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
+import { ResponseError } from '../../../props/ApiResponses';
+import InfoBox from '../../elements/info-box/InfoBox';
 
 type ReimbursementLocale = Partial<Reimbursement & { id?: number; name: string }>;
 
@@ -38,8 +40,8 @@ export default function ModalVoucherTransaction({
 }) {
     const translate = useTranslate();
 
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
     const voucherService = useVoucherService();
@@ -154,10 +156,10 @@ export default function ModalVoucherTransaction({
                     setState('finish');
                     onCreated?.();
                 })
-                .catch((res) => {
-                    form.setErrors(res.data.errors);
+                .catch((err: ResponseError) => {
+                    form.setErrors(err.data.errors);
                     setState('form');
-                    pushDanger('Mislukt!', res.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setProgress(100);
@@ -453,25 +455,36 @@ export default function ModalVoucherTransaction({
                                 <FormError error={form.errors?.note} />
                             </div>
 
-                            <div className="form-group form-group-inline form-group-inline-md">
-                                <div className="form-label" />
-                                <div className="form-offset">
-                                    <label className="checkbox">
-                                        <input
-                                            type="checkbox"
-                                            checked={form.values.note_shared}
-                                            onChange={(e) => form.update({ note_shared: e.target.checked })}
-                                        />
-                                        <div className="checkbox-label">
-                                            <div className="checkbox-box">
-                                                <div className="mdi mdi-check" />
-                                            </div>
-                                            {translate('modals.modal_voucher_transaction.labels.note_shared')}
+                            {form.values.target === 'provider' && (
+                                <Fragment>
+                                    <div className="form-group form-group-inline form-group-inline-md">
+                                        <div className="form-label" />
+                                        <div className="form-offset">
+                                            <label className="checkbox">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={form.values.note_shared}
+                                                    onChange={(e) => form.update({ note_shared: e.target.checked })}
+                                                />
+                                                <div className="checkbox-label">
+                                                    <div className="checkbox-box">
+                                                        <div className="mdi mdi-check" />
+                                                    </div>
+                                                    {translate('modals.modal_voucher_transaction.labels.note_shared')}
+                                                </div>
+                                            </label>
                                         </div>
-                                    </label>
-                                </div>
-                                <FormError error={form.errors?.note_shared} />
-                            </div>
+                                        <FormError error={form.errors?.note_shared} />
+                                    </div>
+
+                                    <InfoBox iconPosition={'top'} type={'default'} iconColor={'primary'}>
+                                        <p>
+                                            Controleer de gegevens. Na het aanmaken kan de transactie niet worden
+                                            verwijderd.
+                                        </p>
+                                    </InfoBox>
+                                </Fragment>
+                            )}
                         </div>
                     </div>
 

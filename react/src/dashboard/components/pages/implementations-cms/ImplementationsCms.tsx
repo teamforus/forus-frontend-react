@@ -3,7 +3,6 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import FormError from '../../elements/forms/errors/FormError';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -25,21 +24,20 @@ import PhotoSelectorData from '../../elements/photo-selector/types/PhotoSelector
 import useTranslate from '../../../hooks/useTranslate';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import FormGroup from '../../elements/forms/controls/FormGroup';
-import InfoBox from '../../elements/info-box/InfoBox';
 import PhotoSelectorBanner from '../../elements/photo-selector/PhotoSelectorBanner';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import ModalNotification from '../../modals/ModalNotification';
 import usePushApiError from '../../../hooks/usePushApiError';
+import InfoBox from '../../elements/info-box/InfoBox';
 
 export default function ImplementationsCms() {
     const { id } = useParams();
 
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
-    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const mediaService = useMediaService();
@@ -150,7 +148,7 @@ export default function ImplementationsCms() {
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setProgress(100);
@@ -204,10 +202,10 @@ export default function ImplementationsCms() {
                     setBannerMeta((meta) => ({ ...meta, media: res.data.data }));
                     formUpdate({ banner_media_uid: res.data.data.uid });
                 })
-                .catch((res: ResponseError) => pushDanger('Error!', res.data.message))
+                .catch(pushApiError)
                 .finally(() => setBannerMeta((meta) => ({ ...meta, mediaLoading: false })));
         },
-        [mediaService, pushDanger, formUpdate],
+        [mediaService, pushApiError, formUpdate],
     );
 
     const deletePhoto = useCallback(() => {
@@ -240,8 +238,8 @@ export default function ImplementationsCms() {
         implementationService
             .read(activeOrganization.id, parseInt(id))
             .then((res) => setImplementation(res.data.data))
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [activeOrganization.id, implementationService, id, pushDanger]);
+            .catch(pushApiError);
+    }, [activeOrganization.id, implementationService, id, pushApiError]);
 
     useEffect(() => {
         if (implementation) {
@@ -322,10 +320,10 @@ export default function ImplementationsCms() {
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">{translate('implementation_edit.header.title')}</div>
-                        <div className="card-header-actions">
-                            <div className="button-group">
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <a
                                     className="button button-text button-sm"
                                     href={implementation.url_webshop}

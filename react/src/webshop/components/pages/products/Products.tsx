@@ -406,7 +406,9 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                             {filterValues.bookmarked
                                 ? translate('products.filters.bookmarked')
                                 : translate('products.title')}
-                            <div className="showcase-filters-title-count">{products?.meta?.total}</div>
+                            <div className="showcase-filters-title-count" data-nosnippet="true">
+                                {products?.meta?.total}
+                            </div>
                         </h1>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
