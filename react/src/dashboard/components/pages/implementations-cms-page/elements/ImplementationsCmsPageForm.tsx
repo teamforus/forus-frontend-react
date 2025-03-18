@@ -224,23 +224,28 @@ export default function ImplementationsCmsPageForm({
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header flex-row">
-                        <div className="card-title">{translate(`implementation_edit.labels.${pageType}`)}</div>
-                        <div className="flex flex-grow flex-end">
-                            {(page?.state == 'public' || pageTypeConfig.type === 'static') && (
-                                <a
-                                    className="button button-text button-sm"
-                                    href={pageTypeConfig.webshop_url}
-                                    rel="noreferrer"
-                                    target="_blank">
-                                    Bekijk pagina
-                                    <em className="mdi mdi-open-in-new icon-end" />
-                                </a>
-                            )}
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title">
+                            {translate(`implementation_edit.labels.${pageType}`)}
+                        </div>
 
-                            <button className="button button-primary button-sm" type="submit">
-                                {translate('funds_edit.buttons.confirm')}
-                            </button>
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
+                                {(page?.state == 'public' || pageTypeConfig.type === 'static') && (
+                                    <a
+                                        className="button button-text button-sm"
+                                        href={pageTypeConfig.webshop_url}
+                                        rel="noreferrer"
+                                        target="_blank">
+                                        Bekijk pagina
+                                        <em className="mdi mdi-open-in-new icon-end" />
+                                    </a>
+                                )}
+
+                                <button className="button button-primary button-sm" type="submit">
+                                    {translate('funds_edit.buttons.confirm')}
+                                </button>
+                            </div>
                         </div>
                     </div>
 

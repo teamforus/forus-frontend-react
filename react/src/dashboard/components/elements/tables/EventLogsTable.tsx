@@ -135,7 +135,7 @@ export default function EventLogsTable({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {title || 'Activiteitenlogboek'} ({logs.meta.total})
                 </div>

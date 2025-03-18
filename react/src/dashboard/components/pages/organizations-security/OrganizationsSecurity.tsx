@@ -87,7 +87,7 @@ export default function OrganizationsSecurity() {
                 </div>
                 <div className="card">
                     <form className="form" onSubmit={form.submit}>
-                        <div className="card-header card-header-next">
+                        <div className="card-header">
                             <div className="flex flex-grow">
                                 {viewType == 'employees' && (
                                     <div className="card-title">Tweefactorauthenticatie voor medewerkers</div>

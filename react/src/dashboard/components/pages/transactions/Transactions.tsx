@@ -365,7 +365,7 @@ export default function Transactions() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 {viewType.key == 'transactions' ? (
                     <div className="card-title flex flex-grow">
                         {isSponsor

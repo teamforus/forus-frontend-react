@@ -80,13 +80,11 @@ export default function TransactionBulkTransactionsTable({
     return (
         <div className="card">
             <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex flex-grow">
-                        <div className="card-title">
-                            {`${translate('transactions.header.title')} (${transactions.meta.total})`}
-                        </div>
-                    </div>
-                    <div className="flex">
+                <div className="flex flex-grow card-title">
+                    {`${translate('transactions.header.title')} (${transactions.meta.total})`}
+                </div>
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
                         <button className="button button-primary button-sm" onClick={() => exportTransactions()}>
                             <em className="mdi mdi-download icon-start" />
                             Exporteren

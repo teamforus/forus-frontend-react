@@ -463,9 +463,7 @@ export default function FundProviderProductView() {
                 (fund.type == 'subsidies' || showHistory || productHasLimits) && (
                     <div className="card">
                         <div className="card-header">
-                            <div className="card-title">
-                                <div className="ellipsis">{`Lopende en verlopen acties op ${product.name}`}</div>
-                            </div>
+                            <div className="card-title">{`Lopende en verlopen acties op: ${product.name}`}</div>
                         </div>
                         <div className="card-section card-section-padless">
                             <div className="table-wrapper">

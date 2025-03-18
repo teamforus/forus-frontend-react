@@ -208,7 +208,7 @@ export default function PrevalidatedTable({
 
     return (
         <div className="card form">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">{translate('prevalidated_table.header.title')}</div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters ">

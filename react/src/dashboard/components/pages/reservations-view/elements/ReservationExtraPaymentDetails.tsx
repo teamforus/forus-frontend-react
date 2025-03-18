@@ -95,13 +95,11 @@ export default function ReservationExtraPaymentDetails({
     return (
         <div className="card">
             <div className="card-header">
-                <div className="flex">
-                    <div className="flex flex-grow">
-                        <div className="card-title">Transactie details van de bijbetaling</div>
-                    </div>
+                <div className="flex flex-grow card-title">Transactie details van de bijbetaling</div>
 
-                    {isProvider && (
-                        <div className="button-group">
+                {isProvider && (
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
                             {!reservation.canceled && (
                                 <button className="button button-primary button-sm" onClick={() => fetchExtraPayment()}>
                                     <em className="mdi mdi-autorenew icon-start"></em>
@@ -119,8 +117,8 @@ export default function ReservationExtraPaymentDetails({
                                 </button>
                             )}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
 
             <div className="card-section">

@@ -191,7 +191,7 @@ export default function ProviderFundsTable({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate(`provider_funds.title.${type}`)}
 

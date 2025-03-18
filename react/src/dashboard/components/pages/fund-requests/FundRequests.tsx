@@ -190,7 +190,7 @@ export default function FundRequests() {
 
     return (
         <div className="card" data-dusk="fundRequestsPageContent">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('validation_requests.header.title')} ({fundRequests.meta.total})
                 </div>

@@ -93,7 +93,7 @@ export default function ExtraPayments() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('extra_payments.header.title')} ({extraPayments.meta.total})
                 </div>

@@ -185,20 +185,18 @@ export default function ImplementationsSocialMedia() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex">
-                        <div className="flex flex-grow">
-                            <div className="card-title">{`Social media links (${socialMedias.meta.total})`}</div>
-                        </div>
-                        <div className="flex">
-                            <div className="block block-inline-filters">
-                                <a
-                                    className="button button-primary button-sm"
-                                    onClick={() => editSocialMedia()}
-                                    id="add_social_media">
-                                    <em className="mdi mdi-plus-circle icon-start" />
-                                    Toevoegen
-                                </a>
-                            </div>
+                    <div className="flex flex-grow card-title">
+                        <div className="card-title">{`Social media links (${socialMedias.meta.total})`}</div>
+                    </div>
+                    <div className="card-header-filters">
+                        <div className="block block-inline-filters">
+                            <a
+                                className="button button-primary button-sm"
+                                onClick={() => editSocialMedia()}
+                                id="add_social_media">
+                                <em className="mdi mdi-plus-circle icon-start" />
+                                Toevoegen
+                            </a>
                         </div>
                     </div>
                 </div>

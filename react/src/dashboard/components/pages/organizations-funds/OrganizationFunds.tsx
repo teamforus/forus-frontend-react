@@ -197,7 +197,7 @@ export default function OrganizationFunds() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
                     {translate('components.organization_funds.title')} ({funds.meta.total})
                 </div>

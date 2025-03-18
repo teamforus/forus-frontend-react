@@ -109,7 +109,7 @@ export default function Products() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('products.offers')} ({products.meta.total})
                 </div>
