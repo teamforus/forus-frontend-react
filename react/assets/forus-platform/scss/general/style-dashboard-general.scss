@@ -9,17 +9,6 @@
     height: 100%;
     @import '../_common/landing';
 
-    .section {
-        &.section-header {
-            background-size: contain;
-            background: url(../img/landing/splash-top-b.png) no-repeat center center;
-
-            .header-content {
-                color: var(--text-color);
-            }
-        }
-    }
-
     .app.app-container {
         padding: 0;
         margin: 0;

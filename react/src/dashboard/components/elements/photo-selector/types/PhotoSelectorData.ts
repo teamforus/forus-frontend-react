@@ -4,20 +4,12 @@ export default interface PhotoSelectorData {
     overlay_type: string;
     overlay_enabled: boolean;
     overlay_opacity: string;
-    auto_text_color: boolean;
-    header_text_color: string;
     mediaLoading: boolean;
-    opacityOptions: Array<{
-        value: string;
-        label: string;
-    }>;
-    headerTextColors: Array<{
-        value: string;
-        label: string;
-    }>;
-    patterns: Array<{
-        value: string;
-        label: string;
-    }>;
     media?: Media;
+    banner_color?: string;
+    banner_background?: string;
+    banner_position?: 'left' | 'center' | 'right';
+    banner_collapse?: boolean;
+    banner_wide?: boolean;
+    banner_button_type?: 'color' | 'white';
 }
