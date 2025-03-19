@@ -5,7 +5,6 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import { useOrganizationService } from '../../../services/OrganizationService';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import usePushApiError from '../../../hooks/usePushApiError';
@@ -242,7 +241,6 @@ export default function TransactionSettings() {
                                             value={form.values?.bank_separator}
                                             onChange={(bank_separator: string) => form.update({ bank_separator })}
                                             options={separatorOptions}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                 </div>

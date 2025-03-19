@@ -5,7 +5,6 @@ import Identity2FA from '../../props/models/Identity2FA';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import Identity2FAState from '../../props/models/Identity2FAState';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import Auth2FAProvider from '../../props/models/Auth2FAProvider';
 import QrCode from '../elements/qr-code/QrCode';
 import FormError from '../elements/forms/errors/FormError';
@@ -295,7 +294,6 @@ export default function Modal2FASetup({
                                                 onChange={(provider: Auth2FAProvider) => setProvider(provider)}
                                                 options={providers}
                                                 allowSearch={false}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                         </div>
                                     </div>

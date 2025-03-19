@@ -9,7 +9,6 @@ import { useFundRequestValidatorService } from '../../services/FundRequestValida
 import Organization from '../../props/models/Organization';
 import FundRequestRecord from '../../props/models/FundRequestRecord';
 import FormHint from '../elements/forms/errors/FormHint';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../elements/select-control/SelectControl';
 import classNames from 'classnames';
 
@@ -93,7 +92,6 @@ export default function ModalFundRequestRecordEdit({
                                             onChange={(value: string | number) => form.update({ value })}
                                             options={criterion.record_type.options}
                                             allowSearch={false}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     )}
 

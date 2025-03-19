@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Organization from '../../../props/models/Organization';
 import RecordType from '../../../props/models/RecordType';
 import { hasPermission } from '../../../helpers/utils';
-import SelectControlOptions from '../select-control/templates/SelectControlOptions';
 import SelectControl from '../select-control/SelectControl';
 import FormError from '../forms/errors/FormError';
 import { ResponseError } from '../../../props/ApiResponses';
@@ -307,7 +306,6 @@ export default function FundCriteriaEditorItem({
                                             allowSearch={true}
                                             onChange={setRecordType}
                                             options={recordTypes}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                     <FormError error={errors?.['criteria.0.record_type_key']} />
@@ -325,7 +323,6 @@ export default function FundCriteriaEditorItem({
                                                 propKey={'key'}
                                                 value={operators[recordType.key]}
                                                 options={recordType?.operators}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(operator: Operators) => {
                                                     setOperators({ ...operators, [recordType.key]: operator });
                                                 }}
@@ -365,7 +362,6 @@ export default function FundCriteriaEditorItem({
                                                             propKey={'value'}
                                                             value={values[recordType.key]}
                                                             options={recordType.options}
-                                                            optionsComponent={SelectControlOptions}
                                                             disabled={disabled}
                                                             onChange={(value: string) => {
                                                                 values[recordType.key] = value;

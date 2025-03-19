@@ -8,7 +8,6 @@ import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -256,7 +255,6 @@ export default function Payouts() {
                                     allowSearch={false}
                                     value={filterValues.state}
                                     options={states}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(state: string) => filterUpdate({ state })}
                                 />
                             </FilterItemToggle>

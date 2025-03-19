@@ -726,6 +726,29 @@
                     border-bottom: none;
                 }
             }
+
+            &.select-control-options-fd {
+                position: initial;
+                left: auto;
+                top: auto;
+                width: auto;
+                z-index: 2;
+                margin: 0 0 0;
+                border: 1px solid #d4d9dd !important;
+                border-radius: var(--border-radius);
+
+                &.select-control-options-fd-bottom {
+                    border-top: none !important;
+                    border-top-left-radius: 0 !important;
+                    border-top-right-radius: 0 !important;
+                }
+
+                &.select-control-options-fd-top {
+                    border-bottom: none !important;
+                    border-bottom-left-radius: 0 !important;
+                    border-bottom-right-radius: 0 !important;
+                }
+            }
         }
 
         &.options {

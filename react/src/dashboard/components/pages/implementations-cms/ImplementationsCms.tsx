@@ -16,7 +16,6 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import PhotoSelector from '../../elements/photo-selector/PhotoSelector';
 import MarkdownEditor from '../../elements/forms/markdown-editor/MarkdownEditor';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -452,7 +451,6 @@ export default function ImplementationsCms() {
                                                     onChange={(value?: boolean) => {
                                                         form.update({ informal_communication: value });
                                                     }}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                             </div>
 
@@ -508,7 +506,6 @@ export default function ImplementationsCms() {
                                                     announcement: { ...form.values.announcement, active: value },
                                                 });
                                             }}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                         <FormError error={form.errors['announcement.active']} />
                                     </div>
@@ -533,7 +530,6 @@ export default function ImplementationsCms() {
                                                         announcement: { ...form.values.announcement, type: value },
                                                     });
                                                 }}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                             <FormError error={form.errors['announcement.type']} />
                                         </div>
@@ -605,7 +601,6 @@ export default function ImplementationsCms() {
                                                         },
                                                     });
                                                 }}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                         </div>
 
@@ -692,7 +687,6 @@ export default function ImplementationsCms() {
                                                 onChange={(value?: boolean) => {
                                                     form.update({ show_privacy_checkbox: value });
                                                 }}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                         </FormGroupInfo>
                                     )}
@@ -729,7 +723,6 @@ export default function ImplementationsCms() {
                                                 onChange={(value?: boolean) => {
                                                     form.update({ show_terms_checkbox: value });
                                                 }}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                         </FormGroupInfo>
                                     )}
