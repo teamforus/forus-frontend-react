@@ -707,7 +707,7 @@
                 color: rgba(var(--text-color), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
-                transition: 0.4s;
+                transition: background-color .4s, color .4s;
                 height: var(--option-height);
                 @include ellipsis();
 
@@ -724,6 +724,14 @@
 
                 &:last-child {
                     border-bottom: none;
+                }
+
+                &:hover,
+                &:focus {
+                    background: var(--dropdown-item-hover-background);
+                    color: var(--dropdown-item-hover-color);
+                    outline-offset: -2px !important;
+                    outline-style: auto !important;
                 }
             }
 

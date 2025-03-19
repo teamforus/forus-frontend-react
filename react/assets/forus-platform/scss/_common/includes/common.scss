@@ -1,3 +1,10 @@
+:focus-visible {
+    outline: var(--focus-outline) !important;
+    outline-offset: var(--focus-outline-offset) !important;
+    box-shadow: var(--focus-box-shadow) !important;
+    z-index: 1;
+}
+
 body {
     background: #f1f4f7;
     min-height: 100vh;

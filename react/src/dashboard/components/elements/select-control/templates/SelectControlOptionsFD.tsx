@@ -54,7 +54,7 @@ export default function SelectControlOptionsFD<T>({
         <div
             id={id}
             className={classNames('form-control', 'select-control', disabled && 'disabled', className)}
-            tabIndex={0}
+            tabIndex={disabled ? -1 : 0}
             role="button"
             data-dusk={dusk}
             aria-haspopup="listbox"
@@ -62,7 +62,7 @@ export default function SelectControlOptionsFD<T>({
             aria-labelledby={controlId}
             aria-controls={`${controlId}_options`}
             ref={selectorRef}
-            onKeyDown={(e) => onKeyDown(e)}
+            onKeyDown={(e) => (disabled ? null : onKeyDown(e))}
             onBlur={onBlur}>
             <FDTargetClick
                 contentContainer={FDTargetContainerSelect}
