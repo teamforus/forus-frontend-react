@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
-import Voucher from '../../../dashboard/props/models/Voucher';
+import Voucher, { VoucherProduct } from '../../../dashboard/props/models/Voucher';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import { uniqueId } from 'lodash';
-import Product from '../../props/models/Product';
 import Office from '../../../dashboard/props/models/Office';
 import Reservation from '../../../dashboard/props/models/Reservation';
 import Organization from '../../../dashboard/props/models/Organization';
@@ -13,7 +12,7 @@ type CardTransaction = {
     timestamp?: number;
     amount_locale?: string;
     type?: 'transaction' | 'product_voucher' | string;
-    product?: Product;
+    product?: VoucherProduct;
     target?: 'provider' | 'iban' | 'top_up';
     product_reservation?: Reservation;
     organization?: Organization;
@@ -28,7 +27,7 @@ export type VoucherCardType = Voucher & {
     description?: string;
     transactionsList?: Array<CardTransaction>;
     records_by_key?: { [key: string]: string };
-    product?: Product;
+    product?: VoucherProduct;
     offices?: Array<Office>;
 };
 

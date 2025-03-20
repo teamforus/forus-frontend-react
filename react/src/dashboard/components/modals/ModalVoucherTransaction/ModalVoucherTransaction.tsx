@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { ModalState } from '../../../modules/modals/context/ModalContext';
 import { hasPermission } from '../../../helpers/utils';
 import useFormBuilder from '../../../hooks/useFormBuilder';
-import Voucher from '../../../props/models/Voucher';
+import SponsorVoucher from '../../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../../props/models/Organization';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
@@ -33,7 +33,7 @@ export default function ModalVoucherTransaction({
 }: {
     modal: ModalState;
     target?: string;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     onCreated: () => void;
     className?: string;
     organization: Organization;

@@ -14,7 +14,7 @@ import { ResponseError } from '../../props/ApiResponses';
 import { dateFormat } from '../../helpers/dates';
 import useAuthIdentity from '../../hooks/useAuthIdentity';
 import { useHelperService } from '../../services/HelperService';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import Product from '../../props/models/Product';
 import useProductService from '../../services/ProductService';
 import ModalDuplicatesPicker from './ModalDuplicatesPicker';
@@ -419,7 +419,7 @@ export default function ModalVouchersUpload({
 
             try {
                 setProgress(0);
-                const data = await helperService.recursiveLeach<Voucher>(fetchVouchers, 4);
+                const data = await helperService.recursiveLeach<SponsorVoucher>(fetchVouchers, 4);
                 setProgress(100);
 
                 pushSuccess(
