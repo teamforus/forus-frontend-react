@@ -84,6 +84,7 @@ export default function SelectControlOptionsFD<T>({
                             id={`${controlId}_options`}
                             role={'listbox'}
                             onClick={null}
+                            data-dusk={`${dusk}Options`}
                             ref={optionsRef}
                             style={{ width: `${e.item.observedRect.width}px` }}
                             onKeyDown={(e) => onKeyDown(e)}
