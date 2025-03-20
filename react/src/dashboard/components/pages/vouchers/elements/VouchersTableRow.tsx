@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
-import Voucher from '../../../../props/models/Voucher';
+import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Organization from '../../../../props/models/Organization';
 import { currencyFormat, strLimit } from '../../../../helpers/string';
@@ -19,7 +19,7 @@ export default function VouchersTableRow({
     fetchVouchers,
 }: {
     funds: Array<Partial<Fund>>;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     organization: Organization;
     fetchVouchers: () => void;
 }) {

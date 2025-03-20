@@ -1,5 +1,5 @@
 import React from 'react';
-import Voucher from '../../../../props/models/Voucher';
+import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../../../props/models/Organization';
 import Fund from '../../../../props/models/Fund';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
@@ -24,7 +24,7 @@ export default function VouchersTable({
     funds: Array<Partial<Fund>>;
     loading: boolean;
     paginatorKey: string;
-    vouchers: PaginationData<Voucher>;
+    vouchers: PaginationData<SponsorVoucher>;
     organization: Organization;
     fetchVouchers: () => void;
     filterValues: FilterModel;

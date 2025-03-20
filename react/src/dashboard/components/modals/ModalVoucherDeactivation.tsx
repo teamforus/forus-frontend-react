@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import FormError from '../elements/forms/errors/FormError';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import useOpenModal from '../../hooks/useOpenModal';
@@ -16,7 +16,7 @@ export default function ModalVoucherDeactivation({
     className,
 }: {
     modal: ModalState;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     onSubmit: (values: object) => void;
     className?: string;
 }) {

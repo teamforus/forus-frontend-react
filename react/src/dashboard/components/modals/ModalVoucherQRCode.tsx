@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import FormError from '../elements/forms/errors/FormError';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import useVoucherService from '../../services/VoucherService';
 import useActiveOrganization from '../../hooks/useActiveOrganization';
 import QrCode from '../elements/qr-code/QrCode';
@@ -28,8 +28,8 @@ export default function ModalVoucherQRCode({
 }: {
     fund: Partial<Fund>;
     modal: ModalState;
-    onSent: (values: Voucher) => void;
-    voucher: Voucher;
+    onSent: (values: SponsorVoucher) => void;
+    voucher: SponsorVoucher;
     className?: string;
     onAssigned: (values: object) => void;
     organization: Organization;
@@ -114,7 +114,7 @@ export default function ModalVoucherQRCode({
     );
 
     const printQrCode = useCallback(
-        (voucher: Voucher) => {
+        (voucher: SponsorVoucher) => {
             openPrintable((printable) => (
                 <VoucherQrCodePrintable
                     fund={fund}

@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import Voucher from '../../../props/models/Voucher';
+import SponsorVoucher from '../../../props/models/Sponsor/SponsorVoucher';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalVoucherTransaction from '../../modals/ModalVoucherTransaction/ModalVoucherTransaction';
 import Fund from '../../../props/models/Fund';
@@ -50,7 +50,7 @@ export default function VouchersViewComponent() {
     const reservationTransactionsBlock = useRef<() => void>();
 
     const [fund, setFund] = useState<Fund>(null);
-    const [voucher, setVoucher] = useState<Voucher>(null);
+    const [voucher, setVoucher] = useState<SponsorVoucher>(null);
 
     const physicalCardsAvailable = useMemo(() => {
         return (
@@ -99,7 +99,7 @@ export default function VouchersViewComponent() {
     }, [activeOrganization.id, id, setProgress, voucherService, pushApiError]);
 
     const fetchFund = useCallback(
-        (voucher: Voucher) => {
+        (voucher: SponsorVoucher) => {
             setProgress(0);
 
             fundService
@@ -138,9 +138,12 @@ export default function VouchersViewComponent() {
     }, [activeOrganization, fetchVoucher, fund, showQrCode, voucher]);
 
     const onStateChanged = useCallback(
-        (promise: Promise<ApiResponseSingle<Voucher>>, action: 'deactivation' | 'activation' = 'deactivation') => {
+        (
+            promise: Promise<ApiResponseSingle<SponsorVoucher>>,
+            action: 'deactivation' | 'activation' = 'deactivation',
+        ) => {
             promise
-                .then((res: ApiResponseSingle<Voucher>) => {
+                .then((res: ApiResponseSingle<SponsorVoucher>) => {
                     setVoucher(res.data.data);
 
                     if (action == 'deactivation') {

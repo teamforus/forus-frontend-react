@@ -12,7 +12,7 @@ import useVoucherService from '../../../../services/VoucherService';
 import useVoucherTableOptions from '../hooks/useVoucherTableOptions';
 import useVoucherExportService from '../../../../services/exports/useVoucherExportService';
 import { PaginationData } from '../../../../props/ApiResponses';
-import Voucher from '../../../../props/models/Voucher';
+import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Fund from '../../../../props/models/Fund';
 import { keyBy } from 'lodash';
 
@@ -48,7 +48,7 @@ export default function VouchersTableFilters({
     funds,
 }: {
     organization: Organization;
-    vouchers: PaginationData<Voucher>;
+    vouchers: PaginationData<SponsorVoucher>;
     filter: FilterScope<VouchersTableFiltersProps>;
     funds: Array<Partial<Fund>>;
 }) {

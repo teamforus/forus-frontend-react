@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import useSetProgress from '../../hooks/useSetProgress';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../props/models/Organization';
 import PincodeControl from '../elements/forms/controls/PincodeControl';
 import FormError from '../elements/forms/errors/FormError';
@@ -21,7 +21,7 @@ export default function ModalAddPhysicalCard({
     organization,
 }: {
     modal: ModalState;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     className?: string;
     onAttached: () => void;
     organization: Organization;
