@@ -1,14 +1,15 @@
 import React, {
     FunctionComponent,
     HTMLInputAutoCompleteAttribute,
-    UIEvent,
+    UIEventHandler,
     useCallback,
     useEffect,
     useState,
 } from 'react';
 import './styles/ui-select.scss';
 import { uniqueId } from 'lodash';
-import SelectControlOptions from './templates/SelectControlOptions';
+// import SelectControlOptions from './templates/SelectControlOptions';
+import SelectControlOptionsFD from './templates/SelectControlOptionsFD';
 
 type SelectControlProps<T> = {
     id?: string;
@@ -60,7 +61,7 @@ export type SelectControlOptionsProp<T> = {
     setShowOptions?: React.Dispatch<React.SetStateAction<boolean>>;
     searchInputChanged: () => void;
     searchAutoComplete?: HTMLInputAutoCompleteAttribute;
-    onOptionsScroll: (e: UIEvent<HTMLElement>) => void;
+    onOptionsScroll: UIEventHandler;
     disabled?: boolean;
     rawValue?: unknown;
     propKey?: string | null;
@@ -83,7 +84,7 @@ export default function SelectControl<T>({
     disabled = false,
     className = null,
     scrollSize = 50,
-    optionsComponent = SelectControlOptions,
+    optionsComponent = SelectControlOptionsFD,
     searchAutoComplete = 'off',
     dusk = null,
     multiline,
@@ -167,25 +168,20 @@ export default function SelectControl<T>({
         [allowSearch, autoClear, searchInputChanged],
     );
 
-    const searchOption = useCallback(
-        (e: React.MouseEvent<HTMLElement>) => {
-            e.stopPropagation();
+    const searchOption = useCallback(() => {
+        if (disabled || showOptions) {
+            setShowOptions(false);
+            return;
+        }
 
-            if (disabled || showOptions) {
-                setShowOptions(false);
-                return;
-            }
+        setShowOptions(true);
 
-            setShowOptions(true);
+        if (allowSearch && strict && modelValue && modelValue[propValue]) {
+            setQuery(modelValue[propValue]);
+        }
 
-            if (allowSearch && strict && modelValue && modelValue[propValue]) {
-                setQuery(modelValue[propValue]);
-            }
-
-            buildSearchedOptions();
-        },
-        [disabled, showOptions, allowSearch, strict, modelValue, propValue, buildSearchedOptions],
-    );
+        buildSearchedOptions();
+    }, [disabled, showOptions, allowSearch, strict, modelValue, propValue, buildSearchedOptions]);
 
     const selectOption = useCallback(
         (option: OptionType<T>) => {
@@ -202,11 +198,11 @@ export default function SelectControl<T>({
         [onChange, onSearchChange, propKey],
     );
 
-    const onOptionsScroll = useCallback(
+    const onOptionsScroll: UIEventHandler = useCallback(
         (e) => {
-            const top = e.target.scrollTop + e.target.clientHeight;
+            const top = e.currentTarget.scrollTop + e.currentTarget.clientHeight;
 
-            if (top >= e.target.scrollHeight - scrollEndThreshold) {
+            if (top >= e.currentTarget.scrollHeight - scrollEndThreshold) {
                 setVisibleCount((visibleCount) => visibleCount + scrollEndThreshold);
             }
         },

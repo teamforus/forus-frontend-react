@@ -5,7 +5,6 @@ import Tooltip from '../../../../elements/tooltip/Tooltip';
 import PhotoSelector from '../../../../elements/photo-selector/PhotoSelector';
 import UIControlCheckbox from '../../../../elements/forms/ui-controls/UIControlCheckbox';
 import SelectControl from '../../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../../elements/select-control/templates/SelectControlOptions';
 import useFormBuilder from '../../../../../hooks/useFormBuilder';
 import { ResponseError } from '../../../../../props/ApiResponses';
 import BusinessType from '../../../../../props/models/BusinessType';
@@ -286,7 +285,6 @@ export default function SignUpStepOrganizationAdd({
                                                 }
                                                 options={businessTypes}
                                                 placeholder={'Selecteer organisatie type...'}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                         )}
                                     </div>

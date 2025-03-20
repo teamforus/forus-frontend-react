@@ -3,7 +3,6 @@ import BiConnectionIcon from '../../../../../assets/forus-platform/resources/pla
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import FormError from '../../elements/forms/errors/FormError';
@@ -513,7 +512,6 @@ export default function BiConnection() {
                                             onChange={(expiration_period: number) => {
                                                 form.update({ expiration_period });
                                             }}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </FormGroupInfo>
                                 </div>

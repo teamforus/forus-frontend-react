@@ -9,7 +9,6 @@ import usePaginatorService from '../../../modules/paginator/services/usePaginato
 import { useFundService } from '../../../services/FundService';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import { hasPermission } from '../../../helpers/utils';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
@@ -252,7 +251,6 @@ export default function Reimbursements() {
                                         allowSearch={false}
                                         value={filterValues.state}
                                         options={statesOptions}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(state: string) => filterUpdate({ state })}
                                     />
                                 </FilterItemToggle>
@@ -266,7 +264,6 @@ export default function Reimbursements() {
                                                 allowSearch={false}
                                                 value={filterValues.expired}
                                                 options={expiredOptions}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(expired: number) => filterUpdate({ expired })}
                                             />
                                         </FilterItemToggle>
@@ -278,7 +275,6 @@ export default function Reimbursements() {
                                                 allowSearch={false}
                                                 value={filterValues.deactivated}
                                                 options={deactivatedOptions}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(deactivated: number) => filterUpdate({ deactivated })}
                                             />
                                         </FilterItemToggle>
@@ -346,7 +342,6 @@ export default function Reimbursements() {
                                         allowSearch={false}
                                         value={filterValues.implementation_id}
                                         options={implementations}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(implementation_id: string) => filterUpdate({ implementation_id })}
                                     />
                                 </FilterItemToggle>

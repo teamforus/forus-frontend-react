@@ -8,7 +8,6 @@ import FundRequest from '../../props/models/FundRequest';
 import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
 import Organization from '../../props/models/Organization';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import Employee from '../../props/models/Employee';
 import { strLimit } from '../../helpers/string';
 import useTranslate from '../../hooks/useTranslate';
@@ -77,7 +76,6 @@ export default function ModalFundRequestAssignValidator({
                                         options={listEmployees}
                                         value={form.values.employee_id}
                                         onChange={(employee_id: number) => form.update({ employee_id })}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={form.errors?.employee_id} />
                                 </div>

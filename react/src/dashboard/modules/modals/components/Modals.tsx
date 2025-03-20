@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { modalsContext } from '../context/ModalContext';
 
-export default function Modals() {
+export default function Modals({ focusExclusions = null }: { focusExclusions?: string }) {
     const { modals, closeModal } = useContext(modalsContext);
     const visibleModals = useMemo(() => modals.filter((modal) => !modal.hidden), [modals]);
 
@@ -27,7 +27,16 @@ export default function Modals() {
         focusModalElement();
 
         const onActiveFocusIn = () => {
-            if (modalRef.current && !modalRef.current?.contains(document.activeElement)) {
+            if (!modalRef.current) {
+                return;
+            }
+
+            const exclusions = [...(focusExclusions ? document.querySelectorAll(focusExclusions) : [])];
+
+            const insideModal = modalRef.current?.contains(document.activeElement);
+            const insideExclusion = exclusions.filter((el) => el.contains(document.activeElement)).length > 0;
+
+            if (!insideModal && !insideExclusion) {
                 focusModalElement();
             }
         };
@@ -35,7 +44,7 @@ export default function Modals() {
         document.addEventListener('focusin', onActiveFocusIn);
 
         return () => document.removeEventListener('focusin', onActiveFocusIn);
-    }, [visibleModals.length, focusModalElement]);
+    }, [visibleModals.length, focusModalElement, focusExclusions]);
 
     return (
         <div className={'modals'}>

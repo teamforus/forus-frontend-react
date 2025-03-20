@@ -7,7 +7,6 @@ import { usePrevalidationService } from '../../services/PrevalidationService';
 import Fund from '../../props/models/Fund';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import FormError from '../elements/forms/errors/FormError';
 import PrevalidationRecord from '../../props/models/PrevalidationRecord';
 import { ResponseError } from '../../props/ApiResponses';
@@ -230,7 +229,6 @@ export default function ModalCreatePrevalidation({
                                                                 placeholder="Waarde"
                                                                 value={form.values[fundRecord]}
                                                                 options={recordTypesByKey[fundRecord].options}
-                                                                optionsComponent={SelectControlOptions}
                                                                 onChange={(value: string) => {
                                                                     form.update({ [fundRecord]: value });
                                                                 }}
@@ -306,7 +304,6 @@ export default function ModalCreatePrevalidation({
                                                             propKey={'key'}
                                                             value={formNewRecord.values.record_type_key}
                                                             options={recordTypesAvailable}
-                                                            optionsComponent={SelectControlOptions}
                                                             onChange={(record_type_key: string) => {
                                                                 formNewRecord.update({ record_type_key });
                                                             }}

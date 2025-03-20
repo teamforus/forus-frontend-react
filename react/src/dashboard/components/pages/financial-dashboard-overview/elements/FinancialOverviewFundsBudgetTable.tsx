@@ -8,7 +8,6 @@ import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
@@ -81,7 +80,6 @@ export default function FinancialOverviewFundsBudgetTable({
                                     propKey={'id'}
                                     allowSearch={false}
                                     value={year}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(year?: number) => setYear(year)}
                                 />
                             </div>

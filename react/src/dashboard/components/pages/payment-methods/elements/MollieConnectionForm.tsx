@@ -6,7 +6,6 @@ import { ResponseError, ResponseErrorThrottled } from '../../../../props/ApiResp
 import useMollieConnectionService from '../../../../services/MollieConnectionService';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import { getCountries } from 'libphonenumber-js';
 import countries from 'i18n-iso-countries';
 import countriesEn from 'i18n-iso-countries/langs/en.json';
@@ -103,7 +102,6 @@ export default function MollieConnectionForm({
                                     value={form.values.country_code}
                                     allowSearch={true}
                                     onChange={(country_code: string) => form.update({ country_code })}
-                                    optionsComponent={SelectControlOptions}
                                 />
                                 <FormError error={form.errors.country_code} />
                             </div>

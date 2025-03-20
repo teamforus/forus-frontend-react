@@ -23,7 +23,6 @@ import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import useTranslate from '../../hooks/useTranslate';
 import SelectControl from '../elements/select-control/SelectControl';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
@@ -1014,7 +1013,6 @@ export default function ModalVouchersUpload({
                                             onChange={(type: 'fund_voucher' | 'product_voucher') => setType(type)}
                                             options={types}
                                             allowSearch={false}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </FormGroupInfo>
                                 </div>

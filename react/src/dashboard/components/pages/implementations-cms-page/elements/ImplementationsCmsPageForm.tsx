@@ -11,7 +11,6 @@ import Implementation from '../../../../props/models/Implementation';
 import ImplementationPage from '../../../../props/models/ImplementationPage';
 import ImplementationPageBlock from '../../../../props/models/ImplementationPageBlock';
 import useImplementationPageService from '../../../../services/ImplementationPageService';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import ImplementationsBlockEditor from './ImplementationsBlockEditor';
@@ -261,7 +260,6 @@ export default function ImplementationsCmsPageForm({
                                             value={form.values?.state}
                                             onChange={(state: string) => form.update({ state })}
                                             options={states}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                         <FormError error={form.errors.state} />
                                     </div>
@@ -279,7 +277,6 @@ export default function ImplementationsCmsPageForm({
                                                         value={form.values?.external}
                                                         onChange={(external: boolean) => form.update({ external })}
                                                         options={types}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <div className="form-group-info-button">
@@ -359,7 +356,6 @@ export default function ImplementationsCmsPageForm({
                                                             form.update({ description_position });
                                                         }}
                                                         options={descriptionPositions}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <div className="form-group-info-button">
@@ -433,7 +429,6 @@ export default function ImplementationsCmsPageForm({
                                             value={form.values?.blocks_per_row}
                                             onChange={(blocks_per_row: number) => form.update({ blocks_per_row })}
                                             options={blocksPerRow}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                 </div>

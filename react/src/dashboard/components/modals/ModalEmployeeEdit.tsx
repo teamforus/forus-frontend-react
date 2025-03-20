@@ -11,7 +11,6 @@ import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import Role from '../../props/models/Role';
 import { ResponseError } from '../../props/ApiResponses';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import useOfficeService from '../../services/OfficeService';
 import classNames from 'classnames';
 import useIsProviderPanel from '../../hooks/useIsProviderPanel';
@@ -140,7 +139,6 @@ export default function ModalEmployeeEdit({
                                     propValue={'name'}
                                     onChange={(office_id: number) => form.update({ office_id })}
                                     options={offices}
-                                    optionsComponent={SelectControlOptions}
                                 />
                                 <FormError error={form.errors['office_id']} />
                             </div>

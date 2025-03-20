@@ -14,7 +14,6 @@ import Fund from '../../../../props/models/Fund';
 import CardHeaderFilter from '../../../elements/tables/elements/CardHeaderFilter';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import ModalNotification from '../../../modals/ModalNotification';
 import useTableToggles from '../../../../hooks/useTableToggles';
 import Implementation from '../../../../props/models/Implementation';
@@ -261,7 +260,6 @@ export default function ProviderFundsAvailableTable({
                                     propKey={'id'}
                                     propValue={'name'}
                                     onChange={(implementation_id?: number) => filter.update({ implementation_id })}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </FilterItemToggle>
 
@@ -272,7 +270,6 @@ export default function ProviderFundsAvailableTable({
                                     propKey={'id'}
                                     propValue={'name'}
                                     onChange={(organization_id?: number) => filter.update({ organization_id })}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </FilterItemToggle>
 
@@ -283,7 +280,6 @@ export default function ProviderFundsAvailableTable({
                                     propKey={'key'}
                                     propValue={'name'}
                                     onChange={(tag?: string) => filter.update({ tag })}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </FilterItemToggle>
                         </CardHeaderFilter>

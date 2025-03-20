@@ -4,7 +4,6 @@ import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
 import FormError from '../elements/forms/errors/FormError';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../helpers/dates';
 import VoucherRecordsEditor from '../pages/vouchers/elements/VoucherRecordsEditor';
@@ -394,7 +393,6 @@ export default function ModalVoucherCreate({
                                                         }}
                                                         options={creditTypes}
                                                         allowSearch={false}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                     <FormError error={form.errors?.type} />
                                                 </FormGroupInfo>
@@ -440,7 +438,6 @@ export default function ModalVoucherCreate({
                                                         propKey={'id'}
                                                         options={products}
                                                         placeholder="Selecteer aanbod..."
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(product_id: number) => form.update({ product_id })}
                                                     />
                                                 </div>
@@ -465,7 +462,6 @@ export default function ModalVoucherCreate({
                                                         onChange={setAssignType}
                                                         options={assignTypes}
                                                         allowSearch={false}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                     <FormError error={form.errors?.assign_by_type} />
                                                 </FormGroupInfo>

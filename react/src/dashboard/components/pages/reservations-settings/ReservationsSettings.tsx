@@ -7,7 +7,6 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import useUpdateActiveOrganization from '../../../hooks/useUpdateActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import FormError from '../../elements/forms/errors/FormError';
 import { hasPermission } from '../../../helpers/utils';
 import ReservationFieldsEditor from '../reservations/elements/ReservationFieldsEditor';
@@ -122,7 +121,6 @@ export default function ReservationsSettings() {
                                             form.update({ reservation_phone: value })
                                         }
                                         options={reservationFieldOptions}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={form.errors.reservation_phone} />
                                 </div>
@@ -140,7 +138,6 @@ export default function ReservationsSettings() {
                                             form.update({ reservation_address: value })
                                         }
                                         options={reservationFieldOptions}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={form.errors.reservation_address} />
                                 </div>
@@ -159,7 +156,6 @@ export default function ReservationsSettings() {
                                             form.update({ reservation_birth_date: value })
                                         }
                                         options={reservationFieldOptions}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={form.errors.reservation_birth_date} />
                                 </div>
@@ -194,7 +190,6 @@ export default function ReservationsSettings() {
                                                     form.update({ reservation_allow_extra_payments: value })
                                                 }
                                                 options={extraPaymentsOptions}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                             <FormError error={form.errors.reservation_allow_extra_payments} />
                                         </div>

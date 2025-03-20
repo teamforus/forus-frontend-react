@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
 import FormError from '../../../elements/forms/errors/FormError';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 
 type Auth2FAValues = {
     auth_2fa_policy?: 'optional' | 'required' | 'restrict_features' | 'global';
@@ -47,7 +46,6 @@ export default function OrganizationsFundsSecurityAuth2FAForm({
                             allowSearch={false}
                             value={formValues.auth_2fa_remember_ip}
                             options={auth2FARememberIpOptions}
-                            optionsComponent={SelectControlOptions}
                             disabled={disabled}
                             onChange={(auth_2fa_remember_ip: boolean) =>
                                 setFormValues({ ...formValues, auth_2fa_remember_ip: auth_2fa_remember_ip })

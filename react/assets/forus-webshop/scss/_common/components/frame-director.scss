@@ -1,0 +1,15 @@
+.frame-director {
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    .fd-content {
+        position: absolute;
+        pointer-events: initial;
+    }
+}

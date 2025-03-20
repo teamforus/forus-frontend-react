@@ -5,7 +5,6 @@ import useFilter from '../../../../hooks/useFilter';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import ClickOutside from '../../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
@@ -265,7 +264,6 @@ export default function PrevalidatedTable({
                                                     propKey={'key'}
                                                     allowSearch={true}
                                                     options={states}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(state: string) => filter.update({ state })}
                                                 />
                                             </FilterItemToggle>
@@ -276,7 +274,6 @@ export default function PrevalidatedTable({
                                                     propKey={'key'}
                                                     allowSearch={true}
                                                     options={statesExported}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(exported: number) => filter.update({ exported })}
                                                 />
                                             </FilterItemToggle>

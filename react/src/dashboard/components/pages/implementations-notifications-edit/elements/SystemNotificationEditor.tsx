@@ -7,7 +7,6 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
 import SystemNotification from '../../../../props/models/SystemNotification';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import SystemNotificationTemplateEditor from './SystemNotificationTemplateEditor';
 import Fund from '../../../../props/models/Fund';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
@@ -169,7 +168,6 @@ export default function SystemNotificationEditor({
                                             value={fund}
                                             allowSearch={true}
                                             onChange={(fund: Partial<Fund>) => setFund(fund)}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                 </div>

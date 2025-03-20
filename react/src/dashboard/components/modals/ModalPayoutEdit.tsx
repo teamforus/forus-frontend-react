@@ -10,7 +10,6 @@ import useSetProgress from '../../hooks/useSetProgress';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import FormGroup from '../elements/forms/controls/FormGroup';
 import usePushApiError from '../../hooks/usePushApiError';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import usePayoutTransactionService from '../../services/PayoutTransactionService';
 import PayoutTransaction from '../../props/models/PayoutTransaction';
 
@@ -245,7 +244,6 @@ export default function ModalPayoutEdit({
                                         onChange={setAssignType}
                                         options={assignTypes}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 )}
                             />

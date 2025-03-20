@@ -25,6 +25,11 @@
 
     --box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
 
+    // Outline
+    --focus-outline: 2px solid #315efd;
+    --focus-outline-offset: 2px;
+    --focus-box-shadow: 0 0 0 3px white;
+
     // sign up
     --sign_up_accent_color: #305dfb;
     --sign_up_accent_color_light: #bdcbff;

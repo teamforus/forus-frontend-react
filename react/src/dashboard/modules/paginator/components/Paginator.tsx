@@ -4,7 +4,6 @@ import FilterSetter from '../../../types/FilterSetter';
 import { ApiPaginationMetaProp } from '../../../props/ApiResponses';
 import usePaginatorService from '../services/usePaginatorService';
 import SelectControl from '../../../components/elements/select-control/SelectControl';
-import SelectControlOptions from '../../../components/elements/select-control/templates/SelectControlOptions';
 import { clickOnKeyEnter } from '../../../helpers/wcag';
 import useTranslate from '../../../hooks/useTranslate';
 import classNames from 'classnames';
@@ -108,7 +107,6 @@ export default function Paginator({
                             <SelectControl
                                 className={'form-control'}
                                 options={perPageOptions}
-                                optionsComponent={SelectControlOptions}
                                 propKey={'key'}
                                 allowSearch={false}
                                 value={meta.per_page}

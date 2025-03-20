@@ -4,7 +4,6 @@ import Identity2FAState from '../../../props/models/Identity2FAState';
 import useOpenModal from '../../../hooks/useOpenModal';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useFormBuilder from '../../../hooks/useFormBuilder';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -191,7 +190,6 @@ export default function Security2FA() {
                                     onChange={(auth_2fa_remember_ip: 0 | 1) =>
                                         form.update({ auth_2fa_remember_ip: auth_2fa_remember_ip })
                                     }
-                                    optionsComponent={SelectControlOptions}
                                 />
                             ) : (
                                 <input

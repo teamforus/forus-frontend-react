@@ -6,7 +6,7 @@ export type FDPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface FDItem {
     key: string;
-    offset?: FDItemOffset;
+    offset?: FDItemOffset & FDItemPosition;
     close?: () => void;
     element: (e: FDItem) => ReactElement;
     observedRect?: FDObserverRect;

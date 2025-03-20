@@ -4,7 +4,6 @@ import useFormBuilder from '../../hooks/useFormBuilder';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import { useBankConnectionService } from '../../services/BankConnectionService';
 import BankConnection from '../../props/models/BankConnection';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../elements/select-control/SelectControl';
 import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
@@ -63,7 +62,6 @@ export default function ModalSwitchBankConnectionAccount({
                                     }}
                                     options={bankConnection.accounts}
                                     allowSearch={false}
-                                    optionsComponent={SelectControlOptions}
                                 />
 
                                 <FormError error={form.errors?.bank_connection_account_id} />

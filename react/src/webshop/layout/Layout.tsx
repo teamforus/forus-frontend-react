@@ -66,7 +66,7 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
 
                 <LayoutFooter />
 
-                <Modals />
+                <Modals focusExclusions={'.frame-director'} />
                 <PushNotifications />
             </div>
 

@@ -11,7 +11,6 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
@@ -158,7 +157,6 @@ export default function ExtraPayments() {
                                     options={funds}
                                     propKey={'id'}
                                     allowSearch={false}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(fund_id: string) => filter.update({ fund_id })}
                                 />
                             </FilterItemToggle>

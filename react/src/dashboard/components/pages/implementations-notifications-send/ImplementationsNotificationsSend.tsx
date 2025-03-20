@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import ThSortable from '../../elements/tables/ThSortable';
 import useFilter from '../../../hooks/useFilter';
@@ -448,7 +447,6 @@ export default function ImplementationsNotificationsSend() {
                                     value={fund}
                                     onChange={(value: Fund) => setFund(value)}
                                     options={funds}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </div>
                         </div>
@@ -466,7 +464,6 @@ export default function ImplementationsNotificationsSend() {
                                             identitiesFilters.update({ target: value });
                                         }}
                                         options={identityTargets}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 </div>
                             </div>
@@ -485,7 +482,6 @@ export default function ImplementationsNotificationsSend() {
                                             providersFilters.update({ target: value });
                                         }}
                                         options={providerTargets}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 </div>
                             </div>

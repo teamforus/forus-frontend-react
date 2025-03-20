@@ -3,7 +3,6 @@ import useFormBuilder from '../../../hooks/useFormBuilder';
 import useEnvData from '../../../hooks/useEnvData';
 import FormError from '../../elements/forms/errors/FormError';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useFeedbackService from '../../../services/FeedbackService';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useAssetUrl from '../../../hooks/useAssetUrl';
@@ -120,7 +119,6 @@ export default function Feedback() {
                                             value={form.values?.urgency}
                                             onChange={(urgency: string) => form.update({ urgency })}
                                             options={urgencyOptions}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                         <FormError error={form.errors?.urgency} />
                                     </div>

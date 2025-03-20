@@ -12,7 +12,6 @@ import { useParams } from 'react-router-dom';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import Tooltip from '../../elements/tooltip/Tooltip';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
@@ -374,7 +373,6 @@ export default function FundBackofficeEdit() {
                                                     propValue={'label'}
                                                     allowSearch={false}
                                                     value={form.values?.backoffice_fallback}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(value?: boolean) => {
                                                         form.update({ backoffice_fallback: value });
                                                     }}
@@ -427,7 +425,6 @@ export default function FundBackofficeEdit() {
                                                     propValue={'label'}
                                                     allowSearch={false}
                                                     value={form.values?.backoffice_ineligible_policy}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(value?: string) => {
                                                         form.update({ backoffice_ineligible_policy: value });
                                                     }}
