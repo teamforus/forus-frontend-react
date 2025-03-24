@@ -1375,18 +1375,13 @@
     "modal_2fa_setup": {
         "2fa": "Uwierzytelnianie dwuskładnikowe",
         "2fa_success": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie skonfigurowane",
-        "already_have_app": "Jeśli masz już aplikację Google Authenticator, wykonaj poniższe czynności:",
         "back": "Powrót",
         "cancel": "Anuluj",
-        "choose": "Wybierz",
         "code_resent": "Ponownie wysłaliśmy kod.",
         "confirm": "Potwierdzenie",
-        "dont_have_app": "Jeśli nie masz aplikacji {nazwa},",
-        "download_from": "Czy można go pobrać ze strony",
         "enter_2fa_code": "Aby kontynuować, wprowadź kod bezpieczeństwa uwierzytelniania dwuskładnikowego.",
         "enter_app_code": "Wprowadź 6-cyfrowy kod z poziomu aplikacji.",
         "enter_app_code_6_digits": "Aby kontynuować, wprowadź 6-cyfrowy kod bezpieczeństwa od {dostawcy}.",
-        "enter_key": "Wprowadź klucz instalacji: {secret}",
         "enter_phone": "Aby kontynuować, wprowadź swój numer telefonu",
         "enter_sms_code": "Wprowadź 6-cyfrowy kod SMS",
         "enter_sms_code_6_digits": "Aby kontynuować, wprowadź 6-cyfrowy kod SMS wysłany na Twój numer telefonu.",
@@ -1394,22 +1389,19 @@
             "code_sent": "Coś poszło nie tak podczas wysyłania wiadomości SMS. Czy wprowadzono prawidłowy numer telefonu? Jeśli nie, spróbuj ponownie."
         },
         "extra_security": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie skonfigurowane. Twoje konto jest teraz dodatkowo zabezpieczone.",
-        "in_app_select": "W aplikacji wybierz",
         "link_phone": "Połącz swój numer telefonu",
-        "or": "Czy",
         "phone_number": "Numer telefonu",
         "resend_code": "Wyślij ponownie kod",
-        "scan_qr": "Skanowanie kodu QR",
         "seconds": "{time} second(s)",
         "select_auth_app": "Wybierz aplikację uwierzytelniającą, której chcesz użyć.",
         "setup_2fa": "Konfigurowanie uwierzytelniania dwuskładnikowego",
-        "setup_account": "Konfiguracja konta",
         "successful_login": "Udało się!",
         "unknown_error": "Nieznany błąd.",
         "verify": "Weryfikacja",
         "welcome_back": "Pomyślnie zalogowano się przy użyciu uwierzytelniania dwuskładnikowego. Witamy ponownie!",
-        "download_from_app_store": "App Store",
-        "download_from_play_store": "Sklep Play"
+        "already_have_app_steps": "1. W aplikacji wybierz opcję <strong class=\"text-strong\">Konfiguracja konta</strong><br>2. Wybierz <strong class=\"text-strong\">Skanuj kod QR</strong> lub <strong class=\"text-strong\">Wprowadź klucz instalacyjny</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> Jeśli nie masz aplikacji {{name}}, </strong>możesz ją pobrać ze <strong class=\"text-strong\">Sklepu Play</strong> lub <strong class=\"text-strong\">App Store</strong>.",
+        "already_have_app": "Jeśli masz już aplikację {{name}}, wykonaj poniższe czynności:"
     },
     "modal_fund_help": {
         "chat": "Czat",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "Opcjonalnie",
-        "required": "Obowiązkowe"
+        "required": "Obowiązkowe",
+        "placeholders": {
+            "select_option": "Wybierz opcję"
+        }
     }
 }
