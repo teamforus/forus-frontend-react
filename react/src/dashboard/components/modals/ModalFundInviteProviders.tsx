@@ -4,7 +4,6 @@ import FormError from '../elements/forms/errors/FormError';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import useActiveOrganization from '../../hooks/useActiveOrganization';
 import { useFundService } from '../../services/FundService';
 import useSetProgress from '../../hooks/useSetProgress';
@@ -94,7 +93,6 @@ export default function ModalFundInviteProviders({
                                                 propKey={'id'}
                                                 allowSearch={true}
                                                 value={form.values?.fund_id}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(fund_id: number) => form.update({ fund_id })}
                                             />
                                         </div>

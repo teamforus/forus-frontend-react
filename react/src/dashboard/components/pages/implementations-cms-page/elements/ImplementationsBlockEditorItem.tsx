@@ -7,7 +7,6 @@ import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEdit
 import FormError from '../../../elements/forms/errors/FormError';
 import { useMediaService } from '../../../../services/MediaService';
 import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import usePushApiError from '../../../../hooks/usePushApiError';
 
@@ -219,7 +218,6 @@ export default function ImplementationsBlockEditorItem({
                                                 onChange({ button_target_blank: value });
                                             }}
                                             options={buttonTargets}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                 </div>

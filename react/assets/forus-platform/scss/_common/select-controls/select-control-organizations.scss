@@ -69,7 +69,8 @@
             }
 
             .select-control-search-icon {
-                padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 6px calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 10px;
+                padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 6px
+                    calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 10px;
                 width: 40px;
 
                 .mdi {
@@ -116,7 +117,8 @@
                 input {
                     border: none;
                     font: 500 13px / var(--control-line-height) var(--base-font);
-                    padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 35px calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 0;
+                    padding: calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 35px
+                        calc(calc(calc(var(--control-height) - 2px) - var(--control-line-height)) / 2) 0;
                     color: #151b26;
                     width: 100%;
                     background-color: transparent;
@@ -139,8 +141,9 @@
                     &:focus-visible,
                     &:hover,
                     &:active {
-                        border: none;
-                        outline: none;
+                        border: none !important;
+                        outline: none !important;
+                        box-shadow: none !important;
                     }
                 }
             }

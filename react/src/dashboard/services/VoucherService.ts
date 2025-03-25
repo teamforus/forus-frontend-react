@@ -1,14 +1,14 @@
 import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import Voucher from '../props/models/Voucher';
 import Papa from 'papaparse';
 import Product from '../props/models/Product';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import Transaction from '../props/models/Transaction';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import SponsorVoucher from '../props/models/Sponsor/SponsorVoucher';
 
-export class VoucherService<T = Voucher> {
+export class VoucherService<T = SponsorVoucher> {
     /**
      * @param apiRequest
      */

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import Voucher from '../../../dashboard/props/models/Voucher';
-import Organization from '../../../dashboard/props/models/Organization';
 import { PrintableState } from '../../../dashboard/modules/printable/context/PrintableContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import QrCode from '../../../dashboard/components/elements/qr-code/QrCode';
 import Fund from '../../../dashboard/props/models/Fund';
+import OrganizationBasic from '../../../dashboard/props/models/OrganizationBasic';
 
 export default function VoucherQrCodePrintable({
     fund,
@@ -20,7 +20,7 @@ export default function VoucherQrCodePrintable({
     assetUrl: (uri: string) => string;
     printable: PrintableState;
     webshopUrl?: string;
-    organization: Organization;
+    organization: OrganizationBasic;
     showConditions?: boolean;
 }) {
     const translate = useTranslate();

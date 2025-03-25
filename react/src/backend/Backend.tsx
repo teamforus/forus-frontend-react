@@ -60,7 +60,7 @@ export default function Backend(): React.ReactElement {
                         <AuthProvider>
                             <Layout envData={envData}>
                                 <Auth2FA mobile={mobile} exchangeToken={exchangeToken} type={type} />
-                                <Modals />
+                                <Modals focusExclusions={'.frame-director'} />
                                 <PushNotifications />
                             </Layout>
                         </AuthProvider>

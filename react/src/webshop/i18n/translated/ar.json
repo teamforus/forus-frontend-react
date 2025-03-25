@@ -2777,18 +2777,13 @@
     "modal_2fa_setup": {
         "2fa": "المصادقة الثنائية",
         "2fa_success": "تم إعداد المصادقة الثنائية بنجاح",
-        "already_have_app": "إذا كان لديك تطبيق Google Authenticator بالفعل، فاتبع الخطوات التالية:",
         "back": "رجوع",
         "cancel": "إلغاء",
-        "choose": "اختر",
         "code_resent": "لقد قمنا بإعادة إرسال الرمز.",
         "confirm": "تأكيد",
-        "dont_have_app": "إذا لم يكن لديك تطبيق {الاسم},",
-        "download_from": "هل يمكنك تنزيله من",
         "enter_2fa_code": "للمتابعة، أدخل رمز الأمان الخاص بالمصادقة الثنائية.",
         "enter_app_code": "أدخل الرمز المكون من 6 أرقام من داخل التطبيق",
         "enter_app_code_6_digits": "للمتابعة، أدخل رمز الأمان المكون من 6 أرقام من {مقدم الخدمة}",
-        "enter_key": "أدخل مفتاح التثبيت: {السر}",
         "enter_phone": "للمتابعة، أدخل رقم هاتفك",
         "enter_sms_code": "أدخل رمز الرسالة النصية القصيرة المكون من 6 أرقام",
         "enter_sms_code_6_digits": "للمتابعة، يُرجى إدخال رمز الرسالة النصية القصيرة المكون من 6 أرقام المرسلة إلى رقم هاتفك.",
@@ -2796,22 +2791,19 @@
             "code_sent": "حدث خطأ ما أثناء إرسال الرسالة النصية القصيرة. هل تم إدخال رقم الهاتف الصحيح؟ إذا لم يكن كذلك، حاول مرة أخرى."
         },
         "extra_security": "تم إعداد المصادقة الثنائية بنجاح. أصبح حسابك الآن أكثر أماناً.",
-        "in_app_select": "في التطبيق، حدد",
         "link_phone": "ربط رقم هاتفك",
-        "or": "ما إذا كان",
         "phone_number": "رقم الهاتف",
         "resend_code": "إعادة إرسال الرمز",
-        "scan_qr": "مسح رمز الاستجابة السريعة ضوئياً",
         "seconds": "{الوقت} ثانية (ثوانٍ)",
         "select_auth_app": "حدد تطبيق المصادقة الذي تريد استخدامه.",
         "setup_2fa": "إعداد المصادقة الثنائية",
-        "setup_account": "إعداد الحساب",
         "successful_login": "لقد نجح الأمر!",
         "unknown_error": "خطأ غير معروف.",
         "verify": "تحقق",
         "welcome_back": "لقد قمت بتسجيل الدخول بنجاح باستخدام المصادقة الثنائية. مرحباً بعودتك!",
-        "download_from_app_store": "متجر التطبيقات",
-        "download_from_play_store": "متجر بلاي ستور"
+        "already_have_app_steps": "1. في التطبيق، حدد <strong class=\"text-strong\">إعداد الحساب</strong><br>2. اختر <strong class=\"text-strong\">مسح رمز الاستجابة السريعة</strong> أو <strong class=\"text-strong\">مفتاح التثبيت</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
+        "dont_have_app": "<strong class=\"text-strong\"> إذا لم يكن لديك تطبيق {{name}} ، </strong>يمكنك تنزيله من <strong class=\"text-strong\">متجر Play</strong> أو <strong class=\"text-strong\">متجر التطبيقات</strong>.",
+        "already_have_app": "إذا كان لديك بالفعل تطبيق {{name}} ، فاتبع الخطوات التالية:"
     },
     "modal_fund_help": {
         "chat": "الدردشة",
@@ -3518,6 +3510,9 @@
     },
     "form": {
         "optional": "اختياري",
-        "required": "إلزامي"
+        "required": "إلزامي",
+        "placeholders": {
+            "select_option": "حدد الخيار"
+        }
     }
 }

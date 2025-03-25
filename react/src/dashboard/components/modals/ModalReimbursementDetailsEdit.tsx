@@ -9,7 +9,6 @@ import { useReimbursementCategoryService } from '../../services/ReimbursementCat
 import usePushSuccess from '../../hooks/usePushSuccess';
 import useSetProgress from '../../hooks/useSetProgress';
 import FormError from '../elements/forms/errors/FormError';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../elements/select-control/SelectControl';
 import ReimbursementCategory from '../../props/models/ReimbursementCategory';
 import useOpenModal from '../../hooks/useOpenModal';
@@ -123,7 +122,6 @@ export default function ModalReimbursementDetailsEdit({
                                             <SelectControl
                                                 className={'form-control'}
                                                 options={categories}
-                                                optionsComponent={SelectControlOptions}
                                                 propKey={'id'}
                                                 allowSearch={false}
                                                 value={form.values.reimbursement_category_id}
