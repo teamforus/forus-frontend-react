@@ -2,7 +2,7 @@ import React, { FormEvent, useCallback, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import useSetProgress from '../../hooks/useSetProgress';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import FormError from '../elements/forms/errors/FormError';
 import { usePhysicalCardsRequestService } from '../../services/PhysicalCardsRequestService';
 import useTranslate from '../../hooks/useTranslate';
@@ -16,7 +16,7 @@ export default function ModalOrderPhysicalCard({
     onRequested,
 }: {
     modal: ModalState;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     className?: string;
     onRequested: () => void;
 }) {

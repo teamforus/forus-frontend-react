@@ -4,7 +4,7 @@ import useFormBuilder from '../../hooks/useFormBuilder';
 import useSetProgress from '../../hooks/useSetProgress';
 import SelectControl from '../elements/select-control/SelectControl';
 import FormError from '../elements/forms/errors/FormError';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../props/models/Organization';
 import { useRecordTypeService } from '../../services/RecordTypeService';
 import RecordType from '../../props/models/RecordType';
@@ -26,7 +26,7 @@ export default function ModalVoucherRecordEdit({
 }: {
     modal: ModalState;
     record: VoucherRecord;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     onClose: (voucherRecord: VoucherRecord) => void;
     className?: string;
     organization: Organization;

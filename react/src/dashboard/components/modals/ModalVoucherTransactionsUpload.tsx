@@ -43,7 +43,7 @@ export default function ModalVoucherTransactionsUpload({
     const [uploadedPartly, setUploadedPartly] = useState(false);
     const [isValid, setIsValid] = useState(false);
     const [data, setData] = useState([]);
-    const [csvFile, setCsvFile] = useState(null);
+    const [csvFile, setCsvFile] = useState<File>(null);
     const [hideModal, setHideModal] = useState(false);
     const [dataChunkSize] = useState(100);
     const [maxLinesPerFile] = useState(2500);
