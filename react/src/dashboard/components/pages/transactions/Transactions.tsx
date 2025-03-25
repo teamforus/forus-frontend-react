@@ -23,7 +23,6 @@ import useProviderFundService from '../../../services/ProviderFundService';
 import Fund from '../../../props/models/Fund';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -501,7 +500,6 @@ export default function Transactions() {
                                         allowSearch={false}
                                         value={filter.values.state}
                                         options={states}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(state: string) => filter.update({ state })}
                                     />
                                 </FilterItemToggle>
@@ -513,7 +511,6 @@ export default function Transactions() {
                                             propKey={'id'}
                                             allowSearch={false}
                                             options={funds}
-                                            optionsComponent={SelectControlOptions}
                                             onChange={(fund_id: number) => filter.update({ fund_id })}
                                         />
                                     )}
@@ -601,7 +598,6 @@ export default function Transactions() {
                                                 allowSearch={false}
                                                 value={filter.values.bulk_state}
                                                 options={bulkStates}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(bulk_state: string) => filter.update({ bulk_state })}
                                             />
                                         </FilterItemToggle>
@@ -615,7 +611,6 @@ export default function Transactions() {
                                         allowSearch={false}
                                         value={filter.values.fund_state}
                                         options={fundStates}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(fund_state: string) => filter.update({ fund_state })}
                                     />
                                 </FilterItemToggle>
@@ -708,7 +703,6 @@ export default function Transactions() {
                                         allowSearch={false}
                                         value={bulkFilter.values.state}
                                         options={bulkStates}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(state: string) => bulkFilter.update({ state })}
                                     />
                                 </FilterItemToggle>

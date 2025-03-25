@@ -9,7 +9,6 @@ import { useFundService } from '../../../services/FundService';
 import { ResponseError } from '../../../props/ApiResponses';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import OrganizationsFundsSecurityAuth2FAForm from './elements/OrganizationsFundsSecurityAuth2FAForm';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../hooks/useTranslate';
@@ -125,7 +124,6 @@ export default function OrganizationsFundsSecurity() {
                                             allowSearch={false}
                                             value={form.values?.auth_2fa_policy}
                                             options={auth2FARequiredOptions}
-                                            optionsComponent={SelectControlOptions}
                                             onChange={(
                                                 auth_2fa_policy:
                                                     | 'global'
@@ -147,7 +145,6 @@ export default function OrganizationsFundsSecurity() {
                                                 allowSearch={false}
                                                 value={fund.organization_funds_2fa.auth_2fa_policy}
                                                 options={auth2FARequiredOptions}
-                                                optionsComponent={SelectControlOptions}
                                                 disabled={true}
                                                 onChange={() => null}
                                             />

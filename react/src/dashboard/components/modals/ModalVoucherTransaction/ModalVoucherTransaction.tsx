@@ -10,7 +10,6 @@ import { useOrganizationService } from '../../../services/OrganizationService';
 import { useReimbursementsService } from '../../../services/ReimbursementService';
 import useVoucherService from '../../../services/VoucherService';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import FormError from '../../elements/forms/errors/FormError';
 import { currencyFormat } from '../../../helpers/string';
 import ModalVoucherTransactionPreview from './ModalVoucherTransactionPreview';
@@ -284,7 +283,6 @@ export default function ModalVoucherTransaction({
                                         propKey={'key'}
                                         options={targets}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(target: string) => {
                                             form.update({ target });
                                         }}
@@ -305,7 +303,6 @@ export default function ModalVoucherTransaction({
                                         propValue={'name'}
                                         allowSearch={true}
                                         options={providers}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(organization_id: number) => form.update({ organization_id })}
                                     />
                                     <FormError error={form.errors?.organization_id} />
@@ -323,7 +320,6 @@ export default function ModalVoucherTransaction({
                                         propKey={'key'}
                                         options={ibanSources}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(iban_source: 'manual' | 'reimbursement') => {
                                             form.update({ iban_source: iban_source });
                                         }}
@@ -344,7 +340,6 @@ export default function ModalVoucherTransaction({
                                             value={reimbursement}
                                             options={reimbursements}
                                             allowSearch={false}
-                                            optionsComponent={SelectControlOptions}
                                             onChange={setReimbursement}
                                         />
                                         <FormError error={form.errors?.iban_source} />

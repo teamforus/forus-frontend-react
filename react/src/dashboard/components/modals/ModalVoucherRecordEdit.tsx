@@ -3,7 +3,6 @@ import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import useSetProgress from '../../hooks/useSetProgress';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import FormError from '../elements/forms/errors/FormError';
 import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../props/models/Organization';
@@ -138,7 +137,6 @@ export default function ModalVoucherRecordEdit({
                                             propKey={'key'}
                                             options={recordTypes}
                                             allowSearch={false}
-                                            optionsComponent={SelectControlOptions}
                                             disabled={
                                                 !!record || (recordTypes.length == 1 && recordTypes[0].key == null)
                                             }

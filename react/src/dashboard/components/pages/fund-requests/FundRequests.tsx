@@ -5,7 +5,6 @@ import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import FundRequest from '../../../props/models/FundRequest';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import { useEmployeeService } from '../../../services/EmployeeService';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import { format } from 'date-fns';
@@ -254,7 +253,6 @@ export default function FundRequests() {
                                     options={states}
                                     propKey={'key'}
                                     allowSearch={false}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(state: string) => filterUpdate({ state })}
                                 />
                             </FilterItemToggle>
@@ -264,7 +262,6 @@ export default function FundRequests() {
                                     options={assignedOptions}
                                     propKey={'key'}
                                     allowSearch={false}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(assigned: number | null) => filterUpdate({ assigned })}
                                 />
                             </FilterItemToggle>
@@ -276,7 +273,6 @@ export default function FundRequests() {
                                         propKey={'id'}
                                         propValue={'email'}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(employee_id: number | null) => filterUpdate({ employee_id })}
                                     />
                                 )}

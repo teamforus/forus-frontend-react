@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import FormError from '../../elements/forms/errors/FormError';
 import { useOrganizationService } from '../../../services/OrganizationService';
@@ -138,7 +137,6 @@ export default function OrganizationsSecurity() {
                                                     allowSearch={false}
                                                     value={form.values.auth_2fa_policy}
                                                     options={auth2FARequiredOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(
                                                         auth_2fa_policy: 'optional' | 'required' | 'restrict_features',
                                                     ) => form.update({ auth_2fa_policy })}
@@ -157,7 +155,6 @@ export default function OrganizationsSecurity() {
                                                         allowSearch={false}
                                                         value={form.values.auth_2fa_remember_ip}
                                                         options={auth2FARememberIpOptions}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(auth_2fa_remember_ip: 1 | 0) =>
                                                             form.update({ auth_2fa_remember_ip })
                                                         }
@@ -205,7 +202,6 @@ export default function OrganizationsSecurity() {
                                                             | 'required'
                                                             | 'restrict_features',
                                                     ) => form.update({ auth_2fa_funds_policy })}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                             </div>
                                             <FormError error={form.errors?.auth_2fa_funds_policy} />
@@ -224,7 +220,6 @@ export default function OrganizationsSecurity() {
                                                             form.update({ auth_2fa_funds_remember_ip })
                                                         }
                                                         options={auth2FARememberIpOptions}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <FormError error={form.errors?.auth_2fa_funds_remember_ip} />
