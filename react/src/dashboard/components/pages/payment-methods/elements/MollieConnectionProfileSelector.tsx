@@ -1,6 +1,5 @@
 import React from 'react';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import MollieConnectionProfile from '../../../../props/models/MollieConnectionProfile';
 import useTranslate from '../../../../hooks/useTranslate';
 
@@ -30,7 +29,6 @@ export default function MollieConnectionProfileSelector({
                         options={profiles}
                         value={currentProfileId}
                         onChange={(currentProfileId: number) => onSelect(currentProfileId)}
-                        optionsComponent={SelectControlOptions}
                     />
                 </div>
             </div>

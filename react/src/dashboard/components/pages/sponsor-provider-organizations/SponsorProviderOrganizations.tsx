@@ -7,7 +7,6 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
@@ -278,7 +277,6 @@ export default function SponsorProviderOrganizations() {
                                                 propKey={'value'}
                                                 allowSearch={false}
                                                 value={filterValues.order_by}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(order_by: string) => filterUpdate({ order_by })}
                                             />
                                         </div>
@@ -513,7 +511,6 @@ export default function SponsorProviderOrganizations() {
                                         options={implementations}
                                         propKey={'id'}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                         value={filterValues.implementation_id}
                                         onChange={(implementation_id: number) => {
                                             filterUpdate({ implementation_id });

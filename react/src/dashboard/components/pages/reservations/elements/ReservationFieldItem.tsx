@@ -6,7 +6,6 @@ import ModalDangerZone from '../../../modals/ModalDangerZone';
 import FormError from '../../../elements/forms/errors/FormError';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -201,7 +200,6 @@ export default function ReservationFieldItem({
                                         onChange([...fields]);
                                     }}
                                     options={types}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </FormGroupInfo>
 
