@@ -45,9 +45,9 @@ export default function FundForms() {
     const [fundForms, setFundForms] = useState<PaginationData<FundForm>>(null);
 
     const [statesOptions] = useState([
-        { value: null, label: `All` },
-        { value: 'active', label: `Active` },
-        { value: 'archived', label: `Archive` },
+        { value: null, label: `Alle` },
+        { value: 'active', label: `Actief` },
+        { value: 'archived', label: `Archief` },
     ]);
 
     const { headElement, configsElement } = useConfigurableTable(fundFormService.getColumns());
@@ -117,7 +117,7 @@ export default function FundForms() {
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
-                    Generated forms ({fundForms.meta.total})
+                    E-formulieren ({fundForms.meta.total})
                 </div>
 
                 <div className="card-header-filters">

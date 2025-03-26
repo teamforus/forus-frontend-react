@@ -1660,7 +1660,7 @@ export default {
             edit: 'Bewerken',
             view: 'Bekijken',
             security: 'Beveiliging',
-            criteria: 'Criteria',
+            criteria: 'Voorwaarden',
         },
         status: {
             active: 'Actief',
