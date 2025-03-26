@@ -45,9 +45,9 @@ export default function FundForms() {
     const [fundForms, setFundForms] = useState<PaginationData<FundForm>>(null);
 
     const [statesOptions] = useState([
-        { value: null, label: `All` },
-        { value: 'active', label: `Active` },
-        { value: 'archived', label: `Archive` },
+        { value: null, label: `Alle` },
+        { value: 'active', label: `Actief` },
+        { value: 'archived', label: `Archief` },
     ]);
 
     const { headElement, configsElement } = useConfigurableTable(fundFormService.getColumns());
