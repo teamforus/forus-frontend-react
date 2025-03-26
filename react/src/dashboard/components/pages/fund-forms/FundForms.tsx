@@ -117,7 +117,7 @@ export default function FundForms() {
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
-                    Generated forms ({fundForms.meta.total})
+                    E-formulieren ({fundForms.meta.total})
                 </div>
 
                 <div className="card-header-filters">
