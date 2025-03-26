@@ -384,7 +384,7 @@ export default function OrganizationFunds() {
                                                 <FundStateLabels fund={fund} />
                                             </td>
 
-                                            <td className="td-narrow text-right">
+                                            <td className={'table-td-actions'}>
                                                 {!fund.archived ? (
                                                     <TableRowActions
                                                         content={({ close }) => (

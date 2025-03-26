@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
-import Fund from '../../../../props/models/Fund';
-import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
-import useFormBuilder from '../../../../hooks/useFormBuilder';
-import FormGroup from '../../../elements/forms/controls/FormGroup';
-import FormError from '../../../elements/forms/errors/FormError';
-import { useFundService } from '../../../../services/FundService';
-import { ResponseError } from '../../../../props/ApiResponses';
-import usePushSuccess from '../../../../hooks/usePushSuccess';
-import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushApiError from '../../../../hooks/usePushApiError';
+import Fund from '../../../../../props/models/Fund';
+import CheckboxControl from '../../../../elements/forms/controls/CheckboxControl';
+import useFormBuilder from '../../../../../hooks/useFormBuilder';
+import FormGroup from '../../../../elements/forms/controls/FormGroup';
+import FormError from '../../../../elements/forms/errors/FormError';
+import { useFundService } from '../../../../../services/FundService';
+import { ResponseError } from '../../../../../props/ApiResponses';
+import usePushSuccess from '../../../../../hooks/usePushSuccess';
+import useSetProgress from '../../../../../hooks/useSetProgress';
+import usePushApiError from '../../../../../hooks/usePushApiError';
 
 export default function OrganizationsFundsShowConfigsCard({
     fund,
