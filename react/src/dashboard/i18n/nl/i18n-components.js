@@ -41,18 +41,18 @@ export default {
     },
     organization_funds_forms: {
         columns: {
-            name: 'Name',
-            fund: 'Fund',
-            steps: 'Nr. of steps',
+            name: 'Naam',
+            fund: 'Fonds',
+            steps: 'Aantal stappen',
             status: 'Status',
-            created_at: 'Created on',
+            created_at: 'Aangemaakt op',
         },
         tooltips: {
-            name: 'Name',
-            fund: 'Fund',
-            steps: 'Nr. of steps',
+            name: 'Naam',
+            fund: 'Fonds',
+            steps: 'Aantal stappen',
             status: 'Status',
-            created_at: 'Created on',
+            created_at: 'Aangemaakt op',
         },
         filters: {
             search: 'Zoeken',
