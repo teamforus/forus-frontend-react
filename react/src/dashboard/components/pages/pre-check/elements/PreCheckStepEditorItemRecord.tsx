@@ -71,7 +71,7 @@ export default function PreCheckStepEditorItemRecord({
                     <span>{record.title ? record.title + ':' : 'Geen titel:'}</span>
                     &nbsp;
                     <span className="text-muted">
-                        {`${record.record_type.name} (${record?.funds.length} fonds(en))`}
+                        {`Deze voorwaarde is van toepassing op (${record?.funds.length} regeling(en))`}
                     </span>
                 </div>
 

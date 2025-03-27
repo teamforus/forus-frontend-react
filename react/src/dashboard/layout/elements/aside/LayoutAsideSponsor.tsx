@@ -255,7 +255,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                             hasPermission(organization, 'manage_implementation'),
                     },
                     {
-                        name: 'Regelcheck',
+                        name: 'Regelingencheck',
                         state: 'pre-check',
                         stateParams: { organizationId: organization?.id },
                         show: organization.allow_pre_checks && hasPermission(organization, 'manage_implementation'),
