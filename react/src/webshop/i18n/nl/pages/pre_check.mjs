@@ -1,7 +1,7 @@
 export default {
     breadcrumb: {
         home: 'Home',
-        check: 'De Potjes check',
+        check: 'Regelingencheck',
     },
     of: 'van',
     no_value: '---',
