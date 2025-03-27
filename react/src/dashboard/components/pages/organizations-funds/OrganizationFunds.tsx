@@ -12,7 +12,6 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import { strLimit } from '../../../helpers/string';
@@ -304,7 +303,6 @@ export default function OrganizationFunds() {
                                                         allowSearch={false}
                                                         value={filter.values.state}
                                                         options={statesOptions}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(state: string) => filter.update({ state })}
                                                     />
                                                 </FilterItemToggle>
@@ -319,7 +317,6 @@ export default function OrganizationFunds() {
                                                         allowSearch={false}
                                                         value={filter.values.implementation_id}
                                                         options={implementations}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(implementation_id: string) =>
                                                             filter.update({ implementation_id })
                                                         }
@@ -387,7 +384,7 @@ export default function OrganizationFunds() {
                                                 <FundStateLabels fund={fund} />
                                             </td>
 
-                                            <td className="td-narrow text-right">
+                                            <td className={'table-td-actions'}>
                                                 {!fund.archived ? (
                                                     <TableRowActions
                                                         content={({ close }) => (

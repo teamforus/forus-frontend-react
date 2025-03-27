@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
-import Voucher from '../../../../props/models/Voucher';
+import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import useVoucherService from '../../../../services/VoucherService';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
 import useSetProgress from '../../../../hooks/useSetProgress';
@@ -13,11 +13,11 @@ import useVoucherTableOptions from '../../vouchers/hooks/useVoucherTableOptions'
 import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function IdentityVouchersCard({
-    organization,
     identity,
+    organization,
 }: {
-    organization: Organization;
     identity: SponsorIdentity;
+    organization: Organization;
 }) {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
@@ -25,7 +25,7 @@ export default function IdentityVouchersCard({
 
     const { funds } = useVoucherTableOptions(organization);
     const [loading, setLoading] = useState(false);
-    const [vouchers, setVouchers] = useState<PaginationData<Voucher>>(null);
+    const [vouchers, setVouchers] = useState<PaginationData<SponsorVoucher>>(null);
     const [paginatorKey] = useState<string>('vouchers');
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({

@@ -4,18 +4,17 @@
     margin: 0 0;
     background: #fff;
     gap: 20px;
-    display: grid;
 
     .fund-overview {
         border-bottom: 1px solid var(--border-color);
-        display: grid;
+        display: flex;
         flex-direction: row;
-        grid-template-columns: 190px 1fr;
         padding-bottom: 25px;
         gap: 25px;
 
         .fund-media {
-            display: grid;
+            display: flex;
+            flex: 0 0 190px;
 
             .fund-media-img {
                 display: block;
@@ -27,7 +26,7 @@
         .fund-details {
             display: grid;
             grid-template-rows: max-content;
-            gap: 15px;
+            gap: 10px;
 
             .fund-header {
                 display: grid;
@@ -44,9 +43,11 @@
             }
 
             .fund-description {
-                display: block;
                 font: 400 14px/20px var(--base-font);
                 color: #646f79;
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
             }
         }
     }
@@ -55,5 +56,16 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+    }
+
+    &.block-fund-compact {
+        .fund-overview {
+            padding-bottom: 0;
+            border-bottom: none;
+
+            .fund-media {
+                flex: 0 0 150px;
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import FormError from '../../../elements/forms/errors/FormError';
 import ProductCategory from '../../../../props/models/ProductCategory';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import useProductCategoryService from '../../../../services/ProductCategoryService';
 import useTranslate from '../../../../hooks/useTranslate';
 
@@ -134,7 +133,6 @@ export default function ProductCategoriesControl({
                             onChange={(value?: number) => changeCategory(index, value)}
                             disabled={disabled}
                             placeholder="Selecteer categorie..."
-                            optionsComponent={SelectControlOptions}
                         />
                     </div>
                     {index == categoriesHierarchy.length - 1 && <FormError error={errors} />}

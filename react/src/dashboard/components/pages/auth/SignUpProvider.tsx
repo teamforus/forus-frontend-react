@@ -13,7 +13,6 @@ import QrCode from '../../elements/qr-code/QrCode';
 import UIControlText from '../../elements/forms/ui-controls/UIControlText';
 import UIControlCheckbox from '../../elements/forms/ui-controls/UIControlCheckbox';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import { useBusinessTypeService } from '../../../services/BusinessTypeService';
 import BusinessType from '../../../props/models/BusinessType';
 import Tooltip from '../../elements/tooltip/Tooltip';
@@ -1646,7 +1645,6 @@ export default function SignUpProvider() {
                                                                 }}
                                                                 options={businessTypes}
                                                                 placeholder={'Selecteer organisatie type...'}
-                                                                optionsComponent={SelectControlOptions}
                                                             />
                                                         )}
                                                     </div>

@@ -75,6 +75,15 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                             appConfigs?.organizations?.funds?.fund_requests &&
                             hasPermission(organization, ['validate_records', 'manage_validators'], false),
                     },
+                    {
+                        id: 'fund_forms',
+                        name: 'E-formulieren',
+                        state: 'fund-forms',
+                        stateParams: { organizationId: organization?.id },
+                        show:
+                            appConfigs?.organizations?.funds?.fund_requests &&
+                            hasPermission(organization, ['manage_funds'], false),
+                    },
                 ]}
             />
 

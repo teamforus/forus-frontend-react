@@ -20,7 +20,6 @@ import Fund from '../../../props/models/Fund';
 import { hasPermission } from '../../../helpers/utils';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
@@ -444,7 +443,6 @@ export default function Reservations() {
                                         propKey={'id'}
                                         allowSearch={false}
                                         options={funds}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(fund_id: number) => filter.update({ fund_id })}
                                     />
                                 )}
@@ -457,7 +455,6 @@ export default function Reservations() {
                                         propKey={'id'}
                                         allowSearch={true}
                                         options={products}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(product_id: number) => filter.update({ product_id })}
                                     />
                                 )}
@@ -490,7 +487,6 @@ export default function Reservations() {
                                     allowSearch={false}
                                     value={filter.values.state}
                                     options={states}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(state: string) => filter.update({ state })}
                                 />
                             </FilterItemToggle>

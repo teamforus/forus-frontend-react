@@ -15,7 +15,6 @@ import Product from '../../../../props/models/Product';
 import useProductService from '../../../../services/ProductService';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import ProductCategoriesControl from './ProductCategoriesControl';
 import FundProvider from '../../../../props/models/FundProvider';
 import { useFundService } from '../../../../services/FundService';
@@ -974,7 +973,6 @@ export default function ProductsForm({
                                                             form.update({ reservation_policy });
                                                         }}
                                                         options={reservationPolicies}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <div className="form-group-info-button">
@@ -1039,7 +1037,6 @@ export default function ProductsForm({
                                                         form.update({ reservation_phone });
                                                     }}
                                                     options={reservationPhoneOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                                 <FormError error={form.errors.reservation_phone} />
                                             </div>
@@ -1058,7 +1055,6 @@ export default function ProductsForm({
                                                         form.update({ reservation_address });
                                                     }}
                                                     options={reservationAddressOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                                 <FormError error={form.errors.reservation_address} />
                                             </div>
@@ -1077,7 +1073,6 @@ export default function ProductsForm({
                                                         form.update({ reservation_birth_date });
                                                     }}
                                                     options={reservationBirthDateOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                                 <FormError error={form.errors.reservation_birth_date} />
                                             </div>
@@ -1108,7 +1103,6 @@ export default function ProductsForm({
                                             form.update({ reservation_extra_payments });
                                         }}
                                         options={extraPaymentsOptions}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={form.errors.reservation_extra_payments} />
                                 </div>
