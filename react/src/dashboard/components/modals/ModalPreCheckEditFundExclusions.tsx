@@ -77,8 +77,8 @@ export default function ModalPreCheckEditFundExclusions({
                                     error={form.errors?.fund_id}
                                     info={
                                         <Fragment>
-                                            De naam van de regeling (het fonds) waarvoor u wilt instellen of deze wordt 
-                                            meegenomen in de Regelingencheck.
+                                            De naam van de regeling (het fonds) waarvoor u wilt instellen of
+                                            deze wordt meegenomen in de Regelingencheck.
                                         </Fragment>
                                     }>
                                     <SelectControl
@@ -102,8 +102,8 @@ export default function ModalPreCheckEditFundExclusions({
                                     error={form.errors?.pre_check_excluded}
                                     info={
                                         <Fragment>
-                                            Geef aan of deze regeling moet worden uitgesloten van de Regelingencheck. Als 
-                                            u kiest voor Ja, worden er geen vragen gesteld over de voorwaarden van dit fonds 
+                                            Geef aan of deze regeling moet worden uitgesloten van de Regelingencheck.
+                                            Als u kiest voor Ja, worden er geen vragen gesteld over de voorwaarden van dit fonds
                                             en wordt het niet meegenomen in het eindadvies.
                                         </Fragment>
                                     }>
@@ -141,9 +141,9 @@ export default function ModalPreCheckEditFundExclusions({
                                 <div className="block block-info">
                                     <em className="mdi mdi-information block-info-icon" />
                                     Soms is het wenselijk dat een regeling niet wordt meegenomen in de Regelingencheck.
-                                    Door het fonds aan deze lijst toe te voegen, worden de bijbehorende voorwaarden
-                                    niet getoond aan de gebruiker en wordt de regeling niet meegenomen in het 
-                                    uiteindelijke advies.
+                                    Door het fonds aan deze lijst toe te voegen, worden de bijbehorende voorwaarden niet
+                                    getoond aan de gebruiker en wordt de regeling niet meegenomen in het uiteindelijke
+                                    advies.
                                 </div>
                             </div>
                         </div>
