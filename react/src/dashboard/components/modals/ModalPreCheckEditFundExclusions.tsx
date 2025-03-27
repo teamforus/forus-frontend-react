@@ -102,7 +102,9 @@ export default function ModalPreCheckEditFundExclusions({
                                     error={form.errors?.pre_check_excluded}
                                     info={
                                         <Fragment>
-                                            De optie om een fonds mee te nemen in de pre-check resultaten.
+                                            Geef aan of deze regeling moet worden uitgesloten van de Regelingencheck. Als 
+                                            u kiest voor Ja, worden er geen vragen gesteld over de voorwaarden van dit fonds 
+                                            en wordt het niet meegenomen in het eindadvies.
                                         </Fragment>
                                     }>
                                     <SelectControl
