@@ -77,8 +77,8 @@ export default function ModalPreCheckEditFundExclusions({
                                     error={form.errors?.fund_id}
                                     info={
                                         <Fragment>
-                                            Naam van het fonds dat te dienen worden uitgesloten of dat een afwijkend
-                                            resultaat dient te hebben.
+                                            De naam van de regeling (het fonds) waarvoor u wilt instellen of deze wordt 
+                                            meegenomen in de Regelingencheck.
                                         </Fragment>
                                     }>
                                     <SelectControl
