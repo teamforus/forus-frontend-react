@@ -138,8 +138,10 @@ export default function ModalPreCheckEditFundExclusions({
                             <div className="form-offset">
                                 <div className="block block-info">
                                     <em className="mdi mdi-information block-info-icon" />
-                                    Controleer de gegevens. Na het bevestigen is het fonds uitgesloten of heeft een
-                                    afwijkend resultaat in de pre-check.
+                                    Soms is het wenselijk dat een regeling niet wordt meegenomen in de Regelingencheck.
+                                    Door het fonds aan deze lijst toe te voegen, worden de bijbehorende voorwaarden
+                                    niet getoond aan de gebruiker en wordt de regeling niet meegenomen in het 
+                                    uiteindelijke advies.
                                 </div>
                             </div>
                         </div>
