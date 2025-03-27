@@ -77,8 +77,8 @@ export default function ModalPreCheckEditFundExclusions({
                                     error={form.errors?.fund_id}
                                     info={
                                         <Fragment>
-                                            De naam van de regeling (het fonds) waarvoor u wilt instellen of
-                                            deze wordt meegenomen in de Regelingencheck.
+                                            De naam van de regeling (het fonds) waarvoor u wilt instellen of deze wordt
+                                            meegenomen in de Regelingencheck.
                                         </Fragment>
                                     }>
                                     <SelectControl
@@ -103,8 +103,8 @@ export default function ModalPreCheckEditFundExclusions({
                                     info={
                                         <Fragment>
                                             Geef aan of deze regeling moet worden uitgesloten van de Regelingencheck.
-                                            Als u kiest voor Ja, worden er geen vragen gesteld over de voorwaarden van dit fonds
-                                            en wordt het niet meegenomen in het eindadvies.
+                                            Als u kiest voor Ja, worden er geen vragen gesteld over de voorwaarden van
+                                            dit fonds en wordt het niet meegenomen in het eindadvies.
                                         </Fragment>
                                     }>
                                     <SelectControl
