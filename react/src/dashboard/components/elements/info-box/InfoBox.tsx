@@ -3,13 +3,13 @@ import classNames from 'classnames';
 
 export default function InfoBox({
     type = 'default',
-    dashed = true,
+    borderType = 'dashed',
     children,
     iconColor = 'light',
     iconPosition = 'center',
 }: {
     type?: 'default' | 'primary' | 'warning';
-    dashed?: boolean;
+    borderType?: 'dashed' | 'none';
     children: ReactNode;
     iconColor?: 'light' | 'primary' | 'warning';
     iconPosition?: 'top' | 'center';
@@ -21,7 +21,8 @@ export default function InfoBox({
                 type === 'default' && 'block-info-box-default',
                 type === 'primary' && 'block-info-box-primary',
                 type === 'warning' && 'block-info-box',
-                dashed && 'block-info-box-dashed',
+                borderType === 'none' && 'block-info-box-borderless',
+                borderType === 'dashed' && 'block-info-box-dashed',
             )}>
             <em
                 className={classNames(
