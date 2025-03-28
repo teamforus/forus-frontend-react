@@ -11,16 +11,12 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import ModalEmployeeEdit from '../../modals/ModalEmployeeEdit';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import ModalTransferOrganizationOwnership from '../../modals/ModalTransferOrganizationOwnership';
-import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
-import { format } from 'date-fns';
-import { useFileService } from '../../../services/FileService';
 import { PaginationData } from '../../../props/ApiResponses';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import useEnvData from '../../../hooks/useEnvData';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
@@ -31,9 +27,9 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
+import useEmployeeExportService from '../../../services/exports/useEmployeeExportService';
 
 export default function Employees() {
-    const envData = useEnvData();
     const isProviderPanel = useIsProviderPanel();
 
     const { setActiveOrganization } = useContext(mainContext);
@@ -46,9 +42,9 @@ export default function Employees() {
     const authIdentity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
 
-    const fileService = useFileService();
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
+    const employeeExportService = useEmployeeExportService();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [employees, setEmployees] = useState<PaginationData<Employee>>(null);
@@ -127,31 +123,11 @@ export default function Employees() {
         ],
     );
 
-    const doExport = useCallback(
-        (exportType: string) => {
-            employeeService
-                .export(activeOrganization.id, { ...filter.activeValues, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileName = `${envData.client_type}_${activeOrganization.name}_employees_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, res.headers['content-type']);
-                })
-                .catch(pushApiError);
-        },
-        [pushApiError, fileService, filter.activeValues, activeOrganization, employeeService, envData.client_type],
-    );
-
     const exportEmployees = useCallback(() => {
-        openModal((modal) => (
-            <ModalExportTypeLegacy
-                modal={modal}
-                onSubmit={(exportType) => {
-                    doExport(exportType);
-                }}
-            />
-        ));
-    }, [doExport, openModal]);
+        employeeExportService.exportData(activeOrganization.id, {
+            ...filter.activeValues,
+        });
+    }, [activeOrganization.id, employeeExportService, filter.activeValues]);
 
     const transferOwnership = useCallback(
         function (adminEmployees) {

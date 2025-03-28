@@ -9,13 +9,12 @@ import { useOrganizationService } from '../../../../services/OrganizationService
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { uniqueId } from 'lodash';
 import { PaginationData } from '../../../../props/ApiResponses';
-import { format } from 'date-fns';
-import { useFileService } from '../../../../services/FileService';
 import { FinancialFiltersQuery } from './FinancialFilters';
 import { ProviderFinancial } from '../types/FinancialStatisticTypes';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useProviderFinancialExportService from '../../../../services/exports/useProviderFinancialExportService';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
@@ -23,9 +22,9 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
     const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
-    const fileService = useFileService();
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
+    const providerFinancialExportService = useProviderFinancialExportService();
 
     const [paginatorKey] = useState('provider_finances');
     const [showTransactions, setShowTransactions] = useState<Array<string>>([]);
@@ -37,25 +36,11 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
     });
 
     const financeProvidersExport = useCallback(() => {
-        organizationService
-            .financeProvidersExport(activeOrganization.id, { ...externalFilters, ...filter.activeValues })
-            .then((res) => {
-                const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                const fileName = `financial-dashboard_${activeOrganization.name}_${dateTime}.xls`;
-                const fileType = res.headers['content-type'] + ';charset=utf-8;';
-
-                fileService.downloadFile(fileName, res.data, fileType);
-            })
-            .catch(pushApiError);
-    }, [
-        organizationService,
-        activeOrganization.id,
-        activeOrganization.name,
-        externalFilters,
-        filter?.activeValues,
-        fileService,
-        pushApiError,
-    ]);
+        providerFinancialExportService.exportData(activeOrganization.id, {
+            ...externalFilters,
+            ...filter.activeValues,
+        });
+    }, [activeOrganization.id, externalFilters, filter?.activeValues, providerFinancialExportService]);
 
     const toggleTransactionsTable = useCallback((id: string) => {
         setShowTransactions((list) => {

@@ -7,16 +7,11 @@ import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
 import { useEmployeeService } from '../../../services/EmployeeService';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
-import { format } from 'date-fns';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { PaginationData } from '../../../props/ApiResponses';
-import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
-import { useFileService } from '../../../services/FileService';
-import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -26,11 +21,9 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import FundRequestsTable from './elements/FundRequestsTable';
 import { NumberParam, StringParam } from 'use-query-params';
+import useFundRequestExportService from '../../../services/exports/useFundRequestExportService';
 
 export default function FundRequests() {
-    const envData = useEnvData();
-
-    const openModal = useOpenModal();
     const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const activeOrganization = useActiveOrganization();
@@ -43,10 +36,10 @@ export default function FundRequests() {
     const [employees, setEmployees] = useState(null);
     const [fundRequests, setFundRequests] = useState<PaginationData<FundRequest, { totals: FundRequestTotals }>>(null);
 
-    const fileService = useFileService();
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
     const fundRequestService = useFundRequestValidatorService();
+    const fundRequestExportService = useFundRequestExportService();
 
     const [paginatorKey] = useState('fund_requests');
 
@@ -151,25 +144,11 @@ export default function FundRequests() {
             .finally(() => setProgress(100));
     }, [setProgress, activeOrganization.id, employeeService, allEmployeesOption, pushApiError]);
 
-    const doExport = useCallback(
-        (exportType: string) => {
-            fundRequestService
-                .export(activeOrganization.id, { ...filterActiveValues, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileType = res.headers['content-type'] + ';charset=utf-8;';
-                    const fileName = `${envData.client_type}_${activeOrganization.name}_fund-requests_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, fileType);
-                })
-                .catch(pushApiError);
-        },
-        [fundRequestService, activeOrganization, filterActiveValues, envData.client_type, fileService, pushApiError],
-    );
-
     const exportRequests = useCallback(() => {
-        openModal((modal) => <ModalExportTypeLegacy modal={modal} onSubmit={(exportType) => doExport(exportType)} />);
-    }, [doExport, openModal]);
+        fundRequestExportService.exportData(activeOrganization.id, {
+            ...filterActiveValues,
+        });
+    }, [activeOrganization.id, filterActiveValues, fundRequestExportService]);
 
     useEffect(() => {
         if (!appConfigs.organizations?.funds?.fund_requests) {
