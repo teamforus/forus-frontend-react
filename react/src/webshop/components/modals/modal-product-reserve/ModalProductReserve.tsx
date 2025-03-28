@@ -300,7 +300,7 @@ export default function ModalProductReserve({
                 }
 
                 if (product.reservation.birth_date !== 'no') {
-                    fields.push(makeReservationField('birth_date', 'date'));
+                    fields.push(makeReservationField('birth_date', 'date', 'birthDate'));
                 }
 
                 const _fields = [...fields, ...customFields];
@@ -801,7 +801,7 @@ export default function ModalProductReserve({
                                                                 form.values.custom_fields[field.key] = value;
                                                                 form.update({ ...form.values });
                                                             }}
-                                                            data-dusk={field.dusk}
+                                                            dusk={field.dusk}
                                                             options={customFieldBooleanOptions}
                                                         />
                                                     )}
@@ -811,6 +811,7 @@ export default function ModalProductReserve({
                                                     <Fragment>
                                                         <div
                                                             className="form-group-info-button"
+                                                            data-dusk={`${field.dusk}InfoBtn`}
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 setFields((fields) => {
@@ -858,14 +859,16 @@ export default function ModalProductReserve({
                                         )}
 
                                         {!field.custom && field.type === 'date' && (
-                                            <DatePickerControl
-                                                value={dateParse(form.values[field.key])}
-                                                dateMax={dateMinLimit}
-                                                dateFormat={'dd-MM-yyyy'}
-                                                onChange={(date: Date) => {
-                                                    form.update({ [field.key]: dateFormat(date) });
-                                                }}
-                                            />
+                                            <div data-dusk={field.dusk}>
+                                                <DatePickerControl
+                                                    value={dateParse(form.values[field.key])}
+                                                    dateMax={dateMinLimit}
+                                                    dateFormat={'dd-MM-yyyy'}
+                                                    onChange={(date: Date) => {
+                                                        form.update({ [field.key]: dateFormat(date) });
+                                                    }}
+                                                />
+                                            </div>
                                         )}
 
                                         {field.custom ? (
@@ -1122,11 +1125,13 @@ export default function ModalProductReserve({
                                                     )}
                                                 </div>
                                                 <div
+                                                    data-dusk={`overviewValueCustomField${field.key}`}
                                                     className={`overview-item-value ${
                                                         !form.values[field.key] ? 'overview-item-value-empty' : ''
                                                     }`}>
                                                     {field.type === 'date'
-                                                        ? dateFormat(dateParse(form.values[field.key]), 'dd-MM-yyyy')
+                                                        ? dateFormat(dateParse(form.values[field.key]), 'dd-MM-yyyy') ||
+                                                          emptyText
                                                         : form.values[field.key] || emptyText}
                                                 </div>
                                             </Fragment>
@@ -1134,6 +1139,7 @@ export default function ModalProductReserve({
                                             <Fragment>
                                                 <div className="overview-item-label">{field.label}</div>
                                                 <div
+                                                    data-dusk={`overviewValueCustomField${field.key}`}
                                                     className={`overview-item-value ${
                                                         !form.values.custom_fields[field.key]
                                                             ? 'overview-item-value-empty'
