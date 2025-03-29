@@ -122,6 +122,8 @@ export default function Transactions() {
             transfer_in_max: null,
             non_cancelable_from: null,
             non_cancelable_to: null,
+            execution_date_from: null,
+            execution_date_to: null,
             bulk_state: bulkStates[0].key,
             per_page: paginatorService.getPerPage(paginatorTransactionsKey),
             order_by: 'created_at',
@@ -591,6 +593,26 @@ export default function Transactions() {
                                             />
                                         </FilterItemToggle>
 
+                                        <FilterItemToggle label={translate('transactions.labels.execution_date_from')}>
+                                            <DatePickerControl
+                                                value={dateParse(filter.values.execution_date_from)}
+                                                placeholder={translate('jjjj-MM-dd')}
+                                                onChange={(from: Date) => {
+                                                    filter.update({ execution_date_from: dateFormat(from) });
+                                                }}
+                                            />
+                                        </FilterItemToggle>
+
+                                        <FilterItemToggle label={translate('transactions.labels.execution_date_to')}>
+                                            <DatePickerControl
+                                                value={dateParse(filter.values.execution_date_to)}
+                                                placeholder={translate('jjjj-MM-dd')}
+                                                onChange={(to: Date) => {
+                                                    filter.update({ execution_date_to: dateFormat(to) });
+                                                }}
+                                            />
+                                        </FilterItemToggle>
+
                                         <FilterItemToggle label={translate('transactions.labels.bulk_state')}>
                                             <SelectControl
                                                 className="form-control"
@@ -838,7 +860,7 @@ export default function Transactions() {
                                                     {transaction.product?.name ? (
                                                         strLimit(transaction.product?.name || '', 25)
                                                     ) : (
-                                                        <div className={'text-muted'}>-</div>
+                                                        <TableEmptyValue />
                                                     )}
                                                 </td>
                                             )}
@@ -855,25 +877,41 @@ export default function Transactions() {
                                                 </td>
                                             )}
                                             {isSponsor && (
-                                                <td
-                                                    title={transaction.organization?.name || '-'}
-                                                    className={transaction?.organization ? '' : 'text-muted'}>
-                                                    {strLimit(transaction.organization?.name || '-', 25)}
+                                                <Fragment>
+                                                    {transaction.organization ? (
+                                                        <td title={transaction.organization.name}>
+                                                            {strLimit(transaction.organization.name, 25)}
+                                                        </td>
+                                                    ) : (
+                                                        <td>
+                                                            <TableEmptyValue />
+                                                        </td>
+                                                    )}
+                                                </Fragment>
+                                            )}
+
+                                            {isSponsor && (
+                                                <td>
+                                                    {transaction.non_cancelable_at_locale ? (
+                                                        <div className={'text-semibold text-primary'}>
+                                                            {transaction.non_cancelable_at_locale}
+                                                        </div>
+                                                    ) : (
+                                                        <TableEmptyValue />
+                                                    )}
                                                 </td>
                                             )}
 
                                             {isSponsor && (
-                                                <Fragment>
-                                                    {transaction.non_cancelable_at_locale ? (
-                                                        <td>
-                                                            <div className={'text-semibold text-primary'}>
-                                                                {transaction.non_cancelable_at_locale}
-                                                            </div>
-                                                        </td>
+                                                <td>
+                                                    {transaction.execution_date_locale ? (
+                                                        <div className={'text-semibold text-primary'}>
+                                                            {transaction.execution_date_locale}
+                                                        </div>
                                                     ) : (
-                                                        <td className={'text-muted'}>-</td>
+                                                        <TableEmptyValue />
                                                     )}
-                                                </Fragment>
+                                                </td>
                                             )}
 
                                             {isSponsor && transaction.voucher_transaction_bulk_id && (
@@ -928,7 +966,7 @@ export default function Transactions() {
                                                         </div>
                                                     )}
 
-                                                    {!transaction.bulk_state && <div className={'text-muted'}>-</div>}
+                                                    {!transaction.bulk_state && <TableEmptyValue />}
                                                 </td>
                                             )}
                                             <td data-dusk="transactionState">

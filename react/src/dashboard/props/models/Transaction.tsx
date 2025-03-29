@@ -72,6 +72,7 @@ export default interface Transaction {
     branch_id?: string;
     target_locale?: string;
     non_cancelable_at_locale?: string;
+    execution_date_locale?: string;
     payment_type_locale?: {
         title: string;
         subtitle: string;
