@@ -1,6 +1,6 @@
 import { ModalsProvider } from '../dashboard/modules/modals/context/ModalContext';
 import { AuthProvider } from './contexts/AuthContext';
-import React, { Fragment, ReactNode, useContext, useEffect, useState } from 'react';
+import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { Layout } from './layout/Layout';
 import { HashRouter, Route, Routes, BrowserRouter } from 'react-router-dom';
 import EnvDataProp from '../props/EnvData';
@@ -33,6 +33,7 @@ import i18nUK from './i18n/translated/uk.json';
 import CookieBanner from './modules/cookie_banner/CookieBanner';
 import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
 import { isValidLocaleString } from '../dashboard/helpers/url';
+import { FrameDirectorProvider } from '../dashboard/modules/frame_director/context/FrameDirectorContext';
 
 const locale = localStorage.getItem('locale');
 
@@ -116,7 +117,7 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
     const [allowOptionalCookies, setAllowOptionalCookies] = useState<boolean>(null);
 
     return (
-        <Fragment>
+        <FrameDirectorProvider>
             <LoadScript googleMapsApiKey={envData.config.google_maps_api_key} language={'nl'}>
                 <PushNotificationsProvider
                     groups={{
@@ -158,6 +159,6 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                     </RouterSelector>
                 </PushNotificationsProvider>
             </LoadScript>
-        </Fragment>
+        </FrameDirectorProvider>
     );
 }

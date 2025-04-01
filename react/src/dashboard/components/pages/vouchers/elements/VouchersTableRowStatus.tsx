@@ -1,8 +1,8 @@
 import React from 'react';
-import Voucher from '../../../../props/models/Voucher';
+import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import { strLimit } from '../../../../helpers/string';
 
-export default function VouchersTableRowStatus({ voucher }: { voucher: Voucher }) {
+export default function VouchersTableRowStatus({ voucher }: { voucher: SponsorVoucher }) {
     return voucher.expired ? (
         <div className="td-boolean">
             <em className="mdi mdi-close" />

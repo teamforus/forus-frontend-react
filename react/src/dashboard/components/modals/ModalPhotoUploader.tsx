@@ -10,12 +10,14 @@ export default function ModalPhotoUploader({
     modal,
     onSubmit,
     className,
+    initialCropWidth = 90,
 }: {
     type: string;
     file: File;
     modal: ModalState;
     onSubmit: (file: Blob, sizes: Array<ImageCropperPresetValue>) => void;
     className?: string;
+    initialCropWidth?: number;
 }) {
     const appConfigs = useAppConfigs();
 
@@ -104,6 +106,7 @@ export default function ModalPhotoUploader({
                                             ]}
                                             aspect={mediaConfig.aspect_ratio}
                                             onChange={(sizes) => setPresets(sizes)}
+                                            initialWidth={initialCropWidth}
                                         />
                                     )}
                                 </div>

@@ -1,13 +1,13 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
-import Fund from '../../../../props/models/Fund';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
-import { useNavigateState } from '../../../../modules/state_router/Router';
-import ModalFundInviteProviders from '../../../modals/ModalFundInviteProviders';
-import { hasPermission } from '../../../../helpers/utils';
-import Organization from '../../../../props/models/Organization';
-import useTranslate from '../../../../hooks/useTranslate';
-import useOpenModal from '../../../../hooks/useOpenModal';
-import usePushSuccess from '../../../../hooks/usePushSuccess';
+import Fund from '../../../../../props/models/Fund';
+import EmptyCard from '../../../../elements/empty-card/EmptyCard';
+import { useNavigateState } from '../../../../../modules/state_router/Router';
+import ModalFundInviteProviders from '../../../../modals/ModalFundInviteProviders';
+import { hasPermission } from '../../../../../helpers/utils';
+import Organization from '../../../../../props/models/Organization';
+import useTranslate from '../../../../../hooks/useTranslate';
+import useOpenModal from '../../../../../hooks/useOpenModal';
+import usePushSuccess from '../../../../../hooks/usePushSuccess';
 
 export default function OrganizationsFundsShowStatisticsCard({
     fund,

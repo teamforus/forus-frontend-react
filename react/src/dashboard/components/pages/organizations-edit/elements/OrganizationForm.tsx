@@ -7,7 +7,6 @@ import Organization from '../../../../props/models/Organization';
 import FormError from '../../../elements/forms/errors/FormError';
 import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import BusinessType from '../../../../props/models/BusinessType';
 import { useBusinessTypeService } from '../../../../services/BusinessTypeService';
 import { useParams } from 'react-router-dom';
@@ -25,6 +24,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Media from '../../../../props/models/Media';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import SelectControlOptionsFD from '../../../elements/select-control/templates/SelectControlOptionsFD';
 
 export default function OrganizationForm() {
     const { organizationId } = useParams();
@@ -339,7 +339,7 @@ export default function OrganizationForm() {
                                     propKey={'id'}
                                     allowSearch={true}
                                     value={form.values?.business_type_id}
-                                    optionsComponent={SelectControlOptions}
+                                    optionsComponent={SelectControlOptionsFD}
                                     onChange={(id?: number) => form.update({ business_type_id: id })}
                                 />
                                 <FormError error={form.errors?.business_type_id} />

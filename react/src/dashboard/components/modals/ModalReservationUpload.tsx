@@ -45,7 +45,7 @@ export default function ModalReservationUpload({
     const [uploadedPartly, setUploadedPartly] = useState(false);
     const [isValid, setIsValid] = useState(false);
     const [data, setData] = useState([]);
-    const [csvFile, setCsvFile] = useState(null);
+    const [csvFile, setCsvFile] = useState<File>(null);
     const [hideModal, setHideModal] = useState(false);
 
     const fileInput = useRef(null);
