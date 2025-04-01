@@ -419,6 +419,7 @@ export default function Reservations() {
                                     <input
                                         className="form-control"
                                         value={filter.values.q}
+                                        data-dusk="searchReservations"
                                         placeholder={translate('reservations.filters.search')}
                                         onChange={(e) => filter.update({ q: e.target.value })}
                                     />
@@ -495,6 +496,7 @@ export default function Reservations() {
                                 <button
                                     className="button button-primary button-wide"
                                     onClick={() => exportReservations()}
+                                    data-dusk="export"
                                     disabled={reservations.meta.total == 0}>
                                     <em className="mdi mdi-download icon-start"> </em>
                                     {translate('components.dropdown.export', {
@@ -511,7 +513,7 @@ export default function Reservations() {
                     {configsElement}
 
                     <TableTopScroller>
-                        <table className="table">
+                        <table className="table" id="reservationsTable">
                             {headElement}
 
                             <tbody>

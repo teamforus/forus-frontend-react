@@ -270,6 +270,7 @@ export default function SponsorProviderOrganizations() {
                                             {stateGroups?.map((stateGroup) => (
                                                 <div
                                                     key={stateGroup.key}
+                                                    data-dusk={`provider_tab_${stateGroup.key}`}
                                                     onClick={() => filterUpdate({ state_group: stateGroup.key })}
                                                     className={`label-tab label-tab-sm ${
                                                         filterValues.state_group === stateGroup.key ? 'active' : ''
@@ -284,6 +285,7 @@ export default function SponsorProviderOrganizations() {
                                         <input
                                             className="form-control"
                                             value={filterValues.q}
+                                            data-dusk="searchProviders"
                                             onChange={(e) => filterUpdate({ q: e.target.value })}
                                             placeholder={translate('event_logs.labels.search')}
                                         />
@@ -506,6 +508,7 @@ export default function SponsorProviderOrganizations() {
                                         <button
                                             className="button button-primary button-wide"
                                             disabled={providerOrganizations.meta.total == 0}
+                                            data-dusk="export"
                                             onClick={() => exportList()}>
                                             <em className="mdi mdi-download icon-start" />
                                             {translate('components.dropdown.export', {
@@ -531,7 +534,7 @@ export default function SponsorProviderOrganizations() {
                             {configsElement}
 
                             <TableTopScroller>
-                                <table className="table">
+                                <table className="table" id="providersTable">
                                     {headElement}
 
                                     {providerOrganizations.data.map((providerOrganization) => (

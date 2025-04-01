@@ -350,6 +350,7 @@ export default function Reimbursements() {
                                     <button
                                         className="button button-primary button-wide"
                                         onClick={() => exportReimbursements()}
+                                        data-dusk="export"
                                         disabled={reimbursements.meta.total == 0}>
                                         <em className="mdi mdi-download icon-start"> </em>
                                         {translate('components.dropdown.export', {

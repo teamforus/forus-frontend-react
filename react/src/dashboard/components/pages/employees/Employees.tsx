@@ -218,6 +218,7 @@ export default function Employees() {
                             )}
                         <button
                             type="button"
+                            data-dusk="export"
                             className="button button-primary button-sm"
                             onClick={() => exportEmployees()}>
                             <span className="mdi mdi-download icon-start" />
@@ -257,7 +258,7 @@ export default function Employees() {
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table">
+                            <table className="table" id="employeesTable">
                                 {headElement}
 
                                 <tbody>
