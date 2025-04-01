@@ -398,6 +398,7 @@ export default function Transactions() {
                                             {viewTypes?.map((viewTypeItem) => (
                                                 <div
                                                     key={viewTypeItem.key}
+                                                    data-dusk={`transaction_view_${viewTypeItem.key}`}
                                                     onClick={() => setViewType(viewTypeItem)}
                                                     className={`label-tab label-tab-sm ${
                                                         viewType.key === viewTypeItem.key ? 'active' : ''
@@ -619,6 +620,7 @@ export default function Transactions() {
                                     <button
                                         className="button button-primary button-wide"
                                         onClick={() => exportTransactions()}
+                                        data-dusk="export"
                                         disabled={transactions.meta.total == 0}>
                                         <em className="mdi mdi-download icon-start"> </em>
                                         {translate('components.dropdown.export', {
@@ -731,6 +733,7 @@ export default function Transactions() {
                                     <button
                                         className="button button-primary button-wide"
                                         onClick={() => exportTransactionBulks()}
+                                        data-dusk="export"
                                         disabled={transactionBulks.meta.total == 0}>
                                         <em className="mdi mdi-download icon-start"> </em>
                                         {translate('components.dropdown.export', {
@@ -750,7 +753,7 @@ export default function Transactions() {
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table">
+                            <table className="table" id="transactionsTable">
                                 {headElement}
 
                                 <tbody>
