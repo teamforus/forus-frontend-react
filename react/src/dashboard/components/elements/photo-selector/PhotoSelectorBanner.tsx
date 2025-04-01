@@ -73,8 +73,9 @@ export default function PhotoSelectorBanner({
                     type={'implementation_banner'}
                     file={file}
                     modal={modal}
+                    initialCropWidth={100}
                     onSubmit={(file, presets) => {
-                        const thumbnail = presets.find((preset) => preset.key == 'thumbnail');
+                        const thumbnail = presets.find((preset) => preset.key == 'final');
 
                         selectPhoto(file);
                         setThumbnailValue(thumbnail?.data);
@@ -388,7 +389,7 @@ export default function PhotoSelectorBanner({
 
                 <div className="banner-editor-controls-buttons">
                     {templateData.media && (
-                        <button type={'button'} className="button button-default button-sm" onClick={deletePhoto}>
+                        <button type={'button'} className="button button-text button-sm" onClick={deletePhoto}>
                             <em className="mdi mdi-trash-can-outline icon-start" />
                             Foto verwijderen
                         </button>
@@ -396,7 +397,7 @@ export default function PhotoSelectorBanner({
 
                     <button
                         type={'button'}
-                        className="button button-primary button-sm"
+                        className="button button-default-dashed button-sm"
                         disabled={disabled}
                         onClick={() => inputRef.current?.click()}>
                         <em className="mdi mdi-file-image-plus icon-start" />

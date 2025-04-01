@@ -213,8 +213,10 @@ export default function ImplementationsCms() {
             openModal((modal) => (
                 <ModalNotification
                     modal={modal}
-                    title={translate('offices.confirm_delete.title')}
-                    description={translate('offices.confirm_delete.description')}
+                    title={'Weet u zeker dat u deze foto wilt verwijderen?'}
+                    description={
+                        'Wanneer u de foto verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten.'
+                    }
                     buttonSubmit={{
                         onClick: () => {
                             modal.close();
@@ -232,7 +234,7 @@ export default function ImplementationsCms() {
             setBannerMedia(null);
             formUpdate({ banner_media_uid: null });
         }
-    }, [openModal, translate, mediaService, formValues?.banner_media_uid, pushApiError, formUpdate]);
+    }, [openModal, mediaService, formValues?.banner_media_uid, pushApiError, formUpdate]);
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -367,7 +369,7 @@ export default function ImplementationsCms() {
                         <PhotoSelectorBanner
                             selectPhoto={(file) => selectBanner(file)}
                             templateData={bannerMeta}
-                            thumbnail={bannerMedia?.sizes?.medium}
+                            thumbnail={bannerMedia?.sizes?.large}
                             deletePhoto={deletePhoto}
                             setTemplateData={setBannerMeta}
                             title={form.values?.title}
