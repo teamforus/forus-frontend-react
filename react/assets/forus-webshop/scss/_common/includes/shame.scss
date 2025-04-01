@@ -66,8 +66,7 @@ html {
 }
 
 body {
-    background-color: var(--bg);
-    background: var(--bg_2);
+    background: var(--body-background);
     background-size: cover;
     display: flex;
     min-height: 100vh;

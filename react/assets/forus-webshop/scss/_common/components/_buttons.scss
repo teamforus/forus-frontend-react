@@ -85,6 +85,12 @@
                 filter: brightness(5);
             }
         }
+
+        &.button-light-strict {
+            color: #303030 !important;
+            background: #fff !important;
+            border-color: #fff !important;
+        }
     }
 
     &.button-primary-outline {
