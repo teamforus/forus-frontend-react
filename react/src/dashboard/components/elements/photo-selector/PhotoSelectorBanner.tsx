@@ -146,7 +146,7 @@ export default function PhotoSelectorBanner({
                               ? '100%'
                               : '60%',
                     }}>
-                    <div className="banner-editor-title">{title || 'Example of header'}</div>
+                    <div className="banner-editor-title">{title || 'Voorbeeld van de header'}</div>
 
                     {descriptionPreview && (
                         <Markdown content={descriptionPreview} className="banner-editor-description" />
@@ -161,7 +161,7 @@ export default function PhotoSelectorBanner({
                             style={{
                                 backgroundColor: templateData?.banner_button_type === 'color' ? '#305dfb' : null,
                             }}>
-                            {buttonText || 'Example'}
+                            {buttonText || 'Voorbeeld'}
                         </div>
                     </div>
                 </div>
@@ -169,23 +169,23 @@ export default function PhotoSelectorBanner({
 
             <div className="banner-editor-controls">
                 <PhotoSelectorBannerControl
-                    label={'Header style'}
-                    value={'Setup'}
+                    label={'Header stijl'}
+                    value={'Stel in'}
                     controlKey={'style'}
                     templateData={templateData}
                     setTemplateData={setTemplateData}
                     activeKey={activeDropdown}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
-                        label={'Text position:'}
+                        label={'Tekst positie:'}
                         input={(id) => (
                             <SelectControl
                                 id={id}
                                 value={templateData.banner_position}
                                 options={[
-                                    { label: 'Left', value: 'left' },
-                                    { label: 'Center', value: 'center' },
-                                    { label: 'Right', value: 'right' },
+                                    { label: 'Links', value: 'left' },
+                                    { label: 'Gecentreerd', value: 'center' },
+                                    { label: 'Rechts', value: 'right' },
                                 ]}
                                 propKey={'value'}
                                 propValue={'label'}
@@ -196,7 +196,7 @@ export default function PhotoSelectorBanner({
                         )}
                     />
                     <FormGroup
-                        label={'Collapse content:'}
+                        label={'Uitklappen:'}
                         input={(id) => (
                             <SelectControl
                                 id={id}
@@ -214,14 +214,14 @@ export default function PhotoSelectorBanner({
                         )}
                     />
                     <FormGroup
-                        label={'Background type:'}
+                        label={'Schermbreedte achtergrond:'}
                         input={(id) => (
                             <SelectControl
                                 id={id}
                                 value={templateData.banner_wide ? 'yes' : 'no'}
                                 options={[
-                                    { label: 'Full width', value: 'yes' },
-                                    { label: 'Fixed', value: 'no' },
+                                    { label: 'Volledig', value: 'yes' },
+                                    { label: 'Vast', value: 'no' },
                                 ]}
                                 propKey={'value'}
                                 propValue={'label'}
@@ -232,14 +232,14 @@ export default function PhotoSelectorBanner({
                         )}
                     />
                     <FormGroup
-                        label={'Background image on mobile:'}
+                        label={'Achtegrondfoto op mobiel:'}
                         input={(id) => (
                             <SelectControl
                                 id={id}
                                 value={templateData.banner_background_mobile ? 'yes' : 'no'}
                                 options={[
-                                    { label: 'Yes', value: 'yes' },
-                                    { label: 'No', value: 'no' },
+                                    { label: 'Ja', value: 'yes' },
+                                    { label: 'Nee', value: 'no' },
                                 ]}
                                 propKey={'value'}
                                 propValue={'label'}
@@ -256,7 +256,7 @@ export default function PhotoSelectorBanner({
 
                 <PhotoSelectorBannerControl
                     label={'Overlay'}
-                    value={'Setup'}
+                    value={'Stel in'}
                     controlKey={'overlay'}
                     templateData={templateData}
                     setTemplateData={setTemplateData}
@@ -315,22 +315,22 @@ export default function PhotoSelectorBanner({
                 </PhotoSelectorBannerControl>
 
                 <PhotoSelectorBannerControl
-                    label={'Button style'}
-                    value={'Setup'}
+                    label={'Knop stijl'}
+                    value={'Stel in'}
                     controlKey={'button'}
                     templateData={templateData}
                     setTemplateData={setTemplateData}
                     activeKey={activeDropdown}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
-                        label={'Style:'}
+                        label={'Stijl:'}
                         input={(id) => (
                             <SelectControl
                                 id={id}
                                 value={templateData.banner_button_type}
                                 options={[
-                                    { label: 'Color', value: 'color' },
-                                    { label: 'White', value: 'white' },
+                                    { label: 'Kleur', value: 'color' },
+                                    { label: 'Wit', value: 'white' },
                                 ]}
                                 propKey={'value'}
                                 propValue={'label'}
@@ -343,7 +343,7 @@ export default function PhotoSelectorBanner({
                 </PhotoSelectorBannerControl>
 
                 <PhotoSelectorBannerControl
-                    label={'Background'}
+                    label={'Achtergrond'}
                     value={templateData.banner_background}
                     valueType={'color'}
                     controlKey={'background'}
@@ -352,7 +352,7 @@ export default function PhotoSelectorBanner({
                     activeKey={activeDropdown}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
-                        label={'Color:'}
+                        label={'Kleur:'}
                         input={() => (
                             <PhotoSelectorBannerControlColorPicker
                                 color={templateData.banner_background}
@@ -367,7 +367,7 @@ export default function PhotoSelectorBanner({
                 </PhotoSelectorBannerControl>
 
                 <PhotoSelectorBannerControl
-                    label={'Text'}
+                    label={'Tekst'}
                     value={templateData.banner_color}
                     valueType={'color'}
                     controlKey={'color'}
@@ -376,7 +376,7 @@ export default function PhotoSelectorBanner({
                     activeKey={activeDropdown}
                     setActiveKey={setActiveDropdown}>
                     <FormGroup
-                        label={'Color:'}
+                        label={'Kleur:'}
                         input={() => (
                             <PhotoSelectorBannerControlColorPicker
                                 color={templateData.banner_color}
