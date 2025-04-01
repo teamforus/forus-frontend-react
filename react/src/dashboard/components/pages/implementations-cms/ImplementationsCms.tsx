@@ -83,6 +83,7 @@ export default function ImplementationsCms() {
         overlay_opacity: '40',
         banner_color: '#000',
         banner_background: '#fff',
+        banner_background_mobile: true,
         banner_wide: true,
         banner_collapse: false,
         banner_position: 'left',
@@ -122,7 +123,7 @@ export default function ImplementationsCms() {
 
             const { overlay_enabled, overlay_type, overlay_opacity } = bannerMeta;
             const { banner_collapse, banner_wide, banner_position } = bannerMeta;
-            const { banner_color, banner_background, banner_button_type } = bannerMeta;
+            const { banner_color, banner_button_type, banner_background, banner_background_mobile } = bannerMeta;
 
             if (data.banner_media_uid === implementation.banner_media_uid) {
                 delete data.banner_media_uid;
@@ -133,7 +134,7 @@ export default function ImplementationsCms() {
                     ...data,
                     ...{ overlay_enabled, overlay_type, overlay_opacity },
                     ...{ banner_collapse, banner_wide, banner_position },
-                    ...{ banner_color, banner_background, banner_button_type },
+                    ...{ banner_color, banner_button_type, banner_background, banner_background_mobile },
                 })
                 .then((res) => {
                     setImplementation(res.data.data);
@@ -259,6 +260,7 @@ export default function ImplementationsCms() {
                 banner_color: implementation.banner_color,
                 banner_background: implementation.banner_background,
                 banner_button_type: implementation.banner_button_type,
+                banner_background_mobile: implementation.banner_background_mobile,
             });
 
             formUpdate({

@@ -69,6 +69,7 @@ export default interface Implementation {
     languages?: Array<Language>;
     banner_color?: string;
     banner_background?: string;
+    banner_background_mobile?: boolean;
     banner_position?: 'left' | 'center' | 'right';
     banner_wide?: boolean;
     banner_collapse?: boolean;

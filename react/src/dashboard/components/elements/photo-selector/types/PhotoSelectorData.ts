@@ -8,6 +8,7 @@ export default interface PhotoSelectorData {
     media?: Media;
     banner_color?: string;
     banner_background?: string;
+    banner_background_mobile?: boolean;
     banner_position?: 'left' | 'center' | 'right';
     banner_collapse?: boolean;
     banner_wide?: boolean;

@@ -231,6 +231,27 @@ export default function PhotoSelectorBanner({
                             />
                         )}
                     />
+                    <FormGroup
+                        label={'Background image on mobile:'}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={templateData.banner_background_mobile ? 'yes' : 'no'}
+                                options={[
+                                    { label: 'Yes', value: 'yes' },
+                                    { label: 'No', value: 'no' },
+                                ]}
+                                propKey={'value'}
+                                propValue={'label'}
+                                onChange={(banner_background_mobile: 'yes' | 'no') => {
+                                    setTemplateData({
+                                        ...templateData,
+                                        banner_background_mobile: banner_background_mobile === 'yes',
+                                    });
+                                }}
+                            />
+                        )}
+                    />
                 </PhotoSelectorBannerControl>
 
                 <PhotoSelectorBannerControl

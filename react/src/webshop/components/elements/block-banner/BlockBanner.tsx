@@ -41,6 +41,7 @@ export default function BlockBanner({
         position: 'left' | 'center' | 'right';
         banner_color?: string;
         banner_background?: string;
+        banner_background_mobile?: boolean;
         background_image?: string;
     }>(null);
 
@@ -72,6 +73,7 @@ export default function BlockBanner({
                 position: appConfigs.settings?.banner_position,
                 banner_color: appConfigs.settings?.banner_color,
                 banner_background: appConfigs.settings?.banner_background,
+                banner_background_mobile: appConfigs.settings?.banner_background_mobile,
                 background_image: appConfigs.settings?.background_image,
             });
         }
@@ -92,6 +94,7 @@ export default function BlockBanner({
                 dataConfig?.position === 'left' && 'block-banner-position-left',
                 dataConfig?.position === 'right' && 'block-banner-position-right',
                 dataConfig?.position === 'center' && 'block-banner-position-center',
+                !dataConfig?.banner_background_mobile && 'block-banner-background-mobile-hide',
                 hexToHsva(dataConfig?.banner_background)?.a === 0 && 'block-banner-transparent',
             )}>
             <div
