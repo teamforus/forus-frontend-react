@@ -82,10 +82,10 @@ export default function PreCheckStepEditorItem({
                     {preCheck.title && (
                         <Fragment>
                             <span>{preCheck.title}</span>
-                            <span className="text-muted">{` (${preCheck.record_types.length} criteria)`}</span>
+                            <span className="text-muted">{` (${preCheck.record_types.length} voorwaarde(n))`}</span>
                         </Fragment>
                     )}
-                    {!preCheck.title && <span>{!preCheck.id ? 'New step' : 'Edit step'}</span>}
+                    {!preCheck.title && <span>{!preCheck.id ? 'Nieuwe stap' : 'Edit step'}</span>}
 
                     {preCheck.default == true && (
                         <span className="text-muted">
@@ -169,7 +169,7 @@ export default function PreCheckStepEditorItem({
                         </div>
 
                         <div className="pre-check-item-body-records">
-                            <div className="block-records-title">Criteria ({preCheck.record_types.length})</div>
+                            <div className="block-records-title">Voorwaarden ({preCheck.record_types.length})</div>
 
                             <div className="pre-check-item-body-records-items">
                                 <SortableContext
@@ -198,7 +198,7 @@ export default function PreCheckStepEditorItem({
                                             <img src={assetUrl('/assets/img/icon-drag.svg')} alt={''} />
                                         </div>
                                         <div className="pre-check-item-body-records-empty-title">
-                                            Criteria hier slepen en neerzetten
+                                            Voorwaarden uit andere stappen kunnen hierheen worden versleept.
                                         </div>
                                     </div>
                                 )}

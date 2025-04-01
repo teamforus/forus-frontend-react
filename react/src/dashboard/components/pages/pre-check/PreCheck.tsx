@@ -422,8 +422,12 @@ export default function PreCheck() {
 
                             <InfoBox>
                                 <p>
-                                    U heeft de mogelijkheid om extra stappen toe te voegen die zichtbaar zullen zijn in
-                                    de Pre-Check voor de aanvrager.
+                                    De Regelingencheck begint standaard met één stap waarin alle voorwaarden van de
+                                    regelingen worden geplaatst. U kunt zelf extra stappen toevoegen om de voorwaarden
+                                    logisch te groeperen. Dit helpt om de Regelingencheck overzichtelijker te maken,
+                                    zodat niet alle vragen in één lange lijst worden getoond. Voorwaarden kunnen
+                                    eenvoudig worden verplaatst naar een andere stap door erop te klikken en deze naar
+                                    de gewenste stap te slepen.
                                 </p>
                             </InfoBox>
                         </div>
