@@ -8,9 +8,6 @@ import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
-import useFilterNext from '../../../../modules/filter_next/useFilterNext';
-import { NumberParam, StringParam } from 'use-query-params';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../../services/FundService';
@@ -23,11 +20,17 @@ export default function FinancialOverviewFundsBudgetTable({
     fetchFunds,
     fetchFinancialOverview,
     organization,
+    year,
+    setYear,
+    loaded,
 }: {
     years: Array<{ id: number; name: string }>;
     fetchFunds: (year: number) => Promise<Array<Fund>>;
     fetchFinancialOverview: (year: number) => Promise<FinancialOverview>;
     organization: Organization;
+    year: number;
+    setYear: (year: number) => void;
+    loaded: boolean;
 }) {
     const translate = useTranslate();
     const exportFunds = useExportFunds(organization);
@@ -45,25 +48,19 @@ export default function FinancialOverviewFundsBudgetTable({
 
     const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBudget());
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; year: number }>(
-        { q: '', year: new Date().getFullYear() },
-        { queryParams: { q: StringParam, year: NumberParam }, throttledValues: ['q'] },
-    );
-
     useEffect(() => {
-        fetchFunds(filterValuesActive.year).then(setFunds);
-    }, [fetchFunds, filterValuesActive.year]);
+        if (!loaded) return;
 
-    useEffect(() => {
         setProgress(0);
 
-        fetchFinancialOverview(filterValuesActive.year)
-            .then(setFinancialOverview)
-            .finally(() => setProgress(100));
-    }, [fetchFinancialOverview, filterValuesActive.year, setProgress]);
+        Promise.all([
+            fetchFinancialOverview(year).then(setFinancialOverview),
+            fetchFunds(year).then((funds) => setFunds(funds)),
+        ]).finally(() => setProgress(100));
+    }, [fetchFinancialOverview, fetchFunds, year, setProgress, loaded]);
 
     if (!budgetFunds?.length || !years.length) {
-        return null;
+        return loaded ? <LoadingCard /> : null;
     }
 
     return (
@@ -82,15 +79,12 @@ export default function FinancialOverviewFundsBudgetTable({
                                     options={years}
                                     propKey={'id'}
                                     allowSearch={false}
-                                    value={filterValues.year}
-                                    optionsComponent={SelectControlOptions}
-                                    onChange={(year?: number) => filterUpdate({ year })}
+                                    value={year}
+                                    onChange={(year?: number) => setYear(year)}
                                 />
                             </div>
                         </div>
-                        <button
-                            className="button button-primary button-sm"
-                            onClick={() => exportFunds(true, filterValuesActive.year)}>
+                        <button className="button button-primary button-sm" onClick={() => exportFunds(true, year)}>
                             <em className="mdi mdi-download icon-start" />
                             {translate('financial_dashboard_overview.buttons.export')}
                         </button>
@@ -98,7 +92,7 @@ export default function FinancialOverviewFundsBudgetTable({
                 </div>
             </div>
 
-            {financialOverview?.year != filterValuesActive.year ? (
+            {financialOverview?.year != year ? (
                 <LoadingCard />
             ) : (
                 <div className="card-section">

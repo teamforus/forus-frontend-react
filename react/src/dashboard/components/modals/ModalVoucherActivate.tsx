@@ -1,7 +1,7 @@
 import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import FormError from '../elements/forms/errors/FormError';
 import useTranslate from '../../hooks/useTranslate';
 
@@ -13,7 +13,7 @@ export default function ModalVoucherActivate({
 }: {
     modal: ModalState;
     className?: string;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     onSubmit: (values: object) => void;
 }) {
     const translate = useTranslate();

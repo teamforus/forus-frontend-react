@@ -707,7 +707,7 @@
                 color: rgba(var(--text-color), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
-                transition: 0.4s;
+                transition: background-color .4s, color .4s;
                 height: var(--option-height);
                 @include ellipsis();
 
@@ -724,6 +724,37 @@
 
                 &:last-child {
                     border-bottom: none;
+                }
+
+                &:hover,
+                &:focus {
+                    background: var(--dropdown-item-hover-background);
+                    color: var(--dropdown-item-hover-color);
+                    outline-offset: -2px !important;
+                    outline-style: auto !important;
+                }
+            }
+
+            &.select-control-options-fd {
+                position: initial;
+                left: auto;
+                top: auto;
+                width: auto;
+                z-index: 2;
+                margin: 0 0 0;
+                border: 1px solid #d4d9dd !important;
+                border-radius: var(--border-radius);
+
+                &.select-control-options-fd-bottom {
+                    border-top: none !important;
+                    border-top-left-radius: 0 !important;
+                    border-top-right-radius: 0 !important;
+                }
+
+                &.select-control-options-fd-top {
+                    border-bottom: none !important;
+                    border-bottom-left-radius: 0 !important;
+                    border-bottom-right-radius: 0 !important;
                 }
             }
         }

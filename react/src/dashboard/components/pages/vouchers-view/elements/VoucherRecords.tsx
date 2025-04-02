@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Voucher from '../../../../props/models/Voucher';
+import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../../../props/models/Organization';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import Paginator from '../../../../modules/paginator/components/Paginator';
@@ -19,7 +19,13 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../../hooks/usePushApiError';
 
-export default function VoucherRecords({ voucher, organization }: { voucher: Voucher; organization: Organization }) {
+export default function VoucherRecords({
+    voucher,
+    organization,
+}: {
+    voucher: SponsorVoucher;
+    organization: Organization;
+}) {
     const translate = useTranslate();
 
     const openModal = useOpenModal();
