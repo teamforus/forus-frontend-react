@@ -412,16 +412,19 @@ export default function ImplementationsCms() {
                                     </label>
 
                                     <div className="form-offset">
-                                        <MarkdownEditor
-                                            alignment={form.values?.description_alignment}
-                                            placeholder={'Omschrijving'}
-                                            extendedOptions={true}
-                                            allowAlignment={true}
-                                            value={form.values?.description_html}
-                                            onChange={(value) => {
-                                                form.update({ description: value });
-                                            }}
-                                        />
+                                        {form.values?.description_alignment && (
+                                            <MarkdownEditor
+                                                alignment={form.values?.description_alignment}
+                                                placeholder={'Omschrijving'}
+                                                extendedOptions={true}
+                                                allowAlignment={true}
+                                                value={form.values?.description_html}
+                                                onChange={(description) => form.update({ description })}
+                                                onChangeAlignment={(description_alignment) => {
+                                                    form.update({ description_alignment });
+                                                }}
+                                            />
+                                        )}
                                     </div>
                                     <FormError error={form.errors.description} />
                                 </div>
