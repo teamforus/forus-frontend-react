@@ -1,6 +1,7 @@
 .block.block-banner {
     --wrapper-banner-width: var(--wrapper-width);
     --wrapper-banner-padding: var(--wrapper-padding);
+    margin: 0 0 30px;
 
     @media screen and (min-width: 1000px) {
         display: flex;
