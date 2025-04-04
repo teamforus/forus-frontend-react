@@ -14,7 +14,7 @@ import { ResponseError } from '../../props/ApiResponses';
 import { dateFormat } from '../../helpers/dates';
 import useAuthIdentity from '../../hooks/useAuthIdentity';
 import { useHelperService } from '../../services/HelperService';
-import Voucher from '../../props/models/Voucher';
+import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
 import Product from '../../props/models/Product';
 import useProductService from '../../services/ProductService';
 import ModalDuplicatesPicker from './ModalDuplicatesPicker';
@@ -23,7 +23,6 @@ import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import useTranslate from '../../hooks/useTranslate';
 import SelectControl from '../elements/select-control/SelectControl';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import classNames from 'classnames';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import usePushInfo from '../../hooks/usePushInfo';
@@ -419,7 +418,7 @@ export default function ModalVouchersUpload({
 
             try {
                 setProgress(0);
-                const data = await helperService.recursiveLeach<Voucher>(fetchVouchers, 4);
+                const data = await helperService.recursiveLeach<SponsorVoucher>(fetchVouchers, 4);
                 setProgress(100);
 
                 pushSuccess(
@@ -1014,7 +1013,6 @@ export default function ModalVouchersUpload({
                                             onChange={(type: 'fund_voucher' | 'product_voucher') => setType(type)}
                                             options={types}
                                             allowSearch={false}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </FormGroupInfo>
                                 </div>

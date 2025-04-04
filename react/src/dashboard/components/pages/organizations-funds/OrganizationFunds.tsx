@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import Fund from '../../../props/models/Fund';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { hasPermission } from '../../../helpers/utils';
@@ -12,13 +12,11 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import { strLimit } from '../../../helpers/string';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import { StringParam, useQueryParams, withDefault } from 'use-query-params';
@@ -31,13 +29,14 @@ import FundStateLabels from '../../elements/resource-states/FundStateLabels';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
     const openModal = useOpenModal();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
@@ -140,11 +139,11 @@ export default function OrganizationFunds() {
                         setQueryParams({ funds_type: 'archived' });
                         pushSuccess('Opgeslagen!');
                     })
-                    .catch((err: ResponseError) => pushDanger(err.data.message || 'Error!'))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             });
         },
-        [askConfirmation, fundService, pushDanger, pushSuccess, setProgress, setQueryParams],
+        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, setQueryParams],
     );
 
     const restoreFund = useCallback(
@@ -161,11 +160,11 @@ export default function OrganizationFunds() {
                         setQueryParams({ funds_type: 'active' });
                         pushSuccess('Opgeslagen!');
                     })
-                    .catch((err: ResponseError) => pushDanger(err.data.message || 'Error!'))
+                    .catch(pushApiError)
                     .finally(() => setProgress(100));
             });
         },
-        [askConfirmation, fundService, pushDanger, pushSuccess, setProgress, setQueryParams],
+        [askConfirmation, fundService, pushApiError, pushSuccess, setProgress, setQueryParams],
     );
 
     const topUpModal = useCallback(
@@ -197,7 +196,7 @@ export default function OrganizationFunds() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="fundsTitle">
                     {translate('components.organization_funds.title')} ({funds.meta.total})
                 </div>
@@ -304,7 +303,6 @@ export default function OrganizationFunds() {
                                                         allowSearch={false}
                                                         value={filter.values.state}
                                                         options={statesOptions}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(state: string) => filter.update({ state })}
                                                     />
                                                 </FilterItemToggle>
@@ -319,7 +317,6 @@ export default function OrganizationFunds() {
                                                         allowSearch={false}
                                                         value={filter.values.implementation_id}
                                                         options={implementations}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(implementation_id: string) =>
                                                             filter.update({ implementation_id })
                                                         }
@@ -387,7 +384,7 @@ export default function OrganizationFunds() {
                                                 <FundStateLabels fund={fund} />
                                             </td>
 
-                                            <td className="td-narrow text-right">
+                                            <td className={'table-td-actions'}>
                                                 {!fund.archived ? (
                                                     <TableRowActions
                                                         content={({ close }) => (

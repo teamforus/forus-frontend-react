@@ -2,17 +2,16 @@ import React, { useContext, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import FormError from '../../elements/forms/errors/FormError';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import { authContext } from '../../../contexts/AuthContext';
 import { StringParam, useQueryParam } from 'use-query-params';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function OrganizationsSecurity() {
     const activeOrganization = useActiveOrganization();
@@ -20,9 +19,9 @@ export default function OrganizationsSecurity() {
     const { updateIdentity } = useContext(authContext);
     const { setActiveOrganization } = useContext(mainContext);
 
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const [viewType = 'employees', setViewType] = useQueryParam('view_type', StringParam, {
         removeDefaultsFromUrl: true,
@@ -60,17 +59,15 @@ export default function OrganizationsSecurity() {
 
             organizationService
                 .update(activeOrganization.id, form.values)
-                .then(
-                    (res) => {
-                        pushSuccess('Opgeslagen!');
-                        setActiveOrganization(Object.assign(activeOrganization, res.data.data));
-                        updateIdentity().then();
-                    },
-                    (err) => {
-                        pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding.');
-                        form.setErrors(err.data.errors);
-                    },
-                )
+                .then((res) => {
+                    pushSuccess('Opgeslagen!');
+                    setActiveOrganization(Object.assign(activeOrganization, res.data.data));
+                    updateIdentity().then();
+                })
+                .catch((err) => {
+                    pushApiError(err);
+                    form.setErrors(err.data.errors);
+                })
                 .finally(() => {
                     setProgress(100);
                     form.setIsLocked(false);
@@ -89,7 +86,7 @@ export default function OrganizationsSecurity() {
                 </div>
                 <div className="card">
                     <form className="form" onSubmit={form.submit}>
-                        <div className="card-header card-header-next">
+                        <div className="card-header">
                             <div className="flex flex-grow">
                                 {viewType == 'employees' && (
                                     <div className="card-title">Tweefactorauthenticatie voor medewerkers</div>
@@ -140,7 +137,6 @@ export default function OrganizationsSecurity() {
                                                     allowSearch={false}
                                                     value={form.values.auth_2fa_policy}
                                                     options={auth2FARequiredOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(
                                                         auth_2fa_policy: 'optional' | 'required' | 'restrict_features',
                                                     ) => form.update({ auth_2fa_policy })}
@@ -159,7 +155,6 @@ export default function OrganizationsSecurity() {
                                                         allowSearch={false}
                                                         value={form.values.auth_2fa_remember_ip}
                                                         options={auth2FARememberIpOptions}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(auth_2fa_remember_ip: 1 | 0) =>
                                                             form.update({ auth_2fa_remember_ip })
                                                         }
@@ -207,7 +202,6 @@ export default function OrganizationsSecurity() {
                                                             | 'required'
                                                             | 'restrict_features',
                                                     ) => form.update({ auth_2fa_funds_policy })}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                             </div>
                                             <FormError error={form.errors?.auth_2fa_funds_policy} />
@@ -226,7 +220,6 @@ export default function OrganizationsSecurity() {
                                                             form.update({ auth_2fa_funds_remember_ip })
                                                         }
                                                         options={auth2FARememberIpOptions}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <FormError error={form.errors?.auth_2fa_funds_remember_ip} />

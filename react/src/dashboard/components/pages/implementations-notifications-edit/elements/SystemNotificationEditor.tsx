@@ -7,7 +7,6 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
 import SystemNotification from '../../../../props/models/SystemNotification';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import SystemNotificationTemplateEditor from './SystemNotificationTemplateEditor';
 import Fund from '../../../../props/models/Fund';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
@@ -132,17 +131,14 @@ export default function SystemNotificationEditor({
         <div className="block block-system-notification-editor">
             <div className="card card-collapsed">
                 <div className={`card-header ${notification.enable_all ? '' : 'card-header-danger'}`}>
-                    <div className="flex flex-row">
-                        <div className="flex flex-pad flex-grow">
-                            <div className={`card-title ${notification.enable_all ? '' : 'text-muted-dark'}`}>
-                                <em className="mdi mdi-web" />
-                                <span>{notification.title}</span>
-                                <span>{translate(`system_notifications.notifications.${notification.key}.title`)}</span>
-                            </div>
-                        </div>
-
-                        {notification.editable && (
-                            <div className="flex flex-pad flex-vertical flex-center">
+                    <div className={`flex flex-grow card-title ${notification.enable_all ? '' : 'text-muted-dark'}`}>
+                        <em className="mdi mdi-web" />
+                        <span>{notification.title}</span>
+                        <span>{translate(`system_notifications.notifications.${notification.key}.title`)}</span>
+                    </div>
+                    {notification.editable && (
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 <ToggleControl
                                     id={'enable_all'}
                                     className="form-toggle-danger"
@@ -152,8 +148,8 @@ export default function SystemNotificationEditor({
                                     labelRight={false}
                                 />
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
 
                 {funds && funds.length > 0 && (
@@ -172,7 +168,6 @@ export default function SystemNotificationEditor({
                                             value={fund}
                                             allowSearch={true}
                                             onChange={(fund: Partial<Fund>) => setFund(fund)}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                 </div>

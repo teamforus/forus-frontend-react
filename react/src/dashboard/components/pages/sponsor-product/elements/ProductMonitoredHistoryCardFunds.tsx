@@ -150,7 +150,7 @@ export default function ProductMonitoredHistoryCardFunds({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">Fondsen</div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">

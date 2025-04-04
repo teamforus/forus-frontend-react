@@ -6,23 +6,22 @@ import { useParams } from 'react-router-dom';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import { useFundService } from '../../../services/FundService';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { ResponseError } from '../../../props/ApiResponses';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import OrganizationsFundsSecurityAuth2FAForm from './elements/OrganizationsFundsSecurityAuth2FAForm';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function OrganizationsFundsSecurity() {
     const fundId = parseInt(useParams().fundId);
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
 
@@ -49,7 +48,7 @@ export default function OrganizationsFundsSecurity() {
             .update(activeOrganization.id, fundId, values)
             .then(() => pushSuccess('Opgeslagen!'))
             .catch((err: ResponseError) => {
-                pushDanger('Mislukt!', err.data?.message || 'Onbekende foutmelding.');
+                pushApiError(err);
                 form.setErrors(err.data.errors);
             })
             .finally(() => {
@@ -125,7 +124,6 @@ export default function OrganizationsFundsSecurity() {
                                             allowSearch={false}
                                             value={form.values?.auth_2fa_policy}
                                             options={auth2FARequiredOptions}
-                                            optionsComponent={SelectControlOptions}
                                             onChange={(
                                                 auth_2fa_policy:
                                                     | 'global'
@@ -147,7 +145,6 @@ export default function OrganizationsFundsSecurity() {
                                                 allowSearch={false}
                                                 value={fund.organization_funds_2fa.auth_2fa_policy}
                                                 options={auth2FARequiredOptions}
-                                                optionsComponent={SelectControlOptions}
                                                 disabled={true}
                                                 onChange={() => null}
                                             />

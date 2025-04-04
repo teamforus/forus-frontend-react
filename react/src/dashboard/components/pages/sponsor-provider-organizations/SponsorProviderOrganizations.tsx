@@ -1,14 +1,12 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useFileService } from '../../../services/FileService';
-import { PaginationData, ResponseError } from '../../../props/ApiResponses';
+import { PaginationData } from '../../../props/ApiResponses';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
@@ -30,13 +28,14 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import classNames from 'classnames';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
 
     const openModal = useOpenModal();
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
     const fileService = useFileService();
@@ -119,9 +118,9 @@ export default function SponsorProviderOrganizations() {
         implementationService
             .list(activeOrganization.id, { per_page: 100 })
             .then((res) => setImplementations([{ id: null, name: 'Alle implementaties' }, ...res.data.data]))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, implementationService, pushDanger, setProgress]);
+    }, [activeOrganization.id, implementationService, pushApiError, setProgress]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -129,9 +128,9 @@ export default function SponsorProviderOrganizations() {
         fundService
             .list(activeOrganization.id, { per_page: 100 })
             .then((res) => setFunds([{ id: null, name: 'Alle fondsen' }, ...res.data.data]))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, fundService, pushDanger, setProgress]);
+    }, [activeOrganization.id, fundService, pushApiError, setProgress]);
 
     const fetchProviderOrganizations = useCallback(() => {
         setLoading(true);
@@ -148,12 +147,12 @@ export default function SponsorProviderOrganizations() {
         organizationService
             .providerOrganizations(activeOrganization.id, query)
             .then((res) => setProviderOrganizations(res.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [activeOrganization.id, filterActiveValues, organizationService, pushDanger, setProgress]);
+    }, [activeOrganization.id, filterActiveValues, organizationService, pushApiError, setProgress]);
 
     const fetchFundUnsubscribes = useCallback(() => {
         setProgress(0);
@@ -165,9 +164,9 @@ export default function SponsorProviderOrganizations() {
                 setRequestsExpired(res.data.data.filter((item) => item.state == 'overdue').length);
                 setRequestsPending(res.data.data.filter((item) => item.state == 'pending').length);
             })
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, fundUnsubscribeService, pushDanger, setProgress]);
+    }, [activeOrganization.id, fundUnsubscribeService, pushApiError, setProgress]);
 
     const doExport = useCallback(
         (exportType: string) => {
@@ -179,9 +178,9 @@ export default function SponsorProviderOrganizations() {
 
                     fileService.downloadFile(fileName, res.data, res.headers['content-type']);
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                .catch(pushApiError);
         },
-        [pushDanger, fileService, filterActiveValues, activeOrganization, organizationService],
+        [pushApiError, fileService, filterActiveValues, activeOrganization, organizationService],
     );
 
     const exportList = useCallback(() => {
@@ -251,7 +250,7 @@ export default function SponsorProviderOrganizations() {
             )}
 
             <div className="card">
-                <div className="card-header card-header-next">
+                <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="card-title flex flex-grow">
                             {translate('provider_organizations.header.title')} ({providerOrganizations.meta.total})
@@ -278,7 +277,6 @@ export default function SponsorProviderOrganizations() {
                                                 propKey={'value'}
                                                 allowSearch={false}
                                                 value={filterValues.order_by}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(order_by: string) => filterUpdate({ order_by })}
                                             />
                                         </div>
@@ -513,7 +511,6 @@ export default function SponsorProviderOrganizations() {
                                         options={implementations}
                                         propKey={'id'}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                         value={filterValues.implementation_id}
                                         onChange={(implementation_id: number) => {
                                             filterUpdate({ implementation_id });

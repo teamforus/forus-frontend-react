@@ -60,6 +60,10 @@
 
                 .lang-control-option-name {
                     flex: 1 1 auto;
+
+                    &.lang-control-option-name-right {
+                        text-align: right;
+                    }
                 }
 
                 .lang-control-option-check {

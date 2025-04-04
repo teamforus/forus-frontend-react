@@ -2,11 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { useIdentity2FAService } from '../../services/Identity2FAService';
 import Identity2FA from '../../props/models/Identity2FA';
-import usePushDanger from '../../hooks/usePushDanger';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import Identity2FAState from '../../props/models/Identity2FAState';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import Auth2FAProvider from '../../props/models/Auth2FAProvider';
 import QrCode from '../elements/qr-code/QrCode';
 import FormError from '../elements/forms/errors/FormError';
@@ -16,6 +14,7 @@ import useTimer from '../../hooks/useTimer';
 import { ResponseError } from '../../props/ApiResponses';
 import Auth2FAInfoBox from '../elements/auth2fa-info-box/Auth2FAInfoBox';
 import classNames from 'classnames';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function Modal2FASetup({
     modal,
@@ -55,8 +54,8 @@ export default function Modal2FASetup({
     const [step, setStep] = useState(null);
     const identity2FAService = useIdentity2FAService();
 
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const timer = useTimer();
     const { setTimer } = timer;
 
@@ -106,34 +105,32 @@ export default function Modal2FASetup({
                 type: 'phone',
                 phone: parseInt(phoneNumber?.toString().replace(/\D/g, '') || 0),
             })
-            .then(
-                (res) => {
-                    goToStep('provider_confirmation');
-                    setAuth2FA(res.data?.data);
-                    blockResend();
-                },
-                (res) => {
-                    setPhoneNumberError(res?.data?.errors?.phone);
-                    pushDanger('Mislukt!', res.data?.message || 'Unknown error.');
-                },
-            );
-    }, [blockResend, goToStep, identity2FAService, phoneNumber, pushDanger]);
+            .then((res) => {
+                goToStep('provider_confirmation');
+                setAuth2FA(res.data?.data);
+                blockResend();
+            })
+            .catch((err: ResponseError) => {
+                setPhoneNumberError(err?.data?.errors?.phone);
+                pushApiError(err);
+            });
+    }, [blockResend, goToStep, identity2FAService, phoneNumber, pushApiError]);
 
     const makeAuthenticator2FA = useCallback(() => {
-        identity2FAService.store({ type: 'authenticator' }).then(
-            (res) => {
+        identity2FAService
+            .store({ type: 'authenticator' })
+            .then((res) => {
                 setAuth2FA(res.data?.data);
                 goToStep('provider_select');
-            },
-            (res: ResponseError) => {
-                pushDanger(res.data?.message || 'Unknown error.');
+            })
+            .catch((err: ResponseError) => {
+                pushApiError(err);
 
-                if (res.status == 429) {
+                if (err.status == 429) {
                     cancel();
                 }
-            },
-        );
-    }, [cancel, goToStep, identity2FAService, pushDanger]);
+            });
+    }, [cancel, goToStep, identity2FAService, pushApiError]);
 
     const submitPhoneNumber = useCallback(() => {
         makePhone2FA();
@@ -157,12 +154,12 @@ export default function Modal2FASetup({
                 setActivateAuthErrors(null);
                 goToStep('success');
             })
-            .catch((res) => {
-                setActivateAuthErrors(res.data?.errors?.code);
-                pushDanger(res.data?.message || 'Unknown error.');
+            .catch((err: ResponseError) => {
+                setActivateAuthErrors(err.data?.errors?.code);
+                pushApiError(err);
             })
             .finally(() => unlock());
-    }, [auth2FA, confirmationCode, goToStep, identity2FAService, lock, provider, pushDanger, unlock]);
+    }, [auth2FA, confirmationCode, goToStep, identity2FAService, lock, provider, pushApiError, unlock]);
 
     const verifyAuthProvider = useCallback(() => {
         if (!auth2FA || lock()) {
@@ -175,12 +172,12 @@ export default function Modal2FASetup({
                 setVerifyAuthErrors(null);
                 goToStep('success');
             })
-            .catch((res) => {
-                setVerifyAuthErrors(res.data?.errors?.code);
-                pushDanger(res.data?.message || 'Unknown error.');
+            .catch((err: ResponseError) => {
+                setVerifyAuthErrors(err.data?.errors?.code);
+                pushApiError(err);
             })
             .finally(() => unlock());
-    }, [auth2FA, confirmationCode, goToStep, identity2FAService, lock, pushDanger, unlock]);
+    }, [auth2FA, confirmationCode, goToStep, identity2FAService, lock, pushApiError, unlock]);
 
     const resendCode = useCallback(
         (notify = true) => {
@@ -193,13 +190,11 @@ export default function Modal2FASetup({
 
             identity2FAService
                 .send(auth2FA.uuid)
-                .then(
-                    () => (notify ? pushSuccess('Gelukt!', 'We hebben de code opnieuw verstuurd.') : false),
-                    (res) => pushDanger('Mislukt!', res?.data?.message),
-                )
+                .then(() => (notify ? pushSuccess('Gelukt!', 'We hebben de code opnieuw verstuurd.') : false))
+                .catch(pushApiError)
                 .then(() => setSendingCode(false));
         },
-        [auth2FA?.uuid, blockResend, identity2FAService, pushDanger, pushSuccess],
+        [auth2FA?.uuid, blockResend, identity2FAService, pushApiError, pushSuccess],
     );
 
     const onKeyDown = useCallback(
@@ -224,19 +219,21 @@ export default function Modal2FASetup({
     }, [onKeyDown]);
 
     useEffect(() => {
+        bindEvents();
+
+        return () => {
+            unbindEvents();
+        };
+    }, [bindEvents, unbindEvents]);
+
+    useEffect(() => {
         const providers = auth2FAState.providers.filter((provider) => provider.type == type);
         const active_providers = auth2FAState.active_providers.filter((item) => item.provider_type.type == type);
 
         setAuth2FA((auth2FA) => (auth2FA ? auth2FA : active_providers.find((auth_2fa) => auth_2fa)));
         setProvider(providers.find((provider) => provider));
         setProviders(providers);
-
-        bindEvents();
-
-        return () => {
-            unbindEvents();
-        };
-    }, [type, bindEvents, unbindEvents, auth2FAState]);
+    }, [type, auth2FAState]);
 
     // should set up
     useEffect(() => {
@@ -299,7 +296,6 @@ export default function Modal2FASetup({
                                                 onChange={(provider: Auth2FAProvider) => setProvider(provider)}
                                                 options={providers}
                                                 allowSearch={false}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                         </div>
                                     </div>
@@ -602,7 +598,7 @@ export default function Modal2FASetup({
                             <div className="modal-heading">
                                 <strong>Het is gelukt!</strong>
                             </div>
-                            <div className="modal-text">
+                            <div className="modal-text text-center">
                                 <small>Je bent succesvol ingelogd met tweefactorauthenticatie. Welkom terug!</small>
                             </div>
                         </div>

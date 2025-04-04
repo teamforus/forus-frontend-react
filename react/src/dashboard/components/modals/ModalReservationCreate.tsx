@@ -8,7 +8,6 @@ import useVoucherService from '../../services/VoucherService';
 import useProductReservationService from '../../services/ProductReservationService';
 import FormError from '../elements/forms/errors/FormError';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
@@ -195,7 +194,6 @@ export default function ModalReservationCreate({
                                                     onChange={(product_id: number) =>
                                                         formProducts.update({ product_id })
                                                     }
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                             </FormGroupInfo>
                                         </div>

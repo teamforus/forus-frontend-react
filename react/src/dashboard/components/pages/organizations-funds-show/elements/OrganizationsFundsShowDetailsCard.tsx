@@ -1,7 +1,6 @@
-import OrganizationsFundsShowDescriptionCard from './OrganizationsFundsShowDescriptionCard';
-import OrganizationsFundsShowFormulasCard from './OrganizationsFundsShowFormulasCard';
-import OrganizationsFundsShowCriteriaCard from './OrganizationsFundsShowCriteriaCard';
-import OrganizationsFundsShowStatisticsCard from './OrganizationsFundsShowStatisticsCard';
+import OrganizationsFundsShowDescriptionCard from './tabs-details-card/OrganizationsFundsShowDescriptionCard';
+import OrganizationsFundsShowFormulasCard from './tabs-details-card/OrganizationsFundsShowFormulasCard';
+import OrganizationsFundsShowStatisticsCard from './tabs-details-card/OrganizationsFundsShowStatisticsCard';
 import React, { useMemo } from 'react';
 import { createEnumParam, useQueryParam, withDefault } from 'use-query-params';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -9,7 +8,7 @@ import { hasPermission } from '../../../../helpers/utils';
 import Organization from '../../../../props/models/Organization';
 import Fund from '../../../../props/models/Fund';
 import classNames from 'classnames';
-import OrganizationsFundsShowConfigsCard from './OrganizationsFundsShowConfigsCard';
+import OrganizationsFundsShowConfigsCard from './tabs-details-card/OrganizationsFundsShowConfigsCard';
 
 export default function OrganizationsFundsShowDetailsCard({
     fund,
@@ -39,7 +38,6 @@ export default function OrganizationsFundsShowDetailsCard({
             'description',
             canViewFinances ? 'statistics' : null,
             canManageFunds ? 'formulas' : null,
-            canManageFunds ? 'criteria' : null,
             canManagePayouts ? 'configs' : null,
         ].filter((tab) => tab);
     }, [canManageFunds, canManagePayouts, canViewFinances]);
@@ -52,7 +50,7 @@ export default function OrganizationsFundsShowDetailsCard({
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="flex flex-grow">
                     <div className="card-title">{translate(`funds_show.labels.base_card.header.${viewType}`)}</div>
                 </div>
@@ -77,7 +75,6 @@ export default function OrganizationsFundsShowDetailsCard({
             {viewType == 'statistics' && (
                 <OrganizationsFundsShowStatisticsCard fund={fund} organization={organization} />
             )}
-            {viewType == 'criteria' && <OrganizationsFundsShowCriteriaCard fund={fund} setFund={setFund} />}
             {viewType == 'formulas' && <OrganizationsFundsShowFormulasCard fund={fund} />}
             {viewType == 'configs' && <OrganizationsFundsShowConfigsCard fund={fund} setFund={setFund} />}
         </div>

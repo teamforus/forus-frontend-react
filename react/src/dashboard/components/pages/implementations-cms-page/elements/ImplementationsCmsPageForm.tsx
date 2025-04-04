@@ -11,7 +11,6 @@ import Implementation from '../../../../props/models/Implementation';
 import ImplementationPage from '../../../../props/models/ImplementationPage';
 import ImplementationPageBlock from '../../../../props/models/ImplementationPageBlock';
 import useImplementationPageService from '../../../../services/ImplementationPageService';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import ImplementationsBlockEditor from './ImplementationsBlockEditor';
@@ -22,6 +21,7 @@ import Faq from '../../../../props/models/Faq';
 import { uniqueId } from 'lodash';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import ImplementationsCmsHomeProductsBlockEditor from './ImplementationsCmsHomeProductsBlockEditor';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ImplementationsCmsPageForm({
     page,
@@ -36,6 +36,7 @@ export default function ImplementationsCmsPageForm({
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const activeOrganization = useActiveOrganization();
 
@@ -146,7 +147,7 @@ export default function ImplementationsCmsPageForm({
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setProgress(100);
@@ -167,9 +168,9 @@ export default function ImplementationsCmsPageForm({
                         },
                     );
                 })
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message));
+                .catch(pushApiError);
         },
-        [implementation, implementationPageService, pushDanger],
+        [implementation, implementationPageService, pushApiError],
     );
 
     useEffect(() => {
@@ -222,23 +223,28 @@ export default function ImplementationsCmsPageForm({
 
             <div className="card">
                 <form className="form" onSubmit={form.submit}>
-                    <div className="card-header flex-row">
-                        <div className="card-title">{translate(`implementation_edit.labels.${pageType}`)}</div>
-                        <div className="flex flex-grow flex-end">
-                            {(page?.state == 'public' || pageTypeConfig.type === 'static') && (
-                                <a
-                                    className="button button-text button-sm"
-                                    href={pageTypeConfig.webshop_url}
-                                    rel="noreferrer"
-                                    target="_blank">
-                                    Bekijk pagina
-                                    <em className="mdi mdi-open-in-new icon-end" />
-                                </a>
-                            )}
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title">
+                            {translate(`implementation_edit.labels.${pageType}`)}
+                        </div>
 
-                            <button className="button button-primary button-sm" type="submit">
-                                {translate('funds_edit.buttons.confirm')}
-                            </button>
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
+                                {(page?.state == 'public' || pageTypeConfig.type === 'static') && (
+                                    <a
+                                        className="button button-text button-sm"
+                                        href={pageTypeConfig.webshop_url}
+                                        rel="noreferrer"
+                                        target="_blank">
+                                        Bekijk pagina
+                                        <em className="mdi mdi-open-in-new icon-end" />
+                                    </a>
+                                )}
+
+                                <button className="button button-primary button-sm" type="submit">
+                                    {translate('funds_edit.buttons.confirm')}
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -254,7 +260,6 @@ export default function ImplementationsCmsPageForm({
                                             value={form.values?.state}
                                             onChange={(state: string) => form.update({ state })}
                                             options={states}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                         <FormError error={form.errors.state} />
                                     </div>
@@ -272,7 +277,6 @@ export default function ImplementationsCmsPageForm({
                                                         value={form.values?.external}
                                                         onChange={(external: boolean) => form.update({ external })}
                                                         options={types}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <div className="form-group-info-button">
@@ -352,7 +356,6 @@ export default function ImplementationsCmsPageForm({
                                                             form.update({ description_position });
                                                         }}
                                                         options={descriptionPositions}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <div className="form-group-info-button">
@@ -426,7 +429,6 @@ export default function ImplementationsCmsPageForm({
                                             value={form.values?.blocks_per_row}
                                             onChange={(blocks_per_row: number) => form.update({ blocks_per_row })}
                                             options={blocksPerRow}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                 </div>

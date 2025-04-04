@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { PaginationData } from '../../../props/ApiResponses';
-import Voucher from '../../../props/models/Voucher';
+import SponsorVoucher from '../../../props/models/Sponsor/SponsorVoucher';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useVoucherService from '../../../services/VoucherService';
@@ -34,7 +34,7 @@ export default function Vouchers() {
     const paginatorService = usePaginatorService();
 
     const [loading, setLoading] = useState<boolean>(true);
-    const [vouchers, setVouchers] = useState<PaginationData<Voucher>>(null);
+    const [vouchers, setVouchers] = useState<PaginationData<SponsorVoucher>>(null);
     const [paginatorKey] = useState<string>('vouchers');
 
     const { funds } = useVoucherTableOptions(activeOrganization);
@@ -173,7 +173,7 @@ export default function Vouchers() {
 
     return (
         <div className="card" data-dusk={`vouchersCard${filterValues?.fund_id || ''}`}>
-            <div className={classNames(`card-header card-header-next`, loading && 'card-header-inactive')}>
+            <div className={classNames(`card-header`, loading && 'card-header-inactive')}>
                 <div className="card-title flex flex-grow" data-dusk="vouchersTitle">
                     {translate('vouchers.header.title')} ({vouchers?.meta?.total})
                 </div>

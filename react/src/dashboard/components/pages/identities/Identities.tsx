@@ -28,7 +28,6 @@ import TableDateOnly from '../../elements/tables/elements/TableDateOnly';
 import useIdentityExportService from '../../../services/exports/useIdentityExportService';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 
 export default function Identities() {
     const translate = useTranslate();
@@ -173,7 +172,7 @@ export default function Identities() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('identities.header.title')} ({identities.meta.total})
                 </div>
@@ -307,7 +306,6 @@ export default function Identities() {
                                     allowSearch={false}
                                     value={filterValues.has_bsn}
                                     options={hasBsnOptions}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(has_bsn: number) => filterUpdate({ has_bsn })}
                                 />
                             </FilterItemToggle>

@@ -5,7 +5,6 @@ import FormError from '../../../elements/forms/errors/FormError';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import Organization from '../../../../props/models/Organization';
@@ -16,7 +15,6 @@ import Product from '../../../../props/models/Product';
 import useProductService from '../../../../services/ProductService';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import ProductCategoriesControl from './ProductCategoriesControl';
 import FundProvider from '../../../../props/models/FundProvider';
 import { useFundService } from '../../../../services/FundService';
@@ -33,6 +31,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ProductsForm({
     organization,
@@ -46,9 +45,9 @@ export default function ProductsForm({
     id?: number;
 }) {
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const [alreadyConfirmed, setAlreadyConfirmed] = useState<boolean>(false);
     const [mediaFile, setMediaFile] = useState<Blob>(null);
@@ -329,7 +328,7 @@ export default function ProductsForm({
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         });
@@ -974,7 +973,6 @@ export default function ProductsForm({
                                                             form.update({ reservation_policy });
                                                         }}
                                                         options={reservationPolicies}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                 </div>
                                                 <div className="form-group-info-button">
@@ -1039,7 +1037,6 @@ export default function ProductsForm({
                                                         form.update({ reservation_phone });
                                                     }}
                                                     options={reservationPhoneOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                                 <FormError error={form.errors.reservation_phone} />
                                             </div>
@@ -1058,7 +1055,6 @@ export default function ProductsForm({
                                                         form.update({ reservation_address });
                                                     }}
                                                     options={reservationAddressOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                                 <FormError error={form.errors.reservation_address} />
                                             </div>
@@ -1077,7 +1073,6 @@ export default function ProductsForm({
                                                         form.update({ reservation_birth_date });
                                                     }}
                                                     options={reservationBirthDateOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                 />
                                                 <FormError error={form.errors.reservation_birth_date} />
                                             </div>
@@ -1108,7 +1103,6 @@ export default function ProductsForm({
                                             form.update({ reservation_extra_payments });
                                         }}
                                         options={extraPaymentsOptions}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={form.errors.reservation_extra_payments} />
                                 </div>

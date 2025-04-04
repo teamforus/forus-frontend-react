@@ -3,6 +3,7 @@ import modals from './nl/i18n-modals';
 import modals_danger_zone from './nl/i18n-modals-danger_zone';
 import components from './nl/i18n-components';
 import block_exception from './nl/blocks/block-exception.json';
+import api_errors from './nl/errors/api';
 
 export default {
     test: '{{name}} {{foo}}',
@@ -538,7 +539,7 @@ export default {
     // PRE CHECK FUNDS = funds-pre-check.pug
     funds_pre_check: {
         header: {
-            title: 'Pre-check',
+            title: 'Regelingencheck',
         },
         labels: {
             description_title: 'Algemeen',
@@ -546,7 +547,7 @@ export default {
             label: 'Label',
             description: 'Omschrijving',
             status: 'Status',
-            implementation: 'Implementatie',
+            implementation: 'Website',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -1659,6 +1660,7 @@ export default {
             edit: 'Bewerken',
             view: 'Bekijken',
             security: 'Beveiliging',
+            criteria: 'Voorwaarden',
         },
         status: {
             active: 'Actief',
@@ -2048,5 +2050,8 @@ export default {
 
     blocks: {
         block_exception,
+    },
+    errors: {
+        api: api_errors,
     },
 };

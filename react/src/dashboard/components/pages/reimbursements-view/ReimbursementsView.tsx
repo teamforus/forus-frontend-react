@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useOpenModal from '../../../hooks/useOpenModal';
@@ -15,12 +14,13 @@ import TransactionDetails from '../transactions-view/elements/TransactionDetails
 import { hasPermission } from '../../../helpers/utils';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
-import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
+import { ApiResponseSingle } from '../../../props/ApiResponses';
 import ModalReimbursementResolve from '../../modals/ModalReimbursementResolve';
 import ModalReimbursementDetailsEdit from '../../modals/ModalReimbursementDetailsEdit';
 import useFilePreview from '../../../services/helpers/useFilePreview';
 import { useFileService } from '../../../services/FileService';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ReimbursementsView() {
     const { id } = useParams();
@@ -30,10 +30,10 @@ export default function ReimbursementsView() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const filePreview = useFilePreview();
+    const pushApiError = usePushApiError();
 
     const fileService = useFileService();
     const reimbursementService = useReimbursementsService();
@@ -52,9 +52,9 @@ export default function ReimbursementsView() {
         reimbursementService
             .show(activeOrganization.id, parseInt(id))
             .then((res) => setReimbursement(res.data.data))
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, reimbursementService, activeOrganization.id, id, pushDanger]);
+    }, [setProgress, reimbursementService, activeOrganization.id, id, pushApiError]);
 
     const handleOnReimbursementUpdated = useCallback(
         (promise: Promise<ApiResponseSingle<Reimbursement>>, successMessage: string = null) => {
@@ -65,12 +65,10 @@ export default function ReimbursementsView() {
                     setReimbursement(res.data.data);
                     pushSuccess('Success!', successMessage);
                 })
-                .catch((err: ResponseError) => {
-                    pushDanger(err.data?.title || 'Foutmelding!', err.data?.message || 'Onbekende foutmelding!');
-                })
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [pushDanger, pushSuccess, setProgress],
+        [pushApiError, pushSuccess, setProgress],
     );
 
     const assign = useCallback(() => {
@@ -109,10 +107,10 @@ export default function ReimbursementsView() {
             fileService
                 .download(file)
                 .then((res) => fileService.downloadFile(file.original_name, res.data))
-                .catch((err: ResponseError) => pushDanger('Mislukt!', err.data?.message))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [fileService, pushDanger, setProgress],
+        [fileService, pushApiError, setProgress],
     );
 
     const hasFilePreview = useCallback((file) => {
@@ -194,129 +192,131 @@ export default function ReimbursementsView() {
                 <div className="card">
                     {reimbursement.expired && (
                         <div className="card-header card-header-warning card-header-sm">
-                            <div className="card-title text-small">
-                                <strong>Waarschuwing!</strong>&nbsp; Het fonds of tegoed van deze declaratie is verlopen
-                                of het saldo is niet meer toereikend. De decalartie kan niet meer worden behandeld.
+                            <div className="flex flex-vertical card-title">
+                                <strong>Waarschuwing!</strong>
+                                <small>
+                                    Het fonds of tegoed van deze declaratie is verlopen of het saldo is niet meer
+                                    toereikend. De decalartie kan niet meer worden behandeld.
+                                </small>
                             </div>
                         </div>
                     )}
 
                     {reimbursement.deactivated && (
                         <div className="card-header card-header-warning card-header-sm">
-                            <div className="card-title text-small">
-                                <strong>Waarschuwing!</strong>&nbsp; Het tegoed is gedeactiveerd. Om de declaratie te
-                                behandelen moet het tegoed opnieuw worden geactiveerd.
+                            <div className="flex flex-vertical card-title">
+                                <strong>Waarschuwing!</strong>
+                                <small>
+                                    Het tegoed is gedeactiveerd. Om de declaratie te behandelen moet het tegoed opnieuw
+                                    worden geactiveerd.
+                                </small>
                             </div>
                         </div>
                     )}
 
                     <div className="card-header">
-                        <div className="flex">
-                            <div className="flex flex-grow">
-                                <div className="flex flex-vertical">
-                                    <div className="card-title">
-                                        <div className="flex">
-                                            <div className="flex flex-vertical">
-                                                <div className="flex">
-                                                    <span className="text-muted">NR:&nbsp;</span>
-                                                    {reimbursement.code} &nbsp;
-                                                </div>
+                        <div className="flex flex-grow">
+                            <div className="flex flex-vertical">
+                                <div className="card-title">
+                                    <div className="flex">
+                                        <div className="flex flex-vertical">
+                                            <div className="flex">
+                                                <span className="text-muted">NR:&nbsp;</span>
+                                                {reimbursement.code} &nbsp;
                                             </div>
+                                        </div>
 
-                                            <div className="flex flex-vertical flex-center">
-                                                <div className="flex flex-horizontal">
-                                                    {!reimbursement.expired && (
-                                                        <label
-                                                            className={`label ${
-                                                                stateLabels[reimbursement.state] || ''
-                                                            }`}>
-                                                            {reimbursement.state_locale}
-                                                        </label>
-                                                    )}
+                                        <div className="flex flex-vertical flex-center">
+                                            <div className="flex flex-horizontal">
+                                                {!reimbursement.expired && (
+                                                    <label
+                                                        className={`label ${stateLabels[reimbursement.state] || ''}`}>
+                                                        {reimbursement.state_locale}
+                                                    </label>
+                                                )}
 
-                                                    {reimbursement.expired && (
-                                                        <label className="label label-danger-light">
-                                                            {reimbursement.expired}
-                                                        </label>
-                                                    )}
-                                                </div>
+                                                {reimbursement.expired && (
+                                                    <label className="label label-danger-light">
+                                                        {reimbursement.expired}
+                                                    </label>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="card-subtitle">
-                                        <div className="flex">
-                                            <div className="mdi mdi-clock-outline" />
-                                            {reimbursement.created_at_locale}
-                                        </div>
+                                <div className="card-subtitle">
+                                    <div className="flex">
+                                        <div className="mdi mdi-clock-outline" />
+                                        {reimbursement.created_at_locale}
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            {reimbursement.state === 'pending' && (
-                                <div className="flex flex-self-start">
-                                    <div className="flex-row">
-                                        {!reimbursement.employee &&
-                                            !reimbursement.expired &&
-                                            !reimbursement.deactivated && (
-                                                <div className="button-group" data-dusk="reimbursementAssign">
+                        {reimbursement.state === 'pending' && (
+                            <div className="card-header-filters flex-self-start">
+                                <div className="block block-inline-filters">
+                                    {!reimbursement.employee &&
+                                        !reimbursement.expired &&
+                                        !reimbursement.deactivated && (
+                                            <div className="button-group" data-dusk="reimbursementAssign">
+                                                <div
+                                                    className="button button-primary button-sm"
+                                                    onClick={() => assign()}>
+                                                    <em className="mdi mdi-account-plus-outline icon-start" />
+                                                    Toewijzen aan mij
+                                                </div>
+                                            </div>
+                                        )}
+
+                                    {reimbursement.employee &&
+                                        reimbursement.employee.identity_address == authIdentity.address && (
+                                            <div className="button-group">
+                                                {!reimbursement.expired && !reimbursement.deactivated && (
                                                     <div
                                                         className="button button-primary button-sm"
-                                                        onClick={() => assign()}>
-                                                        <em className="mdi mdi-account-plus-outline icon-start" />
-                                                        Toewijzen aan mij
+                                                        data-dusk="reimbursementApprove"
+                                                        onClick={() => resolve(true)}>
+                                                        <em className="mdi mdi-check-circle icon-start" />
+                                                        Accepteren
                                                     </div>
-                                                </div>
-                                            )}
+                                                )}
 
-                                        {reimbursement.employee &&
-                                            reimbursement.employee.identity_address == authIdentity.address && (
-                                                <div className="button-group">
-                                                    {!reimbursement.expired && !reimbursement.deactivated && (
-                                                        <div
-                                                            className="button button-primary button-sm"
-                                                            data-dusk="reimbursementApprove"
-                                                            onClick={() => resolve(true)}>
-                                                            <em className="mdi mdi-check-circle icon-start" />
-                                                            Accepteren
-                                                        </div>
-                                                    )}
-
-                                                    {!reimbursement.expired && !reimbursement.deactivated && (
-                                                        <div
-                                                            className="button button-default button-sm"
-                                                            data-dusk="reimbursementDecline"
-                                                            onClick={() => resolve(false)}>
-                                                            <em className="mdi mdi-close-circle icon-start" />
-                                                            Weigeren
-                                                        </div>
-                                                    )}
-
+                                                {!reimbursement.expired && !reimbursement.deactivated && (
                                                     <div
-                                                        className="button button-primary-light button-sm"
-                                                        data-dusk="reimbursementResign"
-                                                        onClick={() => resign()}>
-                                                        <em className="mdi mdi-account-minus icon-start" />
-                                                        Meld af
+                                                        className="button button-default button-sm"
+                                                        data-dusk="reimbursementDecline"
+                                                        onClick={() => resolve(false)}>
+                                                        <em className="mdi mdi-close-circle icon-start" />
+                                                        Weigeren
                                                     </div>
-                                                </div>
-                                            )}
+                                                )}
 
-                                        {reimbursement.employee &&
-                                            reimbursement.employee.identity_address != authIdentity.address && (
-                                                <div className="card-title">
-                                                    <div className="text-small">
-                                                        Assigned to:&nbsp;
-                                                        <span className="text-primary text-strong">
-                                                            {reimbursement.employee.email}
-                                                        </span>
-                                                    </div>
+                                                <div
+                                                    className="button button-primary-light button-sm"
+                                                    data-dusk="reimbursementResign"
+                                                    onClick={() => resign()}>
+                                                    <em className="mdi mdi-account-minus icon-start" />
+                                                    Meld af
                                                 </div>
-                                            )}
-                                    </div>
+                                            </div>
+                                        )}
+
+                                    {reimbursement.employee &&
+                                        reimbursement.employee.identity_address != authIdentity.address && (
+                                            <div className="card-title">
+                                                <div className="text-small">
+                                                    Assigned to:&nbsp;
+                                                    <span className="text-primary text-strong">
+                                                        {reimbursement.employee.email}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        )}
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="card-section">
@@ -549,7 +549,7 @@ export default function ReimbursementsView() {
 
             {reimbursement && (
                 <div className="card">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">Extra informatie</div>
                         <div className="block block-inline-filters">
                             {reimbursement.employee?.identity_address === authIdentity.address && (

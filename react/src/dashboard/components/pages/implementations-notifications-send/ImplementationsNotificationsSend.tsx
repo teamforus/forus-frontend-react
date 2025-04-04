@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../props/ApiResponses';
@@ -11,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import ThSortable from '../../elements/tables/ThSortable';
 import useFilter from '../../../hooks/useFilter';
@@ -28,6 +26,7 @@ import SystemNotification from '../../../props/models/SystemNotification';
 import useFundIdentitiesExportService from '../../../services/exports/useFundIdentitiesExportService';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
@@ -35,9 +34,9 @@ export default function ImplementationsNotificationsSend() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
 
     const paginatorService = usePaginatorService();
@@ -201,14 +200,14 @@ export default function ImplementationsNotificationsSend() {
     );
 
     const onError = useCallback(
-        (res: ResponseError) => {
-            pushDanger('Error!', res.data.message);
+        (err: ResponseError) => {
+            pushApiError(err);
 
-            if (res.status === 422) {
-                setErrors(res.data.errors);
+            if (err.status === 422) {
+                setErrors(err.data.errors);
             }
         },
-        [pushDanger],
+        [pushApiError],
     );
 
     const submit = useCallback(() => {
@@ -328,11 +327,11 @@ export default function ImplementationsNotificationsSend() {
 
                 setImplementation(res.data.data);
             })
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
+            .catch(pushApiError);
     }, [
         id,
         navigateState,
-        pushDanger,
+        pushApiError,
         implementationService,
         activeOrganization.id,
         activeOrganization.allow_custom_fund_notifications,
@@ -345,8 +344,8 @@ export default function ImplementationsNotificationsSend() {
                 setFunds(res.data.data);
                 setFund(res.data.data[0]);
             })
-            .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message));
-    }, [fundService, activeOrganization.id, implementation?.id, pushDanger]);
+            .catch(pushApiError);
+    }, [fundService, activeOrganization.id, implementation?.id, pushApiError]);
 
     const fetchFundIdentities = useCallback(() => {
         if (fund) {
@@ -355,13 +354,13 @@ export default function ImplementationsNotificationsSend() {
             fundService
                 .listIdentities(activeOrganization.id, fund.id, identitiesFilters.activeValues)
                 .then((res) => setIdentities(res.data))
-                .catch((res: ResponseError) => pushDanger('Mislukt!', res.data.message))
+                .catch(pushApiError)
                 .finally(() => {
                     setLastIdentitiesQuery(identitiesFilters.activeValues.q);
                     setProgress(100);
                 });
         }
-    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilters?.activeValues, pushDanger]);
+    }, [fund, setProgress, fundService, activeOrganization.id, identitiesFilters?.activeValues, pushApiError]);
 
     useEffect(() => {
         if (implementation) {
@@ -401,14 +400,12 @@ export default function ImplementationsNotificationsSend() {
 
                 <div className="card">
                     <div className="card-header">
-                        <div className="flex">
-                            <div className="flex flex-grow">
-                                <div className="card-title">
-                                    <em className="mdi mdi-account-multiple-outline" />
-                                    Kies een doelgroep
-                                </div>
-                            </div>
-                            <div className="flex">
+                        <div className="flex flex-grow card-title">
+                            <em className="mdi mdi-account-multiple-outline" />
+                            Kies een doelgroep
+                        </div>
+                        <div className="card-header-filters">
+                            <div className="block block-inline-filters">
                                 {targetGroup == 'identities' &&
                                     hasPermission(activeOrganization, 'manage_vouchers') && (
                                         <div
@@ -421,27 +418,19 @@ export default function ImplementationsNotificationsSend() {
                                         </div>
                                     )}
 
-                                <div className="flex">
-                                    <div>
-                                        <div className="block block-label-tabs">
-                                            <div className="label-tab-set">
-                                                <div
-                                                    className={`label-tab ${
-                                                        targetGroup === 'identities' ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setTargetGroup('identities')}>
-                                                    <div className="mdi mdi-account-multiple-outline label-tab-icon-start" />
-                                                    Aanvragers
-                                                </div>
-                                                <div
-                                                    className={`label-tab ${
-                                                        targetGroup === 'providers' ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setTargetGroup('providers')}>
-                                                    <div className="mdi mdi-store-outline label-tab-icon-start" />
-                                                    Aanbieders
-                                                </div>
-                                            </div>
+                                <div className="block block-label-tabs">
+                                    <div className="label-tab-set">
+                                        <div
+                                            className={`label-tab ${targetGroup === 'identities' ? 'active' : ''}`}
+                                            onClick={() => setTargetGroup('identities')}>
+                                            <div className="mdi mdi-account-multiple-outline label-tab-icon-start" />
+                                            Aanvragers
+                                        </div>
+                                        <div
+                                            className={`label-tab ${targetGroup === 'providers' ? 'active' : ''}`}
+                                            onClick={() => setTargetGroup('providers')}>
+                                            <div className="mdi mdi-store-outline label-tab-icon-start" />
+                                            Aanbieders
                                         </div>
                                     </div>
                                 </div>
@@ -458,7 +447,6 @@ export default function ImplementationsNotificationsSend() {
                                     value={fund}
                                     onChange={(value: Fund) => setFund(value)}
                                     options={funds}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </div>
                         </div>
@@ -476,7 +464,6 @@ export default function ImplementationsNotificationsSend() {
                                             identitiesFilters.update({ target: value });
                                         }}
                                         options={identityTargets}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 </div>
                             </div>
@@ -495,7 +482,6 @@ export default function ImplementationsNotificationsSend() {
                                             providersFilters.update({ target: value });
                                         }}
                                         options={providerTargets}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                 </div>
                             </div>

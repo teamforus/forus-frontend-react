@@ -3,7 +3,6 @@ import BiConnectionIcon from '../../../../../assets/forus-platform/resources/pla
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import FormError from '../../elements/forms/errors/FormError';
@@ -11,7 +10,6 @@ import { useBiConnectionService } from '../../../services/BiConnectionService';
 import { chunk } from 'lodash';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
-import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import BiConnectionDataType from '../../../props/models/BiConnectionDataType';
 import { StringParam } from 'use-query-params';
@@ -25,6 +23,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import InfoBox from '../../elements/info-box/InfoBox';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function BiConnection() {
     const auth2FAState = useAuthIdentity2FAState();
@@ -33,9 +32,9 @@ export default function BiConnection() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const biConnectionService = useBiConnectionService();
 
@@ -106,7 +105,7 @@ export default function BiConnection() {
                         filtersUpdate({ view_type: 'security' });
                     }
 
-                    pushDanger(err.data?.message || 'Onbekende foutmelding!');
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setIpError(null);
@@ -152,10 +151,10 @@ export default function BiConnection() {
                     setConnection(res.data.data);
                     pushSuccess('Opgeslagen!');
                 })
-                .catch((err: ResponseError) => pushDanger(err.data?.message || 'Foutmelding!'))
+                .catch(pushApiError)
                 .finally(() => setProgress(100));
         });
-    }, [setProgress, activeOrganization.id, askConfirmation, biConnectionService, pushDanger, pushSuccess]);
+    }, [setProgress, activeOrganization.id, askConfirmation, biConnectionService, pushApiError, pushSuccess]);
 
     const addIp = useCallback(() => {
         if (!ip) {
@@ -262,7 +261,7 @@ export default function BiConnection() {
 
             <div className="card">
                 <form className="form">
-                    <div className="card-header card-header-next">
+                    <div className="card-header">
                         <div className="card-title flex flex-grow">{translate('bi_connection.title')}</div>
                         <BlockLabelTabs
                             value={filterValues.view_type}
@@ -513,7 +512,6 @@ export default function BiConnection() {
                                             onChange={(expiration_period: number) => {
                                                 form.update({ expiration_period });
                                             }}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </FormGroupInfo>
                                 </div>

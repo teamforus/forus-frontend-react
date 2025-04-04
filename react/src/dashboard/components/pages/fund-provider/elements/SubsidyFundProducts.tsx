@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
-import usePushDanger from '../../../../hooks/usePushDanger';
+import { PaginationData } from '../../../../props/ApiResponses';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization from '../../../../props/models/Organization';
 import useFilter from '../../../../hooks/useFilter';
@@ -13,6 +12,7 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import SponsorProduct, { DealHistory } from '../../../../props/models/Sponsor/SponsorProduct';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 type ProductLocal = SponsorProduct & {
     allowed: boolean;
@@ -28,8 +28,8 @@ export default function SubsidyFundProducts({
     organization: Organization;
     onChange: (data: FundProvider) => void;
 }) {
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const { disableProduct } = useUpdateProduct();
 
     const fundService = useFundService();
@@ -74,9 +74,9 @@ export default function SubsidyFundProducts({
                     data: res.data.data.map((product) => mapProduct(product)),
                 }),
             )
-            .catch((err: ResponseError) => pushDanger('Mislukt!', err.data.message))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, fundProvider, filter.activeValues, mapProduct, pushDanger]);
+    }, [setProgress, fundService, fundProvider, filter.activeValues, mapProduct, pushApiError]);
 
     useEffect(() => fetchProducts(), [fetchProducts]);
 
@@ -85,26 +85,19 @@ export default function SubsidyFundProducts({
     }
 
     return (
-        <div className="card">
+        <div className="card form">
             <div className="card-header">
-                <div className="flex-row">
-                    <div className="flex-col">
-                        <div className="card-title">Aanbod in beheer van {fundProvider.organization.name}</div>
-                    </div>
-                    <div className="flex-col">
-                        <div className="card-header-drown">
-                            <div className="block block-inline-filters">
-                                <div className="form">
-                                    <div className="form-group">
-                                        <input
-                                            className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
-                                            placeholder="Zoeken"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                <div className="flex flex-grow card-title">Aanbod in beheer van {fundProvider.organization.name}</div>
+
+                <div className="card-header-filters">
+                    <div className="block block-inline-filters">
+                        <div className="form-group">
+                            <input
+                                className="form-control"
+                                value={filter.values.q}
+                                onChange={(e) => filter.update({ q: e.target.value })}
+                                placeholder="Zoeken"
+                            />
                         </div>
                     </div>
                 </div>

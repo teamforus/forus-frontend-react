@@ -1,21 +1,19 @@
 import React, { Fragment, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import { useOrganizationService } from '../../../services/OrganizationService';
-import { ResponseError } from '../../../props/ApiResponses';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import SelectControl from '../../elements/select-control/SelectControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function TransactionSettings() {
     const activeOrganization = useActiveOrganization();
 
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const organizationService = useOrganizationService();
 
@@ -50,7 +48,7 @@ export default function TransactionSettings() {
         organizationService
             .updateBankFields(activeOrganization.id, values)
             .then(() => pushSuccess('Opgeslagen!'))
-            .catch((e: ResponseError) => pushDanger('Mislukt!', e?.data.message || 'Onbekende foutmelding.'))
+            .catch(pushApiError)
             .finally(() => form.setIsLocked(false));
     });
 
@@ -243,7 +241,6 @@ export default function TransactionSettings() {
                                             value={form.values?.bank_separator}
                                             onChange={(bank_separator: string) => form.update({ bank_separator })}
                                             options={separatorOptions}
-                                            optionsComponent={SelectControlOptions}
                                         />
                                     </div>
                                 </div>

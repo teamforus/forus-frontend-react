@@ -7,7 +7,6 @@ import Organization from '../../../../props/models/Organization';
 import FormError from '../../../elements/forms/errors/FormError';
 import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import BusinessType from '../../../../props/models/BusinessType';
 import { useBusinessTypeService } from '../../../../services/BusinessTypeService';
 import { useParams } from 'react-router-dom';
@@ -15,7 +14,6 @@ import { useNavigateState } from '../../../../modules/state_router/Router';
 import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
@@ -25,6 +23,8 @@ import useEnvData from '../../../../hooks/useEnvData';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Media from '../../../../props/models/Media';
 import useTranslate from '../../../../hooks/useTranslate';
+import usePushApiError from '../../../../hooks/usePushApiError';
+import SelectControlOptionsFD from '../../../elements/select-control/templates/SelectControlOptionsFD';
 
 export default function OrganizationForm() {
     const { organizationId } = useParams();
@@ -34,9 +34,9 @@ export default function OrganizationForm() {
     const authIdentity = useAuthIdentity();
 
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const envData = useEnvData();
     const isProvider = useMemo(() => envData?.client_type === 'provider', [envData?.client_type]);
@@ -133,7 +133,7 @@ export default function OrganizationForm() {
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
                     form.setErrors(err.data.errors);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         });
@@ -339,7 +339,7 @@ export default function OrganizationForm() {
                                     propKey={'id'}
                                     allowSearch={true}
                                     value={form.values?.business_type_id}
-                                    optionsComponent={SelectControlOptions}
+                                    optionsComponent={SelectControlOptionsFD}
                                     onChange={(id?: number) => form.update({ business_type_id: id })}
                                 />
                                 <FormError error={form.errors?.business_type_id} />

@@ -4,7 +4,6 @@ import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
 import FormError from '../elements/forms/errors/FormError';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../helpers/dates';
 import VoucherRecordsEditor from '../pages/vouchers/elements/VoucherRecordsEditor';
@@ -23,6 +22,7 @@ import ModalNotification from './ModalNotification';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalVoucherCreate({
     funds,
@@ -43,6 +43,7 @@ export default function ModalVoucherCreate({
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const voucherService = useVoucherService();
     const productService = useProductService();
@@ -126,7 +127,7 @@ export default function ModalVoucherCreate({
                     .catch((err: ResponseError) => {
                         form.setErrors(err.data.errors);
                         form.setIsLocked(false);
-                        pushDanger('Mislukt!', err.data.message);
+                        pushApiError(err);
                     })
                     .finally(() => {
                         setProgress(100);
@@ -197,7 +198,7 @@ export default function ModalVoucherCreate({
                     }
                 })
                 .catch((err: ResponseError) => {
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                     form.setErrors(err.data.errors);
                     form.setIsLocked(false);
                 })
@@ -392,7 +393,6 @@ export default function ModalVoucherCreate({
                                                         }}
                                                         options={creditTypes}
                                                         allowSearch={false}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                     <FormError error={form.errors?.type} />
                                                 </FormGroupInfo>
@@ -438,7 +438,6 @@ export default function ModalVoucherCreate({
                                                         propKey={'id'}
                                                         options={products}
                                                         placeholder="Selecteer aanbod..."
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(product_id: number) => form.update({ product_id })}
                                                     />
                                                 </div>
@@ -463,7 +462,6 @@ export default function ModalVoucherCreate({
                                                         onChange={setAssignType}
                                                         options={assignTypes}
                                                         allowSearch={false}
-                                                        optionsComponent={SelectControlOptions}
                                                     />
                                                     <FormError error={form.errors?.assign_by_type} />
                                                 </FormGroupInfo>

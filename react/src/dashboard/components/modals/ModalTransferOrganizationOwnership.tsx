@@ -7,7 +7,6 @@ import FormError from '../elements/forms/errors/FormError';
 import { ModalButton } from './elements/ModalButton';
 import { useOrganizationService } from '../../services/OrganizationService';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import { ResponseError } from '../../props/ApiResponses';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
@@ -83,7 +82,6 @@ export default function ModalTransferOrganizationOwnership({
                                         onChange={(value?: number) => {
                                             form.update({ employee_id: value });
                                         }}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={form.errors['employee']} />
                                 </div>

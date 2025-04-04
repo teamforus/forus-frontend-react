@@ -9,11 +9,13 @@ import ProductDetailsBlock from '../products-view/elements/ProductDetailsBlock';
 import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
 import ProductMonitoredHistoryCard from './elements/ProductMonitoredHistoryCard';
 import ProductMonitoredHistoryCardFunds from './elements/ProductMonitoredHistoryCardFunds';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function SponsorProductView() {
     const { productId } = useParams();
 
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const productService = useProductService();
     const activeOrganization = useActiveOrganization();
@@ -26,8 +28,9 @@ export default function SponsorProductView() {
         productService
             .sponsorProduct(activeOrganization.id, parseInt(productId))
             .then((res) => setProduct(res.data.data))
+            .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [activeOrganization.id, productService, productId, setProgress]);
+    }, [activeOrganization.id, productService, productId, setProgress, pushApiError]);
 
     useEffect(() => {
         fetchProduct();

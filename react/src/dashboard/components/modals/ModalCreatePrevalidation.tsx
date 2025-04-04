@@ -7,14 +7,13 @@ import { usePrevalidationService } from '../../services/PrevalidationService';
 import Fund from '../../props/models/Fund';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import FormError from '../elements/forms/errors/FormError';
 import PrevalidationRecord from '../../props/models/PrevalidationRecord';
 import { ResponseError } from '../../props/ApiResponses';
 import { dateFormat, dateParse } from '../../helpers/dates';
 import useSetProgress from '../../hooks/useSetProgress';
-import usePushDanger from '../../hooks/usePushDanger';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalCreatePrevalidation({
     fund,
@@ -29,7 +28,7 @@ export default function ModalCreatePrevalidation({
     recordTypes: Array<RecordType>;
     onCreated: () => void;
 }) {
-    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
     const prevalidationService = usePrevalidationService();
 
@@ -120,7 +119,7 @@ export default function ModalCreatePrevalidation({
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
                     form.setIsLocked(false);
-                    pushDanger('Mislukt!', err.data.message);
+                    pushApiError(err);
                     setVerificationRequested(false);
                 })
                 .finally(() => setProgress(100));
@@ -230,7 +229,6 @@ export default function ModalCreatePrevalidation({
                                                                 placeholder="Waarde"
                                                                 value={form.values[fundRecord]}
                                                                 options={recordTypesByKey[fundRecord].options}
-                                                                optionsComponent={SelectControlOptions}
                                                                 onChange={(value: string) => {
                                                                     form.update({ [fundRecord]: value });
                                                                 }}
@@ -306,7 +304,6 @@ export default function ModalCreatePrevalidation({
                                                             propKey={'key'}
                                                             value={formNewRecord.values.record_type_key}
                                                             options={recordTypesAvailable}
-                                                            optionsComponent={SelectControlOptions}
                                                             onChange={(record_type_key: string) => {
                                                                 formNewRecord.update({ record_type_key });
                                                             }}

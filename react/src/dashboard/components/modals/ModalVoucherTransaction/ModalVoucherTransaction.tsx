@@ -2,22 +2,22 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { ModalState } from '../../../modules/modals/context/ModalContext';
 import { hasPermission } from '../../../helpers/utils';
 import useFormBuilder from '../../../hooks/useFormBuilder';
-import Voucher from '../../../props/models/Voucher';
+import SponsorVoucher from '../../../props/models/Sponsor/SponsorVoucher';
 import Organization from '../../../props/models/Organization';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import { useReimbursementsService } from '../../../services/ReimbursementService';
 import useVoucherService from '../../../services/VoucherService';
-import usePushDanger from '../../../hooks/usePushDanger';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import FormError from '../../elements/forms/errors/FormError';
 import { currencyFormat } from '../../../helpers/string';
 import ModalVoucherTransactionPreview from './ModalVoucherTransactionPreview';
 import Reimbursement from '../../../props/models/Reimbursement';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useTranslate from '../../../hooks/useTranslate';
+import usePushApiError from '../../../hooks/usePushApiError';
+import { ResponseError } from '../../../props/ApiResponses';
 import InfoBox from '../../elements/info-box/InfoBox';
 
 type ReimbursementLocale = Partial<Reimbursement & { id?: number; name: string }>;
@@ -32,15 +32,15 @@ export default function ModalVoucherTransaction({
 }: {
     modal: ModalState;
     target?: string;
-    voucher: Voucher;
+    voucher: SponsorVoucher;
     onCreated: () => void;
     className?: string;
     organization: Organization;
 }) {
     const translate = useTranslate();
 
-    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const fundService = useFundService();
     const voucherService = useVoucherService();
@@ -155,10 +155,10 @@ export default function ModalVoucherTransaction({
                     setState('finish');
                     onCreated?.();
                 })
-                .catch((res) => {
-                    form.setErrors(res.data.errors);
+                .catch((err: ResponseError) => {
+                    form.setErrors(err.data.errors);
                     setState('form');
-                    pushDanger('Mislukt!', res.data.message);
+                    pushApiError(err);
                 })
                 .finally(() => {
                     setProgress(100);
@@ -283,7 +283,6 @@ export default function ModalVoucherTransaction({
                                         propKey={'key'}
                                         options={targets}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(target: string) => {
                                             form.update({ target });
                                         }}
@@ -304,7 +303,6 @@ export default function ModalVoucherTransaction({
                                         propValue={'name'}
                                         allowSearch={true}
                                         options={providers}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(organization_id: number) => form.update({ organization_id })}
                                     />
                                     <FormError error={form.errors?.organization_id} />
@@ -322,7 +320,6 @@ export default function ModalVoucherTransaction({
                                         propKey={'key'}
                                         options={ibanSources}
                                         allowSearch={false}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(iban_source: 'manual' | 'reimbursement') => {
                                             form.update({ iban_source: iban_source });
                                         }}
@@ -343,7 +340,6 @@ export default function ModalVoucherTransaction({
                                             value={reimbursement}
                                             options={reimbursements}
                                             allowSearch={false}
-                                            optionsComponent={SelectControlOptions}
                                             onChange={setReimbursement}
                                         />
                                         <FormError error={form.errors?.iban_source} />

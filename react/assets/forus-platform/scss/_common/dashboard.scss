@@ -51,7 +51,6 @@
     @import 'blocks/block-app_links.scss';
     @import 'blocks/block-timeframe.scss';
     @import 'blocks/block-financial-dashboard.scss';
-    @import 'blocks/block-banner-picker.scss';
     @import 'blocks/block-markdownable.scss';
     @import 'blocks/block-markdown.scss';
     @import 'blocks/block-switch-table.scss';
@@ -87,6 +86,8 @@
     @import 'blocks/block-toast.scss';
 }
 
+@import 'blocks/block-banner-editor';
+@import 'blocks/block-color-picker';
 @import 'blocks/block-info-box.scss';
 @import 'blocks/block-fund-amounts.scss';
 @import 'blocks/block-info-with-icon.scss';
@@ -904,9 +905,10 @@ body {
         }
 
         .mdi {
-            margin-right: 5px;
+            margin-right: 7px;
             font-size: 20px;
-            line-height: inherit;
+            line-height: 30px;
+            height: 30px;
         }
 
         &.card-title-sm {
@@ -928,82 +930,75 @@ body {
     .card-header {
         padding: 15px 20px 14px;
         position: relative;
-        @include cf();
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-        &:not(.card-header-next) {
-            .card-header-drown,
-            .block.block-label-tabs,
-            .form-control,
-            .button {
-                margin-top: -2px;
-                margin-bottom: -2px;
-            }
-        }
-
-        &.card-header-next {
+        .card-header-filters {
             display: flex;
             flex-direction: row;
+            gap: 10px;
+            align-items: center;
 
-            .card-header-filters {
+            .block-inline-filters {
                 display: flex;
                 flex-direction: row;
                 gap: 10px;
                 align-items: center;
 
-                .block-inline-filters {
-                    display: flex;
-                    flex-direction: row;
-                    gap: 10px;
-                    align-items: center;
+                .form-control:not(.select-control) {
+                    min-height: auto !important;
 
-                    .form-control:not(.select-control) {
-                        &:not([type='radio']):not([type='checkbox']) {
-                            height: 30px;
-                            padding: 0 10px;
-                            line-height: 28px;
-                        }
-                    }
-
-                    .form-group-inline > .form-label {
-                        padding-top: 5px;
-                        padding-bottom: 5px;
-                    }
-
-                    .select-control {
-                        height: auto;
-
-                        .form-control:not([type='radio']):not([type='checkbox']) {
-                            padding-right: 30px;
-                        }
-                    }
-
-                    & > * {
-                        margin: 0 0 0 0;
+                    &:not([type='radio']):not([type='checkbox']) {
+                        height: 30px;
+                        padding: 0 10px;
+                        line-height: 28px;
                     }
                 }
-            }
 
-            .card-header-actions {
-                margin: -1px 0;
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
+                .form-group-inline > .form-label {
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                }
 
-            .block-label-tabs {
-                margin-left: 0;
+                .block-label-tabs {
+                    .label-tab {
+                        height: 30px;
+                        line-height: 24px;
+                        padding-top: 2px;
+                        padding-bottom: 2px;
+                        font-size: 12px;
+
+                        .mdi {
+                            font-size: 1.36em;
+                            line-height: 24px;
+                        }
+                    }
+                }
+
+                .select-control {
+                    min-height: auto !important;
+
+                    .form-control:not([type='radio']):not([type='checkbox']) {
+                        padding-right: 30px;
+                    }
+                }
+
+                & > * {
+                    margin: 0 0 0 0;
+                }
             }
         }
 
-        .card-header-drown {
-            .block.block-label-tabs,
-            .form-group,
-            .block.block-inline-filters .form-group,
-            .form-control,
-            .button {
-                margin-top: 0;
-                margin-bottom: 0;
-            }
+        .card-header-actions {
+            margin: -1px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .block-label-tabs {
+            margin-left: 0;
         }
 
         .button {
@@ -1035,13 +1030,12 @@ body {
         }
 
         &.card-header-md {
-            padding: 15px 20px;
-
             .card-title {
                 font: 600 14px / 21px var(--base-font);
 
                 .mdi {
                     margin-right: 0;
+                    margin-left: -15px;
                     color: #646f79;
                 }
             }

@@ -4,7 +4,6 @@ import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import usePushDanger from '../../../../hooks/usePushDanger';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { strLimit } from '../../../../helpers/string';
@@ -15,7 +14,6 @@ import Fund from '../../../../props/models/Fund';
 import CardHeaderFilter from '../../../elements/tables/elements/CardHeaderFilter';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../../elements/select-control/templates/SelectControlOptions';
 import ModalNotification from '../../../modals/ModalNotification';
 import useTableToggles from '../../../../hooks/useTableToggles';
 import Implementation from '../../../../props/models/Implementation';
@@ -24,6 +22,7 @@ import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import usePushApiError from '../../../../hooks/usePushApiError';
 
 export default function ProviderFundsAvailableTable({
     organization,
@@ -38,8 +37,8 @@ export default function ProviderFundsAvailableTable({
 
     const assetUrl = useAssetUrl();
     const setProgress = useSetProgress();
-    const pushDanger = usePushDanger();
     const openModal = useOpenModal();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
     const providerFundService = useProviderFundService();
@@ -124,7 +123,7 @@ export default function ProviderFundsAvailableTable({
                     successApplying();
                     setSelected([]);
                 })
-                .catch((err) => pushDanger('Mislukt!', err.data?.message))
+                .catch(pushApiError)
                 .finally(() => {
                     filter.touch();
                     onChange?.();
@@ -137,7 +136,7 @@ export default function ProviderFundsAvailableTable({
             organization.id,
             organization.offices_count,
             providerFundService,
-            pushDanger,
+            pushApiError,
             setSelected,
             successApplying,
         ],
@@ -200,12 +199,12 @@ export default function ProviderFundsAvailableTable({
                     ];
                 });
             })
-            .catch((err) => pushDanger('Mislukt!', err.data?.message));
-    }, [fetchFunds, filter.activeValues, organization, pushDanger, setSelected, translate]);
+            .catch(pushApiError);
+    }, [fetchFunds, filter.activeValues, organization, pushApiError, setSelected, translate]);
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate(`provider_funds.title.available`)}
 
@@ -261,7 +260,6 @@ export default function ProviderFundsAvailableTable({
                                     propKey={'id'}
                                     propValue={'name'}
                                     onChange={(implementation_id?: number) => filter.update({ implementation_id })}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </FilterItemToggle>
 
@@ -272,7 +270,6 @@ export default function ProviderFundsAvailableTable({
                                     propKey={'id'}
                                     propValue={'name'}
                                     onChange={(organization_id?: number) => filter.update({ organization_id })}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </FilterItemToggle>
 
@@ -283,7 +280,6 @@ export default function ProviderFundsAvailableTable({
                                     propKey={'key'}
                                     propValue={'name'}
                                     onChange={(tag?: string) => filter.update({ tag })}
-                                    optionsComponent={SelectControlOptions}
                                 />
                             </FilterItemToggle>
                         </CardHeaderFilter>

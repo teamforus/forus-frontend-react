@@ -271,7 +271,7 @@ router.state('bookmarked-products', <BookmarkedProducts />, {
 });
 
 router.state('fund-pre-check', <FundsPreCheck />, {
-    path: `/regelcheck`,
+    path: `/regelingencheck`,
     altPath: `/fund-pre-check`,
     protected: false,
 });

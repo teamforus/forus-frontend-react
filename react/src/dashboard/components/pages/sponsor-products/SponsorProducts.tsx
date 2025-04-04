@@ -13,7 +13,6 @@ import SponsorProductsTable from './elements/SponsorProductsTable';
 import SponsorProductsChangesTable from './elements/SponsorProductsChangesTable';
 import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam, createEnumParam, useQueryParam, withDefault } from 'use-query-params';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
@@ -153,7 +152,7 @@ export default function SponsorProducts() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('products.offers')} ({products.meta.total})
                 </div>
@@ -239,7 +238,6 @@ export default function SponsorProducts() {
                                                     allowSearch={false}
                                                     value={filterValues.fund_id || funds?.[0]?.id}
                                                     options={funds}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                                 />
                                             </FilterItemToggle>
@@ -252,7 +250,6 @@ export default function SponsorProducts() {
                                                     allowSearch={false}
                                                     value={filterValues.has_reservations}
                                                     options={hasReservationOptions}
-                                                    optionsComponent={SelectControlOptions}
                                                     onChange={(has_reservations: number) =>
                                                         filterUpdate({ has_reservations })
                                                     }

@@ -12,7 +12,6 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import useProductReservationService from '../../../services/ProductReservationService';
 import Reservation from '../../../props/models/Reservation';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushDanger from '../../../hooks/usePushDanger';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useProductReservationsExportService from '../../../services/exports/useProductReservationsExportService';
@@ -21,7 +20,6 @@ import Fund from '../../../props/models/Fund';
 import { hasPermission } from '../../../helpers/utils';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
@@ -40,6 +38,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Reservations() {
     const activeOrganization = useActiveOrganization();
@@ -48,9 +47,9 @@ export default function Reservations() {
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const productService = useProductService();
     const paginatorService = usePaginatorService();
@@ -147,13 +146,13 @@ export default function Reservations() {
     const acceptReservation = useCallback(
         (reservation: Reservation) => {
             confirmReservationApproval(reservation as Reservation, () => {
-                productReservationService.accept(activeOrganization.id, reservation.id).then(
-                    () => {
+                productReservationService
+                    .accept(activeOrganization.id, reservation.id)
+                    .then(() => {
                         pushSuccess('Opgeslagen!');
                         fetchAllReservations();
-                    },
-                    (res) => pushDanger(res.data.message),
-                );
+                    })
+                    .catch(pushApiError);
             });
         },
         [
@@ -161,7 +160,7 @@ export default function Reservations() {
             confirmReservationApproval,
             fetchAllReservations,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
         ],
     );
@@ -173,18 +172,18 @@ export default function Reservations() {
             }
 
             confirmReservationRejection(reservation, () => {
-                productReservationService.reject(activeOrganization.id, reservation.id).then(
-                    () => {
+                productReservationService
+                    .reject(activeOrganization.id, reservation.id)
+                    .then(() => {
                         pushSuccess('Opgeslagen!');
                         fetchAllReservations();
-                    },
-                    (res) => pushDanger(res.data.message),
-                );
+                    })
+                    .catch(pushApiError);
             });
         },
         [
-            pushDanger,
             pushSuccess,
+            pushApiError,
             activeOrganization.id,
             fetchAllReservations,
             showReservationRejectInfoExtraPaid,
@@ -205,7 +204,7 @@ export default function Reservations() {
                         setAcceptByDefault(res.data.data.reservations_auto_accept);
                         pushSuccess('Opgeslagen!');
                     })
-                    .catch(() => pushDanger('Er is iets misgegaan!'));
+                    .catch(pushApiError);
             };
 
             const onDisable = () => {
@@ -216,7 +215,7 @@ export default function Reservations() {
                         setAcceptByDefault(res.data.data.reservations_auto_accept);
                         pushSuccess('Opgeslagen!');
                     })
-                    .catch(() => pushDanger('Er is iets misgegaan!'));
+                    .catch(pushApiError);
             };
 
             const onCancel = () => {
@@ -259,7 +258,7 @@ export default function Reservations() {
                 />
             ));
         },
-        [activeOrganization, updateActiveOrganization, openModal, organizationService, pushDanger, pushSuccess],
+        [activeOrganization, updateActiveOrganization, openModal, organizationService, pushApiError, pushSuccess],
     );
 
     const makeReservation = useCallback(() => {
@@ -289,13 +288,13 @@ export default function Reservations() {
     const archiveReservation = useCallback(
         (reservation: Reservation) => {
             confirmReservationArchive(reservation as Reservation, () => {
-                productReservationService.archive(activeOrganization.id, reservation.id).then(
-                    () => {
+                productReservationService
+                    .archive(activeOrganization.id, reservation.id)
+                    .then(() => {
                         pushSuccess('Opgeslagen!');
                         fetchAllReservations();
-                    },
-                    (res) => pushDanger(res.data.message),
-                );
+                    })
+                    .catch(pushApiError);
             });
         },
         [
@@ -303,7 +302,7 @@ export default function Reservations() {
             confirmReservationArchive,
             fetchAllReservations,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
         ],
     );
@@ -311,13 +310,13 @@ export default function Reservations() {
     const unarchiveReservation = useCallback(
         (reservation: Reservation) => {
             confirmReservationUnarchive(reservation as Reservation, () => {
-                productReservationService.unarchive(activeOrganization.id, reservation.id).then(
-                    () => {
+                productReservationService
+                    .unarchive(activeOrganization.id, reservation.id)
+                    .then(() => {
                         pushSuccess('Opgeslagen!');
                         fetchAllReservations();
-                    },
-                    (res) => pushDanger(res.data.message),
-                );
+                    })
+                    .catch(pushApiError);
             });
         },
         [
@@ -325,7 +324,7 @@ export default function Reservations() {
             confirmReservationUnarchive,
             fetchAllReservations,
             productReservationService,
-            pushDanger,
+            pushApiError,
             pushSuccess,
         ],
     );
@@ -361,7 +360,7 @@ export default function Reservations() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="reservationsTitle">
                     {translate('reservations.header.title')} ({reservations?.meta?.total})
                 </div>
@@ -444,7 +443,6 @@ export default function Reservations() {
                                         propKey={'id'}
                                         allowSearch={false}
                                         options={funds}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(fund_id: number) => filter.update({ fund_id })}
                                     />
                                 )}
@@ -457,7 +455,6 @@ export default function Reservations() {
                                         propKey={'id'}
                                         allowSearch={true}
                                         options={products}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(product_id: number) => filter.update({ product_id })}
                                     />
                                 )}
@@ -490,7 +487,6 @@ export default function Reservations() {
                                     allowSearch={false}
                                     value={filter.values.state}
                                     options={states}
-                                    optionsComponent={SelectControlOptions}
                                     onChange={(state: string) => filter.update({ state })}
                                 />
                             </FilterItemToggle>

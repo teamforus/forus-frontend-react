@@ -47,7 +47,8 @@ $primaryColorLight: #305dfb;
     --navbar-menu-item-line-position-bottom: auto;
 
     // wrapper
-    --wrapper-width: 1280px;
+    --wrapper-width: calc(1280px + 50px);
+    --wrapper-padding: 20px;
 
     // Outline
     --focus-outline: 2px solid #315efd;
@@ -95,9 +96,7 @@ $primaryColorLight: #305dfb;
     --bc: #d13b3b;
 
     // background color
-    --bg: #f3f8fe;
-
-    --bg_2: linear-gradient(to bottom, #f3f8fe 0%, #feffff 100%);
+    --body-background: #fff;
 
     // footer color
     --footer_background_color: #fff;

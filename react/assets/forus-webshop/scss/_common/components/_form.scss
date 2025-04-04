@@ -336,6 +336,29 @@
                     border-bottom: none;
                 }
             }
+
+            &.select-control-options-fd {
+                position: initial;
+                left: auto;
+                top: auto;
+                width: auto;
+                z-index: 2;
+                margin: 0 0 0;
+                border: 1px solid #d4d9dd !important;
+                border-radius: var(--border-radius);
+
+                &.select-control-options-fd-bottom {
+                    border-top: none !important;
+                    border-top-left-radius: 0 !important;
+                    border-top-right-radius: 0 !important;
+                }
+
+                &.select-control-options-fd-top {
+                    border-bottom: none !important;
+                    border-bottom-left-radius: 0 !important;
+                    border-bottom-right-radius: 0 !important;
+                }
+            }
         }
 
         &.options {
@@ -363,12 +386,15 @@
     }
 
     .select-control.select-control-country-codes {
+        z-index: 2;
+        border: none !important;
+
         .select-control-input {
             --option-height: 30px;
 
             .form-control:not([type='radio']):not([type='checkbox']).select-control-search {
                 font: 600 16px/24px var(--base-font);
-                border: none;
+                border: none !important;
                 text-align: left;
                 box-shadow: none;
                 padding-right: 30px;
@@ -1084,6 +1110,14 @@
             &.has-info-btn {
                 .form-control:not([type='radio']):not([type='checkbox']) {
                     padding-right: 45px;
+
+                    &.select-control {
+                        .select-control-input {
+                            .select-control-icon {
+                                right: 45px;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1099,6 +1133,7 @@
             flex-direction: column;
             justify-content: center;
             cursor: pointer;
+            z-index: 1;
 
             .mdi {
                 color: #004d93;

@@ -11,7 +11,6 @@ import useTransactionBulkService from '../../../services/TransactionBulkService'
 import { PaginationData } from '../../../props/ApiResponses';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import { strLimit } from '../../../helpers/string';
-import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import TransactionBulk from '../../../props/models/TransactionBulk';
 import useTransactionExportService from '../../../services/exports/useTransactionExportService';
@@ -24,7 +23,6 @@ import useProviderFundService from '../../../services/ProviderFundService';
 import Fund from '../../../props/models/Fund';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -40,15 +38,16 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Transactions() {
     const envData = useEnvData();
 
     const openModal = useOpenModal();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
     const paginatorService = usePaginatorService();
     const activeOrganization = useActiveOrganization();
@@ -310,7 +309,7 @@ export default function Transactions() {
                         pushSuccess(`Succes!`, `Accepteer de transactie in uw mobiele app van bunq.`);
                     }
                 })
-                .catch((res) => pushDanger('Bulk betaalopdrachten mislukt', res.data.message || 'Er ging iets mis!'))
+                .catch(pushApiError)
                 .finally(() => {
                     setBuildingBulks(false);
                     updateHasPendingBulking();
@@ -322,7 +321,7 @@ export default function Transactions() {
         confirmBulkNow,
         filter.activeValues,
         navigateState,
-        pushDanger,
+        pushApiError,
         pushSuccess,
         setProgress,
         transactionBulkService,
@@ -365,7 +364,7 @@ export default function Transactions() {
 
     return (
         <div className="card">
-            <div className="card-header card-header-next">
+            <div className="card-header">
                 {viewType.key == 'transactions' ? (
                     <div className="card-title flex flex-grow">
                         {isSponsor
@@ -501,7 +500,6 @@ export default function Transactions() {
                                         allowSearch={false}
                                         value={filter.values.state}
                                         options={states}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(state: string) => filter.update({ state })}
                                     />
                                 </FilterItemToggle>
@@ -513,7 +511,6 @@ export default function Transactions() {
                                             propKey={'id'}
                                             allowSearch={false}
                                             options={funds}
-                                            optionsComponent={SelectControlOptions}
                                             onChange={(fund_id: number) => filter.update({ fund_id })}
                                         />
                                     )}
@@ -601,7 +598,6 @@ export default function Transactions() {
                                                 allowSearch={false}
                                                 value={filter.values.bulk_state}
                                                 options={bulkStates}
-                                                optionsComponent={SelectControlOptions}
                                                 onChange={(bulk_state: string) => filter.update({ bulk_state })}
                                             />
                                         </FilterItemToggle>
@@ -615,7 +611,6 @@ export default function Transactions() {
                                         allowSearch={false}
                                         value={filter.values.fund_state}
                                         options={fundStates}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(fund_state: string) => filter.update({ fund_state })}
                                     />
                                 </FilterItemToggle>
@@ -708,7 +703,6 @@ export default function Transactions() {
                                         allowSearch={false}
                                         value={bulkFilter.values.state}
                                         options={bulkStates}
-                                        optionsComponent={SelectControlOptions}
                                         onChange={(state: string) => bulkFilter.update({ state })}
                                     />
                                 </FilterItemToggle>

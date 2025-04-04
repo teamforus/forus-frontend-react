@@ -7,9 +7,9 @@ import useFormBuilder from '../../hooks/useFormBuilder';
 import { useReimbursementsService } from '../../services/ReimbursementService';
 import useSetProgress from '../../hooks/useSetProgress';
 import usePushSuccess from '../../hooks/usePushSuccess';
-import usePushDanger from '../../hooks/usePushDanger';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import Tooltip from '../elements/tooltip/Tooltip';
+import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalReimbursementResolve({
     modal,
@@ -26,8 +26,8 @@ export default function ModalReimbursementResolve({
     onSubmit: (res: ApiResponseSingle<Reimbursement>) => void;
     className?: string;
 }) {
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
     const reimbursementService = useReimbursementsService();
@@ -63,7 +63,7 @@ export default function ModalReimbursementResolve({
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data?.errors);
                     form.setIsLocked(false);
-                    pushDanger('Mislukt!', err.data?.message);
+                    pushApiError(err);
                 })
                 .finally(() => setProgress(100));
         },
