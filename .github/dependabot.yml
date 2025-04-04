@@ -10,7 +10,6 @@
      schedule:
        interval: "monthly"
      reviewers:
-       - "lexlog"
        - "dev-rminds"
      assignees:
        - "dev-rminds"
