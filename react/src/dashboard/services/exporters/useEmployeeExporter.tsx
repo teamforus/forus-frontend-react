@@ -2,16 +2,16 @@ import React, { useCallback } from 'react';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
-import useMakeExporterService from './useMakeExporterService';
+import useMakeExporterService from './hooks/useMakeExporterService';
 import usePushApiError from '../../hooks/usePushApiError';
-import { useFundRequestValidatorService } from '../FundRequestValidatorService';
+import { useEmployeeService } from '../EmployeeService';
 
-export default function useFundRequestExportService() {
-    const setProgress = useSetProgress();
+export default function useEmployeeExporter() {
     const openModal = useOpenModal();
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const fundRequestService = useFundRequestValidatorService();
+    const employeeService = useEmployeeService();
     const { makeSections, saveExportedData } = useMakeExporterService();
 
     const exportData = useCallback(
@@ -23,20 +23,20 @@ export default function useFundRequestExportService() {
                 setProgress(0);
                 console.info('- data loaded from the api.');
 
-                fundRequestService
+                employeeService
                     .export(organization_id, queryFilters)
-                    .then((res) => saveExportedData(data, organization_id, res, 'fund-requests'))
+                    .then((res) => saveExportedData(data, organization_id, res, 'employees'))
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
-            fundRequestService.exportFields(organization_id).then((res) => {
+            employeeService.exportFields(organization_id).then((res) => {
                 openModal((modal) => (
                     <ModalExportDataSelect modal={modal} sections={makeSections(res.data.data)} onSuccess={onSuccess} />
                 ));
             });
         },
-        [makeSections, openModal, pushApiError, saveExportedData, setProgress, fundRequestService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, employeeService],
     );
 
     return { exportData };

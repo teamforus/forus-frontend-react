@@ -13,7 +13,7 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import { strLimit } from '../../../helpers/string';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import TransactionBulk from '../../../props/models/TransactionBulk';
-import useTransactionExportService from '../../../services/exports/useTransactionExportService';
+import useTransactionExporter from '../../../services/exporters/useTransactionExporter';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import ThSortable from '../../elements/tables/ThSortable';
@@ -28,7 +28,7 @@ import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 import { hasPermission } from '../../../helpers/utils';
-import useTransactionBulkExportService from '../../../services/exports/useTransactionBulkExportService';
+import useTransactionBulkExporter from '../../../services/exporters/useTransactionBulkExporter';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import ModalVoucherTransactionsUpload from '../../modals/ModalVoucherTransactionsUpload';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
@@ -49,16 +49,17 @@ export default function Transactions() {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
-    const paginatorService = usePaginatorService();
-    const activeOrganization = useActiveOrganization();
 
+    const activeOrganization = useActiveOrganization();
+    const transactionExporter = useTransactionExporter();
+    const transactionBulkExporter = useTransactionBulkExporter();
+
+    const paginatorService = usePaginatorService();
     const transactionService = useTransactionService();
     const transactionBulkService = useTransactionBulkService();
 
     const fundService = useFundService();
     const providerFundsService = useProviderFundService();
-    const transactionsExportService = useTransactionExportService();
-    const transactionBulksExportService = useTransactionBulkExportService();
 
     const isSponsor = useMemo(() => envData.client_type == 'sponsor', [envData.client_type]);
     const isProvider = useMemo(() => envData.client_type == 'provider', [envData.client_type]);
@@ -197,20 +198,20 @@ export default function Transactions() {
     const exportTransactions = useCallback(() => {
         setShow(false);
 
-        transactionsExportService.exportData(activeOrganization.id, {
+        transactionExporter.exportData(activeOrganization.id, {
             ...filter.activeValues,
             per_page: null,
         });
-    }, [activeOrganization.id, filter.activeValues, setShow, transactionsExportService]);
+    }, [activeOrganization.id, filter.activeValues, setShow, transactionExporter]);
 
     const exportTransactionBulks = useCallback(() => {
         setShowBulk(false);
 
-        transactionBulksExportService.exportData(activeOrganization.id, {
+        transactionBulkExporter.exportData(activeOrganization.id, {
             ...bulkFilter.activeValues,
             per_page: null,
         });
-    }, [activeOrganization.id, bulkFilter.activeValues, setShowBulk, transactionBulksExportService]);
+    }, [activeOrganization.id, bulkFilter.activeValues, setShowBulk, transactionBulkExporter]);
 
     const updateHasPendingBulking = useCallback(() => {
         fetchTransactions({
@@ -237,7 +238,7 @@ export default function Transactions() {
     }, [activeOrganization, fetchTransactions, filter.activeValues, isSponsor, openModal, updateHasPendingBulking]);
 
     const confirmDangerAction = useCallback(
-        (title, description_text, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
+        (title: string, description_text: string, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
             return new Promise((resolve) => {
                 openModal((modal) => (
                     <ModalDangerZone

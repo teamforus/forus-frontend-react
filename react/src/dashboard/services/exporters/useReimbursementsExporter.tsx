@@ -3,12 +3,12 @@ import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
 import { useReimbursementsService } from '../ReimbursementService';
-import useMakeExporterService from './useMakeExporterService';
+import useMakeExporterService from './hooks/useMakeExporterService';
 import usePushApiError from '../../hooks/usePushApiError';
 
-export default function useReimbursementsExportService() {
-    const setProgress = useSetProgress();
+export default function useReimbursementsExporter() {
     const openModal = useOpenModal();
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
     const reimbursementService = useReimbursementsService();

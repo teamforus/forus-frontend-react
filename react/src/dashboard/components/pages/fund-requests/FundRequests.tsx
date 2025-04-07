@@ -21,16 +21,17 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import FundRequestsTable from './elements/FundRequestsTable';
 import { NumberParam, StringParam } from 'use-query-params';
-import useFundRequestExportService from '../../../services/exports/useFundRequestExportService';
+import useFundRequestExporter from '../../../services/exporters/useFundRequestExporter';
 
 export default function FundRequests() {
-    const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const activeOrganization = useActiveOrganization();
+    const fundRequestExporter = useFundRequestExporter();
 
+    const navigate = useNavigate();
+    const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
-    const navigate = useNavigate();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [employees, setEmployees] = useState(null);
@@ -39,7 +40,6 @@ export default function FundRequests() {
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
     const fundRequestService = useFundRequestValidatorService();
-    const fundRequestExportService = useFundRequestExportService();
 
     const [paginatorKey] = useState('fund_requests');
 
@@ -145,10 +145,10 @@ export default function FundRequests() {
     }, [setProgress, activeOrganization.id, employeeService, allEmployeesOption, pushApiError]);
 
     const exportRequests = useCallback(() => {
-        fundRequestExportService.exportData(activeOrganization.id, {
+        fundRequestExporter.exportData(activeOrganization.id, {
             ...filterActiveValues,
         });
-    }, [activeOrganization.id, filterActiveValues, fundRequestExportService]);
+    }, [activeOrganization.id, filterActiveValues, fundRequestExporter]);
 
     useEffect(() => {
         if (!appConfigs.organizations?.funds?.fund_requests) {

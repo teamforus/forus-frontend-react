@@ -1,19 +1,17 @@
 import React, { useCallback } from 'react';
 import useSetProgress from '../../hooks/useSetProgress';
-import useEnvData from '../../hooks/useEnvData';
-import useTransactionService from '../TransactionService';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
-import useMakeExporterService from './useMakeExporterService';
+import useMakeExporterService from './hooks/useMakeExporterService';
 import usePushApiError from '../../hooks/usePushApiError';
+import { usePrevalidationService } from '../PrevalidationService';
 
-export default function useTransactionExportService() {
-    const envData = useEnvData();
-    const setProgress = useSetProgress();
+export default function usePrevalidationExporter() {
     const openModal = useOpenModal();
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const transactionService = useTransactionService();
+    const prevalidationService = usePrevalidationService();
     const { makeSections, saveExportedData } = useMakeExporterService();
 
     const exportData = useCallback(
@@ -25,20 +23,20 @@ export default function useTransactionExportService() {
                 setProgress(0);
                 console.info('- data loaded from the api.');
 
-                transactionService
-                    .export(envData.client_type, organization_id, queryFilters)
-                    .then((res) => saveExportedData(data, organization_id, res))
+                prevalidationService
+                    .export(queryFilters)
+                    .then((res) => saveExportedData(data, organization_id, res, 'prevalidations'))
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
-            transactionService.exportFields(envData.client_type, organization_id).then((res) => {
+            prevalidationService.exportFields().then((res) => {
                 openModal((modal) => (
                     <ModalExportDataSelect modal={modal} sections={makeSections(res.data.data)} onSuccess={onSuccess} />
                 ));
             });
         },
-        [envData.client_type, makeSections, openModal, pushApiError, saveExportedData, setProgress, transactionService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, prevalidationService],
     );
 
     return { exportData };

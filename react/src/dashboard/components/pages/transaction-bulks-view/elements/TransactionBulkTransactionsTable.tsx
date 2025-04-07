@@ -5,7 +5,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import Transaction from '../../../../props/models/Transaction';
 import { PaginationData } from '../../../../props/ApiResponses';
-import useTransactionExportService from '../../../../services/exports/useTransactionExportService';
+import useTransactionExporter from '../../../../services/exporters/useTransactionExporter';
 import Organization from '../../../../props/models/Organization';
 import TransactionBulk from '../../../../props/models/TransactionBulk';
 import useTransactionService from '../../../../services/TransactionService';
@@ -30,9 +30,10 @@ export default function TransactionBulkTransactionsTable({
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
+    const transactionExporter = useTransactionExporter();
+
     const paginationService = usePaginatorService();
     const transactionService = useTransactionService();
-    const transactionsExportService = useTransactionExportService();
 
     const [transactions, setTransactions] = useState<PaginationData<Transaction>>(null);
     const [perPageKey] = useState('transaction_bulks_transactions');
@@ -44,12 +45,12 @@ export default function TransactionBulkTransactionsTable({
     });
 
     const exportTransactions = useCallback(() => {
-        transactionsExportService.exportData(organization.id, {
+        transactionExporter.exportData(organization.id, {
             ...filter.activeValues,
             voucher_transaction_bulk_id: transactionBulk.id,
             per_page: null,
         });
-    }, [organization.id, filter.activeValues, transactionBulk?.id, transactionsExportService]);
+    }, [organization.id, filter.activeValues, transactionBulk?.id, transactionExporter]);
 
     const fetchTransactions = useCallback(
         (id: number) => {

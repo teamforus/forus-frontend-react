@@ -12,7 +12,7 @@ import SelectControl from '../../elements/select-control/SelectControl';
 import { hasPermission } from '../../../helpers/utils';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
-import useReimbursementExportService from '../../../services/exports/useReimbursementExportService';
+import useReimbursementsExporter from '../../../services/exporters/useReimbursementsExporter';
 import useImplementationService from '../../../services/ImplementationService';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -28,6 +28,7 @@ import ReimbursementsTable from './elements/ReimbursementsTable';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
+    const reimbursementsExporter = useReimbursementsExporter();
 
     const translate = useTranslate();
     const setProgress = useSetProgress();
@@ -36,7 +37,6 @@ export default function Reimbursements() {
     const paginatorService = usePaginatorService();
     const reimbursementService = useReimbursementsService();
     const implementationService = useImplementationService();
-    const reimbursementExportService = useReimbursementExportService();
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -135,11 +135,11 @@ export default function Reimbursements() {
     }, [activeOrganization.id, implementationService]);
 
     const exportReimbursements = useCallback(() => {
-        reimbursementExportService.exportData(activeOrganization.id, {
+        reimbursementsExporter.exportData(activeOrganization.id, {
             ...filterValuesActive,
             per_page: null,
         });
-    }, [activeOrganization.id, filterValuesActive, reimbursementExportService]);
+    }, [activeOrganization.id, filterValuesActive, reimbursementsExporter]);
 
     useEffect(() => {
         fetchFunds().then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));

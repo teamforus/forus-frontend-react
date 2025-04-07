@@ -13,7 +13,7 @@ import { useFundService } from '../../../../services/FundService';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import useFundExportService from '../../../../services/exports/useFundExportService';
+import useFundExporter from '../../../../services/exporters/useFundExporter';
 
 export default function FinancialOverviewFundsBudgetTable({
     years,
@@ -33,9 +33,9 @@ export default function FinancialOverviewFundsBudgetTable({
     loaded: boolean;
 }) {
     const translate = useTranslate();
-    const fundExportService = useFundExportService();
-
     const setProgress = useSetProgress();
+
+    const fundExporter = useFundExporter();
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
@@ -49,8 +49,8 @@ export default function FinancialOverviewFundsBudgetTable({
     const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBudget());
 
     const exportFunds = useCallback(() => {
-        fundExportService.exportData(organization.id, true, year);
-    }, [fundExportService, organization.id, year]);
+        fundExporter.exportData(organization.id, true, year);
+    }, [fundExporter, organization.id, year]);
 
     useEffect(() => {
         if (!loaded) return;

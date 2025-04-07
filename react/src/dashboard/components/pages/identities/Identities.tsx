@@ -25,7 +25,7 @@ import { NumberParam, StringParam } from 'use-query-params';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableDateOnly from '../../elements/tables/elements/TableDateOnly';
-import useIdentityExportService from '../../../services/exports/useIdentityExportService';
+import useIdentityExporter from '../../../services/exporters/useIdentityExporter';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 
@@ -37,7 +37,7 @@ export default function Identities() {
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
-    const identityExportService = useIdentityExportService();
+    const identityExporter = useIdentityExporter();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
     const [loading, setLoading] = useState(false);
@@ -125,11 +125,11 @@ export default function Identities() {
     const exportIdentities = useCallback(() => {
         setShow(false);
 
-        identityExportService.exportData(activeOrganization.id, {
+        identityExporter.exportData(activeOrganization.id, {
             ...filter.activeValues,
             per_page: null,
         });
-    }, [activeOrganization.id, filter.activeValues, setShow, identityExportService]);
+    }, [activeOrganization.id, filter.activeValues, setShow, identityExporter]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);

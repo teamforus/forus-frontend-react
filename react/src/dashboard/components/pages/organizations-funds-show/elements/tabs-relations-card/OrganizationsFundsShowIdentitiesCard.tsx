@@ -15,7 +15,7 @@ import ThSortable from '../../../../elements/tables/ThSortable';
 import SponsorIdentity from '../../../../../props/models/Sponsor/SponsorIdentity';
 import useSetProgress from '../../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../../services/FundService';
-import useFundIdentitiesExportService from '../../../../../services/exports/useFundIdentitiesExportService';
+import useFundIdentitiesExporter from '../../../../../services/exporters/useFundIdentitiesExporter';
 import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
 import { hasPermission } from '../../../../../helpers/utils';
 
@@ -32,16 +32,17 @@ export default function OrganizationsFundsShowIdentitiesCard({
 }) {
     const translate = useTranslate();
     const setProgress = useSetProgress();
+
     const activeOrganization = useActiveOrganization();
+    const fundIdentitiesExporter = useFundIdentitiesExporter();
 
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
-    const fundIdentitiesExportService = useFundIdentitiesExportService();
 
+    const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
     const [identitiesActive, setIdentitiesActive] = useState<number>(0);
     const [lastQueryIdentities, setLastQueryIdentities] = useState<string>('');
     const [identitiesWithoutEmail, setIdentitiesWithoutEmail] = useState<number>(0);
-    const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
 
     const [paginationPerPageKey] = useState('fund_identities_per_page');
 
@@ -64,8 +65,8 @@ export default function OrganizationsFundsShowIdentitiesCard({
     }, [setProgress, fundService, activeOrganization.id, fund.id, filter.activeValues]);
 
     const exportIdentities = useCallback(() => {
-        fundIdentitiesExportService.exportData(activeOrganization.id, fund.id, filter.activeValues);
-    }, [activeOrganization.id, fund?.id, fundIdentitiesExportService, filter.activeValues]);
+        fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, filter.activeValues);
+    }, [activeOrganization.id, fund?.id, fundIdentitiesExporter, filter.activeValues]);
 
     useEffect(() => {
         fetchIdentities();

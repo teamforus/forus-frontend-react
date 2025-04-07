@@ -25,21 +25,22 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import classNames from 'classnames';
 import usePushApiError from '../../../hooks/usePushApiError';
-import useProviderExportService from '../../../services/exports/useProviderExportService';
+import useProviderExporter from '../../../services/exporters/useProviderExporter';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
 
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+
     const activeOrganization = useActiveOrganization();
+    const providerExporter = useProviderExporter();
 
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
     const implementationService = useImplementationService();
     const fundUnsubscribeService = useFundUnsubscribeService();
-    const providerExportService = useProviderExportService();
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -165,10 +166,10 @@ export default function SponsorProviderOrganizations() {
     }, [activeOrganization.id, fundUnsubscribeService, pushApiError, setProgress]);
 
     const exportList = useCallback(() => {
-        providerExportService.exportData(activeOrganization.id, {
+        providerExporter.exportData(activeOrganization.id, {
             ...filterActiveValues,
         });
-    }, [activeOrganization.id, filterActiveValues, providerExportService]);
+    }, [activeOrganization.id, filterActiveValues, providerExporter]);
 
     useEffect(() => {
         fetchFunds();

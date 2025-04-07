@@ -11,7 +11,7 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../services/FundService';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import useFundExportService from '../../../../services/exports/useFundExportService';
+import useFundExporter from '../../../../services/exporters/useFundExporter';
 
 export default function FinancialOverviewFundsTable({
     years,
@@ -31,9 +31,9 @@ export default function FinancialOverviewFundsTable({
     setLoaded?: () => void;
 }) {
     const translate = useTranslate();
-    const fundExportService = useFundExportService();
-
     const setProgress = useSetProgress();
+
+    const fundExporter = useFundExporter();
 
     const fundService = useFundService();
 
@@ -43,8 +43,8 @@ export default function FinancialOverviewFundsTable({
     const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBalance());
 
     const exportFunds = useCallback(() => {
-        fundExportService.exportData(organization.id, false, year);
-    }, [fundExportService, organization.id, year]);
+        fundExporter.exportData(organization.id, false, year);
+    }, [fundExporter, organization.id, year]);
 
     useEffect(() => {
         setProgress(0);

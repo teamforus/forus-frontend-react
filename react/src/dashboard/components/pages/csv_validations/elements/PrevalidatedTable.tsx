@@ -26,7 +26,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import usePrevalidationExportService from '../../../../services/exports/usePrevalidationExportService';
+import usePrevalidationExporter from '../../../../services/exporters/usePrevalidationExporter';
 
 export default function PrevalidatedTable({
     fund,
@@ -41,12 +41,13 @@ export default function PrevalidatedTable({
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+
     const activeOrganization = useActiveOrganization();
+    const prevalidationExporter = usePrevalidationExporter();
 
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
     const prevalidationService = usePrevalidationService();
-    const prevalidationExportService = usePrevalidationExportService();
 
     const [paginatorKey] = useState('products');
 
@@ -118,12 +119,12 @@ export default function PrevalidatedTable({
     });
 
     const exportData = useCallback(() => {
-        prevalidationExportService.exportData(activeOrganization.id, {
+        prevalidationExporter.exportData(activeOrganization.id, {
             ...externalFilters,
             ...filter.activeValues,
             fund_id: fund.id,
         });
-    }, [activeOrganization.id, externalFilters, filter.activeValues, fund.id, prevalidationExportService]);
+    }, [activeOrganization.id, externalFilters, filter.activeValues, fund.id, prevalidationExporter]);
 
     const fetchPrevalidations = useCallback(() => {
         setProgress(0);

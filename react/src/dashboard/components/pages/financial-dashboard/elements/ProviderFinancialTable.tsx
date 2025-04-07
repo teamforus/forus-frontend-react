@@ -14,17 +14,18 @@ import { ProviderFinancial } from '../types/FinancialStatisticTypes';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import useProviderFinancialExportService from '../../../../services/exports/useProviderFinancialExportService';
+import useProviderFinancialExporter from '../../../../services/exporters/useProviderFinancialExporter';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
 export default function ProviderFinancialTable({ externalFilters }: { externalFilters?: FinancialFiltersQuery }) {
     const pushApiError = usePushApiError();
+
     const activeOrganization = useActiveOrganization();
+    const providerFinancialExporter = useProviderFinancialExporter();
 
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
-    const providerFinancialExportService = useProviderFinancialExportService();
 
     const [paginatorKey] = useState('provider_finances');
     const [showTransactions, setShowTransactions] = useState<Array<string>>([]);
@@ -36,11 +37,11 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
     });
 
     const financeProvidersExport = useCallback(() => {
-        providerFinancialExportService.exportData(activeOrganization.id, {
+        providerFinancialExporter.exportData(activeOrganization.id, {
             ...externalFilters,
             ...filter.activeValues,
         });
-    }, [activeOrganization.id, externalFilters, filter?.activeValues, providerFinancialExportService]);
+    }, [activeOrganization.id, externalFilters, filter?.activeValues, providerFinancialExporter]);
 
     const toggleTransactionsTable = useCallback((id: string) => {
         setShowTransactions((list) => {

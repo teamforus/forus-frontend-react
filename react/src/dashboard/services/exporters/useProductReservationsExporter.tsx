@@ -2,16 +2,16 @@ import React, { useCallback } from 'react';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
-import useMakeExporterService from './useMakeExporterService';
+import useProductReservationService from '../ProductReservationService';
+import useMakeExporterService from './hooks/useMakeExporterService';
 import usePushApiError from '../../hooks/usePushApiError';
-import { usePrevalidationService } from '../PrevalidationService';
 
-export default function usePrevalidationExportService() {
-    const setProgress = useSetProgress();
+export default function useProductReservationsExporter() {
     const openModal = useOpenModal();
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const prevalidationService = usePrevalidationService();
+    const productReservationService = useProductReservationService();
     const { makeSections, saveExportedData } = useMakeExporterService();
 
     const exportData = useCallback(
@@ -23,20 +23,20 @@ export default function usePrevalidationExportService() {
                 setProgress(0);
                 console.info('- data loaded from the api.');
 
-                prevalidationService
-                    .export(queryFilters)
-                    .then((res) => saveExportedData(data, organization_id, res, 'prevalidations'))
+                productReservationService
+                    .export(organization_id, queryFilters)
+                    .then((res) => saveExportedData(data, organization_id, res))
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
-            prevalidationService.exportFields().then((res) => {
+            productReservationService.exportFields(organization_id).then((res) => {
                 openModal((modal) => (
                     <ModalExportDataSelect modal={modal} sections={makeSections(res.data.data)} onSuccess={onSuccess} />
                 ));
             });
         },
-        [makeSections, openModal, pushApiError, saveExportedData, setProgress, prevalidationService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, productReservationService],
     );
 
     return { exportData };

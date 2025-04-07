@@ -27,7 +27,7 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
-import useEmployeeExportService from '../../../services/exports/useEmployeeExportService';
+import useEmployeeExporter from '../../../services/exporters/useEmployeeExporter';
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -39,12 +39,13 @@ export default function Employees() {
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+
     const authIdentity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
+    const employeeExporter = useEmployeeExporter();
 
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
-    const employeeExportService = useEmployeeExportService();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [employees, setEmployees] = useState<PaginationData<Employee>>(null);
@@ -124,13 +125,13 @@ export default function Employees() {
     );
 
     const exportEmployees = useCallback(() => {
-        employeeExportService.exportData(activeOrganization.id, {
+        employeeExporter.exportData(activeOrganization.id, {
             ...filter.activeValues,
         });
-    }, [activeOrganization.id, employeeExportService, filter.activeValues]);
+    }, [activeOrganization.id, employeeExporter, filter.activeValues]);
 
     const transferOwnership = useCallback(
-        function (adminEmployees) {
+        function (adminEmployees: Array<Employee>) {
             openModal((modal) => (
                 <ModalTransferOrganizationOwnership
                     modal={modal}
@@ -148,7 +149,7 @@ export default function Employees() {
     );
 
     const deleteEmployee = useCallback(
-        function (employee) {
+        function (employee: Employee) {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
