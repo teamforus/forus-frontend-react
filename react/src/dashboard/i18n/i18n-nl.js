@@ -539,7 +539,7 @@ export default {
     // PRE CHECK FUNDS = funds-pre-check.pug
     funds_pre_check: {
         header: {
-            title: 'Pre-check',
+            title: 'Regelingencheck',
         },
         labels: {
             description_title: 'Algemeen',
@@ -547,7 +547,7 @@ export default {
             label: 'Label',
             description: 'Omschrijving',
             status: 'Status',
-            implementation: 'Implementatie',
+            implementation: 'Website',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -1660,6 +1660,7 @@ export default {
             edit: 'Bewerken',
             view: 'Bekijken',
             security: 'Beveiliging',
+            criteria: 'Voorwaarden',
         },
         status: {
             active: 'Actief',

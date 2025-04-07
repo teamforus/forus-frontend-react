@@ -5,7 +5,6 @@ import Identity2FA from '../../props/models/Identity2FA';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import Identity2FAState from '../../props/models/Identity2FAState';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import Auth2FAProvider from '../../props/models/Auth2FAProvider';
 import QrCode from '../elements/qr-code/QrCode';
 import FormError from '../elements/forms/errors/FormError';
@@ -220,19 +219,21 @@ export default function Modal2FASetup({
     }, [onKeyDown]);
 
     useEffect(() => {
+        bindEvents();
+
+        return () => {
+            unbindEvents();
+        };
+    }, [bindEvents, unbindEvents]);
+
+    useEffect(() => {
         const providers = auth2FAState.providers.filter((provider) => provider.type == type);
         const active_providers = auth2FAState.active_providers.filter((item) => item.provider_type.type == type);
 
         setAuth2FA((auth2FA) => (auth2FA ? auth2FA : active_providers.find((auth_2fa) => auth_2fa)));
         setProvider(providers.find((provider) => provider));
         setProviders(providers);
-
-        bindEvents();
-
-        return () => {
-            unbindEvents();
-        };
-    }, [type, bindEvents, unbindEvents, auth2FAState]);
+    }, [type, auth2FAState]);
 
     // should set up
     useEffect(() => {
@@ -295,7 +296,6 @@ export default function Modal2FASetup({
                                                 onChange={(provider: Auth2FAProvider) => setProvider(provider)}
                                                 options={providers}
                                                 allowSearch={false}
-                                                optionsComponent={SelectControlOptions}
                                             />
                                         </div>
                                     </div>
@@ -598,7 +598,7 @@ export default function Modal2FASetup({
                             <div className="modal-heading">
                                 <strong>Het is gelukt!</strong>
                             </div>
-                            <div className="modal-text">
+                            <div className="modal-text text-center">
                                 <small>Je bent succesvol ingelogd met tweefactorauthenticatie. Welkom terug!</small>
                             </div>
                         </div>

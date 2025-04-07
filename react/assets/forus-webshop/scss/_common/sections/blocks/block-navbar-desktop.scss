@@ -18,7 +18,7 @@
         .navbar-desktop-section-wrapper {
             width: var(--wrapper-width);
             max-width: 100%;
-            padding: 0 0;
+            padding: 0 var(--wrapper-padding);
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -354,14 +354,6 @@
 
         .navbar-desktop-menu {
             justify-content: right;
-        }
-    }
-
-    @media screen and (max-width: 1300px) {
-        .navbar-desktop-section {
-            .navbar-desktop-section-wrapper {
-                padding: 0 25px;
-            }
         }
     }
 

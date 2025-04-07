@@ -3,9 +3,9 @@ import { createEnumParam, useQueryParam, withDefault } from 'use-query-params';
 import { hasPermission } from '../../../../helpers/utils';
 import Organization from '../../../../props/models/Organization';
 import Fund from '../../../../props/models/Fund';
-import OrganizationsFundsShowTopUpsCard from './OrganizationsFundsShowTopUpsCard';
-import OrganizationsFundsShowImplementationsCard from './OrganizationsFundsShowImplementationsCard';
-import OrganizationsFundsShowIdentitiesCard from './OrganizationsFundsShowIdentitiesCard';
+import OrganizationsFundsShowTopUpsCard from './tabs-relations-card/OrganizationsFundsShowTopUpsCard';
+import OrganizationsFundsShowImplementationsCard from './tabs-relations-card/OrganizationsFundsShowImplementationsCard';
+import OrganizationsFundsShowIdentitiesCard from './tabs-relations-card/OrganizationsFundsShowIdentitiesCard';
 import { filter } from 'lodash';
 
 type TabType = 'top_ups' | 'identities' | 'implementations';

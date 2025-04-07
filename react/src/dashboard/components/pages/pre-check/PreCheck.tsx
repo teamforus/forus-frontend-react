@@ -3,7 +3,6 @@ import useFormBuilder from '../../../hooks/useFormBuilder';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import Implementation from '../../../props/models/Implementation';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import Media from '../../../props/models/Media';
 import FormError from '../../elements/forms/errors/FormError';
 import Fund from '../../../props/models/Fund';
@@ -322,7 +321,6 @@ export default function PreCheck() {
                                         onChange={(implementation: Implementation) => {
                                             setImplementation(implementation);
                                         }}
-                                        optionsComponent={SelectControlOptions}
                                     />
                                     <FormError error={preCheckForm.errors?.implementation_id} />
                                 </div>
@@ -339,7 +337,6 @@ export default function PreCheck() {
                                     onChange={(pre_check_enabled: boolean) => {
                                         preCheckForm.update({ pre_check_enabled });
                                     }}
-                                    optionsComponent={SelectControlOptions}
                                 />
                                 <FormError error={preCheckForm.errors?.pre_check_enabled} />
                             </div>
@@ -425,8 +422,12 @@ export default function PreCheck() {
 
                             <InfoBox>
                                 <p>
-                                    U heeft de mogelijkheid om extra stappen toe te voegen die zichtbaar zullen zijn in
-                                    de Pre-Check voor de aanvrager.
+                                    De Regelingencheck begint standaard met één stap waarin alle voorwaarden van de
+                                    regelingen worden geplaatst. U kunt zelf extra stappen toevoegen om de voorwaarden
+                                    logisch te groeperen. Dit helpt om de Regelingencheck overzichtelijker te maken,
+                                    zodat niet alle vragen in één lange lijst worden getoond. Voorwaarden kunnen
+                                    eenvoudig worden verplaatst naar een andere stap door erop te klikken en deze naar
+                                    de gewenste stap te slepen.
                                 </p>
                             </InfoBox>
                         </div>
@@ -482,7 +483,6 @@ export default function PreCheck() {
                                 propKey={'value'}
                                 allowSearch={false}
                                 options={bannerStates}
-                                optionsComponent={SelectControlOptions}
                                 value={bannerForm.values.pre_check_banner_state}
                                 onChange={(pre_check_banner_state: string) => {
                                     bannerForm.update({ pre_check_banner_state });

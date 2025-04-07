@@ -1,18 +1,7 @@
 .wrapper {
     width: var(--wrapper-width);
-    max-width: 100%;
     margin: 0 auto;
     display: block;
-}
-
-@media screen and (max-width: 1300px) {
-    .wrapper {
-        padding: 0 25px;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    .wrapper {
-        padding: 0 20px;
-    }
+    padding: 0 var(--wrapper-padding);
+    max-width: 100%;
 }

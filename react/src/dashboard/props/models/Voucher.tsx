@@ -1,10 +1,64 @@
 import Fund from './Fund';
-import Media from './Media';
-import Product from './Product';
-import Transaction from './Transaction';
 import Office from './Office';
 import Reservation from './Reservation';
 import PhysicalCard from './PhysicalCard';
+import Media from './Media';
+import OrganizationBasic from './OrganizationBasic';
+import Product from './Product';
+
+export interface VoucherProduct {
+    id?: number;
+    name?: string;
+    description?: string;
+    description_html?: string;
+    product_category_id?: number;
+    sold_out?: boolean;
+    reservation_enabled?: boolean;
+    reservation_policy?: 'accept' | 'review' | 'global';
+    alternative_text?: string;
+    price?: string;
+    price_locale?: string;
+    organization_id?: number;
+    photo?: Media;
+    organization?: OrganizationBasic;
+}
+
+export interface VoucherTransaction {
+    id: number;
+    organization_id: number;
+    product_id?: number;
+    address: string;
+    state: 'success' | 'pending' | 'canceled';
+    state_locale: string;
+    payment_id?: string;
+    target?: 'provider' | 'iban' | 'top_up' | 'payout';
+    amount: string;
+    amount_locale: string;
+    amount_extra_cash?: string;
+    amount_extra_cash_locale?: string;
+    timestamp: number;
+    cancelable: boolean;
+    transfer_in?: number;
+    organization: {
+        id: number;
+        name: string;
+        logo: Media;
+    };
+    product?: Product;
+    fund: {
+        id: number;
+        name: string;
+        organization_id: number;
+        logo?: Media;
+        organization_name: string;
+    };
+    created_at: string;
+    created_at_locale: string;
+    transfer_at?: string;
+    transfer_at_locale?: string;
+    updated_at: string;
+    product_reservation?: Reservation;
+}
 
 export default interface Voucher {
     id: number;
@@ -17,7 +71,7 @@ export default interface Voucher {
     state?: string;
     state_locale?: string;
     timestamp?: number;
-    transactions: Array<Transaction>;
+    transactions: Array<VoucherTransaction>;
     product_vouchers?: Array<Voucher>;
     records?: Array<{
         voucher_id: number;
@@ -25,7 +79,7 @@ export default interface Voucher {
         record_type_key: string;
         record_type_name: string;
     }>;
-    product: Product;
+    product: VoucherProduct;
     product_reservation: Reservation;
     offices?: Array<Office>;
     query_product?: {
@@ -35,37 +89,10 @@ export default interface Voucher {
         reservable_expire_at?: string;
         reservable_expire_at_locale?: string;
     };
-    allowed_organizations: Array<{
-        id: number;
-        name: string;
-        logo: Media;
-    }>;
-    identity_email?: string;
-    activation_code?: string;
-    identity_bsn?: string;
-    relation_bsn?: string;
-    client_uid?: string;
     physical_card?: PhysicalCard;
-    source_locale?: string;
     amount?: string;
     amount_locale?: string;
-    amount_total?: string;
-    amount_total_locale?: string;
-    amount_top_up?: string;
-    amount_top_up_locale?: string;
-    amount_available?: string;
-    amount_available_locale?: string;
-    amount_spent?: string;
-    amount_spent_locale?: string;
-    note?: string;
-    expire_at_locale?: string;
-    in_use?: boolean;
-    first_use_date_locale?: string;
-    has_payouts?: boolean;
-    is_granted?: boolean;
     is_external: boolean;
-    limit_multiplier?: number;
-    identity_address?: string;
     history: Array<{
         id: number;
         event: string;
@@ -83,4 +110,5 @@ export default interface Voucher {
     created_at?: string;
     created_at_locale?: string;
     expire_at?: string;
+    expire_at_locale?: string;
 }

@@ -6,7 +6,6 @@ import FormError from '../elements/forms/errors/FormError';
 import { ModalButton } from './elements/ModalButton';
 import { ResponseError } from '../../props/ApiResponses';
 import SelectControl from '../elements/select-control/SelectControl';
-import SelectControlOptions from '../elements/select-control/templates/SelectControlOptions';
 import ImplementationSocialMedia from '../../props/models/ImplementationSocialMedia';
 import Implementation from '../../props/models/Implementation';
 import useImplementationSocialMediaService from '../../services/ImplementationSocialMediaService';
@@ -102,7 +101,6 @@ export default function ModalSocialMediaEdit({
                                 propValue={'name'}
                                 onChange={(type?: string) => form.update({ type })}
                                 options={socialMediaTypes}
-                                optionsComponent={SelectControlOptions}
                             />
                             <FormError error={form.errors.type} />
                         </div>
