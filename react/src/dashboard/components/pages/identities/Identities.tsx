@@ -206,6 +206,7 @@ export default function Identities() {
                                 <div className="form-group">
                                     <input
                                         className="form-control"
+                                        data-dusk="searchIdentities"
                                         value={filterValues.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('payouts.labels.search')}
@@ -314,6 +315,7 @@ export default function Identities() {
                                 <button
                                     className="button button-primary button-wide"
                                     onClick={exportIdentities}
+                                    data-dusk="export"
                                     disabled={identities.meta.total == 0}>
                                     <em className="mdi mdi-download icon-start" />
                                     {translate('components.dropdown.export', { total: identities.meta.total })}
@@ -330,7 +332,7 @@ export default function Identities() {
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table">
+                            <table className="table" id="identitiesTable">
                                 {headElement}
 
                                 <tbody>
@@ -338,6 +340,7 @@ export default function Identities() {
                                         <StateNavLink
                                             key={identity.id}
                                             name={'identities-show'}
+                                            dataDusk={`identityRow${identity.id}`}
                                             params={{
                                                 organizationId: activeOrganization.id,
                                                 id: identity.id,

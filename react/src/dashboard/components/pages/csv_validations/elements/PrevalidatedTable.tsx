@@ -208,6 +208,7 @@ export default function PrevalidatedTable({
                                     <input
                                         className="form-control"
                                         type="text"
+                                        data-dusk="searchPrevalidations"
                                         placeholder={translate('prevalidated_table.labels.search')}
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
@@ -279,6 +280,7 @@ export default function PrevalidatedTable({
                                                 <button
                                                     className="button button-primary button-wide"
                                                     onClick={() => exportData()}
+                                                    data-dusk="export"
                                                     disabled={prevalidations?.meta.total == 0}>
                                                     <em className="mdi mdi-download icon-start" />
                                                     {translate('components.dropdown.export', {
@@ -292,6 +294,7 @@ export default function PrevalidatedTable({
 
                                 <button
                                     className="button button-default button-icon"
+                                    data-dusk="showFilters"
                                     onClick={() => filter.setShow(!filter.show)}>
                                     <em className="mdi mdi-filter-outline" />
                                 </button>
@@ -307,12 +310,12 @@ export default function PrevalidatedTable({
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table">
+                            <table className="table" id="prevalidationsTable">
                                 {headElement}
 
                                 <tbody>
                                     {rows?.map((row) => (
-                                        <tr key={row.id}>
+                                        <tr key={row.id} data-dusk={`prevalidationRow${row.id}`}>
                                             <td className="text-primary text-strong">{row.uid}</td>
                                             <td className="text-primary text-strong">
                                                 {employeesByAddress?.[row?.identity_address] || 'Unknown'}

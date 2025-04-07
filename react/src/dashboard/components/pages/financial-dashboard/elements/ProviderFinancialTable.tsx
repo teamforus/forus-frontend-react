@@ -84,7 +84,10 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
 
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
-                                <button className="button button-primary" onClick={() => financeProvidersExport()}>
+                                <button
+                                    className="button button-primary"
+                                    data-dusk="export"
+                                    onClick={() => financeProvidersExport()}>
                                     <em className="mdi mdi-download icon-start" />
                                     <span>Exporteren</span>
                                 </button>

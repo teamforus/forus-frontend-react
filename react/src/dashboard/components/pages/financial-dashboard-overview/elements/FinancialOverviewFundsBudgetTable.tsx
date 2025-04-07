@@ -88,7 +88,10 @@ export default function FinancialOverviewFundsBudgetTable({
                                 />
                             </div>
                         </div>
-                        <button className="button button-primary button-sm" onClick={() => exportFunds()}>
+                        <button
+                            className="button button-primary button-sm"
+                            data-dusk="exportFundsDetailed"
+                            onClick={() => exportFunds()}>
                             <em className="mdi mdi-download icon-start" />
                             {translate('financial_dashboard_overview.buttons.export')}
                         </button>

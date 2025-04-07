@@ -208,6 +208,7 @@ export default function FundRequests() {
                                     <input
                                         type="text"
                                         className="form-control"
+                                        data-dusk="searchFundRequests"
                                         value={filter.values.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('validation_requests.labels.search')}
@@ -276,6 +277,7 @@ export default function FundRequests() {
                                     <button
                                         className="button button-primary button-wide"
                                         disabled={fundRequests.meta.total == 0}
+                                        data-dusk="export"
                                         onClick={() => exportRequests()}>
                                         <em className="mdi mdi-download icon-start" />
                                         {translate('components.dropdown.export', {

@@ -73,7 +73,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
     }, [fetchIdentities]);
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="identitiesTable">
             <div className="card-header">
                 <div className="flex flex-grow">
                     <div className="card-title">
@@ -88,6 +88,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                 {viewTypes?.map((type) => (
                                     <div
                                         key={type.key}
+                                        data-dusk={`${type.key}_tab`}
                                         className={`label-tab label-tab-sm ${viewType == type.key ? 'active' : ''}`}
                                         onClick={() => setViewType(type.key)}>
                                         {type.name}
@@ -112,6 +113,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                             className="form-control"
                                             defaultValue={filter.values.q}
                                             placeholder="Zoeken"
+                                            data-dusk="searchIdentities"
                                             onChange={(e) =>
                                                 filter.update({
                                                     q: e.target.value,
@@ -151,6 +153,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                                 <div className="form-actions">
                                                     <button
                                                         className="button button-primary button-wide"
+                                                        data-dusk="export"
                                                         onClick={() => exportIdentities()}>
                                                         <em className="mdi mdi-download icon-start" />
                                                         <span>
@@ -166,6 +169,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
 
                                     <div
                                         className="button button-default button-icon"
+                                        data-dusk="showFilters"
                                         onClick={() => filter.setShow(!filter.show)}>
                                         <em className="mdi mdi-filter-outline" />
                                     </div>
@@ -181,7 +185,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                     {identities?.meta?.total > 0 ? (
                         <div className="card-section card-section-padless">
                             <div className="table-wrapper">
-                                <table className="table">
+                                <table className="table" id="identitiesTable">
                                     <thead>
                                         <tr>
                                             <ThSortable filter={filter} label={'ID'} value="id" />
@@ -209,7 +213,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
 
                                     <tbody>
                                         {identities.data.map((identity: SponsorIdentity, index: number) => (
-                                            <tr key={index}>
+                                            <tr key={index} data-dusk={`identityRow${identity.id}`}>
                                                 <td>{identity.id}</td>
                                                 <td>{identity.email}</td>
                                                 <td>{identity.count_vouchers}</td>
