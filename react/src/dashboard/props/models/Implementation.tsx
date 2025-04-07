@@ -32,7 +32,6 @@ export default interface Implementation {
     digid_a_select_server?: string;
     overlay_type?: string;
     overlay_enabled?: boolean;
-    header_text_color?: string;
     pre_check_url?: string;
     communication_type?: string;
     overlay_opacity?: number;
@@ -66,5 +65,17 @@ export default interface Implementation {
     page_title_suffix?: string;
     show_terms_checkbox?: boolean;
     show_privacy_checkbox?: boolean;
+    banner_media_uid?: string;
     languages?: Array<Language>;
+    banner_color?: string;
+    banner_background?: string;
+    banner_background_mobile?: boolean;
+    banner_position?: 'left' | 'center' | 'right';
+    banner_wide?: boolean;
+    banner_collapse?: boolean;
+    banner_button?: boolean;
+    banner_button_url?: string;
+    banner_button_text?: string;
+    banner_button_target?: 'self' | '_blank';
+    banner_button_type?: 'color' | 'white';
 }
