@@ -118,7 +118,7 @@ export default function ProductFundsCard({
                     <div className="pane-section pane-section-collapsed">
                         <div className="product-funds-list">
                             {listFunds.map((fund) => (
-                                <div key={fund.id} className="fund-item" data-dusk="fundItem">
+                                <div key={fund.id} className="fund-item" data-dusk={`fundItem${fund.id}`}>
                                     <div className="fund-item-section fund-item-section-details text-left">
                                         <div className="fund-item-media">
                                             <img
@@ -247,6 +247,7 @@ export default function ProductFundsCard({
                                                 }`}
                                                 target="_blank"
                                                 href={fund.external_link_url}
+                                                data-dusk="externalLink"
                                                 rel="noreferrer">
                                                 {fund.external_link_text}
                                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -258,7 +259,8 @@ export default function ProductFundsCard({
                                             <StateNavLink
                                                 name={'fund-activate'}
                                                 params={{ id: fund.id }}
-                                                className="button button-primary">
+                                                className="button button-primary"
+                                                dataDusk="fundRequest">
                                                 {fund.request_btn_text}
                                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                             </StateNavLink>
@@ -269,7 +271,8 @@ export default function ProductFundsCard({
                                             <StateNavLink
                                                 name={'fund-requests'}
                                                 params={{ id: fund.id }}
-                                                className="button button-primary-outline">
+                                                className="button button-primary-outline"
+                                                dataDusk="fundRequests">
                                                 {translate('funds.buttons.is_pending')}
                                             </StateNavLink>
                                         </div>
@@ -279,7 +282,8 @@ export default function ProductFundsCard({
                                             <button
                                                 type="button"
                                                 className="button button-primary"
-                                                onClick={() => requestFund(fund)}>
+                                                onClick={() => requestFund(fund)}
+                                                data-dusk="fundActivate">
                                                 {translate('funds.buttons.is_applicable')}
                                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                                             </button>
@@ -291,6 +295,7 @@ export default function ProductFundsCard({
                                                 <StateNavLink
                                                     name="voucher"
                                                     params={{ number: fund.vouchers[0].number }}
+                                                    dataDusk="voucherButton"
                                                     className="button button-primary">
                                                     {translate(
                                                         `funds.buttons.${fund.key}.already_received`,
@@ -305,7 +310,7 @@ export default function ProductFundsCard({
                                                     <div className="fund-item-section-label">
                                                         {translate('product.funds.not_available_label')}
                                                     </div>
-                                                    <div className="fund-item-section-value">
+                                                    <div className="fund-item-section-value" data-dusk="notAvailable">
                                                         {translate('product.funds.not_available_value')}
                                                     </div>
                                                 </Fragment>
