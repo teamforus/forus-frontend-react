@@ -25,7 +25,7 @@ export default function Error() {
     }, []);
 
     return (
-        <BlockShowcase wrapper={false}>
+        <BlockShowcase>
             <section className="section section-product">
                 <div className="wrapper">
                     <div className="block block-sign_up">

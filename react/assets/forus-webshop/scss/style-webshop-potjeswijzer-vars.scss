@@ -1,3 +1,5 @@
+@import "style-webshop-general-vars";
+
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #b9cb18;
 $primaryColorLight: #b9cb18;
@@ -40,8 +42,16 @@ $primaryColorLight: #b9cb18;
     --body-background: #fff;
 
     // footer color
-    --footer_background_color: #4990b5;
+    --footer_background: transparent;
     --footer_color: #ffffff;
+    --footer_color_link: var(--footer_color);
+    --footer_color_link_hover: var(--footer_color);
+
+    --footer-copyright-color: #004d93;
+    --footer-copyright-font: 400 14px/30px var(--base-font);
+    --footer-copyright-background: #fff;
+    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-padding: 40px;
 
     // Displayed or not
     --footer_display: block;
@@ -66,10 +76,52 @@ $primaryColorLight: #b9cb18;
     --color-search-icon-medium: #{$primaryColor};
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // Labels
+    --label-default-color: #fff;
+    --label-default-background: #595959;
+
+    --label-primary-color: #fff;
+    --label-primary-background: #1C8271;
+
+    --label-danger-color: #030304;
+    --label-danger-background: #d38c87;
+
+    --label-success-color: #fff;
+    --label-success-background: var(--color-primary);
     
     // Label sets
     --label-set-active-background: #4e4d40;
     --label-set-hover-background: #{rgba(#4e4d40, .8)};
+
+    // Buttons
+    --button-font: 700 16px/24px var(--base-font);
+    --button-color: #282b39;
+    --button-shadow: none;
+    --button-decoration: none;
+    --button-border-radius: calc(var(--border-radius) * 0.75);
+    --button-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --button-hover-decoration: none;
+    --button-disabled-color: #999;
+    --button-disabled-background: #e5e5e5;
+
+    --button-primary-color: #666;
+    --button-primary-border: 1px solid var(--color-primary);
+    --button-primary-decoration: none;
+    --button-primary-background: var(--color-primary);
+    --button-primary-hover-color: #666;
+    --button-primary-hover-border: 1px solid var(--color-primary-light);
+    --button-primary-hover-decoration: none;
+    --button-primary-hover-background: var(--color-primary-light);
+
+    --button-primary-outline-color: #fff;
+    --button-primary-outline-border: 1px solid #498fb4;
+    --button-primary-outline-decoration: none;
+    --button-primary-outline-background: #498fb4;
+    --button-primary-outline-hover-color: #498fb4;
+    --button-primary-outline-hover-border: 1px solid var(--color-primary);
+    --button-primary-outline-hover-decoration: none;
+    --button-primary-outline-hover-background: transparent;
 
     //- Showcase
     --showcase-fullscreen-bottom-offset: 140px;
@@ -87,4 +139,41 @@ $primaryColorLight: #b9cb18;
 
     // Breadcrumbs
     --breadcrumb-color: #4f4f4f;
+
+    // Faq
+    --faq-width: 820px;
+    --faq-align: flex-start;
+    --faq-header-color: #4990b5;
+    --faq-header-color-hover: #4990b5;
+
+    // CMS funds
+    --cms-funds-title-font: 400 24px/36px var(--base-font);
+    --cms-funds-title-color: var(--htc);
+    --cms-funds-label-font-size: 12px;
+    --cms-funds-label-background: #1C8271;
+
+
+    // Sections
+    --section-padding: 0 0 30px;
+    --section-background: transparent;
+
+    --section-title-font: 700 40px/60px var(--heading-font-family);
+    --section-title-align: center;
+
+    --section-cms-padding: var(--section-padding);
+    --section-cms-background: var(--section-background);
+    --section-map-padding: var(--section-padding);
+    --section-map-background: var(--section-background);
+    --section-faq-padding: var(--section-padding);
+    --section-faq-background: var(--section-background);
+    --section-footer-padding: 30px 0;
+    --section-footer-background: #4990b5;
+    --section-profile-padding: var(--section-padding);
+    --section-profile-background: var(--section-background);
+    --section-products-padding: var(--section-padding);
+    --section-products-background: var(--section-background);
+    --section-breadcrumbs-padding: 0;
+    --section-breadcrumbs-background: var(--section-background);
+    --section-voucher-details-padding: var(--section-padding);
+    --section-voucher-details-background: var(--section-background);
 }

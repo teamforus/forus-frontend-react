@@ -1,0 +1,84 @@
+.block.block-organization-info {
+    display: block;
+    width: 100%;
+    padding: 20px 0 20px 0;
+    margin: 60px 0;
+    border-bottom: 1px solid #E5E5E5;
+
+    .info-block-panel {
+        width: 100%;
+        margin: 0 0 60px 0;
+
+        a {
+            font: 600 18px/18px var(--base-font);
+            color: #950022;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+
+        .block-title {
+            font: 400 32px/48px 'Oranda';
+        }
+
+        .block-description {
+            padding-right: 50px;
+            font-size: 16px;
+        }
+
+        .block-list {
+            list-style: disc;
+            padding-left: 15px;
+            margin: 30px 0 30px 0;
+
+            a {
+                text-decoration: underline;
+                font: 600 16px/1.5em var(--base-font);
+                color: #03689b;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            li {
+                margin-bottom: 16px;
+
+                a {
+                    font-size: 18px;
+                    color: #176B55;
+
+                    &:hover {
+                        text-decoration: underline;
+                        color: #17564a;
+                    }
+                }
+
+                &::marker {
+                    color: #E5E5E5;
+                }
+            }
+        }
+
+        a {
+            text-decoration: underline;
+            font: 600 16px/1.5em var(--base-font);
+            color: #03689b;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        display: flex;
+        margin: 50px 0 50px 0;
+
+        .info-block-panel {
+            width: 50%;
+        }
+    }
+}

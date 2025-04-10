@@ -1,8 +1,9 @@
+@import "style-webshop-general-vars";
+@import url('https://fonts.googleapis.com/css?family=Verdana');
+
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #0d4379;
 $primaryColorLight: #0d4379;
-
-@import url('https://fonts.googleapis.com/css?family=Verdana');
 
 :root {
     // navbar
@@ -19,6 +20,8 @@ $primaryColorLight: #0d4379;
 
     // Search bar
     --search-bar-label-top: -18px;
+    --search-bar-label-left: 0px;
+    --search-bar-label-padding: 0px;
     --search-bar-label-background: transparent;
 
     // navbar (auth)
@@ -50,9 +53,15 @@ $primaryColorLight: #0d4379;
     --body-background: none;
 
     // footer color
-    --footer_background_color: #0d4379;
+    --footer_background: transparent;
     --footer_color: #ffffff;
     --footer_color_link: #ffffff;
+
+    --footer-copyright-color: var(--footer_color_link);
+    --footer-copyright-font: 400 14px/30px var(--base-font);
+    --footer-copyright-background: #0d4379;
+    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-padding: 40px;
 
     // displayed or not
     --footer_display: block;
@@ -86,4 +95,28 @@ $primaryColorLight: #0d4379;
 
     // Login button
     --login-button-background: #fff;
+
+    // Sections
+    --section-padding: 0 0 30px;
+    --section-background: transparent;
+
+    --section-title-font: 700 40px/60px var(--heading-font-family);
+    --section-title-align: center;
+
+    --section-cms-padding: var(--section-padding);
+    --section-cms-background: var(--section-background);
+    --section-map-padding: var(--section-padding);
+    --section-map-background: var(--section-background);
+    --section-faq-padding: var(--section-padding);
+    --section-faq-background: var(--section-background);
+    --section-footer-padding: 30px 0;
+    --section-footer-background: #0d4379;
+    --section-profile-padding: var(--section-padding);
+    --section-profile-background: var(--section-background);
+    --section-products-padding: var(--section-padding);
+    --section-products-background: var(--section-background);
+    --section-breadcrumbs-padding: 0;
+    --section-breadcrumbs-background: var(--section-background);
+    --section-voucher-details-padding: var(--section-padding);
+    --section-voucher-details-background: var(--section-background);
 }

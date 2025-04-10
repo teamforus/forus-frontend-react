@@ -1,0 +1,10 @@
+.section.section-footer {
+    z-index: 1;
+    color: var(--footer_color);
+    padding: var(--section-footer-padding);
+    background: var(--section-footer-background);
+
+    @media screen and (max-width: 1000px) {
+        padding: 0;
+    }
+}

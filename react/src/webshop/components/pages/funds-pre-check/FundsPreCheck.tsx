@@ -354,8 +354,7 @@ export default function FundsPreCheck() {
             breadcrumbItems={[
                 { name: translate('pre_check.breadcrumb.home'), state: 'home' },
                 { name: translate('pre_check.breadcrumb.check') },
-            ]}
-            breadcrumbWrapper={true}>
+            ]}>
             {preChecks && appConfigs && recordTypesByKey && (
                 <div className="block block-fund-pre-check">
                     <div className="showcase-wrapper">

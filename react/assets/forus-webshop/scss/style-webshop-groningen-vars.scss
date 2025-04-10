@@ -1,3 +1,5 @@
+@import "style-webshop-general-vars";
+
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #000;
 $primaryColorLight: #e60204;
@@ -25,7 +27,28 @@ $primaryColorLight: #e60204;
 
     // Search bar
     --search-bar-label-top: -18px;
+    --search-bar-label-left: 0px;
+    --search-bar-label-padding: 0px;
     --search-bar-label-background: transparent;
+
+    // Buttons
+    --button-primary-color: var(--tc-var);
+    --button-primary-border: 1px solid var(--color-default);
+    --button-primary-decoration: none;
+    --button-primary-background: var(--color-default);
+    --button-primary-hover-color: var(--color-default);
+    --button-primary-hover-border: 1px solid var(--color-default);
+    --button-primary-hover-decoration: underline;
+    --button-primary-hover-background: #fff;
+
+    --button-primary-outline-color: var(--color-primary);
+    --button-primary-outline-border: 1px solid var(--color-primary);
+    --button-primary-outline-decoration: none;
+    --button-primary-outline-background: transparent;
+    --button-primary-outline-hover-color: #fff;
+    --button-primary-outline-hover-border: 1px solid var(--color-primary);
+    --button-primary-outline-hover-decoration: underline;
+    --button-primary-outline-hover-background: var(--color-primary);
 
     // sign up
     --sign_up_accent_color: #191a1c;
@@ -54,10 +77,13 @@ $primaryColorLight: #e60204;
     --body-background: none;
 
     // footer color
-    --footer_background_color: #e60004;
+    --footer_background: transparent;
     --footer_color: #fff;
     --footer_color_link: #fff;
     --footer_color_link_hover: #fff;
+
+    --footer-copyright-color: #000;
+    --footer-copyright-background: #fff;
 
     // displayed or not
     --footer_display: block;
@@ -90,4 +116,29 @@ $primaryColorLight: #e60204;
 
     // Login button
     --login-button-background: #fff;
+
+
+    // Sections
+    --section-padding: 0 0 30px;
+    --section-background: transparent;
+
+    --section-title-font: 700 40px/60px var(--heading-font-family);
+    --section-title-align: center;
+
+    --section-cms-padding: var(--section-padding);
+    --section-cms-background: var(--section-background);
+    --section-map-padding: var(--section-padding);
+    --section-map-background: var(--section-background);
+    --section-faq-padding: var(--section-padding);
+    --section-faq-background: var(--section-background);
+    --section-footer-padding: 30px 0;
+    --section-footer-background: #e60004;
+    --section-profile-padding: var(--section-padding);
+    --section-profile-background: var(--section-background);
+    --section-products-padding: var(--section-padding);
+    --section-products-background: var(--section-background);
+    --section-breadcrumbs-padding: 0;
+    --section-breadcrumbs-background: var(--section-background);
+    --section-voucher-details-padding: var(--section-padding);
+    --section-voucher-details-background: var(--section-background);
 }

@@ -10,12 +10,11 @@ export default function TermsAndConditions() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('terms_and_conditions.breadcrumbs.home'), state: 'home' },
                 { name: translate('terms_and_conditions.breadcrumbs.terms_and_conditions') },
             ]}>
-            {page && <CmsBlocks page={page} wrapper={false} />}
+            {page && <CmsBlocks page={page} />}
         </BlockShowcase>
     );
 }

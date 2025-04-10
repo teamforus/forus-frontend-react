@@ -1,8 +1,9 @@
+@import "style-webshop-general-vars";
+@import url("https://fonts.googleapis.com/css?family=Cherry+Swash&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
+
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #90191a;
-$primaryColorLight: #4c74ff;
-
-@import url("https://fonts.googleapis.com/css?family=Cherry+Swash&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
+$primaryColorLight: #9f3031;
 
 :root {
     // navbar
@@ -42,7 +43,7 @@ $primaryColorLight: #4c74ff;
     --body-background: none;
 
     // footer color
-    --footer_background_color: #fff;
+    --footer_background: transparent;
 
     // not displayed
     --footer_display: block;
@@ -70,4 +71,29 @@ $primaryColorLight: #4c74ff;
 
     // Label sets
     --label-set-hover-background: #{rgba($primaryColor, .8)};
+
+
+    // Sections
+    --section-padding: 0 0 30px;
+    --section-background: transparent;
+
+    --section-title-font: 700 40px/60px var(--heading-font-family);
+    --section-title-align: center;
+
+    --section-cms-padding: var(--section-padding);
+    --section-cms-background: var(--section-background);
+    --section-map-padding: var(--section-padding);
+    --section-map-background: var(--section-background);
+    --section-faq-padding: var(--section-padding);
+    --section-faq-background: var(--section-background);
+    --section-footer-padding: 30px 0;
+    --section-footer-background: #fff;
+    --section-profile-padding: var(--section-padding);
+    --section-profile-background: var(--section-background);
+    --section-products-padding: var(--section-padding);
+    --section-products-background: var(--section-background);
+    --section-breadcrumbs-padding: 0;
+    --section-breadcrumbs-background: var(--section-background);
+    --section-voucher-details-padding: var(--section-padding);
+    --section-voucher-details-background: var(--section-background);
 }

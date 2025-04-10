@@ -1,6 +1,13 @@
+@import "style-webshop-general-vars";
+
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #0072b8;
 $primaryColorLight: #1c8fd7;
+
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('./assets/fonts/Century Gothic.ttf');
+}
 
 :root {
     // navbar
@@ -12,10 +19,6 @@ $primaryColorLight: #1c8fd7;
     --navbar-menu-item-color-hover: #ffffff;
     --navbar-search-padding: 20px 0px;
     --navbar-logo-height: 75px;
-
-    // Nav item line position
-    --navbar-menu-item-line-position-top: auto;
-    --navbar-menu-item-line-position-bottom: 0;
 
     // navbar (auth)
     --tc-auth-menu: #ffffff;
@@ -35,12 +38,12 @@ $primaryColorLight: #1c8fd7;
     --base-font: "Century Gothic", "Helvetica", "Open Sans", "Arial", sans-serif;
 
     // heading font
-    --hf: var(--base-font);
+    --heading-font-family: var(--base-font);
 
     // text color
     --tc: #4e4d40;
     --tc-var: #fff;
-    --tc-link: inherit;
+    --tc-link: #0071B8;
 
     // base color
     --bc: #000;
@@ -49,10 +52,16 @@ $primaryColorLight: #1c8fd7;
     --body-background: #fff;
 
     // footer color
-    --footer_background_color: #306fb3;
+    --footer_background: transparent;
     --footer_color: #fff;
 
     --footer_color_link: #fff;
+
+    --footer-copyright-color: var(--footer_color_link);
+    --footer-copyright-font: 400 16px/30px var(--base-font);
+    --footer-copyright-background: #306fb3;
+    --footer-copyright-border-color: transparent;
+    --footer-copyright-padding: 25px;
 
     // Displayed or not
     --footer_display: block;
@@ -66,7 +75,8 @@ $primaryColorLight: #1c8fd7;
     --border-color: #e4e4e4;
 
     --border-radius: 5px;
-    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    //--box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    --box-shadow: none;
 
     --color-primary: #{$primaryColor};
     --color-primary-light: #{$primaryColorLight};
@@ -108,4 +118,42 @@ $primaryColorLight: #1c8fd7;
     // Nav item line position
     --navbar-menu-item-line-position-top: auto;
     --navbar-menu-item-line-position-bottom: 0;
+
+    // Profile
+    --profile-menu-item-shadow: none;
+    --profile-menu-item-background: #ffffff;
+    --profile-menu-item-border-color: var(--border-color);
+
+    // Vouchers
+    --vouchers-label-color: #646f79;
+    --vouchers-value-color: var(--tc);
+    --vouchers-organization-color: var(--tc);
+
+    // Faq
+    --faq-width: 100%;
+    --faq-align: center;
+
+    // Sections
+    --section-padding: 0 0 30px;
+    --section-background: transparent;
+
+    --section-title-font: 700 40px/60px var(--heading-font-family);
+    --section-title-align: center;
+
+    --section-cms-padding: var(--section-padding);
+    --section-cms-background: var(--section-background);
+    --section-map-padding: var(--section-padding);
+    --section-map-background: var(--section-background);
+    --section-faq-padding: var(--section-padding);
+    --section-faq-background: var(--section-background);
+    --section-footer-padding: 30px 0;
+    --section-footer-background: #306fb3;
+    --section-profile-padding: var(--section-padding);
+    --section-profile-background: var(--section-background);
+    --section-products-padding: 20px 0 30px;
+    --section-products-background: #f5f5f5;
+    --section-breadcrumbs-padding: 0;
+    --section-breadcrumbs-background: var(--section-background);
+    --section-voucher-details-padding: var(--section-padding);
+    --section-voucher-details-background: var(--section-background);
 }

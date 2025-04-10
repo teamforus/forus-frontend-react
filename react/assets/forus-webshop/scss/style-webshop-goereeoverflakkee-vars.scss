@@ -1,8 +1,9 @@
+@import "style-webshop-general-vars";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap&subset=latin,cyrillic,latin-ext');
+
 // do not use these scss variables outside this file
 $primaryColor: #627c18;
 $primaryColorLight: #627c18;
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap&subset=latin,cyrillic,latin-ext');
 
 :root {
     // navbar
@@ -27,7 +28,10 @@ $primaryColorLight: #627c18;
     --base-font: Roboto, Verdana, arial;
 
     // heading font
-    --hf: var(--base-font);
+    --heading-font-family: var(--base-font);
+    --heading-font: 500 34px/50px var(--heading-font-family);
+    --heading-color: #08749b;
+    --heading-pane-font: 500 24px/36px var(--heading-font-family);
 
     // text color
     --tc: #1d1e20;
@@ -42,20 +46,42 @@ $primaryColorLight: #627c18;
     --body-background: #fff;
 
     // footer color
-    --footer_background_color: #08749b;
+    --footer_background: transparent;
     --footer_color: #fff;
     --footer_color_link: #fff;
     --footer_color_link_hover: #fff;
 
+    --footer-copyright-color: var(--footer_color_link);
+    --footer-copyright-font: 500 17px/25px var(--base-font);
+    --footer-copyright-background: #04465e;
+    --footer-copyright-border-color: transparent;
+    --footer-copyright-padding: 40px;
+
     // not displayed
     --footer_display: none;
+
+    // Vouchers
+    --vouchers-label-color: #646f79;
+    --vouchers-value-color: var(--tc);
+    --vouchers-organization-color: var(--tc);
 
     // product image
     --product-image-padding: 10px 0 0 10px;
 
-    // placeholder text color
-    --form-control-placeholder-color: #9b9b9b;
+    // Markdown
+    --markdown-font: 400 17px/25px var(--base-font);
 
+    // Forms
+    --form-control-color: #222222;
+    --form-control-background: #ffffff;
+    --form-control-border-color: #646464;
+    --form-control-border-color-focus: #282b39;
+    --form-control-placeholder-font: 400 13px/20px var(--base-font);
+    --form-control-placeholder-color: #9b9b9b;
+    --form-label-color: #2d3748;
+    --form-label-font: 500 13px/20px var(--base-font);
+
+    // placeholder text color
     --border-color: #e5e5e5;
     --border-radius: 7px;
     --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
@@ -69,6 +95,14 @@ $primaryColorLight: #627c18;
     --color-search-icon-medium: #{$primaryColor};
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    // Buttons
+    --button-font: 700 18px/24px var(--base-font);
+    --button-color: #282b39;
+    --button-border-radius: calc(var(--border-radius) * 0.75);
+
+    --button-disabled-color: #616161;
+    --button-disabled-background: #e5e5e5;
 
     // Label sets
     --label-set-hover-background: #{rgba($primaryColor, 0.8)};
@@ -96,14 +130,71 @@ $primaryColorLight: #627c18;
     --breadcrumb-color-active: #2d3748;
 
     // Profile
+    --profile-menu-item-gap: 0;
     --profile-menu-item-color: var(--tc);
+    --profile-menu-item-color-icon: #dbdcdb;
     --profile-menu-item-shadow: var(--box-shadow);
     --profile-menu-item-background: #ffffff;
-    --profile-menu-item-border-color: transparent;
+    --profile-menu-item-border-color: var(--border-color);
     --profile-menu-item-border-radius: 0px;
     --profile-menu-item-hover-color: #fff;
-    --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, .20);
+    --profile-menu-item-hover-shadow: var(--box-shadow);
     --profile-menu-item-hover-background: #08749b;
     --profile-menu-item-hover-border-color: transparent;
     --profile-menu-item-hover-border-radius: 0px;
+
+    // Products
+    --products-title-color: #2e82a4;
+    --products-text-color: #2d3748;
+
+    // Product
+    --product-title-font: 500 24px/36px var(--base-font);
+    --product-title-color: #0b0e12;
+
+    // Faq
+    --faq-width: 820px;
+    --faq-align: flex-start;
+    --faq-header-color: #00122a;
+    --faq-header-color-hover: #00122a;
+
+    // Map
+    --map-title-color: #0b0e12;
+    --map-title-font: 400 52px/72px var(--base-font);
+
+
+    // CMS funds
+    --cms-funds-title-font: 400 24px/36px var(--base-font);
+    --cms-funds-title-color: var(--htc);
+    --cms-funds-label-font-size: 11px;
+    --cms-funds-label-background: var(--color-primary);
+
+    --cms-funds-compact-title-font: 500 32px/48px var(--base-font);
+    --cms-funds-compact-title-color: var(--htc);
+
+    --cms-funds-link-color: #08749b;
+    --cms-funds-link-font: 600 18px/20px var(--base-font);
+
+    // Sections
+    --section-padding: 0 0 30px;
+    --section-background: transparent;
+
+    --section-title-font: 700 40px/60px var(--heading-font-family);
+    --section-title-align: center;
+
+    --section-cms-padding: var(--section-padding);
+    --section-cms-background: var(--section-background);
+    --section-map-padding: var(--section-padding);
+    --section-map-background: var(--section-background);
+    --section-faq-padding: var(--section-padding);
+    --section-faq-background: var(--section-background);
+    --section-footer-padding: 30px 0;
+    --section-footer-background: #08749b;
+    --section-profile-padding: var(--section-padding);
+    --section-profile-background: var(--section-background);
+    --section-products-padding: var(--section-padding);
+    --section-products-background: var(--section-background);
+    --section-breadcrumbs-padding: 0;
+    --section-breadcrumbs-background: var(--section-background);
+    --section-voucher-details-padding: var(--section-padding);
+    --section-voucher-details-background: var(--section-background);
 }

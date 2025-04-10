@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { Fragment, useContext, useMemo, useState } from 'react';
 import useAppConfigs from '../../hooks/useAppConfigs';
 import { mainContext } from '../../contexts/MainContext';
 import StateNavLink from '../../modules/state_router/StateNavLink';
@@ -8,6 +8,7 @@ import useEnvData from '../../hooks/useEnvData';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import AppLinks from '../../components/elements/app-links/AppLinks';
 import Icon from '../../../../assets/forus-webshop/resources/_webshop-common/assets/img/me-logo.svg';
+import Section from '../../components/elements/sections/Section';
 
 export default function LayoutFooter() {
     const translate = useTranslate();
@@ -30,8 +31,8 @@ export default function LayoutFooter() {
     }
 
     return (
-        <footer className="section section-footer" id="footer">
-            <div className="wrapper">
+        <Fragment>
+            <Section type={'footer'} id="footer">
                 <div className="block block-footer">
                     <div className="row">
                         <h2 className="sr-only">{translate('app_footer.columns.site_info')}</h2>
@@ -135,26 +136,30 @@ export default function LayoutFooter() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="block block-copyrights">
-                <div className="wrapper">
-                    <div className="copyrights"></div>
-                    <div className="links">
-                        {pageLinks?.map((pageLink, index) => (
-                            <div className="link-item" key={index}>
-                                <StateNavLink name={pageLink.page_type} target={pageLink.external ? '_blank' : '_self'}>
-                                    {translate(`app_footer.links.${pageLink.page_type}`)}
+            </Section>
+            <Section type={'copyright'} wrapper={false}>
+                <div className="block block-copyrights">
+                    <div className="wrapper">
+                        <div className="copyrights"></div>
+                        <div className="links">
+                            {pageLinks?.map((pageLink, index) => (
+                                <div className="link-item" key={index}>
+                                    <StateNavLink
+                                        name={pageLink.page_type}
+                                        target={pageLink.external ? '_blank' : '_self'}>
+                                        {translate(`app_footer.links.${pageLink.page_type}`)}
+                                    </StateNavLink>
+                                </div>
+                            ))}
+                            <div className="link-item">
+                                <StateNavLink name="sitemap" target="_self">
+                                    {translate('app_footer.links.sitemap')}
                                 </StateNavLink>
                             </div>
-                        ))}
-                        <div className="link-item">
-                            <StateNavLink name="sitemap" target="_self">
-                                {translate('app_footer.links.sitemap')}
-                            </StateNavLink>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </Section>
+        </Fragment>
     );
 }

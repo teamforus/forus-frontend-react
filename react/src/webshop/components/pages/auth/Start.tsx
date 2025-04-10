@@ -431,7 +431,7 @@ export default function Start() {
     );
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {!signedIn && (
                 <header className="section section-sign-up-choose">
                     <div className="wrapper">

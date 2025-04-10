@@ -15,7 +15,6 @@ export default function Sitemap() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('sitemap.breadcrumbs.home'), state: 'home' },
                 { name: translate('sitemap.breadcrumbs.sitemap') },

@@ -13,7 +13,6 @@ export default function MeApp() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('me.breadcrumbs.home'), state: 'home' },
                 { name: translate('me.breadcrumbs.me') },

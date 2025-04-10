@@ -218,9 +218,11 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                 {groupKeyList.map((itemGroupKey) => (
                                     <h2
                                         key={itemGroupKey}
-                                        className={`search-result-sidebar-item state-nav-link ${
-                                            groupKey == itemGroupKey ? 'active' : ''
-                                        }`}
+                                        className={classNames(
+                                            'search-result-sidebar-item',
+                                            'state-nav-link',
+                                            groupKey == itemGroupKey && 'active',
+                                        )}
                                         aria-selected={groupKey === itemGroupKey}
                                         aria-expanded={groupKey === itemGroupKey}
                                         role={'button'}

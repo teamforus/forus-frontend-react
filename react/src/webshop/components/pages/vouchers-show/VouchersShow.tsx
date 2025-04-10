@@ -38,6 +38,7 @@ import VoucherQrCodePrintable from '../../printable/VoucherQrCodePrintable';
 import useSetTitle from '../../../hooks/useSetTitle';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import Section from '../../elements/sections/Section';
 
 export default function VouchersShow() {
     const { number } = useParams();
@@ -275,7 +276,6 @@ export default function VouchersShow() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('voucher.breadcrumbs.home'), state: 'home' },
                 { name: translate('voucher.breadcrumbs.vouchers'), state: 'vouchers' },
@@ -290,8 +290,8 @@ export default function VouchersShow() {
                     : null,
             ]}>
             {voucher && voucherCard && (
-                <section className="section section-voucher-details">
-                    <div className="page page-voucher">
+                <div className="page page-voucher">
+                    <Section type={'voucher_details'}>
                         {/* Internal vouchers */}
                         {!voucherCard.deactivated && !voucher?.expired && !voucherCard.is_external && (
                             <div className="block block-voucher">
@@ -839,7 +839,9 @@ export default function VouchersShow() {
                                         src={assetUrl(
                                             '/assets/img/icon-physical-cards/icon-physical-cards-preview-vertical.png',
                                         )}
-                                        alt={translate('voucher.physical_card.alt', { title: voucherCard.title })}
+                                        alt={translate('voucher.physical_card.alt', {
+                                            title: voucherCard.title,
+                                        })}
                                     />
                                 </div>
                                 <div className="block-card-details">
@@ -988,7 +990,9 @@ export default function VouchersShow() {
                                                                 {translate('voucher.transactions.reservation') + ' '}
                                                                 <StateNavLink
                                                                     name={'reservation-show'}
-                                                                    params={{ id: transaction.product_reservation.id }}>
+                                                                    params={{
+                                                                        id: transaction.product_reservation.id,
+                                                                    }}>
                                                                     #{transaction.product_reservation.code}
                                                                 </StateNavLink>
                                                             </div>
@@ -1050,25 +1054,23 @@ export default function VouchersShow() {
                                 </div>
                             </div>
                         )}
+                    </Section>
 
-                        {/* Voucher available budget products */}
-                        {showProducts && products && voucher.fund.type == 'budget' && (
-                            <BlockProducts
-                                type="budget"
-                                products={products.data}
-                                filters={{ fund_id: voucher.fund_id }}
-                            />
-                        )}
+                    {/* Voucher available budget products */}
+                    {showProducts && products && voucher.fund.type == 'budget' && (
+                        <BlockProducts type="budget" products={products.data} filters={{ fund_id: voucher.fund_id }} />
+                    )}
 
-                        {/* Voucher available subsidy products */}
-                        {showProducts && subsidies && voucher.fund.type == 'subsidies' && (
-                            <BlockProducts
-                                type="subsidies"
-                                products={subsidies.data}
-                                filters={{ fund_id: voucher.fund_id }}
-                            />
-                        )}
+                    {/* Voucher available subsidy products */}
+                    {showProducts && subsidies && voucher.fund.type == 'subsidies' && (
+                        <BlockProducts
+                            type="subsidies"
+                            products={subsidies.data}
+                            filters={{ fund_id: voucher.fund_id }}
+                        />
+                    )}
 
+                    <Section type={'map'}>
                         {/* Providers map */}
                         {!voucherCard.deactivated &&
                             !voucher?.expired &&
@@ -1129,8 +1131,8 @@ export default function VouchersShow() {
                                 </div>
                             </div>
                         )}
-                    </div>
-                </section>
+                    </Section>
+                </div>
             )}
         </BlockShowcase>
     );

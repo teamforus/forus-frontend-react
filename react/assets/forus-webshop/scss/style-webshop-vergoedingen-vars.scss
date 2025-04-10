@@ -1,6 +1,96 @@
+@import "style-webshop-general-vars";
+
 /*==========  Style Sheet - Vars  ==========*/
 $primaryColor: #176b55;
 $primaryColorLight: #2f7f6b;
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-LightItalic.eot');
+    src: local('Grandis Extended Light Italic'), local('GrandisExtended-LightItalic'),
+    url('../fonts/GrandisExtended-LightItalic.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Light.eot');
+    src: local('Grandis Extended Light'), local('GrandisExtended-Light'),
+    url('../fonts/GrandisExtended-Light.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Medium.eot');
+    src: local('Grandis Extended Medium'), local('GrandisExtended-Medium'),
+    url('../fonts/GrandisExtended-Medium.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-MediumItalic.eot');
+    src: local('Grandis Extended Medium Italic'), local('GrandisExtended-MediumItalic'),
+    url('../fonts/GrandisExtended-MediumItalic.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Regular.eot');
+    src: local('Grandis Extended Regular'), local('GrandisExtended-Regular'),
+    url('../fonts/GrandisExtended-Regular.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-RegularItalic.eot');
+    src: local('Grandis Extended Regular Italic'), local('GrandisExtended-RegularItalic'),
+    url('../fonts/GrandisExtended-RegularItalic.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-RegularItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-BoldItalic.eot');
+    src: local('Grandis Extended Bold Italic'), local('GrandisExtended-BoldItalic'),
+    url('../fonts/GrandisExtended-BoldItalic.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-BoldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Grandis Extended';
+    src: url('../fonts/GrandisExtended-Bold.eot');
+    src: local('Grandis Extended Bold'), local('GrandisExtended-Bold'),
+    url('../fonts/GrandisExtended-Bold.woff2') format('woff2'),
+    url('../fonts/GrandisExtended-Bold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OrandaBT-Bold';
+    src: url("../fonts/Oranda-BT-Bold.woff2") format("woff2"),
+    url("../fonts/Oranda-BT-Bold.woff") format("woff"),
+    url("../fonts/Oranda-BT-Bold.ttf") format("truetype");
+    font-weight: 600;
+}
 
 @font-face {
     font-family: Oranda;
@@ -47,7 +137,11 @@ $primaryColorLight: #2f7f6b;
     // base font
     --base-font: 'Source Sans Pro', 'Arial', sans-serif;
 
-    --hf: var(--base-font);
+    // heading font
+    --heading-font-family: 'Oranda', sans-serif;
+    --heading-font: 700 40px/60px var(--heading-font-family);
+    --heading-color: var(--tc);
+    --heading-pane-font: 700 22px/30px var(--heading-font-family);
 
     // text color
     --tc: #212121;
@@ -61,10 +155,16 @@ $primaryColorLight: #2f7f6b;
     --body-background: #fff;
 
     // footer color
-    --footer_background_color: #3a3a3a;
+    --footer_background: transparent;
     --footer_color: #fff;
 
     --footer_color_link: #fff;
+
+    --footer-copyright-color: var(--footer_color_link);
+    --footer-copyright-font: 400 16px/30px var(--base-font);
+    --footer-copyright-background: #212121;
+    --footer-copyright-border-color: transparent;
+    --footer-copyright-padding: 25px;
 
     // Displayed or not
     --footer_display: block;
@@ -102,8 +202,32 @@ $primaryColorLight: #2f7f6b;
 
     --showcase-fullscreen-bottom-offset: 50px;
 
+    // Profile
+    --profile-menu-item-color: var(--color-primary);
+    --profile-menu-item-color-icon: var(--profile-menu-item-color);
+    --profile-menu-item-shadow: none;
+    --profile-menu-item-background: #ffffff;
+    --profile-menu-item-border-color: var(--border-color);
+    --profile-menu-item-border-radius: var(--border-radius);
+    --profile-menu-item-hover-color: #fff;
+    --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    --profile-menu-item-hover-background: var(--color-primary);
+    --profile-menu-item-hover-border-color: var(--color-primary);
+    --profile-menu-item-hover-border-radius: var(--border-radius);
+
     // Label sets
     --label-set-hover-background: #{rgba($primaryColor, 0.8)};
+
+    // Sign up
+    --sign_up_accent_color: #282b39;
+    --sign_up_accent_color_light: #bdcbff;
+    --sign_up_link_color: #e60003;
+    --sign_up_step_btns_color: var(--color-primary);
+    --sign_up_digid_btn_bkg: #e1e7ff;
+    --sign_up_digid_btn_text: #4b71ff;
+    --sign_up_digid_btn_border: none;
+    --sign_up_digid_btn_border_radius: 5px;
+    --sign_up_loader_icon_color: #282b39;
 
     // Login button
     --login-button-background: #fff;
@@ -111,4 +235,42 @@ $primaryColorLight: #2f7f6b;
     // Nav item line position
     --navbar-menu-item-line-position-top: auto;
     --navbar-menu-item-line-position-bottom: 0;
+
+    // Faq
+    --faq-width: 100%;
+    --faq-align: center;
+
+    // Sections
+    --section-padding: 0 0 30px;
+    --section-background: transparent;
+
+    --section-title-font: 700 36px/50px var(--heading-font-family);
+    --section-title-align: left;
+
+    --section-cms-padding: var(--section-padding);
+    --section-cms-background: var(--section-background);
+    --section-map-padding: 30px 0;
+    --section-map-background: var(--section-background);
+    --section-faq-padding: var(--section-padding);
+    --section-faq-background: var(--section-background);
+    --section-footer-padding: 30px 0;
+    --section-footer-background: #3a3a3a;
+    --section-profile-padding: var(--section-padding);
+    --section-profile-background: var(--section-background);
+    --section-products-padding: 20px 0 30px;
+    --section-products-background: #f5f5f5;
+    --section-breadcrumbs-padding: 0;
+    --section-breadcrumbs-background: var(--section-background);
+    --section-voucher-details-padding: var(--section-padding);
+    --section-voucher-details-background: var(--section-background);
+
+    // Search bar
+    --search-result-sidebar-item-active-color: #fff;
+    --search-result-sidebar-item-active-background: #176b55;
+
+    // CMS funds
+    --cms-funds-title-font: 400 32px/48px 'Oranda', sans-serif;
+    --cms-funds-title-color: #950022;
+    --cms-funds-label-font-size: 12px;
+    --cms-funds-label-background: #176B55;
 }
