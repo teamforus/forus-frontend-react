@@ -2,40 +2,41 @@ import React, { useCallback } from 'react';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
-import useMakeExporterService from './useMakeExporterService';
-import { useFundService } from '../FundService';
+import { useReimbursementsService } from '../ReimbursementService';
+import useMakeExporterService from './hooks/useMakeExporterService';
 import usePushApiError from '../../hooks/usePushApiError';
 
-export default function useFundIdentitiesExportService() {
+export default function useReimbursementsExporter() {
     const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const fundService = useFundService();
+    const reimbursementService = useReimbursementsService();
     const { makeSections, saveExportedData } = useMakeExporterService();
 
     const exportData = useCallback(
-        (organization_id: number, fund_id: number, filters: object = {}) => {
+        (organization_id: number, filters: object = {}) => {
             const onSuccess = (data: { data_format: string; fields: string }) => {
                 const { data_format, fields } = data;
                 const queryFilters = { ...filters, data_format, fields };
 
                 setProgress(0);
+                console.info('- data loaded from the api.');
 
-                fundService
-                    .exportIdentities(organization_id, fund_id, queryFilters)
+                reimbursementService
+                    .export(organization_id, queryFilters)
                     .then((res) => saveExportedData(data, organization_id, res))
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
-            fundService.exportIdentityFields(organization_id, fund_id).then((res) => {
+            reimbursementService.exportFields(organization_id).then((res) => {
                 openModal((modal) => (
                     <ModalExportDataSelect modal={modal} sections={makeSections(res.data.data)} onSuccess={onSuccess} />
                 ));
             });
         },
-        [makeSections, openModal, pushApiError, saveExportedData, setProgress, fundService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, reimbursementService],
     );
 
     return { exportData };
