@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Die Töpfe prüfen",
-            "home": "Startseite"
+            "home": "Startseite",
+            "check": "Schema prüfen"
         },
         "funds": "Mittel",
         "next_step": "Weiter",
         "no_value": "---",
-        "of": "von",
         "previous_step": "Vorheriger Schritt",
         "search": "Suche",
         "show_less": "Weniger anzeigen",
@@ -3441,7 +3440,8 @@
         "total_amount": "Gesamtbetrag",
         "total_offers": "Gesamtes Angebot",
         "your_data": "Ihre Daten",
-        "record_required": "{{ title }} Das Feld ist obligatorisch."
+        "progress": "Schritt {{step}} von {{total}}",
+        "record_required": "Das Ausfüllen dieses Feldes ist obligatorisch."
     },
     "navbar": {
         "vergoedingen": {

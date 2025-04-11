@@ -18,7 +18,6 @@ import { useTagService } from '../../../../dashboard/services/TagService';
 import Tag from '../../../../dashboard/props/models/Tag';
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
 import Organization from '../../../../dashboard/props/models/Organization';
-import ProgressPie from '../../elements/progress-pie/ProgressPie';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import UIControlCheckbox from '../../../../dashboard/components/elements/forms/ui-controls/UIControlCheckbox';
 import UIControlStep from '../../../../dashboard/components/elements/forms/ui-controls/UIControlStep';
@@ -30,6 +29,7 @@ import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import FundsListItemPreCheck from '../../elements/lists/funds-list/templates/FundsListItemPreCheck';
 import useFilter from '../../../../dashboard/hooks/useFilter';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
+import classNames from 'classnames';
 
 type PreCheckLocal = PreCheck<{
     label?: string;
@@ -62,6 +62,7 @@ export default function FundsPreCheck() {
     const [activeStepIndex, setActiveStepIndex] = useState(0);
     const [emptyRecordTypeKeys, setEmptyRecordTypeKeys] = useState<Array<string>>(null);
     const [showMorePreCheckInfo, setShowMorePreCheckInfo] = useState(false);
+    const [showMoreRecordsInfo, setShowMoreRecordsInfo] = useState(false);
 
     const hasTotals = useMemo(() => !!totals, [totals]);
 
@@ -261,17 +262,56 @@ export default function FundsPreCheck() {
         }
     }, [appConfigs.pre_check_enabled, navigateState, pushDanger, translate]);
 
+    const PreCheckActions = useCallback(() => {
+        return (
+            <div className="pre-check-actions">
+                <button className="button button-download button-fill button-sm" type="button" onClick={downloadPDF}>
+                    {translate('pre_check.download_pdf')}
+                </button>
+                <button className="button button-light button-fill button-sm" type="button" onClick={changeAnswers}>
+                    {translate('pre_check.change_answers')}
+                </button>
+            </div>
+        );
+    }, [changeAnswers, downloadPDF, translate]);
+
     const PreCheckProgress = useCallback(
-        ({ id }: { id?: string }) => (
+        ({ id, title = true }: { id?: string; title?: boolean }) => (
             <div id={id} className={`pre-check-progress ${totals ? 'pre-check-progress-complete' : ''}`}>
-                <div className="pre-check-progress-title">{translate('pre_check.your_data')}</div>
-                <div className="pre-check-progress-steps">
+                {totals && (
+                    <a
+                        className="pre-check-progress-header"
+                        type="button"
+                        onClick={(e) => {
+                            e?.preventDefault();
+                            setShowMoreRecordsInfo(!showMoreRecordsInfo);
+                        }}
+                        aria-expanded={showMoreRecordsInfo}
+                        aria-controls={'preCheckMoreRecords'}>
+                        {translate('pre_check.your_data')}
+                        {showMoreRecordsInfo ? (
+                            <em className="mdi mdi-chevron-up" />
+                        ) : (
+                            <em className="mdi mdi-chevron-right" />
+                        )}
+                    </a>
+                )}
+
+                <div
+                    className={classNames(
+                        'pre-check-progress-steps',
+                        !showMoreRecordsInfo && 'pre-check-progress-steps-hide-mobile',
+                    )}>
+                    {title && <div className="pre-check-progress-title">{translate('pre_check.your_data')}</div>}
+
                     {preChecks?.map((preCheck, index) => (
                         <div
                             key={preCheck.id}
-                            className={`pre-check-progress-step ${activeStepIndex == index ? 'active' : ''} ${
-                                activeStepIndex > index || totals ? 'completed' : ''
-                            }`}>
+                            className={classNames(
+                                'pre-check-progress-step',
+                                activeStepIndex == index && 'active',
+                                (activeStepIndex > index || totals) && 'completed',
+                            )}>
                             <div className="pre-check-progress-step-icon">{index + 1}</div>
 
                             <div className="pre-check-progress-questions">
@@ -296,7 +336,7 @@ export default function FundsPreCheck() {
                         </div>
                     ))}
 
-                    <div className={`pre-check-progress-step ${totals ? 'active' : ''}`}>
+                    <div className={classNames('pre-check-progress-step', totals && 'active')}>
                         <div className="pre-check-progress-step-icon" />
                         <div className="pre-check-progress-questions">
                             <div className="pre-check-progress-question">
@@ -311,7 +351,11 @@ export default function FundsPreCheck() {
 
                 {totals && (
                     <Fragment>
-                        <div className="pre-check-totals">
+                        <div
+                            className={classNames(
+                                'pre-check-totals',
+                                !showMoreRecordsInfo && 'pre-check-totals-hide-mobile',
+                            )}>
                             <div className="block block-key-value-list">
                                 <div className="block-key-value-list-item">
                                     <div className="key-value-list-item-label">
@@ -328,25 +372,12 @@ export default function FundsPreCheck() {
                             </div>
                         </div>
 
-                        <div className="pre-check-actions">
-                            <button
-                                className="button button-download button-fill button-sm"
-                                type="button"
-                                onClick={downloadPDF}>
-                                {translate('pre_check.download_pdf')}
-                            </button>
-                            <button
-                                className="button button-light button-fill button-sm"
-                                type="button"
-                                onClick={changeAnswers}>
-                                {translate('pre_check.change_answers')}
-                            </button>
-                        </div>
+                        <PreCheckActions />
                     </Fragment>
                 )}
             </div>
         ),
-        [activeStepIndex, changeAnswers, downloadPDF, preChecks, totals, translate],
+        [PreCheckActions, activeStepIndex, preChecks, showMoreRecordsInfo, totals, translate],
     );
 
     return (
@@ -365,61 +396,35 @@ export default function FundsPreCheck() {
                             </div>
 
                             {!totals && (
-                                <div className="block-progress-pie">
-                                    <div className="progress-pie">
-                                        <ProgressPie
-                                            attrImg={{ style: { width: '70px' } }}
-                                            title={`${activeStepIndex + 1} ${translate('pre_check.of')} ${preChecks.length}`}
-                                            size={100}
-                                            progress={(activeStepIndex + 1) / preChecks.length}
-                                            color="#315EFD"
-                                            backgroundColor="#D9D9D9"
-                                            strokeWidth={0}
-                                        />
-                                        <div className="progress-pie-text">
-                                            {activeStepIndex + 1} {translate('pre_check.of')} {preChecks.length}
-                                        </div>
+                                <div className="pre-check-mobile-progress">
+                                    <div className="pre-check-mobile-progress-title">
+                                        {translate('pre_check.progress', {
+                                            step: activeStepIndex + 1,
+                                            total: preChecks.length,
+                                        })}
                                     </div>
-                                    <div className="progress-pie-info">
-                                        <div className="progress-pie-info-title">
-                                            {preChecks?.[activeStepIndex]?.title_short}
-                                        </div>
-                                        {preChecks[activeStepIndex]?.record_types?.map((record, index) => (
-                                            <div key={index} className="progress-pie-info-details">
-                                                <div className="progress-pie-info-details-key">
-                                                    {record.title_short}: &nbsp;
-                                                </div>
-                                                <div className="progress-pie-info-details-value">
-                                                    {record?.input_value || translate('pre_check.no_value')}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <div className="progress-pie-show-details">
-                                        <button
-                                            type="button"
-                                            className="button button-text button-xs"
-                                            onClick={() => setShowMorePreCheckInfo(false)}
-                                            onCompositionEnd={() => setShowMorePreCheckInfo(!showMorePreCheckInfo)}
-                                            aria-expanded={showMorePreCheckInfo}
-                                            aria-controls={'preCheckMoreInfo'}>
-                                            {showMorePreCheckInfo ? (
-                                                <Fragment>
-                                                    {translate('pre_check.show_less')}
-                                                    <em className="mdi mdi-chevron-up icon-right"></em>
-                                                </Fragment>
-                                            ) : (
-                                                <Fragment>
-                                                    {translate('pre_check.show_more')}
-                                                    <em className="mdi mdi-chevron-down icon-right" />
-                                                </Fragment>
-                                            )}
-                                        </button>
-                                    </div>
+                                    <a
+                                        type="button"
+                                        className="pre-check-mobile-progress-collapse"
+                                        onClick={(e) => {
+                                            e?.preventDefault();
+                                            setShowMorePreCheckInfo(!showMorePreCheckInfo);
+                                        }}
+                                        aria-expanded={showMorePreCheckInfo}
+                                        aria-controls={'preCheckMoreInfo'}>
+                                        Alle stappen bekijken
+                                        {showMorePreCheckInfo ? (
+                                            <em className="mdi mdi-chevron-up" />
+                                        ) : (
+                                            <em className="mdi mdi-chevron-down" />
+                                        )}
+                                    </a>
                                 </div>
                             )}
 
-                            {showMorePreCheckInfo && <PreCheckProgress id={'preCheckMoreInfo'} />}
+                            {(showMorePreCheckInfo || totals) && (
+                                <PreCheckProgress id={'preCheckMoreInfo'} title={false} />
+                            )}
                         </div>
 
                         <div className="showcase-layout">
@@ -670,9 +675,7 @@ export default function FundsPreCheck() {
                                                             preCheckRecord.record_type.key,
                                                         ) && (
                                                             <div className="form-error">
-                                                                {translate('pre_check.record_required', {
-                                                                    title: preCheckRecord?.title,
-                                                                })}
+                                                                {translate('pre_check.record_required')}
                                                             </div>
                                                         )}
                                                     </div>
