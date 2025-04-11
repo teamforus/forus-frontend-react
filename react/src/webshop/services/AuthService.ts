@@ -65,7 +65,7 @@ export function useAuthService() {
             }
 
             if (target && target[0] == 'voucher') {
-                navigateState('voucher', { address: target[1] });
+                navigateState('voucher', { number: target[1] });
                 return true;
             }
 

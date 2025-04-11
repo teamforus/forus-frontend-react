@@ -110,7 +110,7 @@ export default function Vouchers() {
             {vouchers && (
                 <Fragment>
                     {vouchers.data.length > 0 && (
-                        <div className="block block-vouchers">
+                        <div className="block block-vouchers" data-dusk="vouchersList">
                             {vouchers.data.map((voucher) => (
                                 <VoucherCard
                                     key={voucher.id}

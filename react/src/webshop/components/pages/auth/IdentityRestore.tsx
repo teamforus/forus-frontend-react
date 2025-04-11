@@ -43,7 +43,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
 
             if (target[0] == targetVoucher) {
                 if (target?.[1]) {
-                    navigateState('voucher', { address: target[1] });
+                    navigateState('voucher', { number: target[1] });
                 } else {
                     navigateState('start');
                 }
