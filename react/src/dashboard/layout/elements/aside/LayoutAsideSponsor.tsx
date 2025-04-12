@@ -58,6 +58,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 iconActive={<IconFundRequestsActive />}
                 pinnedGroups={pinnedGroups}
                 setPinnedGroups={setPinnedGroups}
+                dusk={'asideMenuGroupFundRequests'}
                 items={[
                     {
                         id: 'requesters',
@@ -70,6 +71,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         id: 'fund_requests',
                         name: 'Aanvragen',
                         state: 'fund-requests',
+                        dusk: 'fundRequestsPage',
                         stateParams: { organizationId: organization?.id },
                         show:
                             appConfigs?.organizations?.funds?.fund_requests &&
@@ -121,12 +123,14 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 iconActive={<IconParticipantsActive />}
                 pinnedGroups={pinnedGroups}
                 setPinnedGroups={setPinnedGroups}
+                dusk={'asideMenuGroupIdentities'}
                 items={[
                     {
                         id: 'identities',
                         name: 'Personen',
                         state: 'identities',
                         stateParams: { organizationId: organization?.id },
+                        dusk: 'identitiesPage',
                         show:
                             organization.allow_profiles &&
                             hasPermission(organization, ['view_identities', 'manage_identities'], false),

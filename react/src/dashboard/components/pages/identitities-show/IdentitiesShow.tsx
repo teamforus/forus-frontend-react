@@ -25,12 +25,15 @@ import IdentityPayoutsCard from './cards/IdentityPayoutsCard';
 import IdentityRecordKeyValueWithHistory from './elements/IdentityRecordKeyValueWithHistory';
 import { differenceInYears } from 'date-fns';
 import { dateParse } from '../../../helpers/dates';
+import BlockCardEmails from '../../elements/block-card-emails/BlockCardEmails';
+import useEmailLogService from '../../../services/EmailLogService';
 
 export default function IdentitiesShow() {
     const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
 
+    const emailLogService = useEmailLogService();
     const recordTypeService = useRecordTypeService();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
@@ -102,6 +105,15 @@ export default function IdentitiesShow() {
             ));
         },
         [openModal, fetchIdentity, identity, recordTypes, recordsByKey, activeOrganization],
+    );
+
+    const fetchEmailLogs = useCallback(
+        (query = {}) =>
+            emailLogService.list(activeOrganization.id, {
+                identity_id: identity.id,
+                ...query,
+            }),
+        [activeOrganization?.id, identity?.id, emailLogService],
     );
 
     useEffect(() => {
@@ -344,6 +356,8 @@ export default function IdentitiesShow() {
             {hasPermission(activeOrganization, ['validate_records', 'manage_validators'], false) && (
                 <IdentityFundRequestsCard organization={activeOrganization} identity={identity} />
             )}
+
+            <BlockCardEmails organization={activeOrganization} fetchLogEmails={fetchEmailLogs} />
         </Fragment>
     );
 }
