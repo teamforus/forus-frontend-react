@@ -44,6 +44,10 @@
         margin-bottom: 15px;
         text-align: left;
         font: inherit;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     ul,

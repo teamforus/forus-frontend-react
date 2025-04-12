@@ -188,8 +188,8 @@ export default function Home() {
                 </div>
             )}
 
-            {appConfigs.pre_check_enabled && appConfigs.pre_check_banner_state == 'public' && (
-                <div className="wrapper">
+            <Section type={'pre-check'}>
+                {appConfigs.pre_check_enabled && appConfigs.pre_check_banner_state == 'public' && (
                     <div className="block block-pre-check-banner">
                         {appConfigs.pre_check_banner?.sizes?.large && (
                             <div className="pre-check-banner-media">
@@ -219,8 +219,8 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+            </Section>
 
             {appConfigs.pages.home && <CmsBlocks page={appConfigs.pages.home} />}
 

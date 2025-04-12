@@ -19,6 +19,7 @@ export default function Section({
         | 'products'
         | 'product'
         | 'copyright'
+        | 'pre-check'
         | 'footer';
     wrapper?: boolean;
     children: ReactElement | ReactElement[];
@@ -35,6 +36,7 @@ export default function Section({
                 type === 'profile' && 'section-profile',
                 type === 'product' && 'section-product',
                 type === 'products' && 'section-products',
+                type === 'pre-check' && 'section-pre-check',
                 type === 'copyright' && 'section-copyright',
                 type === 'breadcrumbs' && 'section-breadcrumbs',
                 type === 'voucher_details' && 'section-voucher-details',

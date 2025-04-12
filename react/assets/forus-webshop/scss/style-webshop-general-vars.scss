@@ -21,6 +21,8 @@ $primaryColorLight: #305dfb;
     --color-danger: #e63b3b;
 
     // navbar
+    --navbar-box-shadow: none;
+
     --navbar-menu-gap: 22px;
     --navbar-menu-order: 1;
     --navbar-menu-background: #f5f5f5;
@@ -105,10 +107,10 @@ $primaryColorLight: #305dfb;
     --body-background: #fff;
 
     // footer color
+    --footer_padding: 0;
     --footer_background: transparent;
     --footer_color: #353535;
     --footer_color_link: #004d93;
-    --footer_color_link_hover: #004d93;
 
     --footer_social_color: var(--footer_color);
     --footer_social_background: transparent;
@@ -297,7 +299,7 @@ $primaryColorLight: #305dfb;
     --profile-menu-item-color-icon: var(--profile-menu-item-color);
     --profile-menu-item-shadow: var(--box-shadow);
     --profile-menu-item-background: #ffffff;
-    --profile-menu-item-border-color: transparent;
+    --profile-menu-item-border-color: var(--border-color);
     --profile-menu-item-border-radius: var(--border-radius);
     --profile-menu-item-hover-color: #fff;
     --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -353,6 +355,8 @@ $primaryColorLight: #305dfb;
     --section-faq-background: var(--section-background);
     --section-footer-padding: 30px 0;
     --section-footer-background: #fff;
+    --section-pre-check-padding: 0 0 30px;
+    --section-pre-check-background: var(--section-background);
     --section-profile-padding: var(--section-padding);
     --section-profile-background: var(--section-background);
     --section-products-padding: var(--section-padding);

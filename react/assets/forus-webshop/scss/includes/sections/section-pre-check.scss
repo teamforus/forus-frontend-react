@@ -1,0 +1,7 @@
+.section.section-pre-check {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: var(--section-pre-check-padding);
+    background: var(--section-pre-check-background);
+}
