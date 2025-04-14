@@ -250,6 +250,7 @@ export default function Start() {
                         }}>
                         <input
                             type="checkbox"
+                            data-dusk={'privacyCheckbox'}
                             className={'sign_up-privacy-checkbox'}
                             checked={authForm.values.privacy}
                             onChange={(e) => {

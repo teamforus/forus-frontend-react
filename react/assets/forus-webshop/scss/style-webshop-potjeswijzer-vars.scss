@@ -5,65 +5,10 @@ $primaryColor: #b9cb18;
 $primaryColorLight: #b9cb18;
 
 :root {
-    // navbar
-    --navbar-menu-background: #4e4d40;
-    --navbar-menu-item-color: #fff;
-    --navbar-menu-item-color-hover: #fff;
-    --navbar-search-padding: 20px 0px;
-    --navbar-logo-height: 60px;
-
-    // navbar (auth)
-    --tc-auth-menu: #fff;
-    --tc-auth-btn: #666666;
-    --btn-auth-bg: #ebedf0;
-    --btn-auth-border: transparent;
-
-    // navbar (start modal primary)
-    --tc-start-btn: #fff;
-    --btn-start-bg: #4990b5;
-    --btn-start-btn: #305dfb;
-    --btn-start-border: transparent;
-
-    // header attributes
-    --bg-values: url("../img/splash-top-b.jpg") no-repeat 100% 0;
-
-    // base font
-    --base-font: "Helvetica", "Open Sans", "Arial", sans-serif;
-
-    // text color
-    --tc: #4e4d40;
-    --tc-var: #fff;
-    --tc-link: inherit;
-
-    // base color
-    --bc: #000;
-
-    // background color
-    --body-background: #fff;
-
-    // footer color
-    --footer_background: transparent;
-    --footer_color: #ffffff;
-    --footer_color_link: var(--footer_color);
-    --footer_color_link_hover: var(--footer_color);
-
-    --footer-copyright-color: #004d93;
-    --footer-copyright-font: 400 14px/30px var(--base-font);
-    --footer-copyright-background: #fff;
-    --footer-copyright-border-color: var(--border-color);
-    --footer-copyright-padding: 40px;
-
-    // Displayed or not
-    --footer_display: block;
-
-    // product image
-    --product-image-padding: 10px 0 0 10px;
-
-    // placeholder text color
-    --form-control-placeholder-color: #515152;
+    --zoom: 100%;
+    --zoom-mobile: 100%;
 
     --border-color: #e5e5e5;
-
     --border-radius: 8px;
     --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
@@ -73,9 +18,167 @@ $primaryColorLight: #b9cb18;
     --color-default: #56b4e9;
     --color-default-light: #b9cb18;
 
+    --color-danger: #e63b3b;
+
+    // navbar
+    --navbar-box-shadow: none;
+
+    --navbar-menu-gap: 22px;
+    --navbar-menu-order: 1;
+    --navbar-menu-background: #4e4d40;
+
+    --navbar-search-gap: 20px;
+    --navbar-search-order: 2;
+    --navbar-search-padding: 20px 0px;
+    --navbar-search-background: #ffffff;
+    --navbar-search-border-bottom: 1px solid var(--border-color);
+
+    --navbar-menu-item-font: 400 18px/21px var(--base-font);
+    --navbar-menu-item-color: #fff;
+    --navbar-menu-item-color-hover: #fff;
+    --navbar-menu-item-padding: 16px 0;
+    --navbar-menu-item-background: transparent;
+    --navbar-menu-item-background-hover: transparent;
+
+    --navbar-menu-separator-opacity: 0.25;
+    --navbar-menu-separator-background: var(--navbar-menu-item-color);
+
+    --navbar-auth-font: 600 16px/20px var(--base-font);
+
+    --navbar-logo-height: 60px;
+
+    // Nav item line position
+    --navbar-menu-item-line-position-top: 0;
+    --navbar-menu-item-line-position-bottom: auto;
+
+    // wrapper
+    --wrapper-width: calc(1280px + 50px);
+    --wrapper-padding: 20px;
+
+    // Outline
+    --focus-outline: 2px solid #315efd;
+    --focus-outline-offset: 2px;
+    --focus-box-shadow: 0 0 0 3px white;
+
+    // navbar (auth) (default button)
+    --tc-auth-menu: #fff;
+    --tc-auth-btn: #666666;
+    --btn-auth-bg: #ebedf0;
+    --btn-auth-border: transparent;
+    --auth-avater-bg: #305dfb;
+    --auth-avater-svg: #fff;
+
+    // navbar (start modal primary)
+    --tc-start-btn: #fff;
+    --btn-start-bg: #4990b5;
+    --btn-start-btn: #305dfb;
+    --btn-start-border: transparent;
+
+    // header background
+    --bg-values: url("../img/splash-top-b.jpg") no-repeat 100% 0;
+
+    // Header banner
+    --header-banner-pane-banner-padding: 50px 0;
+    --header-banner-pane-banner-max-width: 650px;
+    --header-banner-pane-banner-background: transparent;
+    --header-banner-pane-banner-border-color: initial;
+    --header-banner-pane-banner-border-radius: initial;
+
+    // base font
+    --base-font: "Helvetica", "Open Sans", "Arial", sans-serif;
+
+    // text color
+    --tc: #4e4d40;
+    --htc: var(--tc);
+    --tc-var: #fff;
+    --tc-link: inherit;
+    --tc-muted: #595959;
+
+    // heading font
+    --heading-font-family: var(--base-font);
+    --heading-font: 700 40px/60px var(--heading-font-family);
+    --heading-color: var(--tc);
+    --heading-pane-font: 700 22px/30px var(--heading-font-family);
+
+    // base color
+    --bc: #000;
+
+    // background color
+    --body-background: #fff;
+
+    // footer color
+    --footer_padding: 0;
+    --footer_background: transparent;
+    --footer_color: #ffffff;
+    --footer_color_link: var(--footer_color);
+
+    --footer_social_color: var(--footer_color);
+    --footer_social_background: transparent;
+    --footer_social_border_color: var(--footer_color);
+    --footer_social_border_radius: var(--border-radius);
+
+    --footer-copyright-color: #004d93;
+    --footer-copyright-font: 400 14px/30px var(--base-font);
+    --footer-copyright-background: #fff;
+    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-padding: 40px;
+
+    // not displayed
+    --footer_display: block;
+
+    // product image
+    --product-image-padding: 10px 0 0 10px;
+
+    // Markdown
+    --markdown-font: 400 16px/24px var(--base-font);
+
+    // Forms
+    --form-control-color: #222222;
+    --form-control-background: #ffffff;
+    --form-control-border-color: #646464;
+    --form-control-border-color-focus: #282b39;
+    --form-control-placeholder-font: 400 13px/20px var(--base-font);
+    --form-control-placeholder-color: #515152;
+    --form-label-color: #595959;
+    --form-label-font: 700 11px/16px var(--base-font);
+
+    // Search bar
     --color-search-icon-medium: #{$primaryColor};
     --color-search-icon-dark: #{darken($primaryColor, 10%)};
     --color-search-icon-light: #{lighten($primaryColor, 25%)};
+
+    --search-bar-point-color: #ececec;
+    --search-bar-point-radius: 0px;
+
+    --search-bar-input-radius: var(--border-radius);
+    --search-bar-input-border: 1px solid var(--form-control-border-color);
+    --search-bar-input-background: #fff;
+    --search-bar-input-icon-color: #666666;
+
+    --search-bar-label-top: -7px;
+    --search-bar-label-left: 16px;
+    --search-bar-label-padding: 4px;
+    --search-bar-label-background: #ffffff;
+
+    // Dropdowns
+    --dropdown-item-font: 500 13px/20px var(--base-font);
+    --dropdown-item-color: #282b39;
+    --dropdown-item-background: #ffffff;
+    --dropdown-item-hover-color: #000000;
+    --dropdown-item-hover-background: #e5e5e5;
+
+    // Paginator
+    --paginator-border-radius: var(--border-radius);
+    --paginator-button-color: #282b39;
+    --paginator-button-border: #9e9e9e;
+    --paginator-button-background: #fff;
+    --paginator-button-hover-color: #fff;
+    --paginator-button-hover-background: #535561;
+    --paginator-button-active-color: #fff;
+    --paginator-button-active-background: #292b39;
+    --paginator-button-disabled-color: #535561;
+    --paginator-button-disabled-border: #e5e5e5;
+    --paginator-button-disabled-background: #f5f5f5;
 
     // Labels
     --label-default-color: #fff;
@@ -89,10 +192,19 @@ $primaryColorLight: #b9cb18;
 
     --label-success-color: #fff;
     --label-success-background: var(--color-primary);
-    
+
     // Label sets
+    --label-set-border-radius: var(--border-radius);
+    --label-set-border-color: #9e9e9e;
+    --label-set-color: #272525;
+    --label-set-background: #ffffff;
+    --label-set-active-color: #ffffff;
     --label-set-active-background: #4e4d40;
+    --label-set-hover-color: #ffffff;
     --label-set-hover-background: #{rgba(#4e4d40, .8)};
+    --label-set-focus-color: #272525;
+    --label-set-focus-background: #f4f5f7;
+    --label-set-focus-border-color: #9e9e9e;
 
     // Buttons
     --button-font: 700 16px/24px var(--base-font);
@@ -123,9 +235,38 @@ $primaryColorLight: #b9cb18;
     --button-primary-outline-hover-decoration: none;
     --button-primary-outline-hover-background: transparent;
 
+    --button-read_more-color: var(--button-primary-color);
+    --button-read_more-border: var(--button-primary-border);
+    --button-read_more-decoration: var(--button-primary-decoration);
+    --button-read_more-background: var(--button-primary-background);
+    --button-read_more-hover-color: var(--button-primary-hover-color);
+    --button-read_more-hover-border: var(--button-primary-hover-border);
+    --button-read_more-hover-decoration: var(--button-primary-hover-decoration);
+    --button-read_more-hover-background: var(--button-primary-hover-background);
+
+    // Sign up
+    --sign_up_accent_color: #282b39;
+    --sign_up_accent_color_light: #bdcbff;
+    --sign_up_link_color: #e60003;
+    --sign_up_step_btns_color: var(--tc);
+    --sign_up_digid_btn_bkg: #e1e7ff;
+    --sign_up_digid_btn_text: #4b71ff;
+    --sign_up_digid_btn_border: none;
+    --sign_up_digid_btn_border_radius: 5px;
+    --sign_up_loader_icon_color: #282b39;
+
     //- Showcase
-    --showcase-fullscreen-bottom-offset: 140px;
-    --showcase-title-count-color: #666;
+    --showcase-aside-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.06);
+    --showcase-aside-padding: 20px;
+    --showcase-aside-background: #fff;
+    --showcase-aside-border: 1px solid #e5e5e5;
+    --showcase-aside-border-radius: var(--border-radius);
+
+    --showcase-item-shadow: var(--showcase-aside-shadow);
+    --showcase-item-background: var(--showcase-aside-background);
+    --showcase-item-border: var(--showcase-aside-border);
+    --showcase-item-border-radius: var(--showcase-aside-border-radius);
+    --showcase-item-hover-shadow: 2px 8px 14px 0px rgba(0, 0, 0, 0.1);
 
     --showcase-aside-button-color: #fff;
     --showcase-aside-button-border: 1px solid #498fb4;
@@ -134,11 +275,60 @@ $primaryColorLight: #b9cb18;
     --showcase-aside-button-hover-border: 1px solid #498fb4;
     --showcase-aside-button-hover-background: transparent;
 
-    // Login button
-    --login-button-background: #fff;
+    --showcase-fullscreen-bottom-offset: 140px;
+
+    --showcase-title-font: 600 18px/30px var(--heading-font-family);
+    --showcase-title-color: var(--tc);
+    --showcase-title-count-color: #666;
+    --showcase-title-count-background: var(--color-primary);
+    --showcase-title-count-border-radius: calc(var(--border-radius) / 2);
 
     // Breadcrumbs
+    --breadcrumb-size: 16px;
     --breadcrumb-color: #4f4f4f;
+    --breadcrumb-color-active: #353535;
+    --breadcrumb-padding: 20px;
+
+    // Loader
+    --loader-background: #f5f5f5;
+    --loader-color: var(--color-primary);
+
+    // Profile
+    --profile-menu-item-gap: 16px;
+    --profile-menu-item-color: var(--color-primary);
+    --profile-menu-item-color-icon: var(--profile-menu-item-color);
+    --profile-menu-item-shadow: var(--box-shadow);
+    --profile-menu-item-background: #ffffff;
+    --profile-menu-item-border-color: transparent;
+    --profile-menu-item-border-radius: var(--border-radius);
+    --profile-menu-item-hover-color: #fff;
+    --profile-menu-item-hover-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    --profile-menu-item-hover-background: var(--color-primary);
+    --profile-menu-item-hover-border-color: var(--color-primary);
+    --profile-menu-item-hover-border-radius: var(--border-radius);
+
+    // Vouchers
+    --vouchers-label-color: #646f79;
+    --vouchers-value-color: var(--tc);
+    --vouchers-organization-color: var(--tc);
+
+    // Voucher card
+    --voucher-card-action-color: var(--color-primary);
+    --voucher-card-action-background: transparent;
+    --voucher-card-action-border-color: var(--color-primary);
+    --voucher-card-action-border-radius: 0px;
+    --voucher-card-action-hover-color: #fff;
+    --voucher-card-action-hover-background: var(--color-primary);
+    --voucher-card-action-hover-border-color: var(--color-primary);
+
+    // Products
+    --products-title-color: var(--tc);
+    --products-title-hover-color: var(--tc);
+    --products-text-color: var(--tc);
+
+    // Product
+    --product-title-font: 700 22px/28px var(--heading-font-family);
+    --product-title-color: var(--tc);
 
     // Faq
     --faq-width: 820px;
@@ -146,12 +336,9 @@ $primaryColorLight: #b9cb18;
     --faq-header-color: #4990b5;
     --faq-header-color-hover: #4990b5;
 
-    // CMS funds
-    --cms-funds-title-font: 400 24px/36px var(--base-font);
-    --cms-funds-title-color: var(--htc);
-    --cms-funds-label-font-size: 12px;
-    --cms-funds-label-background: #1C8271;
-
+    // Map
+    --map-title-color: #0B0E12;
+    --map-title-font: 700 40px var(--heading-font-family);
 
     // Sections
     --section-padding: 0 0 30px;
@@ -168,6 +355,8 @@ $primaryColorLight: #b9cb18;
     --section-faq-background: var(--section-background);
     --section-footer-padding: 30px 0;
     --section-footer-background: #4990b5;
+    --section-pre-check-padding: 0 0 30px;
+    --section-pre-check-background: var(--section-background);
     --section-profile-padding: var(--section-padding);
     --section-profile-background: var(--section-background);
     --section-products-padding: var(--section-padding);
@@ -176,4 +365,24 @@ $primaryColorLight: #b9cb18;
     --section-breadcrumbs-background: var(--section-background);
     --section-voucher-details-padding: var(--section-padding);
     --section-voucher-details-background: var(--section-background);
+
+    // Search bar
+    --search-result-sidebar-item-active-color: #a80a2d;
+    --search-result-sidebar-item-active-background: #fff;
+
+    // CMS funds
+    --cms-funds-title-font: 400 24px/36px var(--base-font);
+    --cms-funds-title-color: var(--htc);
+    --cms-funds-label-font-size: 12px;
+    --cms-funds-label-background: #1C8271;
+
+    --cms-funds-compact-title-font: 400 24px/36px var(--base-font);
+    --cms-funds-compact-title-color: var(--htc);
+
+    --cms-funds-link-color: var(--color-primary);
+    --cms-funds-link-font: 600 18px/20px var(--base-font);
+
+    // Section order
+    --order-page-voucher-map: 0;
+    --order-page-voucher-products: 0;
 }
