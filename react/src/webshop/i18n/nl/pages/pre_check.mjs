@@ -3,7 +3,7 @@ export default {
         home: 'Home',
         check: 'Regelingencheck',
     },
-    of: 'van',
+    progress: 'Stap {{step}} van {{total}}',
     no_value: '---',
     show_more: 'Toon meer',
     show_less: 'Toon minder',

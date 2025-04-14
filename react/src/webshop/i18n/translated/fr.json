@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Les Pots vérifient",
-            "home": "Accueil"
+            "home": "Accueil",
+            "check": "Contrôle du régime"
         },
         "funds": "Fonds",
         "next_step": "Suivant",
         "no_value": "---",
-        "of": "de",
         "previous_step": "Étape précédente",
         "search": "Recherche",
         "show_less": "Montrer moins",
@@ -3441,7 +3440,8 @@
         "total_amount": "Montant total",
         "total_offers": "Offre totale",
         "your_data": "Vos données",
-        "record_required": "{{ title }} Ce champ est obligatoire."
+        "progress": "Étape {{step}} de {{total}}",
+        "record_required": "Ce champ est obligatoire."
     },
     "navbar": {
         "vergoedingen": {

@@ -1257,7 +1257,7 @@
             "show_less": "Показати менше",
             "show_more": "Показати більше",
             "total": "Всього",
-            "view_explanation": "Переглянути пояснення",
+            "view_explanation": "Переглянути",
             "why": "Чому?",
             "activate": "Активувати"
         },
@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Перевірка горщиків",
-            "home": "Головна"
+            "home": "Головна",
+            "check": "Перевірка схеми"
         },
         "funds": "Кошти",
         "next_step": "Далі",
         "no_value": "---",
-        "of": "від",
         "previous_step": "Попередній крок",
         "search": "Пошук",
         "show_less": "Показати менше",
@@ -3441,7 +3440,8 @@
         "total_amount": "Загальна сума",
         "total_offers": "Загальна пропозиція",
         "your_data": "Ваші дані",
-        "record_required": "{{ title }} Поле обов'язкове для заповнення."
+        "progress": "Крок {{step}} від {{total}}",
+        "record_required": "Заповнення цього поля є обов'язковим."
     },
     "navbar": {
         "vergoedingen": {

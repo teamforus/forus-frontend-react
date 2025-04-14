@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "التحقق من الأواني",
-            "home": "الصفحة الرئيسية"
+            "home": "الصفحة الرئيسية",
+            "check": "التحقق من المخطط"
         },
         "funds": "الأموال",
         "next_step": "التالي",
         "no_value": "---",
-        "of": "من",
         "previous_step": "الخطوة السابقة",
         "search": "بحث",
         "show_less": "اعرض أقل",
@@ -3441,7 +3440,8 @@
         "total_amount": "المبلغ الإجمالي",
         "total_offers": "إجمالي العرض",
         "your_data": "بياناتك",
-        "record_required": "{{ title }} الحقل إلزامي."
+        "progress": "الخطوة {{step}} من {{total}}",
+        "record_required": "من الإلزامي ملء هذا الحقل."
     },
     "navbar": {
         "vergoedingen": {

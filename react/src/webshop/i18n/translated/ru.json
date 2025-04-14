@@ -1257,7 +1257,7 @@
             "show_less": "Показать меньше",
             "show_more": "Показать еще",
             "total": "Всего",
-            "view_explanation": "Посмотреть объяснение",
+            "view_explanation": "Посмотреть",
             "why": "Почему?",
             "activate": "Активируйте"
         },
@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Кастрюли проверяют",
-            "home": "Главная"
+            "home": "Главная",
+            "check": "Проверка схемы"
         },
         "funds": "Средства",
         "next_step": "Следующий",
         "no_value": "---",
-        "of": "с сайта",
         "previous_step": "Предыдущий шаг",
         "search": "Поиск",
         "show_less": "Показать меньше",
@@ -3441,7 +3440,8 @@
         "total_amount": "Общая сумма",
         "total_offers": "Общее предложение",
         "your_data": "Ваши данные",
-        "record_required": "{{ title }} Поле является обязательным для заполнения."
+        "progress": "Шаг {{step}} из {{total}}",
+        "record_required": "Это поле обязательно для заполнения."
     },
     "navbar": {
         "vergoedingen": {
