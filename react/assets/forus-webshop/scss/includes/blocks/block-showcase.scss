@@ -2,7 +2,7 @@
     --aside-width: 330px;
     position: relative;
     cursor: default;
-    margin: 0 0 30px;
+    margin: 0 0;
 
     .showcase-title {
         font: 700 22px/36px var(--base-font);
@@ -508,6 +508,7 @@
 
         .showcase-wrapper {
             position: relative;
+            min-height: auto;
         }
 
         .showcase-mobile-filters {

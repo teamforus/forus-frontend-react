@@ -3,21 +3,11 @@
     width: 100%;
     padding: 20px 0 20px 0;
     margin: 60px 0;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid #e5e5e5;
 
     .info-block-panel {
         width: 100%;
         margin: 0 0 60px 0;
-
-        a {
-            font: 600 18px/18px var(--base-font);
-            color: #950022;
-
-            &:hover {
-                text-decoration: none;
-            }
-        }
-
 
         .block-title {
             font: 400 32px/48px 'Oranda';
@@ -48,7 +38,7 @@
 
                 a {
                     font-size: 18px;
-                    color: #176B55;
+                    color: #176b55;
 
                     &:hover {
                         text-decoration: underline;
@@ -57,15 +47,15 @@
                 }
 
                 &::marker {
-                    color: #E5E5E5;
+                    color: #e5e5e5;
                 }
             }
         }
 
         a {
             text-decoration: underline;
-            font: 600 16px/1.5em var(--base-font);
-            color: #03689b;
+            font: 600 18px/18px var(--base-font);
+            color: #950022;
 
             &:hover {
                 text-decoration: none;
