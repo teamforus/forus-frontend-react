@@ -1,0 +1,21 @@
+.section {
+    .section-title {
+        font: var(--heading-font);
+        color: var(--heading-color);
+        margin: 0 0 20px;
+        text-align: center;
+    }
+
+    .section-description {
+        font: 600 16px/24px var(--base-font);
+        margin: 0 0 30px;
+        position: relative;
+        color: var(--tc);
+    }
+
+    .section-title {
+        @media screen and (max-width: 1000px) {
+            font: 500 1.6em var(--heading-font-family);
+        }
+    }
+}

@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Kontrola garnków",
-            "home": "Strona główna"
+            "home": "Strona główna",
+            "check": "Kontrola programu"
         },
         "funds": "Fundusze",
         "next_step": "Następny",
         "no_value": "---",
-        "of": "z",
         "previous_step": "Poprzedni krok",
         "search": "Wyszukiwanie",
         "show_less": "Pokaż mniej",
@@ -3441,7 +3440,8 @@
         "total_amount": "Całkowita kwota",
         "total_offers": "Całkowita oferta",
         "your_data": "Twoje dane",
-        "record_required": "{{ title }} Pole jest obowiązkowe."
+        "progress": "Krok {{step}} z {{total}}",
+        "record_required": "Wypełnienie tego pola jest obowiązkowe."
     },
     "navbar": {
         "vergoedingen": {

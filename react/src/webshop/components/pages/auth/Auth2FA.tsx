@@ -85,7 +85,7 @@ export default function Auth2FA() {
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             <div className="block block-sign_up">
                 <div className="block-wrapper">
                     {step == 'setup' && !paneHidden && (

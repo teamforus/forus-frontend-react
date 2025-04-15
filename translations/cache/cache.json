@@ -5365,7 +5365,7 @@
     ],
     [
         "pre_check.breadcrumb.check",
-        "De Potjes check"
+        "Regelingencheck"
     ],
     [
         "pre_check.breadcrumb.home",
@@ -5392,16 +5392,16 @@
         "---"
     ],
     [
-        "pre_check.of",
-        "van"
-    ],
-    [
         "pre_check.previous_step",
         "Vorige stap"
     ],
     [
+        "pre_check.progress",
+        "Stap {{step}} van {{total}}"
+    ],
+    [
         "pre_check.record_required",
-        "Het {{ title }} veld is verplicht."
+        "Het is verplicht om dit veld in te vullen."
     ],
     [
         "pre_check.search",

@@ -1,0 +1,101 @@
+.block.block-pre-check-banner {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: #fff;
+    overflow: hidden;
+    margin: 0 0;
+
+    .pre-check-banner-media {
+        display: flex;
+        flex: 0 0 45%;
+
+        img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+    }
+
+    .pre-check-banner-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        cursor: default;
+        padding: 40px 100px 40px 80px;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.06);
+    
+        .pre-check-banner-label {
+            margin: 0 0 15px;
+        }
+
+        .pre-check-banner-title {
+            font: 700 32px/48px var(--base-font);
+            margin: 0 0 25px;
+        }
+
+        .pre-check-banner-description {
+            font: 400 18px/26px var(--base-font);
+            margin: 0 0 40px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        grid-template-columns: 50% 1fr;
+
+        .pre-check-banner-content {
+            padding: 30px 40px 30px 40px;
+    
+            .pre-check-banner-label {
+                margin: 0 0 10px;
+            }
+    
+            .pre-check-banner-title {
+                margin: 0 0 15px;
+            }
+    
+            .pre-check-banner-description {
+                margin: 0 0 20px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+
+        .pre-check-banner-media {
+            width: 100%;
+        }
+
+        .pre-check-banner-content {
+            width: 100%;
+            padding: 15px;
+        
+            .pre-check-banner-label {
+                margin: 0 0 5px;
+                font: 700 8px/10px var(--base-font);
+            }
+
+            .pre-check-banner-title {
+                font: 600 18px/27px var(--base-font);
+                margin: 0 0 5px;
+            }
+
+            .pre-check-banner-description {
+                font: 400 12px/18px var(--base-font);
+                margin: 0 0 15px;
+            }
+
+            .pre-check-banner-actions {
+                .button {
+                    display: flex;
+                    width: 100%;
+                    padding: 10px 13px;
+                    font: 700 12px/18px var(--base-font);
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
