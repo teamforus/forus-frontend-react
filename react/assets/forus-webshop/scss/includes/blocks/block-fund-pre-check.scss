@@ -1,0 +1,431 @@
+.block.block-fund-pre-check {
+    .pre-check-info {
+        .pre-check-info-title {
+            font: 700 22px/32px var(--base-font);
+            margin-bottom: 5px;
+        }
+
+        .pre-check-info-description {
+            font: 400 16px/24px var(--base-font);
+            margin-bottom: 15px;
+            color: #595959;
+        }
+    }
+
+    .pre-check-mobile-progress {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 20px 15px;
+        border-bottom: 1px solid var(--border-color);
+        margin: 0 -20px;
+
+        .pre-check-mobile-progress-title {
+            font: 700 14px/22px var(--base-font);
+        }
+
+        .pre-check-mobile-progress-collapse {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 3px;
+            font: 600 12px/22px var(--base-font);
+
+            .mdi {
+                font-size: 18px;
+            }
+        }
+    }
+
+    .pre-check-progress {
+        .pre-check-progress-title {
+            font: 700 18px/27px var(--base-font);
+            margin-bottom: 15px;
+        }
+
+        .pre-check-progress-header {
+            display: none;
+        }
+
+        .pre-check-progress-steps {
+            width: 100%;
+            margin-bottom: 25px;
+
+            .pre-check-progress-step {
+                position: relative;
+                padding: 0 0 20px;
+                display: grid;
+                grid-template-columns: 45px 1fr;
+
+                .pre-check-progress-step-icon {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                    border-radius: 50%;
+                    font: 600 14px/26px var(--base-font);
+                    text-align: center;
+                    background-color: #fff;
+                    color: #000;
+                    position: relative;
+                    border: 1px solid var(--border-color);
+                }
+
+                .pre-check-progress-questions {
+                    flex-grow: 1;
+
+                    .pre-check-progress-question {
+                        position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+
+                        .pre-check-progress-question-title {
+                            font: 700 16px/30px var(--base-font);
+                        }
+
+                        .pre-check-progress-question-answer {
+                            font: 400 14px/21px var(--base-font);
+                            margin: 0 0 4px;
+                        }
+                    }
+                }
+
+                &:before {
+                    position: absolute;
+                    left: 14px;
+                    top: 30px;
+                    bottom: 0;
+                    content: '';
+                    display: block;
+                    width: 2px;
+                    background-color: var(--border-color);
+                }
+
+                &.active,
+                &.completed {
+                    &:before {
+                        background-color: var(--color-primary);
+                        opacity: 0.35;
+                    }
+                }
+
+                &.active {
+                    .pre-check-progress-step-icon {
+                        border-color: var(--color-primary);
+                    }
+                }
+
+                &.completed {
+                    .pre-check-progress-step-icon {
+                        background-color: var(--color-primary);
+                        border-color: var(--color-primary);
+                        color: #fff;
+                    }
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+
+                    .pre-check-progress-step-icon {
+                        background: url('./assets/img/icon-pre-check-totals-inactive.svg') center no-repeat;
+                    }
+
+                    &:before {
+                        display: none;
+                    }
+
+                    &.active {
+                        .pre-check-progress-step-icon {
+                            color: #fff;
+                            background: var(--color-primary) url('./assets/img/icon-pre-check-totals-active.svg')
+                                no-repeat center;
+                        }
+                    }
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .pre-check-totals {
+            border-radius: var(--border-radius);
+            border: 1px solid #dbdcdb;
+            background: #fbfbfb;
+            display: flex;
+            padding: 12px 16px;
+            margin-bottom: 25px;
+
+            .block.block-key-value-list {
+                width: 100%;
+
+                .block-key-value-list-item {
+                    width: 100%;
+                    color: #282b39;
+
+                    .key-value-list-item-label {
+                        flex: 0 0 150px;
+                        font-weight: 600;
+                        flex-grow: 1;
+                    }
+
+                    .key-value-list-item-value {
+                        font-weight: 700;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        .pre-check-actions {
+            .button {
+                margin-bottom: 10px;
+
+                &.button-download {
+                    color: #fff;
+                    background: var(--color-primary);
+                    border: 1px solid var(--color-primary);
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .pre-check-step {
+        .pre-check-step-section {
+            background: #fff;
+            border: var(--showcase-item-border);
+            box-shadow: var(--showcase-item-shadow);
+            background: var(--showcase-item-background);
+            border-radius: var(--showcase-item-border-radius);
+            padding: 25px 30px;
+
+            .pre-check-step-section-details {
+                margin-bottom: 25px;
+                padding-bottom: 25px;
+                border-bottom: 1px solid var(--border-color);
+
+                .pre-check-step-section-title {
+                    font: 700 18px/26px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .pre-check-step-section-description {
+                    font: 400 14px/22px var(--base-font);
+                }
+            }
+
+            .pre-check-step-section-question {
+                margin-bottom: 25px;
+                padding-bottom: 25px;
+                border-bottom: 1px solid var(--border-color);
+
+                .pre-check-step-section-question-title {
+                    font: 700 18px/26px var(--base-font);
+                    margin-bottom: 5px;
+                }
+
+                .pre-check-step-section-question-description {
+                    font: 400 14px/22px var(--base-font);
+                    margin-bottom: 15px;
+                    color: #595959;
+                }
+            }
+
+            .pre-check-step-section-actions {
+                display: flex;
+            }
+        }
+    }
+
+    .pre-check-step-section-results {
+        padding-top: 25px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    @media screen and (max-width: 1000px) {
+        background-color: #fff;
+
+        .pre-check-info {
+            .pre-check-info-title {
+                margin-bottom: 15px;
+                font: 600 18px/22px var(--base-font);
+            }
+
+            .pre-check-info-description {
+                font: 400 12px/18px var(--base-font);
+            }
+        }
+
+        .pre-check-progress {
+            border-bottom: 1px solid var(--border-color);
+            padding: 0;
+            margin-left: -20px;
+            margin-right: -20px;
+
+            .pre-check-progress-title {
+                font: 600 16px/22px var(--base-font);
+                border-bottom: 1px solid var(--border-color);
+                padding: 15px 20px;
+                margin: 0;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            .pre-check-progress-header {
+                border-bottom: 1px solid var(--border-color);
+                padding: 20px 20px;
+                font: 600 16px / 18px var(--base-font);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                em.mdi {
+                    font-size: 26px;
+                    width: 20px;
+                }
+            }
+
+            .pre-check-progress-steps {
+                padding: 15px 20px;
+
+                .pre-check-progress-step {
+                    padding-bottom: 10px;
+
+                    .pre-check-progress-step-icon {
+                        font: 700 12px/24px var(--base-font);
+                        width: 25px;
+                        height: 25px;
+                    }
+
+                    .pre-check-progress-questions {
+                        .pre-check-progress-question {
+                            .pre-check-progress-question-title {
+                                font: 700 14px/24px var(--base-font);
+                            }
+
+                            .pre-check-progress-question-answer {
+                                font: 500 12px/12px var(--base-font);
+                                margin: 2px;
+                            }
+                        }
+                    }
+
+                    &:last-child {
+                        width: auto;
+                    }
+
+                    &::before {
+                        top: 25px;
+                        left: 11.5px;
+                    }
+                }
+            }
+
+            .pre-check-totals {
+                margin: 0 20px;
+
+                .block.block-key-value-list {
+                    .block-key-value-list-item {
+                        flex-direction: row;
+                    }
+                }
+
+                &.pre-check-totals-hide-mobile {
+                    display: none;
+                }
+            }
+
+            &.pre-check-progress-complete {
+                margin: 20px 0 0;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+
+                .pre-check-progress-title {
+                    padding: 12px 20px;
+                }
+
+                .pre-check-progress-steps {
+                    margin-bottom: 20px;
+                    padding-bottom: 0;
+
+                    .pre-check-progress-step {
+                        grid-template-columns: 40px 1fr;
+                    }
+
+                    &.pre-check-progress-steps-hide-mobile {
+                        display: none;
+                    }
+                }
+
+                .pre-check-actions {
+                    padding: 20px 20px;
+                }
+            }
+        }
+
+        .pre-check-step {
+            border: none;
+            border-radius: var(--border-radius);
+
+            .pre-check-step-section {
+                padding: 15px;
+
+                .pre-check-step-section-details {
+                    margin-bottom: 15px;
+                    padding-bottom: 15px;
+
+                    .pre-check-step-section-title {
+                        font: 700 16px/18px var(--base-font);
+                    }
+
+                    .pre-check-step-section-description {
+                        font: 400 13px/18px var(--base-font);
+                    }
+                }
+
+                .pre-check-step-section-question {
+                    margin-bottom: 15px;
+                    padding-bottom: 15px;
+
+                    .pre-check-step-section-question-title {
+                        font: 700 14px/24px var(--base-font);
+                    }
+
+                    .ui-control.ui-control-checkbox .ui-checkbox-label {
+                        font-size: 14px;
+                        line-height: 20px;
+                    }
+                }
+
+                .pre-check-step-section-actions {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+
+                    .button {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .showcase-layout {
+            .showcase-content {
+                padding-top: 20px;
+            }
+        }
+
+        .pre-check-step-section-results {
+            padding-top: 0;
+            border-top: 0;
+        }
+    }
+}

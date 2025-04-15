@@ -27,6 +27,7 @@ import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
+import Section from '../../elements/sections/Section';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -167,7 +168,6 @@ export default function ProductsShow() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={
                 product && [
                     showBack && { name: translate('product.breadcrumbs.back'), back: true },
@@ -179,7 +179,7 @@ export default function ProductsShow() {
                 ]
             }>
             {product && funds && vouchers && (
-                <section className="section section-product">
+                <Section type={'product'}>
                     <div className="block block-product">
                         <div className="product-card">
                             <div className="product-photo">
@@ -266,7 +266,7 @@ export default function ProductsShow() {
                             </div>
                         )}
                     </div>
-                </section>
+                </Section>
             )}
         </BlockShowcase>
     );

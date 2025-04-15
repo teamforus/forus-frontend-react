@@ -1,0 +1,11 @@
+.block {
+    .block-title {
+        color: var(--heading-color);
+        font: 500 32px/42px var(--heading-font-family);
+
+        a {
+            font: inherit !important;
+            color: inherit !important;
+        }
+    }
+}

@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Tencere kontrolü",
-            "home": "Ev"
+            "home": "Ev",
+            "check": "Şema kontrolü"
         },
         "funds": "Fonlar",
         "next_step": "Sonraki",
         "no_value": "---",
-        "of": "itibaren",
         "previous_step": "Önceki adım",
         "search": "Arama",
         "show_less": "Daha az göster",
@@ -3441,7 +3440,8 @@
         "total_amount": "Toplam tutar",
         "total_offers": "Toplam teklif",
         "your_data": "Verileriniz",
-        "record_required": "{{ title }} Bu alan zorunludur."
+        "progress": "Adım {{step}} of {{total}}",
+        "record_required": "Bu alanın doldurulması zorunludur."
     },
     "navbar": {
         "vergoedingen": {

@@ -1,0 +1,12 @@
+.page.page-voucher {
+    display: flex;
+    flex-direction: column;
+
+    .section.section-map {
+        order: var(--order-page-voucher-map);
+    }
+
+    .section.section-products {
+        order: var(--order-page-voucher-products);
+    }
+}

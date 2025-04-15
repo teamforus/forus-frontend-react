@@ -6,11 +6,11 @@ import EmptyBlock from '../empty-block/EmptyBlock';
 import ProductsList from '../lists/products-list/ProductsList';
 import CmsBlocks from '../cms-blocks/CmsBlocks';
 import useAppConfigs from '../../../hooks/useAppConfigs';
+import Section from '../sections/Section';
 
 export default function BlockProducts({
     type = 'budget',
     display = 'grid',
-    large = false,
     filters = {},
     products = null,
     setProducts = null,
@@ -19,7 +19,6 @@ export default function BlockProducts({
 }: {
     type: 'budget' | 'subsidies';
     display?: 'grid' | 'list';
-    large?: boolean;
     filters?: object;
     products?: Array<Product>;
     setProducts?: (products: Array<Product>) => void;
@@ -31,30 +30,20 @@ export default function BlockProducts({
     const cmsBlock = showCustomDescription && appConfigs?.pages?.home ? appConfigs?.pages?.block_home_products : null;
 
     return (
-        <section className="section section-products" id="products">
-            {products.length != 0 && (
-                <div className={'wrapper'}>
-                    <h2 className={'section-title'}>
-                        <StateNavLink name={type == 'budget' ? 'products' : 'actions'} params={filters}>
-                            {cmsBlock?.title || translate(`block_products.header.title_${type}`)}
-                        </StateNavLink>
-                    </h2>
-                </div>
+        <Section type="products" id="products">
+            {products?.length > 0 && (
+                <h2 className={'section-title'}>
+                    <StateNavLink name={type == 'budget' ? 'products' : 'actions'} params={filters}>
+                        {cmsBlock?.title || translate(`block_products.header.title_${type}`)}
+                    </StateNavLink>
+                </h2>
             )}
 
             {cmsBlock && <CmsBlocks page={cmsBlock} />}
 
-            {products?.length > 0 && (
-                <ProductsList
-                    type={type}
-                    large={large}
-                    display={display}
-                    products={products}
-                    setProducts={setProducts}
-                />
-            )}
-
-            {products?.length == 0 && (
+            {products?.length > 0 ? (
+                <ProductsList type={type} display={display} products={products} setProducts={setProducts} />
+            ) : (
                 <EmptyBlock
                     title={translate(`block_products.labels.title`)}
                     description={translate(`block_products.labels.subtitle`)}
@@ -66,7 +55,7 @@ export default function BlockProducts({
             {showLoadMore && (
                 <div className="block block-show-more">
                     <StateNavLink
-                        className="button button-primary"
+                        className="button button-primary show-more-button"
                         name={type == 'budget' ? 'products' : 'actions'}
                         params={filters}>
                         {translate(`block_products.buttons.more`)}
@@ -74,6 +63,6 @@ export default function BlockProducts({
                     </StateNavLink>
                 </div>
             )}
-        </section>
+        </Section>
     );
 }

@@ -23,6 +23,7 @@ import FundProductsBlock from './elements/FundProductsBlock';
 import useFundMeta from '../../../hooks/meta/useFundMeta';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
+import Section from '../../elements/sections/Section';
 
 export default function FundsShow() {
     const { id } = useParams();
@@ -151,7 +152,6 @@ export default function FundsShow() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={
                 fund && [
                     showBack && { name: translate('fund.breadcrumbs.back'), back: true },
@@ -164,7 +164,7 @@ export default function FundsShow() {
                 ]
             }>
             {fund && fundMeta && (
-                <Fragment>
+                <Section type={'default'}>
                     <div className="block block-fund">
                         <div className="fund-content">
                             <div className="fund-card">
@@ -305,30 +305,37 @@ export default function FundsShow() {
                             )}
                         </div>
                     </div>
+                </Section>
+            )}
 
-                    <div className={`flex flex-vertical`}>
-                        {authIdentity && fund && <BlockCard2FAWarning fund={fund} />}
+            {fund && fundMeta && (
+                <Fragment>
+                    {authIdentity && fund && <BlockCard2FAWarning fund={fund} />}
 
-                        {fund.description_position == 'before' ? (
-                            <Fragment>
-                                <div>
-                                    {fund.description_html && <Markdown content={fund.description_html} />}
-                                    <FundFaq fund={fund} />
-                                </div>
+                    {fund.description_position == 'before' ? (
+                        <Fragment>
+                            {fund.description_html && (
+                                <Section type={'default'}>
+                                    <Markdown content={fund.description_html} />
+                                </Section>
+                            )}
 
-                                <FundProductsBlock fund={fund} />
-                            </Fragment>
-                        ) : (
-                            <Fragment>
-                                <FundProductsBlock fund={fund} />
+                            <FundFaq fund={fund} />
+                            <FundProductsBlock fund={fund} />
+                        </Fragment>
+                    ) : (
+                        <Fragment>
+                            <FundProductsBlock fund={fund} />
 
-                                <div>
-                                    {fund.description_html && <Markdown content={fund.description_html} />}
-                                    <FundFaq fund={fund} />
-                                </div>
-                            </Fragment>
-                        )}
-                    </div>
+                            {fund.description_html && (
+                                <Section type={'default'}>
+                                    <Markdown content={fund.description_html} />
+                                </Section>
+                            )}
+
+                            <FundFaq fund={fund} />
+                        </Fragment>
+                    )}
                 </Fragment>
             )}
         </BlockShowcase>

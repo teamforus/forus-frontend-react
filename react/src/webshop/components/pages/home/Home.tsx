@@ -18,6 +18,7 @@ import ModalNotification from '../../modals/ModalNotification';
 import useSetTitle from '../../../hooks/useSetTitle';
 import BlockBanner from '../../elements/block-banner/BlockBanner';
 import Fund from '../../../props/models/Fund';
+import Section from '../../elements/sections/Section';
 
 export default function Home() {
     const envData = useEnvData();
@@ -187,8 +188,8 @@ export default function Home() {
                 </div>
             )}
 
-            {appConfigs.pre_check_enabled && appConfigs.pre_check_banner_state == 'public' && (
-                <div className="wrapper">
+            <Section type={'pre-check'}>
+                {appConfigs.pre_check_enabled && appConfigs.pre_check_banner_state == 'public' && (
                     <div className="block block-pre-check-banner">
                         {appConfigs.pre_check_banner?.sizes?.large && (
                             <div className="pre-check-banner-media">
@@ -218,64 +219,48 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+            </Section>
 
             {appConfigs.pages.home && <CmsBlocks page={appConfigs.pages.home} />}
 
-            {(appConfigs.show_home_products || appConfigs.show_home_map) && (
-                <div className="page page-home">
-                    {appConfigs.show_home_products && (
-                        <div>
-                            {products?.data.length > 0 && (
-                                <div className="wrapper">
-                                    <BlockProducts
-                                        products={products.data}
-                                        setProducts={(list) => setProducts({ ...products, data: list })}
-                                        type="budget"
-                                        large={true}
-                                        display="grid"
-                                        showCustomDescription={subsidies?.data.length === 0}
-                                    />
-                                </div>
-                            )}
+            {appConfigs.show_home_products && products?.data.length > 0 && (
+                <BlockProducts
+                    products={products.data}
+                    setProducts={(list) => setProducts({ ...products, data: list })}
+                    type="budget"
+                    display="grid"
+                    showCustomDescription={subsidies?.data.length === 0}
+                />
+            )}
 
-                            {subsidies?.data.length > 0 && (
-                                <div className="wrapper">
-                                    <BlockProducts
-                                        products={subsidies.data}
-                                        setProducts={(list) => setSubsidies({ ...subsidies, data: list })}
-                                        type="subsidies"
-                                        large={true}
-                                        display="grid"
-                                        showCustomDescription={true}
-                                    />
-                                </div>
-                            )}
+            {appConfigs.show_home_products && subsidies?.data.length > 0 && (
+                <BlockProducts
+                    products={subsidies.data}
+                    setProducts={(list) => setSubsidies({ ...subsidies, data: list })}
+                    type="subsidies"
+                    display="grid"
+                    showCustomDescription={true}
+                />
+            )}
+
+            {appConfigs.show_home_map && (
+                <Section type={'map'} id="map_block">
+                    <div className="block block-map">
+                        <div className="block-content">
+                            <h2 className="block-title">{translate('home.map.title')}</h2>
+                            <div className="block-description">{translate('home.map.subtitle')}</div>
+                            <StateNavLink
+                                id="show_map"
+                                name={'providers'}
+                                query={{ show_map: 1 }}
+                                className="button button-primary block-map-button">
+                                {translate('home.map.show')}
+                                <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                            </StateNavLink>
                         </div>
-                    )}
-
-                    {appConfigs.show_home_map && (
-                        <section className="section section-map" id="map_block">
-                            <div className="wrapper">
-                                <div className="block block-map">
-                                    <div className="block-content">
-                                        <h2 className="block-title">{translate('home.map.title')}</h2>
-                                        <div className="block-description">{translate('home.map.subtitle')}</div>
-                                        <StateNavLink
-                                            id="show_map"
-                                            name={'providers'}
-                                            query={{ show_map: 1 }}
-                                            className="button button-primary">
-                                            {translate('home.map.show')}
-                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
-                                        </StateNavLink>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    )}
-                </div>
+                    </div>
+                </Section>
             )}
         </main>
     );
