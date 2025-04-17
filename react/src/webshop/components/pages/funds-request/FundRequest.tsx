@@ -597,11 +597,11 @@ export default function FundRequest() {
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
 
     if (!fund || !vouchers || !fundRequests || (steps[step] == 'confirm_criteria' && autoSubmit)) {
-        return <BlockShowcase wrapper={true} />;
+        return <BlockShowcase />;
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {!digiExpired && (
                 <div className="block block-sign_up" data-dusk="fundRequestForm">
                     <div className="block-wrapper form">

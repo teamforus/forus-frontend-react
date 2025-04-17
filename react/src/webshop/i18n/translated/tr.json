@@ -2298,7 +2298,6 @@
         }
     },
     "preferences_notifications": {
-        "auto_close_after": "Açılır bildirimler {değer} saniye sonra otomatik olarak kapatılır.",
         "auto_close_disabled": "Otomatik kapanma devre dışı",
         "auto_close_disabled_description": "Açılır bildirimlerin otomatik olarak kapatılması devre dışı bırakıldı.",
         "auto_close_enabled": "Otomatik kapatma etkinleştirildi",
@@ -2438,7 +2437,8 @@
         },
         "unsubscribe": "Tüm e-posta bildirimleri aboneliğinden çıkın",
         "unsubscribe_button": "Abonelikten çık",
-        "unsubscribe_desc": "Tüm e-posta bildirimleri aboneliğinden çıkmak istiyorum."
+        "unsubscribe_desc": "Tüm e-posta bildirimleri aboneliğinden çıkmak istiyorum.",
+        "auto_close_after": "Açılır bildirimler {{value}} saniye sonra otomatik olarak kapanır."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2629,7 +2629,6 @@
             "title": "Rezervasyon detayları"
         },
         "expired": "Üzgünüz, seçilen ürün tükendiği için ödeme işlemi sırasında rezervasyonunuz iptal edildi.",
-        "expiring": "Lütfen ek ödemeyi gerçekleştirmek için <strong>{sona eren} dakikalar</strong> kaldığını unutmayın. Aksi takdirde rezervasyon otomatik olarak iptal edilecektir.",
         "extra_amount_refund": {
             "amount": "Miktar",
             "date": "Tarih",
@@ -2665,7 +2664,8 @@
                 "waiting": "Ödeme için bekliyorum"
             }
         },
-        "title": "Yükleme ayrıntıları"
+        "title": "Yükleme ayrıntıları",
+        "expiring": "Ek ödemeyi yapmak için <strong>{{expiresIn}} dakika</strong> kaldığını lütfen unutmayın. Aksi takdirde rezervasyon otomatik olarak iptal edilecektir."
     },
     "reservations": {
         "breadcrumbs": {
@@ -2770,9 +2770,9 @@
         "enter_sms_code": "6 haneli SMS kodunu girin",
         "error_404": "Bir hata meydana geldi. Lütfen sayfayı yenileyin.",
         "resend_code": "Kodu yeniden gönder",
-        "seconds": "{zaman} saniye(ler)",
         "unknown_error": "Bilinmeyen hata.",
-        "verify": "Doğrulama"
+        "verify": "Doğrulama",
+        "seconds": "{{time}} saniye(ler)"
     },
     "modal_2fa_setup": {
         "2fa": "İki faktörlü kimlik doğrulama",
@@ -2783,7 +2783,6 @@
         "confirm": "Onaylayın",
         "enter_2fa_code": "Devam etmek için iki faktörlü kimlik doğrulama güvenlik kodunu girin.",
         "enter_app_code": "Uygulama içinden 6 haneli kodu girin",
-        "enter_app_code_6_digits": "Devam etmek için {sağlayıcı}'dan 6 haneli güvenlik kodunu girin",
         "enter_phone": "Devam etmek için telefon numaranızı girin",
         "enter_sms_code": "6 haneli SMS kodunu girin",
         "enter_sms_code_6_digits": "Devam etmek için lütfen telefon numaranıza gönderilen 6 haneli SMS kodunu girin.",
@@ -2794,7 +2793,6 @@
         "link_phone": "Telefon numaranızı bağlayın",
         "phone_number": "Telefon numarası",
         "resend_code": "Kodu yeniden gönder",
-        "seconds": "{zaman} saniye(ler)",
         "select_auth_app": "Kullanmak istediğiniz kimlik doğrulama uygulamasını seçin.",
         "setup_2fa": "İki faktörlü kimlik doğrulamayı ayarlama",
         "successful_login": "İşe yaradı!",
@@ -2803,7 +2801,9 @@
         "welcome_back": "İki faktörlü kimlik doğrulama ile başarıyla giriş yaptınız. Tekrar hoş geldiniz!",
         "already_have_app_steps": "1. Uygulamada, <strong class=\"text-strong\">Hesap kurulumu</strong>'nu seçin<br>2. <strong class=\"text-strong\">QR kodu tara</strong> veya <strong class=\"text-strong\">Yükleme anahtarı girin öğesini</strong> seçin: <strong class=\"text-strong\"> {{secret}}</strong>",
         "dont_have_app": "<strong class=\"text-strong\"> {{name}} uygulamasına sahip değilseniz </strong>, <strong class=\"text-strong\">Play Store</strong> veya <strong class=\"text-strong\">App Store</strong>'dan indirebilirsiniz.",
-        "already_have_app": "{{name}} uygulamasına zaten sahipseniz, aşağıdaki adımları izleyin:"
+        "already_have_app": "{{name}} uygulamasına zaten sahipseniz, aşağıdaki adımları izleyin:",
+        "enter_app_code_6_digits": "Devam etmek için, 6 haneli güvenlik kodunu girin. {{provider}}",
+        "seconds": "{{time}} saniye(ler)"
     },
     "modal_fund_help": {
         "chat": "Sohbet",
@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Tencere kontrolü",
-            "home": "Ev"
+            "home": "Ev",
+            "check": "Şema kontrolü"
         },
         "funds": "Fonlar",
         "next_step": "Sonraki",
         "no_value": "---",
-        "of": "itibaren",
         "previous_step": "Önceki adım",
         "search": "Arama",
         "show_less": "Daha az göster",
@@ -3441,7 +3440,8 @@
         "total_amount": "Toplam tutar",
         "total_offers": "Toplam teklif",
         "your_data": "Verileriniz",
-        "record_required": "{{ title }} Bu alan zorunludur."
+        "progress": "Adım {{step}} of {{total}}",
+        "record_required": "Bu alanın doldurulması zorunludur."
     },
     "navbar": {
         "vergoedingen": {
@@ -3476,7 +3476,7 @@
         "error": "Başarısız!",
         "fund_activation": {
             "digid_success": "DigiD ile giriş yapıldı.",
-            "success": "{fon_adı} kredisi etkinleştirildi!"
+            "success": "{{fund_name}} kredi̇ akti̇fleşti̇ri̇ldi̇!"
         },
         "pre_check": {
             "downloaded": "İndirme işlemi birkaç dakika içinde başlayacaktır.",
@@ -3514,5 +3514,27 @@
         "placeholders": {
             "select_option": "Seçeneği seçin"
         }
+    },
+    "modal_deactivate_voucher": {
+        "back": "Geri",
+        "cancel": "İptal",
+        "close": "Kapat",
+        "confirm": "Onaylayın",
+        "confirm_stop_participation": "Katılımınızı durdurmak istediğinizden emin misiniz?",
+        "header_title": "Katılımı durdurun",
+        "max_characters": "Maks. 140 karakter",
+        "next": "Sonraki",
+        "reason": "Sebep",
+        "reason_for_stopping": "Durma sebebi:",
+        "reasons": {
+            "income_change": "Gelirdeki değişim",
+            "moved": "Yer Değiştirme",
+            "not_interested": "Teklif cazip değil",
+            "other": "Aksi takdirde"
+        },
+        "stop_participation": "{{name}} katılımınızı durdurmak.",
+        "stop_successful": "Katılım durduruldu",
+        "success_message": "{{name}} katılımınız sona ermiştir.",
+        "warning": "Not: Bundan sonra kredinizi artık kullanamazsınız. {{name}} krediniz devre dışı bırakılacaktır."
     }
 }

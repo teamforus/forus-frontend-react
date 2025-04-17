@@ -25,7 +25,6 @@ export default function Accessibility() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('accessibility.breadcrumbs.home'), state: 'home' },
                 { name: translate('accessibility.breadcrumbs.accessibility') },
@@ -36,7 +35,7 @@ export default function Accessibility() {
                         className={`flex flex-vertical ${
                             page.description_position == 'after' ? 'flex-vertical-reverse' : ''
                         }`}>
-                        {page && <CmsBlocks page={page} wrapper={false} />}
+                        {page && <CmsBlocks page={page} />}
 
                         {(!page.description_html || page.description_position !== 'replace') && (
                             <Fragment>

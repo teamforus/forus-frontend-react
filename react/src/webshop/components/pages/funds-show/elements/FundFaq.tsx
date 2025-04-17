@@ -2,6 +2,7 @@ import Fund from '../../../../../dashboard/props/models/Fund';
 import Markdown from '../../../elements/markdown/Markdown';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import React, { useState } from 'react';
+import Section from '../../../elements/sections/Section';
 
 export default function FundFaq({ fund }: { fund: Fund }) {
     const [visibleFaq, setVisibleFaq] = useState({});
@@ -9,10 +10,9 @@ export default function FundFaq({ fund }: { fund: Fund }) {
     if (!fund.faq) return null;
 
     return (
-        <section className="section section-faq">
-            <div className="section-splash" />
+        <Section type={'faq'}>
             {fund.faq_title && <h2 className="section-title">{fund.faq_title}</h2>}
-            <div className="faq faq-fund">
+            <div className="block block-faq block-faq-fund">
                 {fund.faq.map((question, index) => (
                     <div
                         key={index}
@@ -39,6 +39,6 @@ export default function FundFaq({ fund }: { fund: Fund }) {
                     </div>
                 ))}
             </div>
-        </section>
+        </Section>
     );
 }

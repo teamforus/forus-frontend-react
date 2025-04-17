@@ -1,0 +1,7 @@
+.section.section-faq {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: var(--section-faq-padding);
+    background: var(--section-faq-background);
+}
