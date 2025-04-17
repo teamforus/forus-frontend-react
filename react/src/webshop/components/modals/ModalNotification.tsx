@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, ReactElement } from 'react';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
@@ -19,6 +19,7 @@ export default function ModalNotification({
     description,
     mdiIconClass,
     mdiIconType = 'primary',
+    appendElement,
 }: {
     modal: ModalState;
     type: 'info' | 'confirm' | 'action-result';
@@ -34,7 +35,8 @@ export default function ModalNotification({
     email?: string;
     description?: string;
     mdiIconClass?: string;
-    mdiIconType?: 'primary' | 'warning' | 'success';
+    mdiIconType?: 'primary' | 'warning' | 'success' | 'default';
+    appendElement?: ReactElement | ReactElement[];
 }) {
     const translate = useTranslate();
 
@@ -120,6 +122,8 @@ export default function ModalNotification({
                                 ))}
                             </div>
                         )}
+
+                        {appendElement}
                     </div>
                 </div>
 

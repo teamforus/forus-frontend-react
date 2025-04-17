@@ -1261,12 +1261,6 @@
             "why": "Чому?",
             "activate": "Активувати"
         },
-        "product_item_grid": {
-            "bookmark": "Додати до списку бажань"
-        },
-        "product_item_list": {
-            "bookmark": "Додати до списку бажань"
-        },
         "product_item_search": {
             "free": "Безкоштовно"
         },
@@ -1274,6 +1268,15 @@
             "no_data": "Немає даних",
             "open_provider": "Відкритий постачальник",
             "show_locations": "Показати локації"
+        },
+        "product_item": {
+            "bookmark": "Додати до списку бажань",
+            "payment_option_ideal": "Можлива додаткова оплата",
+            "payment_option_ideal_aria_label": "Можлива додаткова оплата: натисніть для отримання додаткової інформації",
+            "payment_option_qr": "QR-платіж",
+            "payment_option_qr_aria_label": "QR-платіж: натисніть для отримання додаткової інформації",
+            "payment_option_reservation": "Оплачуйте онлайн",
+            "payment_option_reservation_aria_label": "Сплачуйте онлайн: натисніть для отримання додаткової інформації"
         }
     },
     "logo_alt_text": {
@@ -2237,7 +2240,14 @@
             "limit": "Залишок кредиту:",
             "max_limit": "Максимум на одну людину:",
             "pay_from_voucher": "Ви платите з кредиту:",
-            "price": "Ціна:"
+            "price": "Ціна:",
+            "payment_option_ideal": "Сплачуйте онлайн (iDEAL)",
+            "payment_option_ideal_aria_label": "Оплата онлайн (iDEAL): натисніть для отримання додаткової інформації",
+            "payment_option_qr": "Показати QR-код у постачальника",
+            "payment_option_qr_aria_label": "Показати QR-код у постачальника: натисніть для отримання додаткової інформації",
+            "payment_option_reservation": "Бронюйте онлайн",
+            "payment_option_reservation_aria_label": "Онлайн бронювання: натисніть для отримання додаткової інформації",
+            "payment_options": "Варіанти оплати"
         },
         "low_amount": "У вас немає кредиту з достатнім балансом.",
         "map": {
@@ -2284,7 +2294,15 @@
             "providers": "Провайдери",
             "search": "Пропозиція пошуку",
             "sort": "Сортування",
-            "sub_category": "Підкатегорія"
+            "sub_category": "Підкатегорія",
+            "payment_option_ideal": "Оплата в Інтернеті за допомогою iDeal",
+            "payment_option_qr": "Показати QR-код у постачальника",
+            "payment_option_reservation": "Бронюйте онлайн",
+            "payment_options": "Варіанти оплати",
+            "payment_options_info": "Дізнайтеся більше про способи оплати",
+            "price": "Ціна (€)",
+            "price_from": "Від",
+            "price_to": "До"
         },
         "sort": {
             "created_at_asc": "Найстарший перший",
@@ -3536,5 +3554,17 @@
         "stop_successful": "Участь припинено",
         "success_message": "Ваша участь у {{name}} припинена.",
         "warning": "Примітка: Після цього ви більше не зможете використовувати свій кредит. Ваш кредит {{name}} буде деактивовано."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "Все ясно!",
+        "description": "Варіанти оплати залежать від товару. Оплату можна здійснити кількома способами:",
+        "header": "Варіанти оплати",
+        "info_option_extra_payment_ideal_description": "Вашого кредиту недостатньо для бронювання? Для деяких товарів ви можете безпечно доплатити решту суми онлайн через iDEAL.",
+        "info_option_extra_payment_ideal_title": "Додатковий платіж (iDeal)",
+        "info_option_qr_description": "Сплачуйте легко в офісі провайдера, показавши QR-код, який ви отримали на касі. Провайдер відсканує код, і платіж буде негайно оброблено.",
+        "info_option_qr_title": "QR-код",
+        "info_option_reservation_description": "Сплатіть через цей сайт, замовивши пропозицію. Для цього натисніть на кнопку зарезервувати та заповніть необхідні дані. Сума буде списана безпосередньо з наявного кредиту. Постачальник отримає замовлення і зв'яжеться з вами у разі необхідності.",
+        "info_option_reservation_title": "Бронювання",
+        "title": "Варіанти оплати"
     }
 }

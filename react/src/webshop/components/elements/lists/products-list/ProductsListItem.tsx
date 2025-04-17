@@ -6,6 +6,7 @@ import ProductsListItemGrid from './templates/ProductsListItemGrid';
 import ProductsListItemList from './templates/ProductsListItemList';
 import ProductsListItemSearch from './templates/ProductsListItemSearch';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import classNames from 'classnames';
 
 export default function ProductsListItem({
     display,
@@ -57,7 +58,7 @@ export default function ProductsListItem({
             name={'product'}
             params={{ id: product.id }}
             state={stateParams || null}
-            className={display === 'search' ? 'search-item search-item-product' : 'product-item'}
+            className={classNames(display === 'search' ? 'search-item' : 'product-item')}
             dataDusk="productItem">
             {display === 'grid' && (
                 <ProductsListItemGrid price={price} toggleBookmark={toggleBookmark} product={product} />

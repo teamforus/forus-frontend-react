@@ -1,0 +1,100 @@
+.block.block-products-payment-options-info {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0 15px;
+    margin: 15px 0 0;
+
+    .products-payment-option-info {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        align-items: flex-start;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-color);
+
+        .products-payment-option-icon {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 20px;
+            background-color: #f4f5f7;
+            flex: 0 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            em {
+                font-size: 24px;
+                display: block;
+            }
+
+            img {
+                width: 24px;
+                height: 24px;
+                display: block;
+            }
+        }
+
+        .products-payment-option-content {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+
+            .products-payment-option-title {
+                font: 700 16px/24px var(--base-font);
+            }
+
+            .products-payment-option-description {
+                font: 400 14px/20px var(--base-font);
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        border: none;
+        padding: 0;
+
+        .products-payment-option-info {
+            padding: 15px 0;
+            gap: 12px;
+
+            .products-payment-option-icon {
+                width: 36px;
+                height: 36px;
+                text-align: center;
+                line-height: 36px;
+                flex: 0 0 36px;
+
+                em {
+                    font-size: 20px;
+                }
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .products-payment-option-content {
+                .products-payment-option-title {
+                    font: 700 15px/22px var(--base-font);
+                }
+
+                .products-payment-option-description {
+                    font: 400 12px/17px var(--base-font);
+                }
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+    }
+}

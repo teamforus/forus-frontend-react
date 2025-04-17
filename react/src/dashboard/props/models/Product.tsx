@@ -39,6 +39,7 @@ export default interface Product {
             };
             end_at: string;
             end_at_locale: string;
+            scanning_enabled: boolean;
             reservations_enabled: boolean;
             reservation_extra_payments_enabled: boolean;
             fund_id?: number;
