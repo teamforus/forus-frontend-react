@@ -264,6 +264,10 @@ export default function FundForms() {
                                             </td>
 
                                             <td className="text-strong text-muted-dark">
+                                                {fundForm.fund.implementation?.name || <TableEmptyValue />}
+                                            </td>
+
+                                            <td className="text-strong text-muted-dark">
                                                 {fundForm?.steps || <TableEmptyValue />}
                                             </td>
 

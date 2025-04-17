@@ -32,7 +32,7 @@ export class FundFormService<T = FundForm> {
     }
 
     public getColumns(): Array<ConfigurableTableColumn> {
-        const list = ['name', 'created_at', 'fund', 'steps', 'status'].filter((item) => item);
+        const list = ['name', 'created_at', 'fund', 'implementation', 'steps', 'status'].filter((item) => item);
 
         return list.map((key) => ({
             key,
