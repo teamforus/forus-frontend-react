@@ -44,6 +44,7 @@ export default function DatePickerControl({
     return (
         <ReactDatePicker
             disabled={disabled}
+            popperProps={{ strategy: 'fixed' }}
             renderCustomHeader={({
                 date,
                 changeYear,
