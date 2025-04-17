@@ -1368,9 +1368,9 @@
         "enter_sms_code": "Geben Sie den 6-stelligen SMS-Code ein",
         "error_404": "Es ist ein Fehler aufgetreten. Bitte aktualisieren Sie die Seite.",
         "resend_code": "Code erneut senden",
-        "seconds": "{Zeit} Sekunde(n)",
         "unknown_error": "Unbekannter Fehler.",
-        "verify": "Überprüfen Sie"
+        "verify": "Überprüfen Sie",
+        "seconds": "{{time}} Sekunde(n)"
     },
     "modal_2fa_setup": {
         "2fa": "Zwei-Faktor-Authentifizierung",
@@ -1381,7 +1381,6 @@
         "confirm": "Bestätigen Sie",
         "enter_2fa_code": "Um fortzufahren, geben Sie den Sicherheitscode für die Zwei-Faktor-Authentifizierung ein.",
         "enter_app_code": "Geben Sie den 6-stelligen Code in der App ein",
-        "enter_app_code_6_digits": "Um fortzufahren, geben Sie den 6-stelligen Sicherheitscode von {Provider} ein.",
         "enter_phone": "Um fortzufahren, geben Sie Ihre Rufnummer ein",
         "enter_sms_code": "Geben Sie den 6-stelligen SMS-Code ein",
         "enter_sms_code_6_digits": "Um fortzufahren, geben Sie bitte den 6-stelligen SMS-Code ein, der Ihnen an Ihre Telefonnummer geschickt wurde.",
@@ -1392,7 +1391,6 @@
         "link_phone": "Verknüpfen Sie Ihre Rufnummer",
         "phone_number": "Rufnummer",
         "resend_code": "Code erneut senden",
-        "seconds": "{Zeit} Sekunde(n)",
         "select_auth_app": "Wählen Sie die Authentifizierungsanwendung, die Sie verwenden möchten.",
         "setup_2fa": "Einrichten der Zwei-Faktor-Authentifizierung",
         "successful_login": "Es hat geklappt!",
@@ -1401,7 +1399,9 @@
         "welcome_back": "Sie haben sich erfolgreich mit der Zwei-Faktor-Authentifizierung angemeldet. Willkommen zurück!",
         "already_have_app_steps": "1. Wählen Sie in der App <strong class=\"text-strong\">Kontoeinrichtung</strong><br>2. Wählen Sie <strong class=\"text-strong\">Scannen eines QR-Codes</strong> oder <strong class=\"text-strong\">Eingabe eines Installationsschlüssels</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
         "dont_have_app": "<strong class=\"text-strong\"> Wenn Sie die App {{name}} nicht haben, </strong>können Sie sie aus dem <strong class=\"text-strong\">Play Store</strong> oder dem <strong class=\"text-strong\">App Store</strong> herunterladen.",
-        "already_have_app": "Wenn Sie bereits über die App {{name}} verfügen, führen Sie die folgenden Schritte aus:"
+        "already_have_app": "Wenn Sie bereits über die App {{name}} verfügen, führen Sie die folgenden Schritte aus:",
+        "enter_app_code_6_digits": "Um fortzufahren, geben Sie den 6-stelligen Sicherheitscode von {{provider}}",
+        "seconds": "{{time}} Sekunde(n)"
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -2010,7 +2010,6 @@
         }
     },
     "preferences_notifications": {
-        "auto_close_after": "Popup-Benachrichtigungen werden nach {Wert} Sekunden automatisch geschlossen.",
         "auto_close_disabled": "Automatische Schließung ist deaktiviert",
         "auto_close_disabled_description": "Das automatische Schließen von Popup-Benachrichtigungen ist deaktiviert.",
         "auto_close_enabled": "Automatisches Schließen ist aktiviert",
@@ -2150,7 +2149,8 @@
         },
         "unsubscribe": "Alle E-Mail-Benachrichtigungen abbestellen",
         "unsubscribe_button": "Abbestellen",
-        "unsubscribe_desc": "Ich möchte mich von allen E-Mail-Benachrichtigungen abmelden."
+        "unsubscribe_desc": "Ich möchte mich von allen E-Mail-Benachrichtigungen abmelden.",
+        "auto_close_after": "Pop-up-Benachrichtigungen werden automatisch nach {{value}} Sekunden geschlossen."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2666,7 +2666,6 @@
             "title": "Details zur Buchung"
         },
         "expired": "Ihre Reservierung wurde leider während des Bestellvorgangs storniert, da das ausgewählte Produkt ausverkauft ist.",
-        "expiring": "Bitte beachten Sie, dass Sie noch <strong>{expiresIn} Minuten</strong> Zeit haben, um die Nachzahlung zu leisten. Andernfalls wird die Reservierung automatisch storniert.",
         "extra_amount_refund": {
             "amount": "Betrag",
             "date": "Datum",
@@ -2702,7 +2701,8 @@
                 "waiting": "Warten auf die Zahlung"
             }
         },
-        "title": "Details zur Aufstockung"
+        "title": "Details zur Aufstockung",
+        "expiring": "Bitte beachten Sie, dass Sie nur noch <strong>{{expiresIn}} Minuten</strong> Zeit haben, um die zusätzliche Zahlung zu leisten. Andernfalls wird die Reservierung automatisch storniert."
     },
     "reservations": {
         "breadcrumbs": {
@@ -3476,7 +3476,7 @@
         "error": "Durchgefallen!",
         "fund_activation": {
             "digid_success": "Eingeloggt mit DigiD.",
-            "success": "{Fund_name} Kredit aktiviert!"
+            "success": "{{fund_name}} Kredit aktiviert!"
         },
         "pre_check": {
             "downloaded": "Der Download wird in wenigen Augenblicken beginnen.",
@@ -3514,5 +3514,27 @@
         "placeholders": {
             "select_option": "Option auswählen"
         }
+    },
+    "modal_deactivate_voucher": {
+        "back": "Zurück",
+        "cancel": "Abbrechen",
+        "close": "Schließen Sie",
+        "confirm": "Bestätigen Sie",
+        "confirm_stop_participation": "Sind Sie sicher, dass Sie Ihre Teilnahme beenden wollen?",
+        "header_title": "Teilnahme stoppen",
+        "max_characters": "Max. 140 Zeichen",
+        "next": "Weiter",
+        "reason": "Grund",
+        "reason_for_stopping": "Grund für die Unterbrechung:",
+        "reasons": {
+            "income_change": "Veränderung des Einkommens",
+            "moved": "Umsiedlung",
+            "not_interested": "Angebot ist nicht attraktiv",
+            "other": "Ansonsten"
+        },
+        "stop_participation": "Beenden Sie Ihre Teilnahme an {{name}}.",
+        "stop_successful": "Teilnahme gestoppt",
+        "success_message": "Ihre Teilnahme an {{name}} ist beendet.",
+        "warning": "Hinweis: Sie können Ihr Guthaben danach nicht mehr verwenden. Ihr {{name}} Guthaben wird deaktiviert."
     }
 }

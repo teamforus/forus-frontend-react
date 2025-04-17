@@ -3713,7 +3713,7 @@
     ],
     [
         "modal_2fa_deactivate.seconds",
-        "{time} seconde(n)"
+        "{{time}} seconde(n)"
     ],
     [
         "modal_2fa_deactivate.unknown_error",
@@ -3769,7 +3769,7 @@
     ],
     [
         "modal_2fa_setup.enter_app_code_6_digits",
-        "Om door te gaan, voer de 6-cijferige beveiligingscode in van {provider}"
+        "Om door te gaan, voer de 6-cijferige beveiligingscode in van {{provider}}"
     ],
     [
         "modal_2fa_setup.enter_phone",
@@ -3805,7 +3805,7 @@
     ],
     [
         "modal_2fa_setup.seconds",
-        "{time} seconde(n)"
+        "{{time}} seconde(n)"
     ],
     [
         "modal_2fa_setup.select_auth_app",
@@ -3830,6 +3830,78 @@
     [
         "modal_2fa_setup.welcome_back",
         "Je bent succesvol ingelogd met tweefactorauthenticatie. Welkom terug!"
+    ],
+    [
+        "modal_deactivate_voucher.back",
+        "Terug"
+    ],
+    [
+        "modal_deactivate_voucher.cancel",
+        "Annuleer"
+    ],
+    [
+        "modal_deactivate_voucher.close",
+        "Sluiten"
+    ],
+    [
+        "modal_deactivate_voucher.confirm",
+        "Bevestigen"
+    ],
+    [
+        "modal_deactivate_voucher.confirm_stop_participation",
+        "Weet u zeker dat u uw deelname wilt stoppen?"
+    ],
+    [
+        "modal_deactivate_voucher.header_title",
+        "Deelname stoppen"
+    ],
+    [
+        "modal_deactivate_voucher.max_characters",
+        "Max. 140 tekens"
+    ],
+    [
+        "modal_deactivate_voucher.next",
+        "Volgende"
+    ],
+    [
+        "modal_deactivate_voucher.reason",
+        "Reden"
+    ],
+    [
+        "modal_deactivate_voucher.reason_for_stopping",
+        "Reden van stoppen:"
+    ],
+    [
+        "modal_deactivate_voucher.reasons.income_change",
+        "Verandering in inkomen"
+    ],
+    [
+        "modal_deactivate_voucher.reasons.moved",
+        "Verhuizing"
+    ],
+    [
+        "modal_deactivate_voucher.reasons.not_interested",
+        "Aanbod is niet aantrekkelijk"
+    ],
+    [
+        "modal_deactivate_voucher.reasons.other",
+        "Anders"
+    ],
+    [
+        "modal_deactivate_voucher.stop_participation",
+        "Je {{name}} deelname stoppen."
+    ],
+    [
+        "modal_deactivate_voucher.stop_successful",
+        "Deelname gestopt"
+    ],
+    [
+        "modal_deactivate_voucher.success_message",
+        "Je {{name}} deelname is gestopt."
+    ],
+    [
+        "modal_deactivate_voucher.warning",
+        "Let op: Je kunt hierna geen gebruik meer maken van je tegoed. Je {{name}} tegoed wordt gedeactiveerd."
     ],
     [
         "modal_fund_help.chat",
@@ -5501,7 +5573,7 @@
     ],
     [
         "preferences_notifications.auto_close_after",
-        "Pop-up meldingen worden automatisch na {value} seconden gesloten."
+        "Pop-up meldingen worden automatisch na {{value}} seconden gesloten."
     ],
     [
         "preferences_notifications.auto_close_disabled",
@@ -6745,7 +6817,7 @@
     ],
     [
         "push.fund_activation.success",
-        "{fund_name} tegoed geactiveerd!"
+        "{{fund_name}} tegoed geactiveerd!"
     ],
     [
         "push.pre_check.downloaded",
@@ -7185,7 +7257,7 @@
     ],
     [
         "reservation.expiring",
-        "Houd er rekening mee dat er nog <strong>{expiresIn} minuten</strong> over zijn om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd."
+        "Houd er rekening mee dat er nog <strong>{{expiresIn}} minuten</strong> over zijn om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd."
     ],
     [
         "reservation.extra_amount_refund.amount",
