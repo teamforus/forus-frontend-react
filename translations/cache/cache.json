@@ -3424,16 +3424,36 @@
         "Waarom?"
     ],
     [
-        "list_blocks.product_item_grid.bookmark",
-        "Toevoegen aan verlanglijstje"
-    ],
-    [
-        "list_blocks.product_item_list.bookmark",
-        "Toevoegen aan verlanglijstje"
-    ],
-    [
         "list_blocks.product_item_search.free",
         "Gratis"
+    ],
+    [
+        "list_blocks.product_item.bookmark",
+        "Toevoegen aan verlanglijstje"
+    ],
+    [
+        "list_blocks.product_item.payment_option_ideal",
+        "Bijbetalen mogelijk"
+    ],
+    [
+        "list_blocks.product_item.payment_option_ideal_aria_label",
+        "Bijbetalen mogelijk: klik voor meer informatie"
+    ],
+    [
+        "list_blocks.product_item.payment_option_qr",
+        "QR-betaling"
+    ],
+    [
+        "list_blocks.product_item.payment_option_qr_aria_label",
+        "QR-betaling: klik voor meer informatie"
+    ],
+    [
+        "list_blocks.product_item.payment_option_reservation",
+        "Online betalen"
+    ],
+    [
+        "list_blocks.product_item.payment_option_reservation_aria_label",
+        "Online betalen: klik voor meer informatie"
     ],
     [
         "list_blocks.provider_item_list.no_data",
@@ -4286,6 +4306,46 @@
     [
         "modal_pin_code.unknown_code",
         "Onbekende code"
+    ],
+    [
+        "modal_product_payment_options_info.confirm",
+        "Het is duidelijk!"
+    ],
+    [
+        "modal_product_payment_options_info.description",
+        "De betaalmogelijkheden verschillen per product. Betalen kan op verschillende manieren:"
+    ],
+    [
+        "modal_product_payment_options_info.header",
+        "Betaalopties"
+    ],
+    [
+        "modal_product_payment_options_info.info_option_extra_payment_ideal_description",
+        "Is uw tegoed niet voldoende voor een reservering? Bij sommige producten kunt u het resterende bedrag online veilig bijbetalen via iDEAL."
+    ],
+    [
+        "modal_product_payment_options_info.info_option_extra_payment_ideal_title",
+        "Bijbetalen (iDeal)"
+    ],
+    [
+        "modal_product_payment_options_info.info_option_qr_description",
+        "Betaal eenvoudig op de locatie van de aanbieder door de QR-code die u heeft ontvangen te tonen bij het afrekenen. De aanbieder scant de code, waarna de betaling direct wordt verwerkt."
+    ],
+    [
+        "modal_product_payment_options_info.info_option_qr_title",
+        "QR-code"
+    ],
+    [
+        "modal_product_payment_options_info.info_option_reservation_description",
+        "Betaal via deze website door een aanbod te bestellen. Klik hiervoor op de knop reserveren en vul de gevraagde gegevens in. Het bedrag wordt direct van het beschikbare tegoed afgetrokken. De aanbieder ontvangt de reservering en neemt indien nodig contact met u op."
+    ],
+    [
+        "modal_product_payment_options_info.info_option_reservation_title",
+        "Reservering"
+    ],
+    [
+        "modal_product_payment_options_info.title",
+        "Betaalopties"
     ],
     [
         "modal_product_reserve_cancel.buttons.cancel",
@@ -6132,6 +6192,34 @@
         "U betaalt vanuit het tegoed:"
     ],
     [
+        "product.labels.payment_option_ideal",
+        "Online bijbetalen (iDEAL)"
+    ],
+    [
+        "product.labels.payment_option_ideal_aria_label",
+        "Online bijbetalen (iDEAL): klik voor meer informatie"
+    ],
+    [
+        "product.labels.payment_option_qr",
+        "QR‑code tonen bij aanbieder"
+    ],
+    [
+        "product.labels.payment_option_qr_aria_label",
+        "QR‑code tonen bij aanbieder: klik voor meer informatie"
+    ],
+    [
+        "product.labels.payment_option_reservation",
+        "Online reserveren"
+    ],
+    [
+        "product.labels.payment_option_reservation_aria_label",
+        "Online reserveren: klik voor meer informatie"
+    ],
+    [
+        "product.labels.payment_options",
+        "Betaalopties"
+    ],
+    [
         "product.labels.price",
         "Prijs:"
     ],
@@ -6248,8 +6336,40 @@
         "Tegoeden"
     ],
     [
+        "products.filters.payment_option_ideal",
+        "Online bijbetalen met iDeal"
+    ],
+    [
+        "products.filters.payment_option_qr",
+        "QR-code tonen bij de aanbieder"
+    ],
+    [
+        "products.filters.payment_option_reservation",
+        "Online reserveren"
+    ],
+    [
+        "products.filters.payment_options",
+        "Betalingsmogelijkheden"
+    ],
+    [
+        "products.filters.payment_options_info",
+        "Lees meer over de betalingsopties"
+    ],
+    [
         "products.filters.postcode",
         "Postcode"
+    ],
+    [
+        "products.filters.price",
+        "Prijs (€)"
+    ],
+    [
+        "products.filters.price_from",
+        "Van"
+    ],
+    [
+        "products.filters.price_to",
+        "Naar"
     ],
     [
         "products.filters.providers",
