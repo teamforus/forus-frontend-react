@@ -30,6 +30,13 @@ export default {
         funds_card_description:
             'Wilt u weten welk tegoed u kunt gebruiken voor dit aanbod? Ga dan naar het overzicht van tegoeden!',
         funds_card_btn_text: 'Ga naar tegoeden',
+        payment_options: 'Betaalopties',
+        payment_option_qr: 'QR‑code tonen bij aanbieder',
+        payment_option_qr_aria_label: 'QR‑code tonen bij aanbieder: klik voor meer informatie',
+        payment_option_reservation: 'Online reserveren',
+        payment_option_reservation_aria_label: 'Online reserveren: klik voor meer informatie',
+        payment_option_ideal: 'Online bijbetalen (iDEAL)',
+        payment_option_ideal_aria_label: 'Online bijbetalen (iDEAL): klik voor meer informatie',
     },
     status: {
         active: 'Actief',
