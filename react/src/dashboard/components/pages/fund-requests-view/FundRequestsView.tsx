@@ -25,8 +25,6 @@ import useEnvData from '../../../hooks/useEnvData';
 import FundRequestRecordTabs from './elements/FundRequestRecordTabs';
 import FundRequestPerson from './elements/FundRequestPerson';
 import useTranslate from '../../../hooks/useTranslate';
-import EmailLog from '../../../props/models/EmailLog';
-import { useFileService } from '../../../services/FileService';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
 import ModalApproveFundRequest from '../../modals/ModalApproveFundRequest';
@@ -36,6 +34,7 @@ import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import Icon from '../../../../../assets/forus-platform/resources/_platform-common/assets/img/fund-request-icon.svg';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import useEmailLogService from '../../../services/EmailLogService';
 
 export default function FundRequestsView() {
     const authIdentity = useAuthIdentity();
@@ -49,7 +48,7 @@ export default function FundRequestsView() {
     const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
-    const fileService = useFileService();
+    const emailLogService = useEmailLogService();
     const activeOrganization = useActiveOrganization();
     const fundRequestService = useFundRequestValidatorService();
 
@@ -434,21 +433,12 @@ export default function FundRequestsView() {
     );
 
     const fetchEmailLogs = useCallback(
-        (query = {}) => fundRequestService.emailLogs(activeOrganization.id, fundRequestMeta.id, query),
-        [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
-    );
-
-    const exportEmailLog = useCallback(
-        (emailLog: EmailLog) => {
-            fundRequestService
-                .emailLogExport(activeOrganization.id, fundRequestMeta.id, emailLog.id)
-                .then((res) => fileService.downloadFile(`email-log-${emailLog.id}.pdf`, res.data))
-                .catch(pushApiError)
-                .finally(() => setProgress(100));
-
-            setProgress(0);
-        },
-        [activeOrganization?.id, fileService, fundRequestMeta?.id, fundRequestService, pushApiError, setProgress],
+        (query = {}) =>
+            emailLogService.list(activeOrganization.id, {
+                fund_request_id: fundRequestMeta.id,
+                ...query,
+            }),
+        [activeOrganization?.id, fundRequestMeta?.id, emailLogService],
     );
 
     const deleteNote = useCallback(
@@ -820,7 +810,7 @@ export default function FundRequestsView() {
 
             <BlockCardEmails
                 fetchLogEmails={fetchEmailLogs}
-                onExportEmail={exportEmailLog}
+                organization={activeOrganization}
                 fetchEmailsRef={fetchEmailsRef}
             />
         </Fragment>

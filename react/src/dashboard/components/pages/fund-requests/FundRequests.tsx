@@ -229,6 +229,7 @@ export default function FundRequests() {
                                     <input
                                         type="text"
                                         className="form-control"
+                                        data-dusk="searchFundRequests"
                                         value={filter.values.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('validation_requests.labels.search')}

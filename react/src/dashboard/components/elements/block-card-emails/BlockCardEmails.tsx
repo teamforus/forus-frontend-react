@@ -18,21 +18,27 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import { trimStart } from 'lodash';
 import { extractText } from '../../../helpers/utils';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import useEmailLogService from '../../../services/EmailLogService';
+import { useFileService } from '../../../services/FileService';
+import Organization from '../../../props/models/Organization';
 
 export default function BlockCardEmails({
+    organization,
     fetchLogEmails,
     fetchEmailsRef,
-    onExportEmail,
 }: {
+    organization: Organization;
     fetchLogEmails: (value: FilterModel) => Promise<ApiResponse<EmailLog>>;
     fetchEmailsRef?: React.MutableRefObject<() => void>;
-    onExportEmail?: (emailLog: EmailLog) => void;
 }) {
     const openModal = useOpenModal();
     const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
+    const fileService = useFileService();
     const paginatorService = usePaginatorService();
+
+    const emailLogService = useEmailLogService();
 
     const [emailLogs, setEmailLogs] = useState<PaginationData<EmailLog>>(null);
     const [paginatorKey] = useState('fund_request_email_logs');
@@ -47,13 +53,26 @@ export default function BlockCardEmails({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
+    const exportEmailLog = useCallback(
+        (emailLog: EmailLog) => {
+            emailLogService
+                .export(organization.id, emailLog.id)
+                .then((res) => fileService.downloadFile(`email-log-${emailLog.id}.pdf`, res.data))
+                .catch(pushApiError)
+                .finally(() => setProgress(100));
+
+            setProgress(0);
+        },
+        [organization.id, fileService, emailLogService, pushApiError, setProgress],
+    );
+
     const openEmail = useCallback(
         (logEmail: EmailLog) => {
             openModal((modal) => {
-                return <ModalLogEmailShow modal={modal} emailLog={logEmail} exportEmailLog={onExportEmail} />;
+                return <ModalLogEmailShow modal={modal} emailLog={logEmail} exportEmailLog={exportEmailLog} />;
             });
         },
-        [openModal, onExportEmail],
+        [openModal, exportEmailLog],
     );
 
     const fetchEmails = useCallback(() => {
@@ -76,7 +95,9 @@ export default function BlockCardEmails({
     }, [emailLogs, openEmail]);
 
     useEffect(() => {
-        fetchEmailsRef.current = fetchEmails;
+        if (fetchEmailsRef) {
+            fetchEmailsRef.current = fetchEmails;
+        }
     }, [fetchEmailsRef, fetchEmails]);
 
     if (!emailLogs) {
@@ -84,7 +105,7 @@ export default function BlockCardEmails({
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="emailLogs">
             <div className="card-header">
                 <div className="flex flex-grow card-title">
                     Berichten&nbsp;
@@ -120,7 +141,7 @@ export default function BlockCardEmails({
                                         <th className="text-right">Actions</th>
                                     </tr>
                                     {emailLogs?.data.map((emailLog) => (
-                                        <tr key={emailLog.id}>
+                                        <tr key={emailLog.id} data-dusk={`emailLogRow${emailLog.id}`}>
                                             <td className="nowrap">
                                                 <TableDateTime value={emailLog.created_at_locale} />
                                             </td>
@@ -150,10 +171,12 @@ export default function BlockCardEmails({
                                             </td>
                                             <td className={'text-right'}>
                                                 <TableRowActions
+                                                    dataDusk={`btnEmailLogMenu${emailLog.id}`}
                                                     content={({ close }) => (
                                                         <div className="dropdown dropdown-actions">
                                                             <a
                                                                 className={'dropdown-item'}
+                                                                data-dusk="openEmail"
                                                                 onClick={() => {
                                                                     openEmail(emailLog);
                                                                     close();
@@ -161,17 +184,16 @@ export default function BlockCardEmails({
                                                                 <em className="mdi mdi-eye icon-start" />
                                                                 Bekijken
                                                             </a>
-                                                            {onExportEmail && (
-                                                                <a
-                                                                    className={'dropdown-item'}
-                                                                    onClick={() => {
-                                                                        onExportEmail?.(emailLog);
-                                                                        close();
-                                                                    }}>
-                                                                    <em className="mdi mdi-content-save-outline icon-start" />
-                                                                    Download
-                                                                </a>
-                                                            )}
+                                                            <a
+                                                                className={'dropdown-item'}
+                                                                data-dusk="exportEmail"
+                                                                onClick={() => {
+                                                                    exportEmailLog(emailLog);
+                                                                    close();
+                                                                }}>
+                                                                <em className="mdi mdi-content-save-outline icon-start" />
+                                                                Download
+                                                            </a>
                                                         </div>
                                                     )}
                                                 />
