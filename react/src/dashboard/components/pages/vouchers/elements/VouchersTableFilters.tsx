@@ -10,7 +10,7 @@ import FilterScope from '../../../../types/FilterScope';
 import useTranslate from '../../../../hooks/useTranslate';
 import useVoucherService from '../../../../services/VoucherService';
 import useVoucherTableOptions from '../hooks/useVoucherTableOptions';
-import useVoucherExportService from '../../../../services/exports/useVoucherExportService';
+import useVoucherExporter from '../../../../services/exporters/useVoucherExporter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Fund from '../../../../props/models/Fund';
@@ -53,9 +53,8 @@ export default function VouchersTableFilters({
     funds: Array<Partial<Fund>>;
 }) {
     const translate = useTranslate();
-
     const voucherService = useVoucherService();
-    const voucherExportService = useVoucherExportService();
+    const voucherExporter = useVoucherExporter();
 
     const [inUseOptions] = useState(voucherService.getInUseOptions());
     const [sourcesOptions] = useState(voucherService.getSourcesOptions());
@@ -68,7 +67,7 @@ export default function VouchersTableFilters({
     const exportVouchers = useCallback(() => {
         filter.setShow(false);
 
-        voucherExportService.exportData(
+        voucherExporter.exportData(
             organization.id,
             keyBy(funds, 'id')[filter.activeValues.fund_id]?.allow_voucher_records,
             {
@@ -79,7 +78,7 @@ export default function VouchersTableFilters({
                 per_page: null,
             },
         );
-    }, [organization.id, filter, funds, voucherExportService]);
+    }, [organization.id, filter, funds, voucherExporter]);
 
     return (
         <Fragment>

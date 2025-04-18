@@ -51,7 +51,7 @@ export default function FundRequestsTable({
                     {configsElement}
 
                     <TableTopScroller>
-                        <table className="table">
+                        <table className="table" id="fundRequestsTable">
                             {headElement}
 
                             <tbody>
@@ -61,6 +61,7 @@ export default function FundRequestsTable({
                                         className={'tr-clickable'}
                                         key={fundRequest.id}
                                         name={'fund-request'}
+                                        dataDusk={`fundRequestRow${fundRequest.id}`}
                                         params={{ organizationId: organization.id, id: fundRequest.id }}>
                                         <td className={'text-strong'}>
                                             <span className="text-muted-dark">#</span>

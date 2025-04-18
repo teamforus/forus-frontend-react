@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { currencyFormat } from '../../../../helpers/string';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import FinancialOverviewFundsBudgetTableItem from './FinancialOverviewFundsBudgetTableItem';
-import useExportFunds from '../hooks/useExportFunds';
 import Fund from '../../../../props/models/Fund';
 import Organization from '../../../../props/models/Organization';
 import { FinancialOverview } from '../../financial-dashboard/types/FinancialStatisticTypes';
@@ -14,6 +13,7 @@ import { useFundService } from '../../../../services/FundService';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import useFundExporter from '../../../../services/exporters/useFundExporter';
 
 export default function FinancialOverviewFundsBudgetTable({
     years,
@@ -33,9 +33,9 @@ export default function FinancialOverviewFundsBudgetTable({
     loaded: boolean;
 }) {
     const translate = useTranslate();
-    const exportFunds = useExportFunds(organization);
-
     const setProgress = useSetProgress();
+
+    const fundExporter = useFundExporter();
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
@@ -47,6 +47,10 @@ export default function FinancialOverviewFundsBudgetTable({
     const fundService = useFundService();
 
     const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsBudget());
+
+    const exportFunds = useCallback(() => {
+        fundExporter.exportData(organization.id, true, year);
+    }, [fundExporter, organization.id, year]);
 
     useEffect(() => {
         if (!loaded) return;
@@ -84,7 +88,10 @@ export default function FinancialOverviewFundsBudgetTable({
                                 />
                             </div>
                         </div>
-                        <button className="button button-primary button-sm" onClick={() => exportFunds(true, year)}>
+                        <button
+                            className="button button-primary button-sm"
+                            data-dusk="exportFundsDetailed"
+                            onClick={() => exportFunds()}>
                             <em className="mdi mdi-download icon-start" />
                             {translate('financial_dashboard_overview.buttons.export')}
                         </button>

@@ -142,7 +142,9 @@ export default function ModalExportDataSelect({
     }, [sections, updateSelectedFields]);
 
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div
+            className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}
+            data-dusk="modalExport">
             <div className="modal-backdrop" onClick={closeModal} />
             <form
                 className="modal-window form"
@@ -178,10 +180,11 @@ export default function ModalExportDataSelect({
                                             <div className="flex">
                                                 <label
                                                     className="form-toggle"
-                                                    htmlFor="checkbox_{{ section.key }}_check_all">
+                                                    data-dusk={`toggle_${section.key}`}
+                                                    htmlFor={`checkbox_${section.key}_check_all`}>
                                                     <input
                                                         type="checkbox"
-                                                        id="checkbox_{{ section.key }}_check_all"
+                                                        id={`checkbox_${section.key}_check_all`}
                                                         checked={section.selectAll}
                                                         onChange={() => toggleAllFields(section, !section.selectAll)}
                                                     />
@@ -206,6 +209,7 @@ export default function ModalExportDataSelect({
                                                                         className={'checkbox-narrow'}
                                                                         checked={field.selected}
                                                                         title={field.name}
+                                                                        dusk={`option_${field.key}`}
                                                                         onChange={() => {
                                                                             field.selected = !field.selected;
                                                                             updateSelectedFields(section);
@@ -256,7 +260,7 @@ export default function ModalExportDataSelect({
                     <button className="button button-default" type="button" onClick={closeModal}>
                         {translate('modals.modal_voucher_create.buttons.cancel')}
                     </button>
-                    <button className="button button-primary" disabled={!isValid} type="submit">
+                    <button className="button button-primary" disabled={!isValid} data-dusk="submitBtn" type="submit">
                         {translate('modals.modal_export_data.buttons.submit')}
                     </button>
                 </div>
