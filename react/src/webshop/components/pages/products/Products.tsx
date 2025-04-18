@@ -473,12 +473,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                     {appConfigs.pages.products && <CmsBlocks page={appConfigs.pages.products} />}
 
                     {products?.meta?.total > 0 && (
-                        <ProductsList
-                            type={fundType}
-                            large={false}
-                            display={filterValues.display_type}
-                            products={products.data}
-                        />
+                        <ProductsList type={fundType} display={filterValues.display_type} products={products.data} />
                     )}
 
                     {products?.meta?.total == 0 && (

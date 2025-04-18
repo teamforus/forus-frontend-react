@@ -1368,9 +1368,9 @@
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "error_404": "Une erreur s'est produite. Veuillez actualiser la page.",
         "resend_code": "Renvoyer le code",
-        "seconds": "{heure} seconde(s)",
         "unknown_error": "Erreur inconnue.",
-        "verify": "Vérifier"
+        "verify": "Vérifier",
+        "seconds": "{{time}} seconde(s)"
     },
     "modal_2fa_setup": {
         "2fa": "Authentification à deux facteurs",
@@ -1381,7 +1381,6 @@
         "confirm": "Confirmer",
         "enter_2fa_code": "Pour continuer, saisissez le code de sécurité de l'authentification à deux facteurs.",
         "enter_app_code": "Saisir le code à 6 chiffres à partir de l'application",
-        "enter_app_code_6_digits": "Pour continuer, entrez le code de sécurité à 6 chiffres de {fournisseur}.",
         "enter_phone": "Pour continuer, entrez votre numéro de téléphone",
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "enter_sms_code_6_digits": "Pour continuer, veuillez saisir le code SMS à 6 chiffres envoyé à votre numéro de téléphone.",
@@ -1392,7 +1391,6 @@
         "link_phone": "Liez votre numéro de téléphone",
         "phone_number": "Numéro de téléphone",
         "resend_code": "Renvoyer le code",
-        "seconds": "{heure} seconde(s)",
         "select_auth_app": "Sélectionnez l'application d'authentification que vous souhaitez utiliser.",
         "setup_2fa": "Mise en place de l'authentification à deux facteurs",
         "successful_login": "Cela a fonctionné !",
@@ -1401,7 +1399,9 @@
         "welcome_back": "Vous vous êtes connecté avec succès à l'aide de l'authentification à deux facteurs. Nous sommes heureux de vous revoir !",
         "already_have_app_steps": "1. Dans l'application, sélectionnez <strong class=\"text-strong\">Configuration du compte</strong><br>2. Sélectionnez <strong class=\"text-strong\">Scanner un code QR</strong> ou <strong class=\"text-strong\">Entrer une clé d'installation</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
         "dont_have_app": "<strong class=\"text-strong\"> Si vous n'avez pas l'application {{name}}, </strong>vous pouvez la télécharger sur le <strong class=\"text-strong\">Play Store</strong> ou l'<strong class=\"text-strong\">App Store</strong>.",
-        "already_have_app": "Si vous avez déjà l'application {{name}}, suivez les étapes ci-dessous :"
+        "already_have_app": "Si vous avez déjà l'application {{name}}, suivez les étapes ci-dessous :",
+        "enter_app_code_6_digits": "Pour continuer, entrez le code de sécurité à 6 chiffres de {{provider}}",
+        "seconds": "{{time}} seconde(s)"
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -2010,7 +2010,6 @@
         }
     },
     "preferences_notifications": {
-        "auto_close_after": "Les notifications pop-up sont automatiquement fermées après {valeur} secondes.",
         "auto_close_disabled": "La fermeture automatique est désactivée",
         "auto_close_disabled_description": "La fermeture automatique des notifications contextuelles est désactivée.",
         "auto_close_enabled": "La fermeture automatique est activée",
@@ -2150,7 +2149,8 @@
         },
         "unsubscribe": "Se désabonner de toutes les notifications par courrier électronique",
         "unsubscribe_button": "Se désinscrire",
-        "unsubscribe_desc": "Je souhaite me désinscrire de toutes les notifications par e-mail."
+        "unsubscribe_desc": "Je souhaite me désinscrire de toutes les notifications par e-mail.",
+        "auto_close_after": "Les notifications pop-up se ferment automatiquement après {{value}} secondes."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2666,7 +2666,6 @@
             "title": "Détails de la réservation"
         },
         "expired": "Désolé, votre réservation a été annulée pendant le processus de paiement car le produit sélectionné est épuisé.",
-        "expiring": "Veuillez noter qu'il reste <strong>{expireIn} minutes</strong> pour effectuer le paiement supplémentaire. Dans le cas contraire, la réservation sera automatiquement annulée.",
         "extra_amount_refund": {
             "amount": "Montant",
             "date": "Date",
@@ -2702,7 +2701,8 @@
                 "waiting": "En attente de paiement"
             }
         },
-        "title": "Détails de l'appoint"
+        "title": "Détails de l'appoint",
+        "expiring": "Veuillez noter qu'il reste <strong>{{expiresIn}} minutes</strong> pour effectuer le paiement supplémentaire. Dans le cas contraire, la réservation sera automatiquement annulée."
     },
     "reservations": {
         "breadcrumbs": {
@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Les Pots vérifient",
-            "home": "Accueil"
+            "home": "Accueil",
+            "check": "Contrôle du régime"
         },
         "funds": "Fonds",
         "next_step": "Suivant",
         "no_value": "---",
-        "of": "de",
         "previous_step": "Étape précédente",
         "search": "Recherche",
         "show_less": "Montrer moins",
@@ -3441,7 +3440,8 @@
         "total_amount": "Montant total",
         "total_offers": "Offre totale",
         "your_data": "Vos données",
-        "record_required": "{{ title }} Ce champ est obligatoire."
+        "progress": "Étape {{step}} de {{total}}",
+        "record_required": "Ce champ est obligatoire."
     },
     "navbar": {
         "vergoedingen": {
@@ -3476,7 +3476,7 @@
         "error": "Échec !",
         "fund_activation": {
             "digid_success": "Connecté avec DigiD.",
-            "success": "Crédit {nom_du_fonds} activé !"
+            "success": "{{fund_name}} crédit activé !"
         },
         "pre_check": {
             "downloaded": "Le téléchargement commencera dans quelques instants.",
@@ -3514,5 +3514,27 @@
         "placeholders": {
             "select_option": "Sélectionner une option"
         }
+    },
+    "modal_deactivate_voucher": {
+        "back": "Retour",
+        "cancel": "Annuler",
+        "close": "Fermer",
+        "confirm": "Confirmer",
+        "confirm_stop_participation": "Êtes-vous sûr de vouloir arrêter votre participation ?",
+        "header_title": "Arrêter la participation",
+        "max_characters": "Max. 140 caractères",
+        "next": "Suivant",
+        "reason": "Raison",
+        "reason_for_stopping": "Raison de l'arrêt :",
+        "reasons": {
+            "income_change": "Variation des revenus",
+            "moved": "Déménagement",
+            "not_interested": "L'offre n'est pas attrayante",
+            "other": "Dans le cas contraire"
+        },
+        "stop_participation": "Arrêt de votre participation à {{name}}.",
+        "stop_successful": "Arrêt de la participation",
+        "success_message": "Votre participation à {{name}} a cessé.",
+        "warning": "Note : Vous ne pouvez plus utiliser votre crédit après cela. Votre crédit {{name}} sera désactivé."
     }
 }

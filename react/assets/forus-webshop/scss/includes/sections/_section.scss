@@ -1,0 +1,20 @@
+.section {
+    .section-title {
+        color: var(--heading-color);
+        font: var(--section-title-font);
+        text-align: var(--section-title-align);
+        margin: 0 0 20px;
+
+        a {
+            font: inherit !important;
+            color: inherit !important;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .section-title {
+            font: 500 24px/36px var(--heading-font-family);
+            margin: 0 0 20px;
+        }
+    }
+}

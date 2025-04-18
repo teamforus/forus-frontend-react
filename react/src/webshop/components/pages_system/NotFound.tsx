@@ -8,7 +8,6 @@ export default function NotFound({ error = '404' }: { error?: string }) {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('not_found.breadcrumbs.home'), state: 'home' },
                 { name: translate('not_found.breadcrumbs.not_found') },

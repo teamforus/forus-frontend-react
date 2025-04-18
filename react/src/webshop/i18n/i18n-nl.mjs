@@ -72,6 +72,7 @@ import modal_physical_card_unlink from './nl/modals/modal-physical_card_unlink.m
 import modal_fund_help from './nl/modals/modal_fund_help.mjs';
 import modal_pin_code from './nl/modals/modal_pin_code.mjs';
 import modal_logout from './nl/modals/modal_logout.mjs';
+import modal_deactivate_voucher from './nl/modals/modal_deactivate_voucher.mjs';
 
 import app_footer from './nl/directives/app-footer.mjs';
 import block_products from './nl/directives/block-products.mjs';
@@ -467,6 +468,7 @@ export default {
     modal_fund_help: modal_fund_help,
     modal_pin_code: modal_pin_code,
     modal_logout: modal_logout,
+    modal_deactivate_voucher: modal_deactivate_voucher,
 
     // DIRECTIVES
     app_footer: app_footer,

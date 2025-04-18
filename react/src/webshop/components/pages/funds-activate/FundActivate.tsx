@@ -568,11 +568,11 @@ export default function FundActivate() {
     }, [setTitle, translate, fund]);
 
     if (digidResponse?.digid_success) {
-        return <BlockShowcase wrapper={true} />;
+        return <BlockShowcase />;
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {fund && vouchers && appConfigs && (
                 <div className="block block-sign_up">
                     <div className="block-wrapper">

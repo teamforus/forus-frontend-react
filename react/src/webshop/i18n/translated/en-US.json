@@ -2138,12 +2138,12 @@
         "unsubscribe": "Unsubscribe from all email notifications",
         "unsubscribe_button": "Unsubscribe",
         "unsubscribe_desc": "I want to unsubscribe from all email notifications.",
-        "auto_close_after": "Pop-up notifications are automatically closed after {value} seconds.",
         "auto_close_disabled": "Automatic closing is disabled",
         "auto_close_disabled_description": "Automatic closing of pop-up notifications is disabled.",
         "auto_close_enabled": "Auto-close is enabled",
         "auto_close_enabled_description": "Automatically closing pop-up notifications is enabled.",
-        "new_time_enabled": "New time is enabled"
+        "new_time_enabled": "New time is enabled",
+        "auto_close_after": "Pop-up notifications automatically close after {{value}} seconds."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2371,7 +2371,6 @@
         "confirm": "Confirm",
         "enter_2fa_code": "To continue, enter the two-factor authentication security code.",
         "enter_app_code": "Enter the 6-digit code from within the app",
-        "enter_app_code_6_digits": "To continue, enter the 6-digit security code from {provider}",
         "enter_phone": "To continue, enter your phone number",
         "enter_sms_code": "Enter the 6-digit SMS code",
         "enter_sms_code_6_digits": "To proceed, please enter the 6-digit SMS code sent to your phone number.",
@@ -2379,7 +2378,6 @@
         "link_phone": "Link your phone number",
         "phone_number": "Phone number",
         "resend_code": "Resend code",
-        "seconds": "{time} second(s)",
         "select_auth_app": "Select the authentication app you want to use.",
         "setup_2fa": "Setting up two-factor authentication",
         "successful_login": "It worked!",
@@ -2388,7 +2386,9 @@
         "welcome_back": "You have successfully logged in with two-factor authentication. Welcome back!",
         "already_have_app_steps": "1. In the app, select <strong class=\"text-strong\">Account Setup</strong><br>2. Select <strong class=\"text-strong\">Scan a QR code</strong> or the <strong class=\"text-strong\">Enter an installation key</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
         "dont_have_app": "<strong class=\"text-strong\"> If you do not have the {{name}} app, </strong>You can download it from the <strong class=\"text-strong\">Play Store</strong> or the <strong class=\"text-strong\">App Store</strong>.",
-        "already_have_app": "If you already have the {{name}} app, follow the steps below:"
+        "already_have_app": "If you already have the {{name}} app, follow the steps below:",
+        "enter_app_code_6_digits": "To continue, enter the 6-digit security code from {{provider}}",
+        "seconds": "{{time}} second(s)"
     },
     "modal_product_reserve_cancel": {
         "description_not_cancelable": "This reservation has already been accepted by the provider. To cancel within 14 days of the date of the reservation, please contact the provider.",
@@ -2754,7 +2754,6 @@
             "title": "Reservation details"
         },
         "expired": "Sorry, your reservation was canceled during the checkout process because the selected product is sold out.",
-        "expiring": "Please note that there are <strong>{expiresIn} minutes</strong> left to make the additional payment. Otherwise, the reservation will be cancelled automatically.",
         "extra_amount_refund": {
             "amount": "Amount",
             "date": "Date",
@@ -2768,7 +2767,8 @@
             "status": "Status",
             "amount": "Self additional payment"
         },
-        "title": "Top-up data"
+        "title": "Top-up data",
+        "expiring": "Please note that there are <strong>{{expiresIn}} minutes</strong> left to make the additional payment. Otherwise, the reservation will be automatically canceled."
     },
     "top_navbar_search": {
         "noresult": {
@@ -3123,10 +3123,10 @@
         "enter_app_code": "Enter the 6-digit code from within the app",
         "enter_sms_code": "Enter the 6-digit SMS code",
         "resend_code": "Resend code",
-        "seconds": "{time} second(s)",
         "unknown_error": "Unknown error.",
         "verify": "Verify",
-        "error_404": "An error has occurred. Please refresh the page."
+        "error_404": "An error has occurred. Please refresh the page.",
+        "seconds": "{{time}} second(s)"
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -3421,13 +3421,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "The Pots check",
-            "home": "Home"
+            "home": "Home",
+            "check": "Scheme check"
         },
         "funds": "Funds",
         "next_step": "Next",
         "no_value": "---",
-        "of": "from",
         "previous_step": "Previous step",
         "search": "Search",
         "show_less": "Show less",
@@ -3441,7 +3440,8 @@
         "total_amount": "Total amount",
         "total_offers": "Total supply",
         "your_data": "Your data",
-        "record_required": "The {{ title }} field is required."
+        "progress": "Step {{step}} of {{total}}",
+        "record_required": "It is mandatory to fill in this field."
     },
     "navbar": {
         "vergoedingen": {
@@ -3476,7 +3476,7 @@
         "error": "Failed!",
         "fund_activation": {
             "digid_success": "Logged in with DigiD.",
-            "success": "{fund_name} credit activated!"
+            "success": "{{fund_name}} credit activated!"
         },
         "pre_check": {
             "downloaded": "The download will begin in a few moments.",
@@ -3514,5 +3514,27 @@
         "placeholders": {
             "select_option": "Select option"
         }
+    },
+    "modal_deactivate_voucher": {
+        "back": "Back",
+        "cancel": "Cancel",
+        "close": "Close",
+        "confirm": "Confirm",
+        "confirm_stop_participation": "Are you sure you want to stop your participation?",
+        "header_title": "Stop participation",
+        "max_characters": "Max. 140 characters",
+        "next": "Next",
+        "reason": "Reason",
+        "reason_for_stopping": "Reason for quitting:",
+        "reasons": {
+            "income_change": "Change in income",
+            "moved": "Relocation",
+            "not_interested": "Offer is not attractive",
+            "other": "Otherwise"
+        },
+        "stop_participation": "Your {{name}} participation stop.",
+        "stop_successful": "Participation stopped",
+        "success_message": "Your {{name}} participation has stopped.",
+        "warning": "Note: You cannot use your credit after this. Your {{name}} credit will be deactivated."
     }
 }
