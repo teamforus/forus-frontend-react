@@ -351,7 +351,7 @@ export default function Transactions() {
     ]);
 
     useEffect(() => {
-        fetchFunds({}).then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
+        fetchFunds({ per_page: 100 }).then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
     }, [fetchFunds]);
 
     if (
