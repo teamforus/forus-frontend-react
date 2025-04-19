@@ -526,36 +526,36 @@ export default function VouchersViewComponent() {
 
                         <div className="keyvalue-item">
                             <div className="keyvalue-key">{translate('vouchers.labels.source')}</div>
-                            <div className="keyvalue-value">
+                            <div className="keyvalue-value keyvalue-value-gap-sm">
                                 {voucher.source_locale}
-                                {voucher.employee && <div className="text-muted-dark">({voucher.employee.email})</div>}
+                                {voucher.employee && (
+                                    <strong className="text-strong text-primary">{`(${voucher.employee.email})`}</strong>
+                                )}
                             </div>
                         </div>
 
                         <div className="keyvalue-item">
                             <div className="keyvalue-key">{translate('vouchers.labels.in_use')}</div>
-                            <div className="keyvalue-value">
-                                {!voucher.in_use ? translate('vouchers.labels.no') : translate('vouchers.labels.yes')}
-                            </div>
-                        </div>
-
-                        <div className="keyvalue-item">
-                            <div className="keyvalue-key">{translate('vouchers.labels.used_date')}</div>
-                            <div className="keyvalue-value">
-                                {voucher.first_use_date_locale ? (
-                                    <div>{voucher.first_use_date_locale}</div>
+                            <div className="keyvalue-value keyvalue-value-gap-sm">
+                                {voucher.in_use ? (
+                                    <Fragment>
+                                        {translate('vouchers.labels.yes')}
+                                        {voucher.employee && (
+                                            <strong className="text-strong text-primary">{`(${voucher.first_use_date_locale})`}</strong>
+                                        )}
+                                    </Fragment>
                                 ) : (
-                                    <div>{translate('vouchers.labels.no')}</div>
+                                    <Fragment>{translate('vouchers.labels.no')}</Fragment>
                                 )}
                             </div>
                         </div>
 
                         <div className="keyvalue-item">
                             <div className="keyvalue-key">{translate('vouchers.labels.has_payouts')}</div>
-                            <div className="keyvalue-value">
-                                {!voucher.has_payouts
-                                    ? translate('vouchers.labels.no')
-                                    : translate('vouchers.labels.yes')}
+                            <div className="keyvalue-value keyvalue-value-gap-sm">
+                                {voucher.has_payouts
+                                    ? translate('vouchers.labels.yes')
+                                    : translate('vouchers.labels.no')}
                             </div>
                         </div>
                     </div>
