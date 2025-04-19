@@ -75,11 +75,17 @@ export default function VouchersTableRow({
             </td>
 
             <td>
-                <div className="text-md text-muted-dark text-semibold">{voucher.source_locale}</div>
+                {voucher.employee && (
+                    <div>
+                        <strong className="text-primary">{strLimit(voucher.employee.email, 32)}</strong>
+                    </div>
+                )}
+
+                <div className="text-strong text-md text-muted-dark">{voucher.source_locale}</div>
             </td>
 
             <td>
-                <div className="text-md text-muted-dark text-semibold">{voucher.product ? 'Product' : 'Budget'}</div>
+                <div className="text-strong text-md text-muted-dark">{voucher.product ? 'Product' : 'Budget'}</div>
             </td>
 
             {!voucher.product ? (
