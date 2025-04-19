@@ -505,13 +505,16 @@ export default function Transactions() {
                                     />
                                 </FilterItemToggle>
 
-                                <FilterItemToggle label={translate('transactions.labels.fund_name')}>
+                                <FilterItemToggle
+                                    dusk="fundSelectToggle"
+                                    label={translate('transactions.labels.fund_name')}>
                                     {funds && (
                                         <SelectControl
                                             className="form-control"
                                             propKey={'id'}
                                             allowSearch={false}
                                             options={funds}
+                                            dusk="fundSelect"
                                             onChange={(fund_id: number) => filter.update({ fund_id })}
                                         />
                                     )}
