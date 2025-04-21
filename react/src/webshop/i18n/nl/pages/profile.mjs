@@ -32,6 +32,12 @@ export default {
         edit: 'Bewerken',
         save: 'Opslaan',
     },
+    address: {
+        title: 'Adresgegevens',
+        cancel: 'Annuleren',
+        edit: 'Bewerken',
+        save: 'Opslaan',
+    },
 
     history: {
         title: '{{count}} keer bewerkt',
