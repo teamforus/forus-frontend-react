@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
@@ -23,6 +23,7 @@ import SelectControlOptionsFund from '../elements/select-control/templates/Selec
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
 import usePushApiError from '../../hooks/usePushApiError';
+import InfoBox from '../elements/info-box/InfoBox';
 
 export default function ModalVoucherCreate({
     funds,
@@ -468,6 +469,58 @@ export default function ModalVoucherCreate({
                                             </div>
                                         </div>
 
+                                        {fund?.backoffice?.backoffice_enabled && (
+                                            <div className="form-group form-group-inline form-group-inline-lg">
+                                                <div className={`form-label`}>&nbsp;</div>
+                                                <div className="form-offset">
+                                                    <InfoBox type={'warning'} iconPosition={'top'}>
+                                                        {assignType.key !== 'bsn' && (
+                                                            <Fragment>
+                                                                <p className={'text-strong'}>
+                                                                    No BSN - Back-office notifications may be skipped
+                                                                </p>
+                                                                <p>
+                                                                    For back-office notifications, the user must have a
+                                                                    BSN verified via DigiD.
+                                                                </p>
+                                                                <ul>
+                                                                    <li>
+                                                                        If the user does not have a verified BSN when
+                                                                        the voucher is assigned, our system cannot send
+                                                                        a <strong>received</strong> notification for the
+                                                                        voucher.
+                                                                    </li>
+                                                                    <li>
+                                                                        If the user does not have a verified BSN when
+                                                                        the voucher is first used, our system cannot
+                                                                        send a <strong>first use</strong> notification.
+                                                                    </li>
+                                                                </ul>
+                                                                <ul>
+                                                                    <li>
+                                                                        If the user verifies their BSN via DigiD between
+                                                                        the <strong>received</strong> and{' '}
+                                                                        <strong>first use</strong> calls, only the{' '}
+                                                                        <strong>first use</strong> notification will be
+                                                                        sent.
+                                                                    </li>
+                                                                    <li>
+                                                                        If the BSN is not verified at all, none of the
+                                                                        notifications will be sent.
+                                                                    </li>
+                                                                </ul>
+                                                            </Fragment>
+                                                        )}
+                                                        <p>
+                                                            <strong>Important!</strong> Manually created vouchers are
+                                                            not checked for eligibility and residency in the back
+                                                            office.
+                                                        </p>
+                                                    </InfoBox>
+                                                </div>
+                                            </div>
+                                        )}
+
                                         {assignType.hasInput && (
                                             <div className="form-group form-group-inline form-group-inline-lg">
                                                 <div
@@ -478,13 +531,17 @@ export default function ModalVoucherCreate({
                                                     }`}>
                                                     {assignType.inputLabel}
                                                 </div>
-                                                <input
-                                                    className="form-control"
-                                                    placeholder={assignType.inputLabel}
-                                                    value={form.values[assignType.key] || ''}
-                                                    onChange={(e) => form.update({ [assignType.key]: e.target.value })}
-                                                />
-                                                <FormError error={form.errors?.[assignType.key]} />
+                                                <div className="form-offset">
+                                                    <input
+                                                        className="form-control"
+                                                        placeholder={assignType.inputLabel}
+                                                        value={form.values[assignType.key] || ''}
+                                                        onChange={(e) =>
+                                                            form.update({ [assignType.key]: e.target.value })
+                                                        }
+                                                    />
+                                                    <FormError error={form.errors?.[assignType.key]} />
+                                                </div>
                                             </div>
                                         )}
 
@@ -492,13 +549,17 @@ export default function ModalVoucherCreate({
                                             <div className="form-label">
                                                 {translate('modals.modal_voucher_create.labels.client_uid')}
                                             </div>
-                                            <input
-                                                className="form-control"
-                                                placeholder={translate('modals.modal_voucher_create.labels.client_uid')}
-                                                value={form.values.client_uid || ''}
-                                                onChange={(e) => form.update({ client_uid: e.target.value })}
-                                            />
-                                            <FormError error={form.errors?.client_uid} />
+                                            <div className="form-offset">
+                                                <input
+                                                    className="form-control"
+                                                    placeholder={translate(
+                                                        'modals.modal_voucher_create.labels.client_uid',
+                                                    )}
+                                                    value={form.values.client_uid || ''}
+                                                    onChange={(e) => form.update({ client_uid: e.target.value })}
+                                                />
+                                                <FormError error={form.errors?.client_uid} />
+                                            </div>
                                         </div>
 
                                         <div className="form-group form-group-inline form-group-inline-lg">
