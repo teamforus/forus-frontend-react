@@ -345,12 +345,12 @@ export default {
         },
         product_item: {
             bookmark: 'Toevoegen aan verlanglijstje',
-            payment_option_qr: 'QR-betaling',
-            payment_option_qr_aria_label: 'QR-betaling: klik voor meer informatie',
-            payment_option_reservation: 'Online betalen',
-            payment_option_reservation_aria_label: 'Online betalen: klik voor meer informatie',
-            payment_option_ideal: 'Bijbetalen mogelijk',
-            payment_option_ideal_aria_label: 'Bijbetalen mogelijk: klik voor meer informatie',
+            payment_option_qr: 'QR-code',
+            payment_option_qr_aria_label: 'QR-code: klik voor meer informatie',
+            payment_option_reservation: 'Online reserveren',
+            payment_option_reservation_aria_label: 'Online reserveren: klik voor meer informatie',
+            payment_option_ideal: 'Online bijbetalen',
+            payment_option_ideal_aria_label: 'Online bijbetalen: klik voor meer informatie',
         },
         product_item_search: {
             free: 'Gratis',
