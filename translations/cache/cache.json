@@ -3433,27 +3433,27 @@
     ],
     [
         "list_blocks.product_item.payment_option_ideal",
-        "Bijbetalen mogelijk"
+        "Online bijbetalen"
     ],
     [
         "list_blocks.product_item.payment_option_ideal_aria_label",
-        "Bijbetalen mogelijk: klik voor meer informatie"
+        "Online bijbetalen: klik voor meer informatie"
     ],
     [
         "list_blocks.product_item.payment_option_qr",
-        "QR-betaling"
+        "QR-code"
     ],
     [
         "list_blocks.product_item.payment_option_qr_aria_label",
-        "QR-betaling: klik voor meer informatie"
+        "QR-code: klik voor meer informatie"
     ],
     [
         "list_blocks.product_item.payment_option_reservation",
-        "Online betalen"
+        "Online reserveren"
     ],
     [
         "list_blocks.product_item.payment_option_reservation_aria_label",
-        "Online betalen: klik voor meer informatie"
+        "Online reserveren: klik voor meer informatie"
     ],
     [
         "list_blocks.provider_item_list.no_data",
@@ -4309,11 +4309,11 @@
     ],
     [
         "modal_product_payment_options_info.confirm",
-        "Het is duidelijk!"
+        "Sluiten"
     ],
     [
         "modal_product_payment_options_info.description",
-        "De betaalmogelijkheden verschillen per product. Betalen kan op verschillende manieren:"
+        "De betaalmogelijkheden verschillen per product. Betalen kan op verschillende manieren."
     ],
     [
         "modal_product_payment_options_info.header",
@@ -4321,11 +4321,11 @@
     ],
     [
         "modal_product_payment_options_info.info_option_extra_payment_ideal_description",
-        "Is uw tegoed niet voldoende voor een reservering? Bij sommige producten kunt u het resterende bedrag online veilig bijbetalen via iDEAL."
+        "Is uw tegoed niet voldoende voor een online reservering? Bij sommige producten kunt u het resterende bedrag online veilig bijbetalen via iDEAL."
     ],
     [
         "modal_product_payment_options_info.info_option_extra_payment_ideal_title",
-        "Bijbetalen (iDeal)"
+        "Online bijbetalen (iDeal)"
     ],
     [
         "modal_product_payment_options_info.info_option_qr_description",
@@ -4341,7 +4341,7 @@
     ],
     [
         "modal_product_payment_options_info.info_option_reservation_title",
-        "Reservering"
+        "Online reserveren"
     ],
     [
         "modal_product_payment_options_info.title",
