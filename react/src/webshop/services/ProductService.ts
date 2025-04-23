@@ -21,7 +21,7 @@ export class ProductService<T = Product> {
     /**
      * Fetch list
      */
-    public list(data: object = {}): Promise<ApiResponse<T>> {
+    public list(data: object = {}): Promise<ApiResponse<T, { price_max: number }>> {
         return this.apiRequest.get(`${this.prefix}`, data);
     }
 

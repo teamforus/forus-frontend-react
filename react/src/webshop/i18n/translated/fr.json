@@ -1261,12 +1261,6 @@
             "why": "Pourquoi ?",
             "activate": "Activer"
         },
-        "product_item_grid": {
-            "bookmark": "Ajouter à la liste de souhaits"
-        },
-        "product_item_list": {
-            "bookmark": "Ajouter à la liste de souhaits"
-        },
         "product_item_search": {
             "free": "Gratuit"
         },
@@ -1274,6 +1268,15 @@
             "no_data": "Pas de données",
             "open_provider": "Fournisseur ouvert",
             "show_locations": "Lieux d'exposition"
+        },
+        "product_item": {
+            "bookmark": "Ajouter à la liste de souhaits",
+            "payment_option_ideal": "Possibilité de paiement supplémentaire",
+            "payment_option_ideal_aria_label": "Paiement supplémentaire possible : cliquez pour plus d'informations",
+            "payment_option_qr": "Paiement QR",
+            "payment_option_qr_aria_label": "Paiement QR : cliquez pour plus d'informations",
+            "payment_option_reservation": "Payer en ligne",
+            "payment_option_reservation_aria_label": "Payer en ligne : cliquez pour plus d'informations"
         }
     },
     "logo_alt_text": {
@@ -2237,7 +2240,14 @@
             "limit": "Crédit restant :",
             "max_limit": "Maximum par personne :",
             "pay_from_voucher": "Vous payez à partir du crédit :",
-            "price": "Prix :"
+            "price": "Prix :",
+            "payment_option_ideal": "Payer en ligne (iDEAL)",
+            "payment_option_ideal_aria_label": "Paiement en ligne (iDEAL) : cliquez pour plus d'informations",
+            "payment_option_qr": "Afficher le code QR au fournisseur",
+            "payment_option_qr_aria_label": "Afficher le code QR chez le fournisseur : cliquer pour plus d'informations",
+            "payment_option_reservation": "Réserver en ligne",
+            "payment_option_reservation_aria_label": "Réservation en ligne : cliquez pour plus d'informations",
+            "payment_options": "Options de paiement"
         },
         "low_amount": "Vous n'avez pas de crédit avec un solde suffisant.",
         "map": {
@@ -2284,7 +2294,15 @@
             "providers": "Prestataires",
             "search": "Offre de recherche",
             "sort": "Trier",
-            "sub_category": "Sous-catégorie"
+            "sub_category": "Sous-catégorie",
+            "payment_option_ideal": "Payer en ligne avec iDeal",
+            "payment_option_qr": "Afficher le code QR au fournisseur",
+            "payment_option_reservation": "Réserver en ligne",
+            "payment_options": "Options de paiement",
+            "payment_options_info": "En savoir plus sur les options de paiement",
+            "price": "Prix (€)",
+            "price_from": "De",
+            "price_to": "Pour"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -3536,5 +3554,17 @@
         "stop_successful": "Arrêt de la participation",
         "success_message": "Votre participation à {{name}} a cessé.",
         "warning": "Note : Vous ne pouvez plus utiliser votre crédit après cela. Votre crédit {{name}} sera désactivé."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "C'est clair !",
+        "description": "Les options de paiement varient selon les produits. Le paiement peut être effectué de plusieurs manières :",
+        "header": "Options de paiement",
+        "info_option_extra_payment_ideal_description": "Votre crédit n'est pas suffisant pour une réservation ? Pour certains produits, vous pouvez payer en toute sécurité le montant restant en ligne via iDEAL.",
+        "info_option_extra_payment_ideal_title": "Paiement supplémentaire (iDeal)",
+        "info_option_qr_description": "Payez facilement dans les locaux du prestataire en montrant le code QR que vous avez reçu au moment du paiement. Le fournisseur scannera le code et le paiement sera traité immédiatement.",
+        "info_option_qr_title": "Code QR",
+        "info_option_reservation_description": "Payez via ce site web en commandant une offre. Pour ce faire, cliquez sur le bouton de réservation et remplissez les données demandées. Le montant sera directement déduit du crédit disponible. Le fournisseur recevra la réservation et vous contactera si nécessaire.",
+        "info_option_reservation_title": "Réservation",
+        "title": "Options de paiement"
     }
 }
