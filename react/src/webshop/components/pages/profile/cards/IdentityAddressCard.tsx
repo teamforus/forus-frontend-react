@@ -1,6 +1,6 @@
 import BlockKeyValueList from '../../../elements/block-key-value-list/BlockKeyValueList';
 import IdentityRecordKeyValueListHistory from '../elements/IdentityRecordKeyValueListHistory';
-import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { ProfileRecords, ProfileRecordValues } from '../../../../../dashboard/props/models/Sponsor/SponsorIdentity';
 import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
 import Profile from '../../../../../dashboard/props/models/Profile';
@@ -10,12 +10,9 @@ import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 import usePushDanger from '../../../../../dashboard/hooks/usePushDanger';
 import usePushSuccess from '../../../../../dashboard/hooks/usePushSuccess';
 import FormError from '../../../../../dashboard/components/elements/forms/errors/FormError';
-import BlockInfoBox from '../../../elements/block-info-box/BlockInfoBox';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
-import TranslateHtml from '../../../../../dashboard/components/elements/translate-html/TranslateHtml';
-import { getStateRouteUrl } from '../../../../modules/state_router/Router';
 
-export default function IdentityContactInformationCard({
+export default function IdentityAddressCard({
     profile,
     setProfile,
     recordTypesByKey,
@@ -24,9 +21,9 @@ export default function IdentityContactInformationCard({
     setProfile?: Dispatch<SetStateAction<Profile>>;
     recordTypesByKey: ProfileRecords;
 }) {
-    const [fields] = useState(['telephone', 'mobile']);
+    const [fields] = useState(['city', 'street', 'house_number', 'house_number_addition', 'postal_code']);
 
-    const [editContacts, setEditContacts] = useState(false);
+    const [editAddress, setEditAddress] = useState(false);
 
     const translate = useTranslate();
     const pushDanger = usePushDanger();
@@ -34,14 +31,13 @@ export default function IdentityContactInformationCard({
     const setProgress = useSetProgress();
     const profileService = useProfileService();
 
-    const other_emails = useMemo(() => {
-        return profile?.email_verified ? profile?.email_verified : [];
-    }, [profile?.email_verified]);
-
     const form = useFormBuilder<Partial<ProfileRecordValues>>(
         {
-            telephone: '',
-            mobile: '',
+            city: '',
+            street: '',
+            house_number: '',
+            house_number_addition: '',
+            postal_code: '',
         },
         (values) => {
             setProgress(0);
@@ -50,7 +46,7 @@ export default function IdentityContactInformationCard({
                 .update(values)
                 .then((res) => {
                     setProfile(res.data);
-                    setEditContacts(false);
+                    setEditAddress(false);
                     pushSuccess(translate('push.success'), translate('push.profile.updated'));
                 })
                 .catch((err: ResponseError) => {
@@ -68,43 +64,30 @@ export default function IdentityContactInformationCard({
 
     const initFormValues = useCallback(() => {
         formUpdate({
-            telephone: profile.records.telephone?.[0]?.value || '',
-            mobile: profile.records.mobile?.[0]?.value || '',
+            city: profile.records.city?.[0]?.value || '',
+            street: profile.records.street?.[0]?.value || '',
+            house_number: profile.records.house_number?.[0]?.value || '',
+            house_number_addition: profile.records.house_number_addition?.[0]?.value || '',
+            postal_code: profile.records.postal_code?.[0]?.value || '',
         });
-    }, [formUpdate, profile.records.mobile, profile.records.telephone]);
+    }, [
+        formUpdate,
+        profile.records.city,
+        profile.records.street,
+        profile.records.house_number,
+        profile.records.house_number_addition,
+        profile.records.postal_code,
+    ]);
 
-    if (editContacts) {
+    if (editAddress) {
         return (
             <form className="card form form-compact form-compact-flat" onSubmit={form.submit}>
                 <div className="card-header flex">
-                    <h2 className="card-title flex flex-grow">{translate('profile.contacts.title')}</h2>
+                    <h2 className="card-title flex flex-grow">{translate('profile.address.title')}</h2>
                 </div>
 
                 <div className="card-section">
                     <div className="col col-sm-12 col-lg-8 col-md-10">
-                        <div className="form-group">
-                            <label className="form-label">{translate('profile.contacts.primary_email')}</label>
-                            <input className="form-control" disabled={true} value={profile.email} />
-                        </div>
-
-                        {profile?.email_verified?.map((email, index) => (
-                            <div className="form-group" key={index}>
-                                <label className="form-label">
-                                    {translate('profile.contacts.extra_email', { number: index + 1 })}
-                                </label>
-                                <input className="form-control" disabled={true} value={email} />
-                            </div>
-                        ))}
-
-                        <div className="form-group">
-                            <BlockInfoBox>
-                                <TranslateHtml
-                                    i18n={'profile.contacts.extra_email_info'}
-                                    values={{ link_url: getStateRouteUrl('identity-emails') }}
-                                />
-                            </BlockInfoBox>
-                        </div>
-
                         {fields.map((field, index) => (
                             <div className="form-group" key={index}>
                                 <label className="form-label">{recordTypesByKey?.[field]?.name}</label>
@@ -116,6 +99,22 @@ export default function IdentityContactInformationCard({
                                 <FormError error={form.errors?.[field]} />
                             </div>
                         ))}
+                        <div className="form-group">
+                            <label className="form-label">{recordTypesByKey?.neighborhood_name?.name}</label>
+                            <input
+                                className="form-control"
+                                disabled={true}
+                                value={profile.records.neighborhood_name?.[0]?.value || ''}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">{recordTypesByKey?.municipality_name?.name}</label>
+                            <input
+                                className="form-control"
+                                disabled={true}
+                                value={profile.records.municipality_name?.[0]?.value || ''}
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -124,14 +123,14 @@ export default function IdentityContactInformationCard({
                         type={'button'}
                         className="button button-light button-sm"
                         onClick={() => {
-                            setEditContacts(false);
+                            setEditAddress(false);
                             initFormValues();
                         }}>
-                        {translate('profile.contacts.cancel')}
+                        {translate('profile.address.cancel')}
                     </button>
                     <div className="flex-grow" />
                     <button type={'submit'} className="button button-primary button-sm">
-                        {translate('profile.contacts.save')}
+                        {translate('profile.address.save')}
                     </button>
                 </div>
             </form>
@@ -141,16 +140,16 @@ export default function IdentityContactInformationCard({
     return (
         <div className="card">
             <div className="card-header flex">
-                <h2 className="card-title flex flex-grow">{translate('profile.contacts.title')}</h2>
+                <h2 className="card-title flex flex-grow">{translate('profile.address.title')}</h2>
                 <div className="button-group">
                     <button
                         className="button button-text button-xs hide-sm"
                         onClick={() => {
                             initFormValues();
-                            setEditContacts(true);
+                            setEditAddress(true);
                         }}>
                         <em className="mdi mdi-pencil-outline" />
-                        {translate('profile.contacts.edit')}
+                        {translate('profile.address.edit')}
                     </button>
                 </div>
             </div>
@@ -160,20 +159,40 @@ export default function IdentityContactInformationCard({
                     <BlockKeyValueList
                         items={[
                             {
-                                label: translate('profile.contacts.primary_email'),
-                                value: profile.email,
-                            },
-                            ...other_emails.map((email, index) => ({
-                                label: translate('profile.contacts.extra_email', { number: index + 1 }),
-                                value: email,
-                            })),
-                            {
-                                label: recordTypesByKey?.telephone?.name,
-                                value: <IdentityRecordKeyValueListHistory records={profile.records.telephone} />,
+                                label: recordTypesByKey?.city?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.city} />,
                             },
                             {
-                                label: recordTypesByKey?.mobile?.name,
-                                value: <IdentityRecordKeyValueListHistory records={profile.records.mobile} />,
+                                label: recordTypesByKey?.street?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.street} />,
+                            },
+                            {
+                                label: recordTypesByKey?.house_number?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.house_number} />,
+                            },
+                            {
+                                label: recordTypesByKey?.house_number_addition?.name,
+                                value: (
+                                    <IdentityRecordKeyValueListHistory
+                                        records={profile.records.house_number_addition}
+                                    />
+                                ),
+                            },
+                            {
+                                label: recordTypesByKey?.postal_code?.name,
+                                value: <IdentityRecordKeyValueListHistory records={profile.records.postal_code} />,
+                            },
+                            {
+                                label: recordTypesByKey?.neighborhood_name?.name,
+                                value: (
+                                    <IdentityRecordKeyValueListHistory records={profile.records.neighborhood_name} />
+                                ),
+                            },
+                            {
+                                label: recordTypesByKey?.municipality_name?.name,
+                                value: (
+                                    <IdentityRecordKeyValueListHistory records={profile.records.municipality_name} />
+                                ),
                             },
                         ]}
                     />
@@ -182,11 +201,11 @@ export default function IdentityContactInformationCard({
                         className="button button-light button-wide button-xs show-sm"
                         onClick={() => {
                             initFormValues();
-                            setEditContacts(true);
+                            setEditAddress(true);
                         }}>
                         <span className="flex flex-center">
                             <em className="mdi mdi-pencil-outline" />
-                            {translate('profile.contacts.edit')}
+                            {translate('profile.address.edit')}
                         </span>
                     </button>
                 </div>
