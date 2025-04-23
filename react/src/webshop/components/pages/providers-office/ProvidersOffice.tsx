@@ -96,7 +96,6 @@ export default function ProvidersOffice() {
 
     return (
         <BlockShowcase
-            wrapper={false}
             breadcrumbItems={
                 provider && [
                     { name: translate('providers_office.breadcrumbs.home'), state: 'home' },
@@ -105,7 +104,6 @@ export default function ProvidersOffice() {
                     { name: office?.address },
                 ]
             }
-            breadcrumbWrapper={true}
             loaderElement={<BlockLoader type={'full'} />}>
             {provider && office && (
                 <div className="block block-office">

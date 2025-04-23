@@ -1261,12 +1261,6 @@
             "why": "Warum?",
             "activate": "Aktivieren Sie"
         },
-        "product_item_grid": {
-            "bookmark": "Zur Wunschliste hinzufügen"
-        },
-        "product_item_list": {
-            "bookmark": "Zur Wunschliste hinzufügen"
-        },
         "product_item_search": {
             "free": "Kostenlos"
         },
@@ -1274,6 +1268,15 @@
             "no_data": "Keine Daten",
             "open_provider": "Anbieter öffnen",
             "show_locations": "Standorte anzeigen"
+        },
+        "product_item": {
+            "bookmark": "Zur Wunschliste hinzufügen",
+            "payment_option_ideal": "Zusätzliche Zahlung möglich",
+            "payment_option_ideal_aria_label": "Zusätzliche Zahlung möglich: Klicken Sie für weitere Informationen",
+            "payment_option_qr": "QR-Zahlung",
+            "payment_option_qr_aria_label": "QR-Zahlung: Klicken Sie für weitere Informationen",
+            "payment_option_reservation": "Online bezahlen",
+            "payment_option_reservation_aria_label": "Online bezahlen: Klicken Sie für weitere Informationen"
         }
     },
     "logo_alt_text": {
@@ -1368,9 +1371,9 @@
         "enter_sms_code": "Geben Sie den 6-stelligen SMS-Code ein",
         "error_404": "Es ist ein Fehler aufgetreten. Bitte aktualisieren Sie die Seite.",
         "resend_code": "Code erneut senden",
-        "seconds": "{Zeit} Sekunde(n)",
         "unknown_error": "Unbekannter Fehler.",
-        "verify": "Überprüfen Sie"
+        "verify": "Überprüfen Sie",
+        "seconds": "{{time}} Sekunde(n)"
     },
     "modal_2fa_setup": {
         "2fa": "Zwei-Faktor-Authentifizierung",
@@ -1381,7 +1384,6 @@
         "confirm": "Bestätigen Sie",
         "enter_2fa_code": "Um fortzufahren, geben Sie den Sicherheitscode für die Zwei-Faktor-Authentifizierung ein.",
         "enter_app_code": "Geben Sie den 6-stelligen Code in der App ein",
-        "enter_app_code_6_digits": "Um fortzufahren, geben Sie den 6-stelligen Sicherheitscode von {Provider} ein.",
         "enter_phone": "Um fortzufahren, geben Sie Ihre Rufnummer ein",
         "enter_sms_code": "Geben Sie den 6-stelligen SMS-Code ein",
         "enter_sms_code_6_digits": "Um fortzufahren, geben Sie bitte den 6-stelligen SMS-Code ein, der Ihnen an Ihre Telefonnummer geschickt wurde.",
@@ -1392,7 +1394,6 @@
         "link_phone": "Verknüpfen Sie Ihre Rufnummer",
         "phone_number": "Rufnummer",
         "resend_code": "Code erneut senden",
-        "seconds": "{Zeit} Sekunde(n)",
         "select_auth_app": "Wählen Sie die Authentifizierungsanwendung, die Sie verwenden möchten.",
         "setup_2fa": "Einrichten der Zwei-Faktor-Authentifizierung",
         "successful_login": "Es hat geklappt!",
@@ -1401,7 +1402,9 @@
         "welcome_back": "Sie haben sich erfolgreich mit der Zwei-Faktor-Authentifizierung angemeldet. Willkommen zurück!",
         "already_have_app_steps": "1. Wählen Sie in der App <strong class=\"text-strong\">Kontoeinrichtung</strong><br>2. Wählen Sie <strong class=\"text-strong\">Scannen eines QR-Codes</strong> oder <strong class=\"text-strong\">Eingabe eines Installationsschlüssels</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
         "dont_have_app": "<strong class=\"text-strong\"> Wenn Sie die App {{name}} nicht haben, </strong>können Sie sie aus dem <strong class=\"text-strong\">Play Store</strong> oder dem <strong class=\"text-strong\">App Store</strong> herunterladen.",
-        "already_have_app": "Wenn Sie bereits über die App {{name}} verfügen, führen Sie die folgenden Schritte aus:"
+        "already_have_app": "Wenn Sie bereits über die App {{name}} verfügen, führen Sie die folgenden Schritte aus:",
+        "enter_app_code_6_digits": "Um fortzufahren, geben Sie den 6-stelligen Sicherheitscode von {{provider}}",
+        "seconds": "{{time}} Sekunde(n)"
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -2010,7 +2013,6 @@
         }
     },
     "preferences_notifications": {
-        "auto_close_after": "Popup-Benachrichtigungen werden nach {Wert} Sekunden automatisch geschlossen.",
         "auto_close_disabled": "Automatische Schließung ist deaktiviert",
         "auto_close_disabled_description": "Das automatische Schließen von Popup-Benachrichtigungen ist deaktiviert.",
         "auto_close_enabled": "Automatisches Schließen ist aktiviert",
@@ -2150,7 +2152,8 @@
         },
         "unsubscribe": "Alle E-Mail-Benachrichtigungen abbestellen",
         "unsubscribe_button": "Abbestellen",
-        "unsubscribe_desc": "Ich möchte mich von allen E-Mail-Benachrichtigungen abmelden."
+        "unsubscribe_desc": "Ich möchte mich von allen E-Mail-Benachrichtigungen abmelden.",
+        "auto_close_after": "Pop-up-Benachrichtigungen werden automatisch nach {{value}} Sekunden geschlossen."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2237,7 +2240,14 @@
             "limit": "Verbleibender Kredit:",
             "max_limit": "Maximal pro Person:",
             "pay_from_voucher": "Sie zahlen aus dem Guthaben:",
-            "price": "Preis:"
+            "price": "Preis:",
+            "payment_option_ideal": "Online bezahlen (iDEAL)",
+            "payment_option_ideal_aria_label": "Online-Zahlung (iDEAL): Klicken Sie für weitere Informationen",
+            "payment_option_qr": "QR-Code beim Anbieter anzeigen",
+            "payment_option_qr_aria_label": "QR-Code beim Anbieter anzeigen: Klicken Sie für weitere Informationen",
+            "payment_option_reservation": "Online buchen",
+            "payment_option_reservation_aria_label": "Online-Reservierung: Klicken Sie für weitere Informationen",
+            "payment_options": "Zahlungsmöglichkeiten"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
@@ -2284,7 +2294,15 @@
             "providers": "Anbieter",
             "search": "Angebot suchen",
             "sort": "Sortieren",
-            "sub_category": "Unterkategorie"
+            "sub_category": "Unterkategorie",
+            "payment_option_ideal": "Online-Bezahlung mit iDeal",
+            "payment_option_qr": "QR-Code beim Anbieter anzeigen",
+            "payment_option_reservation": "Online buchen",
+            "payment_options": "Zahlungsmöglichkeiten",
+            "payment_options_info": "Lesen Sie mehr über Zahlungsmöglichkeiten",
+            "price": "Preis (€)",
+            "price_from": "Von",
+            "price_to": "An"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -2666,7 +2684,6 @@
             "title": "Details zur Buchung"
         },
         "expired": "Ihre Reservierung wurde leider während des Bestellvorgangs storniert, da das ausgewählte Produkt ausverkauft ist.",
-        "expiring": "Bitte beachten Sie, dass Sie noch <strong>{expiresIn} Minuten</strong> Zeit haben, um die Nachzahlung zu leisten. Andernfalls wird die Reservierung automatisch storniert.",
         "extra_amount_refund": {
             "amount": "Betrag",
             "date": "Datum",
@@ -2702,7 +2719,8 @@
                 "waiting": "Warten auf die Zahlung"
             }
         },
-        "title": "Details zur Aufstockung"
+        "title": "Details zur Aufstockung",
+        "expiring": "Bitte beachten Sie, dass Sie nur noch <strong>{{expiresIn}} Minuten</strong> Zeit haben, um die zusätzliche Zahlung zu leisten. Andernfalls wird die Reservierung automatisch storniert."
     },
     "reservations": {
         "breadcrumbs": {
@@ -3421,13 +3439,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Die Töpfe prüfen",
-            "home": "Startseite"
+            "home": "Startseite",
+            "check": "Schema prüfen"
         },
         "funds": "Mittel",
         "next_step": "Weiter",
         "no_value": "---",
-        "of": "von",
         "previous_step": "Vorheriger Schritt",
         "search": "Suche",
         "show_less": "Weniger anzeigen",
@@ -3441,7 +3458,8 @@
         "total_amount": "Gesamtbetrag",
         "total_offers": "Gesamtes Angebot",
         "your_data": "Ihre Daten",
-        "record_required": "{{ title }} Das Feld ist obligatorisch."
+        "progress": "Schritt {{step}} von {{total}}",
+        "record_required": "Das Ausfüllen dieses Feldes ist obligatorisch."
     },
     "navbar": {
         "vergoedingen": {
@@ -3476,7 +3494,7 @@
         "error": "Durchgefallen!",
         "fund_activation": {
             "digid_success": "Eingeloggt mit DigiD.",
-            "success": "{Fund_name} Kredit aktiviert!"
+            "success": "{{fund_name}} Kredit aktiviert!"
         },
         "pre_check": {
             "downloaded": "Der Download wird in wenigen Augenblicken beginnen.",
@@ -3514,5 +3532,39 @@
         "placeholders": {
             "select_option": "Option auswählen"
         }
+    },
+    "modal_deactivate_voucher": {
+        "back": "Zurück",
+        "cancel": "Abbrechen",
+        "close": "Schließen Sie",
+        "confirm": "Bestätigen Sie",
+        "confirm_stop_participation": "Sind Sie sicher, dass Sie Ihre Teilnahme beenden wollen?",
+        "header_title": "Teilnahme stoppen",
+        "max_characters": "Max. 140 Zeichen",
+        "next": "Weiter",
+        "reason": "Grund",
+        "reason_for_stopping": "Grund für die Unterbrechung:",
+        "reasons": {
+            "income_change": "Veränderung des Einkommens",
+            "moved": "Umsiedlung",
+            "not_interested": "Angebot ist nicht attraktiv",
+            "other": "Ansonsten"
+        },
+        "stop_participation": "Beenden Sie Ihre Teilnahme an {{name}}.",
+        "stop_successful": "Teilnahme gestoppt",
+        "success_message": "Ihre Teilnahme an {{name}} ist beendet.",
+        "warning": "Hinweis: Sie können Ihr Guthaben danach nicht mehr verwenden. Ihr {{name}} Guthaben wird deaktiviert."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "Es ist klar!",
+        "description": "Die Zahlungsmöglichkeiten variieren je nach Produkt. Die Bezahlung kann auf verschiedene Arten erfolgen:",
+        "header": "Zahlungsmöglichkeiten",
+        "info_option_extra_payment_ideal_description": "Reicht Ihr Guthaben für eine Reservierung nicht aus? Für einige Produkte können Sie den Restbetrag sicher online über iDEAL bezahlen.",
+        "info_option_extra_payment_ideal_title": "Zusätzliche Zahlung (iDeal)",
+        "info_option_qr_description": "Bezahlen Sie ganz einfach vor Ort beim Anbieter, indem Sie den QR-Code zeigen, den Sie an der Kasse erhalten haben. Der Anbieter scannt den Code und die Zahlung wird sofort verarbeitet.",
+        "info_option_qr_title": "QR-Code",
+        "info_option_reservation_description": "Bezahlen Sie über diese Website, indem Sie ein Angebot bestellen. Klicken Sie dazu auf die Schaltfläche \"Reservieren\" und geben Sie die erforderlichen Daten ein. Der Betrag wird direkt von Ihrem Guthaben abgezogen. Der Anbieter wird die Reservierung erhalten und Sie gegebenenfalls kontaktieren.",
+        "info_option_reservation_title": "Buchung",
+        "title": "Zahlungsmöglichkeiten"
     }
 }

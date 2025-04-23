@@ -270,12 +270,6 @@
             "why": "لماذا؟",
             "activate": "تفعيل"
         },
-        "product_item_grid": {
-            "bookmark": "إضافة إلى قائمة الرغبات"
-        },
-        "product_item_list": {
-            "bookmark": "إضافة إلى قائمة الرغبات"
-        },
         "product_item_search": {
             "free": "مجاناً"
         },
@@ -283,6 +277,15 @@
             "no_data": "لا توجد بيانات",
             "open_provider": "المزود المفتوح",
             "show_locations": "عرض المواقع"
+        },
+        "product_item": {
+            "bookmark": "إضافة إلى قائمة الرغبات",
+            "payment_option_ideal": "إمكانية الدفع الإضافي",
+            "payment_option_ideal_aria_label": "إمكانية الدفع الإضافي: انقر للحصول على مزيد من المعلومات",
+            "payment_option_qr": "مدفوعات QR",
+            "payment_option_qr_aria_label": "دفع QR: انقر للحصول على مزيد من المعلومات",
+            "payment_option_reservation": "الدفع عبر الإنترنت",
+            "payment_option_reservation_aria_label": "الدفع عبر الإنترنت: انقر للحصول على مزيد من المعلومات"
         }
     },
     "logo_alt_text": {
@@ -417,7 +420,15 @@
             "providers": "المزودون",
             "search": "عرض البحث",
             "sort": "فرز",
-            "sub_category": "الفئة الفرعية"
+            "sub_category": "الفئة الفرعية",
+            "payment_option_ideal": "الدفع عبر الإنترنت باستخدام iDeal",
+            "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
+            "payment_option_reservation": "احجز عبر الإنترنت",
+            "payment_options": "خيارات الدفع",
+            "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
+            "price": "السعر (€)",
+            "price_from": "من",
+            "price_to": "إلى"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -1799,7 +1810,14 @@
             "limit": "الرصيد المتبقي",
             "max_limit": "الحد الأقصى للشخص الواحد:",
             "pay_from_voucher": "أنت تدفع من الرصيد",
-            "price": "السعر:"
+            "price": "السعر:",
+            "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL)",
+            "payment_option_ideal_aria_label": "الدفع عبر الإنترنت (iDEAL): انقر للحصول على مزيد من المعلومات",
+            "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
+            "payment_option_qr_aria_label": "إظهار رمز الاستجابة السريعة لدى مقدم الخدمة: انقر للحصول على مزيد من المعلومات",
+            "payment_option_reservation": "احجز عبر الإنترنت",
+            "payment_option_reservation_aria_label": "الحجز عبر الإنترنت: انقر للحصول على مزيد من المعلومات",
+            "payment_options": "خيارات الدفع"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -2298,7 +2316,6 @@
         }
     },
     "preferences_notifications": {
-        "auto_close_after": "يتم إغلاق التنبيهات المنبثقة تلقائياً بعد {القيمة} ثانية.",
         "auto_close_disabled": "تم تعطيل الإغلاق التلقائي",
         "auto_close_disabled_description": "تم تعطيل الإغلاق التلقائي للإشعارات المنبثقة.",
         "auto_close_enabled": "تم تمكين الإغلاق التلقائي",
@@ -2438,7 +2455,8 @@
         },
         "unsubscribe": "إلغاء الاشتراك من جميع إشعارات البريد الإلكتروني",
         "unsubscribe_button": "إلغاء الاشتراك",
-        "unsubscribe_desc": "أريد إلغاء الاشتراك من جميع إشعارات البريد الإلكتروني."
+        "unsubscribe_desc": "أريد إلغاء الاشتراك من جميع إشعارات البريد الإلكتروني.",
+        "auto_close_after": "يتم إغلاق الإشعارات المنبثقة تلقائياً بعد {{value}} ثانية."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2629,7 +2647,6 @@
             "title": "تفاصيل الحجز"
         },
         "expired": "عذرًا، تم إلغاء حجزك أثناء عملية الدفع لأن المنتج المحدد تم بيعه بالكامل.",
-        "expiring": "يُرجى ملاحظة أن هناك <strong>{ينتهي في} دقائق</strong> متبقية لتنفيذ الدفعة الإضافية. وإلا فسيتم إلغاء الحجز تلقائياً.",
         "extra_amount_refund": {
             "amount": "المبلغ",
             "date": "التاريخ",
@@ -2665,7 +2682,8 @@
                 "waiting": "في انتظار الدفع"
             }
         },
-        "title": "تفاصيل التعبئة"
+        "title": "تفاصيل التعبئة",
+        "expiring": "يُرجى ملاحظة أن هناك <strong>{{expiresIn}} دقيقة</strong> متبقية لتسديد الدفعة الإضافية. وإلا سيتم إلغاء الحجز تلقائياً."
     },
     "reservations": {
         "breadcrumbs": {
@@ -2770,9 +2788,9 @@
         "enter_sms_code": "أدخل رمز الرسالة النصية القصيرة المكون من 6 أرقام",
         "error_404": "حدث خطأ. يرجى تحديث الصفحة.",
         "resend_code": "إعادة إرسال الرمز",
-        "seconds": "{الوقت} ثانية (ثوانٍ)",
         "unknown_error": "خطأ غير معروف.",
-        "verify": "تحقق"
+        "verify": "تحقق",
+        "seconds": "{{time}} ثانية (ثوانٍ)"
     },
     "modal_2fa_setup": {
         "2fa": "المصادقة الثنائية",
@@ -2783,7 +2801,6 @@
         "confirm": "تأكيد",
         "enter_2fa_code": "للمتابعة، أدخل رمز الأمان الخاص بالمصادقة الثنائية.",
         "enter_app_code": "أدخل الرمز المكون من 6 أرقام من داخل التطبيق",
-        "enter_app_code_6_digits": "للمتابعة، أدخل رمز الأمان المكون من 6 أرقام من {مقدم الخدمة}",
         "enter_phone": "للمتابعة، أدخل رقم هاتفك",
         "enter_sms_code": "أدخل رمز الرسالة النصية القصيرة المكون من 6 أرقام",
         "enter_sms_code_6_digits": "للمتابعة، يُرجى إدخال رمز الرسالة النصية القصيرة المكون من 6 أرقام المرسلة إلى رقم هاتفك.",
@@ -2794,7 +2811,6 @@
         "link_phone": "ربط رقم هاتفك",
         "phone_number": "رقم الهاتف",
         "resend_code": "إعادة إرسال الرمز",
-        "seconds": "{الوقت} ثانية (ثوانٍ)",
         "select_auth_app": "حدد تطبيق المصادقة الذي تريد استخدامه.",
         "setup_2fa": "إعداد المصادقة الثنائية",
         "successful_login": "لقد نجح الأمر!",
@@ -2803,7 +2819,9 @@
         "welcome_back": "لقد قمت بتسجيل الدخول بنجاح باستخدام المصادقة الثنائية. مرحباً بعودتك!",
         "already_have_app_steps": "1. في التطبيق، حدد <strong class=\"text-strong\">إعداد الحساب</strong><br>2. اختر <strong class=\"text-strong\">مسح رمز الاستجابة السريعة</strong> أو <strong class=\"text-strong\">مفتاح التثبيت</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
         "dont_have_app": "<strong class=\"text-strong\"> إذا لم يكن لديك تطبيق {{name}} ، </strong>يمكنك تنزيله من <strong class=\"text-strong\">متجر Play</strong> أو <strong class=\"text-strong\">متجر التطبيقات</strong>.",
-        "already_have_app": "إذا كان لديك بالفعل تطبيق {{name}} ، فاتبع الخطوات التالية:"
+        "already_have_app": "إذا كان لديك بالفعل تطبيق {{name}} ، فاتبع الخطوات التالية:",
+        "enter_app_code_6_digits": "للمتابعة، أدخل رمز الأمان المكوّن من 6 أرقام من {{provider}}",
+        "seconds": "{{time}} ثانية (ثوانٍ)"
     },
     "modal_fund_help": {
         "chat": "الدردشة",
@@ -3421,13 +3439,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "التحقق من الأواني",
-            "home": "الصفحة الرئيسية"
+            "home": "الصفحة الرئيسية",
+            "check": "التحقق من المخطط"
         },
         "funds": "الأموال",
         "next_step": "التالي",
         "no_value": "---",
-        "of": "من",
         "previous_step": "الخطوة السابقة",
         "search": "بحث",
         "show_less": "اعرض أقل",
@@ -3441,7 +3458,8 @@
         "total_amount": "المبلغ الإجمالي",
         "total_offers": "إجمالي العرض",
         "your_data": "بياناتك",
-        "record_required": "{{ title }} الحقل إلزامي."
+        "progress": "الخطوة {{step}} من {{total}}",
+        "record_required": "من الإلزامي ملء هذا الحقل."
     },
     "navbar": {
         "vergoedingen": {
@@ -3476,7 +3494,7 @@
         "error": "فشل!",
         "fund_activation": {
             "digid_success": "تم تسجيل الدخول باستخدام DigiD.",
-            "success": "تم تفعيل رصيد {اسم_الصندوق} الائتماني!"
+            "success": "{{fund_name}} تم تفعيل الائتمان!"
         },
         "pre_check": {
             "downloaded": "سيبدأ التنزيل في غضون لحظات قليلة.",
@@ -3514,5 +3532,39 @@
         "placeholders": {
             "select_option": "حدد الخيار"
         }
+    },
+    "modal_deactivate_voucher": {
+        "back": "رجوع",
+        "cancel": "إلغاء",
+        "close": "إغلاق",
+        "confirm": "تأكيد",
+        "confirm_stop_participation": "هل أنت متأكد من رغبتك في إيقاف مشاركتك؟",
+        "header_title": "إيقاف المشاركة",
+        "max_characters": "كحد أقصى. 140 حرفاً",
+        "next": "التالي",
+        "reason": "السبب",
+        "reason_for_stopping": "سبب التوقف:",
+        "reasons": {
+            "income_change": "التغير في الدخل",
+            "moved": "النقل",
+            "not_interested": "العرض غير جذاب",
+            "other": "غير ذلك"
+        },
+        "stop_participation": "إيقاف مشاركتك {{name}} ",
+        "stop_successful": "توقفت المشاركة",
+        "success_message": "لقد توقفت مشاركتك {{name}} ",
+        "warning": "ملاحظة: لم يعد بإمكانك استخدام رصيدك بعد ذلك. سيتم إلغاء تنشيط رصيدك {{name}} الخاص بك."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "الأمر واضح!",
+        "description": "تختلف خيارات الدفع حسب المنتج. يمكن الدفع بعدة طرق:",
+        "header": "خيارات الدفع",
+        "info_option_extra_payment_ideal_description": "هل رصيدك لا يكفي للحجز؟ بالنسبة لبعض المنتجات، يمكنك دفع المبلغ المتبقي بأمان عبر الإنترنت من خلال iDEAL.",
+        "info_option_extra_payment_ideal_title": "دفعة إضافية (iDeal)",
+        "info_option_qr_description": "ادفع بسهولة في موقع مقدم الخدمة من خلال إظهار رمز الاستجابة السريعة الذي تلقيته عند الدفع. سيقوم مقدم الخدمة بمسح الرمز ضوئياً وستتم معالجة الدفع فوراً.",
+        "info_option_qr_title": "رمز الاستجابة السريعة",
+        "info_option_reservation_description": "ادفع عبر هذا الموقع الإلكتروني عن طريق طلب عرض. للقيام بذلك، انقر على زر الحجز واملأ التفاصيل المطلوبة. سيتم خصم المبلغ مباشرةً من الرصيد المتاح. سيتلقى مقدم الخدمة الحجز ويتصل بك إذا لزم الأمر.",
+        "info_option_reservation_title": "الحجز",
+        "title": "خيارات الدفع"
     }
 }

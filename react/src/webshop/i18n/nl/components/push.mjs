@@ -4,7 +4,7 @@ export default {
     saved: 'Opgeslagen!',
     deleted: 'Verwijderd!',
     fund_activation: {
-        success: '{fund_name} tegoed geactiveerd!',
+        success: '{{fund_name}} tegoed geactiveerd!',
         digid_success: 'Ingelogd met DigiD.',
     },
     preferences_emails: {

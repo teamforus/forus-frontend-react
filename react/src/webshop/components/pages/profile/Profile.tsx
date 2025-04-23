@@ -12,6 +12,7 @@ import IdentityContactInformationCard from './cards/IdentityContactInformationCa
 import { useProfileService } from '../../../../dashboard/services/ProfileService';
 import { differenceInYears } from 'date-fns';
 import { dateParse } from '../../../../dashboard/helpers/dates';
+import IdentityAddressCard from './cards/IdentityAddressCard';
 
 export default function Profile() {
     const translate = useTranslate();
@@ -179,6 +180,12 @@ export default function Profile() {
                     </div>
 
                     <IdentityContactInformationCard
+                        profile={profile}
+                        recordTypesByKey={recordTypesByKey}
+                        setProfile={setProfile}
+                    />
+
+                    <IdentityAddressCard
                         profile={profile}
                         recordTypesByKey={recordTypesByKey}
                         setProfile={setProfile}

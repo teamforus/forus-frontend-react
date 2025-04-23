@@ -44,7 +44,6 @@ export default function FundProductsBlock({ fund }: { fund: Fund }) {
                 <BlockProducts
                     type={'budget'}
                     display={'grid'}
-                    large={false}
                     products={products.data}
                     filters={{ fund_id: fund.id }}
                 />
@@ -54,7 +53,6 @@ export default function FundProductsBlock({ fund }: { fund: Fund }) {
                 <BlockProducts
                     type={'subsidies'}
                     display={'grid'}
-                    large={false}
                     products={subsidies.data}
                     filters={{ fund_id: fund.id }}
                 />

@@ -1,0 +1,139 @@
+.block.block-products {
+    --products-columns: 3;
+    --products-gap: 25px;
+    --products-content-padding: 15px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+    flex-direction: row;
+    gap: var(--products-gap);
+    margin: 0 0 30px;
+
+    .product-item {
+        display: flex;
+        flex: 0 1 calc(calc(100% - calc(var(--products-columns) - 1) * var(--products-gap)) / var(--products-columns));
+        font-size: initial;
+        position: relative;
+        min-width: 0;
+        background: var(--showcase-item-background);
+        border-radius: var(--showcase-item-border-radius);
+        box-shadow: var(--showcase-item-shadow);
+        border: var(--showcase-item-border);
+        transition: box-shadow 0.4s;
+        overflow: hidden;
+
+        .block-bookmark-toggle {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+        }
+
+        .product-content {
+            display: flex;
+            flex: 1 1 auto;
+            min-width: 0;
+            flex-direction: column;
+            background: #ffffff;
+            @include cf();
+
+            .product-photo {
+                display: flex;
+                flex: 1 1 100%;
+                border-bottom: 1px solid var(--border-color);
+
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .product-details {
+                display: flex;
+                flex: 1 1 auto;
+                padding: var(--products-content-padding);
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: column;
+                gap: 5px;
+                min-width: 0;
+
+                .product-title,
+                .product-subtitle,
+                .product-price {
+                    flex: 0 1 auto;
+                    margin: 0 0;
+                    word-wrap: break-word;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    color: var(--products-text-color);
+                }
+
+                .product-title {
+                    font: 700 17px/24px var(--base-font);
+                    color: var(--products-title-color);
+                    transition: 0.4s color;
+                }
+
+                .product-subtitle {
+                    font: 400 14px/20px var(--base-font);
+                }
+            }
+
+            .product-actions {
+                background-color: #fbfbfb;
+                padding: 15px 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                .product-price {
+                    font: 700 18px/24px var(--base-font);
+                }
+
+                .product-icons {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+
+                    .product-icons-item {
+                        display: flex;
+                        flex: 0 0 18px;
+                        text-align: center;
+
+                        .mdi {
+                            font-size: 18px;
+                            line-height: 18px;
+                        }
+
+                        img {
+                            display: block;
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            box-shadow: var(--showcase-item-hover-shadow);
+
+            .product-details {
+                .product-title {
+                    color: var(--products-title-hover-color);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        --products-columns: 2;
+    }
+
+    @media screen and (max-width: 480px) {
+        --products-columns: 1;
+    }
+}

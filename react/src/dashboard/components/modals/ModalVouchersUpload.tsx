@@ -257,56 +257,65 @@ export default function ModalVouchersUpload({
     );
 
     const validateCsvDataProduct = useCallback(
-        (data: Array<RowDataProp>) => {
+        (data: RowDataProp[]) => {
             const validation = validateProductId(data);
 
-            csvErrors.csvHasMissingProductId = validation.hasMissingProductId;
-            csvErrors.csvProductsInvalidStockIds = validation.invalidStockIds;
-            csvErrors.csvProductsInvalidUnknownIds = validation.invalidProductIds;
+            const newErrors = {
+                ...csvErrors,
+                csvHasMissingProductId: validation.hasMissingProductId,
+                csvProductsInvalidStockIds: validation.invalidStockIds,
+                csvProductsInvalidUnknownIds: validation.invalidProductIds,
+                csvProductsInvalidStockIdsList: uniq(map(validation.invalidStockIds, 'product_id')).join(', '),
+                csvProductsInvalidUnknownIdsList: uniq(map(validation.invalidProductIds, 'product_id')).join(', '),
+                hasAmountField: data.some((row) => row.amount != undefined),
+            };
 
-            csvErrors.csvProductsInvalidStockIdsList = uniq(
-                map(csvErrors.csvProductsInvalidStockIds, 'product_id'),
-            ).join(', ');
+            setCsvErrors(newErrors);
 
-            csvErrors.csvProductsInvalidUnknownIdsList = uniq(
-                map(csvErrors.csvProductsInvalidUnknownIds, 'product_id'),
-            ).join(', ');
-
-            // product vouchers .csv should not have an `amount` field
-            csvErrors.hasAmountField = data.filter((row) => row.amount != undefined).length > 0;
-
-            setCsvErrors({ ...csvErrors });
-
-            return !csvErrors.hasAmountField && !csvErrors.csvHasMissingProductId && validation.isValid;
+            return !newErrors.hasAmountField && !newErrors.csvHasMissingProductId && validation.isValid;
         },
         [csvErrors, validateProductId],
     );
 
-    const confirmLowAmountsSkip = useCallback(
-        (lowAmounts: Array<RowDataProp>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
-            const items = lowAmounts.map((row) => ({
+    const pickSelectedOrUnflagged = useCallback(
+        (rows: RowDataProp[], selectedUids: string[], flaggedIds: string[]): RowDataProp[] => {
+            return rows.filter((row) => selectedUids.includes(row._uid) || !flaggedIds.includes(row._uid));
+        },
+        [],
+    );
+
+    const confirmLowAmountEntries = useCallback(
+        (lowAmountRows: RowDataProp[], targetFund: Partial<Fund>, originalRows: RowDataProp[]) => {
+            const lowAmountOptions = lowAmountRows.map((row) => ({
                 _uid: row._uid,
-                label: currencyFormat(parseFloat(row?.amount?.toString())),
-                columns: [fund.name],
+                label: currencyFormat(parseFloat(row.amount?.toString() || '0')),
+                columns: [targetFund.name],
             }));
 
-            return new Promise<Array<RowDataProp> | 'canceled'>((resolve) => {
-                if (items.length === 0) {
-                    return resolve(list);
+            const lowAmountOptionIds = lowAmountOptions.map((opt) => opt._uid);
+
+            return new Promise<RowDataProp[] | 'canceled'>((resolve) => {
+                if (lowAmountOptions.length === 0) {
+                    return resolve(originalRows);
                 }
 
                 openModal((modal) => (
                     <ModalDuplicatesPicker
                         modal={modal}
-                        hero_title={`Laag bedrag voor "${fund.name}".`}
-                        hero_subtitle={[`Er zijn ${items.length} tegoeden met een laag bedrag.`, 'Wilt u doorgaan?']}
+                        hero_title={`Laag bedrag voor "${targetFund.name}".`}
+                        hero_subtitle={[
+                            `Er zijn ${lowAmountOptions.length} tegoeden met een laag bedrag.`,
+                            'Wilt u doorgaan?',
+                        ]}
                         button_none={'Alle overslaan'}
                         button_all={'Alle aanmaken'}
                         enableToggles={true}
                         label_on={'Aanmaken'}
                         label_off={'Overslaan'}
-                        items={items}
-                        onConfirm={(data) => resolve(list.filter((row) => data.uids.includes(row._uid)))}
+                        items={lowAmountOptions}
+                        onConfirm={(data) => {
+                            resolve(pickSelectedOrUnflagged(originalRows, data.uids, lowAmountOptionIds));
+                        }}
                         onCancel={() => {
                             window.setTimeout(() => setHideModal(false), 300);
                             resolve('canceled');
@@ -315,28 +324,30 @@ export default function ModalVouchersUpload({
                 ));
             });
         },
-        [openModal],
+        [openModal, pickSelectedOrUnflagged],
     );
 
-    const confirmEmailSkip = useCallback(
-        (existingEmails: Array<RowDataProp>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
-            const items = existingEmails.map((row) => ({
+    const confirmDuplicateEmails = useCallback(
+        (duplicateEmailRows: RowDataProp[], selectedFund: Partial<Fund>, originalRows: RowDataProp[]) => {
+            const duplicateOptions = duplicateEmailRows.map((row) => ({
                 _uid: row._uid,
                 label: row.email,
-                columns: [fund.name],
+                columns: [selectedFund.name],
             }));
 
-            return new Promise<Array<RowDataProp> | 'canceled'>((resolve) => {
-                if (items.length === 0) {
-                    return resolve(list);
+            const duplicateOptionIds = duplicateOptions.map((opt) => opt._uid);
+
+            return new Promise<RowDataProp[] | 'canceled'>((resolve) => {
+                if (duplicateOptions.length === 0) {
+                    return resolve(originalRows);
                 }
 
                 openModal((modal) => (
                     <ModalDuplicatesPicker
                         modal={modal}
-                        hero_title={`Dubbele e-mailadressen gedetecteerd voor "${fund.name}".`}
+                        hero_title={`Dubbele e-mailadressen gedetecteerd voor "${selectedFund.name}".`}
                         hero_subtitle={[
-                            `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
+                            `Weet u zeker dat u voor ${duplicateOptions.length} e-mailadres(sen) een extra tegoed wilt aanmaken?`,
                             'Deze e-mailadressen bezitten al een tegoed van dit fonds.',
                         ]}
                         button_none={'Alle overslaan'}
@@ -344,8 +355,10 @@ export default function ModalVouchersUpload({
                         enableToggles={true}
                         label_on={'Aanmaken'}
                         label_off={'Overslaan'}
-                        items={items}
-                        onConfirm={(data) => resolve(list.filter((row) => data.uids.includes(row._uid)))}
+                        items={duplicateOptions}
+                        onConfirm={(data) => {
+                            resolve(pickSelectedOrUnflagged(originalRows, data.uids, duplicateOptionIds));
+                        }}
                         onCancel={() => {
                             window.setTimeout(() => setHideModal(false), 300);
                             resolve('canceled');
@@ -354,29 +367,31 @@ export default function ModalVouchersUpload({
                 ));
             });
         },
-        [openModal],
+        [openModal, pickSelectedOrUnflagged],
     );
 
-    const confirmBsnSkip = useCallback(
-        (existingBsn: Array<RowDataProp>, fund: Partial<Fund>, list: Array<RowDataProp>) => {
-            const items = existingBsn.map((row) => ({
+    const confirmDuplicateBsnEntries = useCallback(
+        (duplicateBsnRows: RowDataProp[], targetFund: Partial<Fund>, originalRows: RowDataProp[]) => {
+            const bsnOptions = duplicateBsnRows.map((row) => ({
                 _uid: row._uid,
                 label: row.bsn,
                 value: row.bsn,
-                columns: [fund.name],
+                columns: [targetFund.name],
             }));
 
-            return new Promise<Array<RowDataProp> | 'canceled'>((resolve) => {
-                if (items.length === 0) {
-                    return resolve(list);
+            const bsnOptionIds = bsnOptions.map((opt) => opt._uid);
+
+            return new Promise<RowDataProp[] | 'canceled'>((resolve) => {
+                if (bsnOptions.length === 0) {
+                    return resolve(originalRows);
                 }
 
                 openModal((modal) => (
                     <ModalDuplicatesPicker
                         modal={modal}
-                        hero_title={`Dubbele bsn(s) gedetecteerd voor "${fund.name}".`}
+                        hero_title={`Dubbele bsn(s) gedetecteerd voor "${targetFund.name}".`}
                         hero_subtitle={[
-                            `Weet u zeker dat u voor ${items.length} bsn(s) een extra tegoed wilt aanmaken?`,
+                            `Weet u zeker dat u voor ${bsnOptions.length} bsn(s) een extra tegoed wilt aanmaken?`,
                             'Deze bsn(s) bezitten al een tegoed van dit fonds.',
                         ]}
                         enableToggles={true}
@@ -384,8 +399,10 @@ export default function ModalVouchersUpload({
                         button_all={'Alle aanmaken'}
                         label_on={'Aanmaken'}
                         label_off={'Overslaan'}
-                        items={items}
-                        onConfirm={(data) => resolve(list.filter((row) => data.uids.includes(row._uid)))}
+                        items={bsnOptions}
+                        onConfirm={(data) => {
+                            resolve(pickSelectedOrUnflagged(originalRows, data.uids, bsnOptionIds));
+                        }}
                         onCancel={() => {
                             window.setTimeout(() => setHideModal(false), 300);
                             resolve('canceled');
@@ -394,7 +411,7 @@ export default function ModalVouchersUpload({
                 ));
             });
         },
-        [openModal],
+        [openModal, pickSelectedOrUnflagged],
     );
 
     const findDuplicates = useCallback(
@@ -433,17 +450,19 @@ export default function ModalVouchersUpload({
                     ...data.map((voucher) => voucher.identity_bsn),
                 ];
 
-                const existingEmails = list.filter((row: { email: string }) => emails.includes(row.email));
+                const existingEmails = list.filter((row) => emails.includes(row.email));
                 const existingBsn = list.filter((csvRow) => bsnList.includes(csvRow.bsn));
 
                 if (existingEmails.length === 0 && existingBsn.length === 0) {
                     return list;
                 }
 
-                const listFromEmails = await confirmEmailSkip(existingEmails, fund, list);
+                const listFromEmails = await confirmDuplicateEmails(existingEmails, fund, list);
 
                 const listFromBsn =
-                    listFromEmails !== 'canceled' ? await confirmBsnSkip(existingBsn, fund, listFromEmails) : null;
+                    listFromEmails !== 'canceled'
+                        ? await confirmDuplicateBsnEntries(existingBsn, fund, listFromEmails)
+                        : null;
 
                 if (listFromEmails === 'canceled' || listFromBsn === 'canceled') {
                     return 'canceled';
@@ -459,8 +478,8 @@ export default function ModalVouchersUpload({
         },
         [
             closeModal,
-            confirmBsnSkip,
-            confirmEmailSkip,
+            confirmDuplicateBsnEntries,
+            confirmDuplicateEmails,
             helperService,
             organization.id,
             pushDanger,
@@ -475,9 +494,9 @@ export default function ModalVouchersUpload({
         async (fund: Partial<Fund>, list: Array<RowDataProp>) => {
             const lowAmounts = list.filter((row) => parseFloat(row.amount?.toString()) <= 5);
 
-            return lowAmounts.length === 0 ? list : await confirmLowAmountsSkip(lowAmounts, fund, list);
+            return lowAmounts.length === 0 ? list : await confirmLowAmountEntries(lowAmounts, fund, list);
         },
-        [confirmLowAmountsSkip],
+        [confirmLowAmountEntries],
     );
 
     const validateCsvData = useCallback(

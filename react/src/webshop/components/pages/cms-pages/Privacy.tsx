@@ -14,7 +14,6 @@ export default function Privacy() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('privacy.breadcrumbs.home'), state: 'home' },
                 { name: translate('privacy.breadcrumbs.privacy') },
@@ -25,7 +24,7 @@ export default function Privacy() {
                         className={`flex flex-vertical ${
                             page.description_position == 'after' ? 'flex-vertical-reverse' : ''
                         }`}>
-                        {page && <CmsBlocks page={page} wrapper={false} />}
+                        {page && <CmsBlocks page={page} />}
 
                         {(!page.description_html || page.description_position !== 'replace') && (
                             <Fragment>
