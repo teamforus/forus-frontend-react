@@ -43,6 +43,7 @@ export default {
         columns: {
             name: 'Naam',
             fund: 'Fonds',
+            implementation: 'Implementatie',
             steps: 'Aantal stappen',
             status: 'Status',
             created_at: 'Aangemaakt op',
@@ -50,6 +51,7 @@ export default {
         tooltips: {
             name: 'Naam',
             fund: 'Fonds',
+            implementation: 'Implementatie',
             steps: 'Aantal stappen',
             status: 'Status',
             created_at: 'Aangemaakt op',

@@ -17,7 +17,7 @@ export default {
         },
     },
     new_time_enabled: 'Nieuwe tijd is ingeschakeld',
-    auto_close_after: 'Pop-up meldingen worden automatisch na {value} seconden gesloten.',
+    auto_close_after: 'Pop-up meldingen worden automatisch na {{value}} seconden gesloten.',
     auto_close_disabled: 'Automatisch sluiten is uitgeschakeld',
     auto_close_disabled_description: 'Het automatisch sluiten van pop-up meldingen is uitgeschakeld.',
     auto_close_enabled: 'Automatisch sluiten is ingeschakeld',

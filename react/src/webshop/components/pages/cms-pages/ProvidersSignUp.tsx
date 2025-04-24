@@ -35,7 +35,6 @@ export default function ProvidersSignUp() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('provider_sign_up.breadcrumbs.home'), state: 'home' },
                 { name: translate('provider_sign_up.breadcrumbs.sign_up_provider') },
@@ -45,7 +44,7 @@ export default function ProvidersSignUp() {
                     className={`flex flex-vertical ${
                         page.description_position == 'after' ? 'flex-vertical-reverse' : ''
                     }`}>
-                    {page && <CmsBlocks page={page} wrapper={false} />}
+                    {page && <CmsBlocks page={page} />}
 
                     {(!page.description_html || page.description_position !== 'replace') && (
                         <div className="block block-sign_up-provider">

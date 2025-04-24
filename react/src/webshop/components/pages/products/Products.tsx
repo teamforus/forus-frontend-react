@@ -24,6 +24,9 @@ import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
+import RangeControl from '../../elements/forms/RangeControl';
+import useShowProductPaymentOptionsInfoModal from '../../../hooks/useShowProductPaymentOptionsInfoModal';
+import ProductsFilterOptions from './elements/ProductsFilterOptions';
 
 export default function Products({ fundType = 'budget' }: { fundType: 'budget' | 'subsidies' }) {
     const appConfigs = useAppConfigs();
@@ -37,12 +40,14 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
+    const showProductIconsInfoModal = useShowProductPaymentOptionsInfoModal();
 
     const [sortByOptions] = useState(productService.getSortOptions(translate));
 
     const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
+    const [toMax, setToMax] = useState(0);
     const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
     const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
@@ -69,6 +74,11 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
         product_sub_category_id: number;
         postcode: string;
         distance: number;
+        from: number;
+        to: number;
+        qr?: boolean;
+        reservation?: boolean;
+        extra_payment?: boolean;
         bookmarked: boolean;
         display_type: 'list' | 'grid';
         order_by: 'created_at' | 'price' | 'most_popular' | 'name';
@@ -83,13 +93,18 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
             product_sub_category_id: null,
             postcode: '',
             distance: null,
+            from: 0,
+            to: null,
+            qr: false,
+            reservation: false,
+            extra_payment: false,
             bookmarked: false,
             display_type: 'list',
             order_by: sortByOptions[0]?.value.order_by,
             order_dir: sortByOptions[0]?.value.order_dir,
         },
         {
-            throttledValues: ['q'],
+            throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment'],
             queryParams: {
                 q: StringParam,
                 page: NumberParam,
@@ -99,6 +114,11 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 product_sub_category_id: NumberParam,
                 postcode: StringParam,
                 distance: NumberParam,
+                from: NumberParam,
+                to: NumberParam,
+                qr: BooleanParam,
+                reservation: BooleanParam,
+                extra_payment: BooleanParam,
                 bookmarked: BooleanParam,
                 display_type: StringParam,
                 order_by: StringParam,
@@ -121,7 +141,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
         return filterValuesActive?.fund_id && funds?.find((item) => item.id === filterValuesActive?.fund_id);
     }, [filterValuesActive?.fund_id, funds]);
 
-    const [products, setProducts] = useState<PaginationData<Product>>(null);
+    const [products, setProducts] = useState<PaginationData<Product, { price_max: number }>>(null);
 
     const buildQuery = useCallback(
         (
@@ -134,13 +154,19 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 product_sub_category_id: number;
                 postcode: string;
                 distance: number;
+                from: number;
+                to: number;
                 bookmarked: boolean;
+                qr: boolean;
+                reservation: boolean;
+                extra_payment: boolean;
                 display_type: 'list' | 'grid';
                 order_by: 'created_at' | 'price' | 'most_popular' | 'name';
                 order_dir: 'asc' | 'desc';
             }>,
         ) => {
             const isSortingByPrice = values.order_by === 'price';
+            const hasFilters = values.qr || values.extra_payment || values.reservation;
 
             return {
                 q: values.q,
@@ -151,6 +177,11 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 fund_type: fundType,
                 postcode: values.postcode || '',
                 distance: values.distance || null,
+                from: values.from || null,
+                to: values.to || null,
+                qr: hasFilters ? (values.qr ? 1 : 0) : 0,
+                reservation: hasFilters ? (values.reservation ? 1 : 0) : 0,
+                extra_payment: hasFilters ? (values.extra_payment ? 1 : 0) : 0,
                 bookmarked: values.bookmarked ? 1 : 0,
                 order_by: isSortingByPrice ? (fundType === 'budget' ? 'price' : 'price_min') : values.order_by,
                 order_dir: values.order_dir,
@@ -166,8 +197,11 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
 
             productService
                 .list({ fund_type: fundType, ...query })
-                .then((res) => setProducts(res.data))
-                .catch((e: ResponseError) => setErrors(e.data.errors))
+                .then((res) => {
+                    setProducts(res.data);
+                    setToMax((max) => Math.max(res.data?.meta?.price_max, max));
+                })
+                .catch((e: ResponseError) => setErrors(e.data?.errors))
                 .finally(() => setProgress(100));
         },
         [fundType, productService, setProgress],
@@ -396,6 +430,91 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                 </div>
                             </div>
                         </div>
+
+                        <div className="showcase-aside-block-separator" />
+                        <div className="showcase-aside-block-title">{translate('products.filters.price')}</div>
+                        <div className="row">
+                            <div className="col col-md-5">
+                                <div className="form-group">
+                                    <label className="form-label" htmlFor="from">
+                                        {translate('products.filters.price_from')}
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        id="from"
+                                        min={0}
+                                        max={toMax}
+                                        value={filterValues.from || ''}
+                                        onChange={(e) =>
+                                            filterUpdate({
+                                                from: Math.min(Math.max(parseFloat(e.target.value) || 0, 0), toMax),
+                                            })
+                                        }
+                                        type="number"
+                                        aria-label={translate('products.filters.price_from')}
+                                    />
+                                    <FormError error={errors?.from} />
+                                </div>
+                            </div>
+                            <div className="col col-md-2" />
+                            <div className="col col-md-5">
+                                <div className="form-group">
+                                    <label className="form-label" htmlFor="to">
+                                        {translate('products.filters.price_to')}
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        id="to"
+                                        min={0}
+                                        max={toMax}
+                                        value={filterValues.to || toMax}
+                                        placeholder={translate('products.filters.price_to')}
+                                        onChange={(e) =>
+                                            filterUpdate({
+                                                to: Math.min(Math.max(parseFloat(e.target.value) || toMax, 0), toMax),
+                                            })
+                                        }
+                                        type="number"
+                                        aria-label={translate('products.filters.price_to')}
+                                    />
+                                    <FormError error={errors?.to} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <RangeControl
+                                min={0}
+                                max={toMax}
+                                from={filterValues.from || 0}
+                                to={filterValues.to || toMax}
+                                setFrom={(from) => filterUpdate({ from })}
+                                setTo={(to) => filterUpdate({ to })}
+                                prefix={'€ '}
+                            />
+                        </div>
+
+                        <div className="showcase-aside-block-separator" />
+                        <div className="showcase-aside-block-title">
+                            {translate('products.filters.payment_options')}
+                        </div>
+                        <div className="showcase-aside-block-info">
+                            <a
+                                className="showcase-aside-block-info-link"
+                                role="button"
+                                tabIndex={0}
+                                aria-label={translate('products.filters.payment_options_info')}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    showProductIconsInfoModal();
+                                }}
+                                onKeyDown={(e) => clickOnKeyEnter(e, true)}>
+                                <em className="mdi mdi-information-outline" aria-hidden="true" />
+                                {translate('products.filters.payment_options_info')}
+                            </a>
+                        </div>
+
+                        <ProductsFilterOptions value={filterValues} setValue={(value) => filterUpdate(value)} />
                     </div>
                 )
             }>
@@ -473,12 +592,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                     {appConfigs.pages.products && <CmsBlocks page={appConfigs.pages.products} />}
 
                     {products?.meta?.total > 0 && (
-                        <ProductsList
-                            type={fundType}
-                            large={false}
-                            display={filterValues.display_type}
-                            products={products.data}
-                        />
+                        <ProductsList type={fundType} display={filterValues.display_type} products={products.data} />
                     )}
 
                     {products?.meta?.total == 0 && (

@@ -8,7 +8,7 @@ export default {
     enter_app_code: 'Voer de 6-cijferige code in vanuit de app',
     enter_2fa_code_deactivation: 'Voer de tweefactorauthenticatiecode in voor deactivering',
     resend_code: 'Code opnieuw verzenden',
-    seconds: '{time} seconde(n)',
+    seconds: '{{time}} seconde(n)',
     cancel: 'Annuleer',
     verify: 'Verifieer',
     '2fa_disabled': 'Tweefactorauthenticatie is succesvol uitgeschakeld',

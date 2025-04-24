@@ -1261,12 +1261,6 @@
             "why": "Pourquoi ?",
             "activate": "Activer"
         },
-        "product_item_grid": {
-            "bookmark": "Ajouter à la liste de souhaits"
-        },
-        "product_item_list": {
-            "bookmark": "Ajouter à la liste de souhaits"
-        },
         "product_item_search": {
             "free": "Gratuit"
         },
@@ -1274,6 +1268,15 @@
             "no_data": "Pas de données",
             "open_provider": "Fournisseur ouvert",
             "show_locations": "Lieux d'exposition"
+        },
+        "product_item": {
+            "bookmark": "Ajouter à la liste de souhaits",
+            "payment_option_ideal": "Possibilité de paiement supplémentaire",
+            "payment_option_ideal_aria_label": "Paiement supplémentaire possible : cliquez pour plus d'informations",
+            "payment_option_qr": "Paiement QR",
+            "payment_option_qr_aria_label": "Paiement QR : cliquez pour plus d'informations",
+            "payment_option_reservation": "Payer en ligne",
+            "payment_option_reservation_aria_label": "Payer en ligne : cliquez pour plus d'informations"
         }
     },
     "logo_alt_text": {
@@ -1368,9 +1371,9 @@
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "error_404": "Une erreur s'est produite. Veuillez actualiser la page.",
         "resend_code": "Renvoyer le code",
-        "seconds": "{heure} seconde(s)",
         "unknown_error": "Erreur inconnue.",
-        "verify": "Vérifier"
+        "verify": "Vérifier",
+        "seconds": "{{time}} seconde(s)"
     },
     "modal_2fa_setup": {
         "2fa": "Authentification à deux facteurs",
@@ -1381,7 +1384,6 @@
         "confirm": "Confirmer",
         "enter_2fa_code": "Pour continuer, saisissez le code de sécurité de l'authentification à deux facteurs.",
         "enter_app_code": "Saisir le code à 6 chiffres à partir de l'application",
-        "enter_app_code_6_digits": "Pour continuer, entrez le code de sécurité à 6 chiffres de {fournisseur}.",
         "enter_phone": "Pour continuer, entrez votre numéro de téléphone",
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "enter_sms_code_6_digits": "Pour continuer, veuillez saisir le code SMS à 6 chiffres envoyé à votre numéro de téléphone.",
@@ -1392,7 +1394,6 @@
         "link_phone": "Liez votre numéro de téléphone",
         "phone_number": "Numéro de téléphone",
         "resend_code": "Renvoyer le code",
-        "seconds": "{heure} seconde(s)",
         "select_auth_app": "Sélectionnez l'application d'authentification que vous souhaitez utiliser.",
         "setup_2fa": "Mise en place de l'authentification à deux facteurs",
         "successful_login": "Cela a fonctionné !",
@@ -1401,7 +1402,9 @@
         "welcome_back": "Vous vous êtes connecté avec succès à l'aide de l'authentification à deux facteurs. Nous sommes heureux de vous revoir !",
         "already_have_app_steps": "1. Dans l'application, sélectionnez <strong class=\"text-strong\">Configuration du compte</strong><br>2. Sélectionnez <strong class=\"text-strong\">Scanner un code QR</strong> ou <strong class=\"text-strong\">Entrer une clé d'installation</strong>: <strong class=\"text-strong\"> {{secret}}</strong>",
         "dont_have_app": "<strong class=\"text-strong\"> Si vous n'avez pas l'application {{name}}, </strong>vous pouvez la télécharger sur le <strong class=\"text-strong\">Play Store</strong> ou l'<strong class=\"text-strong\">App Store</strong>.",
-        "already_have_app": "Si vous avez déjà l'application {{name}}, suivez les étapes ci-dessous :"
+        "already_have_app": "Si vous avez déjà l'application {{name}}, suivez les étapes ci-dessous :",
+        "enter_app_code_6_digits": "Pour continuer, entrez le code de sécurité à 6 chiffres de {{provider}}",
+        "seconds": "{{time}} seconde(s)"
     },
     "modal_fund_help": {
         "chat": "Chat",
@@ -2010,7 +2013,6 @@
         }
     },
     "preferences_notifications": {
-        "auto_close_after": "Les notifications pop-up sont automatiquement fermées après {valeur} secondes.",
         "auto_close_disabled": "La fermeture automatique est désactivée",
         "auto_close_disabled_description": "La fermeture automatique des notifications contextuelles est désactivée.",
         "auto_close_enabled": "La fermeture automatique est activée",
@@ -2150,7 +2152,8 @@
         },
         "unsubscribe": "Se désabonner de toutes les notifications par courrier électronique",
         "unsubscribe_button": "Se désinscrire",
-        "unsubscribe_desc": "Je souhaite me désinscrire de toutes les notifications par e-mail."
+        "unsubscribe_desc": "Je souhaite me désinscrire de toutes les notifications par e-mail.",
+        "auto_close_after": "Les notifications pop-up se ferment automatiquement après {{value}} secondes."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2237,7 +2240,14 @@
             "limit": "Crédit restant :",
             "max_limit": "Maximum par personne :",
             "pay_from_voucher": "Vous payez à partir du crédit :",
-            "price": "Prix :"
+            "price": "Prix :",
+            "payment_option_ideal": "Payer en ligne (iDEAL)",
+            "payment_option_ideal_aria_label": "Paiement en ligne (iDEAL) : cliquez pour plus d'informations",
+            "payment_option_qr": "Afficher le code QR au fournisseur",
+            "payment_option_qr_aria_label": "Afficher le code QR chez le fournisseur : cliquer pour plus d'informations",
+            "payment_option_reservation": "Réserver en ligne",
+            "payment_option_reservation_aria_label": "Réservation en ligne : cliquez pour plus d'informations",
+            "payment_options": "Options de paiement"
         },
         "low_amount": "Vous n'avez pas de crédit avec un solde suffisant.",
         "map": {
@@ -2284,7 +2294,15 @@
             "providers": "Prestataires",
             "search": "Offre de recherche",
             "sort": "Trier",
-            "sub_category": "Sous-catégorie"
+            "sub_category": "Sous-catégorie",
+            "payment_option_ideal": "Payer en ligne avec iDeal",
+            "payment_option_qr": "Afficher le code QR au fournisseur",
+            "payment_option_reservation": "Réserver en ligne",
+            "payment_options": "Options de paiement",
+            "payment_options_info": "En savoir plus sur les options de paiement",
+            "price": "Prix (€)",
+            "price_from": "De",
+            "price_to": "Pour"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2666,7 +2684,6 @@
             "title": "Détails de la réservation"
         },
         "expired": "Désolé, votre réservation a été annulée pendant le processus de paiement car le produit sélectionné est épuisé.",
-        "expiring": "Veuillez noter qu'il reste <strong>{expireIn} minutes</strong> pour effectuer le paiement supplémentaire. Dans le cas contraire, la réservation sera automatiquement annulée.",
         "extra_amount_refund": {
             "amount": "Montant",
             "date": "Date",
@@ -2702,7 +2719,8 @@
                 "waiting": "En attente de paiement"
             }
         },
-        "title": "Détails de l'appoint"
+        "title": "Détails de l'appoint",
+        "expiring": "Veuillez noter qu'il reste <strong>{{expiresIn}} minutes</strong> pour effectuer le paiement supplémentaire. Dans le cas contraire, la réservation sera automatiquement annulée."
     },
     "reservations": {
         "breadcrumbs": {
@@ -3421,13 +3439,12 @@
     },
     "pre_check": {
         "breadcrumb": {
-            "check": "Les Pots vérifient",
-            "home": "Accueil"
+            "home": "Accueil",
+            "check": "Contrôle du régime"
         },
         "funds": "Fonds",
         "next_step": "Suivant",
         "no_value": "---",
-        "of": "de",
         "previous_step": "Étape précédente",
         "search": "Recherche",
         "show_less": "Montrer moins",
@@ -3441,7 +3458,8 @@
         "total_amount": "Montant total",
         "total_offers": "Offre totale",
         "your_data": "Vos données",
-        "record_required": "{{ title }} Ce champ est obligatoire."
+        "progress": "Étape {{step}} de {{total}}",
+        "record_required": "Ce champ est obligatoire."
     },
     "navbar": {
         "vergoedingen": {
@@ -3476,7 +3494,7 @@
         "error": "Échec !",
         "fund_activation": {
             "digid_success": "Connecté avec DigiD.",
-            "success": "Crédit {nom_du_fonds} activé !"
+            "success": "{{fund_name}} crédit activé !"
         },
         "pre_check": {
             "downloaded": "Le téléchargement commencera dans quelques instants.",
@@ -3514,5 +3532,39 @@
         "placeholders": {
             "select_option": "Sélectionner une option"
         }
+    },
+    "modal_deactivate_voucher": {
+        "back": "Retour",
+        "cancel": "Annuler",
+        "close": "Fermer",
+        "confirm": "Confirmer",
+        "confirm_stop_participation": "Êtes-vous sûr de vouloir arrêter votre participation ?",
+        "header_title": "Arrêter la participation",
+        "max_characters": "Max. 140 caractères",
+        "next": "Suivant",
+        "reason": "Raison",
+        "reason_for_stopping": "Raison de l'arrêt :",
+        "reasons": {
+            "income_change": "Variation des revenus",
+            "moved": "Déménagement",
+            "not_interested": "L'offre n'est pas attrayante",
+            "other": "Dans le cas contraire"
+        },
+        "stop_participation": "Arrêt de votre participation à {{name}}.",
+        "stop_successful": "Arrêt de la participation",
+        "success_message": "Votre participation à {{name}} a cessé.",
+        "warning": "Note : Vous ne pouvez plus utiliser votre crédit après cela. Votre crédit {{name}} sera désactivé."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "C'est clair !",
+        "description": "Les options de paiement varient selon les produits. Le paiement peut être effectué de plusieurs manières :",
+        "header": "Options de paiement",
+        "info_option_extra_payment_ideal_description": "Votre crédit n'est pas suffisant pour une réservation ? Pour certains produits, vous pouvez payer en toute sécurité le montant restant en ligne via iDEAL.",
+        "info_option_extra_payment_ideal_title": "Paiement supplémentaire (iDeal)",
+        "info_option_qr_description": "Payez facilement dans les locaux du prestataire en montrant le code QR que vous avez reçu au moment du paiement. Le fournisseur scannera le code et le paiement sera traité immédiatement.",
+        "info_option_qr_title": "Code QR",
+        "info_option_reservation_description": "Payez via ce site web en commandant une offre. Pour ce faire, cliquez sur le bouton de réservation et remplissez les données demandées. Le montant sera directement déduit du crédit disponible. Le fournisseur recevra la réservation et vous contactera si nécessaire.",
+        "info_option_reservation_title": "Réservation",
+        "title": "Options de paiement"
     }
 }

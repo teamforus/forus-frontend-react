@@ -37,12 +37,12 @@
     @import 'blocks/block-sessions';
     @import 'blocks/block-breadcrumbs';
     @import 'blocks/block-notifications';
-    @import '../../../forus-webshop/scss/_common/components/ui-controls';
+    @import '../../../forus-webshop/scss/includes/components/ui-controls';
 }
 
-@import '../../../forus-webshop/scss/_common/components/table-pagination';
-@import '../../../forus-webshop/scss/_common/sections/blocks/block-sign_up';
-@import '../../../forus-webshop/scss/_common/sections/blocks/block-exception';
+@import '../../../forus-webshop/scss/includes/components/table-pagination';
+@import '../../../forus-webshop/scss/includes/blocks/block-sign_up';
+@import '../../../forus-webshop/scss/includes/blocks/block-exception';
 
 .block {
     @import 'blocks/block-fund_types';
@@ -1593,6 +1593,10 @@ body {
                             }
                         }
                     }
+                }
+
+                &.keyvalue-value-gap-sm {
+                    gap: 5px;
                 }
             }
 
