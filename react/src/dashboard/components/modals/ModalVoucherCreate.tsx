@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
@@ -469,52 +469,24 @@ export default function ModalVoucherCreate({
                                             </div>
                                         </div>
 
-                                        {fund?.backoffice?.backoffice_enabled && (
+                                        {fund?.backoffice?.backoffice_enabled && assignType.key !== 'bsn' && (
                                             <div className="form-group form-group-inline form-group-inline-lg">
                                                 <div className={`form-label`}>&nbsp;</div>
                                                 <div className="form-offset">
-                                                    <InfoBox type={'warning'} iconPosition={'top'}>
-                                                        {assignType.key !== 'bsn' && (
-                                                            <Fragment>
-                                                                <p className={'text-strong'}>
-                                                                    No BSN - Back-office notifications may be skipped
-                                                                </p>
-                                                                <p>
-                                                                    For back-office notifications, the user must have a
-                                                                    BSN verified via DigiD.
-                                                                </p>
-                                                                <ul>
-                                                                    <li>
-                                                                        If the user does not have a verified BSN when
-                                                                        the voucher is assigned, our system cannot send
-                                                                        a <strong>received</strong> notification for the
-                                                                        voucher.
-                                                                    </li>
-                                                                    <li>
-                                                                        If the user does not have a verified BSN when
-                                                                        the voucher is first used, our system cannot
-                                                                        send a <strong>first use</strong> notification.
-                                                                    </li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li>
-                                                                        If the user verifies their BSN via DigiD between
-                                                                        the <strong>received</strong> and{' '}
-                                                                        <strong>first use</strong> calls, only the{' '}
-                                                                        <strong>first use</strong> notification will be
-                                                                        sent.
-                                                                    </li>
-                                                                    <li>
-                                                                        If the BSN is not verified at all, none of the
-                                                                        notifications will be sent.
-                                                                    </li>
-                                                                </ul>
-                                                            </Fragment>
-                                                        )}
+                                                    <InfoBox
+                                                        type={'warning'}
+                                                        iconPosition={'top'}
+                                                        iconColor={'warning'}>
+                                                        <p className={'text-strong'}>
+                                                            Let op! De backoffice integratie stuurt mogelijk geen data
+                                                        </p>
                                                         <p>
-                                                            <strong>Important!</strong> Manually created vouchers are
-                                                            not checked for eligibility and residency in the back
-                                                            office.
+                                                            Om data te laten versturen via de backoffice integratie, is
+                                                            het noodzakelijk dat de inwoner een BSN heeft geverifieerd
+                                                            door in te loggen met DigiD. Bij het aanmaken van een tegoed
+                                                            op basis van een activatiecode of e-mailadres, wordt deze
+                                                            stap overgeslagen en zal er mogelijk geen data vanuit het
+                                                            systeem worden verstuurd via de backoffice integratie.
                                                         </p>
                                                     </InfoBox>
                                                 </div>
