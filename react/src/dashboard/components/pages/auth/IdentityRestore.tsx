@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { authContext } from '../../../contexts/AuthContext';
 import { useIdentityService } from '../../../services/IdentityService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { pushNotificationContext } from '../../../modules/push_notifications/context/PushNotificationsContext';

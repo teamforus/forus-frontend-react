@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useFilter from '../../../hooks/useFilter';
 import { PaginationData } from '../../../props/ApiResponses';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import FundProvider from '../../../props/models/FundProvider';

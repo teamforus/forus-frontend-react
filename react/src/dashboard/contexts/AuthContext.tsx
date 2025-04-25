@@ -4,7 +4,7 @@ import Identity from '../props/models/Identity';
 import Employee from '../props/models/Employee';
 import { useAuthService } from '../services/AuthService';
 import { getStateRouteUrl, useStateRoutes } from '../modules/state_router/Router';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import events from '../helpers/events';
 import { ResponseError } from '../props/ApiResponses';
 import Identity2FAState from '../props/models/Identity2FAState';
