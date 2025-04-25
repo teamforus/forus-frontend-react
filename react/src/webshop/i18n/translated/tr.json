@@ -270,12 +270,6 @@
             "why": "Neden?",
             "activate": "Etkinleştir"
         },
-        "product_item_grid": {
-            "bookmark": "İstek listesine ekle"
-        },
-        "product_item_list": {
-            "bookmark": "İstek listesine ekle"
-        },
         "product_item_search": {
             "free": "Ücretsiz"
         },
@@ -283,6 +277,15 @@
             "no_data": "Veri yok",
             "open_provider": "Açık sağlayıcı",
             "show_locations": "Yerleri göster"
+        },
+        "product_item": {
+            "bookmark": "İstek listesine ekle",
+            "payment_option_ideal": "Ek ödeme mümkün",
+            "payment_option_ideal_aria_label": "Ek ödeme mümkün: daha fazla bilgi için tıklayın",
+            "payment_option_qr": "QR ödeme",
+            "payment_option_qr_aria_label": "QR ödemesi: daha fazla bilgi için tıklayın",
+            "payment_option_reservation": "Online ödeme",
+            "payment_option_reservation_aria_label": "Online ödeme: daha fazla bilgi için tıklayın"
         }
     },
     "logo_alt_text": {
@@ -417,7 +420,15 @@
             "providers": "Sağlayıcılar",
             "search": "Arama teklifi",
             "sort": "Sırala",
-            "sub_category": "Alt Kategori"
+            "sub_category": "Alt Kategori",
+            "payment_option_ideal": "iDeal ile çevrimiçi ödeme",
+            "payment_option_qr": "QR kodunu sağlayıcıda göster",
+            "payment_option_reservation": "Online rezervasyon",
+            "payment_options": "Ödeme seçenekleri",
+            "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
+            "price": "Fiyat (€)",
+            "price_from": "Kimden",
+            "price_to": "için"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -1799,7 +1810,14 @@
             "limit": "Kalan kredi:",
             "max_limit": "Kişi başına maksimum:",
             "pay_from_voucher": "Krediden ödeme yaparsınız:",
-            "price": "Fiyat:"
+            "price": "Fiyat:",
+            "payment_option_ideal": "Online ödeme (iDEAL)",
+            "payment_option_ideal_aria_label": "Online ödeme (iDEAL): daha fazla bilgi için tıklayın",
+            "payment_option_qr": "QR kodunu sağlayıcıda göster",
+            "payment_option_qr_aria_label": "QR kodunu sağlayıcıda göster: daha fazla bilgi için tıklayın",
+            "payment_option_reservation": "Online rezervasyon",
+            "payment_option_reservation_aria_label": "Online rezervasyon: daha fazla bilgi için tıklayın",
+            "payment_options": "Ödeme seçenekleri"
         },
         "low_amount": "Yeterli bakiyeye sahip krediniz yok.",
         "map": {
@@ -3536,5 +3554,17 @@
         "stop_successful": "Katılım durduruldu",
         "success_message": "{{name}} katılımınız sona ermiştir.",
         "warning": "Not: Bundan sonra kredinizi artık kullanamazsınız. {{name}} krediniz devre dışı bırakılacaktır."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "Bu çok açık!",
+        "description": "Ödeme seçenekleri ürüne göre değişir. Ödeme çeşitli şekillerde yapılabilir:",
+        "header": "Ödeme seçenekleri",
+        "info_option_extra_payment_ideal_description": "Krediniz rezervasyon için yeterli değil mi? Bazı ürünler için kalan tutarı iDEAL üzerinden online olarak güvenle ödeyebilirsiniz.",
+        "info_option_extra_payment_ideal_title": "Ek ödeme (iDeal)",
+        "info_option_qr_description": "Ödeme sırasında aldığınız QR kodunu göstererek sağlayıcının bulunduğu yerde kolayca ödeme yapın. Sağlayıcı kodu tarayacak ve ödeme hemen işleme alınacaktır.",
+        "info_option_qr_title": "QR kodu",
+        "info_option_reservation_description": "Bir teklif sipariş ederek bu web sitesi üzerinden ödeme yapın. Bunun için rezerve et butonuna tıklayın ve istenen bilgileri doldurun. Tutar doğrudan mevcut krediden düşülecektir. Sağlayıcı rezervasyonu alacak ve gerekirse sizinle iletişime geçecektir.",
+        "info_option_reservation_title": "Rezervasyon",
+        "title": "Ödeme seçenekleri"
     }
 }

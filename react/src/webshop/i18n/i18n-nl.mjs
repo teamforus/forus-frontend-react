@@ -73,6 +73,7 @@ import modal_fund_help from './nl/modals/modal_fund_help.mjs';
 import modal_pin_code from './nl/modals/modal_pin_code.mjs';
 import modal_logout from './nl/modals/modal_logout.mjs';
 import modal_deactivate_voucher from './nl/modals/modal_deactivate_voucher.mjs';
+import modal_product_payment_options_info from './nl/modals/modal_product_payment_options_info.mjs';
 
 import app_footer from './nl/directives/app-footer.mjs';
 import block_products from './nl/directives/block-products.mjs';
@@ -342,10 +343,23 @@ export default {
             buttons: { is_pending: 'In afwachting', is_applicable: 'Aanvragen' },
             status: { active: 'Actief' },
         },
-        product_item_grid: { bookmark: 'Toevoegen aan verlanglijstje' },
-        product_item_list: { bookmark: 'Toevoegen aan verlanglijstje' },
-        product_item_search: { free: 'Gratis' },
-        provider_item_list: { open_provider: 'Open aanbieder', show_locations: 'Toon locaties', no_data: 'Geen data' },
+        product_item: {
+            bookmark: 'Toevoegen aan verlanglijstje',
+            payment_option_qr: 'QR-code',
+            payment_option_qr_aria_label: 'QR-code: klik voor meer informatie',
+            payment_option_reservation: 'Online reserveren',
+            payment_option_reservation_aria_label: 'Online reserveren: klik voor meer informatie',
+            payment_option_ideal: 'Online bijbetalen',
+            payment_option_ideal_aria_label: 'Online bijbetalen: klik voor meer informatie',
+        },
+        product_item_search: {
+            free: 'Gratis',
+        },
+        provider_item_list: {
+            open_provider: 'Open aanbieder',
+            show_locations: 'Toon locaties',
+            no_data: 'Geen data',
+        },
         funds_list_pre_check: {
             show_more: 'Toon meer',
             show_less: 'Toon minder',
@@ -469,6 +483,7 @@ export default {
     modal_pin_code: modal_pin_code,
     modal_logout: modal_logout,
     modal_deactivate_voucher: modal_deactivate_voucher,
+    modal_product_payment_options_info: modal_product_payment_options_info,
 
     // DIRECTIVES
     app_footer: app_footer,
