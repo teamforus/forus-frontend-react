@@ -359,7 +359,7 @@ export default function Reservations() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="reservationsPageContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="reservationsTitle">
                     {translate('reservations.header.title')} ({reservations?.meta?.total})
@@ -513,7 +513,7 @@ export default function Reservations() {
                     {configsElement}
 
                     <TableTopScroller>
-                        <table className="table" id="reservationsTable">
+                        <table className="table">
                             {headElement}
 
                             <tbody>

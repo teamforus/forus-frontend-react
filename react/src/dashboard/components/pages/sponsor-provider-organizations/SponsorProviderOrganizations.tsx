@@ -233,7 +233,7 @@ export default function SponsorProviderOrganizations() {
                 </div>
             )}
 
-            <div className="card">
+            <div className="card" data-dusk="sponsorProvidersPageContent">
                 <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="card-title flex flex-grow">
@@ -535,7 +535,7 @@ export default function SponsorProviderOrganizations() {
                             {configsElement}
 
                             <TableTopScroller>
-                                <table className="table" id="providersTable">
+                                <table className="table">
                                     {headElement}
 
                                     {providerOrganizations.data.map((providerOrganization) => (

@@ -201,7 +201,7 @@ export default function Employees() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="employeesPageContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">Medewerkers ({employees?.meta.total})</div>
                 <div className="card-header-filters">
@@ -259,7 +259,7 @@ export default function Employees() {
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table" id="employeesTable">
+                            <table className="table">
                                 {headElement}
 
                                 <tbody>

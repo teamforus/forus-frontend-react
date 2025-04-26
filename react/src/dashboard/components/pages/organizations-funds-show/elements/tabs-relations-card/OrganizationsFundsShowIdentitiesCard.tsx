@@ -73,7 +73,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
     }, [fetchIdentities]);
 
     return (
-        <div className="card" data-dusk="identitiesTable">
+        <div className="card" data-dusk="identitiesPageContent">
             <div className="card-header">
                 <div className="flex flex-grow">
                     <div className="card-title">
@@ -185,7 +185,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                     {identities?.meta?.total > 0 ? (
                         <div className="card-section card-section-padless">
                             <div className="table-wrapper">
-                                <table className="table" id="identitiesTable">
+                                <table className="table">
                                     <thead>
                                         <tr>
                                             <ThSortable filter={filter} label={'ID'} value="id" />
@@ -255,7 +255,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                         />
                     )}
 
-                    <div className="card-section card-section-narrow" hidden={identities.meta.total < 2}>
+                    <div className="card-section card-section-narrow" hidden={identities.meta.total < 1}>
                         <Paginator
                             meta={identities.meta}
                             filters={filter.activeValues}

@@ -49,7 +49,7 @@ export default function ReimbursementsTable({
                     {configsElement}
 
                     <TableTopScroller>
-                        <table className="table" id="reimbursementsTable">
+                        <table className="table">
                             {headElement}
 
                             <tbody>

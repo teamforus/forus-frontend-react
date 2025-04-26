@@ -364,7 +364,7 @@ export default function Transactions() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="transactionsPageContent">
             <div className="card-header">
                 {viewType.key == 'transactions' ? (
                     <div className="card-title flex flex-grow">
@@ -757,7 +757,7 @@ export default function Transactions() {
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table" id="transactionsTable">
+                            <table className="table">
                                 {headElement}
 
                                 <tbody>

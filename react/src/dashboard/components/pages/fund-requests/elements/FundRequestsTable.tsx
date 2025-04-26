@@ -51,7 +51,7 @@ export default function FundRequestsTable({
                     {configsElement}
 
                     <TableTopScroller>
-                        <table className="table" id="fundRequestsTable">
+                        <table className="table">
                             {headElement}
 
                             <tbody>

@@ -171,7 +171,7 @@ export default function Identities() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="identitiesPageContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('identities.header.title')} ({identities.meta.total})
@@ -332,7 +332,7 @@ export default function Identities() {
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table" id="identitiesTable">
+                            <table className="table">
                                 {headElement}
 
                                 <tbody>

@@ -230,6 +230,7 @@ export default function ModalExportDataSelect({
                                                 <label
                                                     key={index}
                                                     className="export-option"
+                                                    data-dusk={`toggle_${section.key}_${field.value}`}
                                                     htmlFor={`radio_${indexSection}_${index}`}>
                                                     <input
                                                         type="radio"

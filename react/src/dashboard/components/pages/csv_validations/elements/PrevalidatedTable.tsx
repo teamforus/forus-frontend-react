@@ -185,7 +185,7 @@ export default function PrevalidatedTable({
     }
 
     return (
-        <div className="card form">
+        <div className="card form" data-dusk="prevalidationsPageContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">{translate('prevalidated_table.header.title')}</div>
                 <div className="card-header-filters">
@@ -310,7 +310,7 @@ export default function PrevalidatedTable({
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table" id="prevalidationsTable">
+                            <table className="table">
                                 {headElement}
 
                                 <tbody>
