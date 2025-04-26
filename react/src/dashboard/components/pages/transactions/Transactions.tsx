@@ -352,7 +352,7 @@ export default function Transactions() {
     ]);
 
     useEffect(() => {
-        fetchFunds({}).then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
+        fetchFunds({ per_page: 100 }).then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
     }, [fetchFunds]);
 
     if (
@@ -506,13 +506,16 @@ export default function Transactions() {
                                     />
                                 </FilterItemToggle>
 
-                                <FilterItemToggle label={translate('transactions.labels.fund_name')}>
+                                <FilterItemToggle
+                                    dusk="fundSelectToggle"
+                                    label={translate('transactions.labels.fund_name')}>
                                     {funds && (
                                         <SelectControl
                                             className="form-control"
                                             propKey={'id'}
                                             allowSearch={false}
                                             options={funds}
+                                            dusk="fundSelect"
                                             onChange={(fund_id: number) => filter.update({ fund_id })}
                                         />
                                     )}
@@ -985,7 +988,7 @@ export default function Transactions() {
                 hasPermission(activeOrganization, 'manage_transaction_bulks') && (
                     <div className="card-section" hidden={viewType.key !== 'transactions'}>
                         <div className="flex flex-vertical">
-                            <div className="card-text">
+                            <div className="card-text" data-dusk="pendingBulkingMetaText">
                                 <TranslateHtml
                                     i18n={'transactions.labels.bulk_total_amount'}
                                     values={{
@@ -996,6 +999,7 @@ export default function Transactions() {
                             </div>
                             <button
                                 className="button button-primary"
+                                data-dusk="bulkPendingNow"
                                 onClick={() => bulkPendingNow()}
                                 disabled={buildingBulks}>
                                 {buildingBulks ? (
@@ -1049,7 +1053,16 @@ export default function Transactions() {
 
                                 <tbody>
                                     {transactionBulks.data?.map((transactionBulk) => (
-                                        <tr key={transactionBulk.id}>
+                                        <StateNavLink
+                                            customElement={'tr'}
+                                            className={'tr-clickable'}
+                                            name={'transaction-bulk'}
+                                            params={{
+                                                organizationId: activeOrganization.id,
+                                                id: transactionBulk.id,
+                                            }}
+                                            key={transactionBulk.id}
+                                            dataDusk={`transactionBulkRow${transactionBulk.id}`}>
                                             <td>{transactionBulk.id}</td>
                                             <td className="text-primary-light">
                                                 {transactionBulk.voucher_transactions_amount_locale}
@@ -1112,7 +1125,7 @@ export default function Transactions() {
                                                     )}
                                                 />
                                             </td>
-                                        </tr>
+                                        </StateNavLink>
                                     ))}
                                 </tbody>
                             </table>
