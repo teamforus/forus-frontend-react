@@ -270,12 +270,6 @@
             "why": "لماذا؟",
             "activate": "تفعيل"
         },
-        "product_item_grid": {
-            "bookmark": "إضافة إلى قائمة الرغبات"
-        },
-        "product_item_list": {
-            "bookmark": "إضافة إلى قائمة الرغبات"
-        },
         "product_item_search": {
             "free": "مجاناً"
         },
@@ -283,6 +277,15 @@
             "no_data": "لا توجد بيانات",
             "open_provider": "المزود المفتوح",
             "show_locations": "عرض المواقع"
+        },
+        "product_item": {
+            "bookmark": "إضافة إلى قائمة الرغبات",
+            "payment_option_ideal": "إمكانية الدفع الإضافي",
+            "payment_option_ideal_aria_label": "إمكانية الدفع الإضافي: انقر للحصول على مزيد من المعلومات",
+            "payment_option_qr": "مدفوعات QR",
+            "payment_option_qr_aria_label": "دفع QR: انقر للحصول على مزيد من المعلومات",
+            "payment_option_reservation": "الدفع عبر الإنترنت",
+            "payment_option_reservation_aria_label": "الدفع عبر الإنترنت: انقر للحصول على مزيد من المعلومات"
         }
     },
     "logo_alt_text": {
@@ -417,7 +420,15 @@
             "providers": "المزودون",
             "search": "عرض البحث",
             "sort": "فرز",
-            "sub_category": "الفئة الفرعية"
+            "sub_category": "الفئة الفرعية",
+            "payment_option_ideal": "الدفع عبر الإنترنت باستخدام iDeal",
+            "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
+            "payment_option_reservation": "احجز عبر الإنترنت",
+            "payment_options": "خيارات الدفع",
+            "payment_options_info": "اقرأ المزيد عن خيارات الدفع",
+            "price": "السعر (€)",
+            "price_from": "من",
+            "price_to": "إلى"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -1799,7 +1810,14 @@
             "limit": "الرصيد المتبقي",
             "max_limit": "الحد الأقصى للشخص الواحد:",
             "pay_from_voucher": "أنت تدفع من الرصيد",
-            "price": "السعر:"
+            "price": "السعر:",
+            "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL)",
+            "payment_option_ideal_aria_label": "الدفع عبر الإنترنت (iDEAL): انقر للحصول على مزيد من المعلومات",
+            "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
+            "payment_option_qr_aria_label": "إظهار رمز الاستجابة السريعة لدى مقدم الخدمة: انقر للحصول على مزيد من المعلومات",
+            "payment_option_reservation": "احجز عبر الإنترنت",
+            "payment_option_reservation_aria_label": "الحجز عبر الإنترنت: انقر للحصول على مزيد من المعلومات",
+            "payment_options": "خيارات الدفع"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -3536,5 +3554,17 @@
         "stop_successful": "توقفت المشاركة",
         "success_message": "لقد توقفت مشاركتك {{name}} ",
         "warning": "ملاحظة: لم يعد بإمكانك استخدام رصيدك بعد ذلك. سيتم إلغاء تنشيط رصيدك {{name}} الخاص بك."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "الأمر واضح!",
+        "description": "تختلف خيارات الدفع حسب المنتج. يمكن الدفع بعدة طرق:",
+        "header": "خيارات الدفع",
+        "info_option_extra_payment_ideal_description": "هل رصيدك لا يكفي للحجز؟ بالنسبة لبعض المنتجات، يمكنك دفع المبلغ المتبقي بأمان عبر الإنترنت من خلال iDEAL.",
+        "info_option_extra_payment_ideal_title": "دفعة إضافية (iDeal)",
+        "info_option_qr_description": "ادفع بسهولة في موقع مقدم الخدمة من خلال إظهار رمز الاستجابة السريعة الذي تلقيته عند الدفع. سيقوم مقدم الخدمة بمسح الرمز ضوئياً وستتم معالجة الدفع فوراً.",
+        "info_option_qr_title": "رمز الاستجابة السريعة",
+        "info_option_reservation_description": "ادفع عبر هذا الموقع الإلكتروني عن طريق طلب عرض. للقيام بذلك، انقر على زر الحجز واملأ التفاصيل المطلوبة. سيتم خصم المبلغ مباشرةً من الرصيد المتاح. سيتلقى مقدم الخدمة الحجز ويتصل بك إذا لزم الأمر.",
+        "info_option_reservation_title": "الحجز",
+        "title": "خيارات الدفع"
     }
 }

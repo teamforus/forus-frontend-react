@@ -457,7 +457,15 @@
             "providers": "Providers",
             "search": "Search offer",
             "sort": "Sort",
-            "sub_category": "Subcategory"
+            "sub_category": "Subcategory",
+            "payment_option_ideal": "Online additional payment with iDeal",
+            "payment_option_qr": "Show QR code at the provider",
+            "payment_option_reservation": "Online booking",
+            "payment_options": "Payment options",
+            "payment_options_info": "Learn more about payment options",
+            "price": "Price (€)",
+            "price_from": "From",
+            "price_to": "To"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -1504,7 +1512,14 @@
             "limit": "Remaining credit:",
             "max_limit": "Maximum per person:",
             "pay_from_voucher": "You pay from the credit:",
-            "price": "Price:"
+            "price": "Price:",
+            "payment_option_ideal": "Online additional payment (iDEAL)",
+            "payment_option_ideal_aria_label": "Online additional payment (iDEAL): click for more information",
+            "payment_option_qr": "Show QR code at provider",
+            "payment_option_qr_aria_label": "Show QR code at provider: click for more information",
+            "payment_option_reservation": "Online booking",
+            "payment_option_reservation_aria_label": "Online booking: click for more information",
+            "payment_options": "Payment options"
         },
         "low_amount": "You do not have a credit with sufficient balance.",
         "map": {
@@ -3059,12 +3074,6 @@
             "why": "Why?",
             "activate": "Activate"
         },
-        "product_item_grid": {
-            "bookmark": "Add to wish list"
-        },
-        "product_item_list": {
-            "bookmark": "Add to wish list"
-        },
         "product_item_search": {
             "free": "Free"
         },
@@ -3072,6 +3081,15 @@
             "no_data": "No data",
             "open_provider": "Open provider",
             "show_locations": "Show locations"
+        },
+        "product_item": {
+            "bookmark": "Add to wish list",
+            "payment_option_ideal": "Additional payment possible",
+            "payment_option_ideal_aria_label": "Additional payment possible: click for more information",
+            "payment_option_qr": "QR payment",
+            "payment_option_qr_aria_label": "QR payment: click for more information",
+            "payment_option_reservation": "Pay online",
+            "payment_option_reservation_aria_label": "Paying online: click for more information"
         }
     },
     "security_2fa": {
@@ -3536,5 +3554,17 @@
         "stop_successful": "Participation stopped",
         "success_message": "Your {{name}} participation has stopped.",
         "warning": "Note: You cannot use your credit after this. Your {{name}} credit will be deactivated."
+    },
+    "modal_product_payment_options_info": {
+        "confirm": "It is clear!",
+        "description": "Payment options vary by product. Payment can be made in several ways:",
+        "header": "Payment options",
+        "info_option_extra_payment_ideal_description": "Is your credit not enough for a reservation? For some products, you can safely top up the remaining amount online via iDEAL.",
+        "info_option_extra_payment_ideal_title": "Additional payment (iDeal)",
+        "info_option_qr_description": "Pay easily at the provider's location by showing the QR code you received at checkout. The provider scans the code, then the payment is processed immediately.",
+        "info_option_qr_title": "QR code",
+        "info_option_reservation_description": "Pay through this website by ordering an offer. To do so, click on the reserve button and enter the requested information. The amount will be deducted directly from the available credit. The provider will receive the reservation and contact you if necessary.",
+        "info_option_reservation_title": "Reservation",
+        "title": "Payment options"
     }
 }
