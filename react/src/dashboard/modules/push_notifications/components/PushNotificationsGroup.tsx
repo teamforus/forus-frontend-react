@@ -118,6 +118,7 @@ export default function PushNotificationsGroup({
                         <div
                             className="notification-close mdi mdi-close"
                             role="button"
+                            data-dusk="notificationCloseBtn"
                             tabIndex={0}
                             onKeyDown={clickOnKeyEnter}
                             onClick={() => popNotification(notification.id)}
