@@ -336,6 +336,7 @@ export default function TransactionBulksView() {
                                                 {/* Export SEPA file */}
                                                 {activeOrganization.allow_manual_bulk_processing && (
                                                     <button
+                                                        data-dusk="exportSepaBtn"
                                                         className="button button-default button-sm"
                                                         onClick={() => exportSepa()}>
                                                         <em className="mdi mdi-download icon-start" />
@@ -360,6 +361,7 @@ export default function TransactionBulksView() {
                                                 {/* Set paid */}
                                                 {transactionBulk.is_exported && (
                                                     <button
+                                                        data-dusk="acceptManuallyBtn"
                                                         className="button button-danger button-sm"
                                                         onClick={() => acceptManually()}>
                                                         <em className="mdi mdi-alert-outline icon-start" />
