@@ -51,6 +51,6 @@ jobs:
           --head "auto/master_to_develop_update-${{steps.get-date.outputs.value}}"
           --title "[auto] PR master into develop"
           --body "Created by Github action after a change in master branch that doesn't exist in develop branch"
-          --assignee lexlog,RobinMeles --reviewer lexlog,RobinMeles
+          --assignee RobinMeles --reviewer RobinMeles
         env:
           GH_TOKEN: ${{ github.token }}
