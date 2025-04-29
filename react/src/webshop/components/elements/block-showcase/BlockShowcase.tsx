@@ -4,6 +4,7 @@ import BlockLoaderBreadcrumbs from '../block-loader/BlockLoaderBreadcrumbs';
 import BlockBreadcrumbs, { Breadcrumb } from '../block-breadcrumbs/BlockBreadcrumbs';
 import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
 import useReadSpeakerHref from '../../../modules/read_speaker/hooks/useReadSpeakerHref';
+import classNames from 'classnames';
 
 export default function BlockShowcase({
     children = null,
@@ -40,7 +41,7 @@ export default function BlockShowcase({
     }, [breadcrumbItems, readSpeakerHref]);
 
     return (
-        <div className={`block block-showcase ${className || ''}`}>
+        <div className={classNames('block', 'block-showcase', className)}>
             <main id="main-content">
                 {breadcrumbs || breadcrumbLoaderElement || <BlockLoaderBreadcrumbs />}
                 {children || loaderElement || <BlockLoader />}
