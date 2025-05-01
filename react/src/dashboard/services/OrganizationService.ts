@@ -1,7 +1,7 @@
 import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import Organization, { SponsorProviderOrganization } from '../props/models/Organization';
+import Organization, { SponsorProviderOrganization, TranslationStats } from '../props/models/Organization';
 import { hasPermission } from '../helpers/utils';
 import OrganizationFeatureStatuses from './types/OrganizationFeatureStatuses';
 import FundProvider from '../props/models/FundProvider';
@@ -108,6 +108,13 @@ export class OrganizationService<T = Organization> {
 
     public providerOrganizations(id: number, data = {}): Promise<ApiResponse<SponsorProviderOrganization>> {
         return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers`, data);
+    }
+
+    public translationStats(
+        id: number,
+        data = {},
+    ): Promise<ResponseSimple<{ data: TranslationStats; current_month: TranslationStats }>> {
+        return this.apiRequest.get(`${this.prefix}/${id}/sponsor/translation-stats`, data);
     }
 
     public providerOrganization(
@@ -217,6 +224,20 @@ export class OrganizationService<T = Organization> {
                 key: key,
                 title: `provider_organizations.labels.${key}`,
                 description: `provider_organizations.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getTranslationStatsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['type', 'used', 'cost'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `translation_stats.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `translation_stats.labels.${key}`,
+                description: `translation_stats.tooltips.${key}`,
             },
         }));
     }
