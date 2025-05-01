@@ -6,7 +6,7 @@ import Session from '../../../props/models/Session';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { ModalState } from '../../../modules/modals/context/ModalContext';
 import ModalNotification from '../../modals/ModalNotification';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { authContext } from '../../../contexts/AuthContext';
 import { mainContext } from '../../../contexts/MainContext';

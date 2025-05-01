@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import Fund from '../../../props/models/Fund';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import { useFundService } from '../../../services/FundService';

@@ -14,7 +14,7 @@ import Media from '../../../props/models/Media';
 import { useMediaService } from '../../../services/MediaService';
 import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';

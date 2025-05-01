@@ -10,7 +10,7 @@ import Reimbursement from '../../../props/models/Reimbursement';
 import { useVoucherService } from '../../../services/VoucherService';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import { useReimbursementService } from '../../../services/ReimbursementService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import useFormBuilder from '../../../../dashboard/hooks/useFormBuilder';
 import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';

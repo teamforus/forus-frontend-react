@@ -4,7 +4,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useEnvData from '../../../hooks/useEnvData';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useTranslate from '../../../hooks/useTranslate';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
