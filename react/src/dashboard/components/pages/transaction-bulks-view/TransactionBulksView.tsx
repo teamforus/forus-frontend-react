@@ -5,7 +5,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useEnvData from '../../../hooks/useEnvData';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import TransactionBulk from '../../../props/models/TransactionBulk';
@@ -336,6 +336,7 @@ export default function TransactionBulksView() {
                                                 {/* Export SEPA file */}
                                                 {activeOrganization.allow_manual_bulk_processing && (
                                                     <button
+                                                        data-dusk="exportSepaBtn"
                                                         className="button button-default button-sm"
                                                         onClick={() => exportSepa()}>
                                                         <em className="mdi mdi-download icon-start" />
@@ -360,6 +361,7 @@ export default function TransactionBulksView() {
                                                 {/* Set paid */}
                                                 {transactionBulk.is_exported && (
                                                     <button
+                                                        data-dusk="acceptManuallyBtn"
                                                         className="button button-danger button-sm"
                                                         onClick={() => acceptManually()}>
                                                         <em className="mdi mdi-alert-outline icon-start" />

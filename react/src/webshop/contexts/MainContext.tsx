@@ -6,7 +6,7 @@ import useFilter from '../../dashboard/hooks/useFilter';
 import FilterScope from '../../dashboard/types/FilterScope';
 import { useStateRoutes } from '../modules/state_router/Router';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import Language from '../../dashboard/props/models/Language';
 
 interface AuthMemoProps {
