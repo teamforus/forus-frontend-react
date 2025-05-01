@@ -22,27 +22,19 @@ export interface SponsorProviderOrganization extends Organization {
 
 export interface TranslationStats {
     total: {
-        symbols: string;
+        symbols: number;
         cost: string;
     };
-    count_per_type: {
-        [key: string]: {
-            symbols: string;
-            cost: string;
-        };
-    };
-    total_per_locale: {
-        [key: string]: {
-            symbols: string;
-            cost: string;
-        };
-    };
-    total_per_type_and_locale: {
-        [key: string]: {
-            symbols: string;
-            cost: string;
-        };
-    };
+    groups: Array<{
+        name: string;
+        symbols: number;
+        costs: string;
+        locales: Array<{
+            name: string;
+            symbols: number;
+            costs: string;
+        }>;
+    }>;
 }
 
 export default interface Organization {
@@ -129,11 +121,6 @@ export default interface Organization {
         name?: string;
         locale?: string;
     }>;
-    translations_usage?: {
-        month: TranslationStats;
-        week: TranslationStats;
-        day: TranslationStats;
-    };
     bank_statement_details?: {
         bank_transaction_id?: boolean;
         bank_transaction_date?: boolean;

@@ -547,6 +547,14 @@
             &.selected {
                 background: #f8fbf7;
             }
+
+            &.tr-totals {
+                border-top: 2px solid var(--color-primary);
+
+                td {
+                    background-color: #fafbfc;
+                }
+            }
         }
 
         & > tbody:last-child > tr {
