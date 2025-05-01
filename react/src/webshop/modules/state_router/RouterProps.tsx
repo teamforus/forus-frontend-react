@@ -1,5 +1,5 @@
 import React from 'react';
-import { Location } from 'react-router-dom';
+import { Location } from 'react-router';
 
 export enum LayoutType {
     clear,

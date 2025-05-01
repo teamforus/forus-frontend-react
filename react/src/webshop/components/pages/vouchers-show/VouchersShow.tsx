@@ -7,7 +7,7 @@ import { useVoucherService } from '../../../services/VoucherService';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useEnvData from '../../../hooks/useEnvData';
 import useComposeVoucherCardData from '../../../services/helpers/useComposeVoucherCardData';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { strLimit } from '../../../../dashboard/helpers/string';
 import QrCode from '../../../../dashboard/components/elements/qr-code/QrCode';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';

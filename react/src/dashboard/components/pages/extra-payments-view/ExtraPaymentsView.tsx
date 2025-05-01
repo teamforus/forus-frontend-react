@@ -4,7 +4,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useProductReservationService from '../../../services/ProductReservationService';
 import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';

@@ -3,7 +3,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useProductService from '../../../services/ProductService';
 import ProductDetailsBlock from '../products-view/elements/ProductDetailsBlock';
 import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';

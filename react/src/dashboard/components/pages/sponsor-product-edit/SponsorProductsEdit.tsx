@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { useFundService } from '../../../services/FundService';
 import LoadingCard from '../../elements/loading-card/LoadingCard';

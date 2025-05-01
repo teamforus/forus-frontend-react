@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { createSearchParams, generatePath, matchRoutes, useLocation, useNavigate } from 'react-router-dom';
+import { createSearchParams, generatePath, matchRoutes, useLocation, useNavigate } from 'react-router';
 import { CurrentRoute, RouteState } from './RouterProps';
 import router from '../../router/routes';
 import { NavigateOptions } from 'react-router';

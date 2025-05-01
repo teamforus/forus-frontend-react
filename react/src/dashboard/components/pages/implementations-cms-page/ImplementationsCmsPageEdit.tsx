@@ -3,7 +3,7 @@ import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
 import ImplementationsCmsPageForm from './elements/ImplementationsCmsPageForm';
 import ImplementationPage from '../../../props/models/ImplementationPage';
