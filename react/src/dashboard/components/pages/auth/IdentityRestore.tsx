@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { authContext } from '../../../contexts/AuthContext';
 import { useIdentityService } from '../../../services/IdentityService';
 import { useNavigate, useParams } from 'react-router';
@@ -11,10 +11,13 @@ const targetNewSignup = 'newSignup';
 
 export default function IdentityRestore({ confirmation = false }: { confirmation: boolean }) {
     const tokenParam = useParams().token;
-    const [query] = useQueryParams({
-        token: StringParam,
-        target: StringParam,
-    });
+
+    const [query] = useState(
+        useQueryParams({
+            token: StringParam,
+            target: StringParam,
+        })[0],
+    );
 
     const { setToken } = useContext(authContext);
     const { pushDanger } = useContext(pushNotificationContext);
