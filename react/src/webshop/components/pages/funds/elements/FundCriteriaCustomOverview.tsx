@@ -20,8 +20,8 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                         <li>
                             In de tabel hieronder vindt u wat uw maximale inkomen mag zijn. Gebruik ter controle uw
                             inkomen van de maand vóór de maand waarin u het abonnement aanvraagt. Voorbeeld: u vraagt op
-                            3 december het abonnement aan. Dan vergelijkt u uw inkomen van november met het
-                            maximale inkomen dat voor u geldt
+                            3 december het abonnement aan. Dan vergelijkt u uw inkomen van november met het maximale
+                            inkomen dat voor u geldt
                         </li>
                     </ul>
                     <table className="table collapse-sides">
