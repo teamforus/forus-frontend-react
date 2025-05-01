@@ -20,7 +20,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                         <li>
                             In de tabel hieronder vindt u wat uw maximale inkomen mag zijn. Gebruik ter controle uw
                             inkomen van de maand vóór de maand waarin u het abonnement aanvraagt. Voorbeeld: u vraagt op
-                            3 december 2024 het abonnement aan. Dan vergelijkt u uw inkomen van november 2024 met het
+                            3 december het abonnement aan. Dan vergelijkt u uw inkomen van november met het
                             maximale inkomen dat voor u geldt
                         </li>
                     </ul>
@@ -71,7 +71,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                     <a href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/">
                         sociaal raadslieden
                     </a>{' '}
-                    van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. <br />
+                    van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 024 329 90 00. <br />
                     <p />
                     <p className="sign_up-pane-text">
                         Door te verklaren dat u aan de voorwaarden voldoet, gaat u er mee akkoord dat uw aanvraag
@@ -91,7 +91,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                         <li>U bent 18 jaar of ouder</li>
                         <li>U bent geen student</li>
                         <li>U woont in Nijmegen (en dit is geen opvanglocatie)</li>
-                        <li>U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2024:</li>
+                        <li>U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2025:</li>
                     </ul>
                     <table className="table collapse-sides">
                         <tbody>
@@ -138,7 +138,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                     <a href="https://www.nijmegen.nl/diensten/zorg-hulp-en-advies/sociaal-raadslieden-voor-juridische-hulp/">
                         sociaal raadslieden
                     </a>{' '}
-                    van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 14 024. <br />
+                    van de gemeente Nijmegen kunnen u hierbij helpen. Bel voor een afspraak 024 329 90 00. <br />
                     <p />
                     <p className="sign_up-pane-text">
                         Door te verklaren dat u aan de voorwaarden voldoet, gaat u er mee akkoord dat uw aanvraag
