@@ -4,6 +4,7 @@ export default {
         title_edit: 'Aanbod aanpassen',
     },
     labels: {
+        name: 'Titel van aanbod',
         details: 'Beschrijving',
         reserved: 'Gereserveerd',
         sold: 'Verkocht',

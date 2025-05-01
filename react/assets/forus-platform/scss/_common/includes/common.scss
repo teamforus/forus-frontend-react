@@ -211,6 +211,14 @@ img {
     font-weight: 600 !important;
 }
 
+.text-decoration-link {
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
 .text-medium,
 .text-strong-half {
     font-weight: 500 !important;

@@ -39,6 +39,8 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
+import BlockInlineCopy from '../../elements/block-inline-copy/BlockInlineCopy';
+import classNames from 'classnames';
 
 export default function Reservations() {
     const activeOrganization = useActiveOrganization();
@@ -542,18 +544,19 @@ export default function Reservations() {
                                                 params={{
                                                     organizationId: reservation.product.organization_id,
                                                     id: reservation.product.id,
-                                                }}>
-                                                <div
-                                                    className={`text-strong text-primary ${
-                                                        reservation.product?.deleted ? 'text-strike' : ''
-                                                    }}`}
-                                                    title={reservation.product.name}>
-                                                    {strLimit(reservation.product.name, 45)}
-                                                </div>
-                                                <div className="text-strong text-small text-muted-dark">
-                                                    {reservation.price_locale}
-                                                </div>
+                                                }}
+                                                className={classNames(
+                                                    `text-strong text-primary`,
+                                                    reservation.product?.deleted
+                                                        ? 'text-strike'
+                                                        : 'text-decoration-link',
+                                                )}
+                                                title={reservation.product.name}>
+                                                {strLimit(reservation.product.name, 45)}
                                             </StateNavLink>
+                                            <div className="text-strong text-small text-muted-dark">
+                                                {reservation.price_locale}
+                                            </div>
                                         </td>
                                         <td>{reservation.amount_locale}</td>
 
@@ -562,25 +565,31 @@ export default function Reservations() {
                                         )}
 
                                         <td>
-                                            {(reservation.first_name || reservation.last_name) && (
-                                                <strong>{reservation.first_name + ' ' + reservation.last_name}</strong>
-                                            )}
-                                            {reservation.identity_physical_card ? (
-                                                <div>
-                                                    <div className="text-strong text-primary">
-                                                        {reservation.identity_physical_card}
+                                            <div className={'flex flex-vertical'}>
+                                                {reservation.identity_physical_card ? (
+                                                    <div className={'flex flex-vertical'}>
+                                                        <div className="text-strong text-primary">
+                                                            {reservation.identity_physical_card}
+                                                        </div>
+                                                        <BlockInlineCopy
+                                                            className="text-strong text-small text-muted-dark"
+                                                            value={reservation.identity_email}>
+                                                            {strLimit(reservation.identity_email, 27)}
+                                                        </BlockInlineCopy>
                                                     </div>
-                                                    <div className="text-strong text-small text-muted-dark">
-                                                        {reservation.identity_email}
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div>
-                                                    <div className="text-strong text-primary">
-                                                        {reservation.identity_email}
-                                                    </div>
-                                                </div>
-                                            )}
+                                                ) : (
+                                                    <BlockInlineCopy
+                                                        className={'text-strong text-primary'}
+                                                        value={reservation.identity_email}>
+                                                        {strLimit(reservation.identity_email, 27)}
+                                                    </BlockInlineCopy>
+                                                )}
+                                                {(reservation.first_name || reservation.last_name) && (
+                                                    <strong>
+                                                        {reservation.first_name + ' ' + reservation.last_name}
+                                                    </strong>
+                                                )}
+                                            </div>
                                         </td>
                                         <td>
                                             <strong className="text-primary">{reservation.created_at_locale}</strong>
