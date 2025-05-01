@@ -51,7 +51,7 @@ export default {
         buy: 'Reserveren',
         buy_label: 'Open Reserveringsformulier',
         request: 'Activeren',
-        open_voucher: 'Betaal met QR-code',
+        open_voucher: 'Open tegoed',
         bookmark: 'Toevoegen aan verlanglijstje',
         groningen: {
             request: 'Aanvragen',
