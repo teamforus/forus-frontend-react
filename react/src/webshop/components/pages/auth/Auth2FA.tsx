@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import useAssetUrl from '../../../hooks/useAssetUrl';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import BlockAuth2FAInfoBox from '../../elements/block-auth-2fa-info-box/BlockAuth2FAInfoBox';
 import Modal2FASetup from '../../modals/Modal2FASetup';

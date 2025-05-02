@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useErrorBoundary } from 'react-error-boundary';
 import classNames from 'classnames';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function BlockException({ front = 'webshop' }: { front?: 'dashboard' | 'webshop' }) {

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useFilter from '../../../hooks/useFilter';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
 import useAssetUrl from '../../../hooks/useAssetUrl';

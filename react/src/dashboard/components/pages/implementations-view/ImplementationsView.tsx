@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useImplementationService from '../../../services/ImplementationService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { PaginationData, ResponseError } from '../../../props/ApiResponses';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { hasPermission } from '../../../helpers/utils';
 import StateNavLink from '../../../modules/state_router/StateNavLink';

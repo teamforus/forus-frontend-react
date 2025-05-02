@@ -4,7 +4,7 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import Reimbursement from '../../../props/models/Reimbursement';
 import { useReimbursementService } from '../../../services/ReimbursementService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import usePushSuccess from '../../../../dashboard/hooks/usePushSuccess';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { useNavigateState } from '../../../modules/state_router/Router';

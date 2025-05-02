@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useFundService } from '../../../services/FundService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import Fund from '../../../props/models/Fund';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';

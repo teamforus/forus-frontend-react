@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { snakeCase } from 'lodash';
 import { getStateRouteUrl, useStateParams } from '../../../modules/state_router/Router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';

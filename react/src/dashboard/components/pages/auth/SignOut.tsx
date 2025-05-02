@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { authContext } from '../../../contexts/AuthContext';
 import { mainContext } from '../../../contexts/MainContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 
 export default function SignOut() {
