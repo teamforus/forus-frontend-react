@@ -8,7 +8,7 @@ import { useRecordTypeService } from '../../../services/RecordTypeService';
 import RecordType from '../../../props/models/RecordType';
 import FundFormCriteriaCard from './elements/FundFormCriteriaCard';
 import FundFormConfigsCard from './elements/FundFormConfigsCard';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import OrganizationFundsShowOverviewCard from '../organizations-funds-show/elements/OrganizationFundsShowOverviewCard';
 
 export default function FundFormsView() {

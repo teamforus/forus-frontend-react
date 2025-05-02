@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import useAssetUrl from '../../../hooks/useAssetUrl';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { get } from 'lodash';
 import Fund from '../../../props/models/Fund';

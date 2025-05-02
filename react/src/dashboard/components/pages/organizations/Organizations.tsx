@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { mainContext } from '../../../contexts/MainContext';
 import { authContext } from '../../../contexts/AuthContext';
 import { useOrganizationService } from '../../../services/OrganizationService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import Organization from '../../../props/models/Organization';
 

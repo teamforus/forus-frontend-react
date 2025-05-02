@@ -5,7 +5,7 @@ import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import useImplementationNotificationService from '../../../services/ImplementationNotificationService';
 import SystemNotification from '../../../props/models/SystemNotification';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SystemNotificationEditor from './elements/SystemNotificationEditor';
 import { useFundService } from '../../../services/FundService';

@@ -6,7 +6,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
 import Reservation from '../../../props/models/Reservation';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useProductReservationService from '../../../services/ProductReservationService';
 import useConfirmReservationApproval from '../../../services/helpers/reservations/useConfirmReservationApproval';
 import useTransactionService from '../../../services/TransactionService';

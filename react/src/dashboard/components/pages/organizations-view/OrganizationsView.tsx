@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useOrganizationService } from '../../../services/OrganizationService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { mainContext } from '../../../contexts/MainContext';
 

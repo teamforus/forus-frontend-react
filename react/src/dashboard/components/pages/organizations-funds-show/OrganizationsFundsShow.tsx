@@ -3,7 +3,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../hooks/useTranslate';
 import useSetProgress from '../../../hooks/useSetProgress';
