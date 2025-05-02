@@ -23,6 +23,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { strLimit } from '../../../helpers/string';
 import BlockInlineCopy from '../../elements/block-inline-copy/BlockInlineCopy';
 import ProductDetailsBlockProperties from '../products-view/elements/ProductDetailsBlockProperties';
+import ReservationLabel from '../reservations/elements/ReservationLabel';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -40,7 +41,6 @@ export default function ReservationsView() {
 
     const [transaction, setTransaction] = useState<Transaction>(null);
     const [reservation, setReservation] = useState<Reservation>(null);
-    const [stateClass, setStateClass] = useState('label-default');
 
     const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
     const confirmReservationApproval = useConfirmReservationApproval();
@@ -74,7 +74,7 @@ export default function ReservationsView() {
 
     const acceptReservation = useCallback(
         (reservation: Reservation) => {
-            confirmReservationApproval(reservation, () => {
+            confirmReservationApproval([reservation], () => {
                 setProgress(0);
 
                 productReservationService
@@ -109,7 +109,7 @@ export default function ReservationsView() {
                 return showRejectInfoExtraPaid();
             }
 
-            confirmReservationRejection(reservation, () => {
+            confirmReservationRejection([reservation], () => {
                 productReservationService
                     .reject(activeOrganization.id, reservation.id)
                     .then((res) => {
@@ -153,10 +153,6 @@ export default function ReservationsView() {
         }
     }, [fetchTransaction, reservation?.voucher_transaction?.address]);
 
-    useEffect(() => {
-        setStateClass(productReservationService.stateClass(reservation));
-    }, [productReservationService, reservation]);
-
     if (!reservation) {
         return <LoadingCard />;
     }
@@ -186,13 +182,7 @@ export default function ReservationsView() {
                                     </div>
                                     <div className="flex flex-vertical flex-center">
                                         <div className="flex flex-horizontal">
-                                            {reservation.expired ? (
-                                                <label className="label label-danger-light">Expired</label>
-                                            ) : (
-                                                <label className={`label ${stateClass}`}>
-                                                    {reservation.state_locale}
-                                                </label>
-                                            )}
+                                            <ReservationLabel reservation={reservation} />
                                         </div>
                                     </div>
                                 </div>
