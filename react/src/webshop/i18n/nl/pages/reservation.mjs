@@ -48,7 +48,7 @@ export default {
         state: 'Status',
     },
     expiring:
-        'Houd er rekening mee dat er nog <strong>{expiresIn} minuten</strong> over zijn om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd.',
+        'Houd er rekening mee dat er nog <strong>{{expiresIn}} minuten</strong> over zijn om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd.',
     expired:
         'Sorry, uw reservering is tijdens het afrekenproces geannuleerd omdat het geselecteerde product uitverkocht is.',
 };

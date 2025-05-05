@@ -6,6 +6,7 @@ import BlockLoaderHeader from '../block-loader/BlockLoaderHeader';
 import ErrorBoundaryHandler from '../../../../dashboard/components/elements/error-boundary-handler/ErrorBoundaryHandler';
 import BlockBreadcrumbs, { Breadcrumb } from '../block-breadcrumbs/BlockBreadcrumbs';
 import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
+import Section from '../sections/Section';
 
 export default function BlockShowcaseProfile({
     filters = null,
@@ -21,9 +22,9 @@ export default function BlockShowcaseProfile({
     breadcrumbItems?: Array<Breadcrumb>;
 }) {
     return (
-        <BlockShowcase>
-            <section className="section section-profile">
-                <div className="wrapper">
+        <BlockShowcase breadcrumbItems={[]}>
+            <Section type="profile" wrapper={false}>
+                <div className="showcase-wrapper">
                     {breadcrumbItems?.length > 0 && (
                         <BlockBreadcrumbs
                             items={breadcrumbItems}
@@ -49,7 +50,7 @@ export default function BlockShowcaseProfile({
                         </div>
                     </ErrorBoundaryHandler>
                 </div>
-            </section>
+            </Section>
         </BlockShowcase>
     );
 }

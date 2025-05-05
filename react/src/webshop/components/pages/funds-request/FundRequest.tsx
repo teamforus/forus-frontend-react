@@ -13,7 +13,7 @@ import { useHelperService } from '../../../../dashboard/services/HelperService';
 import FundsListItemModel from '../../../services/types/FundsListItemModel';
 import { useVoucherService } from '../../../services/VoucherService';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import type FundRequest from '../../../../dashboard/props/models/FundRequest';
 import RecordType from '../../../../dashboard/props/models/RecordType';
@@ -597,11 +597,11 @@ export default function FundRequest() {
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
 
     if (!fund || !vouchers || !fundRequests || (steps[step] == 'confirm_criteria' && autoSubmit)) {
-        return <BlockShowcase wrapper={true} />;
+        return <BlockShowcase />;
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {!digiExpired && (
                 <div className="block block-sign_up" data-dusk="fundRequestForm">
                     <div className="block-wrapper form">

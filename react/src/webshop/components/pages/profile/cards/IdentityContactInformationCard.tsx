@@ -24,15 +24,7 @@ export default function IdentityContactInformationCard({
     setProfile?: Dispatch<SetStateAction<Profile>>;
     recordTypesByKey: ProfileRecords;
 }) {
-    const [fields] = useState([
-        'telephone',
-        'mobile',
-        'city',
-        'street',
-        'house_number',
-        'house_number_addition',
-        'postal_code',
-    ]);
+    const [fields] = useState(['telephone', 'mobile']);
 
     const [editContacts, setEditContacts] = useState(false);
 
@@ -50,11 +42,6 @@ export default function IdentityContactInformationCard({
         {
             telephone: '',
             mobile: '',
-            city: '',
-            street: '',
-            house_number: '',
-            house_number_addition: '',
-            postal_code: '',
         },
         (values) => {
             setProgress(0);
@@ -83,22 +70,8 @@ export default function IdentityContactInformationCard({
         formUpdate({
             telephone: profile.records.telephone?.[0]?.value || '',
             mobile: profile.records.mobile?.[0]?.value || '',
-            city: profile.records.city?.[0]?.value || '',
-            street: profile.records.street?.[0]?.value || '',
-            house_number: profile.records.house_number?.[0]?.value || '',
-            house_number_addition: profile.records.house_number_addition?.[0]?.value || '',
-            postal_code: profile.records.postal_code?.[0]?.value || '',
         });
-    }, [
-        formUpdate,
-        profile.records.city,
-        profile.records.mobile,
-        profile.records.street,
-        profile.records.telephone,
-        profile.records.house_number,
-        profile.records.house_number_addition,
-        profile.records.postal_code,
-    ]);
+    }, [formUpdate, profile.records.mobile, profile.records.telephone]);
 
     if (editContacts) {
         return (
@@ -143,22 +116,6 @@ export default function IdentityContactInformationCard({
                                 <FormError error={form.errors?.[field]} />
                             </div>
                         ))}
-                        <div className="form-group">
-                            <label className="form-label">{recordTypesByKey?.neighborhood_name?.name}</label>
-                            <input
-                                className="form-control"
-                                disabled={true}
-                                value={profile.records.neighborhood_name?.[0]?.value || ''}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label className="form-label">{recordTypesByKey?.municipality_name?.name}</label>
-                            <input
-                                className="form-control"
-                                disabled={true}
-                                value={profile.records.municipality_name?.[0]?.value || ''}
-                            />
-                        </div>
                     </div>
                 </div>
 
@@ -217,42 +174,6 @@ export default function IdentityContactInformationCard({
                             {
                                 label: recordTypesByKey?.mobile?.name,
                                 value: <IdentityRecordKeyValueListHistory records={profile.records.mobile} />,
-                            },
-                            {
-                                label: recordTypesByKey?.city?.name,
-                                value: <IdentityRecordKeyValueListHistory records={profile.records.city} />,
-                            },
-                            {
-                                label: recordTypesByKey?.street?.name,
-                                value: <IdentityRecordKeyValueListHistory records={profile.records.street} />,
-                            },
-                            {
-                                label: recordTypesByKey?.house_number?.name,
-                                value: <IdentityRecordKeyValueListHistory records={profile.records.house_number} />,
-                            },
-                            {
-                                label: recordTypesByKey?.house_number_addition?.name,
-                                value: (
-                                    <IdentityRecordKeyValueListHistory
-                                        records={profile.records.house_number_addition}
-                                    />
-                                ),
-                            },
-                            {
-                                label: recordTypesByKey?.postal_code?.name,
-                                value: <IdentityRecordKeyValueListHistory records={profile.records.postal_code} />,
-                            },
-                            {
-                                label: recordTypesByKey?.neighborhood_name?.name,
-                                value: (
-                                    <IdentityRecordKeyValueListHistory records={profile.records.neighborhood_name} />
-                                ),
-                            },
-                            {
-                                label: recordTypesByKey?.municipality_name?.name,
-                                value: (
-                                    <IdentityRecordKeyValueListHistory records={profile.records.municipality_name} />
-                                ),
                             },
                         ]}
                     />

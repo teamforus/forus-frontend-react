@@ -8,7 +8,7 @@ import ModalVoucherTransaction from '../../modals/ModalVoucherTransaction/ModalV
 import Fund from '../../../props/models/Fund';
 import ModalVoucherDeactivation from '../../modals/ModalVoucherDeactivation';
 import ModalVoucherActivate from '../../modals/ModalVoucherActivate';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useVoucherService from '../../../services/VoucherService';
 import { useFundService } from '../../../services/FundService';
 import { hasPermission } from '../../../helpers/utils';
@@ -513,81 +513,66 @@ export default function VouchersViewComponent() {
                 </div>
 
                 <div className="card-section">
-                    <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            <table className="table table-fixed">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('vouchers.labels.expire_at')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">{voucher.expire_at_locale}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('vouchers.labels.created_at')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">
-                                                {voucher.created_at_locale.split(' - ')[1]}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('vouchers.labels.source')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">{voucher.source_locale}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('vouchers.labels.in_use')}
-                                            </strong>
-                                            <br />
-                                            <em className="mdi mdi-close text-black" />
-                                            <strong className="text-black">
-                                                {!voucher.in_use
-                                                    ? translate('vouchers.labels.no')
-                                                    : translate('vouchers.labels.yes')}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('vouchers.labels.used_date')}
-                                            </strong>
-                                            <br />
-                                            {voucher.first_use_date_locale ? (
-                                                <div>
-                                                    <strong className="text-black">
-                                                        {voucher.first_use_date_locale}
-                                                    </strong>
-                                                </div>
-                                            ) : (
-                                                <div>
-                                                    <em className="mdi mdi-close text-black" />
-                                                    <strong className="text-black">
-                                                        {translate('vouchers.labels.no')}
-                                                    </strong>
-                                                </div>
-                                            )}
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('vouchers.labels.has_payouts')}
-                                            </strong>
-                                            <br />
-                                            <em className="mdi mdi-close text-black" />
-                                            <strong className="text-black">
-                                                {!voucher.has_payouts
-                                                    ? translate('vouchers.labels.no')
-                                                    : translate('vouchers.labels.yes')}
-                                            </strong>
-                                        </td>
-                                    </tr>
+                    <div className="card-block card-block-keyvalue">
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.expire_at')}</div>
+                            <div className="keyvalue-value">{voucher.expire_at_locale}</div>
+                        </div>
 
-                                    {!voucher.product && voucher.fund.type != 'subsidies' && (
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.created_at')}</div>
+                            <div className="keyvalue-value">{voucher.created_at_locale.split(' - ')[1]}</div>
+                        </div>
+
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.source')}</div>
+                            <div className="keyvalue-value keyvalue-value-gap-sm">
+                                {voucher.source_locale}
+                                {voucher.employee && (
+                                    <strong className="text-strong text-primary">{`(${voucher.employee.email})`}</strong>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.in_use')}</div>
+                            <div className="keyvalue-value keyvalue-value-gap-sm">
+                                {voucher.in_use ? (
+                                    <Fragment>
+                                        {translate('vouchers.labels.yes')}
+                                        {voucher.employee && (
+                                            <strong className="text-strong text-primary">{`(${voucher.first_use_date_locale})`}</strong>
+                                        )}
+                                    </Fragment>
+                                ) : (
+                                    <Fragment>{translate('vouchers.labels.no')}</Fragment>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.has_payouts')}</div>
+                            <div className="keyvalue-value keyvalue-value-gap-sm">
+                                {voucher.has_payouts
+                                    ? translate('vouchers.labels.yes')
+                                    : translate('vouchers.labels.no')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {!voucher.product && voucher.fund.type != 'subsidies' && (
+                <div className="card">
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title">Financiële details</div>
+                    </div>
+
+                    <div className="card-section">
+                        <div className="card-block card-block-table">
+                            <div className="table-wrapper">
+                                <table className="table table-fixed">
+                                    <tbody>
                                         <tr>
                                             <td>
                                                 <strong className="text-strong text-md text-primary">
@@ -627,13 +612,13 @@ export default function VouchersViewComponent() {
                                                 <strong className="text-black">{voucher.amount_spent_locale}</strong>
                                             </td>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             {voucher.fund.allow_voucher_records && (
                 <VoucherRecords voucher={voucher} organization={activeOrganization} />

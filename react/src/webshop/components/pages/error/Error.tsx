@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { snakeCase } from 'lodash';
 import { getStateRouteUrl, useStateParams } from '../../../modules/state_router/Router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -25,7 +25,7 @@ export default function Error() {
     }, []);
 
     return (
-        <BlockShowcase wrapper={false}>
+        <BlockShowcase>
             <section className="section section-product">
                 <div className="wrapper">
                     <div className="block block-sign_up">

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
@@ -162,8 +162,7 @@ export default function FundActivate() {
                 .catch((err: ResponseError) => {
                     pushDanger(translate('push.error'), err.data.message);
                     navigateState('fund', { id: fund.id });
-                })
-                .finally(() => setApplyingFund(false));
+                });
         },
         [applyingFund, fundService, navigateState, pushDanger, pushSuccess, translate],
     );
@@ -568,11 +567,11 @@ export default function FundActivate() {
     }, [setTitle, translate, fund]);
 
     if (digidResponse?.digid_success) {
-        return <BlockShowcase wrapper={true} />;
+        return <BlockShowcase />;
     }
 
     return (
-        <BlockShowcase wrapper={true} breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
+        <BlockShowcase breadcrumbItems={[]} loaderElement={<BlockLoader type={'full'} />}>
             {fund && vouchers && appConfigs && (
                 <div className="block block-sign_up">
                     <div className="block-wrapper">

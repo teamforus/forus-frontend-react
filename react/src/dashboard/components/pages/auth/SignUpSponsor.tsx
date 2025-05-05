@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import ProgressStorage from '../../../helpers/ProgressStorage';
 import Organization from '../../../props/models/Organization';

@@ -8,7 +8,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import FormError from '../../elements/forms/errors/FormError';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { ResponseError } from '../../../props/ApiResponses';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import Tooltip from '../../elements/tooltip/Tooltip';

@@ -19,7 +19,7 @@ import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam } from 'use-query-params';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 

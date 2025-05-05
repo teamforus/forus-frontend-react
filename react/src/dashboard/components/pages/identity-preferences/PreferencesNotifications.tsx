@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { useEmailPreferenceService } from '../../../services/EmailPreferenceService';
 import NotificationPreference, { PreferenceOption } from '../../../props/models/NotificationPreference';

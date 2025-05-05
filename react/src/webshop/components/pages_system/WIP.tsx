@@ -7,7 +7,6 @@ export default function WIP() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={[
                 { name: translate('wip.breadcrumbs.home'), state: 'home' },
                 { name: translate('wip.breadcrumbs.wip') },

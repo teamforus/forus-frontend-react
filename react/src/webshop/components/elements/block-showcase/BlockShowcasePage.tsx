@@ -42,7 +42,7 @@ export default function BlockShowcasePage({
     }, [showMobileMenu, showModalFilters]);
 
     return (
-        <BlockShowcase className={showCaseClassName}>
+        <BlockShowcase className={showCaseClassName} breadcrumbItems={[]}>
             <div className="showcase-wrapper">
                 <div className={classNames('showcase-mobile-filters', 'rs_skip', countFiltersApplied && 'active')}>
                     <div className="mobile-filters-count">

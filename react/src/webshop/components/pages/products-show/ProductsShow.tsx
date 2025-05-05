@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
@@ -27,6 +27,9 @@ import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
+import Section from '../../elements/sections/Section';
+import useShowProductPaymentOptionsInfoModal from '../../../hooks/useShowProductPaymentOptionsInfoModal';
+import useProductFeatures from '../../../hooks/useProductFeatures';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -41,6 +44,7 @@ export default function ProductsShow() {
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
     const bookmarkProductToggle = useBookmarkProductToggle();
+    const showProductIconsInfoModal = useShowProductPaymentOptionsInfoModal();
 
     const fundService = useFundService();
     const productService = useProductService();
@@ -53,6 +57,8 @@ export default function ProductsShow() {
     const [provider, setProvider] = useState<Provider>(null);
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
+
+    const productFeatures = useProductFeatures(product);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
 
@@ -167,7 +173,6 @@ export default function ProductsShow() {
 
     return (
         <BlockShowcase
-            wrapper={true}
             breadcrumbItems={
                 product && [
                     showBack && { name: translate('product.breadcrumbs.back'), back: true },
@@ -179,9 +184,9 @@ export default function ProductsShow() {
                 ]
             }>
             {product && funds && vouchers && (
-                <section className="section section-product">
+                <Section type={'product'}>
                     <div className="block block-product">
-                        <div className="product-card">
+                        <div className="product-content">
                             <div className="product-photo">
                                 <img
                                     src={
@@ -202,6 +207,24 @@ export default function ProductsShow() {
                                     )}
                                 </h1>
                                 <div className="organization-name">{product.organization?.name}</div>
+
+                                {authIdentity && (
+                                    <div
+                                        className={`block block-bookmark-toggle ${product.bookmarked ? 'active' : ''}`}
+                                        onClick={(e) => toggleBookmark(e, product)}
+                                        onKeyDown={clickOnKeyEnter}
+                                        role={'button'}
+                                        tabIndex={0}
+                                        aria-label={translate('product.buttons.bookmark')}
+                                        aria-pressed={product.bookmarked}>
+                                        {product.bookmarked ? (
+                                            <em className="mdi mdi-cards-heart" />
+                                        ) : (
+                                            <em className="mdi mdi-cards-heart-outline" />
+                                        )}
+                                    </div>
+                                )}
+
                                 <div className="product-properties">
                                     <div className="product-property">
                                         <div className="product-property-label">
@@ -209,9 +232,71 @@ export default function ProductsShow() {
                                         </div>
                                         <div className="product-property-value">{product.product_category.name}</div>
                                     </div>
+                                    <div className="product-property">
+                                        <div id="paymentOptionsLabel" className="product-property-label">
+                                            {translate('product.labels.payment_options')}
+                                        </div>
+                                        <div className="product-property-value">
+                                            <div
+                                                className="product-property-icons"
+                                                role="group"
+                                                aria-labelledby="paymentOptionsLabel">
+                                                {productFeatures.scanning_enabled && (
+                                                    <div
+                                                        className="product-property-icons-item"
+                                                        role="button"
+                                                        tabIndex={0}
+                                                        aria-label={translate(
+                                                            'product.labels.payment_option_qr_aria_label',
+                                                        )}
+                                                        onClick={() => showProductIconsInfoModal()}
+                                                        onKeyDown={(e) => clickOnKeyEnter(e, true)}>
+                                                        <em className="mdi mdi-qrcode-scan" aria-hidden="true" />
+                                                        {translate('product.labels.payment_option_qr')}
+                                                    </div>
+                                                )}
+                                                {productFeatures.reservations_enabled && (
+                                                    <div
+                                                        className="product-property-icons-item"
+                                                        role="button"
+                                                        tabIndex={0}
+                                                        aria-label={translate(
+                                                            'product.labels.payment_option_reservation_aria_label',
+                                                        )}
+                                                        onClick={() => showProductIconsInfoModal()}
+                                                        onKeyDown={(e) => clickOnKeyEnter(e, true)}>
+                                                        <em
+                                                            className="mdi mdi-tag-multiple-outline"
+                                                            aria-hidden="true"
+                                                        />
+                                                        {translate('product.labels.payment_option_reservation')}
+                                                    </div>
+                                                )}
+                                                {productFeatures.reservation_extra_payments_enabled && (
+                                                    <div
+                                                        className="product-property-icons-item"
+                                                        role="button"
+                                                        tabIndex={0}
+                                                        aria-label={translate(
+                                                            'product.labels.payment_option_ideal_aria_label',
+                                                        )}
+                                                        onClick={() => showProductIconsInfoModal()}
+                                                        onKeyDown={(e) => clickOnKeyEnter(e, true)}>
+                                                        <img
+                                                            src={assetUrl('/assets/img/icon-ideal.svg')}
+                                                            alt=""
+                                                            aria-hidden="true"
+                                                        />
+
+                                                        {translate('product.labels.payment_option_ideal')}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="product-properties">
-                                    <div className="product-property product-property-full">
+                                    <div className="product-property">
                                         <div className="product-property-label">
                                             {translate('product.labels.description')}
                                         </div>
@@ -221,23 +306,6 @@ export default function ProductsShow() {
                                     </div>
                                 </div>
                             </div>
-
-                            {authIdentity && (
-                                <div
-                                    className={`block block-bookmark-toggle ${product.bookmarked ? 'active' : ''}`}
-                                    onClick={(e) => toggleBookmark(e, product)}
-                                    onKeyDown={clickOnKeyEnter}
-                                    role={'button'}
-                                    tabIndex={0}
-                                    aria-label={translate('product.buttons.bookmark')}
-                                    aria-pressed={product.bookmarked}>
-                                    {product.bookmarked ? (
-                                        <em className="mdi mdi-cards-heart" />
-                                    ) : (
-                                        <em className="mdi mdi-cards-heart-outline" />
-                                    )}
-                                </div>
-                            )}
                         </div>
 
                         <ProductFundsCard funds={funds} product={product} vouchers={vouchers} payouts={payouts} />
@@ -266,7 +334,7 @@ export default function ProductsShow() {
                             </div>
                         )}
                     </div>
-                </section>
+                </Section>
             )}
         </BlockShowcase>
     );

@@ -1,0 +1,30 @@
+.block.block-show-more {
+    text-align: center;
+    margin: 0 0 30px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .show-more-button {
+        color: var(--button-read_more-color);
+        border: var(--button-read_more-border);
+        background: var(--button-read_more-background);
+        text-decoration: var(--button-read_more-decoration);
+
+        &:hover {
+            color: var(--button-read_more-hover-color);
+            border: var(--button-read_more-hover-border);
+            background: var(--button-read_more-hover-background);
+            text-decoration: var(--button-read_more-hover-decoration);
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .button {
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}

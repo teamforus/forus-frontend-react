@@ -18,7 +18,7 @@ export default function ProvidersListItemList({
 
     return (
         <div className="organization-item">
-            <div className={`organization-pane ${showOffices ? 'active' : ''}`}>
+            <div className={`organization-pane`}>
                 <StateNavLink
                     name="provider"
                     params={{ id: provider.id }}

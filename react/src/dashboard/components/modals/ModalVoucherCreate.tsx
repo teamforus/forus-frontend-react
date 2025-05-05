@@ -23,6 +23,7 @@ import SelectControlOptionsFund from '../elements/select-control/templates/Selec
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
 import usePushApiError from '../../hooks/usePushApiError';
+import InfoBox from '../elements/info-box/InfoBox';
 
 export default function ModalVoucherCreate({
     funds,
@@ -468,6 +469,30 @@ export default function ModalVoucherCreate({
                                             </div>
                                         </div>
 
+                                        {fund?.backoffice?.backoffice_enabled && assignType.key !== 'bsn' && (
+                                            <div className="form-group form-group-inline form-group-inline-lg">
+                                                <div className={`form-label`}>&nbsp;</div>
+                                                <div className="form-offset">
+                                                    <InfoBox
+                                                        type={'warning'}
+                                                        iconPosition={'top'}
+                                                        iconColor={'warning'}>
+                                                        <p className={'text-strong'}>
+                                                            Let op! De backoffice integratie stuurt mogelijk geen data
+                                                        </p>
+                                                        <p>
+                                                            Om data te laten versturen via de backoffice integratie, is
+                                                            het noodzakelijk dat de inwoner een BSN heeft geverifieerd
+                                                            door in te loggen met DigiD. Bij het aanmaken van een tegoed
+                                                            op basis van een activatiecode of e-mailadres, wordt deze
+                                                            stap overgeslagen en zal er mogelijk geen data vanuit het
+                                                            systeem worden verstuurd via de backoffice integratie.
+                                                        </p>
+                                                    </InfoBox>
+                                                </div>
+                                            </div>
+                                        )}
+
                                         {assignType.hasInput && (
                                             <div className="form-group form-group-inline form-group-inline-lg">
                                                 <div
@@ -478,13 +503,17 @@ export default function ModalVoucherCreate({
                                                     }`}>
                                                     {assignType.inputLabel}
                                                 </div>
-                                                <input
-                                                    className="form-control"
-                                                    placeholder={assignType.inputLabel}
-                                                    value={form.values[assignType.key] || ''}
-                                                    onChange={(e) => form.update({ [assignType.key]: e.target.value })}
-                                                />
-                                                <FormError error={form.errors?.[assignType.key]} />
+                                                <div className="form-offset">
+                                                    <input
+                                                        className="form-control"
+                                                        placeholder={assignType.inputLabel}
+                                                        value={form.values[assignType.key] || ''}
+                                                        onChange={(e) =>
+                                                            form.update({ [assignType.key]: e.target.value })
+                                                        }
+                                                    />
+                                                    <FormError error={form.errors?.[assignType.key]} />
+                                                </div>
                                             </div>
                                         )}
 
@@ -492,13 +521,17 @@ export default function ModalVoucherCreate({
                                             <div className="form-label">
                                                 {translate('modals.modal_voucher_create.labels.client_uid')}
                                             </div>
-                                            <input
-                                                className="form-control"
-                                                placeholder={translate('modals.modal_voucher_create.labels.client_uid')}
-                                                value={form.values.client_uid || ''}
-                                                onChange={(e) => form.update({ client_uid: e.target.value })}
-                                            />
-                                            <FormError error={form.errors?.client_uid} />
+                                            <div className="form-offset">
+                                                <input
+                                                    className="form-control"
+                                                    placeholder={translate(
+                                                        'modals.modal_voucher_create.labels.client_uid',
+                                                    )}
+                                                    value={form.values.client_uid || ''}
+                                                    onChange={(e) => form.update({ client_uid: e.target.value })}
+                                                />
+                                                <FormError error={form.errors?.client_uid} />
+                                            </div>
                                         </div>
 
                                         <div className="form-group form-group-inline form-group-inline-lg">

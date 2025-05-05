@@ -4,7 +4,8 @@ import Reservation from '../Reservation';
 import Office from '../Office';
 import PhysicalCard from '../PhysicalCard';
 import Transaction from '../Transaction';
-import Media from "../Media";
+import Media from '../Media';
+import Employee from '../Employee';
 
 export default interface SponsorVoucher {
     id: number;
@@ -76,4 +77,5 @@ export default interface SponsorVoucher {
     created_at?: string;
     created_at_locale?: string;
     expire_at?: string;
+    employee?: Employee;
 }

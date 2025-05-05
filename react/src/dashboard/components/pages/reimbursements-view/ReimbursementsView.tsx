@@ -4,7 +4,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useOpenModal from '../../../hooks/useOpenModal';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useReimbursementsService } from '../../../services/ReimbursementService';
 import Reimbursement from '../../../props/models/Reimbursement';
 import File from '../../../props/models/File';

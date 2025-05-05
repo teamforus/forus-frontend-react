@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SponsorIdentity, {
     ProfileRecord,

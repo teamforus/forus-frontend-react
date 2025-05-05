@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import FundRequest from '../../../props/models/FundRequest';

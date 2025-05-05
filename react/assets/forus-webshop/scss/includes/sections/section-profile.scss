@@ -1,0 +1,7 @@
+.section.section-profile {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: var(--section-profile-padding);
+    background: var(--section-profile-background);
+}

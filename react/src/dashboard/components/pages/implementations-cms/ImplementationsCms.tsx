@@ -8,7 +8,7 @@ import FormError from '../../elements/forms/errors/FormError';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
 import { useMediaService } from '../../../services/MediaService';
 import ImplementationsCmsPages from './elements/ImplementationsCmsPages';
