@@ -27,7 +27,7 @@ import Tooltip from '../../elements/tooltip/Tooltip';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import BlockReservationAddress, { AddressType } from '../../elements/block-reservation-address/BlockReservationAddress';
 import { useProfileService } from '../../../../dashboard/services/ProfileService';
-import { ErrorResponse } from 'react-router-dom';
+import { ErrorResponse } from 'react-router';
 import usePushSuccess from '../../../../dashboard/hooks/usePushSuccess';
 import classNames from 'classnames';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';

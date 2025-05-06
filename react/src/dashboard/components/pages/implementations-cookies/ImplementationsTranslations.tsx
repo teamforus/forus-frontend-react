@@ -4,7 +4,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
 import FormGroup from '../../elements/forms/controls/FormGroup';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';

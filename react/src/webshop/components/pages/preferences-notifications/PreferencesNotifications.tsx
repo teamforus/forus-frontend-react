@@ -3,7 +3,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import NotificationPreferencesCards from './elements/NotificationPreferencesCards';
 import PushNotificationPreferencesCard from './elements/PushNotificationPreferencesCard';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 export default function PreferencesNotifications() {
     const { section = null } = useParams();

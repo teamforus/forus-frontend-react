@@ -5,7 +5,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useEnvData from '../../../hooks/useEnvData';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import KeyValueItem from '../../elements/key-value/KeyValueItem';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import TransactionBulk from '../../../props/models/TransactionBulk';

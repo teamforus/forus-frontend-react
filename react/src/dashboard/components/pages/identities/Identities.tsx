@@ -75,6 +75,8 @@ export default function Identities() {
         last_login_from?: string;
         last_activity_to?: string;
         last_activity_from?: string;
+        order_by?: string;
+        order_dir?: string;
     }>(
         {
             q: '',
@@ -91,6 +93,8 @@ export default function Identities() {
             last_login_from: '',
             last_activity_to: '',
             last_activity_from: '',
+            order_by: 'created_at',
+            order_dir: 'desc',
             per_page: paginatorService.getPerPage(paginatorTransactionsKey),
         },
         {
@@ -111,13 +115,15 @@ export default function Identities() {
                 last_login_from: StringParam,
                 last_activity_to: StringParam,
                 last_activity_from: StringParam,
+                order_by: StringParam,
+                order_dir: StringParam,
             },
         },
     );
 
     const { headElement, configsElement } = useConfigurableTable(
         sponsorIdentitiesService.getColumns(activeOrganization),
-        { filter: filter, sortable: false, hasTooltips: true },
+        { filter: filter, sortable: true, hasTooltips: true },
     );
 
     const { resetFilters: resetFilters, setShow } = filter;

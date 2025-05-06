@@ -6,7 +6,7 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import ModalFeatureContact from '../../modals/ModalFeatureContact';
 import useOpenModal from '../../../hooks/useOpenModal';
 import { snakeCase } from 'lodash';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import BiTools from './items/BiTools';

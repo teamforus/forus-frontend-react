@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { kebabCase } from 'lodash';
 import { getStateRouteUrl } from '../../../../modules/state_router/Router';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import OrganizationFeature from '../../../../services/types/OrganizationFeature';
 import Organization from '../../../../props/models/Organization';
 import useAssetUrl from '../../../../hooks/useAssetUrl';

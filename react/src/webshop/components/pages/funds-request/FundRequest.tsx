@@ -13,7 +13,7 @@ import { useHelperService } from '../../../../dashboard/services/HelperService';
 import FundsListItemModel from '../../../services/types/FundsListItemModel';
 import { useVoucherService } from '../../../services/VoucherService';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import type FundRequest from '../../../../dashboard/props/models/FundRequest';
 import RecordType from '../../../../dashboard/props/models/RecordType';

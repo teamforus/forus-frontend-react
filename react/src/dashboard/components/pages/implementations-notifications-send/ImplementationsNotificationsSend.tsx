@@ -6,7 +6,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';

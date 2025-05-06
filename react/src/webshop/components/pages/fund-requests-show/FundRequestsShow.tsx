@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useContext, useEffect, useState } from 'r
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import FundRequest from '../../../../dashboard/props/models/FundRequest';
 import { useFundRequestService } from '../../../services/FundRequestService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import FundRequestRecordCard from './elements/FundRequestRecordCard';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';

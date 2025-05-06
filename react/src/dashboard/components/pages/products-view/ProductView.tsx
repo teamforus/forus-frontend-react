@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useTranslate from '../../../hooks/useTranslate';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useAssetUrl from '../../../hooks/useAssetUrl';

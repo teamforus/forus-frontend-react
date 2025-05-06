@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FundRequestTotals, useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import FundRequest from '../../../props/models/FundRequest';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';

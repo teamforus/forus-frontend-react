@@ -9,7 +9,7 @@ import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import BusinessType from '../../../../props/models/BusinessType';
 import { useBusinessTypeService } from '../../../../services/BusinessTypeService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';

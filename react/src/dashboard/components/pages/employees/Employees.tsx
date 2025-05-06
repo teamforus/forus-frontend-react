@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 import { mainContext } from '../../../contexts/MainContext';
 import { useEmployeeService } from '../../../services/EmployeeService';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { hasPermission } from '../../../helpers/utils';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import useFilter from '../../../hooks/useFilter';

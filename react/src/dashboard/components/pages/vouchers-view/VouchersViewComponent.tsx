@@ -8,7 +8,7 @@ import ModalVoucherTransaction from '../../modals/ModalVoucherTransaction/ModalV
 import Fund from '../../../props/models/Fund';
 import ModalVoucherDeactivation from '../../modals/ModalVoucherDeactivation';
 import ModalVoucherActivate from '../../modals/ModalVoucherActivate';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useVoucherService from '../../../services/VoucherService';
 import { useFundService } from '../../../services/FundService';
 import { hasPermission } from '../../../helpers/utils';

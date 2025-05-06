@@ -2,7 +2,7 @@ import { ModalsProvider } from './modules/modals/context/ModalContext';
 import { AuthProvider } from './contexts/AuthContext';
 import React, { useContext, useEffect } from 'react';
 import { Layout } from './layout/Layout';
-import { HashRouter, Route, Routes, BrowserRouter } from 'react-router-dom';
+import { HashRouter, Route, Routes, BrowserRouter } from 'react-router';
 import EnvDataProp from '../props/EnvData';
 import { MainProvider, mainContext } from './contexts/MainContext';
 import i18n from 'i18next';
