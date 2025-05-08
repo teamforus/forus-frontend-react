@@ -201,6 +201,7 @@ export default function FundRequests() {
                                 <div
                                     key={stateGroup.key}
                                     onClick={() => filterUpdate({ state_group: stateGroup.key })}
+                                    data-dusk={`fundRequestsStateTab_${stateGroup.key}`}
                                     className={`label-tab label-tab-sm ${
                                         filterValues.state_group === stateGroup.key ? 'active' : ''
                                     }`}>
@@ -229,6 +230,7 @@ export default function FundRequests() {
                                     <input
                                         type="text"
                                         className="form-control"
+                                        data-dusk="searchFundRequests"
                                         value={filter.values.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('validation_requests.labels.search')}

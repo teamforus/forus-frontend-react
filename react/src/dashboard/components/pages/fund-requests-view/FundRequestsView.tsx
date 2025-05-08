@@ -231,7 +231,7 @@ export default function FundRequestsView() {
                                         `Reden: ${err.data.message}`,
                                     );
                                 })
-                                .finally(() => modal.close());
+                                .finally(() => setTimeout(() => modal.close()));
                         },
                     }}
                 />
@@ -482,7 +482,7 @@ export default function FundRequestsView() {
                 <div className="breadcrumb-item active">{`#${fundRequestMeta.id}`}</div>
             </div>
 
-            <div className="card">
+            <div className="card" data-dusk="fundRequestPageContent">
                 <div className="card-header">
                     <div className="card-title flex flex-grow flex-gap">
                         <Icon />
@@ -523,6 +523,7 @@ export default function FundRequestsView() {
                                                 ? 'button-default'
                                                 : 'button-primary'
                                         }`}
+                                        data-dusk="fundRequestAssignBtn"
                                         onClick={() => assignRequest()}>
                                         <em className="mdi mdi-account-plus icon-start" />
                                         {translate('validation_requests.buttons.assign_to_me')}
@@ -530,14 +531,20 @@ export default function FundRequestsView() {
                                 )}
 
                                 {fundRequestMeta.is_assignable_as_supervisor && (
-                                    <button className="button button-primary" onClick={assignRequestAsSupervisor}>
+                                    <button
+                                        className="button button-primary"
+                                        onClick={assignRequestAsSupervisor}
+                                        data-dusk="fundRequestAssignAsSupervisorBtn">
                                         <em className="mdi mdi-account-details-outline icon-start" />
                                         {translate('validation_requests.buttons.assign')}
                                     </button>
                                 )}
 
                                 {(fundRequestMeta.can_resign || fundRequestMeta.can_resign_as_supervisor) && (
-                                    <button className="button button-default" onClick={requestResign}>
+                                    <button
+                                        className="button button-default"
+                                        onClick={requestResign}
+                                        data-dusk="fundRequestResignBtn">
                                         <em className="mdi mdi-close icon-start" />
                                         {translate('validation_requests.buttons.resign')}
                                     </button>
@@ -630,7 +637,10 @@ export default function FundRequestsView() {
                             {fundRequestMeta.state == 'pending' &&
                                 fundRequestMeta.is_assigned &&
                                 !fundRequestMeta.can_disregarded_undo && (
-                                    <button className="button button-primary" onClick={requestApprove}>
+                                    <button
+                                        className="button button-primary"
+                                        onClick={requestApprove}
+                                        data-dusk="fundRequestApproveBtn">
                                         <em className="mdi mdi-check icon-start" />
                                         {translate('validation_requests.buttons.accept_all')}
                                     </button>
@@ -639,14 +649,20 @@ export default function FundRequestsView() {
                             {fundRequestMeta.state == 'pending' &&
                                 fundRequestMeta.is_assigned &&
                                 !fundRequestMeta.can_disregarded_undo && (
-                                    <button className="button button-danger" onClick={requestDecline}>
+                                    <button
+                                        className="button button-danger"
+                                        onClick={requestDecline}
+                                        data-dusk="fundRequestDeclineBtn">
                                         <em className="mdi mdi-close icon-start" />
                                         {translate('validation_requests.buttons.decline_all')}
                                     </button>
                                 )}
 
                             {fundRequestMeta.can_disregarded && (
-                                <button className="button button-default" onClick={requestDisregard}>
+                                <button
+                                    className="button button-default"
+                                    onClick={requestDisregard}
+                                    data-dusk="fundRequestDisregardBtn">
                                     <em className="mdi mdi-timer-sand-empty icon-start" />
                                     {translate('validation_requests.buttons.disregard')}
                                 </button>
@@ -696,7 +712,10 @@ export default function FundRequestsView() {
                     {fundRequestMeta.can_add_partner_bsn && (
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
-                                <button className="button button-primary button-sm" onClick={appendRecord}>
+                                <button
+                                    className="button button-primary button-sm"
+                                    data-dusk="addPartnerBsnBtn"
+                                    onClick={appendRecord}>
                                     <em className="mdi mdi-plus icon-start" />
                                     {translate('validation_requests.buttons.add_partner_bsn')}
                                 </button>
@@ -722,7 +741,7 @@ export default function FundRequestsView() {
                                     </tr>
                                 </thead>
                                 {fundRequestMeta.records.map((record) => (
-                                    <tbody key={record.id}>
+                                    <tbody key={record.id} data-dusk={`fundRequestRecordRow${record.id}`}>
                                         <tr>
                                             {fundRequestMeta.hasContent && (
                                                 <td className="cell-chevron">
@@ -767,12 +786,14 @@ export default function FundRequestsView() {
                                             <td className="td-narrow text-right">
                                                 {fundRequestMeta.is_assigned ? (
                                                     <TableRowActions
+                                                        dataDusk={`fundRequestRecordMenuBtn${record.id}`}
                                                         content={() => (
                                                             <div className="dropdown dropdown-actions">
                                                                 {activeOrganization.allow_fund_request_record_edit && (
                                                                     <div
                                                                         className="dropdown-item"
-                                                                        onClick={() => editRecord(record)}>
+                                                                        onClick={() => editRecord(record)}
+                                                                        data-dusk="fundRequestRecordEditBtn">
                                                                         <em className="mdi mdi-pencil icon-start" />
                                                                         Bewerking
                                                                     </div>
