@@ -51,7 +51,10 @@ export default function IdentityReimbursementsCard({
     }
 
     return (
-        <Card title={`Declaraties (${reimbursements?.meta?.total || 0})`} section={false}>
+        <Card
+            title={`Declaraties (${reimbursements?.meta?.total || 0})`}
+            section={false}
+            dusk="reimbursementsPageContent">
             <ReimbursementsTable
                 loading={loading}
                 paginatorKey={paginatorKey}

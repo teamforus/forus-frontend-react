@@ -52,6 +52,7 @@ export default function ProvidersTableItem({
                 name={'sponsor-provider-organization'}
                 className={'tr-clickable'}
                 customElement={'tr'}
+                dataDusk={`tableProviderRow${providerOrganization.id}`}
                 params={{
                     id: providerOrganization.id,
                     organizationId: organization.id,

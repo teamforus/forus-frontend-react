@@ -14,7 +14,7 @@ import Reservation from '../../../props/models/Reservation';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import ModalDangerZone from '../../modals/ModalDangerZone';
-import useProductReservationsExportService from '../../../services/exports/useProductReservationsExportService';
+import useProductReservationsExporter from '../../../services/exporters/useProductReservationsExporter';
 import useProviderFundService from '../../../services/ProviderFundService';
 import Fund from '../../../props/models/Fund';
 import { hasPermission } from '../../../helpers/utils';
@@ -41,9 +41,10 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function Reservations() {
+    const identity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
     const updateActiveOrganization = useUpdateActiveOrganization();
-    const identity = useAuthIdentity();
+    const productReservationsExporter = useProductReservationsExporter();
 
     const openModal = useOpenModal();
     const translate = useTranslate();
@@ -56,7 +57,6 @@ export default function Reservations() {
     const providerFundService = useProviderFundService();
     const organizationService = useOrganizationService();
     const productReservationService = useProductReservationService();
-    const productReservationsExportService = useProductReservationsExportService();
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [products, setProducts] = useState<Array<Partial<Product>>>(null);
@@ -123,7 +123,7 @@ export default function Reservations() {
     );
 
     const fetchReservations = useCallback(
-        (query, archived = false) => {
+        (query: object, archived = false) => {
             return productReservationService.list(activeOrganization.id, {
                 ...query,
                 archived: archived ? 1 : 0,
@@ -282,8 +282,8 @@ export default function Reservations() {
     }, [activeOrganization, fetchAllReservations, openModal]);
 
     const exportReservations = useCallback(() => {
-        productReservationsExportService.exportData(activeOrganization.id, filter.values);
-    }, [activeOrganization.id, filter.values, productReservationsExportService]);
+        productReservationsExporter.exportData(activeOrganization.id, filter.values);
+    }, [activeOrganization.id, filter.values, productReservationsExporter]);
 
     const archiveReservation = useCallback(
         (reservation: Reservation) => {
@@ -359,7 +359,7 @@ export default function Reservations() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="tableReservationContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="reservationsTitle">
                     {translate('reservations.header.title')} ({reservations?.meta?.total})
@@ -419,6 +419,7 @@ export default function Reservations() {
                                     <input
                                         className="form-control"
                                         value={filter.values.q}
+                                        data-dusk="tableReservationSearch"
                                         placeholder={translate('reservations.filters.search')}
                                         onChange={(e) => filter.update({ q: e.target.value })}
                                     />
@@ -495,6 +496,7 @@ export default function Reservations() {
                                 <button
                                     className="button button-primary button-wide"
                                     onClick={() => exportReservations()}
+                                    data-dusk="export"
                                     disabled={reservations.meta.total == 0}>
                                     <em className="mdi mdi-download icon-start"> </em>
                                     {translate('components.dropdown.export', {
@@ -523,7 +525,7 @@ export default function Reservations() {
                                             id: reservation.id,
                                         }}
                                         className={'tr-clickable'}
-                                        dataDusk={`reservationRow${reservation.id}`}
+                                        dataDusk={`tableReservationRow${reservation.id}`}
                                         customElement={'tr'}
                                         key={reservation.id}>
                                         <td>

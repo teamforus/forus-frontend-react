@@ -24,7 +24,7 @@ export default function CardHeaderFilter({
             )}
 
             <button
-                data-dusk="showFilters"
+                data-dusk={filter.show ? 'hideFilters' : 'showFilters'}
                 className="button button-default button-icon"
                 onClick={(e) => {
                     e.stopPropagation();

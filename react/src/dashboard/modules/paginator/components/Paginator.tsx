@@ -117,7 +117,9 @@ export default function Paginator({
                         <div className="table-pagination-counter-info">
                             <span className="text-strong">{`${meta.from}-${meta.to} `}</span>
                             {translate('paginator.labels.from')}
-                            <span className="text-strong">{meta.total}</span>
+                            <span className="text-strong" data-dusk="paginatorTotal">
+                                {meta.total}
+                            </span>
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ export default function Card({
     children,
     footer,
     footerHidden = false,
+    dusk = null,
 }: {
     title: string;
     section?: boolean;
@@ -15,9 +16,10 @@ export default function Card({
     children: ReactNode | ReactNode[];
     footer?: ReactNode | ReactNode[];
     footerHidden?: boolean;
+    dusk?: string;
 }) {
     return (
-        <div className={'card'}>
+        <div className={'card'} data-dusk={dusk}>
             <div className="card-header">
                 <div className="card-title flex flex-grow">{title}</div>
                 <div className="card-header-actions">

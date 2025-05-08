@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Employee from '../props/models/Employee';
 import ApiRequestService from './ApiRequestService';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 
 export class EmployeeService<T = Employee> {
     /**
@@ -50,6 +51,10 @@ export class EmployeeService<T = Employee> {
      */
     public delete(organizationId: number, id: number): Promise<null> {
         return this.apiRequest.delete(`${this.prefix}/${organizationId}/employees/${id}`);
+    }
+
+    public exportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/employees/export-fields`);
     }
 
     public export(organizationId: number, data: object = {}): Promise<ResponseSimple<ArrayBuffer>> {
