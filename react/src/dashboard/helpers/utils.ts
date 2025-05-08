@@ -40,13 +40,12 @@ export const fileToText = async (file: File) => {
     });
 };
 
-export const removeNullProperties = (obj?: object) => {
-    return obj
-        ? Object.keys(obj).reduce((acc, key) => {
-              if (obj[key] !== null) {
-                  acc[key] = obj[key];
-              }
-              return acc;
-          }, {})
-        : null;
-};
+export async function runSequentially<T>(tasks: Array<() => Promise<T>>): Promise<T[]> {
+    const results: T[] = [];
+
+    for (const task of tasks) {
+        results.push(await task());
+    }
+
+    return results;
+}
