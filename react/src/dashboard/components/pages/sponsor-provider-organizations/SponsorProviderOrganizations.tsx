@@ -233,7 +233,7 @@ export default function SponsorProviderOrganizations() {
                 </div>
             )}
 
-            <div className="card" data-dusk="sponsorProvidersPageContent">
+            <div className="card" data-dusk="tableProviderContent">
                 <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="card-title flex flex-grow">
@@ -286,7 +286,7 @@ export default function SponsorProviderOrganizations() {
                                         <input
                                             className="form-control"
                                             value={filterValues.q}
-                                            data-dusk="searchProviders"
+                                            data-dusk="tableProviderSearch"
                                             onChange={(e) => filterUpdate({ q: e.target.value })}
                                             placeholder={translate('event_logs.labels.search')}
                                         />

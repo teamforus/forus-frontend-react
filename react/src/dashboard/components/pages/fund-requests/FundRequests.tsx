@@ -167,7 +167,7 @@ export default function FundRequests() {
     }
 
     return (
-        <div className="card" data-dusk="fundRequestsPageContent">
+        <div className="card" data-dusk="tableFundRequestContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('validation_requests.header.title')} ({fundRequests.meta.total})
@@ -208,7 +208,7 @@ export default function FundRequests() {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        data-dusk="searchFundRequests"
+                                        data-dusk="tableFundRequestSearch"
                                         value={filter.values.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('validation_requests.labels.search')}

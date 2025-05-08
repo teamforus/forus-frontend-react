@@ -159,7 +159,7 @@ export default function Reimbursements() {
 
     return (
         <Fragment>
-            <div className="card" data-dusk="reimbursementsPageContent">
+            <div className="card" data-dusk="tableReimbursementContent">
                 <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="card-title">
@@ -225,7 +225,7 @@ export default function Reimbursements() {
                                             type="text"
                                             className="form-control"
                                             value={filterValues.q}
-                                            data-dusk="searchReimbursement"
+                                            data-dusk="tableReimbursementSearch"
                                             placeholder={translate('reimbursements.labels.search')}
                                             onChange={(e) => filterUpdate({ q: e.target.value })}
                                         />
@@ -237,7 +237,7 @@ export default function Reimbursements() {
                                 <FilterItemToggle show={true} label={translate('reimbursements.labels.search')}>
                                     <input
                                         className="form-control"
-                                        data-dusk="searchReimbursement"
+                                        data-dusk="tableReimbursementSearch"
                                         value={filterValues.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('reimbursements.labels.search')}

@@ -201,7 +201,7 @@ export default function Employees() {
     }
 
     return (
-        <div className="card" data-dusk="employeesPageContent">
+        <div className="card" data-dusk="tableEmployeeContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">Medewerkers ({employees?.meta.total})</div>
                 <div className="card-header-filters">
@@ -240,7 +240,7 @@ export default function Employees() {
                                     type="text"
                                     value={filter.values.q}
                                     placeholder="Zoeken"
-                                    data-dusk="searchEmployee"
+                                    data-dusk="tableEmployeeSearch"
                                     className="form-control"
                                     onChange={(e) => filter.update({ q: e.target.value })}
                                 />
@@ -264,7 +264,7 @@ export default function Employees() {
 
                                 <tbody>
                                     {employees?.data.map((employee: Employee) => (
-                                        <tr key={employee.id} data-dusk={`employeeRow${employee.id}`}>
+                                        <tr key={employee.id} data-dusk={`tableEmployeeRow${employee.id}`}>
                                             <td id={'employee_email'} data-dusk={'employeeEmail'}>
                                                 <div className={'text-primary'}>
                                                     {employee.email || strLimit(employee.identity_address, 32)}
