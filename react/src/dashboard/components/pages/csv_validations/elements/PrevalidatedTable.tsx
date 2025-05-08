@@ -185,7 +185,7 @@ export default function PrevalidatedTable({
     }
 
     return (
-        <div className="card form" data-dusk="prevalidationsPageContent">
+        <div className="card form" data-dusk="tablePrevalidationContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">{translate('prevalidated_table.header.title')}</div>
                 <div className="card-header-filters">
@@ -208,7 +208,7 @@ export default function PrevalidatedTable({
                                     <input
                                         className="form-control"
                                         type="text"
-                                        data-dusk="searchPrevalidations"
+                                        data-dusk="tablePrevalidationSearch"
                                         placeholder={translate('prevalidated_table.labels.search')}
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
@@ -315,7 +315,7 @@ export default function PrevalidatedTable({
 
                                 <tbody>
                                     {rows?.map((row) => (
-                                        <tr key={row.id} data-dusk={`prevalidationRow${row.id}`}>
+                                        <tr key={row.id} data-dusk={`tablePrevalidationRow${row.id}`}>
                                             <td className="text-primary text-strong">{row.uid}</td>
                                             <td className="text-primary text-strong">
                                                 {employeesByAddress?.[row?.identity_address] || 'Unknown'}

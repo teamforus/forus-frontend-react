@@ -73,7 +73,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
     }, [fetchIdentities]);
 
     return (
-        <div className="card" data-dusk="identitiesPageContent">
+        <div className="card" data-dusk="tableIdentityContent">
             <div className="card-header">
                 <div className="flex flex-grow">
                     <div className="card-title">
@@ -113,7 +113,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                             className="form-control"
                                             defaultValue={filter.values.q}
                                             placeholder="Zoeken"
-                                            data-dusk="searchIdentities"
+                                            data-dusk="tableIdentitySearch"
                                             onChange={(e) =>
                                                 filter.update({
                                                     q: e.target.value,
@@ -213,7 +213,7 @@ export default function OrganizationsFundsShowIdentitiesCard({
 
                                     <tbody>
                                         {identities.data.map((identity: SponsorIdentity, index: number) => (
-                                            <tr key={index} data-dusk={`identityRow${identity.id}`}>
+                                            <tr key={index} data-dusk={`tableIdentityRow${identity.id}`}>
                                                 <td>{identity.id}</td>
                                                 <td>{identity.email}</td>
                                                 <td>{identity.count_vouchers}</td>

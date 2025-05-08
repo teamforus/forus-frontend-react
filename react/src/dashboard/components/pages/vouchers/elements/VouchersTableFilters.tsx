@@ -116,7 +116,7 @@ export default function VouchersTableFilters({
                                 <FilterItemToggle show={true} label={translate('vouchers.labels.search')}>
                                     <input
                                         className="form-control"
-                                        data-dusk="searchReimbursement"
+                                        data-dusk="tableReimbursement"
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
                                         placeholder={translate('vouchers.labels.search')}

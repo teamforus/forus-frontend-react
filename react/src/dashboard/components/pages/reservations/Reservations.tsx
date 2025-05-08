@@ -359,7 +359,7 @@ export default function Reservations() {
     }
 
     return (
-        <div className="card" data-dusk="reservationsPageContent">
+        <div className="card" data-dusk="tableReservationContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="reservationsTitle">
                     {translate('reservations.header.title')} ({reservations?.meta?.total})
@@ -419,7 +419,7 @@ export default function Reservations() {
                                     <input
                                         className="form-control"
                                         value={filter.values.q}
-                                        data-dusk="searchReservations"
+                                        data-dusk="tableReservationSearch"
                                         placeholder={translate('reservations.filters.search')}
                                         onChange={(e) => filter.update({ q: e.target.value })}
                                     />
@@ -525,7 +525,7 @@ export default function Reservations() {
                                             id: reservation.id,
                                         }}
                                         className={'tr-clickable'}
-                                        dataDusk={`reservationRow${reservation.id}`}
+                                        dataDusk={`tableReservationRow${reservation.id}`}
                                         customElement={'tr'}
                                         key={reservation.id}>
                                         <td>

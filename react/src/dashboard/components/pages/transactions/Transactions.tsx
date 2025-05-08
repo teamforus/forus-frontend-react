@@ -366,7 +366,7 @@ export default function Transactions() {
     }
 
     return (
-        <div className="card" data-dusk="transactionsPageContent">
+        <div className="card" data-dusk="tableTransactionContent">
             <div className="card-header">
                 {viewType.key == 'transactions' ? (
                     <div className="card-title flex flex-grow">
@@ -446,7 +446,7 @@ export default function Transactions() {
                                         className="form-control"
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
-                                        data-dusk="searchTransaction"
+                                        data-dusk="tableTransactionSearch"
                                         placeholder={translate('transactions.labels.search')}
                                     />
                                 </div>
@@ -793,7 +793,7 @@ export default function Transactions() {
                                                 organizationId: activeOrganization.id,
                                                 address: transaction.address,
                                             }}
-                                            dataDusk={`transactionItem${transaction.id}`}>
+                                            dataDusk={`tableTransactionRow${transaction.id}`}>
                                             <td>{transaction.id}</td>
 
                                             {isSponsor && (

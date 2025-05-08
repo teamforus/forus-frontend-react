@@ -177,7 +177,7 @@ export default function Identities() {
     }
 
     return (
-        <div className="card" data-dusk="identitiesPageContent">
+        <div className="card" data-dusk="tableProfilesContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('identities.header.title')} ({identities.meta.total})
@@ -212,7 +212,7 @@ export default function Identities() {
                                 <div className="form-group">
                                     <input
                                         className="form-control"
-                                        data-dusk="searchIdentities"
+                                        data-dusk="tableProfilesSearch"
                                         value={filterValues.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('payouts.labels.search')}
@@ -346,7 +346,7 @@ export default function Identities() {
                                         <StateNavLink
                                             key={identity.id}
                                             name={'identities-show'}
-                                            dataDusk={`identityRow${identity.id}`}
+                                            dataDusk={`tableProfilesRow${identity.id}`}
                                             params={{
                                                 organizationId: activeOrganization.id,
                                                 id: identity.id,

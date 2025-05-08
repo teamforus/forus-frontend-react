@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { chunk } from 'lodash';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 import useTranslate from '../../hooks/useTranslate';
+import classNames from 'classnames';
 
 export type ExportFieldProp = {
     key?: string;
@@ -53,6 +54,7 @@ export default function ModalExportDataSelect({
     onCancel?: () => void;
 }) {
     const translate = useTranslate();
+    const [sectionsList] = useState(sections);
     const [localSections, setLocalSections] = React.useState<Array<ExportSectionPropLocal>>(null);
 
     const isValid = useMemo(() => {
@@ -85,7 +87,7 @@ export default function ModalExportDataSelect({
     );
 
     const collapseSection = useCallback(
-        (section) => {
+        (section: ExportSectionPropLocal) => {
             if (section.collapsable) {
                 section.collapsed = !section.collapsed;
             }
@@ -121,7 +123,7 @@ export default function ModalExportDataSelect({
     }, [localSections, modal, onSuccess]);
 
     useEffect(() => {
-        const localSections = sections.map((section) => {
+        const localSections = sectionsList.map((section) => {
             const { type, fields, fieldsPerRow } = section;
 
             if (type == 'checkbox') {
@@ -139,11 +141,11 @@ export default function ModalExportDataSelect({
         });
 
         setLocalSections(localSections.map(updateSelectedFields));
-    }, [sections, updateSelectedFields]);
+    }, [sectionsList, updateSelectedFields]);
 
     return (
         <div
-            className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}
             data-dusk="modalExport">
             <div className="modal-backdrop" onClick={closeModal} />
             <form
@@ -238,9 +240,16 @@ export default function ModalExportDataSelect({
                                                         checked={section.value == field.value}
                                                         value={field.value}
                                                         onChange={(e) => {
-                                                            section.value = e.target.value;
-                                                            updateSelectedFields(section);
-                                                            setLocalSections([...localSections]);
+                                                            setLocalSections((sections) =>
+                                                                sections.map(function (sec, idx) {
+                                                                    return idx === indexSection
+                                                                        ? updateSelectedFields({
+                                                                              ...sec,
+                                                                              value: e.target.value,
+                                                                          })
+                                                                        : sec;
+                                                                }),
+                                                            );
                                                         }}
                                                     />
                                                     <div className="export-option-label">
