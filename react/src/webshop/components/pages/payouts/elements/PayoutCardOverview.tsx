@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
-import EmptyValue from '../../../elements/empty-value/EmptyValue';
+import EmptyValue from '../../../../../dashboard/components/elements/empty-value/EmptyValue';
 import classNames from 'classnames';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
