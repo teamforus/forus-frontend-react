@@ -30,6 +30,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function PrevalidatedTable({
     fund,
@@ -349,21 +350,15 @@ export default function PrevalidatedTable({
                                             ))}
 
                                             <td className="text-right">
-                                                <div
-                                                    className={`tag tag-sm ${
-                                                        row.state == 'pending' ? 'tag-default' : 'tag-success'
-                                                    }`}>
+                                                <Label type={row.state == 'pending' ? 'default' : 'success'}>
                                                     {row.state == 'pending' ? 'Nee' : 'Ja'}
-                                                </div>
+                                                </Label>
                                             </td>
 
                                             <td className="text-right">
-                                                <div
-                                                    className={`tag tag-sm ${
-                                                        !row.exported ? 'tag-default' : 'tag-success'
-                                                    }`}>
+                                                <Label type={!row.exported ? 'default' : 'success'}>
                                                     {!row.exported ? 'Nee' : 'Ja'}
-                                                </div>
+                                                </Label>
                                             </td>
 
                                             <td className={'table-td-actions text-right'}>

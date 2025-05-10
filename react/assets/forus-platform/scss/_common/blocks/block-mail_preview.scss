@@ -77,7 +77,7 @@ $mailFont: Verdana, Arial, sans-serif;
         padding: 5px 75px;
         font: 600 14px/40px $mailFont;
         color: #fff;
-        border-radius: 3px;
+        border-radius: var(--border-radius);
         text-decoration: none;
         background-color: #315efd;
         cursor: pointer;

@@ -15,6 +15,7 @@ import { hasPermission } from '../../../../../helpers/utils';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import Implementation from '../../../../../props/models/Implementation';
+import Label from '../../../../elements/image_cropper/Label';
 
 export default function OrganizationsFundsShowImplementationsCard({
     fund,
@@ -190,12 +191,12 @@ export default function OrganizationsFundsShowImplementationsCard({
                                                 <td>{implementation?.name}</td>
                                                 {fund.state == 'active' && (
                                                     <td>
-                                                        <div className="label label-success">Zichtbaar</div>
+                                                        <Label type="success">Zichtbaar</Label>
                                                     </td>
                                                 )}
                                                 {fund.state != 'active' && (
                                                     <td>
-                                                        <div className="label label-success">Onzichtbaar</div>
+                                                        <Label type="default">Onzichtbaar</Label>
                                                     </td>
                                                 )}
 

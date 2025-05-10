@@ -44,7 +44,7 @@
         .block-feature-label {
             font: 600 11px/14px var(--base-font);
             padding: 2px 4px;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             border: 1px solid #dadfe5;
             background: #ebeef1;
             color: #151b26;

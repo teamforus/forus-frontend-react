@@ -299,16 +299,14 @@ export default function ModalCreatePrevalidation({
                                             <label className="form-label">Selecteer persoonsgegevens</label>
                                             <div className="flex-row">
                                                 <div className="flex-col flex-grow">
-                                                    <div className="form-offset">
-                                                        <SelectControl
-                                                            propKey={'key'}
-                                                            value={formNewRecord.values.record_type_key}
-                                                            options={recordTypesAvailable}
-                                                            onChange={(record_type_key: string) => {
-                                                                formNewRecord.update({ record_type_key });
-                                                            }}
-                                                        />
-                                                    </div>
+                                                    <SelectControl
+                                                        propKey={'key'}
+                                                        value={formNewRecord.values.record_type_key}
+                                                        options={recordTypesAvailable}
+                                                        onChange={(record_type_key: string) => {
+                                                            formNewRecord.update({ record_type_key });
+                                                        }}
+                                                    />
                                                 </div>
 
                                                 <div className="flex-col">
