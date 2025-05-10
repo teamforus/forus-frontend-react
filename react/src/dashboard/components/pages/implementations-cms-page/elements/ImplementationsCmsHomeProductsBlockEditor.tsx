@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import ImplementationPage from '../../../../props/models/ImplementationPage';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import { ApiResponseSingle, ResponseError } from '../../../../props/ApiResponses';
@@ -73,37 +73,37 @@ export default function ImplementationsCmsHomeProductsBlockEditor({
     }, [saveBlockRef, submitData]);
 
     return (
-        <div className={'col col-lg-9'}>
+        <Fragment>
             <div className="card-heading">Aanbod sectie</div>
-            <div className="form-group form-group-inline form-group-inline-xl">
+            <div className="form-group">
                 <label className="form-label">Sectietitel</label>
-                <div className="form-offset">
-                    <input
-                        className={'form-control'}
-                        value={pageBlock?.title}
-                        placeholder={'Sectietitel'}
-                        onChange={(e) => setPageBlock({ ...pageBlock, title: e.target.value })}
-                    />
-                </div>
+
+                <input
+                    className={'form-control'}
+                    value={pageBlock?.title}
+                    placeholder={'Sectietitel'}
+                    onChange={(e) => setPageBlock({ ...pageBlock, title: e.target.value })}
+                />
+
                 <FormError error={errors?.title} />
             </div>
-            <div className="form-group form-group-inline form-group-inline-xl">
+            <div className="form-group">
                 <label className="form-label">Paragraaf</label>
-                <div className="form-offset">
-                    <MarkdownEditor
-                        placeholder={'Paragraaf'}
-                        alignment={pageBlock?.description_alignment}
-                        onChangeAlignment={(description_alignment: 'left' | 'center' | 'right') => {
-                            setPageBlock((pageBlock) => ({ ...pageBlock, description_alignment }));
-                        }}
-                        extendedOptions={true}
-                        allowAlignment={true}
-                        value={pageBlock?.description_html}
-                        onChange={(description) => setPageBlock({ ...pageBlock, description })}
-                    />
-                    <FormError error={errors?.description} />
-                </div>
+
+                <MarkdownEditor
+                    placeholder={'Paragraaf'}
+                    alignment={pageBlock?.description_alignment}
+                    onChangeAlignment={(description_alignment: 'left' | 'center' | 'right') => {
+                        setPageBlock((pageBlock) => ({ ...pageBlock, description_alignment }));
+                    }}
+                    extendedOptions={true}
+                    allowAlignment={true}
+                    value={pageBlock?.description_html}
+                    onChange={(description) => setPageBlock({ ...pageBlock, description })}
+                />
+
+                <FormError error={errors?.description} />
             </div>
-        </div>
+        </Fragment>
     );
 }

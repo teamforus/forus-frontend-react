@@ -80,10 +80,10 @@ export default function TransactionSettings() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-xs-10 col-md-8 col-lg-6">
-                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group tooltipped">
                                     <label className="form-label">Select data</label>
-                                    <div className="form-offset flex flex-vertical">
+                                    <div className="flex flex-vertical">
                                         <CheckboxControl
                                             id="bank_transaction_id"
                                             title="Transactie ID"
@@ -229,20 +229,18 @@ export default function TransactionSettings() {
                                 </div>
                             </div>
 
-                            <div className="col col-xs-12 col-md-12">
-                                <div className="form-group form-group-inline form-group-inline-xl">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">Scheidingsteken</label>
-                                    <div className="form-offset flex flex-vertical">
-                                        <SelectControl
-                                            className="form-control"
-                                            propValue={'value'}
-                                            propKey={'key'}
-                                            allowSearch={false}
-                                            value={form.values?.bank_separator}
-                                            onChange={(bank_separator: string) => form.update({ bank_separator })}
-                                            options={separatorOptions}
-                                        />
-                                    </div>
+                                    <SelectControl
+                                        className="form-control"
+                                        propValue={'value'}
+                                        propKey={'key'}
+                                        allowSearch={false}
+                                        value={form.values?.bank_separator}
+                                        onChange={(bank_separator: string) => form.update({ bank_separator })}
+                                        options={separatorOptions}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -250,127 +248,125 @@ export default function TransactionSettings() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-xs-12 col-md-12">
-                                <div className="form-group form-group-inline form-group-inline-xl">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">Voorbeeld omschrijving bankafschrift</label>
 
-                                    <div className="form-offset">
-                                        <div className="form-group-info form-group-info-dashed">
-                                            <div className="form-group-info-control">
-                                                <input
-                                                    type="text"
-                                                    disabled={true}
-                                                    className="form-control"
-                                                    value={statementExample}
-                                                />
+                                    <div className="form-group-info form-group-info-dashed">
+                                        <div className="form-group-info-control">
+                                            <input
+                                                type="text"
+                                                disabled={true}
+                                                className="form-control"
+                                                value={statementExample}
+                                            />
 
-                                                <div className="form-group-info-button">
-                                                    <div
-                                                        className="button button-default button-icon pull-left"
-                                                        onClick={() => setShowExampleTooltip(!showExampleTooltip)}>
-                                                        <em className="mdi mdi-information" />
-                                                    </div>
+                                            <div className="form-group-info-button">
+                                                <div
+                                                    className="button button-default button-icon pull-left"
+                                                    onClick={() => setShowExampleTooltip(!showExampleTooltip)}>
+                                                    <em className="mdi mdi-information" />
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div className="form-hint">
-                                            De omschrijving op het bankafschrift kan maximaal 140 karakters bevatten.
-                                        </div>
-
-                                        <div className="form-hint form-hint-margin-less">
-                                            Fondsnaam, Vestgingsnaam en Notitie worden afgekort indien het limiet van
-                                            140 karakters is overschreden
-                                        </div>
-
-                                        {showExampleTooltip && (
-                                            <div className="block block-info block-info-list">
-                                                <div className="block-info-list-title">
-                                                    <em className="mdi mdi-information block-info-icon" />
-                                                    Gegevens gebruikt in het voorbeeld:
-                                                </div>
-
-                                                <ul className="block-info-list-items">
-                                                    <li className="block-info-list-item">
-                                                        Transactie ID:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_transaction_id} • 10 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Transactiedatum:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_transaction_date} • 10 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Transactietijd:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_transaction_time} • 8 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Reserveringsnummer:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_reservation_number} • 9 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Vestigingsnummer:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_branch_number} • 12 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Vestiging ID:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_branch_id} • 3-20 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Vestigingsnaam:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_branch_name} • 3-100 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Fondsnaam:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_fund_name} • 3-100 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Voornaam:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_reservation_first_name} • 3-100 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Achternaam:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_reservation_last_name} • 3-100 karakters
-                                                        </span>
-                                                    </li>
-
-                                                    <li className="block-info-list-item">
-                                                        Notitie:
-                                                        <span className="block-info-list-item-value">
-                                                            {testData.bank_note} • 255 karakters
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        )}
                                     </div>
+
+                                    <div className="form-hint">
+                                        De omschrijving op het bankafschrift kan maximaal 140 karakters bevatten.
+                                    </div>
+
+                                    <div className="form-hint form-hint-margin-less">
+                                        Fondsnaam, Vestgingsnaam en Notitie worden afgekort indien het limiet van 140
+                                        karakters is overschreden
+                                    </div>
+
+                                    {showExampleTooltip && (
+                                        <div className="block block-info block-info-list">
+                                            <div className="block-info-list-title">
+                                                <em className="mdi mdi-information block-info-icon" />
+                                                Gegevens gebruikt in het voorbeeld:
+                                            </div>
+
+                                            <ul className="block-info-list-items">
+                                                <li className="block-info-list-item">
+                                                    Transactie ID:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_transaction_id} • 10 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Transactiedatum:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_transaction_date} • 10 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Transactietijd:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_transaction_time} • 8 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Reserveringsnummer:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_reservation_number} • 9 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Vestigingsnummer:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_branch_number} • 12 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Vestiging ID:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_branch_id} • 3-20 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Vestigingsnaam:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_branch_name} • 3-100 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Fondsnaam:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_fund_name} • 3-100 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Voornaam:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_reservation_first_name} • 3-100 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Achternaam:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_reservation_last_name} • 3-100 karakters
+                                                    </span>
+                                                </li>
+
+                                                <li className="block-info-list-item">
+                                                    Notitie:
+                                                    <span className="block-info-list-item-value">
+                                                        {testData.bank_note} • 255 karakters
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

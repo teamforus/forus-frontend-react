@@ -37,7 +37,7 @@ export default function OfficesForm({ organization, id }: { organization: Organi
     const [showBranchNumberTooltip, setShowBranchNumberTooltip] = useState<boolean>(false);
 
     const fetchOffice = useCallback(
-        (id) => {
+        (id: number) => {
             setProgress(0);
 
             officeService
@@ -99,7 +99,7 @@ export default function OfficesForm({ organization, id }: { organization: Organi
     const { update: updateForm } = form;
 
     const onScheduleChange = useCallback(
-        (schedule) => {
+        (schedule: OfficeSchedule[]) => {
             updateForm({ schedule: schedule });
         },
         [updateForm],
@@ -131,24 +131,23 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-xs-12 col-md-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label className="form-label">&nbsp;</label>
-                            <div className="form-offset">
-                                <PhotoSelector
-                                    type="office_photo"
-                                    thumbnail={office?.photo?.sizes?.thumbnail}
-                                    selectPhoto={(file) => setMediaFile(file)}
-                                />
-                            </div>
+
+                            <PhotoSelector
+                                type="office_photo"
+                                thumbnail={office?.photo?.sizes?.thumbnail}
+                                selectPhoto={(file) => setMediaFile(file)}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-xs-12 col-md-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label className="form-label form-label-required">
                                 {translate('offices_edit.labels.address')}
                             </label>
@@ -162,7 +161,7 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                             <FormError error={form.errors?.address} />
                         </div>
 
-                        <div className="form-group form-group-inline">
+                        <div className="form-group">
                             <label className="form-label">{translate('offices_edit.labels.phone')}</label>
                             <input
                                 type="text"
@@ -179,8 +178,8 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-xs-12 col-md-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label className="form-label">{translate('offices_edit.labels.branch_number')}</label>
                             <div className="form-group-info">
                                 <div className="form-group-info-control">
@@ -206,16 +205,15 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                         </div>
 
                         {showBranchNumberTooltip && (
-                            <div className="form-group form-group-inline">
-                                <label className="form-label"></label>
-                                <div className="form-offset block block-info">
+                            <div className="form-group">
+                                <div className="block block-info">
                                     <em className="mdi mdi-information block-info-icon" />
                                     {translate('offices_edit.info.branch_number')}
                                 </div>
                             </div>
                         )}
 
-                        <div className="form-group form-group-inline">
+                        <div className="form-group">
                             <label className="form-label">{translate('offices_edit.labels.branch_name')}</label>
                             <div className="form-group-info">
                                 <div className="form-group-info-control">
@@ -244,16 +242,15 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                         </div>
 
                         {showBranchNameTooltip && (
-                            <div className="form-group form-group-inline">
-                                <label className="form-label"></label>
-                                <div className="form-offset block block-info">
+                            <div className="form-group">
+                                <div className="block block-info">
                                     <em className="mdi mdi-information block-info-icon" />
                                     {translate('offices_edit.info.branch_name')}
                                 </div>
                             </div>
                         )}
 
-                        <div className="form-group form-group-inline">
+                        <div className="form-group">
                             <label className="form-label">{translate('offices_edit.labels.branch_id')}</label>
                             <div className="form-group-info">
                                 <div className="form-group-info-control">
@@ -282,9 +279,8 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                         </div>
 
                         {showBranchIdTooltip && (
-                            <div className="form-group form-group-inline">
-                                <label className="form-label"></label>
-                                <div className="form-offset block block-info">
+                            <div className="form-group">
+                                <div className="block block-info">
                                     <em className="mdi mdi-information block-info-icon" />
                                     {translate('offices_edit.info.branch_id')}
                                 </div>
@@ -296,18 +292,17 @@ export default function OfficesForm({ organization, id }: { organization: Organi
 
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-xs-12 col-md-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label className="form-label">&nbsp;</label>
-                            <div className="form-offset">
-                                {(form.values || !id) && (
-                                    <ScheduleControl
-                                        schedule={form.values?.schedule || []}
-                                        onChange={onScheduleChange}
-                                        errors={form.errors}
-                                    />
-                                )}
-                            </div>
+
+                            {(form.values || !id) && (
+                                <ScheduleControl
+                                    schedule={form.values?.schedule || []}
+                                    onChange={onScheduleChange}
+                                    errors={form.errors}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

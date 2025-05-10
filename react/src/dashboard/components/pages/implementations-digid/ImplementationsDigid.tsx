@@ -123,8 +123,8 @@ export default function ImplementationsDigid() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="digid_app_id">
                                         App identificatienummer
                                     </label>
@@ -139,7 +139,7 @@ export default function ImplementationsDigid() {
                                     />
                                     <FormError error={form.errors.digid_app_id} />
                                 </div>
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label form-label-required" htmlFor="digid_shared_secret">
                                         Sleutelcode
                                     </label>
@@ -154,7 +154,7 @@ export default function ImplementationsDigid() {
                                     />
                                     <FormError error={form.errors.digid_shared_secret} />
                                 </div>
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="digid_a_select_server">
                                         DigiD Server
                                     </label>
@@ -169,7 +169,7 @@ export default function ImplementationsDigid() {
                                     />
                                     <FormError error={form.errors.digid_a_select_server} />
                                 </div>
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label">Status</label>
                                     <label className="form-toggle form-label" htmlFor="status">
                                         <input

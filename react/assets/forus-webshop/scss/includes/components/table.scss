@@ -105,13 +105,6 @@ table.table {
             }
         }
 
-        &[ng-click]:hover {
-            td,
-            th {
-                background: #f6f8f9;
-            }
-        }
-
         &:last-child {
             td {
                 border-bottom: none;

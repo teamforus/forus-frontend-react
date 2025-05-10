@@ -25,7 +25,7 @@ export default function FilterItemToggle({
                 <em className="mdi mdi-menu-down form-label-icon-active" />
             </label>
 
-            <div className="form-offset">{children}</div>
+            {children}
         </div>
     );
 }

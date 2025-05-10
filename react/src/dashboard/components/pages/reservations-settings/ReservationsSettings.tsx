@@ -105,69 +105,70 @@ export default function ReservationsSettings() {
                         </div>
                     </div>
                 </div>
+
                 <div className="card-section card-section-primary card-section-settings">
                     <div className="row">
-                        <div className="col-xs-12 col-lg-8">
-                            <div className="form-group form-group-inline">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
                                 <label className="form-label" htmlFor="reservation_phone">
                                     {translate('reservation_settings.labels.phone')}
                                 </label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        value={form.values.reservation_phone}
-                                        propKey={'value'}
-                                        propValue={'label'}
-                                        onChange={(value: 'no' | 'optional' | 'required') =>
-                                            form.update({ reservation_phone: value })
-                                        }
-                                        options={reservationFieldOptions}
-                                    />
-                                    <FormError error={form.errors.reservation_phone} />
-                                </div>
+                                <SelectControl
+                                    value={form.values.reservation_phone}
+                                    propKey={'value'}
+                                    propValue={'label'}
+                                    onChange={(value: 'no' | 'optional' | 'required') => {
+                                        form.update({ reservation_phone: value });
+                                    }}
+                                    options={reservationFieldOptions}
+                                />
+                                <FormError error={form.errors.reservation_phone} />
                             </div>
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label" htmlFor="reservation_address">
                                     {translate('reservation_settings.labels.address')}
                                 </label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        value={form.values.reservation_address}
-                                        propKey={'value'}
-                                        propValue={'label'}
-                                        onChange={(value: 'no' | 'optional' | 'required') =>
-                                            form.update({ reservation_address: value })
-                                        }
-                                        options={reservationFieldOptions}
-                                    />
-                                    <FormError error={form.errors.reservation_address} />
-                                </div>
+
+                                <SelectControl
+                                    value={form.values.reservation_address}
+                                    propKey={'value'}
+                                    propValue={'label'}
+                                    onChange={(value: 'no' | 'optional' | 'required') =>
+                                        form.update({ reservation_address: value })
+                                    }
+                                    options={reservationFieldOptions}
+                                />
+                                <FormError error={form.errors.reservation_address} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label" htmlFor="reservation_birth_date">
                                     {translate('reservation_settings.labels.birth_date')}
                                 </label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        value={form.values.reservation_birth_date}
-                                        propKey={'value'}
-                                        propValue={'label'}
-                                        onChange={(value: 'no' | 'optional' | 'required') =>
-                                            form.update({ reservation_birth_date: value })
-                                        }
-                                        options={reservationFieldOptions}
-                                    />
-                                    <FormError error={form.errors.reservation_birth_date} />
-                                </div>
+
+                                <SelectControl
+                                    value={form.values.reservation_birth_date}
+                                    propKey={'value'}
+                                    propValue={'label'}
+                                    onChange={(value: 'no' | 'optional' | 'required') =>
+                                        form.update({ reservation_birth_date: value })
+                                    }
+                                    options={reservationFieldOptions}
+                                />
+                                <FormError error={form.errors.reservation_birth_date} />
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div className="card-section card-section-primary">
-                    <div className="form-group form-group-inline">
-                        <label className="form-label">{translate('reservation_settings.labels.fields')}</label>
-                        <div className="form-offset">
-                            <ReservationFieldsEditor fields={fields} onChange={setFields} errors={form.errors} />
+                    <div className="row">
+                        <div className="col col-md-10 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
+                                <label className="form-label">{translate('reservation_settings.labels.fields')}</label>
+
+                                <ReservationFieldsEditor fields={fields} onChange={setFields} errors={form.errors} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -176,23 +177,22 @@ export default function ReservationsSettings() {
                     hasPermission(activeOrganization, 'manage_payment_methods') && (
                         <div className="card-section card-section-primary card-section-settings">
                             <div className="row">
-                                <div className="col-xs-12 col-lg-8">
-                                    <div className="form-group form-group-inline">
+                                <div className="col col-md-10 col-md-offset-2 col-xs-12">
+                                    <div className="form-group">
                                         <label className="form-label" htmlFor="reservation_birth_date">
                                             {translate('reservation_settings.labels.extra_payments')}
                                         </label>
-                                        <div className="form-offset">
-                                            <SelectControl
-                                                value={form.values.reservation_allow_extra_payments}
-                                                propKey={'value'}
-                                                propValue={'label'}
-                                                onChange={(value: boolean) =>
-                                                    form.update({ reservation_allow_extra_payments: value })
-                                                }
-                                                options={extraPaymentsOptions}
-                                            />
-                                            <FormError error={form.errors.reservation_allow_extra_payments} />
-                                        </div>
+
+                                        <SelectControl
+                                            value={form.values.reservation_allow_extra_payments}
+                                            propKey={'value'}
+                                            propValue={'label'}
+                                            onChange={(value: boolean) =>
+                                                form.update({ reservation_allow_extra_payments: value })
+                                            }
+                                            options={extraPaymentsOptions}
+                                        />
+                                        <FormError error={form.errors.reservation_allow_extra_payments} />
                                     </div>
                                 </div>
                             </div>

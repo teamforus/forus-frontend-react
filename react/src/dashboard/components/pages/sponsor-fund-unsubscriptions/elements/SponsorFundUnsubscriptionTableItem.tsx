@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { strLimit } from '../../../../helpers/string';
 import Organization from '../../../../props/models/Organization';
 import FundProviderUnsubscribe from '../../../../props/models/FundProviderUnsubscribe';
@@ -6,6 +6,7 @@ import useAssetUrl from '../../../../hooks/useAssetUrl';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function SponsorFundUnsubscriptionTableItem({
     organization,
@@ -15,13 +16,6 @@ export default function SponsorFundUnsubscriptionTableItem({
     unsubscription: FundProviderUnsubscribe;
 }) {
     const assetUrl = useAssetUrl();
-
-    const [stateClasses] = useState({
-        approved: 'success',
-        pending: 'warning',
-        overdue: 'danger',
-        canceled: 'default',
-    });
 
     return (
         <StateNavLink
@@ -78,9 +72,14 @@ export default function SponsorFundUnsubscriptionTableItem({
             </td>
 
             <td className="nowrap">
-                <div className={`tag tag-sm tag-${stateClasses[unsubscription.state] || 'default'}`}>
-                    {unsubscription.state_locale}
-                </div>
+                {unsubscription.state === 'approved' && <Label type={'success'}>{unsubscription.state_locale}</Label>}
+                {unsubscription.state === 'pending' && <Label type={'warning'}>{unsubscription.state_locale}</Label>}
+                {unsubscription.state === 'overdue' && <Label type={'danger'}>{unsubscription.state_locale}</Label>}
+                {unsubscription.state === 'canceled' && <Label type={'default'}>{unsubscription.state_locale}</Label>}
+
+                {!['approved', 'pending', 'overdue', 'canceled'].includes(unsubscription.state) && (
+                    <Label type={'default'}>{unsubscription.state_locale}</Label>
+                )}
             </td>
 
             <td className="nowrap">

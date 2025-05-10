@@ -72,43 +72,42 @@ export default function VoucherRecordsEditor({
         <div className="block block-voucher-records-editor form">
             <div className="block-voucher-record-list" hidden={records.length === 0}>
                 {records.map((record, index) => (
-                    <div key={index} className="form-group form-group-inline form-group-inline-lg">
+                    <div key={index} className="form-group">
                         <div className="form-label">{record.name}</div>
-                        <div className="form-offset">
-                            <div className="voucher-record-item">
-                                <div className="voucher-record-item-input flex-flex-vertical">
-                                    {record.key != 'birth_date' ? (
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            value={record.value || ''}
-                                            placeholder={record.name}
-                                            onChange={(e) => {
-                                                records[index].value = e.target.value;
-                                                setRecords([...records]);
-                                            }}
-                                        />
-                                    ) : (
-                                        <DatePickerControl
-                                            value={dateParse(record.value)}
-                                            placeholder={translate('dd-MM-yyyy')}
-                                            onChange={(value: Date) => {
-                                                const recordsData = [...records];
-                                                recordsData[index].value = dateFormat(value);
-                                                setRecords(recordsData);
-                                            }}
-                                        />
-                                    )}
 
-                                    <FormError error={errors?.[record.key]} />
-                                </div>
+                        <div className="voucher-record-item">
+                            <div className="voucher-record-item-input flex-flex-vertical">
+                                {record.key != 'birth_date' ? (
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={record.value || ''}
+                                        placeholder={record.name}
+                                        onChange={(e) => {
+                                            records[index].value = e.target.value;
+                                            setRecords([...records]);
+                                        }}
+                                    />
+                                ) : (
+                                    <DatePickerControl
+                                        value={dateParse(record.value)}
+                                        placeholder={translate('dd-MM-yyyy')}
+                                        onChange={(value: Date) => {
+                                            const recordsData = [...records];
+                                            recordsData[index].value = dateFormat(value);
+                                            setRecords(recordsData);
+                                        }}
+                                    />
+                                )}
 
-                                <div className="voucher-record-item-actions">
-                                    <div
-                                        className="button button-icon button-default"
-                                        onClick={() => removeRecord(record.key)}>
-                                        <em className="mdi mdi-close" />
-                                    </div>
+                                <FormError error={errors?.[record.key]} />
+                            </div>
+
+                            <div className="voucher-record-item-actions">
+                                <div
+                                    className="button button-icon button-default"
+                                    onClick={() => removeRecord(record.key)}>
+                                    <em className="mdi mdi-close" />
                                 </div>
                             </div>
                         </div>
@@ -118,7 +117,7 @@ export default function VoucherRecordsEditor({
 
             {recordTypesAvailable?.length > 0 && (
                 <div className="block-voucher-record-add">
-                    <div className="form-group form-group-inline form-group-inline-lg">
+                    <div className="form-group">
                         <div className="form-label">Selecteer persoonsgegevens</div>
                         {!showRecordSelector ? (
                             <div className="button button-primary" onClick={() => setShowRecordSelector(true)}>
@@ -137,7 +136,7 @@ export default function VoucherRecordsEditor({
                     </div>
 
                     {showRecordSelector && (
-                        <div className="form-group form-group-inline form-group-inline-lg">
+                        <div className="form-group">
                             <div className="form-label" />
                             <div className="block-voucher-record-add-actions">
                                 <button

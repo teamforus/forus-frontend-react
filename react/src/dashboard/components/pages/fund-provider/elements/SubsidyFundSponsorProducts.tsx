@@ -14,6 +14,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import SponsorProduct, { DealHistory } from '../../../../props/models/Sponsor/SponsorProduct';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import Label from '../../../elements/image_cropper/Label';
 
 type ProductLocal = SponsorProduct & {
     allowed: boolean;
@@ -167,13 +168,13 @@ export default function SubsidyFundSponsorProducts({
                                                 {product.is_available && product.allowed && (
                                                     <div className="flex flex-center">
                                                         <div className="flex-self-center">
-                                                            <div className="tag tag-success nowrap flex">
+                                                            <Label type="success" className="nowrap flex">
                                                                 Subsidie actief
                                                                 <em
                                                                     className="mdi mdi-close icon-end clickable"
                                                                     onClick={() => disableProviderProduct(product)}
                                                                 />
-                                                            </div>
+                                                            </Label>
                                                             <div className="hidden" />
                                                         </div>
                                                     </div>
@@ -182,7 +183,9 @@ export default function SubsidyFundSponsorProducts({
                                                 {!product.is_available && (
                                                     <div className="flex flex-center">
                                                         <div className="flex-self-center">
-                                                            <div className="tag tag-text nowrap">Niet beschikbaar</div>
+                                                            <Label type={'text'} className="nowrap">
+                                                                Niet beschikbaar
+                                                            </Label>
                                                             <div className="hidden" />
                                                         </div>
                                                     </div>

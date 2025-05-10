@@ -70,81 +70,73 @@ export default function ModalPreCheckEditFundExclusions({
                 <div className="modal-header">Fonds toevoegen</div>
                 <div className="modal-body modal-body-visible">
                     <div className="modal-section">
-                        <div className="form-group form-group-inline form-group-inline-md">
+                        <div className="form-group">
                             <label className="form-label form-label-required">Fonds</label>
-                            <div className="form-offset">
-                                <FormGroupInfo
-                                    error={form.errors?.fund_id}
-                                    info={
-                                        <Fragment>
-                                            De naam van de regeling (het fonds) waarvoor u wilt instellen of deze wordt
-                                            meegenomen in de Regelingencheck.
-                                        </Fragment>
-                                    }>
-                                    <SelectControl
-                                        className="form-control inline-filter-control"
-                                        disabled={!!fund?.id}
-                                        propKey={'id'}
-                                        propValue={'name'}
-                                        options={funds}
-                                        value={form.values.fund_id}
-                                        onChange={(fund_id: number) => form.update({ fund_id })}
-                                        optionsComponent={SelectControlOptionsFund}
-                                    />
-                                </FormGroupInfo>
-                            </div>
+                            <FormGroupInfo
+                                error={form.errors?.fund_id}
+                                info={
+                                    <Fragment>
+                                        De naam van de regeling (het fonds) waarvoor u wilt instellen of deze wordt
+                                        meegenomen in de Regelingencheck.
+                                    </Fragment>
+                                }>
+                                <SelectControl
+                                    className="form-control inline-filter-control"
+                                    disabled={!!fund?.id}
+                                    propKey={'id'}
+                                    propValue={'name'}
+                                    options={funds}
+                                    value={form.values.fund_id}
+                                    onChange={(fund_id: number) => form.update({ fund_id })}
+                                    optionsComponent={SelectControlOptionsFund}
+                                />
+                            </FormGroupInfo>
                         </div>
 
-                        <div className="form-group form-group-inline form-group-inline-md">
+                        <div className="form-group">
                             <label className="form-label form-label-required">Uitgesloten</label>
-                            <div className="form-offset">
-                                <FormGroupInfo
-                                    error={form.errors?.pre_check_excluded}
-                                    info={
-                                        <Fragment>
-                                            Geef aan of deze regeling moet worden uitgesloten van de Regelingencheck.
-                                            Als u kiest voor Ja, worden er geen vragen gesteld over de voorwaarden van
-                                            dit fonds en wordt het niet meegenomen in het eindadvies.
-                                        </Fragment>
-                                    }>
-                                    <SelectControl
-                                        className="form-control inline-filter-control"
-                                        propKey={'value'}
-                                        propValue={'label'}
-                                        options={disableOptions}
-                                        value={form.values.excluded}
-                                        onChange={(excluded: boolean) => form.update({ excluded })}
-                                    />
-                                </FormGroupInfo>
-                            </div>
+
+                            <FormGroupInfo
+                                error={form.errors?.pre_check_excluded}
+                                info={
+                                    <Fragment>
+                                        Geef aan of deze regeling moet worden uitgesloten van de Regelingencheck. Als u
+                                        kiest voor Ja, worden er geen vragen gesteld over de voorwaarden van dit fonds
+                                        en wordt het niet meegenomen in het eindadvies.
+                                    </Fragment>
+                                }>
+                                <SelectControl
+                                    className="form-control inline-filter-control"
+                                    propKey={'value'}
+                                    propValue={'label'}
+                                    options={disableOptions}
+                                    value={form.values.excluded}
+                                    onChange={(excluded: boolean) => form.update({ excluded })}
+                                />
+                            </FormGroupInfo>
                         </div>
 
                         {!form.values.excluded && (
-                            <div className="form-group form-group-inline form-group-inline-md">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">Uitleg</label>
-                                <div className="form-offset">
-                                    <textarea
-                                        className="form-control"
-                                        placeholder="Voeg omschrijving toe"
-                                        value={form.values.note}
-                                        onChange={(e) => form.update({ note: e.target.value })}
-                                    />
 
-                                    <FormError error={form.errors['exclusion.note']} />
-                                </div>
+                                <textarea
+                                    className="form-control"
+                                    placeholder="Voeg omschrijving toe"
+                                    value={form.values.note}
+                                    onChange={(e) => form.update({ note: e.target.value })}
+                                />
+
+                                <FormError error={form.errors['exclusion.note']} />
                             </div>
                         )}
 
                         <div className="form-group">
-                            <div className="form-label" />
-                            <div className="form-offset">
-                                <div className="block block-info">
-                                    <em className="mdi mdi-information block-info-icon" />
-                                    Soms is het wenselijk dat een regeling niet wordt meegenomen in de Regelingencheck.
-                                    Door het fonds aan deze lijst toe te voegen, worden de bijbehorende voorwaarden niet
-                                    getoond aan de gebruiker en wordt de regeling niet meegenomen in het uiteindelijke
-                                    advies.
-                                </div>
+                            <div className="block block-info">
+                                <em className="mdi mdi-information block-info-icon" />
+                                Soms is het wenselijk dat een regeling niet wordt meegenomen in de Regelingencheck. Door
+                                het fonds aan deze lijst toe te voegen, worden de bijbehorende voorwaarden niet getoond
+                                aan de gebruiker en wordt de regeling niet meegenomen in het uiteindelijke advies.
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 &.block-voucher-records-editor {
     .block-voucher-record-list {
-        border-radius: 5px;
+        border-radius: var(--border-radius);
         border: 1px dashed var(--border-color);
         padding: 15px;
         margin-bottom: 20px;

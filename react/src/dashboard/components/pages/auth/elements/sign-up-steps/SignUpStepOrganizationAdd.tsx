@@ -274,20 +274,18 @@ export default function SignUpStepOrganizationAdd({
                                     <label className="form-label">
                                         {translate('organization_edit.labels.business_type')}
                                     </label>
-                                    <div className="form-offset">
-                                        {businessTypes && (
-                                            <SelectControl
-                                                value={formOrganization.values.business_type_id}
-                                                propKey={'id'}
-                                                allowSearch={true}
-                                                onChange={(business_type_id?: number) =>
-                                                    formOrganization.update({ business_type_id })
-                                                }
-                                                options={businessTypes}
-                                                placeholder={'Selecteer organisatie type...'}
-                                            />
-                                        )}
-                                    </div>
+                                    {businessTypes && (
+                                        <SelectControl
+                                            value={formOrganization.values.business_type_id}
+                                            propKey={'id'}
+                                            allowSearch={true}
+                                            onChange={(business_type_id?: number) =>
+                                                formOrganization.update({ business_type_id })
+                                            }
+                                            options={businessTypes}
+                                            placeholder={'Selecteer organisatie type...'}
+                                        />
+                                    )}
                                     <FormError error={formOrganization.errors.business_type_id} />
                                 </div>
                             </div>

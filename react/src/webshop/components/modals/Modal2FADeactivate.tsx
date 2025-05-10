@@ -185,19 +185,17 @@ export default function Modal2FADeactivate({
                             <div className="modal-section-space" />
 
                             <div className="form-group">
-                                <div className="form-group-offset">
-                                    <PincodeControl
-                                        value={confirmationCode}
-                                        onChange={setConfirmationCode}
-                                        className={'block-pincode-compact'}
-                                        valueType={'num'}
-                                        blockSize={3}
-                                        blockCount={2}
-                                        ariaLabel={translate('modal_2fa_deactivate.enter_2fa_code_deactivation')}
-                                    />
+                                <PincodeControl
+                                    value={confirmationCode}
+                                    onChange={setConfirmationCode}
+                                    className={'block-pincode-compact'}
+                                    valueType={'num'}
+                                    blockSize={3}
+                                    blockCount={2}
+                                    ariaLabel={translate('modal_2fa_deactivate.enter_2fa_code_deactivation')}
+                                />
 
-                                    <FormError error={errorCode} />
-                                </div>
+                                <FormError error={errorCode} />
 
                                 {type == 'phone' && (
                                     <div className="text-center">

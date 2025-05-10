@@ -403,12 +403,12 @@
 
                     &.td-media-sm {
                         width: 30px;
-                        border-radius: 4px;
+                        border-radius: var(--border-radius);
                     }
 
                     &.td-media-md {
                         width: 40px;
-                        border-radius: 4px;
+                        border-radius: var(--border-radius);
                     }
 
                     &.td-media-round {

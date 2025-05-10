@@ -129,7 +129,7 @@ export default function ModalVoucherDeactivation({
                         </div>
 
                         {hasEmail && (
-                            <div className="form-group.form-group-inline">
+                            <div className="form-group">
                                 <CheckboxControl
                                     title={'Informeer de gebruiker via een e-mailbericht.'}
                                     checked={form.values.notify_by_email || false}

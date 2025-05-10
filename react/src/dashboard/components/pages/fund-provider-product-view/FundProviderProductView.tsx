@@ -23,6 +23,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import ProductDetailsBlock from '../products-view/elements/ProductDetailsBlock';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function FundProviderProductView() {
     const { id, fundId, fundProviderId } = useParams();
@@ -305,7 +306,7 @@ export default function FundProviderProductView() {
                             <Fragment>
                                 {fundProvider.fund.type == 'budget' && (
                                     <div className="form">
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <ToggleControl
                                                 checked={fundProvider.allow_products || productAllowed}
                                                 disabled={fundProvider.allow_products}
@@ -333,13 +334,13 @@ export default function FundProviderProductView() {
                                         )}
 
                                         {product.is_available && productAllowed && (
-                                            <div className="tag tag-success nowrap">
+                                            <Label type="success" className="nowrap">
                                                 {translate('product.buttons.subsidy_active')}
                                                 <em
                                                     className="mdi mdi-close icon-end clickable"
                                                     onClick={() => disableProviderProduct(product)}
                                                 />
-                                            </div>
+                                            </Label>
                                         )}
                                     </Fragment>
                                 )}
@@ -509,9 +510,9 @@ export default function FundProviderProductView() {
                                                 </td>
                                                 <td>
                                                     {item.active ? (
-                                                        <div className="tag tag-success">Actief</div>
+                                                        <Label type="success">Actief</Label>
                                                     ) : (
-                                                        <div className="tag tag-default">Afgelopen</div>
+                                                        <Label type="default">Afgelopen</Label>
                                                     )}
                                                 </td>
                                                 {!(fund.type == 'subsidies' || item.active) ? (

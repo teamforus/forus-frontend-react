@@ -256,7 +256,7 @@ export default function SecuritySessions() {
                                             </div>
                                             {session.current && (
                                                 <div className="session-label">
-                                                    <div className="label label-lg label-primary">
+                                                    <div className="label label-primary">
                                                         {translate('security_sessions.labels.online')}
                                                     </div>
                                                 </div>
@@ -264,7 +264,7 @@ export default function SecuritySessions() {
 
                                             {session.active && !session.current && (
                                                 <div className="session-label">
-                                                    <div className="label label-lg label-success">
+                                                    <div className="label label-success">
                                                         {translate('security_sessions.labels.online')}
                                                     </div>
                                                 </div>
