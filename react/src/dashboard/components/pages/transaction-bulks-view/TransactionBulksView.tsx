@@ -15,7 +15,7 @@ import usePushDanger from '../../../hooks/usePushDanger';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import { hasPermission } from '../../../helpers/utils';
 import { BooleanParam, StringParam, useQueryParams } from 'use-query-params';
-import useMakeExporterService from '../../../services/exports/useMakeExporterService';
+import useMakeExporterService from '../../../services/exporters/hooks/useMakeExporterService';
 import TransactionBulkTransactionsTable from './elements/TransactionBulkTransactionsTable';
 import Bank from '../../../props/models/Bank';
 import { ResponseError } from '../../../props/ApiResponses';

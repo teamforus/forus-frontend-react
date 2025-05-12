@@ -76,6 +76,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                 iconActive={<IconFinancialActive />}
                 pinnedGroups={pinnedGroups}
                 setPinnedGroups={setPinnedGroups}
+                dusk={'asideMenuGroupFinancial'}
                 items={[
                     {
                         id: 'transactions',
@@ -83,6 +84,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                         state: 'transactions',
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, 'view_finances'),
+                        dusk: 'transactionsPage',
                     },
                     {
                         id: 'payment-methods',
