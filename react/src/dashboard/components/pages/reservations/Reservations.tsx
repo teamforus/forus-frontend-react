@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -28,23 +28,25 @@ import { dateFormat, dateParse } from '../../../helpers/dates';
 import useUpdateActiveOrganization from '../../../hooks/useUpdateActiveOrganization';
 import ModalReservationCreate from '../../modals/ModalReservationCreate';
 import ModalReservationUpload from '../../modals/ModalReservationUpload';
-import useConfirmReservationApproval from '../../../services/helpers/reservations/useConfirmReservationApproval';
-import useConfirmReservationRejection from '../../../services/helpers/reservations/useConfirmReservationRejection';
-import useShowReservationRejectInfoExtraPaid from '../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
-import useConfirmReservationArchive from '../../../services/helpers/reservations/useConfirmReservationArchive';
-import useConfirmReservationUnarchive from '../../../services/helpers/reservations/useConfirmReservationUnarchive';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
+import BlockInlineCopy from '../../elements/block-inline-copy/BlockInlineCopy';
+import classNames from 'classnames';
+import ReservationLabel from './elements/ReservationLabel';
+import TableCheckboxControl from '../../elements/tables/elements/TableCheckboxControl';
+import useTableToggles from '../../../hooks/useTableToggles';
+import useReservationSelectedTableMeta from './hooks/useReservationSelectedTableMeta';
+import EmptyValue from '../../elements/empty-value/EmptyValue';
+import useReservationsTableActions from './hooks/useReservationsTableActions';
 
 export default function Reservations() {
     const identity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
     const updateActiveOrganization = useUpdateActiveOrganization();
-    const productReservationsExporter = useProductReservationsExporter();
 
     const openModal = useOpenModal();
     const translate = useTranslate();
@@ -57,16 +59,14 @@ export default function Reservations() {
     const providerFundService = useProviderFundService();
     const organizationService = useOrganizationService();
     const productReservationService = useProductReservationService();
+    const productReservationsExporter = useProductReservationsExporter();
 
     const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [products, setProducts] = useState<Array<Partial<Product>>>(null);
     const [paginatorKey] = useState('reservations');
 
-    const confirmReservationArchive = useConfirmReservationArchive();
-    const confirmReservationApproval = useConfirmReservationApproval();
-    const confirmReservationRejection = useConfirmReservationRejection();
-    const confirmReservationUnarchive = useConfirmReservationUnarchive();
-    const showReservationRejectInfoExtraPaid = useShowReservationRejectInfoExtraPaid();
+    const [loading, setLoading] = useState(true);
+    const { selected, setSelected, toggleAll, toggle } = useTableToggles();
 
     const [reservations, setReservations] = useState<PaginationData<Reservation>>(null);
 
@@ -120,6 +120,18 @@ export default function Reservations() {
 
     const { headElement, configsElement } = useConfigurableTable(
         productReservationService.getColumns(showExtraPayments),
+        {
+            filter: filter,
+            sortable: true,
+            trPrepend: (
+                <th className="th-narrow">
+                    <TableCheckboxControl
+                        checked={selected.length == reservations?.data?.length}
+                        onClick={(e) => toggleAll(e, reservations?.data)}
+                    />
+                </th>
+            ),
+        },
     );
 
     const fetchReservations = useCallback(
@@ -133,64 +145,23 @@ export default function Reservations() {
     );
 
     const fetchAllReservations = useCallback(() => {
+        setSelected([]);
+        setLoading(true);
         setProgress(0);
 
         Promise.all([
             fetchReservations(filter.activeValues).then((res) => setActiveReservations(res.data)),
             fetchReservations(filter.activeValues, true).then((res) => setArchivedReservations(res.data)),
         ]).finally(() => {
+            setLoading(false);
             setProgress(100);
         });
-    }, [fetchReservations, filter.activeValues, setProgress]);
+    }, [fetchReservations, filter.activeValues, setProgress, setSelected]);
 
-    const acceptReservation = useCallback(
-        (reservation: Reservation) => {
-            confirmReservationApproval(reservation as Reservation, () => {
-                productReservationService
-                    .accept(activeOrganization.id, reservation.id)
-                    .then(() => {
-                        pushSuccess('Opgeslagen!');
-                        fetchAllReservations();
-                    })
-                    .catch(pushApiError);
-            });
-        },
-        [
-            activeOrganization.id,
-            confirmReservationApproval,
-            fetchAllReservations,
-            productReservationService,
-            pushApiError,
-            pushSuccess,
-        ],
-    );
+    const selectedMeta = useReservationSelectedTableMeta(reservations?.data || [], selected);
 
-    const rejectReservation = useCallback(
-        (reservation: Reservation) => {
-            if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
-                return showReservationRejectInfoExtraPaid();
-            }
-
-            confirmReservationRejection(reservation, () => {
-                productReservationService
-                    .reject(activeOrganization.id, reservation.id)
-                    .then(() => {
-                        pushSuccess('Opgeslagen!');
-                        fetchAllReservations();
-                    })
-                    .catch(pushApiError);
-            });
-        },
-        [
-            pushSuccess,
-            pushApiError,
-            activeOrganization.id,
-            fetchAllReservations,
-            showReservationRejectInfoExtraPaid,
-            confirmReservationRejection,
-            productReservationService,
-        ],
-    );
+    const { acceptReservations, rejectReservations, archiveReservations, unarchiveReservations } =
+        useReservationsTableActions(activeOrganization, fetchAllReservations);
 
     const toggleAcceptByDefault = useCallback(
         async (value: boolean) => {
@@ -285,50 +256,6 @@ export default function Reservations() {
         productReservationsExporter.exportData(activeOrganization.id, filter.values);
     }, [activeOrganization.id, filter.values, productReservationsExporter]);
 
-    const archiveReservation = useCallback(
-        (reservation: Reservation) => {
-            confirmReservationArchive(reservation as Reservation, () => {
-                productReservationService
-                    .archive(activeOrganization.id, reservation.id)
-                    .then(() => {
-                        pushSuccess('Opgeslagen!');
-                        fetchAllReservations();
-                    })
-                    .catch(pushApiError);
-            });
-        },
-        [
-            activeOrganization.id,
-            confirmReservationArchive,
-            fetchAllReservations,
-            productReservationService,
-            pushApiError,
-            pushSuccess,
-        ],
-    );
-
-    const unarchiveReservation = useCallback(
-        (reservation: Reservation) => {
-            confirmReservationUnarchive(reservation as Reservation, () => {
-                productReservationService
-                    .unarchive(activeOrganization.id, reservation.id)
-                    .then(() => {
-                        pushSuccess('Opgeslagen!');
-                        fetchAllReservations();
-                    })
-                    .catch(pushApiError);
-            });
-        },
-        [
-            activeOrganization.id,
-            confirmReservationUnarchive,
-            fetchAllReservations,
-            productReservationService,
-            pushApiError,
-            pushSuccess,
-        ],
-    );
-
     // Fetch active and archived reservations
     useEffect(() => {
         fetchAllReservations();
@@ -354,6 +281,8 @@ export default function Reservations() {
         });
     }, [activeOrganization, productService, providerFundService]);
 
+    useEffect(() => console.log(selectedMeta), [selectedMeta]);
+
     if (!reservations) {
         return <LoadingCard />;
     }
@@ -362,158 +291,210 @@ export default function Reservations() {
         <div className="card" data-dusk="tableReservationContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow" data-dusk="reservationsTitle">
-                    {translate('reservations.header.title')} ({reservations?.meta?.total})
+                    {translate('reservations.header.title')}
+
+                    {!loading && selected.length > 0 && ` (${selected.length}/${reservations.data.length})`}
+                    {!loading && selected.length == 0 && ` (${reservations.meta.total})`}
                 </div>
                 <div className="card-header-filters">
                     <div className="flex block block-inline-filters">
-                        {reservationEnabled && (
-                            <div onClick={makeReservation} className="button button-primary button-sm">
-                                <em className="mdi mdi-plus-circle icon-start" />
-                                Aanmaken
-                            </div>
-                        )}
-                        {reservationEnabled && hasPermission(activeOrganization, 'manage_organization') && (
-                            <StateNavLink
-                                name="reservations-settings"
-                                params={{ organizationId: activeOrganization.id }}
-                                className="button button-primary button-sm">
-                                <em className="mdi mdi-cog icon-start" />
-                                Instellingen
-                            </StateNavLink>
-                        )}
-                        {activeOrganization.allow_batch_reservations && reservationEnabled && (
-                            <div className="button button-primary button-sm" onClick={uploadReservations}>
-                                <em className="mdi mdi-upload icon-start" />
-                                Upload bulkbestand
-                            </div>
-                        )}
-                        <div className="flex-col">
-                            <div className="block block-label-tabs pull-right">
-                                <div className="label-tab-set">
-                                    <div
-                                        className={`label-tab label-tab-sm ${
-                                            shownReservationsType == 'active' ? 'active' : ''
-                                        }`}
-                                        onClick={() => setShownReservationType('active')}>
-                                        Lopend ({activeReservations.meta.total})
-                                    </div>
-                                    <div
-                                        className={`label-tab label-tab-sm ${
-                                            shownReservationsType == 'archived' ? 'active' : ''
-                                        }`}
-                                        onClick={() => setShownReservationType('archived')}>
-                                        Archief ({archivedReservations.meta.total})
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {filter.show ? (
-                            <div className="button button-text" onClick={filter.resetFilters}>
-                                <em className="mdi mdi-close icon-start" />
-                                <span>Wis filters</span>
-                            </div>
+                        {selectedMeta?.selected.length > 0 ? (
+                            <Fragment>
+                                {selectedMeta?.selected_acceptable?.length > 0 && (
+                                    <button
+                                        type={'button'}
+                                        className="button button-primary button-sm"
+                                        onClick={() => acceptReservations(selectedMeta?.selected_acceptable)}>
+                                        <em className="mdi mdi-check-all icon-start" />
+                                        Accepteren
+                                    </button>
+                                )}
+                                {selectedMeta?.selected_rejectable?.length > 0 && (
+                                    <button
+                                        type={'button'}
+                                        className="button button-danger button-sm"
+                                        onClick={() => rejectReservations(selectedMeta?.selected_rejectable)}>
+                                        <em className="mdi mdi-close-box-multiple icon-start" />
+                                        Afwijzen
+                                    </button>
+                                )}
+                                {selectedMeta?.selected_archivable?.length > 0 && (
+                                    <button
+                                        type={'button'}
+                                        className="button button-default button-sm"
+                                        onClick={() => archiveReservations(selectedMeta?.selected_archivable)}>
+                                        <em className="mdi mdi-archive-outline icon-start" />
+                                        Archief
+                                    </button>
+                                )}
+                                {selectedMeta?.selected_archived?.length > 0 && (
+                                    <button
+                                        type={'button'}
+                                        className="button button-default button-sm"
+                                        onClick={() => unarchiveReservations(selectedMeta?.selected_archived)}>
+                                        <em className="mdi mdi-archive-arrow-up-outline icon-start" />
+                                        Herstellen
+                                    </button>
+                                )}
+                                {!selectedMeta.hasActions && (
+                                    <EmptyValue>Geen gemeenschappelijke acties beschikbaar</EmptyValue>
+                                )}
+                            </Fragment>
                         ) : (
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        className="form-control"
-                                        value={filter.values.q}
-                                        data-dusk="tableReservationSearch"
-                                        placeholder={translate('reservations.filters.search')}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
-                                    />
+                            <Fragment>
+                                {reservationEnabled && (
+                                    <div onClick={makeReservation} className="button button-primary button-sm">
+                                        <em className="mdi mdi-plus-circle icon-start" />
+                                        Aanmaken
+                                    </div>
+                                )}
+
+                                {reservationEnabled && hasPermission(activeOrganization, 'manage_organization') && (
+                                    <StateNavLink
+                                        name="reservations-settings"
+                                        params={{ organizationId: activeOrganization.id }}
+                                        className="button button-primary button-sm">
+                                        <em className="mdi mdi-cog icon-start" />
+                                        Instellingen
+                                    </StateNavLink>
+                                )}
+                                {activeOrganization.allow_batch_reservations && reservationEnabled && (
+                                    <div className="button button-primary button-sm" onClick={uploadReservations}>
+                                        <em className="mdi mdi-upload icon-start" />
+                                        Upload bulkbestand
+                                    </div>
+                                )}
+
+                                <div className="flex-col">
+                                    <div className="block block-label-tabs pull-right">
+                                        <div className="label-tab-set">
+                                            <div
+                                                className={`label-tab label-tab-sm ${
+                                                    shownReservationsType == 'active' ? 'active' : ''
+                                                }`}
+                                                onClick={() => setShownReservationType('active')}>
+                                                Lopend ({activeReservations.meta.total})
+                                            </div>
+                                            <div
+                                                className={`label-tab label-tab-sm ${
+                                                    shownReservationsType == 'archived' ? 'active' : ''
+                                                }`}
+                                                onClick={() => setShownReservationType('archived')}>
+                                                Archief ({archivedReservations.meta.total})
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                                {filter.show ? (
+                                    <div className="button button-text" onClick={filter.resetFilters}>
+                                        <em className="mdi mdi-close icon-start" />
+                                        <span>Wis filters</span>
+                                    </div>
+                                ) : (
+                                    <div className="form">
+                                        <div className="form-group">
+                                            <input
+                                                className="form-control"
+                                                value={filter.values.q}
+                                                data-dusk="tableReservationSearch"
+                                                placeholder={translate('reservations.filters.search')}
+                                                onChange={(e) => filter.update({ q: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
+                                <CardHeaderFilter filter={filter}>
+                                    <FilterItemToggle label={translate('reservations.filters.search')} show={true}>
+                                        <input
+                                            className="form-control"
+                                            value={filter.values.q}
+                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            placeholder={translate('reservations.filters.search')}
+                                        />
+                                    </FilterItemToggle>
+
+                                    <FilterItemToggle label={translate('reservations.filters.fund')}>
+                                        {funds && (
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'id'}
+                                                allowSearch={false}
+                                                options={funds}
+                                                onChange={(fund_id: number) => filter.update({ fund_id })}
+                                            />
+                                        )}
+                                    </FilterItemToggle>
+
+                                    <FilterItemToggle label={translate('reservations.filters.product')}>
+                                        {products && (
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'id'}
+                                                allowSearch={true}
+                                                options={products}
+                                                onChange={(product_id: number) => filter.update({ product_id })}
+                                            />
+                                        )}
+                                    </FilterItemToggle>
+
+                                    <FilterItemToggle label={translate('reservations.filters.from')}>
+                                        <DatePickerControl
+                                            value={dateParse(filter.values.from)}
+                                            placeholder={translate('jjjj-MM-dd')}
+                                            onChange={(from: Date) => {
+                                                filter.update({ from: dateFormat(from) });
+                                            }}
+                                        />
+                                    </FilterItemToggle>
+
+                                    <FilterItemToggle label={translate('reservations.filters.to')}>
+                                        <DatePickerControl
+                                            value={dateParse(filter.values.to)}
+                                            placeholder={translate('jjjj-MM-dd')}
+                                            onChange={(to: Date) => {
+                                                filter.update({ to: dateFormat(to) });
+                                            }}
+                                        />
+                                    </FilterItemToggle>
+
+                                    <FilterItemToggle label={translate('reservations.filters.state')}>
+                                        <SelectControl
+                                            className="form-control"
+                                            propKey={'key'}
+                                            allowSearch={false}
+                                            value={filter.values.state}
+                                            options={states}
+                                            onChange={(state: string) => filter.update({ state })}
+                                        />
+                                    </FilterItemToggle>
+
+                                    <div className="form-actions">
+                                        <button
+                                            className="button button-primary button-wide"
+                                            onClick={() => exportReservations()}
+                                            data-dusk="export"
+                                            disabled={reservations.meta.total == 0}>
+                                            <em className="mdi mdi-download icon-start"> </em>
+                                            {translate('components.dropdown.export', {
+                                                total: reservations.meta.total,
+                                            })}
+                                        </button>
+                                    </div>
+                                </CardHeaderFilter>
+                            </Fragment>
                         )}
-
-                        <CardHeaderFilter filter={filter}>
-                            <FilterItemToggle label={translate('reservations.filters.search')} show={true}>
-                                <input
-                                    className="form-control"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
-                                    placeholder={translate('reservations.filters.search')}
-                                />
-                            </FilterItemToggle>
-
-                            <FilterItemToggle label={translate('reservations.filters.fund')}>
-                                {funds && (
-                                    <SelectControl
-                                        className="form-control"
-                                        propKey={'id'}
-                                        allowSearch={false}
-                                        options={funds}
-                                        onChange={(fund_id: number) => filter.update({ fund_id })}
-                                    />
-                                )}
-                            </FilterItemToggle>
-
-                            <FilterItemToggle label={translate('reservations.filters.product')}>
-                                {products && (
-                                    <SelectControl
-                                        className="form-control"
-                                        propKey={'id'}
-                                        allowSearch={true}
-                                        options={products}
-                                        onChange={(product_id: number) => filter.update({ product_id })}
-                                    />
-                                )}
-                            </FilterItemToggle>
-
-                            <FilterItemToggle label={translate('reservations.filters.from')}>
-                                <DatePickerControl
-                                    value={dateParse(filter.values.from)}
-                                    placeholder={translate('jjjj-MM-dd')}
-                                    onChange={(from: Date) => {
-                                        filter.update({ from: dateFormat(from) });
-                                    }}
-                                />
-                            </FilterItemToggle>
-
-                            <FilterItemToggle label={translate('reservations.filters.to')}>
-                                <DatePickerControl
-                                    value={dateParse(filter.values.to)}
-                                    placeholder={translate('jjjj-MM-dd')}
-                                    onChange={(to: Date) => {
-                                        filter.update({ to: dateFormat(to) });
-                                    }}
-                                />
-                            </FilterItemToggle>
-
-                            <FilterItemToggle label={translate('reservations.filters.state')}>
-                                <SelectControl
-                                    className="form-control"
-                                    propKey={'key'}
-                                    allowSearch={false}
-                                    value={filter.values.state}
-                                    options={states}
-                                    onChange={(state: string) => filter.update({ state })}
-                                />
-                            </FilterItemToggle>
-
-                            <div className="form-actions">
-                                <button
-                                    className="button button-primary button-wide"
-                                    onClick={() => exportReservations()}
-                                    data-dusk="export"
-                                    disabled={reservations.meta.total == 0}>
-                                    <em className="mdi mdi-download icon-start"> </em>
-                                    {translate('components.dropdown.export', {
-                                        total: reservations.meta.total,
-                                    })}
-                                </button>
-                            </div>
-                        </CardHeaderFilter>
                     </div>
                 </div>
             </div>
+
             {reservations.meta.total > 0 && (
                 <div className="card-section card-section-padless">
                     {configsElement}
 
                     <TableTopScroller>
-                        <table className="table">
+                        <table className="table form">
                             {headElement}
 
                             <tbody>
@@ -524,10 +505,19 @@ export default function Reservations() {
                                             organizationId: activeOrganization.id,
                                             id: reservation.id,
                                         }}
-                                        className={'tr-clickable'}
+                                        className={classNames(
+                                            'tr-clickable',
+                                            selected.includes(reservation.id) && 'selected',
+                                        )}
                                         dataDusk={`tableReservationRow${reservation.id}`}
                                         customElement={'tr'}
                                         key={reservation.id}>
+                                        <td className="td-narrow">
+                                            <TableCheckboxControl
+                                                checked={selected.includes(reservation.id)}
+                                                onClick={(e) => toggle(e, reservation)}
+                                            />
+                                        </td>
                                         <td>
                                             <StateNavLink
                                                 name={'reservations-show'}
@@ -544,18 +534,19 @@ export default function Reservations() {
                                                 params={{
                                                     organizationId: reservation.product.organization_id,
                                                     id: reservation.product.id,
-                                                }}>
-                                                <div
-                                                    className={`text-strong text-primary ${
-                                                        reservation.product?.deleted ? 'text-strike' : ''
-                                                    }}`}
-                                                    title={reservation.product.name}>
-                                                    {strLimit(reservation.product.name, 45)}
-                                                </div>
-                                                <div className="text-strong text-small text-muted-dark">
-                                                    {reservation.price_locale}
-                                                </div>
+                                                }}
+                                                className={classNames(
+                                                    `text-strong text-primary`,
+                                                    reservation.product?.deleted
+                                                        ? 'text-strike'
+                                                        : 'text-decoration-link',
+                                                )}
+                                                title={reservation.product.name}>
+                                                {strLimit(reservation.product.name, 45)}
                                             </StateNavLink>
+                                            <div className="text-strong text-small text-muted-dark">
+                                                {reservation.price_locale}
+                                            </div>
                                         </td>
                                         <td>{reservation.amount_locale}</td>
 
@@ -564,33 +555,37 @@ export default function Reservations() {
                                         )}
 
                                         <td>
-                                            {(reservation.first_name || reservation.last_name) && (
-                                                <strong>{reservation.first_name + ' ' + reservation.last_name}</strong>
-                                            )}
-                                            {reservation.identity_physical_card ? (
-                                                <div>
-                                                    <div className="text-strong text-primary">
-                                                        {reservation.identity_physical_card}
+                                            <div className={'flex flex-vertical'}>
+                                                {reservation.identity_physical_card ? (
+                                                    <div className={'flex flex-vertical'}>
+                                                        <div className="text-strong text-primary">
+                                                            {reservation.identity_physical_card}
+                                                        </div>
+                                                        <BlockInlineCopy
+                                                            className="text-strong text-small text-muted-dark"
+                                                            value={reservation.identity_email}>
+                                                            {strLimit(reservation.identity_email, 27)}
+                                                        </BlockInlineCopy>
                                                     </div>
-                                                    <div className="text-strong text-small text-muted-dark">
-                                                        {reservation.identity_email}
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div>
-                                                    <div className="text-strong text-primary">
-                                                        {reservation.identity_email}
-                                                    </div>
-                                                </div>
-                                            )}
+                                                ) : (
+                                                    <BlockInlineCopy
+                                                        className={'text-strong text-primary'}
+                                                        value={reservation.identity_email}>
+                                                        {strLimit(reservation.identity_email, 27)}
+                                                    </BlockInlineCopy>
+                                                )}
+                                                {(reservation.first_name || reservation.last_name) && (
+                                                    <strong>
+                                                        {reservation.first_name + ' ' + reservation.last_name}
+                                                    </strong>
+                                                )}
+                                            </div>
                                         </td>
                                         <td>
                                             <strong className="text-primary">{reservation.created_at_locale}</strong>
                                         </td>
                                         <td data-dusk="reservationState">
-                                            <strong>
-                                                {!reservation.expired ? reservation.state_locale : 'Verlopen'}
-                                            </strong>
+                                            <ReservationLabel reservation={reservation} />
                                         </td>
 
                                         <td className={'table-td-actions text-right'}>
@@ -612,7 +607,7 @@ export default function Reservations() {
                                                             <div
                                                                 className="dropdown-item"
                                                                 onClick={() => {
-                                                                    acceptReservation(reservation);
+                                                                    acceptReservations([reservation]);
                                                                     e.close();
                                                                 }}>
                                                                 <em className="mdi mdi-check icon-start" />
@@ -624,7 +619,7 @@ export default function Reservations() {
                                                             <div
                                                                 className="dropdown-item"
                                                                 onClick={() => {
-                                                                    rejectReservation(reservation);
+                                                                    rejectReservations([reservation]);
                                                                     e.close();
                                                                 }}>
                                                                 <em className="mdi mdi-close icon-start" />
@@ -636,7 +631,7 @@ export default function Reservations() {
                                                             <div
                                                                 className="dropdown-item"
                                                                 onClick={() => {
-                                                                    archiveReservation(reservation);
+                                                                    archiveReservations([reservation]);
                                                                     e.close();
                                                                 }}>
                                                                 <em className="mdi mdi-archive-outline icon-start" />
@@ -648,7 +643,7 @@ export default function Reservations() {
                                                             <div
                                                                 className="dropdown-item"
                                                                 onClick={() => {
-                                                                    unarchiveReservation(reservation);
+                                                                    unarchiveReservations([reservation]);
                                                                     e.close();
                                                                 }}>
                                                                 <em className="mdi mdi-archive-arrow-up-outline icon-start" />
