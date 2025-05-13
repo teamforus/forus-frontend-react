@@ -3,7 +3,6 @@ import BlockLoader from '../block-loader/BlockLoader';
 import BlockLoaderBreadcrumbs from '../block-loader/BlockLoaderBreadcrumbs';
 import BlockBreadcrumbs, { Breadcrumb } from '../block-breadcrumbs/BlockBreadcrumbs';
 import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
-import useReadSpeakerHref from '../../../modules/read_speaker/hooks/useReadSpeakerHref';
 import classNames from 'classnames';
 
 export default function BlockShowcase({
@@ -19,26 +18,24 @@ export default function BlockShowcase({
     loaderElement?: React.ReactElement;
     breadcrumbLoaderElement?: React.ReactElement;
 }) {
-    const readSpeakerHref = useReadSpeakerHref('main-content');
-
     const breadcrumbs = useMemo(() => {
         if (!breadcrumbItems) {
             return null;
         }
 
-        if (breadcrumbItems?.length === 0 && !readSpeakerHref) {
+        if (breadcrumbItems?.length === 0) {
             return <Fragment></Fragment>;
         }
 
         return (
-            breadcrumbItems && (
+            breadcrumbItems.length > 0 && (
                 <BlockBreadcrumbs
                     items={breadcrumbItems}
                     after={<ReadSpeakerButton className={'breadcrumb-read-speaker'} targetId={'main-content'} />}
                 />
             )
         );
-    }, [breadcrumbItems, readSpeakerHref]);
+    }, [breadcrumbItems]);
 
     return (
         <div className={classNames('block', 'block-showcase', className)}>

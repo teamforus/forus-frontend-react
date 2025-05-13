@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import FormError from '../../../elements/forms/errors/FormError';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { getStateRouteUrl, useNavigateState } from '../../../../modules/state_router/Router';
 import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';

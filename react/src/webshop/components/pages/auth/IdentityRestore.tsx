@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { authContext } from '../../../contexts/AuthContext';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { useIdentityService } from '../../../../dashboard/services/IdentityService';
@@ -15,10 +15,13 @@ const targetRequestClarification = 'requestClarification';
 
 export default function IdentityRestore({ confirmation = false }: { confirmation: boolean }) {
     const tokenParam = useParams().token;
-    const [query] = useQueryParams({
-        token: StringParam,
-        target: StringParam,
-    });
+
+    const [query] = useState(
+        useQueryParams({
+            token: StringParam,
+            target: StringParam,
+        })[0],
+    );
 
     const { setToken } = useContext(authContext);
 

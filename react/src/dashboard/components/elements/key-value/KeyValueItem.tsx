@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import classNames from 'classnames';
-import EmptyValue from '../../../../webshop/components/elements/empty-value/EmptyValue';
+import EmptyValue from '../empty-value/EmptyValue';
 import InfoBox from '../info-box/InfoBox';
 
 export default function KeyValueItem({

@@ -3,7 +3,7 @@ import { useFundService } from '../../../services/FundService';
 import useSetProgress from '../../../hooks/useSetProgress';
 import Fund from '../../../props/models/Fund';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import { ResponseError, ResponseErrorData } from '../../../props/ApiResponses';

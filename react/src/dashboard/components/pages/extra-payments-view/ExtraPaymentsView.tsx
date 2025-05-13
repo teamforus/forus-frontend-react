@@ -4,8 +4,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
-import { useParams } from 'react-router-dom';
-import useProductReservationService from '../../../services/ProductReservationService';
+import { useParams } from 'react-router';
 import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';
 import Transaction from '../../../props/models/Transaction';
@@ -16,6 +15,7 @@ import ReservationExtraPaymentDetails from '../reservations-view/elements/Reserv
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../hooks/usePushApiError';
+import ReservationLabel from '../reservations/elements/ReservationLabel';
 
 export default function ExtraPaymentsView() {
     const { id } = useParams();
@@ -24,7 +24,6 @@ export default function ExtraPaymentsView() {
 
     const transactionService = useTransactionService();
     const extraPaymentService = useExtraPaymentService();
-    const productReservationService = useProductReservationService();
 
     const translate = useTranslate();
     const setProgress = useSetProgress();
@@ -32,7 +31,6 @@ export default function ExtraPaymentsView() {
 
     const [transaction, setTransaction] = useState<Transaction>(null);
     const [extraPayment, setExtraPayment] = useState<ExtraPayment>(null);
-    const [stateClass, setStateClass] = useState('label-default');
 
     const fetchTransaction = useCallback(
         (transaction_address: string) => {
@@ -70,12 +68,6 @@ export default function ExtraPaymentsView() {
         }
     }, [fetchTransaction, extraPayment?.reservation?.voucher_transaction?.address]);
 
-    useEffect(() => {
-        if (extraPayment?.reservation) {
-            setStateClass(productReservationService.stateClass(extraPayment.reservation));
-        }
-    }, [productReservationService, extraPayment?.reservation]);
-
     if (!extraPayment) {
         return <LoadingCard />;
     }
@@ -103,13 +95,7 @@ export default function ExtraPaymentsView() {
                                 &nbsp;&nbsp;
                             </div>
                             <div className="flex-center">
-                                {extraPayment.reservation.expired ? (
-                                    <label className="label label-danger-light">Expired</label>
-                                ) : (
-                                    <label className={`label ${stateClass}`}>
-                                        {extraPayment.reservation.state_locale}
-                                    </label>
-                                )}
+                                <ReservationLabel reservation={extraPayment.reservation} />
                             </div>
                         </div>
                         <div className="card-subtitle">

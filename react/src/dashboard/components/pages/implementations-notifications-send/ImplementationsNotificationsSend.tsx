@@ -6,7 +6,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
@@ -23,14 +23,16 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import SystemNotificationTemplateEditor from '../implementations-notifications-edit/elements/SystemNotificationTemplateEditor';
 import SystemNotification from '../../../props/models/SystemNotification';
-import useFundIdentitiesExportService from '../../../services/exports/useFundIdentitiesExportService';
+import useFundIdentitiesExporter from '../../../services/exporters/useFundIdentitiesExporter';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
+
     const activeOrganization = useActiveOrganization();
+    const fundIdentitiesExporter = useFundIdentitiesExporter();
 
     const openModal = useOpenModal();
     const translate = useTranslate();
@@ -42,7 +44,6 @@ export default function ImplementationsNotificationsSend() {
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
     const fundService = useFundService();
-    const fundIdentitiesExportService = useFundIdentitiesExportService();
     const implementationNotificationsService = useImplementationNotificationService();
 
     const [fund, setFund] = useState<Fund>(null);
@@ -119,8 +120,8 @@ export default function ImplementationsNotificationsSend() {
     });
 
     const exportIdentities = useCallback(() => {
-        fundIdentitiesExportService.exportData(activeOrganization.id, fund.id, identitiesFilters.activeValues);
-    }, [activeOrganization?.id, fund?.id, fundIdentitiesExportService, identitiesFilters.activeValues]);
+        fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, identitiesFilters.activeValues);
+    }, [activeOrganization?.id, fund?.id, fundIdentitiesExporter, identitiesFilters.activeValues]);
 
     const onTemplateUpdated = useCallback(
         (item: SystemNotification) => {

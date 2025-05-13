@@ -56,11 +56,11 @@ export default function ModalDangerZone({
                         {description_title && <div className="modal-heading">{description_title}</div>}
 
                         {description_text && (
-                            <div className="modal-text">
+                            <div className={'modal-text'}>
                                 {(Array.isArray(description_text)
                                     ? description_text
                                     : description_text.split('\n')
-                                ).map((value, index) =>
+                                ).map((value: string, index: number) =>
                                     value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
                                 )}
                             </div>
