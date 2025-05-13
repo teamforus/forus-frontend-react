@@ -40,10 +40,6 @@ export class FundService<T = Fund> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds`, data);
     }
 
-    public listPublic(data: object = {}): Promise<ResponseSimple<{ data: Array<T> }>> {
-        return this.apiRequest.get(`${this.prefix_public}`, data);
-    }
-
     public read(company_id: number, fund_id: number, data: object = {}): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}`, data);
     }
@@ -79,6 +75,13 @@ export class FundService<T = Fund> {
 
     public financialOverview(company_id: number, data: object = {}): Promise<ResponseSimple<FinancialOverview>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/sponsor/finances-overview`, data);
+    }
+
+    public financialOverviewExportFields(
+        organization_id: number,
+        data: object = {},
+    ): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/finances-overview/export-fields`, data);
     }
 
     public financialOverviewExport(company_id: number, data: object = {}): Promise<ResponseSimple<ArrayBuffer>> {

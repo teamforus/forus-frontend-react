@@ -3,7 +3,7 @@ import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect, { ExportFieldProp } from '../../components/modals/ModalExportDataSelect';
-import useMakeExporterService from './useMakeExporterService';
+import useMakeExporterService from './hooks/useMakeExporterService';
 import useVoucherService from '../VoucherService';
 import { useFileService } from '../FileService';
 import JSZip from 'jszip';
@@ -13,7 +13,7 @@ import useTranslate from '../../hooks/useTranslate';
 import usePushSuccess from '../../hooks/usePushSuccess';
 import usePushApiError from '../../hooks/usePushApiError';
 
-export default function useVoucherExportService() {
+export default function useVoucherExporter() {
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
@@ -57,7 +57,7 @@ export default function useVoucherExportService() {
         },
     ]);
 
-    const makeQrCode = useCallback((qrValue): string => {
+    const makeQrCode = useCallback((qrValue: string): string => {
         const elementId = `#${qrValue}`;
         const $el = document.body.appendChild(document.createElement('div'));
 

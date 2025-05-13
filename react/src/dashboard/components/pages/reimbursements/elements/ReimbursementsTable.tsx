@@ -55,7 +55,7 @@ export default function ReimbursementsTable({
                                         name={'reimbursements-view'}
                                         params={{ id: reimbursement.id, organizationId: organization.id }}
                                         key={reimbursement.id}
-                                        dataDusk={`reimbursement${reimbursement.id}`}
+                                        dataDusk={`tableReimbursementRow${reimbursement.id}`}
                                         className={classNames('tr-clickable', reimbursement.expired && 'tr-warning')}>
                                         <td>
                                             {/* Email */}

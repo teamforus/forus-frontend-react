@@ -1,59 +1,61 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import Fund from '../../../../props/models/Fund';
-import RecordType from '../../../../props/models/RecordType';
-import useFilter from '../../../../hooks/useFilter';
-import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
-import ClickOutside from '../../../elements/click-outside/ClickOutside';
-import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
-import SelectControl from '../../../elements/select-control/SelectControl';
-import { dateFormat, dateParse } from '../../../../helpers/dates';
-import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
-import ModalExportTypeLegacy from '../../../modals/ModalExportTypeLegacy';
-import useOpenModal from '../../../../hooks/useOpenModal';
-import { PaginationData } from '../../../../props/ApiResponses';
-import Prevalidation from '../../../../props/models/Prevalidation';
-import { usePrevalidationService } from '../../../../services/PrevalidationService';
-import Paginator from '../../../../modules/paginator/components/Paginator';
-import { useEmployeeService } from '../../../../services/EmployeeService';
-import useActiveOrganization from '../../../../hooks/useActiveOrganization';
-import ModalNotification from '../../../modals/ModalNotification';
-import usePushSuccess from '../../../../hooks/usePushSuccess';
-import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import { format } from 'date-fns';
-import { useFileService } from '../../../../services/FileService';
-import EmptyCard from '../../../elements/empty-card/EmptyCard';
-import useTranslate from '../../../../hooks/useTranslate';
-import useSetProgress from '../../../../hooks/useSetProgress';
-import Employee from '../../../../props/models/Employee';
-import usePushApiError from '../../../../hooks/usePushApiError';
-import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
-import TableTopScroller from '../../../elements/tables/TableTopScroller';
-import TableRowActions from '../../../elements/tables/TableRowActions';
-import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import Label from '../../../elements/image_cropper/Label';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { useFundService } from '../../../services/FundService';
+import Fund from '../../../props/models/Fund';
+import { useRecordTypeService } from '../../../services/RecordTypeService';
+import RecordType from '../../../props/models/RecordType';
+import useTranslate from '../../../hooks/useTranslate';
+import LoadingCard from '../../elements/loading-card/LoadingCard';
+import { hasPermission } from '../../../helpers/utils';
+import useSetProgress from '../../../hooks/useSetProgress';
+import SelectControl from '../../elements/select-control/SelectControl';
+import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
+import useActiveOrganization from '../../../hooks/useActiveOrganization';
+import useOpenModal from '../../../hooks/useOpenModal';
+import usePushSuccess from '../../../hooks/usePushSuccess';
+import { useEmployeeService } from '../../../services/EmployeeService';
+import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
+import { usePrevalidationService } from '../../../services/PrevalidationService';
+import Employee from '../../../props/models/Employee';
+import { PaginationData } from '../../../props/ApiResponses';
+import Prevalidation from '../../../props/models/Prevalidation';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import ModalNotification from '../../modals/ModalNotification';
+import ModalCreatePrevalidation from '../../modals/ModalCreatePrevalidation';
+import ModalPrevalidationsUpload from '../../modals/ModalPrevalidationsUpload';
+import ClickOutside from '../../elements/click-outside/ClickOutside';
+import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
+import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
+import { dateFormat, dateParse } from '../../../helpers/dates';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import { strLimit } from '../../../helpers/string';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
+import Paginator from '../../../modules/paginator/components/Paginator';
+import { NumberParam, StringParam } from 'use-query-params';
+import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
+import Label from '../../elements/image_cropper/Label';
 
-export default function PrevalidatedTable({
-    fund,
-    recordTypes = [],
-    externalFilters = {},
-}: {
-    fund: Fund;
-    recordTypes: Array<RecordType>;
-    externalFilters: object;
-}) {
+export default function Prevalidations() {
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushSuccess = usePushSuccess();
-    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
+    const pushSuccess = usePushSuccess();
     const activeOrganization = useActiveOrganization();
 
-    const fileService = useFileService();
+    const fundService = useFundService();
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
+    const recordTypeService = useRecordTypeService();
     const prevalidationService = usePrevalidationService();
 
+    const prevalidationExporter = usePrevalidationExporter();
+
+    const [funds, setFunds] = useState<Array<Fund>>(null);
     const [paginatorKey] = useState('products');
+    const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
 
     const [employees, setEmployees] = useState<Array<Employee>>(null);
     const [prevalidations, setPrevalidations] = useState<PaginationData<Prevalidation>>(null);
@@ -78,7 +80,49 @@ export default function PrevalidatedTable({
         { key: 0, name: 'Nee' },
     ]);
 
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q?: string;
+        to?: string;
+        from?: string;
+        state?: string;
+        fund_id?: number;
+        exported?: number;
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            fund_id: null,
+            state: states[0].key,
+            exported: statesExported[0].key,
+            from: null,
+            to: null,
+            page: 1,
+            per_page: paginatorService.getPerPage(paginatorKey, 10),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                fund_id: NumberParam,
+                state: StringParam,
+                exported: NumberParam,
+                from: StringParam,
+                to: StringParam,
+                per_page: NumberParam,
+                page: NumberParam,
+            },
+        },
+    );
+
+    const fund = useMemo(() => {
+        return funds?.find((fund) => fund.id === filterValues?.fund_id);
+    }, [funds, filterValues?.fund_id]);
+
     const headers = useMemo(() => {
+        if (!fund?.csv_primary_key) {
+            return null;
+        }
+
         const headers: string[] = prevalidations?.data
             ?.reduce((headers, prevalidation) => {
                 return prevalidation.records
@@ -89,15 +133,15 @@ export default function PrevalidatedTable({
             ?.filter((header: string) => !header?.endsWith('_hash'))
             ?.sort();
 
-        const primaryKey = headers?.indexOf(fund.csv_primary_key);
+        const primaryKey = headers?.indexOf(fund?.csv_primary_key);
 
         if (primaryKey !== -1) {
             headers?.splice(primaryKey, 1);
-            headers?.unshift(fund.csv_primary_key);
+            headers?.unshift(fund?.csv_primary_key);
         }
 
         return headers;
-    }, [fund.csv_primary_key, prevalidations]);
+    }, [fund?.csv_primary_key, prevalidations]);
 
     const rows = useMemo(() => {
         return prevalidations?.data?.map((prevalidation) => ({
@@ -112,50 +156,26 @@ export default function PrevalidatedTable({
         prevalidationService.getColumns(headers || [], typesByKey),
     );
 
-    const filter = useFilter({
-        q: '',
-        fund_id: fund ? fund.id : null,
-        state: states[0].key,
-        exported: statesExported[0].key,
-        from: null,
-        to: null,
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
-
-    const doExport = useCallback(
-        (exportType: string) => {
-            prevalidationService
-                .export({ ...externalFilters, ...filter.activeValues, fund_id: fund.id, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileType = res.headers['content-type'] + ';charset=utf-8;';
-                    const fileName = `${fund.key || 'fund'}_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, fileType);
-                }, pushApiError);
-        },
-        [fileService, externalFilters, filter.activeValues, fund.key, fund.id, prevalidationService, pushApiError],
-    );
-
     const exportData = useCallback(() => {
-        openModal((modal) => (
-            <ModalExportTypeLegacy
-                modal={modal}
-                onSubmit={(exportType) => {
-                    doExport(exportType);
-                }}
-            />
-        ));
-    }, [doExport, openModal]);
+        prevalidationExporter.exportData(activeOrganization.id, {
+            ...filterValuesActive,
+            ...filter.activeValues,
+            fund_id: fund.id,
+        });
+    }, [activeOrganization.id, filterValuesActive, filter.activeValues, fund?.id, prevalidationExporter]);
 
     const fetchPrevalidations = useCallback(() => {
+        if (!fund?.id) {
+            return;
+        }
+
         setProgress(0);
 
         prevalidationService
-            .list({ ...externalFilters, ...filter.activeValues, fund_id: fund.id })
+            .list(activeOrganization.id, { ...filterValuesActive, fund_id: fund.id })
             .then((res) => setPrevalidations(res.data))
             .finally(() => setProgress(100));
-    }, [setProgress, prevalidationService, externalFilters, filter.activeValues, fund.id]);
+    }, [setProgress, prevalidationService, filterValuesActive, fund?.id, activeOrganization.id]);
 
     const fetchEmployees = useCallback(() => {
         setProgress(0);
@@ -165,6 +185,29 @@ export default function PrevalidatedTable({
             .then((res) => setEmployees(res.data.data))
             .finally(() => setProgress(100));
     }, [setProgress, activeOrganization.id, employeeService]);
+
+    const fetchFunds = useCallback(() => {
+        setProgress(0);
+
+        fundService
+            .list(activeOrganization?.id, { state: 'active_paused_and_closed' })
+            .then((res) => {
+                const funds = res.data.data.filter((fund) => hasPermission(fund.organization, 'validate_records'));
+
+                setFunds(funds);
+                filterUpdate({ fund_id: funds?.[0]?.id });
+            })
+            .finally(() => setProgress(100));
+    }, [setProgress, fundService, activeOrganization?.id, filterUpdate]);
+
+    const fetchRecordTypes = useCallback(() => {
+        setProgress(0);
+
+        recordTypeService
+            .list()
+            .then((res) => setRecordTypes(res.data))
+            .finally(() => setProgress(100));
+    }, [recordTypeService, setProgress]);
 
     const deletePrevalidation = useCallback(
         (prevalidation: Prevalidation) => {
@@ -181,10 +224,12 @@ export default function PrevalidatedTable({
                         onClick: () => {
                             modal.close();
 
-                            prevalidationService.destroy(prevalidation.uid).then(() => {
-                                pushSuccess('Gegeven verwijderd');
-                                fetchPrevalidations();
-                            });
+                            prevalidationService
+                                .destroy(prevalidation.fund.organization_id, prevalidation.uid)
+                                .then(() => {
+                                    pushSuccess('Gegeven verwijderd');
+                                    fetchPrevalidations();
+                                });
                         },
                     }}
                     buttonCancel={{ onClick: () => modal.close() }}
@@ -192,6 +237,29 @@ export default function PrevalidatedTable({
             ));
         },
         [fetchPrevalidations, openModal, prevalidationService, pushSuccess],
+    );
+
+    const createPrevalidation = useCallback(
+        (fund: Fund, onCreate?: () => void) => {
+            openModal((modal) => (
+                <ModalCreatePrevalidation
+                    modal={modal}
+                    fund={fund}
+                    recordTypes={recordTypes}
+                    onCreated={() => onCreate?.()}
+                />
+            ));
+        },
+        [openModal, recordTypes],
+    );
+
+    const uploadPrevalidations = useCallback(
+        (fund: Fund, onCreate?: () => void) => {
+            openModal((modal) => (
+                <ModalPrevalidationsUpload modal={modal} recordTypes={recordTypes} fund={fund} onCompleted={onCreate} />
+            ));
+        },
+        [openModal, recordTypes],
     );
 
     useEffect(() => {
@@ -202,16 +270,60 @@ export default function PrevalidatedTable({
         fetchPrevalidations();
     }, [fetchPrevalidations]);
 
+    useEffect(() => {
+        fetchFunds();
+    }, [fetchFunds]);
+
+    useEffect(() => {
+        fetchRecordTypes();
+    }, [fetchRecordTypes]);
+
+    if (funds?.length === 0) {
+        return <EmptyCard title={'Geen fondsen gevonden'} />;
+    }
+
     if (!prevalidations) {
         return <LoadingCard />;
     }
 
     return (
-        <div className="card form">
+        <div className="card form" data-dusk="tablePrevalidationContent">
             <div className="card-header">
-                <div className="card-title flex flex-grow">{translate('prevalidated_table.header.title')}</div>
+                <div className="card-title flex flex-grow">
+                    {translate('prevalidated_table.header.title')} ({prevalidations?.meta?.total})
+                </div>
                 <div className="card-header-filters">
-                    <div className="block block-inline-filters ">
+                    <div className="block block-inline-filters">
+                        <button
+                            id="create_voucher"
+                            className="button button-primary"
+                            disabled={funds?.filter((fund) => fund.id)?.length < 1}
+                            onClick={() => createPrevalidation(fund, fetchPrevalidations)}>
+                            <em className="mdi mdi-plus-circle icon-start" />
+                            {translate('csv_validation.buttons.create')}
+                        </button>
+
+                        <button
+                            id="prevalidations_upload_csv"
+                            className="button button-primary"
+                            onClick={() => uploadPrevalidations(fund, fetchPrevalidations)}>
+                            <em className="mdi mdi-upload icon-start" />
+                            {translate('csv_validation.buttons.upload')}
+                        </button>
+
+                        <div className="form-group">
+                            <SelectControl
+                                className="form-control inline-filter-control"
+                                options={funds}
+                                value={fund}
+                                placeholder={translate('vouchers.labels.fund')}
+                                allowSearch={false}
+                                onChange={(fund: Fund) => filterUpdate({ fund_id: fund?.id })}
+                                optionsComponent={SelectControlOptionsFund}
+                                dusk="prevalidationSelectFund"
+                            />
+                        </div>
+
                         {filter.show && (
                             <div
                                 className="button button-text"
@@ -230,6 +342,7 @@ export default function PrevalidatedTable({
                                     <input
                                         className="form-control"
                                         type="text"
+                                        data-dusk="tablePrevalidationSearch"
                                         placeholder={translate('prevalidated_table.labels.search')}
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
@@ -301,6 +414,7 @@ export default function PrevalidatedTable({
                                                 <button
                                                     className="button button-primary button-wide"
                                                     onClick={() => exportData()}
+                                                    data-dusk="export"
                                                     disabled={prevalidations?.meta.total == 0}>
                                                     <em className="mdi mdi-download icon-start" />
                                                     {translate('components.dropdown.export', {
@@ -314,6 +428,7 @@ export default function PrevalidatedTable({
 
                                 <button
                                     className="button button-default button-icon"
+                                    data-dusk="showFilters"
                                     onClick={() => filter.setShow(!filter.show)}>
                                     <em className="mdi mdi-filter-outline" />
                                 </button>
@@ -323,7 +438,13 @@ export default function PrevalidatedTable({
                 </div>
             </div>
 
-            {rows.length > 0 && headers && (
+            <LoaderTableCard
+                loading={!prevalidations.meta}
+                empty={prevalidations.meta.total == 0}
+                emptyTitle={'Geen aanvragers toevoegen'}
+                emptyDescription={
+                    'U bent geen beoordelaar voor een fonds dat actief is om aanvragers aan toe te voegen.'
+                }>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         {configsElement}
@@ -334,8 +455,18 @@ export default function PrevalidatedTable({
 
                                 <tbody>
                                     {rows?.map((row) => (
-                                        <tr key={row.id}>
+                                        <tr key={row.id} data-dusk={`tablePrevalidationRow${row.id}`}>
                                             <td className="text-primary text-strong">{row.uid}</td>
+
+                                            <td>
+                                                <div className="text-primary text-semibold">
+                                                    {strLimit(row.fund?.name, 32)}
+                                                </div>
+
+                                                <div className="text-strong text-md text-muted-dark">
+                                                    {strLimit(row.fund?.implementation?.name, 32)}
+                                                </div>
+                                            </td>
                                             <td className="text-primary text-strong">
                                                 {employeesByAddress?.[row?.identity_address] || 'Unknown'}
                                             </td>
@@ -388,22 +519,18 @@ export default function PrevalidatedTable({
                         </TableTopScroller>
                     </div>
                 </div>
-            )}
 
-            {prevalidations?.meta.total === 0 && (
-                <EmptyCard type={'card-section'} description={'Geen gegevens van aanvragers gevonden'} />
-            )}
-
-            {prevalidations?.meta && (
-                <div className="card-section">
-                    <Paginator
-                        meta={prevalidations.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                {prevalidations?.meta.total > 0 && (
+                    <div className="card-section">
+                        <Paginator
+                            meta={prevalidations.meta}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
+                            perPageKey={paginatorKey}
+                        />
+                    </div>
+                )}
+            </LoaderTableCard>
         </div>
     );
 }

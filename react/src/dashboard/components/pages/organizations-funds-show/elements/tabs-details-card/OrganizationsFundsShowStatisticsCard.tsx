@@ -92,7 +92,7 @@ export default function OrganizationsFundsShowStatisticsCard({
                         <a
                             className={`keyvalue-item col col-lg-3 ${!canAccessFund ? 'keyvalue-item-disabled' : ''}`}
                             onClick={() => {
-                                navigateState('csv-validation', { fundId: fund.organization_id });
+                                navigateState('csv-validation', { organizationId: fund.organization_id });
                             }}>
                             <div className="keyvalue-key">{translate('fund_card_sponsor.labels.applicants')}</div>
                             <div className="keyvalue-value">

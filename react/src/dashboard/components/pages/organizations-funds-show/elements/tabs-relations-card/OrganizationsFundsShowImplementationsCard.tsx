@@ -85,6 +85,7 @@ export default function OrganizationsFundsShowImplementationsCard({
                                 {viewTypes?.map((type) => (
                                     <div
                                         key={type.key}
+                                        data-dusk={`${type.key}_tab`}
                                         className={`label-tab label-tab-sm ${viewType == type.key ? 'active' : ''}`}
                                         onClick={() => setViewType(type.key)}>
                                         {type.name}

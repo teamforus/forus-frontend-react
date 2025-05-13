@@ -1,8 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useFileService } from '../../../services/FileService';
 import { PaginationData } from '../../../props/ApiResponses';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
@@ -15,8 +13,6 @@ import { useFundService } from '../../../services/FundService';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import useFundUnsubscribeService from '../../../services/FundUnsubscribeService';
 import { SponsorProviderOrganization } from '../../../props/models/Organization';
-import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
-import { format } from 'date-fns';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { NumberParam, StringParam, createEnumParam } from 'use-query-params';
 import useTranslate from '../../../hooks/useTranslate';
@@ -29,16 +25,17 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import classNames from 'classnames';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useProviderExporter from '../../../services/exporters/useProviderExporter';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
 
-    const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
-    const activeOrganization = useActiveOrganization();
 
-    const fileService = useFileService();
+    const activeOrganization = useActiveOrganization();
+    const providerExporter = useProviderExporter();
+
     const fundService = useFundService();
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
@@ -168,24 +165,11 @@ export default function SponsorProviderOrganizations() {
             .finally(() => setProgress(100));
     }, [activeOrganization.id, fundUnsubscribeService, pushApiError, setProgress]);
 
-    const doExport = useCallback(
-        (exportType: string) => {
-            organizationService
-                .providerOrganizationsExport(activeOrganization.id, { ...filterActiveValues, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileName = `providers_${activeOrganization.id}_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, res.headers['content-type']);
-                })
-                .catch(pushApiError);
-        },
-        [pushApiError, fileService, filterActiveValues, activeOrganization, organizationService],
-    );
-
     const exportList = useCallback(() => {
-        openModal((modal) => <ModalExportTypeLegacy modal={modal} onSubmit={doExport} />);
-    }, [doExport, openModal]);
+        providerExporter.exportData(activeOrganization.id, {
+            ...filterActiveValues,
+        });
+    }, [activeOrganization.id, filterActiveValues, providerExporter]);
 
     useEffect(() => {
         fetchFunds();
@@ -249,7 +233,7 @@ export default function SponsorProviderOrganizations() {
                 </div>
             )}
 
-            <div className="card">
+            <div className="card" data-dusk="tableProviderContent">
                 <div className="card-header">
                     <div className="flex flex-grow">
                         <div className="card-title flex flex-grow">
@@ -283,6 +267,7 @@ export default function SponsorProviderOrganizations() {
                                             {stateGroups?.map((stateGroup) => (
                                                 <div
                                                     key={stateGroup.key}
+                                                    data-dusk={`provider_tab_${stateGroup.key}`}
                                                     onClick={() => filterUpdate({ state_group: stateGroup.key })}
                                                     className={`label-tab label-tab-sm ${
                                                         filterValues.state_group === stateGroup.key ? 'active' : ''
@@ -297,6 +282,7 @@ export default function SponsorProviderOrganizations() {
                                         <input
                                             className="form-control"
                                             value={filterValues.q}
+                                            data-dusk="tableProviderSearch"
                                             onChange={(e) => filterUpdate({ q: e.target.value })}
                                             placeholder={translate('event_logs.labels.search')}
                                         />
@@ -519,6 +505,7 @@ export default function SponsorProviderOrganizations() {
                                         <button
                                             className="button button-primary button-wide"
                                             disabled={providerOrganizations.meta.total == 0}
+                                            data-dusk="export"
                                             onClick={() => exportList()}>
                                             <em className="mdi mdi-download icon-start" />
                                             {translate('components.dropdown.export', {

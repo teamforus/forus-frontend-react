@@ -100,7 +100,8 @@ export default function ModalCreatePrevalidation({
             }
 
             prevalidationService
-                .submit(
+                .store(
+                    fund.organization_id,
                     {
                         ...values,
                         ...dateValues,
@@ -137,7 +138,7 @@ export default function ModalCreatePrevalidation({
     );
 
     const removeExtraRecord = useCallback(
-        (recordKey) => {
+        (recordKey: string) => {
             if (prevalidationRecords?.includes(recordKey)) {
                 prevalidationRecords.splice(prevalidationRecords.indexOf(recordKey), 1);
                 delete form.values[recordKey];
