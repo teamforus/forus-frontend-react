@@ -37,7 +37,7 @@ import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import TranslationStatsTable from './elements/TranslationStatsTable';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import EmptyValue from '../../../../webshop/components/elements/empty-value/EmptyValue';
+import EmptyValue from '../../elements/empty-value/EmptyValue';
 
 export default function OrganizationsTranslations() {
     const activeOrganization = useActiveOrganization();
