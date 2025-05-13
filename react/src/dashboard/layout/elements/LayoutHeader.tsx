@@ -18,7 +18,7 @@ import { Announcements } from '../../components/elements/announcements/Accouncem
 import { useOrganizationService } from '../../services/OrganizationService';
 import SelectControl from '../../components/elements/select-control/SelectControl';
 import { getStateRouteUrl, useStateRoutes } from '../../modules/state_router/Router';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router';
 import HeaderNotifications from './blocks/HeaderNotifications';
 import SelectControlOptionsOrganization from '../../components/elements/select-control/templates/SelectControlOptionsOrganization';
 import ModalAuthPincode from '../../components/modals/ModalAuthPincode';
@@ -68,7 +68,7 @@ export const LayoutHeader = () => {
     const assetUrl = useAssetUrl();
     const thumbnailUrl = useThumbnailUrl();
 
-    const { envData, organizations, activeOrganization, setActiveOrganization } = useContext(mainContext);
+    const { envData, organizations, activeOrganization } = useContext(mainContext);
     const { route } = useStateRoutes();
 
     const [showIdentityMenu, setShowIdentityMenu] = useState(false);
@@ -79,8 +79,8 @@ export const LayoutHeader = () => {
     const announcementService = useAnnouncementService();
 
     const [roles] = useState({
-        provider: 'Aanbieder',
         sponsor: 'Sponsor',
+        provider: 'Aanbieder',
         validator: 'Beoordelaar',
     });
 
@@ -130,7 +130,7 @@ export const LayoutHeader = () => {
                                 allowSearch={true}
                                 onChange={(value: Organization) => {
                                     organizationService.use(value.id);
-                                    setActiveOrganization(value);
+
                                     navigate(
                                         getStateRouteUrl(route.state.fallbackState || route.state.name, {
                                             ...route.params,

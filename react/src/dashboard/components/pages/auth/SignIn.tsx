@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router';
 import { useIdentityService } from '../../../services/IdentityService';
 import QrCode from '../../elements/qr-code/QrCode';
 import { authContext } from '../../../contexts/AuthContext';

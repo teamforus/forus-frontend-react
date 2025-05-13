@@ -6,7 +6,7 @@ import Implementation from '../../../props/models/Implementation';
 import ImplementationsCmsPageForm from './elements/ImplementationsCmsPageForm';
 import { StringParam, useQueryParam } from 'use-query-params';
 import { useNavigateState } from '../../../modules/state_router/Router';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsCmsPageCreate() {

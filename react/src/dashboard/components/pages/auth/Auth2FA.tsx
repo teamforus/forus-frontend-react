@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Auth2FAInfoBox from '../../elements/auth2fa-info-box/Auth2FAInfoBox';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import useOpenModal from '../../../hooks/useOpenModal';
 import Modal2FASetup from '../../modals/Modal2FASetup';

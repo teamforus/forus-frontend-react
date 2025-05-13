@@ -5,7 +5,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import Reservation from '../../../../dashboard/props/models/Reservation';
 import { useProductReservationService } from '../../../services/ProductReservationService';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import useComposeStateAndExpires from '../reservations/hooks/useComposeStateAndExpires';
 import usePayReservationExtra from '../reservations/hooks/usePayReservationExtra';

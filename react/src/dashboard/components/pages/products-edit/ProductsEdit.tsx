@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductsForm from './elements/ProductsForm';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 export default function ProductsEdit() {
     const { id } = useParams();

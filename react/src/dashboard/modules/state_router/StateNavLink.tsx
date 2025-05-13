@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import React, { HTMLAttributes, ReactElement } from 'react';
 import { getStateRouteUrl, useNavigateState } from './Router';
 import classNames from 'classnames';

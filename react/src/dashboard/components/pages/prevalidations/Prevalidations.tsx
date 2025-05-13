@@ -12,8 +12,6 @@ import SelectControlOptionsFund from '../../elements/select-control/templates/Se
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useOpenModal from '../../../hooks/useOpenModal';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import usePushApiError from '../../../hooks/usePushApiError';
-import { useFileService } from '../../../services/FileService';
 import { useEmployeeService } from '../../../services/EmployeeService';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import { usePrevalidationService } from '../../../services/PrevalidationService';
@@ -22,8 +20,6 @@ import { PaginationData } from '../../../props/ApiResponses';
 import Prevalidation from '../../../props/models/Prevalidation';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
-import { format } from 'date-fns';
-import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
 import ModalNotification from '../../modals/ModalNotification';
 import ModalCreatePrevalidation from '../../modals/ModalCreatePrevalidation';
 import ModalPrevalidationsUpload from '../../modals/ModalPrevalidationsUpload';
@@ -39,21 +35,22 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import { NumberParam, StringParam } from 'use-query-params';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
+import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
 
 export default function Prevalidations() {
     const translate = useTranslate();
     const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
-    const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
-    const fileService = useFileService();
     const fundService = useFundService();
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
     const recordTypeService = useRecordTypeService();
     const prevalidationService = usePrevalidationService();
+
+    const prevalidationExporter = usePrevalidationExporter();
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [paginatorKey] = useState('products');
@@ -158,39 +155,13 @@ export default function Prevalidations() {
         prevalidationService.getColumns(headers || [], typesByKey),
     );
 
-    const doExport = useCallback(
-        (exportType: string) => {
-            prevalidationService
-                .export(fund.organization_id, { ...filterValuesActive, fund_id: fund.id, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileType = res.headers['content-type'] + ';charset=utf-8;';
-                    const fileName = `${fund.key || 'fund'}_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, fileType);
-                }, pushApiError);
-        },
-        [
-            fileService,
-            filterValuesActive,
-            fund?.key,
-            fund?.id,
-            fund?.organization_id,
-            prevalidationService,
-            pushApiError,
-        ],
-    );
-
     const exportData = useCallback(() => {
-        openModal((modal) => (
-            <ModalExportTypeLegacy
-                modal={modal}
-                onSubmit={(exportType) => {
-                    doExport(exportType);
-                }}
-            />
-        ));
-    }, [doExport, openModal]);
+        prevalidationExporter.exportData(activeOrganization.id, {
+            ...filterValuesActive,
+            ...filter.activeValues,
+            fund_id: fund.id,
+        });
+    }, [activeOrganization.id, filterValuesActive, filter.activeValues, fund?.id, prevalidationExporter]);
 
     const fetchPrevalidations = useCallback(() => {
         if (!fund?.id) {
@@ -315,7 +286,7 @@ export default function Prevalidations() {
     }
 
     return (
-        <div className="card form">
+        <div className="card form" data-dusk="tablePrevalidationContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('prevalidated_table.header.title')} ({prevalidations?.meta?.total})
@@ -348,6 +319,7 @@ export default function Prevalidations() {
                                 allowSearch={false}
                                 onChange={(fund: Fund) => filterUpdate({ fund_id: fund?.id })}
                                 optionsComponent={SelectControlOptionsFund}
+                                dusk="prevalidationSelectFund"
                             />
                         </div>
 
@@ -369,6 +341,7 @@ export default function Prevalidations() {
                                     <input
                                         className="form-control"
                                         type="text"
+                                        data-dusk="tablePrevalidationSearch"
                                         placeholder={translate('prevalidated_table.labels.search')}
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
@@ -440,6 +413,7 @@ export default function Prevalidations() {
                                                 <button
                                                     className="button button-primary button-wide"
                                                     onClick={() => exportData()}
+                                                    data-dusk="export"
                                                     disabled={prevalidations?.meta.total == 0}>
                                                     <em className="mdi mdi-download icon-start" />
                                                     {translate('components.dropdown.export', {
@@ -453,6 +427,7 @@ export default function Prevalidations() {
 
                                 <button
                                     className="button button-default button-icon"
+                                    data-dusk="showFilters"
                                     onClick={() => filter.setShow(!filter.show)}>
                                     <em className="mdi mdi-filter-outline" />
                                 </button>
@@ -479,7 +454,7 @@ export default function Prevalidations() {
 
                                 <tbody>
                                     {rows?.map((row) => (
-                                        <tr key={row.id}>
+                                        <tr key={row.id} data-dusk={`tablePrevalidationRow${row.id}`}>
                                             <td className="text-primary text-strong">{row.uid}</td>
 
                                             <td>

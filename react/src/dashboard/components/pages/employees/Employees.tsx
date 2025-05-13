@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 import { mainContext } from '../../../contexts/MainContext';
 import { useEmployeeService } from '../../../services/EmployeeService';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { hasPermission } from '../../../helpers/utils';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import useFilter from '../../../hooks/useFilter';
@@ -11,16 +11,12 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import ModalEmployeeEdit from '../../modals/ModalEmployeeEdit';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import ModalTransferOrganizationOwnership from '../../modals/ModalTransferOrganizationOwnership';
-import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
-import { format } from 'date-fns';
-import { useFileService } from '../../../services/FileService';
 import { PaginationData } from '../../../props/ApiResponses';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import useEnvData from '../../../hooks/useEnvData';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
@@ -31,9 +27,9 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
+import useEmployeeExporter from '../../../services/exporters/useEmployeeExporter';
 
 export default function Employees() {
-    const envData = useEnvData();
     const isProviderPanel = useIsProviderPanel();
 
     const { setActiveOrganization } = useContext(mainContext);
@@ -43,10 +39,11 @@ export default function Employees() {
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+
     const authIdentity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
+    const employeeExporter = useEmployeeExporter();
 
-    const fileService = useFileService();
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
 
@@ -127,34 +124,14 @@ export default function Employees() {
         ],
     );
 
-    const doExport = useCallback(
-        (exportType: string) => {
-            employeeService
-                .export(activeOrganization.id, { ...filter.activeValues, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileName = `${envData.client_type}_${activeOrganization.name}_employees_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, res.headers['content-type']);
-                })
-                .catch(pushApiError);
-        },
-        [pushApiError, fileService, filter.activeValues, activeOrganization, employeeService, envData.client_type],
-    );
-
     const exportEmployees = useCallback(() => {
-        openModal((modal) => (
-            <ModalExportTypeLegacy
-                modal={modal}
-                onSubmit={(exportType) => {
-                    doExport(exportType);
-                }}
-            />
-        ));
-    }, [doExport, openModal]);
+        employeeExporter.exportData(activeOrganization.id, {
+            ...filter.activeValues,
+        });
+    }, [activeOrganization.id, employeeExporter, filter.activeValues]);
 
     const transferOwnership = useCallback(
-        function (adminEmployees) {
+        function (adminEmployees: Array<Employee>) {
             openModal((modal) => (
                 <ModalTransferOrganizationOwnership
                     modal={modal}
@@ -172,7 +149,7 @@ export default function Employees() {
     );
 
     const deleteEmployee = useCallback(
-        function (employee) {
+        function (employee: Employee) {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
@@ -224,7 +201,7 @@ export default function Employees() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="tableEmployeeContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">Medewerkers ({employees?.meta.total})</div>
                 <div className="card-header-filters">
@@ -242,6 +219,7 @@ export default function Employees() {
                             )}
                         <button
                             type="button"
+                            data-dusk="export"
                             className="button button-primary button-sm"
                             onClick={() => exportEmployees()}>
                             <span className="mdi mdi-download icon-start" />
@@ -262,7 +240,7 @@ export default function Employees() {
                                     type="text"
                                     value={filter.values.q}
                                     placeholder="Zoeken"
-                                    data-dusk="searchEmployee"
+                                    data-dusk="tableEmployeeSearch"
                                     className="form-control"
                                     onChange={(e) => filter.update({ q: e.target.value })}
                                 />
@@ -286,7 +264,7 @@ export default function Employees() {
 
                                 <tbody>
                                     {employees?.data.map((employee: Employee) => (
-                                        <tr key={employee.id} data-dusk={`employeeRow${employee.id}`}>
+                                        <tr key={employee.id} data-dusk={`tableEmployeeRow${employee.id}`}>
                                             <td id={'employee_email'} data-dusk={'employeeEmail'}>
                                                 <div className={'text-primary'}>
                                                     {employee.email || strLimit(employee.identity_address, 32)}

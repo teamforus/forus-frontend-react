@@ -3,6 +3,7 @@ import ApiRequestService from './ApiRequestService';
 import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import Prevalidation from '../props/models/Prevalidation';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 
 export class PrevalidationService<T = Prevalidation> {
     /**
@@ -73,6 +74,10 @@ export class PrevalidationService<T = Prevalidation> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidations/export`, filters, {
             responseType: 'arraybuffer',
         });
+    }
+
+    public exportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidations/export-fields`);
     }
 
     public getColumns(headers: Array<string>, typesByKey: object): Array<ConfigurableTableColumn> {

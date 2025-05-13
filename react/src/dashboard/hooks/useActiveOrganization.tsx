@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo } from 'react';
 import { mainContext } from '../contexts/MainContext';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useOrganizationService } from '../services/OrganizationService';
 
 export default function useActiveOrganization() {

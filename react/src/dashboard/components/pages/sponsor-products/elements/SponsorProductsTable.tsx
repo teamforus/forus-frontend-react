@@ -5,7 +5,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import TableDateTime from '../../../elements/tables/elements/TableDateTime';
-import EmptyValue from '../../../../../webshop/components/elements/empty-value/EmptyValue';
+import EmptyValue from '../../../elements/empty-value/EmptyValue';
 import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 import { ConfigurableTableColumn } from '../../vouchers/hooks/useConfigurableTable';
 import ProductMonitoredHistoryCardFunds from '../../sponsor-product/elements/ProductMonitoredHistoryCardFunds';

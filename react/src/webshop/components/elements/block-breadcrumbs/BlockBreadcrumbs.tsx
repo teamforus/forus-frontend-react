@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode, useMemo } from 'react';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import Section from '../sections/Section';
 
 export type Breadcrumb = {
