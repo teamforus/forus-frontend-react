@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { uniq, uniqueId } from 'lodash';
 import SelectControl from '../../select-control/SelectControl';
+import Label from '../../image_cropper/Label';
 
 export default function MultiSelectControl<T = number>({
     id = uniqueId('multiselect_'),
@@ -57,26 +58,23 @@ export default function MultiSelectControl<T = number>({
 
     return (
         <div>
-            <div className="form-group form-group-inline">
+            <div className="form-group">
                 <label className="form-label" htmlFor={id}>
                     {label}
                 </label>
-                <div className="form-offset">
-                    <SelectControl propKey={'id'} value={selected} options={optionsAvailable} onChange={selectOption} />
-                </div>
+                <SelectControl propKey={'id'} value={selected} options={optionsAvailable} onChange={selectOption} />
             </div>
 
             {value?.length > 0 && (
-                <div className="form-group form-group-inline">
+                <div className="form-group">
                     <label className="form-label">&nbsp;</label>
-                    <div className="form-offset">
-                        {value?.map((id) => (
-                            <div className="tag tag-primary tag-square pull-left" key={id.toString()}>
-                                {optionsById?.[id.toString()] || ''}
-                                <div className="tag-link mdi mdi-close icon-end" onClick={() => removeItem(id)} />
-                            </div>
-                        ))}
-                    </div>
+
+                    {value?.map((id) => (
+                        <Label type="primary" key={id.toString()}>
+                            {optionsById?.[id.toString()] || ''}
+                            <div className="mdi mdi-close label-close" onClick={() => removeItem(id)} />
+                        </Label>
+                    ))}
                 </div>
             )}
         </div>

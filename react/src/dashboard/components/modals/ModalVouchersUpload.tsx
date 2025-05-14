@@ -1001,40 +1001,38 @@ export default function ModalVouchersUpload({
                     )}>
                     {step == STEP_SET_UP && (
                         <div className="modal-section form">
-                            <div className="form-group form-group-inline form-group-inline-lg">
+                            <div className="form-group">
                                 <div className="form-label">{translate('modals.modal_voucher_create.labels.fund')}</div>
-                                <div className="form-offset">
-                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.funds'} />}>
-                                        <SelectControl
-                                            className="flex-grow"
-                                            value={fund.id}
-                                            propKey={'id'}
-                                            onChange={(fund_id: number) => {
-                                                setFund(funds.find((fund) => fund.id === fund_id));
-                                            }}
-                                            options={funds}
-                                            allowSearch={false}
-                                            optionsComponent={SelectControlOptionsFund}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
+
+                                <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.funds'} />}>
+                                    <SelectControl
+                                        className="flex-grow"
+                                        value={fund.id}
+                                        propKey={'id'}
+                                        onChange={(fund_id: number) => {
+                                            setFund(funds.find((fund) => fund.id === fund_id));
+                                        }}
+                                        options={funds}
+                                        allowSearch={false}
+                                        optionsComponent={SelectControlOptionsFund}
+                                    />
+                                </FormGroupInfo>
                             </div>
 
-                            <div className="form-group form-group-inline form-group-inline-lg">
+                            <div className="form-group">
                                 <div className="form-label">
                                     {translate('modals.modal_voucher_create.labels.credit_type')}
                                 </div>
-                                <div className="form-offset">
-                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.type'} />}>
-                                        <SelectControl
-                                            value={type}
-                                            propKey={'key'}
-                                            onChange={(type: 'fund_voucher' | 'product_voucher') => setType(type)}
-                                            options={types}
-                                            allowSearch={false}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
+
+                                <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.type'} />}>
+                                    <SelectControl
+                                        value={type}
+                                        propKey={'key'}
+                                        onChange={(type: 'fund_voucher' | 'product_voucher') => setType(type)}
+                                        options={types}
+                                        allowSearch={false}
+                                    />
+                                </FormGroupInfo>
                             </div>
                         </div>
                     )}

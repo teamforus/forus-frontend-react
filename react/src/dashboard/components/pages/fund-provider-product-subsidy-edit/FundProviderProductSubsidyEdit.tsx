@@ -260,60 +260,56 @@ export default function FundProviderProductSubsidyEdit() {
                     </div>
                     <div className="card-section card-section-primary form">
                         <div className="row">
-                            <div className="col col-lg-4 col-xs-12">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
                                 <div className="subsidy-form-content">
                                     <div className="form">
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <div className="form-label">
                                                 Totaal aantal
                                                 <Tooltip
                                                     text={`Totaal aantal aanbiedingen dat vanuit ${fund.name} gebruikt mag worden.`}
                                                 />
                                             </div>
-                                            <div className="form-offset">
-                                                <div className="col col-lg-12">
-                                                    <div className="form-value-placeholder text-right">
-                                                        {deal.limit_total_unlimited ? 'Onbeperkt' : deal.limit_total}
-                                                    </div>
+
+                                            <div className="col col-lg-12">
+                                                <div className="form-value-placeholder text-right">
+                                                    {deal.limit_total_unlimited ? 'Onbeperkt' : deal.limit_total}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <div className="form-label">
                                                 Limiet per aanvrager
                                                 <Tooltip text="Hoevaak mag er per inwoner gebruik gemaakt worden van deze aanbieding." />
                                             </div>
-                                            <div className="form-offset">
-                                                <div className="col col-lg-12">
-                                                    <div className="form-value-placeholder text-right">
-                                                        {deal.limit_per_identity}
-                                                    </div>
+
+                                            <div className="col col-lg-12">
+                                                <div className="form-value-placeholder text-right">
+                                                    {deal.limit_per_identity}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <div className="form-label">
                                                 Bijdrage
                                                 <Tooltip text="Volledige bijdrage vanuit de sponsor" />
                                             </div>
-                                            <div className="form-offset">
-                                                <div className="col col-lg-12">
-                                                    <div className="form-value-placeholder text-right">
-                                                        {currencyFormat(parseFloat(deal.amount))}
-                                                    </div>
+
+                                            <div className="col col-lg-12">
+                                                <div className="form-value-placeholder text-right">
+                                                    {currencyFormat(parseFloat(deal.amount))}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <div className="form-label">
                                                 Gebruikt
                                                 <Tooltip text="Hoeveel tegoed (tot zijn limiet) heeft de aanvrager gebruikt." />
                                             </div>
-                                            <div className="form-offset">
-                                                <div className="col col-lg-12">
-                                                    <div className="form-value-placeholder text-right">
-                                                        {deal.voucher_transactions_count}
-                                                    </div>
+
+                                            <div className="col col-lg-12">
+                                                <div className="form-value-placeholder text-right">
+                                                    {deal.voucher_transactions_count}
                                                 </div>
                                             </div>
                                         </div>

@@ -8,6 +8,7 @@ import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
 import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function ImplementationsCookies() {
     const { id } = useParams();
@@ -66,7 +67,7 @@ export default function ImplementationsCookies() {
             <div className="card">
                 <div className="card-header">
                     <div className="flex flex-grow card-title">Cookiemelding</div>
-                    <div className="label label-success">Actief</div>
+                    <Label type="success">Actief</Label>
                 </div>
 
                 <div className="card-section">

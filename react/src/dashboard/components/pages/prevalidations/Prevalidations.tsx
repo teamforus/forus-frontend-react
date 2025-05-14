@@ -36,6 +36,7 @@ import Paginator from '../../../modules/paginator/components/Paginator';
 import { NumberParam, StringParam } from 'use-query-params';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
+import Label from '../../elements/image_cropper/Label';
 
 export default function Prevalidations() {
     const translate = useTranslate();
@@ -480,21 +481,15 @@ export default function Prevalidations() {
                                             ))}
 
                                             <td className="text-right">
-                                                <div
-                                                    className={`tag tag-sm ${
-                                                        row.state == 'pending' ? 'tag-default' : 'tag-success'
-                                                    }`}>
+                                                <Label type={row.state == 'pending' ? 'default' : 'success'}>
                                                     {row.state == 'pending' ? 'Nee' : 'Ja'}
-                                                </div>
+                                                </Label>
                                             </td>
 
                                             <td className="text-right">
-                                                <div
-                                                    className={`tag tag-sm ${
-                                                        !row.exported ? 'tag-default' : 'tag-success'
-                                                    }`}>
+                                                <Label type={!row.exported ? 'default' : 'success'}>
                                                     {!row.exported ? 'Nee' : 'Ja'}
-                                                </div>
+                                                </Label>
                                             </td>
 
                                             <td className={'table-td-actions text-right'}>

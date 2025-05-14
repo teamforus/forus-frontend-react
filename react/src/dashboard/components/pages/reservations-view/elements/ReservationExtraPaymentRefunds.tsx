@@ -1,6 +1,7 @@
 import React from 'react';
 import ExtraPaymentRefund from '../../../../props/models/ExtraPaymentRefund';
 import useTranslate from '../../../../hooks/useTranslate';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function ReservationExtraPaymentRefunds({ refunds }: { refunds: Array<ExtraPaymentRefund> }) {
     const translate = useTranslate();
@@ -35,15 +36,15 @@ export default function ReservationExtraPaymentRefunds({ refunds }: { refunds: A
                                         <td>{refund.amount_locale}</td>
                                         <td>
                                             {refund.state == 'refunded' && (
-                                                <div className="tag tag-sm tag-success">{refund.state_locale}</div>
+                                                <Label type="success">{refund.state_locale}</Label>
                                             )}
 
                                             {['canceled', 'failed'].includes(refund.state) && (
-                                                <div className="tag tag-sm tag-danger">{refund.state_locale}</div>
+                                                <Label type="danger">{refund.state_locale}</Label>
                                             )}
 
                                             {!['refunded', 'canceled', 'failed'].includes(refund.state) && (
-                                                <div className="tag tag-sm tag-warning">{refund.state_locale}</div>
+                                                <Label type="warning">{refund.state_locale}</Label>
                                             )}
                                         </td>
                                     </tr>
