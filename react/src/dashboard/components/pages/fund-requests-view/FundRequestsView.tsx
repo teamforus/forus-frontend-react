@@ -741,7 +741,7 @@ export default function FundRequestsView() {
                                     </tr>
                                 </thead>
                                 {fundRequestMeta.records.map((record) => (
-                                    <tbody key={record.id} data-dusk={`fundRequestRecordRow${record.id}`}>
+                                    <tbody key={record.id} data-dusk={`tableFundRequestRecordRow${record.id}`}>
                                         <tr>
                                             {fundRequestMeta.hasContent && (
                                                 <td className="cell-chevron">
