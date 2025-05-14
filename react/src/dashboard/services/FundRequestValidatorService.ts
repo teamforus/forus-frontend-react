@@ -7,6 +7,7 @@ import File from '../props/models/File';
 import FundRequestRecord from '../props/models/FundRequestRecord';
 import FundRequestApiPerson from '../props/models/FundRequestApiPerson';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 
 export type FundRequestTotals = {
     all: number;
@@ -33,6 +34,10 @@ export class FundRequestValidatorService<T = FundRequest> {
         data: object = {},
     ): Promise<ApiResponse<FundRequest, { totals: FundRequestTotals }>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests`, data);
+    }
+
+    public exportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/fund-requests/export-fields`);
     }
 
     public export(organizationId: number, data: object = {}): Promise<ResponseSimple<ArrayBuffer>> {

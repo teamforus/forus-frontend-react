@@ -25,7 +25,7 @@ import { NumberParam, StringParam } from 'use-query-params';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableDateOnly from '../../elements/tables/elements/TableDateOnly';
-import useIdentityExportService from '../../../services/exports/useIdentityExportService';
+import useIdentityExporter from '../../../services/exporters/useIdentityExporter';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 
@@ -37,7 +37,7 @@ export default function Identities() {
     const activeOrganization = useActiveOrganization();
 
     const fundService = useFundService();
-    const identityExportService = useIdentityExportService();
+    const identityExporter = useIdentityExporter();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
     const [loading, setLoading] = useState(false);
@@ -131,11 +131,11 @@ export default function Identities() {
     const exportIdentities = useCallback(() => {
         setShow(false);
 
-        identityExportService.exportData(activeOrganization.id, {
+        identityExporter.exportData(activeOrganization.id, {
             ...filter.activeValues,
             per_page: null,
         });
-    }, [activeOrganization.id, filter.activeValues, setShow, identityExportService]);
+    }, [activeOrganization.id, filter.activeValues, setShow, identityExporter]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -177,7 +177,7 @@ export default function Identities() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="tableProfilesContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('identities.header.title')} ({identities.meta.total})
@@ -212,7 +212,7 @@ export default function Identities() {
                                 <div className="form-group">
                                     <input
                                         className="form-control"
-                                        data-dusk="searchIdentities"
+                                        data-dusk="tableProfilesSearch"
                                         value={filterValues.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('payouts.labels.search')}
@@ -321,6 +321,7 @@ export default function Identities() {
                                 <button
                                     className="button button-primary button-wide"
                                     onClick={exportIdentities}
+                                    data-dusk="export"
                                     disabled={identities.meta.total == 0}>
                                     <em className="mdi mdi-download icon-start" />
                                     {translate('components.dropdown.export', { total: identities.meta.total })}
@@ -345,7 +346,7 @@ export default function Identities() {
                                         <StateNavLink
                                             key={identity.id}
                                             name={'identities-show'}
-                                            dataDusk={`identityRow${identity.id}`}
+                                            dataDusk={`tableProfilesRow${identity.id}`}
                                             params={{
                                                 organizationId: activeOrganization.id,
                                                 id: identity.id,

@@ -9,21 +9,21 @@ import { useOrganizationService } from '../../../../services/OrganizationService
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { uniqueId } from 'lodash';
 import { PaginationData } from '../../../../props/ApiResponses';
-import { format } from 'date-fns';
-import { useFileService } from '../../../../services/FileService';
 import { FinancialFiltersQuery } from './FinancialFilters';
 import { ProviderFinancial } from '../types/FinancialStatisticTypes';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useProviderFinancialExporter from '../../../../services/exporters/useProviderFinancialExporter';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
 export default function ProviderFinancialTable({ externalFilters }: { externalFilters?: FinancialFiltersQuery }) {
     const pushApiError = usePushApiError();
-    const activeOrganization = useActiveOrganization();
 
-    const fileService = useFileService();
+    const activeOrganization = useActiveOrganization();
+    const providerFinancialExporter = useProviderFinancialExporter();
+
     const paginatorService = usePaginatorService();
     const organizationService = useOrganizationService();
 
@@ -37,25 +37,11 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
     });
 
     const financeProvidersExport = useCallback(() => {
-        organizationService
-            .financeProvidersExport(activeOrganization.id, { ...externalFilters, ...filter.activeValues })
-            .then((res) => {
-                const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                const fileName = `financial-dashboard_${activeOrganization.name}_${dateTime}.xls`;
-                const fileType = res.headers['content-type'] + ';charset=utf-8;';
-
-                fileService.downloadFile(fileName, res.data, fileType);
-            })
-            .catch(pushApiError);
-    }, [
-        organizationService,
-        activeOrganization.id,
-        activeOrganization.name,
-        externalFilters,
-        filter?.activeValues,
-        fileService,
-        pushApiError,
-    ]);
+        providerFinancialExporter.exportData(activeOrganization.id, {
+            ...externalFilters,
+            ...filter.activeValues,
+        });
+    }, [activeOrganization.id, externalFilters, filter?.activeValues, providerFinancialExporter]);
 
     const toggleTransactionsTable = useCallback((id: string) => {
         setShowTransactions((list) => {
@@ -98,7 +84,10 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
 
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
-                                <button className="button button-primary" onClick={() => financeProvidersExport()}>
+                                <button
+                                    className="button button-primary"
+                                    data-dusk="export"
+                                    onClick={() => financeProvidersExport()}>
                                     <em className="mdi mdi-download icon-start" />
                                     <span>Exporteren</span>
                                 </button>

@@ -2,16 +2,16 @@ import React, { useCallback } from 'react';
 import useSetProgress from '../../hooks/useSetProgress';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalExportDataSelect from '../../components/modals/ModalExportDataSelect';
-import useMakeExporterService from './useMakeExporterService';
-import useSponsorIdentitiesService from '../SponsorIdentitesService';
+import useMakeExporterService from './hooks/useMakeExporterService';
 import usePushApiError from '../../hooks/usePushApiError';
+import { useOrganizationService } from '../OrganizationService';
 
-export default function useIdentityExportService() {
-    const setProgress = useSetProgress();
+export default function useProviderExporter() {
     const openModal = useOpenModal();
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const identityService = useSponsorIdentitiesService();
+    const organizationService = useOrganizationService();
     const { makeSections, saveExportedData } = useMakeExporterService();
 
     const exportData = useCallback(
@@ -23,20 +23,20 @@ export default function useIdentityExportService() {
                 setProgress(0);
                 console.info('- data loaded from the api.');
 
-                identityService
-                    .export(organization_id, queryFilters)
-                    .then((res) => saveExportedData(data, organization_id, res))
+                organizationService
+                    .providerOrganizationsExport(organization_id, queryFilters)
+                    .then((res) => saveExportedData(data, organization_id, res, 'providers'))
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
-            identityService.exportFields(organization_id).then((res) => {
+            organizationService.providerExportFields(organization_id).then((res) => {
                 openModal((modal) => (
                     <ModalExportDataSelect modal={modal} sections={makeSections(res.data.data)} onSuccess={onSuccess} />
                 ));
             });
         },
-        [makeSections, openModal, pushApiError, saveExportedData, setProgress, identityService],
+        [makeSections, openModal, pushApiError, saveExportedData, setProgress, organizationService],
     );
 
     return { exportData };

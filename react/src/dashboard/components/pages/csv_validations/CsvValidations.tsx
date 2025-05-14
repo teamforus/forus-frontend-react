@@ -78,6 +78,7 @@ export default function CsvValidations() {
                                         allowSearch={false}
                                         onChange={(fund: Fund) => setFund(fund)}
                                         optionsComponent={SelectControlOptionsFund}
+                                        dusk="prevalidationSelectFund"
                                     />
                                 </div>
                             </div>

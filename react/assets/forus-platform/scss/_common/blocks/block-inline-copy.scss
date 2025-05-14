@@ -1,0 +1,22 @@
+.block.block-inline-copy {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+
+    .inline-copy-icon {
+        display: inline-flex;
+        font-size: 16px;
+        line-height: 18px;
+        height: 18px;
+        transition: 0.4s;
+        color: #646f79;
+    }
+
+    &:hover {
+        .inline-copy-icon {
+            color: var(--color-primary);
+        }
+    }
+}

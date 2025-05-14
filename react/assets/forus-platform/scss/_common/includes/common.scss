@@ -120,6 +120,10 @@ img {
     transition: color 0.3s;
 }
 
+.text-default {
+    font: 400 13px/20px var(--base-font);
+}
+
 .text-muted {
     color: #a1a1a1 !important;
     transition: color 0.3s;
@@ -209,6 +213,14 @@ img {
 
 .text-semibold {
     font-weight: 600 !important;
+}
+
+.text-decoration-link {
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 .text-medium,

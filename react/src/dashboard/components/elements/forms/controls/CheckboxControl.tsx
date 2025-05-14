@@ -14,6 +14,7 @@ export default function CheckboxControl({
     onChange,
     className,
     children,
+    dusk = null,
 }: {
     id?: string;
     title?: string;
@@ -26,6 +27,7 @@ export default function CheckboxControl({
     className?: string;
     customElement?: React.ReactElement;
     children?: string | React.ReactNode | Array<React.ReactNode>;
+    dusk?: string;
 }) {
     const formId = useMemo(() => (id ? id : `checkbox_control_${uniqueId()}`), [id]);
 
@@ -33,6 +35,7 @@ export default function CheckboxControl({
         <label
             htmlFor={formId}
             title={title}
+            data-dusk={dusk}
             className={classNames('checkbox', className, disabled && 'disabled', narrow && 'checkbox-narrow')}>
             <input
                 type="checkbox"

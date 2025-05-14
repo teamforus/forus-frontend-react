@@ -64,6 +64,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         id: 'requesters',
                         name: 'Klaarzetten',
                         state: 'csv-validation',
+                        dusk: 'csvValidationPage',
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, ['validate_records', 'manage_validators'], false),
                     },
@@ -97,6 +98,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 iconActive={<IconSponsorProvidersActive />}
                 pinnedGroups={pinnedGroups}
                 setPinnedGroups={setPinnedGroups}
+                dusk={'asideMenuGroupProviders'}
                 items={[
                     {
                         id: 'products',
@@ -109,6 +111,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         id: 'providers',
                         name: 'Aanbieders',
                         state: 'sponsor-provider-organizations',
+                        dusk: 'providersPage',
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, 'manage_providers'),
                     },
@@ -211,6 +214,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 iconActive={<IconReportsActive />}
                 pinnedGroups={pinnedGroups}
                 setPinnedGroups={setPinnedGroups}
+                dusk={'asideMenuGroupReports'}
                 items={[
                     {
                         id: 'financial_dashboard',
@@ -218,6 +222,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         state: 'financial-dashboard',
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, 'view_finances'),
+                        dusk: 'financialDashboardPage',
                     },
                     {
                         id: 'financial_dashboard_overview',
@@ -225,7 +230,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         state: 'financial-dashboard-overview',
                         show: hasPermission(organization, 'view_finances'),
                         stateParams: { organizationId: organization?.id },
-                        dusk: 'extraPaymentsPage',
+                        dusk: 'financialDashboardOverviewPage',
                     },
                 ]}
             />
