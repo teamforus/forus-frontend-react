@@ -126,7 +126,7 @@ export default function BlockCardNotes({
                 </div>
                 <div className="button-group">
                     {isAssigned && (
-                        <div className="button button-sm button-primary" onClick={onAddNote}>
+                        <div className="button button-sm button-primary" onClick={onAddNote} data-dusk="addNoteBtn">
                             <em className="mdi mdi-plus icon-start" />
                             {translate('notes.buttons.add_new')}
                         </div>
@@ -148,7 +148,7 @@ export default function BlockCardNotes({
                                         <th className="text-right">{translate('notes.labels.actions')}</th>
                                     </tr>
                                     {notes.data?.map((note) => (
-                                        <tr key={note.id}>
+                                        <tr key={note.id} data-dusk={`noteRow${note.id}`}>
                                             <td className="td-narrow nowrap">{note.id}</td>
                                             <td className="nowrap">{note.created_at_locale}</td>
                                             <td className="nowrap text-primary">{note.employee.email}</td>
@@ -163,11 +163,13 @@ export default function BlockCardNotes({
                                             <td className="td-narrow text-right">
                                                 {note.employee.identity_address === identity.address && (
                                                     <TableRowActions
+                                                        dataDusk={`noteMenuBtn${note.id}`}
                                                         content={() => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <div
                                                                     className="dropdown-item"
-                                                                    onClick={() => onDeleteNote(note)}>
+                                                                    onClick={() => onDeleteNote(note)}
+                                                                    data-dusk="deleteNoteBtn">
                                                                     <em className="mdi mdi-delete-outline icon-start" />
                                                                     Verwijderen
                                                                 </div>
