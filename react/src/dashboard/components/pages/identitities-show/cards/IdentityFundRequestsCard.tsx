@@ -57,7 +57,7 @@ export default function IdentityFundRequestsCard({
     }
 
     return (
-        <Card title={`Aanvragen (${fundRequests?.meta?.total || 0})`} section={false}>
+        <Card title={`Aanvragen (${fundRequests?.meta?.total || 0})`} section={false} dusk="fundRequestsPageContent">
             <FundRequestsTable
                 filter={filter}
                 loading={loading}

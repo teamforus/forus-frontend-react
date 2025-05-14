@@ -28,7 +28,7 @@ export default function useFilterNext<T = FilterModel>(
     const [queryParamsWithDefaults] = useState(
         reduce(
             queryParams,
-            (params, value, key) => {
+            (params, value, key: string) => {
                 return Object.keys(initialValues).includes(key)
                     ? { ...params, [key]: withDefault(value as never, initialValues[key], true) }
                     : { ...params, [key]: value };
@@ -111,7 +111,7 @@ export default function useFilterNext<T = FilterModel>(
     }, [update]);
 
     const getTimeout = useCallback(
-        (current, old) => {
+        (current: Partial<T & FilterModel>, old: Partial<T & FilterModel>) => {
             return throttledValues.filter((filter: keyof T | string) => current[filter] !== old[filter]).length > 0
                 ? 1000
                 : 0;

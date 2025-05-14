@@ -82,21 +82,6 @@ export class ProductReservationService<T = Reservation> {
         return Papa.unparse([headers, values]);
     };
 
-    public stateClass = (reservation: Reservation) => {
-        return (
-            {
-                waiting: 'label-default',
-                pending: 'label-default',
-                accepted: 'label-success',
-                rejected: 'label-danger',
-                canceled: 'label-danger',
-                canceled_by_client: 'label-danger',
-                canceled_payment_expired: 'label-danger',
-                canceled_payment_canceled: 'label-danger',
-            }[reservation?.state] || 'label-default'
-        );
-    };
-
     public getColumns(showExtraPayments: boolean): Array<ConfigurableTableColumn> {
         const list = [
             'number',

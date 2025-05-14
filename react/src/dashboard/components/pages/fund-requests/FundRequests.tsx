@@ -7,16 +7,11 @@ import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
 import { useEmployeeService } from '../../../services/EmployeeService';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
-import { format } from 'date-fns';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { PaginationData } from '../../../props/ApiResponses';
-import ModalExportTypeLegacy from '../../modals/ModalExportTypeLegacy';
-import { useFileService } from '../../../services/FileService';
-import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -26,24 +21,22 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import FundRequestsTable from './elements/FundRequestsTable';
 import { NumberParam, StringParam } from 'use-query-params';
+import useFundRequestExporter from '../../../services/exporters/useFundRequestExporter';
 
 export default function FundRequests() {
-    const envData = useEnvData();
-
-    const openModal = useOpenModal();
-    const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const activeOrganization = useActiveOrganization();
+    const fundRequestExporter = useFundRequestExporter();
 
+    const navigate = useNavigate();
+    const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
-    const navigate = useNavigate();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [employees, setEmployees] = useState(null);
     const [fundRequests, setFundRequests] = useState<PaginationData<FundRequest, { totals: FundRequestTotals }>>(null);
 
-    const fileService = useFileService();
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
     const fundRequestService = useFundRequestValidatorService();
@@ -151,25 +144,11 @@ export default function FundRequests() {
             .finally(() => setProgress(100));
     }, [setProgress, activeOrganization.id, employeeService, allEmployeesOption, pushApiError]);
 
-    const doExport = useCallback(
-        (exportType: string) => {
-            fundRequestService
-                .export(activeOrganization.id, { ...filterActiveValues, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileType = res.headers['content-type'] + ';charset=utf-8;';
-                    const fileName = `${envData.client_type}_${activeOrganization.name}_fund-requests_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, fileType);
-                })
-                .catch(pushApiError);
-        },
-        [fundRequestService, activeOrganization, filterActiveValues, envData.client_type, fileService, pushApiError],
-    );
-
     const exportRequests = useCallback(() => {
-        openModal((modal) => <ModalExportTypeLegacy modal={modal} onSubmit={(exportType) => doExport(exportType)} />);
-    }, [doExport, openModal]);
+        fundRequestExporter.exportData(activeOrganization.id, {
+            ...filterActiveValues,
+        });
+    }, [activeOrganization.id, filterActiveValues, fundRequestExporter]);
 
     useEffect(() => {
         if (!appConfigs.organizations?.funds?.fund_requests) {
@@ -188,7 +167,7 @@ export default function FundRequests() {
     }
 
     return (
-        <div className="card" data-dusk="fundRequestsPageContent">
+        <div className="card" data-dusk="tableFundRequestContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('validation_requests.header.title')} ({fundRequests.meta.total})
@@ -230,7 +209,7 @@ export default function FundRequests() {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        data-dusk="searchFundRequests"
+                                        data-dusk="tableFundRequestSearch"
                                         value={filter.values.q}
                                         onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder={translate('validation_requests.labels.search')}
@@ -299,6 +278,7 @@ export default function FundRequests() {
                                     <button
                                         className="button button-primary button-wide"
                                         disabled={fundRequests.meta.total == 0}
+                                        data-dusk="export"
                                         onClick={() => exportRequests()}>
                                         <em className="mdi mdi-download icon-start" />
                                         {translate('components.dropdown.export', {

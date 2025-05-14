@@ -8,6 +8,7 @@ import FundProvider from '../props/models/FundProvider';
 import { ProviderFinancial } from '../components/pages/financial-dashboard/types/FinancialStatisticTypes';
 import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 
 export class OrganizationService<T = Organization> {
     /**
@@ -102,10 +103,6 @@ export class OrganizationService<T = Organization> {
         return this.apiRequest.get(`${this.prefix}/${id}/providers`, data);
     }
 
-    public listProvidersExport(id: number, data = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/${id}/providers/export`, data);
-    }
-
     public providerOrganizations(id: number, data = {}): Promise<ApiResponse<SponsorProviderOrganization>> {
         return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers`, data);
     }
@@ -118,6 +115,10 @@ export class OrganizationService<T = Organization> {
         return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/${provider_organization_id}`, data);
     }
 
+    public providerExportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/providers/export-fields`);
+    }
+
     public providerOrganizationsExport(id: number, data = {}): Promise<ResponseSimple<ArrayBuffer>> {
         return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/export`, data, {
             responseType: 'arraybuffer',
@@ -126,6 +127,10 @@ export class OrganizationService<T = Organization> {
 
     public financeProviders(id: number, data = {}): Promise<ApiResponse<ProviderFinancial>> {
         return this.apiRequest.get(`${this.prefix}/${id}/sponsor/providers/finances`, data);
+    }
+
+    public financeProvidersExportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/providers/finances-export-fields`);
     }
 
     public financeProvidersExport(id: number, data = {}): Promise<ResponseSimple<ArrayBuffer>> {
