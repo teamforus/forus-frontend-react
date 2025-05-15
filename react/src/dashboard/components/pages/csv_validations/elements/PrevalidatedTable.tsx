@@ -8,7 +8,6 @@ import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle
 import SelectControl from '../../../elements/select-control/SelectControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
-import ModalExportTypeLegacy from '../../../modals/ModalExportTypeLegacy';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Prevalidation from '../../../../props/models/Prevalidation';
@@ -19,17 +18,15 @@ import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import ModalNotification from '../../../modals/ModalNotification';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import { format } from 'date-fns';
-import { useFileService } from '../../../../services/FileService';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import Employee from '../../../../props/models/Employee';
-import usePushApiError from '../../../../hooks/usePushApiError';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import usePrevalidationExporter from '../../../../services/exporters/usePrevalidationExporter';
 
 export default function PrevalidatedTable({
     fund,
@@ -43,11 +40,11 @@ export default function PrevalidatedTable({
     const translate = useTranslate();
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
-    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
-    const activeOrganization = useActiveOrganization();
 
-    const fileService = useFileService();
+    const activeOrganization = useActiveOrganization();
+    const prevalidationExporter = usePrevalidationExporter();
+
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
     const prevalidationService = usePrevalidationService();
@@ -121,31 +118,13 @@ export default function PrevalidatedTable({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
-    const doExport = useCallback(
-        (exportType: string) => {
-            prevalidationService
-                .export({ ...externalFilters, ...filter.activeValues, fund_id: fund.id, export_type: exportType })
-                .then((res) => {
-                    const dateTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-                    const fileType = res.headers['content-type'] + ';charset=utf-8;';
-                    const fileName = `${fund.key || 'fund'}_${dateTime}.${exportType}`;
-
-                    fileService.downloadFile(fileName, res.data, fileType);
-                }, pushApiError);
-        },
-        [fileService, externalFilters, filter.activeValues, fund.key, fund.id, prevalidationService, pushApiError],
-    );
-
     const exportData = useCallback(() => {
-        openModal((modal) => (
-            <ModalExportTypeLegacy
-                modal={modal}
-                onSubmit={(exportType) => {
-                    doExport(exportType);
-                }}
-            />
-        ));
-    }, [doExport, openModal]);
+        prevalidationExporter.exportData(activeOrganization.id, {
+            ...externalFilters,
+            ...filter.activeValues,
+            fund_id: fund.id,
+        });
+    }, [activeOrganization.id, externalFilters, filter.activeValues, fund.id, prevalidationExporter]);
 
     const fetchPrevalidations = useCallback(() => {
         setProgress(0);
@@ -206,7 +185,7 @@ export default function PrevalidatedTable({
     }
 
     return (
-        <div className="card form">
+        <div className="card form" data-dusk="tablePrevalidationContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">{translate('prevalidated_table.header.title')}</div>
                 <div className="card-header-filters">
@@ -229,6 +208,7 @@ export default function PrevalidatedTable({
                                     <input
                                         className="form-control"
                                         type="text"
+                                        data-dusk="tablePrevalidationSearch"
                                         placeholder={translate('prevalidated_table.labels.search')}
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
@@ -300,6 +280,7 @@ export default function PrevalidatedTable({
                                                 <button
                                                     className="button button-primary button-wide"
                                                     onClick={() => exportData()}
+                                                    data-dusk="export"
                                                     disabled={prevalidations?.meta.total == 0}>
                                                     <em className="mdi mdi-download icon-start" />
                                                     {translate('components.dropdown.export', {
@@ -313,6 +294,7 @@ export default function PrevalidatedTable({
 
                                 <button
                                     className="button button-default button-icon"
+                                    data-dusk="showFilters"
                                     onClick={() => filter.setShow(!filter.show)}>
                                     <em className="mdi mdi-filter-outline" />
                                 </button>
@@ -333,7 +315,7 @@ export default function PrevalidatedTable({
 
                                 <tbody>
                                     {rows?.map((row) => (
-                                        <tr key={row.id}>
+                                        <tr key={row.id} data-dusk={`tablePrevalidationRow${row.id}`}>
                                             <td className="text-primary text-strong">{row.uid}</td>
                                             <td className="text-primary text-strong">
                                                 {employeesByAddress?.[row?.identity_address] || 'Unknown'}

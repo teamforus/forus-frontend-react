@@ -1,0 +1,34 @@
+.block.block-translation-stats {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    gap: 20px;
+
+    .translation-stats-col {
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 calc(50% - 10px);
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 15px;
+        gap: 15px;
+
+        .translation-stats-col-label {
+            display: inline-flex;
+            font: 500 14px/20px var(--base-font);
+
+            .translation-stats-col-label-period {
+                color: #646F79;
+                display: flex;
+                flex: 1 1 auto;
+                justify-content: flex-end;
+            }
+        }
+
+        .translation-stats-col-value {
+            font: 600 18px/26px var(--base-font);
+        }
+    }
+}

@@ -718,6 +718,17 @@ export default {
         },
     },
 
+    translation_stats: {
+        header: {
+            title: 'Berekeningen',
+        },
+        labels: {
+            type: 'Type',
+            used: 'Gebruikt',
+            cost: 'Kosten',
+        },
+    },
+
     // ORGANIZATION VALIDATORS = organization-validators.pug
     organization_validators: {
         labels: {
