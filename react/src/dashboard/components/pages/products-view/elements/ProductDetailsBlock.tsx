@@ -1,11 +1,10 @@
-import KeyValueItem from '../../../elements/key-value/KeyValueItem';
-import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
-import React, { Fragment, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import Product from '../../../../props/models/Product';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../hooks/useTranslate';
 import Markdown from '../../../../../webshop/components/elements/markdown/Markdown';
+import ProductDetailsBlockProperties from './ProductDetailsBlockProperties';
 
 export default function ProductDetailsBlock({
     product,
@@ -46,49 +45,12 @@ export default function ProductDetailsBlock({
                 <div className="flex flex-vertical">
                     <div className="card-heading">{translate('product.labels.details')}</div>
 
-                    <div className="card-block card-block-keyvalue card-block-keyvalue-md">
-                        {viewType === 'sponsor' && (
-                            <KeyValueItem label={translate('product.labels.provider')}>
-                                {product.organization.name}
-                            </KeyValueItem>
-                        )}
-
-                        <KeyValueItem label={translate('product.labels.expire')}>
-                            {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
-                        </KeyValueItem>
-
-                        {showStockAndReservations && (
-                            <Fragment>
-                                <KeyValueItem label={translate('product.labels.sold')}>
-                                    {product.sold_amount}
-                                </KeyValueItem>
-
-                                <KeyValueItem label={translate('product.labels.reserved')}>
-                                    {product.reserved_amount}
-                                </KeyValueItem>
-                            </Fragment>
-                        )}
-
-                        {viewType === 'provider' && (
-                            <KeyValueItem label={translate('product.labels.available_offers')}>
-                                {product.unlimited_stock ? translate('product.labels.unlimited') : product.stock_amount}
-                            </KeyValueItem>
-                        )}
-
-                        <KeyValueItem
-                            label={translate('product.labels.ean')}
-                            infoBlock={<TranslateHtml i18n={'product.tooltips.ean'} />}>
-                            {product.ean}
-                        </KeyValueItem>
-
-                        {viewType === 'provider' && (
-                            <KeyValueItem
-                                label={translate('product.labels.sku')}
-                                infoBlock={<TranslateHtml i18n={'product.tooltips.sku'} />}>
-                                {product.sku}
-                            </KeyValueItem>
-                        )}
-                    </div>
+                    <ProductDetailsBlockProperties
+                        product={product}
+                        viewType={viewType}
+                        showStockAndReservations={showStockAndReservations}
+                        showName={false}
+                    />
                 </div>
             </div>
         </div>

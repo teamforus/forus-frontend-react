@@ -23,14 +23,16 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import SystemNotificationTemplateEditor from '../implementations-notifications-edit/elements/SystemNotificationTemplateEditor';
 import SystemNotification from '../../../props/models/SystemNotification';
-import useFundIdentitiesExportService from '../../../services/exports/useFundIdentitiesExportService';
+import useFundIdentitiesExporter from '../../../services/exporters/useFundIdentitiesExporter';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
+
     const activeOrganization = useActiveOrganization();
+    const fundIdentitiesExporter = useFundIdentitiesExporter();
 
     const openModal = useOpenModal();
     const translate = useTranslate();
@@ -42,7 +44,6 @@ export default function ImplementationsNotificationsSend() {
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
     const fundService = useFundService();
-    const fundIdentitiesExportService = useFundIdentitiesExportService();
     const implementationNotificationsService = useImplementationNotificationService();
 
     const [fund, setFund] = useState<Fund>(null);
@@ -119,8 +120,8 @@ export default function ImplementationsNotificationsSend() {
     });
 
     const exportIdentities = useCallback(() => {
-        fundIdentitiesExportService.exportData(activeOrganization.id, fund.id, identitiesFilters.activeValues);
-    }, [activeOrganization?.id, fund?.id, fundIdentitiesExportService, identitiesFilters.activeValues]);
+        fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, identitiesFilters.activeValues);
+    }, [activeOrganization?.id, fund?.id, fundIdentitiesExporter, identitiesFilters.activeValues]);
 
     const onTemplateUpdated = useCallback(
         (item: SystemNotification) => {
@@ -492,34 +493,32 @@ export default function ImplementationsNotificationsSend() {
                         <div>
                             {showIdentities && (
                                 <div className="card-header">
-                                    <div className="flex">
-                                        <div className="flex flex-grow">
-                                            <div className="card-title">
-                                                <em className="mdi mdi-view-list" />
-                                                Lijst met geadresseerden
-                                            </div>
+                                    <div className="flex flex-grow">
+                                        <div className="card-title">
+                                            <em className="mdi mdi-view-list" />
+                                            Lijst met geadresseerden
                                         </div>
-                                        <div className="flex">
-                                            <div className="block block-inline-filters">
-                                                <div className="form">
-                                                    <div className="form-group">
-                                                        <input
-                                                            type="text"
-                                                            value={identitiesFilters.values.q}
-                                                            placeholder="Zoeken"
-                                                            className="form-control"
-                                                            onChange={(e) =>
-                                                                identitiesFilters.update({ q: e.target.value })
-                                                            }
-                                                        />
-                                                    </div>
+                                    </div>
+                                    <div className="card-header-filters">
+                                        <div className="block block-inline-filters">
+                                            <div className="form">
+                                                <div className="form-group">
+                                                    <input
+                                                        type="text"
+                                                        value={identitiesFilters.values.q}
+                                                        placeholder="Zoeken"
+                                                        className="form-control"
+                                                        onChange={(e) =>
+                                                            identitiesFilters.update({ q: e.target.value })
+                                                        }
+                                                    />
                                                 </div>
-                                                <div
-                                                    className="button button-primary button-sm"
-                                                    onClick={() => exportIdentities()}>
-                                                    <em className="mdi mdi-download icon-start" />
-                                                    Exporteren
-                                                </div>
+                                            </div>
+                                            <div
+                                                className="button button-primary button-sm"
+                                                onClick={() => exportIdentities()}>
+                                                <em className="mdi mdi-download icon-start" />
+                                                Exporteren
                                             </div>
                                         </div>
                                     </div>
