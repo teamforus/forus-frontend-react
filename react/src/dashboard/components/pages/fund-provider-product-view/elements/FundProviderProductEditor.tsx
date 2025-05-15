@@ -121,210 +121,198 @@ export default function FundProviderProductEditor({
                 </div>
                 <div className="card-section card-section-primary form">
                     <div className="row">
-                        <div className="col col-lg-8 col-md-12">
-                            <div className="form-group form-group-inline tooltipped">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
                                 <Tooltip
                                     text={`Totaal aantal aanbiedingen dat vanuit ${fund.name} gebruikt mag worden`}
                                 />
                                 <div className="form-label form-label-required">Totaal aantal</div>
-                                <div className="form-offset">
+
+                                <div className="row">
+                                    <div className="col col-lg-6 col-xs-12">
+                                        {product.unlimited_stock && form.values.limit_total_unlimited ? (
+                                            <input className="form-control" disabled={true} value="Ongelimiteerd" />
+                                        ) : (
+                                            <input
+                                                className="form-control"
+                                                required={true}
+                                                value={form.values.limit_total || ''}
+                                                onChange={(e) => {
+                                                    form.update({
+                                                        limit_total: e.target.value ? parseFloat(e.target.value) : null,
+                                                    });
+                                                }}
+                                                type="number"
+                                                placeholder="Totaal aanbod"
+                                                min={1}
+                                                max={product.unlimited_stock ? '' : product.stock_amount}
+                                            />
+                                        )}
+                                        <FormError error={form.errors['enable_products.0.limit_total']} />
+
+                                        {product.unlimited_stock ? (
+                                            <div className="form-limit">Ongelimiteerd</div>
+                                        ) : (
+                                            <div className="form-limit">Limiet 1/{product.stock_amount}</div>
+                                        )}
+                                    </div>
+                                    <div className="col col-lg-6 col-xs-12">
+                                        {product.unlimited_stock && (
+                                            <label className="checkbox" htmlFor="unlimited_stock_subsidy">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={form.values.limit_total_unlimited}
+                                                    onChange={(e) => {
+                                                        form.update({ limit_total_unlimited: e.target.checked });
+                                                    }}
+                                                    id="unlimited_stock_subsidy"
+                                                />
+                                                <div className="checkbox-label">
+                                                    <div className="checkbox-box">
+                                                        <div className="mdi mdi-check" />
+                                                    </div>
+                                                    Onbeperkt
+                                                </div>
+                                            </label>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="form-group tooltipped">
+                                <Tooltip text="Hoevaak mag er per inwoner gebruik gemaakt worden van deze aanbieding?" />
+                                <div className="form-label form-label-required">Aantal per aanvrager</div>
+
+                                <div className="row">
+                                    <div className="col col-lg-6 col-xs-12">
+                                        <input
+                                            className="form-control"
+                                            required={true}
+                                            value={form.values.limit_per_identity || ''}
+                                            onChange={(e) =>
+                                                form.update({
+                                                    limit_per_identity: e.target.value
+                                                        ? parseFloat(e.target.value)
+                                                        : null,
+                                                })
+                                            }
+                                            type="number"
+                                            placeholder="Limiet per aanvrager"
+                                            min={1}
+                                            max={product.unlimited_stock ? '' : product.stock_amount}
+                                        />
+                                        <FormError error={form.errors['enable_products.0.limit_per_identity']} />
+
+                                        {product.unlimited_stock ? (
+                                            <div className="form-limit">Ongelimiteerd</div>
+                                        ) : (
+                                            <div className="form-limit">Limiet 1/{product.stock_amount}</div>
+                                        )}
+                                    </div>
+                                    <div className="col col-lg-6 col-xs-12" />
+                                </div>
+                            </div>
+
+                            {fund.type == 'subsidies' && (
+                                <div className="form-group tooltipped">
+                                    <Tooltip text="Volledige bijdrage vanuit de sponsor (voor de inwoner is het gratis)" />
+                                    <div className="form-label form-label-required">Bijdrage</div>
+
                                     <div className="row">
                                         <div className="col col-lg-6 col-xs-12">
-                                            {product.unlimited_stock && form.values.limit_total_unlimited ? (
-                                                <input className="form-control" disabled={true} value="Ongelimiteerd" />
+                                            {form.values.gratis ? (
+                                                <input className="form-control" disabled={true} value={product.price} />
                                             ) : (
                                                 <input
                                                     className="form-control"
-                                                    required={true}
-                                                    value={form.values.limit_total || ''}
+                                                    disabled={form.values.gratis}
+                                                    value={form.values.amount}
                                                     onChange={(e) => {
                                                         form.update({
-                                                            limit_total: e.target.value
-                                                                ? parseFloat(e.target.value)
-                                                                : null,
+                                                            amount: e.target.value ? parseFloat(e.target.value) : 0,
                                                         });
                                                     }}
                                                     type="number"
-                                                    placeholder="Totaal aanbod"
-                                                    min={1}
-                                                    max={product.unlimited_stock ? '' : product.stock_amount}
+                                                    placeholder="Bijdrage"
+                                                    step=".05"
+                                                    min={0}
                                                 />
                                             )}
-                                            <FormError error={form.errors['enable_products.0.limit_total']} />
-
-                                            {product.unlimited_stock ? (
-                                                <div className="form-limit">Ongelimiteerd</div>
-                                            ) : (
-                                                <div className="form-limit">Limiet 1/{product.stock_amount}</div>
-                                            )}
+                                            <FormError error={form.errors['enable_products.0.amount']} />
                                         </div>
                                         <div className="col col-lg-6 col-xs-12">
-                                            {product.unlimited_stock && (
-                                                <label className="checkbox" htmlFor="unlimited_stock_subsidy">
+                                            {(product.price_type === 'free' || product.price_type === 'regular') && (
+                                                <label className="checkbox" htmlFor="subsidie">
                                                     <input
                                                         type="checkbox"
-                                                        checked={form.values.limit_total_unlimited}
-                                                        onChange={(e) => {
-                                                            form.update({ limit_total_unlimited: e.target.checked });
-                                                        }}
-                                                        id="unlimited_stock_subsidy"
+                                                        checked={form.values.gratis}
+                                                        onChange={(e) => form.update({ gratis: e.target.checked })}
+                                                        id="subsidie"
                                                     />
                                                     <div className="checkbox-label">
                                                         <div className="checkbox-box">
-                                                            <div className="mdi mdi-check" />
+                                                            <em className="mdi mdi-check" />
                                                         </div>
-                                                        Onbeperkt
+                                                        Volledige bijdrage
                                                     </div>
                                                 </label>
                                             )}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="form-group form-group-inline tooltipped">
-                                <Tooltip text="Hoevaak mag er per inwoner gebruik gemaakt worden van deze aanbieding?" />
-                                <div className="form-label form-label-required">Aantal per aanvrager</div>
-                                <div className="form-offset">
-                                    <div className="row">
-                                        <div className="col col-lg-6 col-xs-12">
-                                            <input
-                                                className="form-control"
-                                                required={true}
-                                                value={form.values.limit_per_identity || ''}
-                                                onChange={(e) =>
-                                                    form.update({
-                                                        limit_per_identity: e.target.value
-                                                            ? parseFloat(e.target.value)
-                                                            : null,
-                                                    })
-                                                }
-                                                type="number"
-                                                placeholder="Limiet per aanvrager"
-                                                min={1}
-                                                max={product.unlimited_stock ? '' : product.stock_amount}
-                                            />
-                                            <FormError error={form.errors['enable_products.0.limit_per_identity']} />
-
-                                            {product.unlimited_stock ? (
-                                                <div className="form-limit">Ongelimiteerd</div>
-                                            ) : (
-                                                <div className="form-limit">Limiet 1/{product.stock_amount}</div>
-                                            )}
-                                        </div>
-                                        <div className="col col-lg-6 col-xs-12" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {fund.type == 'subsidies' && (
-                                <div className="form-group form-group-inline tooltipped">
-                                    <Tooltip text="Volledige bijdrage vanuit de sponsor (voor de inwoner is het gratis)" />
-                                    <div className="form-label form-label-required">Bijdrage</div>
-                                    <div className="form-offset">
-                                        <div className="row">
-                                            <div className="col col-lg-6 col-xs-12">
-                                                {form.values.gratis ? (
-                                                    <input
-                                                        className="form-control"
-                                                        disabled={true}
-                                                        value={product.price}
-                                                    />
-                                                ) : (
-                                                    <input
-                                                        className="form-control"
-                                                        disabled={form.values.gratis}
-                                                        value={form.values.amount}
-                                                        onChange={(e) => {
-                                                            form.update({
-                                                                amount: e.target.value ? parseFloat(e.target.value) : 0,
-                                                            });
-                                                        }}
-                                                        type="number"
-                                                        placeholder="Bijdrage"
-                                                        step=".05"
-                                                        min={0}
-                                                    />
-                                                )}
-                                                <FormError error={form.errors['enable_products.0.amount']} />
-                                            </div>
-                                            <div className="col col-lg-6 col-xs-12">
-                                                {(product.price_type === 'free' ||
-                                                    product.price_type === 'regular') && (
-                                                    <label className="checkbox" htmlFor="subsidie">
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={form.values.gratis}
-                                                            onChange={(e) => form.update({ gratis: e.target.checked })}
-                                                            id="subsidie"
-                                                        />
-                                                        <div className="checkbox-label">
-                                                            <div className="checkbox-box">
-                                                                <em className="mdi mdi-check" />
-                                                            </div>
-                                                            Volledige bijdrage
-                                                        </div>
-                                                    </label>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             )}
 
-                            <div className="form-group form-group-inline tooltipped">
+                            <div className="form-group tooltipped">
                                 <Tooltip text="Tot wanneer de subsidie geldig is. Kies de gewenste datum of de einddatum van het fonds." />
                                 <div className="form-label">Verloopdatum</div>
-                                <div className="form-offset">
-                                    <div className="row">
-                                        {form.values.expires_with_fund ? (
-                                            <div className="col col-lg-6 col-xs-12">
-                                                <input className="form-control" value={fund.end_date} disabled={true} />
-                                                <FormError error={form.errors['enable_products.0.expire_at']} />
-                                            </div>
-                                        ) : (
-                                            <div className="col col-lg-6 col-xs-12">
-                                                <DatePickerControl
-                                                    value={dateParse(form.values.expire_at)}
-                                                    placeholder={translate('jjjj-MM-dd')}
-                                                    onChange={(date) => form.update({ expire_at: dateFormat(date) })}
-                                                />
-                                                <FormError error={form.errors['enable_products.0.expire_at']} />
-                                            </div>
-                                        )}
 
+                                <div className="row">
+                                    {form.values.expires_with_fund ? (
                                         <div className="col col-lg-6 col-xs-12">
-                                            <label className="checkbox" htmlFor="expires_with_fund">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={form.values.expires_with_fund}
-                                                    onChange={(e) => {
-                                                        form.update({ expires_with_fund: e.target.checked });
-                                                    }}
-                                                    id="expires_with_fund"
-                                                />
-                                                <div className="checkbox-label">
-                                                    <div className="checkbox-box">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                    Verloopt met het fonds
-                                                </div>
-                                            </label>
+                                            <input className="form-control" value={fund.end_date} disabled={true} />
+                                            <FormError error={form.errors['enable_products.0.expire_at']} />
                                         </div>
+                                    ) : (
+                                        <div className="col col-lg-6 col-xs-12">
+                                            <DatePickerControl
+                                                value={dateParse(form.values.expire_at)}
+                                                placeholder={translate('jjjj-MM-dd')}
+                                                onChange={(date) => form.update({ expire_at: dateFormat(date) })}
+                                            />
+                                            <FormError error={form.errors['enable_products.0.expire_at']} />
+                                        </div>
+                                    )}
+
+                                    <div className="col col-lg-6 col-xs-12">
+                                        <label className="checkbox" htmlFor="expires_with_fund">
+                                            <input
+                                                type="checkbox"
+                                                checked={form.values.expires_with_fund}
+                                                onChange={(e) => {
+                                                    form.update({ expires_with_fund: e.target.checked });
+                                                }}
+                                                id="expires_with_fund"
+                                            />
+                                            <div className="checkbox-label">
+                                                <div className="checkbox-box">
+                                                    <div className="mdi mdi-check" />
+                                                </div>
+                                                Verloopt met het fonds
+                                            </div>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
 
                             {form.errors['enable_products.0'] && (
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <div className="form-label">&nbsp;</div>
-                                    <div className="form-offset">
-                                        {form.errors['enable_products.0'].map((error: string, index: number) => (
-                                            <div className={'form-error'} key={index}>
-                                                {error}
-                                            </div>
-                                        ))}
-                                    </div>
+
+                                    {form.errors['enable_products.0'].map((error: string, index: number) => (
+                                        <div className={'form-error'} key={index}>
+                                            {error}
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>

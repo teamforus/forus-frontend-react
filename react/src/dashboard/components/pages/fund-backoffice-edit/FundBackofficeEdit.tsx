@@ -126,7 +126,7 @@ export default function FundBackofficeEdit() {
         [formUpdate],
     );
 
-    const selectCertificateFile = useCallback((e) => {
+    const selectCertificateFile = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         e?.preventDefault();
         e?.stopPropagation();
 
@@ -242,8 +242,8 @@ export default function FundBackofficeEdit() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">Status</label>
                                     <label className="form-toggle form-label" htmlFor="backoffice_enabled">
                                         <input
@@ -261,7 +261,7 @@ export default function FundBackofficeEdit() {
                                     </label>
                                 </div>
 
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="backoffice_url">
                                         API url
                                     </label>
@@ -278,7 +278,7 @@ export default function FundBackofficeEdit() {
                                     />
                                     <FormError error={form.errors.backoffice_url} />
                                 </div>
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="backoffice_key">
                                         API sleutel
                                     </label>
@@ -296,61 +296,61 @@ export default function FundBackofficeEdit() {
                                     <FormError error={form.errors.backoffice_key} />
                                 </div>
 
-                                <div className="form-group form-group-inline tooltipped">
+                                <div className="form-group tooltipped">
                                     <label className="form-label">Upload .PEM bestand</label>
-                                    <div className="form-offset">
-                                        {form.values.backoffice_certificate && (
-                                            <pre className="code">
-                                                {showCertificate
-                                                    ? form.values.backoffice_certificate
-                                                    : 'Certificaat geselecteerd'}
-                                            </pre>
-                                        )}
 
-                                        <div className="button-group">
-                                            <input
-                                                type="file"
-                                                accept={'.pem'}
-                                                hidden={true}
-                                                onChange={onFileChange}
-                                                ref={fileInput}
-                                            />
+                                    {form.values.backoffice_certificate && (
+                                        <pre className="code">
+                                            {showCertificate
+                                                ? form.values.backoffice_certificate
+                                                : 'Certificaat geselecteerd'}
+                                        </pre>
+                                    )}
 
-                                            <div
-                                                className="button button-primary"
-                                                onClick={(e) => selectCertificateFile(e)}>
-                                                <em className="mdi mdi-upload icon-start" />
-                                                Upload bestand
-                                            </div>
+                                    <div className="button-group">
+                                        <input
+                                            type="file"
+                                            accept={'.pem'}
+                                            hidden={true}
+                                            onChange={onFileChange}
+                                            ref={fileInput}
+                                        />
 
-                                            {form.values.backoffice_certificate && (
-                                                <Fragment>
-                                                    <div
-                                                        className="button button-danger"
-                                                        onClick={() => form.update({ backoffice_certificate: '' })}>
-                                                        <em className="mdi mdi-delete-outline icon-start" />
-                                                        Verwijderen bestand
-                                                    </div>
-
-                                                    {showCertificate ? (
-                                                        <div
-                                                            className="button button-text button-text-primary"
-                                                            onClick={() => setShowCertificate(!showCertificate)}>
-                                                            <em className="mdi mdi-eye-off-outline icon-start" />
-                                                            Verberg certificaat
-                                                        </div>
-                                                    ) : (
-                                                        <div
-                                                            className="button button-text button-text-primary"
-                                                            onClick={() => setShowCertificate(!showCertificate)}>
-                                                            <em className="mdi mdi-eye-outline icon-start" />
-                                                            Bekijk certificaat
-                                                        </div>
-                                                    )}
-                                                </Fragment>
-                                            )}
+                                        <div
+                                            className="button button-primary"
+                                            onClick={(e) => selectCertificateFile(e)}>
+                                            <em className="mdi mdi-upload icon-start" />
+                                            Upload bestand
                                         </div>
+
+                                        {form.values.backoffice_certificate && (
+                                            <Fragment>
+                                                <div
+                                                    className="button button-danger"
+                                                    onClick={() => form.update({ backoffice_certificate: '' })}>
+                                                    <em className="mdi mdi-delete-outline icon-start" />
+                                                    Verwijderen bestand
+                                                </div>
+
+                                                {showCertificate ? (
+                                                    <div
+                                                        className="button button-text button-text-primary"
+                                                        onClick={() => setShowCertificate(!showCertificate)}>
+                                                        <em className="mdi mdi-eye-off-outline icon-start" />
+                                                        Verberg certificaat
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className="button button-text button-text-primary"
+                                                        onClick={() => setShowCertificate(!showCertificate)}>
+                                                        <em className="mdi mdi-eye-outline icon-start" />
+                                                        Bekijk certificaat
+                                                    </div>
+                                                )}
+                                            </Fragment>
+                                        )}
                                     </div>
+
                                     <FormError error={form.errors.backoffice_key} />
                                     <Tooltip text="Upload het benodigde certificaat voor het tot stand brengen van een “two-sided” SSL-verbinding tussen het platform en de externe API." />
                                 </div>
@@ -360,51 +360,49 @@ export default function FundBackofficeEdit() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-lg-12">
-                                <div className="form-group form-group-inline tooltipped">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group tooltipped">
                                     <label className="form-label">Downtime pad</label>
-                                    <div className="form-offset">
-                                        <div className="form-group-info">
-                                            <div className="form-group-info-control">
-                                                <SelectControl
-                                                    className={'form-control'}
-                                                    options={fallbackOptions}
-                                                    propKey={'value'}
-                                                    propValue={'label'}
-                                                    allowSearch={false}
-                                                    value={form.values?.backoffice_fallback}
-                                                    onChange={(value?: boolean) => {
-                                                        form.update({ backoffice_fallback: value });
-                                                    }}
-                                                />
+
+                                    <div className="form-group-info">
+                                        <div className="form-group-info-control">
+                                            <SelectControl
+                                                className={'form-control'}
+                                                options={fallbackOptions}
+                                                propKey={'value'}
+                                                propValue={'label'}
+                                                allowSearch={false}
+                                                value={form.values?.backoffice_fallback}
+                                                onChange={(value?: boolean) => {
+                                                    form.update({ backoffice_fallback: value });
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="form-group-info-button">
+                                            <div
+                                                className={`button button-default button-icon pull-left ${
+                                                    showInfoBlock ? 'active' : ''
+                                                }`}
+                                                onClick={() => setShowInfoBlock(!showInfoBlock)}>
+                                                <em className="mdi mdi-information" />
                                             </div>
-                                            <div className="form-group-info-button">
-                                                <div
-                                                    className={`button button-default button-icon pull-left ${
-                                                        showInfoBlock ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setShowInfoBlock(!showInfoBlock)}>
-                                                    <em className="mdi mdi-information" />
+                                        </div>
+                                    </div>
+
+                                    {showInfoBlock && (
+                                        <div className="block block-info-box block-info-box-primary">
+                                            <div className="info-box-icon mdi mdi-information" />
+                                            <div className="info-box-content">
+                                                <div className="block block-markdown">
+                                                    <p>
+                                                        Stel in wat de gebruiker ziet als de externe API downtime heeft.
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
+                                    )}
 
-                                        {showInfoBlock && (
-                                            <div className="block block-info-box block-info-box-primary">
-                                                <div className="info-box-icon mdi mdi-information" />
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <p>
-                                                            Stel in wat de gebruiker ziet als de externe API downtime
-                                                            heeft.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <FormError error={form.errors.backoffice_fallback} />
-                                    </div>
+                                    <FormError error={form.errors.backoffice_fallback} />
                                 </div>
                             </div>
                         </div>
@@ -412,52 +410,51 @@ export default function FundBackofficeEdit() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-lg-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">Ineligibility policy</label>
-                                    <div className="form-offset">
-                                        <div className="form-group-info">
-                                            <div className="form-group-info-control">
-                                                <SelectControl
-                                                    className={'form-control'}
-                                                    options={ineligiblePolicyOptions}
-                                                    propKey={'value'}
-                                                    propValue={'label'}
-                                                    allowSearch={false}
-                                                    value={form.values?.backoffice_ineligible_policy}
-                                                    onChange={(value?: string) => {
-                                                        form.update({ backoffice_ineligible_policy: value });
-                                                    }}
-                                                />
+
+                                    <div className="form-group-info">
+                                        <div className="form-group-info-control">
+                                            <SelectControl
+                                                className={'form-control'}
+                                                options={ineligiblePolicyOptions}
+                                                propKey={'value'}
+                                                propValue={'label'}
+                                                allowSearch={false}
+                                                value={form.values?.backoffice_ineligible_policy}
+                                                onChange={(value?: string) => {
+                                                    form.update({ backoffice_ineligible_policy: value });
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="form-group-info-button">
+                                            <div
+                                                className={`button button-default button-icon pull-left ${
+                                                    showPolicyInfoBlock ? 'active' : ''
+                                                }`}
+                                                onClick={() => setShowPolicyInfoBlock(!showPolicyInfoBlock)}>
+                                                <em className="mdi mdi-information" />
                                             </div>
-                                            <div className="form-group-info-button">
-                                                <div
-                                                    className={`button button-default button-icon pull-left ${
-                                                        showPolicyInfoBlock ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setShowPolicyInfoBlock(!showPolicyInfoBlock)}>
-                                                    <em className="mdi mdi-information" />
+                                        </div>
+                                    </div>
+
+                                    {showPolicyInfoBlock && (
+                                        <div className="block block-info-box block-info-box-primary">
+                                            <div className="info-box-icon mdi mdi-information" />
+                                            <div className="info-box-content">
+                                                <div className="block block-markdown">
+                                                    <p>What should happen when the requester is not eligible.</p>
                                                 </div>
                                             </div>
                                         </div>
+                                    )}
 
-                                        {showPolicyInfoBlock && (
-                                            <div className="block block-info-box block-info-box-primary">
-                                                <div className="info-box-icon mdi mdi-information" />
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <p>What should happen when the requester is not eligible.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <FormError error={form.errors.backoffice_ineligible_policy} />
-                                    </div>
+                                    <FormError error={form.errors.backoffice_ineligible_policy} />
                                 </div>
 
                                 {form.values.backoffice_ineligible_policy == 'redirect' && (
-                                    <div className="form-group form-group-inline">
+                                    <div className="form-group">
                                         <label className="form-label">Redirect url</label>
                                         <input
                                             className="form-control"

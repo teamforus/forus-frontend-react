@@ -13,6 +13,7 @@ import { authContext } from '../../../contexts/AuthContext';
 import { ResponseError } from '../../../props/ApiResponses';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function Security2FA() {
     const assetUrl = useAssetUrl();
@@ -131,11 +132,11 @@ export default function Security2FA() {
                             {provider_type.title}
                             <div className="auth-2fa-item-label">
                                 {!Object.keys(activeProvidersByKey).includes(provider_type.type) && (
-                                    <div className="label label-default">Uitgeschakeld</div>
+                                    <Label type="default">Uitgeschakeld</Label>
                                 )}
 
                                 {Object.keys(activeProvidersByKey).includes(provider_type.type) && (
-                                    <div className="label label-success">Ingeschakeld</div>
+                                    <Label type="success">Ingeschakeld</Label>
                                 )}
                             </div>
                         </div>

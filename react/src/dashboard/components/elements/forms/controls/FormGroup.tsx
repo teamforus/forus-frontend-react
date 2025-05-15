@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import FormError from '../errors/FormError';
 import { uniqueId } from 'lodash';
 import classNames from 'classnames';
@@ -6,8 +6,6 @@ import classNames from 'classnames';
 export default function FormGroup({
     id,
     error,
-    inline,
-    inlineSize,
     label,
     input,
     required,
@@ -15,8 +13,6 @@ export default function FormGroup({
 }: {
     id?: string;
     error?: string | Array<string>;
-    inline?: boolean;
-    inlineSize?: 'sm' | 'md' | 'lg' | 'xl';
     label?: string | React.ReactElement | Array<React.ReactElement>;
     input?: (input_id: string) => React.ReactElement;
     required?: boolean;
@@ -25,34 +21,15 @@ export default function FormGroup({
     const input_id = useState(id || uniqueId('input_group_id_'))[0];
 
     return (
-        <div
-            className={classNames(
-                'form-group',
-                inline && 'form-group-inline',
-                inlineSize === 'sm' && 'form-group-inline-sm',
-                inlineSize === 'md' && 'form-group-inline-md',
-                inlineSize === 'lg' && 'form-group-inline-lg',
-                inlineSize === 'xl' && 'form-group-inline-xl',
-                error && 'form-group-error',
-                className,
-            )}>
+        <div className={classNames('form-group', error && 'form-group-error', className)}>
             {label && (
                 <label htmlFor={input_id} className={classNames(`form-label`, required && 'form-label-required')}>
                     {label}
                 </label>
             )}
 
-            {inline ? (
-                <div className="form-offset">
-                    {input && input(input_id)}
-                    {error && <FormError error={error} />}
-                </div>
-            ) : (
-                <Fragment>
-                    {input && input(input_id)}
-                    {error && <FormError error={error} />}
-                </Fragment>
-            )}
+            {input && input(input_id)}
+            {error && <FormError error={error} />}
         </div>
     );
 }

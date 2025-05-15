@@ -62,7 +62,7 @@ export default function OrganizationForm() {
     }, [businessTypeService, setProgress]);
 
     const fetchOrganization = useCallback(
-        (id) => {
+        (id: number) => {
             setProgress(0);
 
             organizationService
@@ -149,7 +149,7 @@ export default function OrganizationForm() {
 
     useEffect(() => {
         if (organizationId) {
-            fetchOrganization(organizationId);
+            fetchOrganization(parseInt(organizationId));
         }
     }, [organizationId, fetchOrganization]);
 
@@ -178,27 +178,20 @@ export default function OrganizationForm() {
             </div>
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-xs-12">
-                        <div className="form-group form-group-inline">
-                            <label htmlFor="" className="form-label">
-                                &nbsp;
-                            </label>
-                            <div className="form-offset">
-                                <PhotoSelector
-                                    type="organization_logo"
-                                    thumbnail={organization?.logo?.sizes?.thumbnail}
-                                    selectPhoto={(file) => setMediaFile(file)}
-                                />
-                            </div>
-                        </div>
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <PhotoSelector
+                            type="organization_logo"
+                            thumbnail={organization?.logo?.sizes?.thumbnail}
+                            selectPhoto={(file) => setMediaFile(file)}
+                        />
                     </div>
                 </div>
             </div>
 
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-lg-9 col-lg-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label htmlFor="name" className="form-label form-label-required">
                                 {translate('organization_edit.labels.name')}
                             </label>
@@ -211,114 +204,114 @@ export default function OrganizationForm() {
                             />
                             <FormError error={form.errors?.name} />
                         </div>
-                        <div className="form-group form-group-inline">
+                        <div className="form-group">
                             <label htmlFor="iban" className="form-label form-label-required">
                                 {translate('organization_edit.labels.bank')}
                             </label>
-                            <div className="form-offset">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder={'IBAN-nummer'}
-                                    value={form.values?.iban || ''}
-                                    onChange={(e) => form.update({ iban: e.target.value })}
-                                    disabled={organization && organization?.identity_address != authIdentity.address}
-                                />
-                                {organization && organization?.identity_address != authIdentity.address && (
-                                    <div className="form-hint">Alleen de eigenaar kan het rekeningnummer wijzigen.</div>
-                                )}
-                                <FormError error={form.errors?.iban} />
-                            </div>
+
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder={'IBAN-nummer'}
+                                value={form.values?.iban || ''}
+                                onChange={(e) => form.update({ iban: e.target.value })}
+                                disabled={organization && organization?.identity_address != authIdentity.address}
+                            />
+                            {organization && organization?.identity_address != authIdentity.address && (
+                                <div className="form-hint">Alleen de eigenaar kan het rekeningnummer wijzigen.</div>
+                            )}
+                            <FormError error={form.errors?.iban} />
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="card-section card-section-primary">
-                <div className="form-group form-group-inline">
-                    <label htmlFor="email" className="form-label form-label-required">
-                        {translate('organization_edit.labels.mail')}
-                    </label>
-                    <div className="form-offset">
-                        <div className="row">
-                            <div className="col col-lg-8 col-lg-12">
-                                <input
-                                    id={'email'}
-                                    type="email"
-                                    className="form-control"
-                                    value={form.values?.email || ''}
-                                    onChange={(e) => form.update({ email: e.target.value })}
-                                    placeholder="E-mailadres"
-                                />
-                                <FormError error={form.errors?.email} />
-                            </div>
+                <div className="row">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
+                            <label htmlFor="email" className="form-label form-label-required">
+                                {translate('organization_edit.labels.mail')}
+                            </label>
 
-                            <div className="col col-lg-4 col-lg-12">
-                                <CheckboxControl
-                                    id={'email_public'}
-                                    title={'Maak publiek'}
-                                    checked={!!form.values?.email_public}
-                                    onChange={(e) => form.update({ email_public: e.target.checked })}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <div className="row">
+                                <div className="col col-lg-8 col-lg-12">
+                                    <input
+                                        id={'email'}
+                                        type="email"
+                                        className="form-control"
+                                        value={form.values?.email || ''}
+                                        onChange={(e) => form.update({ email: e.target.value })}
+                                        placeholder="E-mailadres"
+                                    />
+                                    <FormError error={form.errors?.email} />
+                                </div>
 
-                <div className="form-group form-group-inline">
-                    <label htmlFor="phone" className="form-label form-label-required">
-                        {translate('organization_edit.labels.phone')}
-                    </label>
-                    <div className="form-offset">
-                        <div className="row">
-                            <div className="col col-lg-8 col-lg-12">
-                                <input
-                                    id="phone"
-                                    type="text"
-                                    className="form-control"
-                                    value={form.values?.phone || ''}
-                                    onChange={(e) => form.update({ phone: e.target.value })}
-                                    placeholder="Telefoonnummer"
-                                />
-                                <FormError error={form.errors?.phone} />
-                            </div>
-
-                            <div className="col col-lg-4 col-lg-12">
-                                <CheckboxControl
-                                    id={'phone_public'}
-                                    title={'Maak publiek'}
-                                    checked={!!form.values?.phone_public}
-                                    onChange={(e) => form.update({ phone_public: e.target.checked })}
-                                />
+                                <div className="col col-lg-4 col-lg-12">
+                                    <CheckboxControl
+                                        id={'email_public'}
+                                        title={'Maak publiek'}
+                                        checked={!!form.values?.email_public}
+                                        onChange={(e) => form.update({ email_public: e.target.checked })}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div className="form-group form-group-inline">
-                    <label htmlFor="website" className="form-label">
-                        {translate('organization_edit.labels.website')}
-                    </label>
-                    <div className="form-offset">
-                        <div className="row">
-                            <div className="col col-lg-8 col-lg-12">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={form.values?.website || ''}
-                                    onChange={(e) => form.update({ website: e.target.value })}
-                                    placeholder="Website"
-                                />
-                                <FormError error={form.errors?.website} />
+                        <div className="form-group">
+                            <label htmlFor="phone" className="form-label form-label-required">
+                                {translate('organization_edit.labels.phone')}
+                            </label>
+
+                            <div className="row">
+                                <div className="col col-lg-8 col-lg-12">
+                                    <input
+                                        id="phone"
+                                        type="text"
+                                        className="form-control"
+                                        value={form.values?.phone || ''}
+                                        onChange={(e) => form.update({ phone: e.target.value })}
+                                        placeholder="Telefoonnummer"
+                                    />
+                                    <FormError error={form.errors?.phone} />
+                                </div>
+
+                                <div className="col col-lg-4 col-lg-12">
+                                    <CheckboxControl
+                                        id={'phone_public'}
+                                        title={'Maak publiek'}
+                                        checked={!!form.values?.phone_public}
+                                        onChange={(e) => form.update({ phone_public: e.target.checked })}
+                                    />
+                                </div>
                             </div>
+                        </div>
 
-                            <div className="col col-lg-4 col-lg-12">
-                                <CheckboxControl
-                                    id={'website_public'}
-                                    title={'Maak publiek'}
-                                    checked={!!form.values?.website_public}
-                                    onChange={(e) => form.update({ website_public: e.target.checked })}
-                                />
+                        <div className="form-group">
+                            <label htmlFor="website" className="form-label">
+                                {translate('organization_edit.labels.website')}
+                            </label>
+
+                            <div className="row">
+                                <div className="col col-lg-8 col-lg-12">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={form.values?.website || ''}
+                                        onChange={(e) => form.update({ website: e.target.value })}
+                                        placeholder="Website"
+                                    />
+                                    <FormError error={form.errors?.website} />
+                                </div>
+
+                                <div className="col col-lg-4 col-lg-12">
+                                    <CheckboxControl
+                                        id={'website_public'}
+                                        title={'Maak publiek'}
+                                        checked={!!form.values?.website_public}
+                                        onChange={(e) => form.update({ website_public: e.target.checked })}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -327,23 +320,22 @@ export default function OrganizationForm() {
 
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-lg-9 col-lg-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label htmlFor="" className="form-label form-label-required">
                                 {translate('organization_edit.labels.business_type')}
                             </label>
-                            <div className="form-offset">
-                                <SelectControl
-                                    className={'form-control'}
-                                    options={businessTypes || []}
-                                    propKey={'id'}
-                                    allowSearch={true}
-                                    value={form.values?.business_type_id}
-                                    optionsComponent={SelectControlOptionsFD}
-                                    onChange={(id?: number) => form.update({ business_type_id: id })}
-                                />
-                                <FormError error={form.errors?.business_type_id} />
-                            </div>
+
+                            <SelectControl
+                                className={'form-control'}
+                                options={businessTypes || []}
+                                propKey={'id'}
+                                allowSearch={true}
+                                value={form.values?.business_type_id}
+                                optionsComponent={SelectControlOptionsFD}
+                                onChange={(id?: number) => form.update({ business_type_id: id })}
+                            />
+                            <FormError error={form.errors?.business_type_id} />
                         </div>
                     </div>
                 </div>
@@ -351,19 +343,18 @@ export default function OrganizationForm() {
 
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-lg-9 col-lg-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label htmlFor="description" className="form-label form-label-required">
                                 {translate('organization_edit.labels.description')}
                             </label>
-                            <div className="form-offset">
-                                <MarkdownEditor
-                                    value={form.values?.description_html || ''}
-                                    onChange={(description) => form.update({ description })}
-                                    placeholder={translate('organization_edit.labels.description')}
-                                />
-                                <FormError error={form.errors?.description} />
-                            </div>
+
+                            <MarkdownEditor
+                                value={form.values?.description_html || ''}
+                                onChange={(description) => form.update({ description })}
+                                placeholder={translate('organization_edit.labels.description')}
+                            />
+                            <FormError error={form.errors?.description} />
                         </div>
                     </div>
                 </div>
@@ -371,8 +362,8 @@ export default function OrganizationForm() {
 
             <div className="card-section card-section-primary">
                 <div className="row">
-                    <div className="col col-lg-9 col-lg-12">
-                        <div className="form-group form-group-inline">
+                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                        <div className="form-group">
                             <label htmlFor="kvk" className="form-label form-label-required">
                                 {translate('organization_edit.labels.kvk')}
                             </label>
@@ -385,7 +376,7 @@ export default function OrganizationForm() {
                             />
                             <FormError error={form.errors?.kvk} />
                         </div>
-                        <div className="form-group form-group-inline">
+                        <div className="form-group">
                             <label htmlFor="kvk" className="form-label">
                                 {translate('organization_edit.labels.tax')}
                             </label>

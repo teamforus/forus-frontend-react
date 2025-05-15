@@ -28,6 +28,7 @@ import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
 import useTranslate from '../../../hooks/useTranslate';
 import useShowVoucherQrCode from '../vouchers/hooks/useShowVoucherQrCode';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -316,23 +317,21 @@ export default function VouchersViewComponent() {
                         </div>
                         <div className="flex flex-vertical flex-center">
                             {!voucher.expired && voucher.state == 'active' && (
-                                <div className="tag tag-success tag-sm">{voucher.state_locale}</div>
+                                <Label type="success">{voucher.state_locale}</Label>
                             )}
                         </div>
                         <div className="flex flex-vertical flex-center">
                             {!voucher.expired && voucher.state == 'pending' && (
-                                <div className="tag tag-default tag-sm">{voucher.state_locale}</div>
+                                <Label type="default">{voucher.state_locale}</Label>
                             )}
                         </div>
                         <div className="flex flex-vertical flex-center">
                             {!voucher.expired && voucher.state == 'deactivated' && (
-                                <div className="tag tag-danger tag-sm">{voucher.state_locale}</div>
+                                <Label type="danger">{voucher.state_locale}</Label>
                             )}
                         </div>
                         <div className="flex flex-vertical flex-center">
-                            {voucher.expired && (
-                                <div className="tag tag-warning tag-sm">{translate('vouchers.labels.expired')}</div>
-                            )}
+                            {voucher.expired && <Label type="warning">{translate('vouchers.labels.expired')}</Label>}
                         </div>
                     </div>
                     {hasPermission(activeOrganization, 'manage_vouchers') && (

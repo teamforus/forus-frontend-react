@@ -252,19 +252,15 @@ export default function SponsorProviderOrganizations() {
 
                             {!filter.show && (
                                 <Fragment>
-                                    <div className="form-group form-group-inline">
-                                        <label className="form-label">Sorteer op:</label>
-                                        <div className="form-offset">
-                                            <SelectControl
-                                                className={'form-control form-control-text nowrap'}
-                                                options={orderByOptions}
-                                                propKey={'value'}
-                                                allowSearch={false}
-                                                value={filterValues.order_by}
-                                                onChange={(order_by: string) => filterUpdate({ order_by })}
-                                            />
-                                        </div>
-                                    </div>
+                                    <label className="form-label">Sorteer op:</label>
+                                    <SelectControl
+                                        className={'form-control form-control-text nowrap'}
+                                        options={orderByOptions}
+                                        propKey={'value'}
+                                        allowSearch={false}
+                                        value={filterValues.order_by}
+                                        onChange={(order_by: string) => filterUpdate({ order_by })}
+                                    />
 
                                     <div className="block block-label-tabs">
                                         <div className="label-tab-set">

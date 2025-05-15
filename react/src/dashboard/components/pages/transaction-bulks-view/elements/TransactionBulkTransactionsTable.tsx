@@ -16,6 +16,7 @@ import useEnvData from '../../../../hooks/useEnvData';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function TransactionBulkTransactionsTable({
     organization,
@@ -191,14 +192,9 @@ export default function TransactionBulkTransactionsTable({
                                         <td>{strLimit(transaction.product?.name || '-', 25) || '-'}</td>
 
                                         <td>
-                                            <div
-                                                className={
-                                                    transaction.state == 'success'
-                                                        ? 'label label-success'
-                                                        : 'label label-default'
-                                                }>
+                                            <Label type={transaction.state == 'success' ? 'success' : 'default'}>
                                                 {transaction.state_locale}
-                                            </div>
+                                            </Label>
                                         </td>
                                         <td>
                                             <StateNavLink

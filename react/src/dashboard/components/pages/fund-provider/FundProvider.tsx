@@ -17,6 +17,7 @@ import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function FundProvider() {
     const { fundId, id } = useParams();
@@ -119,9 +120,9 @@ export default function FundProvider() {
                                     <div className="connection-content-title">
                                         Verbinding met betaalmethode toestaan
                                         {fundProvider.allow_extra_payments ? (
-                                            <div className="label label-success">Geaccepteerd</div>
+                                            <Label type="success">Geaccepteerd</Label>
                                         ) : (
-                                            <div className="label label-warning">Geweigerd</div>
+                                            <Label type="warning">Geweigerd</Label>
                                         )}
                                     </div>
                                     <div className="connection-content-info block block-tooltip-details block-tooltip-hover">

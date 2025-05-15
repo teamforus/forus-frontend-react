@@ -1,20 +1,16 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
 import FundForm from '../../../props/models/FundForm';
+import Label from '../image_cropper/Label';
 
 export default function FundFormStateLabels({ fundForm }: { fundForm: FundForm }) {
-    const [stateLabels] = useState({
-        active: 'tag-success',
-        archived: 'tag-default',
-    });
+    if (fundForm.state == 'active') {
+        return <Label type={'success'}>{fundForm.state_locale}</Label>;
+    }
 
-    return (
-        <Fragment>
-            {stateLabels[fundForm.state] ? (
-                <span className={`tag tag-sm ${stateLabels[fundForm.state] || ''}`}>{fundForm.state_locale}</span>
-            ) : (
-                <TableEmptyValue />
-            )}
-        </Fragment>
-    );
+    if (fundForm.state == 'archived') {
+        return <Label type={'default'}>{fundForm.state_locale}</Label>;
+    }
+
+    return <TableEmptyValue />;
 }

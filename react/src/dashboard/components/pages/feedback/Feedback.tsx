@@ -72,26 +72,30 @@ export default function Feedback() {
 
                         {/* Description */}
                         <div className="card-section card-section-primary">
-                            <div className="block block-information">
-                                <em className="mdi mdi-information block-information-icon"></em>
-                                <div className="block-information-info">
-                                    Bedankt voor het delen van de feedback. Hierdoor kunnen we het systeem verder
-                                    verbeteren.
-                                    <br />
-                                    {envData?.config?.feedback_email && (
-                                        <span>
-                                            Heb je vragen over het gebruik en wil je graag hulp? Neem dan contact op met
-                                            onze helpdesk via !{envData?.config?.feedback_email}
-                                        </span>
-                                    )}
+                            <div className="row">
+                                <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                    <div className="block block-information">
+                                        <em className="mdi mdi-information block-information-icon"></em>
+                                        <div className="block-information-info">
+                                            Bedankt voor het delen van de feedback. Hierdoor kunnen we het systeem
+                                            verder verbeteren.
+                                            <br />
+                                            {envData?.config?.feedback_email && (
+                                                <span>
+                                                    Heb je vragen over het gebruik en wil je graag hulp? Neem dan
+                                                    contact op met onze helpdesk via !{envData?.config?.feedback_email}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="card-section card-section-primary">
                             <div className="row">
-                                <div className="col col-lg-9 col-xs-12">
-                                    <div className="form-group form-group-inline">
+                                <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                    <div className="form-group">
                                         <label className="form-label form-label-required">
                                             {translate('components.feedback.labels.title')}
                                         </label>
@@ -107,7 +111,7 @@ export default function Feedback() {
                                         <FormError error={form.errors?.title} />
                                     </div>
 
-                                    <div className="form-group form-group-inline">
+                                    <div className="form-group">
                                         <label className="form-label">
                                             {translate('components.feedback.labels.urgency')}
                                         </label>
@@ -123,7 +127,7 @@ export default function Feedback() {
                                         <FormError error={form.errors?.urgency} />
                                     </div>
 
-                                    <div className="form-group form-group-inline">
+                                    <div className="form-group">
                                         <label className="form-label form-label-required">
                                             {translate('components.feedback.labels.content')}
                                         </label>
@@ -138,11 +142,7 @@ export default function Feedback() {
                                         <FormError error={form.errors?.content} />
                                     </div>
 
-                                    <div className="form-group form-group-inline">
-                                        <label htmlFor="" className="form-label">
-                                            {translate('components.feedback.labels.contact')}
-                                        </label>
-
+                                    <div className="form-group">
                                         <CheckboxControl
                                             id="use_email"
                                             title={translate('components.feedback.labels.use_customer_email')}
@@ -153,7 +153,7 @@ export default function Feedback() {
                                     </div>
 
                                     {form.values?.use_customer_email && (
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <label className="form-label form-label-required">
                                                 {translate('components.feedback.labels.email')}
                                             </label>
@@ -200,9 +200,9 @@ export default function Feedback() {
 
                         <div className="card-section card-section-primary">
                             <div className="row">
-                                <div className="col col-lg-9">
+                                <div className="col col-md-8 col-md-offset-2 col-xs-12">
                                     <div className="form-data-preview">
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <label className="form-label">
                                                 {translate('components.feedback.labels.title')}
                                             </label>
@@ -210,7 +210,7 @@ export default function Feedback() {
                                         </div>
 
                                         {form.values.urgency && (
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label">
                                                     {translate('components.feedback.labels.urgency')}
                                                 </label>
@@ -225,7 +225,7 @@ export default function Feedback() {
                                         )}
 
                                         {form.values?.content && (
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label">
                                                     {translate('components.feedback.labels.content')}
                                                 </label>
@@ -234,7 +234,7 @@ export default function Feedback() {
                                         )}
 
                                         {form.values?.use_customer_email && (
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label">
                                                     {translate('components.feedback.labels.email')}
                                                 </label>

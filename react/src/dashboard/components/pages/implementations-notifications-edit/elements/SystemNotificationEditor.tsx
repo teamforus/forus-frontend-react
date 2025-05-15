@@ -13,6 +13,7 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function SystemNotificationEditor({
     fund,
@@ -183,16 +184,29 @@ export default function SystemNotificationEditor({
                                 <div className="text-strong">Status</div>
                             </div>
                             <div className="keyvalue-value">
-                                <div
-                                    className={`transition-background label label-round ${
-                                        {
-                                            active: 'label-success',
-                                            inactive: 'label-danger',
-                                            active_partly: 'label-warning',
-                                        }[state.state]
-                                    }`}>
-                                    {state.stateLabel}
-                                </div>
+                                {state?.state === 'active' && (
+                                    <Label type={'success'} className={'transition-background'}>
+                                        {state.stateLabel}
+                                    </Label>
+                                )}
+
+                                {state?.state === 'inactive' && (
+                                    <Label type={'danger'} className={'transition-background'}>
+                                        {state.stateLabel}
+                                    </Label>
+                                )}
+
+                                {state?.state === 'active_partly' && (
+                                    <Label type={'warning'} className={'transition-background'}>
+                                        {state.stateLabel}
+                                    </Label>
+                                )}
+
+                                {!['active', 'inactive', 'active_partly'].includes(state?.state) && (
+                                    <Label type={'default'} className={'transition-background'}>
+                                        {state.stateLabel}
+                                    </Label>
+                                )}
                             </div>
                         </div>
                         <div className="keyvalue-item">

@@ -139,7 +139,7 @@ export default function ReimbursementsEdit() {
         const filesKeys = Object.keys(errors).filter((key) => key.startsWith('files.'));
 
         filesKeys.forEach(
-            (value, index) => (filesList[index].error = errors[`files.${index}`] || value),
+            (value, index) => (filesList[index]['error'] = errors[`files.${index}`] || value),
             [...Array(filesList.length).keys()].map(() => null),
         );
 
@@ -311,8 +311,8 @@ export default function ReimbursementsEdit() {
 
                                 <div className="card-section">
                                     <div className="row">
-                                        <div className="col col-xs-12 col-md-10">
-                                            <div className="form-group form-group-inline">
+                                        <div className="col col-xs-12 col-md-offset-2 col-md-8">
+                                            <div className="form-group">
                                                 <label className="form-label" htmlFor="voucher_id">
                                                     <div className="flex-inline flex-gap-sm">
                                                         <div className="flex">
@@ -326,26 +326,24 @@ export default function ReimbursementsEdit() {
                                                         </div>
                                                     </div>
                                                 </label>
-                                                <div className="form-offset">
-                                                    <SelectControl
-                                                        id="voucher_id"
-                                                        propValue="address"
-                                                        propKey="id"
-                                                        allowSearch={false}
-                                                        value={form.values.voucher_id ?? ''}
-                                                        onChange={(voucher_id?: number) => form.update({ voucher_id })}
-                                                        options={vouchers}
-                                                        optionsComponent={SelectControlOptionsVouchers}
+                                                <SelectControl
+                                                    id="voucher_id"
+                                                    propValue="address"
+                                                    propKey="id"
+                                                    allowSearch={false}
+                                                    value={form.values.voucher_id ?? ''}
+                                                    onChange={(voucher_id?: number) => form.update({ voucher_id })}
+                                                    options={vouchers}
+                                                    optionsComponent={SelectControlOptionsVouchers}
+                                                />
+                                                <FormError error={form.errors.voucher_id} />
+                                                {selectedVoucher?.records?.length > 0 && (
+                                                    <BlockVoucherRecords
+                                                        toggle={true}
+                                                        compact={true}
+                                                        voucher={selectedVoucher}
                                                     />
-                                                    <FormError error={form.errors.voucher_id} />
-                                                    {selectedVoucher?.records?.length > 0 && (
-                                                        <BlockVoucherRecords
-                                                            toggle={true}
-                                                            compact={true}
-                                                            voucher={selectedVoucher}
-                                                        />
-                                                    )}
-                                                </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -353,8 +351,8 @@ export default function ReimbursementsEdit() {
 
                                 <div className="card-section">
                                     <div className="row">
-                                        <div className="col col-xs-12 col-md-10">
-                                            <div className="form-group form-group-inline">
+                                        <div className="col col-xs-12 col-md-offset-2 col-md-8">
+                                            <div className="form-group">
                                                 <label className="form-label form-label-required" htmlFor="title">
                                                     {translate('reimbursements.form.title')}
                                                 </label>
@@ -369,7 +367,7 @@ export default function ReimbursementsEdit() {
                                                 />
                                                 <FormError error={form.errors.title} />
                                             </div>
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label form-label-required" htmlFor="amount">
                                                     {translate('reimbursements.form.amount')}
                                                 </label>
@@ -385,7 +383,7 @@ export default function ReimbursementsEdit() {
                                                 />
                                                 <FormError error={form.errors.amount} />
                                             </div>
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label" htmlFor="description">
                                                     {translate('reimbursements.form.description')}
                                                 </label>
@@ -400,7 +398,7 @@ export default function ReimbursementsEdit() {
                                                 />
                                                 <FormError error={form.errors.description} />
                                             </div>
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label form-label-required" htmlFor="iban">
                                                     <div className="flex-inline">
                                                         <div className="flex">
@@ -425,7 +423,7 @@ export default function ReimbursementsEdit() {
                                                 />
                                                 <FormError error={form.errors.iban} />
                                             </div>
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label form-label-required" htmlFor="iban_name">
                                                     {translate('reimbursements.form.iban_name')}
                                                 </label>

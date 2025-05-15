@@ -11,6 +11,7 @@ import useOpenModal from '../../../../hooks/useOpenModal';
 import useEnvData from '../../../../hooks/useEnvData';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function ReservationExtraPaymentDetails({
     payment,
@@ -125,18 +126,18 @@ export default function ReservationExtraPaymentDetails({
                 <div className="card-block card-block-keyvalue">
                     <KeyValueItem label={translate('reservation.labels.status')}>
                         {!payment.is_fully_refunded && payment.is_paid && (
-                            <div className="label label-success">{payment.state_locale}</div>
+                            <Label type="success">{payment.state_locale}</Label>
                         )}
 
                         {!payment.is_fully_refunded && payment.is_pending && (
-                            <div className="label default">{payment.state_locale}</div>
+                            <Label type="default">{payment.state_locale}</Label>
                         )}
 
                         {['failed', 'canceled', 'expired'].includes(payment.state) && (
-                            <div className="label label-danger">{payment.state_locale}</div>
+                            <Label type="danger">{payment.state_locale}</Label>
                         )}
 
-                        {payment.is_fully_refunded && <div className="label label-danger">Terugbetaald</div>}
+                        {payment.is_fully_refunded && <Label type="danger">Terugbetaald</Label>}
                     </KeyValueItem>
 
                     <KeyValueItem label={translate('reservation.labels.amount')}>

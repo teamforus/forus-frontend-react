@@ -21,6 +21,7 @@ import MollieConnectionForm from './elements/MollieConnectionForm';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function PaymentMethods() {
     const activeOrganization = useActiveOrganization();
@@ -226,14 +227,14 @@ export default function PaymentMethods() {
                                                 {translate('mollie_connection.header.title')}
                                             </span>
                                             <div className="flex flex-grow"></div>
-                                            <label
-                                                className={
-                                                    (mollieConnection.onboarding_state == 'completed'
-                                                        ? 'label-success'
-                                                        : 'label-warning') + ' label'
+                                            <Label
+                                                type={
+                                                    mollieConnection.onboarding_state == 'completed'
+                                                        ? 'success'
+                                                        : 'warning'
                                                 }>
                                                 {mollieConnection.onboarding_state_locale}
-                                            </label>
+                                            </Label>
                                         </div>
 
                                         <div className="flex">

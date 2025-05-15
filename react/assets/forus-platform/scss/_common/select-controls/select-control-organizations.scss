@@ -2,7 +2,7 @@
     --control-height: 50px;
     --control-line-height: 24px;
     --control-option-height: 36px;
-    --control-border-radius: 5px;
+    --control-border-radius: var(--border-radius);
 
     border-radius: var(--control-border-radius) !important;
 
@@ -191,7 +191,7 @@
             border: 1px solid #d4d9dd;
             border-top: 0;
             box-shadow: 0 12px 30px rgba(25, 39, 52, 0.18);
-            border-radius: 3px;
+            border-radius: var(--border-radius);
 
             .select-control-options {
                 position: relative;

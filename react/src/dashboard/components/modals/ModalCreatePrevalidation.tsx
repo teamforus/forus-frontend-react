@@ -100,7 +100,8 @@ export default function ModalCreatePrevalidation({
             }
 
             prevalidationService
-                .submit(
+                .store(
+                    fund.organization_id,
                     {
                         ...values,
                         ...dateValues,
@@ -137,7 +138,7 @@ export default function ModalCreatePrevalidation({
     );
 
     const removeExtraRecord = useCallback(
-        (recordKey) => {
+        (recordKey: string) => {
             if (prevalidationRecords?.includes(recordKey)) {
                 prevalidationRecords.splice(prevalidationRecords.indexOf(recordKey), 1);
                 delete form.values[recordKey];
@@ -299,16 +300,14 @@ export default function ModalCreatePrevalidation({
                                             <label className="form-label">Selecteer persoonsgegevens</label>
                                             <div className="flex-row">
                                                 <div className="flex-col flex-grow">
-                                                    <div className="form-offset">
-                                                        <SelectControl
-                                                            propKey={'key'}
-                                                            value={formNewRecord.values.record_type_key}
-                                                            options={recordTypesAvailable}
-                                                            onChange={(record_type_key: string) => {
-                                                                formNewRecord.update({ record_type_key });
-                                                            }}
-                                                        />
-                                                    </div>
+                                                    <SelectControl
+                                                        propKey={'key'}
+                                                        value={formNewRecord.values.record_type_key}
+                                                        options={recordTypesAvailable}
+                                                        onChange={(record_type_key: string) => {
+                                                            formNewRecord.update({ record_type_key });
+                                                        }}
+                                                    />
                                                 </div>
 
                                                 <div className="flex-col">

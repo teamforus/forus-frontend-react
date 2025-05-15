@@ -122,7 +122,7 @@
                         display: block;
                         width: 3px;
                         height: 3px;
-                        border-radius: 3px;
+                        border-radius: var(--border-radius);
                         position: absolute;
                         left: 0;
                         top: 50%;

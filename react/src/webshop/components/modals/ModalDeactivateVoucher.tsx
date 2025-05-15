@@ -91,7 +91,7 @@ export default function ModalDeactivateVoucher({
                                 <div className="form-label">
                                     {translate('modal_deactivate_voucher.reason_for_stopping')}
                                 </div>
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     {reasons?.map((item) => (
                                         <InputRadioControl
                                             key={item.key}

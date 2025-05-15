@@ -24,13 +24,13 @@ export default function usePrevalidationExporter() {
                 console.info('- data loaded from the api.');
 
                 prevalidationService
-                    .export(queryFilters)
+                    .export(organization_id, queryFilters)
                     .then((res) => saveExportedData(data, organization_id, res, 'prevalidations'))
                     .catch(pushApiError)
                     .finally(() => setProgress(100));
             };
 
-            prevalidationService.exportFields().then((res) => {
+            prevalidationService.exportFields(organization_id).then((res) => {
                 openModal((modal) => (
                     <ModalExportDataSelect modal={modal} sections={makeSections(res.data.data)} onSuccess={onSuccess} />
                 ));

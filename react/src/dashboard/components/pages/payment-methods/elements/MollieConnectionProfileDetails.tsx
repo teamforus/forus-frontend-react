@@ -160,15 +160,15 @@ export default function MollieConnectionProfileDetails({
                         <div className="card-section card-section-primary">
                             <div className="form-group">
                                 <div className="row">
-                                    <div className="col col-lg-9 col-lg-12">
-                                        <div className="form-group form-group-inline">
+                                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                        <div className="form-group">
                                             <label className="form-label">&nbsp;</label>
                                             <div className="form-title">
                                                 {translate('mollie_connection.titles.profile_information')}
                                             </div>
                                         </div>
 
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <label className="form-label">
                                                 {translate('mollie_connection.labels.profile_name')}
                                             </label>
@@ -182,7 +182,7 @@ export default function MollieConnectionProfileDetails({
                                             <FormError error={form.errors.name} />
                                         </div>
 
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <label className="form-label">
                                                 {translate('mollie_connection.labels.email')}
                                             </label>
@@ -196,7 +196,7 @@ export default function MollieConnectionProfileDetails({
                                             <FormError error={form.errors.email} />
                                         </div>
 
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <label className="form-label">
                                                 {translate('mollie_connection.labels.phone')}
                                             </label>
@@ -210,7 +210,7 @@ export default function MollieConnectionProfileDetails({
                                             <FormError error={form.errors.phone} />
                                         </div>
 
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <label className="form-label">
                                                 {translate('mollie_connection.labels.website')}
                                             </label>

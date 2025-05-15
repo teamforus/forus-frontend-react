@@ -16,6 +16,7 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
@@ -226,13 +227,13 @@ export default function SecuritySessions() {
 
                             {session.current && (
                                 <div className="session-label">
-                                    <div className="label label-round label-primary-light">Huidig</div>
+                                    <Label type="primary_light">Huidig</Label>
                                 </div>
                             )}
 
                             {session.active && !session.current && (
                                 <div className="session-label">
-                                    <div className="label label-round label-success">Online</div>
+                                    <Label type="success">Online</Label>
                                 </div>
                             )}
                         </div>

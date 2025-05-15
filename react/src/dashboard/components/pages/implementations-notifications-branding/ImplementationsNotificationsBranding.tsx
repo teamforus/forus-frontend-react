@@ -151,58 +151,55 @@ export default function ImplementationsNotificationsBranding() {
                         <div className="row">
                             <div className="col col-lg-9 col-lg-12">
                                 <div className="form">
-                                    <div className="form-group form-group-inline form-group-inline-xl">
+                                    <div className="form-group">
                                         <label className="form-label">Logo</label>
-                                        <div className="form-offset">
-                                            <PhotoSelector
-                                                type="email_logo"
-                                                thumbnail={media?.sizes?.thumbnail}
-                                                defaultThumbnail={implementation.email_logo_default.sizes.thumbnail}
-                                                selectPhoto={(file) => setMediaFile(file)}
-                                                resetPhoto={() => {
-                                                    setMedia(null);
-                                                    setMediaFile(null);
-                                                }}
-                                                template="photo-selector-notifications"
-                                                description-translate="organization_edit.labels.photo_description"
-                                            />
 
-                                            <FormError error={form.errors.email_logo_uid} />
-                                        </div>
+                                        <PhotoSelector
+                                            type="email_logo"
+                                            thumbnail={media?.sizes?.thumbnail}
+                                            defaultThumbnail={implementation.email_logo_default.sizes.thumbnail}
+                                            selectPhoto={(file) => setMediaFile(file)}
+                                            resetPhoto={() => {
+                                                setMedia(null);
+                                                setMediaFile(null);
+                                            }}
+                                            template="photo-selector-notifications"
+                                            description-translate="organization_edit.labels.photo_description"
+                                        />
+
+                                        <FormError error={form.errors.email_logo_uid} />
                                     </div>
 
-                                    <div className="form-group form-group-inline form-group-inline-xl">
+                                    <div className="form-group">
                                         <label className="form-label">Kleur van de elementen</label>
-                                        <div className="form-offset">
-                                            <input
-                                                className="form-control"
-                                                type="color"
-                                                value={form.values.email_color}
-                                                onChange={(e) => form.update({ email_color: e.target.value })}
-                                            />
 
-                                            <FormError error={form.errors.email_color} />
-                                            <Tooltip text="Kleur van knoppen en links in de e-mailberichten." />
-                                        </div>
+                                        <input
+                                            className="form-control"
+                                            type="color"
+                                            value={form.values.email_color}
+                                            onChange={(e) => form.update({ email_color: e.target.value })}
+                                        />
+
+                                        <FormError error={form.errors.email_color} />
+                                        <Tooltip text="Kleur van knoppen en links in de e-mailberichten." />
                                     </div>
-                                    <div className="form-group form-group-inline form-group-inline-xl">
+                                    <div className="form-group">
                                         <label className="form-label">Handtekening</label>
-                                        <div className="form-offset">
-                                            <MarkdownEditor
-                                                value={form.values.email_signature_html}
-                                                allowLists={false}
-                                                onChange={(value) => form.update({ email_signature: value })}
-                                            />
 
-                                            <div className="form-hint">
-                                                {translate('system_notifications.hints.maxlen', {
-                                                    attribute: 'handtekening',
-                                                    size: 4096,
-                                                })}
-                                            </div>
+                                        <MarkdownEditor
+                                            value={form.values.email_signature_html}
+                                            allowLists={false}
+                                            onChange={(value) => form.update({ email_signature: value })}
+                                        />
 
-                                            <FormError error={form.errors.email_signature} />
+                                        <div className="form-hint">
+                                            {translate('system_notifications.hints.maxlen', {
+                                                attribute: 'handtekening',
+                                                size: 4096,
+                                            })}
                                         </div>
+
+                                        <FormError error={form.errors.email_signature} />
                                     </div>
                                 </div>
                             </div>

@@ -200,8 +200,6 @@ export default function OrganizationsTranslations() {
                         <div className="row">
                             <div className="col col-lg-9 col-xs-12">
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Vertalingen inschakelen'}
                                     error={form.errors?.translations_enabled}
                                     input={(id) => (
@@ -234,8 +232,6 @@ export default function OrganizationsTranslations() {
                         <div className="row">
                             <div className="col col-lg-9 col-xs-12">
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Daglimiet'}
                                     error={form.errors?.translations_daily_limit}
                                     input={(id) => (
@@ -261,8 +257,6 @@ export default function OrganizationsTranslations() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Weeklimiet'}
                                     error={form.errors?.translations_weekly_limit}
                                     input={(id) => (
@@ -290,8 +284,6 @@ export default function OrganizationsTranslations() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Maandlimiet'}
                                     error={form.errors?.translations_monthly_limit}
                                     input={(id) => (

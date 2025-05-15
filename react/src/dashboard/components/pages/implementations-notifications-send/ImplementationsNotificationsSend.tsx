@@ -441,50 +441,47 @@ export default function ImplementationsNotificationsSend() {
                     <div className="card-section">
                         <div className="form-group">
                             <label className="form-label">Kies een fonds</label>
-                            <div className="form-offset">
-                                <SelectControl
-                                    className="form-control"
-                                    allowSearch={false}
-                                    value={fund}
-                                    onChange={(value: Fund) => setFund(value)}
-                                    options={funds}
-                                />
-                            </div>
+
+                            <SelectControl
+                                className="form-control"
+                                allowSearch={false}
+                                value={fund}
+                                onChange={(value: Fund) => setFund(value)}
+                                options={funds}
+                            />
                         </div>
 
                         {targetGroup == 'identities' && (
                             <div className="form-group">
                                 <label className="form-label">Verstuur naar</label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        className="form-control"
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        value={identitiesFilters.values.target}
-                                        onChange={(value: string) => {
-                                            identitiesFilters.update({ target: value });
-                                        }}
-                                        options={identityTargets}
-                                    />
-                                </div>
+
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'value'}
+                                    allowSearch={false}
+                                    value={identitiesFilters.values.target}
+                                    onChange={(value: string) => {
+                                        identitiesFilters.update({ target: value });
+                                    }}
+                                    options={identityTargets}
+                                />
                             </div>
                         )}
 
                         {targetGroup == 'providers' && (
                             <div className="form-group">
                                 <label className="form-label">Verstuur naar</label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        className="form-control"
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        value={providersFilters.values.target}
-                                        onChange={(value: string) => {
-                                            providersFilters.update({ target: value });
-                                        }}
-                                        options={providerTargets}
-                                    />
-                                </div>
+
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'value'}
+                                    allowSearch={false}
+                                    value={providersFilters.values.target}
+                                    onChange={(value: string) => {
+                                        providersFilters.update({ target: value });
+                                    }}
+                                    options={providerTargets}
+                                />
                             </div>
                         )}
                     </div>

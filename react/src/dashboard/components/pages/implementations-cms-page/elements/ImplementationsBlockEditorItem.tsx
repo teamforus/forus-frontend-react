@@ -208,18 +208,17 @@ export default function ImplementationsBlockEditorItem({
                                 </div>
                                 <div className="form-group">
                                     <label className="form-label form-label-required">Open knop koppeling in</label>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey={'value'}
-                                            allowSearch={false}
-                                            value={block.button_target_blank}
-                                            onChange={(value: boolean) => {
-                                                onChange({ button_target_blank: value });
-                                            }}
-                                            options={buttonTargets}
-                                        />
-                                    </div>
+
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        allowSearch={false}
+                                        value={block.button_target_blank}
+                                        onChange={(value: boolean) => {
+                                            onChange({ button_target_blank: value });
+                                        }}
+                                        options={buttonTargets}
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label className="form-label">Button Link Label</label>

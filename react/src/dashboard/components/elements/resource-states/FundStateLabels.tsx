@@ -1,33 +1,27 @@
 import Fund from '../../../props/models/Fund';
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
 import useTranslate from '../../../hooks/useTranslate';
+import Label from '../image_cropper/Label';
 
 export default function FundStateLabels({ fund }: { fund: Fund }) {
     const translate = useTranslate();
 
-    const [stateLabels] = useState({
-        active: 'tag-success',
-        paused: 'tag-warning',
-        closed: 'tag-default',
-        waiting: 'tag-warning',
-    });
+    if (fund.archived) {
+        return <Label type="default">{translate('components.organization_funds.states.archived')}</Label>;
+    }
 
-    return (
-        <Fragment>
-            {!fund.archived && stateLabels[fund.state] ? (
-                <span className={`tag tag-sm ${stateLabels[fund.state] || ''}`}>
-                    {translate(`components.organization_funds.states.${fund.state}`)}
-                </span>
-            ) : (
-                <TableEmptyValue />
-            )}
+    if (fund.state === 'active') {
+        return <Label type={'success'}>{translate(`components.organization_funds.states.${fund.state}`)}</Label>;
+    }
 
-            {fund.archived && (
-                <span className="tag tag-sm tag-default">
-                    {translate('components.organization_funds.states.archived')}
-                </span>
-            )}
-        </Fragment>
-    );
+    if (fund.state === 'paused' || fund.state === 'waiting') {
+        return <Label type={'warning'}>{translate(`components.organization_funds.states.${fund.state}`)}</Label>;
+    }
+
+    if (fund.state === 'closed') {
+        return <Label type={'default'}>{translate(`components.organization_funds.states.${fund.state}`)}</Label>;
+    }
+
+    return <TableEmptyValue />;
 }

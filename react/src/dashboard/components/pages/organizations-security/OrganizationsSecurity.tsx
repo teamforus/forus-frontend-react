@@ -126,56 +126,53 @@ export default function OrganizationsSecurity() {
                         {viewType == 'employees' && (
                             <div className="card-section card-section-primary">
                                 <div className="row">
-                                    <div className="col col-lg-9 col-xs-12">
-                                        <div className="form-group form-group-inline">
+                                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                        <div className="form-group">
                                             {' '}
                                             <label className="form-label">2FA beperkingen</label>
-                                            <div className="form-offset">
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey="value"
-                                                    allowSearch={false}
-                                                    value={form.values.auth_2fa_policy}
-                                                    options={auth2FARequiredOptions}
-                                                    onChange={(
-                                                        auth_2fa_policy: 'optional' | 'required' | 'restrict_features',
-                                                    ) => form.update({ auth_2fa_policy })}
-                                                />
-                                            </div>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey="value"
+                                                allowSearch={false}
+                                                value={form.values.auth_2fa_policy}
+                                                options={auth2FARequiredOptions}
+                                                onChange={(
+                                                    auth_2fa_policy: 'optional' | 'required' | 'restrict_features',
+                                                ) => form.update({ auth_2fa_policy })}
+                                            />
                                             <FormError error={form.errors.auth_2fa_policy} />
                                         </div>
 
                                         {form.values.auth_2fa_policy == 'required' && (
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label">Onthoud IP-adres</label>
-                                                <div className="form-offset">
-                                                    <SelectControl
-                                                        className="form-control"
-                                                        propKey="value"
-                                                        allowSearch={false}
-                                                        value={form.values.auth_2fa_remember_ip}
-                                                        options={auth2FARememberIpOptions}
-                                                        onChange={(auth_2fa_remember_ip: 1 | 0) =>
-                                                            form.update({ auth_2fa_remember_ip })
-                                                        }
-                                                    />
-                                                </div>
+
+                                                <SelectControl
+                                                    className="form-control"
+                                                    propKey="value"
+                                                    allowSearch={false}
+                                                    value={form.values.auth_2fa_remember_ip}
+                                                    options={auth2FARememberIpOptions}
+                                                    onChange={(auth_2fa_remember_ip: 1 | 0) =>
+                                                        form.update({ auth_2fa_remember_ip })
+                                                    }
+                                                />
+
                                                 <FormError error={form.errors.auth_2fa_remember_ip} />
                                             </div>
                                         )}
 
-                                        <div className="form-group form-group-inline">
+                                        <div className="form-group">
                                             <label className="form-label">Restrict features</label>
-                                            <div className="form-offset">
-                                                <div>
-                                                    <CheckboxControl
-                                                        title={'BI tools'}
-                                                        checked={form.values.auth_2fa_restrict_bi_connections}
-                                                        onChange={(_, checked) =>
-                                                            form.update({ auth_2fa_restrict_bi_connections: checked })
-                                                        }
-                                                    />
-                                                </div>
+
+                                            <div>
+                                                <CheckboxControl
+                                                    title={'BI tools'}
+                                                    checked={form.values.auth_2fa_restrict_bi_connections}
+                                                    onChange={(_, checked) =>
+                                                        form.update({ auth_2fa_restrict_bi_connections: checked })
+                                                    }
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -186,83 +183,82 @@ export default function OrganizationsSecurity() {
                         {viewType == 'funds' && (
                             <div className="card-section card-section-primary">
                                 <div className="row">
-                                    <div className="col col-lg-9 col-xs-12">
-                                        <div className="form-group form-group-inline">
+                                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                        <div className="form-group">
                                             <label className="form-label">2FA beperkingen</label>
-                                            <div className="form-offset">
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey="value"
-                                                    allowSearch={false}
-                                                    value={form.values.auth_2fa_funds_policy}
-                                                    options={auth2FAFundsRequiredOptions}
-                                                    onChange={(
-                                                        auth_2fa_funds_policy:
-                                                            | 'optional'
-                                                            | 'required'
-                                                            | 'restrict_features',
-                                                    ) => form.update({ auth_2fa_funds_policy })}
-                                                />
-                                            </div>
+
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey="value"
+                                                allowSearch={false}
+                                                value={form.values.auth_2fa_funds_policy}
+                                                options={auth2FAFundsRequiredOptions}
+                                                onChange={(
+                                                    auth_2fa_funds_policy:
+                                                        | 'optional'
+                                                        | 'required'
+                                                        | 'restrict_features',
+                                                ) => form.update({ auth_2fa_funds_policy })}
+                                            />
+
                                             <FormError error={form.errors?.auth_2fa_funds_policy} />
                                         </div>
 
                                         {form.values.auth_2fa_funds_policy == 'required' && (
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label">Onthoud IP-adres</label>
-                                                <div className="form-offset">
-                                                    <SelectControl
-                                                        className="form-control"
-                                                        propKey="value"
-                                                        allowSearch={false}
-                                                        value={form.values.auth_2fa_funds_remember_ip}
-                                                        onChange={(auth_2fa_funds_remember_ip: 1 | 0) =>
-                                                            form.update({ auth_2fa_funds_remember_ip })
-                                                        }
-                                                        options={auth2FARememberIpOptions}
-                                                    />
-                                                </div>
+
+                                                <SelectControl
+                                                    className="form-control"
+                                                    propKey="value"
+                                                    allowSearch={false}
+                                                    value={form.values.auth_2fa_funds_remember_ip}
+                                                    onChange={(auth_2fa_funds_remember_ip: 1 | 0) =>
+                                                        form.update({ auth_2fa_funds_remember_ip })
+                                                    }
+                                                    options={auth2FARememberIpOptions}
+                                                />
+
                                                 <FormError error={form.errors?.auth_2fa_funds_remember_ip} />
                                             </div>
                                         )}
 
                                         {form.values.auth_2fa_funds_policy == 'restrict_features' && (
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label">Verplicht instellen voor</label>
-                                                <div className="form-offset">
-                                                    <div>
-                                                        <CheckboxControl
-                                                            title={'Aanpassen van e-mailadres'}
-                                                            checked={form.values.auth_2fa_funds_restrict_emails}
-                                                            onChange={(_, checked) =>
-                                                                form.update({ auth_2fa_funds_restrict_emails: checked })
-                                                            }
-                                                        />
-                                                    </div>
 
-                                                    <div>
-                                                        <CheckboxControl
-                                                            title={'Aanpassen van inlog sessies'}
-                                                            checked={form.values.auth_2fa_funds_restrict_auth_sessions}
-                                                            onChange={(_, checked) =>
-                                                                form.update({
-                                                                    auth_2fa_funds_restrict_auth_sessions: checked,
-                                                                })
-                                                            }
-                                                        />
-                                                    </div>
+                                                <div>
+                                                    <CheckboxControl
+                                                        title={'Aanpassen van e-mailadres'}
+                                                        checked={form.values.auth_2fa_funds_restrict_emails}
+                                                        onChange={(_, checked) =>
+                                                            form.update({ auth_2fa_funds_restrict_emails: checked })
+                                                        }
+                                                    />
+                                                </div>
 
-                                                    <div>
-                                                        <CheckboxControl
-                                                            title={'Indienen van declaraties'}
-                                                            checked={form.values.auth_2fa_funds_restrict_reimbursements}
-                                                            onChange={(_, checked) =>
-                                                                form.update({
-                                                                    auth_2fa_funds_restrict_reimbursements: checked,
-                                                                })
-                                                            }
-                                                        />
-                                                    </div>
+                                                <div>
+                                                    <CheckboxControl
+                                                        title={'Aanpassen van inlog sessies'}
+                                                        checked={form.values.auth_2fa_funds_restrict_auth_sessions}
+                                                        onChange={(_, checked) =>
+                                                            form.update({
+                                                                auth_2fa_funds_restrict_auth_sessions: checked,
+                                                            })
+                                                        }
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <CheckboxControl
+                                                        title={'Indienen van declaraties'}
+                                                        checked={form.values.auth_2fa_funds_restrict_reimbursements}
+                                                        onChange={(_, checked) =>
+                                                            form.update({
+                                                                auth_2fa_funds_restrict_reimbursements: checked,
+                                                            })
+                                                        }
+                                                    />
                                                 </div>
                                             </div>
                                         )}
