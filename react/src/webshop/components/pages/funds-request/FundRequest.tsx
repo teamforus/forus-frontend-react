@@ -242,8 +242,8 @@ export default function FundRequest() {
 
         fundRequestService
             .store(fund.id, formDataBuild(pendingCriteria.filter((criterion) => shouldRequestRecord(criterion))))
-            .then(() => {
-                if (fund.auto_validation) {
+            .then((res) => {
+                if (!(res.data.data.state === 'approved' && res.data.data.has_active_voucher) && fund.auto_validation) {
                     return applyFund(fund);
                 }
 
