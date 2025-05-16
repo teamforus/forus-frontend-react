@@ -1440,6 +1440,8 @@ export default {
             actions: 'Actie',
             auth_2fa: '2FA',
             owner: 'Eigenaar',
+            created_at: 'Aangemaakt op',
+            last_activity: 'Laatste handeling',
         },
         buttons: {
             adjust: 'Aanpassen',
