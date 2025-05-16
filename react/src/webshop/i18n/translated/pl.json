@@ -2242,12 +2242,10 @@
             "pay_from_voucher": "Płacisz z kredytu:",
             "price": "Cena:",
             "payment_option_ideal": "Płatność online (iDEAL)",
-            "payment_option_ideal_aria_label": "Płatność online (iDEAL): kliknij, aby uzyskać więcej informacji",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
-            "payment_option_qr_aria_label": "Pokaż kod QR u dostawcy: kliknij, aby uzyskać więcej informacji",
             "payment_option_reservation": "Zarezerwuj online",
-            "payment_option_reservation_aria_label": "Rezerwacja online: kliknij, aby uzyskać więcej informacji",
-            "payment_options": "Opcje płatności"
+            "payment_options": "Opcje płatności",
+            "payment_option_link": "Więcej informacji o opcjach płatności"
         },
         "low_amount": "Nie masz kredytu z wystarczającym saldem.",
         "map": {
@@ -2390,6 +2388,12 @@
             "house_composition": "Skład rodziny",
             "living_arrangement": "Żywa forma",
             "title": "Gospodarstwo domowe"
+        },
+        "address": {
+            "cancel": "Anuluj",
+            "edit": "Edytuj",
+            "save": "Zapisz",
+            "title": "Dane adresowe"
         }
     },
     "provider_sign_up": {
