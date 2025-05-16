@@ -31,11 +31,6 @@ export default {
             title: 'Reservering geannuleerd door aanvrager',
             description: 'Aanbieders ontvangen dit bericht wanneer hun reservering door de aanvrager is geannuleerd.',
         },
-        'notifications_fund_providers.revoked_budget': {
-            title: 'Aanbieder geweigerd voor het scannen van een financieel-tegoed',
-            description:
-                'Aanbieders ontvangen dit bericht wanneer de sponsor ze weigert voor het scannen van een financieel-tegoed.',
-        },
         'notifications_fund_providers.revoked_products': {
             title: 'Aanbieder geweigerd voor het aanbieden van alle aanbiedingen',
             description: 'Aanbieders ontvangen dit bericht wanneer de sponsor al hun aanbod weigert.',
