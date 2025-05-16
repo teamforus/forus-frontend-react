@@ -85,7 +85,7 @@ export default function VoucherTransactions({
                                         <ThSortable
                                             filter={filter}
                                             label={translate('transactions.labels.uid')}
-                                            value="id"
+                                            value="uid"
                                         />
                                         <ThSortable
                                             filter={filter}

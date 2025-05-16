@@ -28,6 +28,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import useEmployeeExporter from '../../../services/exporters/useEmployeeExporter';
+import TableDateTime from '../../elements/tables/elements/TableDateTime';
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -325,6 +326,12 @@ export default function Employees() {
                                                         <div className="state-2fa-label">Nee</div>
                                                     </div>
                                                 )}
+                                            </td>
+                                            <td>
+                                                <TableDateTime value={employee.created_at_locale} />
+                                            </td>
+                                            <td>
+                                                <TableDateTime value={employee.last_activity_at_locale} />
                                             </td>
 
                                             {activeOrganization.identity_address != employee.identity_address ? (
