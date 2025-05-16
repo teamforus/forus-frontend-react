@@ -196,6 +196,7 @@ export default function ProductsShow() {
                                     alt={productService.transformProductAlternativeText(product)}
                                 />
                             </div>
+
                             <div className="product-details">
                                 <h1 className="product-name">
                                     <span data-dusk="productName">{product.name}</span>
@@ -206,6 +207,7 @@ export default function ProductsShow() {
                                         </span>
                                     )}
                                 </h1>
+
                                 <div className="organization-name">{product.organization?.name}</div>
 
                                 {authIdentity && (
@@ -218,93 +220,80 @@ export default function ProductsShow() {
                                         aria-label={translate('product.buttons.bookmark')}
                                         aria-pressed={product.bookmarked}>
                                         {product.bookmarked ? (
-                                            <em className="mdi mdi-cards-heart" />
+                                            <em className="mdi mdi-cards-heart" aria-hidden="true" />
                                         ) : (
-                                            <em className="mdi mdi-cards-heart-outline" />
+                                            <em className="mdi mdi-cards-heart-outline" aria-hidden="true" />
                                         )}
                                     </div>
                                 )}
 
-                                <div className="product-properties">
+                                <dl className="product-properties">
                                     <div className="product-property">
-                                        <div className="product-property-label">
+                                        <dt id="categoryLabel" className="product-property-label">
                                             {translate('product.labels.category')}
-                                        </div>
-                                        <div className="product-property-value">{product.product_category.name}</div>
+                                        </dt>
+                                        <dd className="product-property-value">{product.product_category.name}</dd>
                                     </div>
+
                                     <div className="product-property">
-                                        <div id="paymentOptionsLabel" className="product-property-label">
+                                        <dt id="paymentOptionsLabel" className="product-property-label">
                                             {translate('product.labels.payment_options')}
-                                        </div>
-                                        <div className="product-property-value">
-                                            <div
+                                        </dt>
+                                        <dd className="product-property-value flex flex-gap flex-vertical">
+                                            <ul
                                                 className="product-property-icons"
-                                                role="group"
+                                                role="list"
                                                 aria-labelledby="paymentOptionsLabel">
                                                 {productFeatures.scanning_enabled && (
-                                                    <div
-                                                        className="product-property-icons-item"
-                                                        role="button"
-                                                        tabIndex={0}
-                                                        aria-label={translate(
-                                                            'product.labels.payment_option_qr_aria_label',
-                                                        )}
-                                                        onClick={() => showProductIconsInfoModal()}
-                                                        onKeyDown={(e) => clickOnKeyEnter(e, true)}>
-                                                        <em className="mdi mdi-qrcode-scan" aria-hidden="true" />
-                                                        {translate('product.labels.payment_option_qr')}
-                                                    </div>
+                                                    <li className="product-property-icons-item">
+                                                        <span aria-hidden="true">
+                                                            <em className="mdi mdi-qrcode-scan" />
+                                                        </span>
+                                                        <span>{translate('product.labels.payment_option_qr')}</span>
+                                                    </li>
                                                 )}
-                                                {productFeatures.reservations_enabled && (
-                                                    <div
-                                                        className="product-property-icons-item"
-                                                        role="button"
-                                                        tabIndex={0}
-                                                        aria-label={translate(
-                                                            'product.labels.payment_option_reservation_aria_label',
-                                                        )}
-                                                        onClick={() => showProductIconsInfoModal()}
-                                                        onKeyDown={(e) => clickOnKeyEnter(e, true)}>
-                                                        <em
-                                                            className="mdi mdi-tag-multiple-outline"
-                                                            aria-hidden="true"
-                                                        />
-                                                        {translate('product.labels.payment_option_reservation')}
-                                                    </div>
-                                                )}
-                                                {productFeatures.reservation_extra_payments_enabled && (
-                                                    <div
-                                                        className="product-property-icons-item"
-                                                        role="button"
-                                                        tabIndex={0}
-                                                        aria-label={translate(
-                                                            'product.labels.payment_option_ideal_aria_label',
-                                                        )}
-                                                        onClick={() => showProductIconsInfoModal()}
-                                                        onKeyDown={(e) => clickOnKeyEnter(e, true)}>
-                                                        <img
-                                                            src={assetUrl('/assets/img/icon-ideal.svg')}
-                                                            alt=""
-                                                            aria-hidden="true"
-                                                        />
 
-                                                        {translate('product.labels.payment_option_ideal')}
-                                                    </div>
+                                                {productFeatures.reservations_enabled && (
+                                                    <li className="product-property-icons-item">
+                                                        <span aria-hidden="true">
+                                                            <em className="mdi mdi-tag-multiple-outline" />
+                                                        </span>
+                                                        <span>
+                                                            {translate('product.labels.payment_option_reservation')}
+                                                        </span>
+                                                    </li>
                                                 )}
-                                            </div>
-                                        </div>
+
+                                                {productFeatures.reservation_extra_payments_enabled && (
+                                                    <li className="product-property-icons-item">
+                                                        <img src={assetUrl('/assets/img/icon-ideal.svg')} alt="" />
+                                                        <span>{translate('product.labels.payment_option_ideal')}</span>
+                                                    </li>
+                                                )}
+                                            </ul>
+
+                                            <button
+                                                type="button"
+                                                className="product-property-info-link"
+                                                onClick={showProductIconsInfoModal}>
+                                                <em
+                                                    className="mdi mdi-information-variant-circle-outline"
+                                                    aria-hidden="true"
+                                                />
+                                                <span>{translate('product.labels.payment_option_link')}</span>
+                                            </button>
+                                        </dd>
                                     </div>
-                                </div>
-                                <div className="product-properties">
+
                                     <div className="product-property">
-                                        <div className="product-property-label">
+                                        <dt id="descriptionLabel" className="product-property-label">
                                             {translate('product.labels.description')}
-                                        </div>
-                                        <div className="product-property-value">
+                                        </dt>
+                                        <dd className="product-property-value">
                                             <Markdown content={product.description_html} />
-                                        </div>
+                                        </dd>
                                     </div>
-                                </div>
+                                </dl>
                             </div>
                         </div>
 
