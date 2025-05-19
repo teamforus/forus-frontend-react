@@ -2242,12 +2242,10 @@
             "pay_from_voucher": "Sie zahlen aus dem Guthaben:",
             "price": "Preis:",
             "payment_option_ideal": "Online bezahlen (iDEAL)",
-            "payment_option_ideal_aria_label": "Online-Zahlung (iDEAL): Klicken Sie für weitere Informationen",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
-            "payment_option_qr_aria_label": "QR-Code beim Anbieter anzeigen: Klicken Sie für weitere Informationen",
             "payment_option_reservation": "Online buchen",
-            "payment_option_reservation_aria_label": "Online-Reservierung: Klicken Sie für weitere Informationen",
-            "payment_options": "Zahlungsmöglichkeiten"
+            "payment_options": "Zahlungsmöglichkeiten",
+            "payment_option_link": "Lesen Sie mehr über Zahlungsmöglichkeiten"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
@@ -2390,6 +2388,12 @@
             "house_composition": "Zusammensetzung der Familie",
             "living_arrangement": "Lebendige Form",
             "title": "Haushalt"
+        },
+        "address": {
+            "cancel": "Abbrechen",
+            "edit": "bearbeiten",
+            "save": "Speichern Sie",
+            "title": "Angaben zur Adresse"
         }
     },
     "provider_sign_up": {
