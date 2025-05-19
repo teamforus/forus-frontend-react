@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useMemo } from 'react';
+import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
@@ -6,7 +6,6 @@ import useTranslate from '../../../hooks/useTranslate';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushApiError from '../../../hooks/usePushApiError';
-import { ResponseError } from '../../../props/ApiResponses';
 import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
@@ -14,7 +13,31 @@ import InfoBox from '../../elements/info-box/InfoBox';
 import FormGroup from '../../elements/forms/controls/FormGroup';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import { currencyFormat, numberFormat } from '../../../helpers/string';
-import OrganizationsTranslationsStatsColumn from './elements/OrganizationsTranslationsStatsColumn';
+import { dateFormat, dateParse } from '../../../helpers/dates';
+import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { StringParam } from 'use-query-params';
+import {
+    endOfDay,
+    endOfMonth,
+    endOfWeek,
+    endOfYear,
+    format,
+    startOfDay,
+    startOfMonth,
+    startOfWeek,
+    startOfYear,
+    subMonths,
+    subWeeks,
+} from 'date-fns';
+import { ResponseError } from '../../../props/ApiResponses';
+import { TranslationStats } from '../../../props/models/Organization';
+import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
+import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
+import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
+import TranslationStatsTable from './elements/TranslationStatsTable';
+import LoadingCard from '../../elements/loading-card/LoadingCard';
+import EmptyValue from '../../elements/empty-value/EmptyValue';
 
 export default function OrganizationsTranslations() {
     const activeOrganization = useActiveOrganization();
@@ -27,9 +50,73 @@ export default function OrganizationsTranslations() {
 
     const organizationService = useOrganizationService();
 
-    const stats = useMemo(() => {
-        return activeOrganization?.translations_usage;
-    }, [activeOrganization?.translations_usage]);
+    const [stats, setStats] = useState<{ data: TranslationStats; current_month: TranslationStats }>(null);
+
+    const dateOptions = useMemo(() => {
+        const date = new Date();
+
+        return [
+            {
+                value: 'today',
+                label: `Vandaag`,
+                dates: [dateFormat(startOfDay(date)), dateFormat(endOfDay(date))],
+            },
+            {
+                value: 'week',
+                label: `Deze week`,
+                dates: [dateFormat(startOfWeek(date)), dateFormat(endOfWeek(date))],
+            },
+            {
+                value: 'month',
+                label: `Deze maand`,
+                dates: [dateFormat(startOfMonth(date)), dateFormat(endOfMonth(date))],
+            },
+            {
+                value: 'year',
+                label: `Dit jaar`,
+                dates: [dateFormat(startOfYear(date)), dateFormat(endOfYear(date))],
+            },
+            {
+                value: 'last_week',
+                label: `Vorige week`,
+                dates: [dateFormat(startOfWeek(subWeeks(date, 1))), dateFormat(endOfWeek(subWeeks(date, 1)))],
+            },
+            {
+                value: 'last_month',
+                label: `Vorige maand`,
+                dates: [dateFormat(startOfMonth(subMonths(date, 1))), dateFormat(endOfMonth(subMonths(date, 1)))],
+            },
+        ];
+    }, []);
+
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ from: string; to: string }>(
+        {
+            from: dateFormat(startOfDay(new Date())),
+            to: dateFormat(endOfDay(new Date())),
+        },
+        { queryParams: { from: StringParam, to: StringParam } },
+    );
+
+    const range = useMemo(() => {
+        return dateOptions?.find(
+            (option) => option.dates[0] === filterValues?.from && option.dates[1] === filterValues?.to,
+        );
+    }, [dateOptions, filterValues?.from, filterValues?.to]);
+
+    const rangeLabel = useMemo(() => {
+        let label: string;
+
+        const to = filterValues?.to ? format(dateParse(filterValues?.to), 'd MMM, yyyy') : null;
+        const from = filterValues?.from ? format(dateParse(filterValues?.from), 'd MMM, yyyy') : null;
+
+        if (from && to) {
+            label = from == to ? from : `${from} - ${to}`;
+        } else {
+            label = from ? from : to ? to : null;
+        }
+
+        return label ? `(${label})`.replaceAll('.', '') : label;
+    }, [filterValues]);
 
     const form = useFormBuilder(
         {
@@ -88,6 +175,19 @@ export default function OrganizationsTranslations() {
         activeOrganization?.translations_monthly_limit,
         activeOrganization?.translations_price_per_mill,
     ]);
+
+    const fetchStats = useCallback(() => {
+        setStats(null);
+
+        organizationService
+            .translationStats(activeOrganization?.id, { ...filterValuesActive })
+            .then((res) => setStats(res.data))
+            .catch((err: ResponseError) => pushApiError(err));
+    }, [organizationService, activeOrganization?.id, filterValuesActive, pushApiError]);
+
+    useEffect(() => {
+        fetchStats();
+    }, [fetchStats]);
 
     return (
         <Fragment>
@@ -259,8 +359,8 @@ export default function OrganizationsTranslations() {
                             <p>
                                 {costDiff.isSameLimit ? 'Huidig gebruik: ' : 'Nieuw gebruik: '}
                                 <strong>
-                                    {`${numberFormat(parseInt(stats.month.total.symbols))}/${numberFormat(form.values.translations_monthly_limit || 0)} symbolen`}
-                                    {` (${((parseInt(stats.month.total.symbols) / form.values.translations_monthly_limit || 0) * 100).toFixed(2)}%)`}
+                                    {`${numberFormat(stats?.current_month?.total.symbols || 0)}/${numberFormat(form.values.translations_monthly_limit || 0)} symbolen`}
+                                    {` (${(((stats?.current_month?.total.symbols || 0) / form.values.translations_monthly_limit || 0) * 100).toFixed(2)}%)`}
                                 </strong>
                             </p>
                         </InfoBox>
@@ -278,32 +378,96 @@ export default function OrganizationsTranslations() {
                 </form>
             </div>
 
-            {stats && (
-                <div className="card">
-                    <div className="card-header">
+            <div className="card">
+                <div className="card-header">
+                    <div className="flex flex-grow">
                         <div className="card-title">{translate('organization_translations.title_statistics')}</div>
                     </div>
-                    <div className="card-section card-section-primary">
-                        <div className="row block block-markdown">
-                            <OrganizationsTranslationsStatsColumn
-                                title={'Vandaag'}
-                                organization={activeOrganization}
-                                stats={stats?.day}
+                    <div className={'card-header-filters'}>
+                        <div className="block block-inline-filters">
+                            <BlockLabelTabs
+                                value={range?.value}
+                                setValue={(range) => {
+                                    const option = dateOptions.find((option) => {
+                                        return option.value === range;
+                                    });
+
+                                    if (option) {
+                                        filterUpdate({ from: option?.dates[0], to: option?.dates[1] });
+                                    }
+                                }}
+                                tabs={dateOptions}
                             />
-                            <OrganizationsTranslationsStatsColumn
-                                title={'Deze week'}
-                                organization={activeOrganization}
-                                stats={stats?.week}
-                            />
-                            <OrganizationsTranslationsStatsColumn
-                                title={'Deze maand'}
-                                organization={activeOrganization}
-                                stats={stats?.month}
-                            />
+
+                            <CardHeaderFilter filter={filter}>
+                                <FilterItemToggle label={translate('transactions.labels.from')}>
+                                    <DatePickerControl
+                                        value={dateParse(filter.values.from)}
+                                        placeholder={translate('jjjj-MM-dd')}
+                                        onChange={(from: Date) => {
+                                            filter.update({ from: dateFormat(from) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('transactions.labels.to')}>
+                                    <DatePickerControl
+                                        value={dateParse(filter.values.to)}
+                                        placeholder={translate('jjjj-MM-dd')}
+                                        onChange={(to: Date) => {
+                                            filter.update({ to: dateFormat(to) });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+                            </CardHeaderFilter>
                         </div>
                     </div>
                 </div>
-            )}
+
+                <div className="card-section card-section-primary">
+                    <div className="block block-translation-stats">
+                        <div className="translation-stats-col">
+                            <div className="translation-stats-col-label">
+                                Vertaalde symbolen
+                                <div className="translation-stats-col-label-period">{`${range?.label} ${rangeLabel}`}</div>
+                            </div>
+                            <div className="translation-stats-col-value">
+                                {stats?.data?.total?.symbols || stats?.data?.total?.symbols === 0 ? (
+                                    numberFormat(stats?.data?.total?.symbols)
+                                ) : (
+                                    <EmptyValue />
+                                )}
+                            </div>
+                        </div>
+                        <div className="translation-stats-col">
+                            <div className="translation-stats-col-label">
+                                Kostenraming
+                                <div className="translation-stats-col-label-period">{`${range?.label} ${rangeLabel}`}</div>
+                            </div>
+                            <div className="translation-stats-col-value">
+                                {stats?.data?.total?.cost || <EmptyValue />}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card card-outline">
+                        <div className="card-header">
+                            <div className="card-title">{translate('translation_stats.header.title')}</div>
+                        </div>
+                        <div className="card-body">
+                            {!stats ? (
+                                <LoadingCard type={'card-section'} />
+                            ) : (
+                                <div className="card-section">
+                                    <div className="card-block card-block-table">
+                                        <TranslationStatsTable stats={stats} />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </Fragment>
     );
 }

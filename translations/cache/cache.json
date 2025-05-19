@@ -6196,24 +6196,16 @@
         "Online bijbetalen (iDEAL)"
     ],
     [
-        "product.labels.payment_option_ideal_aria_label",
-        "Online bijbetalen (iDEAL): klik voor meer informatie"
+        "product.labels.payment_option_link",
+        "Lees meer over de betaalmogelijkheden"
     ],
     [
         "product.labels.payment_option_qr",
         "QR‑code tonen bij aanbieder"
     ],
     [
-        "product.labels.payment_option_qr_aria_label",
-        "QR‑code tonen bij aanbieder: klik voor meer informatie"
-    ],
-    [
         "product.labels.payment_option_reservation",
         "Online reserveren"
-    ],
-    [
-        "product.labels.payment_option_reservation_aria_label",
-        "Online reserveren: klik voor meer informatie"
     ],
     [
         "product.labels.payment_options",
@@ -6526,6 +6518,22 @@
     [
         "profile.account.title",
         "Accountgegevens"
+    ],
+    [
+        "profile.address.cancel",
+        "Annuleren"
+    ],
+    [
+        "profile.address.edit",
+        "Bewerken"
+    ],
+    [
+        "profile.address.save",
+        "Opslaan"
+    ],
+    [
+        "profile.address.title",
+        "Adresgegevens"
     ],
     [
         "profile.bank_accounts.iban",

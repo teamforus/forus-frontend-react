@@ -490,34 +490,32 @@ export default function ImplementationsNotificationsSend() {
                         <div>
                             {showIdentities && (
                                 <div className="card-header">
-                                    <div className="flex">
-                                        <div className="flex flex-grow">
-                                            <div className="card-title">
-                                                <em className="mdi mdi-view-list" />
-                                                Lijst met geadresseerden
-                                            </div>
+                                    <div className="flex flex-grow">
+                                        <div className="card-title">
+                                            <em className="mdi mdi-view-list" />
+                                            Lijst met geadresseerden
                                         </div>
-                                        <div className="flex">
-                                            <div className="block block-inline-filters">
-                                                <div className="form">
-                                                    <div className="form-group">
-                                                        <input
-                                                            type="text"
-                                                            value={identitiesFilters.values.q}
-                                                            placeholder="Zoeken"
-                                                            className="form-control"
-                                                            onChange={(e) =>
-                                                                identitiesFilters.update({ q: e.target.value })
-                                                            }
-                                                        />
-                                                    </div>
+                                    </div>
+                                    <div className="card-header-filters">
+                                        <div className="block block-inline-filters">
+                                            <div className="form">
+                                                <div className="form-group">
+                                                    <input
+                                                        type="text"
+                                                        value={identitiesFilters.values.q}
+                                                        placeholder="Zoeken"
+                                                        className="form-control"
+                                                        onChange={(e) =>
+                                                            identitiesFilters.update({ q: e.target.value })
+                                                        }
+                                                    />
                                                 </div>
-                                                <div
-                                                    className="button button-primary button-sm"
-                                                    onClick={() => exportIdentities()}>
-                                                    <em className="mdi mdi-download icon-start" />
-                                                    Exporteren
-                                                </div>
+                                            </div>
+                                            <div
+                                                className="button button-primary button-sm"
+                                                onClick={() => exportIdentities()}>
+                                                <em className="mdi mdi-download icon-start" />
+                                                Exporteren
                                             </div>
                                         </div>
                                     </div>
