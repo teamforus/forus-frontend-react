@@ -1514,12 +1514,10 @@
             "pay_from_voucher": "You pay from the credit:",
             "price": "Price:",
             "payment_option_ideal": "Online additional payment (iDEAL)",
-            "payment_option_ideal_aria_label": "Online additional payment (iDEAL): click for more information",
             "payment_option_qr": "Show QR code at provider",
-            "payment_option_qr_aria_label": "Show QR code at provider: click for more information",
             "payment_option_reservation": "Online booking",
-            "payment_option_reservation_aria_label": "Online booking: click for more information",
-            "payment_options": "Payment options"
+            "payment_options": "Payment options",
+            "payment_option_link": "Read more about payment options"
         },
         "low_amount": "You do not have a credit with sufficient balance.",
         "map": {
@@ -2242,6 +2240,12 @@
             "house_composition": "Family composition",
             "living_arrangement": "Living Form",
             "title": "Household"
+        },
+        "address": {
+            "cancel": "Cancel",
+            "edit": "Edit",
+            "save": "Save",
+            "title": "Address details"
         }
     },
     "reimbursements": {
