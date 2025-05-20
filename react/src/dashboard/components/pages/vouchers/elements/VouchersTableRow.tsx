@@ -42,7 +42,7 @@ export default function VouchersTableRow({
             className="tr-clickable"
             name={'vouchers-show'}
             params={{ id: voucher.id, organizationId: organization.id }}
-            dataDusk={`voucherItem${voucher.id}`}>
+            dataDusk={`tableVoucherRow${voucher.id}`}>
             <td>#{voucher.number}</td>
             <td>
                 <div>
