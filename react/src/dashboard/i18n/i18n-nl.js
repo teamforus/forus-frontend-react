@@ -329,6 +329,8 @@ export default {
         },
         buttons: {
             choose: 'Kies een ander fonds',
+            create: 'Activatiecode aanmaken',
+            upload: 'Upload .csv bestand',
         },
     },
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
@@ -1754,10 +1756,11 @@ export default {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: 'Gegevens van aanvragers',
+            title: 'Klaarzetten',
         },
         labels: {
             code: 'Code',
+            fund: 'Fonds',
             employee: 'Medewerker',
             search: 'Zoeken',
             exported: 'Geëxporteerd',
@@ -1771,6 +1774,7 @@ export default {
             export_selected: 'Exporteer selectie',
             export_csv: 'Exporteer als .CSV',
             export_xls: 'Exporteer als .XLS',
+            add_new: 'Exporteer als .XLS',
         },
     },
 

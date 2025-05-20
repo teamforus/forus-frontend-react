@@ -130,21 +130,19 @@ export default function ModalVoucherRecordEdit({
                             <div className="col-lg-10 col-offset-lg-1">
                                 <div className="form-group">
                                     <div className="form-label form-label-required">Soort persoonsgegeven</div>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            className="form-control"
-                                            value={form.values.record_type_key}
-                                            propKey={'key'}
-                                            options={recordTypes}
-                                            allowSearch={false}
-                                            disabled={
-                                                !!record || (recordTypes.length == 1 && recordTypes[0].key == null)
-                                            }
-                                            onChange={(record_type_key: string) => {
-                                                form.update({ record_type_key: record_type_key });
-                                            }}
-                                        />
-                                    </div>
+
+                                    <SelectControl
+                                        className="form-control"
+                                        value={form.values.record_type_key}
+                                        propKey={'key'}
+                                        options={recordTypes}
+                                        allowSearch={false}
+                                        disabled={!!record || (recordTypes.length == 1 && recordTypes[0].key == null)}
+                                        onChange={(record_type_key: string) => {
+                                            form.update({ record_type_key: record_type_key });
+                                        }}
+                                    />
+
                                     <FormError error={form.errors?.record_type_key} />
                                 </div>
 
@@ -183,12 +181,11 @@ export default function ModalVoucherRecordEdit({
 
                                 <div className="form-group">
                                     <div className="form-label" />
-                                    <div className="form-offset">
-                                        <div className="block block-info">
-                                            <em className="mdi mdi-information block-info-icon" />
-                                            Controleer de gegevens. Na het aanmaken van het tegoed kan het niet worden
-                                            verwijderd.
-                                        </div>
+
+                                    <div className="block block-info">
+                                        <em className="mdi mdi-information block-info-icon" />
+                                        Controleer de gegevens. Na het aanmaken van het tegoed kan het niet worden
+                                        verwijderd.
                                     </div>
                                 </div>
                             </div>

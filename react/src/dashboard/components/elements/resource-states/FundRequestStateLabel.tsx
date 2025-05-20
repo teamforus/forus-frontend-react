@@ -2,6 +2,7 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import FundRequest from '../../../props/models/FundRequest';
 import FundRequestClarification from '../../../props/models/FundRequestClarification';
+import Label from '../image_cropper/Label';
 
 export default function FundRequestStateLabel({ fundRequest }: { fundRequest: FundRequest }) {
     const [stateLabels] = useState({
@@ -45,13 +46,7 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
             {fundRequest.state == 'pending' && fundRequest.employee ? (
                 <Fragment>
                     {hasRecordsWithPendingClarifications ? (
-                        <div
-                            className={classNames(
-                                'label',
-                                'label-tag',
-                                'label-round',
-                                `label-${stateLabels.clarification_requested?.label}`,
-                            )}>
+                        <div className={classNames('label', `label-${stateLabels.clarification_requested?.label}`)}>
                             <em
                                 className={classNames(
                                     'mdi',
@@ -62,20 +57,14 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
                             Extra info nodig
                         </div>
                     ) : (
-                        <div className="label label-tag label-round label-primary">
+                        <Label type="primary">
                             <em className="mdi mdi-circle-outline icon-start" />
                             In behandeling
-                        </div>
+                        </Label>
                     )}
                 </Fragment>
             ) : (
-                <div
-                    className={classNames(
-                        'label',
-                        'label-tag',
-                        'label-round',
-                        `label-${stateLabels[localState.key]?.label}`,
-                    )}>
+                <div className={classNames('label', `label-${stateLabels[localState.key]?.label}`)}>
                     <em className={classNames('mdi', `mdi-${stateLabels[localState.key]?.icon}`, `icon-start`)} />
                     {localState.label}
                 </div>
