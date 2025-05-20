@@ -2242,12 +2242,10 @@
             "pay_from_voucher": "Vous payez à partir du crédit :",
             "price": "Prix :",
             "payment_option_ideal": "Payer en ligne (iDEAL)",
-            "payment_option_ideal_aria_label": "Paiement en ligne (iDEAL) : cliquez pour plus d'informations",
             "payment_option_qr": "Afficher le code QR au fournisseur",
-            "payment_option_qr_aria_label": "Afficher le code QR chez le fournisseur : cliquer pour plus d'informations",
             "payment_option_reservation": "Réserver en ligne",
-            "payment_option_reservation_aria_label": "Réservation en ligne : cliquez pour plus d'informations",
-            "payment_options": "Options de paiement"
+            "payment_options": "Options de paiement",
+            "payment_option_link": "En savoir plus sur les options de paiement"
         },
         "low_amount": "Vous n'avez pas de crédit avec un solde suffisant.",
         "map": {
@@ -2390,6 +2388,12 @@
             "house_composition": "Composition de la famille",
             "living_arrangement": "Forme vivante",
             "title": "Ménage"
+        },
+        "address": {
+            "cancel": "Annuler",
+            "edit": "Editer",
+            "save": "Économiser",
+            "title": "Coordonnées"
         }
     },
     "provider_sign_up": {
