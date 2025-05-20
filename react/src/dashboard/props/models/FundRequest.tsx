@@ -57,4 +57,5 @@ export default interface FundRequest {
     payouts?: Array<PayoutTransaction>;
     vouchers?: Array<Voucher>;
     current_period?: boolean;
+    active_vouchers?: Array<Voucher>;
 }
