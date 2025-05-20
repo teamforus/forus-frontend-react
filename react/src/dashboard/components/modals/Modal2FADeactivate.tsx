@@ -165,19 +165,18 @@ export default function Modal2FADeactivate({
                                     {type == 'authenticator' && (
                                         <div className="form-label">Voer de 6-cijferige code in vanuit de app</div>
                                     )}
-                                    <div className="form-group-offset">
-                                        <PincodeControl
-                                            value={confirmationCode}
-                                            onChange={setConfirmationCode}
-                                            className={'block-pincode-compact'}
-                                            valueType={'num'}
-                                            blockSize={3}
-                                            blockCount={2}
-                                            ariaLabel={'Voer de tweefactorauthenticatiecode in voor deactivering'}
-                                        />
 
-                                        <FormError error={errorCode} />
-                                    </div>
+                                    <PincodeControl
+                                        value={confirmationCode}
+                                        onChange={setConfirmationCode}
+                                        className={'block-pincode-compact'}
+                                        valueType={'num'}
+                                        blockSize={3}
+                                        blockCount={2}
+                                        ariaLabel={'Voer de tweefactorauthenticatiecode in voor deactivering'}
+                                    />
+
+                                    <FormError error={errorCode} />
                                 </div>
                             </div>
                             {type == 'phone' && (

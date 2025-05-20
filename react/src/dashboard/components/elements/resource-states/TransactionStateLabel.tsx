@@ -1,12 +1,8 @@
 import React from 'react';
 import Transaction from '../../../props/models/Transaction';
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
-import classNames from 'classnames';
+import Label from '../image_cropper/Label';
 
 export default function TransactionStateLabel({ transaction }: { transaction: Transaction | PayoutTransaction }) {
-    return (
-        <div className={classNames('label', transaction.state == 'success' ? 'label-success' : 'label-default')}>
-            {transaction.state_locale}
-        </div>
-    );
+    return <Label type={transaction.state == 'success' ? 'success' : 'default'}>{transaction.state_locale}</Label>;
 }

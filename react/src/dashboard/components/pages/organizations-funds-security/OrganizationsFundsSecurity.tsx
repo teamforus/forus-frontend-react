@@ -114,41 +114,33 @@ export default function OrganizationsFundsSecurity() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-xs-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <div className="form-label">2FA beperkingen</div>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey={'value'}
-                                            allowSearch={false}
-                                            value={form.values?.auth_2fa_policy}
-                                            options={auth2FARequiredOptions}
-                                            onChange={(
-                                                auth_2fa_policy:
-                                                    | 'global'
-                                                    | 'optional'
-                                                    | 'required'
-                                                    | 'restrict_features',
-                                            ) => form.update({ auth_2fa_policy })}
-                                        />
-                                    </div>
+
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        allowSearch={false}
+                                        value={form.values?.auth_2fa_policy}
+                                        options={auth2FARequiredOptions}
+                                        onChange={(
+                                            auth_2fa_policy: 'global' | 'optional' | 'required' | 'restrict_features',
+                                        ) => form.update({ auth_2fa_policy })}
+                                    />
                                 </div>
 
                                 {form.values?.auth_2fa_policy == 'global' && (
-                                    <div className="form-group form-group-inline">
-                                        <div className="form-label">&nbsp;</div>
-                                        <div className="form-offset">
-                                            <SelectControl
-                                                className="form-control disabled"
-                                                propKey={'value'}
-                                                allowSearch={false}
-                                                value={fund.organization_funds_2fa.auth_2fa_policy}
-                                                options={auth2FARequiredOptions}
-                                                disabled={true}
-                                                onChange={() => null}
-                                            />
-                                        </div>
+                                    <div className="form-group">
+                                        <SelectControl
+                                            className="form-control disabled"
+                                            propKey={'value'}
+                                            allowSearch={false}
+                                            value={fund.organization_funds_2fa.auth_2fa_policy}
+                                            options={auth2FARequiredOptions}
+                                            disabled={true}
+                                            onChange={() => null}
+                                        />
                                     </div>
                                 )}
 

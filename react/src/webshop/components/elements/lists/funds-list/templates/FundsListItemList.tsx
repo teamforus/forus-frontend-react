@@ -115,8 +115,7 @@ export default function FundsListItemList({
                             name={'fund-requests'}
                             dataDusk="pendingButton"
                             params={{ fund_id: fund.id }}
-                            className="button button-text button-xs"
-                            ng-click="$dir.goToFundRequests($event)">
+                            className="button button-text button-xs">
                             {translate('list_blocks.fund_item_list.buttons.check_status')}
                             <em className="mdi mdi-chevron-right icon-right" aria-hidden="true" />
                         </StateNavLink>

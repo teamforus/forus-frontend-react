@@ -281,8 +281,6 @@ export default function Reservations() {
         });
     }, [activeOrganization, productService, providerFundService]);
 
-    useEffect(() => console.log(selectedMeta), [selectedMeta]);
-
     if (!reservations) {
         return <LoadingCard />;
     }
