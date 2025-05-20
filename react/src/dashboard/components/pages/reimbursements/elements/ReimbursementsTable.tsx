@@ -108,7 +108,10 @@ export default function ReimbursementsTable({
                                         </td>
 
                                         <td>
-                                            <ReimbursementStateLabel reimbursement={reimbursement} />
+                                            <ReimbursementStateLabel
+                                                reimbursement={reimbursement}
+                                                dusk={'reimbursementState' + reimbursement.id}
+                                            />
                                         </td>
 
                                         <td>
