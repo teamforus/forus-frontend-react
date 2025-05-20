@@ -11,6 +11,7 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
+import Label from '../../elements/image_cropper/Label';
 
 export default function PreferencesEmails() {
     const openModal = useOpenModal();
@@ -48,7 +49,7 @@ export default function PreferencesEmails() {
             .finally(() => setProgress(100));
     }, [identityEmailService, setProgress]);
 
-    const updateEmail = useCallback((email, data) => {
+    const updateEmail = useCallback((email: IdentityEmail, data: object) => {
         setEmails((emails) => {
             Object.assign(emails.data[emails.data.indexOf(email)], data);
 
@@ -57,7 +58,7 @@ export default function PreferencesEmails() {
     }, []);
 
     const resendVerification = useCallback(
-        (email) => {
+        (email: IdentityEmail) => {
             if (email['disabled']) {
                 return false;
             }
@@ -81,8 +82,8 @@ export default function PreferencesEmails() {
     );
 
     const makePrimary = useCallback(
-        (email) => {
-            if (email.disabled) {
+        (email: IdentityEmail) => {
+            if (email['disabled']) {
                 return false;
             }
 
@@ -100,8 +101,8 @@ export default function PreferencesEmails() {
     );
 
     const deleteEmail = useCallback(
-        (email) => {
-            if (email.disabled) {
+        (email: IdentityEmail) => {
+            if (email['disabled']) {
                 return false;
             }
 
@@ -207,19 +208,15 @@ export default function PreferencesEmails() {
                             </div>
                             <div className="user_email-actions">
                                 {email.primary && (
-                                    <label
-                                        data-dusk="identityEmailListItemPrimary"
-                                        className="label label-success label-round label-lg pull-left">
+                                    <Label dusk="identityEmailListItemPrimary" type="success" className="pull-left">
                                         Hoofd e-mailadres
-                                    </label>
+                                    </Label>
                                 )}
 
                                 {!email.verified && !email.primary && (
-                                    <label
-                                        data-dusk="identityEmailListItemNotVerified"
-                                        className="label label-default label-round label-lg pull-left">
+                                    <Label dusk="identityEmailListItemNotVerified" type="default" className="pull-left">
                                         Niet bevestigd
-                                    </label>
+                                    </Label>
                                 )}
 
                                 {!email.primary && (

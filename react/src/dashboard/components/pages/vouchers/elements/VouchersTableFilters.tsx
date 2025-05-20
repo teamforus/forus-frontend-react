@@ -96,7 +96,7 @@ export default function VouchersTableFilters({
                             type="text"
                             className="form-control"
                             value={filter.values.q}
-                            data-dusk="searchVoucher"
+                            data-dusk="tableVoucherSearch"
                             placeholder={translate('vouchers.labels.search')}
                             onChange={(e) => filter.update({ q: e.target.value })}
                         />
@@ -322,6 +322,7 @@ export default function VouchersTableFilters({
                                         <button
                                             className="button button-primary button-wide"
                                             onClick={exportVouchers}
+                                            data-dusk="export"
                                             disabled={vouchers.meta.total == 0}>
                                             <em className="mdi mdi-download icon-start" />
                                             {translate('components.dropdown.export', { total: vouchers.meta.total })}
@@ -332,7 +333,10 @@ export default function VouchersTableFilters({
                         </div>
                     )}
 
-                    <div onClick={() => filter.setShow(!filter.show)} className="button button-default button-icon">
+                    <div
+                        onClick={() => filter.setShow(!filter.show)}
+                        className="button button-default button-icon"
+                        data-dusk={filter.show ? 'hideFilters' : 'showFilters'}>
                         <em className="mdi mdi-filter-outline" />
                     </div>
                 </div>

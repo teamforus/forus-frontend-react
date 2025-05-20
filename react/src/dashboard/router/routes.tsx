@@ -7,7 +7,7 @@ import FundRequests from '../components/pages/fund-requests/FundRequests';
 import FundRequestsView from '../components/pages/fund-requests-view/FundRequestsView';
 import Home from '../components/pages/home/Home';
 import Employees from '../components/pages/employees/Employees';
-import CsvValidations from '../components/pages/csv_validations/CsvValidations';
+import Prevalidations from '../components/pages/prevalidations/Prevalidations';
 import Organizations from '../components/pages/organizations/Organizations';
 import IdentityRestore from '../components/pages/auth/IdentityRestore';
 import Redirect from '../components/pages/redirect/Redirect';
@@ -605,9 +605,9 @@ router.state('feedback', <Feedback />, {
     altPath: `/organizations/:organizationId/feedback`,
 });
 
-router.state('csv-validation', <CsvValidations />, {
-    path: `/aanvragers-toevoegen`,
-    altPath: `/csv-validations`,
+router.state('csv-validation', <Prevalidations />, {
+    path: `/organisaties/:organizationId/aanvragers-toevoegen`,
+    altPath: `/organizations/:organizationId/csv-validations`,
 });
 
 router.state('preferences-emails', <PreferencesEmails />, {

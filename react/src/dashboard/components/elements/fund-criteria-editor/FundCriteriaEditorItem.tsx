@@ -297,37 +297,33 @@ export default function FundCriteriaEditorItem({
                             <div className="row">
                                 <div className="col col-xs-12 col-sm-4">
                                     <label className="form-label">Persoonsgegeven</label>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            className={`form-control ${disabled ? 'disabled' : ''}`}
-                                            placeholder="Persoonsgegeven"
-                                            disabled={disabled}
-                                            value={recordType}
-                                            allowSearch={true}
-                                            onChange={setRecordType}
-                                            options={recordTypes}
-                                        />
-                                    </div>
+                                    <SelectControl
+                                        className={`form-control ${disabled ? 'disabled' : ''}`}
+                                        placeholder="Persoonsgegeven"
+                                        disabled={disabled}
+                                        value={recordType}
+                                        allowSearch={true}
+                                        onChange={setRecordType}
+                                        options={recordTypes}
+                                    />
                                     <FormError error={errors?.['criteria.0.record_type_key']} />
                                 </div>
 
                                 {recordType?.operators?.length > 0 && operators && (
                                     <div className="col col-xs-12 col-sm-4">
                                         <label className="form-label">Verhouding</label>
-                                        <div className="form-offset">
-                                            <SelectControl
-                                                className={`form-control ${disabled ? 'disabled' : ''}`}
-                                                placeholder="Verhouding"
-                                                disabled={disabled}
-                                                allowSearch={false}
-                                                propKey={'key'}
-                                                value={operators[recordType.key]}
-                                                options={recordType?.operators}
-                                                onChange={(operator: Operators) => {
-                                                    setOperators({ ...operators, [recordType.key]: operator });
-                                                }}
-                                            />
-                                        </div>
+                                        <SelectControl
+                                            className={`form-control ${disabled ? 'disabled' : ''}`}
+                                            placeholder="Verhouding"
+                                            disabled={disabled}
+                                            allowSearch={false}
+                                            propKey={'key'}
+                                            value={operators[recordType.key]}
+                                            options={recordType?.operators}
+                                            onChange={(operator: Operators) => {
+                                                setOperators({ ...operators, [recordType.key]: operator });
+                                            }}
+                                        />
                                         <FormError error={errors?.['criteria.0.operator']} />
                                     </div>
                                 )}
@@ -354,21 +350,19 @@ export default function FundCriteriaEditorItem({
 
                                             {['select', 'select_number', 'bool'].includes(recordType.type) &&
                                                 operators[recordType.key] != '*' && (
-                                                    <div className="form-offset">
-                                                        <SelectControl
-                                                            className={`form-control ${disabled ? 'disabled' : ''}`}
-                                                            placeholder="Verhouding"
-                                                            allowSearch={false}
-                                                            propKey={'value'}
-                                                            value={values[recordType.key]}
-                                                            options={recordType.options}
-                                                            disabled={disabled}
-                                                            onChange={(value: string) => {
-                                                                values[recordType.key] = value;
-                                                                setValues({ ...values });
-                                                            }}
-                                                        />
-                                                    </div>
+                                                    <SelectControl
+                                                        className={`form-control ${disabled ? 'disabled' : ''}`}
+                                                        placeholder="Verhouding"
+                                                        allowSearch={false}
+                                                        propKey={'value'}
+                                                        value={values[recordType.key]}
+                                                        options={recordType.options}
+                                                        disabled={disabled}
+                                                        onChange={(value: string) => {
+                                                            values[recordType.key] = value;
+                                                            setValues({ ...values });
+                                                        }}
+                                                    />
                                                 )}
 
                                             {['date'].includes(recordType.type) && operators[recordType.key] != '*' && (

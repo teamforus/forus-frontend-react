@@ -59,7 +59,8 @@ export default function ModalTransferOrganizationOwnership({
                 'modal-notification',
                 modal.loading && 'modal-loading',
                 className,
-            )}>
+            )}
+            data-dusk="modalTransferOrganizationOwnership">
             <div className="modal-backdrop" onClick={modal.close} />
             <form className="modal-window form" onSubmit={form.submit}>
                 <div className="modal-close mdi mdi-close" onClick={modal.close} />
@@ -79,6 +80,7 @@ export default function ModalTransferOrganizationOwnership({
                                         propValue={'email'}
                                         options={adminEmployees}
                                         allowSearch={true}
+                                        dusk="employeesSelect"
                                         onChange={(value?: number) => {
                                             form.update({ employee_id: value });
                                         }}
@@ -111,6 +113,7 @@ export default function ModalTransferOrganizationOwnership({
                         text={translate('modals.modal_transfer_organization_ownership.buttons.submit')}
                         type="primary"
                         submit={true}
+                        dusk="submitBtn"
                     />
                 </div>
             </form>

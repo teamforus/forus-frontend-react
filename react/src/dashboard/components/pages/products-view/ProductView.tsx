@@ -22,6 +22,7 @@ import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import ProductFund from '../../../props/models/ProductFund';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -267,9 +268,9 @@ export default function ProductView() {
                                                 </td>
                                                 <td>
                                                     {fund.approved ? (
-                                                        <div className="label label-success">Geaccepteerd</div>
+                                                        <Label type="success">Geaccepteerd</Label>
                                                     ) : (
-                                                        <div className="label label-default">Wachtend</div>
+                                                        <Label type="default">Wachtend</Label>
                                                     )}
                                                 </td>
                                                 {!product.sponsor_organization && fundToggles && (
