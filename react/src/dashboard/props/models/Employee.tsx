@@ -19,4 +19,6 @@ export default interface Employee {
         number: number;
         full_name: string;
     };
+    created_at_locale?: string;
+    last_activity_at_locale?: string;
 }
