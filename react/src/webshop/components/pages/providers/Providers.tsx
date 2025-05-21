@@ -60,6 +60,8 @@ export default function Providers() {
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
     const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
 
+    const [showProviderSignUp, setShowProviderSignUp] = useState(false);
+
     const distances = useMemo(() => {
         return [
             { id: null, name: translate('providers.distances.everywhere') },
@@ -248,6 +250,10 @@ export default function Providers() {
         }
     }, [filterActiveValues, fetchProvidersMap, fetchProviders, buildQuery, filterValues?.show_map]);
 
+    useEffect(() => {
+        setShowProviderSignUp(funds?.filter((fund) => fund.allow_provider_sign_up).length > 0);
+    }, [funds]);
+
     return (
         <BlockShowcasePage
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
@@ -341,6 +347,7 @@ export default function Providers() {
                                         allowSearch={true}
                                         onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                         options={funds || []}
+                                        dusk="selectControlFunds"
                                     />
                                 )}
                             </div>
@@ -368,7 +375,7 @@ export default function Providers() {
                                         </label>
 
                                         <SelectControl
-                                            id={'select_fund'}
+                                            id={'distance'}
                                             propKey={'id'}
                                             value={filterValues.distance}
                                             multiline={true}
@@ -391,8 +398,11 @@ export default function Providers() {
                             )}
                         </div>
 
-                        {!filterValues.show_map && appConfigs.pages.provider && (
-                            <StateNavLink name={'sign-up'} className="button button-primary hide-sm">
+                        {!filterValues.show_map && appConfigs.pages.provider && showProviderSignUp && (
+                            <StateNavLink
+                                name={'sign-up'}
+                                className="button button-primary hide-sm"
+                                dataDusk="providerSignUpLink">
                                 <em className="mdi mdi-store-outline" aria-hidden="true" />
                                 {translate('profile_menu.buttons.provider_sign_up')}
                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
