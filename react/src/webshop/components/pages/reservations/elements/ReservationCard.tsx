@@ -82,7 +82,7 @@ export default function ReservationCard({
                                         <div className="label label-default-outline nowrap">
                                             <span className="label-blink label-blink-primary" aria-hidden="true" />
                                             <span className="label-text">
-                                                {translate('reservations.remaining_minutes', {
+                                                {translate('reservations.card.remaining_minutes', {
                                                     minutes: stateData.expiresIn,
                                                 })}
                                             </span>

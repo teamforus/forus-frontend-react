@@ -37,72 +37,69 @@ export default function OrganizationsFundsSecurityAuth2FAForm({
     return (
         <Fragment>
             {formValues?.auth_2fa_policy == 'required' && (
-                <div className="form-group form-group-inline">
+                <div className="form-group">
                     <div className="form-label">Onthoud IP-adres</div>
-                    <div className="form-offset">
-                        <SelectControl
-                            className="form-control"
-                            propKey={'value'}
-                            allowSearch={false}
-                            value={formValues.auth_2fa_remember_ip}
-                            options={auth2FARememberIpOptions}
-                            disabled={disabled}
-                            onChange={(auth_2fa_remember_ip: boolean) =>
-                                setFormValues({ ...formValues, auth_2fa_remember_ip: auth_2fa_remember_ip })
-                            }
-                        />
-                    </div>
+
+                    <SelectControl
+                        className="form-control"
+                        propKey={'value'}
+                        allowSearch={false}
+                        value={formValues.auth_2fa_remember_ip}
+                        options={auth2FARememberIpOptions}
+                        disabled={disabled}
+                        onChange={(auth_2fa_remember_ip: boolean) =>
+                            setFormValues({ ...formValues, auth_2fa_remember_ip: auth_2fa_remember_ip })
+                        }
+                    />
+
                     <FormError error={formErrors?.auth_2fa_remember_ip} />
                 </div>
             )}
 
-            <div className="form-group form-group-inline">
-                <div className="form-label"></div>
-                <div className="form-offset">
-                    <div>
-                        {formValues?.auth_2fa_policy == 'restrict_features' && (
-                            <CheckboxControl
-                                title={'Aanpassen van e-mailadres'}
-                                checked={formValues?.auth_2fa_restrict_emails}
-                                disabled={disabled}
-                                onChange={(e) =>
-                                    setFormValues({ ...formValues, auth_2fa_restrict_emails: e.target.checked })
-                                }
-                            />
-                        )}
-                    </div>
+            <div className="form-group">
+                <div>
+                    {formValues?.auth_2fa_policy == 'restrict_features' && (
+                        <CheckboxControl
+                            title={'Aanpassen van e-mailadres'}
+                            checked={formValues?.auth_2fa_restrict_emails}
+                            disabled={disabled}
+                            onChange={(e) =>
+                                setFormValues({ ...formValues, auth_2fa_restrict_emails: e.target.checked })
+                            }
+                        />
+                    )}
+                </div>
 
-                    <div>
-                        {formValues?.auth_2fa_policy == 'restrict_features' && (
-                            <CheckboxControl
-                                title={'Aanpassen van inlog sessies'}
-                                checked={formValues?.auth_2fa_restrict_auth_sessions}
-                                disabled={disabled}
-                                onChange={(e) =>
-                                    setFormValues({
-                                        ...formValues,
-                                        auth_2fa_restrict_auth_sessions: e.target.checked,
-                                    })
-                                }
-                            />
-                        )}
-                    </div>
+                <div>
+                    {formValues?.auth_2fa_policy == 'restrict_features' && (
+                        <CheckboxControl
+                            title={'Aanpassen van inlog sessies'}
+                            checked={formValues?.auth_2fa_restrict_auth_sessions}
+                            disabled={disabled}
+                            onChange={(e) =>
+                                setFormValues({
+                                    ...formValues,
+                                    auth_2fa_restrict_auth_sessions: e.target.checked,
+                                })
+                            }
+                        />
+                    )}
+                </div>
 
-                    <div>
-                        {formValues?.auth_2fa_policy == 'restrict_features' && (
-                            <CheckboxControl
-                                title={'Indienen van declaraties'}
-                                checked={formValues?.auth_2fa_restrict_reimbursements}
-                                disabled={disabled}
-                                onChange={(e) =>
-                                    setFormValues({
-                                        ...formValues,
-                                        auth_2fa_restrict_reimbursements: e.target.checked,
-                                    })
-                                }
-                            />
-                        )}
-                    </div>
+                <div>
+                    {formValues?.auth_2fa_policy == 'restrict_features' && (
+                        <CheckboxControl
+                            title={'Indienen van declaraties'}
+                            checked={formValues?.auth_2fa_restrict_reimbursements}
+                            disabled={disabled}
+                            onChange={(e) =>
+                                setFormValues({
+                                    ...formValues,
+                                    auth_2fa_restrict_reimbursements: e.target.checked,
+                                })
+                            }
+                        />
+                    )}
                 </div>
             </div>
         </Fragment>

@@ -14,6 +14,7 @@ import usePaginatorService from '../../modules/paginator/services/usePaginatorSe
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
+import Label from '../elements/image_cropper/Label';
 
 type LocalProduct = Product & {
     allowed: boolean;
@@ -185,14 +186,11 @@ export default function ModalFundOffers({
                                                 </td>
 
                                                 <td className="text-right">
-                                                    <div
-                                                        className={`tag ${
-                                                            offer.allowed ? 'tag-success' : 'tag-default'
-                                                        }`}>
+                                                    <Label type={offer.allowed ? 'success' : 'default'}>
                                                         {offer.allowed
                                                             ? translate(`modals.modal_funds_offers.labels.available`)
                                                             : translate(`modals.modal_funds_offers.labels.rejected`)}
-                                                    </div>
+                                                    </Label>
                                                 </td>
                                             </tr>
                                         ))}

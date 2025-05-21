@@ -105,7 +105,7 @@ body {
 
             .printable-organization-info {
                 background: #f5f5f5;
-                border-radius: 5px;
+                border-radius: var(--border-radius);
                 padding: 20px;
                 margin-left: 70px;
                 margin-right: 70px;
