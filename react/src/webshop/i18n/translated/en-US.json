@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "Terminated!"
         },
-        "success": "Successful!"
+        "success": "Successful!",
+        "email_verification_auth_error": {
+            "description": "You are not authenticated, please log in first to confirm your email address.",
+            "title": "Authentication required!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Unknown error."
+        },
+        "email_verification_success": {
+            "description": "The email has been confirmed.",
+            "title": "Email confirmed!"
+        },
+        "session_expired": {
+            "description": "Log back in and try again.",
+            "title": "Session expired!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Read for",

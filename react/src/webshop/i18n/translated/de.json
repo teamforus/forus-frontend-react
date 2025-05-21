@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "Beendet!"
         },
-        "success": "Erfolgreich!"
+        "success": "Erfolgreich!",
+        "email_verification_auth_error": {
+            "description": "Sie sind nicht authentifiziert, bitte melden Sie sich zuerst an, um Ihre E-Mail-Adresse zu bestätigen.",
+            "title": "Authentifizierung erforderlich!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Unbekannter Fehler."
+        },
+        "email_verification_success": {
+            "description": "Die E-Mail wurde bestätigt.",
+            "title": "E-Mail bestätigt!"
+        },
+        "session_expired": {
+            "description": "Loggen Sie sich wieder ein und versuchen Sie es erneut.",
+            "title": "Die Sitzung ist abgelaufen!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Lesen für",

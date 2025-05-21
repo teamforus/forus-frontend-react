@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "Zakończone!"
         },
-        "success": "Sukces!"
+        "success": "Sukces!",
+        "email_verification_auth_error": {
+            "description": "Nie jesteś uwierzytelniony, zaloguj się najpierw, aby potwierdzić swój adres e-mail.",
+            "title": "Wymagane uwierzytelnienie!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Nieznany błąd."
+        },
+        "email_verification_success": {
+            "description": "Wiadomość e-mail została potwierdzona.",
+            "title": "E-mail potwierdzony!"
+        },
+        "session_expired": {
+            "description": "Zaloguj się ponownie i spróbuj ponownie.",
+            "title": "Sesja wygasła!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Czytaj za",

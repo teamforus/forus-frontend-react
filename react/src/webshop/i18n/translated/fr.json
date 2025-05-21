@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "Terminé !"
         },
-        "success": "Une réussite !"
+        "success": "Une réussite !",
+        "email_verification_auth_error": {
+            "description": "Vous n'êtes pas authentifié, veuillez d'abord vous connecter pour confirmer votre adresse e-mail.",
+            "title": "Authentification requise !"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Erreur inconnue."
+        },
+        "email_verification_success": {
+            "description": "L'e-mail a été confirmé.",
+            "title": "Courriel confirmé !"
+        },
+        "session_expired": {
+            "description": "Reconnectez-vous et réessayez.",
+            "title": "La session a expiré !"
+        }
     },
     "read_speaker": {
         "read_aloud": "Lire pour",
