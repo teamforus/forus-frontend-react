@@ -34,6 +34,7 @@ import CookieBanner from './modules/cookie_banner/CookieBanner';
 import ReadSpeakerScript from './modules/read_speaker/ReadSpeakerScript';
 import { isValidLocaleString } from '../dashboard/helpers/url';
 import { FrameDirectorProvider } from '../dashboard/modules/frame_director/context/FrameDirectorContext';
+import { LayoutProvider } from './contexts/LayoutContext';
 
 const locale = localStorage.getItem('locale');
 
@@ -133,22 +134,24 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                         },
                     }}>
                     <RouterSelector envData={envData as unknown as EnvDataProp}>
-                        <LoadingBarProvider>
-                            <PrintableProvider>
-                                <ModalsProvider>
-                                    <MainProvider cookiesAccepted={allowOptionalCookies}>
-                                        <TitleProvider>
-                                            <AuthProvider>
-                                                <QueryParamProvider adapter={ReactRouter6Adapter}>
-                                                    <StateHashPrefixRedirect />
-                                                    <RouterLayout envData={envData} />
-                                                </QueryParamProvider>
-                                            </AuthProvider>
-                                        </TitleProvider>
-                                    </MainProvider>
-                                </ModalsProvider>
-                            </PrintableProvider>
-                        </LoadingBarProvider>
+                        <LayoutProvider>
+                            <LoadingBarProvider>
+                                <PrintableProvider>
+                                    <ModalsProvider>
+                                        <MainProvider cookiesAccepted={allowOptionalCookies}>
+                                            <TitleProvider>
+                                                <AuthProvider>
+                                                    <QueryParamProvider adapter={ReactRouter6Adapter}>
+                                                        <StateHashPrefixRedirect />
+                                                        <RouterLayout envData={envData} />
+                                                    </QueryParamProvider>
+                                                </AuthProvider>
+                                            </TitleProvider>
+                                        </MainProvider>
+                                    </ModalsProvider>
+                                </PrintableProvider>
+                            </LoadingBarProvider>
+                        </LayoutProvider>
 
                         <CookieBanner envData={envData} setAllowOptionalCookies={setAllowOptionalCookies} />
                         <AwsRumScript awsRum={envData.config?.aws_rum} cookiesAccepted={allowOptionalCookies} />
