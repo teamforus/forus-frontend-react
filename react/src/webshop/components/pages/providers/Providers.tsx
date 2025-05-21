@@ -253,10 +253,12 @@ export default function Providers() {
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
             countFiltersApplied={countFiltersApplied}
-            breadcrumbItems={[
-                { name: translate('providers.breadcrumbs.home'), state: 'home' },
-                { name: translate('providers.breadcrumbs.providers') },
-            ]}
+            breadcrumbItems={
+                !filterValues.show_map && [
+                    { name: translate('providers.breadcrumbs.home'), state: 'home' },
+                    { name: translate('providers.breadcrumbs.providers') },
+                ]
+            }
             aside={
                 funds &&
                 appConfigs &&
