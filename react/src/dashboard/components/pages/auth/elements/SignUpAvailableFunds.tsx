@@ -106,7 +106,7 @@ export default function SignUpAvailableFunds({
                 };
 
                 setTags((tags) => {
-                    return tags.length > 0 ? tags : [allTags, { key: 'lorem', name: 'ipsum' }, ...res.data.meta.tags];
+                    return tags.length > 0 ? tags : [allTags, ...res.data.meta.tags];
                 });
 
                 setOrganizations((organizations) => {
