@@ -3,13 +3,14 @@ export default {
     labels: {
         fund: 'Fonds',
         amount: 'Bedrag',
-        assign_by_type: 'Methode',
+        assign_by_type: 'Toewijzingsmethode',
         limit_multiplier: 'Aantal personen',
         assign_by_type_or_activate: 'Toewijzen of activeren',
         note: 'Notitie',
         expire_at: 'Geldig tot en met',
         client_uid: 'Uniek nummer',
         credit_type: 'Soort',
+        report_type: 'Voucher melden bij backoffice',
     },
     tooltips: {
         funds: [
@@ -35,6 +36,8 @@ export default {
             'worden automatisch overgenomen voor het tegoed. ',
             'Hierdoor kan bijvoorbeeld worden bepaald bij welke aanbieders het tegoed kan worden besteed.',
         ].join(''),
+        report_type:
+            'Kies of je de “ontvangen”-melding nu wilt versturen met de opgegeven BSN, of uitstellen totdat de voucher wordt geclaimd of toegewezen aan een gebruiker.',
     },
     modal_section: {
         choose_title: 'Selecteer op welke manier u een tegoed wilt aanmaken.',
@@ -62,5 +65,9 @@ export default {
         cancel: 'Annuleren',
         submit: 'Bevestigen',
         activate: 'Activeren',
+    },
+    options: {
+        report_type_relation: 'Onmiddellijk (met opgegeven BSN)',
+        report_type_user_bsn: 'Wanneer voucher wordt geclaimd of toegewezen aan een gebruiker',
     },
 };
