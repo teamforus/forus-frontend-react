@@ -242,7 +242,15 @@ export default function FundRequest() {
 
         fundRequestService
             .store(fund.id, formDataBuild(pendingCriteria.filter((criterion) => shouldRequestRecord(criterion))))
-            .then(() => {
+            .then((res) => {
+                const active_vouchers = res.data.data.active_vouchers;
+
+                if (res.data.data.state === 'approved' && active_vouchers.length > 0) {
+                    return active_vouchers.length > 1
+                        ? navigateState('vouchers')
+                        : navigateState('voucher', active_vouchers[0]);
+                }
+
                 if (fund.auto_validation) {
                     return applyFund(fund);
                 }
@@ -272,6 +280,7 @@ export default function FundRequest() {
         setStepByName,
         submitInProgress,
         shouldRequestRecord,
+        navigateState,
     ]);
 
     const criterionTitle = useCallback(

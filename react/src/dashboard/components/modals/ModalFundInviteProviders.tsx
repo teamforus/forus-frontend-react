@@ -86,16 +86,14 @@ export default function ModalFundInviteProviders({
                                             Nodig aanbieders uit van:
                                         </label>
 
-                                        <div className="form-offset">
-                                            <SelectControl
-                                                className={'form-control'}
-                                                options={funds}
-                                                propKey={'id'}
-                                                allowSearch={true}
-                                                value={form.values?.fund_id}
-                                                onChange={(fund_id: number) => form.update({ fund_id })}
-                                            />
-                                        </div>
+                                        <SelectControl
+                                            className={'form-control'}
+                                            options={funds}
+                                            propKey={'id'}
+                                            allowSearch={true}
+                                            value={form.values?.fund_id}
+                                            onChange={(fund_id: number) => form.update({ fund_id })}
+                                        />
 
                                         <FormError error={form.errors?.fund_id} />
                                     </div>

@@ -14,6 +14,7 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function VoucherTransactions({
     blockTitle,
@@ -85,7 +86,7 @@ export default function VoucherTransactions({
                                         <ThSortable
                                             filter={filter}
                                             label={translate('transactions.labels.uid')}
-                                            value="id"
+                                            value="uid"
                                         />
                                         <ThSortable
                                             filter={filter}
@@ -173,13 +174,9 @@ export default function VoucherTransactions({
                                             </td>
                                             <td>
                                                 {transaction.state == 'success' ? (
-                                                    <div className="label label-success">
-                                                        {transaction.state_locale}
-                                                    </div>
+                                                    <Label type="success">{transaction.state_locale}</Label>
                                                 ) : (
-                                                    <div className="label label-default">
-                                                        {transaction.state_locale}
-                                                    </div>
+                                                    <Label type="default">{transaction.state_locale}</Label>
                                                 )}
                                             </td>
 

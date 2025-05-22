@@ -21,6 +21,7 @@ import useFilePreview from '../../../services/helpers/useFilePreview';
 import { useFileService } from '../../../services/FileService';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import ReimbursementStateLabel from '../../elements/resource-states/ReimbursementStateLabel';
 
 export default function ReimbursementsView() {
     const { id } = useParams();
@@ -39,12 +40,6 @@ export default function ReimbursementsView() {
     const reimbursementService = useReimbursementsService();
 
     const [reimbursement, setReimbursement] = useState<Reimbursement>(null);
-
-    const [stateLabels] = useState({
-        pending: 'label-default',
-        approved: 'label-success',
-        declined: 'label-danger',
-    });
 
     const fetchReimbursement = useCallback(() => {
         setProgress(0);
@@ -228,18 +223,7 @@ export default function ReimbursementsView() {
 
                                         <div className="flex flex-vertical flex-center">
                                             <div className="flex flex-horizontal">
-                                                {!reimbursement.expired && (
-                                                    <label
-                                                        className={`label ${stateLabels[reimbursement.state] || ''}`}>
-                                                        {reimbursement.state_locale}
-                                                    </label>
-                                                )}
-
-                                                {reimbursement.expired && (
-                                                    <label className="label label-danger-light">
-                                                        {reimbursement.expired}
-                                                    </label>
-                                                )}
+                                                <ReimbursementStateLabel reimbursement={reimbursement} />
                                             </div>
                                         </div>
                                     </div>
@@ -466,11 +450,10 @@ export default function ReimbursementsView() {
                                     <div className="keyvalue-item">
                                         <div className="keyvalue-key">{translate('reimbursements.labels.state')}</div>
                                         <div className="keyvalue-value">
-                                            <label
-                                                className={`label ${stateLabels[reimbursement.state] || ''}`}
-                                                data-dusk="reimbursementState">
-                                                {reimbursement.state_locale}
-                                            </label>
+                                            <ReimbursementStateLabel
+                                                reimbursement={reimbursement}
+                                                dusk={'reimbursementState'}
+                                            />
                                         </div>
                                     </div>
 

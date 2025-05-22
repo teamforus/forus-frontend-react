@@ -20,9 +20,10 @@
         width: var(--wrapper-width);
         padding: 0 var(--wrapper-padding);
         max-width: 100%;
+        min-height: calc(100vh - var(--top-navbar-height));
         margin: 0 auto;
-        display: block;
-        min-height: calc(100vh - var(--showcase-fullscreen-bottom-offset));
+        display: flex;
+        flex-direction: column;
 
         .wrapper {
             padding: 0 !important;
@@ -51,10 +52,9 @@
         flex-direction: row;
 
         .showcase-aside {
-            height: fit-content;
-            width: var(--aside-width);
-            max-width: var(--aside-width);
-            min-width: var(--aside-width);
+            flex: 0 0 var(--aside-width);
+            min-width: 0;
+            overflow: auto;
 
             .showcase-aside-block {
                 position: relative;
@@ -121,7 +121,7 @@
                         cursor: pointer;
                         align-items: center;
                         gap: 8px;
-                        transition: background-color .4s;
+                        transition: background-color 0.4s;
 
                         .showcase-aside-block-option-check {
                             display: flex;
@@ -395,8 +395,8 @@
 
         .showcase-content {
             padding-left: 30px;
-            flex-grow: 1;
-            max-width: calc(100% - var(--aside-width));
+            flex: 1 1 calc(100% - var(--aside-width));
+            min-width: 0;
 
             .showcase-content-header {
                 position: relative;
@@ -460,21 +460,18 @@
                     justify-content: flex-end;
 
                     .showcase-filters-item {
-                        margin: 0;
-                        margin-right: 10px;
+                        margin: 0 10px 0 0;
                         display: flex;
 
                         & > .form-label {
                             width: auto;
                             padding: 2.5px;
                             font: 700 11px/25px var(--base-font);
-                            margin: 0;
-                            margin-right: 10px;
+                            margin: 0 10px 0 0;
                         }
 
                         .form-control:not([type='radio']):not([type='checkbox']) {
-                            padding: 4px 10px;
-                            padding-right: 25px;
+                            padding: 4px 25px 4px 10px;
                             min-width: 130px;
                             font-size: 12px;
                         }
@@ -515,8 +512,6 @@
     }
 
     &.block-showcase-fullscreen {
-        @include fill_parent();
-        position: fixed;
         margin: 0 0 0 0;
         display: flex;
         flex-direction: column;
@@ -526,19 +521,19 @@
             width: 100%;
             height: 100%;
             position: relative;
-            flex: 2;
+            display: flex;
+            flex-direction: column;
         }
 
         .showcase-layout {
             height: 100%;
             border-top: 1px solid var(--border-color);
-            @include fill_parent();
-            position: absolute;
+            margin: 0 -20px 0;
+            flex: 1 1 auto;
 
             .showcase-aside {
                 border-radius: 0;
                 border-right: 1px solid var(--border-color);
-                height: 100%;
                 background-color: #fff;
                 @include webkit_scrollbar();
 
@@ -585,9 +580,7 @@
     @media screen and (max-width: 1300px) {
         .showcase-layout {
             .showcase-aside {
-                width: 280px;
-                min-width: 280px;
-                max-width: 280px;
+                flex: 0 0 280px;
 
                 .showcase-aside-block {
                     .showcase-aside-tabs {
@@ -608,7 +601,7 @@
             }
 
             .showcase-content {
-                max-width: calc(100% - 280px);
+                flex: 1 1 calc(100% - 280px);
             }
         }
     }
@@ -625,7 +618,6 @@
 
         .showcase-wrapper {
             position: relative;
-            min-height: auto;
         }
 
         .showcase-mobile-filters {
@@ -695,16 +687,16 @@
                 width: 100%;
                 max-width: 100%;
                 margin: 0 20px 10px -20px;
-                min-width: calc(100% + 40px);
+                min-width: 0;
                 padding: 0;
                 border-top: 1px solid var(--border-color);
                 border-bottom: 1px solid var(--border-color);
                 z-index: 2;
                 border-radius: 0;
-                height: fit-content;
                 box-shadow: 2px 12px 12px 2px rgba($color: #000000, $alpha: 0.075);
                 display: none;
                 border-top: none;
+                flex: 0 0 auto;
 
                 .showcase-aside-block {
                     margin-bottom: 0;
@@ -714,13 +706,12 @@
                 }
 
                 &.show-mobile {
-                    display: block;
+                    display: flex;
                 }
             }
 
             .showcase-content {
                 padding: 0 0 0;
-                max-width: 100%;
 
                 .showcase-content-header {
                     flex-direction: column;
@@ -757,16 +748,11 @@
         }
 
         &.block-showcase-fullscreen {
-            position: absolute;
-            height: calc(85vh - 50px);
-
             #main-content {
                 height: 100%;
             }
 
             .showcase-wrapper {
-                min-height: 100%;
-
                 .showcase-layout {
                     .showcase-aside {
                         height: auto;
@@ -774,8 +760,6 @@
                     }
 
                     .showcase-content {
-                        top: 50px;
-
                         .block.block.block-google-map {
                             bottom: 0;
                         }

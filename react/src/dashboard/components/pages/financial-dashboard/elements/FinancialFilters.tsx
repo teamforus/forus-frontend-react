@@ -17,6 +17,7 @@ import { nl } from 'date-fns/locale';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { strLimit } from '../../../../helpers/string';
 import { ProviderFinancialFilterOptions, FinancialFilterOptionItem } from '../types/FinancialStatisticTypes';
+import Label from '../../../elements/image_cropper/Label';
 
 interface SelectionItem {
     ids?: Array<number>;
@@ -496,10 +497,7 @@ export default function FinancialFilters({
                     {Object.values(selections).map((selection: SelectionItem) => (
                         <Fragment key={selection.type}>
                             {(!selection.ids || selection.ids.length > 0) && (
-                                <div
-                                    className={`label label-primary-light label-round label-lg ${
-                                        selection.items.length == 0 ? 'disabled' : ''
-                                    }`}>
+                                <Label type={'primary_light'} disabled={selection.items.length == 0}>
                                     <span>{strLimit(selection.names, 60)}</span>
                                     {selection.items.length > 0 && (
                                         <em
@@ -507,7 +505,7 @@ export default function FinancialFilters({
                                             onClick={() => resetSelection(selection.type)}
                                         />
                                     )}
-                                </div>
+                                </Label>
                             )}
                         </Fragment>
                     ))}

@@ -1,7 +1,7 @@
 .button {
     display: inline-flex;
     width: fit-content;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     font: 500 13px/20px var(--base-font);
     padding: 7px 10px;
     box-shadow: var(--box-shadow);
