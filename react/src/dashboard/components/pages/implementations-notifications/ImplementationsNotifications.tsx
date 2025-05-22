@@ -12,6 +12,7 @@ import SystemNotification from '../../../props/models/SystemNotification';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function ImplementationsNotifications() {
     const activeOrganization = useActiveOrganization();
@@ -293,16 +294,23 @@ export default function ImplementationsNotifications() {
                                                 </td>
 
                                                 <td className="nowrap">
-                                                    <div
-                                                        className={`label label-round nowrap ${
-                                                            {
-                                                                active: 'label-success',
-                                                                inactive: 'label-danger',
-                                                                active_partly: 'label-warning',
-                                                            }[notification.state.state]
-                                                        }`}>
-                                                        {notification.state.stateLabel}
-                                                    </div>
+                                                    {notification.state?.state === 'active' && (
+                                                        <Label type={'success'}>{notification.state.stateLabel}</Label>
+                                                    )}
+
+                                                    {notification.state?.state === 'inactive' && (
+                                                        <Label type={'danger'}>{notification.state.stateLabel}</Label>
+                                                    )}
+
+                                                    {notification.state?.state === 'active_partly' && (
+                                                        <Label type={'warning'}>{notification.state.stateLabel}</Label>
+                                                    )}
+
+                                                    {!['active', 'inactive', 'active_partly'].includes(
+                                                        notification.state?.state,
+                                                    ) && (
+                                                        <Label type={'default'}>{notification.state.stateLabel}</Label>
+                                                    )}
                                                 </td>
 
                                                 <td className="nowrap">

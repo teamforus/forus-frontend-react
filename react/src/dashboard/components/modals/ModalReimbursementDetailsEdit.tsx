@@ -116,34 +116,32 @@ export default function ModalReimbursementDetailsEdit({
 
                             <div className="form-group">
                                 <label className="form-label form-label-required">Categorie</label>
-                                <div className="form-group-offset">
-                                    <div className="row">
-                                        <div className="col col-xs-9">
-                                            <SelectControl
-                                                className={'form-control'}
-                                                options={categories}
-                                                propKey={'id'}
-                                                allowSearch={false}
-                                                value={form.values.reimbursement_category_id}
-                                                onChange={(reimbursement_category_id?: number) => {
-                                                    form.update({ reimbursement_category_id });
-                                                }}
-                                            />
-                                        </div>
+                                <div className="row">
+                                    <div className="col col-xs-9">
+                                        <SelectControl
+                                            className={'form-control'}
+                                            options={categories}
+                                            propKey={'id'}
+                                            allowSearch={false}
+                                            value={form.values.reimbursement_category_id}
+                                            onChange={(reimbursement_category_id?: number) => {
+                                                form.update({ reimbursement_category_id });
+                                            }}
+                                        />
+                                    </div>
 
-                                        <div className="col col-xs-3">
-                                            <button
-                                                className="button button-primary button-fill"
-                                                onClick={() => manageCategories()}
-                                                type="button">
-                                                Wijzig categorieën
-                                            </button>
-                                        </div>
+                                    <div className="col col-xs-3">
+                                        <button
+                                            className="button button-primary button-fill"
+                                            onClick={() => manageCategories()}
+                                            type="button">
+                                            Wijzig categorieën
+                                        </button>
                                     </div>
                                 </div>
-
-                                <FormError error={form.errors.category_name} />
                             </div>
+
+                            <FormError error={form.errors.category_name} />
                         </div>
                     </div>
 

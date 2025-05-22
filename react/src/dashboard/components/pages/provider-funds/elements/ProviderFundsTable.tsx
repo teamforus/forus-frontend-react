@@ -24,6 +24,7 @@ import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function ProviderFundsTable({
     type,
@@ -302,28 +303,22 @@ export default function ProviderFundsTable({
                                             {!providerFund.fund.archived && !providerFund.fund.expired && (
                                                 <td className="nowrap">
                                                     {providerFund.state == 'accepted' && (
-                                                        <div className="tag tag-sm tag-success">
-                                                            {providerFund.state_locale}
-                                                        </div>
+                                                        <Label type="success">{providerFund.state_locale}</Label>
                                                     )}
 
                                                     {providerFund.state == 'pending' && (
-                                                        <div className="tag tag-sm tag-warning">
-                                                            {providerFund.state_locale}
-                                                        </div>
+                                                        <Label type="warning">{providerFund.state_locale}</Label>
                                                     )}
 
                                                     {providerFund.state == 'rejected' && (
-                                                        <div className="tag tag-sm tag-danger">
-                                                            {providerFund.state_locale}
-                                                        </div>
+                                                        <Label type="danger">{providerFund.state_locale}</Label>
                                                     )}
                                                 </td>
                                             )}
 
                                             {(providerFund.fund.archived || providerFund.fund.expired) && (
                                                 <td className="nowrap">
-                                                    <div className="tag tag-sm tag-default">Archived</div>
+                                                    <Label type="default">Archived</Label>
                                                 </td>
                                             )}
 

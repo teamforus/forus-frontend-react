@@ -92,8 +92,6 @@ export default function ImplementationsTranslations() {
 
                 <div className="card-section form">
                     <FormGroup
-                        inline={true}
-                        inlineSize={'lg'}
                         label={'Languages'}
                         input={() => (
                             <Fragment>

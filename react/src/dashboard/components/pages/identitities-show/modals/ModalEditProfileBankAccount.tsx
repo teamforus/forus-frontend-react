@@ -78,8 +78,6 @@ export default function ModalEditProfileBankAccount({
                 </Fragment>
             }>
             <FormGroup
-                inline={true}
-                inlineSize={'lg'}
                 label={translate('identities.bank_account.iban_name.label')}
                 error={form.errors.name}
                 input={(id) => (
@@ -97,8 +95,6 @@ export default function ModalEditProfileBankAccount({
             />
 
             <FormGroup
-                inline={true}
-                inlineSize={'lg'}
                 label={translate('identities.bank_account.iban.label')}
                 error={form.errors.iban}
                 input={(id) => (
