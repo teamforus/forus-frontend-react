@@ -29,6 +29,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import useShowVoucherQrCode from '../vouchers/hooks/useShowVoucherQrCode';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import Reservations from './elements/Reservations';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -48,7 +49,7 @@ export default function VouchersViewComponent() {
 
     const eventLogsBlock = useRef<() => void>();
     const transactionsBlock = useRef<() => void>();
-    const reservationTransactionsBlock = useRef<() => void>();
+    const reservationsBlock = useRef<() => void>();
 
     const [fund, setFund] = useState<Fund>(null);
     const [voucher, setVoucher] = useState<SponsorVoucher>(null);
@@ -80,13 +81,6 @@ export default function VouchersViewComponent() {
         order_by: 'created_at',
         order_dir: 'desc',
         voucher_id: parseInt(id),
-    });
-
-    const reservationTransactionsFilters = useFilter({
-        per_page: 20,
-        order_by: 'created_at',
-        order_dir: 'desc',
-        reservation_voucher_id: parseInt(id),
     });
 
     const fetchVoucher = useCallback(() => {
@@ -288,7 +282,7 @@ export default function VouchersViewComponent() {
     useEffect(() => {
         eventLogsBlock.current?.();
         transactionsBlock.current?.();
-        reservationTransactionsBlock.current?.();
+        reservationsBlock.current?.();
     }, [voucher]);
 
     if (!voucher || !fund) {
@@ -644,11 +638,10 @@ export default function VouchersViewComponent() {
                         fetchTransactionsRef={transactionsBlock}
                     />
 
-                    <VoucherTransactions
+                    <Reservations
+                        voucher={voucher}
                         organization={activeOrganization}
-                        blockTitle={'Reserveringen'}
-                        filterValues={reservationTransactionsFilters.activeValues}
-                        fetchTransactionsRef={reservationTransactionsBlock}
+                        fetchReservationsRef={reservationsBlock}
                     />
                 </Fragment>
             )}
