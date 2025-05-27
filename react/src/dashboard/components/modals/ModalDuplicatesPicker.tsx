@@ -5,8 +5,8 @@ import ToggleControl from '../elements/forms/controls/ToggleControl';
 import classNames from 'classnames';
 
 type ItemProp = {
-    _uid: string;
-    label: string;
+    _uid?: string;
+    label?: string;
     value?: string;
     blink?: boolean;
     model?: boolean;
