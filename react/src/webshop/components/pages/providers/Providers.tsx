@@ -60,7 +60,9 @@ export default function Providers() {
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
     const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
 
-    const [showProviderSignUp, setShowProviderSignUp] = useState(false);
+    const showProviderSignUp = useMemo(() => {
+        return funds?.filter((fund) => fund.allow_provider_sign_up).length > 0;
+    }, [funds]);
 
     const distances = useMemo(() => {
         return [
@@ -249,10 +251,6 @@ export default function Providers() {
             fetchProviders(buildQuery(filterActiveValues));
         }
     }, [filterActiveValues, fetchProvidersMap, fetchProviders, buildQuery, filterValues?.show_map]);
-
-    useEffect(() => {
-        setShowProviderSignUp(funds?.filter((fund) => fund.allow_provider_sign_up).length > 0);
-    }, [funds]);
 
     return (
         <BlockShowcasePage

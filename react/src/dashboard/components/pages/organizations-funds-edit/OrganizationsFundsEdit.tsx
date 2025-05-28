@@ -524,7 +524,11 @@ export default function OrganizationsFundsEdit() {
                                 />
                                 <Tooltip
                                     text={
-                                        'Door dit vakje aan te vinken, geeft u de aanbieder toestemming om het totale bedrag dat aan de QR-code van de deelnemer is gekoppeld, te bekijken in de Me-app.'
+                                        <Fragment>
+                                            Door dit vakje aan te vinken, geeft u de aanbieder toestemming om het totale
+                                            bedrag dat aan de QR-code van de deelnemer is gekoppeld, te bekijken in de
+                                            Me-app.
+                                        </Fragment>
                                     }
                                 />
                                 <FormError error={form.errors?.voucher_amount_visible} />
@@ -547,7 +551,10 @@ export default function OrganizationsFundsEdit() {
                                     />
                                     <Tooltip
                                         text={
-                                            'De details die verborgen worden, zijn: Uitgifte door, tegoed per persoon, startdatum en einddatum van het fonds'
+                                            <Fragment>
+                                                De details die verborgen worden, zijn: Uitgifte door, tegoed per
+                                                persoon, startdatum en einddatum van het fonds
+                                            </Fragment>
                                         }
                                     />
                                     <FormError error={form.errors?.hide_meta} />
@@ -564,16 +571,19 @@ export default function OrganizationsFundsEdit() {
                                 <label className="form-label">Aanbieders mogen zich aanmelden</label>
                                 <CheckboxControl
                                     id={'allow_provider_sign_up'}
-                                    checked={!form.values.allow_provider_sign_up}
-                                    onChange={(e) => form.update({ allow_provider_sign_up: !e.target.checked })}
+                                    checked={form.values.allow_provider_sign_up}
+                                    onChange={(e) => form.update({ allow_provider_sign_up: e.target.checked })}
                                     title={'Sta aanbieders het toe om aanvragen in te dienen voor het fonds.'}
                                 />
                                 <Tooltip
                                     text={
-                                        'In sommige gevallen is het gewenst dat aanbieders zich niet aanmelden voor een fonds. ' +
-                                        'Door dit vakje uit te vinken, zal de aanbieder zich niet kunnen aanmelden voor dit fonds. ' +
-                                        'Mocht het zo zijn dat deze optie voor alle fondsen is uitgezet, dan wordt ook de aanmeldlink ' +
-                                        'op de webshop verborgen voor de aanbieder.'
+                                        <Fragment>
+                                            In sommige gevallen is het gewenst dat aanbieders zich niet aanmelden voor
+                                            een fonds. Door dit vakje uit te vinken, zal de aanbieder zich niet kunnen
+                                            aanmelden voor dit fonds. Mocht het zo zijn dat deze optie voor alle fondsen
+                                            is uitgezet, dan wordt ook de aanmeldlink op de webshop verborgen voor de
+                                            aanbieder.
+                                        </Fragment>
                                     }
                                 />
                                 <FormError error={form.errors?.allow_provider_sign_up} />
@@ -918,7 +928,10 @@ export default function OrganizationsFundsEdit() {
                                 />
                                 <Tooltip
                                     text={
-                                        'Wanneer u het vakje aanvinkt, ontvangen aanbieders die zich proberen in te schrijven voor dit fonds een melding om hun aanbod toe te voegen.'
+                                        <Fragment>
+                                            Wanneer u het vakje aanvinkt, ontvangen aanbieders die zich proberen in te
+                                            schrijven voor dit fonds een melding om hun aanbod toe te voegen.
+                                        </Fragment>
                                     }
                                 />
                                 <FormError error={form.errors?.provider_products_required} />
