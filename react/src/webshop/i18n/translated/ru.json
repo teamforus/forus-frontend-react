@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "Прекращено!"
         },
-        "success": "Успешно!"
+        "success": "Успешно!",
+        "email_verification_auth_error": {
+            "description": "Вы не авторизованы, пожалуйста, войдите в систему, чтобы подтвердить свой адрес электронной почты.",
+            "title": "Требуется аутентификация!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Неизвестная ошибка."
+        },
+        "email_verification_success": {
+            "description": "Электронное письмо было подтверждено.",
+            "title": "Электронная почта подтверждена!"
+        },
+        "session_expired": {
+            "description": "Войдите в систему и повторите попытку.",
+            "title": "Сессия истекла!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Читать для",

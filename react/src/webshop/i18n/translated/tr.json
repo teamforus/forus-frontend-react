@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "Sonlandırıldı!"
         },
-        "success": "Başarılı!"
+        "success": "Başarılı!",
+        "email_verification_auth_error": {
+            "description": "Kimliğiniz doğrulanmadı, lütfen önce e-posta adresinizi onaylamak için giriş yapın.",
+            "title": "Kimlik doğrulama gerekli!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Bilinmeyen hata."
+        },
+        "email_verification_success": {
+            "description": "E-posta onaylanmıştır.",
+            "title": "E-posta onaylandı!"
+        },
+        "session_expired": {
+            "description": "Tekrar giriş yapın ve tekrar deneyin.",
+            "title": "Oturum süresi doldu!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Okumak için",
