@@ -9,7 +9,7 @@ export default function Tooltip({
     maxLength = 128,
     children,
 }: {
-    text?: Array<string> | string;
+    text?: Array<string> | string | ReactNode;
     type?: 'default' | 'primary';
     position?: 'right' | 'bottom';
     maxLength?: number;

@@ -42,11 +42,13 @@ export default function ProviderFunds() {
                         <div className="label-tab-set">
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'active' ? 'active' : ''}`}
+                                data-dusk="fundsActiveTab"
                                 onClick={() => setTab('active')}>
                                 {translate('provider_funds.tabs.active')} ({fundsAvailable.meta.totals.active})
                             </div>
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'pending_rejected' ? 'active' : ''}`}
+                                data-dusk="fundsPendingTab"
                                 onClick={() => setTab('pending_rejected')}>
                                 {translate('provider_funds.tabs.pending_rejected')} (
                                 {fundsAvailable.meta.totals.pending})
@@ -54,12 +56,14 @@ export default function ProviderFunds() {
 
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'available' ? 'active' : ''}`}
+                                data-dusk="fundsAvailableTab"
                                 onClick={() => setTab('available')}>
                                 {translate('provider_funds.tabs.available')} ({fundsAvailable.meta.totals.available})
                             </div>
 
                             <div
                                 className={`label-tab label-tab-sm ${tab == 'archived' ? 'active' : ''}`}
+                                data-dusk="fundsArchivedTab"
                                 onClick={() => setTab('archived')}>
                                 {translate('provider_funds.tabs.archived')} ({fundsAvailable.meta.totals.archived})
                             </div>
