@@ -26,7 +26,7 @@ interface AuthMemoProps {
     identity?: Identity;
     identity2FAState?: Identity2FAState;
     setIdentity2FAState?: React.Dispatch<Identity2FAState>;
-    isSignedIn?: boolean;
+    hasToken?: boolean;
     setToken?: (token: string) => void;
     updateIdentity?: () => Promise<{ identity: Identity; identity2FAState: Identity2FAState }>;
 }
@@ -193,6 +193,7 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
                 setIdentity,
                 setIdentity2FAState,
                 updateIdentity,
+                hasToken: !!token,
                 signOut,
             }}>
             {children}

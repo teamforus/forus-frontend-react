@@ -633,6 +633,7 @@ router.state('security-sessions', <SecuritySessions />, {
 router.state('redirect', <Redirect />, {
     path: `/redirect`,
     layout: LayoutType.clear,
+    protected: false,
 });
 
 router.state('home', <Home />, {
