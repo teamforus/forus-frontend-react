@@ -311,28 +311,18 @@ export default function VouchersViewComponent() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex flex-grow card-title">
-                        <div className="flex flex-vertical flex-center">
-                            <div className="flex flex-vertical flex-center">#{voucher.number}</div>
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {!voucher.expired && voucher.state == 'active' && (
-                                <Label type="success">{voucher.state_locale}</Label>
-                            )}
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {!voucher.expired && voucher.state == 'pending' && (
-                                <Label type="default">{voucher.state_locale}</Label>
-                            )}
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {!voucher.expired && voucher.state == 'deactivated' && (
-                                <Label type="danger">{voucher.state_locale}</Label>
-                            )}
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {voucher.expired && <Label type="warning">{translate('vouchers.labels.expired')}</Label>}
-                        </div>
+                    <div className="flex flex-grow card-title flex-align-items-center flex-gap">
+                        <span>#{voucher.number}</span>
+                        {!voucher.expired && voucher.state == 'active' && (
+                            <Label type="success">{voucher.state_locale}</Label>
+                        )}
+                        {!voucher.expired && voucher.state == 'pending' && (
+                            <Label type="default">{voucher.state_locale}</Label>
+                        )}
+                        {!voucher.expired && voucher.state == 'deactivated' && (
+                            <Label type="danger">{voucher.state_locale}</Label>
+                        )}
+                        {voucher.expired && <Label type="warning">{translate('vouchers.labels.expired')}</Label>}
                     </div>
                     {hasPermission(activeOrganization, 'manage_vouchers') && (
                         <div className="card-header-filters">

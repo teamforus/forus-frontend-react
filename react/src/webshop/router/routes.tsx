@@ -300,6 +300,7 @@ router.state('sign-out', <SignOut />, {
 
 router.state('redirect', <Redirect />, {
     path: `/redirect`,
+    protected: false,
 });
 
 router.state('auth-link', <AuthLink />, {

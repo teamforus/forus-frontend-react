@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "تم الإنهاء"
         },
-        "success": "نجحت!"
+        "success": "نجحت!",
+        "email_verification_auth_error": {
+            "description": "لم تتم مصادقتك، يرجى تسجيل الدخول أولاً لتأكيد عنوان بريدك الإلكتروني.",
+            "title": "المصادقة مطلوبة!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "خطأ غير معروف."
+        },
+        "email_verification_success": {
+            "description": "تم تأكيد البريد الإلكتروني",
+            "title": "تم تأكيد البريد الإلكتروني!"
+        },
+        "session_expired": {
+            "description": "قم بتسجيل الدخول مرة أخرى وحاول مرة أخرى.",
+            "title": "انتهت صلاحية الجلسة"
+        }
     },
     "read_speaker": {
         "read_aloud": "اقرأ لـ",

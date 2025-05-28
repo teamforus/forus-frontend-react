@@ -3524,7 +3524,22 @@
         "sessions": {
             "terminated": "Припинено!"
         },
-        "success": "Успішно!"
+        "success": "Успішно!",
+        "email_verification_auth_error": {
+            "description": "Ви не авторизовані, будь ласка, увійдіть спочатку, щоб підтвердити свою електронну адресу.",
+            "title": "Потрібна автентифікація!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Невідома помилка."
+        },
+        "email_verification_success": {
+            "description": "Імейл підтверджено.",
+            "title": "Email підтверджено!"
+        },
+        "session_expired": {
+            "description": "Увійдіть і спробуйте ще раз.",
+            "title": "Сесія закінчилася!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Читати для",

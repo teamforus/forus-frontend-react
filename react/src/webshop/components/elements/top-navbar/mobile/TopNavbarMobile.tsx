@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext } from 'react';
+import React, { Fragment, useCallback, useContext, useEffect, useRef } from 'react';
 import useEnvData from '../../../../hooks/useEnvData';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { mainContext } from '../../../../contexts/MainContext';
@@ -13,6 +13,8 @@ import TopNavbarMobileButtons from './TopNavbarMobileButtons';
 import TopNavbarSearch from '../TopNavbarSearch';
 import Announcements from '../../announcements/Announcements';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
+import { useElementSize } from '../../../../hooks/useElementSize';
+import { layoutContext } from '../../../../contexts/LayoutContext';
 
 export const TopNavbarMobile = () => {
     const { showSearchBox, setShowSearchBox, mobileMenuOpened, setMobileMenuOpened } = useContext(mainContext);
@@ -24,6 +26,10 @@ export const TopNavbarMobile = () => {
     const envData = useEnvData();
     const translate = useTranslate();
     const authIdentity = useAuthIdentity();
+
+    const { setNavbarHeaderHeight } = useContext(layoutContext);
+    const navbarDesktopRef = useRef<HTMLDivElement>(null);
+    const { height: navbarDesktopHeight } = useElementSize(navbarDesktopRef);
 
     const toggleSearchBox = useCallback(
         (e: React.MouseEvent) => {
@@ -49,8 +55,12 @@ export const TopNavbarMobile = () => {
         [setMobileMenuOpened, setShowSearchBox],
     );
 
+    useEffect(() => {
+        setNavbarHeaderHeight(navbarDesktopHeight);
+    }, [setNavbarHeaderHeight, navbarDesktopHeight]);
+
     return (
-        <div className="block block-navbar-mobile">
+        <div ref={navbarDesktopRef} className="block block-navbar-mobile">
             {appConfigs?.announcements && (
                 <div className="navbar-mobile-section">
                     <Announcements announcements={appConfigs?.announcements} />
