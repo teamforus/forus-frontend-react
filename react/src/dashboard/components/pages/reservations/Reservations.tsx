@@ -358,7 +358,8 @@ export default function Reservations() {
                 fetchReservations={fetchAllReservations}
                 selected={selected}
                 toggleAll={toggleAll}
-                toggle={toggle}>
+                toggle={toggle}
+                type={'provider'}>
                 {activeOrganization.identity_address == identity.address && (
                     <div className="card-section form">
                         <div className="flex flex flex-end">

@@ -20,8 +20,8 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushDanger from '../../../hooks/usePushDanger';
 import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
-import VoucherRecords from './elements/VoucherRecords';
-import VoucherTransactions from './elements/VoucherTransactions';
+import VoucherRecordsCard from './elements/VoucherRecordsCard';
+import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
 import useFilter from '../../../hooks/useFilter';
 import EventLogsTable from '../../elements/tables/EventLogsTable';
 import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
@@ -29,7 +29,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import useShowVoucherQrCode from '../vouchers/hooks/useShowVoucherQrCode';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
-import Reservations from './elements/Reservations';
+import VoucherReservationsCard from './elements/VoucherReservationsCard';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -604,7 +604,7 @@ export default function VouchersViewComponent() {
             )}
 
             {voucher.fund.allow_voucher_records && (
-                <VoucherRecords voucher={voucher} organization={activeOrganization} />
+                <VoucherRecordsCard voucher={voucher} organization={activeOrganization} />
             )}
 
             <EventLogsTable
@@ -631,14 +631,14 @@ export default function VouchersViewComponent() {
 
             {hasPermission(activeOrganization, 'manage_vouchers') && (
                 <Fragment>
-                    <VoucherTransactions
+                    <VoucherTransactionsCard
                         organization={activeOrganization}
                         blockTitle={'Betaalopdrachten'}
                         filterValues={transactionsFilters.activeValues}
                         fetchTransactionsRef={transactionsBlock}
                     />
 
-                    <Reservations
+                    <VoucherReservationsCard
                         voucher={voucher}
                         organization={activeOrganization}
                         fetchReservationsRef={reservationsBlock}

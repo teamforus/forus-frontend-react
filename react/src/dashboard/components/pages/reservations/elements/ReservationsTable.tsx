@@ -9,9 +9,8 @@ import { FilterModel, FilterScope, FilterSetter } from '../../../../modules/filt
 import Reservation from '../../../../props/models/Reservation';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import useProductReservationService from '../../../../services/ProductReservationService';
-import ReservationsTableRow from './ReservationsTableRow';
-import useIsSponsorPanel from '../../../../hooks/useIsSponsorPanel';
-import SponsorReservationsTableRow from './SponsorReservationsTableRow';
+import ReservationsTableRowProvider from './ReservationsTableRowProvider';
+import ReservationsTableRowSponsor from './ReservationsTableRowSponsor';
 
 export default function ReservationsTable({
     fetchReservations,
@@ -26,6 +25,7 @@ export default function ReservationsTable({
     toggleAll = null,
     toggle = null,
     children = null,
+    type,
 }: {
     fetchReservations: () => void;
     loading: boolean;
@@ -39,8 +39,8 @@ export default function ReservationsTable({
     toggleAll?: (e: React.MouseEvent<HTMLElement>, items: { id: number }[]) => void;
     toggle?: (e: React.MouseEvent<HTMLElement>, item: { id: number }) => void;
     children?: ReactNode;
+    type: 'sponsor' | 'provider';
 }) {
-    const isSponsorPanel = useIsSponsorPanel();
     const productReservationService = useProductReservationService();
 
     const showExtraPayments = useMemo(() => {
@@ -53,7 +53,7 @@ export default function ReservationsTable({
     }, [organization, reservations]);
 
     const { headElement, configsElement } = useConfigurableTable(
-        productReservationService.getColumns(showExtraPayments, isSponsorPanel),
+        productReservationService.getColumns(showExtraPayments, type === 'sponsor'),
         {
             filter: filter,
             sortable: true,
@@ -80,8 +80,8 @@ export default function ReservationsTable({
 
                             <tbody>
                                 {reservations.data?.map((reservation) =>
-                                    isSponsorPanel ? (
-                                        <SponsorReservationsTableRow
+                                    type === 'sponsor' ? (
+                                        <ReservationsTableRowSponsor
                                             key={reservation.id}
                                             organization={organization}
                                             reservation={reservation}
@@ -90,7 +90,7 @@ export default function ReservationsTable({
                                             toggle={toggle}
                                         />
                                     ) : (
-                                        <ReservationsTableRow
+                                        <ReservationsTableRowProvider
                                             key={reservation.id}
                                             reservation={reservation}
                                             fetchReservations={fetchReservations}

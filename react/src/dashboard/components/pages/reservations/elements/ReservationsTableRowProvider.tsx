@@ -5,13 +5,13 @@ import TableCheckboxControl from '../../../elements/tables/elements/TableCheckbo
 import { hasPermission } from '../../../../helpers/utils';
 import { strLimit } from '../../../../helpers/string';
 import BlockInlineCopy from '../../../elements/block-inline-copy/BlockInlineCopy';
-import ReservationLabel from './ReservationLabel';
+import ReservationStateLabel from '../../../elements/resource-states/ReservationStateLabel';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import Organization from '../../../../props/models/Organization';
 import Reservation from '../../../../props/models/Reservation';
 import useReservationsTableActions from '../hooks/useReservationsTableActions';
 
-export default function ReservationsTableRow({
+export default function ReservationsTableRowProvider({
     fetchReservations,
     reservation,
     organization,
@@ -104,7 +104,7 @@ export default function ReservationsTableRow({
                 <strong className="text-primary">{reservation.created_at_locale}</strong>
             </td>
             <td data-dusk="reservationState">
-                <ReservationLabel reservation={reservation} />
+                <ReservationStateLabel reservation={reservation} />
             </td>
 
             <td className={'table-td-actions text-right'}>

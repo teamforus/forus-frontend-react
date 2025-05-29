@@ -10,7 +10,7 @@ import Organization from '../../../../props/models/Organization';
 import ReservationsTable from '../../reservations/elements/ReservationsTable';
 import Voucher from '../../../../props/models/Voucher';
 
-export default function Reservations({
+export default function VoucherReservationsCard({
     voucher,
     organization,
     fetchReservationsRef = null,
@@ -88,6 +88,7 @@ export default function Reservations({
                 filterValues={filterValues}
                 filterUpdate={filterUpdate}
                 fetchReservations={fetchReservations}
+                type={'sponsor'}
             />
         </div>
     );

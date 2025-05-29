@@ -3,14 +3,15 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
 import { strLimit } from '../../../../helpers/string';
 import BlockInlineCopy from '../../../elements/block-inline-copy/BlockInlineCopy';
-import ReservationLabel from './ReservationLabel';
+import ReservationStateLabel from '../../../elements/resource-states/ReservationStateLabel';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import Reservation from '../../../../props/models/Reservation';
 import Organization from '../../../../props/models/Organization';
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import TruncatedMultilineText from '../../../elements/truncated-multiline-text/TruncatedMultilineText';
 
-export default function SponsorReservationsTableRow({
+export default function ReservationsTableRowSponsor({
     organization,
     reservation,
     showExtraPayments = false,
@@ -38,7 +39,15 @@ export default function SponsorReservationsTableRow({
                 <span className="text-strong">{`#${reservation.code}`}</span>
             </td>
             <td>
-                <div className="text-strong text-primary">{strLimit(reservation.product.name, 45)}</div>
+                <StateNavLink
+                    name={'sponsor-product'}
+                    params={{
+                        organizationId: organization.id,
+                        productId: reservation.product.id,
+                    }}
+                    className="text-strong text-primary text-decoration-link">
+                    {strLimit(reservation.product.name, 45)}
+                </StateNavLink>
                 <div className="text-strong text-small text-muted-dark">{reservation.price_locale}</div>
             </td>
 
@@ -51,7 +60,11 @@ export default function SponsorReservationsTableRow({
                     }}
                     className="text-strong text-primary text-decoration-link"
                     title={reservation.product.organization.name}>
-                    {strLimit(reservation.product.organization.name, 45)}
+                    <TruncatedMultilineText
+                        text={reservation.product.organization.name}
+                        maxLines={2}
+                        maxSymbolsPerLine={32}
+                    />
                 </StateNavLink>
             </td>
             <td>{reservation.amount_locale}</td>
@@ -83,7 +96,7 @@ export default function SponsorReservationsTableRow({
                 <strong className="text-primary">{reservation.created_at_locale}</strong>
             </td>
             <td data-dusk="reservationState">
-                <ReservationLabel reservation={reservation} />
+                <ReservationStateLabel reservation={reservation} />
             </td>
             <td>
                 {reservation.voucher_transaction ? (
