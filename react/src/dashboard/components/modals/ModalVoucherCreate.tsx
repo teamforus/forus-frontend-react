@@ -110,6 +110,10 @@ export default function ModalVoucherCreate({
         (values) => {
             setProgress(0);
 
+            if (!fund?.backoffice?.backoffice_enabled) {
+                delete values.report_type;
+            }
+
             const data = {
                 ...values,
                 ...{
@@ -507,7 +511,7 @@ export default function ModalVoucherCreate({
                                             </div>
                                         )}
 
-                                        {assignType.key === 'bsn' && (
+                                        {fund?.backoffice?.backoffice_enabled && assignType.key === 'bsn' && (
                                             <div className="form-group">
                                                 <div className="form-label">
                                                     {translate('modals.modal_voucher_create.labels.report_type')}
