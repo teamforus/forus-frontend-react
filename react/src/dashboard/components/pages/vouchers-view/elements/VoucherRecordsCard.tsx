@@ -19,7 +19,7 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../../hooks/usePushApiError';
 
-export default function VoucherRecords({
+export default function VoucherRecordsCard({
     voucher,
     organization,
 }: {

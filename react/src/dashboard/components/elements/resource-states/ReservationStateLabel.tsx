@@ -1,8 +1,8 @@
 import React from 'react';
-import Reservation from '../../../../props/models/Reservation';
-import Label from '../../../elements/image_cropper/Label';
+import Reservation from '../../../props/models/Reservation';
+import Label from '../image_cropper/Label';
 
-export default function ReservationLabel({ reservation }: { reservation: Reservation }) {
+export default function ReservationStateLabel({ reservation }: { reservation: Reservation }) {
     if (reservation.expired) {
         return <Label type="danger_light">Verlopen</Label>;
     }

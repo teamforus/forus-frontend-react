@@ -16,7 +16,7 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import Label from '../../../elements/image_cropper/Label';
 
-export default function VoucherTransactions({
+export default function VoucherTransactionsCard({
     blockTitle,
     organization,
     filterValues,
