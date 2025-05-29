@@ -6936,6 +6936,26 @@
         "Verwijderd!"
     ],
     [
+        "push.email_verification_auth_error.description",
+        "Je bent niet geauthenticeerd, log eerst in om je e-mailadres te bevestigen."
+    ],
+    [
+        "push.email_verification_auth_error.title",
+        "Authenticatie vereist!"
+    ],
+    [
+        "push.email_verification_auth_unknown_error.description",
+        "Onbekende fout."
+    ],
+    [
+        "push.email_verification_success.description",
+        "De e-mail is bevestigd."
+    ],
+    [
+        "push.email_verification_success.title",
+        "E-mail bevestigd!"
+    ],
+    [
         "push.error",
         "Mislukt!"
     ],
@@ -6982,6 +7002,14 @@
     [
         "push.saved",
         "Opgeslagen!"
+    ],
+    [
+        "push.session_expired.description",
+        "Log opnieuw in en probeer het nog eens."
+    ],
+    [
+        "push.session_expired.title",
+        "Sessie verlopen!"
     ],
     [
         "push.sessions.terminated",

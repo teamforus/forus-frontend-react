@@ -30,4 +30,19 @@ export default {
         downloaded: 'De download begint over enkele ogenblikken.',
         not_available: 'Deze pagina is niet beschikbaar.',
     },
+    session_expired: {
+        title: 'Sessie verlopen!',
+        description: 'Log opnieuw in en probeer het nog eens.',
+    },
+    email_verification_success: {
+        title: 'E-mail bevestigd!',
+        description: 'De e-mail is bevestigd.',
+    },
+    email_verification_auth_error: {
+        title: 'Authenticatie vereist!',
+        description: 'Je bent niet geauthenticeerd, log eerst in om je e-mailadres te bevestigen.',
+    },
+    email_verification_auth_unknown_error: {
+        description: 'Onbekende fout.',
+    },
 };

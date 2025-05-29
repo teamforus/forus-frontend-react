@@ -56,9 +56,16 @@ export default function ModalVoucherCreate({
 
     const assignTypes = useMemo(
         () => [
-            { key: 'activation_code', label: 'Activatiecode', inputLabel: 'Uniek nummer', hasInput: false },
-            { key: 'email', label: 'E-mailadres', inputLabel: 'E-mailadres', hasInput: true },
-            ...(organization?.bsn_enabled ? [{ key: 'bsn', label: 'BSN', inputLabel: 'BSN', hasInput: true }] : []),
+            {
+                key: 'activation_code',
+                label: 'Via activatiecode',
+                inputLabel: 'Activatiecode invoeren',
+                hasInput: false,
+            },
+            { key: 'email', label: 'Via e-mail', inputLabel: 'E-mailadres invoeren', hasInput: true },
+            ...(organization?.bsn_enabled
+                ? [{ key: 'bsn', label: 'Via BSN', inputLabel: 'Burgerservicenummer invoeren', hasInput: true }]
+                : []),
         ],
         [organization?.bsn_enabled],
     );
@@ -85,6 +92,7 @@ export default function ModalVoucherCreate({
         client_uid?: string;
         product_id?: number;
         limit_multiplier?: number;
+        report_type?: 'user' | 'relation';
     }>(
         {
             bsn: null,
@@ -97,9 +105,14 @@ export default function ModalVoucherCreate({
             client_uid: null,
             product_id: null,
             limit_multiplier: 1,
+            report_type: 'relation',
         },
         (values) => {
             setProgress(0);
+
+            if (!fund?.backoffice?.backoffice_enabled) {
+                delete values.report_type;
+            }
 
             const data = {
                 ...values,
@@ -110,6 +123,8 @@ export default function ModalVoucherCreate({
                 }[assignType.key],
                 fund_id: fund.id,
                 assign_by_type: assignType.key,
+                bsn: assignType.key == 'bsn' ? values.bsn : null,
+                email: assignType.key == 'email' ? values.email : null,
                 records: form.values.records.reduce(
                     (records, record) => ({ ...records, [record.key]: record.value }),
                     {},
@@ -213,7 +228,7 @@ export default function ModalVoucherCreate({
 
     const confirmEmailSkip = useCallback(
         (
-            existingEmails,
+            existingEmails: Array<string>,
             onConfirm: (data: { list: Array<{ value?: string; blink?: boolean; model?: boolean }> }) => void,
             onCancel = () => null,
         ) => {
@@ -241,7 +256,7 @@ export default function ModalVoucherCreate({
 
     const confirmBsnSkip = useCallback(
         (
-            existingBsn,
+            existingBsn: Array<string>,
             onConfirm: (data: { list: Array<{ value?: string; blink?: boolean; model?: boolean }> }) => void,
             onCancel = () => null,
         ) => {
@@ -354,6 +369,7 @@ export default function ModalVoucherCreate({
                                             </div>
 
                                             <FormGroupInfo
+                                                error={form.errors?.fund_id}
                                                 info={
                                                     <TranslateHtml
                                                         i18n={'modals.modal_voucher_create.tooltips.assign_type'}
@@ -370,7 +386,6 @@ export default function ModalVoucherCreate({
                                                     allowSearch={false}
                                                     optionsComponent={SelectControlOptionsFund}
                                                 />
-                                                <FormError error={form.errors?.fund_id} />
                                             </FormGroupInfo>
                                         </div>
 
@@ -380,6 +395,7 @@ export default function ModalVoucherCreate({
                                             </div>
 
                                             <FormGroupInfo
+                                                error={form.errors?.type}
                                                 info={
                                                     <TranslateHtml i18n={'modals.modal_voucher_create.tooltips.type'} />
                                                 }>
@@ -392,7 +408,6 @@ export default function ModalVoucherCreate({
                                                     options={creditTypes}
                                                     allowSearch={false}
                                                 />
-                                                <FormError error={form.errors?.type} />
                                             </FormGroupInfo>
                                         </div>
 
@@ -442,6 +457,7 @@ export default function ModalVoucherCreate({
                                                 {translate('modals.modal_voucher_create.labels.assign_by_type')}
                                             </div>
                                             <FormGroupInfo
+                                                error={form.errors?.assign_by_type}
                                                 info={
                                                     <TranslateHtml
                                                         i18n={'modals.modal_voucher_create.tooltips.funds'}
@@ -454,14 +470,11 @@ export default function ModalVoucherCreate({
                                                     options={assignTypes}
                                                     allowSearch={false}
                                                 />
-                                                <FormError error={form.errors?.assign_by_type} />
                                             </FormGroupInfo>
                                         </div>
 
                                         {fund?.backoffice?.backoffice_enabled && assignType.key !== 'bsn' && (
                                             <div className="form-group">
-                                                <div className={`form-label`}>&nbsp;</div>
-
                                                 <InfoBox type={'warning'} iconPosition={'top'} iconColor={'warning'}>
                                                     <p className={'text-strong'}>
                                                         Let op! De backoffice integratie stuurt mogelijk geen data
@@ -495,6 +508,44 @@ export default function ModalVoucherCreate({
                                                     onChange={(e) => form.update({ [assignType.key]: e.target.value })}
                                                 />
                                                 <FormError error={form.errors?.[assignType.key]} />
+                                            </div>
+                                        )}
+
+                                        {fund?.backoffice?.backoffice_enabled && assignType.key === 'bsn' && (
+                                            <div className="form-group">
+                                                <div className="form-label">
+                                                    {translate('modals.modal_voucher_create.labels.report_type')}
+                                                </div>
+
+                                                <FormGroupInfo
+                                                    error={form.errors?.report_type}
+                                                    info={translate(
+                                                        'modals.modal_voucher_create.tooltips.report_type',
+                                                    )}>
+                                                    <SelectControl
+                                                        value={form.values.report_type}
+                                                        propKey={'key'}
+                                                        propValue={'label'}
+                                                        onChange={(report_type: 'user' | 'relation') => {
+                                                            form.update({ report_type: report_type });
+                                                        }}
+                                                        options={[
+                                                            {
+                                                                key: 'relation',
+                                                                label: translate(
+                                                                    'modals.modal_voucher_create.options.report_type_relation',
+                                                                ),
+                                                            },
+                                                            {
+                                                                key: 'user',
+                                                                label: translate(
+                                                                    'modals.modal_voucher_create.options.report_type_user_bsn',
+                                                                ),
+                                                            },
+                                                        ]}
+                                                        allowSearch={false}
+                                                    />
+                                                </FormGroupInfo>
                                             </div>
                                         )}
 
