@@ -51,7 +51,9 @@ export default function ModalFundRequestRecordCreate({
     });
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalFundRequestRecordCreate">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -73,6 +75,7 @@ export default function ModalFundRequestRecordCreate({
                                             value={form.values.value}
                                             onChange={(e) => form.update({ value: e.target.value })}
                                             placeholder="Partner BSN"
+                                            data-dusk="partnerBsnInput"
                                         />
                                         <FormError error={form.errors.value} />
                                     </div>
@@ -117,7 +120,7 @@ export default function ModalFundRequestRecordCreate({
                             onClick={() => setVerificationRequested(false)}>
                             Sluiten
                         </button>
-                        <button className="button button-primary" type="submit">
+                        <button className="button button-primary" type="submit" data-dusk="submitBtn">
                             Bevestigen
                         </button>
                     </div>
@@ -126,7 +129,7 @@ export default function ModalFundRequestRecordCreate({
                         <button className="button button-default" type="button" onClick={modal.close} id="close">
                             Sluiten
                         </button>
-                        <button className="button button-primary" type="submit">
+                        <button className="button button-primary" type="submit" data-dusk="verifyBtn">
                             Bevestigen
                         </button>
                     </div>

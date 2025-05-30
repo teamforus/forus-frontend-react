@@ -8,7 +8,7 @@ export default function OrganizationsNoPermissions() {
 
     return (
         <>
-            <div>
+            <div data-dusk="noPermissionsPageContent">
                 <div className="block block-breadcrumbs">
                     <StateNavLink className="breadcrumb-item" name={'organizations'} activeExact={true}>
                         {activeOrganization.name}
