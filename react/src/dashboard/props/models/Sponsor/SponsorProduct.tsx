@@ -76,6 +76,8 @@ export default interface SponsorProduct {
     reservation_phone: 'global' | 'no' | 'optional' | 'required';
     reservation_address: 'global' | 'no' | 'optional' | 'required';
     reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
+    reservation_note: 'global' | 'no' | 'custom';
+    reservation_note_text: string;
     reservation_extra_payments: 'global' | 'no' | 'yes';
     sponsor_organization_id?: number;
     sponsor_organization?: {

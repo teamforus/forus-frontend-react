@@ -51,6 +51,8 @@ export default interface Organization {
     reservation_phone: 'required' | 'optional' | 'no';
     reservation_address: 'required' | 'optional' | 'no';
     reservation_birth_date: 'required' | 'optional' | 'no';
+    reservation_note?: boolean;
+    reservation_note_text?: string;
     reservation_allow_extra_payments: boolean;
     reservation_fields: Array<ReservationField>;
     email?: string;
