@@ -31,11 +31,11 @@ export default {
     sort: {
         created_at_desc: 'Nieuwe eerst',
         created_at_asc: 'Oudste eerst',
-        price_asc: 'Prijs (oplopend)',
-        price_desc: 'Prijs (aflopend)',
+        price_asc: 'Prijs (laag-hoog)',
+        price_desc: 'Prijs (hoog-laag)',
         most_popular: 'Meest gewild',
-        name_asc: 'Naam (oplopend)',
-        name_desc: 'Naam (aflopend)',
+        name_asc: 'Naam (A-Z)',
+        name_desc: 'Naam (Z-A)',
     },
     distances: {
         everywhere: 'Overal',
