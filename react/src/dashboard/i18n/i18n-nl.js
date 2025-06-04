@@ -387,6 +387,7 @@ export default {
             total_percentage: 'Totaal percentage',
             total_count: 'Totaal aantal',
             product_vouchers: 'Aanbiedingsvouchers',
+            payout_vouchers: 'Uitbetalingen',
         },
         buttons: {
             export: 'Exporteren',

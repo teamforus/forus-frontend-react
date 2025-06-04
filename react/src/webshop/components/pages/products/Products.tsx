@@ -215,7 +215,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
 
     const fetchOrganizations = useCallback(() => {
         organizationService
-            .list({ type: 'provider', per_page: 300, fund_type: fundType })
+            .list({ type: 'provider', per_page: 300, fund_type: fundType, order_by: 'name' })
             .then((res) =>
                 setOrganizations([{ id: null, name: translate('products.filters.all_providers') }, ...res.data.data]),
             );
