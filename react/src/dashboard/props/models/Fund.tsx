@@ -142,5 +142,6 @@ export default interface Fund {
     help_description?: string;
     help_description_html?: string;
     help_enabled?: boolean;
+    allow_provider_sign_up?: boolean;
     outcome_type?: 'voucher' | 'payout';
 }
