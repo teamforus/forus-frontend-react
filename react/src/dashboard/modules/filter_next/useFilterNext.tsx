@@ -1,29 +1,37 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryParams, withDefault } from 'use-query-params';
-import { isEqual, reduce } from 'lodash';
+import { isEqual, mapKeys, reduce } from 'lodash';
 import { QueryParamConfig } from 'serialize-query-params';
 import { FilterModel, FilterSetter, FilterState } from './types/FilterParams';
+
+function appendPrefix<T = Partial<FilterModel>>(obj: object, prefix: string): T {
+    return mapKeys(obj, (_, key) => prefix + key) as T;
+}
+
+function removePrefix<T = Partial<FilterModel>>(obj: object, prefix: string): T {
+    return mapKeys(obj, (_, key: string) => (key.startsWith(prefix) ? key.slice(prefix.length) : key)) as T;
+}
 
 export default function useFilterNext<T = FilterModel>(
     defaultValues?: Partial<T & FilterModel>,
     options?: {
         queryParams?: Partial<Record<keyof T, QueryParamConfig<number | string | boolean | object>>>;
+        queryParamsPrefix?: string;
         queryParamsRemoveDefault?: boolean;
         transform?: (values: Partial<T & FilterModel>) => Partial<T & FilterModel>;
         filterParams?: Array<keyof T>;
         throttledValues?: Array<keyof T>;
     },
 ): FilterState<T> {
-    const [{ queryParams, filterParams, throttledValues, queryParamsRemoveDefault }] = useState({
-        queryParams: null,
-        filterParams: null,
-        throttledValues: ['q'] as Array<keyof T>,
-        queryParamsRemoveDefault: true,
-        ...(options || {}),
-    });
+    const [queryParamsRemoveDefault] = useState(options?.queryParamsRemoveDefault || true);
+    const [queryParamsPrefix] = useState(options?.queryParamsPrefix || '');
+    const [queryParams] = useState(options?.queryParams ? appendPrefix(options?.queryParams, queryParamsPrefix) : null);
 
+    const [filterParams] = useState(options?.filterParams || null);
+    const [initialValues] = useState(appendPrefix(defaultValues, queryParamsPrefix));
+
+    const [throttledValues] = useState<Array<keyof T>>(options?.throttledValues || (['q'] as Array<keyof T>));
     const [backendTypeQuery] = useState(!!queryParams);
-    const [initialValues] = useState(defaultValues);
 
     const [queryParamsWithDefaults] = useState(
         reduce(
@@ -60,11 +68,21 @@ export default function useFilterNext<T = FilterModel>(
         ...(backendTypeQuery ? initialQueryValues : {}),
     });
 
-    const prevFilters = useRef(backendTypeQuery ? queryValues : stateValues);
-
     const values = useMemo<T & FilterModel>(() => {
         return (backendTypeQuery ? queryValues : stateValues) as T & FilterModel;
     }, [queryValues, stateValues, backendTypeQuery]);
+
+    const _values = useMemo(
+        () => removePrefix<Partial<T & FilterModel>>(values, queryParamsPrefix),
+        [queryParamsPrefix, values],
+    );
+
+    const _activeValues = useMemo(
+        () => removePrefix<Partial<T & FilterModel>>(activeValues, queryParamsPrefix),
+        [activeValues, queryParamsPrefix],
+    );
+
+    const prevFilters = useRef(backendTypeQuery ? queryValues : stateValues);
 
     const update = useCallback<FilterSetter<Partial<T>>>(
         (values, reset = false): void => {
@@ -73,37 +91,47 @@ export default function useFilterNext<T = FilterModel>(
                     return throttledValues && throttledValues.includes(key as keyof T) && values[key] !== '';
                 }).length > 0;
 
-            if (typeof values == 'function') {
-                if (backendTypeQuery) {
-                    return setValuesQuery(
-                        (oldValues) => {
-                            return reset
-                                ? { ...initialValues, ...(values as CallableFunction)(oldValues) }
-                                : (values as CallableFunction)(oldValues);
-                        },
-                        throttled ? 'replaceIn' : 'pushIn',
-                    );
+            const callbackSetter = (filters: Partial<T & FilterModel>): Partial<T & FilterModel> => {
+                if (reset) {
+                    return {
+                        ...initialValues,
+                        ...appendPrefix(
+                            (values as CallableFunction)(removePrefix(filters, queryParamsPrefix)),
+                            queryParamsPrefix,
+                        ),
+                    };
                 }
 
-                return setValues((oldValues: Partial<T>) => {
-                    return reset
-                        ? { ...initialValues, ...(values as CallableFunction)(oldValues) }
-                        : (values as CallableFunction)(oldValues);
-                });
+                return {
+                    ...{},
+                    ...appendPrefix(
+                        (values as CallableFunction)(removePrefix(filters, queryParamsPrefix)),
+                        queryParamsPrefix,
+                    ),
+                };
+            };
+
+            const valueSetter = (filters: Partial<T & FilterModel>): Partial<T & FilterModel> => {
+                return reset
+                    ? { ...filters, ...initialValues, ...appendPrefix(values, queryParamsPrefix) }
+                    : { ...filters, ...appendPrefix(values, queryParamsPrefix) };
+            };
+
+            if (typeof values == 'function') {
+                if (backendTypeQuery) {
+                    return setValuesQuery(callbackSetter, throttled ? 'replaceIn' : 'pushIn');
+                }
+
+                return setValues(callbackSetter);
             }
 
             if (backendTypeQuery) {
-                return setValuesQuery(
-                    (filters) => {
-                        return reset ? { ...filters, ...initialValues, ...values } : { ...filters, ...values };
-                    },
-                    throttled ? 'replaceIn' : 'pushIn',
-                );
+                return setValuesQuery(valueSetter, throttled ? 'replaceIn' : 'pushIn');
             }
 
-            setValues((filters) => (reset ? { ...initialValues, ...values } : { ...filters, ...values }));
+            setValues(valueSetter);
         },
-        [backendTypeQuery, initialValues, setValuesQuery, throttledValues],
+        [backendTypeQuery, initialValues, setValuesQuery, throttledValues, queryParamsPrefix],
     );
 
     const resetFilters = useCallback((): void => {
@@ -112,11 +140,15 @@ export default function useFilterNext<T = FilterModel>(
 
     const getTimeout = useCallback(
         (current: Partial<T & FilterModel>, old: Partial<T & FilterModel>) => {
-            return throttledValues.filter((filter: keyof T | string) => current[filter] !== old[filter]).length > 0
-                ? 1000
-                : 0;
+            const throttledKeys = throttledValues.filter(
+                (filter: keyof T | string) =>
+                    removePrefix(current, queryParamsPrefix)[filter as string] !==
+                    removePrefix(old, queryParamsPrefix)[filter as string],
+            );
+
+            return throttledKeys.length > 0 ? 1000 : 0;
         },
-        [throttledValues],
+        [throttledValues, queryParamsPrefix],
     );
 
     const touch = useCallback(() => {
@@ -124,8 +156,8 @@ export default function useFilterNext<T = FilterModel>(
     }, [update]);
 
     useEffect(() => {
-        update({ ...initialValues, ...initialQueryValues });
-    }, [initialValues, initialQueryValues, update]);
+        update(removePrefix({ ...initialValues, ...initialQueryValues }, queryParamsPrefix));
+    }, [initialValues, initialQueryValues, update, queryParamsPrefix]);
 
     useEffect(
         function () {
@@ -154,14 +186,14 @@ export default function useFilterNext<T = FilterModel>(
     }, [values]);
 
     return [
-        values,
-        activeValues,
+        _values,
+        _activeValues,
         update,
         {
             show,
             setShow,
-            values,
-            activeValues,
+            values: _values,
+            activeValues: _activeValues,
             update,
             resetFilters,
             touch,
