@@ -15,7 +15,7 @@ import ReservationExtraPaymentDetails from '../reservations-view/elements/Reserv
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../hooks/usePushApiError';
-import ReservationLabel from '../reservations/elements/ReservationLabel';
+import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
 
 export default function ExtraPaymentsView() {
     const { id } = useParams();
@@ -95,7 +95,7 @@ export default function ExtraPaymentsView() {
                                 &nbsp;&nbsp;
                             </div>
                             <div className="flex-center">
-                                <ReservationLabel reservation={extraPayment.reservation} />
+                                <ReservationStateLabel reservation={extraPayment.reservation} />
                             </div>
                         </div>
                         <div className="card-subtitle">
