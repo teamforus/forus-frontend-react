@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import Organization from '../../props/models/Organization';
 import Employee from '../../props/models/Employee';
@@ -14,6 +14,7 @@ import SelectControl from '../elements/select-control/SelectControl';
 import useOfficeService from '../../services/OfficeService';
 import classNames from 'classnames';
 import useIsProviderPanel from '../../hooks/useIsProviderPanel';
+import useEnvData from '../../hooks/useEnvData';
 
 export default function ModalEmployeeEdit({
     modal,
@@ -30,12 +31,45 @@ export default function ModalEmployeeEdit({
     cancelButton?: ModalButton;
     organization: Organization;
 }) {
+    const envData = useEnvData();
     const isProviderPanel = useIsProviderPanel();
 
     const roleService = useRoleService();
     const employeeService = useEmployeeService();
     const officeService = useOfficeService();
 
+    const exceptRoles = useMemo(
+        () =>
+            ({
+                sponsor: ['operation_officer'],
+                provider: [
+                    'finance',
+                    'validation',
+                    'policy_officer',
+                    'voucher_officer',
+                    'implementation_communication_manager',
+                    'bank_manager',
+                    'supervisor_validator',
+                    'finance_reader',
+                    'voucher_reader',
+                    'payouts_manager',
+                    'view_identities',
+                    'manage_identities',
+                ],
+                validator: [
+                    'operation_officer',
+                    'finance',
+                    'implementation_communication_manager',
+                    'bank_manager',
+                    'finance_reader',
+                    'voucher_reader',
+                    'payouts_manager',
+                    'view_identities',
+                    'manage_identities',
+                ],
+            })[envData.client_type],
+        [envData.client_type],
+    );
     const [roles, setRoles] = useState<Array<Role>>([]);
 
     const form = useFormBuilder(
@@ -90,8 +124,8 @@ export default function ModalEmployeeEdit({
     }, [fetchOffices]);
 
     useEffect(() => {
-        roleService.list().then((res) => setRoles(res.data.data));
-    }, [roleService]);
+        roleService.list().then((res) => setRoles(res.data.data.filter((role) => !exceptRoles.includes(role.key))));
+    }, [roleService, exceptRoles]);
 
     return (
         <div
