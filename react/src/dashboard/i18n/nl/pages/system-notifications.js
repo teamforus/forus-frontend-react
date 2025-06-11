@@ -194,6 +194,11 @@ export default {
             title: 'Aanbod gereserveerd',
             description: 'Aanbieders ontvangen dit bericht wanneer hun aanbod door de aanvrager is gereserveerd.',
         },
+        'notifications_products.reserved_by_sponsor': {
+            title: 'Aanbod-tegoed is aangemaakt door de sponsor',
+            description:
+                'Aanbieders ontvangen dit bericht wanneer de sponsor een aanbod-tegoed heeft aangemaakt voor de inwoner namens de aanbieder',
+        },
         'notifications_products.revoked': {
             title: 'Aanbod geweigerd',
             description: 'Aanbieders ontvangen dit bericht wanneer hun aanbod door de sponsor is geweigerd.',

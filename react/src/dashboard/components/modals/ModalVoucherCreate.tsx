@@ -93,6 +93,7 @@ export default function ModalVoucherCreate({
         product_id?: number;
         limit_multiplier?: number;
         report_type?: 'user' | 'relation';
+        notify_provider?: boolean;
     }>(
         {
             bsn: null,
@@ -106,6 +107,7 @@ export default function ModalVoucherCreate({
             product_id: null,
             limit_multiplier: 1,
             report_type: 'relation',
+            notify_provider: false,
         },
         (values) => {
             setProgress(0);
@@ -601,6 +603,28 @@ export default function ModalVoucherCreate({
                                                 />
 
                                                 <FormError error={form.errors?.limit_multiplier} />
+                                            </div>
+                                        )}
+
+                                        {form.values.type == 'product_vouchers' && (
+                                            <div className="form-group">
+                                                <label className="checkbox">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={form.values.notify_provider}
+                                                        onChange={(e) =>
+                                                            form.update({ notify_provider: e.target.checked })
+                                                        }
+                                                    />
+                                                    <div className="checkbox-label">
+                                                        <div className="checkbox-box">
+                                                            <div className="mdi mdi-check" />
+                                                        </div>
+                                                        {translate(
+                                                            'modals.modal_voucher_create.labels.notify_provider',
+                                                        )}
+                                                    </div>
+                                                </label>
                                             </div>
                                         )}
 
