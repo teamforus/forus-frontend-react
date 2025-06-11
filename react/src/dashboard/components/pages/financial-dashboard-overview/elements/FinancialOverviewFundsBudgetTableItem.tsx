@@ -107,8 +107,12 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                         <td>{fundBudget.active_vouchers_count}</td>
                         <td>{fundBudget.inactive_vouchers_count}</td>
                         <td>{fundBudget.deactivated_vouchers_count}</td>
-                        <td>-</td>
-                        <td>-</td>
+                        <td>
+                            <TableEmptyValue />
+                        </td>
+                        <td>
+                            <TableEmptyValue />
+                        </td>
 
                         <td className={'table-td-actions text-right'}>
                             <TableEmptyValue />
@@ -173,6 +177,28 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                             <TableEmptyValue />
                         </td>
                     </tr>
+
+                    {fund.outcome_type === 'payout' && (
+                        <tr>
+                            <td style={{ paddingLeft: '46px' }}>
+                                <strong>{translate('financial_dashboard_overview.labels.payout_vouchers')}</strong>
+                            </td>
+                            <td>{fund.payout_vouchers.vouchers_amount_locale}</td>
+                            <td>
+                                <TableEmptyValue />
+                            </td>
+                            <td>
+                                <TableEmptyValue />
+                            </td>
+                            <td>
+                                <TableEmptyValue />
+                            </td>
+
+                            <td colSpan={3} className={'table-td-actions text-right'}>
+                                <TableEmptyValue />
+                            </td>
+                        </tr>
+                    )}
                 </Fragment>
             )}
         </tbody>
