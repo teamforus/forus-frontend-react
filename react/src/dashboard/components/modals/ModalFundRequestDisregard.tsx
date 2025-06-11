@@ -48,7 +48,9 @@ export default function ModalFundRequestDisregard({
     });
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalDisregardFundRequest">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -107,7 +109,7 @@ export default function ModalFundRequestDisregard({
                     <button type="button" className="button button-default" onClick={modal.close}>
                         Sluiten
                     </button>
-                    <button type="submit" className="button button-primary">
+                    <button type="submit" className="button button-primary" data-dusk="submitBtn">
                         Bevestigen
                     </button>
                 </div>

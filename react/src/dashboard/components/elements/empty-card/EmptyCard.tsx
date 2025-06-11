@@ -54,7 +54,7 @@ export default function EmptyCard({
 
     return (
         <Wrapper>
-            <div className={`block block-empty text-${textAlign || 'center'}`}>
+            <div className={`block block-empty text-${textAlign || 'center'}`} data-dusk="emptyCard">
                 {imageIconImg && (
                     <div className="empty-icon">
                         <img className="empty-icon-img empty-icon-img-border" src={imageIconImg} alt={''} />
