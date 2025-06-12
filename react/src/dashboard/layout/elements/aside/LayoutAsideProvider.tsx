@@ -64,6 +64,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                         state: 'provider-funds',
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, 'manage_provider_funds'),
+                        dusk: 'fundsPage',
                     },
                 ]}
             />
