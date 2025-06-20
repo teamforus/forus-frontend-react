@@ -213,7 +213,7 @@ export default function Products() {
 
     const fetchOrganizations = useCallback(() => {
         organizationService
-            .list({ type: 'provider', per_page: 300 })
+            .list({ type: 'provider', per_page: 300, order_by: 'name' })
             .then((res) =>
                 setOrganizations([{ id: null, name: translate('products.filters.all_providers') }, ...res.data.data]),
             );

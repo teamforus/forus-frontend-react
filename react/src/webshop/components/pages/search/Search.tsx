@@ -186,7 +186,7 @@ export default function Search() {
         setProgress(0);
 
         organizationService
-            .list({ type: 'provider', per_page: 500 })
+            .list({ type: 'provider', per_page: 500, order_by: 'name' })
             .then((res) =>
                 setOrganizations([{ id: null, name: translate('search.filters.all_providers') }, ...res.data.data]),
             )

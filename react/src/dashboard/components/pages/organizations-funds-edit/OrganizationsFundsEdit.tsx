@@ -556,6 +556,34 @@ export default function OrganizationsFundsEdit() {
                 <div className="card-section card-section-primary">
                     <div className="row">
                         <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
+                                <label className="form-label">Aanbieders mogen zich aanmelden</label>
+                                <CheckboxControl
+                                    id={'allow_provider_sign_up'}
+                                    checked={form.values.allow_provider_sign_up}
+                                    onChange={(e) => form.update({ allow_provider_sign_up: e.target.checked })}
+                                    title={'Sta aanbieders het toe om aanvragen in te dienen voor het fonds.'}
+                                />
+                                <Tooltip
+                                    text={
+                                        <Fragment>
+                                            In sommige gevallen is het gewenst dat aanbieders zich niet aanmelden voor
+                                            een fonds. Door dit vakje uit te vinken, zal de aanbieder zich niet kunnen
+                                            aanmelden voor dit fonds. Mocht het zo zijn dat deze optie voor alle fondsen
+                                            is uitgezet, dan wordt ook de aanmeldlink op de webshop verborgen voor de
+                                            aanbieder.
+                                        </Fragment>
+                                    }
+                                />
+                                <FormError error={form.errors?.allow_provider_sign_up} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
                             <FormGroup
                                 label={'Soort fonds'}
                                 input={(id) => (
