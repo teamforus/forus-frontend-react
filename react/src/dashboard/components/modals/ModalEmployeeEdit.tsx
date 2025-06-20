@@ -38,11 +38,14 @@ export default function ModalEmployeeEdit({
     const employeeService = useEmployeeService();
     const officeService = useOfficeService();
 
-    const exceptRoles = useMemo(
-        () =>
-            ({
-                sponsor: ['operation_officer'],
-                provider: [
+    const [roles, setRoles] = useState<Array<Role>>([]);
+
+    const excludedRoles = useMemo(() => {
+        switch (envData.client_type) {
+            case 'sponsor':
+                return ['operation_officer'];
+            case 'provider':
+                return [
                     'finance',
                     'validation',
                     'policy_officer',
@@ -55,8 +58,9 @@ export default function ModalEmployeeEdit({
                     'payouts_manager',
                     'view_identities',
                     'manage_identities',
-                ],
-                validator: [
+                ];
+            case 'validator':
+                return [
                     'operation_officer',
                     'finance',
                     'implementation_communication_manager',
@@ -66,11 +70,11 @@ export default function ModalEmployeeEdit({
                     'payouts_manager',
                     'view_identities',
                     'manage_identities',
-                ],
-            })[envData.client_type],
-        [envData.client_type],
-    );
-    const [roles, setRoles] = useState<Array<Role>>([]);
+                ];
+            default:
+                return [];
+        }
+    }, [envData.client_type]);
 
     const form = useFormBuilder(
         {
@@ -124,8 +128,10 @@ export default function ModalEmployeeEdit({
     }, [fetchOffices]);
 
     useEffect(() => {
-        roleService.list().then((res) => setRoles(res.data.data.filter((role) => !exceptRoles.includes(role.key))));
-    }, [roleService, exceptRoles]);
+        roleService.list().then((res) => {
+            setRoles(res.data.data.filter((role) => !excludedRoles.includes(role.key)));
+        });
+    }, [roleService, excludedRoles]);
 
     return (
         <div
