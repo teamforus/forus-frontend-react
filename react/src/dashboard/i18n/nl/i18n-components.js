@@ -139,4 +139,30 @@ export default {
             },
         },
     },
+    fund_provider_products: {
+        labels: {
+            used: 'Gebruikt',
+            reserved: 'Gereserveerd',
+            price: 'Prijs',
+            product_details: 'Product details',
+            acceptance: 'Acceptance',
+            user_price: 'User price',
+            limit_total: 'Limit total',
+            limit_per_user: 'Limit per user',
+            messages: 'Messages',
+            status: 'Status',
+            expiry_date: 'Expiry date',
+            created_on: 'Created on',
+            updated_on: 'Changed on',
+        },
+    },
+    fund_provider_funds: {
+        labels: {
+            fund_name: 'Fonds',
+            status: 'Status',
+            budget: 'Budget scannen',
+            products: 'Aanbod scannen',
+            hide_on_webshops: 'Verborgen op webshop',
+        },
+    },
 };

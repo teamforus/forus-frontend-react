@@ -15,7 +15,6 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import SelectControl from '../../elements/select-control/SelectControl';
 import { hasPermission } from '../../../helpers/utils';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import { useTagService } from '../../../services/TagService';
 import Tag from '../../../props/models/Tag';
 import MarkdownEditor from '../../elements/forms/markdown-editor/MarkdownEditor';
@@ -43,6 +42,7 @@ import RecordType from '../../../props/models/RecordType';
 import FaqEditor from '../../elements/faq-editor-funds/FaqEditor';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import usePushApiError from '../../../hooks/usePushApiError';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -50,7 +50,6 @@ export default function OrganizationsFundsEdit() {
     const appConfigs = useAppConfigs();
     const activeOrganization = useActiveOrganization();
 
-    const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
@@ -77,10 +76,9 @@ export default function OrganizationsFundsEdit() {
     const [fundStates] = useState(fundService.getStates());
     const faqEditorBlock = useRef<() => Promise<boolean>>();
 
-    const [fundTypes] = useState([
-        { value: 'budget', name: 'Waardebon' },
-        { value: 'subsidies', name: 'Kortingspas' },
-        { value: 'external', name: 'Informatief (met doorlink)' },
+    const [fundTypeExternal] = useState([
+        { value: 0, name: 'Waardebon' },
+        { value: 1, name: 'Informatief (met doorlink)' },
     ]);
 
     const [outcomeTypes] = useState([
@@ -170,8 +168,7 @@ export default function OrganizationsFundsEdit() {
         external_page?: boolean;
         hide_meta?: boolean;
         media_uid?: string;
-        type?: string;
-        fund_type?: string;
+        external?: boolean;
         external_page_url?: string;
         request_btn_text?: string;
         application_method?: string;
@@ -202,7 +199,8 @@ export default function OrganizationsFundsEdit() {
     }>(
         {
             description_position: descriptionPositions[0]?.value,
-            type: 'budget',
+            external: false,
+            external_page: false,
             start_date: dateFormat(addDays(new Date(), 6)),
             end_date: dateFormat(addYears(new Date(), 1)),
             formula_products: [] as Array<FundFormulaProduct>,
@@ -558,87 +556,32 @@ export default function OrganizationsFundsEdit() {
                 <div className="card-section card-section-primary">
                     <div className="row">
                         <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                            <div className="form-group">
-                                <label className="form-label form-label-required">Soort fonds</label>
-
-                                {!fund && (
-                                    <SelectControl
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        value={form.values.type}
-                                        options={fundTypes}
-                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                        onChange={(type: string) => form.update({ type })}
-                                    />
+                            <FormGroup
+                                label={'Soort fonds'}
+                                input={(id) => (
+                                    <FormGroupInfo
+                                        info={
+                                            <Fragment>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
+                                                assumenda consequuntur corporis cum doloremque doloribus eaque iste iure
+                                                magni maiores nesciunt nihil odit optio, possimus sapiente vel velit.
+                                                Eum iste nulla tempore!
+                                            </Fragment>
+                                        }>
+                                        <SelectControl
+                                            id={id}
+                                            disabled={!!fund}
+                                            propKey={'value'}
+                                            allowSearch={false}
+                                            value={form.values.external}
+                                            options={fundTypeExternal}
+                                            onChange={(external: 1 | 0) => form.update({ external })}
+                                        />
+                                        <FormError error={form.errors?.type} />
+                                    </FormGroupInfo>
                                 )}
-                                <FormError error={form.errors?.type} />
+                            />
 
-                                {fund && (
-                                    <div className="block block-fund_types">
-                                        {form.values.type == 'budget' && (
-                                            <div className="fund_type-item fund_type-item-read">
-                                                <div className="fund_type-item-inner">
-                                                    <div className="fund_type-media">
-                                                        <img
-                                                            className="fund_type-media-img"
-                                                            src={assetUrl(
-                                                                '/assets/img/fund-types/icon-fund-actions-read.svg',
-                                                            )}
-                                                            alt={''}
-                                                        />
-                                                    </div>
-                                                    <div className="fund_type-name">Financieel budget</div>
-                                                    <div className="fund_type-check">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {form.values.type == 'subsidies' && (
-                                            <div className="fund_type-item fund_type-item-read">
-                                                <div className="fund_type-item-inner">
-                                                    <div className="fund_type-media">
-                                                        <img
-                                                            className="fund_type-media-img"
-                                                            src={assetUrl(
-                                                                '/assets/img/fund-types/icon-fund-budget-read.svg',
-                                                            )}
-                                                            alt={''}
-                                                        />
-                                                    </div>
-                                                    <div className="fund_type-name">Acties</div>
-                                                    <div className="fund_type-check">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {form.values.type == 'external' && (
-                                            <div className="fund_type-item fund_type-item-read">
-                                                <div className="fund_type-item-inner">
-                                                    <div className="fund_type-media">
-                                                        <img
-                                                            className="fund_type-media-img"
-                                                            src={assetUrl(
-                                                                '/assets/img/fund-types/icon-fund-external-read.svg',
-                                                            )}
-                                                            alt={''}
-                                                        />
-                                                    </div>
-
-                                                    <div className="fund_type-name">Informatief (met doorlink)</div>
-
-                                                    <div className="fund_type-check">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
                             {activeOrganization.allow_payouts && (
                                 <div className="form-group">
                                     <label className="form-label form-label-required">Uitkomst van een aanvraag</label>
@@ -658,7 +601,7 @@ export default function OrganizationsFundsEdit() {
                     </div>
                 </div>
 
-                {form.values.type == 'external' && (
+                {form.values.external && (
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">
@@ -743,7 +686,7 @@ export default function OrganizationsFundsEdit() {
                     </div>
                 )}
 
-                {form.values.type != 'external' && (
+                {!form.values.external && (
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">

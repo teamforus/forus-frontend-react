@@ -60,7 +60,7 @@ export default function Reservations() {
         setProgress(0);
 
         organizationService
-            .list({ type: 'provider', has_reservations: 1, per_page: 300, fund_type: 'budget' })
+            .list({ type: 'provider', has_reservations: 1, per_page: 300 })
             .then((res) =>
                 setOrganizations([
                     { name: translate('reservations.filters.all_providers'), id: null },

@@ -7,6 +7,7 @@ export default function CheckboxControl({
     id,
     title,
     narrow = false,
+    flat = false,
     checked = false,
     value = '',
     disabled = false,
@@ -20,6 +21,7 @@ export default function CheckboxControl({
     title?: string;
     tooltip?: string;
     narrow?: boolean;
+    flat?: boolean;
     checked: boolean;
     value?: string;
     disabled?: boolean;
@@ -36,7 +38,13 @@ export default function CheckboxControl({
             htmlFor={formId}
             title={title}
             data-dusk={dusk}
-            className={classNames('checkbox', className, disabled && 'disabled', narrow && 'checkbox-narrow')}>
+            className={classNames(
+                'checkbox',
+                className,
+                disabled && 'disabled',
+                narrow && 'checkbox-narrow',
+                flat && 'checkbox-flat',
+            )}>
             <input
                 type="checkbox"
                 value={value}

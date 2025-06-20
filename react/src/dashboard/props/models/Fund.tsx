@@ -43,7 +43,10 @@ export default interface Fund {
     end_date_locale?: string;
     fund_amount?: string;
     fund_amount_locale?: string;
-    type?: 'budget' | 'subsidies' | 'external';
+    external?: boolean;
+    show_subsidies?: boolean;
+    show_qr_limits?: boolean;
+    show_requester_limits?: boolean;
     allow_direct_payments?: boolean;
     fund_form_id?: number;
     archived?: boolean;

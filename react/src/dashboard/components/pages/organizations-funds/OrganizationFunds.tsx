@@ -358,7 +358,7 @@ export default function OrganizationFunds() {
                                             <td>
                                                 <TableEntityMain
                                                     title={strLimit(fund.name, 50)}
-                                                    subtitle={fund.type_locale}
+                                                    subtitle={fund.organization?.name}
                                                     mediaPlaceholder={'fund'}
                                                     media={fund?.logo}
                                                 />

@@ -37,7 +37,6 @@ export default function Home() {
 
     const [funds, setFunds] = useState<Array<Fund>>(null);
     const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [subsidies, setSubsidies] = useState<PaginationData<Product>>(null);
 
     const [digidResponse] = useQueryParams({
         digid_error: StringParam,
@@ -61,14 +60,8 @@ export default function Home() {
         setProgress(0);
 
         productService
-            .sample('budget')
+            .sample()
             .then((res) => setProducts(res.data))
-            .catch((e) => console.error(e))
-            .finally(() => setProgress(100));
-
-        productService
-            .sample('subsidies')
-            .then((res) => setSubsidies(res.data))
             .catch((e) => console.error(e))
             .finally(() => setProgress(100));
     }, [productService, setProgress]);
@@ -228,17 +221,6 @@ export default function Home() {
                 <BlockProducts
                     products={products.data}
                     setProducts={(list) => setProducts({ ...products, data: list })}
-                    type="budget"
-                    display="grid"
-                    showCustomDescription={subsidies?.data.length === 0}
-                />
-            )}
-
-            {appConfigs.show_home_products && subsidies?.data.length > 0 && (
-                <BlockProducts
-                    products={subsidies.data}
-                    setProducts={(list) => setSubsidies({ ...subsidies, data: list })}
-                    type="subsidies"
                     display="grid"
                     showCustomDescription={true}
                 />

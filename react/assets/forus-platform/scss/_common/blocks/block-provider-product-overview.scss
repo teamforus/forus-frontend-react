@@ -1,0 +1,22 @@
+.block.block-provider-product-overview {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 10px 15px;
+    background: #fff;
+
+    .provider-product-overview-title {
+        font: 600 14px/20px var(--base-font);
+    }
+
+    .provider-product-overview-label {
+        font: 600 11px/18px var(--base-font);
+        color: var(--color-primary);
+    }
+
+    .provider-product-overview-value {
+        font: 500 13px/20px var(--base-font);
+    }
+}
