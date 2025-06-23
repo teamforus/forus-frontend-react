@@ -54,3 +54,41 @@ export const phoneNumberFormat = (phoneNumber = '') => {
         return phoneNumber;
     }
 };
+
+export function splitTextIntoLines(text: string, maxSymbolsPerLine: number, maxLines: number): string[] {
+    const lines: string[] = [];
+    const words = text.split(' ');
+
+    let currentLine = '';
+    let isTruncated = false;
+
+    for (let i = 0; i < words.length; i++) {
+        const word = words[i];
+        const token = currentLine === '' ? word : ` ${word}`;
+
+        if ((currentLine + token).length <= maxSymbolsPerLine) {
+            currentLine += token;
+        } else {
+            if (lines.length < maxLines - 1) {
+                lines.push(currentLine);
+                currentLine = word;
+            } else {
+                isTruncated = true;
+                break;
+            }
+        }
+    }
+
+    if (currentLine !== '' && lines.length < maxLines) {
+        lines.push(currentLine);
+    }
+
+    if (isTruncated && lines.length > 0) {
+        const lastIndex = lines.length - 1;
+        const maxSlice = Math.max(0, maxSymbolsPerLine - 3);
+
+        lines[lastIndex] = lines[lastIndex].slice(0, maxSlice).trimEnd() + '...';
+    }
+
+    return lines;
+}
