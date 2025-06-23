@@ -153,12 +153,12 @@ export default function FundProviderProductView() {
                     <ProductDetailsBlock viewType={'sponsor'} product={product}>
                         {activeDeal && (
                             <Fragment>
-                                <FormPane title={'Offer expiration and Reservation limits'} large={true}>
+                                <FormPane title={'Verloopdatum en limieten'} large={true}>
                                     <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
-                                        <KeyValueItem label={'Offer type'}>
+                                        <KeyValueItem label={'Type aanbod'}>
                                             {activeDeal.payment_type_locale}
                                         </KeyValueItem>
-                                        <KeyValueItem label={'Expiration date'}>
+                                        <KeyValueItem label={'Verloopdatum'}>
                                             {activeDeal?.expire_at_locale || fund?.end_date_locale}
                                         </KeyValueItem>
                                         <KeyValueItem label={'Totaal aantal'}>
@@ -171,16 +171,17 @@ export default function FundProviderProductView() {
                                                 <EmptyValue />
                                             )}
                                         </KeyValueItem>
-                                        <KeyValueItem label={'Offer QR scanning'}>
+                                        <KeyValueItem label={'Toon QR-code op de webshop'}>
                                             {activeDeal?.allow_scanning ? 'Ja' : 'Nee'}
                                         </KeyValueItem>
                                     </div>
                                 </FormPane>
+
                                 {activeDeal?.payment_type === 'subsidy' && (
-                                    <FormPane title={'Transactie details'} large={true}>
+                                    <FormPane title={'Prijs details'} large={true}>
                                         <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
                                             <KeyValueItem label={'Totaalprijs'}>{product?.price_locale}</KeyValueItem>
-                                            <KeyValueItem label={'Subsidized amount'}>
+                                            <KeyValueItem label={'Bijdrage vanuit sponsor'}>
                                                 {activeDeal?.amount_locale}
                                             </KeyValueItem>
                                             <KeyValueItem label={'Prijs voor de klant'}>

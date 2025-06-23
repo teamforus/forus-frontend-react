@@ -77,7 +77,7 @@ export default function OrganizationsFundsEdit() {
     const faqEditorBlock = useRef<() => Promise<boolean>>();
 
     const [fundTypeExternal] = useState([
-        { value: 0, name: 'Waardebon' },
+        { value: 0, name: 'Budget' },
         { value: 1, name: 'Informatief (met doorlink)' },
     ]);
 
@@ -184,6 +184,7 @@ export default function OrganizationsFundsEdit() {
         product_id?: number;
         default_validator_employee_id?: number;
         auto_requests_validation?: boolean;
+        allow_provider_sign_up?: boolean;
         criteria?: Array<Partial<FundCriterion>>;
         notification_amount?: number;
         tag_ids?: Array<number>;
@@ -590,10 +591,11 @@ export default function OrganizationsFundsEdit() {
                                     <FormGroupInfo
                                         info={
                                             <Fragment>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
-                                                assumenda consequuntur corporis cum doloremque doloribus eaque iste iure
-                                                magni maiores nesciunt nihil odit optio, possimus sapiente vel velit.
-                                                Eum iste nulla tempore!
+                                                Het budget fonds staat voor budgetten die aan personen of gezinnen
+                                                worden toegekend. Het betreft een digitaal tegoed of een uitbetaling
+                                                naar de inwoner. Een informatief fonds kan als een link naar een externe
+                                                website worden ingesteld waar meer informatie te vinden is over deze
+                                                regeling.
                                             </Fragment>
                                         }>
                                         <SelectControl

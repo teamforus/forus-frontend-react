@@ -175,13 +175,15 @@ export default function ModalFundProviderProductConfig({
 
             <form className="modal-window form" onSubmit={form.submit}>
                 <a className="mdi mdi-close modal-close" onClick={modal.close} role="button" />
-                <div className="modal-header">Accept product</div>
+                <div className="modal-header">Stel een limiet in</div>
 
                 <div className="modal-body">
                     <div className="modal-section">
                         <div className="flex flex-vertical flex-gap">
-                            <FormPane title={'Offer type'}>
-                                <FormGroupInfo info={<>Lorem ipsum</>} error={form.errors.payment_type}>
+                            <FormPane title={'Type aanbod'}>
+                                <FormGroupInfo
+                                    info={<Fragment>Het type aanbod dat wordt ingesteld voor dit product.</Fragment>}
+                                    error={form.errors.payment_type}>
                                     <SelectControl
                                         id={'select_provider'}
                                         value={form.values.payment_type}
@@ -192,7 +194,7 @@ export default function ModalFundProviderProductConfig({
                                         onChange={(payment_type: 'budget' | 'subsidy') => form.update({ payment_type })}
                                         options={[
                                             { key: 'budget', label: 'Budget' },
-                                            fund?.show_subsidies ? { key: 'subsidy', label: 'Subsidy' } : null,
+                                            fund?.show_subsidies ? { key: 'subsidy', label: 'Subsidie' } : null,
                                         ].filter((item) => item)}
                                     />
                                 </FormGroupInfo>
@@ -202,14 +204,21 @@ export default function ModalFundProviderProductConfig({
                                         checked={budgetExtendedSettings}
                                         flat={true}
                                         onChange={(e) => setBudgetExtendedSettings(e.target.checked)}
-                                        title={'Adjust settings'}
+                                        title={'Aangepaste instellingen'}
                                     />
                                 )}
                             </FormPane>
 
                             {form.values.payment_type === 'subsidy' && (
-                                <FormPane title={'Offer subsidized amount'}>
-                                    <FormGroupInfo info={<>Lorem ipsum</>} error={form.errors.amount}>
+                                <FormPane title={'Bijdrage van de sponsor'}>
+                                    <FormGroupInfo
+                                        info={
+                                            <Fragment>
+                                                Bijdrage vanuit de sponsor. Bij een volledige bijdrage is het aanbod
+                                                voor de inwoner gratis.
+                                            </Fragment>
+                                        }
+                                        error={form.errors.amount}>
                                         {form.values.gratis ? (
                                             <input className="form-control" disabled={true} value={product.price} />
                                         ) : (
@@ -246,8 +255,15 @@ export default function ModalFundProviderProductConfig({
                                     budgetExtendedSettings)) && (
                                 <Fragment>
                                     {fund.show_qr_limits && (
-                                        <FormPane title={'Offer QR scanning'}>
-                                            <FormGroupInfo info={<>Lorem ipsum</>} error={form.errors.allow_scanning}>
+                                        <FormPane title={'Toon QR-code op de webshop'}>
+                                            <FormGroupInfo
+                                                info={
+                                                    <Fragment>
+                                                        Met deze optie stelt de sponsor in of het QR-logo als
+                                                        betaaloptie voor dit aanbod zichtbaar is in de webshop.
+                                                    </Fragment>
+                                                }
+                                                error={form.errors.allow_scanning}>
                                                 <SelectControl
                                                     id={'allow_scanning'}
                                                     value={form.values.allow_scanning}
@@ -268,13 +284,20 @@ export default function ModalFundProviderProductConfig({
                                     )}
 
                                     {fund.show_requester_limits && (
-                                        <FormPane title={'Offer expiration'}>
+                                        <FormPane title={'Verloopdatum van het aanbod'}>
                                             <div className="row">
                                                 <div className="col col-md-6 col col-md-xs12">
                                                     <FormGroup
-                                                        label={'Expiration'}
+                                                        label={'Einddatum'}
                                                         input={(id) => (
-                                                            <FormGroupInfo info={<>Lorem ipsum</>}>
+                                                            <FormGroupInfo
+                                                                info={
+                                                                    <Fragment>
+                                                                        Stel hier in tot wanneer het aanbod geldig is.
+                                                                        Standaard staat de verloopdatum gelijk aan de
+                                                                        einddatum van de regeling.
+                                                                    </Fragment>
+                                                                }>
                                                                 <SelectControl
                                                                     id={id}
                                                                     value={form.values.expires_with_fund ? 1 : 0}
@@ -286,8 +309,11 @@ export default function ModalFundProviderProductConfig({
                                                                         form.update({ expires_with_fund });
                                                                     }}
                                                                     options={[
-                                                                        { key: 1, label: 'Expires with fund' },
-                                                                        { key: 0, label: 'Custom expiration date' },
+                                                                        {
+                                                                            key: 1,
+                                                                            label: 'Verloopt met einddatum regeling',
+                                                                        },
+                                                                        { key: 0, label: 'Aangepaste verloopdatum' },
                                                                     ]}
                                                                 />
                                                             </FormGroupInfo>
@@ -296,11 +322,15 @@ export default function ModalFundProviderProductConfig({
                                                 </div>
                                                 <div className="col col-md-6 col col-md-xs12">
                                                     <FormGroup
-                                                        label={'Expiration date'}
+                                                        label={'Verloopdatum'}
                                                         error={form.errors['enable_products.0.expire_at']}
                                                         input={() => (
                                                             <FormGroupInfo
-                                                                info={<>Lorem ipsum</>}
+                                                                info={
+                                                                    <Fragment>
+                                                                        De datum tot wanneer het aanbod geldig is.
+                                                                    </Fragment>
+                                                                }
                                                                 error={form.errors.expire_at}>
                                                                 <DatePickerControl
                                                                     disabled={!!form.values.expires_with_fund}
@@ -327,7 +357,7 @@ export default function ModalFundProviderProductConfig({
                                     )}
 
                                     {fund.show_requester_limits && (
-                                        <FormPane title={'Reservation limits'}>
+                                        <FormPane title={'Limiet op het aanbod'}>
                                             <div className="row">
                                                 <div className="col col-md-6 col col-md-xs12">
                                                     <FormGroup
@@ -339,7 +369,12 @@ export default function ModalFundProviderProductConfig({
                                                         input={(id) => (
                                                             <Fragment>
                                                                 <FormGroupInfo
-                                                                    info={<>Lorem ipsum</>}
+                                                                    info={
+                                                                        <Fragment>
+                                                                            Totaal aantal keren dat er gebruik kan
+                                                                            worden gemaakt van dit aanbod.
+                                                                        </Fragment>
+                                                                    }
                                                                     error={form.errors.limit_total}>
                                                                     <input
                                                                         id={id}
@@ -392,7 +427,14 @@ export default function ModalFundProviderProductConfig({
                                                         input={(id) => (
                                                             <Fragment>
                                                                 <FormGroupInfo
-                                                                    info={<>Lorem ipsum</>}
+                                                                    info={
+                                                                        <Fragment>
+                                                                            Hoe vaak dit aanbod mag worden gebruikt per
+                                                                            tegoed. Let op: als er meerdere personen aan
+                                                                            het tegoed zijn toegevoegd, geldt dit aantal
+                                                                            per persoon.
+                                                                        </Fragment>
+                                                                    }
                                                                     error={form.errors.limit_per_identity}>
                                                                     <input
                                                                         id={id}
@@ -475,7 +517,7 @@ export default function ModalFundProviderProductConfig({
                                         )}
 
                                         <div className="col col-md-3 col-xs-3">
-                                            <div className="provider-product-overview-label">Betaalt</div>
+                                            <div className="provider-product-overview-label">Sponsor betaalt</div>
                                             <div className="provider-product-overview-value">
                                                 {currencyFormat(
                                                     parseFloat(

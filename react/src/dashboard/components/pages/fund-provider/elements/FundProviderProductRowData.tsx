@@ -74,10 +74,10 @@ export default function FundProviderProductRowData({
                         subtitleProperties={[
                             { label: 'Prijs:', value: product.price_locale },
                             {
-                                label: 'Total:',
+                                label: 'Totaal:',
                                 value: product.unlimited_stock ? 'Ongelimiteerd' : product.stock_amount,
                             },
-                            { label: 'Used:', value: product.sold_amount },
+                            { label: 'Gebruikt:', value: product.sold_amount },
                         ]}
                         media={product.photo}
                         mediaRound={false}
@@ -152,7 +152,7 @@ export default function FundProviderProductRowData({
             ) : (
                 <td>
                     {product.is_available && (fundProvider?.allow_products || product.allowed) ? (
-                        <Label type={product?.allowed ? 'success' : 'primary_light'}>Actief</Label>
+                        <Label type="success">Actief</Label>
                     ) : (
                         <Label type="default">In afwachting</Label>
                     )}
@@ -301,7 +301,7 @@ export default function FundProviderProductRowData({
                                     }}
                                     className="dropdown-item">
                                     <em className="mdi mdi-message-text-outline icon-start" />
-                                    Send a message
+                                    Stuur een bericht
                                 </a>
                             )}
 

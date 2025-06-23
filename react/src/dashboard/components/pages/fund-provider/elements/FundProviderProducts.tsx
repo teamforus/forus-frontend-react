@@ -133,8 +133,9 @@ export default function FundProviderProducts({
             {fundProvider.allow_products && products.meta.total > 0 && (
                 <div className="card-section card-section-success card-section-narrow">
                     <em>
-                        U kunt niet individuele producten uitzetten terwijl een globale instelling aan staat. Zet de
-                        globale instelling uit om individuele producten goed te keuren.
+                        Een aanbod kan niet worden uitgeschakeld zolang de optie &apos;Accepteer aanbiedingen&apos; aan
+                        staat. Zet deze optie eerst uit om het aanbod apart te kunnen beoordelen. Als de optie is
+                        ingeschakeld, worden alle aanbiedingen automatisch goedgekeurd zonder limieten.
                     </em>
                 </div>
             )}

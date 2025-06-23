@@ -66,7 +66,7 @@ export default function useUpdateProduct() {
     }, [openModal]);
 
     const deleteSponsorProductConfirmation = useCallback(
-        (organization: Organization, fundProvider: FundProvider, product: SponsorProduct) => {
+        (product: SponsorProduct) => {
             return new Promise<boolean>((resolve) => {
                 openModal((modal) => (
                     <ModalNotification
@@ -77,22 +77,23 @@ export default function useUpdateProduct() {
                         ]}
                         buttonCancel={{
                             text: translate('modal.buttons.cancel'),
-                            onClick: () => modal.close(),
+                            onClick: () => {
+                                modal.close();
+                                resolve(false);
+                            },
                         }}
                         buttonSubmit={{
                             text: translate('modal.buttons.confirm'),
                             onClick: () => {
                                 modal.close();
-                                organizationService
-                                    .sponsorProductDelete(organization.id, fundProvider.organization_id, product.id)
-                                    .then(() => resolve(true));
+                                resolve(true);
                             },
                         }}
                     />
                 ));
             });
         },
-        [openModal, organizationService, translate],
+        [openModal, translate],
     );
 
     const updateProduct = useCallback(
@@ -137,7 +138,7 @@ export default function useUpdateProduct() {
     const deleteSponsorProduct = useCallback(
         (organization: Organization, fundProvider: FundProvider, product: SponsorProduct) => {
             return new Promise<boolean>((resolve) => {
-                deleteSponsorProductConfirmation(organization, fundProvider, product).then((confirmed) => {
+                deleteSponsorProductConfirmation(product).then((confirmed) => {
                     if (!confirmed) {
                         return resolve(false);
                     }

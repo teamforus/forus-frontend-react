@@ -31,8 +31,8 @@ export default {
         delete: 'Verwijderen',
         edit: 'Bewerken',
         view: 'Bekijken',
-        approve_product: 'Approve product',
-        stop_product: 'Stop product',
-        edit_product: 'Change',
+        approve_product: 'Aanbod goedkeuren',
+        stop_product: 'Aanbod stopzetten',
+        edit_product: 'Aanpassen',
     },
 };
