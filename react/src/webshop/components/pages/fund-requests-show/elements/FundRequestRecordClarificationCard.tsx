@@ -12,6 +12,7 @@ import { useFundRequestClarificationService } from '../../../../services/FundReq
 import MultilineText from '../../../../../dashboard/components/elements/multiline-text/MultilineText';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import usePushDanger from '../../../../../dashboard/hooks/usePushDanger';
 
 export default function FundRequestRecordClarificationCard({
     record,
@@ -25,6 +26,7 @@ export default function FundRequestRecordClarificationCard({
     setFundRequest: React.Dispatch<React.SetStateAction<FundRequest>>;
 }) {
     const translate = useTranslate();
+    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
 
     const fundRequestClarificationService = useFundRequestClarificationService();
@@ -51,9 +53,13 @@ export default function FundRequestRecordClarificationCard({
                     records: request.records.map((item) => (item.id === record.id ? record : item)),
                 }));
 
+                form.setErrors(null);
                 setShowForm(false);
             })
-            .catch((res: ResponseError) => form.setErrors(res.data.errors))
+            .catch((err: ResponseError) => {
+                pushDanger(translate('push.error'), err.data?.message);
+                form.setErrors(err.data?.errors);
+            })
             .finally(() => form.setIsLocked(false));
     });
 
@@ -148,7 +154,7 @@ export default function FundRequestRecordClarificationCard({
                                 value={form.values.answer}
                                 onChangeValue={(answer) => form.update({ answer })}
                             />
-                            <FormError error={form.errors?.answer} />
+                            <FormError duskPrefix={'errorAnswer'} error={form.errors?.answer} />
                         </div>
                         <div className="fund-request-chat-conversation-answer-options">
                             <FileUploader
@@ -180,7 +186,7 @@ export default function FundRequestRecordClarificationCard({
                                 </button>
                             </div>
                         </div>
-                        <FormError error={form.errors?.files} />
+                        <FormError duskPrefix={'errorFiles'} error={form.errors?.files} />
                     </form>
                 )}
             </div>

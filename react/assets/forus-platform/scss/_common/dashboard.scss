@@ -3941,6 +3941,10 @@ body {
                     .clarification-item-text {
                         @include ellipsis();
                     }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
                 }
 
                 .clarification-item-attachments {
