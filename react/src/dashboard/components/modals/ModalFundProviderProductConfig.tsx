@@ -275,8 +275,8 @@ export default function ModalFundProviderProductConfig({
                                                         form.update({ allow_scanning })
                                                     }
                                                     options={[
-                                                        { key: 1, label: 'Yes' },
-                                                        { key: 0, label: 'No' },
+                                                        { key: 1, label: 'Ja' },
+                                                        { key: 0, label: 'Nee' },
                                                     ]}
                                                 />
                                             </FormGroupInfo>

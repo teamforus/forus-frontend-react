@@ -91,13 +91,13 @@ export default function FundProviderProductRowData({
                     {deal ? (
                         <Fragment>
                             <div className={'text-strong'}>
-                                {deal.payment_type === 'subsidy' ? deal.amount_locale : 'Yes'}
+                                {deal.payment_type === 'subsidy' ? deal.amount_locale : 'Ja'}
                             </div>
                             <div className="text-muted-dark">{deal.payment_type_locale}</div>
                         </Fragment>
                     ) : fundProvider?.allow_products ? (
                         <Fragment>
-                            <div className={'text-strong'}>Yes</div>
+                            <div className={'text-strong'}>Ja</div>
                             <div className="text-muted-dark">Budget</div>
                         </Fragment>
                     ) : (
@@ -110,7 +110,11 @@ export default function FundProviderProductRowData({
                 <td>
                     {deal ? (
                         <Fragment>
-                            <div className={'text-strong'}>{deal.amount_identity_locale}</div>
+                            {deal.amount_identity === null ? (
+                                <TableEmptyValue />
+                            ) : (
+                                <div className={'text-strong'}>{deal.amount_identity_locale}</div>
+                            )}
                         </Fragment>
                     ) : fundProvider?.allow_products ? (
                         <Fragment>
