@@ -4,12 +4,10 @@ import Product from '../../../../props/models/Product';
 import classNames from 'classnames';
 
 export default function ProductsList({
-    type = 'budget',
     display = 'grid',
     products = [],
     setProducts = null,
 }: {
-    type?: 'budget' | 'subsidies';
     display: 'grid' | 'list' | 'search';
     products?: Array<Product>;
     setProducts?: (products: Array<Product>) => void;
@@ -25,7 +23,6 @@ export default function ProductsList({
                 <ProductsListItem
                     key={product.id}
                     product={product}
-                    productType={type}
                     display={display}
                     onToggleBookmark={(product) => {
                         setProducts?.(

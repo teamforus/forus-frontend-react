@@ -55,9 +55,15 @@ export default function useFilterNext<T = FilterModel>(
 
     const [stateValues, setValues] = useState<Partial<T & FilterModel>>({ ...initialValues, ...initialQueryValues });
 
-    const [activeValues, setActiveValues] = useState<Partial<T & FilterModel>>({
+    const [combinedInitialValues] = useState({
         ...initialValues,
         ...(backendTypeQuery ? initialQueryValues : {}),
+    });
+
+    const [activeValues, setActiveValues] = useState<Partial<T & FilterModel>>({
+        ...Object.keys(combinedInitialValues)
+            .filter((key) => !filterParams || !filterParams.includes(key as keyof T))
+            .reduce((obj, key) => ({ ...obj, [key]: combinedInitialValues[key] }), {}),
     });
 
     const prevFilters = useRef(backendTypeQuery ? queryValues : stateValues);

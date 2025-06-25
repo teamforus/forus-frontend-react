@@ -3,7 +3,7 @@ import ModalPhotoUploader from '../../modals/ModalPhotoUploader';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import PhotoSelectorData from './types/PhotoSelectorData';
-import FormGroup from '../forms/controls/FormGroup';
+import FormGroup from '../forms/elements/FormGroup';
 import SelectControl from '../select-control/SelectControl';
 import PhotoSelectorBannerControlColorPicker from './elements/PhotoSelectorBannerControlColorPicker';
 import classNames from 'classnames';

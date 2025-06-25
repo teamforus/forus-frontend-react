@@ -44,8 +44,6 @@
 @import '../../../forus-webshop/scss/includes/blocks/block-exception';
 
 .block {
-    @import 'blocks/block-fund_types';
-    @import 'blocks/block-subsidy-product-overview';
     @import 'blocks/block-app_download.scss';
     @import 'blocks/block-app_links.scss';
     @import 'blocks/block-timeframe.scss';
@@ -100,6 +98,7 @@
 @import 'blocks/block-product.scss';
 @import 'blocks/block-label-tabs.scss';
 @import 'blocks/block-translation-stats.scss';
+@import 'blocks/block-provider-product-overview.scss';
 
 // Select controls
 @import 'select-controls/select-control-funds';
@@ -966,7 +965,6 @@ body {
                         font-size: 12px;
 
                         .mdi {
-                            font-size: 1.36em;
                             line-height: 24px;
                         }
                     }
@@ -1715,6 +1713,24 @@ body {
 
                 .keyvalue-value {
                     width: calc(100% - 240px);
+                }
+            }
+        }
+
+        &.card-block-keyvalue-text-sm {
+            .keyvalue-item {
+                padding: 0 0 4px;
+
+                .keyvalue-key {
+                    font: 600 12px/20px var(--base-font);
+                }
+
+                .keyvalue-value {
+                    font: 500 12px/20px var(--base-font);
+                }
+
+                &:last-child {
+                    padding: 0 0 0;
                 }
             }
         }
@@ -5063,10 +5079,6 @@ body {
             font-size: 12px;
             box-shadow: none;
             white-space: nowrap;
-
-            .mdi {
-                font-size: 1.36em;
-            }
         }
 
         .select-control {

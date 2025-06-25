@@ -59,7 +59,7 @@ export default function ProductsListItemGrid({
             <div className="product-actions">
                 <div className="product-price">{price}</div>
                 <div className="product-icons">
-                    {productFeatures?.scanning_enabled && (
+                    {productFeatures?.feature_scanning_enabled && (
                         <div
                             className="product-icons-item"
                             role="button"
@@ -73,7 +73,7 @@ export default function ProductsListItemGrid({
                             <em className="mdi mdi-qrcode-scan" aria-hidden="true" />
                         </div>
                     )}
-                    {productFeatures?.reservations_enabled && (
+                    {productFeatures?.feature_reservations_enabled && (
                         <div
                             className="product-icons-item"
                             role="button"
@@ -87,7 +87,7 @@ export default function ProductsListItemGrid({
                             <em className="mdi mdi-tag-multiple-outline" aria-hidden="true" />
                         </div>
                     )}
-                    {productFeatures?.reservation_extra_payments_enabled && (
+                    {productFeatures?.feature_reservation_extra_payments_enabled && (
                         <div
                             className="product-icons-item"
                             role="button"

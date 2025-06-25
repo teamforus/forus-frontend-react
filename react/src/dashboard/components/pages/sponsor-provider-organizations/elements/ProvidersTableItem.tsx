@@ -11,6 +11,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import classNames from 'classnames';
 
 export default function ProvidersTableItem({
     organization,
@@ -57,19 +58,22 @@ export default function ProvidersTableItem({
                     id: providerOrganization.id,
                     organizationId: organization.id,
                 }}>
-                <td
-                    onClick={(e) => {
-                        e?.preventDefault();
-                        e?.stopPropagation();
-
-                        setShowFundProviders(!showFundProviders);
-                    }}>
+                <td>
                     <div className="td-collapsable clickable">
-                        <div className="collapsable-icon">
-                            <div
-                                className={`mdi icon-collapse ${
-                                    showFundProviders ? 'mdi-menu-down' : 'mdi-menu-right'
-                                }`}
+                        <div
+                            className="collapsable-icon"
+                            onClick={(e) => {
+                                e?.preventDefault();
+                                e?.stopPropagation();
+
+                                setShowFundProviders(!showFundProviders);
+                            }}>
+                            <em
+                                className={classNames(
+                                    'mdi',
+                                    'icon-collapse',
+                                    showFundProviders ? 'mdi-menu-down' : 'mdi-menu-right',
+                                )}
                             />
                         </div>
                         <div className="collapsable-media">

@@ -149,9 +149,7 @@ export default function ModalVouchersUpload({
         if (type == 'fund_voucher') {
             fileService.downloadFile(
                 'budget_voucher_upload_sample.csv',
-                fund?.type === 'budget'
-                    ? voucherService.sampleCSVBudgetVoucher(fund.end_date)
-                    : voucherService.sampleCSVSubsidiesVoucher(fund.end_date),
+                voucherService.sampleCSVBudgetVoucher(fund.end_date),
             );
         } else {
             fileService.downloadFile(
@@ -159,7 +157,7 @@ export default function ModalVouchersUpload({
                 voucherService.sampleCSVProductVoucher(productsIds[0] || null, fund.end_date),
             );
         }
-    }, [fileService, fund?.end_date, fund?.type, productsIds, type, voucherService]);
+    }, [fileService, fund.end_date, productsIds, type, voucherService]);
 
     const setLoadingBarProgress = useCallback((progress, status = null) => {
         setProgressBar(progress);
@@ -214,8 +212,8 @@ export default function ModalVouchersUpload({
     );
 
     const getFundsById = useCallback(
-        (fundIds: Array<number>, type: 'budget' | 'subsidies') => {
-            return funds.filter((fund) => fundIds.indexOf(fund.id) != -1 && fund.type == type);
+        (fundIds: Array<number>) => {
+            return funds.filter((fund) => fundIds.includes(fund.id));
         },
         [funds],
     );
@@ -229,9 +227,9 @@ export default function ModalVouchersUpload({
             );
 
             const csvFundIds = data.map((row) => parseInt(row?.fund_id?.toString()));
-            const csvBudgetFunds = getFundsById(csvFundIds, 'budget');
+            const csvBudgetFunds = getFundsById(csvFundIds);
 
-            if (fund.type === 'budget' || csvBudgetFunds.length > 0) {
+            if (csvBudgetFunds.length > 0) {
                 csvErrors.csvAmountMissing = data.filter((row: RowDataProp) => !row.amount).length > 0;
 
                 // csv total amount should be withing fund budget
@@ -253,7 +251,7 @@ export default function ModalVouchersUpload({
                 !csvErrors.invalidPerVoucherAmount
             );
         },
-        [csvErrors, fund.limit_per_voucher, fund.limit_sum_vouchers, fund.type, getFundsById],
+        [csvErrors, fund.limit_per_voucher, fund.limit_sum_vouchers, getFundsById],
     );
 
     const validateCsvDataProduct = useCallback(

@@ -15,7 +15,6 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import SelectControl from '../../elements/select-control/SelectControl';
 import { hasPermission } from '../../../helpers/utils';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import { useTagService } from '../../../services/TagService';
 import Tag from '../../../props/models/Tag';
 import MarkdownEditor from '../../elements/forms/markdown-editor/MarkdownEditor';
@@ -43,6 +42,7 @@ import RecordType from '../../../props/models/RecordType';
 import FaqEditor from '../../elements/faq-editor-funds/FaqEditor';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import usePushApiError from '../../../hooks/usePushApiError';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -50,7 +50,6 @@ export default function OrganizationsFundsEdit() {
     const appConfigs = useAppConfigs();
     const activeOrganization = useActiveOrganization();
 
-    const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
@@ -77,10 +76,9 @@ export default function OrganizationsFundsEdit() {
     const [fundStates] = useState(fundService.getStates());
     const faqEditorBlock = useRef<() => Promise<boolean>>();
 
-    const [fundTypes] = useState([
-        { value: 'budget', name: 'Waardebon' },
-        { value: 'subsidies', name: 'Kortingspas' },
-        { value: 'external', name: 'Informatief (met doorlink)' },
+    const [fundTypeExternal] = useState([
+        { value: false, name: 'Budget' },
+        { value: true, name: 'Informatief (met doorlink)' },
     ]);
 
     const [outcomeTypes] = useState([
@@ -170,8 +168,7 @@ export default function OrganizationsFundsEdit() {
         external_page?: boolean;
         hide_meta?: boolean;
         media_uid?: string;
-        type?: string;
-        fund_type?: string;
+        external?: boolean;
         external_page_url?: string;
         request_btn_text?: string;
         application_method?: string;
@@ -187,6 +184,7 @@ export default function OrganizationsFundsEdit() {
         product_id?: number;
         default_validator_employee_id?: number;
         auto_requests_validation?: boolean;
+        allow_provider_sign_up?: boolean;
         criteria?: Array<Partial<FundCriterion>>;
         notification_amount?: number;
         tag_ids?: Array<number>;
@@ -199,11 +197,11 @@ export default function OrganizationsFundsEdit() {
         voucher_amount_visible?: boolean;
         provider_products_required?: boolean;
         criteria_label_requirement_show?: string;
-        allow_provider_sign_up?: boolean;
     }>(
         {
             description_position: descriptionPositions[0]?.value,
-            type: 'budget',
+            external: false,
+            external_page: false,
             start_date: dateFormat(addDays(new Date(), 6)),
             end_date: dateFormat(addYears(new Date(), 1)),
             formula_products: [] as Array<FundFormulaProduct>,
@@ -223,7 +221,6 @@ export default function OrganizationsFundsEdit() {
             outcome_type: 'voucher',
             voucher_amount_visible: false,
             provider_products_required: false,
-            allow_provider_sign_up: true,
         },
         async (values) => {
             const data = JSON.parse(JSON.stringify(values));
@@ -524,11 +521,7 @@ export default function OrganizationsFundsEdit() {
                                 />
                                 <Tooltip
                                     text={
-                                        <Fragment>
-                                            Door dit vakje aan te vinken, geeft u de aanbieder toestemming om het totale
-                                            bedrag dat aan de QR-code van de deelnemer is gekoppeld, te bekijken in de
-                                            Me-app.
-                                        </Fragment>
+                                        'Door dit vakje aan te vinken, geeft u de aanbieder toestemming om het totale bedrag dat aan de QR-code van de deelnemer is gekoppeld, te bekijken in de Me-app.'
                                     }
                                 />
                                 <FormError error={form.errors?.voucher_amount_visible} />
@@ -551,10 +544,7 @@ export default function OrganizationsFundsEdit() {
                                     />
                                     <Tooltip
                                         text={
-                                            <Fragment>
-                                                De details die verborgen worden, zijn: Uitgifte door, tegoed per
-                                                persoon, startdatum en einddatum van het fonds
-                                            </Fragment>
+                                            'De details die verborgen worden, zijn: Uitgifte door, tegoed per persoon, startdatum en einddatum van het fonds'
                                         }
                                     />
                                     <FormError error={form.errors?.hide_meta} />
@@ -595,87 +585,33 @@ export default function OrganizationsFundsEdit() {
                 <div className="card-section card-section-primary">
                     <div className="row">
                         <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                            <div className="form-group">
-                                <label className="form-label form-label-required">Soort fonds</label>
-
-                                {!fund && (
-                                    <SelectControl
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        value={form.values.type}
-                                        options={fundTypes}
-                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                        onChange={(type: string) => form.update({ type })}
-                                    />
+                            <FormGroup
+                                label={'Soort fonds'}
+                                input={(id) => (
+                                    <FormGroupInfo
+                                        info={
+                                            <Fragment>
+                                                Het budget fonds staat voor budgetten die aan personen of gezinnen
+                                                worden toegekend. Het betreft een digitaal tegoed of een uitbetaling
+                                                naar de inwoner. Een informatief fonds kan als een link naar een externe
+                                                website worden ingesteld waar meer informatie te vinden is over deze
+                                                regeling.
+                                            </Fragment>
+                                        }>
+                                        <SelectControl
+                                            id={id}
+                                            disabled={!!fund}
+                                            propKey={'value'}
+                                            allowSearch={false}
+                                            value={form.values.external}
+                                            options={fundTypeExternal}
+                                            onChange={(external: boolean) => form.update({ external })}
+                                        />
+                                        <FormError error={form.errors?.type} />
+                                    </FormGroupInfo>
                                 )}
-                                <FormError error={form.errors?.type} />
+                            />
 
-                                {fund && (
-                                    <div className="block block-fund_types">
-                                        {form.values.type == 'budget' && (
-                                            <div className="fund_type-item fund_type-item-read">
-                                                <div className="fund_type-item-inner">
-                                                    <div className="fund_type-media">
-                                                        <img
-                                                            className="fund_type-media-img"
-                                                            src={assetUrl(
-                                                                '/assets/img/fund-types/icon-fund-actions-read.svg',
-                                                            )}
-                                                            alt={''}
-                                                        />
-                                                    </div>
-                                                    <div className="fund_type-name">Financieel budget</div>
-                                                    <div className="fund_type-check">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {form.values.type == 'subsidies' && (
-                                            <div className="fund_type-item fund_type-item-read">
-                                                <div className="fund_type-item-inner">
-                                                    <div className="fund_type-media">
-                                                        <img
-                                                            className="fund_type-media-img"
-                                                            src={assetUrl(
-                                                                '/assets/img/fund-types/icon-fund-budget-read.svg',
-                                                            )}
-                                                            alt={''}
-                                                        />
-                                                    </div>
-                                                    <div className="fund_type-name">Acties</div>
-                                                    <div className="fund_type-check">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {form.values.type == 'external' && (
-                                            <div className="fund_type-item fund_type-item-read">
-                                                <div className="fund_type-item-inner">
-                                                    <div className="fund_type-media">
-                                                        <img
-                                                            className="fund_type-media-img"
-                                                            src={assetUrl(
-                                                                '/assets/img/fund-types/icon-fund-external-read.svg',
-                                                            )}
-                                                            alt={''}
-                                                        />
-                                                    </div>
-
-                                                    <div className="fund_type-name">Informatief (met doorlink)</div>
-
-                                                    <div className="fund_type-check">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
                             {activeOrganization.allow_payouts && (
                                 <div className="form-group">
                                     <label className="form-label form-label-required">Uitkomst van een aanvraag</label>
@@ -695,7 +631,7 @@ export default function OrganizationsFundsEdit() {
                     </div>
                 </div>
 
-                {form.values.type == 'external' && (
+                {!!form.values.external && (
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">
@@ -780,7 +716,7 @@ export default function OrganizationsFundsEdit() {
                     </div>
                 )}
 
-                {form.values.type != 'external' && (
+                {!form.values.external && (
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">
@@ -928,10 +864,7 @@ export default function OrganizationsFundsEdit() {
                                 />
                                 <Tooltip
                                     text={
-                                        <Fragment>
-                                            Wanneer u het vakje aanvinkt, ontvangen aanbieders die zich proberen in te
-                                            schrijven voor dit fonds een melding om hun aanbod toe te voegen.
-                                        </Fragment>
+                                        'Wanneer u het vakje aanvinkt, ontvangen aanbieders die zich proberen in te schrijven voor dit fonds een melding om hun aanbod toe te voegen.'
                                     }
                                 />
                                 <FormError error={form.errors?.provider_products_required} />

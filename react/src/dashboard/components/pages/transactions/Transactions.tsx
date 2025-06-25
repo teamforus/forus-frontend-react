@@ -9,7 +9,6 @@ import useEnvData from '../../../hooks/useEnvData';
 import useFilter from '../../../hooks/useFilter';
 import useTransactionBulkService from '../../../services/TransactionBulkService';
 import { PaginationData } from '../../../props/ApiResponses';
-import ModalDangerZone from '../../modals/ModalDangerZone';
 import { strLimit } from '../../../helpers/string';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import TransactionBulk from '../../../props/models/TransactionBulk';
@@ -40,6 +39,7 @@ import TransactionStateLabel from '../../elements/resource-states/TransactionSta
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import useConfirmDangerAction from '../../../hooks/useConfirmDangerAction';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -50,6 +50,7 @@ export default function Transactions() {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
+    const confirmDangerAction = useConfirmDangerAction();
 
     const activeOrganization = useActiveOrganization();
     const transactionExporter = useTransactionExporter();
@@ -239,35 +240,6 @@ export default function Transactions() {
             />
         ));
     }, [activeOrganization, fetchTransactions, filter.activeValues, isSponsor, openModal, updateHasPendingBulking]);
-
-    const confirmDangerAction = useCallback(
-        (title: string, description_text: string, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
-            return new Promise((resolve) => {
-                openModal((modal) => (
-                    <ModalDangerZone
-                        modal={modal}
-                        title={title}
-                        description={description_text}
-                        buttonCancel={{
-                            text: cancelButton,
-                            onClick: () => {
-                                modal.close();
-                                resolve(false);
-                            },
-                        }}
-                        buttonSubmit={{
-                            text: confirmButton,
-                            onClick: () => {
-                                modal.close();
-                                resolve(true);
-                            },
-                        }}
-                    />
-                ));
-            });
-        },
-        [openModal],
-    );
 
     const confirmBulkNow = useCallback(() => {
         const total = pendingBulkingMeta.total;

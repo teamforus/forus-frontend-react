@@ -9,7 +9,7 @@ import { ResponseError } from '../../../../props/ApiResponses';
 import SponsorIdentity, { ProfileRecordTypes } from '../../../../props/models/Sponsor/SponsorIdentity';
 import Modal from '../../../modals/elements/Modal';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
-import FormGroup from '../../../elements/forms/controls/FormGroup';
+import FormGroup from '../../../elements/forms/elements/FormGroup';
 import RecordType from '../../../../props/models/RecordType';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
