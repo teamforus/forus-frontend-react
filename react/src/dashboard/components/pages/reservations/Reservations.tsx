@@ -544,7 +544,7 @@ export default function Reservations() {
                                                 {strLimit(reservation.product.name, 45)}
                                             </StateNavLink>
                                             <div className="text-strong text-small text-muted-dark">
-                                                {reservation.price_locale}
+                                                {reservation.product?.price_locale}
                                             </div>
                                         </td>
                                         <td>{reservation.amount_locale}</td>

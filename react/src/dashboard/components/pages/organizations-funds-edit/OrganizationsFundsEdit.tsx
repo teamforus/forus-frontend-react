@@ -77,8 +77,8 @@ export default function OrganizationsFundsEdit() {
     const faqEditorBlock = useRef<() => Promise<boolean>>();
 
     const [fundTypeExternal] = useState([
-        { value: 0, name: 'Budget' },
-        { value: 1, name: 'Informatief (met doorlink)' },
+        { value: false, name: 'Budget' },
+        { value: true, name: 'Informatief (met doorlink)' },
     ]);
 
     const [outcomeTypes] = useState([
@@ -605,7 +605,7 @@ export default function OrganizationsFundsEdit() {
                                             allowSearch={false}
                                             value={form.values.external}
                                             options={fundTypeExternal}
-                                            onChange={(external: 1 | 0) => form.update({ external })}
+                                            onChange={(external: boolean) => form.update({ external })}
                                         />
                                         <FormError error={form.errors?.type} />
                                     </FormGroupInfo>
@@ -631,7 +631,7 @@ export default function OrganizationsFundsEdit() {
                     </div>
                 </div>
 
-                {form.values.external && (
+                {!!form.values.external && (
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">

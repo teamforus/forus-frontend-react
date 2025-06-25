@@ -73,11 +73,11 @@ export default function ModalFundProviderProductConfig({
                   limit_total: product.unlimited_stock
                       ? deal.limit_total
                       : Math.min(deal.limit_total, product.stock_amount),
-                  limit_total_unlimited: deal.limit_total_unlimited,
+                  limit_total_unlimited: deal.limit_total_unlimited ?? true,
                   limit_per_identity: product.unlimited_stock
                       ? deal.limit_per_identity
                       : Math.min(deal.limit_per_identity, product.stock_amount),
-                  limit_per_identity_unlimited: deal.limit_per_identity_unlimited,
+                  limit_per_identity_unlimited: deal.limit_per_identity_unlimited ?? true,
                   ...(deal.payment_type === 'subsidy'
                       ? { amount: deal.amount, gratis: deal.amount === product.price }
                       : {}),
@@ -97,9 +97,14 @@ export default function ModalFundProviderProductConfig({
         (values) => {
             setProgress(0);
 
-            const { payment_type } = values;
-            const { limit_total, limit_per_identity, limit_total_unlimited, limit_per_identity_unlimited } = values;
-            const { allow_scanning, expire_at, expires_with_fund, gratis, amount } = values;
+            const { payment_type, allow_scanning, expire_at, expires_with_fund, gratis, amount } = values;
+
+            const {
+                limit_total,
+                limit_per_identity,
+                limit_total_unlimited = true,
+                limit_per_identity_unlimited = true,
+            } = values;
 
             const extendedSettings =
                 payment_type === 'subsidy' ||
@@ -114,9 +119,9 @@ export default function ModalFundProviderProductConfig({
                 amount: payment_type === 'budget' ? null : gratis ? product.price : amount,
                 expire_at: expires_with_fund ? null : expire_at,
                 allow_scanning: allow_scanning,
-                limit_total,
+                limit_total: limit_total_unlimited ? null : limit_total,
                 limit_total_unlimited,
-                limit_per_identity,
+                limit_per_identity: limit_per_identity_unlimited ? null : limit_per_identity,
                 limit_per_identity_unlimited,
             };
 
@@ -138,9 +143,9 @@ export default function ModalFundProviderProductConfig({
                             expire_at: null,
                             allow_scanning: 1,
                             limit_total: null,
-                            limit_total_unlimited: null,
+                            limit_total_unlimited: true,
                             limit_per_identity: null,
-                            limit_per_identity_unlimited: null,
+                            limit_per_identity_unlimited: true,
                             ...(extendedSettings ? productDataExtended : {}),
                         },
                     ],
