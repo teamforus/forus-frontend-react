@@ -28,7 +28,6 @@ interface AuthMemoProps {
     setLanguage?: React.Dispatch<React.SetStateAction<string>>;
     changeLanguage?: (locale: string) => void;
     languages?: Array<Language>;
-    searchValue?: string;
 }
 
 const mainContext = createContext<AuthMemoProps>(null);
@@ -47,7 +46,6 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
     const { route } = useStateRoutes();
     const { i18n } = useTranslation();
     const [language, setLanguage] = useState(i18n.language);
-    const [searchValue, setSearchValue] = useState('');
 
     const languages = useMemo(() => {
         return appConfigs?.languages;
@@ -88,10 +86,6 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
         searchFilterUpdate({ q: '' });
     }, [route.pathname, route?.state?.name, searchFilterUpdate]);
 
-    useEffect(() => {
-        setSearchValue(searchFilter?.values?.q);
-    }, [searchFilter?.values?.q]);
-
     return (
         <Provider
             value={{
@@ -111,7 +105,6 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
                 setLanguage,
                 languages,
                 changeLanguage,
-                searchValue,
             }}>
             {children}
         </Provider>
