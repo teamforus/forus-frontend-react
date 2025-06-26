@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
@@ -19,6 +18,7 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
+import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 
 type ProductsDataLocal = PaginationData<
     Product,
@@ -28,7 +28,6 @@ type ProductsDataLocal = PaginationData<
 export default function Products() {
     const activeOrganization = useActiveOrganization();
 
-    const assetUrl = useAssetUrl();
     const translate = useTranslate();
 
     const productService = useProductService();
@@ -182,25 +181,15 @@ export default function Products() {
                                         customElement={'tr'}
                                         className={'tr-clickable'}>
                                         <td className={'td-narrow'}>{product.id}</td>
-                                        <td>
-                                            <div className="flex flex-align-items-center flex-gap">
-                                                <img
-                                                    alt={product.name}
-                                                    className="td-media"
-                                                    src={
-                                                        product.photo?.sizes?.thumbnail ||
-                                                        assetUrl('/assets/img/placeholders/product-small.png')
-                                                    }
-                                                />
-                                                <div
-                                                    className="text-word-break"
-                                                    style={{
-                                                        width: '350px',
-                                                        whiteSpace: 'initial',
-                                                    }}>
-                                                    {product.name}
-                                                </div>
-                                            </div>
+                                        <td title={product.name}>
+                                            <TableEntityMain
+                                                title={product.name}
+                                                titleLimit={64}
+                                                media={product.photo}
+                                                mediaRound={false}
+                                                mediaSize={'md'}
+                                                mediaPlaceholder={'product'}
+                                            />
                                         </td>
 
                                         {product.unlimited_stock ? (

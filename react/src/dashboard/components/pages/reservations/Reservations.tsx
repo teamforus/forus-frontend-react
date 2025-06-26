@@ -85,10 +85,6 @@ export default function Reservations() {
         return activeOrganization.can_view_provider_extra_payments || hasExtraPaymentsOnPage;
     }, [activeOrganization, reservations]);
 
-    const reservationEnabled = useMemo(() => {
-        return activeOrganization.reservations_budget_enabled || activeOrganization.reservations_subsidy_enabled;
-    }, [activeOrganization]);
-
     const [extraPaymentStates] = useState([
         { key: 'canceled_payment_expired', name: 'Geannuleerd door verlopen bijbetaling' }, // Canceled payment expired
         { key: 'canceled_payment_canceled', name: 'Geannuleerd door ingetrokken bijbetaling' }, // Canceled payment canceled
@@ -340,27 +336,32 @@ export default function Reservations() {
                             </Fragment>
                         ) : (
                             <Fragment>
-                                {reservationEnabled && (
-                                    <div onClick={makeReservation} className="button button-primary button-sm">
-                                        <em className="mdi mdi-plus-circle icon-start" />
-                                        Aanmaken
-                                    </div>
-                                )}
+                                {activeOrganization.reservations_enabled && (
+                                    <Fragment>
+                                        <div onClick={makeReservation} className="button button-primary button-sm">
+                                            <em className="mdi mdi-plus-circle icon-start" />
+                                            Aanmaken
+                                        </div>
 
-                                {reservationEnabled && hasPermission(activeOrganization, 'manage_organization') && (
-                                    <StateNavLink
-                                        name="reservations-settings"
-                                        params={{ organizationId: activeOrganization.id }}
-                                        className="button button-primary button-sm">
-                                        <em className="mdi mdi-cog icon-start" />
-                                        Instellingen
-                                    </StateNavLink>
-                                )}
-                                {activeOrganization.allow_batch_reservations && reservationEnabled && (
-                                    <div className="button button-primary button-sm" onClick={uploadReservations}>
-                                        <em className="mdi mdi-upload icon-start" />
-                                        Upload bulkbestand
-                                    </div>
+                                        {hasPermission(activeOrganization, 'manage_organization') && (
+                                            <StateNavLink
+                                                name="reservations-settings"
+                                                params={{ organizationId: activeOrganization.id }}
+                                                className="button button-primary button-sm">
+                                                <em className="mdi mdi-cog icon-start" />
+                                                Instellingen
+                                            </StateNavLink>
+                                        )}
+
+                                        {activeOrganization.allow_batch_reservations && (
+                                            <div
+                                                className="button button-primary button-sm"
+                                                onClick={uploadReservations}>
+                                                <em className="mdi mdi-upload icon-start" />
+                                                Upload bulkbestand
+                                            </div>
+                                        )}
+                                    </Fragment>
                                 )}
 
                                 <div className="flex-col">
@@ -543,7 +544,7 @@ export default function Reservations() {
                                                 {strLimit(reservation.product.name, 45)}
                                             </StateNavLink>
                                             <div className="text-strong text-small text-muted-dark">
-                                                {reservation.price_locale}
+                                                {reservation.product?.price_locale}
                                             </div>
                                         </td>
                                         <td>{reservation.amount_locale}</td>

@@ -190,7 +190,7 @@ export default function Prevalidations() {
         setProgress(0);
 
         fundService
-            .list(activeOrganization?.id, { state: 'active_paused_and_closed' })
+            .list(activeOrganization?.id, { state: 'active_paused_and_closed', per_page: 100 })
             .then((res) => {
                 const funds = res.data.data.filter((fund) => hasPermission(fund.organization, 'validate_records'));
 
