@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router';
+import { NavLink, useHref } from 'react-router';
 import React, { HTMLAttributes, ReactElement } from 'react';
-import { getStateRouteUrl, useNavigateState } from './Router';
+import { getSafeStateRouteUrl, getStateRouteUrl, useNavigateState } from './Router';
 import classNames from 'classnames';
 
 export default function StateNavLink({
@@ -38,6 +38,7 @@ export default function StateNavLink({
     onKeyDown?: (e: React.KeyboardEvent) => void;
 }) {
     const navigateState = useNavigateState();
+    const href = useHref(getSafeStateRouteUrl(name, params, query));
 
     if (disabled) {
         return customElement ? (
@@ -59,13 +60,20 @@ export default function StateNavLink({
                 style: { cursor: 'pointer' },
                 onKeyDown: onKeyDown,
                 onClick: (e) => {
+                    e.preventDefault();
+
                     if (stopPropagation) {
                         e.stopPropagation();
                     }
 
-                    e.preventDefault();
                     onClick?.(e);
-                    navigateState(name, params, query, { state });
+
+                    // Detect if Ctrl/Cmd or middle mouse button pressed
+                    if (e.metaKey || e.ctrlKey || e.button === 1) {
+                        window.open(href, '_blank');
+                    } else {
+                        navigateState(name, params, query, { state });
+                    }
                 },
             },
             children,

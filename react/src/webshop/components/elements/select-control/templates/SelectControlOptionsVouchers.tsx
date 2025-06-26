@@ -96,9 +96,7 @@ export default function SelectControlOptionsVouchers<T>({
                                     </div>
                                 </div>
                                 <div className="flex flex-vertical text-right">
-                                    {selectedVoucher?.fund.type === 'budget' && (
-                                        <div className="voucher-value">{selectedVoucher.amount_locale}</div>
-                                    )}
+                                    <div className="voucher-value">{selectedVoucher?.amount_locale}</div>
                                     <div className="voucher-date">{selectedVoucher?.expire_at_locale}</div>
                                 </div>
                             </div>

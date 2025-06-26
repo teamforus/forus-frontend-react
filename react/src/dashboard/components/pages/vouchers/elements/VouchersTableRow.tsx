@@ -10,7 +10,6 @@ import Fund from '../../../../props/models/Fund';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { hasPermission } from '../../../../helpers/utils';
 import useShowVoucherQrCode from '../hooks/useShowVoucherQrCode';
-import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function VouchersTableRow({
     funds,
@@ -89,13 +88,7 @@ export default function VouchersTableRow({
             </td>
 
             {!voucher.product ? (
-                <td>
-                    {voucher.fund.type === 'budget' ? (
-                        currencyFormat(parseFloat(voucher.amount_total))
-                    ) : (
-                        <TableEmptyValue />
-                    )}
-                </td>
+                <td>{currencyFormat(parseFloat(voucher.amount_total))}</td>
             ) : (
                 <td>
                     <div className="text-primary text-semibold" title={voucher.product.organization.name}>
@@ -191,7 +184,7 @@ export default function VouchersTableRow({
                             </StateNavLink>
 
                             {hasPermission(organization, 'manage_vouchers') &&
-                                !voucher.is_granted &&
+                                !voucher.granted &&
                                 !voucher.expired &&
                                 voucher.state != 'deactivated' && (
                                     <Fragment>

@@ -41,7 +41,7 @@ export default function FinancialOverviewFundsBudgetTable({
     const [financialOverview, setFinancialOverview] = useState<FinancialOverview>(null);
 
     const budgetFunds = useMemo(() => {
-        return funds?.filter((fund) => fund.type == 'budget' && fund.budget);
+        return funds?.filter((fund) => fund.budget);
     }, [funds]);
 
     const fundService = useFundService();
@@ -117,15 +117,15 @@ export default function FinancialOverviewFundsBudgetTable({
                                 <tbody>
                                     <tr className="table-totals">
                                         <td>{translate('financial_dashboard_overview.labels.total')}</td>
-                                        <td>{financialOverview?.budget_funds.vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.budget_funds.active_vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.budget_funds.inactive_vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.budget_funds.deactivated_vouchers_amount_locale}</td>
-                                        <td>{financialOverview?.budget_funds.budget_used_active_vouchers_locale}</td>
+                                        <td>{financialOverview?.funds.vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.funds.active_vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.funds.inactive_vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.funds.deactivated_vouchers_amount_locale}</td>
+                                        <td>{financialOverview?.funds.budget_used_active_vouchers_locale}</td>
                                         <td>
                                             {currencyFormat(
-                                                parseFloat(financialOverview?.budget_funds.vouchers_amount) -
-                                                    financialOverview?.budget_funds.budget_used_active_vouchers,
+                                                parseFloat(financialOverview?.funds.vouchers_amount) -
+                                                    financialOverview?.funds.budget_used_active_vouchers,
                                             )}
                                         </td>
                                         <td className={'table-td-actions text-right'}>

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useFilter from '../../../hooks/useFilter';
 import { PaginationData } from '../../../props/ApiResponses';
@@ -16,6 +16,9 @@ import { strLimit } from '../../../helpers/string';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import { useFundService } from '../../../services/FundService';
 
 export default function SponsorProviderOrganization() {
     const { id } = useParams();
@@ -25,12 +28,16 @@ export default function SponsorProviderOrganization() {
     const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
 
+    const fundService = useFundService();
     const organizationService = useOrganizationService();
 
     const [fundProviders, setFundProviders] = useState<PaginationData<FundProvider>>(null);
     const [providerOrganization, setProviderOrganization] = useState<SponsorProviderOrganization>(null);
 
     const filter = useFilter({ q: '', per_page: 10 });
+    const tableRef = useRef<HTMLTableElement>(null);
+
+    const { headElement, configsElement } = useConfigurableTable(fundService.getProviderFundColumns());
 
     const updateFundProviderInList = useCallback(
         (data: FundProvider, index: number) => {
@@ -107,18 +114,13 @@ export default function SponsorProviderOrganization() {
                 </div>
 
                 <div className="card-section card-section-padless">
-                    <div className="table-wrapper">
+                    {configsElement}
+
+                    <TableTopScroller onScroll={() => tableRef.current?.click()}>
                         <table className="table form">
+                            {headElement}
+
                             <tbody>
-                                <tr>
-                                    <th className="td-narrow">Afbeelding</th>
-                                    <th>Fondsnaam</th>
-                                    <th>Status</th>
-                                    <th>Budget scannen</th>
-                                    <th>Aanbod scannen</th>
-                                    <th>Verborgen op webshop</th>
-                                    <th className="text-right">Opties</th>
-                                </tr>
                                 {fundProviders.data.map((fundProvider, index) => (
                                     <FundProviderTableItem
                                         key={fundProvider.id}
@@ -129,7 +131,7 @@ export default function SponsorProviderOrganization() {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </TableTopScroller>
                 </div>
 
                 {fundProviders.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen aanmeldingen'} />}

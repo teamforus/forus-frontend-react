@@ -6,7 +6,7 @@ import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import { useParams } from 'react-router';
 import Implementation from '../../../props/models/Implementation';
-import FormGroup from '../../elements/forms/controls/FormGroup';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import useSetProgress from '../../../hooks/useSetProgress';
