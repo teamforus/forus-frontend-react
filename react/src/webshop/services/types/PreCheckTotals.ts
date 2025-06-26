@@ -19,7 +19,7 @@ export type PreCheckTotalsFund = {
     description_short: string;
     external_link_text?: string;
     external_link_url?: string;
-    is_external: boolean;
+    external: boolean;
     logo?: Media;
     parent?: Fund;
     children?: Array<Fund>;

@@ -199,24 +199,13 @@ export default function ProductFundsCard({
                                             </div>
                                         )}
 
-                                        {fund.type == 'subsidies' &&
-                                            (product.price_type === 'free' ||
-                                                (product.price_type === 'regular' && fund.price == '0.00')) && (
-                                                <div className="fund-item-section-value">
-                                                    {translate('product.status.free')}
-                                                </div>
-                                            )}
-
-                                        {fund.type == 'subsidies' &&
-                                            product.price_type === 'regular' &&
-                                            fund.price != '0.00' && (
-                                                <div className="fund-item-section-value">{fund.price_locale}</div>
-                                            )}
-
-                                        {fund.type == 'budget' &&
-                                            (product.price_type === 'regular' || product.price_type === 'free') && (
-                                                <div className="fund-item-section-value">{product.price_locale}</div>
-                                            )}
+                                        {(product.price_type === 'regular' || product.price_type === 'free') && (
+                                            <div className="fund-item-section-value">
+                                                {fund.user_price === '0.00'
+                                                    ? translate('product.status.free')
+                                                    : fund.user_price_locale}
+                                            </div>
+                                        )}
 
                                         {(product.price_type === 'discount_fixed' ||
                                             product.price_type === 'discount_percentage') && (

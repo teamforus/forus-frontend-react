@@ -36,6 +36,14 @@ export const getStateRouteUrl = (name: string, params = {}, query = {}): string 
     return `${routePath}${routeQuery ? `?${routeQuery}` : ''}`;
 };
 
+export const getSafeStateRouteUrl = (name: string, params = {}, query = {}) => {
+    try {
+        return getStateRouteUrl(name, params, query);
+    } catch {
+        return null;
+    }
+};
+
 export const useNavigateState = () => {
     const navigate = useNavigate();
 

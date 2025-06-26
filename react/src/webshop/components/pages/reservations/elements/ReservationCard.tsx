@@ -113,7 +113,7 @@ export default function ReservationCard({
                                     <div className="reservation-value-title">
                                         {translate('reservations.card.value.product_price')}
                                     </div>
-                                    <div className="reservation-value">{reservation.price_locale}</div>
+                                    <div className="reservation-value">{reservation.price_voucher_locale}</div>
                                 </div>
 
                                 {reservation.amount_extra > 0 && (
@@ -380,7 +380,9 @@ export default function ReservationCard({
                                         <div className="reservation-details-item-label">
                                             {translate('reservations.card.details.total_product_price')}
                                         </div>
-                                        <div className="reservation-details-item-value">{reservation.price_locale}</div>
+                                        <div className="reservation-details-item-value">
+                                            {reservation.price_voucher_locale}
+                                        </div>
                                     </li>
                                 </ul>
                                 <StateNavLink

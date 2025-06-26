@@ -11,14 +11,12 @@ import Fund from '../../props/models/Fund';
 import FundProvider from '../../props/models/FundProvider';
 import useFundProviderChatService from '../../services/FundProviderChatService';
 import useSetProgress from '../../hooks/useSetProgress';
-import SponsorProduct from '../../props/models/Sponsor/SponsorProduct';
 import usePushApiError from '../../hooks/usePushApiError';
 
 export default function ModalFundProviderChatSponsor({
     modal,
     chat,
     fund,
-    product,
     className,
     organization,
     fundProvider,
@@ -26,7 +24,6 @@ export default function ModalFundProviderChatSponsor({
     modal: ModalState;
     chat: FundProviderChat;
     fund: Fund;
-    product: SponsorProduct;
     className?: string;
     organization: Organization;
     fundProvider: FundProvider;
@@ -120,7 +117,7 @@ export default function ModalFundProviderChatSponsor({
             <div className="modal-backdrop" onClick={modal.close} />
             <form className="modal-window form" onSubmit={form.submit}>
                 <div className="modal-close mdi mdi-close" onClick={modal.close} />
-                <div className="modal-header">Chat met {product.organization.name}</div>
+                <div className="modal-header">Chat met {fundProvider.organization.name}</div>
                 <div className="modal-body form">
                     <div className="modal-section modal-section-light modal-section-sm">
                         <div className="block block-chat">
