@@ -56,7 +56,8 @@ export default function VoucherCard({
             name={'voucher'}
             params={{ number: voucher.number }}
             className="voucher-item"
-            dataDusk="voucherItem">
+            dataDusk={`listVouchersRow${voucher.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             <div className="voucher-image">
                 <img src={voucherCard.thumbnail} alt="" />
             </div>

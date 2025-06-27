@@ -96,6 +96,7 @@ export default function Reservations() {
 
     return (
         <BlockShowcaseProfile
+            contentDusk="listReservationsContent"
             breadcrumbItems={[
                 { name: translate('reservations.breadcrumbs.home'), state: 'home' },
                 { name: translate('reservations.breadcrumbs.reservations') },
@@ -112,6 +113,7 @@ export default function Reservations() {
                                 id="products_search"
                                 value={filters.values.q}
                                 onChangeValue={(q) => filters.update({ q })}
+                                dataDusk="listReservationsSearch"
                                 ariaLabel={translate('reservations.filters.search_aria_label')}
                             />
                         </div>
@@ -127,6 +129,7 @@ export default function Reservations() {
                                 options={funds}
                                 multiline={true}
                                 allowSearch={true}
+                                dusk="selectControlFunds"
                                 onChange={(fund_id?: number) => filters.update({ fund_id })}
                             />
                         </div>
@@ -143,6 +146,7 @@ export default function Reservations() {
                                 onChange={(organization_id?: number) => filters.update({ organization_id })}
                                 multiline={true}
                                 allowSearch={true}
+                                dusk="selectControlProviders"
                             />
                         </div>
                         <div className="form-group">
@@ -158,6 +162,7 @@ export default function Reservations() {
                                 onChange={(state?: string) => filters.update({ state })}
                                 multiline={true}
                                 allowSearch={true}
+                                dusk="selectControlStates"
                             />
                         </div>
                     </div>
@@ -182,6 +187,7 @@ export default function Reservations() {
                                         className={`label-tab label-tab-sm ${!filters.values.archived ? 'active' : ''}`}
                                         onClick={() => filters.update({ archived: 0 })}
                                         aria-pressed={!filters.values.archived}
+                                        data-dusk="reservationsFilterActive"
                                         role="button">
                                         {translate('reservations.types.active')}
                                     </div>
@@ -189,6 +195,7 @@ export default function Reservations() {
                                         className={`label-tab label-tab-sm ${filters.values.archived ? 'active' : ''}`}
                                         onClick={() => filters.update({ archived: 1 })}
                                         aria-pressed={!!filters.values.archived}
+                                        data-dusk="reservationsFilterArchived"
                                         role="button">
                                         {translate('reservations.types.archived')}
                                     </div>
