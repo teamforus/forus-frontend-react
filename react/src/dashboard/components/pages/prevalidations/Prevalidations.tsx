@@ -328,8 +328,10 @@ export default function Prevalidations() {
                             <div
                                 className="button button-text"
                                 onClick={() => {
+                                    const fund_id = filter.values.fund_id;
                                     filter.resetFilters();
                                     filter.setShow(false);
+                                    filterUpdate({ fund_id });
                                 }}>
                                 <em className="mdi mdi-close icon-start" />
                                 Wis filters
