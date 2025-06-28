@@ -17,6 +17,7 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
+import usePushApiError from '../../../../dashboard/hooks/usePushApiError';
 
 export default function ProvidersOffice() {
     const { organization_id, id } = useParams();
@@ -24,6 +25,7 @@ export default function ProvidersOffice() {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const appConfigs = useAppConfigs();
     const officeService = useOfficeService();
@@ -33,7 +35,6 @@ export default function ProvidersOffice() {
     const [office, setOffice] = useState<Office>(null);
     const [provider, setProvider] = useState<Provider>(null);
     const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [subsidies, setSubsidies] = useState<PaginationData<Product>>(null);
     const [showOffices, setShowOffices] = useState(false);
 
     const weekDays = useMemo(() => {
@@ -41,9 +42,7 @@ export default function ProvidersOffice() {
     }, [officeService, translate]);
 
     const schedules = useMemo(() => {
-        return office?.schedule?.reduce((schedules, schedule) => {
-            return { ...schedules, [schedule.week_day]: schedule };
-        }, {});
+        return office?.schedule?.reduce((obj, schedule) => ({ ...obj, [schedule.week_day]: schedule }), {});
     }, [office?.schedule]);
 
     const fetchProvider = useCallback(() => {
@@ -64,23 +63,19 @@ export default function ProvidersOffice() {
             .finally(() => setProgress(100));
     }, [id, officeService, setProgress]);
 
-    const fetchProducts = useCallback(async () => {
+    const fetchProducts = useCallback(() => {
         if (!provider) {
             return;
         }
 
         setProgress(0);
 
-        await productService
-            .list({ fund_type: 'budget', per_page: 3, organization_id: provider?.id })
-            .then((res) => setProducts(res.data));
-
-        await productService
-            .list({ fund_type: 'subsidies', per_page: 3, organization_id: provider?.id })
-            .then((res) => setSubsidies(res.data));
-
-        setProgress(100);
-    }, [provider, productService, setProgress]);
+        productService
+            .list({ per_page: 3, organization_id: provider?.id })
+            .then((res) => setProducts(res.data))
+            .catch(pushApiError)
+            .finally(() => setProgress(100));
+    }, [provider, productService, setProgress, pushApiError]);
 
     useEffect(() => {
         fetchOffice();
@@ -91,7 +86,7 @@ export default function ProvidersOffice() {
     }, [fetchProvider]);
 
     useEffect(() => {
-        fetchProducts().then();
+        fetchProducts();
     }, [fetchProducts]);
 
     return (
@@ -325,18 +320,8 @@ export default function ProvidersOffice() {
 
                         {products?.data.length > 0 && (
                             <BlockProducts
-                                type="budget"
                                 display="grid"
                                 products={products.data}
-                                filters={{ organization_id: provider.id }}
-                            />
-                        )}
-
-                        {subsidies?.data.length > 0 && (
-                            <BlockProducts
-                                type="subsidies"
-                                display="grid"
-                                products={subsidies.data}
                                 filters={{ organization_id: provider.id }}
                             />
                         )}

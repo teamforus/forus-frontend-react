@@ -3,7 +3,7 @@ import FundCriteriaStep from '../../../dashboard/props/models/FundCriteriaStep';
 
 export default interface Fund extends FundBase {
     received?: boolean;
-    is_external: boolean;
+    external: boolean;
     allow_direct_requests?: boolean;
     has_pending_fund_requests: boolean;
     hide_meta?: boolean;

@@ -22,7 +22,7 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import PhotoSelectorData from '../../elements/photo-selector/types/PhotoSelectorData';
 import useTranslate from '../../../hooks/useTranslate';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
-import FormGroup from '../../elements/forms/controls/FormGroup';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import PhotoSelectorBanner from '../../elements/photo-selector/PhotoSelectorBanner';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import ModalNotification from '../../modals/ModalNotification';

@@ -10,7 +10,7 @@ import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import InfoBox from '../../elements/info-box/InfoBox';
-import FormGroup from '../../elements/forms/controls/FormGroup';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import { currencyFormat, numberFormat } from '../../../helpers/string';
 import { dateFormat, dateParse } from '../../../helpers/dates';
