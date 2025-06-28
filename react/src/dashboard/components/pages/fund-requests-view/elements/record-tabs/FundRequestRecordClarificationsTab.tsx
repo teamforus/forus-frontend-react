@@ -19,13 +19,17 @@ export default function FundRequestRecordClarificationsTab({
                             <div className="clarification-item-icon mdi mdi-message-text text-primary" />
                             <MultilineText text={clarification.question} />
                         </div>
-                        <div className="clarification-item-answer">
-                            <div className="clarification-item-icon mdi mdi-message-text text-primary-light" />
-                            <MultilineText
-                                className={clarification.answered_at ? '' : 'text-muted'}
-                                text={clarification.answered_at ? clarification.answer : 'Geen antwoord...'}
-                            />
-                        </div>
+
+                        {(!clarification.answered_at || (clarification.answered_at && clarification.answer)) && (
+                            <div className="clarification-item-answer">
+                                <div className="clarification-item-icon mdi mdi-message-text text-primary-light" />
+                                <MultilineText
+                                    className={clarification.answered_at ? '' : 'text-muted'}
+                                    text={clarification.answered_at ? clarification.answer : 'Geen antwoord...'}
+                                />
+                            </div>
+                        )}
+
                         {clarification?.files?.length > 0 && (
                             <div className="clarification-item-attachments">
                                 <FundRequestRecordAttachmentsTab

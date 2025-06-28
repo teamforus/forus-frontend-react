@@ -12,6 +12,7 @@ import { useFundRequestClarificationService } from '../../../../services/FundReq
 import MultilineText from '../../../../../dashboard/components/elements/multiline-text/MultilineText';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
+import usePushDanger from '../../../../../dashboard/hooks/usePushDanger';
 
 export default function FundRequestRecordClarificationCard({
     record,
@@ -25,6 +26,7 @@ export default function FundRequestRecordClarificationCard({
     setFundRequest: React.Dispatch<React.SetStateAction<FundRequest>>;
 }) {
     const translate = useTranslate();
+    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
 
     const fundRequestClarificationService = useFundRequestClarificationService();
@@ -51,9 +53,13 @@ export default function FundRequestRecordClarificationCard({
                     records: request.records.map((item) => (item.id === record.id ? record : item)),
                 }));
 
+                form.setErrors(null);
                 setShowForm(false);
             })
-            .catch((res: ResponseError) => form.setErrors(res.data.errors))
+            .catch((err: ResponseError) => {
+                pushDanger(translate('push.error'), err.data?.message);
+                form.setErrors(err.data?.errors);
+            })
             .finally(() => form.setIsLocked(false));
     });
 
@@ -62,6 +68,7 @@ export default function FundRequestRecordClarificationCard({
     return (
         <div
             key={clarification.id}
+            data-dusk={`clarificationCard${clarification.id}`}
             className={classNames(
                 `fund-request-chat`,
                 clarification.state === 'pending' ? 'fund-request-chat-new' : 'fund-request-chat-answered',
@@ -84,7 +91,7 @@ export default function FundRequestRecordClarificationCard({
                 {clarification.state === 'answered' && (
                     <div className="fund-request-chat-status">
                         <em className="mdi mdi-check fund-request-chat-status-icon" />
-                        {translate('fund_request.record.Beantwoord')}
+                        {translate('fund_request.record.answer')}
                     </div>
                 )}
             </div>
@@ -93,18 +100,22 @@ export default function FundRequestRecordClarificationCard({
                     <div className="fund-request-chat-message fund-request-chat-message-in">
                         <div className="fund-request-chat-message-time">{clarification.created_at_locale}</div>
                         <div className="fund-request-chat-message-content">
-                            <div className="fund-request-chat-message-text">
+                            <div className="fund-request-chat-message-text" data-dusk="clarificationQuestion">
                                 <MultilineText text={clarification.question} />
                             </div>
                         </div>
                     </div>
                     {clarification.state === 'answered' && (
-                        <div className="fund-request-chat-message fund-request-chat-message-out">
+                        <div
+                            className="fund-request-chat-message fund-request-chat-message-out"
+                            data-dusk="clarificationAnswer">
                             <div className="fund-request-chat-message-time">{clarification.answered_at_locale}</div>
                             <div className="fund-request-chat-message-content">
-                                <div className="fund-request-chat-message-text">
-                                    <MultilineText text={clarification.answer} />
-                                </div>
+                                {clarification.answer && (
+                                    <div className="fund-request-chat-message-text">
+                                        <MultilineText text={clarification.answer} />
+                                    </div>
+                                )}
                                 {clarification.files.length > 0 && (
                                     <div className="fund-request-chat-message-file-uploader">
                                         <FileUploader
@@ -122,7 +133,10 @@ export default function FundRequestRecordClarificationCard({
                 </div>
 
                 {clarification.state === 'pending' && !showForm && (
-                    <div className="fund-request-chat-conversation-reply" onClick={() => openReplyForm()}>
+                    <div
+                        className="fund-request-chat-conversation-reply"
+                        data-dusk="openReplyForm"
+                        onClick={() => openReplyForm()}>
                         <button className="button button-light button-xs button-fill flex flex-center">
                             <em className="mdi mdi-reply" />
                             {translate('fund_request.record.answer_btn')}
@@ -136,10 +150,11 @@ export default function FundRequestRecordClarificationCard({
                             <UIControlText
                                 type={'textarea'}
                                 rows={5}
+                                dataDusk="answerInput"
                                 value={form.values.answer}
                                 onChangeValue={(answer) => form.update({ answer })}
                             />
-                            <FormError error={form.errors?.answer} />
+                            <FormError duskPrefix={'errorAnswer'} error={form.errors?.answer} />
                         </div>
                         <div className="fund-request-chat-conversation-answer-options">
                             <FileUploader
@@ -164,12 +179,14 @@ export default function FundRequestRecordClarificationCard({
                                 <button
                                     type={'submit'}
                                     className="button button-primary button-xs"
-                                    disabled={uploading || !form.values.answer}>
+                                    data-dusk="submitBtn"
+                                    disabled={uploading}>
                                     <em className="mdi mdi-send-outline" />
                                     {translate('fund_request.record.send_btn')}
                                 </button>
                             </div>
                         </div>
+                        <FormError duskPrefix={'errorFiles'} error={form.errors?.files} />
                     </form>
                 )}
             </div>

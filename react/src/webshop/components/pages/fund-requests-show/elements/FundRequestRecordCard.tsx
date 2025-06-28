@@ -44,7 +44,10 @@ export default function FundRequestRecordCard({
                         </div>
                     )}
                     {record.clarifications.length > 0 && (
-                        <div className="card-header-view" onClick={() => setOpen(!open)}>
+                        <div
+                            className="card-header-view"
+                            data-dusk={`toggleClarifications${record.id}`}
+                            onClick={() => setOpen(!open)}>
                             {translate('fund_request.record.view')}
                             <em className="mdi mdi-chevron-down card-header-view-arrow" />
                         </div>

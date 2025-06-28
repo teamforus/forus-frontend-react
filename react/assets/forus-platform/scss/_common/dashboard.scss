@@ -3949,6 +3949,7 @@ body {
 
                 .clarification-item-question,
                 .clarification-item-answer {
+                    border-bottom: 1px solid var(--border-color);
                     padding: 10px 20px 10px 40px;
                     position: relative;
                     width: 100%;
@@ -3956,16 +3957,14 @@ body {
                     .clarification-item-text {
                         @include ellipsis();
                     }
-                }
 
-                .clarification-item-question {
-                    border-bottom: 1px solid var(--border-color);
+                    &:last-child {
+                        border-bottom: none;
+                    }
                 }
 
                 .clarification-item-attachments {
                     .block.block-attachments-list {
-                        border-top: 1px solid var(--border-color);
-
                         .block-attachments-inner {
                             margin-bottom: 0;
                         }
