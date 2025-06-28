@@ -55,7 +55,9 @@ export default function ModalFundRequestAssignValidator({
     });
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalAssignValidator">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -75,6 +77,7 @@ export default function ModalFundRequestAssignValidator({
                                         propKey={'id'}
                                         options={listEmployees}
                                         value={form.values.employee_id}
+                                        dusk="employeeSelect"
                                         onChange={(employee_id: number) => form.update({ employee_id })}
                                     />
                                     <FormError error={form.errors?.employee_id} />
@@ -88,7 +91,7 @@ export default function ModalFundRequestAssignValidator({
                     <button type="button" className="button button-default" onClick={modal.close}>
                         Annuleer
                     </button>
-                    <button type="submit" className="button button-primary">
+                    <button type="submit" className="button button-primary" data-dusk="submitBtn">
                         Bevestigen
                     </button>
                 </div>
