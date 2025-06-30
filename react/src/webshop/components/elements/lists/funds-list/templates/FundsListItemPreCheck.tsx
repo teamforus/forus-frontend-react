@@ -170,7 +170,7 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
                         </div>
                     </div>
 
-                    {!fund.is_external && !fund.pre_check_note && (
+                    {!fund.external && !fund.pre_check_note && (
                         <div className="fund-request-block-button">
                             <button
                                 className="button button-primary button-sm"

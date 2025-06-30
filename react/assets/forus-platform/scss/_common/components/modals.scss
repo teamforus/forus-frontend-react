@@ -502,7 +502,7 @@
     }
 
     .modal-footer {
-        padding: 30px;
+        padding: 20px 30px;
         display: flex;
         justify-content: center;
 
@@ -585,39 +585,17 @@
         .modal-window {
             width: 960px;
         }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
     }
 
     &.modal-md {
         .modal-window {
-            width: 680px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
+            width: 740px;
         }
     }
 
     &.modal-sm {
         .modal-window {
             width: 480px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
-    }
-
-    &.modal-reservation-create {
-        .modal-window {
-            width: 740px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
         }
     }
 

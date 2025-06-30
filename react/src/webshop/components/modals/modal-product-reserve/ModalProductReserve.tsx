@@ -580,14 +580,12 @@ export default function ModalProductReserve({
                                             )}
 
                                             <div className="voucher-amounts">
-                                                {voucher.fund.type === 'budget' && (
-                                                    <div className="voucher-amount">
-                                                        <div className="voucher-value">{voucher?.amount_locale}</div>
-                                                        <div className="voucher-value-date">
-                                                            {voucher?.expire_at_locale}
-                                                        </div>
+                                                <div className="voucher-amount">
+                                                    <div className="voucher-value">{voucher?.amount_locale}</div>
+                                                    <div className="voucher-value-date">
+                                                        {voucher?.expire_at_locale}
                                                     </div>
-                                                )}
+                                                </div>
 
                                                 {extraPaymentAllowed && voucher.amount_extra > 0 && (
                                                     <div className="voucher-extra-payment">

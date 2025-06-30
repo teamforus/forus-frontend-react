@@ -135,13 +135,6 @@ export class VoucherService<T = SponsorVoucher> {
         return Papa.unparse([headers, values]);
     }
 
-    public sampleCSVSubsidiesVoucher(expires_at = '2020-02-20'): string {
-        const headers = ['expires_at', 'note', 'email', 'activate', 'activation_code', 'client_uid'];
-        const values = [expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0, ''];
-
-        return Papa.unparse([headers, values]);
-    }
-
     public sampleCSVProductVoucher(product_id = null, expires_at = '2020-02-20'): string {
         const headers = ['product_id', 'expires_at', 'note', 'email', 'activate', 'activation_code', 'client_uid'];
         const values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0, ''];

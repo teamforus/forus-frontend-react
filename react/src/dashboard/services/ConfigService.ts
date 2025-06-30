@@ -119,8 +119,7 @@ export type AppConfigProp = {
             };
         };
     };
-    has_budget_funds: boolean;
-    has_subsidy_funds: boolean;
+    has_internal_funds: boolean;
     has_reimbursements: boolean;
     has_payouts: boolean;
     announcements: Array<Announcement>;

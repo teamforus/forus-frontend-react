@@ -30,6 +30,7 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import usePushApiError from '../../../hooks/usePushApiError';
+import classNames from 'classnames';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -358,7 +359,7 @@ export default function OrganizationFunds() {
                                             <td>
                                                 <TableEntityMain
                                                     title={strLimit(fund.name, 50)}
-                                                    subtitle={fund.type_locale}
+                                                    subtitle={fund.organization?.name}
                                                     mediaPlaceholder={'fund'}
                                                     media={fund?.logo}
                                                 />
@@ -437,11 +438,11 @@ export default function OrganizationFunds() {
                                                                     fund.key &&
                                                                     fund.state != 'closed' && (
                                                                         <a
-                                                                            className={`dropdown-item ${
-                                                                                !fund.organization.has_bank_connection
-                                                                                    ? 'disabled'
-                                                                                    : ''
-                                                                            }`}
+                                                                            className={classNames(
+                                                                                'dropdown-item',
+                                                                                !fund.organization
+                                                                                    .has_bank_connection && 'disabled',
+                                                                            )}
                                                                             onClick={() => {
                                                                                 topUpModal(fund);
                                                                                 close();
@@ -453,9 +454,10 @@ export default function OrganizationFunds() {
 
                                                                 {hasPermission(activeOrganization, 'manage_funds') && (
                                                                     <a
-                                                                        className={`dropdown-item ${
-                                                                            fund.state != 'closed' ? 'disabled' : ''
-                                                                        }`}
+                                                                        className={classNames(
+                                                                            'dropdown-item',
+                                                                            fund.state != 'closed' && 'disabled',
+                                                                        )}
                                                                         onClick={() => {
                                                                             archiveFund(fund);
                                                                             close();
