@@ -11,8 +11,7 @@ export default {
         client_uid: 'Uniek nummer',
         credit_type: 'Soort',
         report_type: 'Voucher melden bij backoffice',
-        notify_provider:
-            'Wilt u de aanbieder informeren over het aangemaakte product tegoed?',
+        notify_provider: 'Wilt u de aanbieder informeren over het aangemaakte product tegoed?',
     },
     tooltips: {
         funds: [
