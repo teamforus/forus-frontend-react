@@ -41,7 +41,7 @@ export default function FundsProviderProductsRequiredTable({
                                     {funds.map((fund) => (
                                         <tr key={fund.id}>
                                             <td title={fund.name || '-'}>{strLimit(fund.name, 50)}</td>
-                                            <td>{fund.type_locale}</td>
+                                            <td>{fund.external ? 'External' : 'Regular'}</td>
                                             <td>{fund.implementation?.name || <TableEmptyValue />}</td>
                                         </tr>
                                     ))}

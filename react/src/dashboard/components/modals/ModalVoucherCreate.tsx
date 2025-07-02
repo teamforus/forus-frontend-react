@@ -24,6 +24,7 @@ import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
 import usePushApiError from '../../hooks/usePushApiError';
 import InfoBox from '../elements/info-box/InfoBox';
+import classNames from 'classnames';
 
 export default function ModalVoucherCreate({
     funds,
@@ -340,9 +341,13 @@ export default function ModalVoucherCreate({
 
     return (
         <div
-            className={`modal modal-animated modal-voucher-create ${
-                modal.loading ? 'modal-loading' : ''
-            } ${className}`}>
+            className={classNames(
+                'modal',
+                'modal-animated',
+                'modal-voucher-create',
+                modal.loading && 'modal-loading',
+                className,
+            )}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -413,30 +418,26 @@ export default function ModalVoucherCreate({
                                             </FormGroupInfo>
                                         </div>
 
-                                        {fund.type === 'budget' && form.values.type == 'vouchers' && (
-                                            <div className="form-group">
-                                                <div className="form-label form-label-required">
-                                                    {translate('modals.modal_voucher_create.labels.amount')}
-                                                </div>
-
-                                                <input
-                                                    type={'number'}
-                                                    className="form-control"
-                                                    placeholder={translate('modals.modal_voucher_create.labels.amount')}
-                                                    value={form.values.amount || ''}
-                                                    step=".01"
-                                                    min="0.01"
-                                                    max={fund.limit_per_voucher}
-                                                    onChange={(e) => form.update({ amount: e.target.value })}
-                                                />
-                                                {!form.errors?.amount && (
-                                                    <div className="form-hint">
-                                                        Limiet {fund.limit_per_voucher_locale}
-                                                    </div>
-                                                )}
-                                                <FormError error={form.errors?.amount} />
+                                        <div className="form-group">
+                                            <div className="form-label form-label-required">
+                                                {translate('modals.modal_voucher_create.labels.amount')}
                                             </div>
-                                        )}
+
+                                            <input
+                                                type={'number'}
+                                                className="form-control"
+                                                placeholder={translate('modals.modal_voucher_create.labels.amount')}
+                                                value={form.values.amount || ''}
+                                                step=".01"
+                                                min="0.01"
+                                                max={fund.limit_per_voucher}
+                                                onChange={(e) => form.update({ amount: e.target.value })}
+                                            />
+                                            {!form.errors?.amount && (
+                                                <div className="form-hint">Limiet {fund.limit_per_voucher_locale}</div>
+                                            )}
+                                            <FormError error={form.errors?.amount} />
+                                        </div>
 
                                         {form.values.type == 'product_vouchers' && (
                                             <div className="form-group">
@@ -582,7 +583,7 @@ export default function ModalVoucherCreate({
                                             <FormError error={form.errors?.expire_at} />
                                         </div>
 
-                                        {fund.type === 'subsidies' && (
+                                        {fund?.show_requester_limits && (
                                             <div className="form-group">
                                                 <div className="form-label form-label-required">
                                                     {translate('modals.modal_voucher_create.labels.limit_multiplier')}

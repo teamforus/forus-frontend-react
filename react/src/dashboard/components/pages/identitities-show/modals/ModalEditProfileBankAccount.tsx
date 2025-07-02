@@ -9,7 +9,7 @@ import { ResponseError } from '../../../../props/ApiResponses';
 import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
 import Modal from '../../../modals/elements/Modal';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
-import FormGroup from '../../../elements/forms/controls/FormGroup';
+import FormGroup from '../../../elements/forms/elements/FormGroup';
 import useTranslate from '../../../../hooks/useTranslate';
 
 export default function ModalEditProfileBankAccount({

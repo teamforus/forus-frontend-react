@@ -8,7 +8,7 @@ import Organization from '../../props/models/Organization';
 import { ResponseError } from '../../props/ApiResponses';
 import useSetProgress from '../../hooks/useSetProgress';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
-import FormGroup from '../elements/forms/controls/FormGroup';
+import FormGroup from '../elements/forms/elements/FormGroup';
 import usePushApiError from '../../hooks/usePushApiError';
 import usePayoutTransactionService from '../../services/PayoutTransactionService';
 import PayoutTransaction from '../../props/models/PayoutTransaction';

@@ -22,11 +22,11 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
             notify_by_email: false,
         },
         (values) => {
-            modal.close();
-
             voucherService
                 .shareVoucher(voucher.number, values)
                 .then(() => {
+                    modal.close();
+
                     openModal((modal) => (
                         <ModalNotification
                             modal={modal}
@@ -136,10 +136,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
                             {translate('voucher.share_voucher.buttons.cancel')}
                         </button>
 
-                        <button
-                            className="button button-primary button-sm show-sm flex-grow"
-                            type="submit"
-                            disabled={!shareVoucherForm.values.reason}>
+                        <button className="button button-primary button-sm show-sm flex-grow" type="submit">
                             {translate('voucher.share_voucher.buttons.submit')}
                         </button>
 
@@ -150,10 +147,7 @@ export default function ModalShareVoucher({ modal, voucher }: { modal: ModalStat
                         </div>
 
                         <div className="flex hide-sm">
-                            <button
-                                type="submit"
-                                className="button button-primary button-sm"
-                                disabled={!shareVoucherForm.values.reason}>
+                            <button type="submit" className="button button-primary button-sm">
                                 {translate('voucher.share_voucher.buttons.submit')}
                             </button>
                         </div>

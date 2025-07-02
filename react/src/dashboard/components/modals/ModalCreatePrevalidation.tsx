@@ -283,7 +283,7 @@ export default function ModalCreatePrevalidation({
                                                 {fund.csv_required_keys.indexOf(fundRecord) == -1 && (
                                                     <div className="flex-col">
                                                         <button
-                                                            className="button button-text button-text-muted"
+                                                            className="button button-text"
                                                             onClick={() => removeExtraRecord(fundRecord)}>
                                                             <em className="mdi mdi-close" />
                                                         </button>

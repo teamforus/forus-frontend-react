@@ -66,7 +66,7 @@ export default function ProductsListItemList({
                 <div className="product-actions">
                     <div className="product-price">{price}</div>
                     <div className="product-icons">
-                        {productFeatures?.scanning_enabled && (
+                        {productFeatures?.feature_scanning_enabled && (
                             <div
                                 className="product-icons-item"
                                 role="button"
@@ -81,7 +81,7 @@ export default function ProductsListItemList({
                                 {translate('list_blocks.product_item.payment_option_qr')}
                             </div>
                         )}
-                        {productFeatures?.reservations_enabled && (
+                        {productFeatures?.feature_reservations_enabled && (
                             <div
                                 className="product-icons-item"
                                 role="button"
@@ -96,7 +96,7 @@ export default function ProductsListItemList({
                                 {translate('list_blocks.product_item.payment_option_reservation')}
                             </div>
                         )}
-                        {productFeatures?.reservation_extra_payments_enabled && (
+                        {productFeatures?.feature_reservation_extra_payments_enabled && (
                             <div
                                 className="product-icons-item"
                                 role="button"

@@ -1,5 +1,18 @@
 import AwsRumProps from './AwsRumProps';
 
+export type MenuItem = {
+    id?: string;
+    name?: string;
+    className?: string;
+    nameTranslate?: string;
+    nameTranslateDefault?: string;
+    href?: string;
+    state?: string;
+    stateParams?: object;
+    target?: string;
+    enabled?: boolean;
+};
+
 export default interface EnvDataWebshopProp {
     client_key: string;
     client_type: string;
@@ -64,14 +77,7 @@ export default interface EnvDataWebshopProp {
 
             productsAlign?: 'left' | 'center' | 'right';
 
-            menuItems?: Array<{
-                id?: string;
-                name?: string;
-                href?: string;
-                target?: string;
-                state?: string;
-                stateParams?: string;
-            }>;
+            menuItems?: Array<MenuItem>;
 
             startPage?: {
                 combineColumns?: boolean;

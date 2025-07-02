@@ -67,14 +67,12 @@ export default interface Organization {
     reservations_auto_accept: boolean;
     allow_custom_fund_notifications: boolean;
     validator_auto_accept_funds: boolean;
-    reservations_budget_enabled: boolean;
-    reservations_subsidy_enabled: boolean;
+    reservations_enabled: boolean;
     is_sponsor: boolean;
     is_provider: boolean;
     is_validator: boolean;
     bsn_enabled: boolean;
     allow_batch_reservations: boolean;
-    allow_budget_fund_limits: boolean;
     allow_manual_bulk_processing: boolean;
     allow_fund_request_record_edit: boolean;
     allow_bi_connection: boolean;

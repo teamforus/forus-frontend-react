@@ -242,12 +242,15 @@
                                 .fund-request-chat-message-text {
                                     width: 100%;
                                     padding: 12px;
+
+                                    & + .fund-request-chat-message-file-uploader {
+                                        border-top: 1px solid #dbdcdb;
+                                    }
                                 }
 
                                 .fund-request-chat-message-file-uploader {
                                     width: 100%;
                                     padding: 12px;
-                                    border-top: 1px solid #dbdcdb;
 
                                     .block-file-uploader {
                                         .uploader-files {

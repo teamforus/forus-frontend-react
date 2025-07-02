@@ -85,6 +85,5 @@ interface FundTotals {
 
 export interface FinancialOverview {
     funds: FundTotals;
-    budget_funds: FundTotals;
     year: number;
 }

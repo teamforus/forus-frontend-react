@@ -55,9 +55,15 @@ export default function useFilterNext<T = FilterModel>(
 
     const [stateValues, setValues] = useState<Partial<T & FilterModel>>({ ...initialValues, ...initialQueryValues });
 
-    const [activeValues, setActiveValues] = useState<Partial<T & FilterModel>>({
+    const [combinedInitialValues] = useState({
         ...initialValues,
         ...(backendTypeQuery ? initialQueryValues : {}),
+    });
+
+    const [activeValues, setActiveValues] = useState<Partial<T & FilterModel>>({
+        ...Object.keys(combinedInitialValues)
+            .filter((key) => !filterParams || !filterParams.includes(key as keyof T))
+            .reduce((obj, key) => ({ ...obj, [key]: combinedInitialValues[key] }), {}),
     });
 
     const prevFilters = useRef(backendTypeQuery ? queryValues : stateValues);
@@ -73,8 +79,20 @@ export default function useFilterNext<T = FilterModel>(
                     return throttledValues && throttledValues.includes(key as keyof T) && values[key] !== '';
                 }).length > 0;
 
-            if (typeof values == 'function') {
-                if (backendTypeQuery) {
+            if (!backendTypeQuery) {
+                if (typeof values == 'function') {
+                    return setValues((oldValues: Partial<T>) => {
+                        return reset
+                            ? { ...initialValues, ...(values as CallableFunction)(oldValues) }
+                            : (values as CallableFunction)(oldValues);
+                    });
+                }
+
+                return setValues((filters) => (reset ? { ...initialValues, ...values } : { ...filters, ...values }));
+            }
+
+            setTimeout(() => {
+                if (typeof values == 'function') {
                     return setValuesQuery(
                         (oldValues) => {
                             return reset
@@ -85,23 +103,13 @@ export default function useFilterNext<T = FilterModel>(
                     );
                 }
 
-                return setValues((oldValues: Partial<T>) => {
-                    return reset
-                        ? { ...initialValues, ...(values as CallableFunction)(oldValues) }
-                        : (values as CallableFunction)(oldValues);
-                });
-            }
-
-            if (backendTypeQuery) {
-                return setValuesQuery(
+                setValuesQuery(
                     (filters) => {
                         return reset ? { ...filters, ...initialValues, ...values } : { ...filters, ...values };
                     },
                     throttled ? 'replaceIn' : 'pushIn',
                 );
-            }
-
-            setValues((filters) => (reset ? { ...initialValues, ...values } : { ...filters, ...values }));
+            });
         },
         [backendTypeQuery, initialValues, setValuesQuery, throttledValues],
     );

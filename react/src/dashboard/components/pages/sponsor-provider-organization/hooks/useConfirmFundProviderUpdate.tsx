@@ -16,7 +16,7 @@ export default function useConfirmFundProviderUpdate() {
             allow_budget?: boolean;
             allow_products?: boolean;
         }> => {
-            if (state === 'rejected' || fundProvider.fund.type === 'subsidies') {
+            if (state === 'rejected') {
                 return confirmFundProviderUpdateState(state);
             }
 

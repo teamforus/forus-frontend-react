@@ -54,20 +54,13 @@ export default function VouchersViewComponent() {
     const [voucher, setVoucher] = useState<SponsorVoucher>(null);
 
     const physicalCardsAvailable = useMemo(() => {
-        return (
-            voucher &&
-            voucher.fund.allow_physical_cards &&
-            voucher.fund.type === 'subsidies' &&
-            voucher.state !== 'deactivated' &&
-            !voucher.is_external
-        );
+        return voucher && voucher.fund.allow_physical_cards && voucher.state !== 'deactivated' && !voucher.external;
     }, [voucher]);
 
     const showMakeTransactionButton = useMemo(() => {
         return (
             voucher &&
             hasPermission(activeOrganization, 'make_direct_payments') &&
-            voucher.fund.type === 'budget' &&
             voucher.state === 'active' &&
             fund?.state != 'closed' &&
             !voucher.product &&
@@ -348,7 +341,7 @@ export default function VouchersViewComponent() {
                                     </div>
                                 )}
 
-                                {!voucher.expired && voucher.state === 'deactivated' && !voucher.is_external && (
+                                {!voucher.expired && voucher.state === 'deactivated' && !voucher.external && (
                                     <div className="button button-danger button-sm" onClick={activateVoucher}>
                                         <em className="mdi mdi-alert-outline icon-start" />
                                         Activeren
@@ -377,19 +370,19 @@ export default function VouchersViewComponent() {
                                 )}
 
                                 {!voucher.expired &&
-                                    !voucher.is_granted &&
+                                    !voucher.granted &&
                                     voucher.state === 'pending' &&
-                                    !voucher.is_external && (
+                                    !voucher.external && (
                                         <div className="button button-primary button-sm" onClick={onOpenAction}>
                                             <em className="mdi mdi-clipboard-account icon-start " />
                                             {translate('vouchers.buttons.activate')}
                                         </div>
                                     )}
 
-                                {!voucher.is_granted &&
+                                {!voucher.granted &&
                                     !voucher.expired &&
                                     voucher.state === 'active' &&
-                                    !voucher.is_external && (
+                                    !voucher.external && (
                                         <div className="button button-primary button-sm" onClick={onOpenAction}>
                                             <em className="mdi mdi-qrcode icon-start " />
                                             {translate('vouchers.labels.qr_code')}
@@ -407,12 +400,10 @@ export default function VouchersViewComponent() {
                             <div className="keyvalue-value text-black">#{voucher.number}</div>
                         </div>
 
-                        {voucher.fund.type == 'budget' && (
-                            <div className="keyvalue-item">
-                                <div className="keyvalue-key">{translate('vouchers.labels.amount')}</div>
-                                <div className="keyvalue-value text-black">{voucher.amount_total_locale}</div>
-                            </div>
-                        )}
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.amount')}</div>
+                            <div className="keyvalue-value text-black">{voucher.amount_total_locale}</div>
+                        </div>
 
                         <div className="keyvalue-item">
                             <div className="keyvalue-key">{translate('vouchers.labels.fund')}</div>
@@ -456,7 +447,7 @@ export default function VouchersViewComponent() {
                             </div>
                         )}
 
-                        {voucher.fund.type == 'subsidies' && (
+                        {voucher.fund.show_requester_limits && (
                             <div className="keyvalue-item">
                                 <div className="keyvalue-key">{translate('vouchers.labels.limit_multiplier')}</div>
                                 {hasPermission(activeOrganization, 'manage_vouchers') ? (
@@ -551,7 +542,7 @@ export default function VouchersViewComponent() {
                 </div>
             </div>
 
-            {!voucher.product && voucher.fund.type != 'subsidies' && (
+            {!voucher.product && (
                 <div className="card">
                     <div className="card-header">
                         <div className="flex flex-grow card-title">Financiële details</div>
