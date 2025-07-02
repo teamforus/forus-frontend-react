@@ -12,7 +12,7 @@ export default {
         credit_type: 'Soort',
         report_type: 'Voucher melden bij backoffice',
         notify_provider:
-            'Wilt u een bericht delen met de aanbieder dat er een product tegoed namens de aanbieder is aangemaakt?',
+            'Wilt u de aanbieder informeren over het aangemaakte product tegoed?',
     },
     tooltips: {
         funds: [
