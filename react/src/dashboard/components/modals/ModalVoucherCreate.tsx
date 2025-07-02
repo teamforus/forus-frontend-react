@@ -25,6 +25,7 @@ import TranslateHtml from '../elements/translate-html/TranslateHtml';
 import usePushApiError from '../../hooks/usePushApiError';
 import InfoBox from '../elements/info-box/InfoBox';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalVoucherCreate({
     funds,
@@ -608,25 +609,27 @@ export default function ModalVoucherCreate({
                                         )}
 
                                         {form.values.type == 'product_vouchers' && (
-                                            <div className="form-group">
-                                                <label className="checkbox">
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={form.values.notify_provider}
-                                                        onChange={(e) =>
-                                                            form.update({ notify_provider: e.target.checked })
-                                                        }
+                                            <FormGroup
+                                                className="form-group"
+                                                error={form.errors.notify_provider}
+                                                label={translate('modals.modal_voucher_create.labels.notify_provider')}
+                                                input={(id) => (
+                                                    <SelectControl
+                                                        id={id}
+                                                        value={form.values.notify_provider}
+                                                        propKey={'key'}
+                                                        propValue={'label'}
+                                                        onChange={(notify_provider: boolean) => {
+                                                            form.update({ notify_provider });
+                                                        }}
+                                                        options={[
+                                                            { key: true, label: 'Ja' },
+                                                            { key: false, label: 'Nee' },
+                                                        ]}
+                                                        allowSearch={false}
                                                     />
-                                                    <div className="checkbox-label">
-                                                        <div className="checkbox-box">
-                                                            <div className="mdi mdi-check" />
-                                                        </div>
-                                                        {translate(
-                                                            'modals.modal_voucher_create.labels.notify_provider',
-                                                        )}
-                                                    </div>
-                                                </label>
-                                            </div>
+                                                )}
+                                            />
                                         )}
 
                                         <div className="form-group">
