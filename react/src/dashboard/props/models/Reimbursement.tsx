@@ -18,7 +18,7 @@ export default interface Reimbursement {
     lead_time_locale: string;
     employee?: Employee;
     expired: boolean;
-    state: string;
+    state: 'pending' | 'approved' | 'declined';
     state_locale: string;
     voucher_transaction: Transaction;
     deactivated: boolean;

@@ -1812,12 +1812,10 @@
             "pay_from_voucher": "Krediden ödeme yaparsınız:",
             "price": "Fiyat:",
             "payment_option_ideal": "Online ödeme (iDEAL)",
-            "payment_option_ideal_aria_label": "Online ödeme (iDEAL): daha fazla bilgi için tıklayın",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
-            "payment_option_qr_aria_label": "QR kodunu sağlayıcıda göster: daha fazla bilgi için tıklayın",
             "payment_option_reservation": "Online rezervasyon",
-            "payment_option_reservation_aria_label": "Online rezervasyon: daha fazla bilgi için tıklayın",
-            "payment_options": "Ödeme seçenekleri"
+            "payment_options": "Ödeme seçenekleri",
+            "payment_option_link": "Ödeme seçenekleri hakkında daha fazla bilgi edinin"
         },
         "low_amount": "Yeterli bakiyeye sahip krediniz yok.",
         "map": {
@@ -2540,6 +2538,12 @@
             "house_composition": "Aile yapısı",
             "living_arrangement": "Yaşayan form",
             "title": "Hane halkı"
+        },
+        "address": {
+            "cancel": "İptal",
+            "edit": "Düzenle",
+            "save": "Kaydet",
+            "title": "Adres bilgileri"
         }
     },
     "reimbursements": {
@@ -3520,7 +3524,22 @@
         "sessions": {
             "terminated": "Sonlandırıldı!"
         },
-        "success": "Başarılı!"
+        "success": "Başarılı!",
+        "email_verification_auth_error": {
+            "description": "Kimliğiniz doğrulanmadı, lütfen önce e-posta adresinizi onaylamak için giriş yapın.",
+            "title": "Kimlik doğrulama gerekli!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Bilinmeyen hata."
+        },
+        "email_verification_success": {
+            "description": "E-posta onaylanmıştır.",
+            "title": "E-posta onaylandı!"
+        },
+        "session_expired": {
+            "description": "Tekrar giriş yapın ve tekrar deneyin.",
+            "title": "Oturum süresi doldu!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Okumak için",

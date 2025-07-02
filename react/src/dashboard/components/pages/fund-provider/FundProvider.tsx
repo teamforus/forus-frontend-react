@@ -8,15 +8,13 @@ import { useFundService } from '../../../services/FundService';
 import ProviderOrganizationOverview from '../sponsor-provider-organization/elements/ProviderOrganizationOverview';
 import type FundProvider from '../../../props/models/FundProvider';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import SubsidyFundSponsorProducts from './elements/SubsidyFundSponsorProducts';
 import ExtraPaymentIcon from '../../../../../assets/forus-platform/resources/platform-general/assets/img/svg/mollie-connection-icon.svg';
-import BudgetFundSponsorProducts from './elements/BudgetFundSponsorProducts';
-import BudgetFundProducts from './elements/BudgetFundProducts';
-import SubsidyFundProducts from './elements/SubsidyFundProducts';
+import FundProviderProducts from './elements/FundProviderProducts';
 import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function FundProvider() {
     const { fundId, id } = useParams();
@@ -119,9 +117,9 @@ export default function FundProvider() {
                                     <div className="connection-content-title">
                                         Verbinding met betaalmethode toestaan
                                         {fundProvider.allow_extra_payments ? (
-                                            <div className="label label-success">Geaccepteerd</div>
+                                            <Label type="success">Geaccepteerd</Label>
                                         ) : (
-                                            <div className="label label-warning">Geweigerd</div>
+                                            <Label type="warning">Geweigerd</Label>
                                         )}
                                     </div>
                                     <div className="connection-content-info block block-tooltip-details block-tooltip-hover">
@@ -170,37 +168,23 @@ export default function FundProvider() {
                 </div>
             )}
 
-            {activeOrganization.manage_provider_products && fundProvider.fund.type == 'subsidies' && (
-                <SubsidyFundSponsorProducts
+            {activeOrganization.manage_provider_products && (
+                <FundProviderProducts
+                    fund={fund}
+                    source={'sponsor'}
                     fundProvider={fundProvider}
                     organization={activeOrganization}
-                    onChange={(data) => setFundProvider(data)}
+                    onChangeProvider={(data) => setFundProvider(data)}
                 />
             )}
 
-            {activeOrganization.manage_provider_products && fundProvider.fund.type == 'budget' && (
-                <BudgetFundSponsorProducts
-                    fundProvider={fundProvider}
-                    organization={activeOrganization}
-                    onChange={(data) => setFundProvider(data)}
-                />
-            )}
-
-            {fundProvider.fund.type == 'budget' && (
-                <BudgetFundProducts
-                    fundProvider={fundProvider}
-                    organization={activeOrganization}
-                    onChange={(data) => setFundProvider(data)}
-                />
-            )}
-
-            {fundProvider.fund.type == 'subsidies' && (
-                <SubsidyFundProducts
-                    fundProvider={fundProvider}
-                    organization={activeOrganization}
-                    onChange={(data) => setFundProvider(data)}
-                />
-            )}
+            <FundProviderProducts
+                fund={fund}
+                source={'provider'}
+                fundProvider={fundProvider}
+                organization={activeOrganization}
+                onChangeProvider={(data) => setFundProvider(data)}
+            />
         </Fragment>
     );
 }

@@ -447,7 +447,7 @@
             border: 1px solid #eff6f8;
             background: #fff;
             padding: 10px 80px;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             font: 400 22px/34px var(--base-font);
             color: #646f79;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
@@ -502,7 +502,7 @@
     }
 
     .modal-footer {
-        padding: 30px;
+        padding: 20px 30px;
         display: flex;
         justify-content: center;
 
@@ -585,39 +585,17 @@
         .modal-window {
             width: 960px;
         }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
     }
 
     &.modal-md {
         .modal-window {
-            width: 680px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
+            width: 740px;
         }
     }
 
     &.modal-sm {
         .modal-window {
             width: 480px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
-        }
-    }
-
-    &.modal-reservation-create {
-        .modal-window {
-            width: 740px;
-        }
-
-        .modal-footer {
-            padding: 20px 30px;
         }
     }
 
@@ -766,7 +744,7 @@
 
             .modal-warning {
                 border: 1px dashed #d4d9dd;
-                border-radius: 3px;
+                border-radius: var(--border-radius);
                 padding: 15px 13px;
                 margin-top: 20px;
                 background-color: #f6f9fc;
@@ -851,7 +829,7 @@
                 margin-bottom: 15px;
 
                 .icon {
-                    border-radius: 5px;
+                    border-radius: var(--border-radius);
                     border: 1px solid #d4d9dd;
                     background: #fff;
                     display: flex;
@@ -889,7 +867,7 @@
                     flex-basis: 0;
                     flex-grow: 1;
                     max-width: 100%;
-                    border-radius: 5px;
+                    border-radius: var(--border-radius);
                     border: 1px dashed #d4d9dd;
                     background: #fff;
                     padding: 20px;

@@ -38,17 +38,10 @@ export default function ModalReservationCreate({
             .then((res) => {
                 const voucher = res.data.data;
 
-                if (voucher.fund.type === 'subsidies' && !organization.reservations_subsidy_enabled) {
-                    // Your organization doesn't allow action products reservations.
+                if (!organization.reservations_enabled) {
+                    // Your organization doesn't allow reservations.
                     return formVouchers.setErrors({
-                        number: 'Uw organisatie mag geen reserveringen aanmaken voor kortingspassen. Neem contact op met support!',
-                    });
-                }
-
-                if (voucher.fund.type === 'budget' && !organization.reservations_budget_enabled) {
-                    // Your organization doesn't allow budget products reservations.
-                    return formVouchers.setErrors({
-                        number: 'Uw organisatie mag geen reserveringen aanmaken voor budgetten. Neem contact op met support!',
+                        number: 'Uw organisatie mag geen reserveringen aanmaken. Neem contact op met support!',
                     });
                 }
 
@@ -142,7 +135,7 @@ export default function ModalReservationCreate({
                             </div>
                             <div className="row">
                                 <div className="col col-sm-11 col-xs-12">
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group">
                                         <label className="form-label form-label-required">Pasnummer</label>
                                         <input
                                             className="form-control"
@@ -181,25 +174,23 @@ export default function ModalReservationCreate({
                             </div>
                             <div className="row">
                                 <div className="col col-sm-11 col-xs-12">
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group">
                                         <label className="form-label">Aanbod</label>
-                                        <div className="form-offset">
-                                            <FormGroupInfo
-                                                info={<TranslateHtml i18n={'reservation_create.tooltips.product'} />}>
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey={'id'}
-                                                    options={products}
-                                                    value={formProducts.values.product_id}
-                                                    onChange={(product_id: number) =>
-                                                        formProducts.update({ product_id })
-                                                    }
-                                                />
-                                            </FormGroupInfo>
-                                        </div>
+
+                                        <FormGroupInfo
+                                            info={<TranslateHtml i18n={'reservation_create.tooltips.product'} />}>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'id'}
+                                                options={products}
+                                                value={formProducts.values.product_id}
+                                                onChange={(product_id: number) => formProducts.update({ product_id })}
+                                            />
+                                        </FormGroupInfo>
+
                                         <FormError error={formProducts.errors.product_id} />
                                     </div>
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group">
                                         <label className="form-label form-label-required">Notitie</label>
                                         <textarea
                                             className="form-control"

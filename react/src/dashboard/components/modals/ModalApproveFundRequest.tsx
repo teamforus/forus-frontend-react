@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import classNames from 'classnames';
-import FormGroup from '../elements/forms/controls/FormGroup';
+import FormGroup from '../elements/forms/elements/FormGroup';
 import SelectControl from '../elements/select-control/SelectControl';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';

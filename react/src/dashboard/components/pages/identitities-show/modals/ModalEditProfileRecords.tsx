@@ -9,7 +9,7 @@ import { ResponseError } from '../../../../props/ApiResponses';
 import SponsorIdentity, { ProfileRecordTypes } from '../../../../props/models/Sponsor/SponsorIdentity';
 import Modal from '../../../modals/elements/Modal';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
-import FormGroup from '../../../elements/forms/controls/FormGroup';
+import FormGroup from '../../../elements/forms/elements/FormGroup';
 import RecordType from '../../../../props/models/RecordType';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
@@ -99,8 +99,6 @@ export default function ModalEditProfileRecords({
                 return (
                     <FormGroup
                         key={index}
-                        inline={true}
-                        inlineSize={'lg'}
                         label={field.label}
                         input={(id) => (
                             <FormGroupInfo info={translate('identities.record_info.' + field.key)}>
@@ -120,8 +118,6 @@ export default function ModalEditProfileRecords({
                 return (
                     <Fragment key={recordType.key}>
                         <FormGroup
-                            inline={true}
-                            inlineSize={'lg'}
                             label={recordType.name}
                             error={form.errors?.[recordType.key]}
                             input={(id) => (
@@ -168,8 +164,6 @@ export default function ModalEditProfileRecords({
 
                         {recordType?.key === 'birth_date' && (
                             <FormGroup
-                                inline={true}
-                                inlineSize={'lg'}
                                 label={'Leeftijd'}
                                 input={(id) => (
                                     <FormGroupInfo info={translate('identities.record_info.age')}>

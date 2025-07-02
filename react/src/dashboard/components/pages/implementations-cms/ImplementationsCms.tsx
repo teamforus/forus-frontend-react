@@ -22,7 +22,7 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import PhotoSelectorData from '../../elements/photo-selector/types/PhotoSelectorData';
 import useTranslate from '../../../hooks/useTranslate';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
-import FormGroup from '../../elements/forms/controls/FormGroup';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import PhotoSelectorBanner from '../../elements/photo-selector/PhotoSelectorBanner';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import ModalNotification from '../../modals/ModalNotification';
@@ -391,8 +391,8 @@ export default function ImplementationsCms() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
-                                <div className="form-group form-group-inline form-group-inline-xl">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="title">
                                         {translate('implementation_edit.labels.header_title')}
                                     </label>
@@ -406,53 +406,51 @@ export default function ImplementationsCms() {
                                     />
                                     <FormError error={form.errors.title} />
                                 </div>
-                                <div className="form-group form-group-inline form-group-inline-xl">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="title">
                                         {translate('implementation_edit.labels.header_description')}
                                     </label>
 
-                                    <div className="form-offset">
-                                        {form.values?.description_alignment && (
-                                            <MarkdownEditor
-                                                alignment={form.values?.description_alignment}
-                                                placeholder={'Omschrijving'}
-                                                extendedOptions={true}
-                                                allowAlignment={true}
-                                                value={form.values?.description_html}
-                                                onChange={(description) => form.update({ description })}
-                                                onChangeAlignment={(description_alignment) => {
-                                                    form.update({ description_alignment });
-                                                }}
-                                            />
-                                        )}
-                                    </div>
+                                    {form.values?.description_alignment && (
+                                        <MarkdownEditor
+                                            alignment={form.values?.description_alignment}
+                                            placeholder={'Omschrijving'}
+                                            extendedOptions={true}
+                                            allowAlignment={true}
+                                            value={form.values?.description_html}
+                                            onChange={(description) => form.update({ description })}
+                                            onChangeAlignment={(description_alignment) => {
+                                                form.update({ description_alignment });
+                                            }}
+                                        />
+                                    )}
+
                                     <FormError error={form.errors.description} />
                                 </div>
 
-                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
+                                <div className="form-group tooltipped">
                                     <label className="form-label" htmlFor="page_title_suffix">
                                         {translate('implementation_edit.labels.page_title_suffix')}
                                     </label>
-                                    <div className="form-offset">
-                                        <FormGroupInfo
-                                            info={
-                                                <Fragment>
-                                                    Het eerste deel van de paginatitel, zichtbaar in het browsertabblad,
-                                                    is standaard ingesteld. Het tweede deel kan worden aangepast. De
-                                                    titel mag maximaal 60 tekens lang zijn
-                                                </Fragment>
-                                            }>
-                                            <input
-                                                id="page_title_suffix"
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Browser tab postfix"
-                                                value={form.values?.page_title_suffix || ''}
-                                                onChange={(e) => form.update({ page_title_suffix: e.target.value })}
-                                            />
-                                        </FormGroupInfo>
-                                        <FormError error={form.errors.page_title_suffix} />
-                                    </div>
+
+                                    <FormGroupInfo
+                                        info={
+                                            <Fragment>
+                                                Het eerste deel van de paginatitel, zichtbaar in het browsertabblad, is
+                                                standaard ingesteld. Het tweede deel kan worden aangepast. De titel mag
+                                                maximaal 60 tekens lang zijn
+                                            </Fragment>
+                                        }>
+                                        <input
+                                            id="page_title_suffix"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Browser tab postfix"
+                                            value={form.values?.page_title_suffix || ''}
+                                            onChange={(e) => form.update({ page_title_suffix: e.target.value })}
+                                        />
+                                    </FormGroupInfo>
+                                    <FormError error={form.errors.page_title_suffix} />
                                 </div>
                             </div>
                         </div>
@@ -460,10 +458,8 @@ export default function ImplementationsCms() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'xl'}
                                     label={'Button'}
                                     error={form.errors?.banner_button}
                                     input={() => (
@@ -476,8 +472,6 @@ export default function ImplementationsCms() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'xl'}
                                     required={true}
                                     label={'Button text'}
                                     error={form.errors?.banner_button_text}
@@ -493,8 +487,6 @@ export default function ImplementationsCms() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'xl'}
                                     required={true}
                                     label={'Button link'}
                                     error={form.errors?.banner_button_url}
@@ -510,8 +502,6 @@ export default function ImplementationsCms() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'xl'}
                                     required={true}
                                     label={'Open knop koppeling in'}
                                     error={form.errors?.banner_button_target}
@@ -536,54 +526,53 @@ export default function ImplementationsCms() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
-                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group tooltipped">
                                     <label className="form-label" htmlFor="info_url">
                                         {translate('implementation_edit.labels.communication')}
                                     </label>
-                                    <div className="form-offset">
-                                        <div className="form-group-info">
-                                            <div className="form-group-info-control">
-                                                <SelectControl
-                                                    className="form-control"
-                                                    propKey="value"
-                                                    propValue="label"
-                                                    allowSearch={false}
-                                                    options={communicationTypes}
-                                                    value={form.values?.informal_communication}
-                                                    onChange={(value?: boolean) => {
-                                                        form.update({ informal_communication: value });
-                                                    }}
-                                                />
-                                            </div>
 
-                                            <div className="form-group-info-button">
-                                                <div
-                                                    className={`button button-default button-icon pull-left ${
-                                                        showInfoBlock ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setShowInfoBlock(!showInfoBlock)}>
-                                                    <em className="mdi mdi-information" />
+                                    <div className="form-group-info">
+                                        <div className="form-group-info-control">
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey="value"
+                                                propValue="label"
+                                                allowSearch={false}
+                                                options={communicationTypes}
+                                                value={form.values?.informal_communication}
+                                                onChange={(value?: boolean) => {
+                                                    form.update({ informal_communication: value });
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className="form-group-info-button">
+                                            <div
+                                                className={`button button-default button-icon pull-left ${
+                                                    showInfoBlock ? 'active' : ''
+                                                }`}
+                                                onClick={() => setShowInfoBlock(!showInfoBlock)}>
+                                                <em className="mdi mdi-information" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {showInfoBlock && (
+                                        <div className="block block-info-box block-info-box-primary">
+                                            <div className="info-box-icon mdi mdi-information" />
+                                            <div className="info-box-content">
+                                                <div className="block block-markdown">
+                                                    <p>
+                                                        Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de
+                                                        website en in de berichten die het systeem verstuurt.
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
+                                    )}
 
-                                        {showInfoBlock && (
-                                            <div className="block block-info-box block-info-box-primary">
-                                                <div className="info-box-icon mdi mdi-information" />
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <p>
-                                                            Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten
-                                                            op de website en in de berichten die het systeem verstuurt.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <FormError error={form.errors.informal_communication} />
-                                    </div>
+                                    <FormError error={form.errors.informal_communication} />
                                 </div>
                             </div>
                         </div>
@@ -591,32 +580,31 @@ export default function ImplementationsCms() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
-                                <div className="form-group form-group-inline form-group-inline-xl tooltipped">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group tooltipped">
                                     <label className="form-label">
                                         {translate('implementation_edit.labels.announcement_show')}
                                     </label>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey="value"
-                                            propValue="label"
-                                            allowSearch={false}
-                                            options={announcementState}
-                                            value={form.values?.announcement.active}
-                                            onChange={(value?: boolean) => {
-                                                form.update({
-                                                    announcement: { ...form.values.announcement, active: value },
-                                                });
-                                            }}
-                                        />
-                                        <FormError error={form.errors['announcement.active']} />
-                                    </div>
+
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey="value"
+                                        propValue="label"
+                                        allowSearch={false}
+                                        options={announcementState}
+                                        value={form.values?.announcement.active}
+                                        onChange={(value?: boolean) => {
+                                            form.update({
+                                                announcement: { ...form.values.announcement, active: value },
+                                            });
+                                        }}
+                                    />
+                                    <FormError error={form.errors['announcement.active']} />
                                 </div>
 
                                 {form.values?.announcement.active && (
                                     <Fragment>
-                                        <div className="form-group form-group-inline form-group-inline-xl">
+                                        <div className="form-group">
                                             <label className="form-label">
                                                 {translate('implementation_edit.labels.announcement_type')}
                                             </label>
@@ -637,7 +625,7 @@ export default function ImplementationsCms() {
                                             <FormError error={form.errors['announcement.type']} />
                                         </div>
 
-                                        <div className="form-group form-group-inline form-group-inline-xl">
+                                        <div className="form-group">
                                             <label className="form-label" htmlFor="announcement_title">
                                                 {translate('implementation_edit.labels.announcement_title')}
                                             </label>
@@ -659,29 +647,28 @@ export default function ImplementationsCms() {
                                             <FormError error={form.errors['announcement.title']} />
                                         </div>
 
-                                        <div className="form-group form-group-inline form-group-inline-xl">
+                                        <div className="form-group">
                                             <label className="form-label" htmlFor="title">
                                                 {translate('implementation_edit.labels.announcement_description')}
                                             </label>
 
-                                            <div className="form-offset">
-                                                <MarkdownEditor
-                                                    value={form.values?.announcement.description_html}
-                                                    placeholder={'Beschrijving'}
-                                                    onChange={(value) => {
-                                                        form.update({
-                                                            announcement: {
-                                                                ...form.values.announcement,
-                                                                description: value,
-                                                            },
-                                                        });
-                                                    }}
-                                                />
-                                            </div>
+                                            <MarkdownEditor
+                                                value={form.values?.announcement.description_html}
+                                                placeholder={'Beschrijving'}
+                                                onChange={(value) => {
+                                                    form.update({
+                                                        announcement: {
+                                                            ...form.values.announcement,
+                                                            description: value,
+                                                        },
+                                                    });
+                                                }}
+                                            />
+
                                             <FormError error={form.errors['announcement.description']} />
                                         </div>
 
-                                        <div className="form-group form-group-inline form-group-inline-xl tooltipped">
+                                        <div className="form-group tooltipped">
                                             <label className="form-label">
                                                 {translate('implementation_edit.labels.announcement_expire')}
                                             </label>
@@ -708,47 +695,45 @@ export default function ImplementationsCms() {
                                         </div>
 
                                         {form.values?.announcement.expire && (
-                                            <div className="form-group form-group-inline form-group-inline-xl">
+                                            <div className="form-group">
                                                 <label className="form-label">
                                                     {translate('implementation_edit.labels.announcement_expire_at')}
                                                 </label>
-                                                <div className="form-offset">
-                                                    <DatePickerControl
-                                                        dateFormat={'dd-MM-yyyy'}
-                                                        value={dateParse(form.values?.announcement.expire_at)}
-                                                        placeholder="dd-MM-jjjj"
-                                                        onChange={(value) => {
-                                                            form.update({
-                                                                announcement: {
-                                                                    ...form.values.announcement,
-                                                                    expire_at: dateFormat(value),
-                                                                },
-                                                            });
-                                                        }}
-                                                    />
-                                                    <FormError error={form.errors['announcement.expire_at']} />
-                                                </div>
-                                            </div>
-                                        )}
 
-                                        <div className="form-group form-group-inline form-group-inline-xl tooltipped">
-                                            <label className="form-label">
-                                                {translate('implementation_edit.labels.announcement_replace')}
-                                            </label>
-                                            <div className="form-offset">
-                                                <CheckboxControl
-                                                    title={'Herstel aankondiging indien aanvrager opnieuw inlogt.'}
-                                                    checked={form.values?.announcement.replace}
-                                                    onChange={(e) => {
+                                                <DatePickerControl
+                                                    dateFormat={'dd-MM-yyyy'}
+                                                    value={dateParse(form.values?.announcement.expire_at)}
+                                                    placeholder="dd-MM-jjjj"
+                                                    onChange={(value) => {
                                                         form.update({
                                                             announcement: {
                                                                 ...form.values.announcement,
-                                                                replace: e.target.checked,
+                                                                expire_at: dateFormat(value),
                                                             },
                                                         });
                                                     }}
                                                 />
+                                                <FormError error={form.errors['announcement.expire_at']} />
                                             </div>
+                                        )}
+
+                                        <div className="form-group tooltipped">
+                                            <label className="form-label">
+                                                {translate('implementation_edit.labels.announcement_replace')}
+                                            </label>
+
+                                            <CheckboxControl
+                                                title={'Herstel aankondiging indien aanvrager opnieuw inlogt.'}
+                                                checked={form.values?.announcement.replace}
+                                                onChange={(e) => {
+                                                    form.update({
+                                                        announcement: {
+                                                            ...form.values.announcement,
+                                                            replace: e.target.checked,
+                                                        },
+                                                    });
+                                                }}
+                                            />
                                         </div>
                                     </Fragment>
                                 )}
@@ -758,10 +743,8 @@ export default function ImplementationsCms() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'xl'}
                                     label={translate('implementation_edit.labels.show_privacy_checkbox')}
                                     error={form.errors.show_privacy_checkbox}
                                     input={(id) => (
@@ -795,8 +778,6 @@ export default function ImplementationsCms() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'xl'}
                                     label={translate('implementation_edit.labels.show_terms_checkbox')}
                                     error={form.errors.show_terms_checkbox}
                                     input={(id) => (

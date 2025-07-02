@@ -9,7 +9,6 @@ import useEnvData from '../../../hooks/useEnvData';
 import useFilter from '../../../hooks/useFilter';
 import useTransactionBulkService from '../../../services/TransactionBulkService';
 import { PaginationData } from '../../../props/ApiResponses';
-import ModalDangerZone from '../../modals/ModalDangerZone';
 import { strLimit } from '../../../helpers/string';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import TransactionBulk from '../../../props/models/TransactionBulk';
@@ -39,6 +38,8 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
+import useConfirmDangerAction from '../../../hooks/useConfirmDangerAction';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -49,6 +50,7 @@ export default function Transactions() {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
+    const confirmDangerAction = useConfirmDangerAction();
 
     const activeOrganization = useActiveOrganization();
     const transactionExporter = useTransactionExporter();
@@ -238,35 +240,6 @@ export default function Transactions() {
             />
         ));
     }, [activeOrganization, fetchTransactions, filter.activeValues, isSponsor, openModal, updateHasPendingBulking]);
-
-    const confirmDangerAction = useCallback(
-        (title: string, description_text: string, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
-            return new Promise((resolve) => {
-                openModal((modal) => (
-                    <ModalDangerZone
-                        modal={modal}
-                        title={title}
-                        description={description_text}
-                        buttonCancel={{
-                            text: cancelButton,
-                            onClick: () => {
-                                modal.close();
-                                resolve(false);
-                            },
-                        }}
-                        buttonSubmit={{
-                            text: confirmButton,
-                            onClick: () => {
-                                modal.close();
-                                resolve(true);
-                            },
-                        }}
-                    />
-                ));
-            });
-        },
-        [openModal],
-    );
 
     const confirmBulkNow = useCallback(() => {
         const total = pendingBulkingMeta.total;
@@ -955,22 +928,16 @@ export default function Transactions() {
                                                 <td>
                                                     {(transaction.bulk_state == 'rejected' ||
                                                         transaction.bulk_state == 'error') && (
-                                                        <div className="label label-danger">
-                                                            {transaction.bulk_state_locale}
-                                                        </div>
+                                                        <Label type="danger">{transaction.bulk_state_locale}</Label>
                                                     )}
 
                                                     {(transaction.bulk_state == 'draft' ||
                                                         transaction.bulk_state == 'pending') && (
-                                                        <div className="label label-default">
-                                                            {transaction.bulk_state_locale}
-                                                        </div>
+                                                        <Label type="default">{transaction.bulk_state_locale}</Label>
                                                     )}
 
                                                     {transaction.bulk_state == 'accepted' && (
-                                                        <div className="label label-success">
-                                                            {transaction.bulk_state_locale}
-                                                        </div>
+                                                        <Label type="success">{transaction.bulk_state_locale}</Label>
                                                     )}
 
                                                     {!transaction.bulk_state && <TableEmptyValue />}
@@ -1116,32 +1083,23 @@ export default function Transactions() {
                                             <td>{transactionBulk.voucher_transactions_count}</td>
                                             <td>
                                                 {transactionBulk.state === 'rejected' && (
-                                                    <div className="label label-danger">
-                                                        {transactionBulk.state_locale}
-                                                    </div>
+                                                    <Label type="danger">{transactionBulk.state_locale}</Label>
                                                 )}
+
                                                 {transactionBulk.state === 'error' && (
-                                                    <div className="label label-danger">
-                                                        {transactionBulk.state_locale}
-                                                    </div>
+                                                    <Label type="danger">{transactionBulk.state_locale}</Label>
                                                 )}
 
                                                 {transactionBulk.state === 'draft' && (
-                                                    <div className="label label-default">
-                                                        {transactionBulk.state_locale}
-                                                    </div>
+                                                    <Label type="default">{transactionBulk.state_locale}</Label>
                                                 )}
 
                                                 {transactionBulk.state === 'accepted' && (
-                                                    <div className="label label-success">
-                                                        {transactionBulk.state_locale}
-                                                    </div>
+                                                    <Label type="success">{transactionBulk.state_locale}</Label>
                                                 )}
 
                                                 {transactionBulk.state === 'pending' && (
-                                                    <div className="label label-default">
-                                                        {transactionBulk.state_locale}
-                                                    </div>
+                                                    <Label type="default">{transactionBulk.state_locale}</Label>
                                                 )}
                                             </td>
 

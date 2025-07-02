@@ -28,6 +28,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import useEmployeeExporter from '../../../services/exporters/useEmployeeExporter';
+import TableDateTime from '../../elements/tables/elements/TableDateTime';
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -274,7 +275,9 @@ export default function Employees() {
                                                         {strLimit(rolesList(employee) || 'Geen...', 32)}
                                                     </div>
                                                 ) : (
-                                                    <div className="text-muted text-md">
+                                                    <div
+                                                        className="text-muted text-md"
+                                                        data-dusk={`owner${employee.id}`}>
                                                         {translate('organization_employees.labels.owner')}
                                                     </div>
                                                 )}
@@ -313,7 +316,11 @@ export default function Employees() {
                                                         <div className="state-2fa-icon">
                                                             <em className="mdi mdi-shield-check-outline text-primary" />
                                                         </div>
-                                                        <div className="state-2fa-label">Actief</div>
+                                                        <div
+                                                            className="state-2fa-label"
+                                                            data-dusk={`configured2fa${employee.id}`}>
+                                                            Actief
+                                                        </div>
                                                     </div>
                                                 )}
 
@@ -322,9 +329,19 @@ export default function Employees() {
                                                         <div className="state-2fa-icon">
                                                             <em className="mdi mdi-shield-off-outline text-muted" />
                                                         </div>
-                                                        <div className="state-2fa-label">Nee</div>
+                                                        <div
+                                                            className="state-2fa-label"
+                                                            data-dusk={`notConfigured2fa${employee.id}`}>
+                                                            Nee
+                                                        </div>
                                                     </div>
                                                 )}
+                                            </td>
+                                            <td>
+                                                <TableDateTime value={employee.created_at_locale} />
+                                            </td>
+                                            <td>
+                                                <TableDateTime value={employee.last_activity_at_locale} />
                                             </td>
 
                                             {activeOrganization.identity_address != employee.identity_address ? (
@@ -374,6 +391,7 @@ export default function Employees() {
                                                                 <div className="dropdown dropdown-actions">
                                                                     <a
                                                                         className="dropdown-item"
+                                                                        data-dusk={`btnEmployeeTransferOwnership${employee.id}`}
                                                                         onClick={() => {
                                                                             transferOwnership(adminEmployees);
                                                                             e.close();

@@ -22,6 +22,7 @@ import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
+import Label from '../../elements/image_cropper/Label';
 
 export default function BankConnections() {
     const activeOrganization = useActiveOrganization();
@@ -361,15 +362,12 @@ export default function BankConnections() {
                                                     </td>
                                                     <td>{bankConnection.iban}</td>
                                                     <td>
-                                                        <div
-                                                            className={
-                                                                'label ' +
-                                                                (bankConnection.state == 'active'
-                                                                    ? 'label-success'
-                                                                    : 'label-default')
+                                                        <Label
+                                                            type={
+                                                                bankConnection.state == 'active' ? 'success' : 'default'
                                                             }>
                                                             {bankConnection.state_locale}
-                                                        </div>
+                                                        </Label>
                                                     </td>
                                                     <td />
                                                 </tr>

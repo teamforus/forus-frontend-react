@@ -5,8 +5,8 @@ import ToggleControl from '../elements/forms/controls/ToggleControl';
 import classNames from 'classnames';
 
 type ItemProp = {
-    _uid: string;
-    label: string;
+    _uid?: string;
+    label?: string;
     value?: string;
     blink?: boolean;
     model?: boolean;
@@ -203,7 +203,7 @@ export default function ModalDuplicatesPicker({
                                                             {item.model ? labels.label_on : labels.label_off}
                                                         </div>
                                                         <div className="switch-input-control">
-                                                            <div className="form-group form-group-inline">
+                                                            <div className="form-group">
                                                                 <ToggleControl
                                                                     checked={item.model || false}
                                                                     onChange={(e) => {

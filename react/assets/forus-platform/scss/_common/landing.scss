@@ -19,7 +19,6 @@
         cursor: default;
         font: 700 12px/20px var(--base-font-landing);
         margin-bottom: 4px;
-        color: var(--text-color);
         padding: 0;
         color: #134478;
 
@@ -40,7 +39,9 @@
         color: rgba(#00122a, 0.9);
         font: 600 17px/24px var(--base-font-landing);
         line-height: 24px !important;
-        transition: background-color 0.4s ease, border 0.4s ease;
+        transition:
+            background-color 0.4s ease,
+            border 0.4s ease;
         border-radius: 6px;
         appearance: none;
         background-color: #eaf0f6;
@@ -149,43 +150,6 @@
     .form-group {
         margin-bottom: 10px;
         @include cf();
-
-        &.form-group-inline {
-            margin-bottom: 10px;
-            // display: flex;
-            flex-wrap: wrap;
-
-            & > .form-label {
-                // flex: 0 0 28%;
-                // max-width: 28%;
-                width: 200px;
-                padding-top: 8px;
-                padding-bottom: 8px;
-                margin: 0;
-                text-align: right;
-                padding-right: 15px;
-                float: left;
-            }
-
-            & > .form-offset,
-            & > .form-control {
-                // flex: 0 0 72%;
-                // max-width: 72%;
-                width: calc(100% - 200px);
-                float: left;
-            }
-
-            & > .form-error {
-                margin-left: 200px;
-                width: calc(100% - 200px);
-                float: left;
-            }
-
-            &:last-child,
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-        }
     }
 
     .checkbox {
@@ -378,7 +342,11 @@
     cursor: pointer;
     border: 1px solid transparent;
     padding: 12px 25px;
-    transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
+    transition:
+        color 0.4s,
+        background 0.4s,
+        box-shadow 0.4s,
+        border 0.4s;
     border-radius: 6px;
     display: inline-block;
     margin-right: 15px;
@@ -540,7 +508,9 @@
             }
 
             .blog-item-inner {
-                transition: box-shadow 0.4s, transform 0.4s;
+                transition:
+                    box-shadow 0.4s,
+                    transform 0.4s;
                 display: block;
                 background: #fff;
                 padding: 30px;
@@ -734,7 +704,7 @@
             /*display: block;
             background: #fff;
             box-shadow: 0 0 30px rgba(#000, .15);
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             padding: 10px;
             padding-right: 65px;
             position: relative;
@@ -1253,7 +1223,7 @@
             &:not(.line-item) {
                 width: 100%;
                 border: 2px dashed #d2e6ff;
-                border-radius: 5px;
+                border-radius: var(--border-radius);
                 box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                 position: relative;
                 z-index: 1;

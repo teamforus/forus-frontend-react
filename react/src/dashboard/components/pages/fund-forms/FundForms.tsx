@@ -257,7 +257,7 @@ export default function FundForms() {
                                             <td>
                                                 <TableEntityMain
                                                     title={strLimit(fundForm.fund.name, 50)}
-                                                    subtitle={fundForm?.fund.type_locale}
+                                                    subtitle={fundForm?.fund.organization?.name}
                                                     mediaPlaceholder={'fund'}
                                                     media={fundForm?.fund?.logo}
                                                 />

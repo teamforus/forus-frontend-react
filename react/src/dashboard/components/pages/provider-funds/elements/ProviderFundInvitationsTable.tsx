@@ -18,9 +18,10 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import Label, { LabelType } from '../../../elements/image_cropper/Label';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
-    status_class?: string;
+    status_type?: LabelType;
     status_text?: string;
 };
 
@@ -98,24 +99,25 @@ export default function ProviderFundInvitationsTable({
     );
 
     const mapProviderFunds = useCallback(
-        (items: Array<FundProviderInvitation>) => {
-            return items.map((item) => ({
-                ...item,
-                ...(item.state
-                    ? {
-                          status_text: translate(`provider_funds.status.${item.expired ? 'expired' : item.state}`),
-                          status_class:
-                              item.state == 'pending' && !item.expired
-                                  ? 'tag-warning'
-                                  : item.expired
-                                    ? 'tag-default'
-                                    : 'tag-success',
-                      }
-                    : {
-                          status_text: translate('provider_funds.status.closed'),
-                          status_class: 'tag-default',
-                      }),
-            }));
+        (
+            items: Array<FundProviderInvitation>,
+        ): Array<FundProviderInvitation & { status_text: string; status_type: LabelType }> => {
+            return items.map(function (item) {
+                if (item.state) {
+                    return {
+                        ...item,
+                        status_text: translate(`provider_funds.status.${item.expired ? 'expired' : item.state}`),
+                        status_type:
+                            item.state == 'pending' && !item.expired ? 'warning' : item.expired ? 'default' : 'success',
+                    };
+                }
+
+                return {
+                    ...item,
+                    status_text: translate('provider_funds.status.closed'),
+                    status_type: 'default',
+                };
+            });
         },
         [translate],
     );
@@ -250,9 +252,7 @@ export default function ProviderFundInvitationsTable({
                                                 </strong>
                                             </td>
                                             <td className={`nowrap`}>
-                                                <div className={`tag tag-sm ${invitation.status_class}`}>
-                                                    {invitation.status_text}
-                                                </div>
+                                                <Label type={invitation.status_type}>{invitation.status_text}</Label>
                                             </td>
                                             {type === 'invitations' && invitation.can_be_accepted ? (
                                                 <td>

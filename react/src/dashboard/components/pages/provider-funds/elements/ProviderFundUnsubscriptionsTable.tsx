@@ -26,6 +26,7 @@ import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import Label from '../../../elements/image_cropper/Label';
 
 type FundProviderUnsubscribeLocal = FundProviderUnsubscribe & {
     showTooltip?: boolean;
@@ -323,27 +324,19 @@ export default function ProviderFundUnsubscriptionsTable({
                                             </td>
                                             <td className="nowrap">
                                                 {unsubscription.state == 'approved' && (
-                                                    <div className="tag tag-sm tag-success">
-                                                        {unsubscription.state_locale}
-                                                    </div>
+                                                    <Label type="success">{unsubscription.state_locale}</Label>
                                                 )}
 
                                                 {unsubscription.state == 'pending' && (
-                                                    <div className="tag tag-sm tag-warning">
-                                                        {unsubscription.state_locale}
-                                                    </div>
+                                                    <Label type="warning">{unsubscription.state_locale}</Label>
                                                 )}
 
                                                 {unsubscription.state == 'overdue' && (
-                                                    <div className="tag tag-sm tag-danger">
-                                                        {unsubscription.state_locale}
-                                                    </div>
+                                                    <Label type="danger">{unsubscription.state_locale}</Label>
                                                 )}
 
                                                 {unsubscription.state == 'canceled' && (
-                                                    <div className="tag tag-sm tag-default">
-                                                        {unsubscription.state_locale}
-                                                    </div>
+                                                    <Label type="default">{unsubscription.state_locale}</Label>
                                                 )}
                                             </td>
                                             <td className={'table-td-actions text-right'}>

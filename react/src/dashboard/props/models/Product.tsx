@@ -39,16 +39,22 @@ export default interface Product {
             };
             end_at: string;
             end_at_locale: string;
-            scanning_enabled: boolean;
-            reservations_enabled: boolean;
-            reservation_extra_payments_enabled: boolean;
+            feature_scanning_enabled: boolean;
+            feature_reservations_enabled: boolean;
+            feature_reservation_extra_payments_enabled: boolean;
             fund_id?: number;
             limit_total?: number;
             limit_available?: number;
             limit_per_identity?: number;
-            limit_total_unlimited: boolean;
+            limit_total_unlimited?: boolean;
             price?: string;
             price_locale?: string;
+            amount?: string;
+            amount_locale?: string;
+            payment_type?: 'subsidy' | 'budget';
+            payment_type_locale?: string;
+            user_price?: string;
+            user_price_locale?: string;
             vouchers?: Array<Voucher>;
             fund_providers?: Array<Organization>;
         }

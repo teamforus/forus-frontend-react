@@ -8,7 +8,6 @@ import FundsShow from '../components/pages/funds-show/FundsShow';
 import Start from '../components/pages/auth/Start';
 import IdentityRestore from '../components/pages/auth/IdentityRestore';
 import Products from '../components/pages/products/Products';
-import Subsidies from '../components/pages/subsidies/Subsidies';
 import Providers from '../components/pages/providers/Providers';
 import ProvidersShow from '../components/pages/providers-show/ProvidersShow';
 import ProductsShow from '../components/pages/products-show/ProductsShow';
@@ -128,7 +127,7 @@ router.state('fund-request-clarification', <FundRequestsClarification />, {
     protected: false,
 });
 
-router.state('products', <Products fundType={'budget'} />, {
+router.state('products', <Products />, {
     path: `/aanbod`,
     altPath: `/products`,
     protected: false,
@@ -137,12 +136,6 @@ router.state('products', <Products fundType={'budget'} />, {
 router.state('product', <ProductsShow />, {
     path: `/aanbod/:id`,
     altPath: `/products/:id`,
-    protected: false,
-});
-
-router.state('actions', <Subsidies />, {
-    path: `/acties`,
-    altPath: `/actions`,
     protected: false,
 });
 
@@ -300,6 +293,7 @@ router.state('sign-out', <SignOut />, {
 
 router.state('redirect', <Redirect />, {
     path: `/redirect`,
+    protected: false,
 });
 
 router.state('auth-link', <AuthLink />, {

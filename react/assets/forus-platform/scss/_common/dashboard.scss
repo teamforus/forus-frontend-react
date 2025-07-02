@@ -14,7 +14,6 @@
 @import 'includes/printables';
 
 // components
-@import 'components/tags';
 @import 'components/forms';
 @import 'components/tables';
 @import 'components/buttons';
@@ -45,8 +44,6 @@
 @import '../../../forus-webshop/scss/includes/blocks/block-exception';
 
 .block {
-    @import 'blocks/block-fund_types';
-    @import 'blocks/block-subsidy-product-overview';
     @import 'blocks/block-app_download.scss';
     @import 'blocks/block-app_links.scss';
     @import 'blocks/block-timeframe.scss';
@@ -100,6 +97,8 @@
 @import 'blocks/block-fund-request-assigned.scss';
 @import 'blocks/block-product.scss';
 @import 'blocks/block-label-tabs.scss';
+@import 'blocks/block-translation-stats.scss';
+@import 'blocks/block-provider-product-overview.scss';
 
 // Select controls
 @import 'select-controls/select-control-funds';
@@ -150,7 +149,7 @@ body {
         max-width: 80vw;
         width: 240px;
         border: 1px solid #f3f4f5;
-        border-radius: 5px;
+        border-radius: var(--border-radius);
         box-shadow: 0 5px 25px rgba(#000, 0.15);
         padding: 5px 20px;
         @include cf();
@@ -309,7 +308,7 @@ body {
 
                 .notifications-menu-inner {
                     background: #ffffff;
-                    border-radius: 5px;
+                    border-radius: var(--border-radius);
                     box-shadow: 0 10px 25px rgba(#000, 0.15);
                     position: relative;
 
@@ -509,7 +508,7 @@ body {
                     top: 60px;
                     border: 1px solid #f3f4f5;
                     background: #fff;
-                    border-radius: 5px;
+                    border-radius: var(--border-radius);
                     box-shadow: 0 5px 30px rgba(#000, 0.1);
                     min-width: 220px;
                     max-width: 80%;
@@ -648,7 +647,7 @@ body {
                     display: flex;
                     flex-direction: row;
                     align-items: flex-start;
-                    border-radius: 3px;
+                    border-radius: var(--border-radius);
                     transition: background-color 0.4s;
                     gap: 6px;
 
@@ -749,7 +748,7 @@ body {
                 &.sidebar-nav-group-active {
                     & > .sidebar-nav-group-header {
                         background: #134478;
-                        border-radius: 3px;
+                        border-radius: var(--border-radius);
 
                         .sidebar-nav-group-header-icon {
                             .sidebar-nav-group-header-icon-default {
@@ -957,11 +956,6 @@ body {
                     }
                 }
 
-                .form-group-inline > .form-label {
-                    padding-top: 5px;
-                    padding-bottom: 5px;
-                }
-
                 .block-label-tabs {
                     .label-tab {
                         height: 30px;
@@ -971,7 +965,6 @@ body {
                         font-size: 12px;
 
                         .mdi {
-                            font-size: 1.36em;
                             line-height: 24px;
                         }
                     }
@@ -1346,7 +1339,7 @@ body {
     }
 
     &.card-outline {
-        border: 1px solid #8ca3a6;
+        border: 1px solid var(--border-color);
     }
 
     &.card-collapsable {
@@ -1724,6 +1717,24 @@ body {
             }
         }
 
+        &.card-block-keyvalue-text-sm {
+            .keyvalue-item {
+                padding: 0 0 4px;
+
+                .keyvalue-key {
+                    font: 600 12px/20px var(--base-font);
+                }
+
+                .keyvalue-value {
+                    font: 500 12px/20px var(--base-font);
+                }
+
+                &:last-child {
+                    padding: 0 0 0;
+                }
+            }
+        }
+
         &:last-child {
             margin-bottom: 0;
         }
@@ -1980,7 +1991,7 @@ body {
 
             .download-link {
                 border: 1px dashed #d2e6ff;
-                border-radius: 5px;
+                border-radius: var(--border-radius);
                 position: relative;
                 display: block;
                 margin-bottom: 25px;
@@ -2047,7 +2058,7 @@ body {
 
         .download-url {
             border: 1px dashed #d2e6ff;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             padding: 13px;
             width: 320px;
             margin: 0 auto 25px;
@@ -2064,7 +2075,7 @@ body {
         .download-confirmation {
             border: 1px dashed #d2e6ff;
             margin-bottom: 20px;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             padding: 13px;
             display: block;
             cursor: pointer;
@@ -2351,7 +2362,7 @@ body {
 
     &.card-block-requests {
         box-shadow: 0 2px 5px rgba(25, 39, 52, 0.11);
-        border-radius: 4px;
+        border-radius: var(--border-radius);
         margin: 20px 0;
         color: #646f79;
         background-color: #fff;
@@ -2509,7 +2520,7 @@ body {
             padding: 15px;
             background: #fff;
             z-index: 5;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             font: 500 13px/20px var(--base-font);
             text-transform: none;
             color: #45535e;
@@ -3091,7 +3102,7 @@ body {
                 box-shadow: none;
                 margin-bottom: 15px;
                 border: 1px solid #e5e6ec;
-                border-radius: 5px;
+                border-radius: var(--border-radius);
 
                 .card-section {
                     background: #fff;
@@ -3838,7 +3849,7 @@ body {
         font: 400 11px/16px var(--base-font);
         border: 1px dashed #d4d9dd;
         padding: 17.5px;
-        border-radius: 5px;
+        border-radius: var(--border-radius);
 
         &.block-info-primary {
             background-color: #f7f9fc;
@@ -3938,6 +3949,7 @@ body {
 
                 .clarification-item-question,
                 .clarification-item-answer {
+                    border-bottom: 1px solid var(--border-color);
                     padding: 10px 20px 10px 40px;
                     position: relative;
                     width: 100%;
@@ -3945,16 +3957,14 @@ body {
                     .clarification-item-text {
                         @include ellipsis();
                     }
-                }
 
-                .clarification-item-question {
-                    border-bottom: 1px solid var(--border-color);
+                    &:last-child {
+                        border-bottom: none;
+                    }
                 }
 
                 .clarification-item-attachments {
                     .block.block-attachments-list {
-                        border-top: 1px solid var(--border-color);
-
                         .block-attachments-inner {
                             margin-bottom: 0;
                         }
@@ -3991,7 +4001,7 @@ body {
             border: 1px solid #d4d9dd;
             flex-direction: row;
             padding: 5px 15px;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             float: left;
             margin-bottom: 10px;
 
@@ -4454,7 +4464,7 @@ body {
                     position: relative;
 
                     .card-section-fund {
-                        border-radius: 5px;
+                        border-radius: var(--border-radius);
                         background: #fff;
                         margin-bottom: 12.5px;
                         box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.05);
@@ -4583,7 +4593,7 @@ body {
                         &:not(.line-item) {
                             width: 100%;
                             border: 2px dashed #d2e6ff;
-                            border-radius: 5px;
+                            border-radius: var(--border-radius);
                             box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                             position: relative;
                             z-index: 1;
@@ -4712,7 +4722,7 @@ body {
                 margin: 0 0 20px;
                 height: 5px;
                 background: #d2e6ff;
-                border-radius: 5px;
+                border-radius: var(--border-radius);
                 width: 100%;
                 position: relative;
 
@@ -4722,7 +4732,7 @@ body {
                     top: -1px;
                     bottom: -1px;
                     background: #009ef4;
-                    border-radius: 5px;
+                    border-radius: var(--border-radius);
                     transition: 1s;
                 }
             }
@@ -4795,7 +4805,7 @@ body {
                 padding: 15px 10px 10px;
                 display: block;
                 background: #fff;
-                border-radius: 5px;
+                border-radius: var(--border-radius);
                 box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.1);
                 transform: translate(0, 0);
                 transition: 0.4s;
@@ -4969,7 +4979,7 @@ body {
     &.block-file {
         width: 100%;
         border: 1px dashed #d4d9dd;
-        border-radius: 4px;
+        border-radius: var(--border-radius);
         text-align: left;
         cursor: default;
         display: flex;
@@ -5068,10 +5078,6 @@ body {
             font-size: 12px;
             box-shadow: none;
             white-space: nowrap;
-
-            .mdi {
-                font-size: 1.36em;
-            }
         }
 
         .select-control {
@@ -5115,23 +5121,6 @@ body {
                 &:last-child {
                     margin-right: 0;
                 }
-
-                &.form-group-inline {
-                    flex-direction: row;
-
-                    .form-label {
-                        line-height: 14px;
-                        padding-right: 10px;
-                        color: var(--color-primary);
-                        width: auto;
-                    }
-
-                    & > .form-offset,
-                    & > .form-control,
-                    & > .form-control {
-                        width: auto;
-                    }
-                }
             }
 
             .form-control {
@@ -5172,7 +5161,7 @@ body {
 
             .inline-filters-dropdown-content {
                 width: 260px;
-                min-height: 100px;
+                min-height: 75px;
                 position: absolute;
                 top: 100%;
                 margin-top: 15px;
@@ -5328,7 +5317,7 @@ body {
     &.block-information {
         background: #fff;
         padding: 15px 20px;
-        border-radius: 4px;
+        border-radius: var(--border-radius);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         font: 400 13px/20px var(--base-font);
         margin-bottom: 15px;
@@ -5396,7 +5385,7 @@ body {
 
                 &:not(.line-item) {
                     width: 220px;
-                    border-radius: 5px;
+                    border-radius: var(--border-radius);
                     box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1);
                     position: relative;
                     z-index: 1;
@@ -5974,7 +5963,7 @@ body {
 
                         button {
                             background: rgba(53, 97, 255, 0.15);
-                            border-radius: 5px;
+                            border-radius: var(--border-radius);
                             font: 500 14px/25px var(--base-font);
                             color: #3561ff;
                             margin: 0 auto;
@@ -6484,7 +6473,7 @@ body {
                             display: block;
                             width: 4px;
                             height: 4px;
-                            border-radius: 5px;
+                            border-radius: var(--border-radius);
                             background: var(--color-primary-light);
                             left: 0;
                             top: 50%;
@@ -6657,7 +6646,7 @@ body {
         font: 700 14px/30px var(--base-font);
         padding: 10px 65px;
         text-align: center;
-        border-radius: 5px;
+        border-radius: var(--border-radius);
 
         &.button-primary {
             background: #305dfb;
@@ -6703,23 +6692,6 @@ body {
 
         .form-group {
             margin-bottom: 15px;
-
-            &.form-group-inline {
-                & > .form-label {
-                    width: auto;
-                    float: none;
-                    text-align: left;
-                    padding: 0;
-                }
-
-                & > .form-control,
-                & > .form-offset,
-                & > .form-error {
-                    float: none;
-                    width: 100%;
-                    margin: 0;
-                }
-            }
         }
     }
 
@@ -6740,7 +6712,7 @@ body {
         &.block-office-edit-card {
             background: #fff;
             border: 1px solid #d2e6ff;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             box-shadow: 2px 5px 5px rgba($color: #000000, $alpha: 0.05);
             margin-bottom: 25px;
 
@@ -6896,7 +6868,7 @@ body {
 
                     .button {
                         background-color: #e1e8ff;
-                        border-radius: 5px;
+                        border-radius: var(--border-radius);
                     }
                 }
             }

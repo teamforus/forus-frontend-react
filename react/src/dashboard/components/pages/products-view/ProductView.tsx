@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import useTranslate from '../../../hooks/useTranslate';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import useProductService from '../../../services/ProductService';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useProductChatService from '../../../services/ProductChatService';
@@ -22,6 +21,8 @@ import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import ProductFund from '../../../props/models/ProductFund';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
+import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -32,7 +33,6 @@ export default function ProductView() {
 
     const translate = useTranslate();
     const activeOrganization = useActiveOrganization();
-    const assetUrl = useAssetUrl();
 
     const productService = useProductService();
     const paginatorService = usePaginatorService();
@@ -235,8 +235,7 @@ export default function ProductView() {
                                 <table className="table">
                                     <tbody>
                                         <tr>
-                                            <th className="th-narrow">Afbeelding</th>
-                                            <th>Naam</th>
+                                            <th>Fonds</th>
                                             <th>Geaccepteerd</th>
                                             {!product.sponsor_organization && <th>Beschikbaar</th>}
                                             <th className="th-narrow">Berichten</th>
@@ -245,31 +244,20 @@ export default function ProductView() {
                                         {funds?.data?.map((fund) => (
                                             <tr key={fund.id}>
                                                 <td>
-                                                    <img
-                                                        className="td-media"
-                                                        alt={fund.name}
-                                                        src={
-                                                            fund.logo?.sizes?.thumbnail ||
-                                                            assetUrl('/assets/img/placeholders/product-thumbnail.png')
-                                                        }
+                                                    <TableEntityMain
+                                                        title={fund.name}
+                                                        subtitle={fund.organization.name}
+                                                        media={fund.logo}
+                                                        mediaRound={false}
+                                                        mediaSize={'md'}
+                                                        mediaPlaceholder={'fund'}
                                                     />
                                                 </td>
                                                 <td>
-                                                    <div className="td-title">
-                                                        {fund.name}
-                                                        <div className="td-title-icon td-title-icon-suffix">
-                                                            {fund.provider_excluded && (
-                                                                <em className="mdi mdi-eye-off-outline" />
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                    <div>{fund.organization.name}</div>
-                                                </td>
-                                                <td>
                                                     {fund.approved ? (
-                                                        <div className="label label-success">Geaccepteerd</div>
+                                                        <Label type="success">Geaccepteerd</Label>
                                                     ) : (
-                                                        <div className="label label-default">Wachtend</div>
+                                                        <Label type="default">Wachtend</Label>
                                                     )}
                                                 </td>
                                                 {!product.sponsor_organization && fundToggles && (

@@ -12,6 +12,7 @@ import usePayReservationExtra from '../reservations/hooks/usePayReservationExtra
 import useCancelReservation from '../reservations/hooks/useCancelReservation';
 import { BooleanParam, useQueryParam } from 'use-query-params';
 import classNames from 'classnames';
+import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function ReservationsShow() {
     const { id } = useParams();
@@ -167,7 +168,7 @@ export default function ReservationsShow() {
                                                 <div
                                                     className="key-value-list-item-value"
                                                     data-dusk="reservationOverviewAmount">
-                                                    {reservation.price_locale}
+                                                    {reservation.price_voucher_locale}
                                                 </div>
                                             </div>
                                         </div>
@@ -207,9 +208,11 @@ export default function ReservationsShow() {
                         </div>
 
                         {reservation.state === 'waiting' && stateData.expiresIn && !showLoadingBtn && (
-                            <div className="card-footer card-footer-warning card-footer-sm">
-                                {translate('reservation.expiring', stateData)}
-                            </div>
+                            <TranslateHtml
+                                i18n={'reservation.expiring'}
+                                values={stateData}
+                                className="card-footer card-footer-warning card-footer-sm"
+                            />
                         )}
 
                         {reservation.state === 'canceled_payment_expired' && (

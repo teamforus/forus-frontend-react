@@ -7,7 +7,7 @@ import FundRequests from '../components/pages/fund-requests/FundRequests';
 import FundRequestsView from '../components/pages/fund-requests-view/FundRequestsView';
 import Home from '../components/pages/home/Home';
 import Employees from '../components/pages/employees/Employees';
-import CsvValidations from '../components/pages/csv_validations/CsvValidations';
+import Prevalidations from '../components/pages/prevalidations/Prevalidations';
 import Organizations from '../components/pages/organizations/Organizations';
 import IdentityRestore from '../components/pages/auth/IdentityRestore';
 import Redirect from '../components/pages/redirect/Redirect';
@@ -71,7 +71,6 @@ import FundProvider from '../components/pages/fund-provider/FundProvider';
 import SponsorProductsCreate from '../components/pages/sponsor-product-edit/SponsorProductsCreate';
 import SponsorProductsEdit from '../components/pages/sponsor-product-edit/SponsorProductsEdit';
 import FundProviderProductView from '../components/pages/fund-provider-product-view/FundProviderProductView';
-import FundProviderProductSubsidyEdit from '../components/pages/fund-provider-product-subsidy-edit/FundProviderProductSubsidyEdit';
 import ImplementationsNotifications from '../components/pages/implementations-notifications/ImplementationsNotifications';
 import ImplementationsNotificationsSend from '../components/pages/implementations-notifications-send/ImplementationsNotificationsSend';
 import ImplementationsNotificationsEdit from '../components/pages/implementations-notifications-edit/ImplementationsNotificationsEdit';
@@ -258,12 +257,6 @@ router.state('fund-provider-product', <FundProviderProductView />, {
 router.state('fund-provider-product-edit', <SponsorProductsEdit />, {
     path: `/organisaties/:organizationId/fondsen/:fundId/aanbieders/:fundProviderId/producten/:id/bewerken`,
     altPath: `/organizations/:organizationId/funds/:fundId/providers/:fundProviderId/products/:id/edit`,
-    fallbackState: 'organizations',
-});
-
-router.state('fund-provider-product-subsidy-edit', <FundProviderProductSubsidyEdit />, {
-    path: `/organisaties/:organizationId/fondsen/:fundId/aanbieders/:fundProviderId/producten/:id/subsidie`,
-    altPath: `/organizations/:organizationId/funds/:fundId/providers/:fundProviderId/products/:id/subsidy`,
     fallbackState: 'organizations',
 });
 
@@ -605,9 +598,9 @@ router.state('feedback', <Feedback />, {
     altPath: `/organizations/:organizationId/feedback`,
 });
 
-router.state('csv-validation', <CsvValidations />, {
-    path: `/aanvragers-toevoegen`,
-    altPath: `/csv-validations`,
+router.state('csv-validation', <Prevalidations />, {
+    path: `/organisaties/:organizationId/aanvragers-toevoegen`,
+    altPath: `/organizations/:organizationId/csv-validations`,
 });
 
 router.state('preferences-emails', <PreferencesEmails />, {
@@ -633,6 +626,7 @@ router.state('security-sessions', <SecuritySessions />, {
 router.state('redirect', <Redirect />, {
     path: `/redirect`,
     layout: LayoutType.clear,
+    protected: false,
 });
 
 router.state('home', <Home />, {

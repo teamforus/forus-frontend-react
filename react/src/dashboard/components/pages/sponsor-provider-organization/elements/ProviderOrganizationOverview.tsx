@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import FundProvider from '../../../../props/models/FundProvider';
 import Organization, { SponsorProviderOrganization } from '../../../../props/models/Organization';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
@@ -187,34 +187,30 @@ export default function ProviderOrganizationOverview({
                     <div className="row">
                         <div className="col">
                             <div className="flex-row">
-                                {fundProvider.fund.type == 'budget' && (
-                                    <Fragment>
-                                        <div className="flex-col">
-                                            <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
-                                                <div className="card-block-listing-label">Accepteer budget</div>
-                                                <ToggleControl
-                                                    checked={fundProvider.allow_budget}
-                                                    disabled={submittingAllow || fundProvider.state != 'accepted'}
-                                                    onChange={(e) => {
-                                                        updateFundProviderAllow({ allow_budget: e.target.checked });
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="flex-col">
-                                            <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
-                                                <div className="card-block-listing-label">Accepteer aanbiedingen</div>
-                                                <ToggleControl
-                                                    checked={fundProvider.allow_products}
-                                                    disabled={submittingAllow || fundProvider.state != 'accepted'}
-                                                    onChange={(e) => {
-                                                        updateFundProviderAllow({ allow_products: e.target.checked });
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-                                    </Fragment>
-                                )}
+                                <div className="flex-col">
+                                    <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
+                                        <div className="card-block-listing-label">Accepteer budget</div>
+                                        <ToggleControl
+                                            checked={fundProvider.allow_budget}
+                                            disabled={submittingAllow || fundProvider.state != 'accepted'}
+                                            onChange={(e) => {
+                                                updateFundProviderAllow({ allow_budget: e.target.checked });
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex-col">
+                                    <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
+                                        <div className="card-block-listing-label">Accepteer aanbiedingen</div>
+                                        <ToggleControl
+                                            checked={fundProvider.allow_products}
+                                            disabled={submittingAllow || fundProvider.state != 'accepted'}
+                                            onChange={(e) => {
+                                                updateFundProviderAllow({ allow_products: e.target.checked });
+                                            }}
+                                        />
+                                    </div>
+                                </div>
 
                                 <div className="flex-col">
                                     <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">

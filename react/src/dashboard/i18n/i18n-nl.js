@@ -329,6 +329,8 @@ export default {
         },
         buttons: {
             choose: 'Kies een ander fonds',
+            create: 'Activatiecode aanmaken',
+            upload: 'Upload .csv bestand',
         },
     },
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
@@ -385,6 +387,7 @@ export default {
             total_percentage: 'Totaal percentage',
             total_count: 'Totaal aantal',
             product_vouchers: 'Aanbiedingsvouchers',
+            payout_vouchers: 'Uitbetalingen',
         },
         buttons: {
             export: 'Exporteren',
@@ -715,6 +718,17 @@ export default {
             active: "Controleer het tabblad 'Actiebenodigd' voor aanbieders die actie vereisen, of het tabblad 'Inactief' voor aanbieders die momenteel niet actief zijn.",
             rejected:
                 "Controleer het tabblad 'Actief' voor actieve aanbieders, of 'Actiebenodigd' voor aanbieders die actie vereisen.",
+        },
+    },
+
+    translation_stats: {
+        header: {
+            title: 'Berekeningen',
+        },
+        labels: {
+            type: 'Type',
+            used: 'Gebruikt',
+            cost: 'Kosten',
         },
     },
 
@@ -1429,6 +1443,8 @@ export default {
             actions: 'Actie',
             auth_2fa: '2FA',
             owner: 'Eigenaar',
+            created_at: 'Aangemaakt op',
+            last_activity: 'Laatste handeling',
         },
         buttons: {
             adjust: 'Aanpassen',
@@ -1741,10 +1757,11 @@ export default {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: 'Gegevens van aanvragers',
+            title: 'Klaarzetten',
         },
         labels: {
             code: 'Code',
+            fund: 'Fonds',
             employee: 'Medewerker',
             search: 'Zoeken',
             exported: 'Geëxporteerd',
@@ -1758,6 +1775,7 @@ export default {
             export_selected: 'Exporteer selectie',
             export_csv: 'Exporteer als .CSV',
             export_xls: 'Exporteer als .XLS',
+            add_new: 'Exporteer als .XLS',
         },
     },
 

@@ -40,10 +40,6 @@ export class FundService<T = Fund> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds`, data);
     }
 
-    public listPublic(data: object = {}): Promise<ResponseSimple<{ data: Array<T> }>> {
-        return this.apiRequest.get(`${this.prefix_public}`, data);
-    }
-
     public read(company_id: number, fund_id: number, data: object = {}): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}`, data);
     }
@@ -273,6 +269,48 @@ export class FundService<T = Fund> {
                 key: key,
                 title: `components.organization_funds.labels.${key}`,
                 description: `components.organization_funds.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderProductColumns(fund: Fund, history: boolean): Array<ConfigurableTableColumn> {
+        const list = [
+            history ? 'used' : null,
+            history ? 'reserved' : null,
+            history ? 'price' : null,
+            history ? null : 'product_details',
+            fund?.show_subsidies ? 'acceptance' : null,
+            fund?.show_subsidies ? 'user_price' : null,
+            fund?.show_requester_limits ? 'limit_total' : null,
+            fund?.show_requester_limits ? 'limit_per_user' : null,
+            history ? null : 'messages',
+            'status',
+            'expiry_date',
+            history ? 'created_on' : null,
+            history ? 'updated_on' : null,
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.fund_provider_products.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.fund_provider_products.labels.${key}`,
+                description: `components.fund_provider_products.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderFundColumns(): Array<ConfigurableTableColumn> {
+        const list = ['fund_name', 'status', 'budget', 'products', 'hide_on_webshops'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.fund_provider_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.fund_provider_funds.labels.${key}`,
+                description: `components.fund_provider_funds.tooltips.${key}`,
             },
         }));
     }

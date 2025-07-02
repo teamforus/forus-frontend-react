@@ -1,4 +1,4 @@
-import React, { FormEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import FormError from '../../../elements/forms/errors/FormError';
@@ -49,7 +49,6 @@ export default function ProductsForm({
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const [alreadyConfirmed, setAlreadyConfirmed] = useState<boolean>(false);
     const [mediaFile, setMediaFile] = useState<Blob>(null);
 
     const mediaService = useMediaService();
@@ -307,23 +306,14 @@ export default function ProductsForm({
             }
 
             promise
-                .then((res: ApiResponseSingle<Product>) => {
+                .then(() => {
                     pushSuccess('Gelukt!');
 
                     if (!fundProvider) {
                         return navigateState('products', { organizationId: organization.id });
                     }
 
-                    if (fundProvider.fund.type === 'subsidies') {
-                        navigateState(product ? 'fund-provider-product' : 'fund-provider-product-subsidy-edit', {
-                            id: res.data.data.id,
-                            fundId: fundProvider.fund_id,
-                            organizationId: fundProvider.fund.organization_id,
-                            fundProviderId: fundProvider.id,
-                        });
-                    } else {
-                        goToFundProvider(fundProvider);
-                    }
+                    goToFundProvider(fundProvider);
                 })
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
@@ -336,78 +326,6 @@ export default function ProductsForm({
 
     const { update: updateForm } = form;
 
-    const priceWillChange = useCallback(
-        (product?: Product | SponsorProduct): boolean => {
-            if (!product) {
-                return false;
-            }
-
-            if (product.price_type !== form.values.price_type) {
-                return true;
-            }
-
-            if (form.values.price_type === 'regular' && parseFloat(product.price) !== form.values.price) {
-                return true;
-            }
-
-            if (
-                ['discount_fixed', 'discount_percentage'].includes(form.values.price_type) &&
-                parseFloat(product.price_discount) !== form.values.price_discount
-            ) {
-                return true;
-            }
-
-            return true;
-        },
-        [form?.values],
-    );
-
-    const hasSubsidyFunds = useCallback((product: Product | SponsorProduct) => {
-        return product && (product.sponsor_organization_id || product.funds.find((fund) => fund.type === 'subsidies'));
-    }, []);
-
-    const confirmPriceChange = useCallback(async (): Promise<boolean> => {
-        if (alreadyConfirmed) {
-            return true;
-        }
-
-        return new Promise((resolve) => {
-            openModal((modal) => (
-                <ModalNotification
-                    modal={modal}
-                    icon={'product-create'}
-                    title={translate('product_edit.confirm_price_change.title')}
-                    description={translate('product_edit.confirm_price_change.description')}
-                    buttonSubmit={{
-                        onClick: () => {
-                            setAlreadyConfirmed(true);
-                            modal.close();
-                            resolve(true);
-                        },
-                    }}
-                    buttonCancel={{ onClick: () => resolve(false) }}
-                />
-            ));
-        });
-    }, [alreadyConfirmed, openModal, translate]);
-
-    const saveProduct = useCallback(
-        (e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-
-            if (!priceWillChange(product) || !hasSubsidyFunds(product)) {
-                return form.submit(e);
-            }
-
-            confirmPriceChange().then((confirmed) => {
-                if (confirmed) {
-                    form.submit(e);
-                }
-            });
-        },
-        [confirmPriceChange, form, hasSubsidyFunds, priceWillChange, product],
-    );
-
     const cancel = useCallback(() => {
         if (fundProvider) {
             goToFundProvider(fundProvider);
@@ -417,10 +335,8 @@ export default function ProductsForm({
     }, [fundProvider, goToFundProvider, navigateState, organization?.id]);
 
     useEffect(() => {
-        const { reservations_budget_enabled, reservations_subsidy_enabled } = organization;
-
         setNonExpiring(!product || !product?.expire_at);
-        setAllowsReservations(reservations_budget_enabled || reservations_subsidy_enabled);
+        setAllowsReservations(organization.reservations_enabled);
         setIsEditable(
             !product || !product.sponsor_organization_id || product.sponsor_organization_id === organization.id,
         );
@@ -542,7 +458,7 @@ export default function ProductsForm({
                 </div>
             )}
 
-            <form className="card form" onSubmit={saveProduct}>
+            <form className="card form" onSubmit={form.submit}>
                 <div className="card-header">
                     <div className="card-title">
                         {translate(id ? 'product_edit.header.title_edit' : 'product_edit.header.title_add')}
@@ -551,21 +467,18 @@ export default function ProductsForm({
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-xs-11 col-lg-9 col-xs-12">
-                            <div className="form-group form-group-inline">
-                                <label className="form-label">&nbsp;</label>
-                                <div className="form-offset">
-                                    <PhotoSelector
-                                        type="office_photo"
-                                        disabled={!isEditable}
-                                        thumbnail={product?.photo?.sizes?.thumbnail}
-                                        selectPhoto={(file) => setMediaFile(file)}
-                                    />
-                                    <FormError error={mediaErrors} />
-                                </div>
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
+                                <PhotoSelector
+                                    type="office_photo"
+                                    disabled={!isEditable}
+                                    thumbnail={product?.photo?.sizes?.thumbnail}
+                                    selectPhoto={(file) => setMediaFile(file)}
+                                />
+                                <FormError error={mediaErrors} />
                             </div>
-                            <div className="form-group form-group-inline" />
-                            <div className="form-group form-group-inline">
+                            <div className="form-group" />
+                            <div className="form-group">
                                 <label className="form-label">
                                     {translate('product_edit.labels.alternative_text')}
                                 </label>
@@ -584,8 +497,8 @@ export default function ProductsForm({
                 </div>
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-xs-11 col-lg-9">
-                            <div className="form-group form-group-inline">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('product_edit.labels.name')}
                                 </label>
@@ -600,121 +513,116 @@ export default function ProductsForm({
                                 <FormError error={form.errors?.name} />
                             </div>
 
-                            <div className="form-group form-group-inline tooltipped">
+                            <div className="form-group tooltipped">
                                 <label className="form-label form-label-required">
                                     {translate('product_edit.labels.description')}
                                 </label>
-                                <div className="form-offset">
-                                    <MarkdownEditor
-                                        value={form.values.description_html || ''}
-                                        disabled={!isEditable}
-                                        onChange={(description) => form.update({ description })}
-                                        placeholder={translate('product_edit.labels.description')}
-                                    />
-                                    <Tooltip
-                                        text={
-                                            'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'
-                                        }
-                                    />
-                                    <FormError error={form.errors?.description} />
-                                </div>
+
+                                <MarkdownEditor
+                                    value={form.values.description_html || ''}
+                                    disabled={!isEditable}
+                                    onChange={(description) => form.update({ description })}
+                                    placeholder={translate('product_edit.labels.description')}
+                                />
+                                <Tooltip
+                                    text={
+                                        'Bijvoorbeeld: aantal lessen, abonnementsvorm, omschrijving cursus, einddatum activiteit, voorwaarden, bijzonderheden, etc.'
+                                    }
+                                />
+                                <FormError error={form.errors?.description} />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-xs-11 col-lg-9">
-                            <div className="form-group form-group-inline tooltipped">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
                                 <label className="form-label">Aanbod type</label>
-                                <div className="form-offset">
-                                    <div className="block block-label-tabs">
-                                        <div className="label-tab-set">
-                                            {priceTypes?.map((priceType) => (
-                                                <div
-                                                    key={priceType.value}
-                                                    className={`label-tab label-tab-sm 
+
+                                <div className="block block-label-tabs">
+                                    <div className="label-tab-set">
+                                        {priceTypes?.map((priceType) => (
+                                            <div
+                                                key={priceType.value}
+                                                className={`label-tab label-tab-sm 
                                                     ${form.values.price_type === priceType.value ? 'active' : ''} 
                                                     ${!isEditable ? 'disabled' : ''}`}
-                                                    onClick={() => form.update({ price_type: priceType.value })}>
-                                                    {priceType.label}
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <Tooltip text={translate('product_edit.tooltips.product_type')?.split('\n')} />
+                                                onClick={() => form.update({ price_type: priceType.value })}>
+                                                {priceType.label}
+                                            </div>
+                                        ))}
                                     </div>
+                                    <Tooltip text={translate('product_edit.tooltips.product_type')?.split('\n')} />
                                 </div>
                             </div>
 
                             {form.values.price_type === 'regular' && (
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label form-label-required">Bedrag</label>
-                                    <div className="form-offset">
-                                        <input
-                                            className="form-control"
-                                            disabled={!isEditable}
-                                            value={form.values.price || ''}
-                                            onChange={(e) => {
-                                                form.update({
-                                                    price: e.target.value ? parseFloat(e.target.value) : '',
-                                                });
-                                            }}
-                                            type="number"
-                                            placeholder="Bedrag in euro's"
-                                            step="0.01"
-                                        />
-                                        <FormError error={form.errors.price} />
-                                    </div>
+
+                                    <input
+                                        className="form-control"
+                                        disabled={!isEditable}
+                                        value={form.values.price || ''}
+                                        onChange={(e) => {
+                                            form.update({
+                                                price: e.target.value ? parseFloat(e.target.value) : '',
+                                            });
+                                        }}
+                                        type="number"
+                                        placeholder="Bedrag in euro's"
+                                        step="0.01"
+                                    />
+                                    <FormError error={form.errors.price} />
                                 </div>
                             )}
 
                             {form.values.price_type === 'discount_percentage' && (
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label">Kortingspercentage</label>
-                                    <div className="form-offset">
-                                        <input
-                                            className="form-control"
-                                            disabled={!isEditable}
-                                            value={form.values.price_discount || ''}
-                                            onChange={(e) => {
-                                                form.update({
-                                                    price_discount: e.target.value ? parseFloat(e.target.value) : '',
-                                                });
-                                            }}
-                                            type="number"
-                                            placeholder="20%"
-                                            step="0.01"
-                                            max={100}
-                                        />
-                                        <FormError error={form.errors.price_discount} />
-                                    </div>
+
+                                    <input
+                                        className="form-control"
+                                        disabled={!isEditable}
+                                        value={form.values.price_discount || ''}
+                                        onChange={(e) => {
+                                            form.update({
+                                                price_discount: e.target.value ? parseFloat(e.target.value) : '',
+                                            });
+                                        }}
+                                        type="number"
+                                        placeholder="20%"
+                                        step="0.01"
+                                        max={100}
+                                    />
+                                    <FormError error={form.errors.price_discount} />
                                 </div>
                             )}
 
                             {form.values.price_type === 'discount_fixed' && (
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label">Korting</label>
-                                    <div className="form-offset">
-                                        <input
-                                            className="form-control"
-                                            disabled={!isEditable}
-                                            value={form.values.price_discount}
-                                            onChange={(e) => {
-                                                form.update({
-                                                    price_discount: e.target.value ? parseFloat(e.target.value) : '',
-                                                });
-                                            }}
-                                            type="number"
-                                            placeholder="€ 20"
-                                            step="0.01"
-                                        />
-                                        <FormError error={form.errors.price_discount} />
-                                    </div>
+
+                                    <input
+                                        className="form-control"
+                                        disabled={!isEditable}
+                                        value={form.values.price_discount}
+                                        onChange={(e) => {
+                                            form.update({
+                                                price_discount: e.target.value ? parseFloat(e.target.value) : '',
+                                            });
+                                        }}
+                                        type="number"
+                                        placeholder="€ 20"
+                                        step="0.01"
+                                    />
+                                    <FormError error={form.errors.price_discount} />
                                 </div>
                             )}
 
                             {product && (
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label">{translate('product_edit.labels.sold')}</label>
                                     <input
                                         className="form-control"
@@ -732,61 +640,56 @@ export default function ProductsForm({
                                 </div>
                             )}
 
-                            <div className="form-group form-group-inline tooltipped">
+                            <div className="form-group tooltipped">
                                 <label className="form-label form-label-required">
                                     {translate('product_edit.labels.total')}
                                 </label>
+
                                 {product && product.unlimited_stock && (
-                                    <div className="form-offset">
-                                        <div className="form-value text-muted">
-                                            {translate('product_edit.labels.stock_unlimited')}
-                                        </div>
+                                    <div className="form-value text-muted">
+                                        {translate('product_edit.labels.stock_unlimited')}
                                     </div>
                                 )}
 
                                 {(!product || (product && !product.unlimited_stock)) && (
-                                    <div className="form-offset">
-                                        <div className="row">
-                                            {!form.values.unlimited_stock ? (
-                                                <div className="col col-lg-7">
-                                                    <input
-                                                        className="form-control"
-                                                        disabled={
-                                                            !isEditable || !!product || form.values.unlimited_stock
-                                                        }
-                                                        value={form.values.total_amount}
-                                                        onChange={(e) => {
-                                                            form.update({
-                                                                total_amount: e.target.value
-                                                                    ? parseFloat(e.target.value)
-                                                                    : '',
-                                                            });
-                                                        }}
-                                                        type="number"
-                                                        placeholder="Aantal in voorraad"
-                                                    />
-                                                </div>
-                                            ) : (
-                                                <div className="col col-lg-7">
-                                                    <input
-                                                        className="form-control"
-                                                        value={translate('product_edit.labels.stock_unlimited')}
-                                                        disabled={true}
-                                                    />
-                                                </div>
-                                            )}
-
-                                            <div className="col col-lg-5">
-                                                <CheckboxControl
-                                                    disabled={!isEditable || (product && !product.unlimited_stock)}
-                                                    id="unlimited_stock"
-                                                    title={translate('product_edit.labels.stock_unlimited')}
-                                                    checked={form.values.unlimited_stock}
+                                    <div className="row">
+                                        {!form.values.unlimited_stock ? (
+                                            <div className="col col-lg-7">
+                                                <input
+                                                    className="form-control"
+                                                    disabled={!isEditable || !!product || form.values.unlimited_stock}
+                                                    value={form.values.total_amount}
                                                     onChange={(e) => {
-                                                        form.update({ unlimited_stock: e.target.checked });
+                                                        form.update({
+                                                            total_amount: e.target.value
+                                                                ? parseFloat(e.target.value)
+                                                                : '',
+                                                        });
                                                     }}
+                                                    type="number"
+                                                    placeholder="Aantal in voorraad"
                                                 />
                                             </div>
+                                        ) : (
+                                            <div className="col col-lg-7">
+                                                <input
+                                                    className="form-control"
+                                                    value={translate('product_edit.labels.stock_unlimited')}
+                                                    disabled={true}
+                                                />
+                                            </div>
+                                        )}
+
+                                        <div className="col col-lg-5">
+                                            <CheckboxControl
+                                                disabled={!isEditable || (product && !product.unlimited_stock)}
+                                                id="unlimited_stock"
+                                                title={translate('product_edit.labels.stock_unlimited')}
+                                                checked={form.values.unlimited_stock}
+                                                onChange={(e) => {
+                                                    form.update({ unlimited_stock: e.target.checked });
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                 )}
@@ -795,50 +698,47 @@ export default function ProductsForm({
                             </div>
 
                             {product && !product.unlimited_stock && (
-                                <div className="form-group form-group-inline tooltipped">
+                                <div className="form-group tooltipped">
                                     <label className="form-label">
                                         {translate('product_edit.labels.stock_amount')}
                                     </label>
-                                    <div className="form-offset">
-                                        <div className="form-group-info">
-                                            <div className="form-group-info-control">
-                                                <input
-                                                    className="form-control"
-                                                    value={form.values.stock_amount}
-                                                    onChange={(e) =>
-                                                        form.update({
-                                                            stock_amount: e.target.value
-                                                                ? parseFloat(e.target.value)
-                                                                : '',
-                                                        })
-                                                    }
-                                                    type="number"
-                                                    placeholder="Stock"
-                                                    disabled={!isEditable}
-                                                />
+
+                                    <div className="form-group-info">
+                                        <div className="form-group-info-control">
+                                            <input
+                                                className="form-control"
+                                                value={form.values.stock_amount}
+                                                onChange={(e) =>
+                                                    form.update({
+                                                        stock_amount: e.target.value ? parseFloat(e.target.value) : '',
+                                                    })
+                                                }
+                                                type="number"
+                                                placeholder="Stock"
+                                                disabled={!isEditable}
+                                            />
+                                        </div>
+                                        <div className="form-group-info-button">
+                                            <div
+                                                className={`button button-default button-icon pull-left ${
+                                                    showInfoBlockStock ? 'active' : ''
+                                                }`}
+                                                onClick={() => setShowInfoBlockStock(!showInfoBlockStock)}>
+                                                <em className="mdi mdi-information" />
                                             </div>
-                                            <div className="form-group-info-button">
-                                                <div
-                                                    className={`button button-default button-icon pull-left ${
-                                                        showInfoBlockStock ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setShowInfoBlockStock(!showInfoBlockStock)}>
-                                                    <em className="mdi mdi-information" />
+                                        </div>
+                                    </div>
+                                    {showInfoBlockStock && (
+                                        <div className="block block-info-box block-info-box-primary">
+                                            <div className="info-box-icon mdi mdi-information" />
+                                            <div className="info-box-content">
+                                                <div className="block block-markdown">
+                                                    {translate('tooltip.product.limit')}
                                                 </div>
                                             </div>
                                         </div>
-                                        {showInfoBlockStock && (
-                                            <div className="block block-info-box block-info-box-primary">
-                                                <div className="info-box-icon mdi mdi-information" />
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        {translate('tooltip.product.limit')}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                        <FormError error={form.errors.stock_amount} />
-                                    </div>
+                                    )}
+                                    <FormError error={form.errors.stock_amount} />
                                 </div>
                             )}
                         </div>
@@ -847,41 +747,37 @@ export default function ProductsForm({
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-xs-11 col-lg-9">
-                            <div className="form-group form-group-inline tooltipped">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
                                 <label className="form-label">{translate('product_edit.labels.ean')}</label>
-                                <div className="form-offset">
-                                    <FormGroupInfo
-                                        info={<TranslateHtml i18n={'product_edit.tooltips.ean'} />}
-                                        error={form.errors?.ean}>
-                                        <input
-                                            className="form-control"
-                                            value={form.values.ean || ''}
-                                            onChange={(e) => form.update({ ean: e.target.value })}
-                                            type="text"
-                                            placeholder={translate('product_edit.labels.ean_placeholder')}
-                                            disabled={!isEditable}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
+                                <FormGroupInfo
+                                    info={<TranslateHtml i18n={'product_edit.tooltips.ean'} />}
+                                    error={form.errors?.ean}>
+                                    <input
+                                        className="form-control"
+                                        value={form.values.ean || ''}
+                                        onChange={(e) => form.update({ ean: e.target.value })}
+                                        type="text"
+                                        placeholder={translate('product_edit.labels.ean_placeholder')}
+                                        disabled={!isEditable}
+                                    />
+                                </FormGroupInfo>
                             </div>
 
-                            <div className="form-group form-group-inline tooltipped">
+                            <div className="form-group tooltipped">
                                 <label className="form-label">{translate('product_edit.labels.sku')}</label>
-                                <div className="form-offset">
-                                    <FormGroupInfo
-                                        info={<TranslateHtml i18n={'product_edit.tooltips.sku'} />}
-                                        error={form.errors?.sku}>
-                                        <input
-                                            className="form-control"
-                                            value={form.values.sku || ''}
-                                            onChange={(e) => form.update({ sku: e.target.value })}
-                                            type="text"
-                                            placeholder={translate('product_edit.labels.sku_placeholder')}
-                                            disabled={!isEditable}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
+                                <FormGroupInfo
+                                    info={<TranslateHtml i18n={'product_edit.tooltips.sku'} />}
+                                    error={form.errors?.sku}>
+                                    <input
+                                        className="form-control"
+                                        value={form.values.sku || ''}
+                                        onChange={(e) => form.update({ sku: e.target.value })}
+                                        type="text"
+                                        placeholder={translate('product_edit.labels.sku_placeholder')}
+                                        disabled={!isEditable}
+                                    />
+                                </FormGroupInfo>
                             </div>
                         </div>
                     </div>
@@ -889,43 +785,41 @@ export default function ProductsForm({
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-xs-11 col-lg-9">
-                            <div className="form-group form-group-inline tooltipped">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
                                 <label className="form-label">{translate('product_edit.labels.expire')}</label>
-                                <div className="form-offset">
-                                    <div className="row">
-                                        <div className="col col-lg-7">
-                                            {nonExpiring ? (
-                                                <input
-                                                    className="form-control"
-                                                    defaultValue={translate('product_edit.labels.unlimited')}
-                                                    disabled={true}
-                                                />
-                                            ) : (
-                                                <DatePickerControl
-                                                    disabled={!isEditable}
-                                                    dateFormat={'dd-MM-yyyy'}
-                                                    value={dateParse(form.values.expire_at)}
-                                                    onChange={(date) => form.update({ expire_at: dateFormat(date) })}
-                                                    placeholder="dd-MM-jjjj"
-                                                />
-                                            )}
-                                        </div>
-                                        <div className="col col-lg-5">
-                                            <CheckboxControl
-                                                disabled={!isEditable}
-                                                id="non_expiring"
-                                                title={translate('product_edit.labels.unlimited')}
-                                                checked={nonExpiring}
-                                                onChange={() => setNonExpiring(!nonExpiring)}
+                                <div className="row">
+                                    <div className="col col-lg-7">
+                                        {nonExpiring ? (
+                                            <input
+                                                className="form-control"
+                                                defaultValue={translate('product_edit.labels.unlimited')}
+                                                disabled={true}
                                             />
-                                        </div>
-                                        <Tooltip
-                                            text={
-                                                'De uiterlijke datum tot en met wanneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'
-                                            }
+                                        ) : (
+                                            <DatePickerControl
+                                                disabled={!isEditable}
+                                                dateFormat={'dd-MM-yyyy'}
+                                                value={dateParse(form.values.expire_at)}
+                                                onChange={(date) => form.update({ expire_at: dateFormat(date) })}
+                                                placeholder="dd-MM-jjjj"
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="col col-lg-5">
+                                        <CheckboxControl
+                                            disabled={!isEditable}
+                                            id="non_expiring"
+                                            title={translate('product_edit.labels.unlimited')}
+                                            checked={nonExpiring}
+                                            onChange={() => setNonExpiring(!nonExpiring)}
                                         />
                                     </div>
+                                    <Tooltip
+                                        text={
+                                            'De uiterlijke datum tot en met wanneer uw aanbieding loopt. Aanbieding wordt na deze datum verwijderd uit de webshop en kan niet meer worden opgehaald.'
+                                        }
+                                    />
                                 </div>
                                 <FormError error={form.errors.expire_at} />
                             </div>
@@ -936,95 +830,94 @@ export default function ProductsForm({
                 {allowsReservations && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-xs-11 col-lg-9">
-                                <div className="form-group form-group-inline tooltipped">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group tooltipped">
                                     <label className="form-label">Reserveringen</label>
-                                    <div className="form-offset">
-                                        <CheckboxControl
-                                            disabled={!isEditable}
-                                            id="reservation_enabled"
-                                            title="De klant mag het aanbod reserveren"
-                                            checked={form.values.reservation_enabled}
-                                            onChange={(e) => form.update({ reservation_enabled: e.target.checked })}
-                                        />
-                                        <FormError error={form.errors.reservation_enabled} />
-                                    </div>
+
+                                    <CheckboxControl
+                                        disabled={!isEditable}
+                                        id="reservation_enabled"
+                                        title="De klant mag het aanbod reserveren"
+                                        checked={form.values.reservation_enabled}
+                                        onChange={(e) => form.update({ reservation_enabled: e.target.checked })}
+                                    />
+                                    <FormError error={form.errors.reservation_enabled} />
+
                                     <Tooltip text={translate('product_edit.tooltips.reservation_enabled')} />
                                 </div>
                             </div>
                         </div>
                         <div className="row">
                             {form.values.reservation_enabled && (
-                                <div className="col col-xs-11 col-lg-9">
-                                    <div className="form-group form-group-inline tooltipped">
+                                <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                    <div className="form-group tooltipped">
                                         <label className="form-label" htmlFor="reservation_policy">
                                             Reserveringen accepteren
                                         </label>
-                                        <div className="form-offset">
-                                            <div className="form-group-info">
-                                                <div className="form-group-info-control">
-                                                    <SelectControl
-                                                        className="form-control"
-                                                        propValue={'label'}
-                                                        propKey={'value'}
-                                                        allowSearch={false}
-                                                        value={form.values.reservation_policy}
-                                                        onChange={(reservation_policy: string) => {
-                                                            form.update({ reservation_policy });
-                                                        }}
-                                                        options={reservationPolicies}
-                                                    />
+
+                                        <div className="form-group-info">
+                                            <div className="form-group-info-control">
+                                                <SelectControl
+                                                    className="form-control"
+                                                    propValue={'label'}
+                                                    propKey={'value'}
+                                                    allowSearch={false}
+                                                    value={form.values.reservation_policy}
+                                                    onChange={(reservation_policy: string) => {
+                                                        form.update({ reservation_policy });
+                                                    }}
+                                                    options={reservationPolicies}
+                                                />
+                                            </div>
+                                            <div className="form-group-info-button">
+                                                <div
+                                                    className={`button button-default button-icon pull-left ${
+                                                        showInfoBlockStockReservationPolicy ? 'active' : ''
+                                                    }`}
+                                                    onClick={() => {
+                                                        setShowInfoBlockStockReservationPolicy(
+                                                            !showInfoBlockStockReservationPolicy,
+                                                        );
+                                                    }}>
+                                                    <em className="mdi mdi-information" />
                                                 </div>
-                                                <div className="form-group-info-button">
-                                                    <div
-                                                        className={`button button-default button-icon pull-left ${
-                                                            showInfoBlockStockReservationPolicy ? 'active' : ''
-                                                        }`}
-                                                        onClick={() => {
-                                                            setShowInfoBlockStockReservationPolicy(
-                                                                !showInfoBlockStockReservationPolicy,
-                                                            );
-                                                        }}>
-                                                        <em className="mdi mdi-information" />
+                                            </div>
+                                        </div>
+                                        {showInfoBlockStockReservationPolicy && (
+                                            <div className="block block-info-box block-info-box-primary">
+                                                <div className="info-box-icon mdi mdi-information" />
+                                                <div className="info-box-content">
+                                                    <div className="block block-markdown">
+                                                        Standaard instelling kunt u bij uw reserveringen aanpassen. Geef
+                                                        hier optioneel aan of u de reservering handmatig of automatisch
+                                                        wilt accepteren.
                                                     </div>
                                                 </div>
                                             </div>
-                                            {showInfoBlockStockReservationPolicy && (
-                                                <div className="block block-info-box block-info-box-primary">
-                                                    <div className="info-box-icon mdi mdi-information" />
-                                                    <div className="info-box-content">
-                                                        <div className="block block-markdown">
-                                                            Standaard instelling kunt u bij uw reserveringen aanpassen.
-                                                            Geef hier optioneel aan of u de reservering handmatig of
-                                                            automatisch wilt accepteren.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            <FormError error={form.errors.reservation_policy} />
-                                        </div>
+                                        )}
+                                        <FormError error={form.errors.reservation_policy} />
                                     </div>
 
-                                    <div className="form-group form-group-inline tooltipped">
+                                    <div className="form-group tooltipped">
                                         <label htmlFor="" className="form-label">
                                             Klantgegevens
                                         </label>
-                                        <div className="form-offset">
-                                            <CheckboxControl
-                                                disabled={!isEditable}
-                                                id="reservation_fields"
-                                                title="De klant vragen om aanvullende informatie op te geven"
-                                                checked={form.values.reservation_fields}
-                                                onChange={(e) => form.update({ reservation_fields: e.target.checked })}
-                                            />
-                                            <FormError error={form.errors.reservation_fields} />
-                                        </div>
+
+                                        <CheckboxControl
+                                            disabled={!isEditable}
+                                            id="reservation_fields"
+                                            title="De klant vragen om aanvullende informatie op te geven"
+                                            checked={form.values.reservation_fields}
+                                            onChange={(e) => form.update({ reservation_fields: e.target.checked })}
+                                        />
+                                        <FormError error={form.errors.reservation_fields} />
+
                                         <Tooltip text={translate('product_edit.tooltips.reservation_fields')} />
                                     </div>
 
                                     {form.values.reservation_fields && (
                                         <Fragment>
-                                            <div className="form-group form-group-inline tooltipped">
+                                            <div className="form-group tooltipped">
                                                 <label className="form-label" htmlFor="reservation_phone">
                                                     Telefoonnummer klant
                                                 </label>
@@ -1041,7 +934,7 @@ export default function ProductsForm({
                                                 <FormError error={form.errors.reservation_phone} />
                                             </div>
 
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label" htmlFor="reservation_address">
                                                     Adres klant
                                                 </label>
@@ -1059,7 +952,7 @@ export default function ProductsForm({
                                                 <FormError error={form.errors.reservation_address} />
                                             </div>
 
-                                            <div className="form-group form-group-inline">
+                                            <div className="form-group">
                                                 <label className="form-label" htmlFor="reservation_birth_date">
                                                     Geboortedatum klant
                                                 </label>
@@ -1087,8 +980,8 @@ export default function ProductsForm({
                 {organization.can_receive_extra_payments && hasPermission(organization, 'manage_payment_methods') && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col-lg-9">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="reservation_extra_payments">
                                         {translate('product_edit.labels.extra_payments')}
                                     </label>
@@ -1113,12 +1006,14 @@ export default function ProductsForm({
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <ProductCategoriesControl
-                            disabled={!isEditable}
-                            value={form.values.product_category_id}
-                            onChange={(product_category_id) => form.update({ product_category_id })}
-                            errors={form.errors.product_category_id}
-                        />
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <ProductCategoriesControl
+                                disabled={!isEditable}
+                                value={form.values.product_category_id}
+                                onChange={(product_category_id) => form.update({ product_category_id })}
+                                errors={form.errors.product_category_id}
+                            />
+                        </div>
                     </div>
                 </div>
 

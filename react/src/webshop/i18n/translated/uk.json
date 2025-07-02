@@ -2242,12 +2242,10 @@
             "pay_from_voucher": "Ви платите з кредиту:",
             "price": "Ціна:",
             "payment_option_ideal": "Сплачуйте онлайн (iDEAL)",
-            "payment_option_ideal_aria_label": "Оплата онлайн (iDEAL): натисніть для отримання додаткової інформації",
             "payment_option_qr": "Показати QR-код у постачальника",
-            "payment_option_qr_aria_label": "Показати QR-код у постачальника: натисніть для отримання додаткової інформації",
             "payment_option_reservation": "Бронюйте онлайн",
-            "payment_option_reservation_aria_label": "Онлайн бронювання: натисніть для отримання додаткової інформації",
-            "payment_options": "Варіанти оплати"
+            "payment_options": "Варіанти оплати",
+            "payment_option_link": "Дізнайтеся більше про способи оплати"
         },
         "low_amount": "У вас немає кредиту з достатнім балансом.",
         "map": {
@@ -2390,6 +2388,12 @@
             "house_composition": "Склад сім'ї",
             "living_arrangement": "Жива форма",
             "title": "Домогосподарство"
+        },
+        "address": {
+            "cancel": "Скасувати",
+            "edit": "Редагувати",
+            "save": "Зберегти",
+            "title": "Адресні дані"
         }
     },
     "provider_sign_up": {
@@ -3520,7 +3524,22 @@
         "sessions": {
             "terminated": "Припинено!"
         },
-        "success": "Успішно!"
+        "success": "Успішно!",
+        "email_verification_auth_error": {
+            "description": "Ви не авторизовані, будь ласка, увійдіть спочатку, щоб підтвердити свою електронну адресу.",
+            "title": "Потрібна автентифікація!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Невідома помилка."
+        },
+        "email_verification_success": {
+            "description": "Імейл підтверджено.",
+            "title": "Email підтверджено!"
+        },
+        "session_expired": {
+            "description": "Увійдіть і спробуйте ще раз.",
+            "title": "Сесія закінчилася!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Читати для",

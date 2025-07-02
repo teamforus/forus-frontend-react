@@ -22,27 +22,19 @@ export interface SponsorProviderOrganization extends Organization {
 
 export interface TranslationStats {
     total: {
-        symbols: string;
+        symbols: number;
         cost: string;
     };
-    count_per_type: {
-        [key: string]: {
-            symbols: string;
-            cost: string;
-        };
-    };
-    total_per_locale: {
-        [key: string]: {
-            symbols: string;
-            cost: string;
-        };
-    };
-    total_per_type_and_locale: {
-        [key: string]: {
-            symbols: string;
-            cost: string;
-        };
-    };
+    groups: Array<{
+        name: string;
+        symbols: number;
+        costs: string;
+        locales: Array<{
+            name: string;
+            symbols: number;
+            costs: string;
+        }>;
+    }>;
 }
 
 export default interface Organization {
@@ -75,14 +67,12 @@ export default interface Organization {
     reservations_auto_accept: boolean;
     allow_custom_fund_notifications: boolean;
     validator_auto_accept_funds: boolean;
-    reservations_budget_enabled: boolean;
-    reservations_subsidy_enabled: boolean;
+    reservations_enabled: boolean;
     is_sponsor: boolean;
     is_provider: boolean;
     is_validator: boolean;
     bsn_enabled: boolean;
     allow_batch_reservations: boolean;
-    allow_budget_fund_limits: boolean;
     allow_manual_bulk_processing: boolean;
     allow_fund_request_record_edit: boolean;
     allow_bi_connection: boolean;
@@ -129,11 +119,6 @@ export default interface Organization {
         name?: string;
         locale?: string;
     }>;
-    translations_usage?: {
-        month: TranslationStats;
-        week: TranslationStats;
-        day: TranslationStats;
-    };
     bank_statement_details?: {
         bank_transaction_id?: boolean;
         bank_transaction_date?: boolean;

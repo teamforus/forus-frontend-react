@@ -1,5 +1,5 @@
 import { strLimit } from '../../../../helpers/string';
-import React, { useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import Media from '../../../../props/models/Media';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import classNames from 'classnames';
@@ -11,7 +11,10 @@ export default function TableEntityMain({
     mediaBorder = true,
     mediaPlaceholder,
     title,
+    titleLimit = 64,
     subtitle,
+    subtitleLimit = 64,
+    subtitleProperties,
     collapsed = null,
     collapsedClicked = null,
 }: {
@@ -21,7 +24,10 @@ export default function TableEntityMain({
     mediaBorder?: boolean;
     mediaPlaceholder?: 'fund' | 'organization' | 'product' | 'form';
     title: string;
+    titleLimit?: number;
     subtitle?: string;
+    subtitleLimit?: number;
+    subtitleProperties?: Array<{ label: string; value: string | number }>;
     collapsed?: boolean;
     collapsedClicked?: (e: React.MouseEvent) => void;
 }) {
@@ -64,9 +70,28 @@ export default function TableEntityMain({
 
             <div className="td-entity-main-content">
                 <div className="text-strong text-primary" title={title}>
-                    {strLimit(title, 50)}
+                    {strLimit(title, titleLimit)}
                 </div>
-                <div className="text-muted-dark">{subtitle}</div>
+
+                <div className="text-muted-dark" title={subtitle}>
+                    {strLimit(subtitle, subtitleLimit)}
+                </div>
+
+                {subtitleProperties?.length > 0 && (
+                    <div className={'td-entity-properties'}>
+                        {subtitleProperties?.map((property, index) => (
+                            <Fragment key={index}>
+                                <div className={'td-entity-property'}>
+                                    <div className={'td-entity-property-label'}>{property.label}</div>
+                                    <div className={'td-entity-property-value'}>{property.value?.toString()}</div>
+                                </div>
+                                {index < subtitleProperties?.length - 1 && (
+                                    <span className={'td-entity-property-separator'} />
+                                )}
+                            </Fragment>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

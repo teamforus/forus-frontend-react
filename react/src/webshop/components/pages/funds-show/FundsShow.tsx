@@ -188,17 +188,14 @@ export default function FundsShow() {
                                             </div>
                                             <div className="fund-details-item-value">{fund.organization?.name}</div>
                                         </div>
-                                        {fund.type == 'budget' &&
-                                            formulaList.multiply?.map((formula, index) => (
-                                                <div key={index} className="fund-details-item">
-                                                    <div className="fund-details-item-label">
-                                                        {translate('fund.criterias.multiplied_amount')}
-                                                    </div>
-                                                    <div className="fund-details-item-value">
-                                                        {formula.amount_locale}
-                                                    </div>
+                                        {formulaList.multiply?.map((formula, index) => (
+                                            <div key={index} className="fund-details-item">
+                                                <div className="fund-details-item-label">
+                                                    {translate('fund.criterias.multiplied_amount')}
                                                 </div>
-                                            ))}
+                                                <div className="fund-details-item-value">{formula.amount_locale}</div>
+                                            </div>
+                                        ))}
                                         {fund.key != 'IIT' && (
                                             <div className="fund-details-item">
                                                 <div className="fund-details-item-label">

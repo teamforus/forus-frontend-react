@@ -101,9 +101,17 @@
                         background: linear-gradient(
                             90deg,
                             rgba(255, 255, 255, 0) 0%,
-                            rgba(255, 255, 255, 1) 35%,
+                            rgba(255, 255, 255, 1) 15%,
                             rgba(255, 255, 255, 1) 100%
                         );
+
+                        .table-td-actions-buttons {
+                            display: flex;
+                            flex-direction: row;
+                            gap: 0;
+                            justify-content: flex-end;
+                            margin-right: -15px;
+                        }
                     }
                 }
 
@@ -278,27 +286,49 @@
                     color: inherit;
                 }
 
-                .td-title {
-                    font: 700 14px/20px var(--base-font);
-
-                    .td-title-icon {
-                        color: #8fa2a5;
-
-                        &.td-title-icon-suffix {
-                            margin-left: 2px;
-                            width: 15px;
-                            text-align: right;
-                            display: inline-block;
-                        }
-                    }
-                }
-
                 .td-text {
                     font: inherit;
                     margin: 0 0 10px;
 
                     &:last-child {
                         margin: 0 0 0;
+                    }
+                }
+
+                .td-icon-text {
+                    display: inline-flex;
+                    flex-direction: row;
+                    gap: 5px;
+                    align-items: center;
+                    color: var(--text-color);
+                    font: 600 13px/20px var(--base-font);
+
+                    .mdi {
+                        font-size: 18px;
+                        line-height: 20px;
+                        color: #646f79;
+                    }
+
+                    &.td-icon-text-muted {
+                        .mdi {
+                            color: #bbc1c6;
+                        }
+                    }
+
+                    &.td-icon-text-primary {
+                        .mdi {
+                            color: var(--color-primary-light);
+                        }
+                    }
+
+                    &.td-icon-text-link {
+                        &:hover {
+                            cursor: pointer;
+
+                            .mdi {
+                                color: var(--color-primary-light);
+                            }
+                        }
                     }
                 }
 
@@ -393,6 +423,35 @@
                         justify-content: flex-start;
                         align-content: center;
                     }
+
+                    .td-entity-properties {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 5px;
+                        align-items: center;
+
+                        .td-entity-property {
+                            display: flex;
+                            flex-direction: row;
+                            gap: 3px;
+                            font: 500 12px/20px var(--base-font);
+
+                            .td-entity-property-label {
+                                font: inherit;
+                            }
+
+                            .td-entity-property-value {
+                                color: #404040;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .td-entity-property-separator {
+                            height: 6px;
+                            width: 1px;
+                            background: #d4d9dd;
+                        }
+                    }
                 }
 
                 .td-media {
@@ -403,12 +462,12 @@
 
                     &.td-media-sm {
                         width: 30px;
-                        border-radius: 4px;
+                        border-radius: var(--border-radius);
                     }
 
                     &.td-media-md {
                         width: 40px;
-                        border-radius: 4px;
+                        border-radius: var(--border-radius);
                     }
 
                     &.td-media-round {
@@ -546,6 +605,14 @@
 
             &.selected {
                 background: #f8fbf7;
+            }
+
+            &.tr-totals {
+                border-top: 2px solid var(--color-primary);
+
+                td {
+                    background-color: #fafbfc;
+                }
             }
         }
 

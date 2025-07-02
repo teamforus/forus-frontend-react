@@ -15,7 +15,9 @@ export default function ModalLogEmailShow({
     exportEmailLog: (emailLog: EmailLog) => void;
 }) {
     return (
-        <div className={classNames('modal', 'modal-animated', 'modal-lg', modal.loading && 'modal-loading')}>
+        <div
+            data-dusk="modalLogEmailShow"
+            className={classNames('modal', 'modal-animated', 'modal-lg', modal.loading && 'modal-loading')}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <div className="modal-window">
@@ -87,7 +89,7 @@ export default function ModalLogEmailShow({
                 </div>
                 <div className="modal-footer">
                     <div className="button-group">
-                        <div className="button button-default" onClick={modal.close}>
+                        <div className="button button-default" data-dusk="closeModalButton" onClick={modal.close}>
                             Sluiten
                         </div>
                         <div

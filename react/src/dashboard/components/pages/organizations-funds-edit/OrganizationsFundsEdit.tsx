@@ -15,7 +15,6 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import Tooltip from '../../elements/tooltip/Tooltip';
 import SelectControl from '../../elements/select-control/SelectControl';
 import { hasPermission } from '../../../helpers/utils';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import { useTagService } from '../../../services/TagService';
 import Tag from '../../../props/models/Tag';
 import MarkdownEditor from '../../elements/forms/markdown-editor/MarkdownEditor';
@@ -43,6 +42,7 @@ import RecordType from '../../../props/models/RecordType';
 import FaqEditor from '../../elements/faq-editor-funds/FaqEditor';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import usePushApiError from '../../../hooks/usePushApiError';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -50,7 +50,6 @@ export default function OrganizationsFundsEdit() {
     const appConfigs = useAppConfigs();
     const activeOrganization = useActiveOrganization();
 
-    const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
@@ -77,10 +76,9 @@ export default function OrganizationsFundsEdit() {
     const [fundStates] = useState(fundService.getStates());
     const faqEditorBlock = useRef<() => Promise<boolean>>();
 
-    const [fundTypes] = useState([
-        { value: 'budget', name: 'Waardebon' },
-        { value: 'subsidies', name: 'Kortingspas' },
-        { value: 'external', name: 'Informatief (met doorlink)' },
+    const [fundTypeExternal] = useState([
+        { value: false, name: 'Budget' },
+        { value: true, name: 'Informatief (met doorlink)' },
     ]);
 
     const [outcomeTypes] = useState([
@@ -170,8 +168,7 @@ export default function OrganizationsFundsEdit() {
         external_page?: boolean;
         hide_meta?: boolean;
         media_uid?: string;
-        type?: string;
-        fund_type?: string;
+        external?: boolean;
         external_page_url?: string;
         request_btn_text?: string;
         application_method?: string;
@@ -187,6 +184,7 @@ export default function OrganizationsFundsEdit() {
         product_id?: number;
         default_validator_employee_id?: number;
         auto_requests_validation?: boolean;
+        allow_provider_sign_up?: boolean;
         criteria?: Array<Partial<FundCriterion>>;
         notification_amount?: number;
         tag_ids?: Array<number>;
@@ -202,7 +200,8 @@ export default function OrganizationsFundsEdit() {
     }>(
         {
             description_position: descriptionPositions[0]?.value,
-            type: 'budget',
+            external: false,
+            external_page: false,
             start_date: dateFormat(addDays(new Date(), 6)),
             end_date: dateFormat(addYears(new Date(), 1)),
             formula_products: [] as Array<FundFormulaProduct>,
@@ -460,9 +459,8 @@ export default function OrganizationsFundsEdit() {
                 </div>
 
                 <div className="card-section card-section-primary">
-                    <div className="form-group form-group-inline">
-                        <label className="form-label hidden-md">&nbsp;</label>
-                        <div className="form-offset">
+                    <div className="row">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
                             <PhotoSelector
                                 type={'fund_logo'}
                                 thumbnail={fund?.logo?.sizes?.thumbnail}
@@ -474,8 +472,8 @@ export default function OrganizationsFundsEdit() {
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-lg-9 col-xs-12">
-                            <div className="form-group form-group-inline">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('funds_edit.labels.name')}
                                 </label>
@@ -491,21 +489,20 @@ export default function OrganizationsFundsEdit() {
                                 <FormError error={form.errors?.name} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label">{translate('funds_edit.labels.description_short')}</label>
-                                <div className="form-offset">
-                                    <textarea
-                                        className="form-control r-n"
-                                        maxLength={500}
-                                        placeholder="Omschrijving"
-                                        value={form.values.description_short || ''}
-                                        onChange={(e) => {
-                                            form.update({ description_short: e.target.value });
-                                        }}
-                                    />
-                                    <div className="form-hint">Max. 500 tekens</div>
-                                    <FormError error={form.errors?.description_short}></FormError>
-                                </div>
+
+                                <textarea
+                                    className="form-control r-n"
+                                    maxLength={500}
+                                    placeholder="Omschrijving"
+                                    value={form.values.description_short || ''}
+                                    onChange={(e) => {
+                                        form.update({ description_short: e.target.value });
+                                    }}
+                                />
+                                <div className="form-hint">Max. 500 tekens</div>
+                                <FormError error={form.errors?.description_short}></FormError>
                             </div>
                         </div>
                     </div>
@@ -513,8 +510,8 @@ export default function OrganizationsFundsEdit() {
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-lg-9 col-xs-12">
-                            <div className="form-group form-group-inline tooltipped">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
                                 <label className="form-label">Totaalbedrag tonen (Me-app)</label>
                                 <CheckboxControl
                                     id={'voucher_amount_visible'}
@@ -536,8 +533,8 @@ export default function OrganizationsFundsEdit() {
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-xs-12">
-                                <div className="form-group form-group-inline tooltipped">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group tooltipped">
                                     <label className="form-label">Verberg details</label>
                                     <CheckboxControl
                                         id={'hide_meta'}
@@ -559,163 +556,131 @@ export default function OrganizationsFundsEdit() {
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-lg-9 col-xs-12">
-                            <div className="form-group form-group-inline">
-                                <label className="form-label form-label-required">Soort fonds</label>
-                                <div className="form-offset">
-                                    {!fund && (
-                                        <SelectControl
-                                            propKey={'value'}
-                                            allowSearch={false}
-                                            value={form.values.type}
-                                            options={fundTypes}
-                                            disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                            onChange={(type: string) => form.update({ type })}
-                                        />
-                                    )}
-                                    <FormError error={form.errors?.type} />
-                                </div>
-
-                                {fund && (
-                                    <div className="form-offset">
-                                        <div className="block block-fund_types">
-                                            {form.values.type == 'budget' && (
-                                                <div className="fund_type-item fund_type-item-read">
-                                                    <div className="fund_type-item-inner">
-                                                        <div className="fund_type-media">
-                                                            <img
-                                                                className="fund_type-media-img"
-                                                                src={assetUrl(
-                                                                    '/assets/img/fund-types/icon-fund-actions-read.svg',
-                                                                )}
-                                                                alt={''}
-                                                            />
-                                                        </div>
-                                                        <div className="fund_type-name">Financieel budget</div>
-                                                        <div className="fund_type-check">
-                                                            <div className="mdi mdi-check" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            {form.values.type == 'subsidies' && (
-                                                <div className="fund_type-item fund_type-item-read">
-                                                    <div className="fund_type-item-inner">
-                                                        <div className="fund_type-media">
-                                                            <img
-                                                                className="fund_type-media-img"
-                                                                src={assetUrl(
-                                                                    '/assets/img/fund-types/icon-fund-budget-read.svg',
-                                                                )}
-                                                                alt={''}
-                                                            />
-                                                        </div>
-                                                        <div className="fund_type-name">Acties</div>
-                                                        <div className="fund_type-check">
-                                                            <div className="mdi mdi-check" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            {form.values.type == 'external' && (
-                                                <div className="fund_type-item fund_type-item-read">
-                                                    <div className="fund_type-item-inner">
-                                                        <div className="fund_type-media">
-                                                            <img
-                                                                className="fund_type-media-img"
-                                                                src={assetUrl(
-                                                                    '/assets/img/fund-types/icon-fund-external-read.svg',
-                                                                )}
-                                                                alt={''}
-                                                            />
-                                                        </div>
-
-                                                        <div className="fund_type-name">Informatief (met doorlink)</div>
-
-                                                        <div className="fund_type-check">
-                                                            <div className="mdi mdi-check" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
+                                <label className="form-label">Aanbieders mogen zich aanmelden</label>
+                                <CheckboxControl
+                                    id={'allow_provider_sign_up'}
+                                    checked={form.values.allow_provider_sign_up}
+                                    onChange={(e) => form.update({ allow_provider_sign_up: e.target.checked })}
+                                    title={'Sta aanbieders het toe om aanvragen in te dienen voor het fonds.'}
+                                />
+                                <Tooltip
+                                    text={
+                                        <Fragment>
+                                            In sommige gevallen is het gewenst dat aanbieders zich niet aanmelden voor
+                                            een fonds. Door dit vakje uit te vinken, zal de aanbieder zich niet kunnen
+                                            aanmelden voor dit fonds. Mocht het zo zijn dat deze optie voor alle fondsen
+                                            is uitgezet, dan wordt ook de aanmeldlink op de webshop verborgen voor de
+                                            aanbieder.
+                                        </Fragment>
+                                    }
+                                />
+                                <FormError error={form.errors?.allow_provider_sign_up} />
                             </div>
-                            {activeOrganization.allow_payouts && (
-                                <div className="form-group form-group-inline">
-                                    <label className="form-label form-label-required">Uitkomst van een aanvraag</label>
-                                    <div className="form-offset">
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card-section card-section-primary">
+                    <div className="row">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <FormGroup
+                                label={'Soort fonds'}
+                                input={(id) => (
+                                    <FormGroupInfo
+                                        info={
+                                            <Fragment>
+                                                Het budget fonds staat voor budgetten die aan personen of gezinnen
+                                                worden toegekend. Het betreft een digitaal tegoed of een uitbetaling
+                                                naar de inwoner. Een informatief fonds kan als een link naar een externe
+                                                website worden ingesteld waar meer informatie te vinden is over deze
+                                                regeling.
+                                            </Fragment>
+                                        }>
                                         <SelectControl
+                                            id={id}
+                                            disabled={!!fund}
                                             propKey={'value'}
                                             allowSearch={false}
-                                            value={form.values.outcome_type}
-                                            options={outcomeTypes}
-                                            disabled={!!fund}
-                                            onChange={(outcome_type: string) => form.update({ outcome_type })}
+                                            value={form.values.external}
+                                            options={fundTypeExternal}
+                                            onChange={(external: boolean) => form.update({ external })}
                                         />
                                         <FormError error={form.errors?.type} />
-                                    </div>
+                                    </FormGroupInfo>
+                                )}
+                            />
+
+                            {activeOrganization.allow_payouts && (
+                                <div className="form-group">
+                                    <label className="form-label form-label-required">Uitkomst van een aanvraag</label>
+
+                                    <SelectControl
+                                        propKey={'value'}
+                                        allowSearch={false}
+                                        value={form.values.outcome_type}
+                                        options={outcomeTypes}
+                                        disabled={!!fund}
+                                        onChange={(outcome_type: 'voucher' | 'payout') => form.update({ outcome_type })}
+                                    />
+                                    <FormError error={form.errors?.type} />
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
 
-                {form.values.type == 'external' && (
+                {!!form.values.external && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-xs-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">Pagina type</label>
-                                    <div className="form-offset">
-                                        <div className="form-group-info">
-                                            <div className="form-group-info-control">
-                                                <SelectControl
-                                                    propKey={'value'}
-                                                    allowSearch={false}
-                                                    value={form.values.external_page}
-                                                    options={externalFundPageTypes}
-                                                    onChange={(external_page: boolean) => {
-                                                        form.update({ external_page });
-                                                    }}
-                                                />
+
+                                    <div className="form-group-info">
+                                        <div className="form-group-info-control">
+                                            <SelectControl
+                                                propKey={'value'}
+                                                allowSearch={false}
+                                                value={form.values.external_page}
+                                                options={externalFundPageTypes}
+                                                onChange={(external_page: boolean) => {
+                                                    form.update({ external_page });
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="form-group-info-button">
+                                            <div
+                                                className={`button button-default button-icon pull-left ${
+                                                    showInfoBlock ? 'active' : ''
+                                                }`}
+                                                onClick={() => setShowInfoBlock(!showInfoBlock)}>
+                                                <em className="mdi mdi-information" />
                                             </div>
-                                            <div className="form-group-info-button">
-                                                <div
-                                                    className={`button button-default button-icon pull-left ${
-                                                        showInfoBlock ? 'active' : ''
-                                                    }`}
-                                                    onClick={() => setShowInfoBlock(!showInfoBlock)}>
-                                                    <em className="mdi mdi-information" />
+                                        </div>
+                                    </div>
+
+                                    {showInfoBlock && (
+                                        <div className="block block-info-box block-info-box-primary">
+                                            <div className="info-box-icon mdi mdi-information" />
+                                            <div className="info-box-content">
+                                                <div className="block block-markdown">
+                                                    <h4>Kies de juiste instelling</h4>
+                                                    <p>
+                                                        Een interne pagina leidt de gebruiker eerst door naar een pagina
+                                                        binnen de webshop. Een externe pagina leidt de gebruiker na het
+                                                        klikken direct door naar de URL die is ingevuld.
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {showInfoBlock && (
-                                            <div className="block block-info-box block-info-box-primary">
-                                                <div className="info-box-icon mdi mdi-information" />
-                                                <div className="info-box-content">
-                                                    <div className="block block-markdown">
-                                                        <h4>Kies de juiste instelling</h4>
-                                                        <p>
-                                                            Een interne pagina leidt de gebruiker eerst door naar een
-                                                            pagina binnen de webshop. Een externe pagina leidt de
-                                                            gebruiker na het klikken direct door naar de URL die is
-                                                            ingevuld.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                        <FormError error={form.errors?.external_page} />
-                                    </div>
+                                    )}
+                                    <FormError error={form.errors?.external_page} />
                                 </div>
 
                                 {form.values.external_page && (
-                                    <div className="form-group form-group-inline">
+                                    <div className="form-group">
                                         <label className="form-label form-label-required">Externe url</label>
                                         <input
                                             className="form-control"
@@ -736,8 +701,8 @@ export default function OrganizationsFundsEdit() {
                 {tags?.length > 0 && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-xs-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <MultiSelectControl
                                         label="Categorieën"
                                         options={tags}
@@ -751,34 +716,33 @@ export default function OrganizationsFundsEdit() {
                     </div>
                 )}
 
-                {form.values.type != 'external' && (
+                {!form.values.external && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-xs-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <div className="form-label form-label-required">
                                         {translate('funds_edit.labels.application_method')}
                                     </div>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            propKey={'key'}
-                                            allowSearch={false}
-                                            value={form.values.application_method}
-                                            options={applicationMethods}
-                                            disabled={
-                                                (fund && fund.state != 'waiting') ||
-                                                !hasPermission(activeOrganization, 'manage_funds')
-                                            }
-                                            onChange={(application_method: string) => {
-                                                form.update({ application_method });
-                                                onMethodChange(application_method, form.values.application_method);
-                                            }}
-                                        />
-                                    </div>
+
+                                    <SelectControl
+                                        propKey={'key'}
+                                        allowSearch={false}
+                                        value={form.values.application_method}
+                                        options={applicationMethods}
+                                        disabled={
+                                            (fund && fund.state != 'waiting') ||
+                                            !hasPermission(activeOrganization, 'manage_funds')
+                                        }
+                                        onChange={(application_method: string) => {
+                                            form.update({ application_method });
+                                            onMethodChange(application_method, form.values.application_method);
+                                        }}
+                                    />
                                 </div>
 
                                 {form.values.application_method != 'none' && (
-                                    <div className="form-group form-group-inline">
+                                    <div className="form-group">
                                         <label className="form-label form-label-required">
                                             {translate('funds_edit.labels.request_btn_text')}
                                         </label>
@@ -795,30 +759,29 @@ export default function OrganizationsFundsEdit() {
                                     </div>
                                 )}
 
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <div className="form-label form-label-required">
                                         {translate('funds_edit.labels.criteria_label_requirement_show')}
                                     </div>
-                                    <div className="form-offset">
-                                        <FormGroupInfo
-                                            info={
-                                                <Fragment>
-                                                    De optie om verplichte of optionele vragen in het aanvraagformulier
-                                                    te markeren met een informatieve tekst
-                                                </Fragment>
-                                            }>
-                                            <SelectControl
-                                                propKey={'value'}
-                                                allowSearch={false}
-                                                value={form.values.criteria_label_requirement_show}
-                                                options={shownCriteriaLabelDetails}
-                                                disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                                onChange={(criteria_label_requirement_show: string) => {
-                                                    form.update({ criteria_label_requirement_show });
-                                                }}
-                                            />
-                                        </FormGroupInfo>
-                                    </div>
+
+                                    <FormGroupInfo
+                                        info={
+                                            <Fragment>
+                                                De optie om verplichte of optionele vragen in het aanvraagformulier te
+                                                markeren met een informatieve tekst
+                                            </Fragment>
+                                        }>
+                                        <SelectControl
+                                            propKey={'value'}
+                                            allowSearch={false}
+                                            value={form.values.criteria_label_requirement_show}
+                                            options={shownCriteriaLabelDetails}
+                                            disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                            onChange={(criteria_label_requirement_show: string) => {
+                                                form.update({ criteria_label_requirement_show });
+                                            }}
+                                        />
+                                    </FormGroupInfo>
                                 </div>
                             </div>
                         </div>
@@ -828,8 +791,8 @@ export default function OrganizationsFundsEdit() {
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-xs-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">
                                         {translate('funds_edit.labels.external_link_text')}
                                     </label>
@@ -844,20 +807,20 @@ export default function OrganizationsFundsEdit() {
                                     <FormError error={form.errors?.external_link_text} />
                                 </div>
 
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label">
                                         {translate('funds_edit.labels.external_link_url')}
                                     </label>
-                                    <div className="form-offset">
-                                        <input
-                                            className="form-control"
-                                            placeholder="https://gemeente+1.nl/aanmelden"
-                                            value={form.values.external_link_url || ''}
-                                            onChange={(e) => {
-                                                form.update({ external_link_url: e.target.value });
-                                            }}
-                                        />
-                                    </div>
+
+                                    <input
+                                        className="form-control"
+                                        placeholder="https://gemeente+1.nl/aanmelden"
+                                        value={form.values.external_link_url || ''}
+                                        onChange={(e) => {
+                                            form.update({ external_link_url: e.target.value });
+                                        }}
+                                    />
+
                                     <FormError error={form.errors?.external_link_url} />
                                 </div>
                             </div>
@@ -868,17 +831,17 @@ export default function OrganizationsFundsEdit() {
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-xs-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">{translate('funds_edit.labels.description')}</label>
-                                    <div className="form-offset">
-                                        <MarkdownEditor
-                                            value={form.values?.description_html || ''}
-                                            onChange={(description) => form.update({ description })}
-                                            extendedOptions={true}
-                                            placeholder={translate('organization_edit.labels.description')}
-                                        />
-                                    </div>
+
+                                    <MarkdownEditor
+                                        value={form.values?.description_html || ''}
+                                        onChange={(description) => form.update({ description })}
+                                        extendedOptions={true}
+                                        placeholder={translate('organization_edit.labels.description')}
+                                    />
+
                                     <FormError error={form.errors?.description} />
                                 </div>
                             </div>
@@ -888,8 +851,8 @@ export default function OrganizationsFundsEdit() {
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-lg-9 col-xs-12">
-                            <div className="form-group form-group-inline tooltipped">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group tooltipped">
                                 <label className="form-label">Aanbod plaatsen verzoek</label>
                                 <CheckboxControl
                                     id={'provider_products_required'}
@@ -912,30 +875,33 @@ export default function OrganizationsFundsEdit() {
 
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
-                        <div className="form-group form-group-inline">
-                            <label className="form-label">Titel van blok</label>
-                            <input
-                                className="form-control"
-                                placeholder="Veel gestelde vragen"
-                                value={form.values.faq_title || ''}
-                                onChange={(e) => {
-                                    form.update({ faq_title: e.target.value });
-                                }}
-                            />
-                            <FormError error={form.errors?.faq_title} />
-                        </div>
+                        <div className="row">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
+                                    <label className="form-label">Titel van blok</label>
+                                    <input
+                                        className="form-control"
+                                        placeholder="Veel gestelde vragen"
+                                        value={form.values.faq_title || ''}
+                                        onChange={(e) => {
+                                            form.update({ faq_title: e.target.value });
+                                        }}
+                                    />
+                                    <FormError error={form.errors?.faq_title} />
+                                </div>
 
-                        <div className="form-group form-group-inline">
-                            <label className="form-label">Veel gestelde vragen</label>
-                            <div className="form-offset">
-                                <FaqEditor
-                                    faq={faq}
-                                    organization={activeOrganization}
-                                    setFaq={setFaq}
-                                    errors={form?.errors}
-                                    setErrors={(errors: ResponseErrorData) => form.setErrors(errors)}
-                                    createFaqRef={faqEditorBlock}
-                                />
+                                <div className="form-group">
+                                    <label className="form-label">Veel gestelde vragen</label>
+
+                                    <FaqEditor
+                                        faq={faq}
+                                        organization={activeOrganization}
+                                        setFaq={setFaq}
+                                        errors={form?.errors}
+                                        setErrors={(errors: ResponseErrorData) => form.setErrors(errors)}
+                                        createFaqRef={faqEditorBlock}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -944,23 +910,22 @@ export default function OrganizationsFundsEdit() {
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-lg-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label form-label-required">
                                         {translate('funds_edit.labels.description_position')}
                                     </label>
-                                    <div className="form-offset">
-                                        <SelectControl
-                                            propKey={'value'}
-                                            allowSearch={false}
-                                            value={form.values.description_position}
-                                            options={descriptionPositions}
-                                            onChange={(description_position: string) => {
-                                                form.update({ description_position });
-                                            }}
-                                        />
-                                        <FormError error={form.errors?.description_position} />
-                                    </div>
+
+                                    <SelectControl
+                                        propKey={'value'}
+                                        allowSearch={false}
+                                        value={form.values.description_position}
+                                        options={descriptionPositions}
+                                        onChange={(description_position: string) => {
+                                            form.update({ description_position });
+                                        }}
+                                    />
+                                    <FormError error={form.errors?.description_position} />
                                 </div>
                             </div>
                         </div>
@@ -969,8 +934,8 @@ export default function OrganizationsFundsEdit() {
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-lg-9 col-lg-12">
-                            <div className="form-group form-group-inline">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('funds_edit.labels.start')}
                                 </label>
@@ -989,7 +954,7 @@ export default function OrganizationsFundsEdit() {
                                 <FormError error={form.errors?.start_date} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('funds_edit.labels.end')}
                                 </label>
@@ -1014,79 +979,95 @@ export default function OrganizationsFundsEdit() {
 
                 {hasFundFormula && (
                     <div className="card-section card-section-primary">
-                        {(form.values.formula_products as FundFormulaProduct[]).map((formulaProduct, index) => (
-                            <div className="form-group form-group-inline" key={index}>
-                                <div className="form-label">
-                                    {index == 0 ? translate('funds_edit.labels.products') : ''}
-                                </div>
-
-                                <div className="form-offset">
-                                    <div className="flex-row">
-                                        <div className="flex-col flex-grow">
-                                            <div className="flex-row flex-grow">
-                                                <div className="flex-col flex-col-4">
-                                                    <SelectControl
-                                                        propKey={'id'}
-                                                        value={formulaProduct.product_id}
-                                                        placeholder="Selecteer aanbieding..."
-                                                        options={productOptions?.[index] || []}
-                                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                                        onChange={(product_id: number) => {
-                                                            updateFormFormulaProduct(index, 'product_id', product_id);
-                                                        }}
-                                                    />
-                                                    <FormError
-                                                        error={form.errors?.[`formula_products.${index}.product_id`]}
-                                                    />
-                                                </div>
-                                                <div className="flex-col flex-col-2">
-                                                    <SelectControl
-                                                        propKey={'key'}
-                                                        value={formulaProduct.record_type_key_multiplier}
-                                                        placeholder="Selecteer aanbieding..."
-                                                        options={recordTypesMultiplier}
-                                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                                        onChange={(record_type_key_multiplier: string) => {
-                                                            updateFormFormulaProduct(
-                                                                index,
-                                                                'record_type_key_multiplier',
-                                                                record_type_key_multiplier,
-                                                            );
-                                                        }}
-                                                    />
-                                                    <FormError
-                                                        error={
-                                                            form.errors?.[
-                                                                `formula_products.${index}.record_type_key_multiplier`
-                                                            ]
-                                                        }
-                                                    />
-                                                </div>
-                                            </div>
+                        <div className="row">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                {(form.values.formula_products as FundFormulaProduct[]).map((formulaProduct, index) => (
+                                    <div className="form-group" key={index}>
+                                        <div className="form-label">
+                                            {index == 0 ? translate('funds_edit.labels.products') : ''}
                                         </div>
 
-                                        <div className="flex-col">
-                                            <div
-                                                className="button button-primary button-icon"
-                                                onClick={() => {
-                                                    form.values.formula_products.splice(index, 1);
-                                                    updateForm({ formula_products: form.values.formula_products });
-                                                }}>
-                                                <em className="mdi mdi-close" />
+                                        <div className="flex-row">
+                                            <div className="flex-col flex-grow">
+                                                <div className="flex-row flex-grow">
+                                                    <div className="flex-col flex-col-4">
+                                                        <SelectControl
+                                                            propKey={'id'}
+                                                            value={formulaProduct.product_id}
+                                                            placeholder="Selecteer aanbieding..."
+                                                            options={productOptions?.[index] || []}
+                                                            disabled={
+                                                                !hasPermission(activeOrganization, 'manage_funds')
+                                                            }
+                                                            onChange={(product_id: number) => {
+                                                                updateFormFormulaProduct(
+                                                                    index,
+                                                                    'product_id',
+                                                                    product_id,
+                                                                );
+                                                            }}
+                                                        />
+                                                        <FormError
+                                                            error={
+                                                                form.errors?.[`formula_products.${index}.product_id`]
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="flex-col flex-col-2">
+                                                        <SelectControl
+                                                            propKey={'key'}
+                                                            value={formulaProduct.record_type_key_multiplier}
+                                                            placeholder="Selecteer aanbieding..."
+                                                            options={recordTypesMultiplier}
+                                                            disabled={
+                                                                !hasPermission(activeOrganization, 'manage_funds')
+                                                            }
+                                                            onChange={(record_type_key_multiplier: string) => {
+                                                                updateFormFormulaProduct(
+                                                                    index,
+                                                                    'record_type_key_multiplier',
+                                                                    record_type_key_multiplier,
+                                                                );
+                                                            }}
+                                                        />
+                                                        <FormError
+                                                            error={
+                                                                form.errors?.[
+                                                                    `formula_products.${index}.record_type_key_multiplier`
+                                                                ]
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex-col">
+                                                <div
+                                                    className="button button-primary button-icon"
+                                                    onClick={() => {
+                                                        form.values.formula_products.splice(index, 1);
+                                                        updateForm({
+                                                            formula_products: form.values.formula_products,
+                                                        });
+                                                    }}>
+                                                    <em className="mdi mdi-close" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        ))}
+                                ))}
 
-                        <div className="form-group form-group-inline">
-                            <label className="form-label">
-                                {!form.values.formula_products.length ? translate('funds_edit.labels.products') : ''}
-                            </label>
-                            <div className="button button-primary" onClick={() => addProduct()}>
-                                <em className="mdi mdi-plus-circle icon-start" />
-                                Aanbieding toevoegen
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        {!form.values.formula_products.length
+                                            ? translate('funds_edit.labels.products')
+                                            : ''}
+                                    </label>
+                                    <div className="button button-primary" onClick={() => addProduct()}>
+                                        <em className="mdi mdi-plus-circle icon-start" />
+                                        Aanbieding toevoegen
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1095,26 +1076,26 @@ export default function OrganizationsFundsEdit() {
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="form-group form-group-inline col col-lg-9 col-md-12">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
                                 <label className="form-label">Standaard beoordelaar</label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        propKey={'id'}
-                                        propValue={'email'}
-                                        allowSearch={false}
-                                        value={form.values.default_validator_employee_id}
-                                        options={validators}
-                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                        onChange={(default_validator_employee_id: number) => {
-                                            form.update({ default_validator_employee_id });
-                                        }}
-                                    />
-                                </div>
+
+                                <SelectControl
+                                    propKey={'id'}
+                                    propValue={'email'}
+                                    allowSearch={false}
+                                    value={form.values.default_validator_employee_id}
+                                    options={validators}
+                                    disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                    onChange={(default_validator_employee_id: number) => {
+                                        form.update({ default_validator_employee_id });
+                                    }}
+                                />
+
                                 <FormError error={form.errors?.default_validator_employee_id} />
                             </div>
 
                             {form.values.default_validator_employee_id && (
-                                <div className="form-group form-group-inline col col-lg-9 col-md-12">
+                                <div className="col col-md-8 col-md-offset-2 col-xs-12">
                                     <label className="form-label">Aanmeldingen</label>
                                     <CheckboxControl
                                         title={'Automatisch goedkeuren wanneer er een BSN-nummer vast staat.'}
@@ -1134,16 +1115,15 @@ export default function OrganizationsFundsEdit() {
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-lg-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <div className="form-label">Instellingen aanvraagformulier</div>
-                                    <div className="form-offset">
-                                        <FundConfigContactInfoEditor
-                                            value={form.values}
-                                            onChange={form.update}
-                                            disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                        />
-                                    </div>
+
+                                    <FundConfigContactInfoEditor
+                                        value={form.values}
+                                        onChange={form.update}
+                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -1153,35 +1133,34 @@ export default function OrganizationsFundsEdit() {
                 {!form.values.external_page && (
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9 col-lg-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <div className="form-label">
                                         {translate('funds_edit.labels.notification_amount')}
                                     </div>
-                                    <div className="form-offset">
-                                        <FormGroupInfo
-                                            info={
-                                                <Fragment>
-                                                    Handig! Stel een minimum bedrag in voor het saldo van de regeling.
-                                                    Er wordt automatisch een e-mail verstuurd als het saldo voor de
-                                                    regeling lager is dan deze grens. De e-mail wordt verstuurd naar
-                                                    gebruikers met de rollen beheerder en financiën.
-                                                </Fragment>
-                                            }>
-                                            <input
-                                                className="form-control"
-                                                type="number"
-                                                value={form.values.notification_amount || ''}
-                                                onChange={(e) => {
-                                                    form.update({ notification_amount: e.target.value });
-                                                }}
-                                                disabled={!hasPermission(activeOrganization, 'manage_funds')}
-                                                placeholder={translate('funds_edit.labels.notification_amount')}
-                                            />
-                                        </FormGroupInfo>
 
-                                        <FormError error={form.errors?.notification_amount} />
-                                    </div>
+                                    <FormGroupInfo
+                                        info={
+                                            <Fragment>
+                                                Handig! Stel een minimum bedrag in voor het saldo van de regeling. Er
+                                                wordt automatisch een e-mail verstuurd als het saldo voor de regeling
+                                                lager is dan deze grens. De e-mail wordt verstuurd naar gebruikers met
+                                                de rollen beheerder en financiën.
+                                            </Fragment>
+                                        }>
+                                        <input
+                                            className="form-control"
+                                            type="number"
+                                            value={form.values.notification_amount || ''}
+                                            onChange={(e) => {
+                                                form.update({ notification_amount: e.target.value });
+                                            }}
+                                            disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                            placeholder={translate('funds_edit.labels.notification_amount')}
+                                        />
+                                    </FormGroupInfo>
+
+                                    <FormError error={form.errors?.notification_amount} />
                                 </div>
                             </div>
                         </div>

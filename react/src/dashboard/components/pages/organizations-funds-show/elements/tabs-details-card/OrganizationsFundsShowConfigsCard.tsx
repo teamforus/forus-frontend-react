@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Fund from '../../../../../props/models/Fund';
 import CheckboxControl from '../../../../elements/forms/controls/CheckboxControl';
 import useFormBuilder from '../../../../../hooks/useFormBuilder';
-import FormGroup from '../../../../elements/forms/controls/FormGroup';
+import FormGroup from '../../../../elements/forms/elements/FormGroup';
 import FormError from '../../../../elements/forms/errors/FormError';
 import { useFundService } from '../../../../../services/FundService';
 import { ResponseError } from '../../../../../props/ApiResponses';

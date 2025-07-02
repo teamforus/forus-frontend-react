@@ -1812,12 +1812,10 @@
             "pay_from_voucher": "أنت تدفع من الرصيد",
             "price": "السعر:",
             "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL)",
-            "payment_option_ideal_aria_label": "الدفع عبر الإنترنت (iDEAL): انقر للحصول على مزيد من المعلومات",
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
-            "payment_option_qr_aria_label": "إظهار رمز الاستجابة السريعة لدى مقدم الخدمة: انقر للحصول على مزيد من المعلومات",
             "payment_option_reservation": "احجز عبر الإنترنت",
-            "payment_option_reservation_aria_label": "الحجز عبر الإنترنت: انقر للحصول على مزيد من المعلومات",
-            "payment_options": "خيارات الدفع"
+            "payment_options": "خيارات الدفع",
+            "payment_option_link": "اقرأ المزيد عن خيارات الدفع"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -2540,6 +2538,12 @@
             "house_composition": "تكوين الأسرة",
             "living_arrangement": "الشكل الحي",
             "title": "الأسرة المعيشية"
+        },
+        "address": {
+            "cancel": "إلغاء",
+            "edit": "تحرير",
+            "save": "الحفظ",
+            "title": "تفاصيل العنوان"
         }
     },
     "reimbursements": {
@@ -3520,7 +3524,22 @@
         "sessions": {
             "terminated": "تم الإنهاء"
         },
-        "success": "نجحت!"
+        "success": "نجحت!",
+        "email_verification_auth_error": {
+            "description": "لم تتم مصادقتك، يرجى تسجيل الدخول أولاً لتأكيد عنوان بريدك الإلكتروني.",
+            "title": "المصادقة مطلوبة!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "خطأ غير معروف."
+        },
+        "email_verification_success": {
+            "description": "تم تأكيد البريد الإلكتروني",
+            "title": "تم تأكيد البريد الإلكتروني!"
+        },
+        "session_expired": {
+            "description": "قم بتسجيل الدخول مرة أخرى وحاول مرة أخرى.",
+            "title": "انتهت صلاحية الجلسة"
+        }
     },
     "read_speaker": {
         "read_aloud": "اقرأ لـ",
