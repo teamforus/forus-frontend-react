@@ -25,6 +25,7 @@ import TranslateHtml from '../elements/translate-html/TranslateHtml';
 import usePushApiError from '../../hooks/usePushApiError';
 import InfoBox from '../elements/info-box/InfoBox';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function ModalVoucherCreate({
     funds,
@@ -94,6 +95,7 @@ export default function ModalVoucherCreate({
         product_id?: number;
         limit_multiplier?: number;
         report_type?: 'user' | 'relation';
+        notify_provider?: boolean;
     }>(
         {
             bsn: null,
@@ -107,6 +109,7 @@ export default function ModalVoucherCreate({
             product_id: null,
             limit_multiplier: 1,
             report_type: 'relation',
+            notify_provider: false,
         },
         (values) => {
             setProgress(0);
@@ -603,6 +606,30 @@ export default function ModalVoucherCreate({
 
                                                 <FormError error={form.errors?.limit_multiplier} />
                                             </div>
+                                        )}
+
+                                        {form.values.type == 'product_vouchers' && (
+                                            <FormGroup
+                                                className="form-group"
+                                                error={form.errors.notify_provider}
+                                                label={translate('modals.modal_voucher_create.labels.notify_provider')}
+                                                input={(id) => (
+                                                    <SelectControl
+                                                        id={id}
+                                                        value={form.values.notify_provider}
+                                                        propKey={'key'}
+                                                        propValue={'label'}
+                                                        onChange={(notify_provider: boolean) => {
+                                                            form.update({ notify_provider });
+                                                        }}
+                                                        options={[
+                                                            { key: true, label: 'Ja' },
+                                                            { key: false, label: 'Nee' },
+                                                        ]}
+                                                        allowSearch={false}
+                                                    />
+                                                )}
+                                            />
                                         )}
 
                                         <div className="form-group">

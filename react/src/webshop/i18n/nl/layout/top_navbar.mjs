@@ -184,7 +184,7 @@ export default {
         aria_label: 'Gebruikersmenu',
         auth_as: 'Ingelogd als:',
         my_vouchers: 'Mijn tegoeden',
-        authorize: 'Authorize device',
+        authorize: 'Me app koppelen',
         bookmarks: 'Mijn verlanglijstje',
         reservations: 'Reserveringen',
         reimbursements: 'Kosten terugvragen',

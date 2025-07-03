@@ -310,7 +310,7 @@ export default function VouchersShow() {
                                                     </div>
                                                 )}
 
-                                                {!voucherCard.external && !voucherCard.product && (
+                                                {voucherCard.type === 'regular' && (
                                                     <div>
                                                         <div className="card-value euro">
                                                             {voucherCard.amount_locale}
@@ -659,14 +659,13 @@ export default function VouchersShow() {
                                                     </div>
                                                 )}
 
-                                                {!voucherCard.product &&
-                                                    voucherCard.fund.key == 'meedoenregeling_volwassenen_ww' && (
-                                                        <div>
-                                                            <div className="card-value euro">
-                                                                {voucherCard.amount_locale}
-                                                            </div>
+                                                {voucherCard.type === 'regular' && (
+                                                    <div>
+                                                        <div className="card-value euro">
+                                                            {voucherCard.amount_locale}
                                                         </div>
-                                                    )}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                         <div className="card-footer">
