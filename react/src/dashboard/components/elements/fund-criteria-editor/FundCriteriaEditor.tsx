@@ -22,9 +22,7 @@ export default function FundCriteriaEditor({
     organization,
     criteria,
     setCriteria,
-    isEditable,
     recordTypes,
-    saveButton,
     onSaveCriteria,
     className,
     bodyClassName,
@@ -34,9 +32,7 @@ export default function FundCriteriaEditor({
     organization: Organization;
     criteria: Array<FundCriterion>;
     setCriteria: (criteria: Array<FundCriterion>) => void;
-    isEditable: boolean;
     recordTypes: Array<RecordType>;
-    saveButton?: boolean;
     onSaveCriteria?: (criteria: Array<FundCriterion>) => void;
     className?: string;
     bodyClassName?: string;
@@ -159,7 +155,7 @@ export default function FundCriteriaEditor({
                         key={item.uid}
                         fund={fund}
                         recordTypes={recordTypesList}
-                        isEditable={isEditable}
+                        isEditable={fund.criteria_editable}
                         organization={organization}
                         criterion={item.item}
                         isNew={item.isNew}
@@ -182,23 +178,26 @@ export default function FundCriteriaEditor({
                 ))}
             </div>
 
-            {isEditable && hasPermission(organization, 'manage_funds') && (
-                <div className={classNames('criteria-editor-actions', footerClassName)}>
-                    <div className="button button-primary" onClick={addCriteria}>
-                        <em className="mdi mdi-plus-circle icon-start" />
-                        {translate('components.fund_criteria_editor.buttons.add_criteria')}
+            {hasPermission(organization, 'manage_funds') &&
+                (fund.criteria_editable || modified || deletedItemsCount > 0) && (
+                    <div className={classNames('criteria-editor-actions', footerClassName)}>
+                        {fund.criteria_editable && (
+                            <div className="button button-primary" onClick={addCriteria}>
+                                <em className="mdi mdi-plus-circle icon-start" />
+                                {translate('components.fund_criteria_editor.buttons.add_criteria')}
+                            </div>
+                        )}
+
+                        <div className="flex-grow" />
+
+                        {(modified || deletedItemsCount > 0) && (
+                            <div className="button button-primary" onClick={saveCriteria}>
+                                <em className="mdi mdi-content-save icon-start" />
+                                {translate('components.fund_criteria_editor.buttons.save')}
+                            </div>
+                        )}
                     </div>
-
-                    <div className="flex-grow" />
-
-                    {saveButton && (modified || deletedItemsCount > 0) && (
-                        <div className="button button-primary" onClick={saveCriteria}>
-                            <em className="mdi mdi-content-save icon-start" />
-                            {translate('components.fund_criteria_editor.buttons.save')}
-                        </div>
-                    )}
-                </div>
-            )}
+                )}
         </div>
     );
 }
