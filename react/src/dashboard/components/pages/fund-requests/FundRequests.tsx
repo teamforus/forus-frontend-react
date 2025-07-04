@@ -180,6 +180,7 @@ export default function FundRequests() {
                                 <div
                                     key={stateGroup.key}
                                     onClick={() => filterUpdate({ state_group: stateGroup.key })}
+                                    data-dusk={`fundRequestsStateTab_${stateGroup.key}`}
                                     className={`label-tab label-tab-sm ${
                                         filterValues.state_group === stateGroup.key ? 'active' : ''
                                     }`}>

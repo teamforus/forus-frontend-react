@@ -6,7 +6,7 @@ export default function FundRequestRecordHistoryTab({ record }: { record: FundRe
     const translate = useTranslate();
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="historyTabContent">
             <div className="card-header">
                 <div className="card-title">
                     {translate('validation_request_details.labels.history', { count: record.history.length })}
@@ -26,7 +26,7 @@ export default function FundRequestRecordHistoryTab({ record }: { record: FundRe
                                     </th>
                                 </tr>
                                 {record.history?.map((log) => (
-                                    <tr key={log.id} className="light">
+                                    <tr key={log.id} data-dusk={`recordHistoryRow${log.id}`} className="light">
                                         {record?.record_type.type != 'select' && (
                                             <Fragment>
                                                 <td className="text-strong">{log.new_value}</td>
