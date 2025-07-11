@@ -91,7 +91,7 @@ $primaryColorLight: #305dfb;
     --tc: #282b39;
     --htc: var(--tc);
     --tc-var: inherit;
-    --tc-link: inherit;
+    --tc-link: #004d93;
     --tc-muted: #595959;
 
     // heading font
@@ -327,10 +327,6 @@ $primaryColorLight: #305dfb;
     // Product
     --product-title-font: 700 22px/28px var(--heading-font-family);
     --product-title-color: var(--tc);
-
-    // Faq
-    --faq-header-color: #00122a;
-    --faq-header-color-hover: var(--color-primary);
 
     // Map
     --map-title-color: #0B0E12;

@@ -7,65 +7,71 @@
     .faq-item {
         background: #fff;
         border: 1px solid var(--border-color);
-        border-radius: 4px;
-        margin-bottom: 10px;
+        border-bottom: none;
         position: relative;
-        box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--box-shadow);
         transition: 0.4s;
         max-width: 100%;
-        width: 820px;
+        width: 1080px;
 
         .faq-item-header {
-            padding: 15px 45px 15px 30px;
-            font: 500 18px var(--base-font);
-            color: var(--faq-header-color);
+            display: flex;
+            padding: 15px 19px 15px 20px;
             position: relative;
             transition: 0.4s;
             cursor: pointer;
+            flex-direction: row;
+            gap: 15px;
+            align-items: flex-start;
+            flex: 0 0 72px;
 
             .faq-item-title {
-                color: inherit;
-                font: inherit;
-                margin: 0;
+                display: flex;
+                flex: 1 1 auto;
+                font: 500 18px/26px var(--base-font);
+                color: #222222;
+                margin: 0 0;
+                align-self: center;
+                padding-right: 60px;
             }
 
-            .faq-item-chevron-up,
-            .faq-item-chevron-down {
-                position: absolute;
-                right: 15px;
-                top: 50%;
-                transform: translate(0, -50%);
-                color: var(--faq-header-color);
-                font-size: 28px;
-                transition: 0.4s;
-                display: none;
+            .faq-item-icon,
+            .faq-item-chevron {
+                display: flex;
+                flex: 0 0 32px;
+                height: 32px;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                transition:
+                    0.4s color,
+                    0.4s background-color;
+
+                .mdi {
+                    font-size: 16px;
+                }
             }
 
-            .faq-item-chevron-down {
-                display: block;
-            }
+            .faq-item-chevron {
+                border: 1px solid #eceff0;
+                background-color: #eceff0;
 
-            &:hover {
-                color: var(--faq-header-color-hover);
-
-                .faq-item-chevron-up,
-                .faq-item-chevron-down {
-                    color: var(--faq-header-color-hover);
+                .mdi {
+                    font-size: 24px;
                 }
             }
         }
 
         .faq-item-content {
             font: 400 16px var(--base-font);
-            padding: 0 200px 20px 30px;
-            color: #646f79;
+            padding: 0 120px 25px 67px;
+            color: #222222;
             display: none;
             cursor: default;
 
             a {
-                color: var(--color-primary);
-                font-size: 16px;
-                line-height: normal;
+                color: var(--tc-link);
             }
 
             p {
@@ -77,13 +83,9 @@
 
         &.active {
             .faq-item-header {
-                .faq-item-chevron-up,
-                .faq-item-chevron-down {
-                    display: none;
-                }
-
-                .faq-item-chevron-up {
-                    display: block;
+                .faq-item-icon {
+                    background: #222222;
+                    color: #ffffff;
                 }
             }
 
@@ -91,81 +93,38 @@
                 display: block;
             }
         }
-    }
 
-    &.block-faq-fund {
-        .faq-item {
-            margin: 0 0 0;
-            border-radius: 0;
-            box-shadow: none;
-            border: 1px solid var(--border-color);
-            border-bottom: 0;
-            overflow: hidden;
-
-            .faq-item-header {
-                padding: 15px 20px;
-                font: 600 18px/30px var(--base-font);
-                background-color: #f7f7f7;
-
-                .faq-item-chevron-up,
-                .faq-item-chevron-down {
-                    font-size: 30px;
-                }
-
-                .faq-item-title {
-                    margin-right: 20px;
-                }
-            }
-
-            .faq-item-content {
-                padding: 15px 20px;
-                border-top: 1px solid var(--border-color);
-            }
-
-            &:first-child {
-                border-top-left-radius: calc(var(--border-radius) / 2);
-                border-top-right-radius: calc(var(--border-radius) / 2);
-            }
-
-            &:last-child {
-                border-bottom-left-radius: calc(var(--border-radius) / 2);
-                border-bottom-right-radius: calc(var(--border-radius) / 2);
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            &:hover:not(.active) {
-                box-shadow: none;
-            }
+        &:first-of-type {
+            border-top-left-radius: var(--border-radius);
+            border-top-right-radius: var(--border-radius);
         }
-    }
 
-    @media screen and (max-width: 1700px) {
-        .faq-item {
-            .faq-item-header {
-                font: 500 15px var(--base-font);
-            }
-
-            .faq-item-content {
-                font: 400 14px var(--base-font);
-
-                ul li {
-                    font: 400 14px var(--base-font);
-                }
-            }
+        &:last-of-type {
+            border-bottom: 1px solid var(--border-color);
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
         }
     }
 
     @media screen and (max-width: 1000px) {
-        max-width: 100%;
-        width: 600px;
-
         .faq-item {
             .faq-item-header {
-                padding: 15px 45px 15px 20px;
-                font: 500 14px var(--base-font);
+                padding: 15px 14px 15px 15px;
+
+                .faq-item-title {
+                    font: 600 14px/20px var(--base-font);
+                    padding-right: 0;
+                }
+
+                .faq-item-icon,
+                .faq-item-chevron {
+                    flex: 0 0 24px;
+                    height: 24px;
+                }
             }
 
             .faq-item-content {
+                padding: 0 30px 20px 55px;
                 font: 400 14px var(--base-font);
             }
         }
