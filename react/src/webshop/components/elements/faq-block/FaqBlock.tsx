@@ -30,9 +30,6 @@ export default function FaqBlock({ title, items }: { title: string; items?: Arra
                         aria-controls={`faq_item_${item.id}`}
                         tabIndex={0}>
                         <div className="faq-item-header">
-                            <div className="faq-item-icon">
-                                <em className="mdi mdi-help" aria-hidden="true" />
-                            </div>
                             <h2 className="faq-item-title">{item.title}</h2>
                             <div className="faq-item-chevron">
                                 <em

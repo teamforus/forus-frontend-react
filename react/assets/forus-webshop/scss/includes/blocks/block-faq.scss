@@ -16,7 +16,7 @@
 
         .faq-item-header {
             display: flex;
-            padding: 15px 19px 15px 20px;
+            padding: 15px 19px 15px 25px;
             position: relative;
             transition: 0.4s;
             cursor: pointer;
@@ -28,14 +28,13 @@
             .faq-item-title {
                 display: flex;
                 flex: 1 1 auto;
-                font: 500 18px/26px var(--base-font);
+                font: 700 18px/26px var(--base-font);
                 color: #222222;
                 margin: 0 0;
                 align-self: center;
                 padding-right: 60px;
             }
 
-            .faq-item-icon,
             .faq-item-chevron {
                 display: flex;
                 flex: 0 0 32px;
@@ -65,7 +64,7 @@
 
         .faq-item-content {
             font: 400 16px var(--base-font);
-            padding: 0 120px 25px 67px;
+            padding: 0 120px 25px 25px;
             color: #222222;
             display: none;
             cursor: default;
@@ -82,13 +81,6 @@
         }
 
         &.active {
-            .faq-item-header {
-                .faq-item-icon {
-                    background: #222222;
-                    color: #ffffff;
-                }
-            }
-
             .faq-item-content {
                 display: block;
             }
@@ -116,15 +108,18 @@
                     padding-right: 0;
                 }
 
-                .faq-item-icon,
                 .faq-item-chevron {
-                    flex: 0 0 24px;
-                    height: 24px;
+                    flex: 0 0 20px;
+                    height: 20px;
+
+                    .mdi {
+                        font-size: 17px;
+                    }
                 }
             }
 
             .faq-item-content {
-                padding: 0 30px 20px 55px;
+                padding: 0 30px 15px 15px;
                 font: 400 14px var(--base-font);
             }
         }
