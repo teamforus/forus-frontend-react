@@ -17,7 +17,9 @@ export default function ProvidersListItemSearch({
             name={'provider'}
             params={{ id: provider?.id }}
             state={stateParams || null}
-            className="search-item search-item-provider">
+            className="search-item search-item-provider"
+            dataDusk={`listProvidersRow${provider?.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             <div className="search-media">
                 <img
                     src={

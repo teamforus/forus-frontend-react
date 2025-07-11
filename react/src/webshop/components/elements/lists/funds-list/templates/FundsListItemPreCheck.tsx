@@ -68,6 +68,8 @@ export default function FundsListItemPreCheck({ fund }: { fund?: PreCheckTotalsF
 
     return (
         <div
+            data-search-item="1"
+            data-dusk={`listFundsPreCheckRow${fund.id}`}
             className={`fund-item ${fund.parent ? 'fund-item-child' : ''} ${
                 fund.children.length > 0 ? 'fund-item-parent' : ''
             }`}>

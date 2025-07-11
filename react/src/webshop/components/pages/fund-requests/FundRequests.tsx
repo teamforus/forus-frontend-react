@@ -77,6 +77,7 @@ export default function FundRequests() {
 
     return (
         <BlockShowcaseProfile
+            contentDusk="listFundRequestsContent"
             breadcrumbItems={[
                 { name: translate('fund_requests.breadcrumbs.home'), state: 'home' },
                 { name: translate('fund_requests.breadcrumbs.fund_requests') },
@@ -129,6 +130,7 @@ export default function FundRequests() {
                                     propKey={'id'}
                                     options={funds}
                                     multiline={true}
+                                    dusk="selectControlFunds"
                                     onChange={(fund_id?: number) => filterUpdate({ fund_id })}
                                 />
                             </div>
@@ -139,7 +141,7 @@ export default function FundRequests() {
             {fundRequests && (
                 <Fragment>
                     {fundRequests?.data?.length > 0 && (
-                        <div className="block block-fund-requests" data-dusk="fundRequestsList">
+                        <div className="block block-fund-requests">
                             {fundRequests.data.map((fundRequest) => (
                                 <FundRequestCard key={fundRequest.id} fundRequest={fundRequest} />
                             ))}

@@ -106,6 +106,7 @@ export default function Reimbursements() {
 
     return (
         <BlockShowcaseProfile
+            contentDusk="listReimbursementsContent"
             breadcrumbItems={[
                 { name: translate('reimbursements.breadcrumbs.home'), state: 'home' },
                 { name: translate('reimbursements.breadcrumbs.reimbursements') },
@@ -125,6 +126,7 @@ export default function Reimbursements() {
                                     options={funds}
                                     multiline={true}
                                     allowSearch={true}
+                                    dusk="selectControlFunds"
                                     onChange={(fund_id?: number) => filters.update({ fund_id })}
                                 />
                             </div>
@@ -158,6 +160,7 @@ export default function Reimbursements() {
                                             onClick={() => filters.update({ state: state.key })}
                                             onKeyDown={clickOnKeyEnter}
                                             tabIndex={0}
+                                            data-dusk={`reimbursementsFilterState${state.key}`}
                                             aria-pressed={filters.values.state == state.key}>
                                             {state.name}
                                         </div>

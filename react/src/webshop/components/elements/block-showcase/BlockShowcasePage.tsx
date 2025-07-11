@@ -11,6 +11,7 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import { useNavbarHeaderHeight } from '../../../hooks/useNavbarHeaderHeight';
 
 export default function BlockShowcasePage({
+    dusk = null,
     aside = null,
     children = null,
     contentStyles = null,
@@ -18,6 +19,7 @@ export default function BlockShowcasePage({
     showCaseClassName = null,
     countFiltersApplied = null,
 }: {
+    dusk?: string;
     aside?: React.ReactElement | Array<React.ReactElement>;
     children?: React.ReactElement | Array<React.ReactElement>;
     contentStyles?: CSSProperties;
@@ -88,7 +90,7 @@ export default function BlockShowcasePage({
                             {aside || <BlockLoader />}
                         </div>
 
-                        <div className="showcase-content" style={contentStyles}>
+                        <div className="showcase-content" style={contentStyles} data-dusk={dusk}>
                             <div className="show-sm">
                                 {breadcrumbItems?.length > 0 && (
                                     <BlockBreadcrumbs

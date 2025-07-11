@@ -29,7 +29,8 @@ export default function ProductsFilterOptions({
                 aria-label={translate('products.filters.payment_option_qr')}
                 onClick={() => setValue({ qr: !value.qr })}
                 onKeyDown={(e) => clickOnKeyEnter(e, true)}
-                className={classNames('showcase-aside-block-option', value.qr && 'showcase-aside-block-option-active')}>
+                className={classNames('showcase-aside-block-option', value.qr && 'showcase-aside-block-option-active')}
+                data-dusk="paymentOptionQr">
                 <div className="showcase-aside-block-option-check">
                     <em className="mdi mdi-check" aria-hidden="true" />
                 </div>
@@ -50,7 +51,8 @@ export default function ProductsFilterOptions({
                 className={classNames(
                     'showcase-aside-block-option',
                     value.reservation && 'showcase-aside-block-option-active',
-                )}>
+                )}
+                data-dusk="paymentOptionReservation">
                 <div className="showcase-aside-block-option-check">
                     <em className="mdi mdi-check" aria-hidden="true" />
                 </div>
@@ -71,7 +73,8 @@ export default function ProductsFilterOptions({
                 className={classNames(
                     'showcase-aside-block-option',
                     value.extra_payment && 'showcase-aside-block-option-active',
-                )}>
+                )}
+                data-dusk="paymentOptionIdeal">
                 <div className="showcase-aside-block-option-check">
                     <em className="mdi mdi-check" aria-hidden="true" />
                 </div>

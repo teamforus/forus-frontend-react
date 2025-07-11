@@ -69,6 +69,7 @@ export default function Vouchers() {
 
     return (
         <BlockShowcaseProfile
+            contentDusk="listVouchersContent"
             breadcrumbItems={[
                 { name: translate('vouchers.breadcrumbs.home'), state: 'home' },
                 { name: translate('vouchers.breadcrumbs.vouchers') },
@@ -90,6 +91,7 @@ export default function Vouchers() {
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
                                     aria-pressed={!filter.values.archived}
+                                    data-dusk="vouchersFilterActive"
                                     role="button">
                                     {translate('vouchers.filters.active')}
                                 </div>
@@ -99,6 +101,7 @@ export default function Vouchers() {
                                     onKeyDown={clickOnKeyEnter}
                                     tabIndex={0}
                                     aria-pressed={!!filter.values.archived}
+                                    data-dusk="vouchersFilterArchived"
                                     role="button">
                                     {translate('vouchers.filters.archive')}
                                 </div>

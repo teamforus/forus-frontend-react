@@ -155,6 +155,7 @@ export default function Funds() {
 
     return (
         <BlockShowcasePage
+            dusk="listFundsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
                 { name: translate(`funds.breadcrumbs.home`), state: 'home' },
@@ -163,7 +164,7 @@ export default function Funds() {
             aside={
                 organizations &&
                 tags && (
-                    <div className="showcase-aside-block" data-dusk="fundsSearchForm">
+                    <div className="showcase-aside-block">
                         <div className="form-group">
                             <label className="form-label" htmlFor="search">
                                 {translate('funds.labels.search')}
@@ -173,7 +174,7 @@ export default function Funds() {
                                 value={filter.values.q}
                                 onChangeValue={(q) => filter.update({ q })}
                                 ariaLabel="Zoeken"
-                                dataDusk="fundsSearchInput"
+                                dataDusk="listFundsSearch"
                             />
                         </div>
                         <div className="form-group">
@@ -187,6 +188,7 @@ export default function Funds() {
                                 onChange={(organization_id: number) => filter.update({ organization_id })}
                                 options={organizations || []}
                                 multiline={true}
+                                dusk="selectControlOrganizations"
                             />
                         </div>
                         <div className="form-group">
@@ -200,6 +202,7 @@ export default function Funds() {
                                 onChange={(tag_id: number) => filter.update({ tag_id })}
                                 options={tags || []}
                                 multiline={true}
+                                dusk="selectControlTags"
                             />
                         </div>
                     </div>
@@ -219,7 +222,7 @@ export default function Funds() {
                     {appConfigs.pages.funds && <CmsBlocks page={appConfigs.pages.funds} />}
 
                     {funds?.data?.length > 0 && (
-                        <div className="block block-funds-list" id="funds_list" data-dusk="fundsList">
+                        <div className="block block-funds-list" id="funds_list">
                             {funds?.data.map((fund) => (
                                 <FundsListItem
                                     key={fund.id}

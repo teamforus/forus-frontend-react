@@ -66,7 +66,8 @@ export default function ReimbursementCard({
             name={'reimbursement'}
             params={{ id: reimbursement.id }}
             className="reimbursement-item"
-            dataDusk={`reimbursementsItem${reimbursement.id}`}>
+            dataDusk={`listReimbursementsRow${reimbursement.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             <div
                 className={`reimbursement-image reimbursement-image-${reimbursement.state}`}
                 role="img"
