@@ -53,7 +53,7 @@ export default function ProductMonitoredHistoryCard({ product }: { product: Spon
 
             {product?.monitored_history.length == 0 && (
                 <div className="card-section text-center">
-                    <div className="card-subtitle">Er zijn geen aanbiedingen gevonden voor de zoekopdracht.</div>
+                    <div className="card-subtitle">Er zijn geen wijzigingen geregistreerd.</div>
                 </div>
             )}
         </div>

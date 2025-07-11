@@ -20,8 +20,8 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushDanger from '../../../hooks/usePushDanger';
 import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
-import VoucherRecords from './elements/VoucherRecords';
-import VoucherTransactions from './elements/VoucherTransactions';
+import VoucherRecordsCard from './elements/VoucherRecordsCard';
+import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
 import useFilter from '../../../hooks/useFilter';
 import EventLogsTable from '../../elements/tables/EventLogsTable';
 import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
@@ -29,6 +29,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import useShowVoucherQrCode from '../vouchers/hooks/useShowVoucherQrCode';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import VoucherReservationsCard from './elements/VoucherReservationsCard';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -48,7 +49,7 @@ export default function VouchersViewComponent() {
 
     const eventLogsBlock = useRef<() => void>();
     const transactionsBlock = useRef<() => void>();
-    const reservationTransactionsBlock = useRef<() => void>();
+    const reservationsBlock = useRef<() => void>();
 
     const [fund, setFund] = useState<Fund>(null);
     const [voucher, setVoucher] = useState<SponsorVoucher>(null);
@@ -73,13 +74,6 @@ export default function VouchersViewComponent() {
         order_by: 'created_at',
         order_dir: 'desc',
         voucher_id: parseInt(id),
-    });
-
-    const reservationTransactionsFilters = useFilter({
-        per_page: 20,
-        order_by: 'created_at',
-        order_dir: 'desc',
-        reservation_voucher_id: parseInt(id),
     });
 
     const fetchVoucher = useCallback(() => {
@@ -281,7 +275,7 @@ export default function VouchersViewComponent() {
     useEffect(() => {
         eventLogsBlock.current?.();
         transactionsBlock.current?.();
-        reservationTransactionsBlock.current?.();
+        reservationsBlock.current?.();
     }, [voucher]);
 
     if (!voucher || !fund) {
@@ -601,7 +595,7 @@ export default function VouchersViewComponent() {
             )}
 
             {voucher.fund.allow_voucher_records && (
-                <VoucherRecords voucher={voucher} organization={activeOrganization} />
+                <VoucherRecordsCard voucher={voucher} organization={activeOrganization} />
             )}
 
             <EventLogsTable
@@ -628,18 +622,17 @@ export default function VouchersViewComponent() {
 
             {hasPermission(activeOrganization, 'manage_vouchers') && (
                 <Fragment>
-                    <VoucherTransactions
+                    <VoucherTransactionsCard
                         organization={activeOrganization}
                         blockTitle={'Betaalopdrachten'}
                         filterValues={transactionsFilters.activeValues}
                         fetchTransactionsRef={transactionsBlock}
                     />
 
-                    <VoucherTransactions
+                    <VoucherReservationsCard
+                        voucher={voucher}
                         organization={activeOrganization}
-                        blockTitle={'Reserveringen'}
-                        filterValues={reservationTransactionsFilters.activeValues}
-                        fetchTransactionsRef={reservationTransactionsBlock}
+                        fetchReservationsRef={reservationsBlock}
                     />
                 </Fragment>
             )}
