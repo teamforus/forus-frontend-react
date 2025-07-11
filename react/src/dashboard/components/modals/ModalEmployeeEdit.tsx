@@ -70,6 +70,8 @@ export default function ModalEmployeeEdit({
                     'payouts_manager',
                     'view_identities',
                     'manage_identities',
+                    'policy_officer',
+                    'voucher_officer',
                 ];
             default:
                 return [];
