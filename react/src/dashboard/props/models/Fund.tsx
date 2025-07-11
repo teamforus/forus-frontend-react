@@ -43,7 +43,10 @@ export default interface Fund {
     end_date_locale?: string;
     fund_amount?: string;
     fund_amount_locale?: string;
-    type?: 'budget' | 'subsidies' | 'external';
+    external?: boolean;
+    show_subsidies?: boolean;
+    show_qr_limits?: boolean;
+    show_requester_limits?: boolean;
     allow_direct_payments?: boolean;
     fund_form_id?: number;
     archived?: boolean;
@@ -113,6 +116,7 @@ export default interface Fund {
         transaction_costs_locale?: string;
     };
     product_vouchers: FundVoucherStatistics;
+    payout_vouchers: FundVoucherStatistics;
     faq_title?: string;
     allow_reimbursements?: boolean;
     allow_physical_cards?: boolean;
@@ -141,4 +145,6 @@ export default interface Fund {
     help_description?: string;
     help_description_html?: string;
     help_enabled?: boolean;
+    allow_provider_sign_up?: boolean;
+    outcome_type?: 'voucher' | 'payout';
 }

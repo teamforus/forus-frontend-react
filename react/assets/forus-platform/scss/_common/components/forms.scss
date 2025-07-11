@@ -23,6 +23,61 @@
         color: var(--text-color);
     }
 
+    .form-pane {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        .form-pane-title {
+            font: 600 11px/20px var(--base-font);
+            padding: 0 0;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+
+            &:before,
+            &:after {
+                content: '';
+                margin-top: 10px;
+                height: 10px;
+            }
+
+            &:before {
+                display: flex;
+                flex: 0 0 10px;
+                border-top: 1px solid var(--border-color);
+                border-left: 1px solid var(--border-color);
+                border-top-left-radius: var(--border-radius);
+            }
+
+            &:after {
+                display: flex;
+                flex: 1 1 auto;
+                border-top: 1px solid var(--border-color);
+                border-right: 1px solid var(--border-color);
+                border-top-right-radius: var(--border-radius);
+            }
+        }
+
+        .form-pane-content {
+            border: 1px solid var(--border-color);
+            border-top: none;
+            padding: 5px 15px 15px;
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        &.form-pane-lg {
+            .form-pane-title {
+                font: 600 13px/20px var(--base-font);
+            }
+        }
+    }
+
     .form-numeric {
         display: inline-flex;
 
@@ -207,7 +262,9 @@
         min-height: 36px;
         color: var(--text-color);
         font: 500 13px/24px var(--base-font);
-        transition: background-color 0.4s ease, border 0.4s ease;
+        transition:
+            background-color 0.4s ease,
+            border 0.4s ease;
         border-radius: var(--border-radius);
         appearance: none;
 
@@ -565,7 +622,9 @@
                 color: rgba(var(--text-color), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
-                transition: background-color .4s, color .4s;
+                transition:
+                    background-color 0.4s,
+                    color 0.4s;
                 height: var(--option-height);
                 @include ellipsis();
 
@@ -857,6 +916,11 @@
                     opacity: 1;
                 }
             }
+        }
+
+        &.checkbox-flat {
+            padding-top: 0px;
+            padding-bottom: 0px;
         }
 
         &.checkbox-narrow {

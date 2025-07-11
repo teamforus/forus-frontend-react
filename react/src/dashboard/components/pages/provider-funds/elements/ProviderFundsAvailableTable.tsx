@@ -203,7 +203,7 @@ export default function ProviderFundsAvailableTable({
     }, [fetchFunds, filter.activeValues, organization, pushApiError, setSelected, translate]);
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="tableFundsAvailableContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate(`provider_funds.title.available`)}
@@ -236,6 +236,7 @@ export default function ProviderFundsAvailableTable({
                                     <input
                                         className="form-control"
                                         value={filter.values.q}
+                                        data-dusk="tableFundsAvailableSearch"
                                         onChange={(e) => filter.update({ q: e.target.value })}
                                         placeholder="Zoeken"
                                     />
@@ -253,32 +254,41 @@ export default function ProviderFundsAvailableTable({
                                 />
                             </FilterItemToggle>
 
-                            <FilterItemToggle label={translate('provider_funds.filters.labels.implementations')}>
+                            <FilterItemToggle
+                                dusk="selectControlImplementationsToggle"
+                                label={translate('provider_funds.filters.labels.implementations')}>
                                 <SelectControl
                                     value={filter.values.implementation_id}
                                     options={implementations}
                                     propKey={'id'}
                                     propValue={'name'}
+                                    dusk="selectControlImplementations"
                                     onChange={(implementation_id?: number) => filter.update({ implementation_id })}
                                 />
                             </FilterItemToggle>
 
-                            <FilterItemToggle label={translate('provider_funds.filters.labels.organizations')}>
+                            <FilterItemToggle
+                                dusk="selectControlOrganizationsToggle"
+                                label={translate('provider_funds.filters.labels.organizations')}>
                                 <SelectControl
                                     value={filter.values.organization_id}
                                     options={organizations}
                                     propKey={'id'}
                                     propValue={'name'}
+                                    dusk="selectControlOrganizations"
                                     onChange={(organization_id?: number) => filter.update({ organization_id })}
                                 />
                             </FilterItemToggle>
 
-                            <FilterItemToggle label={translate('provider_funds.filters.labels.tags')}>
+                            <FilterItemToggle
+                                dusk="selectControlTagsToggle"
+                                label={translate('provider_funds.filters.labels.tags')}>
                                 <SelectControl
                                     value={filter.values.tag}
                                     options={tags}
                                     propKey={'key'}
                                     propValue={'name'}
+                                    dusk="selectControlTags"
                                     onChange={(tag?: string) => filter.update({ tag })}
                                 />
                             </FilterItemToggle>
@@ -298,7 +308,10 @@ export default function ProviderFundsAvailableTable({
 
                                 <tbody>
                                     {funds.data?.map((fund) => (
-                                        <tr key={fund.id} className={selected.includes(fund.id) ? 'selected' : ''}>
+                                        <tr
+                                            key={fund.id}
+                                            className={selected.includes(fund.id) ? 'selected' : ''}
+                                            data-dusk={`tableFundsAvailableRow${fund.id}`}>
                                             <td className="td-narrow">
                                                 <TableCheckboxControl
                                                     checked={selected.includes(fund.id)}

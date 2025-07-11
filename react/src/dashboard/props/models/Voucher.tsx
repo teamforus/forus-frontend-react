@@ -92,7 +92,7 @@ export default interface Voucher {
     physical_card?: PhysicalCard;
     amount?: string;
     amount_locale?: string;
-    is_external: boolean;
+    external: boolean;
     history: Array<{
         id: number;
         event: string;

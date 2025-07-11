@@ -168,7 +168,7 @@ export default function ReservationsShow() {
                                                 <div
                                                     className="key-value-list-item-value"
                                                     data-dusk="reservationOverviewAmount">
-                                                    {reservation.price_locale}
+                                                    {reservation.price_voucher_locale}
                                                 </div>
                                             </div>
                                         </div>

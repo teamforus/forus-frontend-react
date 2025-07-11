@@ -47,33 +47,35 @@ export default function ProvidersSignUp() {
                     {page && <CmsBlocks page={page} />}
 
                     {(!page.description_html || page.description_position !== 'replace') && (
-                        <div className="block block-sign_up-provider">
-                            <div className="sign_up-overview">
-                                <div className="block block-markdown">
+                        <div className="wrapper">
+                            <div className="block block-sign_up-provider">
+                                <div className="sign_up-overview">
                                     <h1 className="sr-only">{translate('provider_sign_up.heading_screen_reader')}</h1>
-                                    <h1>{translate('provider_sign_up.heading')}</h1>
-                                    <p>{translate('provider_sign_up.description.fill_form')}</p>
-                                    <p>{translate('provider_sign_up.description.read_instruction')}</p>
-                                    <p>
-                                        <a
-                                            className="button button-primary-outline"
-                                            href={providerPanelUrl + 'sign-up' + signUpUrlParams}
-                                            target="_self">
-                                            {translate('provider_sign_up.button.register')}
-                                            <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
-                                        </a>
-                                    </p>
-                                    <p>
-                                        {translate('provider_sign_up.description.already_account')}{' '}
-                                        <a href={providerPanelUrl} target="_self">
-                                            {translate('provider_sign_up.button.login')}
-                                        </a>
-                                    </p>
+                                    <div className="block block-markdown">
+                                        <h1>{translate('provider_sign_up.heading')}</h1>
+                                        <p>{translate('provider_sign_up.description.fill_form')}</p>
+                                        <p>{translate('provider_sign_up.description.read_instruction')}</p>
+                                        <p>
+                                            <a
+                                                className="button button-primary-outline"
+                                                href={providerPanelUrl + 'sign-up' + signUpUrlParams}
+                                                target="_self">
+                                                {translate('provider_sign_up.button.register')}
+                                                <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
+                                            </a>
+                                        </p>
+                                        <p>
+                                            {translate('provider_sign_up.description.already_account')}{' '}
+                                            <a href={providerPanelUrl} target="_self">
+                                                {translate('provider_sign_up.button.login')}
+                                            </a>
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="sign_up-images">
-                                <div className="sign_up-image">
-                                    <img src={assetUrl('/assets/img/provider-sign_up-preview.svg')} alt="" />
+                                <div className="sign_up-images">
+                                    <div className="sign_up-image">
+                                        <img src={assetUrl('/assets/img/provider-sign_up-preview.svg')} alt="" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

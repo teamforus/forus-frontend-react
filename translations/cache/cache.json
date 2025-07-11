@@ -6393,19 +6393,19 @@
     ],
     [
         "products.sort.name_asc",
-        "Naam (oplopend)"
+        "Naam (A-Z)"
     ],
     [
         "products.sort.name_desc",
-        "Naam (aflopend)"
+        "Naam (Z-A)"
     ],
     [
         "products.sort.price_asc",
-        "Prijs (oplopend)"
+        "Prijs (laag-hoog)"
     ],
     [
         "products.sort.price_desc",
-        "Prijs (aflopend)"
+        "Prijs (hoog-laag)"
     ],
     [
         "products.title",
@@ -8517,7 +8517,7 @@
     ],
     [
         "top_navbar.user_menu.authorize",
-        "Authorize device"
+        "Me app koppelen"
     ],
     [
         "top_navbar.user_menu.bookmarks",

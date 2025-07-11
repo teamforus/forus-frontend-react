@@ -231,7 +231,7 @@ export default function ReservationsView() {
                                                 {translate('reservation.labels.price')}
                                             </strong>
                                             <br />
-                                            <strong className="text-black">{reservation.price_locale}</strong>
+                                            <strong className="text-black">{reservation.amount_locale}</strong>
                                         </td>
                                         <td>
                                             <strong className="text-strong text-md text-primary">

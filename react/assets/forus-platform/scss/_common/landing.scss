@@ -19,7 +19,6 @@
         cursor: default;
         font: 700 12px/20px var(--base-font-landing);
         margin-bottom: 4px;
-        color: var(--text-color);
         padding: 0;
         color: #134478;
 
@@ -40,7 +39,9 @@
         color: rgba(#00122a, 0.9);
         font: 600 17px/24px var(--base-font-landing);
         line-height: 24px !important;
-        transition: background-color 0.4s ease, border 0.4s ease;
+        transition:
+            background-color 0.4s ease,
+            border 0.4s ease;
         border-radius: 6px;
         appearance: none;
         background-color: #eaf0f6;
@@ -341,7 +342,11 @@
     cursor: pointer;
     border: 1px solid transparent;
     padding: 12px 25px;
-    transition: color 0.4s, background 0.4s, box-shadow 0.4s, border 0.4s;
+    transition:
+        color 0.4s,
+        background 0.4s,
+        box-shadow 0.4s,
+        border 0.4s;
     border-radius: 6px;
     display: inline-block;
     margin-right: 15px;
@@ -503,7 +508,9 @@
             }
 
             .blog-item-inner {
-                transition: box-shadow 0.4s, transform 0.4s;
+                transition:
+                    box-shadow 0.4s,
+                    transform 0.4s;
                 display: block;
                 background: #fff;
                 padding: 30px;

@@ -44,7 +44,9 @@ export default function ModalAddNote({
     });
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalAddNote">
             <div className="modal-backdrop" onClick={modal.close} />
             <form className="modal-window form" onSubmit={form.submit}>
                 <div className="modal-close mdi mdi-close" onClick={modal.close} role="button" />
@@ -58,6 +60,7 @@ export default function ModalAddNote({
                             <textarea
                                 className="form-control"
                                 value={form.values.description}
+                                data-dusk="noteInput"
                                 onChange={(e) => form.update({ description: e.target.value })}
                             />
                             <FormError error={form.errors?.description} />
@@ -72,7 +75,11 @@ export default function ModalAddNote({
                         onClick={modal.close}>
                         Annuleren
                     </button>
-                    <button className="button button-primary" disabled={form.isLoading} type="submit">
+                    <button
+                        className="button button-primary"
+                        disabled={form.isLoading}
+                        type="submit"
+                        data-dusk="submitBtn">
                         {form.isLoading && <em className="mdi mdi-loading mdi-spin icon-start" />}
                         Bevestigen
                     </button>
