@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../hooks/useSetProgress';
@@ -54,10 +54,6 @@ export default function Reservations() {
 
     const [shownReservationsType, setShownReservationType] = useState('active');
     const [acceptedByDefault, setAcceptByDefault] = useState(activeOrganization.reservations_auto_accept);
-
-    const reservationEnabled = useMemo(() => {
-        return activeOrganization.reservations_budget_enabled || activeOrganization.reservations_subsidy_enabled;
-    }, [activeOrganization]);
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<ReservationsTableFiltersProps>(
         {
@@ -290,14 +286,14 @@ export default function Reservations() {
                             </Fragment>
                         ) : (
                             <Fragment>
-                                {reservationEnabled && (
+                                {activeOrganization.reservations_enabled && (
                                     <div onClick={makeReservation} className="button button-primary button-sm">
                                         <em className="mdi mdi-plus-circle icon-start" />
                                         Aanmaken
                                     </div>
                                 )}
 
-                                {reservationEnabled && hasPermission(activeOrganization, 'manage_organization') && (
+                                {hasPermission(activeOrganization, 'manage_organization') && (
                                     <StateNavLink
                                         name="reservations-settings"
                                         params={{ organizationId: activeOrganization.id }}
@@ -306,7 +302,8 @@ export default function Reservations() {
                                         Instellingen
                                     </StateNavLink>
                                 )}
-                                {activeOrganization.allow_batch_reservations && reservationEnabled && (
+
+                                {activeOrganization.allow_batch_reservations && (
                                     <div className="button button-primary button-sm" onClick={uploadReservations}>
                                         <em className="mdi mdi-upload icon-start" />
                                         Upload bulkbestand

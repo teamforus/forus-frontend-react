@@ -48,7 +48,7 @@ export default function ReservationsTableRowSponsor({
                     className="text-strong text-primary text-decoration-link">
                     {strLimit(reservation.product.name, 45)}
                 </StateNavLink>
-                <div className="text-strong text-small text-muted-dark">{reservation.price_locale}</div>
+                <div className="text-strong text-small text-muted-dark">{reservation.product?.price_locale}</div>
             </td>
 
             <td>
