@@ -12,6 +12,8 @@ export default {
         address: 'Adres instellingen',
         birth_date: 'Geboortedatum instellingen',
         extra_payments: 'Bijbetaling instellingen',
+        reservation_note: 'Aankoopnotitie',
+        reservation_note_text: 'Aankoopnotitie tekst',
     },
     buttons: {
         cancel: 'Annuleren',

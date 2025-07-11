@@ -138,6 +138,8 @@ export class ProductService<T = Product> {
             reservation_phone: apiResource.reservation_phone,
             reservation_address: apiResource.reservation_address,
             reservation_birth_date: apiResource.reservation_birth_date,
+            reservation_note: apiResource.reservation_note,
+            reservation_note_text: apiResource.reservation_note_text,
             reservation_extra_payments: apiResource.reservation_extra_payments,
         };
     }
