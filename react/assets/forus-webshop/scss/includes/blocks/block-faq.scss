@@ -3,16 +3,17 @@
     flex-direction: column;
     max-width: 100%;
     align-items: center;
+    gap: 8px;
 
     .faq-item {
         background: #fff;
         border: 1px solid var(--border-color);
-        border-bottom: none;
         position: relative;
         box-shadow: var(--box-shadow);
         transition: 0.4s;
         max-width: 100%;
         width: 1080px;
+        border-radius: var(--border-radius);
 
         .faq-item-header {
             display: flex;
@@ -84,17 +85,6 @@
             .faq-item-content {
                 display: block;
             }
-        }
-
-        &:first-of-type {
-            border-top-left-radius: var(--border-radius);
-            border-top-right-radius: var(--border-radius);
-        }
-
-        &:last-of-type {
-            border-bottom: 1px solid var(--border-color);
-            border-bottom-left-radius: var(--border-radius);
-            border-bottom-right-radius: var(--border-radius);
         }
     }
 
