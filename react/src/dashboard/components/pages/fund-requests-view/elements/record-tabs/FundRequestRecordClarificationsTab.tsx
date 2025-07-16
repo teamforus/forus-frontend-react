@@ -9,7 +9,7 @@ export default function FundRequestRecordClarificationsTab({
     fundRequestRecord: FundRequestRecord;
 }) {
     return (
-        <div className="block block-request-clarification">
+        <div className="block block-request-clarification" data-dusk="clarificationsTabContent">
             <div className="block-title">Aanvullingen</div>
             {fundRequestRecord.clarifications.map((clarification, index) => (
                 <div key={clarification.id} className="clarification-item">

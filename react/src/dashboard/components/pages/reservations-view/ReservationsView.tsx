@@ -23,7 +23,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { strLimit } from '../../../helpers/string';
 import BlockInlineCopy from '../../elements/block-inline-copy/BlockInlineCopy';
 import ProductDetailsBlockProperties from '../products-view/elements/ProductDetailsBlockProperties';
-import ReservationLabel from '../reservations/elements/ReservationLabel';
+import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -182,7 +182,7 @@ export default function ReservationsView() {
                                     </div>
                                     <div className="flex flex-vertical flex-center">
                                         <div className="flex flex-horizontal">
-                                            <ReservationLabel reservation={reservation} />
+                                            <ReservationStateLabel reservation={reservation} />
                                         </div>
                                     </div>
                                 </div>

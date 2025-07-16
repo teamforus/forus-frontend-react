@@ -6,6 +6,7 @@ import { ResponseErrorData } from '../props/ApiResponses';
 export default interface FormBuilder<T = FormValuesModel> {
     values: T | null;
     update: FormSetter<Partial<T>>;
+    setValues: FormSetter<Partial<T>>;
     submit: (e?: FormEvent<HTMLFormElement>, data?: unknown) => void;
     isLocked: boolean;
     setIsLocked: Dispatch<SetStateAction<boolean>>;

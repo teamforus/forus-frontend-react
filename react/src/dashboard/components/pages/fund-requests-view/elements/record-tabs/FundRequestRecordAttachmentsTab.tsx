@@ -40,7 +40,7 @@ export default function FundRequestRecordAttachmentsTab({
     );
 
     return (
-        <div className="block block-attachments-list block-attachments-list-half">
+        <div className="block block-attachments-list block-attachments-list-half" data-dusk="attachmentsTabContent">
             <div className="block-attachments-inner">
                 {attachments.map((attachment) => (
                     <a
@@ -56,7 +56,7 @@ export default function FundRequestRecordAttachmentsTab({
                         {hasFilePreview(attachment.file) && (
                             <div
                                 className="attachment-preview"
-                                title="file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'"
+                                title={attachment.file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'}
                                 onClick={(e) => previewFile(e, attachment.file)}>
                                 <div className="mdi mdi-eye" />
                             </div>
