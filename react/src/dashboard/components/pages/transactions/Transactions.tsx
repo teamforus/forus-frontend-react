@@ -73,7 +73,7 @@ export default function Transactions() {
         total: number;
     }>(null);
 
-    const [funds, setFunds] = useState(null);
+    const [funds, setFunds] = useState<Array<Fund>>(null);
     const [transactions, setTransactions] = useState<PaginationData<Transaction>>(null);
     const [transactionBulks, setTransactionBulks] = useState<PaginationData<TransactionBulk>>(null);
 
@@ -327,7 +327,7 @@ export default function Transactions() {
     ]);
 
     useEffect(() => {
-        fetchFunds({ per_page: 100 }).then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
+        fetchFunds({ per_page: 100 }).then((funds) => setFunds(funds));
     }, [fetchFunds]);
 
     if (
@@ -489,7 +489,7 @@ export default function Transactions() {
                                             className="form-control"
                                             propKey={'id'}
                                             allowSearch={false}
-                                            options={funds}
+                                            options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
                                             dusk="fundSelect"
                                             onChange={(fund_id: number) => filter.update({ fund_id })}
                                         />
