@@ -96,7 +96,8 @@ export default function FundsListItem({
                 params={{ id: fund.id }}
                 state={stateParams || null}
                 className={'search-item search-item-fund'}
-                dataDusk={`fundItem${fund.id}`}>
+                dataDusk={`listFundsRow${fund.id}`}
+                dataAttributes={{ 'data-search-item': 1 }}>
                 <FundsListItemSearch fund={fundMeta} applyFund={applyFund} />
             </StateNavLink>
         );
@@ -108,7 +109,8 @@ export default function FundsListItem({
             params={{ id: fund.id }}
             state={stateParams || null}
             className={'fund-item'}
-            dataDusk={`fundItem${fund.id}`}>
+            dataDusk={`listFundsRow${fund.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             <FundsListItemList fund={fundMeta} applyFund={applyFund} />
         </StateNavLink>
     );
