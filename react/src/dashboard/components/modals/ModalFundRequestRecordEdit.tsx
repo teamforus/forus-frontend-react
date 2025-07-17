@@ -60,7 +60,9 @@ export default function ModalFundRequestRecordEdit({
     );
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalFundRequestRecordEdit">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -80,6 +82,7 @@ export default function ModalFundRequestRecordEdit({
                                             className="form-control"
                                             value={form.values.value}
                                             type="number"
+                                            data-dusk="numberInput"
                                             onChange={(e) => form.update({ value: e.target.value })}
                                             step={1}
                                         />
@@ -116,6 +119,7 @@ export default function ModalFundRequestRecordEdit({
                     <button
                         className="button button-primary"
                         type="submit"
+                        data-dusk="submitBtn"
                         disabled={initialValue == form.values?.value}>
                         Bevestigen
                     </button>
