@@ -275,7 +275,7 @@ export default function FundForms() {
                                                 <FundFormStateLabels fundForm={fundForm} />
                                             </td>
 
-                                            <td className={'table-td-actions'}>
+                                            <td className={'table-td-actions text-right'}>
                                                 <TableRowActions
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">

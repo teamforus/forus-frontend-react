@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import TransactionBulk from '../props/models/TransactionBulk';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class TransactionBulkService<T = TransactionBulk> {
     /**
@@ -79,6 +80,20 @@ export class TransactionBulkService<T = TransactionBulk> {
             filters,
             { responseType: 'arraybuffer' },
         );
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['id', 'amount', 'created_at', 'voucher_transactions_count', 'state'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `transaction_bulks.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `transaction_bulks.labels.${key}`,
+                description: `transaction_bulks.tooltips.${key}`,
+            },
+        }));
     }
 }
 

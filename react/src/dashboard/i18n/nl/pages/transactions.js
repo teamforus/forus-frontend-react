@@ -55,6 +55,55 @@ export default {
         bulk_state: 'Bulk status',
         payment_type: 'Soort',
     },
+    tooltips: {
+        id: 'Het unieke ID-nummer van de transactie binnen het Forus platform. Dit nummer wordt automatisch gegenereerd.',
+        uid:
+            'Het unieke UID-nummer dat is toegevoegd aan de transactie binnen het Forus platform.' +
+            ' Dit nummer wordt automatisch gegenereerd bij het handmatig aanmaken van een transactie.',
+        amount: 'Het bedrag die gekoppeld staat aan de transactie.',
+        method: 'Het soort transactie. Dit kan bijvoorbeeld een transactie zijn vanuit een tegoed en/of een bijbetaling met iDeal.',
+        branch_name: 'De naam van de vestiging die is aangemaakt door de aanbieder.',
+        branch_number:
+            'Een uniek 12-cijferig nummer dat door de Kamer van Koophandel aan elke vestiging wordt toegekend. Let op: Dit nummer verschilt van het KVK-nummer.',
+        amount_extra: 'Het bedrag dat is bijbetaald door de inwoner.',
+        created_at: 'De datum en het tijdstip dat de transactie is gemaakt.',
+        fund_name: 'De naam van het fonds waar vanuit de transactie zal plaatsvinden of heeft plaatsgevonden.',
+        product_name: 'De naam van het aanbod waar de transactie aan is gekoppeld.',
+        payment_type:
+            'Type transactie. Dit kan bijvoorbeeld een transactie zijn vanuit een tegoed, een reservering vanuit een tegoed of een declaratie zijn.',
+        provider_name: 'De naam van de aanbieder waar de transactie naar wordt overgemaakt.',
+        date_non_cancelable: 'De datum die staat vastgelegd wanneer de transactie zal plaatsvinden.',
+        bulk_id: 'Het unieke nummer van de bulk betaalopdracht die is aangemaakt door de sponsor.',
+        bulk_state: 'De status van de bulk betaalopdracht.',
+        state: 'De status van de individuele transactie.',
+        target: 'Geeft aan naar wie de transactie zal worden uitbetaald. Dit kan een aanbieder zijn of rechtstreeks naar de bankrekening van de inwoner.',
+        execution_date: 'De datum wanneer de uitbetaling is verricht door de sponsor.',
+    },
+    bulks: {
+        labels: {
+            id: 'ID',
+            uid: 'UID',
+            amount: 'Bedrag',
+            fund_name: 'Fonds',
+            created_at: 'Datum',
+            provider_name: 'Aanbieder',
+            product_name: 'Aanbod naam',
+            status: 'Status',
+        },
+        tooltips: {
+            id: 'Het unieke ID-nummer van de bulk betaalopdracht binnen het Forus platform. Dit nummer wordt automatisch gegenereerd.',
+            uid:
+                'Het unieke UID-nummer dat is toegevoegd aan de bulk betaalopdracht binnen het Forus platform.' +
+                ' Dit nummer wordt automatisch gegenereerd bij het handmatig uitbetalen van de bulk betaalopdracht.',
+            amount: 'Het bedrag die gekoppeld staat aan de transactie.',
+            fund_name: 'De naam van het fonds waar vanuit de transactie zal plaatsvinden of heeft plaatsgevonden.',
+            created_at: 'De datum en het tijdstip dat de transactie is aangemaakt.',
+            provider_name:
+                'De naam van de aanbieder organisatie waar de transactie naar zal plaatsvinden of heeft plaatsgevonden.',
+            product_name: 'De naam van het aanbod waar de transactie aan is gekoppeld.',
+            status: 'De status van de individuele transactie.',
+        },
+    },
     buttons: {
         previous: 'Vorige',
         next: 'Volgende',

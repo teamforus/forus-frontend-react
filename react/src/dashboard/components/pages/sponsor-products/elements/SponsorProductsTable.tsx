@@ -90,7 +90,7 @@ export default function SponsorProductsTable({
                                     <TableDateTime value={product.created_at_locale} />
                                 </td>
 
-                                <td className={'table-td-actions'}>
+                                <td className={'table-td-actions text-right'}>
                                     <TableRowActions
                                         content={() => (
                                             <div className="dropdown dropdown-actions">

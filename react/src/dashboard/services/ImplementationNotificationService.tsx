@@ -9,6 +9,7 @@ import React from 'react';
 import { useMarkdownService } from './MarkdownService';
 import { renderToString } from 'react-dom/server';
 import Implementation from '../props/models/Implementation';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ImplementationNotificationService<T = SystemNotification> {
     /**
@@ -191,6 +192,40 @@ export class ImplementationNotificationService<T = SystemNotification> {
         const stateLabel = notificationStateLabel[state];
 
         return { state, stateLabel };
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['description', 'channels', 'status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `implementation_notifications.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `implementation_notifications.labels.${key}`,
+                description: `implementation_notifications.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getIdentitiesColumns(): Array<ConfigurableTableColumn> {
+        const list = [
+            'id',
+            'email',
+            'count_vouchers',
+            'count_vouchers_active',
+            'count_vouchers_active_with_balance',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `implementation_notification_send.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `implementation_notification_send.labels.${key}`,
+                description: `implementation_notification_send.tooltips.${key}`,
+            },
+        }));
     }
 }
 

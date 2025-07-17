@@ -121,6 +121,20 @@ export class ProviderFundService<T = FundProvider> {
             },
         }));
     }
+
+    public getProductsRequiredColumns(): Array<ConfigurableTableColumn> {
+        const list = ['name', 'type', 'implementation'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.organization_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.organization_funds.labels.${key}`,
+                description: `components.organization_funds.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export default function useProviderFundService(): ProviderFundService {

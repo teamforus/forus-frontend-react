@@ -68,7 +68,7 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
             tooltip: {
                 key: key,
                 title: `identities.bank_accounts.labels.${key}`,
-                description: `identities.tooltips.${key}`,
+                description: `identities.bank_accounts.tooltips.${key}`,
             },
         }));
     }

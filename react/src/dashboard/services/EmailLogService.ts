@@ -38,24 +38,15 @@ export class EmailLogService<T = EmailLog> {
     }
 
     public getColumns(): Array<ConfigurableTableColumn> {
-        const list = [
-            'id',
-            'price',
-            'amount',
-            'method',
-            'paid_at',
-            'fund_name',
-            'product_name',
-            'provider_name',
-        ].filter((item) => item);
+        const list = ['created_at', 'title', 'recipient', 'sender'].filter((item) => item);
 
         return list.map((key) => ({
             key,
-            label: `extra_payments.labels.${key}`,
+            label: `email_logs.labels.${key}`,
             tooltip: {
                 key: key,
-                title: `extra_payments.labels.${key}`,
-                description: `extra_payments.tooltips.${key}`,
+                title: `email_logs.labels.${key}`,
+                description: `email_logs.tooltips.${key}`,
             },
         }));
     }

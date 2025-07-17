@@ -2,7 +2,6 @@ export default {
     header: {
         title: 'Declaraties',
     },
-
     labels: {
         identity: 'Gebruiker',
         iban: 'IBAN',
@@ -33,7 +32,17 @@ export default {
         transaction: 'Transactie',
         implementation: 'Implementatie',
     },
-
+    tooltips: {
+        identity: 'Gegevens van de deelnemer, zoals e-mailadres en BSN.',
+        fund: 'Regeling waarvoor declaratie is ingediend.',
+        amount: 'Bedrag van de declaratie.',
+        created_at: 'Datum en tijdstip van indiening.',
+        lead_time: 'Tijd tussen indiening en afhandeling.',
+        employee: 'Medewerker die de declaratie heeft behandeld.',
+        expired: 'Of de declaratie is verlopen (Ja/Nee).',
+        state: 'Of de declaratie is verlopen (Ja/Nee).',
+        transaction: 'Status van de gekoppelde transactie.',
+    },
     buttons: {
         clear_filter: 'Wis filter',
     },

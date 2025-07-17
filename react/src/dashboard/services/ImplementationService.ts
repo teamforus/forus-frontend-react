@@ -86,6 +86,20 @@ export class ImplementationService<T = Implementation> {
             },
         }));
     }
+
+    public getSocialMediaColumns(): Array<ConfigurableTableColumn> {
+        const list = ['icon', 'type', 'url', 'title'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `implementation_social_media.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `implementation_social_media.labels.${key}`,
+                description: `implementation_social_media.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export default function useImplementationService(): ImplementationService {

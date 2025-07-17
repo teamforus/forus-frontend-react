@@ -2,6 +2,7 @@ import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import ImplementationPage from '../props/models/ImplementationPage';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ImplementationPageService<T = ImplementationPage> {
     /**
@@ -76,6 +77,20 @@ export class ImplementationPageService<T = ImplementationPage> {
             description_position: apiResource.description_position,
             description_alignment: apiResource.description_alignment,
         };
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['name', 'type', 'blocks', 'public', 'webshop_url'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `implementation_pages.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `implementation_pages.labels.${key}`,
+                description: `implementation_pages.tooltips.${key}`,
+            },
+        }));
     }
 }
 export default function useImplementationPageService(): ImplementationPageService {

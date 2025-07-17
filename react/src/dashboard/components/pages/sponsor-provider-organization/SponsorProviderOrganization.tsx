@@ -12,13 +12,14 @@ import FundProviderTableItem from './elements/FundProviderTableItem';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import ProviderOrganizationOverview from './elements/ProviderOrganizationOverview';
 import type { SponsorProviderOrganization } from '../../../props/models/Organization';
-import { strLimit } from '../../../helpers/string';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import { useFundService } from '../../../services/FundService';
+import SponsorProviderOffices from './elements/SponsorProviderOffices';
+import SponsorProviderEmployees from './elements/SponsorProviderEmployees';
 
 export default function SponsorProviderOrganization() {
     const { id } = useParams();
@@ -163,71 +164,8 @@ export default function SponsorProviderOrganization() {
                 </div>
             </div>
 
-            <div className="card">
-                <div className="card-header">
-                    <div className="card-title">Vestigingen</div>
-                </div>
-
-                {providerOrganization.offices.length > 0 ? (
-                    <div className="card-section card-section-padless">
-                        <div className="table-wrapper">
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <th>Adres</th>
-                                        <th className="text-right">Telefoonnummer</th>
-                                    </tr>
-
-                                    {providerOrganization.offices.map((office) => (
-                                        <tr key={office.id}>
-                                            <td className={!office.address ? 'text-muted' : ''}>
-                                                {office.address || 'n.v.t.'}
-                                            </td>
-                                            <td className={`text-right ${!office.phone ? 'text-muted' : ''}`}>
-                                                {office.phone || 'n.v.t.'}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                ) : (
-                    <EmptyCard type={'card-section'} title={'Geen vestigingen'} />
-                )}
-            </div>
-
-            <div className="card">
-                <div className="card-header">
-                    <div className="card-title">Medewerkers</div>
-                </div>
-
-                {providerOrganization.employees.length > 0 ? (
-                    <div className="card-section card-section-padless">
-                        <div className="table-wrapper">
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <th>E-Mailadres</th>
-                                    </tr>
-
-                                    {providerOrganization.employees.map((employee) => (
-                                        <tr key={employee.id}>
-                                            {employee.email ? (
-                                                <td>{employee.email}</td>
-                                            ) : (
-                                                <td>{strLimit(employee.identity_address, 32)}</td>
-                                            )}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                ) : (
-                    <EmptyCard type={'card-section'} title={'Geen medewerkers'} />
-                )}
-            </div>
+            <SponsorProviderOffices offices={providerOrganization.offices} />
+            <SponsorProviderEmployees employees={providerOrganization.employees} />
         </Fragment>
     );
 }

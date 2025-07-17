@@ -32,9 +32,7 @@ export default function VouchersTable({
 }) {
     const voucherService = useVoucherService();
 
-    const { headElement, configsElement } = useConfigurableTable(voucherService.getColumns(), {
-        hasTooltips: true,
-    });
+    const { headElement, configsElement } = useConfigurableTable(voucherService.getColumns());
 
     return (
         <LoaderTableCard loading={loading} empty={vouchers.meta.total == 0} emptyTitle={'Geen vouchers gevonden'}>

@@ -15,6 +15,10 @@ import useTranslate from '../../../hooks/useTranslate';
 import LoadingCard from '../loading-card/LoadingCard';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../tables/TableTopScroller';
+import TableRowActions from '../tables/TableRowActions';
+import classNames from 'classnames';
 
 export default function BlockReimbursementCategories({
     compact = false,
@@ -44,6 +48,8 @@ export default function BlockReimbursementCategories({
         q: '',
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(reimbursementCategoryService.getColumns());
 
     const fetchReimbursementCategories = useCallback(() => {
         setLoading(true);
@@ -148,16 +154,11 @@ export default function BlockReimbursementCategories({
                 emptyTitle={'Er zijn momenteel geen declaratie categorieën.'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>Categorie naam</th>
-                                        <th>Organisatie</th>
-                                        <th>Totaal gebruikt</th>
-                                        <th className="th-narrow text-right">Opties</th>
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 <tbody>
                                     {categories?.data.map((reimbursementCategory) => (
@@ -165,31 +166,42 @@ export default function BlockReimbursementCategories({
                                             <td>{reimbursementCategory.name}</td>
                                             <td>{reimbursementCategory.organization.name}</td>
                                             <td>{reimbursementCategory.reimbursements_count}</td>
+
                                             <td className="td-narrow text-right">
-                                                <div className="flex">
-                                                    <a
-                                                        className="button button-sm button-default"
-                                                        onClick={() =>
-                                                            editReimbursementCategory(reimbursementCategory)
-                                                        }>
-                                                        <em className="mdi mdi-pen icon-start" />
-                                                        {translate('Bewerken')}
-                                                    </a>
-                                                    <button
-                                                        className="button button-danger button-icon"
-                                                        onClick={() =>
-                                                            deleteReimbursementCategory(reimbursementCategory)
-                                                        }
-                                                        disabled={reimbursementCategory.reimbursements_count > 0}>
-                                                        <em className="icon-start mdi mdi-delete" />
-                                                    </button>
-                                                </div>
+                                                <TableRowActions
+                                                    content={({ close }) => (
+                                                        <div className="dropdown dropdown-actions">
+                                                            <a
+                                                                className="dropdown-item"
+                                                                onClick={() => {
+                                                                    editReimbursementCategory(reimbursementCategory);
+                                                                    close();
+                                                                }}>
+                                                                <em className="mdi mdi-pen icon-start" />
+                                                                {translate('Bewerken')}
+                                                            </a>
+                                                            <a
+                                                                className={classNames(
+                                                                    'dropdown-item',
+                                                                    reimbursementCategory.reimbursements_count > 0 &&
+                                                                        'disabled',
+                                                                )}
+                                                                onClick={() => {
+                                                                    deleteReimbursementCategory(reimbursementCategory);
+                                                                    close();
+                                                                }}>
+                                                                <em className="icon-start mdi mdi-delete" />
+                                                                Verwijderen
+                                                            </a>
+                                                        </div>
+                                                    )}
+                                                />
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
 

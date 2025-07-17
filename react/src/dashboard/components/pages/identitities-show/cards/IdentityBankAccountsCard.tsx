@@ -118,7 +118,7 @@ export default function IdentityBankAccountsCard({
                             </td>
                             <td>{bank_account.created_by_locale}</td>
 
-                            <td className="table-td-actions text-right">
+                            <td className={'table-td-actions text-right'}>
                                 {bank_account?.id && hasPermission(organization, 'manage_identities') ? (
                                     <TableRowActions
                                         content={(e) => (

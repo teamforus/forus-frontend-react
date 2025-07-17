@@ -47,9 +47,7 @@ export default function BankConnections() {
     const [bankConnections, setBankConnections] = useState<PaginationData<BankConnection>>(null);
     const [submittingConnection, setSubmittingConnection] = useState<boolean>(false);
 
-    const { headElement, configsElement } = useConfigurableTable(bankConnectionService.getColumns(), {
-        hasTooltips: true,
-    });
+    const { headElement, configsElement } = useConfigurableTable(bankConnectionService.getColumns());
 
     const [{ success, error }, setQueryParams] = useQueryParams({
         success: BooleanParam,

@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import ThSortable from '../../../elements/tables/ThSortable';
 import ProviderFinancialTablesTransactions from './ProviderFinancialTablesTransactions';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import useFilter from '../../../../hooks/useFilter';
@@ -15,6 +14,8 @@ import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useProviderFinancialExporter from '../../../../services/exporters/useProviderFinancialExporter';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 type ProviderFinancialLocal = ProviderFinancial & { id: string };
 
@@ -35,6 +36,8 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
         page: 1,
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(organizationService.getFinanceProvidersColumns());
 
     const financeProvidersExport = useCallback(() => {
         providerFinancialExporter.exportData(activeOrganization.id, {
@@ -97,16 +100,12 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
 
                     <div className="card-section">
                         <div className="card-block card-block-table">
+                            {configsElement}
+
                             <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <ThSortable label="Aanbieder" />
-                                            <ThSortable label="Besteed" />
-                                            <ThSortable label="Hoogste aankoopbedrag" />
-                                            <ThSortable label="Aantal transacties" />
-                                        </tr>
-                                    </thead>
+                                    {headElement}
+
                                     <tbody>
                                         {providersFinances.data.map((provider) => (
                                             <Fragment key={provider.id}>
@@ -148,11 +147,14 @@ export default function ProviderFinancialTable({ externalFilters }: { externalFi
                                                             : 'Geen transacties'}
                                                     </td>
                                                     <td>{provider.nr_transactions}</td>
+                                                    <td className={'table-td-actions text-right'}>
+                                                        <TableEmptyValue />
+                                                    </td>
                                                 </tr>
 
                                                 {showTransactions.includes(provider.id) && (
                                                     <tr>
-                                                        <td className="td-paddless" colSpan={5}>
+                                                        <td className="td-paddless relative" colSpan={5}>
                                                             <ProviderFinancialTablesTransactions
                                                                 provider={provider.provider}
                                                                 organization={activeOrganization}

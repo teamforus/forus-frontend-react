@@ -23,6 +23,10 @@ import ProductFund from '../../../props/models/ProductFund';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import classNames from 'classnames';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -53,6 +57,8 @@ export default function ProductView() {
         q: '',
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(productService.getFundsColumns(product));
 
     const deleteProduct = useCallback(
         (product: Product) => {
@@ -231,16 +237,13 @@ export default function ProductView() {
                 {funds?.meta.total > 0 ? (
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
+                                    {headElement}
+
                                     <tbody>
-                                        <tr>
-                                            <th>Fonds</th>
-                                            <th>Geaccepteerd</th>
-                                            {!product.sponsor_organization && <th>Beschikbaar</th>}
-                                            <th className="th-narrow">Berichten</th>
-                                            <th className="th-narrow" />
-                                        </tr>
                                         {funds?.data?.map((fund) => (
                                             <tr key={fund.id}>
                                                 <td>
@@ -301,27 +304,35 @@ export default function ProductView() {
                                                         </span>
                                                     )}
                                                 </td>
-                                                <td className="nowrap">
-                                                    <a
-                                                        className={`button button-default ${
-                                                            !fund.approved || fund.provider_excluded
-                                                                ? 'button-disabled'
-                                                                : ''
-                                                        }`}
-                                                        href={`${fund.implementation.url_webshop}products/${product.id}`}
-                                                        target="_blank"
-                                                        rel="noreferrer">
-                                                        <em className="mdi mdi-eye-outline icon-start"> </em>
-                                                        {fund.provider_excluded
-                                                            ? 'Verborgen op webshop'
-                                                            : 'Bekijk op webshop'}
-                                                    </a>
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableRowActions
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <a
+                                                                    className={classNames(
+                                                                        'dropdown-item',
+                                                                        (!fund.approved || fund.provider_excluded) &&
+                                                                            'disabled',
+                                                                    )}
+                                                                    href={`${fund.implementation.url_webshop}products/${product.id}`}
+                                                                    target="_blank"
+                                                                    rel="noreferrer">
+                                                                    <em className="mdi mdi-eye-outline icon-start">
+                                                                        {' '}
+                                                                    </em>
+                                                                    {fund.provider_excluded
+                                                                        ? 'Verborgen op webshop'
+                                                                        : 'Bekijk op webshop'}
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                    />
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
                 ) : (

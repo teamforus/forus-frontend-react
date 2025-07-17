@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import ThSortable from '../../../elements/tables/ThSortable';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { strLimit } from '../../../../helpers/string';
 import Transaction from '../../../../props/models/Transaction';
 import { PaginationData } from '../../../../props/ApiResponses';
@@ -13,9 +12,10 @@ import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTransactionService from '../../../../services/TransactionService';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
-import useTranslate from '../../../../hooks/useTranslate';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function ProviderFinancialTablesTransactions({
     provider,
@@ -28,7 +28,6 @@ export default function ProviderFinancialTablesTransactions({
 }) {
     const envData = useEnvData();
 
-    const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
@@ -47,6 +46,10 @@ export default function ProviderFinancialTablesTransactions({
         provider_ids: [provider.id],
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(
+        transactionService.getProviderFinancialTransactionsColumns(),
+    );
 
     const showTransaction = useCallback(
         (transaction: Transaction) => {
@@ -87,64 +90,60 @@ export default function ProviderFinancialTablesTransactions({
     }
 
     return (
-        <TableTopScroller>
-            {transactions.meta.total > 0 ? (
-                <table className="table">
-                    <tbody>
-                        <tr>
-                            <ThSortable label="Aanbieder" />
-                            <ThSortable label={translate('fund_card_provider_finances.labels.price')} />
-                            <ThSortable label={translate('fund_card_provider_finances.labels.product_name')} />
-                            <ThSortable label={translate('fund_card_provider_finances.labels.date')} />
-                            <ThSortable
-                                className="text-right"
-                                label={translate('fund_card_provider_finances.labels.status')}
-                            />
-                        </tr>
+        <Fragment>
+            {configsElement}
 
-                        {transactions.data.map((transaction) => (
-                            <tr key={transaction.id} onClick={() => showTransaction(transaction)}>
-                                <td title={transaction.organization.name}>
-                                    {strLimit(transaction.organization.name, 50)}
-                                </td>
-                                <td>
-                                    <a className="text-primary-light">{transaction.amount_locale}</a>
-                                </td>
-                                <td title={transaction.product?.name}>
-                                    {strLimit(transaction.product?.name || '-', 50)}
-                                </td>
-                                <td>
-                                    <strong className="text-primary">
-                                        {transaction.created_at_locale.split(' - ')[0]}
-                                    </strong>
-                                    <br />
-                                    <strong className="text-strong text-md text-muted-dark">
-                                        {transaction.created_at_locale.split(' - ')[1]}
-                                    </strong>
-                                </td>
-                                <td className="text-right">
-                                    {{ pending: 'In afwachting', success: 'Voltooid' }[transaction.state]}
+            <TableTopScroller>
+                {transactions.meta.total > 0 ? (
+                    <table className="table">
+                        {headElement}
+
+                        <tbody>
+                            {transactions.data.map((transaction) => (
+                                <tr key={transaction.id} onClick={() => showTransaction(transaction)}>
+                                    <td title={transaction.organization.name}>
+                                        {strLimit(transaction.organization.name, 50)}
+                                    </td>
+                                    <td>
+                                        <a className="text-primary-light">{transaction.amount_locale}</a>
+                                    </td>
+                                    <td title={transaction.product?.name}>
+                                        {strLimit(transaction.product?.name || '-', 50)}
+                                    </td>
+                                    <td>
+                                        <strong className="text-primary">
+                                            {transaction.created_at_locale.split(' - ')[0]}
+                                        </strong>
+                                        <br />
+                                        <strong className="text-strong text-md text-muted-dark">
+                                            {transaction.created_at_locale.split(' - ')[1]}
+                                        </strong>
+                                    </td>
+                                    <td>{{ pending: 'In afwachting', success: 'Voltooid' }[transaction.state]}</td>
+                                    <td className={'table-td-actions text-right'}>
+                                        <TableEmptyValue />
+                                    </td>
+                                </tr>
+                            ))}
+
+                            <tr>
+                                <td colSpan={5}>
+                                    {transactions?.meta && (
+                                        <Paginator
+                                            meta={transactions.meta}
+                                            filters={filter.values}
+                                            updateFilters={filter.update}
+                                            perPageKey={paginatorKey}
+                                        />
+                                    )}
                                 </td>
                             </tr>
-                        ))}
-
-                        <tr>
-                            <td colSpan={5}>
-                                {transactions?.meta && (
-                                    <Paginator
-                                        meta={transactions.meta}
-                                        filters={filter.values}
-                                        updateFilters={filter.update}
-                                        perPageKey={paginatorKey}
-                                    />
-                                )}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            ) : (
-                <EmptyCard title={'Geen transacties.'} />
-            )}
-        </TableTopScroller>
+                        </tbody>
+                    </table>
+                ) : (
+                    <EmptyCard title={'Geen transacties.'} />
+                )}
+            </TableTopScroller>
+        </Fragment>
     );
 }

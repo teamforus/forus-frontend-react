@@ -246,6 +246,48 @@ export class OrganizationService<T = Organization> {
             },
         }));
     }
+
+    public getFinanceProvidersColumns(): Array<ConfigurableTableColumn> {
+        const list = ['provider', 'total_spent', 'highest_transaction', 'nr_transactions'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `finance_providers.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `finance_providers.labels.${key}`,
+                description: `finance_providers.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getNoteColumns(): Array<ConfigurableTableColumn> {
+        const list = ['id', 'created_at', 'created_by', 'note'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `notes.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `notes.labels.${key}`,
+                description: `notes.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderFundsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['fund_name', 'provider_status', 'fund_status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `provider_organization_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `provider_organization_funds.labels.${key}`,
+                description: `provider_organization_funds.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export function useOrganizationService(): OrganizationService {

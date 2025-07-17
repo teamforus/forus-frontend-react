@@ -150,6 +150,34 @@ export class FundRequestValidatorService<T = FundRequest> {
             },
         }));
     }
+
+    public getRecordsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['type', 'value', 'date'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `validation_requests.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `validation_requests.labels.${key}`,
+                description: `validation_requests.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getRecordChangesColumns(): Array<ConfigurableTableColumn> {
+        const list = ['new_value', 'old_value', 'employee', 'date_changed'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `validation_request_details.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `validation_request_details.labels.${key}`,
+                description: `validation_request_details.tooltips.${key}`,
+            },
+        }));
+    }
 }
 export function useFundRequestValidatorService(): FundRequestValidatorService {
     return useState(new FundRequestValidatorService())[0];
