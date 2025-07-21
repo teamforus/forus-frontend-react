@@ -78,4 +78,5 @@ export default interface Implementation {
     banner_button_text?: string;
     banner_button_target?: 'self' | '_blank';
     banner_button_type?: 'color' | 'white';
+    products_default_sort?: string;
 }

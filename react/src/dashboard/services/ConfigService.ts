@@ -212,6 +212,7 @@ export type AppConfigProp = {
     show_terms_checkbox?: boolean;
     show_privacy_checkbox?: boolean;
     languages: Array<Language>;
+    products_default_sort?: string;
 };
 
 export class ConfigService<T = AppConfigProp> {

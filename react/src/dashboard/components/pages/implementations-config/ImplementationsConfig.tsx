@@ -13,6 +13,8 @@ import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
+import SelectControl from '../../elements/select-control/SelectControl';
 
 export default function ImplementationsConfig() {
     const { id } = useParams();
@@ -38,6 +40,17 @@ export default function ImplementationsConfig() {
         { page: 'product', blocks: ['show_product_map'] },
     ]);
 
+    const [productSortOptions] = useState([
+        { value: 'created_at_desc', name: translate('implementation_config.products.sort.created_at_desc') },
+        { value: 'created_at_asc', name: translate('implementation_config.products.sort.created_at_asc') },
+        { value: 'price_asc', name: translate('implementation_config.products.sort.price_asc') },
+        { value: 'price_desc', name: translate('implementation_config.products.sort.price_desc') },
+        { value: 'most_popular_desc', name: translate('implementation_config.products.sort.most_popular') },
+        { value: 'name_asc', name: translate('implementation_config.products.sort.name_asc') },
+        { value: 'name_desc', name: translate('implementation_config.products.sort.name_desc') },
+        { value: 'randomized_desc', name: translate('implementation_config.products.sort.randomized') },
+    ]);
+
     const form = useFormBuilder<{
         show_home_map: string;
         show_home_products: string;
@@ -46,6 +59,7 @@ export default function ImplementationsConfig() {
         show_office_map: string;
         show_voucher_map: string;
         show_product_map: string;
+        products_default_sort: string;
     }>(null, (values) => {
         setProgress(0);
 
@@ -95,6 +109,7 @@ export default function ImplementationsConfig() {
                 show_office_map: implementation.show_office_map,
                 show_voucher_map: implementation.show_voucher_map,
                 show_product_map: implementation.show_product_map,
+                products_default_sort: implementation.products_default_sort,
             });
 
             setLoaded(true);
@@ -201,6 +216,34 @@ export default function ImplementationsConfig() {
                         </div>
                     </div>
                 ))}
+
+                <div className="card-section card-section-primary card-section-settings">
+                    <div className="card-title">{translate('implementation_config.labels.products_default_sort')}</div>
+
+                    <div className="form-group">
+                        <div className="form-label">
+                            {translate('implementation_config.labels.select_default_sort')}
+                        </div>
+
+                        <FormGroupInfo
+                            error={form.errors?.products_default_sort}
+                            info={
+                                <p>
+                                    Geef aan welke optie de standaard filter optie wordt op de aanbod pagina op de
+                                    webshop
+                                </p>
+                            }>
+                            <SelectControl
+                                className="form-control"
+                                propKey={'value'}
+                                value={form.values.products_default_sort}
+                                options={productSortOptions}
+                                allowSearch={false}
+                                onChange={(products_default_sort: string) => form.update({ products_default_sort })}
+                            />
+                        </FormGroupInfo>
+                    </div>
+                </div>
 
                 <div className="card-section card-section-primary">
                     <div className="button-group flex-center">
