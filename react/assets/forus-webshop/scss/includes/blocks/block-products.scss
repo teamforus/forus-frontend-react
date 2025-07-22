@@ -129,6 +129,29 @@
         }
     }
 
+    @media screen and (max-width: 1000px) {
+        .product-item {
+            .product-content {
+                .product-actions {
+                    .product-price {
+                        font: 700 16px/24px var(--base-font);
+                    }
+
+                    .product-icons {
+                        gap: 20px;
+
+                        .product-icons-item {
+                            .mdi {
+                                line-height: 24px;
+                                font-size: 24px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @media screen and (max-width: 800px) {
         --products-columns: 2;
     }
