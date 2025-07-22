@@ -256,7 +256,11 @@ export default function ProductsShow() {
 
                                                 {productFeatures.feature_reservation_extra_payments_enabled && (
                                                     <li className="product-property-icons-item">
-                                                        <img src={assetUrl('/assets/img/icon-ideal.svg')} alt="" />
+                                                        <img
+                                                            src={assetUrl('/assets/img/icon-ideal.svg')}
+                                                            alt=""
+                                                            aria-hidden="true"
+                                                        />
                                                         <span>{translate('product.labels.payment_option_ideal')}</span>
                                                     </li>
                                                 )}
