@@ -25,7 +25,7 @@ export default function BookmarkedProducts() {
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         page: number;
         display_type: 'list' | 'grid';
-        order_by: 'created_at' | 'price' | 'most_popular' | 'name';
+        order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
         order_dir: 'asc' | 'desc';
     }>(
         {

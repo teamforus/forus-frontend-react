@@ -23,6 +23,7 @@ import fund_request_configurations from './pages/fund-request-configurations';
 import product from './pages/product';
 import product_edit from './pages/product-edit';
 import bank_connections from './pages/bank-connections';
+import implementation_config from './pages/implementation-config';
 
 export default {
     vouchers,
@@ -50,4 +51,5 @@ export default {
     product,
     product_edit,
     bank_connections,
+    implementation_config,
 };

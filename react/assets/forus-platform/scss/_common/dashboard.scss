@@ -6503,52 +6503,45 @@ body {
     }
 
     &.block-toggles {
-        display: block;
-        @include cf();
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
 
-        .toggle-row {
-            display: block;
-            float: left;
+        .toggle-item {
+            border: 1px dashed #bfbfbf;
+            border-radius: calc(var(--border-radius));
+            align-items: center;
+            background: #f6f9fc;
+            padding: 20px;
+            color: #646f79;
             width: 100%;
-            margin-bottom: -20px;
+            display: flex;
+            flex-grow: 1;
 
-            .toggle-item {
-                border: 1px dashed #bfbfbf;
-                border-radius: calc(var(--border-radius));
-                align-items: center;
-                background: #f6f9fc;
-                padding: 20px;
+            .toggle-label {
+                font: 600 13px/13px var(--base-font);
                 color: #646f79;
-                margin: 0 0 20px;
-                width: 100%;
                 display: flex;
                 flex-grow: 1;
 
+                &:hover {
+                    color: #426993;
+                    transition: all 0.4s;
+                }
+            }
+
+            .form-toggle {
+                width: auto;
+            }
+
+            &.active {
+                background: #fff;
+                color: #134478;
+                border-color: transparent;
+                box-shadow: 0 0 10px rgba(25, 39, 52, 0.22);
+
                 .toggle-label {
-                    font: 600 13px/13px var(--base-font);
-                    color: #646f79;
-                    display: flex;
-                    flex-grow: 1;
-
-                    &:hover {
-                        color: #426993;
-                        transition: all 0.4s;
-                    }
-                }
-
-                .form-toggle {
-                    width: auto;
-                }
-
-                &.active {
-                    background: #fff;
                     color: #134478;
-                    border-color: transparent;
-                    box-shadow: 0 0 10px rgba(25, 39, 52, 0.22);
-
-                    .toggle-label {
-                        color: #134478;
-                    }
                 }
             }
         }

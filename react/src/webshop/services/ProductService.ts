@@ -121,7 +121,7 @@ export class ProductService<T = Product> {
     public getSortOptions(translate: (key: string) => string): Array<{
         id: number;
         label: string;
-        value: { order_by: 'created_at' | 'price' | 'most_popular' | 'name'; order_dir: 'asc' | 'desc' };
+        value: { order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized'; order_dir: 'asc' | 'desc' };
     }> {
         return [
             {
@@ -143,6 +143,11 @@ export class ProductService<T = Product> {
             },
             { id: 6, label: translate('products.sort.name_asc'), value: { order_by: 'name', order_dir: 'asc' } },
             { id: 7, label: translate('products.sort.name_desc'), value: { order_by: 'name', order_dir: 'desc' } },
+            {
+                id: 8,
+                label: translate('products.sort.randomized'),
+                value: { order_by: 'randomized', order_dir: 'desc' },
+            },
         ];
     }
 
