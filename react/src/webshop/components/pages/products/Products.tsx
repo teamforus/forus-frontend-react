@@ -68,9 +68,12 @@ export default function Products() {
 
     const defaultSortOption = useMemo(() => {
         return sortByOptions?.find((option) => {
-            return [option.value.order_by, option.value.order_dir].join('_') === appConfigs.products_default_sort;
+            return (
+                `${option.value.order_by}_${option.value.order_dir}` === appConfigs.products_default_sorting ||
+                `${option.value.order_by}` === appConfigs.products_default_sorting
+            );
         });
-    }, [appConfigs?.products_default_sort, sortByOptions]);
+    }, [appConfigs?.products_default_sorting, sortByOptions]);
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;

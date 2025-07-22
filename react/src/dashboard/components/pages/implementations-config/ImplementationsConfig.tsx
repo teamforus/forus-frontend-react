@@ -4,7 +4,6 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import FormError from '../../elements/forms/errors/FormError';
 import useSetProgress from '../../../hooks/useSetProgress';
 import { ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
@@ -15,6 +14,8 @@ import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import SelectControl from '../../elements/select-control/SelectControl';
+import FormPane from '../../elements/forms/elements/FormPane';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 
 export default function ImplementationsConfig() {
     const { id } = useParams();
@@ -31,35 +32,31 @@ export default function ImplementationsConfig() {
     const [loaded, setLoaded] = useState(false);
     const [implementation, setImplementation] = useState<Implementation>(null);
 
-    const [configs] = useState([
-        { page: 'home', blocks: ['show_home_map', 'show_home_products'] },
-        { page: 'providers', blocks: ['show_providers_map'] },
-        { page: 'provider', blocks: ['show_provider_map'] },
-        { page: 'office', blocks: ['show_office_map'] },
-        { page: 'voucher', blocks: ['show_voucher_map'] },
-        { page: 'product', blocks: ['show_product_map'] },
+    const [showHideOptions] = useState([
+        { value: true, name: translate('implementation_config.options.map_visibility.visible') },
+        { value: false, name: translate('implementation_config.options.map_visibility.hidden') },
     ]);
 
     const [productSortOptions] = useState([
-        { value: 'created_at_desc', name: translate('implementation_config.products.sort.created_at_desc') },
-        { value: 'created_at_asc', name: translate('implementation_config.products.sort.created_at_asc') },
-        { value: 'price_asc', name: translate('implementation_config.products.sort.price_asc') },
-        { value: 'price_desc', name: translate('implementation_config.products.sort.price_desc') },
-        { value: 'most_popular_desc', name: translate('implementation_config.products.sort.most_popular') },
-        { value: 'name_asc', name: translate('implementation_config.products.sort.name_asc') },
-        { value: 'name_desc', name: translate('implementation_config.products.sort.name_desc') },
-        { value: 'randomized_desc', name: translate('implementation_config.products.sort.randomized') },
+        { value: 'created_at_desc', name: translate('implementation_config.options.products_sorting.created_at_desc') },
+        { value: 'created_at_asc', name: translate('implementation_config.options.products_sorting.created_at_asc') },
+        { value: 'price_asc', name: translate('implementation_config.options.products_sorting.price_asc') },
+        { value: 'price_desc', name: translate('implementation_config.options.products_sorting.price_desc') },
+        { value: 'most_popular', name: translate('implementation_config.options.products_sorting.most_popular') },
+        { value: 'name_asc', name: translate('implementation_config.options.products_sorting.name_asc') },
+        { value: 'name_desc', name: translate('implementation_config.options.products_sorting.name_desc') },
+        { value: 'randomized', name: translate('implementation_config.options.products_sorting.randomized') },
     ]);
 
     const form = useFormBuilder<{
-        show_home_map: string;
-        show_home_products: string;
-        show_provider_map: string;
-        show_providers_map: string;
-        show_office_map: string;
-        show_voucher_map: string;
-        show_product_map: string;
-        products_default_sort: string;
+        show_home_map: boolean;
+        show_home_products: boolean;
+        show_provider_map: boolean;
+        show_providers_map: boolean;
+        show_office_map: boolean;
+        show_voucher_map: boolean;
+        show_product_map: boolean;
+        products_default_sorting: string;
     }>(null, (values) => {
         setProgress(0);
 
@@ -109,7 +106,7 @@ export default function ImplementationsConfig() {
                 show_office_map: implementation.show_office_map,
                 show_voucher_map: implementation.show_voucher_map,
                 show_product_map: implementation.show_product_map,
-                products_default_sort: implementation.products_default_sort,
+                products_default_sorting: implementation.products_default_sorting,
             });
 
             setLoaded(true);
@@ -169,80 +166,178 @@ export default function ImplementationsConfig() {
                     </div>
                 </div>
 
-                {configs.map((config) => (
-                    <div key={config.page} className="card-section card-section-primary card-section-settings">
-                        <div className="card-title">{translate(`implementation_config.pages.${config.page}`)}</div>
-                        <div className="block block-toggles">
-                            <div className="toggle-row">
-                                <div className="row">
-                                    {config.blocks.map((block, index, arr) => (
-                                        <div
-                                            key={block}
-                                            className={`col col-xs-12 ${
-                                                config.blocks.length % 2 == 0 || !(index === arr.length - 1)
-                                                    ? 'col-lg-6'
-                                                    : ''
-                                            } ${
-                                                config.blocks.length % 2 && index === arr.length - 1 ? 'col-lg-12' : ''
-                                            }`}>
-                                            <div className={`toggle-item ${form.values[block] ? 'active' : ''}`}>
-                                                <div className="toggle-label">
-                                                    <div className="flex flex-vertical">
-                                                        <div>{translate(`implementation_config.blocks.${block}`)}</div>
-                                                        <FormError error={form.errors[block]} />
-                                                    </div>
-                                                </div>
-                                                <label className="form-toggle" htmlFor={block}>
-                                                    <input
-                                                        id={block}
-                                                        type="checkbox"
-                                                        checked={form.values[block]}
-                                                        onChange={(e) => {
-                                                            form.update({ [block]: e.target.checked });
-                                                        }}
-                                                    />
-
-                                                    <div className="form-toggle-inner flex-end">
-                                                        <div className="toggle-input">
-                                                            <div className="toggle-input-dot" />
-                                                        </div>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                <div className="card-section card-section-primary card-section-settings flex flex-vertical flex-gap">
+                    <FormPane title={translate('implementation_config.labels.home')}>
+                        <div className="row">
+                            <div className="col col-xs-12 col-md-6">
+                                <FormGroup
+                                    label={translate('implementation_config.labels.show_home_map')}
+                                    input={() => (
+                                        <FormGroupInfo
+                                            error={form.errors?.products_default_sorting}
+                                            info={translate('implementation_config.info.show_home_map')}>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                value={form.values.show_home_map}
+                                                options={showHideOptions}
+                                                allowSearch={false}
+                                                onChange={(show_home_map: boolean) => form.update({ show_home_map })}
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
+                            </div>
+                            <div className="col col-xs-12 col-md-6">
+                                <FormGroup
+                                    label={translate('implementation_config.labels.show_home_products')}
+                                    input={() => (
+                                        <FormGroupInfo
+                                            error={form.errors?.products_default_sorting}
+                                            info={translate('implementation_config.info.show_home_products')}>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                value={form.values.show_home_products}
+                                                options={showHideOptions}
+                                                allowSearch={false}
+                                                onChange={(show_home_products: boolean) =>
+                                                    form.update({ show_home_products })
+                                                }
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
                             </div>
                         </div>
-                    </div>
-                ))}
+                    </FormPane>
 
-                <div className="card-section card-section-primary card-section-settings">
-                    <div className="card-title">{translate('implementation_config.labels.products_default_sort')}</div>
-
-                    <div className="form-group">
-                        <div className="form-label">
-                            {translate('implementation_config.labels.select_default_sort')}
+                    <FormPane title={translate('implementation_config.labels.product')}>
+                        <div className="row">
+                            <div className="col col-xs-12 col-md-6">
+                                <FormGroup
+                                    label={translate('implementation_config.labels.select_default_sorting')}
+                                    input={() => (
+                                        <FormGroupInfo
+                                            error={form.errors?.products_default_sorting}
+                                            info={translate('implementation_config.info.select_default_sorting')}>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                value={form.values.products_default_sorting}
+                                                options={productSortOptions}
+                                                allowSearch={false}
+                                                onChange={(products_default_sorting: string) => {
+                                                    form.update({ products_default_sorting });
+                                                }}
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
+                            </div>
+                            <div className="col col-xs-12 col-md-6">
+                                <FormGroup
+                                    label={translate('implementation_config.labels.show_product_map')}
+                                    input={() => (
+                                        <FormGroupInfo
+                                            error={form.errors?.products_default_sorting}
+                                            info={translate('implementation_config.info.show_product_map')}>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                value={form.values.show_product_map}
+                                                options={showHideOptions}
+                                                allowSearch={false}
+                                                onChange={(show_product_map: boolean) =>
+                                                    form.update({ show_product_map })
+                                                }
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
+                            </div>
                         </div>
+                    </FormPane>
 
-                        <FormGroupInfo
-                            error={form.errors?.products_default_sort}
-                            info={
-                                <p>
-                                    Geef aan welke optie de standaard filter optie wordt op de aanbod pagina op de
-                                    webshop
-                                </p>
-                            }>
-                            <SelectControl
-                                className="form-control"
-                                propKey={'value'}
-                                value={form.values.products_default_sort}
-                                options={productSortOptions}
-                                allowSearch={false}
-                                onChange={(products_default_sort: string) => form.update({ products_default_sort })}
-                            />
-                        </FormGroupInfo>
-                    </div>
+                    <FormPane title={translate('implementation_config.labels.providers')}>
+                        <FormGroup
+                            label={translate('implementation_config.labels.show_providers_map')}
+                            input={() => (
+                                <FormGroupInfo
+                                    error={form.errors?.products_default_sorting}
+                                    info={translate('implementation_config.info.show_providers_map')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        value={form.values.show_providers_map}
+                                        options={showHideOptions}
+                                        allowSearch={false}
+                                        onChange={(show_providers_map: boolean) => form.update({ show_providers_map })}
+                                    />
+                                </FormGroupInfo>
+                            )}
+                        />
+                    </FormPane>
+
+                    <FormPane title={translate('implementation_config.labels.provider')}>
+                        <FormGroup
+                            label={translate('implementation_config.labels.show_provider_map')}
+                            input={() => (
+                                <FormGroupInfo
+                                    error={form.errors?.products_default_sorting}
+                                    info={translate('implementation_config.info.show_provider_map')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        value={form.values.show_provider_map}
+                                        options={showHideOptions}
+                                        allowSearch={false}
+                                        onChange={(show_provider_map: boolean) => form.update({ show_provider_map })}
+                                    />
+                                </FormGroupInfo>
+                            )}
+                        />
+                    </FormPane>
+
+                    <FormPane title={translate('implementation_config.labels.office')}>
+                        <FormGroup
+                            label={translate('implementation_config.labels.show_office_map')}
+                            input={() => (
+                                <FormGroupInfo
+                                    error={form.errors?.products_default_sorting}
+                                    info={translate('implementation_config.info.show_office_map')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        value={form.values.show_office_map}
+                                        options={showHideOptions}
+                                        allowSearch={false}
+                                        onChange={(show_office_map: boolean) => form.update({ show_office_map })}
+                                    />
+                                </FormGroupInfo>
+                            )}
+                        />
+                    </FormPane>
+
+                    <FormPane title={translate('implementation_config.labels.voucher')}>
+                        <FormGroup
+                            label={translate('implementation_config.labels.show_voucher_map')}
+                            input={() => (
+                                <FormGroupInfo
+                                    error={form.errors?.products_default_sorting}
+                                    info={translate('implementation_config.info.show_voucher_map')}>
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        value={form.values.show_voucher_map}
+                                        options={showHideOptions}
+                                        allowSearch={false}
+                                        onChange={(show_voucher_map: boolean) => form.update({ show_voucher_map })}
+                                    />
+                                </FormGroupInfo>
+                            )}
+                        />
+                    </FormPane>
                 </div>
 
                 <div className="card-section card-section-primary">

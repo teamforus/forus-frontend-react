@@ -46,13 +46,13 @@ export default interface Implementation {
         webshop_url: string;
         description_position_configurable: boolean;
     }>;
-    show_home_map?: string;
-    show_home_products?: string;
-    show_provider_map?: string;
-    show_providers_map?: string;
-    show_office_map?: string;
-    show_voucher_map?: string;
-    show_product_map?: string;
+    show_home_map?: boolean;
+    show_home_products?: boolean;
+    show_provider_map?: boolean;
+    show_providers_map?: boolean;
+    show_office_map?: boolean;
+    show_voucher_map?: boolean;
+    show_product_map?: boolean;
     pages: Array<ImplementationPage>;
     pre_check_enabled: boolean;
     pre_check_title: string;
@@ -78,5 +78,5 @@ export default interface Implementation {
     banner_button_text?: string;
     banner_button_target?: 'self' | '_blank';
     banner_button_type?: 'color' | 'white';
-    products_default_sort?: string;
+    products_default_sorting?: string;
 }
