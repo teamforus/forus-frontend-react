@@ -55,6 +55,8 @@ export default function Funds() {
         per_page: 10,
         with_external: 1,
         check_criteria: 1,
+        order_by: 'order',
+        order_dir: 'desc',
     });
 
     const countFiltersApplied = useMemo(() => {
