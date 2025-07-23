@@ -378,7 +378,7 @@ export default function ModalProductReserve({
                 STEP_SELECT_VOUCHER,
                 STEP_FILL_DATA,
                 product.reservation.address !== 'no' ? STEP_FILL_ADDRESS : null,
-                STEP_FILL_NOTES,
+                product.reservation.note !== 'no' ? STEP_FILL_NOTES : null,
                 STEP_CONFIRM_DATA,
                 voucher && voucher.amount_extra > 0 ? STEP_EXTRA_PAYMENT : null,
             ].filter((step) => step !== null),
@@ -392,6 +392,7 @@ export default function ModalProductReserve({
         STEP_FILL_NOTES,
         STEP_SELECT_VOUCHER,
         product?.reservation?.address,
+        product?.reservation?.note,
         voucher,
     ]);
 

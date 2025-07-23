@@ -37,6 +37,11 @@ export default function ReservationsSettings() {
         { value: 'required', label: 'Verplicht' },
     ]);
 
+    const [reservationDescriptionOptions] = useState([
+        { value: 'no', label: 'Nee' },
+        { value: 'optional', label: 'Optioneel' },
+    ]);
+
     const [extraPaymentsOptions] = useState([
         { value: false, label: 'Nee' },
         { value: true, label: 'Ja' },
@@ -47,6 +52,7 @@ export default function ReservationsSettings() {
             reservation_phone: activeOrganization.reservation_phone,
             reservation_address: activeOrganization.reservation_address,
             reservation_birth_date: activeOrganization.reservation_birth_date,
+            reservation_user_note: activeOrganization.reservation_user_note,
             reservation_allow_extra_payments: activeOrganization.reservation_allow_extra_payments,
         },
         (values) => {
@@ -63,6 +69,7 @@ export default function ReservationsSettings() {
                         reservation_phone: res.data.data.reservation_phone,
                         reservation_address: res.data.data.reservation_address,
                         reservation_birth_date: res.data.data.reservation_birth_date,
+                        reservation_user_note: res.data.data.reservation_user_note,
                         reservation_allow_extra_payments: res.data.data.reservation_allow_extra_payments,
                     });
                     form.setErrors({});
@@ -156,6 +163,24 @@ export default function ReservationsSettings() {
                                     options={reservationFieldOptions}
                                 />
                                 <FormError error={form.errors.reservation_birth_date} />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label" htmlFor="reservation_user_note">
+                                    {translate('reservation_settings.labels.user_note')}
+                                </label>
+
+                                <SelectControl
+                                    id="reservation_user_note"
+                                    value={form.values.reservation_user_note}
+                                    propKey={'value'}
+                                    propValue={'label'}
+                                    onChange={(value: 'no' | 'optional') =>
+                                        form.update({ reservation_user_note: value })
+                                    }
+                                    options={reservationDescriptionOptions}
+                                />
+                                <FormError error={form.errors.reservation_user_note} />
                             </div>
                         </div>
                     </div>

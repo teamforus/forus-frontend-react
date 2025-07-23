@@ -50,6 +50,7 @@ export default interface Organization {
     description_html?: string;
     reservation_phone: 'required' | 'optional' | 'no';
     reservation_address: 'required' | 'optional' | 'no';
+    reservation_user_note: 'optional' | 'no';
     reservation_birth_date: 'required' | 'optional' | 'no';
     reservation_allow_extra_payments: boolean;
     reservation_fields: Array<ReservationField>;
