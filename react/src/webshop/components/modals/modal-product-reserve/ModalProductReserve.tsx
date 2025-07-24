@@ -232,6 +232,7 @@ export default function ModalProductReserve({
                     voucher_id: voucher.id,
                     product_id: product.id,
                     user_note: include_note ? form.values.user_note : null,
+                    user_note_skip: !include_note,
                 })
                 .then(() => {
                     form.setErrors({});
@@ -1036,7 +1037,11 @@ export default function ModalProductReserve({
                         <div className="modal-section">
                             <div className="form-group">
                                 <label className="form-label" htmlFor="reservation_modal_user_note">
-                                    {translate('modal_reserve_product.fill_notes.labels.notes')}
+                                    {translate(
+                                        product.reservation.note == 'optional'
+                                            ? 'modal_reserve_product.fill_notes.labels.notes_optional'
+                                            : 'modal_reserve_product.fill_notes.labels.notes',
+                                    )}
                                 </label>
                                 <textarea
                                     className="form-control"
