@@ -146,7 +146,7 @@ export default function Reservations() {
                                 onChange={(organization_id?: number) => filters.update({ organization_id })}
                                 multiline={true}
                                 allowSearch={true}
-                                dusk="selectControlProviders"
+                                dusk="selectControlOrganizations"
                             />
                         </div>
                         <div className="form-group">

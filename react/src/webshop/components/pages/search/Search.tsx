@@ -347,7 +347,7 @@ export default function Search() {
                                     value={filterValues.organization_id}
                                     onChange={(id?: number) => filterUpdate({ organization_id: id })}
                                     options={organizations}
-                                    dusk="selectControlProviders"
+                                    dusk="selectControlOrganizations"
                                 />
                             </div>
                         )}
