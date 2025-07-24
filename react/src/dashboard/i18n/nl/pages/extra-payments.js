@@ -23,6 +23,16 @@ export default {
         search: 'Zoeken',
         amount: 'Bijbetaald',
     },
+    tooltips: {
+        id: 'Uniek ID van de bijbetaling.',
+        fund_name: 'Regeling waaruit het tegoed is betaald.',
+        product_name: 'Aanbod waarvoor is bijbetaald.',
+        provider_name: 'Naam van de aanbieder.',
+        price: 'Bedrag dat is betaald vanuit het tegoed.',
+        paid_at: 'Datum en tijdstip van de bijbetaling.',
+        method: 'Methode van bijbetaling (bijv. iDeal).',
+        amount: 'Bedrag dat is bijbetaald.',
+    },
     buttons: {
         clear_filter: 'Wis filters',
     },

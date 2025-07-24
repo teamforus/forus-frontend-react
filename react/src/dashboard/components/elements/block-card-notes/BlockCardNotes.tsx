@@ -18,6 +18,9 @@ import useTranslate from '../../../hooks/useTranslate';
 import LoaderTableCard from '../loader-table-card/LoaderTableCard';
 import TableRowActions from '../tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
+import { useOrganizationService } from '../../../services/OrganizationService';
+import TableTopScroller from '../tables/TableTopScroller';
 
 export default function BlockCardNotes({
     isAssigned,
@@ -41,6 +44,7 @@ export default function BlockCardNotes({
     const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
+    const organizationService = useOrganizationService();
 
     const [notes, setNotes] = useState<PaginationData<Note>>(null);
     const [paginatorKey] = useState('fund_request_notes');
@@ -49,6 +53,8 @@ export default function BlockCardNotes({
         q: '',
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(organizationService.getNoteColumns());
 
     const updateNotes = useCallback(() => {
         setProgress(0);
@@ -137,16 +143,13 @@ export default function BlockCardNotes({
             <LoaderTableCard empty={!notes.meta.total} emptyTitle={'Geen notities'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table table-align-top">
+                                {headElement}
+
                                 <tbody>
-                                    <tr>
-                                        <th>{translate('notes.labels.id')}</th>
-                                        <th>{translate('notes.labels.created_at')}</th>
-                                        <th>{translate('notes.labels.created_by')}</th>
-                                        <th>{translate('notes.labels.note')}</th>
-                                        <th className="text-right">{translate('notes.labels.actions')}</th>
-                                    </tr>
                                     {notes.data?.map((note) => (
                                         <tr key={note.id} data-dusk={`noteRow${note.id}`}>
                                             <td className="td-narrow nowrap">{note.id}</td>
@@ -182,7 +185,7 @@ export default function BlockCardNotes({
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
 

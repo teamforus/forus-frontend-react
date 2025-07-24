@@ -82,15 +82,18 @@ export class PrevalidationService<T = Prevalidation> {
 
     public getColumns(headers: Array<string>, typesByKey: object): Array<ConfigurableTableColumn> {
         const list = ['code', 'fund', 'employee', ...headers, 'active', 'exported'];
+        const listHasTooltip = ['code', 'fund', 'employee', 'active', 'exported'];
 
         return list.map((key) => ({
             key,
             label: typesByKey?.[key] || `prevalidated_table.labels.${key}`,
-            tooltip: {
-                key: key,
-                title: typesByKey?.[key] || `prevalidated_table.labels.${key}`,
-                description: typesByKey?.[key] || `prevalidated_table.tooltips.${key}`,
-            },
+            tooltip: listHasTooltip.includes(key)
+                ? {
+                      key: key,
+                      title: typesByKey?.[key] || `prevalidated_table.labels.${key}`,
+                      description: typesByKey?.[key] || `prevalidated_table.tooltips.${key}`,
+                  }
+                : null,
         }));
     }
 }

@@ -2,24 +2,25 @@ import React from 'react';
 import Fund from '../../../../../props/models/Fund';
 import EmptyCard from '../../../../elements/empty-card/EmptyCard';
 import TableDateTime from '../../../../elements/tables/elements/TableDateTime';
+import TableTopScroller from '../../../../elements/tables/TableTopScroller';
+import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
+import { useFundService } from '../../../../../services/FundService';
+import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
 
 export default function OrganizationsFundsShowFormulasCard({ fund }: { fund: Fund }) {
+    const fundService = useFundService();
+
+    const { headElement, configsElement } = useConfigurableTable(fundService.getFormulasColumns());
+
     return (
         <div className="card-section">
             <div className="card-block card-block-table">
-                <div className="table-wrapper">
+                {configsElement}
+
+                <TableTopScroller>
                     {fund.formulas?.length > 0 ? (
                         <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Type</th>
-                                    <th>Bedrag</th>
-                                    <th>Gegeven</th>
-                                    <th>Aangemaakt op</th>
-                                    <th className="text-right">Laatste aanpassing</th>
-                                </tr>
-                            </thead>
+                            {headElement}
 
                             <tbody>
                                 {fund.formulas.map((formula) => (
@@ -31,8 +32,11 @@ export default function OrganizationsFundsShowFormulasCard({ fund }: { fund: Fun
                                         <td>
                                             <TableDateTime value={formula.created_at_locale} />
                                         </td>
-                                        <td className="text-right">
+                                        <td>
                                             <TableDateTime value={formula.updated_at_locale} />
+                                        </td>
+                                        <td className={'table-td-actions text-right'}>
+                                            <TableEmptyValue />
                                         </td>
                                     </tr>
                                 ))}
@@ -41,7 +45,7 @@ export default function OrganizationsFundsShowFormulasCard({ fund }: { fund: Fun
                     ) : (
                         <EmptyCard title={'No fund formulas'} />
                     )}
-                </div>
+                </TableTopScroller>
             </div>
         </div>
     );
