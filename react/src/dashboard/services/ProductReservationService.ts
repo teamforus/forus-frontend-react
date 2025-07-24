@@ -110,6 +110,20 @@ export class ProductReservationService<T = Reservation> {
             },
         }));
     }
+
+    public getExtraPaymentRefundsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['refund_date', 'refund_amount', 'status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `reservation.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `reservation.labels.${key}`,
+                description: `reservation.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export default function useProductReservationService(): ProductReservationService {

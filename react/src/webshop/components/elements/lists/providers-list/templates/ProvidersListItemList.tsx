@@ -17,7 +17,7 @@ export default function ProvidersListItemList({
     const [showOffices, setShowOffices] = useState(false);
 
     return (
-        <div className="organization-item">
+        <div className="organization-item" data-dusk={`listProvidersRow${provider.id}`} data-search-item="1">
             <div className={`organization-pane`}>
                 <StateNavLink
                     name="provider"

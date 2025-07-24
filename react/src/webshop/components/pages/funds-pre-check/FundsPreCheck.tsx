@@ -444,6 +444,7 @@ export default function FundsPreCheck() {
                                                     value={filter.values.q}
                                                     onChangeValue={(q) => filter.update({ q })}
                                                     ariaLabel={translate('pre_check.search')}
+                                                    dataDusk="listFundsPreCheckSearch"
                                                 />
                                             </div>
 
@@ -460,6 +461,7 @@ export default function FundsPreCheck() {
                                                         filter.update({ organization_id })
                                                     }
                                                     multiline={true}
+                                                    dusk="selectControlOrganizations"
                                                 />
                                             </div>
 
@@ -474,6 +476,7 @@ export default function FundsPreCheck() {
                                                     onChange={(tag_id: number) => filter.update({ tag_id })}
                                                     options={tags}
                                                     multiline={true}
+                                                    dusk="selectControlTags"
                                                 />
                                             </div>
                                         </div>
@@ -628,6 +631,7 @@ export default function FundsPreCheck() {
                                                                 }}
                                                                 name={preCheckRecord.record_type_key}
                                                                 id={`pre_check_record_${preCheckRecord.record_type_key}`}
+                                                                dataDusk={`controlNumber${preCheckRecord.record_type_key}`}
                                                             />
                                                         )}
 
@@ -645,6 +649,7 @@ export default function FundsPreCheck() {
                                                                 }}
                                                                 name={preCheckRecord.record_type_key}
                                                                 id={`pre_check_record_${preCheckRecord.record_type_key}`}
+                                                                dataDusk={`controlText${preCheckRecord.record_type_key}`}
                                                             />
                                                         )}
 
@@ -659,6 +664,7 @@ export default function FundsPreCheck() {
                                                                 min={0}
                                                                 name={preCheckRecord.record_type.key}
                                                                 id={`criterion_${preCheckRecord.record_type_key}`}
+                                                                dataDusk={`controlCurrency${preCheckRecord.record_type_key}`}
                                                                 onChangeValue={(value) => {
                                                                     setPreChecks((preChecks) => {
                                                                         preChecks[activeStepIndex].record_types[
@@ -692,7 +698,10 @@ export default function FundsPreCheck() {
                                                     </button>
                                                 </div>
                                                 <div className="flex flex-grow flex-end">
-                                                    <button className="button button-primary button-sm" type="submit">
+                                                    <button
+                                                        className="button button-primary button-sm"
+                                                        data-dusk="submitBtn"
+                                                        type="submit">
                                                         {translate('pre_check.next_step')}
                                                     </button>
                                                 </div>
@@ -710,7 +719,10 @@ export default function FundsPreCheck() {
                                                     </div>
                                                 </h1>
                                             </div>
-                                            <div className="block block-fund-pre-check-result" id="fund_list">
+                                            <div
+                                                className="block block-fund-pre-check-result"
+                                                id="fund_list"
+                                                data-dusk="listFundsPreCheckContent">
                                                 {totals.funds?.map((fund) => (
                                                     <FundsListItemPreCheck key={fund.id} fund={fund} />
                                                 ))}
