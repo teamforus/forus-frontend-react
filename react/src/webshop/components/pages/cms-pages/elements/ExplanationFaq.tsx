@@ -1,19 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Markdown from '../../../elements/markdown/Markdown';
 import implementationPage from '../../../../props/models/ImplementationPage';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import Fund from '../../../../props/models/Fund';
 import { useFundService } from '../../../../services/FundService';
 import { uniqueId } from 'lodash';
 import useEnvData from '../../../../hooks/useEnvData';
-import Section from '../../../elements/sections/Section';
+import FaqBlock from '../../../elements/faq-block/FaqBlock';
 
 export default function ExplanationFaq({ page }: { page: implementationPage }) {
     const envData = useEnvData();
     const translate = useTranslate();
 
-    const [visibleFaq, setVisibleFaq] = useState({});
-    const [defaultFaq, setDefaultFaq] = useState<Array<{ id?: string; title?: string; description?: string }>>([]);
+    const [defaultFaq, setDefaultFaq] = useState<Array<{ id?: number; title?: string; description?: string }>>([]);
 
     const fundService = useFundService();
 
@@ -42,7 +40,7 @@ export default function ExplanationFaq({ page }: { page: implementationPage }) {
             const contentKey = `home.faq.${envData.client_key}.${key}`;
 
             return {
-                id: uniqueId('faq_default_'),
+                id: parseInt(uniqueId()),
                 title: translate(titleKey, { fund }, `home.faq.faq_${key}`),
                 description: translate(contentKey, { fund, start_date }, `home.faq.${key}`),
             };
@@ -73,64 +71,9 @@ export default function ExplanationFaq({ page }: { page: implementationPage }) {
         return null;
     }
 
-    return (
-        <Section type={'faq'}>
-            <h1 className="section-title">{translate('home.faq.title', { client_key: '' })}</h1>
-            {page.faq?.length > 0 ? (
-                <div className="block block-faq">
-                    {page.faq.map((faq) => (
-                        <div
-                            key={faq.id}
-                            className={`faq-item ${visibleFaq?.[faq.id] ? 'active' : ''}`}
-                            onClick={() => {
-                                setVisibleFaq({
-                                    ...visibleFaq,
-                                    [faq.id]: !visibleFaq?.[faq.id],
-                                });
-                            }}>
-                            <div className="faq-item-header">
-                                <span aria-expanded={visibleFaq?.[faq.id]} role="button">
-                                    {faq.title}
-                                </span>
-                                <div className="faq-item-chevron-down mdi mdi-chevron-down" aria-hidden="true" />
-                                <div className="faq-item-chevron-up mdi mdi-chevron-up" aria-hidden="true" />
-                            </div>
-                            <div className="faq-item-content">
-                                <Markdown content={faq.description_html} aria-labelledby={faq.title} role="region" />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <div className="block block-faq">
-                    {defaultFaq.map((faq) => (
-                        <div
-                            key={faq.id}
-                            className={`faq-item ${visibleFaq?.[faq.id] ? 'active' : ''}`}
-                            onClick={() => {
-                                setVisibleFaq({
-                                    ...visibleFaq,
-                                    [faq.id]: !visibleFaq?.[faq.id],
-                                });
-                            }}>
-                            <div className="faq-item-header">
-                                <span aria-expanded={visibleFaq?.[faq.id]} role="button">
-                                    {faq.title}
-                                </span>
-                                <div className="faq-item-chevron-down mdi mdi-chevron-down" aria-hidden="true" />
-                                <div className="faq-item-chevron-up mdi mdi-chevron-up" aria-hidden="true" />
-                            </div>
-                            <div className="faq-item-content">
-                                <div className="block block-markdown">
-                                    <p role="region" aria-labelledby={faq.title}>
-                                        {faq.description}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </Section>
-    );
+    if (page.faq?.length > 0) {
+        return <FaqBlock title={translate('home.faq.title', { client_key: '' })} items={page.faq} />;
+    }
+
+    return <FaqBlock title={translate('home.faq.title', { client_key: '' })} items={defaultFaq} />;
 }

@@ -100,7 +100,7 @@ export default function Products() {
             reservation: false,
             extra_payment: false,
             bookmarked: false,
-            display_type: 'list',
+            display_type: 'grid',
             order_by: sortByOptions[0]?.value.order_by,
             order_dir: sortByOptions[0]?.value.order_dir,
         },
@@ -571,20 +571,6 @@ export default function Products() {
                                         className={classNames(
                                             'label-tab',
                                             'label-tab-sm',
-                                            filterValues.display_type == 'list' && 'active',
-                                        )}
-                                        onClick={() => filterUpdate({ display_type: 'list' })}
-                                        onKeyDown={clickOnKeyEnter}
-                                        tabIndex={0}
-                                        aria-pressed={filterValues.display_type == 'list'}
-                                        role="button">
-                                        <em className="mdi mdi-format-list-text icon-start" />
-                                        {translate('products.view.list')}
-                                    </div>
-                                    <div
-                                        className={classNames(
-                                            'label-tab',
-                                            'label-tab-sm',
                                             filterValues.display_type == 'grid' && 'active',
                                         )}
                                         onClick={() => filterUpdate({ display_type: 'grid' })}
@@ -594,6 +580,20 @@ export default function Products() {
                                         role="button">
                                         <em className="mdi mdi-view-grid-outline icon-start" />
                                         {translate('products.view.grid')}
+                                    </div>
+                                    <div
+                                        className={classNames(
+                                            'label-tab',
+                                            'label-tab-sm',
+                                            filterValues.display_type == 'list' && 'active',
+                                        )}
+                                        onClick={() => filterUpdate({ display_type: 'list' })}
+                                        onKeyDown={clickOnKeyEnter}
+                                        tabIndex={0}
+                                        aria-pressed={filterValues.display_type == 'list'}
+                                        role="button">
+                                        <em className="mdi mdi-format-list-text icon-start" />
+                                        {translate('products.view.list')}
                                     </div>
                                 </div>
                             </div>

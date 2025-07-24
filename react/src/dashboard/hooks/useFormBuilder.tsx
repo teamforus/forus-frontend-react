@@ -52,6 +52,7 @@ export default function useFormBuilder<T = FormValuesModel, D = unknown>(
     return useMemo(
         () => ({
             values,
+            setValues,
             update,
             submit,
             isLocked,
