@@ -14,7 +14,7 @@ export default function TermsAndConditions() {
                 { name: translate('terms_and_conditions.breadcrumbs.home'), state: 'home' },
                 { name: translate('terms_and_conditions.breadcrumbs.terms_and_conditions') },
             ]}>
-            {page && <CmsBlocks page={page} />}
+            {page && <CmsBlocks page={page} largeMarkdown={true} />}
         </BlockShowcase>
     );
 }
