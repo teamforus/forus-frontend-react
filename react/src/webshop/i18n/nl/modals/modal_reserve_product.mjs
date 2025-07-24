@@ -36,7 +36,8 @@ export default {
         labels: {
             first_name: 'Voornaam',
             last_name: 'Achternaam',
-            notes: 'Opmerking (optioneel)',
+            notes: 'Opmerking',
+            notes_optional: 'Opmerking (optioneel)',
             phone: 'Telefoonnummer',
             address: 'Adres',
             street: 'Straat',

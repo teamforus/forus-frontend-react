@@ -187,8 +187,7 @@
             "more": "Mehr sehen"
         },
         "header": {
-            "title_budget": "Angebot",
-            "title_subsidies": "Angebot"
+            "title_budget": "Angebot"
         },
         "input": {
             "placeholder": "Suche nach Produkten oder Dienstleistungen"
@@ -1658,11 +1657,12 @@
                 "house_nr": "Hausnummer",
                 "house_nr_addition": "Hausnummer Zusatz",
                 "last_name": "Nachname",
-                "notes": "Anmerkung (fakultativ)",
                 "phone": "Rufnummer",
                 "phone_optional": "Telefonnummer (fakultativ)",
                 "postal_code": "Postleitzahl",
-                "street": "Straße"
+                "street": "Straße",
+                "notes": "Kommentar",
+                "notes_optional": "Anmerkung (fakultativ)"
             },
             "max_characters": "Max. 400 Zeichen",
             "placeholders": {
@@ -2204,8 +2204,7 @@
         "breadcrumbs": {
             "back": "Zurück",
             "home": "Startseite",
-            "products": "Angebot",
-            "subsidies": "Angebot"
+            "products": "Angebot"
         },
         "buttons": {
             "buy": "Buchung",
@@ -3091,7 +3090,6 @@
             "providers": "Anbieter",
             "records": "Meine persönlichen Daten",
             "reimbursements": "Kostendeckung",
-            "subsidies": "Angebot",
             "vergoedingen": {
                 "activate": "Gebühren",
                 "login": "Anmelden/Registrieren"
@@ -3149,7 +3147,6 @@
             },
             "search": "Suche",
             "signup": "Erläuterung Anbieter",
-            "subsidies": "Angebot",
             "vergoedingen": {
                 "funds": "Gebühren"
             },

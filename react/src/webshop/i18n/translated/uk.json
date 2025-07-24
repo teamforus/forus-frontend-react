@@ -187,8 +187,7 @@
             "more": "Переглянути більше"
         },
         "header": {
-            "title_budget": "Пропозиція",
-            "title_subsidies": "Пропозиція"
+            "title_budget": "Пропозиція"
         },
         "input": {
             "placeholder": "Пошук продуктів або послуг"
@@ -1658,11 +1657,12 @@
                 "house_nr": "Номер будинку",
                 "house_nr_addition": "Додавання номера будинку",
                 "last_name": "Прізвище",
-                "notes": "Примітка (необов'язково)",
                 "phone": "Номер телефону",
                 "phone_optional": "Номер телефону (необов'язково)",
                 "postal_code": "Поштовий індекс",
-                "street": "Вулиця"
+                "street": "Вулиця",
+                "notes": "Коментар",
+                "notes_optional": "Примітка (необов'язково)"
             },
             "max_characters": "Максимально. 400 символів",
             "placeholders": {
@@ -2204,8 +2204,7 @@
         "breadcrumbs": {
             "back": "Назад",
             "home": "Головна сторінка",
-            "products": "Пропозиція",
-            "subsidies": "Пропозиція"
+            "products": "Пропозиція"
         },
         "buttons": {
             "buy": "Бронювання",
@@ -3091,7 +3090,6 @@
             "providers": "Провайдери",
             "records": "Мої особисті дані",
             "reimbursements": "Відшкодування витрат",
-            "subsidies": "Пропозиція",
             "vergoedingen": {
                 "activate": "Гонорари",
                 "login": "Вхід / реєстрація"
@@ -3149,7 +3147,6 @@
             },
             "search": "Пошук",
             "signup": "Постачальники пояснень",
-            "subsidies": "Пропозиція",
             "vergoedingen": {
                 "funds": "Гонорари"
             },

@@ -663,7 +663,6 @@
             "providers": "Sağlayıcılar",
             "records": "Kişisel bilgilerim",
             "reimbursements": "Maliyet geri kazanımı",
-            "subsidies": "Teklif",
             "vergoedingen": {
                 "activate": "Ücretler",
                 "login": "Oturum açma / kayıt olma"
@@ -721,7 +720,6 @@
             },
             "search": "Arama",
             "signup": "Açıklama sağlayıcıları",
-            "subsidies": "Teklif",
             "vergoedingen": {
                 "funds": "Ücretler"
             },
@@ -1774,8 +1772,7 @@
         "breadcrumbs": {
             "back": "Geri",
             "home": "Ev",
-            "products": "Teklif",
-            "subsidies": "Teklif"
+            "products": "Teklif"
         },
         "buttons": {
             "buy": "Rezervasyon",
@@ -3079,11 +3076,12 @@
                 "house_nr": "Ev numarası",
                 "house_nr_addition": "Ev numarası ekleme",
                 "last_name": "Soyadı",
-                "notes": "Not (isteğe bağlı)",
                 "phone": "Telefon numarası",
                 "phone_optional": "Telefon numarası (isteğe bağlı)",
                 "postal_code": "Posta kodu",
-                "street": "Sokak"
+                "street": "Sokak",
+                "notes": "Yorum",
+                "notes_optional": "Not (isteğe bağlı)"
             },
             "max_characters": "Maks. 400 karakter",
             "placeholders": {
@@ -3323,8 +3321,7 @@
             "more": "Daha fazla görüntüle"
         },
         "header": {
-            "title_budget": "Teklif",
-            "title_subsidies": "Teklif"
+            "title_budget": "Teklif"
         },
         "input": {
             "placeholder": "Ürün veya hizmet arama"

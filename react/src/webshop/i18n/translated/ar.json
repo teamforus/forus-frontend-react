@@ -663,7 +663,6 @@
             "providers": "المزودون",
             "records": "بياناتي الشخصية",
             "reimbursements": "استرداد التكاليف",
-            "subsidies": "العرض",
             "vergoedingen": {
                 "activate": "الرسوم",
                 "login": "تسجيل الدخول/التسجيل"
@@ -721,7 +720,6 @@
             },
             "search": "بحث",
             "signup": "مقدمو الشرح",
-            "subsidies": "العرض",
             "vergoedingen": {
                 "funds": "الرسوم"
             },
@@ -1774,8 +1772,7 @@
         "breadcrumbs": {
             "back": "رجوع",
             "home": "الصفحة الرئيسية",
-            "products": "العرض",
-            "subsidies": "العرض"
+            "products": "العرض"
         },
         "buttons": {
             "buy": "الحجز",
@@ -3079,11 +3076,12 @@
                 "house_nr": "رقم المنزل",
                 "house_nr_addition": "إضافة رقم المنزل",
                 "last_name": "اللقب",
-                "notes": "ملاحظة (اختياري)",
                 "phone": "رقم الهاتف",
                 "phone_optional": "رقم الهاتف (اختياري)",
                 "postal_code": "الرمز البريدي",
-                "street": "الشارع"
+                "street": "الشارع",
+                "notes": "تعليق",
+                "notes_optional": "ملاحظة (اختياري)"
             },
             "max_characters": "كحد أقصى. 400 حرف",
             "placeholders": {
@@ -3323,8 +3321,7 @@
             "more": "عرض المزيد"
         },
         "header": {
-            "title_budget": "العرض",
-            "title_subsidies": "العرض"
+            "title_budget": "العرض"
         },
         "input": {
             "placeholder": "البحث عن المنتجات أو الخدمات"

@@ -7,6 +7,7 @@ export default {
         label: 'Label',
         type: 'Type',
         description: 'Beschrijving',
+        user_note: 'Opmerkingenveld',
         required: 'Verplicht',
         phone: 'Telefoonnummer instellingen',
         address: 'Adres instellingen',

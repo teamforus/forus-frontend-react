@@ -248,7 +248,6 @@
             "providers": "Providers",
             "records": "My personal data",
             "reimbursements": "Cost recovery",
-            "subsidies": "Offer",
             "vergoedingen": {
                 "activate": "Fees",
                 "login": "Login / register"
@@ -306,7 +305,6 @@
             },
             "search": "Search",
             "signup": "Explanation providers",
-            "subsidies": "Offer",
             "vergoedingen": {
                 "funds": "Fees"
             },
@@ -1476,8 +1474,7 @@
         "breadcrumbs": {
             "back": "Back",
             "home": "Home",
-            "products": "Offer",
-            "subsidies": "Offer"
+            "products": "Offer"
         },
         "buttons": {
             "buy": "Booking",
@@ -2642,8 +2639,7 @@
             "more": "View more"
         },
         "header": {
-            "title_budget": "Offer",
-            "title_subsidies": "Offer"
+            "title_budget": "Offer"
         },
         "input": {
             "placeholder": "Search for products or services"
@@ -3403,11 +3399,12 @@
                 "house_nr": "House number",
                 "house_nr_addition": "House number addition",
                 "last_name": "Surname",
-                "notes": "Note (optional)",
                 "phone": "Phone number",
                 "phone_optional": "Phone number (optional)",
                 "postal_code": "Postal code",
-                "street": "Street"
+                "street": "Street",
+                "notes": "Note",
+                "notes_optional": "Note (optional)"
             },
             "max_characters": "Max. 400 characters",
             "placeholders": {
