@@ -32,4 +32,9 @@ export default {
         refund_date: 'Datum van terugbetaling',
         refund_amount: 'Terugbetaald',
     },
+    tooltips: {
+        refund_date: 'De datum dat de bijbetaling is terugbetaald door de aanbieder.',
+        refund_amount: 'Het bedrag dat is terugbetaald door de aanbieder.',
+        status: 'De status van de terugbetaling.',
+    },
 };

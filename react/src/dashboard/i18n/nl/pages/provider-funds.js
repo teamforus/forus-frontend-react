@@ -35,6 +35,17 @@ export default {
         actions: 'Acties',
         status: 'Status',
     },
+    tooltips: {
+        name: 'De naam van de regeling waar de aanbieder zich voor heeft aangemeld.',
+        organization_name: 'De naam van de organisatie van de uitgifte van het fonds.',
+        start_date: 'Begindatum van het fonds dat is ingesteld door de sponsor.',
+        end_date: 'Einddatum van het fonds dat is ingesteld door de sponsor.',
+        max_amount: 'Het maximale bedrag dat kan worden besteed.',
+        allow_budget: 'Geeft aan of de aanbieder is geaccepteerd voor het scannen van tegoeden (Ja/Nee).',
+        allow_products:
+            'Geeft aan of alle producten van de aanbieder standaard zijn geaccepteerd (Ja) of dat deze individueel moeten worden beoordeeld door de sponsor (Nee).',
+        status: 'Status van de aanmelding voor het fonds.',
+    },
     empty_block: {
         available: 'Er zijn geen beschikbare fondsen waar u zich voor kunt aanmelden.',
         active: 'Er zijn geen fondsen waar u actief voor bent.',
