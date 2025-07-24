@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ApiResponse, { ApiResponseSingle } from '../props/ApiResponses';
 import ApiRequestService from './ApiRequestService';
 import ReimbursementCategory from '../props/models/ReimbursementCategory';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class ReimbursementCategoryService<T = ReimbursementCategory> {
     /**
@@ -34,6 +35,20 @@ export class ReimbursementCategoryService<T = ReimbursementCategory> {
 
     public destroy(organizationId: number, id: number): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.delete(`${this.prefix}/${organizationId}/reimbursement-categories/${id}`);
+    }
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['name', 'organization', 'reimbursements_count'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `reimbursement_categories.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `reimbursement_categories.labels.${key}`,
+                description: `reimbursement_categories.tooltips.${key}`,
+            },
+        }));
     }
 }
 

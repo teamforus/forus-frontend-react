@@ -1,9 +1,16 @@
 import FundRequestRecord from '../../../../../props/models/FundRequestRecord';
 import React, { Fragment } from 'react';
 import useTranslate from '../../../../../hooks/useTranslate';
+import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
+import { useFundRequestValidatorService } from '../../../../../services/FundRequestValidatorService';
+import TableTopScroller from '../../../../elements/tables/TableTopScroller';
+import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
 
 export default function FundRequestRecordHistoryTab({ record }: { record: FundRequestRecord }) {
     const translate = useTranslate();
+    const fundRequestService = useFundRequestValidatorService();
+
+    const { headElement, configsElement } = useConfigurableTable(fundRequestService.getRecordChangesColumns());
 
     return (
         <div className="card" data-dusk="historyTabContent">
@@ -14,17 +21,13 @@ export default function FundRequestRecordHistoryTab({ record }: { record: FundRe
             </div>
             <div className="card-section">
                 <div className="card-block card-block-table">
-                    <div className="table-wrapper">
+                    {configsElement}
+
+                    <TableTopScroller>
                         <table className="table table-fixed">
+                            {headElement}
+
                             <tbody>
-                                <tr>
-                                    <th>{translate('validation_request_details.labels.new_value')}</th>
-                                    <th>{translate('validation_request_details.labels.old_value')}</th>
-                                    <th>{translate('validation_request_details.labels.employee')}</th>
-                                    <th className="text-right">
-                                        {translate('validation_request_details.labels.date_changed')}
-                                    </th>
-                                </tr>
                                 {record.history?.map((log) => (
                                     <tr key={log.id} data-dusk={`recordHistoryRow${log.id}`} className="light">
                                         {record?.record_type.type != 'select' && (
@@ -49,14 +52,17 @@ export default function FundRequestRecordHistoryTab({ record }: { record: FundRe
                                             </Fragment>
                                         )}
                                         <td className="text-strong">{log.employee_email}</td>
-                                        <td className="text-right">
+                                        <td>
                                             <strong className="text-primary">{log.created_at_locale}</strong>
+                                        </td>
+                                        <td className={'table-td-actions text-right'}>
+                                            <TableEmptyValue />
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </TableTopScroller>
                 </div>
             </div>
 

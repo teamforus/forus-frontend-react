@@ -35,6 +35,8 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import Icon from '../../../../../assets/forus-platform/resources/_platform-common/assets/img/fund-request-icon.svg';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useEmailLogService from '../../../services/EmailLogService';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
 
 export default function FundRequestsView() {
     const authIdentity = useAuthIdentity();
@@ -140,6 +142,10 @@ export default function FundRequestsView() {
                 (!isAssigned && isDisregarded && fundRequest.replaced),
         };
     }, [activeOrganization.bsn_enabled, authIdentity?.address, fundRequest, isValidatorsSupervisor]);
+
+    const { headElement, configsElement } = useConfigurableTable(fundRequestService.getRecordsColumns(), {
+        trPrepend: <Fragment>{fundRequestMeta?.hasContent && <th className="cell-chevron th-narrow" />}</Fragment>,
+    });
 
     const updateNotesRef = useRef<() => void>(null);
     const fetchEmailsRef = useRef<() => void>(null);
@@ -715,21 +721,12 @@ export default function FundRequestsView() {
                 </div>
                 <div className="card-section">
                     <div className="card-block card-block-table card-block-request-record">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        {fundRequestMeta.hasContent && <th className="cell-chevron th-narrow" />}
-                                        <th style={{ width: '20%' }}>{translate('validation_requests.labels.type')}</th>
-                                        <th style={{ width: '20%' }}>
-                                            {translate('validation_requests.labels.value')}
-                                        </th>
-                                        <th style={{ width: '20%' }}>{translate('validation_requests.labels.date')}</th>
-                                        <th style={{ width: '20%' }} className="text-right">
-                                            {translate('validation_requests.labels.actions')}
-                                        </th>
-                                    </tr>
-                                </thead>
+                                {headElement}
+
                                 {fundRequestMeta.records.map((record) => (
                                     <tbody key={record.id} data-dusk={`tableFundRequestRecordRow${record.id}`}>
                                         <tr>
@@ -812,7 +809,7 @@ export default function FundRequestsView() {
                                     </tbody>
                                 ))}
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
 
