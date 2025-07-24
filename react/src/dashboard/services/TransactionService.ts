@@ -84,8 +84,8 @@ export class TransactionService<T = Transaction> {
             isProvider ? 'product_name' : null,
             isSponsor ? 'payment_type' : null,
             isSponsor ? 'provider_name' : null,
-            isSponsor ? 'execution_date' : null,
             isSponsor ? 'date_non_cancelable' : null,
+            isSponsor ? 'execution_date' : null,
             isSponsor ? 'bulk_id' : null,
             isSponsor ? 'bulk_state' : null,
             'state',
@@ -98,6 +98,67 @@ export class TransactionService<T = Transaction> {
                 key: key,
                 title: `transactions.labels.${key}`,
                 description: `transactions.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getColumnsForVoucher(isSponsor: boolean): Array<ConfigurableTableColumn> {
+        const list = [
+            'id',
+            'uid',
+            'amount',
+            'created_at',
+            'fund_name',
+            'target',
+            isSponsor ? 'provider_name' : null,
+            'product_name',
+            'state',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `transactions.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `transactions.labels.${key}`,
+                description: `transactions.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getBulkTransactionsColumns(): Array<ConfigurableTableColumn> {
+        const list = [
+            'id',
+            'uid',
+            'amount',
+            'created_at',
+            'fund_name',
+            'provider_name',
+            'product_name',
+            'status',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `transactions.bulks.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `transactions.bulks.labels.${key}`,
+                description: `transactions.bulks.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderFinancialTransactionsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['provider_name', 'price', 'product_name', 'date', 'status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `fund_card_provider_finances.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `fund_card_provider_finances.labels.${key}`,
+                description: `fund_card_provider_finances.tooltips.${key}`,
             },
         }));
     }

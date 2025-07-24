@@ -118,7 +118,7 @@ export default function ProductFundsCard({
                     <div className="pane-section pane-section-collapsed">
                         <div className="product-funds-list">
                             {listFunds.map((fund) => (
-                                <div key={fund.id} className="fund-item" data-dusk={`fundItem${fund.id}`}>
+                                <div key={fund.id} className="fund-item" data-dusk={`listFundsRow${fund.id}`}>
                                     <div className="fund-item-section fund-item-section-details text-left">
                                         <div className="fund-item-media">
                                             <img

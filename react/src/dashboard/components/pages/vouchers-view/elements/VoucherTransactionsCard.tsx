@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useEnvData from '../../../../hooks/useEnvData';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import useFilter from '../../../../hooks/useFilter';
-import ThSortable from '../../../elements/tables/ThSortable';
 import { currencyFormat, strLimit } from '../../../../helpers/string';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import FilterModel from '../../../../types/FilterModel';
@@ -11,10 +10,12 @@ import useTransactionService from '../../../../services/TransactionService';
 import Organization from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import Label from '../../../elements/image_cropper/Label';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import TableRowActions from '../../../elements/tables/TableRowActions';
 
 export default function VoucherTransactionsCard({
     blockTitle,
@@ -28,7 +29,6 @@ export default function VoucherTransactionsCard({
     fetchTransactionsRef?: React.MutableRefObject<() => void>;
 }) {
     const envData = useEnvData();
-    const translate = useTranslate();
     const setProgress = useSetProgress();
     const transactionService = useTransactionService();
 
@@ -39,6 +39,11 @@ export default function VoucherTransactionsCard({
     }, [envData.client_type]);
 
     const filter = useFilter(filterValues);
+
+    const { headElement, configsElement } = useConfigurableTable(transactionService.getColumnsForVoucher(isSponsor), {
+        filter,
+        sortable: true,
+    });
 
     const fetchTransactions = useCallback(() => {
         setProgress(100);
@@ -74,64 +79,13 @@ export default function VoucherTransactionsCard({
             {transactions.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.id')}
-                                            value="id"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.uid')}
-                                            value="uid"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.amount')}
-                                            value="amount"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.created_at')}
-                                            value="created_at"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.fund_name')}
-                                            value="fund_name"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.target')}
-                                            value="target"
-                                        />
-                                        {isSponsor && (
-                                            <ThSortable
-                                                filter={filter}
-                                                label={translate('transactions.labels.provider_name')}
-                                                value="provider_name"
-                                            />
-                                        )}
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.product_name')}
-                                            value="product_name"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('transactions.labels.state')}
-                                            value="state"
-                                        />
-                                        <ThSortable
-                                            className="th-narrow text-right"
-                                            filter={filter}
-                                            label={translate('transactions.labels.action')}
-                                        />
-                                    </tr>
+                        {configsElement}
 
+                        <TableTopScroller>
+                            <table className="table">
+                                {headElement}
+
+                                <tbody>
                                     {transactions.data.map((transaction) => (
                                         <tr key={transaction.id}>
                                             <td>{transaction.id}</td>
@@ -180,22 +134,28 @@ export default function VoucherTransactionsCard({
                                                 )}
                                             </td>
 
-                                            <td className="td-narrow text-right">
-                                                <StateNavLink
-                                                    name={'transaction'}
-                                                    className="button button-sm button-primary button-icon pull-right"
-                                                    params={{
-                                                        address: transaction.address,
-                                                        organizationId: organization.id,
-                                                    }}>
-                                                    <em className="mdi mdi-eye-outline icon-start" />
-                                                </StateNavLink>
+                                            <td className={'table-td-actions text-right'}>
+                                                <TableRowActions
+                                                    content={() => (
+                                                        <div className="dropdown dropdown-actions">
+                                                            <StateNavLink
+                                                                name={'transaction'}
+                                                                className="dropdown-item"
+                                                                params={{
+                                                                    address: transaction.address,
+                                                                    organizationId: organization.id,
+                                                                }}>
+                                                                <em className="mdi mdi-eye-outline icon-start" />
+                                                            </StateNavLink>
+                                                        </div>
+                                                    )}
+                                                />
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

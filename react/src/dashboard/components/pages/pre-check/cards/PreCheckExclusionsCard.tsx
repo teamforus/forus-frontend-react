@@ -13,6 +13,8 @@ import Implementation from '../../../../props/models/Implementation';
 import usePreCheckService from '../../../../services/PreCheckService';
 import { strLimit } from '../../../../helpers/string';
 import PreCheckFundsLogo from '../../../../../../assets/forus-platform/resources/_platform-common/assets/img/pre-check-funds-logo.svg';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
 
 export default function PreCheckExclusionsCard({
     funds,
@@ -32,6 +34,8 @@ export default function PreCheckExclusionsCard({
     const [showExcludedFunds, setShowExcludedFunds] = useState(true);
 
     const preCheckService = usePreCheckService();
+
+    const { headElement, configsElement } = useConfigurableTable(preCheckService.getExclusionColumns());
 
     const excludedFunds = useMemo(() => {
         return funds?.filter((fund) => fund.pre_check_excluded || fund.pre_check_note) || [];
@@ -122,18 +126,12 @@ export default function PreCheckExclusionsCard({
             {excludedFunds?.length > 0 ? (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>Fonds</th>
-                                        <th>Uitgesloten</th>
-                                        <th>Uitleg</th>
-                                        <th className="th-narrow text-right">
-                                            {translate('components.organization_funds.labels.actions')}
-                                        </th>
-                                    </tr>
-                                </thead>
+                                {headElement}
+
                                 <tbody>
                                     {excludedFunds.map((fund) => (
                                         <tr key={fund.id}>
@@ -146,7 +144,7 @@ export default function PreCheckExclusionsCard({
                                                     <TableEmptyValue />
                                                 )}
                                             </td>
-                                            <td className="table-td-actions">
+                                            <td className={'table-td-actions text-right'}>
                                                 <TableRowActions
                                                     content={(e) => (
                                                         <div className="dropdown dropdown-actions">
@@ -176,7 +174,7 @@ export default function PreCheckExclusionsCard({
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             ) : (

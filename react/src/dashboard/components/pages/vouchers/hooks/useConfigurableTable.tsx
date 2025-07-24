@@ -10,7 +10,7 @@ export type ConfigurableTableColumn = {
     key: string;
     label: string;
     value?: string;
-    tooltip: { key: string; title: string; description: string };
+    tooltip?: { key: string; title: string; description: string };
 };
 
 export default function useConfigurableTable(
@@ -37,7 +37,7 @@ export default function useConfigurableTable(
         sortableExclude = [],
         filter = null,
         trPrepend = null,
-        hasTooltips = false,
+        hasTooltips = true,
     } = options || {};
 
     const [columnsCached, setColumnsCached] = useState<Array<ConfigurableTableColumn>>(columns);
