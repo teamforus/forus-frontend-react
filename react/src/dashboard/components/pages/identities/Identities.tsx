@@ -123,7 +123,7 @@ export default function Identities() {
 
     const { headElement, configsElement } = useConfigurableTable(
         sponsorIdentitiesService.getColumns(activeOrganization),
-        { filter: filter, sortable: true, hasTooltips: true },
+        { filter: filter, sortable: true },
     );
 
     const { resetFilters: resetFilters, setShow } = filter;
@@ -414,7 +414,7 @@ export default function Identities() {
                                                 )}
                                             </td>
 
-                                            <td className={'table-td-actions'}>
+                                            <td className={'table-td-actions text-right'}>
                                                 <TableRowActions
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">

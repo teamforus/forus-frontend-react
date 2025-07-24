@@ -255,6 +255,7 @@ export default function Providers() {
 
     return (
         <BlockShowcasePage
+            dusk="listProvidersContent"
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
             countFiltersApplied={countFiltersApplied}
@@ -282,6 +283,7 @@ export default function Providers() {
                                     value={filterValues.q}
                                     onChangeValue={(q) => filterUpdate({ q })}
                                     ariaLabel={translate('providers.filters.search')}
+                                    dataDusk="listProvidersSearch"
                                 />
                                 <FormError error={errors?.q} />
                             </div>
@@ -297,6 +299,7 @@ export default function Providers() {
                                     id="business_type_id"
                                     multiline={true}
                                     allowSearch={false}
+                                    dusk="selectControlBusinessTypes"
                                 />
                                 <FormError error={errors?.business_type_id} />
                             </div>
@@ -314,6 +317,7 @@ export default function Providers() {
                                     value={filterValues.product_category_id}
                                     onChange={(id: number) => filterUpdate({ product_category_id: id })}
                                     options={productCategories || []}
+                                    dusk="selectControlCategories"
                                 />
                             </div>
 
@@ -331,6 +335,7 @@ export default function Providers() {
                                         multiline={true}
                                         allowSearch={true}
                                         options={productSubCategories || []}
+                                        dusk="selectControlSubCategories"
                                     />
                                 </div>
                             )}
@@ -365,6 +370,7 @@ export default function Providers() {
                                             onChange={(e) => filterUpdate({ postcode: e.target.value })}
                                             type="text"
                                             aria-label="Postcode"
+                                            data-dusk="inputPostcode"
                                         />
                                         <FormError error={errors?.postcode} />
                                     </div>
@@ -383,6 +389,7 @@ export default function Providers() {
                                             allowSearch={true}
                                             onChange={(distance: number) => filterUpdate({ distance })}
                                             options={distances || []}
+                                            dusk="selectControlDistances"
                                         />
                                         <FormError error={errors?.distance} />
                                     </div>
@@ -444,6 +451,7 @@ export default function Providers() {
                                                     sortByOptions.find((option) => option.id == id)?.value || {},
                                                 );
                                             }}
+                                            dusk="selectControlOrderBy"
                                         />
                                     </div>
                                 )}

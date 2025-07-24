@@ -32,7 +32,8 @@ export default function ReservationCard({
             name={'reservation-show'}
             params={{ id: reservation.id }}
             className="reservation-item"
-            dataDusk={`reservationItem${reservation.id}`}>
+            dataDusk={`listReservationsRow${reservation.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             <div className="reservation-item-body">
                 <div className="reservation-image">
                     <img
