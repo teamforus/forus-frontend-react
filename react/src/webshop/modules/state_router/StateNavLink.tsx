@@ -19,6 +19,7 @@ export default function StateNavLink({
     onClick = null,
     onKeyDown = null,
     tabIndex = null,
+    dataAttributes = null,
 }: HTMLAttributes<HTMLAnchorElement> & {
     name: string;
     dataDusk?: string;
@@ -34,6 +35,7 @@ export default function StateNavLink({
     tabIndex?: number;
     onClick?: (e: React.MouseEvent) => void;
     onKeyDown?: (e: React.KeyboardEvent) => void;
+    dataAttributes?: object;
 }) {
     const navigateState = useNavigateState();
 
@@ -54,6 +56,7 @@ export default function StateNavLink({
                 tabIndex,
                 style: { cursor: 'pointer' },
                 onKeyDown: onKeyDown,
+                ...{ dataAttributes },
                 onClick: (e) => {
                     e.stopPropagation();
                     e.preventDefault();
@@ -77,7 +80,8 @@ export default function StateNavLink({
                 return classNames('state-nav-link', className, isPending && 'pending', isActive && activeClass);
             }}
             state={state}
-            to={getStateRouteUrl(name, params, query)}>
+            to={getStateRouteUrl(name, params, query)}
+            {...dataAttributes}>
             {children}
         </NavLink>
     );
