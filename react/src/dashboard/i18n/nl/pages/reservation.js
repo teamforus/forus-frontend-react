@@ -31,6 +31,8 @@ export default {
         extra_payment_paid_at: 'Datum van bijbetaling',
         refund_date: 'Datum van terugbetaling',
         refund_amount: 'Terugbetaald',
+        cancellation_note: 'Notitie',
+        rejection_note: 'Notitie',
     },
     tooltips: {
         refund_date: 'De datum dat de bijbetaling is terugbetaald door de aanbieder.',
