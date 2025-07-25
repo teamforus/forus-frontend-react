@@ -108,16 +108,14 @@ export default function useReservationsTableActions(organization: Organization, 
                 }
             }
 
-            openModal((modal) => {
-                return (
-                    <ModalReservationReject
-                        modal={modal}
-                        organization={organization}
-                        reservations={reservations}
-                        onDone={() => fetchReservations()}
-                    />
-                );
-            });
+            openModal((modal) => (
+                <ModalReservationReject
+                    modal={modal}
+                    organization={organization}
+                    reservations={reservations}
+                    onDone={() => fetchReservations()}
+                />
+            ));
         },
         [openModal, showReservationRejectInfoExtraPaid, organization, fetchReservations],
     );

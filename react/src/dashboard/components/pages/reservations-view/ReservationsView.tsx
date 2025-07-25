@@ -291,25 +291,27 @@ export default function ReservationsView() {
                                     </tr>
                                     {reservation.canceled_at &&
                                         reservation.state === 'canceled' &&
-                                        reservation.canceled_note && (
+                                        reservation.cancellation_note && (
                                             <tr>
                                                 <td className="card-section card-section-warning" colSpan={4}>
                                                     <strong className="text-strong text-md text-primary">
-                                                        {translate('reservation.labels.canceled_note')}
+                                                        {translate('reservation.labels.cancellation_note')}
                                                     </strong>
                                                     <br />
-                                                    <strong className="text-black">{reservation.canceled_note}</strong>
+                                                    <strong className="text-black">
+                                                        {reservation.cancellation_note}
+                                                    </strong>
                                                 </td>
                                             </tr>
                                         )}
-                                    {reservation.rejected_at && reservation.rejected_note && (
+                                    {reservation.rejected_at && reservation.rejection_note && (
                                         <tr className="card-section-warning">
                                             <td className="card-section card-section-warning" colSpan={4}>
                                                 <strong className="text-strong text-md text-primary">
-                                                    {translate('reservation.labels.rejected_note')}
+                                                    {translate('reservation.labels.rejection_note')}
                                                 </strong>
                                                 <br />
-                                                <strong className="text-black">{reservation.rejected_note}</strong>
+                                                <strong className="text-black">{reservation.rejection_note}</strong>
                                             </td>
                                         </tr>
                                     )}

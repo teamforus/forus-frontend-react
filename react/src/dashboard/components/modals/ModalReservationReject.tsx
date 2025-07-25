@@ -46,10 +46,10 @@ export default function ModalReservationReject({
         return 'Wanneer u de betaling annuleert wordt u niet meer uitbetaald.';
     }, [reservations]);
 
-    const form = useFormBuilder<{ note: string; notify_with_note: boolean }>(
+    const form = useFormBuilder<{ note: string; share_note_by_email: boolean }>(
         {
             note: '',
-            notify_with_note: false,
+            share_note_by_email: false,
         },
         (values) => {
             const total = reservations.length;
@@ -86,9 +86,7 @@ export default function ModalReservationReject({
     );
 
     return (
-        <div
-            data-dusk="modalDangerZone"
-            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}>
             <div className="modal-backdrop" onClick={modal.close} />
             <div className="modal-window">
                 <div className="modal-body form">
@@ -124,13 +122,13 @@ export default function ModalReservationReject({
                         />
 
                         <FormGroup
-                            error={form.errors.notify_with_note}
+                            error={form.errors.share_note_by_email}
                             input={() => (
                                 <label className="checkbox checkbox-narrow">
                                     <input
                                         type="checkbox"
-                                        checked={form.values.notify_with_note}
-                                        onChange={(e) => form.update({ notify_with_note: e.target.checked })}
+                                        checked={form.values.share_note_by_email}
+                                        onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
                                         hidden={true}
                                     />
                                     <div className="checkbox-label">
