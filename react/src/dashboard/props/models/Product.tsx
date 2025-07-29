@@ -13,6 +13,7 @@ export default interface Product {
     product_category_id: number;
     sold_out: boolean;
     organization_id: number;
+    qr_enabled: boolean;
     reservation_enabled: boolean;
     reservation_policy: 'global';
     alternative_text?: string;
