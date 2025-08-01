@@ -93,11 +93,16 @@
                     margin: 0 0;
                     max-width: 100%;
                     word-wrap: break-word;
-                    flex-direction: column;
+                    flex-direction: row;
                     color: var(--products-text-color);
-                    font: 700 18px/24px var(--base-font);
+                    font: 700 16px/24px var(--base-font);
                     flex: 1 0 auto;
-                    justify-content: flex-end;
+                    align-items: flex-end;
+                    gap: 5px;
+
+                    .mdi {
+                        font-size: 18px;
+                    }
                 }
 
                 .product-icons {

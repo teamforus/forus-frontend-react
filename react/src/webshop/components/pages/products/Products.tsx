@@ -25,9 +25,9 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import RangeControl from '../../elements/forms/RangeControl';
-import useShowProductPaymentOptionsInfoModal from '../../../hooks/useShowProductPaymentOptionsInfoModal';
-import ProductsFilterOptions from './elements/ProductsFilterOptions';
+import ProductsFilterReservationOptions from './elements/ProductsFilterReservationOptions';
 import classNames from 'classnames';
+import ProductsFilterPriceTypeOptions from './elements/ProductsFilterPriceTypeOptions';
 
 export default function Products() {
     const appConfigs = useAppConfigs();
@@ -41,7 +41,6 @@ export default function Products() {
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
-    const showProductIconsInfoModal = useShowProductPaymentOptionsInfoModal();
 
     const [sortByOptions] = useState(productService.getSortOptions(translate));
 
@@ -84,6 +83,11 @@ export default function Products() {
         display_type: 'list' | 'grid';
         order_by: 'created_at' | 'price' | 'most_popular' | 'name';
         order_dir: 'asc' | 'desc';
+        regular?: boolean;
+        discount_fixed?: boolean;
+        discount_percentage?: boolean;
+        free?: boolean;
+        informational?: boolean;
     }>(
         {
             q: '',
@@ -100,6 +104,11 @@ export default function Products() {
             reservation: false,
             extra_payment: false,
             bookmarked: false,
+            regular: false,
+            discount_fixed: false,
+            discount_percentage: false,
+            free: false,
+            informational: false,
             display_type: 'grid',
             order_by: sortByOptions[0]?.value.order_by,
             order_dir: sortByOptions[0]?.value.order_dir,
@@ -124,6 +133,11 @@ export default function Products() {
                 display_type: StringParam,
                 order_by: StringParam,
                 order_dir: StringParam,
+                regular: BooleanParam,
+                discount_fixed: BooleanParam,
+                discount_percentage: BooleanParam,
+                free: BooleanParam,
+                informational: BooleanParam,
             },
             filterParams: ['display_type'],
         },
@@ -161,11 +175,24 @@ export default function Products() {
                 qr: boolean;
                 reservation: boolean;
                 extra_payment: boolean;
+                regular: boolean;
+                discount_fixed: boolean;
+                discount_percentage: boolean;
+                free: boolean;
+                informational: boolean;
                 order_by: 'created_at' | 'price' | 'most_popular' | 'name';
                 order_dir: 'asc' | 'desc';
             }>,
         ) => {
-            const hasFilters = values.qr || values.extra_payment || values.reservation;
+            const hasFilters =
+                values.qr ||
+                values.extra_payment ||
+                values.reservation ||
+                values.regular ||
+                values.discount_fixed ||
+                values.discount_percentage ||
+                values.free ||
+                values.informational;
 
             return {
                 q: values.q,
@@ -180,6 +207,11 @@ export default function Products() {
                 qr: hasFilters ? (values.qr ? 1 : 0) : 0,
                 reservation: hasFilters ? (values.reservation ? 1 : 0) : 0,
                 extra_payment: hasFilters ? (values.extra_payment ? 1 : 0) : 0,
+                regular: hasFilters ? (values.regular ? 1 : 0) : 0,
+                discount_fixed: hasFilters ? (values.discount_fixed ? 1 : 0) : 0,
+                discount_percentage: hasFilters ? (values.discount_percentage ? 1 : 0) : 0,
+                free: hasFilters ? (values.free ? 1 : 0) : 0,
+                informational: hasFilters ? (values.informational ? 1 : 0) : 0,
                 bookmarked: values.bookmarked ? 1 : 0,
                 order_by: values.order_by,
                 order_dir: values.order_dir,
@@ -501,27 +533,15 @@ export default function Products() {
                             />
                         </div>
 
-                        <div className="showcase-aside-block-separator" />
-                        <div className="showcase-aside-block-title">
-                            {translate('products.filters.payment_options')}
-                        </div>
-                        <div className="showcase-aside-block-info">
-                            <a
-                                className="showcase-aside-block-info-link"
-                                role="button"
-                                tabIndex={0}
-                                aria-label={translate('products.filters.payment_options_info')}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    showProductIconsInfoModal();
-                                }}
-                                onKeyDown={(e) => clickOnKeyEnter(e, true)}>
-                                <em className="mdi mdi-information-outline" aria-hidden="true" />
-                                {translate('products.filters.payment_options_info')}
-                            </a>
-                        </div>
+                        <ProductsFilterReservationOptions
+                            value={filterValues}
+                            setValue={(value) => filterUpdate(value)}
+                        />
 
-                        <ProductsFilterOptions value={filterValues} setValue={(value) => filterUpdate(value)} />
+                        <ProductsFilterPriceTypeOptions
+                            value={filterValues}
+                            setValue={(value) => filterUpdate(value)}
+                        />
                     </div>
                 )
             }>
