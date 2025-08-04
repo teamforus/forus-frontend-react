@@ -3,6 +3,7 @@ import Organization from '../Organization';
 import Media from '../Media';
 import ProductCategory from '../ProductCategory';
 import FundProviderChat from '../FundProviderChat';
+import { ProductPriceType } from '../Product';
 
 export interface DealHistoryItem {
     id: number;
@@ -81,7 +82,7 @@ export default interface SponsorProduct {
     offices: Array<Office>;
     product_category: ProductCategory;
     bookmarked: boolean;
-    price_type: 'regular' | 'discount_fixed' | 'discount_percentage' | 'free';
+    price_type: ProductPriceType;
     price_discount: string;
     price_discount_locale: string;
     reservation_fields: boolean;

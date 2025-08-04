@@ -9,7 +9,7 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import Organization from '../../../../props/models/Organization';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
-import Product from '../../../../props/models/Product';
+import Product, { ProductPriceType } from '../../../../props/models/Product';
 import useProductService from '../../../../services/ProductService';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
@@ -31,8 +31,6 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import FormPane from '../../../elements/forms/elements/FormPane';
 import FormContainer from '../../../elements/forms/elements/FormContainer';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
-
-type PriceType = 'regular' | 'discount_fixed' | 'discount_percentage' | 'free';
 
 export default function ProductsForm({
     organization,
@@ -130,11 +128,12 @@ export default function ProductsForm({
         ];
     }, [organization?.reservation_birth_date, reservationFieldText, reservationFieldOptions]);
 
-    const [priceTypes] = useState<Array<{ value: PriceType; label: string }>>([
+    const [priceTypes] = useState<Array<{ value: ProductPriceType; label: string }>>([
         { value: 'regular', label: 'Normaal' },
         { value: 'discount_fixed', label: 'Korting €' },
         { value: 'discount_percentage', label: 'Korting %' },
         { value: 'free', label: 'Gratis' },
+        { value: 'informational', label: 'Informatief' },
     ]);
 
     const [isEditable, setIsEditable] = useState<boolean>(true);
@@ -235,7 +234,7 @@ export default function ProductsForm({
         sku?: string;
         name?: string;
         price?: number;
-        price_type: PriceType;
+        price_type: ProductPriceType;
         price_discount?: number;
         expire_at?: string;
         sold_amount?: number;
@@ -328,6 +327,10 @@ export default function ProductsForm({
     });
 
     const { update: updateForm } = form;
+
+    const isInformational = useMemo(() => {
+        return form.values?.price_type === 'informational';
+    }, [form.values?.price_type]);
 
     const cancel = useCallback(() => {
         if (fundProvider) {
@@ -558,9 +561,9 @@ export default function ProductsForm({
                                                 id={id}
                                                 propValue={'label'}
                                                 propKey={'value'}
-                                                disabled={!isEditable}
+                                                disabled={!isEditable || !!product}
                                                 value={form.values.price_type}
-                                                onChange={(price_type: PriceType) => form.update({ price_type })}
+                                                onChange={(price_type: ProductPriceType) => form.update({ price_type })}
                                                 options={priceTypes}
                                             />
                                         )}
@@ -671,96 +674,13 @@ export default function ProductsForm({
                                             )}
                                         />
                                     )}
-                                </div>
-                            </div>
-                        </FormPane>
 
-                        <FormPane title={'Availability and stock'}>
-                            {(!product || (product && !product.unlimited_stock)) && (
-                                <div className="row">
-                                    <div className="col col-xs-12 col-sm-6">
+                                    {form.values.price_type === 'informational' && (
                                         <FormGroup
-                                            label={'Product availability'}
-                                            required={true}
+                                            label={'Bedrag'}
                                             info={
                                                 <Fragment>
-                                                    Choose whether the product has limited stock or can be sold without
-                                                    restrictions.
-                                                </Fragment>
-                                            }
-                                            input={(id) => (
-                                                <SelectControl
-                                                    id={id}
-                                                    propKey={'value'}
-                                                    propValue={'label'}
-                                                    disabled={!isEditable || (product && !product.unlimited_stock)}
-                                                    value={form.values.unlimited_stock}
-                                                    options={[
-                                                        { value: false, label: 'Set available quantity' },
-                                                        { value: true, label: 'Onbeperkt aanbod' },
-                                                    ]}
-                                                    onChange={(unlimited_stock: boolean) => {
-                                                        form.update({ unlimited_stock });
-                                                    }}
-                                                />
-                                            )}
-                                        />
-                                    </div>
-
-                                    <div className="col col-xs-12 col-sm-6">
-                                        <FormGroup
-                                            label={translate('product_edit.labels.total')}
-                                            required={true}
-                                            info={
-                                                <Fragment>
-                                                    Choose whether the product has limited stock or can be sold without
-                                                    restrictions.
-                                                </Fragment>
-                                            }
-                                            error={form.errors.total_amount}
-                                            input={(id) =>
-                                                !form.values.unlimited_stock ? (
-                                                    <input
-                                                        id={id}
-                                                        className="form-control"
-                                                        disabled={
-                                                            !isEditable || !!product || form.values.unlimited_stock
-                                                        }
-                                                        value={form.values.total_amount}
-                                                        onChange={(e) => {
-                                                            form.update({
-                                                                total_amount: e.target.value
-                                                                    ? parseFloat(e.target.value)
-                                                                    : '',
-                                                            });
-                                                        }}
-                                                        type="number"
-                                                        placeholder="Aantal in voorraad"
-                                                    />
-                                                ) : (
-                                                    <input
-                                                        id={id}
-                                                        className="form-control"
-                                                        value={translate('product_edit.labels.stock_unlimited')}
-                                                        disabled={true}
-                                                    />
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                            )}
-
-                            {product && (
-                                <div className="row">
-                                    <div className="col col-xs-12 col-sm-6">
-                                        <FormGroup
-                                            label={translate('product_edit.labels.sold')}
-                                            error={form.errors.sold_amount}
-                                            info={
-                                                <Fragment>
-                                                    This shows how many units have been sold so far. This value is
-                                                    updated automatically.
+                                                    This product is informational and does not support setting a price.
                                                 </Fragment>
                                             }
                                             input={(id) => (
@@ -768,97 +688,203 @@ export default function ProductsForm({
                                                     id={id}
                                                     className="form-control"
                                                     disabled={true}
-                                                    value={form.values.sold_amount}
-                                                    onChange={(e) =>
-                                                        form.update({
-                                                            sold_amount: e.target.value
-                                                                ? parseFloat(e.target.value)
-                                                                : '',
-                                                        })
-                                                    }
-                                                    type="number"
-                                                    placeholder="Verkocht"
+                                                    value={'Informatief'}
+                                                />
+                                            )}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        </FormPane>
+
+                        {!isInformational && (
+                            <FormPane title={'Availability and stock'}>
+                                {(!product || (product && !product.unlimited_stock)) && (
+                                    <div className="row">
+                                        <div className="col col-xs-12 col-sm-6">
+                                            <FormGroup
+                                                label={'Product availability'}
+                                                required={true}
+                                                info={
+                                                    <Fragment>
+                                                        Choose whether the product has limited stock or can be sold
+                                                        without restrictions.
+                                                    </Fragment>
+                                                }
+                                                input={(id) => (
+                                                    <SelectControl
+                                                        id={id}
+                                                        propKey={'value'}
+                                                        propValue={'label'}
+                                                        disabled={!isEditable || (product && !product.unlimited_stock)}
+                                                        value={form.values.unlimited_stock}
+                                                        options={[
+                                                            { value: false, label: 'Set available quantity' },
+                                                            { value: true, label: 'Onbeperkt aanbod' },
+                                                        ]}
+                                                        onChange={(unlimited_stock: boolean) => {
+                                                            form.update({ unlimited_stock });
+                                                        }}
+                                                    />
+                                                )}
+                                            />
+                                        </div>
+
+                                        <div className="col col-xs-12 col-sm-6">
+                                            <FormGroup
+                                                label={translate('product_edit.labels.total')}
+                                                required={true}
+                                                info={
+                                                    <Fragment>
+                                                        Choose whether the product has limited stock or can be sold
+                                                        without restrictions.
+                                                    </Fragment>
+                                                }
+                                                error={form.errors.total_amount}
+                                                input={(id) =>
+                                                    !form.values.unlimited_stock ? (
+                                                        <input
+                                                            id={id}
+                                                            className="form-control"
+                                                            disabled={
+                                                                !isEditable || !!product || form.values.unlimited_stock
+                                                            }
+                                                            value={form.values.total_amount}
+                                                            onChange={(e) => {
+                                                                form.update({
+                                                                    total_amount: e.target.value
+                                                                        ? parseFloat(e.target.value)
+                                                                        : '',
+                                                                });
+                                                            }}
+                                                            type="number"
+                                                            placeholder="Aantal in voorraad"
+                                                        />
+                                                    ) : (
+                                                        <input
+                                                            id={id}
+                                                            className="form-control"
+                                                            value={translate('product_edit.labels.stock_unlimited')}
+                                                            disabled={true}
+                                                        />
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
+                                {product && (
+                                    <div className="row">
+                                        <div className="col col-xs-12 col-sm-6">
+                                            <FormGroup
+                                                label={translate('product_edit.labels.sold')}
+                                                error={form.errors.sold_amount}
+                                                info={
+                                                    <Fragment>
+                                                        This shows how many units have been sold so far. This value is
+                                                        updated automatically.
+                                                    </Fragment>
+                                                }
+                                                input={(id) => (
+                                                    <input
+                                                        id={id}
+                                                        className="form-control"
+                                                        disabled={true}
+                                                        value={form.values.sold_amount}
+                                                        onChange={(e) =>
+                                                            form.update({
+                                                                sold_amount: e.target.value
+                                                                    ? parseFloat(e.target.value)
+                                                                    : '',
+                                                            })
+                                                        }
+                                                        type="number"
+                                                        placeholder="Verkocht"
+                                                    />
+                                                )}
+                                            />
+                                        </div>
+                                        <div className="col col-xs-12 col-sm-6">
+                                            <FormGroup
+                                                label={translate('product_edit.labels.stock_amount')}
+                                                error={form.errors.stock_amount}
+                                                info={translate('tooltip.product.limit')}
+                                                input={(id) =>
+                                                    product.unlimited_stock ? (
+                                                        <input
+                                                            id={id}
+                                                            className="form-control"
+                                                            disabled={true}
+                                                            value={translate('product_edit.labels.stock_unlimited')}
+                                                        />
+                                                    ) : (
+                                                        <input
+                                                            id={id}
+                                                            className="form-control"
+                                                            value={form.values.stock_amount}
+                                                            onChange={(e) =>
+                                                                form.update({
+                                                                    stock_amount: e.target.value
+                                                                        ? parseFloat(e.target.value)
+                                                                        : '',
+                                                                })
+                                                            }
+                                                            type="number"
+                                                            placeholder="Current stock"
+                                                            disabled={!isEditable}
+                                                        />
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                            </FormPane>
+                        )}
+
+                        {!isInformational && (
+                            <FormPane title={'Product identifiers (EAN, SKU)'}>
+                                <div className="row">
+                                    <div className="col col-xs-12 col-sm-6">
+                                        <FormGroup
+                                            label={translate('product_edit.labels.ean')}
+                                            error={form.errors?.ean}
+                                            info={<TranslateHtml i18n={'product_edit.tooltips.ean'} />}
+                                            input={(id) => (
+                                                <input
+                                                    id={id}
+                                                    className="form-control"
+                                                    value={form.values.ean || ''}
+                                                    onChange={(e) => form.update({ ean: e.target.value })}
+                                                    type="text"
+                                                    placeholder={translate('product_edit.labels.ean_placeholder')}
+                                                    disabled={!isEditable}
                                                 />
                                             )}
                                         />
                                     </div>
                                     <div className="col col-xs-12 col-sm-6">
                                         <FormGroup
-                                            label={translate('product_edit.labels.stock_amount')}
-                                            error={form.errors.stock_amount}
-                                            info={translate('tooltip.product.limit')}
-                                            input={(id) =>
-                                                product.unlimited_stock ? (
-                                                    <input
-                                                        id={id}
-                                                        className="form-control"
-                                                        disabled={true}
-                                                        value={translate('product_edit.labels.stock_unlimited')}
-                                                    />
-                                                ) : (
-                                                    <input
-                                                        id={id}
-                                                        className="form-control"
-                                                        value={form.values.stock_amount}
-                                                        onChange={(e) =>
-                                                            form.update({
-                                                                stock_amount: e.target.value
-                                                                    ? parseFloat(e.target.value)
-                                                                    : '',
-                                                            })
-                                                        }
-                                                        type="number"
-                                                        placeholder="Current stock"
-                                                        disabled={!isEditable}
-                                                    />
-                                                )
-                                            }
+                                            label={translate('product_edit.labels.sku')}
+                                            error={form.errors?.sku}
+                                            info={<TranslateHtml i18n={'product_edit.tooltips.sku'} />}
+                                            input={(id) => (
+                                                <input
+                                                    id={id}
+                                                    className="form-control"
+                                                    value={form.values.sku || ''}
+                                                    onChange={(e) => form.update({ sku: e.target.value })}
+                                                    type="text"
+                                                    placeholder={translate('product_edit.labels.sku_placeholder')}
+                                                    disabled={!isEditable}
+                                                />
+                                            )}
                                         />
                                     </div>
                                 </div>
-                            )}
-                        </FormPane>
-
-                        <FormPane title={'Product identifiers (EAN, SKU)'}>
-                            <div className="row">
-                                <div className="col col-xs-12 col-sm-6">
-                                    <FormGroup
-                                        label={translate('product_edit.labels.ean')}
-                                        error={form.errors?.ean}
-                                        info={<TranslateHtml i18n={'product_edit.tooltips.ean'} />}
-                                        input={(id) => (
-                                            <input
-                                                id={id}
-                                                className="form-control"
-                                                value={form.values.ean || ''}
-                                                onChange={(e) => form.update({ ean: e.target.value })}
-                                                type="text"
-                                                placeholder={translate('product_edit.labels.ean_placeholder')}
-                                                disabled={!isEditable}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                                <div className="col col-xs-12 col-sm-6">
-                                    <FormGroup
-                                        label={translate('product_edit.labels.sku')}
-                                        error={form.errors?.sku}
-                                        info={<TranslateHtml i18n={'product_edit.tooltips.sku'} />}
-                                        input={(id) => (
-                                            <input
-                                                id={id}
-                                                className="form-control"
-                                                value={form.values.sku || ''}
-                                                onChange={(e) => form.update({ sku: e.target.value })}
-                                                type="text"
-                                                placeholder={translate('product_edit.labels.sku_placeholder')}
-                                                disabled={!isEditable}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                            </div>
-                        </FormPane>
+                            </FormPane>
+                        )}
 
                         <FormPane title={'Product validity'}>
                             <div className="row">
@@ -922,36 +948,35 @@ export default function ProductsForm({
                             </div>
                         </FormPane>
 
-                        {allowsReservations && (
-                            <FormPane title={'Reservation and payment options'}>
-                                <FormGroup
-                                    className="form-group tooltipped"
-                                    label={'QR-code scannen door klant toestaan'}
-                                    error={form.errors.qr_enabled}
-                                    info={
-                                        <Fragment>
-                                            Enable this if customers should be able to scan a QR code at your location
-                                            to buy the product.
-                                        </Fragment>
-                                    }
-                                    input={(id) => (
-                                        <SelectControl
-                                            disabled={!isEditable}
-                                            id={id}
-                                            propKey={'value'}
-                                            propValue={'label'}
-                                            value={form.values.qr_enabled}
-                                            options={[
-                                                { value: true, label: 'QR-code scannen toegestaan' },
-                                                { value: false, label: 'QR-code scannen niet toegestaan' },
-                                            ]}
-                                            onChange={(value: boolean) => form.update({ qr_enabled: value })}
-                                        />
-                                    )}
-                                />
+                        <FormPane title={'Reservation and payment options'}>
+                            <FormGroup
+                                className="form-group tooltipped"
+                                label={'QR-code scannen door klant toestaan'}
+                                error={form.errors.qr_enabled}
+                                info={
+                                    <Fragment>
+                                        Enable this if customers should be able to scan a QR code at your location to
+                                        buy the product.
+                                    </Fragment>
+                                }
+                                input={(id) => (
+                                    <SelectControl
+                                        disabled={!isEditable}
+                                        id={id}
+                                        propKey={'value'}
+                                        propValue={'label'}
+                                        value={form.values.qr_enabled}
+                                        options={[
+                                            { value: true, label: 'QR-code scannen toegestaan' },
+                                            { value: false, label: 'QR-code scannen niet toegestaan' },
+                                        ]}
+                                        onChange={(value: boolean) => form.update({ qr_enabled: value })}
+                                    />
+                                )}
+                            />
 
+                            {allowsReservations && !isInformational && (
                                 <FormGroup
-                                    className="form-group tooltipped"
                                     label={'Online betalen'}
                                     error={form.errors.reservation_enabled}
                                     info={translate('product_edit.tooltips.reservation_enabled')}
@@ -970,126 +995,126 @@ export default function ProductsForm({
                                         />
                                     )}
                                 />
+                            )}
 
-                                {form.values.reservation_enabled && (
-                                    <FormPane title={'Reservation settings'}>
-                                        <FormGroup
-                                            label={'Reserveringen accepteren'}
-                                            error={form.errors.reservation_policy}
-                                            info={
-                                                <Fragment>
-                                                    Standaard instelling kunt u bij uw reserveringen aanpassen. Geef
-                                                    hier optioneel aan of u de reservering handmatig of automatisch wilt
-                                                    accepteren.
-                                                </Fragment>
-                                            }
-                                            input={(id) => (
-                                                <SelectControl
-                                                    id={id}
-                                                    className="form-control"
-                                                    propValue={'label'}
-                                                    propKey={'value'}
-                                                    allowSearch={false}
-                                                    value={form.values.reservation_policy}
-                                                    onChange={(reservation_policy: string) => {
-                                                        form.update({ reservation_policy });
-                                                    }}
-                                                    options={reservationPolicies}
-                                                />
-                                            )}
-                                        />
-
-                                        <FormGroup
-                                            label={'Request additional customer details'}
-                                            error={form.errors.reservation_fields}
-                                            info={translate('product_edit.tooltips.reservation_fields')}
-                                            input={(id) => (
-                                                <SelectControl
-                                                    id={id}
-                                                    disabled={!isEditable}
-                                                    propKey={'value'}
-                                                    propValue={'label'}
-                                                    value={form.values.reservation_fields}
-                                                    options={[
-                                                        {
-                                                            value: true,
-                                                            label: 'De klant vragen om aanvullende informatie op te geven',
-                                                        },
-                                                        {
-                                                            value: false,
-                                                            label: 'De klant geen aanvullende informatie vragen',
-                                                        },
-                                                    ]}
-                                                    onChange={(value: boolean) => {
-                                                        form.update({ reservation_fields: value });
-                                                    }}
-                                                />
-                                            )}
-                                        />
-
-                                        {form.values.reservation_fields && (
-                                            <FormPane title={'Customer contact fields'}>
-                                                <FormGroup
-                                                    label={'Telefoonnummer klant'}
-                                                    error={form.errors.reservation_phone}
-                                                    input={(id) => (
-                                                        <SelectControl
-                                                            id={id}
-                                                            className="form-control"
-                                                            propKey={'value'}
-                                                            propValue={'label'}
-                                                            value={form.values.reservation_phone}
-                                                            onChange={(reservation_phone: string) => {
-                                                                form.update({ reservation_phone });
-                                                            }}
-                                                            options={reservationPhoneOptions}
-                                                        />
-                                                    )}
-                                                />
-
-                                                <FormGroup
-                                                    label={'Adres klant'}
-                                                    error={form.errors.reservation_address}
-                                                    input={(id) => (
-                                                        <SelectControl
-                                                            id={id}
-                                                            className="form-control"
-                                                            propKey={'value'}
-                                                            propValue={'label'}
-                                                            value={form.values.reservation_address}
-                                                            onChange={(reservation_address: string) => {
-                                                                form.update({ reservation_address });
-                                                            }}
-                                                            options={reservationAddressOptions}
-                                                        />
-                                                    )}
-                                                />
-
-                                                <FormGroup
-                                                    label={'Geboortedatum klant'}
-                                                    error={form.errors.reservation_birth_date}
-                                                    input={(id) => (
-                                                        <SelectControl
-                                                            id={id}
-                                                            className="form-control"
-                                                            propKey={'value'}
-                                                            propValue={'label'}
-                                                            value={form.values.reservation_birth_date}
-                                                            onChange={(reservation_birth_date: string) => {
-                                                                form.update({ reservation_birth_date });
-                                                            }}
-                                                            options={reservationBirthDateOptions}
-                                                        />
-                                                    )}
-                                                />
-                                            </FormPane>
+                            {form.values.reservation_enabled && !isInformational && (
+                                <FormPane title={'Reservation settings'}>
+                                    <FormGroup
+                                        label={'Reserveringen accepteren'}
+                                        error={form.errors.reservation_policy}
+                                        info={
+                                            <Fragment>
+                                                Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier
+                                                optioneel aan of u de reservering handmatig of automatisch wilt
+                                                accepteren.
+                                            </Fragment>
+                                        }
+                                        input={(id) => (
+                                            <SelectControl
+                                                id={id}
+                                                className="form-control"
+                                                propValue={'label'}
+                                                propKey={'value'}
+                                                allowSearch={false}
+                                                value={form.values.reservation_policy}
+                                                onChange={(reservation_policy: string) => {
+                                                    form.update({ reservation_policy });
+                                                }}
+                                                options={reservationPolicies}
+                                            />
                                         )}
-                                    </FormPane>
-                                )}
-                            </FormPane>
-                        )}
+                                    />
 
-                        {allowsExtraPayments && (
+                                    <FormGroup
+                                        label={'Request additional customer details'}
+                                        error={form.errors.reservation_fields}
+                                        info={translate('product_edit.tooltips.reservation_fields')}
+                                        input={(id) => (
+                                            <SelectControl
+                                                id={id}
+                                                disabled={!isEditable}
+                                                propKey={'value'}
+                                                propValue={'label'}
+                                                value={form.values.reservation_fields}
+                                                options={[
+                                                    {
+                                                        value: true,
+                                                        label: 'De klant vragen om aanvullende informatie op te geven',
+                                                    },
+                                                    {
+                                                        value: false,
+                                                        label: 'De klant geen aanvullende informatie vragen',
+                                                    },
+                                                ]}
+                                                onChange={(value: boolean) => {
+                                                    form.update({ reservation_fields: value });
+                                                }}
+                                            />
+                                        )}
+                                    />
+
+                                    {form.values.reservation_fields && (
+                                        <FormPane title={'Customer contact fields'}>
+                                            <FormGroup
+                                                label={'Telefoonnummer klant'}
+                                                error={form.errors.reservation_phone}
+                                                input={(id) => (
+                                                    <SelectControl
+                                                        id={id}
+                                                        className="form-control"
+                                                        propKey={'value'}
+                                                        propValue={'label'}
+                                                        value={form.values.reservation_phone}
+                                                        onChange={(reservation_phone: string) => {
+                                                            form.update({ reservation_phone });
+                                                        }}
+                                                        options={reservationPhoneOptions}
+                                                    />
+                                                )}
+                                            />
+
+                                            <FormGroup
+                                                label={'Adres klant'}
+                                                error={form.errors.reservation_address}
+                                                input={(id) => (
+                                                    <SelectControl
+                                                        id={id}
+                                                        className="form-control"
+                                                        propKey={'value'}
+                                                        propValue={'label'}
+                                                        value={form.values.reservation_address}
+                                                        onChange={(reservation_address: string) => {
+                                                            form.update({ reservation_address });
+                                                        }}
+                                                        options={reservationAddressOptions}
+                                                    />
+                                                )}
+                                            />
+
+                                            <FormGroup
+                                                label={'Geboortedatum klant'}
+                                                error={form.errors.reservation_birth_date}
+                                                input={(id) => (
+                                                    <SelectControl
+                                                        id={id}
+                                                        className="form-control"
+                                                        propKey={'value'}
+                                                        propValue={'label'}
+                                                        value={form.values.reservation_birth_date}
+                                                        onChange={(reservation_birth_date: string) => {
+                                                            form.update({ reservation_birth_date });
+                                                        }}
+                                                        options={reservationBirthDateOptions}
+                                                    />
+                                                )}
+                                            />
+                                        </FormPane>
+                                    )}
+                                </FormPane>
+                            )}
+                        </FormPane>
+
+                        {allowsExtraPayments && !isInformational && (
                             <FormPane title={'Extra payment options'}>
                                 <FormGroup
                                     label={translate('product_edit.labels.extra_payments')}
