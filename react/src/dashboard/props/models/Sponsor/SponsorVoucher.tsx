@@ -56,8 +56,8 @@ export default interface SponsorVoucher {
     in_use?: boolean;
     first_use_date_locale?: string;
     has_payouts?: boolean;
-    is_granted?: boolean;
-    is_external: boolean;
+    granted?: boolean;
+    external: boolean;
     limit_multiplier?: number;
     identity_address?: string;
     history: Array<{

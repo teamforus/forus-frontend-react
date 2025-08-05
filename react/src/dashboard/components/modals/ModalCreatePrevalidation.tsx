@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import Prevalidation from '../../props/models/Prevalidation';
 import RecordType from '../../props/models/RecordType';
@@ -7,41 +7,50 @@ import { usePrevalidationService } from '../../services/PrevalidationService';
 import Fund from '../../props/models/Fund';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import SelectControl from '../elements/select-control/SelectControl';
-import FormError from '../elements/forms/errors/FormError';
 import PrevalidationRecord from '../../props/models/PrevalidationRecord';
 import { ResponseError } from '../../props/ApiResponses';
 import { dateFormat, dateParse } from '../../helpers/dates';
 import useSetProgress from '../../hooks/useSetProgress';
 import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../hooks/usePushApiError';
+import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
+import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
+import useTranslate from '../../hooks/useTranslate';
 
 export default function ModalCreatePrevalidation({
-    fund,
     modal,
+    funds,
+    fundId,
     className,
     recordTypes,
     onCreated,
 }: {
-    fund: Fund;
     modal: ModalState;
+    funds: Array<Fund>;
+    fundId: number;
     className?: string;
     recordTypes: Array<RecordType>;
     onCreated: () => void;
 }) {
     const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
+    const translate = useTranslate();
     const prevalidationService = usePrevalidationService();
 
+    const [fund, setFund] = useState<Fund>(funds.find(({ id }) => id === fundId) || funds[0]);
     const [showNewRecord, setShowNewRecord] = useState<boolean>(false);
     const [prevalidation, setPrevalidation] = useState<Prevalidation>(null);
     const [verificationRequested, setVerificationRequested] = useState<boolean>(false);
     const [prevalidationPrimaryKey, setPrevalidationPrimaryKey] = useState<PrevalidationRecord>(null);
 
-    const [eligibleKey] = useState(fund.csv_required_keys.find((key) => key.endsWith('_eligible')));
+    const eligibleKey = useMemo(() => {
+        return fund.csv_required_keys.find((key) => key.endsWith('_eligible'));
+    }, [fund.csv_required_keys]);
 
-    const [eligibleKeyValue] = useState(
-        fund.criteria.find((item) => item.record_type.key == eligibleKey && item.operator == '=')?.value,
-    );
+    const eligibleKeyValue = useMemo(() => {
+        return fund.criteria.find((item) => item.record_type.key == eligibleKey && item.operator == '=')?.value;
+    }, [eligibleKey, fund.criteria]);
 
     const recordTypesByKey = useMemo(() => {
         return recordTypes
@@ -127,6 +136,8 @@ export default function ModalCreatePrevalidation({
         },
     );
 
+    const { setValues: formSetValues } = form;
+
     const formNewRecord = useFormBuilder(
         { record_type_key: recordTypesAvailable.length ? recordTypesAvailable[0].key : null },
         (values) => {
@@ -147,8 +158,28 @@ export default function ModalCreatePrevalidation({
         [form.values, prevalidationRecords],
     );
 
+    useEffect(() => {
+        setPrevalidationRecords([...fund.csv_required_keys].filter((key) => key !== eligibleKey));
+
+        formSetValues((oldValues) => {
+            const values = fund.criteria.reduce(
+                (values, criteria) => ({
+                    ...values,
+                    ...(criteria.operator == '='
+                        ? { [criteria.record_type.key]: criteria.value }
+                        : { [criteria.record_type.key]: oldValues?.[criteria.record_type.key] || undefined }),
+                }),
+                {},
+            );
+
+            values[fund?.csv_primary_key] = oldValues[fund?.csv_primary_key] || undefined;
+
+            return values;
+        });
+    }, [eligibleKey, fund, formSetValues]);
+
     return (
-        <div className={`modal modal-md modal-animated ${modal.loading ? 'modal-loading' : ''} ${className}`}>
+        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form
@@ -204,95 +235,114 @@ export default function ModalCreatePrevalidation({
                         <div className="modal-section form">
                             <div className="row">
                                 <div className="col col-lg-8 col-lg-offset-2 col-lg-12">
+                                    <FormGroup
+                                        label={'Fonds'}
+                                        input={() => (
+                                            <SelectControl
+                                                className="form-control inline-filter-control"
+                                                propKey={'id'}
+                                                options={funds}
+                                                value={fund.id}
+                                                placeholder={translate('vouchers.labels.fund')}
+                                                allowSearch={false}
+                                                onChange={(id: number) => setFund(funds.find((fund) => fund.id === id))}
+                                                optionsComponent={SelectControlOptionsFund}
+                                                dusk="prevalidationSelectFund"
+                                            />
+                                        )}
+                                    />
                                     {prevalidationRecords?.map((fundRecord, index) => (
-                                        <div className={'form-group'} key={index}>
-                                            <label className="form-label" key={index}>
-                                                {recordTypesByKey && recordTypesByKey[fundRecord] && (
-                                                    <span>{recordTypesByKey[fundRecord]?.name}</span>
-                                                )}
+                                        <FormGroup
+                                            label={
+                                                <Fragment>
+                                                    {recordTypesByKey && recordTypesByKey[fundRecord] && (
+                                                        <span>{recordTypesByKey[fundRecord]?.name}</span>
+                                                    )}
 
-                                                {criteriaRuleByKey[fundRecord] && (
-                                                    <span className="text-muted-dark">
-                                                        &nbsp;({criteriaRuleByKey[fundRecord]})
-                                                    </span>
-                                                )}
-                                            </label>
+                                                    {criteriaRuleByKey[fundRecord] && (
+                                                        <span className="text-muted-dark">
+                                                            &nbsp;({criteriaRuleByKey[fundRecord]})
+                                                        </span>
+                                                    )}
+                                                </Fragment>
+                                            }
+                                            error={form.errors['data.' + fundRecord]}
+                                            key={index}
+                                            input={() => (
+                                                <div className="flex-row">
+                                                    <div className="flex-col flex-col-padless-right flex-grow">
+                                                        {recordTypesByKey &&
+                                                            recordTypesByKey[fundRecord] &&
+                                                            ['select', 'bool'].includes(
+                                                                recordTypesByKey[fundRecord].type,
+                                                            ) && (
+                                                                <SelectControl
+                                                                    propKey={'value'}
+                                                                    placeholder="Waarde"
+                                                                    value={form.values[fundRecord]}
+                                                                    options={recordTypesByKey[fundRecord].options}
+                                                                    onChange={(value: string) => {
+                                                                        form.update({ [fundRecord]: value });
+                                                                    }}
+                                                                />
+                                                            )}
 
-                                            <div className="flex-row">
-                                                <div className="flex-col flex-col-padless-right flex-grow">
-                                                    {recordTypesByKey &&
-                                                        recordTypesByKey[fundRecord] &&
-                                                        ['select', 'bool'].includes(
-                                                            recordTypesByKey[fundRecord].type,
-                                                        ) && (
-                                                            <SelectControl
-                                                                propKey={'value'}
-                                                                placeholder="Waarde"
-                                                                value={form.values[fundRecord]}
-                                                                options={recordTypesByKey[fundRecord].options}
-                                                                onChange={(value: string) => {
-                                                                    form.update({ [fundRecord]: value });
-                                                                }}
-                                                            />
-                                                        )}
+                                                        {recordTypesByKey &&
+                                                            recordTypesByKey[fundRecord] &&
+                                                            recordTypesByKey[fundRecord].type == 'date' && (
+                                                                <DatePickerControl
+                                                                    value={dateParse(form.values[fundRecord])}
+                                                                    dateFormat="dd-MM-yyyy"
+                                                                    placeholder={recordTypesByKey[fundRecord]?.name}
+                                                                    onChange={(date) => {
+                                                                        form.update({ [fundRecord]: dateFormat(date) });
+                                                                    }}
+                                                                />
+                                                            )}
 
-                                                    {recordTypesByKey &&
-                                                        recordTypesByKey[fundRecord] &&
-                                                        recordTypesByKey[fundRecord].type == 'date' && (
-                                                            <DatePickerControl
-                                                                value={dateParse(form.values[fundRecord])}
-                                                                dateFormat="dd-MM-yyyy"
-                                                                placeholder={recordTypesByKey[fundRecord]?.name}
-                                                                onChange={(date) => {
-                                                                    form.update({ [fundRecord]: dateFormat(date) });
-                                                                }}
-                                                            />
-                                                        )}
+                                                        {recordTypesByKey &&
+                                                            recordTypesByKey[fundRecord] &&
+                                                            recordTypesByKey[fundRecord].type == 'number' && (
+                                                                <input
+                                                                    type="number"
+                                                                    value={form.values[fundRecord] || ''}
+                                                                    placeholder={recordTypesByKey[fundRecord]?.name}
+                                                                    onChange={(e) => {
+                                                                        form.update({ [fundRecord]: e.target.value });
+                                                                    }}
+                                                                    className="form-control"
+                                                                />
+                                                            )}
 
-                                                    {recordTypesByKey &&
-                                                        recordTypesByKey[fundRecord] &&
-                                                        recordTypesByKey[fundRecord].type == 'number' && (
-                                                            <input
-                                                                type="number"
-                                                                value={form.values[fundRecord] || ''}
-                                                                placeholder={recordTypesByKey[fundRecord]?.name}
-                                                                onChange={(e) => {
-                                                                    form.update({ [fundRecord]: e.target.value });
-                                                                }}
-                                                                className="form-control"
-                                                            />
-                                                        )}
-
-                                                    {recordTypesByKey &&
-                                                        recordTypesByKey[fundRecord] &&
-                                                        !['number', 'select', 'bool', 'date'].includes(
-                                                            recordTypesByKey[fundRecord].type,
-                                                        ) && (
-                                                            <input
-                                                                type="string"
-                                                                value={form.values[fundRecord] || ''}
-                                                                placeholder={recordTypesByKey[fundRecord]?.name}
-                                                                onChange={(e) => {
-                                                                    form.update({ [fundRecord]: e.target.value });
-                                                                }}
-                                                                className="form-control"
-                                                            />
-                                                        )}
-                                                </div>
-
-                                                {fund.csv_required_keys.indexOf(fundRecord) == -1 && (
-                                                    <div className="flex-col">
-                                                        <button
-                                                            className="button button-text button-text-muted"
-                                                            onClick={() => removeExtraRecord(fundRecord)}>
-                                                            <em className="mdi mdi-close" />
-                                                        </button>
+                                                        {recordTypesByKey &&
+                                                            recordTypesByKey[fundRecord] &&
+                                                            !['number', 'select', 'bool', 'date'].includes(
+                                                                recordTypesByKey[fundRecord].type,
+                                                            ) && (
+                                                                <input
+                                                                    type="string"
+                                                                    value={form.values[fundRecord] || ''}
+                                                                    placeholder={recordTypesByKey[fundRecord]?.name}
+                                                                    onChange={(e) => {
+                                                                        form.update({ [fundRecord]: e.target.value });
+                                                                    }}
+                                                                    className="form-control"
+                                                                />
+                                                            )}
                                                     </div>
-                                                )}
-                                            </div>
 
-                                            <FormError error={form.errors['data.' + fundRecord]} />
-                                        </div>
+                                                    {fund.csv_required_keys.indexOf(fundRecord) == -1 && (
+                                                        <div className="flex-col">
+                                                            <button
+                                                                className="button button-text"
+                                                                onClick={() => removeExtraRecord(fundRecord)}>
+                                                                <em className="mdi mdi-close" />
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        />
                                     ))}
 
                                     {showNewRecord && (

@@ -18,7 +18,7 @@ import BlockCard2FAWarning from '../../elements/block-card-2fa-warning/BlockCard
 import useSetTitle from '../../../hooks/useSetTitle';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
-import FundFaq from './elements/FundFaq';
+import FaqBlock from '../../elements/faq-block/FaqBlock';
 import FundProductsBlock from './elements/FundProductsBlock';
 import useFundMeta from '../../../hooks/meta/useFundMeta';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
@@ -188,17 +188,14 @@ export default function FundsShow() {
                                             </div>
                                             <div className="fund-details-item-value">{fund.organization?.name}</div>
                                         </div>
-                                        {fund.type == 'budget' &&
-                                            formulaList.multiply?.map((formula, index) => (
-                                                <div key={index} className="fund-details-item">
-                                                    <div className="fund-details-item-label">
-                                                        {translate('fund.criterias.multiplied_amount')}
-                                                    </div>
-                                                    <div className="fund-details-item-value">
-                                                        {formula.amount_locale}
-                                                    </div>
+                                        {formulaList.multiply?.map((formula, index) => (
+                                            <div key={index} className="fund-details-item">
+                                                <div className="fund-details-item-label">
+                                                    {translate('fund.criterias.multiplied_amount')}
                                                 </div>
-                                            ))}
+                                                <div className="fund-details-item-value">{formula.amount_locale}</div>
+                                            </div>
+                                        ))}
                                         {fund.key != 'IIT' && (
                                             <div className="fund-details-item">
                                                 <div className="fund-details-item-label">
@@ -315,12 +312,12 @@ export default function FundsShow() {
                     {fund.description_position == 'before' ? (
                         <Fragment>
                             {fund.description_html && (
-                                <Section type={'default'}>
+                                <Section type={'cms'}>
                                     <Markdown content={fund.description_html} />
                                 </Section>
                             )}
 
-                            <FundFaq fund={fund} />
+                            <FaqBlock title={fund?.faq_title} items={fund?.faq} />
                             <FundProductsBlock fund={fund} />
                         </Fragment>
                     ) : (
@@ -328,12 +325,12 @@ export default function FundsShow() {
                             <FundProductsBlock fund={fund} />
 
                             {fund.description_html && (
-                                <Section type={'default'}>
+                                <Section type={'cms'}>
                                     <Markdown content={fund.description_html} />
                                 </Section>
                             )}
 
-                            <FundFaq fund={fund} />
+                            <FaqBlock title={fund?.faq_title} items={fund?.faq} />
                         </Fragment>
                     )}
                 </Fragment>

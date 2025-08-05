@@ -61,7 +61,6 @@ export default function VouchersShow() {
 
     const [voucher, setVoucher] = useState<Voucher>(null);
     const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [subsidies, setSubsidies] = useState<PaginationData<Product>>(null);
     const [showRecords, setShowRecords] = useState<boolean>(null);
 
     const voucherCard = useMemo(() => {
@@ -78,7 +77,7 @@ export default function VouchersShow() {
             !voucher?.expired &&
             !voucher?.deactivated &&
             !voucher?.product &&
-            !voucher?.is_external &&
+            !voucher?.external &&
             appConfigs?.products.list,
         [appConfigs, voucher],
     );
@@ -204,16 +203,8 @@ export default function VouchersShow() {
             setProgress(0);
 
             productService
-                .list({ fund_type: voucher?.fund?.type, sample: 1, per_page: 6, fund_id: voucher.fund_id })
-                .then((res) => {
-                    if (voucher?.fund?.type === 'budget') {
-                        setProducts(res.data);
-                    }
-
-                    if (voucher?.fund?.type === 'subsidies') {
-                        setSubsidies(res.data);
-                    }
-                })
+                .list({ sample: 1, per_page: 6, fund_id: voucher.fund_id })
+                .then((res) => setProducts(res.data))
                 .finally(() => setProgress(100));
         },
         [setProgress, productService],
@@ -265,7 +256,7 @@ export default function VouchersShow() {
     }, [fetchVoucher, authIdentity]);
 
     useEffect(() => {
-        if (voucher && !voucher.product && ['budget', 'subsidies'].includes(voucher?.fund?.type)) {
+        if (voucher && !voucher.product && !voucher?.fund?.external) {
             fetchProducts(voucher);
         }
     }, [fetchProducts, voucher]);
@@ -295,7 +286,7 @@ export default function VouchersShow() {
                 <div className="page page-voucher">
                     <Section type={'voucher_details'}>
                         {/* Internal vouchers */}
-                        {!voucherCard.deactivated && !voucher?.expired && !voucherCard.is_external && (
+                        {!voucherCard.deactivated && !voucher?.expired && !voucherCard.external && (
                             <div className="block block-voucher">
                                 <h1 className="sr-only">Jouw tegoed</h1>
                                 <div className="base-card base-card-voucher">
@@ -319,18 +310,16 @@ export default function VouchersShow() {
                                                     </div>
                                                 )}
 
-                                                {!voucherCard.is_external &&
-                                                    voucherCard.fund.type == 'budget' &&
-                                                    !voucherCard.product && (
-                                                        <div>
-                                                            <div className="card-value euro">
-                                                                {voucherCard.amount_locale}
-                                                            </div>
+                                                {voucherCard.type === 'regular' && (
+                                                    <div>
+                                                        <div className="card-value euro">
+                                                            {voucherCard.amount_locale}
                                                         </div>
-                                                    )}
+                                                    </div>
+                                                )}
                                             </div>
 
-                                            {!voucherCard.is_external && (
+                                            {!voucherCard.external && (
                                                 <Fragment>
                                                     <div className="card-qr_code show-sm">
                                                         {voucher.address && (
@@ -648,7 +637,7 @@ export default function VouchersShow() {
                         )}
 
                         {/* External vouchers */}
-                        {!voucherCard.deactivated && !voucher?.expired && !!voucherCard.is_external && (
+                        {!voucherCard.deactivated && !voucher?.expired && !!voucherCard.external && (
                             <div className="block block-voucher block-voucher-combined">
                                 <h1 className="sr-only">Jouw tegoed</h1>
                                 <div className="base-card base-card-voucher">
@@ -670,15 +659,13 @@ export default function VouchersShow() {
                                                     </div>
                                                 )}
 
-                                                {voucherCard.fund.type == 'budget' &&
-                                                    !voucherCard.product &&
-                                                    voucherCard.fund.key == 'meedoenregeling_volwassenen_ww' && (
-                                                        <div>
-                                                            <div className="card-value euro">
-                                                                {voucherCard.amount_locale}
-                                                            </div>
+                                                {voucherCard.type === 'regular' && (
+                                                    <div>
+                                                        <div className="card-value euro">
+                                                            {voucherCard.amount_locale}
                                                         </div>
-                                                    )}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                         <div className="card-footer">
@@ -1000,8 +987,7 @@ export default function VouchersShow() {
                                                             </div>
                                                         )}
 
-                                                    {(transaction.type == 'product_voucher' ||
-                                                        voucherCard.fund.type != 'budget') &&
+                                                    {transaction.type == 'product_voucher' &&
                                                         !transaction.product_reservation && (
                                                             <div className="transactions-item-counterpart">
                                                                 {transaction.product.name}
@@ -1034,22 +1020,20 @@ export default function VouchersShow() {
                                                     </div>
                                                 </div>
 
-                                                {voucherCard.fund.type == 'budget' && (
-                                                    <div className="transactions-item-amount">
-                                                        <div className="transactions-item-value">
-                                                            {(transaction.incoming ? '' : '-') +
-                                                                ' ' +
-                                                                transaction.amount_locale}
-                                                        </div>
-                                                        <div className="transactions-item-type">
-                                                            {translate(
-                                                                transaction.incoming
-                                                                    ? 'voucher.transactions.add'
-                                                                    : 'voucher.transactions.subtract',
-                                                            )}
-                                                        </div>
+                                                <div className="transactions-item-amount">
+                                                    <div className="transactions-item-value">
+                                                        {(transaction.incoming ? '' : '-') +
+                                                            ' ' +
+                                                            transaction.amount_locale}
                                                     </div>
-                                                )}
+                                                    <div className="transactions-item-type">
+                                                        {translate(
+                                                            transaction.incoming
+                                                                ? 'voucher.transactions.add'
+                                                                : 'voucher.transactions.subtract',
+                                                        )}
+                                                    </div>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
@@ -1059,17 +1043,8 @@ export default function VouchersShow() {
                     </Section>
 
                     {/* Voucher available budget products */}
-                    {showProducts && products && voucher.fund.type == 'budget' && (
-                        <BlockProducts type="budget" products={products.data} filters={{ fund_id: voucher.fund_id }} />
-                    )}
-
-                    {/* Voucher available subsidy products */}
-                    {showProducts && subsidies && voucher.fund.type == 'subsidies' && (
-                        <BlockProducts
-                            type="subsidies"
-                            products={subsidies.data}
-                            filters={{ fund_id: voucher.fund_id }}
-                        />
+                    {showProducts && products && (
+                        <BlockProducts products={products.data} filters={{ fund_id: voucher.fund_id }} />
                     )}
 
                     <Section type={'map'}>
@@ -1077,7 +1052,7 @@ export default function VouchersShow() {
                         {!voucherCard.deactivated &&
                             !voucher?.expired &&
                             appConfigs.show_voucher_map &&
-                            !voucherCard.is_external &&
+                            !voucherCard.external &&
                             (voucherCard.offices.length || !voucherCard.product) && (
                                 <div className="block block-map_card">
                                     <div className="map_card-header">

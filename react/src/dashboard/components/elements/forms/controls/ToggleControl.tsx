@@ -11,6 +11,7 @@ export default function ToggleControl({
     disabled = false,
     tooltip,
     onChange,
+    onClick,
     className,
     customElement,
     labelRight = true,
@@ -24,6 +25,7 @@ export default function ToggleControl({
     value?: string;
     disabled?: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>, checked?: boolean) => void;
+    onClick?: (e: React.MouseEvent<HTMLLabelElement>, checked?: boolean) => void;
     className?: string;
     customElement?: React.ReactElement;
     labelRight?: boolean;
@@ -38,6 +40,7 @@ export default function ToggleControl({
             title={title}
             tabIndex={tabIndex}
             onKeyDown={onKeyDown}
+            onClick={onClick}
             className={classNames('form-toggle', className, disabled && 'form-toggle-disabled')}>
             <input
                 type="checkbox"

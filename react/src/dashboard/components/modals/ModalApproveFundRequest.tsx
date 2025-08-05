@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import classNames from 'classnames';
-import FormGroup from '../elements/forms/controls/FormGroup';
+import FormGroup from '../elements/forms/elements/FormGroup';
 import SelectControl from '../elements/select-control/SelectControl';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
@@ -95,10 +95,12 @@ export default function ModalApproveFundRequest({
     );
 
     return (
-        <div className={classNames('modal', 'modal-lg', 'modal-animated', modal.loading && 'modal-loading')}>
+        <div
+            className={classNames('modal', 'modal-lg', 'modal-animated', modal.loading && 'modal-loading')}
+            data-dusk="modalApproveFundRequest">
             <div className="modal-backdrop" onClick={modal.close} />
             <form className="modal-window" onSubmit={form.submit}>
-                <div className="modal-close mdi mdi-close" onClick={modal.close} />
+                <div className="modal-close mdi mdi-close" onClick={modal.close} data-dusk="closeBtn" />
                 <div className="modal-header">
                     <div className="modal-title">Aanvraag keuren en te ontvangen zaken vaststellen</div>
                 </div>
@@ -171,6 +173,7 @@ export default function ModalApproveFundRequest({
                                             <div className="approve-request-formula-totals-label">
                                                 {amountOptions?.length > 0 && (
                                                     <CheckboxControl
+                                                        dusk="toggleRequestAmountType"
                                                         className={classNames(
                                                             'checkbox-narrow',
                                                             'approve-request-formula-totals-checkbox',
@@ -215,6 +218,7 @@ export default function ModalApproveFundRequest({
                                                             propValue={'name'}
                                                             options={amountOptions}
                                                             value={form.values.type}
+                                                            dusk="amountOptionsSelect"
                                                             onChange={(type: AmountType) => form.update({ type })}
                                                         />
                                                     )}
@@ -241,6 +245,7 @@ export default function ModalApproveFundRequest({
                                                             propValue={'label'}
                                                             options={amountValueOptions}
                                                             value={form.values.fund_amount_preset_id}
+                                                            dusk="amountValueOptionsSelect"
                                                             onChange={(amount_option_id: number) => {
                                                                 form.update({
                                                                     fund_amount_preset_id: amount_option_id,
@@ -257,6 +262,7 @@ export default function ModalApproveFundRequest({
                                                             step=".01"
                                                             min={fundRequest.fund.custom_amount_min}
                                                             max={fundRequest.fund.custom_amount_max}
+                                                            data-dusk="amountCustomInput"
                                                             onChange={(e) => form.update({ amount: e.target.value })}
                                                         />
                                                     )
@@ -296,7 +302,11 @@ export default function ModalApproveFundRequest({
                             text="Sluiten"
                             type="default"
                         />
-                        <button type="submit" disabled={modal.processing} className={'button button-primary'}>
+                        <button
+                            type="submit"
+                            disabled={modal.processing}
+                            className={'button button-primary'}
+                            data-dusk="submitBtn">
                             Bevestigen
                         </button>
                     </div>

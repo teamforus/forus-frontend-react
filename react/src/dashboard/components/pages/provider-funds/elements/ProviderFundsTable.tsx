@@ -327,9 +327,7 @@ export default function ProviderFundsTable({
                                                     <TableRowActions
                                                         content={(e) => (
                                                             <div className="dropdown dropdown-actions">
-                                                                {(providerFund.fund.type == 'subsidies' ||
-                                                                    (providerFund.fund.state != 'closed' &&
-                                                                        providerFund.allow_some_products)) && (
+                                                                {providerFund.fund.state != 'closed' && (
                                                                     <div
                                                                         className="dropdown-item"
                                                                         title="Bekijk"

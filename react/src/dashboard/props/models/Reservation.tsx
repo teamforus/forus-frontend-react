@@ -15,6 +15,8 @@ export default interface Reservation {
     product?: Product;
     price?: string;
     price_locale?: string;
+    price_voucher?: string;
+    price_voucher_locale?: string;
     amount?: string;
     amount_locale?: string;
     created_at?: string;
@@ -57,4 +59,6 @@ export default interface Reservation {
             name: string;
         };
     };
+    cancellation_note?: string;
+    rejection_note?: string;
 }

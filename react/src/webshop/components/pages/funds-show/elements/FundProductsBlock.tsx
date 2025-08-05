@@ -8,7 +8,6 @@ import { useProductService } from '../../../../services/ProductService';
 
 export default function FundProductsBlock({ fund }: { fund: Fund }) {
     const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [subsidies, setSubsidies] = useState<PaginationData<Product>>(null);
 
     const productService = useProductService();
 
@@ -17,20 +16,11 @@ export default function FundProductsBlock({ fund }: { fund: Fund }) {
     const fetchProducts = useCallback(() => {
         setProgress(0);
 
-        if (fund?.type === 'budget') {
-            productService
-                .list({ fund_type: 'budget', sample: 1, per_page: 6, fund_id: fund?.id })
-                .then((res) => setProducts(res.data))
-                .finally(() => setProgress(100));
-        }
-
-        if (fund?.type === 'subsidies') {
-            productService
-                .list({ fund_type: 'subsidies', sample: 1, per_page: 6, fund_id: fund?.id })
-                .then((res) => setSubsidies(res.data))
-                .finally(() => setProgress(100));
-        }
-    }, [fund?.id, fund?.type, productService, setProgress]);
+        productService
+            .list({ per_page: 6, fund_id: fund?.id })
+            .then((res) => setProducts(res.data))
+            .finally(() => setProgress(100));
+    }, [fund?.id, productService, setProgress]);
 
     useEffect(() => {
         if (fund) {
@@ -41,21 +31,7 @@ export default function FundProductsBlock({ fund }: { fund: Fund }) {
     return (
         <Fragment>
             {products && (!fund.description_html || fund.description_position !== 'replace') && (
-                <BlockProducts
-                    type={'budget'}
-                    display={'grid'}
-                    products={products.data}
-                    filters={{ fund_id: fund.id }}
-                />
-            )}
-
-            {subsidies && (!fund.description_html || fund.description_position !== 'replace') && (
-                <BlockProducts
-                    type={'subsidies'}
-                    display={'grid'}
-                    products={subsidies.data}
-                    filters={{ fund_id: fund.id }}
-                />
+                <BlockProducts display={'grid'} products={products.data} filters={{ fund_id: fund.id }} />
             )}
         </Fragment>
     );

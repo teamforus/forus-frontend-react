@@ -174,6 +174,22 @@ export class ProductService<T = Product> {
             },
         }));
     }
+
+    public getFundsColumns(product: Product): Array<ConfigurableTableColumn> {
+        const list = ['fund', 'approved', !product?.sponsor_organization ? 'fund_exclusion' : null, 'chat'].filter(
+            (item) => item,
+        );
+
+        return list.map((key) => ({
+            key,
+            label: `product_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `product_funds.labels.${key}`,
+                description: `product_funds.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export default function useProductService(): ProductService {

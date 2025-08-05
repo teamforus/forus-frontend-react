@@ -1,4 +1,4 @@
-import React, { FormEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import FormError from '../../../elements/forms/errors/FormError';
@@ -50,7 +50,6 @@ export default function ProductsForm({
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const [alreadyConfirmed, setAlreadyConfirmed] = useState<boolean>(false);
     const [mediaFile, setMediaFile] = useState<Blob>(null);
 
     const mediaService = useMediaService();
@@ -324,23 +323,14 @@ export default function ProductsForm({
             }
 
             promise
-                .then((res: ApiResponseSingle<Product>) => {
+                .then(() => {
                     pushSuccess('Gelukt!');
 
                     if (!fundProvider) {
                         return navigateState('products', { organizationId: organization.id });
                     }
 
-                    if (fundProvider.fund.type === 'subsidies') {
-                        navigateState(product ? 'fund-provider-product' : 'fund-provider-product-subsidy-edit', {
-                            id: res.data.data.id,
-                            fundId: fundProvider.fund_id,
-                            organizationId: fundProvider.fund.organization_id,
-                            fundProviderId: fundProvider.id,
-                        });
-                    } else {
-                        goToFundProvider(fundProvider);
-                    }
+                    goToFundProvider(fundProvider);
                 })
                 .catch((err: ResponseError) => {
                     form.setIsLocked(false);
@@ -353,78 +343,6 @@ export default function ProductsForm({
 
     const { update: updateForm } = form;
 
-    const priceWillChange = useCallback(
-        (product?: Product | SponsorProduct): boolean => {
-            if (!product) {
-                return false;
-            }
-
-            if (product.price_type !== form.values.price_type) {
-                return true;
-            }
-
-            if (form.values.price_type === 'regular' && parseFloat(product.price) !== form.values.price) {
-                return true;
-            }
-
-            if (
-                ['discount_fixed', 'discount_percentage'].includes(form.values.price_type) &&
-                parseFloat(product.price_discount) !== form.values.price_discount
-            ) {
-                return true;
-            }
-
-            return true;
-        },
-        [form?.values],
-    );
-
-    const hasSubsidyFunds = useCallback((product: Product | SponsorProduct) => {
-        return product && (product.sponsor_organization_id || product.funds.find((fund) => fund.type === 'subsidies'));
-    }, []);
-
-    const confirmPriceChange = useCallback(async (): Promise<boolean> => {
-        if (alreadyConfirmed) {
-            return true;
-        }
-
-        return new Promise((resolve) => {
-            openModal((modal) => (
-                <ModalNotification
-                    modal={modal}
-                    icon={'product-create'}
-                    title={translate('product_edit.confirm_price_change.title')}
-                    description={translate('product_edit.confirm_price_change.description')}
-                    buttonSubmit={{
-                        onClick: () => {
-                            setAlreadyConfirmed(true);
-                            modal.close();
-                            resolve(true);
-                        },
-                    }}
-                    buttonCancel={{ onClick: () => resolve(false) }}
-                />
-            ));
-        });
-    }, [alreadyConfirmed, openModal, translate]);
-
-    const saveProduct = useCallback(
-        (e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-
-            if (!priceWillChange(product) || !hasSubsidyFunds(product)) {
-                return form.submit(e);
-            }
-
-            confirmPriceChange().then((confirmed) => {
-                if (confirmed) {
-                    form.submit(e);
-                }
-            });
-        },
-        [confirmPriceChange, form, hasSubsidyFunds, priceWillChange, product],
-    );
-
     const cancel = useCallback(() => {
         if (fundProvider) {
             goToFundProvider(fundProvider);
@@ -434,10 +352,8 @@ export default function ProductsForm({
     }, [fundProvider, goToFundProvider, navigateState, organization?.id]);
 
     useEffect(() => {
-        const { reservations_budget_enabled, reservations_subsidy_enabled } = organization;
-
         setNonExpiring(!product || !product?.expire_at);
-        setAllowsReservations(reservations_budget_enabled || reservations_subsidy_enabled);
+        setAllowsReservations(organization.reservations_enabled);
         setIsEditable(
             !product || !product.sponsor_organization_id || product.sponsor_organization_id === organization.id,
         );
@@ -561,7 +477,7 @@ export default function ProductsForm({
                 </div>
             )}
 
-            <form className="card form" onSubmit={saveProduct}>
+            <form className="card form" onSubmit={form.submit}>
                 <div className="card-header">
                     <div className="card-title">
                         {translate(id ? 'product_edit.header.title_edit' : 'product_edit.header.title_add')}

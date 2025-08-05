@@ -9,14 +9,12 @@ import useEnvData from '../../../hooks/useEnvData';
 import useFilter from '../../../hooks/useFilter';
 import useTransactionBulkService from '../../../services/TransactionBulkService';
 import { PaginationData } from '../../../props/ApiResponses';
-import ModalDangerZone from '../../modals/ModalDangerZone';
 import { strLimit } from '../../../helpers/string';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import TransactionBulk from '../../../props/models/TransactionBulk';
 import useTransactionExporter from '../../../services/exporters/useTransactionExporter';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import ThSortable from '../../elements/tables/ThSortable';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import { useFundService } from '../../../services/FundService';
 import useProviderFundService from '../../../services/ProviderFundService';
@@ -40,6 +38,8 @@ import TransactionStateLabel from '../../elements/resource-states/TransactionSta
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import useConfirmDangerAction from '../../../hooks/useConfirmDangerAction';
+import TransactionBulksCard from './elements/TransactionBulksCard';
 
 export default function Transactions() {
     const envData = useEnvData();
@@ -50,6 +50,7 @@ export default function Transactions() {
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const navigateState = useNavigateState();
+    const confirmDangerAction = useConfirmDangerAction();
 
     const activeOrganization = useActiveOrganization();
     const transactionExporter = useTransactionExporter();
@@ -72,7 +73,7 @@ export default function Transactions() {
         total: number;
     }>(null);
 
-    const [funds, setFunds] = useState(null);
+    const [funds, setFunds] = useState<Array<Fund>>(null);
     const [transactions, setTransactions] = useState<PaginationData<Transaction>>(null);
     const [transactionBulks, setTransactionBulks] = useState<PaginationData<TransactionBulk>>(null);
 
@@ -240,35 +241,6 @@ export default function Transactions() {
         ));
     }, [activeOrganization, fetchTransactions, filter.activeValues, isSponsor, openModal, updateHasPendingBulking]);
 
-    const confirmDangerAction = useCallback(
-        (title: string, description_text: string, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
-            return new Promise((resolve) => {
-                openModal((modal) => (
-                    <ModalDangerZone
-                        modal={modal}
-                        title={title}
-                        description={description_text}
-                        buttonCancel={{
-                            text: cancelButton,
-                            onClick: () => {
-                                modal.close();
-                                resolve(false);
-                            },
-                        }}
-                        buttonSubmit={{
-                            text: confirmButton,
-                            onClick: () => {
-                                modal.close();
-                                resolve(true);
-                            },
-                        }}
-                    />
-                ));
-            });
-        },
-        [openModal],
-    );
-
     const confirmBulkNow = useCallback(() => {
         const total = pendingBulkingMeta.total;
         const totalAmount = pendingBulkingMeta.total_amount_locale;
@@ -355,7 +327,7 @@ export default function Transactions() {
     ]);
 
     useEffect(() => {
-        fetchFunds({ per_page: 100 }).then((funds) => setFunds([{ id: null, name: 'Selecteer fonds' }, ...funds]));
+        fetchFunds({ per_page: 100 }).then((funds) => setFunds(funds));
     }, [fetchFunds]);
 
     if (
@@ -517,7 +489,7 @@ export default function Transactions() {
                                             className="form-control"
                                             propKey={'id'}
                                             allowSearch={false}
-                                            options={funds}
+                                            options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
                                             dusk="fundSelect"
                                             onChange={(fund_id: number) => filter.update({ fund_id })}
                                         />
@@ -974,7 +946,7 @@ export default function Transactions() {
                                             <td data-dusk="transactionState">
                                                 <TransactionStateLabel transaction={transaction} />
                                             </td>
-                                            <td className={'table-td-actions'}>
+                                            <td className={'table-td-actions text-right'}>
                                                 <TableRowActions
                                                     content={() => (
                                                         <div className="dropdown dropdown-actions">
@@ -1065,97 +1037,11 @@ export default function Transactions() {
             )}
 
             {viewType.key == 'bulks' && transactionBulks.meta.total > 0 && (
-                <div className="card-section">
-                    <div className="card-block card-block-table">
-                        <TableTopScroller>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <ThSortable label={'ID'} value={'id'} filter={bulkFilter} />
-                                        <ThSortable label={'Bedrag'} value={'amount'} filter={bulkFilter} />
-                                        <ThSortable label={'Datum'} value={'created_at'} filter={bulkFilter} />
-                                        <ThSortable
-                                            label={'Aantal'}
-                                            value={'voucher_transactions_count'}
-                                            filter={bulkFilter}
-                                        />
-                                        <ThSortable label={'Status'} value={'state'} filter={bulkFilter} />
-                                        <ThSortable label={''} />
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {transactionBulks.data?.map((transactionBulk) => (
-                                        <StateNavLink
-                                            customElement={'tr'}
-                                            className={'tr-clickable'}
-                                            name={'transaction-bulk'}
-                                            params={{
-                                                organizationId: activeOrganization.id,
-                                                id: transactionBulk.id,
-                                            }}
-                                            key={transactionBulk.id}
-                                            dataDusk={`transactionBulkRow${transactionBulk.id}`}>
-                                            <td>{transactionBulk.id}</td>
-                                            <td className="text-primary-light">
-                                                {transactionBulk.voucher_transactions_amount_locale}
-                                            </td>
-                                            <td>
-                                                <div className="text-semibold text-primary">
-                                                    {transactionBulk.created_at_locale.split(' - ')[0]}
-                                                </div>
-                                                <div className="text-strong text-md text-muted-dark">
-                                                    {transactionBulk.created_at_locale.split(' - ')[1]}
-                                                </div>
-                                            </td>
-                                            <td>{transactionBulk.voucher_transactions_count}</td>
-                                            <td>
-                                                {transactionBulk.state === 'rejected' && (
-                                                    <Label type="danger">{transactionBulk.state_locale}</Label>
-                                                )}
-
-                                                {transactionBulk.state === 'error' && (
-                                                    <Label type="danger">{transactionBulk.state_locale}</Label>
-                                                )}
-
-                                                {transactionBulk.state === 'draft' && (
-                                                    <Label type="default">{transactionBulk.state_locale}</Label>
-                                                )}
-
-                                                {transactionBulk.state === 'accepted' && (
-                                                    <Label type="success">{transactionBulk.state_locale}</Label>
-                                                )}
-
-                                                {transactionBulk.state === 'pending' && (
-                                                    <Label type="default">{transactionBulk.state_locale}</Label>
-                                                )}
-                                            </td>
-
-                                            <td className={'table-td-actions text-right'}>
-                                                <TableRowActions
-                                                    content={() => (
-                                                        <div className="dropdown dropdown-actions">
-                                                            <StateNavLink
-                                                                className="dropdown-item"
-                                                                name={'transaction-bulk'}
-                                                                params={{
-                                                                    organizationId: activeOrganization.id,
-                                                                    id: transactionBulk.id,
-                                                                }}>
-                                                                <em className={'mdi mdi-eye icon-start'} />
-                                                                Bekijken
-                                                            </StateNavLink>
-                                                        </div>
-                                                    )}
-                                                />
-                                            </td>
-                                        </StateNavLink>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </TableTopScroller>
-                    </div>
-                </div>
+                <TransactionBulksCard
+                    bulks={transactionBulks.data}
+                    organization={activeOrganization}
+                    filter={bulkFilter}
+                />
             )}
 
             {viewType.key === 'bulks' && transactionBulks.meta.total == 0 && (

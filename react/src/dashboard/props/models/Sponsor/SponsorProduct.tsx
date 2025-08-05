@@ -2,20 +2,31 @@ import Office from '../Office';
 import Organization from '../Organization';
 import Media from '../Media';
 import ProductCategory from '../ProductCategory';
+import FundProviderChat from '../FundProviderChat';
 
-export interface DealHistory {
+export interface DealHistoryItem {
     id: number;
     amount?: string;
     amount_locale?: string;
+    amount_identity?: string;
+    amount_identity_locale?: string;
     limit_total?: number;
     limit_total_unlimited?: boolean;
     limit_per_identity?: number;
+    limit_per_identity_unlimited?: boolean;
     voucher_transactions_count?: number;
     product_reservations_pending_count?: number;
     active: boolean;
     product_id: number;
     expire_at?: string;
     expire_at_locale?: string;
+    created_at?: string;
+    created_at_locale?: string;
+    updated_at?: string;
+    updated_at_locale?: string;
+    payment_type?: 'budget' | 'subsidy';
+    allow_scanning: 1 | 0;
+    payment_type_locale?: string;
 }
 
 export interface SponsorProductHistoryItem {
@@ -85,8 +96,8 @@ export default interface SponsorProduct {
         name: string;
     };
     monitored_history?: Array<SponsorProductHistoryItem>;
-    unseen_messages: number;
-    deals_history?: Array<DealHistory>;
+    fund_provider_product_chat?: FundProviderChat;
+    deals_history?: Array<DealHistoryItem>;
     is_available?: boolean;
     monitored_changes_count?: number;
     ean?: string;

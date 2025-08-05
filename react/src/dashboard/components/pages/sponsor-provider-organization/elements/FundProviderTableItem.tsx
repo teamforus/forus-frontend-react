@@ -5,8 +5,12 @@ import FundProvider from '../../../../props/models/FundProvider';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Organization from '../../../../props/models/Organization';
 import useConfirmFundProviderUpdate from '../hooks/useConfirmFundProviderUpdate';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import TableRowActions from '../../../elements/tables/TableRowActions';
+import ToggleControl from '../../../elements/forms/controls/ToggleControl';
+import useSetProgress from '../../../../hooks/useSetProgress';
 
 export default function FundProviderTableItem({
     fundProvider,
@@ -18,13 +22,13 @@ export default function FundProviderTableItem({
     onChange: (data: FundProvider) => void;
 }) {
     const pushSuccess = usePushSuccess();
-    const assetUrl = useAssetUrl();
+    const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const confirmFundProviderUpdate = useConfirmFundProviderUpdate();
 
     const fundService = useFundService();
 
-    const [submittingState, setSubmittingState] = useState(null);
+    const [isSubmitting, setSubmitting] = useState<boolean>(false);
     const [submittingExcluded, setSubmittingExcluded] = useState(false);
 
     const updateProvider = useCallback(
@@ -32,15 +36,22 @@ export default function FundProviderTableItem({
             fundProvider: FundProvider,
             data: { state?: string; allow_budget?: boolean; allow_products?: boolean; excluded?: boolean },
         ) => {
+            setProgress(0);
+            setSubmitting(true);
+
             return await fundService
                 .updateProvider(fundProvider.fund.organization_id, fundProvider.fund.id, fundProvider.id, data)
                 .then((res) => {
                     pushSuccess('Opgeslagen!');
                     onChange(res.data.data);
                 })
-                .catch(pushApiError);
+                .catch(pushApiError)
+                .finally(() => {
+                    setProgress(100);
+                    setSubmitting(false);
+                });
         },
-        [fundService, onChange, pushApiError, pushSuccess],
+        [fundService, onChange, pushApiError, pushSuccess, setProgress],
     );
 
     const updateFundProviderExcluded = useCallback(
@@ -53,38 +64,32 @@ export default function FundProviderTableItem({
 
     const updateFundProviderState = useCallback(
         (fundProvider: FundProvider, accepted: boolean) => {
-            const state = accepted ? 'accepted' : 'rejected';
-
-            setSubmittingState(state);
-
-            confirmFundProviderUpdate(fundProvider, state)
+            confirmFundProviderUpdate(fundProvider, accepted ? 'accepted' : 'rejected')
                 .then((data) => data && updateProvider(fundProvider, data))
-                .catch((r) => r)
-                .finally(() => setSubmittingState(null));
+                .catch((r) => r);
         },
         [confirmFundProviderUpdate, updateProvider],
     );
 
     return (
-        <tr>
-            <td className="td-narrow">
-                <img
-                    className="td-media"
-                    src={
-                        fundProvider.fund.logo?.sizes?.thumbnail ||
-                        assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                    }
-                    alt={fundProvider.fund.name}
+        <StateNavLink
+            customElement={'tr'}
+            className={'tr-clickable'}
+            name={'fund-provider'}
+            params={{
+                id: fundProvider.id,
+                fundId: fundProvider.fund_id,
+                organizationId: organization.id,
+            }}>
+            <td className="nowrap">
+                <TableEntityMain
+                    title={fundProvider.fund.name}
+                    subtitle={fundProvider.organization.name}
+                    media={fundProvider.fund.logo}
+                    mediaRound={false}
+                    mediaSize={'md'}
+                    mediaPlaceholder={'fund'}
                 />
-            </td>
-            <td>
-                <div className="td-title">
-                    {fundProvider.fund.name}
-                    <div className="td-title-icon td-title-icon-suffix">
-                        {fundProvider.excluded && <em className="mdi mdi-eye-off-outline" />}
-                    </div>
-                </div>
-                <div>{fundProvider.fund.type_locale}</div>
             </td>
             <td>
                 <div
@@ -95,8 +100,8 @@ export default function FundProviderTableItem({
                 </div>
             </td>
             <td>
-                {fundProvider.state == 'pending' || fundProvider.fund.type == 'subsidies' ? (
-                    <div className="text-muted">-</div>
+                {fundProvider.state == 'pending' ? (
+                    <TableEmptyValue />
                 ) : (
                     <Fragment>
                         {fundProvider.state == 'rejected' && <div className="text-strong">Nee</div>}
@@ -155,61 +160,66 @@ export default function FundProviderTableItem({
             </td>
             <td>
                 <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
-                    <label
-                        className={`form-toggle ${
-                            fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''
-                        } ${submittingExcluded ? 'form-toggle-disabled' : ''}`}
-                        htmlFor={`provider_excluded_${fundProvider.id}`}>
-                        <input
-                            type="checkbox"
-                            id={`provider_excluded_${fundProvider.id}`}
-                            disabled={fundProvider.state != 'accepted' || submittingExcluded}
-                            onChange={(e) => updateFundProviderExcluded(fundProvider, { excluded: e.target.checked })}
-                            checked={fundProvider.excluded}
-                        />
-                        <div className="form-toggle-inner flex-end">
-                            <div className="toggle-input">
-                                <div className="toggle-input-dot" />
-                            </div>
-                        </div>
-                    </label>
+                    <ToggleControl
+                        disabled={fundProvider.state != 'accepted' || submittingExcluded}
+                        checked={fundProvider.excluded}
+                        onClick={(e) => e?.stopPropagation()}
+                        onChange={(e) => updateFundProviderExcluded(fundProvider, { excluded: e.target.checked })}
+                    />
                 </div>
             </td>
-            <td className="text-right">
-                {(fundProvider.state == 'pending' || fundProvider.state == 'accepted') &&
-                    submittingState !== 'accepted' && (
-                        <button
-                            type="button"
-                            className="button button-sm button-danger button-icon"
-                            onClick={() => updateFundProviderState(fundProvider, false)}
-                            disabled={submittingState}>
-                            <em className={`mdi ${submittingState ? 'mdi-loading mdi-spin' : 'mdi-close'}`} />
-                        </button>
-                    )}
+            <td className={'table-td-actions text-right'}>
+                <TableRowActions
+                    buttons={
+                        <Fragment>
+                            {(fundProvider.state == 'pending' || fundProvider.state == 'accepted') && !isSubmitting && (
+                                <div
+                                    className={'button button-text button-menu'}
+                                    onClick={(e) => {
+                                        e?.preventDefault();
+                                        e?.stopPropagation();
+                                        updateFundProviderState(fundProvider, false);
+                                    }}>
+                                    <em className="mdi mdi-close-circle-outline" />
+                                </div>
+                            )}
 
-                {(fundProvider.state == 'pending' || fundProvider.state == 'rejected') &&
-                    submittingState != 'reject' && (
-                        <button
-                            type="button"
-                            className="button button-sm button-primary button-icon"
-                            onClick={() => updateFundProviderState(fundProvider, true)}
-                            disabled={submittingState}>
-                            <em className={`mdi ${submittingState ? 'mdi-loading mdi-spin' : 'mdi-check'}`} />
-                        </button>
-                    )}
+                            {(fundProvider.state == 'pending' || fundProvider.state == 'rejected') && !isSubmitting && (
+                                <div
+                                    className={'button button-text button-menu'}
+                                    onClick={(e) => {
+                                        e?.preventDefault();
+                                        e?.stopPropagation();
+                                        updateFundProviderState(fundProvider, true);
+                                    }}>
+                                    <em className="mdi mdi-play-circle-outline" />
+                                </div>
+                            )}
 
-                <StateNavLink
-                    name={'fund-provider'}
-                    params={{
-                        id: fundProvider.id,
-                        fundId: fundProvider.fund_id,
-                        organizationId: organization.id,
-                    }}
-                    className={`button button-sm button-default ${submittingState ? 'disabled' : ''}`}>
-                    <em className="mdi mdi-eye-outline icon-start" />
-                    Bekijk aanbod
-                </StateNavLink>
+                            {isSubmitting && (
+                                <div className={'button button-text button-menu disabled'}>
+                                    <em className="mdi mdi-loading mdi-spin" />
+                                </div>
+                            )}
+                        </Fragment>
+                    }
+                    content={() => (
+                        <div className="dropdown dropdown-actions">
+                            <StateNavLink
+                                name={'fund-provider'}
+                                params={{
+                                    id: fundProvider.id,
+                                    fundId: fundProvider.fund_id,
+                                    organizationId: organization.id,
+                                }}
+                                className="dropdown-item">
+                                <em className="mdi mdi-eye-outline icon-start" />
+                                Bekijken
+                            </StateNavLink>
+                        </div>
+                    )}
+                />
             </td>
-        </tr>
+        </StateNavLink>
     );
 }

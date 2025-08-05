@@ -34,6 +34,7 @@ export default function ModalNotification({
             size={'lg'}
             modal={modal}
             className={classNames('modal-notification', className)}
+            dusk="modalNotification"
             footer={
                 <Fragment>
                     {buttonClose && (
@@ -55,6 +56,7 @@ export default function ModalNotification({
                             disabled={modal.processing}
                             text="Bevestigen"
                             type="primary"
+                            dusk="submitBtn"
                         />
                     )}
 

@@ -118,7 +118,7 @@ export default function ProductFundsCard({
                     <div className="pane-section pane-section-collapsed">
                         <div className="product-funds-list">
                             {listFunds.map((fund) => (
-                                <div key={fund.id} className="fund-item" data-dusk={`fundItem${fund.id}`}>
+                                <div key={fund.id} className="fund-item" data-dusk={`listFundsRow${fund.id}`}>
                                     <div className="fund-item-section fund-item-section-details text-left">
                                         <div className="fund-item-media">
                                             <img
@@ -199,24 +199,13 @@ export default function ProductFundsCard({
                                             </div>
                                         )}
 
-                                        {fund.type == 'subsidies' &&
-                                            (product.price_type === 'free' ||
-                                                (product.price_type === 'regular' && fund.price == '0.00')) && (
-                                                <div className="fund-item-section-value">
-                                                    {translate('product.status.free')}
-                                                </div>
-                                            )}
-
-                                        {fund.type == 'subsidies' &&
-                                            product.price_type === 'regular' &&
-                                            fund.price != '0.00' && (
-                                                <div className="fund-item-section-value">{fund.price_locale}</div>
-                                            )}
-
-                                        {fund.type == 'budget' &&
-                                            (product.price_type === 'regular' || product.price_type === 'free') && (
-                                                <div className="fund-item-section-value">{product.price_locale}</div>
-                                            )}
+                                        {(product.price_type === 'regular' || product.price_type === 'free') && (
+                                            <div className="fund-item-section-value">
+                                                {fund.user_price === '0.00'
+                                                    ? translate('product.status.free')
+                                                    : fund.user_price_locale}
+                                            </div>
+                                        )}
 
                                         {(product.price_type === 'discount_fixed' ||
                                             product.price_type === 'discount_percentage') && (

@@ -11,13 +11,11 @@ import classNames from 'classnames';
 export default function ProductsListItem({
     display,
     product,
-    productType,
     stateParams = null,
     onToggleBookmark = null,
 }: {
     display: 'grid' | 'list' | 'search';
     product: Product;
-    productType?: 'budget' | 'subsidies';
     stateParams?: object;
     onToggleBookmark?: (product: Product) => void;
 }) {
@@ -25,22 +23,16 @@ export default function ProductsListItem({
     const bookmarkProductToggle = useBookmarkProductToggle();
 
     const price = useMemo(() => {
-        if (productType == 'subsidies') {
-            if (product.price_type === 'regular' && product.price_min == '0.00') {
-                return translate('product.price.free');
-            }
-
-            if (product.price_type === 'regular' && product.price_min != '0.00') {
-                return product.price_min_locale;
-            }
-
-            if (product.price_type !== 'regular') {
-                return product.price_locale;
-            }
+        if (product.price_type !== 'regular') {
+            return product.price_locale;
         }
 
-        return product.price_locale;
-    }, [product, productType, translate]);
+        if (product.price_min == '0.00') {
+            return translate('product.price.free');
+        }
+
+        return product.price_min_locale;
+    }, [product, translate]);
 
     const toggleBookmark = useCallback(
         async (e: React.MouseEvent) => {
@@ -59,7 +51,8 @@ export default function ProductsListItem({
             params={{ id: product.id }}
             state={stateParams || null}
             className={classNames(display === 'search' ? 'search-item' : 'product-item')}
-            dataDusk="productItem">
+            dataDusk={`listProductsRow${product.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             {display === 'grid' && (
                 <ProductsListItemGrid price={price} toggleBookmark={toggleBookmark} product={product} />
             )}

@@ -24,6 +24,7 @@ export default function LayoutAsideValidator({ organization }: { organization: O
                 iconActive={<IconManagementActive />}
                 pinnedGroups={pinnedGroups}
                 setPinnedGroups={setPinnedGroups}
+                dusk={'asideMenuGroupFundRequests'}
                 items={[
                     {
                         id: 'fund_requests',
@@ -33,6 +34,7 @@ export default function LayoutAsideValidator({ organization }: { organization: O
                         show:
                             appConfigs?.organizations?.funds?.fund_requests &&
                             hasPermission(organization, ['validate_records', 'manage_validators'], false),
+                        dusk: 'fundRequestsPage',
                     },
                     {
                         id: 'requesters',

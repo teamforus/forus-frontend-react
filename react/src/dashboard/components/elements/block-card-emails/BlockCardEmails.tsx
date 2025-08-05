@@ -21,6 +21,8 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import useEmailLogService from '../../../services/EmailLogService';
 import { useFileService } from '../../../services/FileService';
 import Organization from '../../../props/models/Organization';
+import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../tables/TableTopScroller';
 
 export default function BlockCardEmails({
     organization,
@@ -52,6 +54,8 @@ export default function BlockCardEmails({
         page: 1,
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(emailLogService.getColumns());
 
     const exportEmailLog = useCallback(
         (emailLog: EmailLog) => {
@@ -130,16 +134,13 @@ export default function BlockCardEmails({
             <LoaderTableCard empty={!emailLogs.meta.total} emptyTitle={'De lijst van berichten is leeg'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
+                                {headElement}
+
                                 <tbody>
-                                    <tr className={'nowrap'}>
-                                        <th>Verstuurd op</th>
-                                        <th>Titel en bericht</th>
-                                        <th>Ontvanger</th>
-                                        <th>Afzender</th>
-                                        <th className="text-right">Actions</th>
-                                    </tr>
                                     {emailLogs?.data.map((emailLog) => (
                                         <tr key={emailLog.id} data-dusk={`emailLogRow${emailLog.id}`}>
                                             <td className="nowrap">
@@ -202,7 +203,7 @@ export default function BlockCardEmails({
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
 

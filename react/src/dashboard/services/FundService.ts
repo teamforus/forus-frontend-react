@@ -273,6 +273,48 @@ export class FundService<T = Fund> {
         }));
     }
 
+    public getProviderProductColumns(fund: Fund, history: boolean): Array<ConfigurableTableColumn> {
+        const list = [
+            history ? 'used' : null,
+            history ? 'reserved' : null,
+            history ? 'price' : null,
+            history ? null : 'product_details',
+            fund?.show_subsidies ? 'acceptance' : null,
+            fund?.show_subsidies ? 'user_price' : null,
+            fund?.show_requester_limits ? 'limit_total' : null,
+            fund?.show_requester_limits ? 'limit_per_user' : null,
+            history ? null : 'messages',
+            'status',
+            'expiry_date',
+            history ? 'created_on' : null,
+            history ? 'updated_on' : null,
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.fund_provider_products.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.fund_provider_products.labels.${key}`,
+                description: `components.fund_provider_products.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderFundColumns(): Array<ConfigurableTableColumn> {
+        const list = ['fund_name', 'status', 'budget', 'products', 'hide_on_webshops'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.fund_provider_funds.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.fund_provider_funds.labels.${key}`,
+                description: `components.fund_provider_funds.tooltips.${key}`,
+            },
+        }));
+    }
+
     public getColumnsProductFunds(): Array<ConfigurableTableColumn> {
         const list = ['name', 'implementation', 'status'].filter((item) => item);
 
@@ -313,6 +355,110 @@ export class FundService<T = Fund> {
                 key: key,
                 title: `financial_dashboard_overview.labels.${key}`,
                 description: `financial_dashboard_overview.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getFormulasColumns(): Array<ConfigurableTableColumn> {
+        const list = ['id', 'type', 'amount', 'record_type', 'created_at', 'updated_at'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `fund_formulas.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `fund_formulas.labels.${key}`,
+                description: `fund_formulas.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getTopUpColumns(): Array<ConfigurableTableColumn> {
+        const list = ['code', 'iban', 'amount', 'created_at'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `funds_show.top_up_table.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `funds_show.top_up_table.labels.${key}`,
+                description: `funds_show.top_up_table.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getImplementationsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['image', 'name', 'status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `fund_implementations.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `fund_implementations.labels.${key}`,
+                description: `fund_implementations.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getIdentitiesColumns(): Array<ConfigurableTableColumn> {
+        const list = [
+            'id',
+            'email',
+            'count_vouchers',
+            'count_vouchers_active',
+            'count_vouchers_active_with_balance',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `fund_identities.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `fund_identities.labels.${key}`,
+                description: `fund_identities.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProductHistoryColumns(): Array<ConfigurableTableColumn> {
+        const list = ['updated_fields', 'date'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `sponsor_products.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `sponsor_products.labels.${key}`,
+                description: `sponsor_products.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderOfficeColumns(): Array<ConfigurableTableColumn> {
+        const list = ['address', 'phone'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.fund_provider_offices.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.fund_provider_offices.labels.${key}`,
+                description: `components.fund_provider_offices.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderEmployeeColumns(): Array<ConfigurableTableColumn> {
+        const list = ['email'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `components.fund_provider_employees.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `components.fund_provider_employees.labels.${key}`,
+                description: `components.fund_provider_employees.tooltips.${key}`,
             },
         }));
     }

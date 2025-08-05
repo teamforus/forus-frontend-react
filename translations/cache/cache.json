@@ -508,10 +508,6 @@
         "Aanbod"
     ],
     [
-        "block_products.header.title_subsidies",
-        "Aanbod"
-    ],
-    [
         "block_products.input.placeholder",
         "Zoek naar producten of diensten"
     ],
@@ -4629,6 +4625,10 @@
     ],
     [
         "modal_reserve_product.fill_notes.labels.notes",
+        "Opmerking"
+    ],
+    [
+        "modal_reserve_product.fill_notes.labels.notes_optional",
         "Opmerking (optioneel)"
     ],
     [
@@ -6089,10 +6089,6 @@
     ],
     [
         "product.breadcrumbs.products",
-        "Aanbod"
-    ],
-    [
-        "product.breadcrumbs.subsidies",
         "Aanbod"
     ],
     [
@@ -8340,10 +8336,6 @@
         "Kosten terugvragen"
     ],
     [
-        "top_navbar.buttons.subsidies",
-        "Aanbod"
-    ],
-    [
         "top_navbar.buttons.vergoedingen.activate",
         "Vergoedingen"
     ],
@@ -8452,10 +8444,6 @@
         "Uitleg aanbieders"
     ],
     [
-        "top_navbar.items.subsidies",
-        "Aanbod"
-    ],
-    [
         "top_navbar.items.vergoedingen.funds",
         "Vergoedingen"
     ],
@@ -8517,7 +8505,7 @@
     ],
     [
         "top_navbar.user_menu.authorize",
-        "Authorize device"
+        "Me app koppelen"
     ],
     [
         "top_navbar.user_menu.bookmarks",

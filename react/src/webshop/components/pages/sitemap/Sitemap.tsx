@@ -39,22 +39,12 @@ export default function Sitemap() {
                                     </StateNavLink>
                                 </li>
                             )}
-                        {appConfigs?.has_budget_funds &&
+                        {appConfigs?.has_internal_funds &&
                             appConfigs?.products.list &&
                             (envData.config.flags.productsMenu || authIdentity) && (
                                 <li>
                                     <StateNavLink name="products">
                                         {translate('top_navbar.items.products')}
-                                    </StateNavLink>
-                                </li>
-                            )}
-
-                        {appConfigs?.has_subsidy_funds &&
-                            appConfigs?.products.list &&
-                            (envData.config.flags.productsMenu || authIdentity) && (
-                                <li>
-                                    <StateNavLink name="actions">
-                                        {translate('top_navbar.items.subsidies')}
                                     </StateNavLink>
                                 </li>
                             )}

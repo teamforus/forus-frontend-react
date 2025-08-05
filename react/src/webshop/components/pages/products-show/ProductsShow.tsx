@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAssetUrl from '../../../hooks/useAssetUrl';
@@ -61,14 +61,6 @@ export default function ProductsShow() {
     const productFeatures = useProductFeatures(product);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
-
-    const hasBudgetFunds = useMemo(() => {
-        return product?.funds.filter((fund) => fund.type === 'budget').length > 0;
-    }, [product?.funds]);
-
-    const hasSubsidyFunds = useMemo(() => {
-        return product?.funds.filter((fund) => fund.type === 'subsidies').length > 0;
-    }, [product?.funds]);
 
     const toggleBookmark = useCallback(
         async (e: React.MouseEvent, product: Product) => {
@@ -177,9 +169,7 @@ export default function ProductsShow() {
                 product && [
                     showBack && { name: translate('product.breadcrumbs.back'), back: true },
                     { name: translate('product.breadcrumbs.home'), state: 'home' },
-                    hasBudgetFunds && { name: translate('product.breadcrumbs.products'), state: 'products' },
-                    hasSubsidyFunds &&
-                        !hasBudgetFunds && { name: translate('product.breadcrumbs.subsidies'), state: 'actions' },
+                    { name: translate('product.breadcrumbs.products'), state: 'products' },
                     product && { name: product.name },
                 ]
             }>
@@ -244,7 +234,7 @@ export default function ProductsShow() {
                                                 className="product-property-icons"
                                                 role="list"
                                                 aria-labelledby="paymentOptionsLabel">
-                                                {productFeatures.scanning_enabled && (
+                                                {productFeatures.feature_scanning_enabled && (
                                                     <li className="product-property-icons-item">
                                                         <span aria-hidden="true">
                                                             <em className="mdi mdi-qrcode-scan" />
@@ -253,7 +243,7 @@ export default function ProductsShow() {
                                                     </li>
                                                 )}
 
-                                                {productFeatures.reservations_enabled && (
+                                                {productFeatures.feature_reservations_enabled && (
                                                     <li className="product-property-icons-item">
                                                         <span aria-hidden="true">
                                                             <em className="mdi mdi-tag-multiple-outline" />
@@ -264,9 +254,13 @@ export default function ProductsShow() {
                                                     </li>
                                                 )}
 
-                                                {productFeatures.reservation_extra_payments_enabled && (
+                                                {productFeatures.feature_reservation_extra_payments_enabled && (
                                                     <li className="product-property-icons-item">
-                                                        <img src={assetUrl('/assets/img/icon-ideal.svg')} alt="" />
+                                                        <img
+                                                            src={assetUrl('/assets/img/icon-ideal.svg')}
+                                                            alt=""
+                                                            aria-hidden="true"
+                                                        />
                                                         <span>{translate('product.labels.payment_option_ideal')}</span>
                                                     </li>
                                                 )}

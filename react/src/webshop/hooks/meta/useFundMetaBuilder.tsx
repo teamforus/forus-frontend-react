@@ -20,7 +20,7 @@ export default function useFundMetaBuilder() {
                 fund.criteria.filter((criterion) => !criterion.is_valid).length == 0;
 
             const alreadyReceived = vouchersList.length !== 0 || fund.received;
-            const canApply = !fund.is_external && !alreadyReceived && isApplicable && !fund.has_pending_fund_requests;
+            const canApply = !fund.external && !alreadyReceived && isApplicable && !fund.has_pending_fund_requests;
 
             const showRequestButton =
                 !alreadyReceived &&

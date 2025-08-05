@@ -5,7 +5,6 @@ import useAuthIdentity from '../../../../../hooks/useAuthIdentity';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import { useProductService } from '../../../../../services/ProductService';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import useShowProductPaymentOptionsInfoModal from '../../../../../hooks/useShowProductPaymentOptionsInfoModal';
 import useProductFeatures from '../../../../../hooks/useProductFeatures';
 
 export default function ProductsListItemList({
@@ -19,7 +18,6 @@ export default function ProductsListItemList({
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const showProductIconsInfoModal = useShowProductPaymentOptionsInfoModal();
 
     const authIdentity = useAuthIdentity();
     const productFeatures = useProductFeatures(product);
@@ -66,49 +64,39 @@ export default function ProductsListItemList({
                 <div className="product-actions">
                     <div className="product-price">{price}</div>
                     <div className="product-icons">
-                        {productFeatures?.scanning_enabled && (
-                            <div
-                                className="product-icons-item"
-                                role="button"
-                                tabIndex={0}
-                                aria-label={translate('list_blocks.product_item.payment_option_qr_aria_label')}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    showProductIconsInfoModal();
-                                }}
-                                onKeyDown={(e) => clickOnKeyEnter(e, true)}>
+                        {productFeatures?.feature_scanning_enabled && (
+                            <div className="product-icons-item">
                                 <em className="mdi mdi-qrcode-scan" aria-hidden="true" />
-                                {translate('list_blocks.product_item.payment_option_qr')}
+                                <span className="hide-sm">
+                                    {translate('list_blocks.product_item.payment_option_qr')}
+                                </span>
+                                <span className="sr-only">
+                                    {translate('list_blocks.product_item.payment_option_qr_aria_label')}
+                                </span>
                             </div>
                         )}
-                        {productFeatures?.reservations_enabled && (
-                            <div
-                                className="product-icons-item"
-                                role="button"
-                                tabIndex={0}
-                                aria-label={translate('list_blocks.product_item.payment_option_reservation_aria_label')}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    showProductIconsInfoModal();
-                                }}
-                                onKeyDown={(e) => clickOnKeyEnter(e, true)}>
+
+                        {productFeatures?.feature_reservations_enabled && (
+                            <div className="product-icons-item">
                                 <em className="mdi mdi-tag-multiple-outline" aria-hidden="true" />
-                                {translate('list_blocks.product_item.payment_option_reservation')}
+                                <span className="hide-sm">
+                                    {translate('list_blocks.product_item.payment_option_reservation')}
+                                </span>
+                                <span className="sr-only">
+                                    {translate('list_blocks.product_item.payment_option_reservation_aria_label')}
+                                </span>
                             </div>
                         )}
-                        {productFeatures?.reservation_extra_payments_enabled && (
-                            <div
-                                className="product-icons-item"
-                                role="button"
-                                tabIndex={0}
-                                aria-label={translate('list_blocks.product_item.payment_option_ideal_aria_label')}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    showProductIconsInfoModal();
-                                }}
-                                onKeyDown={(e) => clickOnKeyEnter(e, true)}>
+
+                        {productFeatures?.feature_reservation_extra_payments_enabled && (
+                            <div className="product-icons-item">
                                 <img src={assetUrl('/assets/img/icon-ideal.svg')} alt="" aria-hidden="true" />
-                                {translate('list_blocks.product_item.payment_option_ideal')}
+                                <span className="hide-sm">
+                                    {translate('list_blocks.product_item.payment_option_ideal')}
+                                </span>
+                                <span className="sr-only">
+                                    {translate('list_blocks.product_item.payment_option_ideal_aria_label')}
+                                </span>
                             </div>
                         )}
                     </div>

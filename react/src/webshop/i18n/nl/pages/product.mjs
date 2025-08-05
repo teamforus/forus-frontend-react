@@ -3,7 +3,6 @@ export default {
         back: 'Terug',
         home: 'Home',
         products: 'Aanbod',
-        subsidies: 'Aanbod',
     },
     funds: {
         title: 'Tegoeden',

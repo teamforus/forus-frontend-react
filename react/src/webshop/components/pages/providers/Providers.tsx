@@ -61,6 +61,10 @@ export default function Providers() {
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
     const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
 
+    const showProviderSignUp = useMemo(() => {
+        return funds?.filter((fund) => fund.allow_provider_sign_up).length > 0;
+    }, [funds]);
+
     const distances = useMemo(() => {
         return [
             { id: null, name: translate('providers.distances.everywhere') },
@@ -251,6 +255,7 @@ export default function Providers() {
 
     return (
         <BlockShowcasePage
+            dusk="listProvidersContent"
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
             countFiltersApplied={countFiltersApplied}
@@ -278,6 +283,7 @@ export default function Providers() {
                                     value={filterValues.q}
                                     onChangeValue={(q) => filterUpdate({ q })}
                                     ariaLabel={translate('providers.filters.search')}
+                                    dataDusk="listProvidersSearch"
                                 />
                                 <FormError error={errors?.q} />
                             </div>
@@ -293,6 +299,7 @@ export default function Providers() {
                                     id="business_type_id"
                                     multiline={true}
                                     allowSearch={false}
+                                    dusk="selectControlBusinessTypes"
                                 />
                                 <FormError error={errors?.business_type_id} />
                             </div>
@@ -310,6 +317,7 @@ export default function Providers() {
                                     value={filterValues.product_category_id}
                                     onChange={(id: number) => filterUpdate({ product_category_id: id })}
                                     options={productCategories || []}
+                                    dusk="selectControlCategories"
                                 />
                             </div>
 
@@ -327,6 +335,7 @@ export default function Providers() {
                                         multiline={true}
                                         allowSearch={true}
                                         options={productSubCategories || []}
+                                        dusk="selectControlSubCategories"
                                     />
                                 </div>
                             )}
@@ -344,6 +353,7 @@ export default function Providers() {
                                         allowSearch={true}
                                         onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                         options={funds || []}
+                                        dusk="selectControlFunds"
                                     />
                                 )}
                             </div>
@@ -360,6 +370,7 @@ export default function Providers() {
                                             onChange={(e) => filterUpdate({ postcode: e.target.value })}
                                             type="text"
                                             aria-label="Postcode"
+                                            data-dusk="inputPostcode"
                                         />
                                         <FormError error={errors?.postcode} />
                                     </div>
@@ -371,13 +382,14 @@ export default function Providers() {
                                         </label>
 
                                         <SelectControl
-                                            id={'select_fund'}
+                                            id={'distance'}
                                             propKey={'id'}
                                             value={filterValues.distance}
                                             multiline={true}
                                             allowSearch={true}
                                             onChange={(distance: number) => filterUpdate({ distance })}
                                             options={distances || []}
+                                            dusk="selectControlDistances"
                                         />
                                         <FormError error={errors?.distance} />
                                     </div>
@@ -394,8 +406,11 @@ export default function Providers() {
                             )}
                         </div>
 
-                        {!filterValues.show_map && appConfigs.pages.provider && (
-                            <StateNavLink name={'sign-up'} className="button button-primary hide-sm">
+                        {!filterValues.show_map && appConfigs.pages.provider && showProviderSignUp && (
+                            <StateNavLink
+                                name={'sign-up'}
+                                className="button button-primary hide-sm"
+                                dataDusk="providerSignUpLink">
                                 <em className="mdi mdi-store-outline" aria-hidden="true" />
                                 {translate('profile_menu.buttons.provider_sign_up')}
                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -436,6 +451,7 @@ export default function Providers() {
                                                     sortByOptions.find((option) => option.id == id)?.value || {},
                                                 );
                                             }}
+                                            dusk="selectControlOrderBy"
                                         />
                                     </div>
                                 )}

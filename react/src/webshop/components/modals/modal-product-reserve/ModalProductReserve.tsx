@@ -232,6 +232,7 @@ export default function ModalProductReserve({
                     voucher_id: voucher.id,
                     product_id: product.id,
                     user_note: include_note ? form.values.user_note : null,
+                    user_note_skip: !include_note,
                 })
                 .then(() => {
                     form.setErrors({});
@@ -378,7 +379,7 @@ export default function ModalProductReserve({
                 STEP_SELECT_VOUCHER,
                 STEP_FILL_DATA,
                 product.reservation.address !== 'no' ? STEP_FILL_ADDRESS : null,
-                STEP_FILL_NOTES,
+                product.reservation.note !== 'no' ? STEP_FILL_NOTES : null,
                 STEP_CONFIRM_DATA,
                 voucher && voucher.amount_extra > 0 ? STEP_EXTRA_PAYMENT : null,
             ].filter((step) => step !== null),
@@ -392,6 +393,7 @@ export default function ModalProductReserve({
         STEP_FILL_NOTES,
         STEP_SELECT_VOUCHER,
         product?.reservation?.address,
+        product?.reservation?.note,
         voucher,
     ]);
 
@@ -580,14 +582,12 @@ export default function ModalProductReserve({
                                             )}
 
                                             <div className="voucher-amounts">
-                                                {voucher.fund.type === 'budget' && (
-                                                    <div className="voucher-amount">
-                                                        <div className="voucher-value">{voucher?.amount_locale}</div>
-                                                        <div className="voucher-value-date">
-                                                            {voucher?.expire_at_locale}
-                                                        </div>
+                                                <div className="voucher-amount">
+                                                    <div className="voucher-value">{voucher?.amount_locale}</div>
+                                                    <div className="voucher-value-date">
+                                                        {voucher?.expire_at_locale}
                                                     </div>
-                                                )}
+                                                </div>
 
                                                 {extraPaymentAllowed && voucher.amount_extra > 0 && (
                                                     <div className="voucher-extra-payment">
@@ -1037,7 +1037,11 @@ export default function ModalProductReserve({
                         <div className="modal-section">
                             <div className="form-group">
                                 <label className="form-label" htmlFor="reservation_modal_user_note">
-                                    {translate('modal_reserve_product.fill_notes.labels.notes')}
+                                    {translate(
+                                        product.reservation.note == 'optional'
+                                            ? 'modal_reserve_product.fill_notes.labels.notes_optional'
+                                            : 'modal_reserve_product.fill_notes.labels.notes',
+                                    )}
                                 </label>
                                 <textarea
                                     className="form-control"

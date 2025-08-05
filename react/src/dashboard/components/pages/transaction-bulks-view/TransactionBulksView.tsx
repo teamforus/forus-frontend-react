@@ -71,6 +71,13 @@ export default function TransactionBulksView() {
                     modal={modal}
                     title={title}
                     description_text={description}
+                    buttonCancel={{
+                        text: onSubmit ? 'Annuleren' : 'Sluiten',
+                        onClick: () => {
+                            onCancel?.();
+                            modal.close();
+                        },
+                    }}
                     buttonSubmit={
                         onSubmit && {
                             text: 'Bevestigen',
@@ -80,13 +87,6 @@ export default function TransactionBulksView() {
                             },
                         }
                     }
-                    buttonCancel={{
-                        text: onSubmit ? 'Annuleren' : 'Sluiten',
-                        onClick: () => {
-                            onCancel?.();
-                            modal.close();
-                        },
-                    }}
                 />
             ));
         },

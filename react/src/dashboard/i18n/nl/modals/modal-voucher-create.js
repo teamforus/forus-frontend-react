@@ -6,11 +6,12 @@ export default {
         assign_by_type: 'Toewijzingsmethode',
         limit_multiplier: 'Aantal personen',
         assign_by_type_or_activate: 'Toewijzen of activeren',
-        note: 'Notitie',
+        note: 'Interne notitie alleen inzichtelijk voor de sponsor',
         expire_at: 'Geldig tot en met',
         client_uid: 'Uniek nummer',
         credit_type: 'Soort',
         report_type: 'Voucher melden bij backoffice',
+        notify_provider: 'Wilt u de aanbieder informeren over het aangemaakte product tegoed?',
     },
     tooltips: {
         funds: [

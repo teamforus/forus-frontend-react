@@ -2,6 +2,7 @@ import ApiResponse from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import PreCheck from '../props/models/PreCheck';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class PreCheckService<T = PreCheck> {
     /**
@@ -34,6 +35,20 @@ export class PreCheckService<T = PreCheck> {
             `${this.prefix}/${organizationId}/implementations/${implementationId}/pre-checks/sync`,
             data,
         );
+    }
+
+    public getExclusionColumns(): Array<ConfigurableTableColumn> {
+        const list = ['fund', 'pre_check_excluded', 'pre_check_note'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `pre_check_exclusions.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `pre_check_exclusions.labels.${key}`,
+                description: `pre_check_exclusions.tooltips.${key}`,
+            },
+        }));
     }
 }
 

@@ -10,7 +10,7 @@ import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import InfoBox from '../../elements/info-box/InfoBox';
-import FormGroup from '../../elements/forms/controls/FormGroup';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import { currencyFormat, numberFormat } from '../../../helpers/string';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -455,15 +455,7 @@ export default function OrganizationsTranslations() {
                             <div className="card-title">{translate('translation_stats.header.title')}</div>
                         </div>
                         <div className="card-body">
-                            {!stats ? (
-                                <LoadingCard type={'card-section'} />
-                            ) : (
-                                <div className="card-section">
-                                    <div className="card-block card-block-table">
-                                        <TranslationStatsTable stats={stats} />
-                                    </div>
-                                </div>
-                            )}
+                            {!stats ? <LoadingCard type={'card-section'} /> : <TranslationStatsTable stats={stats} />}
                         </div>
                     </div>
                 </div>
