@@ -284,6 +284,7 @@ export default function Products() {
 
     return (
         <BlockShowcasePage
+            dusk="listProductsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
                 { name: translate('products.breadcrumbs.home'), state: 'home' },
@@ -334,6 +335,7 @@ export default function Products() {
                                 onChangeValue={(q: string) => filterUpdate({ q })}
                                 ariaLabel={translate('products.filters.search')}
                                 id="products_search"
+                                dataDusk="listProductsSearch"
                             />
                         </div>
                         <div className="form-group">
@@ -348,6 +350,7 @@ export default function Products() {
                                 allowSearch={true}
                                 onChange={(organization_id: number) => filterUpdate({ organization_id })}
                                 options={organizations || []}
+                                dusk="selectControlOrganizations"
                             />
                         </div>
 
@@ -364,6 +367,7 @@ export default function Products() {
                                 value={filterValues.product_category_id}
                                 onChange={(id: number) => filterUpdate({ product_category_id: id })}
                                 options={productCategories || []}
+                                dusk="selectControlCategories"
                             />
                         </div>
 
@@ -381,6 +385,7 @@ export default function Products() {
                                     multiline={true}
                                     allowSearch={true}
                                     options={productSubCategories || []}
+                                    dusk="selectControlSubCategories"
                                 />
                             </div>
                         )}
@@ -398,6 +403,7 @@ export default function Products() {
                                     allowSearch={true}
                                     onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                     options={funds || []}
+                                    dusk="selectControlFunds"
                                 />
                             )}
                         </div>
@@ -414,6 +420,7 @@ export default function Products() {
                                         onChange={(e) => filterUpdate({ postcode: e.target.value })}
                                         type="text"
                                         aria-label={translate('products.filters.postcode')}
+                                        data-dusk="inputPostcode"
                                     />
                                     <FormError error={errors?.postcode} />
                                 </div>
@@ -431,6 +438,7 @@ export default function Products() {
                                         allowSearch={true}
                                         onChange={(distance: number) => filterUpdate({ distance })}
                                         options={distances || []}
+                                        dusk="selectControlDistances"
                                     />
                                     <FormError error={errors?.distance} />
                                 </div>
@@ -458,6 +466,7 @@ export default function Products() {
                                         }
                                         type="number"
                                         aria-label={translate('products.filters.price_from')}
+                                        data-dusk="inputPriceFrom"
                                     />
                                     <FormError error={errors?.from} />
                                 </div>
@@ -482,6 +491,7 @@ export default function Products() {
                                         }
                                         type="number"
                                         aria-label={translate('products.filters.price_to')}
+                                        data-dusk="inputPriceTo"
                                     />
                                     <FormError error={errors?.to} />
                                 </div>
@@ -562,6 +572,7 @@ export default function Products() {
                                                 })?.value || {},
                                             );
                                         }}
+                                        dusk="selectControlOrderBy"
                                     />
                                 </div>
                                 <div className="label-tab-set">

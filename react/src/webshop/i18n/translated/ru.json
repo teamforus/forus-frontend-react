@@ -187,8 +187,7 @@
             "more": "Смотреть подробнее"
         },
         "header": {
-            "title_budget": "Предложение",
-            "title_subsidies": "Предложение"
+            "title_budget": "Предложение"
         },
         "input": {
             "placeholder": "Поиск продуктов или услуг"
@@ -1658,11 +1657,12 @@
                 "house_nr": "Номер дома",
                 "house_nr_addition": "Добавление номера дома",
                 "last_name": "Фамилия",
-                "notes": "Примечание (необязательно)",
                 "phone": "Номер телефона",
                 "phone_optional": "Номер телефона (необязательно)",
                 "postal_code": "Почтовый индекс",
-                "street": "Улица"
+                "street": "Улица",
+                "notes": "Комментарий",
+                "notes_optional": "Примечание (необязательно)"
             },
             "max_characters": "Макс. 400 символов",
             "placeholders": {
@@ -2204,8 +2204,7 @@
         "breadcrumbs": {
             "back": "Назад",
             "home": "Главная",
-            "products": "Предложение",
-            "subsidies": "Предложение"
+            "products": "Предложение"
         },
         "buttons": {
             "buy": "Бронирование",
@@ -3091,7 +3090,6 @@
             "providers": "Провайдеры",
             "records": "Мои личные данные",
             "reimbursements": "Возмещение затрат",
-            "subsidies": "Предложение",
             "vergoedingen": {
                 "activate": "Тарифы",
                 "login": "Вход в систему / регистрация"
@@ -3149,7 +3147,6 @@
             },
             "search": "Поиск",
             "signup": "Поставщики объяснений",
-            "subsidies": "Предложение",
             "vergoedingen": {
                 "funds": "Тарифы"
             },

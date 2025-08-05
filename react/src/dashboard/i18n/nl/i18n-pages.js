@@ -24,6 +24,20 @@ import product from './pages/product';
 import product_edit from './pages/product-edit';
 import bank_connections from './pages/bank-connections';
 import implementation_config from './pages/implementation-config';
+import finance_providers from './pages/finance-providers';
+import email_logs from './pages/email-logs';
+import implementation_pages from './pages/implementation-pages';
+import implementation_notifications from './pages/implementation-notifications';
+import implementation_notification_send from './pages/implementation-notification-send';
+import implementation_social_media from './pages/implementation-social-media';
+import fund_formulas from './pages/fund-formulas';
+import fund_implementations from './pages/fund-implementations';
+import fund_identities from './pages/fund-identities';
+import pre_check_exclusions from './pages/pre-check-exclusions';
+import product_funds from './pages/product-funds';
+import reimbursement_categories from './pages/reimbursement-categories';
+import provider_organization_funds from './pages/provider-organization-funds';
+import transaction_bulks from './pages/transaction-bulks';
 
 export default {
     vouchers,
@@ -52,4 +66,18 @@ export default {
     product_edit,
     bank_connections,
     implementation_config,
+    finance_providers,
+    email_logs,
+    implementation_pages,
+    implementation_notifications,
+    implementation_notification_send,
+    implementation_social_media,
+    fund_formulas,
+    fund_implementations,
+    fund_identities,
+    pre_check_exclusions,
+    product_funds,
+    reimbursement_categories,
+    provider_organization_funds,
+    transaction_bulks,
 };

@@ -9,7 +9,6 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getRoutes } from './modules/state_router/Router';
 import { QueryParamProvider } from 'use-query-params';
-import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 import { PushNotificationsProvider } from './modules/push_notifications/context/PushNotificationsContext';
 import { LoadingBarProvider } from './modules/loading_bar/context/LoadingBarContext';
 import ApiRequestService from './services/ApiRequestService';
@@ -23,6 +22,7 @@ import { FrameDirectorProvider } from './modules/frame_director/context/FrameDir
 import ProviderNotificationProductRequired from './modules/provider_notification_product_required/ProviderNotificationProductRequired';
 import { setDefaultOptions } from 'date-fns';
 import { nl } from 'date-fns/locale';
+import { ReactRouter7Adapter } from './modules/state_router/ReactRouter7Adapter';
 
 setDefaultOptions({ weekStartsOn: 1, locale: nl });
 
@@ -88,7 +88,7 @@ export default function Dashboard({ envData }: { envData: EnvDataProp }): React.
                                 <PrintableProvider>
                                     <ModalsProvider>
                                         <MainProvider>
-                                            <QueryParamProvider adapter={ReactRouter6Adapter} options={{}}>
+                                            <QueryParamProvider adapter={ReactRouter7Adapter} options={{}}>
                                                 <StateHashPrefixRedirect />
                                                 <RouterLayout envData={envData} />
                                                 {envData.client_type === 'provider' && (

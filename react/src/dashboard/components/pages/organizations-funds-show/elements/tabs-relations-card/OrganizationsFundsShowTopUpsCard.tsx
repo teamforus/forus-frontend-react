@@ -4,7 +4,6 @@ import ClickOutside from '../../../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../../helpers/dates';
-import ThSortable from '../../../../elements/tables/ThSortable';
 import FundTopUpTransaction from '../../../../../props/models/FundTopUpTransaction';
 import EmptyCard from '../../../../elements/empty-card/EmptyCard';
 import Paginator from '../../../../../modules/paginator/components/Paginator';
@@ -16,6 +15,9 @@ import usePaginatorService from '../../../../../modules/paginator/services/usePa
 import { PaginationData } from '../../../../../props/ApiResponses';
 import useFilter from '../../../../../hooks/useFilter';
 import LoadingCard from '../../../../elements/loading-card/LoadingCard';
+import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../../elements/tables/TableTopScroller';
+import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
 
 export default function OrganizationsFundsShowTopUpsCard({
     fund,
@@ -47,6 +49,11 @@ export default function OrganizationsFundsShowTopUpsCard({
         from: null,
         to: null,
         per_page: paginatorService.getPerPage(paginationPerPageKey),
+    });
+
+    const { headElement, configsElement } = useConfigurableTable(fundService.getTopUpColumns(), {
+        filter,
+        sortable: true,
     });
 
     const fetchTopUps = useCallback(() => {
@@ -232,33 +239,11 @@ export default function OrganizationsFundsShowTopUpsCard({
                 <Fragment>
                     {topUpTransactions?.meta?.total > 0 ? (
                         <div className="card-section card-section-padless">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <ThSortable
-                                                filter={filter}
-                                                label={translate('funds_show.top_up_table.columns.code')}
-                                                value="code"
-                                            />
-                                            <ThSortable
-                                                filter={filter}
-                                                label={translate('funds_show.top_up_table.columns.iban')}
-                                                value="iban"
-                                            />
-                                            <ThSortable
-                                                filter={filter}
-                                                label={translate('funds_show.top_up_table.columns.amount')}
-                                                value="amount"
-                                            />
-                                            <ThSortable
-                                                className="text-right"
-                                                filter={filter}
-                                                label={translate('funds_show.top_up_table.columns.date')}
-                                                value="created_at"
-                                            />
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {topUpTransactions.data.map((top_up_transaction: FundTopUpTransaction) => (
@@ -268,12 +253,15 @@ export default function OrganizationsFundsShowTopUpsCard({
                                                     {top_up_transaction.iban || 'Geen IBAN'}
                                                 </td>
                                                 <td>{top_up_transaction.amount_locale}</td>
-                                                <td className="text-right">{top_up_transaction.created_at_locale}</td>
+                                                <td>{top_up_transaction.created_at_locale}</td>
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableEmptyValue />
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     ) : (
                         <EmptyCard
