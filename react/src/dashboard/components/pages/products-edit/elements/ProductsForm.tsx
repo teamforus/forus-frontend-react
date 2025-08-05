@@ -32,7 +32,7 @@ import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import FormGroup from '../../../elements/forms/controls/FormGroup';
+import FormGroup from '../../../elements/forms/elements/FormGroup';
 
 export default function ProductsForm({
     organization,
