@@ -40,6 +40,7 @@ export default function Payouts() {
 
     return (
         <BlockShowcaseProfile
+            contentDusk="listPayoutsContent"
             breadcrumbItems={[
                 { name: translate('payouts.breadcrumbs.home'), state: 'home' },
                 { name: translate('payouts.breadcrumbs.payouts') },
@@ -67,6 +68,7 @@ export default function Payouts() {
                                     value={filterValues.q}
                                     onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder={translate('payouts.search')}
+                                    data-dusk="listPayoutsSearch"
                                 />
                             </div>
                         </div>
