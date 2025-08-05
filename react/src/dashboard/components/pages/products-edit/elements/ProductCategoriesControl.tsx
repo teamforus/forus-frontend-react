@@ -114,7 +114,7 @@ export default function ProductCategoriesControl({
         }
     }, [changeCategory, loadProductCategories, value, ready]);
     return (
-        <FormPane title={'Categories'}>
+        <FormPane title={'Categorieën'}>
             {[...categoriesHierarchy.keys()].map((index) => (
                 <div className="form-group" key={categoriesHierarchy.length + '-' + index}>
                     {index == 0 ? (

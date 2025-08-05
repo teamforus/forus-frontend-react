@@ -474,7 +474,7 @@ export default function ProductsForm({
 
                 <div className="card-section card-section-primary">
                     <FormContainer>
-                        <FormPane title={'Product photo'}>
+                        <FormPane title={'Afbeelding'}>
                             <FormGroup
                                 error={mediaErrors}
                                 input={() => (
@@ -492,8 +492,9 @@ export default function ProductsForm({
                                 error={form.errors?.alternative_text}
                                 info={
                                     <Fragment>
-                                        Describe the photo content for users with visual impairments. This will be used
-                                        as alt text for accessibility.
+                                        Geef een korte beschrijving van de afbeelding. Deze wordt getoond of voorgelezen
+                                        wanneer de afbeelding niet zichtbaar is, bijvoorbeeld bij gebruik van een
+                                        schermlezer voor mensen met een visuele beperking.
                                     </Fragment>
                                 }
                                 input={(id) => (
@@ -510,15 +511,15 @@ export default function ProductsForm({
                             />
                         </FormPane>
 
-                        <FormPane title={'Product description'}>
+                        <FormPane title={'Beschrijving'}>
                             <FormGroup
                                 label={translate('product_edit.labels.name')}
                                 required={true}
                                 error={form.errors?.name}
                                 info={
                                     <Fragment>
-                                        This name will appear in the webshop and on vouchers. Make it clear and
-                                        recognizable for your customers.
+                                        De titel is zichtbaar op de website en helpt bezoekers snel te zien wat het is.
+                                        Geef het aanbod een duidelijke titel.
                                     </Fragment>
                                 }
                                 input={(id) => (
@@ -549,11 +550,11 @@ export default function ProductsForm({
                             />
                         </FormPane>
 
-                        <FormPane title={'Pricing and type'}>
+                        <FormPane title={'Prijs en type'}>
                             <div className="row">
                                 <div className="col col-xs-12 col-sm-6">
                                     <FormGroup
-                                        label={translate('Aanbod type')}
+                                        label={translate('Soort aanbod')}
                                         error={form.errors?.price_type}
                                         info={translate('product_edit.tooltips.product_type')}
                                         input={(id) => (
@@ -577,8 +578,8 @@ export default function ProductsForm({
                                             error={form.errors.price}
                                             info={
                                                 <Fragment>
-                                                    Set the standard price in euros. This is the full price the customer
-                                                    pays without any discount.
+                                                    Vul het bedrag in die de klant voor dit aanbod betaald. Dit is de
+                                                    standaard prijs. Bijvoorbeeld: Fiets voor € 200,-
                                                 </Fragment>
                                             }
                                             input={(id) => (
@@ -605,7 +606,12 @@ export default function ProductsForm({
                                             label="Kortingspercentage"
                                             required={true}
                                             error={form.errors.price_discount}
-                                            info={<Fragment>Enter the percentage discount.</Fragment>}
+                                            info={
+                                                <Fragment>
+                                                    Vul het kortingspercentage in. Bijvoorbeeld: 20% korting op een
+                                                    fiets.
+                                                </Fragment>
+                                            }
                                             input={(id) => (
                                                 <input
                                                     id={id}
@@ -633,7 +639,12 @@ export default function ProductsForm({
                                             label={'Korting'}
                                             required={true}
                                             error={form.errors.price_discount}
-                                            info={<Fragment>Enter the fixed discount amount in euros.</Fragment>}
+                                            info={
+                                                <Fragment>
+                                                    Vul het kortingsbedrag in Euros in. Bijvoorbeeld: € 20,- korting op
+                                                    een fiets.
+                                                </Fragment>
+                                            }
                                             input={(id) => (
                                                 <input
                                                     id={id}
@@ -660,8 +671,8 @@ export default function ProductsForm({
                                             label={'Bedrag'}
                                             info={
                                                 <Fragment>
-                                                    This product will be listed as free. No price or discount is
-                                                    required.
+                                                    Het aanbod heeft geen prijs en is gratis. Er is geen prijs of
+                                                    korting nodig. Bijvoorbeeld: Gratis toegang tot de bioscoop.
                                                 </Fragment>
                                             }
                                             input={(id) => (
@@ -680,7 +691,9 @@ export default function ProductsForm({
                                             label={'Bedrag'}
                                             info={
                                                 <Fragment>
-                                                    This product is informational and does not support setting a price.
+                                                    Dit aanbod is alleen ter informatie. Het laat een voorbeeld of een
+                                                    productcategorie zien. Er is geen prijs of korting. Bijvoorbeeld:
+                                                    Schoolartikelen. Kom naar de winkel en bekijk ons aanbod.
                                                 </Fragment>
                                             }
                                             input={(id) => (
@@ -698,17 +711,17 @@ export default function ProductsForm({
                         </FormPane>
 
                         {!isInformational && (
-                            <FormPane title={'Availability and stock'}>
+                            <FormPane title={'Voorraad'}>
                                 {(!product || (product && !product.unlimited_stock)) && (
                                     <div className="row">
                                         <div className="col col-xs-12 col-sm-6">
                                             <FormGroup
-                                                label={'Product availability'}
+                                                label={'Voorraad'}
                                                 required={true}
                                                 info={
                                                     <Fragment>
-                                                        Choose whether the product has limited stock or can be sold
-                                                        without restrictions.
+                                                        Kies of het product een voorraadlimiet heeft of altijd
+                                                        beschikbaar is.
                                                     </Fragment>
                                                 }
                                                 input={(id) => (
@@ -719,7 +732,7 @@ export default function ProductsForm({
                                                         disabled={!isEditable || (product && !product.unlimited_stock)}
                                                         value={form.values.unlimited_stock}
                                                         options={[
-                                                            { value: false, label: 'Set available quantity' },
+                                                            { value: false, label: 'Aantal op voorraad' },
                                                             { value: true, label: 'Onbeperkt aanbod' },
                                                         ]}
                                                         onChange={(unlimited_stock: boolean) => {
@@ -736,8 +749,8 @@ export default function ProductsForm({
                                                 required={true}
                                                 info={
                                                     <Fragment>
-                                                        Choose whether the product has limited stock or can be sold
-                                                        without restrictions.
+                                                        Kies of het product een voorraadlimiet heeft of altijd
+                                                        beschikbaar is.
                                                     </Fragment>
                                                 }
                                                 error={form.errors.total_amount}
@@ -782,8 +795,8 @@ export default function ProductsForm({
                                                 error={form.errors.sold_amount}
                                                 info={
                                                     <Fragment>
-                                                        This shows how many units have been sold so far. This value is
-                                                        updated automatically.
+                                                        Hoe vaak dit aanbod is gekocht. Dit wordt automatisch
+                                                        bijgewerkt.
                                                     </Fragment>
                                                 }
                                                 input={(id) => (
@@ -844,7 +857,7 @@ export default function ProductsForm({
                         )}
 
                         {!isInformational && (
-                            <FormPane title={'Product identifiers (EAN, SKU)'}>
+                            <FormPane title={'Productcodes'}>
                                 <div className="row">
                                     <div className="col col-xs-12 col-sm-6">
                                         <FormGroup
@@ -886,15 +899,15 @@ export default function ProductsForm({
                             </FormPane>
                         )}
 
-                        <FormPane title={'Product validity'}>
+                        <FormPane title={'Geldigheid'}>
                             <div className="row">
                                 <div className="col col-xs-12 col-sm-6">
                                     <FormGroup
-                                        label={'Set expiration behavior'}
+                                        label={'Instelling voor geldigheid'}
                                         info={
                                             <Fragment>
-                                                Choose whether this product has an expiration date or remains available
-                                                indefinitely.
+                                                Kies of het aanbod een vervaldatum heeft of onbeperkt beschikbaar is.
+                                                Dit kan later nog worden aangepast.
                                             </Fragment>
                                         }
                                         input={(id) => (
@@ -904,8 +917,8 @@ export default function ProductsForm({
                                                 propValue={'label'}
                                                 disabled={!isEditable}
                                                 options={[
-                                                    { value: true, label: 'Product does not expire' },
-                                                    { value: false, label: 'Set a specific expiration date' },
+                                                    { value: true, label: 'Het aanbod heeft geen verloopdatum' },
+                                                    { value: false, label: 'Stel een verloopdatum in' },
                                                 ]}
                                                 value={nonExpiring}
                                                 onChange={(nonExpiring: boolean) => setNonExpiring(!nonExpiring)}
@@ -919,9 +932,8 @@ export default function ProductsForm({
                                         error={form.errors.expire_at}
                                         info={
                                             <Fragment>
-                                                De uiterlijke datum tot en met wanneer uw aanbieding loopt. Aanbieding
-                                                wordt na deze datum verwijderd uit de webshop en kan niet meer worden
-                                                opgehaald.
+                                                De laatste dag waarop uw aanbieding geldig is. Daarna verdwijnt de
+                                                aanbieding uit de webshop en kan deze niet meer worden gebruikt.
                                             </Fragment>
                                         }
                                         input={(id) =>
@@ -948,15 +960,16 @@ export default function ProductsForm({
                             </div>
                         </FormPane>
 
-                        <FormPane title={'Reservation and payment options'}>
+                        <FormPane title={'Betaalopties'}>
                             <FormGroup
                                 className="form-group tooltipped"
-                                label={'QR-code scannen door klant toestaan'}
+                                label={'QR-code scannen op locatie'}
                                 error={form.errors.qr_enabled}
                                 info={
                                     <Fragment>
-                                        Enable this if customers should be able to scan a QR code at your location to
-                                        buy the product.
+                                        De klant toont bij het afrekenen op uw locatie een QR-code. Scan deze QR-code
+                                        met de app `Me` (gratis beschikbaar voor iOS en Android). Het aankoopbedrag
+                                        wordt overgemaakt op uw bankrekening.
                                     </Fragment>
                                 }
                                 input={(id) => (
@@ -998,15 +1011,15 @@ export default function ProductsForm({
                             )}
 
                             {form.values.reservation_enabled && !isInformational && (
-                                <FormPane title={'Reservation settings'}>
+                                <FormPane title={'Instellingen online betalen'}>
                                     <FormGroup
                                         label={'Reserveringen accepteren'}
                                         error={form.errors.reservation_policy}
                                         info={
                                             <Fragment>
-                                                Standaard instelling kunt u bij uw reserveringen aanpassen. Geef hier
-                                                optioneel aan of u de reservering handmatig of automatisch wilt
-                                                accepteren.
+                                                Geef aan of u reserveringen handmatig of automatisch wilt goedkeuren.
+                                                Deze (algemene) instelling kunt u later aanpassen op de pagina
+                                                Reserveringen - Instellingen.
                                             </Fragment>
                                         }
                                         input={(id) => (
@@ -1026,7 +1039,7 @@ export default function ProductsForm({
                                     />
 
                                     <FormGroup
-                                        label={'Request additional customer details'}
+                                        label={'Klantgegevens uitvragen'}
                                         error={form.errors.reservation_fields}
                                         info={translate('product_edit.tooltips.reservation_fields')}
                                         input={(id) => (
@@ -1039,11 +1052,11 @@ export default function ProductsForm({
                                                 options={[
                                                     {
                                                         value: true,
-                                                        label: 'De klant vragen om aanvullende informatie op te geven',
+                                                        label: 'Aanvullende klantgegevens nodig',
                                                     },
                                                     {
                                                         value: false,
-                                                        label: 'De klant geen aanvullende informatie vragen',
+                                                        label: 'Geen aanvullende klantgegevens nodig',
                                                     },
                                                 ]}
                                                 onChange={(value: boolean) => {
@@ -1054,7 +1067,7 @@ export default function ProductsForm({
                                     />
 
                                     {form.values.reservation_fields && (
-                                        <FormPane title={'Customer contact fields'}>
+                                        <FormPane title={'Klantgegevens'}>
                                             <FormGroup
                                                 label={'Telefoonnummer klant'}
                                                 error={form.errors.reservation_phone}
@@ -1115,7 +1128,7 @@ export default function ProductsForm({
                         </FormPane>
 
                         {allowsExtraPayments && !isInformational && (
-                            <FormPane title={'Extra payment options'}>
+                            <FormPane title={'Bijbetaal opties'}>
                                 <FormGroup
                                     label={translate('product_edit.labels.extra_payments')}
                                     error={form.errors.reservation_extra_payments}

@@ -1,21 +1,19 @@
 export default {
     title: 'Betaalopties',
-    header: 'Type of offers',
-    description: 'Lorem ipsum dolor sit amet consectetur donec. Morbi lorem lectus donec pellentesque morbi ligula.',
+    header: 'Soorten aanbod',
+    description:
+        'Producten in de webshop kunnen op verschillende manieren worden aangeboden. Hieronder staat wat de verschillende soorten aanbiedingen betekenen.',
     confirm: 'Sluiten',
-    info_option_regular_title: 'Standard offers',
+    info_option_regular_title: 'Prijs',
     info_option_regular_description:
-        'Lorem ipsum dolor sit amet consectetur. Vel rhoncus sit amet fermentum euismod varius donec. Morbi lorem lectus donec pellentesque morbi ligula.',
-    info_option_discount_fixed_title: 'Discounted price offers',
-    info_option_discount_fixed_description:
-        'Lorem ipsum dolor sit amet consectetur. Vel rhoncus sit amet fermentum euismod varius donec. Morbi lorem lectus donec pellentesque morbi ligula.',
-    info_option_discount_percentage_title: 'Percentage-off discounts',
-    info_option_discount_percentage_description:
-        'Lorem ipsum dolor sit amet consectetur. Vel rhoncus sit amet fermentum euismod varius donec. Morbi lorem lectus donec pellentesque morbi ligula.',
-    info_option_free_title: 'Complimentary offers',
-    info_option_free_description:
-        'Lorem ipsum dolor sit amet consectetur. Vel rhoncus sit amet fermentum euismod varius donec. Morbi lorem lectus donec pellentesque morbi ligula.',
-    info_option_informational_title: 'Informational offers',
+        'Het product heeft een vaste prijs. Dit is het bedrag dat betaald moet worden, bijvoorbeeld €10 euro.',
+    info_option_discount_fixed_title: 'Korting in euro',
+    info_option_discount_fixed_description: 'Er gaat een vast bedrag van de prijs af, bijvoorbeeld €5 korting.',
+    info_option_discount_percentage_title: 'Korting in procenten',
+    info_option_discount_percentage_description: 'Een deel van de prijs wordt eraf gehaald, bijvoorbeeld 20% korting.',
+    info_option_free_title: 'Gratis',
+    info_option_free_description: 'Het product kost niets. Er hoeft niet betaald te worden.',
+    info_option_informational_title: 'Alleen in winkel',
     info_option_informational_description:
-        'Lorem ipsum dolor sit amet consectetur. Vel rhoncus sit amet fermentum euismod varius donec. Morbi lorem lectus donec pellentesque morbi ligula.',
+        'Dit aanbod is niet online te koop. Het is alleen verkrijgbaar in de winkel of op locatie van de aanbieder.',
 };
