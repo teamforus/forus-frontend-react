@@ -504,26 +504,6 @@ export default {
         },
     },
 
-    implementation_config: {
-        pages: {
-            home: 'Homepagina instellingen',
-            providers: 'Aanbieders instellingen',
-            provider: 'Aanbieder instellingen',
-            office: 'Vestiging instellingen',
-            voucher: 'Tegoeden instellingen',
-            product: 'Aanbod instellingen',
-        },
-        blocks: {
-            show_home_map: 'Tonen van de map (Homepagina)',
-            show_home_products: 'Tonen van het aanbod (Homepagina)',
-            show_providers_map: 'Tonen van de map (Aanbieders pagina)',
-            show_provider_map: 'Tonen van de map (Aanbieder pagina)',
-            show_office_map: 'Tonen van de map (Aanbieder vestiging pagina)',
-            show_voucher_map: 'Tonen van de map (Tegoeden pagina)',
-            show_product_map: 'Tonen van de map (Aanbod pagina)',
-        },
-    },
-
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
