@@ -56,7 +56,7 @@ export default function StateNavLink({
                 tabIndex,
                 style: { cursor: 'pointer' },
                 onKeyDown: onKeyDown,
-                ...{ dataAttributes },
+                ...dataAttributes,
                 onClick: (e) => {
                     e.stopPropagation();
                     e.preventDefault();
