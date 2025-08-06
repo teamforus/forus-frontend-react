@@ -9,7 +9,7 @@ export default function PayoutCard({ payout }: { payout: PayoutTransaction }) {
     const assetUrl = useAssetUrl();
 
     return (
-        <div className="payout-item">
+        <div className="payout-item" data-dusk={`listPayoutsRow${payout.id}`} data-search-item="1">
             <div className="payout-wrapper">
                 <img
                     className="payout-photo"

@@ -63,10 +63,10 @@ export default {
             created_by: 'Verkregen via',
         },
         tooltips: {
-            iban: 'IBAN',
-            iban_name: 'Te naam stelling',
-            updated_at: 'Laatst aangepast',
-            created_by: 'Verkregen via',
+            iban: 'Rekeningnummer van deelnemer.',
+            iban_name: 'Naam op bankrekening.',
+            updated_at: 'Datum van laatste wijziging.',
+            created_by: 'Oorsprong (handmatig of door deelnemer).',
         },
     },
     record_info: {
