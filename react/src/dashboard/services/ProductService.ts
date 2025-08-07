@@ -131,6 +131,7 @@ export class ProductService<T = Product> {
             sold_amount: apiResource.total_amount - apiResource.stock_amount,
             product_category_id: apiResource.product_category_id,
 
+            qr_enabled: apiResource.qr_enabled,
             reservation_enabled: apiResource.reservation_enabled,
             reservation_policy: apiResource.reservation_policy,
 

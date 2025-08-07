@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import FormError from '../errors/FormError';
 import { uniqueId } from 'lodash';
 import classNames from 'classnames';
+import FormGroupInfo from './FormGroupInfo';
 
 export default function FormGroup({
     id,
     error,
     label,
     input,
+    info,
     required,
     className = '',
 }: {
@@ -15,6 +17,7 @@ export default function FormGroup({
     error?: string | Array<string>;
     label?: string | React.ReactElement | Array<React.ReactElement>;
     input?: (input_id: string) => React.ReactElement;
+    info?: string | React.ReactElement | Array<React.ReactElement>;
     required?: boolean;
     className?: string;
 }) {
@@ -28,7 +31,7 @@ export default function FormGroup({
                 </label>
             )}
 
-            {input && input(input_id)}
+            {info ? <FormGroupInfo info={info}>{input && input(input_id)}</FormGroupInfo> : input && input(input_id)}
             {error && <FormError error={error} />}
         </div>
     );

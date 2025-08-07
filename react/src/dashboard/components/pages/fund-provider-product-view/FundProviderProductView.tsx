@@ -44,7 +44,9 @@ export default function FundProviderProductView() {
 
     const tableRef = useRef<HTMLTableElement>(null);
 
-    const { headElement, configsElement } = useConfigurableTable(fundService.getProviderProductColumns(fund, true));
+    const { headElement, configsElement } = useConfigurableTable(
+        fundService.getProviderProductColumns(fund, product, true),
+    );
 
     const { disableProduct, editProduct, mapProduct, isProductConfigurable } = useUpdateProduct();
     const { openProductChat, makeProductChat } = useProductChat(fund, fundProvider, activeOrganization);

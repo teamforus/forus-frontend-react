@@ -23,6 +23,10 @@ export default function ProductsListItem({
     const bookmarkProductToggle = useBookmarkProductToggle();
 
     const price = useMemo(() => {
+        if (product.price_type === 'informational') {
+            return translate('product.price.informational');
+        }
+
         if (product.price_type !== 'regular') {
             return product.price_locale;
         }

@@ -1,4 +1,4 @@
-import React, { Fragment, MouseEvent, useCallback } from 'react';
+import React, { Fragment, MouseEvent, useCallback, useMemo } from 'react';
 import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import classNames from 'classnames';
@@ -43,6 +43,10 @@ export default function FundProviderProductRowData({
     const translate = useTranslate();
     const { disableProduct, deleteSponsorProduct, editProduct, isProductConfigurable } = useUpdateProduct();
 
+    const isInformationalProduct = useMemo(() => {
+        return product?.price_type === 'informational';
+    }, [product?.price_type]);
+
     const disableProviderProduct = useCallback(
         (product: ProductLocal) => {
             disableProduct(fundProvider, product).then((res) => onChangeProvider(res));
@@ -73,11 +77,15 @@ export default function FundProviderProductRowData({
                         titleLimit={45}
                         subtitleProperties={[
                             { label: 'Prijs:', value: product.price_locale },
-                            {
-                                label: 'Totaal:',
-                                value: product.unlimited_stock ? 'Ongelimiteerd' : product.stock_amount,
-                            },
-                            { label: 'Gebruikt:', value: product.sold_amount },
+                            ...(product.price_type != 'informational'
+                                ? [
+                                      {
+                                          label: 'Totaal:',
+                                          value: product.unlimited_stock ? 'Ongelimiteerd' : product.stock_amount,
+                                      },
+                                      { label: 'Gebruikt:', value: product.sold_amount },
+                                  ]
+                                : []),
                         ]}
                         media={product.photo}
                         mediaRound={false}
@@ -86,7 +94,8 @@ export default function FundProviderProductRowData({
                     />
                 </td>
             )}
-            {fund.show_subsidies && (
+
+            {fund.show_subsidies && (!isInformationalProduct || !history) && (
                 <td>
                     {deal ? (
                         <Fragment>
@@ -106,7 +115,7 @@ export default function FundProviderProductRowData({
                 </td>
             )}
 
-            {fund.show_subsidies && (
+            {fund.show_subsidies && (!isInformationalProduct || !history) && (
                 <td>
                     {deal ? (
                         <Fragment>
@@ -126,7 +135,7 @@ export default function FundProviderProductRowData({
                 </td>
             )}
 
-            {fund.show_requester_limits && (
+            {fund.show_requester_limits && (!isInformationalProduct || !history) && (
                 <Fragment>
                     <td>{deal?.limit_total ? deal.limit_total : <TableEmptyValue />}</td>
                     <td>{deal?.limit_per_identity ? deal.limit_per_identity : <TableEmptyValue />}</td>

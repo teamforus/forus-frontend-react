@@ -11,6 +11,7 @@ import { ConfigurableTableColumn } from '../../vouchers/hooks/useConfigurableTab
 import ProductMonitoredHistoryCardFunds from '../../sponsor-product/elements/ProductMonitoredHistoryCardFunds';
 import Organization from '../../../../props/models/Organization';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function SponsorProductsTable({
     columns = null,
@@ -78,10 +79,16 @@ export default function SponsorProductsTable({
 
                                 <td>{product.price_locale}</td>
 
-                                {product.unlimited_stock ? (
-                                    <td>{translate('product_edit.labels.unlimited')}</td>
+                                {product?.price_type === 'informational' ? (
+                                    <td>
+                                        <TableEmptyValue />
+                                    </td>
                                 ) : (
-                                    <td>{product.stock_amount}</td>
+                                    <td>
+                                        {product.unlimited_stock
+                                            ? translate('product_edit.labels.unlimited')
+                                            : product.stock_amount}
+                                    </td>
                                 )}
 
                                 <td>{product.product_category?.name || <EmptyValue />}</td>

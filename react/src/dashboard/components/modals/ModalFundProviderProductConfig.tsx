@@ -52,6 +52,10 @@ export default function ModalFundProviderProductConfig({
         [product.stock_amount, product.unlimited_stock],
     );
 
+    const isInformationalProduct = useMemo(() => {
+        return product.price_type === 'informational';
+    }, [product.price_type]);
+
     const form = useFormBuilder<{
         expire_at?: string;
         expires_with_fund?: 0 | 1;
@@ -119,9 +123,9 @@ export default function ModalFundProviderProductConfig({
                 amount: payment_type === 'budget' ? null : gratis ? product.price : amount,
                 expire_at: expires_with_fund ? null : expire_at,
                 allow_scanning: allow_scanning,
-                limit_total: limit_total_unlimited ? null : limit_total,
+                limit_total: limit_total_unlimited || isInformationalProduct ? null : limit_total,
                 limit_total_unlimited,
-                limit_per_identity: limit_per_identity_unlimited ? null : limit_per_identity,
+                limit_per_identity: limit_total_unlimited || isInformationalProduct ? null : limit_per_identity,
                 limit_per_identity_unlimited,
             };
 
@@ -199,7 +203,9 @@ export default function ModalFundProviderProductConfig({
                                         onChange={(payment_type: 'budget' | 'subsidy') => form.update({ payment_type })}
                                         options={[
                                             { key: 'budget', label: 'Budget' },
-                                            fund?.show_subsidies ? { key: 'subsidy', label: 'Subsidie' } : null,
+                                            fund?.show_subsidies && !isInformationalProduct
+                                                ? { key: 'subsidy', label: 'Subsidie' }
+                                                : null,
                                         ].filter((item) => item)}
                                     />
                                 </FormGroupInfo>
@@ -361,7 +367,7 @@ export default function ModalFundProviderProductConfig({
                                         </FormPane>
                                     )}
 
-                                    {fund.show_requester_limits && (
+                                    {fund.show_requester_limits && !isInformationalProduct && (
                                         <FormPane title={'Limiet op het aanbod'}>
                                             <div className="row">
                                                 <div className="col col-md-6 col col-md-xs12">

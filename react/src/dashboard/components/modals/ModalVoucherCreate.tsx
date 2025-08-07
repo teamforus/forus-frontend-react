@@ -295,6 +295,10 @@ export default function ModalVoucherCreate({
                 per_page: 1000,
                 order_by: 'name',
                 order_dir: 'asc',
+                free: 1,
+                regular: 1,
+                discount_fixed: 1,
+                discount_percentage: 1,
             })
             .then((res) => {
                 setProducts(
@@ -450,6 +454,7 @@ export default function ModalVoucherCreate({
                                                     propKey={'id'}
                                                     options={products}
                                                     placeholder="Selecteer aanbod..."
+                                                    allowSearch={true}
                                                     onChange={(product_id: number) => form.update({ product_id })}
                                                 />
                                                 <FormError error={form.errors?.product_id} />
