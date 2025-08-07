@@ -10,6 +10,8 @@ export default {
             amount: 'Betaald van tegoed',
             amount_extra: 'Zelf bijbetaald',
             price: 'Bedrag',
+            cancellation_note: 'Bericht van de aanbieder:',
+            rejection_note: 'Bericht van de aanbieder:',
         },
     },
     labels: {

@@ -10,7 +10,6 @@ import VoucherRecord from '../../../../props/models/VoucherRecord';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useFilter from '../../../../hooks/useFilter';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
-import ThSortable from '../../../elements/tables/ThSortable';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import { hasPermission } from '../../../../helpers/utils';
@@ -18,6 +17,10 @@ import useTranslate from '../../../../hooks/useTranslate';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
+import TableRowActions from '../../../elements/tables/TableRowActions';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function VoucherRecordsCard({
     voucher,
@@ -44,6 +47,11 @@ export default function VoucherRecordsCard({
         order_by: 'created_at',
         order_dir: 'asc',
         per_page: paginatorService.getPerPage(paginatorKey, 10),
+    });
+
+    const { headElement, configsElement } = useConfigurableTable(voucherRecordService.getColumns(), {
+        filter,
+        sortable: true,
     });
 
     const fetchRecords = useCallback(() => {
@@ -137,44 +145,13 @@ export default function VoucherRecordsCard({
             {records.data.length > 0 && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            <table className="table">
-                                <tbody>
-                                    <tr className="nowrap">
-                                        <ThSortable
-                                            className="th-narrow"
-                                            filter={filter}
-                                            label={translate('voucher_records.labels.id')}
-                                            value="id"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('voucher_records.labels.record_type')}
-                                            value="record_type_name"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('voucher_records.labels.value')}
-                                            value="value"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('voucher_records.labels.created_at')}
-                                            value="created_at"
-                                        />
-                                        <ThSortable
-                                            filter={filter}
-                                            label={translate('voucher_records.labels.note')}
-                                            value="note"
-                                        />
-                                        {hasPermission(organization, 'manage_vouchers') && (
-                                            <ThSortable
-                                                className="th-narrow text-right"
-                                                label={translate('voucher_records.labels.action')}
-                                            />
-                                        )}
-                                    </tr>
+                        {configsElement}
 
+                        <TableTopScroller>
+                            <table className="table">
+                                {headElement}
+
+                                <tbody>
                                     {records.data.map((record, index: number) => (
                                         <tr key={index}>
                                             <td className="td-narrow nowrap">{record.id}</td>
@@ -184,27 +161,36 @@ export default function VoucherRecordsCard({
                                             <td className={record.note ? '' : 'text-muted'}>
                                                 {record.note || 'Geen notitie'}
                                             </td>
-                                            {hasPermission(organization, 'manage_vouchers') && (
-                                                <td>
-                                                    <div className="button-group">
-                                                        <div
-                                                            className="button button-sm button-icon button-default"
-                                                            onClick={() => editRecord(record)}>
-                                                            <div className="mdi mdi-pencil-outline icon-start" />
-                                                        </div>
-                                                        <div
-                                                            className="button button-sm button-icon button-danger"
-                                                            onClick={() => deleteRecord(record)}>
-                                                            <div className="mdi mdi-delete-outline icon-start" />
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            )}
+
+                                            <td className={'table-td-actions text-right'}>
+                                                {hasPermission(organization, 'manage_vouchers') ? (
+                                                    <TableRowActions
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <a
+                                                                    className="dropdown-item"
+                                                                    onClick={() => editRecord(record)}>
+                                                                    <div className="mdi mdi-pencil-outline icon-start" />
+                                                                    Bewerking
+                                                                </a>
+                                                                <a
+                                                                    className="dropdown-item"
+                                                                    onClick={() => deleteRecord(record)}>
+                                                                    <div className="mdi mdi-delete-outline icon-start" />
+                                                                    Verwijderen
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                    />
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

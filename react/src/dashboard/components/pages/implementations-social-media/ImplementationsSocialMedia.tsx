@@ -8,7 +8,6 @@ import { PaginationData, ResponseError } from '../../../props/ApiResponses';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import ThSortable from '../../elements/tables/ThSortable';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalDangerZone from '../../modals/ModalDangerZone';
@@ -22,6 +21,9 @@ import { NumberParam } from 'use-query-params';
 import { useParams } from 'react-router';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
 
 export default function ImplementationsSocialMedia() {
     const { id } = useParams();
@@ -55,6 +57,8 @@ export default function ImplementationsSocialMedia() {
             queryParamsRemoveDefault: true,
         },
     );
+
+    const { headElement, configsElement } = useConfigurableTable(implementationService.getSocialMediaColumns());
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -204,17 +208,13 @@ export default function ImplementationsSocialMedia() {
                 {socialMedias.data.length > 0 && (
                     <div className="card-section card-section-primary">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
-                                <table className="table">
-                                    <tbody>
-                                        <tr>
-                                            <ThSortable className="th-narrow" label={'Icoon'} />
-                                            <ThSortable label={'Soort'} />
-                                            <ThSortable label={'URL'} />
-                                            <ThSortable label={'Titel'} />
-                                            <ThSortable className="th-narrow text-right" label={'Opties'} />
-                                        </tr>
+                            {configsElement}
 
+                            <TableTopScroller>
+                                <table className="table">
+                                    {headElement}
+
+                                    <tbody>
                                         {socialMedias.data.map((socialMedia) => (
                                             <tr key={socialMedia.id}>
                                                 <td className="td-narrow">
@@ -223,26 +223,36 @@ export default function ImplementationsSocialMedia() {
                                                 <td>{socialMedia.type_locale}</td>
                                                 <td>{socialMedia.url}</td>
                                                 <td>{socialMedia.title || '-'}</td>
-                                                <td className="td-narrow text-right">
-                                                    <div className="flex">
-                                                        <a
-                                                            className="button button-sm button-default"
-                                                            onClick={() => editSocialMedia(socialMedia)}>
-                                                            <em className="mdi mdi-pen icon-start" />
-                                                            Bewerken
-                                                        </a>
-                                                        <button
-                                                            className="button button-danger button-icon"
-                                                            onClick={() => deleteSocialMedia(socialMedia)}>
-                                                            <em className="icon-start mdi mdi-delete" />
-                                                        </button>
-                                                    </div>
+
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableRowActions
+                                                        content={({ close }) => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <a
+                                                                    className="dropdown-item"
+                                                                    onClick={() => editSocialMedia(socialMedia)}>
+                                                                    <em className="mdi mdi-pen icon-start" />
+                                                                    Bewerken
+                                                                </a>
+
+                                                                <a
+                                                                    className="dropdown-item"
+                                                                    onClick={() => {
+                                                                        deleteSocialMedia(socialMedia);
+                                                                        close();
+                                                                    }}>
+                                                                    <em className="icon-start mdi mdi-delete" />
+                                                                    Verwijderen
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                    />
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
                 )}

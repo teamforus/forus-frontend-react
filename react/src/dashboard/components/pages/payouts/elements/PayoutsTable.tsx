@@ -54,7 +54,6 @@ export default function PayoutsTable({
     const { headElement, configsElement } = useConfigurableTable(payoutTransactionService.getColumns(), {
         filter: filter,
         sortable: true,
-        hasTooltips: true,
     });
 
     const updatePayment = useCallback(
@@ -189,7 +188,7 @@ export default function PayoutsTable({
                                             )}
                                         </td>
 
-                                        <td className={'table-td-actions'}>
+                                        <td className={'table-td-actions text-right'}>
                                             <TableRowActions
                                                 content={({ close }) => (
                                                     <div className="dropdown dropdown-actions">
