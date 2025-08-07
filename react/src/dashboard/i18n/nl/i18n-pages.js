@@ -23,6 +23,7 @@ import fund_request_configurations from './pages/fund-request-configurations';
 import product from './pages/product';
 import product_edit from './pages/product-edit';
 import bank_connections from './pages/bank-connections';
+import implementation_config from './pages/implementation-config';
 import finance_providers from './pages/finance-providers';
 import email_logs from './pages/email-logs';
 import implementation_pages from './pages/implementation-pages';
@@ -64,6 +65,7 @@ export default {
     product,
     product_edit,
     bank_connections,
+    implementation_config,
     finance_providers,
     email_logs,
     implementation_pages,

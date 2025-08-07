@@ -43,6 +43,7 @@ export default {
         most_popular: 'Meest gewild',
         name_asc: 'Naam (A-Z)',
         name_desc: 'Naam (Z-A)',
+        randomized: 'Willekeurig',
     },
     distances: {
         everywhere: 'Overal',

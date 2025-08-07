@@ -65,6 +65,15 @@ export default function Products() {
         ];
     }, [translate]);
 
+    const defaultSortOption = useMemo(() => {
+        return sortByOptions?.find((option) => {
+            return (
+                `${option.value.order_by}_${option.value.order_dir}` === appConfigs.products_default_sorting ||
+                `${option.value.order_by}` === appConfigs.products_default_sorting
+            );
+        });
+    }, [appConfigs?.products_default_sorting, sortByOptions]);
+
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
         page: number;
@@ -81,7 +90,7 @@ export default function Products() {
         extra_payment?: boolean;
         bookmarked: boolean;
         display_type: 'list' | 'grid';
-        order_by: 'created_at' | 'price' | 'most_popular' | 'name';
+        order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
         order_dir: 'asc' | 'desc';
         regular?: boolean;
         discount_fixed?: boolean;
@@ -110,8 +119,8 @@ export default function Products() {
             free: false,
             informational: false,
             display_type: 'grid',
-            order_by: sortByOptions[0]?.value.order_by,
-            order_dir: sortByOptions[0]?.value.order_dir,
+            order_by: (defaultSortOption || sortByOptions[0])?.value.order_by,
+            order_dir: (defaultSortOption || sortByOptions[0])?.value.order_dir,
         },
         {
             throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment'],
@@ -180,7 +189,7 @@ export default function Products() {
                 discount_percentage: boolean;
                 free: boolean;
                 informational: boolean;
-                order_by: 'created_at' | 'price' | 'most_popular' | 'name';
+                order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
                 order_dir: 'asc' | 'desc';
             }>,
         ) => {
