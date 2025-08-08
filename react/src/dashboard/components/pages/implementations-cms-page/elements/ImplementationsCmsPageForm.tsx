@@ -336,6 +336,8 @@ export default function ImplementationsCmsPageForm({
                                             value={form.values?.description_html}
                                             onChange={(value) => form.update({ description: value })}
                                         />
+
+                                        <FormError error={form.errors.description} />
                                     </div>
                                 )}
 
