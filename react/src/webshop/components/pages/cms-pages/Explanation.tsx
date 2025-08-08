@@ -21,11 +21,11 @@ export default function Explanation() {
                     {page.description_position == 'after' ? (
                         <>
                             <ExplanationFaq page={page} />
-                            <CmsBlocks page={page} />
+                            <CmsBlocks page={page} largeMarkdown={true} />
                         </>
                     ) : (
                         <>
-                            <CmsBlocks page={page} />
+                            <CmsBlocks page={page} largeMarkdown={true} />
                             <ExplanationFaq page={page} />
                         </>
                     )}

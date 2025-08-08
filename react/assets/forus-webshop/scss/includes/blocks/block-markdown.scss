@@ -213,6 +213,11 @@
         }
     }
 
+    &.block-markdown-large {
+        --markdown-font: 400 18px/30px var(--base-font);
+        padding-right: 100px;
+    }
+
     &:last-child {
         margin-bottom: 0;
     }
