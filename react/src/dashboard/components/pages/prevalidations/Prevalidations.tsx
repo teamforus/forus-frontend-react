@@ -290,6 +290,7 @@ export default function Prevalidations() {
                         <button
                             id="create_voucher"
                             className="button button-primary"
+                            data-dusk="createPrevalidationButton"
                             onClick={() =>
                                 createPrevalidation(funds, filterValuesActive?.fund_id, fetchPrevalidations)
                             }>
@@ -300,6 +301,7 @@ export default function Prevalidations() {
                         <button
                             id="prevalidations_upload_csv"
                             className="button button-primary"
+                            data-dusk="uploadPrevalidationsBatchButton"
                             onClick={() =>
                                 uploadPrevalidations(funds, filterValuesActive?.fund_id, fetchPrevalidations)
                             }>
@@ -317,7 +319,7 @@ export default function Prevalidations() {
                                 allowSearch={false}
                                 onChange={(fund_id: number) => filter.update({ fund_id })}
                                 optionsComponent={SelectControlOptionsFund}
-                                dusk="prevalidationSelectFund"
+                                dusk="prevalidationsSelectFund"
                             />
                         </div>
 

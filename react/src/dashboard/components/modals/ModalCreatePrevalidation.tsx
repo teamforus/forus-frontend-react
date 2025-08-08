@@ -179,7 +179,9 @@ export default function ModalCreatePrevalidation({
     }, [eligibleKey, fund, formSetValues]);
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}
+            data-dusk="modalCreatePrevalidation">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form
@@ -201,7 +203,7 @@ export default function ModalCreatePrevalidation({
 
                 <div className="modal-body">
                     {verificationRequested && !prevalidation && (
-                        <div className="modal-section">
+                        <div className="modal-section" data-dusk="previewValues">
                             <div className="modal-text text-center">
                                 Controleer of u de juiste gegevens hebt ingevuld voordat u deze bevestigd.
                             </div>
@@ -284,20 +286,26 @@ export default function ModalCreatePrevalidation({
                                                                     onChange={(value: string) => {
                                                                         form.update({ [fundRecord]: value });
                                                                     }}
+                                                                    dusk={`selectControl${recordTypesByKey[fundRecord].key}`}
                                                                 />
                                                             )}
 
                                                         {recordTypesByKey &&
                                                             recordTypesByKey[fundRecord] &&
                                                             recordTypesByKey[fundRecord].type == 'date' && (
-                                                                <DatePickerControl
-                                                                    value={dateParse(form.values[fundRecord])}
-                                                                    dateFormat="dd-MM-yyyy"
-                                                                    placeholder={recordTypesByKey[fundRecord]?.name}
-                                                                    onChange={(date) => {
-                                                                        form.update({ [fundRecord]: dateFormat(date) });
-                                                                    }}
-                                                                />
+                                                                <div
+                                                                    data-dusk={`controlDate${recordTypesByKey[fundRecord].key}`}>
+                                                                    <DatePickerControl
+                                                                        value={dateParse(form.values[fundRecord])}
+                                                                        dateFormat="dd-MM-yyyy"
+                                                                        placeholder={recordTypesByKey[fundRecord]?.name}
+                                                                        onChange={(date) => {
+                                                                            form.update({
+                                                                                [fundRecord]: dateFormat(date),
+                                                                            });
+                                                                        }}
+                                                                    />
+                                                                </div>
                                                             )}
 
                                                         {recordTypesByKey &&
@@ -311,6 +319,7 @@ export default function ModalCreatePrevalidation({
                                                                         form.update({ [fundRecord]: e.target.value });
                                                                     }}
                                                                     className="form-control"
+                                                                    data-dusk={`controlNumber${recordTypesByKey[fundRecord].key}`}
                                                                 />
                                                             )}
 
@@ -327,6 +336,7 @@ export default function ModalCreatePrevalidation({
                                                                         form.update({ [fundRecord]: e.target.value });
                                                                     }}
                                                                     className="form-control"
+                                                                    data-dusk={`controlText${recordTypesByKey[fundRecord].key}`}
                                                                 />
                                                             )}
                                                     </div>
@@ -389,7 +399,7 @@ export default function ModalCreatePrevalidation({
                     )}
 
                     {prevalidation && (
-                        <div className="modal-section">
+                        <div className="modal-section" data-dusk="prevalidationOverview">
                             {prevalidationPrimaryKey && (
                                 <Fragment>
                                     <div className="modal-heading text-center">
@@ -409,12 +419,17 @@ export default function ModalCreatePrevalidation({
 
                 {!verificationRequested && (
                     <div className="modal-footer text-center">
-                        <button type="button" className="button button-default" onClick={modal.close} id="close">
+                        <button
+                            type="button"
+                            className="button button-default"
+                            onClick={modal.close}
+                            id="close"
+                            data-dusk="closeBtn">
                             Sluiten
                         </button>
 
                         {!prevalidation && (
-                            <button type="submit" className="button button-primary">
+                            <button type="submit" className="button button-primary" data-dusk="submitBtn">
                                 Bevestigen
                             </button>
                         )}
@@ -431,7 +446,7 @@ export default function ModalCreatePrevalidation({
                         </button>
 
                         {!prevalidation && (
-                            <button type="submit" className="button button-primary">
+                            <button type="submit" className="button button-primary" data-dusk="submitBtn">
                                 Bevestigen
                             </button>
                         )}
