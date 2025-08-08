@@ -5,6 +5,8 @@ import ProductCategory from './ProductCategory';
 import Fund from './Fund';
 import Voucher from './Voucher';
 
+export type ProductPriceType = 'regular' | 'discount_fixed' | 'discount_percentage' | 'free' | 'informational';
+
 export default interface Product {
     id: number;
     name: string;
@@ -13,6 +15,7 @@ export default interface Product {
     product_category_id: number;
     sold_out: boolean;
     organization_id: number;
+    qr_enabled: boolean;
     reservation_enabled: boolean;
     reservation_policy: 'global';
     alternative_text?: string;
@@ -62,7 +65,7 @@ export default interface Product {
     offices: Array<Office>;
     product_category: ProductCategory;
     bookmarked: boolean;
-    price_type: 'regular' | 'discount_fixed' | 'discount_percentage' | 'free';
+    price_type: ProductPriceType;
     price_discount: string;
     price_discount_locale: string;
     price_min?: string;
