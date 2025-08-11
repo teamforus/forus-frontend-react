@@ -5,7 +5,13 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import classNames from 'classnames';
 import Section from '../sections/Section';
 
-export default function CmsBlocks({ page }: { page: ImplementationPage }) {
+export default function CmsBlocks({
+    page,
+    largeMarkdown = false,
+}: {
+    page: ImplementationPage;
+    largeMarkdown?: boolean;
+}) {
     const assetUrl = useAssetUrl();
 
     if (!page.description_html && page.blocks.length === 0) {
@@ -16,7 +22,11 @@ export default function CmsBlocks({ page }: { page: ImplementationPage }) {
         <Section type={'cms'}>
             <div className="block block-cms">
                 {page.description_html && (
-                    <Markdown content={page.description_html} align={page.description_alignment} />
+                    <Markdown
+                        content={page.description_html}
+                        align={page.description_alignment}
+                        className={classNames(largeMarkdown && 'block-markdown-large')}
+                    />
                 )}
 
                 {page.blocks.length > 0 && (
