@@ -455,15 +455,7 @@ export default function OrganizationsTranslations() {
                             <div className="card-title">{translate('translation_stats.header.title')}</div>
                         </div>
                         <div className="card-body">
-                            {!stats ? (
-                                <LoadingCard type={'card-section'} />
-                            ) : (
-                                <div className="card-section">
-                                    <div className="card-block card-block-table">
-                                        <TranslationStatsTable stats={stats} />
-                                    </div>
-                                </div>
-                            )}
+                            {!stats ? <LoadingCard type={'card-section'} /> : <TranslationStatsTable stats={stats} />}
                         </div>
                     </div>
                 </div>

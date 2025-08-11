@@ -187,8 +187,7 @@
             "more": "Zobacz więcej"
         },
         "header": {
-            "title_budget": "Oferta",
-            "title_subsidies": "Oferta"
+            "title_budget": "Oferta"
         },
         "input": {
             "placeholder": "Wyszukiwanie produktów lub usług"
@@ -1658,11 +1657,12 @@
                 "house_nr": "Numer domu",
                 "house_nr_addition": "Dodanie numeru domu",
                 "last_name": "Nazwisko",
-                "notes": "Uwaga (opcjonalnie)",
                 "phone": "Numer telefonu",
                 "phone_optional": "Numer telefonu (opcjonalnie)",
                 "postal_code": "Kod pocztowy",
-                "street": "ul."
+                "street": "ul.",
+                "notes": "Komentarz",
+                "notes_optional": "Uwaga (opcjonalnie)"
             },
             "max_characters": "Maks. 400 znaków",
             "placeholders": {
@@ -2204,8 +2204,7 @@
         "breadcrumbs": {
             "back": "Powrót",
             "home": "Strona główna",
-            "products": "Oferta",
-            "subsidies": "Oferta"
+            "products": "Oferta"
         },
         "buttons": {
             "buy": "Rezerwacja",
@@ -3091,7 +3090,6 @@
             "providers": "Dostawcy",
             "records": "Moje dane osobowe",
             "reimbursements": "Zwrot kosztów",
-            "subsidies": "Oferta",
             "vergoedingen": {
                 "activate": "Opłaty",
                 "login": "Logowanie / rejestracja"
@@ -3149,7 +3147,6 @@
             },
             "search": "Wyszukiwanie",
             "signup": "Wyjaśnienie dostawców",
-            "subsidies": "Oferta",
             "vergoedingen": {
                 "funds": "Opłaty"
             },

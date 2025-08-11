@@ -75,7 +75,7 @@ export default function SponsorProductsChangesTable({
                                     </div>
                                 </td>
 
-                                <td className={'table-td-actions'}>
+                                <td className={'table-td-actions text-right'}>
                                     <TableRowActions
                                         content={() => (
                                             <div className="dropdown dropdown-actions">

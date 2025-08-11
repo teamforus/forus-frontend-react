@@ -135,6 +135,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                 id="reservations"
                                 name={'reservations'}
                                 className="auth-user-menu-item"
+                                dataDusk="btnReservations"
                                 tabIndex={0}>
                                 <em className="mdi mdi-calendar-outline" />
                                 {translate('top_navbar.user_menu.reservations')}
@@ -145,6 +146,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                     id="reimbursements"
                                     name={'reimbursements'}
                                     className="auth-user-menu-item"
+                                    dataDusk="btnReimbursements"
                                     tabIndex={0}>
                                     <em className="mdi mdi-receipt-outline" />
                                     {translate('top_navbar.user_menu.reimbursements')}
@@ -166,6 +168,7 @@ export const TopNavbarDesktopMenuUser = () => {
                                     id="payouts"
                                     name={'payouts'}
                                     className="auth-user-menu-item"
+                                    dataDusk="btnPayouts"
                                     tabIndex={0}>
                                     <em className="mdi mdi-wallet-plus-outline" />
                                     {translate('top_navbar.user_menu.payouts')}

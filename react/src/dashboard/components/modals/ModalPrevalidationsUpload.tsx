@@ -19,6 +19,10 @@ import { useFundService } from '../../services/FundService';
 import RecordType from '../../props/models/RecordType';
 import { usePrevalidationService } from '../../services/PrevalidationService';
 import usePushApiError from '../../hooks/usePushApiError';
+import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
+import TranslateHtml from '../elements/translate-html/TranslateHtml';
+import SelectControl from '../elements/select-control/SelectControl';
+import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 
 type CSVErrorProp = {
     emptyHeader?: string | string[];
@@ -42,13 +46,15 @@ type RowDataProp = {
 };
 
 export default function ModalPrevalidationsUpload({
-    fund,
+    funds,
+    fundId,
     modal,
     className,
     recordTypes,
     onCompleted,
 }: {
-    fund: Fund;
+    funds: Array<Fund>;
+    fundId: number;
     modal: ModalState;
     className?: string;
     recordTypes?: Array<RecordType>;
@@ -65,6 +71,11 @@ export default function ModalPrevalidationsUpload({
     const fundService = useFundService();
     const prevalidationService = usePrevalidationService();
 
+    const [STEP_SET_UP] = useState(1);
+    const [STEP_UPLOAD] = useState(2);
+
+    const [fund, setFund] = useState<Fund>(funds?.find((fund) => fund.id == fundId) || funds[0]);
+    const [step, setStep] = useState(STEP_SET_UP);
     const [data, setData] = useState<Array<RowDataProp>>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [changed, setChanged] = useState<boolean>(false);
@@ -626,121 +637,154 @@ export default function ModalPrevalidationsUpload({
         <div
             className={classNames(
                 'modal',
-                'modal-bulk-upload',
+                step == STEP_SET_UP ? 'modal-md' : 'modal-bulk-upload',
                 'modal-animated',
                 (modal.loading || hideModal) && 'modal-loading',
                 isDragOver && 'is-dragover',
                 className,
-            )}>
+            )}
+            key={`step_${step}`}>
             <div className="modal-backdrop" onClick={closeModal} />
             <div className="modal-window">
                 <a className="mdi mdi-close modal-close" onClick={closeModal} role="button" />
                 <div className="modal-header">Upload CSV-bestand</div>
-                <div className={classNames('modal-body', 'form')}>
-                    <div
-                        className="block block-csv"
-                        onDragOver={(e) => onDragEvent(e, true)}
-                        onDragEnter={(e) => onDragEvent(e, true)}
-                        onDragLeave={(e) => onDragEvent(e, false)}
-                        onDragEnd={(e) => onDragEvent(e, false)}
-                        onDrop={(e) => {
-                            onDragEvent(e, false);
-                            uploadFile(filterSelectedFiles(e.dataTransfer.files)?.[0]).then();
-                        }}>
-                        <div className="csv-inner">
-                            <input
-                                hidden={true}
-                                ref={inputRef}
-                                type="file"
-                                data-dusk={'inputUpload'}
-                                accept={(acceptedFiles || []).join(',')}
-                                onChange={(e) => {
-                                    uploadFile(filterSelectedFiles(e.target.files)?.[0]).then();
-                                    e.target.value = null;
-                                }}
-                            />
+                <div
+                    className={classNames(
+                        'modal-body',
+                        classNames(step === STEP_SET_UP ? 'modal-body-visible' : ''),
+                        'form',
+                    )}>
+                    {step == STEP_SET_UP && (
+                        <div className="modal-section form">
+                            <div className="form-group">
+                                <div className="form-label">{translate('modals.modal_voucher_create.labels.fund')}</div>
 
-                            {csvProgress <= 1 && (
-                                <div className="csv-upload-btn" onClick={() => inputRef.current.click()}>
-                                    <div className="csv-upload-icon">
-                                        <div className="mdi mdi-upload" />
-                                    </div>
-                                    <div className="csv-upload-text">
-                                        {translate('csv_upload.labels.upload')}
-                                        <br />
-                                        <span>{translate('csv_upload.labels.swipe')}</span>
-                                    </div>
-                                </div>
-                            )}
-
-                            <div className="button-group flex-center">
-                                {csvProgress <= 1 && (
-                                    <button className="button button-default" onClick={downloadExampleCsv}>
-                                        <em className="mdi mdi-file-table-outline icon-start"> </em>
-                                        <span>{translate('vouchers.buttons.download_csv')}</span>
-                                    </button>
-                                )}
-                                {csvProgress <= 1 && (
-                                    <button
-                                        className="button button-primary"
-                                        onClick={() => inputRef.current.click()}
-                                        data-dusk="selectFileButton">
-                                        <em className="mdi mdi-upload icon-start" />
-                                        <span>{translate('vouchers.buttons.upload_csv')}</span>
-                                    </button>
-                                )}
+                                <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.funds'} />}>
+                                    <SelectControl
+                                        className="flex-grow"
+                                        value={fund.id}
+                                        propKey={'id'}
+                                        onChange={(fund_id: number) => {
+                                            setFund(funds.find((fund) => fund.id === fund_id));
+                                        }}
+                                        options={funds}
+                                        allowSearch={false}
+                                        optionsComponent={SelectControlOptionsFund}
+                                    />
+                                </FormGroupInfo>
                             </div>
+                        </div>
+                    )}
 
-                            {csvProgress >= 2 && (
-                                <div className={`csv-upload-progress ${csvProgress == 3 ? 'done' : ''}`}>
-                                    <div className="csv-upload-icon">
-                                        {csvProgress == 2 && <div className="mdi mdi-loading" />}
-                                        {csvProgress == 3 && (
-                                            <div className="mdi mdi-check" data-dusk="successUploadIcon" />
+                    {step == STEP_UPLOAD && (
+                        <div
+                            className="block block-csv"
+                            onDragOver={(e) => onDragEvent(e, true)}
+                            onDragEnter={(e) => onDragEvent(e, true)}
+                            onDragLeave={(e) => onDragEvent(e, false)}
+                            onDragEnd={(e) => onDragEvent(e, false)}
+                            onDrop={(e) => {
+                                onDragEvent(e, false);
+                                uploadFile(filterSelectedFiles(e.dataTransfer.files)?.[0]).then();
+                            }}>
+                            <div className="csv-inner">
+                                <input
+                                    hidden={true}
+                                    ref={inputRef}
+                                    type="file"
+                                    data-dusk={'inputUpload'}
+                                    accept={(acceptedFiles || []).join(',')}
+                                    onChange={(e) => {
+                                        uploadFile(filterSelectedFiles(e.target.files)?.[0]).then();
+                                        e.target.value = null;
+                                    }}
+                                />
+
+                                {csvProgress <= 1 && (
+                                    <div className="csv-upload-btn" onClick={() => inputRef.current.click()}>
+                                        <div className="csv-upload-icon">
+                                            <div className="mdi mdi-upload" />
+                                        </div>
+                                        <div className="csv-upload-text">
+                                            {translate('csv_upload.labels.upload')}
+                                            <br />
+                                            <span>{translate('csv_upload.labels.swipe')}</span>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="button-group flex-center">
+                                    {csvProgress <= 1 && (
+                                        <button className="button button-default" onClick={downloadExampleCsv}>
+                                            <em className="mdi mdi-file-table-outline icon-start"> </em>
+                                            <span>{translate('vouchers.buttons.download_csv')}</span>
+                                        </button>
+                                    )}
+                                    {csvProgress <= 1 && (
+                                        <button
+                                            className="button button-primary"
+                                            onClick={() => inputRef.current.click()}
+                                            data-dusk="selectFileButton">
+                                            <em className="mdi mdi-upload icon-start" />
+                                            <span>{translate('vouchers.buttons.upload_csv')}</span>
+                                        </button>
+                                    )}
+                                </div>
+
+                                {csvProgress >= 2 && (
+                                    <div className={`csv-upload-progress ${csvProgress == 3 ? 'done' : ''}`}>
+                                        <div className="csv-upload-icon">
+                                            {csvProgress == 2 && <div className="mdi mdi-loading" />}
+                                            {csvProgress == 3 && (
+                                                <div className="mdi mdi-check" data-dusk="successUploadIcon" />
+                                            )}
+                                        </div>
+                                        <CSVProgressBar progressBar={progressBar} status={progressStatus} />
+                                    </div>
+                                )}
+
+                                {csvFile && csvProgress < 2 && (
+                                    <div className="csv-upload-actions">
+                                        <div className={classNames(`block block-file`, !csvIsValid && 'has-error')}>
+                                            <div className="block-file-details">
+                                                <div className="file-icon">
+                                                    {csvIsValid ? (
+                                                        <div className="mdi mdi-file-outline" />
+                                                    ) : (
+                                                        <div className="mdi mdi-close-circle" />
+                                                    )}
+                                                </div>
+                                                <div className="file-details">
+                                                    <div className="file-name">{csvFile.name}</div>
+                                                    <div className="file-size">{fileSize(csvFile.size)}</div>
+                                                </div>
+                                                <div
+                                                    className="file-remove mdi mdi-close"
+                                                    onClick={() => reset(false)}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {Object.keys(csvErrors).length === 0 && Object.keys(csvWarnings).length > 0 && (
+                                            <div className="csv-file-warning">
+                                                {Object.keys(csvWarnings).map((key) => (
+                                                    <div key={key}>{csvWarnings[key]}</div>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {Object.keys(csvErrors).length > 0 && (
+                                            <div className="csv-file-error">
+                                                {Object.keys(csvErrors).map((key) => (
+                                                    <div key={key}>{csvErrors[key]}</div>
+                                                ))}
+                                            </div>
                                         )}
                                     </div>
-                                    <CSVProgressBar progressBar={progressBar} status={progressStatus} />
-                                </div>
-                            )}
-
-                            {csvFile && csvProgress < 2 && (
-                                <div className="csv-upload-actions">
-                                    <div className={classNames(`block block-file`, !csvIsValid && 'has-error')}>
-                                        <div className="block-file-details">
-                                            <div className="file-icon">
-                                                {csvIsValid ? (
-                                                    <div className="mdi mdi-file-outline" />
-                                                ) : (
-                                                    <div className="mdi mdi-close-circle" />
-                                                )}
-                                            </div>
-                                            <div className="file-details">
-                                                <div className="file-name">{csvFile.name}</div>
-                                                <div className="file-size">{fileSize(csvFile.size)}</div>
-                                            </div>
-                                            <div className="file-remove mdi mdi-close" onClick={() => reset(false)} />
-                                        </div>
-                                    </div>
-
-                                    {Object.keys(csvErrors).length === 0 && Object.keys(csvWarnings).length > 0 && (
-                                        <div className="csv-file-warning">
-                                            {Object.keys(csvWarnings).map((key) => (
-                                                <div key={key}>{csvWarnings[key]}</div>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {Object.keys(csvErrors).length > 0 && (
-                                        <div className="csv-file-error">
-                                            {Object.keys(csvErrors).map((key) => (
-                                                <div key={key}>{csvErrors[key]}</div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
 
                 <div className="modal-footer text-center">
@@ -757,26 +801,44 @@ export default function ModalPrevalidationsUpload({
                     <div className="flex-grow" />
 
                     <div className="button-group">
-                        <Fragment>
-                            {csvProgress < 3 ? (
-                                <button
-                                    className="button button-primary"
-                                    onClick={onConfirmUpload}
-                                    disabled={csvProgress != 1 || loading || !csvIsValid || csvComparing}
-                                    data-dusk="uploadFileButton">
-                                    Bevestigen
-                                </button>
-                            ) : (
-                                <button
-                                    type={'button'}
-                                    className="button button-primary"
-                                    disabled={loading}
-                                    onClick={closeModal}
-                                    data-dusk="closeModalButton">
-                                    Sluiten
-                                </button>
-                            )}
-                        </Fragment>
+                        <button
+                            className={`button button-default`}
+                            disabled={step == STEP_SET_UP || loading}
+                            onClick={() => setStep(STEP_SET_UP)}>
+                            Terug
+                        </button>
+
+                        {step == STEP_SET_UP && (
+                            <button
+                                className="button button-primary"
+                                onClick={() => setStep(STEP_UPLOAD)}
+                                data-dusk={'modalFundSelectSubmit'}>
+                                Bevestigen
+                            </button>
+                        )}
+
+                        {step == STEP_UPLOAD && (
+                            <Fragment>
+                                {csvProgress < 3 ? (
+                                    <button
+                                        className="button button-primary"
+                                        onClick={onConfirmUpload}
+                                        disabled={csvProgress != 1 || loading || !csvIsValid || csvComparing}
+                                        data-dusk="uploadFileButton">
+                                        Bevestigen
+                                    </button>
+                                ) : (
+                                    <button
+                                        type={'button'}
+                                        className="button button-primary"
+                                        disabled={loading}
+                                        onClick={closeModal}
+                                        data-dusk="closeModalButton">
+                                        Sluiten
+                                    </button>
+                                )}
+                            </Fragment>
+                        )}
                     </div>
                 </div>
             </div>

@@ -59,4 +59,6 @@ export default interface Reservation {
             name: string;
         };
     };
+    cancellation_note?: string;
+    rejection_note?: string;
 }

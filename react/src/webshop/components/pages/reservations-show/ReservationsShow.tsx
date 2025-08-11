@@ -171,6 +171,28 @@ export default function ReservationsShow() {
                                                     {reservation.price_voucher_locale}
                                                 </div>
                                             </div>
+                                            {reservation.canceled_at &&
+                                                reservation.state === 'canceled' &&
+                                                reservation.cancellation_note && (
+                                                    <div className="block-key-value-list-item">
+                                                        <div className="key-value-list-item-label">
+                                                            {translate('reservation.details.labels.cancellation_note')}
+                                                        </div>
+                                                        <div className="key-value-list-item-value">
+                                                            {reservation.cancellation_note}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            {reservation.rejected_at && reservation.rejection_note && (
+                                                <div className="block-key-value-list-item">
+                                                    <div className="key-value-list-item-label">
+                                                        {translate('reservation.details.labels.rejection_note')}
+                                                    </div>
+                                                    <div className="key-value-list-item-value">
+                                                        {reservation.rejection_note}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="reservation-actions">
                                             {(reservation.cancelable ||

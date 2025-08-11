@@ -37,6 +37,7 @@ import { NumberParam, StringParam } from 'use-query-params';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
 import Label from '../../elements/image_cropper/Label';
+import { uniq } from 'lodash';
 
 export default function Prevalidations() {
     const translate = useTranslate();
@@ -53,7 +54,7 @@ export default function Prevalidations() {
 
     const prevalidationExporter = usePrevalidationExporter();
 
-    const [funds, setFunds] = useState<Array<Fund>>(null);
+    const [funds, setFunds] = useState<Array<Fund>>([]);
     const [paginatorKey] = useState('products');
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
 
@@ -114,15 +115,7 @@ export default function Prevalidations() {
         },
     );
 
-    const fund = useMemo(() => {
-        return funds?.find((fund) => fund.id === filterValues?.fund_id);
-    }, [funds, filterValues?.fund_id]);
-
     const headers = useMemo(() => {
-        if (!fund?.csv_primary_key) {
-            return null;
-        }
-
         const headers: string[] = prevalidations?.data
             ?.reduce((headers, prevalidation) => {
                 return prevalidation.records
@@ -133,15 +126,19 @@ export default function Prevalidations() {
             ?.filter((header: string) => !header?.endsWith('_hash'))
             ?.sort();
 
-        const primaryKey = headers?.indexOf(fund?.csv_primary_key);
+        const primaryKeys = uniq(funds.map((fund) => fund.csv_primary_key).filter((key) => key));
 
-        if (primaryKey !== -1) {
-            headers?.splice(primaryKey, 1);
-            headers?.unshift(fund?.csv_primary_key);
+        for (const key of primaryKeys) {
+            const primaryKey = headers?.indexOf(key);
+
+            if (primaryKey !== -1) {
+                headers?.splice(primaryKey, 1);
+                headers?.unshift(key);
+            }
         }
 
         return headers;
-    }, [fund?.csv_primary_key, prevalidations]);
+    }, [funds, prevalidations]);
 
     const rows = useMemo(() => {
         return prevalidations?.data?.map((prevalidation) => ({
@@ -157,25 +154,17 @@ export default function Prevalidations() {
     );
 
     const exportData = useCallback(() => {
-        prevalidationExporter.exportData(activeOrganization.id, {
-            ...filterValuesActive,
-            ...filter.activeValues,
-            fund_id: fund.id,
-        });
-    }, [activeOrganization.id, filterValuesActive, filter.activeValues, fund?.id, prevalidationExporter]);
+        prevalidationExporter.exportData(activeOrganization.id, { ...filterValuesActive, ...filter.activeValues });
+    }, [activeOrganization.id, filterValuesActive, filter.activeValues, prevalidationExporter]);
 
     const fetchPrevalidations = useCallback(() => {
-        if (!fund?.id) {
-            return;
-        }
-
         setProgress(0);
 
         prevalidationService
-            .list(activeOrganization.id, { ...filterValuesActive, fund_id: fund.id })
+            .list(activeOrganization.id, { ...filterValuesActive })
             .then((res) => setPrevalidations(res.data))
             .finally(() => setProgress(100));
-    }, [setProgress, prevalidationService, filterValuesActive, fund?.id, activeOrganization.id]);
+    }, [setProgress, prevalidationService, filterValuesActive, activeOrganization.id]);
 
     const fetchEmployees = useCallback(() => {
         setProgress(0);
@@ -192,13 +181,10 @@ export default function Prevalidations() {
         fundService
             .list(activeOrganization?.id, { state: 'active_paused_and_closed', per_page: 100 })
             .then((res) => {
-                const funds = res.data.data.filter((fund) => hasPermission(fund.organization, 'validate_records'));
-
-                setFunds(funds);
-                filterUpdate({ fund_id: funds?.[0]?.id });
+                setFunds(res.data.data.filter((fund) => hasPermission(fund.organization, 'validate_records')));
             })
             .finally(() => setProgress(100));
-    }, [setProgress, fundService, activeOrganization?.id, filterUpdate]);
+    }, [setProgress, fundService, activeOrganization?.id]);
 
     const fetchRecordTypes = useCallback(() => {
         setProgress(0);
@@ -240,11 +226,12 @@ export default function Prevalidations() {
     );
 
     const createPrevalidation = useCallback(
-        (fund: Fund, onCreate?: () => void) => {
+        (funds: Array<Fund>, fundId: number, onCreate?: () => void) => {
             openModal((modal) => (
                 <ModalCreatePrevalidation
                     modal={modal}
-                    fund={fund}
+                    funds={funds}
+                    fundId={fundId}
                     recordTypes={recordTypes}
                     onCreated={() => onCreate?.()}
                 />
@@ -254,9 +241,15 @@ export default function Prevalidations() {
     );
 
     const uploadPrevalidations = useCallback(
-        (fund: Fund, onCreate?: () => void) => {
+        (funds: Array<Fund>, fundId: number, onCreate?: () => void) => {
             openModal((modal) => (
-                <ModalPrevalidationsUpload modal={modal} recordTypes={recordTypes} fund={fund} onCompleted={onCreate} />
+                <ModalPrevalidationsUpload
+                    modal={modal}
+                    recordTypes={recordTypes}
+                    funds={funds}
+                    fundId={fundId}
+                    onCompleted={onCreate}
+                />
             ));
         },
         [openModal, recordTypes],
@@ -297,8 +290,9 @@ export default function Prevalidations() {
                         <button
                             id="create_voucher"
                             className="button button-primary"
-                            disabled={funds?.filter((fund) => fund.id)?.length < 1}
-                            onClick={() => createPrevalidation(fund, fetchPrevalidations)}>
+                            onClick={() =>
+                                createPrevalidation(funds, filterValuesActive?.fund_id, fetchPrevalidations)
+                            }>
                             <em className="mdi mdi-plus-circle icon-start" />
                             {translate('csv_validation.buttons.create')}
                         </button>
@@ -306,7 +300,9 @@ export default function Prevalidations() {
                         <button
                             id="prevalidations_upload_csv"
                             className="button button-primary"
-                            onClick={() => uploadPrevalidations(fund, fetchPrevalidations)}>
+                            onClick={() =>
+                                uploadPrevalidations(funds, filterValuesActive?.fund_id, fetchPrevalidations)
+                            }>
                             <em className="mdi mdi-upload icon-start" />
                             {translate('csv_validation.buttons.upload')}
                         </button>
@@ -314,25 +310,19 @@ export default function Prevalidations() {
                         <div className="form-group">
                             <SelectControl
                                 className="form-control inline-filter-control"
-                                options={funds}
-                                value={fund}
+                                propKey={'id'}
+                                options={[{ id: null, name: 'Selecteer fonds' }, ...funds]}
+                                value={filter.activeValues.fund_id}
                                 placeholder={translate('vouchers.labels.fund')}
                                 allowSearch={false}
-                                onChange={(fund: Fund) => filterUpdate({ fund_id: fund?.id })}
+                                onChange={(fund_id: number) => filter.update({ fund_id })}
                                 optionsComponent={SelectControlOptionsFund}
                                 dusk="prevalidationSelectFund"
                             />
                         </div>
 
                         {filter.show && (
-                            <div
-                                className="button button-text"
-                                onClick={() => {
-                                    const fund_id = filter.values.fund_id;
-                                    filter.resetFilters();
-                                    filter.setShow(false);
-                                    filterUpdate({ fund_id });
-                                }}>
+                            <div className="button button-text" onClick={() => filter.resetFilters()}>
                                 <em className="mdi mdi-close icon-start" />
                                 Wis filters
                             </div>
@@ -462,33 +452,34 @@ export default function Prevalidations() {
 
                                             <td>
                                                 <div className="text-primary text-semibold">
-                                                    {strLimit(row.fund?.name, 32)}
+                                                    {row.fund ? strLimit(row.fund?.name, 32) : <TableEmptyValue />}
                                                 </div>
 
                                                 <div className="text-strong text-md text-muted-dark">
-                                                    {strLimit(row.fund?.implementation?.name, 32)}
+                                                    {row.fund ? (
+                                                        strLimit(row.fund?.implementation?.name, 32)
+                                                    ) : (
+                                                        <TableEmptyValue />
+                                                    )}
                                                 </div>
                                             </td>
                                             <td className="text-primary text-strong">
                                                 {employeesByAddress?.[row?.identity_address] || 'Unknown'}
                                             </td>
+
                                             {row.records?.map((record, index) => (
-                                                <td key={index}>
-                                                    {record ? (
-                                                        <div className="text-left">{record.value}</div>
-                                                    ) : (
-                                                        <div className="text-left text-muted">-</div>
-                                                    )}
+                                                <td key={index} className={'text-left'}>
+                                                    {record ? record.value : <TableEmptyValue />}
                                                 </td>
                                             ))}
 
-                                            <td className="text-right">
+                                            <td>
                                                 <Label type={row.state == 'pending' ? 'default' : 'success'}>
                                                     {row.state == 'pending' ? 'Nee' : 'Ja'}
                                                 </Label>
                                             </td>
 
-                                            <td className="text-right">
+                                            <td>
                                                 <Label type={!row.exported ? 'default' : 'success'}>
                                                     {!row.exported ? 'Nee' : 'Ja'}
                                                 </Label>

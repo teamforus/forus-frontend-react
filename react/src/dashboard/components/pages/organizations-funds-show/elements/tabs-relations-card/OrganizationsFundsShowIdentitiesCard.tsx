@@ -11,13 +11,14 @@ import { PaginationData } from '../../../../../props/ApiResponses';
 import useFilter from '../../../../../hooks/useFilter';
 import LoadingCard from '../../../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
-import ThSortable from '../../../../elements/tables/ThSortable';
 import SponsorIdentity from '../../../../../props/models/Sponsor/SponsorIdentity';
 import useSetProgress from '../../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../../services/FundService';
 import useFundIdentitiesExporter from '../../../../../services/exporters/useFundIdentitiesExporter';
-import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
 import { hasPermission } from '../../../../../helpers/utils';
+import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../../elements/tables/TableTopScroller';
+import TableRowActions from '../../../../elements/tables/TableRowActions';
 
 export default function OrganizationsFundsShowIdentitiesCard({
     fund,
@@ -48,6 +49,11 @@ export default function OrganizationsFundsShowIdentitiesCard({
 
     const filter = useFilter({
         per_page: paginatorService.getPerPage(paginationPerPageKey),
+    });
+
+    const { headElement, configsElement } = useConfigurableTable(fundService.getIdentitiesColumns(), {
+        filter,
+        sortable: true,
     });
 
     const fetchIdentities = useCallback(() => {
@@ -184,32 +190,11 @@ export default function OrganizationsFundsShowIdentitiesCard({
                 <Fragment>
                     {identities?.meta?.total > 0 ? (
                         <div className="card-section card-section-padless">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <ThSortable filter={filter} label={'ID'} value="id" />
-                                            <ThSortable filter={filter} label={'E-mail'} value="email" />
-                                            <ThSortable
-                                                filter={filter}
-                                                label={'Totaal aantal tegoeden'}
-                                                value="count_vouchers"
-                                            />
-                                            <ThSortable
-                                                filter={filter}
-                                                label={'Actieve tegoeden'}
-                                                value="count_vouchers_active"
-                                            />
-                                            <ThSortable
-                                                filter={filter}
-                                                label={'Actieve tegoeden met saldo'}
-                                                value="count_vouchers_active_with_balance"
-                                            />
-                                            <th className="nowrap text-right">
-                                                {translate('identities.labels.actions')}
-                                            </th>
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {identities.data.map((identity: SponsorIdentity, index: number) => (
@@ -219,31 +204,37 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                                 <td>{identity.count_vouchers}</td>
                                                 <td>{identity.count_vouchers_active}</td>
                                                 <td>{identity.count_vouchers_active_with_balance}</td>
-                                                <td className={'text-right'}>
-                                                    {hasPermission(
-                                                        activeOrganization,
-                                                        ['view_identities', 'manage_identities'],
-                                                        false,
-                                                    ) ? (
-                                                        <StateNavLink
-                                                            className="button button-primary button-sm pull-right"
-                                                            name={'identities-show'}
-                                                            params={{
-                                                                organizationId: fund.organization_id,
-                                                                id: identity.id,
-                                                            }}>
-                                                            <em className="icon-start mdi mdi-eye-outline" />
-                                                            Bekijken
-                                                        </StateNavLink>
-                                                    ) : (
-                                                        <TableEmptyValue />
-                                                    )}
+
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableRowActions
+                                                        disabled={
+                                                            !hasPermission(
+                                                                activeOrganization,
+                                                                ['view_identities', 'manage_identities'],
+                                                                false,
+                                                            )
+                                                        }
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <StateNavLink
+                                                                    className="dropdown-item"
+                                                                    name={'identities-show'}
+                                                                    params={{
+                                                                        organizationId: fund.organization_id,
+                                                                        id: identity.id,
+                                                                    }}>
+                                                                    <em className="icon-start mdi mdi-eye-outline" />
+                                                                    Bekijken
+                                                                </StateNavLink>
+                                                            </div>
+                                                        )}
+                                                    />
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     ) : (
                         <EmptyCard
