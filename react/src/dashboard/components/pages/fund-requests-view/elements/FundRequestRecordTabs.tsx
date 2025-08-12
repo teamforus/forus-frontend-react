@@ -59,6 +59,10 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
                 </div>
             )}
 
+            {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
+                <FundRequestRecordClarificationsTab fundRequestRecord={fundRequestRecord} />
+            )}
+
             {shownType == 'history' && fundRequestRecord.history.length > 0 && (
                 <FundRequestRecordHistoryTab record={fundRequestRecord} />
             )}
@@ -70,10 +74,6 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
                         date: fundRequestRecord.created_at_locale,
                     }))}
                 />
-            )}
-
-            {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
-                <FundRequestRecordClarificationsTab fundRequestRecord={fundRequestRecord} />
             )}
         </div>
     );

@@ -1,376 +1,169 @@
 .block.block-fund-request {
-    .card {
-        border: 1px solid var(--border-color);
+    .fund-request-records {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
 
-        &.card-fund-request-conversation {
-            cursor: default;
-            margin-bottom: 15px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
+    .fund-request-record {
+        cursor: default;
+        border: var(--showcase-item-border);
+        border-radius: var(--border-radius);
+        box-shadow: var(--showcase-item-shadow);
+        margin: 0 0;
 
-            .card-header {
-                padding: 15px;
+        .fund-request-record-header {
+            display: flex;
+            flex-direction: row;
+            padding: 15px;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
 
-                .card-header-wrapper {
-                    gap: 10px;
-                    display: flex;
-                    flex-direction: row;
+            .fund-request-record-header-main {
+                gap: 10px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                flex: 1 0 0;
+                align-self: stretch;
+
+                .fund-request-record-header-icon {
+                    display: block;
+                    width: 36px;
+                    height: 36px;
+                    line-height: 36px;
+                    text-align: center;
                     align-items: center;
-                    justify-content: space-between;
-                    flex: 1 0 0;
-                    align-self: stretch;
+                    border-radius: calc(var(--border-radius) / 2);
+                    background: #f4f5f7;
+                    transition:
+                        color 0.4s,
+                        background-color 0.4s;
+                }
 
-                    .card-header-icon {
-                        display: block;
-                        width: 36px;
-                        height: 36px;
-                        line-height: 36px;
-                        text-align: center;
-                        align-items: center;
-                        border-radius: calc(var(--border-radius) / 2);
-                        background: #f4f5f7;
-                        transition: color .4s, background-color .4s;
-                    }
+                .fund-request-record-header-content {
+                    display: flex;
+                    flex: 1 1 auto;
+                    flex-direction: column;
 
-                    .card-heading-wrapper {
+                    .fund-request-record-header-title {
                         display: flex;
-                        flex-grow: 1;
-                        flex-direction: column;
+                        flex: 1 1 auto;
+                        flex-direction: row;
+                        margin: 0 0;
+                        font: 700 16px/20px var(--base-font);
 
-                        .card-heading {
-                            margin-bottom: 0;
-
-                            span {
-                                padding: 0 5px;
-                                color: #d4d9dd;
-                            }
+                        .fund-request-record-header-title-dot {
+                            padding: 0 5px;
+                            color: #d4d9dd;
                         }
                     }
 
-                    .card-header-date {
+                    .fund-request-record-header-subtitle {
                         font: 400 13px/18px var(--base-font);
-                        color: #646f79;
-                    }
-
-                    .card-header-view {
-                        font: 600 13px/18px var(--base-font);
-                        color: #282b39;
-                        display: flex;
-                        align-items: center;
-                        white-space: nowrap;
-                        cursor: pointer;
-
-                        .card-header-view-arrow {
-                            transform: rotate(-90deg);
-                            color: #dbdcdb;
-                            font-size: 25px;
-                            line-height: 25px;
-                            transition: all 0.3s;
-                        }
-                    }
-                }
-
-                .label {
-                    &:not(:last-child):not(:last-of-type) {
-                        margin: 0;
-                    }
-
-                    .label-text {
-                        display: inline-block;
+                        color: #595959;
                     }
                 }
             }
 
-            .card-section {
-                padding: 0 0 15px 0;
-            }
+            .fund-request-record-header-actions {
+                display: flex;
+                flex: 0 0 auto;
+                flex-direction: row;
+                gap: 10px;
+                align-items: center;
 
-            &.open {
-                .card-header {
-                    .card-header-icon {
-                        background: var(--color-primary);
-                        color: #fff;
-                    }
+                .fund-request-record-header-view {
+                    appearance: none;
+                    padding: 0 0;
+                    font: 600 13px/18px var(--base-font);
+                    color: #282b39;
+                    display: flex;
+                    align-items: center;
+                    white-space: nowrap;
+                    cursor: pointer;
+                    border: none;
+                    background: none;
 
-                    .card-header-view {
-                        .card-header-view-arrow {
-                            transform: rotate(0deg);
-                        }
+                    .fund-request-record-header-view-arrow {
+                        transform: rotate(-90deg);
+                        color: #dbdcdb;
+                        font-size: 25px;
+                        line-height: 25px;
+                        transition: all 0.3s;
                     }
                 }
             }
+
+            .label {
+                &:not(:last-child):not(:last-of-type) {
+                    margin: 0;
+                }
+
+                .label-text {
+                    display: inline-block;
+                }
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .fund-request-record-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &.fund-request-record-open {
+            border-color: #848484;
+
+            .fund-request-record-header {
+                .fund-request-record-header-icon {
+                    background: #282b39;
+                    color: #fff;
+                }
+
+                .fund-request-record-header-view {
+                    .fund-request-record-header-view-arrow {
+                        transform: rotate(0deg);
+                    }
+                }
+            }
+        }
+
+        &.fund-request-record-inline {
+            border: none;
         }
     }
 
-    .fund-request-section {
+    .fund-request-props {
         display: flex;
         flex-direction: row;
-        margin-bottom: 30px;
+        align-items: flex-start;
+        gap: 10px;
         width: 100%;
 
-        .fund-request-props {
+        .fund-request-prop {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            flex-basis: 60%;
-            flex-grow: 1;
-            padding: 20px;
-            align-items: flex-start;
-            gap: 10px;
-            align-self: stretch;
-            border-radius: var(--border-radius);
-            background: #f4f5f7;
+            gap: 5px;
+            flex: 0 0 33.33%;
 
-            .fund-request-prop {
-                display: flex;
-                flex-direction: row;
-                gap: 5px;
-                width: 100%;
-
-                .fund-request-prop-label,
-                .fund-request-prop-value {
-                    display: block;
-                    font: 600 14px/24px var(--base-font);
-                }
-
-                .fund-request-prop-label {
-                    width: 50%;
-                    max-width: 210px;
-                    color: #646f79;
-                }
-
-                .fund-request-prop-value {
-                    color: #303030;
-                    width: auto;
-                    flex: 1 0 0;
-                }
+            .fund-request-prop-label,
+            .fund-request-prop-value {
+                display: block;
+                font: 600 14px/20px var(--base-font);
             }
-        }
 
-        .fund-request-conversations {
-            width: 100%;
-
-            .fund-request-chat {
-                padding: 15px 15px 10px 50px;
-                position: relative;
-
-                .fund-request-chat-number {
-                    display: flex;
-                    width: 25px;
-                    height: 25px;
-                    flex-direction: column;
-                    justify-content: center;
-                    flex-shrink: 0;
-                    background: #fff;
-                    text-align: center;
-                    font-size: 14px;
-                    font-weight: 700;
-                    border-radius: calc(var(--border-radius) / 2);
-                    border: 1px solid var(--color-primary);
-                    position: absolute;
-                    top: 15px;
-                    left: 15px;
-                }
-
-                .fund-request-chat-info {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-bottom: 15px;
-
-                    .fund-request-chat-time {
-                        color: #222;
-                        font-size: 15px;
-                        font-weight: 400;
-                        line-height: 25px;
-
-                        .fund-request-chat-time-icon {
-                            color: #848484;
-                            font-size: 15px;
-                            line-height: 15px;
-                            margin-right: 3px;
-                        }
-                    }
-
-                    .fund-request-chat-status {
-                        display: flex;
-                        color: #222;
-                        font-size: 15px;
-                        font-weight: 600;
-                        line-height: 25px;
-
-                        .fund-request-chat-status-icon {
-                            font-size: 24px;
-                            line-height: 25px;
-                            position: relative;
-                        }
-                    }
-                }
-
-                .fund-request-chat-conversation {
-                    border-radius: var(--border-radius);
-                    border: 1px solid var(--border-color);
-                    background: #fff;
-
-                    .fund-request-chat-conversation-content {
-                        padding: 15px;
-                        gap: 15px;
-                        display: flex;
-                        flex-direction: column;
-
-                        .fund-request-chat-message {
-                            width: 55%;
-                            word-wrap: break-word;
-
-                            .fund-request-chat-message-time {
-                                color: #595959;
-                                font-size: 11px;
-                                font-weight: 600;
-                                line-height: 11px;
-                                margin-bottom: 8px;
-                            }
-
-                            .fund-request-chat-message-content {
-                                display: flex;
-                                align-items: flex-start;
-                                font-size: 13px;
-                                font-style: normal;
-                                font-weight: 600;
-                                line-height: 18px;
-                                flex-direction: column;
-
-                                .fund-request-chat-message-text {
-                                    width: 100%;
-                                    padding: 12px;
-
-                                    & + .fund-request-chat-message-file-uploader {
-                                        border-top: 1px solid #dbdcdb;
-                                    }
-                                }
-
-                                .fund-request-chat-message-file-uploader {
-                                    width: 100%;
-                                    padding: 12px;
-
-                                    .block-file-uploader {
-                                        .uploader-files {
-                                            margin: 0;
-                                        }
-                                    }
-                                }
-                            }
-
-                            &.fund-request-chat-message-in {
-                                .fund-request-chat-message-content {
-                                    border-radius: calc(var(--border-radius) * 0.5) calc(var(--border-radius) * 1.5)
-                                        calc(var(--border-radius) * 1.5) calc(var(--border-radius) * 1.5);
-                                    border: 1px solid var(--color-primary);
-                                    background: #fff;
-                                    color: var(--tc);
-                                }
-                            }
-
-                            &.fund-request-chat-message-out {
-                                align-self: flex-end;
-
-                                .fund-request-chat-message-content {
-                                    border: 1px solid var(--border-color);
-                                    background: #f4f5f7;
-                                    border-radius: calc(var(--border-radius) * 1.5) calc(var(--border-radius) * 0.5)
-                                        calc(var(--border-radius) * 1.5) calc(var(--border-radius) * 1.5);
-                                }
-
-                                .fund-request-chat-message-time {
-                                    text-align: right;
-                                }
-                            }
-                        }
-                    }
-
-                    .fund-request-chat-conversation-reply {
-                        padding: 15px;
-                    }
-
-                    .fund-request-chat-conversation-answer {
-                        display: flex;
-                        padding: 15px;
-                        flex-direction: column;
-                        gap: 15px;
-                        background: #fff;
-                        box-shadow: 0 1px 0 0 #e5e5e5 inset;
-                        border-radius: 0 0 var(--border-radius) var(--border-radius);
-
-                        .fund-request-chat-conversation-answer-box {
-                            width: 100%;
-                            margin: 0;
-
-                            textarea {
-                                width: 100%;
-                            }
-                        }
-
-                        .fund-request-chat-conversation-answer-options {
-                            display: flex;
-                            align-items: flex-start;
-                            gap: 15px;
-                            justify-content: space-between;
-                        }
-                    }
-
-                    &.fund-request-chat-answered {
-                        background: #848484;
-                    }
-                }
-
-                &.fund-request-chat-new {
-                    .fund-request-chat-info {
-                        .fund-request-chat-status {
-                            &:before {
-                                content: '•';
-                                margin-right: 4px;
-                                font-size: 24px;
-                                color: #f21010;
-                            }
-                        }
-                    }
-
-                    .fund-request-chat-number {
-                        background: var(--color-primary);
-                        color: #fff;
-                    }
-                }
-
-                &.fund-request-chat-answered {
-                    .fund-request-chat-conversation {
-                        .fund-request-chat-conversation-content {
-                            background: #f4f5f7;
-
-                            .fund-request-chat-message.fund-request-chat-message-out {
-                                .fund-request-chat-message-content {
-                                    background: #fff;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                &:before {
-                    content: '';
-                    height: 100%;
-                    border-right: 1px solid #d4d9dd;
-                    position: absolute;
-                    left: 27.5px;
-                    top: 0;
-                }
-
-                &:last-child {
-                    padding: 15px 15px 0px 50px;
-                }
+            .fund-request-prop-label {
+                color: #646f79;
             }
-        }
 
-        &:last-child {
-            margin-bottom: 0;
+            .fund-request-prop-value {
+                color: #303030;
+            }
         }
     }
 
@@ -379,259 +172,63 @@
     }
 
     @media screen and (max-width: 1000px) {
-        .card {
-            &.card-fund-request-conversation {
-                .card-header {
-                    .card-header-wrapper {
-                        flex-wrap: wrap;
+        .fund-request-record {
+            overflow: hidden;
 
-                        .card-heading-wrapper {
-                            width: 80%;
-                        }
+            .fund-request-record-header {
+                padding: 0;
+                flex-direction: column;
+
+                .fund-request-record-header-main {
+                    padding: 15px;
+                    border-bottom: 1px solid var(--border-color);
+                }
+
+                .fund-request-record-header-actions {
+                    padding: 15px;
+                    background: #fbfbfb;
+                    width: 100%;
+                    justify-content: space-between;
+                }
+            }
+
+            &.fund-request-record-inline {
+                .fund-request-record-header {
+                    .fund-request-record-header-main {
+                        border-bottom: none;
+                        padding-bottom: 10px;
+                    }
+
+                    .fund-request-record-header-actions {
+                        padding-top: 0;
+                        padding-left: 65px;
+                        background: transparent;
                     }
                 }
             }
+
+            .label {
+                padding: 0 3px;
+                font-size: 11px;
+                font-weight: 600;
+            }
         }
 
-        .fund-request-section {
+        .fund-request-props {
+            flex-direction: column;
+        }
+
+        .block.block-file-uploader.block-file-uploader-compact .uploader-droparea {
             display: flex;
             flex-direction: column;
-            margin: 0 0 20px;
+            width: 100%;
+            align-items: flex-start;
 
-            .fund-request-props {
-                .fund-request-prop {
-                    flex-direction: column;
-                    gap: 0;
+            .droparea-button {
+                width: 100%;
 
-                    .fund-request-prop-label {
-                        width: 100%;
-                    }
-
-                    .fund-request-prop-value {
-                        font-weight: 700;
-                    }
-                }
-            }
-
-            .fund-request-conversations {
-                .fund-request-chat {
-                    .fund-request-chat-conversation {
-                        .fund-request-chat-conversation-answer {
-                            .fund-request-chat-conversation-answer-options {
-                                flex-wrap: wrap;
-                                gap: 10px;
-
-                                .block {
-                                    &.block-file-uploader {
-                                        &.block-file-uploader-compact {
-                                            width: 100%;
-
-                                            .uploader-droparea {
-                                                flex-direction: column;
-                                                gap: 10px;
-
-                                                .droparea-button {
-                                                    width: 100%;
-
-                                                    .button {
-                                                        width: 100%;
-
-                                                        .mdi-paperclip {
-                                                            float: none;
-                                                            display: inline-block;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                .button-group {
-                                    width: 100%;
-                                    gap: 8px;
-
-                                    .button {
-                                        flex-grow: 1;
-                                        justify-content: center;
-                                        margin: 0;
-                                    }
-                                }
-                            }
-                        }
-
-                        .fund-request-chat-conversation-content {
-                            .fund-request-chat-message {
-                                width: 80%;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @media screen and (max-width: 767px) {
-        .card {
-            &.card-fund-request-conversation {
-                margin-bottom: 12px;
-
-                .card-header {
-                    .card-header-wrapper {
-                        gap: 10px;
-                        flex-wrap: nowrap;
-
-                        .card-header-icon {
-                            width: 30px;
-                            height: 30px;
-                            line-height: 30px;
-                        }
-
-                        .card-heading-wrapper {
-                            width: auto;
-
-                            .card-heading {
-                                font: 700 14px/16px var(--base-font);
-                                margin: 0 0 4px;
-
-                                .label {
-                                    font: 600 10px/10px var(--base-font);
-                                    border-radius: 3px;
-                                }
-                            }
-                        }
-
-                        .card-header-date {
-                            font: 400 12px/10px var(--base-font);
-                        }
-
-                        .card-header-view {
-                            font: 600 12px/20px var(--base-font);
-
-                            .card-header-view-arrow {
-                                font-size: 18px;
-                                line-height: 18px;
-                            }
-                        }
-                    }
-
-                    .label {
-                        line-height: 11px;
-                        border-radius: 5px;
-
-                        &.label-xl {
-                            padding: 6px;
-                            display: flex;
-                        }
-
-                        .label-blink {
-                            margin-right: 3px;
-                            margin-left: 0px;
-                            width: 5px;
-                            font-size: 15px;
-                        }
-
-                        .label-text {
-                            display: none;
-                        }
-                    }
-                }
-            }
-
-            .card-section,
-            .card-heading {
-                &:first-child {
-                    margin-top: 0;
-                }
-            }
-
-            .card-section {
-                padding: 15px;
-            }
-
-            .card-heading {
-                font: 700 14px/20px var(--base-font);
-            }
-        }
-
-        .fund-request-section {
-            .fund-request-props {
-                padding: 12px;
-                gap: 16px;
-
-                .fund-request-prop {
-                    gap: 10px;
-
-                    .fund-request-prop-label {
-                        font: 500 12px/1 var(--base-font);
-                    }
-
-                    .fund-request-prop-value {
-                        font: 600 13px/1 var(--base-font);
-                    }
-                }
-            }
-
-            .fund-request-conversations {
-                .fund-request-chat {
-                    .fund-request-chat-number {
-                        width: 22px;
-                        height: 22px;
-                        font-size: 13px;
-                        top: 12px;
-                        left: 17px;
-                    }
-
-                    .fund-request-chat-info {
-                        margin-bottom: 12px;
-
-                        .fund-request-chat-time {
-                            font: 400 11px/19px var(--base-font);
-
-                            .fund-request-chat-time-icon {
-                                font-size: 15px;
-                                line-height: 15px;
-                                margin-right: 2px;
-                            }
-                        }
-
-                        .fund-request-chat-status {
-                            font: 600 12px/12px var(--base-font);
-
-                            .fund-request-chat-status-icon {
-                                font-size: 21px;
-                                line-height: 11px;
-                            }
-                        }
-                    }
-
-                    .fund-request-chat-conversation {
-                        .fund-request-chat-conversation-content {
-                            padding: 12px;
-                            gap: 12px;
-
-                            .fund-request-chat-message {
-                                .fund-request-chat-message-content {
-                                    .fund-request-chat-message-text {
-                                        padding: 10px;
-                                    }
-
-                                    .fund-request-chat-message-file-uploader {
-                                        padding: 10px;
-                                    }
-                                }
-                            }
-                        }
-
-                        .fund-request-chat-conversation-reply {
-                            padding: 10px 12px 12px;
-                            border-top: 1px solid #dbdcdb;
-
-                            .button {
-                                font: 600 11px/20px var(--base-font);
-                            }
-                        }
-                    }
+                .button {
+                    width: 100%;
                 }
             }
         }

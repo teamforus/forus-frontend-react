@@ -479,7 +479,7 @@ export default function ModalVoucherCreate({
 
                                         {fund?.backoffice?.backoffice_enabled && assignType.key !== 'bsn' && (
                                             <div className="form-group">
-                                                <InfoBox type={'warning'} iconPosition={'top'} iconColor={'warning'}>
+                                                <InfoBox type={'warning'} iconColor={'warning'}>
                                                     <p className={'text-strong'}>
                                                         Let op! De backoffice integratie stuurt mogelijk geen data
                                                     </p>

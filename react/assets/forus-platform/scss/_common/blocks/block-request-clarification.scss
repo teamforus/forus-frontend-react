@@ -1,0 +1,199 @@
+.block.block-request-clarification {
+    display: flex;
+    flex-direction: column;
+
+    .block-title {
+        font: 500 14px/26px var(--base-font);
+        color: #282b39;
+        margin-bottom: 10px;
+    }
+
+    .clarification-item {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 15px;
+
+        .clarification-item-nth {
+            width: 30px;
+            min-width: 30px;
+            height: 30px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            display: flex;
+            border-radius: 30px;
+            font: 600 13px/28px var(--base-font);
+            text-align: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .clarification-item-details {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: #fff;
+            box-shadow: 2px 4px 2px rgba($color: #000000, $alpha: 0.02);
+            flex-grow: 1;
+
+            .clarification-item-section {
+                display: flex;
+                flex-direction: column;
+                border-bottom: 1px solid var(--border-color);
+                padding: 12px 15px;
+                gap: 10px;
+
+                .clarification-item-section-header {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 5px;
+
+                    .clarification-item-section-header-label {
+                        display: inline-flex;
+                        gap: 4px;
+                        border-radius: var(--border-radius);
+                        padding: 0 3px;
+                        font: 600 11px/20px var(--base-font);
+                        align-items: center;
+
+                        .mdi {
+                            font-size: 15px;
+                            height: 20px;
+                            line-height: 20px;
+                        }
+
+                        &.clarification-item-section-header-label-question-pending {
+                            color: #fff;
+                            border: 1px solid #607d8b;
+                            background: #607d8b;
+                        }
+
+                        &.clarification-item-section-header-label-question-responded {
+                            color: #fff;
+                            border-color: 1px solid var(--color-primary);
+                            background: var(--color-primary);
+                        }
+
+                        &.clarification-item-section-header-label-answer-pending {
+                            color: #151b26;
+                            border: 1px solid #b0bec5;
+
+                            .mdi {
+                                color: #646f79;
+                            }
+                        }
+
+                        &.clarification-item-section-header-label-answer-responded {
+                            color: #151b26;
+                            border: 1px solid #b0bec5;
+
+                            .mdi {
+                                color: #2987fd;
+                            }
+                        }
+                    }
+
+                    .clarification-item-section-header-title {
+                        font: 600 12px/22px var(--base-font);
+                        color: #646f79;
+
+                        strong {
+                            color: #000;
+                        }
+                    }
+                }
+
+                .clarification-item-section-body {
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: 22px;
+                    gap: 10px;
+
+                    .clarification-item-section-body-group {
+                        position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+
+                        .clarification-item-section-body-group-title {
+                            font: 600 12px/20px var(--base-font);
+                            color: var(--color-primary);
+                        }
+
+                        &:before {
+                            content: '';
+                            left: -11px;
+                            top: -10px;
+                            bottom: 50%;
+                            width: 1px;
+                            background: var(--border-color);
+                            transform: translate(-50%, 0);
+                            border-radius: 5px;
+                            position: absolute;
+                        }
+
+                        &:after {
+                            content: '';
+                            left: -11px;
+                            top: 50%;
+                            width: 5px;
+                            height: 5px;
+                            transform: translate(-50%, -50%);
+                            background: var(--color-primary);
+                            border-radius: 5px;
+                            position: absolute;
+                        }
+
+                        &.clarification-item-section-body-group-with-title {
+                            &:before {
+                                bottom: 0;
+                                top: -10px;
+                                height: auto;
+                            }
+
+                            &:after {
+                                top: 7.5px;
+                                transform: translate(-50%, 0);
+                                background: #2987fd;
+                            }
+
+                            &:last-child {
+                                &:before {
+                                    bottom: auto;
+                                    height: 20px;
+                                }
+                            }
+                        }
+                    }
+
+                    .clarification-item-section-body-bubble {
+                        display: block;
+                        padding: 6px 12px;
+                        background: #f6f9fc;
+                        border: 1px solid var(--border-color);
+                        border-radius: 0 6px 6px 6px;
+                        color: #000;
+                        width: fit-content;
+                        max-width: 100%;
+                        font: 600 13px/22px var(--base-font);
+
+                        &.clarification-item-section-body-bubble-primary {
+                            background: #2987fd;
+                            border-color: #2987fd;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        &:last-child,
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}

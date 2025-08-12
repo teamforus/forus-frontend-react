@@ -466,7 +466,7 @@ export default function BiConnection() {
                                             <div className="form-group">
                                                 <div className="form-label">&nbsp;</div>
 
-                                                <InfoBox iconPosition={'top'}>
+                                                <InfoBox>
                                                     <h4>Gegevens exporteren naar de BI-tool</h4>
                                                     <ul>
                                                         <li>Open de BI-tool en ga naar instellingen.</li>
@@ -585,15 +585,13 @@ export default function BiConnection() {
                                         </div>
 
                                         <div className="form-group">
-                                            <InfoBox iconPosition={'top'} iconColor={'primary'}>
-                                                <p>
-                                                    Het whitelisten van IP-adressen is een veiligheidsmaatregel om de
-                                                    lijst van gebruikers te beperken die gegevens van het account kunnen
-                                                    downloaden. Bij het gebruik van een zelf gehoste BI-tool of
-                                                    handmatige gegevensexport, vraag dan de IT-afdeling om het IP-adres.
-                                                    Bij het gebruik van een BI-tool als SaaS-product is het whitelisten
-                                                    van IP-adressen niet van toepassing.
-                                                </p>
+                                            <InfoBox>
+                                                Het whitelisten van IP-adressen is een veiligheidsmaatregel om de lijst
+                                                van gebruikers te beperken die gegevens van het account kunnen
+                                                downloaden. Bij het gebruik van een zelf gehoste BI-tool of handmatige
+                                                gegevensexport, vraag dan de IT-afdeling om het IP-adres. Bij het
+                                                gebruik van een BI-tool als SaaS-product is het whitelisten van
+                                                IP-adressen niet van toepassing.
                                             </InfoBox>
                                         </div>
                                     </div>

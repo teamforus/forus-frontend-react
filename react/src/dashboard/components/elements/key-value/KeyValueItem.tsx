@@ -31,7 +31,7 @@ export default function KeyValueItem({
                             </div>
                         </div>
 
-                        {showInfoBlock && <InfoBox iconPosition={'top'}>{infoBlock}</InfoBox>}
+                        {showInfoBlock && <InfoBox>{infoBlock}</InfoBox>}
                     </div>
                 ) : (
                     <Fragment>{children || <EmptyValue />}</Fragment>

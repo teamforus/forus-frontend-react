@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../hooks/useEnvData';
@@ -1072,10 +1072,19 @@ export default function FundActivate() {
                                                 alt="icon fund request success"
                                             />
                                         ) : (
-                                            <img
-                                                src={assetUrl('/assets/img/fund-request-error.png')}
-                                                alt="icon fund request error"
-                                            />
+                                            <Fragment>
+                                                {fundRequest.state === 'pending' ? (
+                                                    <img
+                                                        src={assetUrl('/assets/img/fund-request-pending.svg?color=red')}
+                                                        alt="icon fund request pending"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src={assetUrl('/assets/img/fund-request-error.png')}
+                                                        alt="icon fund request error"
+                                                    />
+                                                )}
+                                            </Fragment>
                                         )}
                                     </div>
                                     <div className="sign_up-pane-heading sign_up-pane-heading-md text-center">
@@ -1084,6 +1093,14 @@ export default function FundActivate() {
                                             { date: fundRequest.created_at_locale },
                                         )}
                                     </div>
+                                    {fundRequest.state === 'pending' && (
+                                        <Fragment>
+                                            <div className="sign_up-pane-separator sign_up-pane-separator-sm" />
+                                            <div className="sign_up-pane-heading">
+                                                {translate(`fund_request.sign_up.fund_already_applied.heading.pending`)}
+                                            </div>
+                                        </Fragment>
+                                    )}
                                     <ul className="sign_up-pane-list sign_up-pane-list-criteria">
                                         {fund.criteria?.map((criterion) => (
                                             <li key={criterion.id}>

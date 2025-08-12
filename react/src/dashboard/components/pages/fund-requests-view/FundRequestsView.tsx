@@ -774,23 +774,29 @@ export default function FundRequestsView() {
                                                 {fundRequestMeta.is_assigned ? (
                                                     <TableRowActions
                                                         dataDusk={`fundRequestRecordMenuBtn${record.id}`}
-                                                        content={() => (
+                                                        content={(e) => (
                                                             <div className="dropdown dropdown-actions">
+                                                                <div
+                                                                    className="dropdown-item"
+                                                                    onClick={() => {
+                                                                        e.close();
+                                                                        clarifyRecord(record);
+                                                                    }}>
+                                                                    <em className="mdi mdi-message-text icon-start" />
+                                                                    Aanvullingsverzoek
+                                                                </div>
                                                                 {activeOrganization.allow_fund_request_record_edit && (
                                                                     <div
                                                                         className="dropdown-item"
-                                                                        onClick={() => editRecord(record)}
+                                                                        onClick={() => {
+                                                                            e.close();
+                                                                            editRecord(record);
+                                                                        }}
                                                                         data-dusk="fundRequestRecordEditBtn">
                                                                         <em className="mdi mdi-pencil icon-start" />
                                                                         Bewerking
                                                                     </div>
                                                                 )}
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => clarifyRecord(record)}>
-                                                                    <em className="mdi mdi-message-text icon-start" />
-                                                                    Aanvullingsverzoek
-                                                                </div>
                                                             </div>
                                                         )}
                                                     />

@@ -87,10 +87,7 @@ export default function ProductMonitoredHistoryCardItem({
                                                 {fieldKey === 'description' ? (
                                                     <div className={'flex flex-vertical flex-gap'}>
                                                         {historyView === 'diff' && (
-                                                            <InfoBox
-                                                                type={'warning'}
-                                                                iconColor={'warning'}
-                                                                iconPosition={'top'}>
+                                                            <InfoBox type={'warning'} iconColor={'warning'}>
                                                                 <div>
                                                                     <strong>Let op</strong>
                                                                 </div>

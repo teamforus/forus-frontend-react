@@ -213,14 +213,12 @@ export default function OrganizationsTranslations() {
                                                 }
                                                 title={'Automatische vertaalfunctie inschakelen voor uw organisatie'}
                                             />
-                                            <InfoBox iconPosition={'top'} type={'primary'}>
-                                                <p>
-                                                    Door dit vakje aan te vinken, staat u automatische vertalingen toe
-                                                    voor de webshops van uw organisatie. Nadat u deze optie heeft
-                                                    ingeschakeld, gaat u naar de configuratiepagina van elke webshop om
-                                                    de vertaalfunctionaliteit in te schakelen en de talen te selecteren
-                                                    die u wilt ondersteunen.
-                                                </p>
+                                            <InfoBox type={'primary'}>
+                                                Door dit vakje aan te vinken, staat u automatische vertalingen toe voor
+                                                de webshops van uw organisatie. Nadat u deze optie heeft ingeschakeld,
+                                                gaat u naar de configuratiepagina van elke webshop om de
+                                                vertaalfunctionaliteit in te schakelen en de talen te selecteren die u
+                                                wilt ondersteunen.
                                             </InfoBox>
                                         </Fragment>
                                     )}
@@ -316,7 +314,7 @@ export default function OrganizationsTranslations() {
                     </div>
 
                     <div className="card-section card-section-primary">
-                        <InfoBox iconPosition={'top'} type={'primary'}>
+                        <InfoBox type={'primary'}>
                             <p>
                                 <strong>Belangrijke opmerking over vertaalquota en kosten</strong>
                             </p>

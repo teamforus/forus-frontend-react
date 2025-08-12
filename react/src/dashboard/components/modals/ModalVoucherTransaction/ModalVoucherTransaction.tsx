@@ -470,11 +470,9 @@ export default function ModalVoucherTransaction({
                                         <FormError error={form.errors?.note_shared} />
                                     </div>
 
-                                    <InfoBox iconPosition={'top'} type={'default'} iconColor={'primary'}>
-                                        <p>
-                                            Controleer de gegevens. Na het aanmaken kan de transactie niet worden
-                                            verwijderd.
-                                        </p>
+                                    <InfoBox type={'default'}>
+                                        Controleer de gegevens. Na het aanmaken kan de transactie niet worden
+                                        verwijderd.
                                     </InfoBox>
                                 </Fragment>
                             )}

@@ -1,9 +1,8 @@
-import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import FundRequest from '../../../../dashboard/props/models/FundRequest';
 import { useFundRequestService } from '../../../services/FundRequestService';
 import { useParams } from 'react-router';
-import FundRequestRecordCard from './elements/FundRequestRecordCard';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useSetTitle from '../../../hooks/useSetTitle';
@@ -11,10 +10,21 @@ import PayoutCard from '../payouts/elements/PayoutCard';
 import VoucherCard from '../vouchers/elements/VoucherCard';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { authContext } from '../../../contexts/AuthContext';
+import FundRequestClarificationsBlock from './elements/FundRequestClarificationsBlock';
+import FundRequestRecordsBlock from './elements/FundRequestRecordsBlock';
+import classNames from 'classnames';
+import { uniq } from 'lodash';
+import FundRequestRecord from '../../../../dashboard/props/models/FundRequestRecord';
+import ModalFundRequestClarificationResponse from '../../modals/ModalFundRequestClarificationResponse';
+import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
+import useIsMobile from '../../../hooks/useIsMobile';
+import FundRequestClarification from '../../../../dashboard/props/models/FundRequestClarification';
 
 export default function FundRequestsShow() {
     const { id } = useParams();
 
+    const isMobile = useIsMobile();
+    const openModal = useOpenModal();
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
@@ -24,6 +34,10 @@ export default function FundRequestsShow() {
     const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [showDeclinedNote, setShowDeclinedNote] = useState(true);
     const [showCreditInfo, setShowCreditInfo] = useState(true);
+
+    const [shownRecords, setShownRecords] = useState([]);
+    const [shownClarificationForms, setShownClarificationForms] = useState([]);
+    const [clarificationsResponded, setClarificationsResponded] = useState([]);
 
     const fundRequestService = useFundRequestService();
 
@@ -35,6 +49,44 @@ export default function FundRequestsShow() {
             .then((res) => setFundRequest(res.data.data))
             .finally(() => setProgress(100));
     }, [fundRequestService, setProgress, id]);
+
+    const scrollToAndFocus = useCallback(
+        (idCard: string, idTextarea: string, ms: number = 500, delay: number = 100) => {
+            setTimeout(() => {
+                const elCard = document.getElementById(idCard);
+                const elInput = document.getElementById(idTextarea);
+
+                if (!elCard) {
+                    return;
+                }
+
+                elCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                setTimeout(() => {
+                    if (elInput) {
+                        elInput.focus({ preventScroll: true });
+                    }
+                }, ms);
+            }, delay);
+        },
+        [],
+    );
+
+    const openResponseModal = useCallback(
+        (record: FundRequestRecord, clarification?: FundRequestClarification) => {
+            openModal((modal) => (
+                <ModalFundRequestClarificationResponse
+                    modal={modal}
+                    record={record}
+                    fundRequest={fundRequest}
+                    setFundRequest={setFundRequest}
+                    clarification={clarification}
+                    setClarificationsResponded={setClarificationsResponded}
+                />
+            ));
+        },
+        [fundRequest, openModal, setClarificationsResponded, setFundRequest],
+    );
 
     useEffect(() => {
         if (identity) {
@@ -68,65 +120,48 @@ export default function FundRequestsShow() {
             profileHeader={
                 fundRequest && (
                     <div className="profile-content-header">
-                        <div className="flex">
-                            <div className="flex flex-grow flex-center">
-                                <div className="profile-content-title flex flex-center flex-vertical">
-                                    {translate('fund_request.title', { id: fundRequest?.id })}
-                                </div>
-                            </div>
+                        <div className="profile-content-title">
+                            {translate('fund_request.title', { id: fundRequest?.id })}
                         </div>
+                        <div className="profile-content-subtitle">{translate('fund_request.subtitle')}</div>
                     </div>
                 )
             }>
             {fundRequest && (
                 <div className={'block block-fund-request'}>
                     <div className="card">
-                        <div className="card-section">
-                            <h3 className="card-heading card-heading-lg flex">
-                                <div className="flex flex-grow">{translate('fund_request.details.title')}</div>
-                                <div className="flex flex-center flex-vertical">
-                                    {fundRequest.state === 'pending' && (
-                                        <div className="label label-warning">{fundRequest.state_locale}</div>
-                                    )}
-                                    {fundRequest.state === 'approved' && (
-                                        <div className="label label-success">{fundRequest.state_locale}</div>
-                                    )}
-                                    {fundRequest.state === 'declined' && (
-                                        <div className="label label-default">{fundRequest.state_locale}</div>
-                                    )}
-                                    {fundRequest.state === 'disregarded' && (
-                                        <div className="label label-danger">{fundRequest.state_locale}</div>
-                                    )}
+                        <div className="card-section card-section-md">
+                            <div className="fund-request-props">
+                                <div className="fund-request-prop">
+                                    <div className="fund-request-prop-label">
+                                        {translate('fund_request.details.status')}
+                                    </div>
+                                    <div className="fund-request-prop-value" aria-live="polite">
+                                        <div
+                                            className={classNames(
+                                                'label',
+                                                fundRequest.state === 'pending' && 'label-warning',
+                                                fundRequest.state === 'approved' && 'label-success',
+                                                fundRequest.state === 'declined' && 'label-default',
+                                                fundRequest.state === 'disregarded' && 'label-danger',
+                                            )}>
+                                            {fundRequest.state_locale}
+                                        </div>
+                                    </div>
                                 </div>
-                            </h3>
-                            <div className="fund-request-section">
-                                <div className="fund-request-props">
-                                    <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">
-                                            {translate('fund_request.details.fund_name')}
-                                        </div>
-                                        <div className="fund-request-prop-value" data-dusk="fundRequestFund">
-                                            {fundRequest.fund.name}
-                                        </div>
+                                <div className="fund-request-prop">
+                                    <div className="fund-request-prop-label">
+                                        {translate('fund_request.details.fund_name')}
                                     </div>
-                                    <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">
-                                            {translate('fund_request.details.id')}
-                                        </div>
-                                        <div className="fund-request-prop-value">#{fundRequest.id}</div>
+                                    <div className="fund-request-prop-value" data-dusk="fundRequestFund">
+                                        {fundRequest.fund.name}
                                     </div>
-                                    <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">
-                                            {translate('fund_request.details.created_at')}
-                                        </div>
-                                        <div className="fund-request-prop-value">{fundRequest.created_at_locale}</div>
+                                </div>
+                                <div className="fund-request-prop">
+                                    <div className="fund-request-prop-label">
+                                        {translate('fund_request.details.created_at')}
                                     </div>
-                                    <div className="fund-request-prop">
-                                        <div className="fund-request-prop-label">
-                                            {translate('fund_request.details.number_of_records')}
-                                        </div>
-                                        <div className="fund-request-prop-value">{fundRequest.records.length}</div>
-                                    </div>
+                                    <div className="fund-request-prop-value">{fundRequest.created_at_locale}</div>
                                 </div>
                             </div>
                         </div>
@@ -134,71 +169,121 @@ export default function FundRequestsShow() {
 
                     {(fundRequest.payouts?.length > 0 || fundRequest.vouchers?.length > 0) && (
                         <div className={`card card-collapsable ${showCreditInfo ? 'open' : ''}`}>
-                            <div className="card-header" onClick={() => setShowCreditInfo(!showCreditInfo)}>
+                            <div
+                                className="card-header"
+                                onClick={() => setShowCreditInfo(!showCreditInfo)}
+                                role="button"
+                                tabIndex={0}
+                                aria-expanded={showCreditInfo}
+                                aria-controls={'fundRequestReceivedSection'}
+                                aria-labelledby={'fundRequestReceivedHeader'}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setShowCreditInfo(!showCreditInfo);
+                                    }
+                                }}>
                                 <div className="card-header-wrapper">
-                                    <em className="mdi mdi-menu-down card-header-arrow" />
-                                    <h2 className="card-heading card-heading-lg">
+                                    <em className="mdi mdi-menu-down card-header-arrow" aria-hidden="true" />
+                                    <h2 className="card-heading card-heading-lg" id={'fundRequestReceivedHeader'}>
                                         {translate('fund_request.received.title')}
                                     </h2>
                                 </div>
                             </div>
 
                             {showCreditInfo && (
-                                <Fragment>
-                                    <div className="card-section card-section-md">
-                                        {fundRequest.payouts?.length > 0 && (
-                                            <div className="block block-payouts-list">
-                                                {fundRequest.payouts.map((payout, index) => (
-                                                    <PayoutCard key={index} payout={payout} />
-                                                ))}
-                                            </div>
-                                        )}
+                                <div
+                                    className="fund-request-record-section"
+                                    id={'fundRequestReceivedSection'}
+                                    role="region"
+                                    aria-labelledby={'fundRequestReceivedHeader'}>
+                                    {fundRequest.payouts?.length > 0 && (
+                                        <div className="block block-payouts-list">
+                                            {fundRequest.payouts.map((payout, index) => (
+                                                <PayoutCard key={index} payout={payout} />
+                                            ))}
+                                        </div>
+                                    )}
 
-                                        {fundRequest.vouchers?.length > 0 && (
-                                            <div className="block block-vouchers block-vouchers-with-border">
-                                                {fundRequest.vouchers.map((voucher) => (
-                                                    <VoucherCard
-                                                        key={voucher.id}
-                                                        voucher={voucher}
-                                                        onVoucherDestroyed={() => null}
-                                                    />
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                </Fragment>
+                                    {fundRequest.vouchers?.length > 0 && (
+                                        <div className="block block-vouchers block-vouchers-with-border">
+                                            {fundRequest.vouchers.map((voucher) => (
+                                                <VoucherCard
+                                                    key={voucher.id}
+                                                    voucher={voucher}
+                                                    onVoucherDestroyed={() => null}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             )}
                         </div>
                     )}
 
-                    <h2 className="profile-content-header">
-                        <div className="profile-content-title profile-content-title-sm">
-                            {translate('fund_request.records.title')}
-                        </div>
-                    </h2>
+                    <FundRequestClarificationsBlock
+                        fundRequest={fundRequest}
+                        clarificationsResponded={clarificationsResponded}
+                        onRespond={(record, clarification) => {
+                            if (isMobile) {
+                                openResponseModal(record, clarification);
+                            } else {
+                                setShownRecords((records) => uniq([...records, record.id]));
+                                setShownClarificationForms((clarifications) =>
+                                    uniq([...clarifications, clarification.id]),
+                                );
+                            }
 
-                    {fundRequest?.records.map((record) => (
-                        <FundRequestRecordCard
-                            key={record.id}
-                            request={fundRequest}
-                            setFundRequest={setFundRequest}
-                            record={record}
-                        />
-                    ))}
+                            scrollToAndFocus(
+                                `clarificationCard${clarification.id}`,
+                                `answerInput${clarification.id}`,
+                                500,
+                                isMobile ? 500 : 100,
+                            );
+                        }}
+                    />
+
+                    <FundRequestRecordsBlock
+                        fundRequest={fundRequest}
+                        setFundRequest={setFundRequest}
+                        shownRecords={shownRecords}
+                        setShownRecords={setShownRecords}
+                        setClarificationsResponded={setClarificationsResponded}
+                        shownClarificationForms={shownClarificationForms}
+                        setShownClarificationForms={setShownClarificationForms}
+                        openResponseModal={openResponseModal}
+                    />
 
                     {fundRequest.state === 'declined' && (
                         <div className={`card card-collapsable ${showDeclinedNote ? 'open' : ''}`}>
-                            <div className="card-header" onClick={() => setShowDeclinedNote(!showDeclinedNote)}>
+                            <div
+                                className="card-header"
+                                onClick={() => setShowDeclinedNote(!showDeclinedNote)}
+                                role="button"
+                                tabIndex={0}
+                                aria-expanded={showDeclinedNote}
+                                aria-controls={'fundRequestDeclinedSection'}
+                                aria-labelledby={'fundRequestDeclinedHeader'}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setShowDeclinedNote(!showDeclinedNote);
+                                    }
+                                }}>
                                 <div className="card-header-wrapper">
-                                    <em className="mdi mdi-menu-down card-header-arrow" />
-                                    <h2 className="card-heading card-heading-lg">
+                                    <em className="mdi mdi-menu-down card-header-arrow" aria-hidden="true" />{' '}
+                                    <h2 className="card-heading card-heading-lg" id={'fundRequestDeclinedHeader'}>
                                         {translate('fund_request.declined.title')}
                                     </h2>
                                 </div>
                             </div>
 
                             {showDeclinedNote && (
-                                <div className="card-section">
+                                <div
+                                    className="card-section"
+                                    id={'fundRequestDeclinedSection'}
+                                    role="region"
+                                    aria-labelledby={'fundRequestDeclinedHeader'}>
                                     {fundRequest.note ? (
                                         <p className="block block-markdown">{fundRequest.note}</p>
                                     ) : (

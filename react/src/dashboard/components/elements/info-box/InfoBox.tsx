@@ -5,14 +5,12 @@ export default function InfoBox({
     type = 'default',
     borderType = 'dashed',
     children,
-    iconColor = 'light',
-    iconPosition = 'center',
+    iconColor = 'primary',
 }: {
     type?: 'default' | 'primary' | 'warning';
     borderType?: 'dashed' | 'none';
     children: ReactNode;
-    iconColor?: 'light' | 'primary' | 'warning';
-    iconPosition?: 'top' | 'center';
+    iconColor?: 'primary' | 'warning';
 }) {
     return (
         <div
@@ -30,10 +28,9 @@ export default function InfoBox({
                     'mdi',
                     'mdi-information',
                     'flex-vertical',
-                    iconColor === 'light' && 'text-primary-light',
+                    'flex-start',
                     iconColor === 'primary' && 'text-primary',
                     iconColor === 'warning' && 'text-warning',
-                    iconPosition === 'center' ? 'flex-center' : 'flex-start',
                 )}
             />
 

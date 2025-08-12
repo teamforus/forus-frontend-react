@@ -378,7 +378,7 @@ export default function ImplementationsCms() {
                         />
                     </div>
                     <div className="card-section card-section-padless">
-                        <InfoBox iconPosition={'top'} iconColor={'light'} type={'primary'} borderType={'none'}>
+                        <InfoBox type={'primary'} borderType={'none'}>
                             Zorg ervoor dat tekst voor iedereen leesbaar blijft door een sterk contrast tussen titels en
                             hun achtergrond te gebruiken. Volgens de verplichte toegankelijksheidsrichtlijnen moet de
                             contrastverhouding ten minste 4,5:1 zijn voor normale tekst en 3:1 voor grote tekst. Plaats
