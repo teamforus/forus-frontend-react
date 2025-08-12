@@ -701,6 +701,9 @@
                     "declined": "The application has been rejected",
                     "disregarded": "The application has been rejected",
                     "pending": "The application is pending"
+                },
+                "heading": {
+                    "pending": "The questions answered during the application:"
                 }
             },
             "header": {

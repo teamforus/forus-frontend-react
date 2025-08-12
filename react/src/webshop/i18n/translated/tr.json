@@ -925,6 +925,9 @@
                     "declined": "Başvuru reddedildi",
                     "disregarded": "Başvuru reddedildi",
                     "pending": "Başvuru beklemede"
+                },
+                "heading": {
+                    "pending": "Başvuru sırasında cevaplanan sorular:"
                 }
             },
             "header": {

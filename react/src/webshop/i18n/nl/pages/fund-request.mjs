@@ -177,6 +177,9 @@ export default {
                 disregarded: 'De aanvraag is afgewezen op {{ date }}',
                 approved_partly: 'De aanvraag is deels goedgekeurd op {{ date }}',
             },
+            heading: {
+                pending: 'De vragen die zijn beantwoord tijdens de aanvraag:',
+            },
             information: [
                 'De aanvraag wordt zo snel mogelijk beoordeeld, dit kan enkele weken duren. ',
                 'Als de aanvraag niet compleet is kan het zijn dat er meer informatie nodig is. ',

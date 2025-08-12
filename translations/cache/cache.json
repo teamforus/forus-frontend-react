@@ -1412,6 +1412,10 @@
         "Bekijk de aanvraag"
     ],
     [
+        "fund_request.sign_up.fund_already_applied.heading.pending",
+        "De vragen die zijn beantwoord tijdens de aanvraag:"
+    ],
+    [
         "fund_request.sign_up.fund_already_applied.information",
         "De aanvraag wordt zo snel mogelijk beoordeeld, dit kan enkele weken duren.  Als de aanvraag niet compleet is kan het zijn dat er meer informatie nodig is.  In dit geval wordt er een bericht verstuurd per e-mail. Druk op de knop hieronder om de status van de aanvraag te bekijken."
     ],

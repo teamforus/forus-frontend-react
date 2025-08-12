@@ -539,6 +539,9 @@
                     "declined": "Wniosek został odrzucony",
                     "disregarded": "Wniosek został odrzucony",
                     "pending": "Wniosek oczekuje na rozpatrzenie"
+                },
+                "heading": {
+                    "pending": "Pytania, na które udzielono odpowiedzi podczas aplikacji:"
                 }
             },
             "header": {

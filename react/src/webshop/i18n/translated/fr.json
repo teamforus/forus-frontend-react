@@ -539,6 +539,9 @@
                     "declined": "La demande a été rejetée",
                     "disregarded": "La demande a été rejetée",
                     "pending": "La demande est en cours d'examen"
+                },
+                "heading": {
+                    "pending": "Les questions auxquelles il a été répondu lors de la candidature :"
                 }
             },
             "header": {

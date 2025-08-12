@@ -539,6 +539,9 @@
                     "declined": "Der Antrag wurde abgelehnt.",
                     "disregarded": "Der Antrag wurde abgelehnt.",
                     "pending": "Der Antrag ist anhängig"
+                },
+                "heading": {
+                    "pending": "Die während der Bewerbung beantworteten Fragen:"
                 }
             },
             "header": {
