@@ -472,7 +472,8 @@
             "name_asc": "Name (ascending)",
             "name_desc": "Name (descending)",
             "price_asc": "Price (increasing)",
-            "price_desc": "Price (descending)"
+            "price_desc": "Price (descending)",
+            "randomized": "Random"
         },
         "title": "Offer",
         "view": {
@@ -639,9 +640,7 @@
         "details": {
             "created_at": "Submitted on:",
             "fund_name": "Fund name:",
-            "id": "ID:",
-            "number_of_records": "Number of personal data:",
-            "title": "Status of application"
+            "status": "Status Request:"
         },
         "digid_expired": {
             "description": "Log in again with DigiD and start the application again.",
@@ -659,15 +658,18 @@
         },
         "record": {
             "answer": "Answered",
-            "answer_btn": "Reply",
             "cancel_btn": "Cancel",
             "new": "new message",
             "new_message": "New request",
             "send_btn": "Send",
-            "view": "View"
-        },
-        "records": {
-            "title": "My data"
+            "view": "View",
+            "add_document_label": "Add a document",
+            "answer_btn": "Answer this question",
+            "answer_btn_info": "Click the \"<strong>Answer this question</strong>\" button to submit the additional information. The information will be added to the application.",
+            "answer_question_label": "Answer the question",
+            "my_answer": "My answer",
+            "my_message": "My message",
+            "optional_label": "(optional)"
         },
         "sign_up": {
             "app": {
@@ -785,7 +787,27 @@
             "step": "Step {{step}}",
             "step_out_of": "Step {{step}}"
         },
-        "title": "Request #{{ id }}"
+        "title": "Request #{{ id }}",
+        "clarifications": {
+            "info_requested": "Additional question asked",
+            "provide_info": "Answer the question",
+            "subtitle": "The application is not yet complete. Additional information is needed. Please review the question below and click the button to respond.",
+            "title": "Open questions ({{ count }})",
+            "info_responded_count": "{{count}} message"
+        },
+        "labels": {
+            "date": "Date:",
+            "question": "Question",
+            "question_from": "Question from {{ name }}"
+        },
+        "records": {
+            "subtitle": "This block contains the personal information that you provided during the fund application request.",
+            "title": "My information ({{ count }})"
+        },
+        "subtitle": "This page contains information about the application. The status, completed data and any additional questions can be viewed here.",
+        "modal": {
+            "title": "Additional question"
+        }
     },
     "fund_requests": {
         "breadcrumbs": {
@@ -2763,7 +2785,9 @@
                 "fund_name": "Fund name",
                 "id": "ID",
                 "price": "Amount",
-                "title": "Title"
+                "title": "Title",
+                "cancellation_note": "Provider message:",
+                "rejection_note": "Provider Notice:"
             },
             "loading": "Loading",
             "title": "Reservation details"
@@ -3005,11 +3029,11 @@
         },
         "file_uploader": {
             "attachments": "Attachments",
-            "max_files": "Max. {[ count ]} files",
             "max_size": "max size 8Mb",
             "or": "or",
             "title": "Upload a document",
-            "upload_button": "Upload a document"
+            "upload_button": "Upload a document",
+            "max_files": "Max. {{ count }} files"
         },
         "info_box": {
             "2fa_description": "For more information on 2FA, check us out:",

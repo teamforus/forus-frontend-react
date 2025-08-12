@@ -175,11 +175,11 @@
         },
         "file_uploader": {
             "attachments": "Ekler",
-            "max_files": "Maks. {[ count ]} dosyalar",
             "max_size": "maks. boyut 8Mb",
             "or": "veya",
             "title": "Bir belge yükleyin",
-            "upload_button": "Bir belge yükleyin"
+            "upload_button": "Bir belge yükleyin",
+            "max_files": "Maks. {{ count }} dosyalar"
         },
         "info_box": {
             "2fa_description": "2FA hakkında daha fazla bilgi için bizi ziyaret edin:",
@@ -437,7 +437,8 @@
             "name_asc": "İsim (artan)",
             "name_desc": "İsim (azalan)",
             "price_asc": "Fiyat (artan)",
-            "price_desc": "Fiyat (azalan)"
+            "price_desc": "Fiyat (azalan)",
+            "randomized": "Rastgele"
         },
         "title": "Teklif",
         "view": {
@@ -863,9 +864,7 @@
         "details": {
             "created_at": "Gönderilme tarihi:",
             "fund_name": "Fon adı:",
-            "id": "KIMLIK:",
-            "number_of_records": "Kişisel veri sayısı:",
-            "title": "Başvuru durumu"
+            "status": "Durum Talebi:"
         },
         "digid_expired": {
             "description": "DigiD ile tekrar oturum açın ve uygulamayı tekrar başlatın.",
@@ -883,15 +882,18 @@
         },
         "record": {
             "answer": "Cevaplandı",
-            "answer_btn": "Yanıtla",
             "cancel_btn": "İptal",
             "new": "yeni mesaj",
             "new_message": "Yeni istek",
             "send_btn": "Gönder",
-            "view": "Görünüm"
-        },
-        "records": {
-            "title": "Benim bilgilerim"
+            "view": "Görünüm",
+            "add_document_label": "Belge ekleme",
+            "answer_btn": "Bu soruya cevap verin",
+            "answer_btn_info": "Ek bilgileri göndermek için<strong>\"Bu soruyu yanıt</strong>la\" düğmesine tıklayın. Bilgiler başvuruya eklenecektir.",
+            "answer_question_label": "Soruyu cevaplayın",
+            "my_answer": "Benim cevabım",
+            "my_message": "Benim mesajım",
+            "optional_label": "(isteğe bağlı)"
         },
         "sign_up": {
             "app": {
@@ -1009,7 +1011,27 @@
             "step": "Adım {{step}}",
             "step_out_of": "Adım {{step}}"
         },
-        "title": "İstek #{{ id }}"
+        "title": "İstek #{{ id }}",
+        "clarifications": {
+            "info_requested": "Ek soru soruldu",
+            "provide_info": "Soruyu cevaplayın",
+            "subtitle": "Başvuru henüz tamamlanmamıştır. Ek bilgiye ihtiyaç vardır. Lütfen aşağıdaki soruyu inceleyin ve yanıtlamak için düğmeye tıklayın.",
+            "title": "Açık sorular ({{ count }})",
+            "info_responded_count": "{{count}} mesaj"
+        },
+        "labels": {
+            "date": "Tarih:",
+            "question": "Soru",
+            "question_from": "Bir soru {{ name }}"
+        },
+        "records": {
+            "subtitle": "Bu blok, fon başvuru talebi sırasında sağladığınız kişisel bilgileri içerir.",
+            "title": "Bilgilerim ({{ count }})"
+        },
+        "subtitle": "Bu sayfa başvuru hakkında bilgi içerir. Durum, tamamlanan veriler ve ek sorular buradan görüntülenebilir.",
+        "modal": {
+            "title": "Ek soru"
+        }
     },
     "fund": {
         "breadcrumbs": {
@@ -2642,7 +2664,9 @@
                 "fund_name": "Fon adı",
                 "id": "KIMLIK",
                 "price": "Miktar",
-                "title": "Başlık"
+                "title": "Başlık",
+                "cancellation_note": "Sağlayıcı mesajı:",
+                "rejection_note": "Sağlayıcı mesajı:"
             },
             "loading": "Yükleniyor",
             "title": "Rezervasyon detayları"

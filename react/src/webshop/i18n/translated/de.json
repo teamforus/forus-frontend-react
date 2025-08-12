@@ -478,9 +478,7 @@
         "details": {
             "created_at": "Eingereicht am:",
             "fund_name": "Name des Fonds:",
-            "id": "ID:",
-            "number_of_records": "Anzahl der personenbezogenen Daten:",
-            "title": "Status der Bewerbung"
+            "status": "Statusanfrage:"
         },
         "digid_expired": {
             "description": "Melden Sie sich erneut bei DigiD an und starten Sie die Anwendung erneut.",
@@ -498,15 +496,18 @@
         },
         "record": {
             "answer": "Antwortet",
-            "answer_btn": "Antwort",
             "cancel_btn": "Abbrechen",
             "new": "neue Nachricht",
             "new_message": "Neue Anfrage",
             "send_btn": "Senden Sie",
-            "view": "Siehe"
-        },
-        "records": {
-            "title": "Meine Angaben"
+            "view": "Siehe",
+            "add_document_label": "Ein Dokument hinzufügen",
+            "answer_btn": "Beantworten Sie diese Frage",
+            "answer_btn_info": "Klicken Sie auf die Schaltfläche<strong>\"Diese Frage beantworten</strong>\", um die zusätzlichen Informationen zu übermitteln. Die Informationen werden dem Antrag hinzugefügt.",
+            "answer_question_label": "Beantworten Sie die Frage",
+            "my_answer": "Meine Antwort",
+            "my_message": "Meine Nachricht",
+            "optional_label": "(fakultativ)"
         },
         "sign_up": {
             "app": {
@@ -624,7 +625,27 @@
             "step": "Schritt {{step}}",
             "step_out_of": "Schritt {{step}}"
         },
-        "title": "Anfrage #{{ id }}"
+        "title": "Anfrage #{{ id }}",
+        "clarifications": {
+            "info_requested": "Zusätzlich gestellte Frage",
+            "provide_info": "Beantworten Sie die Frage",
+            "subtitle": "Der Antrag ist noch nicht vollständig. Es werden zusätzliche Informationen benötigt. Bitte lesen Sie die nachstehende Frage und klicken Sie auf die Schaltfläche, um zu antworten.",
+            "title": "Offene Fragen ({{ count }})",
+            "info_responded_count": "{{count}} Nachricht"
+        },
+        "labels": {
+            "date": "Datum:",
+            "question": "Frage",
+            "question_from": "Frage von {{ name }}"
+        },
+        "records": {
+            "subtitle": "Dieser Block enthält die persönlichen Daten, die Sie bei der Beantragung des Fonds angegeben haben.",
+            "title": "Meine Daten ({{ count }})"
+        },
+        "subtitle": "Diese Seite enthält Informationen über die Bewerbung. Der Status, die ausgefüllten Daten und eventuelle Zusatzfragen können hier eingesehen werden.",
+        "modal": {
+            "title": "Zusätzliche Frage"
+        }
     },
     "fund_requests": {
         "breadcrumbs": {
@@ -832,11 +853,11 @@
         },
         "file_uploader": {
             "attachments": "Anhänge",
-            "max_files": "Max. {Dateien",
             "max_size": "max. Größe 8Mb",
             "or": "oder",
             "title": "Ein Dokument hochladen",
-            "upload_button": "Ein Dokument hochladen"
+            "upload_button": "Ein Dokument hochladen",
+            "max_files": "Max. {{ count }} Dateien"
         },
         "info_box": {
             "2fa_description": "Weitere Informationen über 2FA finden Sie bei uns:",
@@ -2308,7 +2329,8 @@
             "name_asc": "Name (aufsteigend)",
             "name_desc": "Name (absteigend)",
             "price_asc": "Preis (aufsteigend)",
-            "price_desc": "Preis (absteigend)"
+            "price_desc": "Preis (absteigend)",
+            "randomized": "Zufällig"
         },
         "title": "Angebot",
         "view": {
@@ -2681,7 +2703,9 @@
                 "fund_name": "Name des Fonds",
                 "id": "ID",
                 "price": "Betrag",
-                "title": "Titel"
+                "title": "Titel",
+                "cancellation_note": "Nachricht des Anbieters:",
+                "rejection_note": "Nachricht des Anbieters:"
             },
             "loading": "Laden",
             "title": "Details zur Buchung"

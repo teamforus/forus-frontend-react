@@ -478,9 +478,7 @@
         "details": {
             "created_at": "Soumis le :",
             "fund_name": "Nom du fonds :",
-            "id": "ID :",
-            "number_of_records": "Nombre de données personnelles :",
-            "title": "Statut de la demande"
+            "status": "Demande de statut :"
         },
         "digid_expired": {
             "description": "Connectez-vous à nouveau avec DigiD et relancez l'application.",
@@ -498,15 +496,18 @@
         },
         "record": {
             "answer": "Répondu",
-            "answer_btn": "Répondre",
             "cancel_btn": "Annuler",
             "new": "nouveau message",
             "new_message": "Nouvelle demande",
             "send_btn": "Envoyer",
-            "view": "Voir"
-        },
-        "records": {
-            "title": "Mes coordonnées"
+            "view": "Voir",
+            "add_document_label": "Ajouter un document",
+            "answer_btn": "Répondre à cette question",
+            "answer_btn_info": "Cliquez sur le bouton<strong>\"Répondre à cette question</strong>\" pour soumettre les informations supplémentaires. Les informations seront ajoutées à la demande.",
+            "answer_question_label": "Répondre à la question",
+            "my_answer": "Ma réponse",
+            "my_message": "Mon message",
+            "optional_label": "(facultatif)"
         },
         "sign_up": {
             "app": {
@@ -624,7 +625,27 @@
             "step": "Étape {{step}}",
             "step_out_of": "Étape {{step}}"
         },
-        "title": "Demande #{{ id }}"
+        "title": "Demande #{{ id }}",
+        "clarifications": {
+            "info_requested": "Question supplémentaire posée",
+            "provide_info": "Répondre à la question",
+            "subtitle": "La demande n'est pas encore complète. Des informations supplémentaires sont nécessaires. Veuillez lire la question ci-dessous et cliquer sur le bouton pour répondre.",
+            "title": "Questions ouvertes ({{ count }})",
+            "info_responded_count": "{{count}} message"
+        },
+        "labels": {
+            "date": "Date :",
+            "question": "Question",
+            "question_from": "Question de {{ name }}"
+        },
+        "records": {
+            "subtitle": "Ce bloc contient les informations personnelles que vous avez fournies lors de la demande de fonds.",
+            "title": "Mes coordonnées ({{ count }})"
+        },
+        "subtitle": "Cette page contient des informations sur la demande. L'état d'avancement, les données complétées et les éventuelles questions complémentaires peuvent être consultés ici.",
+        "modal": {
+            "title": "Question complémentaire"
+        }
     },
     "fund_requests": {
         "breadcrumbs": {
@@ -832,11 +853,11 @@
         },
         "file_uploader": {
             "attachments": "Pièces jointes",
-            "max_files": "Max. Fichiers {[ count ]}",
             "max_size": "taille max. 8Mb",
             "or": "ou",
             "title": "Télécharger un document",
-            "upload_button": "Télécharger un document"
+            "upload_button": "Télécharger un document",
+            "max_files": "Max. {{ count }} fichiers"
         },
         "info_box": {
             "2fa_description": "Pour plus d'informations sur le 2FA, visitez notre site :",
@@ -2308,7 +2329,8 @@
             "name_asc": "Nom (croissant)",
             "name_desc": "Nom (par ordre décroissant)",
             "price_asc": "Prix (croissant)",
-            "price_desc": "Prix (décroissant)"
+            "price_desc": "Prix (décroissant)",
+            "randomized": "Au hasard"
         },
         "title": "Offre",
         "view": {
@@ -2681,7 +2703,9 @@
                 "fund_name": "Nom du fonds",
                 "id": "ID",
                 "price": "Montant",
-                "title": "Titre"
+                "title": "Titre",
+                "cancellation_note": "Message du fournisseur :",
+                "rejection_note": "Message du fournisseur :"
             },
             "loading": "Chargement",
             "title": "Détails de la réservation"

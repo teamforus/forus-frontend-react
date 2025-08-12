@@ -1232,6 +1232,26 @@
         "Verzenden"
     ],
     [
+        "fund_request.clarifications.info_requested",
+        "Extra vraag gesteld"
+    ],
+    [
+        "fund_request.clarifications.info_responded_count",
+        "{{count}} bericht"
+    ],
+    [
+        "fund_request.clarifications.provide_info",
+        "Beantwoord de vraag"
+    ],
+    [
+        "fund_request.clarifications.subtitle",
+        "De aanvraag is nog niet compleet. Er is extra informatie nodig. Bekijk de vraag hieronder en klik op de knop om te antwoorden."
+    ],
+    [
+        "fund_request.clarifications.title",
+        "Openstaande vragen ({{ count }})"
+    ],
+    [
         "fund_request.declined.no_note",
         "No note"
     ],
@@ -1248,16 +1268,8 @@
         "Naam van het fonds:"
     ],
     [
-        "fund_request.details.id",
-        "ID:"
-    ],
-    [
-        "fund_request.details.number_of_records",
-        "Aantal persoonsgegevens:"
-    ],
-    [
-        "fund_request.details.title",
-        "Status aanvraag"
+        "fund_request.details.status",
+        "Status Aanvraag:"
     ],
     [
         "fund_request.digid_expired.description",
@@ -1284,6 +1296,22 @@
         "Geen toegang tot deze aanvraag"
     ],
     [
+        "fund_request.labels.date",
+        "Date:"
+    ],
+    [
+        "fund_request.labels.question",
+        "Vraag"
+    ],
+    [
+        "fund_request.labels.question_from",
+        "Vraag van {{ name }}"
+    ],
+    [
+        "fund_request.modal.title",
+        "Extra vraag"
+    ],
+    [
         "fund_request.not_requester",
         "U bent niet de eigenaar van deze aanvraag."
     ],
@@ -1292,16 +1320,36 @@
         "Ontvangen"
     ],
     [
+        "fund_request.record.add_document_label",
+        "Voeg een document toe"
+    ],
+    [
         "fund_request.record.answer",
         "Beantwoord"
     ],
     [
         "fund_request.record.answer_btn",
-        "Antwoord"
+        "Beantwoord deze vraag"
+    ],
+    [
+        "fund_request.record.answer_btn_info",
+        "Klik op de button ”<strong>Beantwoord deze vraag</strong>” om de extra informatie te versturen. De informatie wordt toegevoegd aan de aanvraag."
+    ],
+    [
+        "fund_request.record.answer_question_label",
+        "Beantwoord de vraag"
     ],
     [
         "fund_request.record.cancel_btn",
         "Annuleer"
+    ],
+    [
+        "fund_request.record.my_answer",
+        "My answer"
+    ],
+    [
+        "fund_request.record.my_message",
+        "My message"
     ],
     [
         "fund_request.record.new",
@@ -1312,6 +1360,10 @@
         "Nieuw verzoek"
     ],
     [
+        "fund_request.record.optional_label",
+        "(optioneel)"
+    ],
+    [
         "fund_request.record.send_btn",
         "Verzend"
     ],
@@ -1320,8 +1372,12 @@
         "Bekijk"
     ],
     [
+        "fund_request.records.subtitle",
+        "This block contains the personal information that you provided during the fund application request."
+    ],
+    [
         "fund_request.records.title",
-        "Mijn gegevens"
+        "Mijn gegevens ({{ count }})"
     ],
     [
         "fund_request.sign_up.app.description_bottom",
@@ -1626,6 +1682,10 @@
     [
         "fund_request.steps.step_out_of",
         "Stap {{step}}"
+    ],
+    [
+        "fund_request.subtitle",
+        "Op deze pagina staat informatie over de aanvraag. De status, de ingevulde gegevens en eventuele extra vragen zijn hier te bekijken."
     ],
     [
         "fund_request.title",
@@ -2057,7 +2117,7 @@
     ],
     [
         "global.file_uploader.max_files",
-        "Max. {[ count ]} files"
+        "Max. {{ count }} files"
     ],
     [
         "global.file_uploader.max_size",
@@ -6404,6 +6464,10 @@
         "Prijs (hoog-laag)"
     ],
     [
+        "products.sort.randomized",
+        "Willekeurig"
+    ],
+    [
         "products.title",
         "Aanbod"
     ],
@@ -7380,6 +7444,10 @@
         "Zelf bijbetaald"
     ],
     [
+        "reservation.details.labels.cancellation_note",
+        "Bericht van de aanbieder:"
+    ],
+    [
         "reservation.details.labels.fund_name",
         "Fonds naam"
     ],
@@ -7390,6 +7458,10 @@
     [
         "reservation.details.labels.price",
         "Bedrag"
+    ],
+    [
+        "reservation.details.labels.rejection_note",
+        "Bericht van de aanbieder:"
     ],
     [
         "reservation.details.labels.title",

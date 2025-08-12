@@ -421,14 +421,12 @@ export default function PreCheck() {
                             )}
 
                             <InfoBox>
-                                <p>
-                                    De Regelingencheck begint standaard met één stap waarin alle voorwaarden van de
-                                    regelingen worden geplaatst. U kunt zelf extra stappen toevoegen om de voorwaarden
-                                    logisch te groeperen. Dit helpt om de Regelingencheck overzichtelijker te maken,
-                                    zodat niet alle vragen in één lange lijst worden getoond. Voorwaarden kunnen
-                                    eenvoudig worden verplaatst naar een andere stap door erop te klikken en deze naar
-                                    de gewenste stap te slepen.
-                                </p>
+                                De Regelingencheck begint standaard met één stap waarin alle voorwaarden van de
+                                regelingen worden geplaatst. U kunt zelf extra stappen toevoegen om de voorwaarden
+                                logisch te groeperen. Dit helpt om de Regelingencheck overzichtelijker te maken, zodat
+                                niet alle vragen in één lange lijst worden getoond. Voorwaarden kunnen eenvoudig worden
+                                verplaatst naar een andere stap door erop te klikken en deze naar de gewenste stap te
+                                slepen.
                             </InfoBox>
                         </div>
                     </div>
@@ -526,10 +524,8 @@ export default function PreCheck() {
                     </div>
 
                     <InfoBox>
-                        <p>
-                            U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de startpagina
-                            van de webshop wordt weergegeven.
-                        </p>
+                        U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de startpagina van
+                        de webshop wordt weergegeven.
                     </InfoBox>
                 </div>
 

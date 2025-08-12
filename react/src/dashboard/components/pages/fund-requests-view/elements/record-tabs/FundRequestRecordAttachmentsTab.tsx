@@ -40,30 +40,28 @@ export default function FundRequestRecordAttachmentsTab({
     );
 
     return (
-        <div className="block block-attachments-list block-attachments-list-half" data-dusk="attachmentsTabContent">
-            <div className="block-attachments-inner">
-                {attachments.map((attachment) => (
-                    <a
-                        key={attachment.file.uid}
-                        className="attachment-item"
-                        onClick={(e) => downloadFile(e, attachment.file)}>
-                        <div className="attachment-icon">
-                            <div className="mdi mdi-file" />
-                            <div className="attachment-size">{attachment.file.size}</div>
+        <div className="block block-attachments-list" data-dusk="attachmentsTabContent">
+            {attachments.map((attachment) => (
+                <a
+                    key={attachment.file.uid}
+                    className="attachment-item"
+                    onClick={(e) => downloadFile(e, attachment.file)}>
+                    <div className="attachment-icon">
+                        <div className="mdi mdi-file" />
+                        <div className="attachment-size">{attachment.file.size}</div>
+                    </div>
+                    <div className="attachment-name">{attachment.file.original_name}</div>
+                    <div className="attachment-date">{attachment.date}</div>
+                    {hasFilePreview(attachment.file) && (
+                        <div
+                            className="attachment-preview"
+                            title={attachment.file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'}
+                            onClick={(e) => previewFile(e, attachment.file)}>
+                            <div className="mdi mdi-eye" />
                         </div>
-                        <div className="attachment-name">{attachment.file.original_name}</div>
-                        <div className="attachment-date">{attachment.date}</div>
-                        {hasFilePreview(attachment.file) && (
-                            <div
-                                className="attachment-preview"
-                                title={attachment.file.ext == 'pdf' ? 'Bekijk PDF-bestand' : 'Bekijk file'}
-                                onClick={(e) => previewFile(e, attachment.file)}>
-                                <div className="mdi mdi-eye" />
-                            </div>
-                        )}
-                    </a>
-                ))}
-            </div>
+                    )}
+                </a>
+            ))}
         </div>
     );
 }
