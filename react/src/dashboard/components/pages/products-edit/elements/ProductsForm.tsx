@@ -75,6 +75,11 @@ export default function ProductsForm({
         required: 'Verplicht',
     });
 
+    const [reservationNoteOptionText] = useState(() => [
+        { value: 'no', label: 'Geen' },
+        { value: 'custom', label: 'Aangepaste aankoopnotitie' },
+    ]);
+
     const [reservationFieldOptions] = useState(() => [
         { value: 'no', label: 'Nee' },
         { value: 'optional', label: 'Optioneel' },
@@ -127,6 +132,15 @@ export default function ProductsForm({
             ...reservationFieldOptions,
         ];
     }, [organization?.reservation_birth_date, reservationFieldText, reservationFieldOptions]);
+
+    const reservationNoteOptions = useMemo(() => {
+        const defaultValue = organization.reservation_note ? 'Ja' : 'Nee';
+
+        return [
+            { value: 'global', label: `Gebruik standaard instelling (${defaultValue})` },
+            ...reservationNoteOptionText,
+        ];
+    }, [organization?.reservation_note, reservationNoteOptionText]);
 
     const [priceTypes] = useState<Array<{ value: ProductPriceType; label: string }>>([
         { value: 'regular', label: 'Normaal' },
@@ -252,6 +266,8 @@ export default function ProductsForm({
         reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
         reservation_extra_payments: 'global' | 'no' | 'yes';
         reservation_policy?: 'global' | 'accept' | 'review';
+        reservation_note?: 'global' | 'no' | 'custom';
+        reservation_note_text?: string;
     }>(null, (values) => {
         if (product && !product.unlimited_stock && form.values.stock_amount < 0) {
             form.setIsLocked(false);
@@ -415,6 +431,8 @@ export default function ProductsForm({
                       reservation_birth_date: 'global',
                       reservation_extra_payments: 'global',
                       reservation_policy: 'global',
+                      reservation_note: 'global',
+                      reservation_note_text: '',
                   },
         );
     }, [product, sourceProduct, updateForm, productService, id, sourceId, organization]);
@@ -1121,6 +1139,45 @@ export default function ProductsForm({
                                                     />
                                                 )}
                                             />
+
+                                            <FormGroup
+                                                label={translate('product_edit.labels.reservation_note')}
+                                                error={form.errors.reservation_note}
+                                                input={(id) => (
+                                                    <SelectControl
+                                                        className="form-control"
+                                                        propKey={'value'}
+                                                        propValue={'label'}
+                                                        id={id}
+                                                        value={form.values.reservation_note}
+                                                        onChange={(reservation_note: string) => {
+                                                            form.update({ reservation_note });
+                                                        }}
+                                                        options={reservationNoteOptions}
+                                                    />
+                                                )}
+                                            />
+
+                                            {form.values.reservation_note === 'custom' && (
+                                                <FormGroup
+                                                    label={translate(
+                                                        'product_edit.labels.custom_reservation_note_text',
+                                                    )}
+                                                    error={form.errors.reservation_note_text}
+                                                    input={() => (
+                                                        <textarea
+                                                            className="form-control r-n"
+                                                            placeholder={translate(
+                                                                'product_edit.labels.custom_reservation_note_text',
+                                                            )}
+                                                            value={form.values.reservation_note_text || ''}
+                                                            onChange={(e) =>
+                                                                form.update({ reservation_note_text: e.target.value })
+                                                            }
+                                                        />
+                                                    )}
+                                                />
+                                            )}
                                         </FormPane>
                                     )}
                                 </FormPane>
