@@ -3,12 +3,12 @@ import classNames from 'classnames';
 
 export default function FormPane({
     title,
-    children,
     large = false,
+    children,
 }: {
     title: string;
-    children: ReactNode | ReactNode[];
     large?: boolean;
+    children: ReactNode | ReactNode[];
 }) {
     return (
         <div className={classNames('form-pane', large && 'form-pane-lg')}>

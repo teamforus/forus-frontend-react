@@ -1,9 +1,10 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import FormError from '../../../elements/forms/errors/FormError';
 import ProductCategory from '../../../../props/models/ProductCategory';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import useProductCategoryService from '../../../../services/ProductCategoryService';
 import useTranslate from '../../../../hooks/useTranslate';
+import FormPane from '../../../elements/forms/elements/FormPane';
 
 export default function ProductCategoriesControl({
     value,
@@ -113,7 +114,7 @@ export default function ProductCategoriesControl({
         }
     }, [changeCategory, loadProductCategories, value, ready]);
     return (
-        <Fragment>
+        <FormPane title={'Categorieën'}>
             {[...categoriesHierarchy.keys()].map((index) => (
                 <div className="form-group" key={categoriesHierarchy.length + '-' + index}>
                     {index == 0 ? (
@@ -135,6 +136,6 @@ export default function ProductCategoriesControl({
                     {index == categoriesHierarchy.length - 1 && <FormError error={errors} />}
                 </div>
             ))}
-        </Fragment>
+        </FormPane>
     );
 }

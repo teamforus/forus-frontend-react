@@ -185,35 +185,38 @@ export default function ProductFundsCard({
                                             )}
                                         </div>
                                     )}
-                                    <div className="fund-item-section fund-item-price text-right">
-                                        {(product.price_type === 'free' || product.price_type === 'regular') && (
-                                            <div className="fund-item-section-label">
-                                                {translate('product.labels.price')}
-                                            </div>
-                                        )}
 
-                                        {(product.price_type === 'discount_fixed' ||
-                                            product.price_type === 'discount_percentage') && (
-                                            <div className="fund-item-section-label">
-                                                {translate('product.labels.discount')}
-                                            </div>
-                                        )}
+                                    {product.price_type !== 'informational' && (
+                                        <div className="fund-item-section fund-item-price text-right">
+                                            {(product.price_type === 'free' || product.price_type === 'regular') && (
+                                                <div className="fund-item-section-label">
+                                                    {translate('product.labels.price')}
+                                                </div>
+                                            )}
 
-                                        {(product.price_type === 'regular' || product.price_type === 'free') && (
-                                            <div className="fund-item-section-value">
-                                                {fund.user_price === '0.00'
-                                                    ? translate('product.status.free')
-                                                    : fund.user_price_locale}
-                                            </div>
-                                        )}
+                                            {(product.price_type === 'discount_fixed' ||
+                                                product.price_type === 'discount_percentage') && (
+                                                <div className="fund-item-section-label">
+                                                    {translate('product.labels.discount')}
+                                                </div>
+                                            )}
 
-                                        {(product.price_type === 'discount_fixed' ||
-                                            product.price_type === 'discount_percentage') && (
-                                            <div className="fund-item-section-value">
-                                                {product.price_discount_locale}
-                                            </div>
-                                        )}
-                                    </div>
+                                            {(product.price_type === 'regular' || product.price_type === 'free') && (
+                                                <div className="fund-item-section-value">
+                                                    {fund.user_price === '0.00'
+                                                        ? translate('product.status.free')
+                                                        : fund.user_price_locale}
+                                                </div>
+                                            )}
+
+                                            {(product.price_type === 'discount_fixed' ||
+                                                product.price_type === 'discount_percentage') && (
+                                                <div className="fund-item-section-value">
+                                                    {product.price_discount_locale}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
 
                                     {fund.meta.isReservationAvailable && (
                                         <div className="fund-item-section">
@@ -228,6 +231,7 @@ export default function ProductFundsCard({
                                             </button>
                                         </div>
                                     )}
+
                                     {fund.external_link_text && fund.external_link_url && (
                                         <div className="fund-item-section">
                                             <a
