@@ -5,6 +5,7 @@ import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useC
 import SponsorIdentity, { ProfileBankAccount } from '../props/models/Sponsor/SponsorIdentity';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import Organization from '../props/models/Organization';
+import IdentitiesApiPerson from '../props/models/IdentitiesApiPerson';
 
 export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccount> {
     /**
@@ -71,6 +72,14 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
                 description: `identities.bank_accounts.tooltips.${key}`,
             },
         }));
+    }
+
+    public getPersonBsn(
+        organizationId: number,
+        id: number,
+        data: object = {},
+    ): Promise<ApiResponseSingle<IdentitiesApiPerson>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${id}/person`, data);
     }
 
     public export(organization_id: number, filters = {}): Promise<ResponseSimple<ArrayBuffer>> {
