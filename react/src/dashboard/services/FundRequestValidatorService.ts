@@ -5,7 +5,6 @@ import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResp
 import Note from '../props/models/Note';
 import File from '../props/models/File';
 import FundRequestRecord from '../props/models/FundRequestRecord';
-import FundRequestApiPerson from '../props/models/FundRequestApiPerson';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 
@@ -109,14 +108,6 @@ export class FundRequestValidatorService<T = FundRequest> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/clarifications`, {
             fund_request_record_id: record_id,
         });
-    }
-
-    public getPersonBsn(
-        organizationId: number,
-        id: number,
-        data: object = {},
-    ): Promise<ApiResponseSingle<FundRequestApiPerson>> {
-        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/person`, data);
     }
 
     public notes(organizationId: number, id: number, data: object = {}): Promise<ApiResponse<Note>> {

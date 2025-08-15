@@ -23,7 +23,7 @@ import ModalFundRequestDisregardUndo from '../../modals/ModalFundRequestDisregar
 import ModalFundRequestAssignValidator from '../../modals/ModalFundRequestAssignValidator';
 import useEnvData from '../../../hooks/useEnvData';
 import FundRequestRecordTabs from './elements/FundRequestRecordTabs';
-import FundRequestPerson from './elements/FundRequestPerson';
+import IdentityPerson from './elements/IdentityPerson';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
@@ -812,11 +812,11 @@ export default function FundRequestsView() {
                         </TableTopScroller>
                     </div>
                 </div>
-
-                {fundRequestMeta.fund.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
-                    <FundRequestPerson organization={activeOrganization} request={fundRequestMeta} />
-                )}
             </div>
+
+            {activeOrganization.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
+                <IdentityPerson organization={activeOrganization} identityId={fundRequestMeta.identity_id} />
+            )}
 
             <BlockCardNotes
                 isAssigned={fundRequestMeta.is_assigned}

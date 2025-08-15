@@ -27,6 +27,7 @@ import { differenceInYears } from 'date-fns';
 import { dateParse } from '../../../helpers/dates';
 import BlockCardEmails from '../../elements/block-card-emails/BlockCardEmails';
 import useEmailLogService from '../../../services/EmailLogService';
+import IdentityPerson from '../fund-requests-view/elements/IdentityPerson';
 
 export default function IdentitiesShow() {
     const openModal = useOpenModal();
@@ -194,6 +195,10 @@ export default function IdentitiesShow() {
                     ]}
                 />
             </Card>
+
+            {activeOrganization.has_person_bsn_api && identity?.bsn && (
+                <IdentityPerson organization={activeOrganization} identityId={identity.id} />
+            )}
 
             <Card
                 title={'Huishouden'}
