@@ -34,15 +34,15 @@ export default function FundRequestRecordClarificationsTabItem({
 
     const requirements = useMemo(() => {
         if (clarification.text_requirement !== 'no' && clarification.files_requirement !== 'no') {
-            return 'text and files';
+            return 'tekstuele uitleg en documenten';
         }
 
         if (clarification.text_requirement !== 'no') {
-            return 'text';
+            return 'tekstuele uitleg';
         }
 
         if (clarification.files_requirement !== 'no') {
-            return 'files';
+            return 'documenten';
         }
 
         return null;
@@ -63,11 +63,11 @@ export default function FundRequestRecordClarificationsTabItem({
                                     : 'clarification-item-section-header-label-question-pending',
                             )}>
                             <em className="mdi mdi-help-circle" />
-                            Question
+                            Vraag
                         </div>
                         <div className="clarification-item-section-header-title">
-                            You’ve requested <strong>{requirements}</strong> on <strong>{requested.date}</strong> at{' '}
-                            <strong>{requested.time}</strong>
+                            Er is om <strong>{requirements}</strong> gevraagd om door de aanvrager aan te vullen op{' '}
+                            <strong>{requested.date}</strong> om <strong>{requested.time}</strong>
                         </div>
                     </div>
                     <div className="clarification-item-section-body">
@@ -89,10 +89,10 @@ export default function FundRequestRecordClarificationsTabItem({
                                     'clarification-item-section-header-label-answer-responded',
                                 )}>
                                 <em className="mdi mdi-check-circle" />
-                                Response
+                                Antwoord
                             </div>
                             <div className="clarification-item-section-header-title">
-                                Response received on <strong>{responded.date}</strong> at{' '}
+                                Antwoord gekregen op <strong>{responded.date}</strong> om{' '}
                                 <strong>{responded.time}</strong>
                             </div>
                         </div>
@@ -104,10 +104,11 @@ export default function FundRequestRecordClarificationsTabItem({
                                     'clarification-item-section-header-label-answer-pending',
                                 )}>
                                 <em className="mdi mdi-timer-sand" />
-                                Waiting
+                                Wachten
                             </div>
                             <div className="clarification-item-section-header-title">
-                                <strong>Requester</strong> was notified waiting for a response...
+                                <strong>De aanvrager</strong> heeft het aanvulverzoek ontvangen, maar nog niet
+                                beantwoord.
                             </div>
                         </div>
                     )}
@@ -116,7 +117,7 @@ export default function FundRequestRecordClarificationsTabItem({
                         <div className="clarification-item-section-body">
                             {clarification?.answer && (
                                 <div className="clarification-item-section-body-group clarification-item-section-body-group-with-title">
-                                    <div className="clarification-item-section-body-group-title">Message</div>
+                                    <div className="clarification-item-section-body-group-title">Bericht</div>
                                     <div
                                         className={classNames(
                                             'clarification-item-section-body-bubble',
@@ -130,7 +131,7 @@ export default function FundRequestRecordClarificationsTabItem({
                             {clarification?.files?.length > 0 && (
                                 <div className="clarification-item-section-body-group clarification-item-section-body-group-with-title">
                                     <div className="clarification-item-section-body-group-title">
-                                        Files ({clarification?.files?.length})
+                                        Documenten ({clarification?.files?.length})
                                     </div>
                                     <FundRequestRecordAttachmentsTab
                                         attachments={clarification.files.map((file) => ({

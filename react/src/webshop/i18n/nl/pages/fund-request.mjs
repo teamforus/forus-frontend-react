@@ -28,7 +28,7 @@ export default {
 
     records: {
         title: 'Mijn gegevens ({{ count }})',
-        subtitle: 'This block contains the personal information that you provided during the fund application request.',
+        subtitle: 'Bekijk hieronder de persoonlijke gegevens die zijn ingevuld bij de aanvraag.',
     },
 
     record: {
@@ -36,8 +36,8 @@ export default {
         new: 'nieuw bericht',
         new_message: 'Nieuw verzoek',
         answer: 'Beantwoord',
-        my_answer: 'My answer',
-        my_message: 'My message',
+        my_answer: 'Mijn antwoord',
+        my_message: 'Mijn bericht',
         answer_btn: 'Beantwoord deze vraag',
         answer_btn_info:
             'Klik op de button ”<strong>Beantwoord deze vraag</strong>” om de extra informatie te versturen. De informatie wordt toegevoegd aan de aanvraag.',
@@ -53,14 +53,14 @@ export default {
     },
 
     labels: {
-        question: 'Vraag',
+        question: 'Gestelde vraag',
         question_from: 'Vraag van {{ name }}',
-        date: 'Date:',
+        date: 'Datum:',
     },
 
     declined: {
         title: 'Reden van weigeren',
-        no_note: 'No note',
+        no_note: 'Geen notitie',
     },
 
     digid_expired: {
