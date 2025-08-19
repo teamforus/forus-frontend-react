@@ -3,7 +3,7 @@ import { addSeconds, format } from 'date-fns';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 import Fund from '../../../../props/models/Fund';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
-import useTranslate from '../../../../../dashboard/hooks/useTranslate';
+import TranslateHtml from '../../../../../dashboard/components/elements/translate-html/TranslateHtml';
 
 export default function FundRequestBsnWarning({
     fund,
@@ -14,8 +14,6 @@ export default function FundRequestBsnWarning({
 }) {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
-
-    const translate = useTranslate();
 
     const [bsnWarningShow, setBsnWarningShow] = useState<boolean>(null);
     const [bsnWarningValue, setBsnWarningValue] = useState<string>(null);
@@ -53,9 +51,11 @@ export default function FundRequestBsnWarning({
             <div className="warning-icon">
                 <div className="mdi mdi-alert-circle-outline" />
             </div>
-            <div className="warning-details">
-                {translate('fund_request.bsn_warning.description', { value: bsnWarningValue })}
-            </div>
+            <TranslateHtml
+                i18n={'fund_request.bsn_warning.description'}
+                values={{ value: bsnWarningValue }}
+                className="warning-details"
+            />
         </div>
     ) : null;
 }

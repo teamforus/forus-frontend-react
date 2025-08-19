@@ -98,11 +98,8 @@ export class FundRequestValidatorService<T = FundRequest> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/fund-requests/${id}/records/${record_id}`, data);
     }
 
-    public requestRecordClarification(organizationId: number, id: number, record_id: number, question: string) {
-        return this.apiRequest.post(`${this.prefix}/${organizationId}/fund-requests/${id}/clarifications`, {
-            fund_request_record_id: record_id,
-            question: question,
-        });
+    public requestRecordClarification(organizationId: number, id: number, data: object) {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/fund-requests/${id}/clarifications`, data);
     }
 
     public recordClarifications(organizationId: number, id: number, record_id: number) {
