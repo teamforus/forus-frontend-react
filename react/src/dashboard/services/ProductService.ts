@@ -131,6 +131,7 @@ export class ProductService<T = Product> {
             sold_amount: apiResource.total_amount - apiResource.stock_amount,
             product_category_id: apiResource.product_category_id,
 
+            qr_enabled: apiResource.qr_enabled,
             reservation_enabled: apiResource.reservation_enabled,
             reservation_policy: apiResource.reservation_policy,
 
@@ -138,6 +139,8 @@ export class ProductService<T = Product> {
             reservation_phone: apiResource.reservation_phone,
             reservation_address: apiResource.reservation_address,
             reservation_birth_date: apiResource.reservation_birth_date,
+            reservation_note: apiResource.reservation_note,
+            reservation_note_text: apiResource.reservation_note_text,
             reservation_extra_payments: apiResource.reservation_extra_payments,
         };
     }
