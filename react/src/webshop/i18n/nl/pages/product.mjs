@@ -43,6 +43,7 @@ export default {
     },
     price: {
         free: 'Gratis',
+        informational: 'Alleen in winkel',
     },
     buttons: {
         buy: 'Reserveren',
