@@ -30,6 +30,8 @@ export default interface FundRequest {
     email?: string | null;
     fund: Fund & {
         criteria: Array<FundCriterion>;
+        organization_id?: string;
+        organization_name?: string;
     };
     fund_id: number;
     lead_time_days: number;

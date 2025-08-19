@@ -15,6 +15,7 @@ import {
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import { hasPermission } from '../helpers/utils';
 import Organization from '../props/models/Organization';
+import Product from '../props/models/Product';
 
 export class FundService<T = Fund> {
     /**
@@ -273,16 +274,22 @@ export class FundService<T = Fund> {
         }));
     }
 
-    public getProviderProductColumns(fund: Fund, history: boolean): Array<ConfigurableTableColumn> {
+    public getProviderProductColumns(
+        fund: Fund,
+        product?: Product | SponsorProduct,
+        history?: boolean,
+    ): Array<ConfigurableTableColumn> {
+        const isInformational = product?.price_type === 'informational';
+
         const list = [
             history ? 'used' : null,
             history ? 'reserved' : null,
             history ? 'price' : null,
             history ? null : 'product_details',
-            fund?.show_subsidies ? 'acceptance' : null,
-            fund?.show_subsidies ? 'user_price' : null,
-            fund?.show_requester_limits ? 'limit_total' : null,
-            fund?.show_requester_limits ? 'limit_per_user' : null,
+            fund?.show_subsidies && !isInformational ? 'acceptance' : null,
+            fund?.show_subsidies && !isInformational ? 'user_price' : null,
+            fund?.show_requester_limits && !isInformational ? 'limit_total' : null,
+            fund?.show_requester_limits && !isInformational ? 'limit_per_user' : null,
             history ? null : 'messages',
             'status',
             'expiry_date',

@@ -4,6 +4,7 @@ import { range } from 'lodash';
 import ReactDatePicker from 'react-datepicker';
 
 export default function DatePickerControl({
+    id,
     value,
     onChange,
     disabled,
@@ -15,6 +16,7 @@ export default function DatePickerControl({
     dateMax,
     dateInitial = null,
 }: {
+    id?: string;
     value: Date | null;
     disabled?: boolean;
     onChange: (value: Date) => void;
@@ -43,6 +45,7 @@ export default function DatePickerControl({
     ];
     return (
         <ReactDatePicker
+            id={id}
             disabled={disabled}
             popperProps={{ strategy: 'fixed' }}
             renderCustomHeader={({

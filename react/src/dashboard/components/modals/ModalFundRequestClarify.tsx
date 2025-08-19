@@ -1,7 +1,6 @@
 import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
-import FormError from '../elements/forms/errors/FormError';
 import { ResponseError } from '../../props/ApiResponses';
 import useSetProgress from '../../hooks/useSetProgress';
 import FundRequest from '../../props/models/FundRequest';
@@ -9,6 +8,12 @@ import { useFundRequestValidatorService } from '../../services/FundRequestValida
 import Organization from '../../props/models/Organization';
 import FundRequestRecord from '../../props/models/FundRequestRecord';
 import classNames from 'classnames';
+import FormGroup from '../elements/forms/elements/FormGroup';
+import FormPane from '../elements/forms/elements/FormPane';
+import InfoBox from '../elements/info-box/InfoBox';
+import SelectControl from '../elements/select-control/SelectControl';
+
+type Requirement = 'no' | 'optional' | 'required';
 
 export default function ModalFundRequestClarify({
     modal,
@@ -28,32 +33,43 @@ export default function ModalFundRequestClarify({
     const setProgress = useSetProgress();
     const fundRequestService = useFundRequestValidatorService();
 
-    const form = useFormBuilder({ question: '' }, async () => {
-        setProgress(0);
+    const form = useFormBuilder<{
+        text_requirement: Requirement;
+        files_requirement: Requirement;
+        question: string;
+    }>(
+        {
+            text_requirement: 'required',
+            files_requirement: 'required',
+            question: '',
+        },
+        async () => {
+            setProgress(0);
 
-        return fundRequestService
-            .requestRecordClarification(
-                organization.id,
-                fundRequestRecord.fund_request_id,
-                fundRequestRecord.id,
-                form.values.question,
-            )
-            .then(() => {
-                modal.close();
-                onSubmitted();
-            })
-            .catch((err: ResponseError) => {
-                form.setIsLocked(false);
+            return fundRequestService
+                .requestRecordClarification(organization.id, fundRequestRecord.fund_request_id, {
+                    fund_request_record_id: fundRequestRecord.id,
+                    text_requirement: form.values.text_requirement,
+                    files_requirement: form.values.files_requirement,
+                    question: form.values.question,
+                })
+                .then(() => {
+                    modal.close();
+                    onSubmitted();
+                })
+                .catch((err: ResponseError) => {
+                    form.setIsLocked(false);
 
-                if (err.status === 422) {
-                    return form.setErrors(err.data.errors);
-                }
+                    if (err.status === 422) {
+                        return form.setErrors(err.data.errors);
+                    }
 
-                modal.close();
-                onSubmitted(err);
-            })
-            .finally(() => setProgress(100));
-    });
+                    modal.close();
+                    onSubmitted(err);
+                })
+                .finally(() => setProgress(100));
+        },
+    );
 
     return (
         <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
@@ -66,7 +82,7 @@ export default function ModalFundRequestClarify({
                         <div className="mdi mdi-message-text-outline" />
                     </div>
                     <div className="modal-body form">
-                        <div className="modal-section modal-section-pad">
+                        <div className="modal-section modal-section-pad flex flex-vertical flex-gap">
                             <div className="text-center">
                                 <div className="modal-heading">Aanvullingsverzoek</div>
                                 <div className="modal-text">
@@ -74,16 +90,74 @@ export default function ModalFundRequestClarify({
                                     Voeg een bericht toe aan dit verzoek.
                                 </div>
                             </div>
-                            <div className="form-group">
-                                <div className="form-label form-label-required">Bericht</div>
-                                <textarea
-                                    className="form-control"
-                                    value={form.values.question}
-                                    onChange={(e) => form.update({ question: e.target.value })}
-                                    placeholder="Bericht aan aanvrager"
+                            <FormPane title={'Benodigde informatie'}>
+                                <div className="row">
+                                    <div className="col col-xs-12 col-sm-6">
+                                        <FormGroup
+                                            label={'Tekstuele uitleg'}
+                                            error={form.errors.text_requirement}
+                                            input={(id) => (
+                                                <SelectControl
+                                                    id={id}
+                                                    propKey={'value'}
+                                                    propValue={'name'}
+                                                    value={form.values.text_requirement}
+                                                    options={[
+                                                        { name: 'Verplicht', value: 'required' },
+                                                        { name: 'Optioneel', value: 'optional' },
+                                                        { name: 'Niet nodig', value: 'no' },
+                                                    ]}
+                                                    onChange={(text_requirement: Requirement) => {
+                                                        return form.update({ text_requirement });
+                                                    }}
+                                                />
+                                            )}
+                                        />
+                                    </div>
+                                    <div className="col col-xs-12 col-sm-6">
+                                        <FormGroup
+                                            label={'Uploaden bestand'}
+                                            error={form.errors.files_requirement}
+                                            input={(id) => (
+                                                <SelectControl
+                                                    id={id}
+                                                    propKey={'value'}
+                                                    propValue={'name'}
+                                                    value={form.values.files_requirement}
+                                                    options={[
+                                                        { name: 'Verplicht', value: 'required' },
+                                                        { name: 'Optioneel', value: 'optional' },
+                                                        { name: 'Niet nodig', value: 'no' },
+                                                    ]}
+                                                    onChange={(files_requirement: Requirement) => {
+                                                        return form.update({ files_requirement });
+                                                    }}
+                                                />
+                                            )}
+                                        />
+                                    </div>
+                                </div>
+                            </FormPane>
+                            <FormPane title={'Aanvulverzoek'}>
+                                <FormGroup
+                                    error={form.errors?.question}
+                                    input={(id) => (
+                                        <textarea
+                                            id={id}
+                                            className="form-control"
+                                            value={form.values.question}
+                                            onChange={(e) => form.update({ question: e.target.value })}
+                                            placeholder="Bericht aan aanvrager"
+                                        />
+                                    )}
                                 />
-                                <FormError error={form.errors?.question} />
-                            </div>
+                            </FormPane>
+                            <InfoBox>
+                                Gebruik deze functie om de aanvrager te vragen om extra informatie of documenten, zodat
+                                de aanvraag alsnog beoordeeld kan worden. Geef aan wat bij de aanvraag nodig is. Een
+                                tekstuele uitleg bij de aanvraag, een document dat ingevuld dient te worden en het
+                                bericht met de vraag voor de aanvrager
+                            </InfoBox>
                         </div>
                     </div>
                     <div className="modal-footer text-center">

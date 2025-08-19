@@ -227,7 +227,7 @@
 
                 &.sign_up-pane-heading-md {
                     font: 700 20px/30px var(--base-font);
-                    margin-bottom: 30px;
+                    margin-bottom: 20px;
                 }
 
                 &.sign_up-pane-heading-lg {
@@ -277,6 +277,11 @@
                 padding: 10px 0 0;
                 border-bottom: 1px solid var(--border-color);
                 margin: 0 0 30px;
+
+                &.sign_up-pane-separator-sm {
+                    padding: 5px 0 0;
+                    margin: 0 0 15px;
+                }
             }
 
             .sign_up-privacy {
@@ -1032,7 +1037,6 @@
     }
 
     @media (max-width: 991px) {
-        margin: 0px -10px;
         padding: 10px 0 50px;
 
         .block-title {
@@ -1069,6 +1073,10 @@
 
                 .sign_up-pane-heading {
                     font: 700 14px/22px var(--base-font);
+
+                    &.sign_up-pane-heading-md {
+                        font: 700 17px/26px var(--base-font);
+                    }
                 }
 
                 .sign_up-pane-text {
@@ -1077,7 +1085,8 @@
 
                 .sign_up-pane-list {
                     li {
-                        font: 500 16px/26px var(--base-font);
+                        font: 500 14px/26px var(--base-font);
+                        margin: 0 0 5px;
 
                         .item-icon {
                             margin-top: 3px;

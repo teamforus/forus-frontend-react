@@ -82,14 +82,21 @@
 
             .product-actions {
                 background-color: #fbfbfb;
-                padding: 15px 20px;
+                padding: 15px 15px;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
 
                 .product-price {
-                    font: 700 18px/24px var(--base-font);
+                    display: inline-flex;
+                    flex-direction: row;
+                    gap: 5px;
+                    font: 700 16px/24px var(--base-font);
+
+                    .mdi {
+                        font-size: 18px;
+                    }
                 }
 
                 .product-icons {

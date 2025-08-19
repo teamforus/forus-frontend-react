@@ -150,7 +150,7 @@ export default function ImplementationsEmail() {
                     <div className="card-section card-section-primary">
                         <div className="row">
                             <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                                <InfoBox iconPosition={'top'}>
+                                <InfoBox>
                                     Forus zal uw e-mailadres verifieren en uw systeembeheer vragen om Forus zijn
                                     mailservice als veilige afzender toe te voegen aan uw domein.
                                 </InfoBox>

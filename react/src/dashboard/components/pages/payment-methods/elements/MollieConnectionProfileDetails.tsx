@@ -227,9 +227,7 @@ export default function MollieConnectionProfileDetails({
                                 </div>
                             </div>
 
-                            <InfoBox iconPosition={'top'} iconColor={'primary'}>
-                                <p>{translate('mollie_connection.create_form.info_content')}</p>
-                            </InfoBox>
+                            <InfoBox>{translate('mollie_connection.create_form.info_content')}</InfoBox>
                         </div>
 
                         <div className="card-section">
