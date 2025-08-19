@@ -25,6 +25,8 @@ export default {
         ean_placeholder: 'Voeg een Europees artikelnummer toe',
         sku: 'SKU (Stock-Keeping unit)',
         sku_placeholder: 'Voeg een voorraadbeheereenheidnummer toe',
+        reservation_note: 'Aankoopnotitie',
+        custom_reservation_note_text: 'Aangepaste aankoopnotitie',
     },
     tooltips: {
         product_type: [
