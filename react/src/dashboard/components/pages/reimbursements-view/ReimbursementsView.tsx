@@ -489,9 +489,7 @@ export default function ReimbursementsView() {
                                                         <a
                                                             key={index}
                                                             className="attachment-item"
-                                                            onClick={() => {
-                                                                downloadFile(file);
-                                                            }}
+                                                            onClick={() => downloadFile(file)}
                                                             target="_blank"
                                                             rel="noreferrer">
                                                             <div className="attachment-icon">
