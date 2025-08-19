@@ -103,9 +103,6 @@ export default function IdentityPerson({
             ]}>
             {person.person && person.bsn_expanded ? (
                 <Fragment>
-                    <div className="arrow-box border bg-dim">
-                        <div className="arrow" />
-                    </div>
                     <div className="block block-breadcrumbs">
                         {person.person_breadcrumbs.map((breadcrumb, index) => (
                             <div

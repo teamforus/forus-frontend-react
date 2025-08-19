@@ -684,6 +684,10 @@ export default function FundRequestsView() {
                 )}
             </div>
 
+            {activeOrganization.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
+                <IdentityPerson organization={activeOrganization} identityId={fundRequestMeta.identity_id} />
+            )}
+
             {fundRequestMeta.note && (
                 <div className="card">
                     <div className="card-header">
@@ -819,10 +823,6 @@ export default function FundRequestsView() {
                     </div>
                 </div>
             </div>
-
-            {activeOrganization.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
-                <IdentityPerson organization={activeOrganization} identityId={fundRequestMeta.identity_id} />
-            )}
 
             <BlockCardNotes
                 isAssigned={fundRequestMeta.is_assigned}
