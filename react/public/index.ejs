@@ -35,8 +35,8 @@
     <script>const env_data = JSON.parse('<%= JSON.stringify(env_data) %>');</script>
     <% if (env_data?.client_type !== 'website') { %>
         <script type="module">
-            import * as pdfjsDist from '<%= webPath(`/assets/dist/js/pdf.${timestamp}.min.mjs`) %>';
-            pdfjsDist.GlobalWorkerOptions.workerSrc = '<%= webPath(`/assets/dist/js/pdf.worker.${timestamp}.min.mjs`) %>';
+            import * as pdfjsDist from '<%= webPath(`/assets/dist/js/pdf.${timestamp}.min.js`) %>';
+            pdfjsDist.GlobalWorkerOptions.workerSrc = '<%= webPath(`/assets/dist/js/pdf.worker.${timestamp}.min.js`) %>';
             window.pdfjsDist = pdfjsDist;
         </script>
     <% } %>
