@@ -151,11 +151,11 @@ module.exports = (env, argv) => {
                 },
                 {
                     from: resolvePath(`./node_modules/pdfjs-dist/build/pdf.min.mjs`),
-                    to: resolvePath(`${assetPath}/dist/js/pdf.${timestamp}.min.mjs`),
+                    to: resolvePath(`${assetPath}/dist/js/pdf.${timestamp}.min.js`),
                 },
                 {
                     from: resolvePath(`./node_modules/pdfjs-dist/build/pdf.worker.min.mjs`),
-                    to: resolvePath(`${assetPath}/dist/js/pdf.worker.${timestamp}.min.mjs`),
+                    to: resolvePath(`${assetPath}/dist/js/pdf.worker.${timestamp}.min.js`),
                 },
             ],
         });

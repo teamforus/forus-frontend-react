@@ -55,7 +55,10 @@ export default function ProductsListItemGrid({
                 <div className="product-subtitle">{product.organization.name}</div>
             </div>
             <div className="product-actions">
-                <div className="product-price">{price}</div>
+                <div className="product-price">
+                    {product?.price_type === 'informational' && <em className="mdi mdi-storefront-outline" />}
+                    {price}
+                </div>
                 <div className="product-icons">
                     {productFeatures?.feature_scanning_enabled && (
                         <div className="product-icons-item">

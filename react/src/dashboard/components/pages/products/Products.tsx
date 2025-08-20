@@ -19,6 +19,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
+import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 
 type ProductsDataLocal = PaginationData<
     Product,
@@ -192,10 +193,16 @@ export default function Products() {
                                             />
                                         </td>
 
-                                        {product.unlimited_stock ? (
-                                            <td>{translate('product_edit.labels.unlimited')}</td>
+                                        {product?.price_type === 'informational' ? (
+                                            <td>
+                                                <TableEmptyValue />
+                                            </td>
                                         ) : (
-                                            <td>{product.stock_amount}</td>
+                                            <td>
+                                                {product.unlimited_stock
+                                                    ? translate('product_edit.labels.unlimited')
+                                                    : product.stock_amount}
+                                            </td>
                                         )}
 
                                         <td>{product.price_locale}</td>

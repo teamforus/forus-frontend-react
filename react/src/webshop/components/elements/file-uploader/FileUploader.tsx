@@ -333,7 +333,7 @@ export default function FileUploader({
                         <div className="droparea-size">{translate('global.file_uploader.max_size')}</div>
                     )}
 
-                    {template === 'inline' && multipleSize && (
+                    {(template === 'inline' || template === 'compact') && multipleSize && (
                         <div className="droparea-max-limit">
                             {translate('global.file_uploader.max_files', { count: multipleSize })}
                         </div>
