@@ -37,6 +37,11 @@ export default function ReservationsSettings() {
         { value: 'required', label: 'Verplicht' },
     ]);
 
+    const [reservationNoteOptions] = useState([
+        { value: false, label: 'Nee' },
+        { value: true, label: 'Ja' },
+    ]);
+
     const [extraPaymentsOptions] = useState([
         { value: false, label: 'Nee' },
         { value: true, label: 'Ja' },
@@ -49,6 +54,8 @@ export default function ReservationsSettings() {
             reservation_birth_date: activeOrganization.reservation_birth_date,
             reservation_user_note: activeOrganization.reservation_user_note,
             reservation_allow_extra_payments: activeOrganization.reservation_allow_extra_payments,
+            reservation_note: activeOrganization.reservation_note,
+            reservation_note_text: activeOrganization.reservation_note_text,
         },
         (values) => {
             setProgress(0);
@@ -66,6 +73,8 @@ export default function ReservationsSettings() {
                         reservation_birth_date: res.data.data.reservation_birth_date,
                         reservation_user_note: res.data.data.reservation_user_note,
                         reservation_allow_extra_payments: res.data.data.reservation_allow_extra_payments,
+                        reservation_note: res.data.data.reservation_note,
+                        reservation_note_text: res.data.data.reservation_note_text,
                     });
                     form.setErrors({});
                 })
@@ -195,6 +204,45 @@ export default function ReservationsSettings() {
                                     />
                                 )}
                             />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card-section card-section-primary card-section-settings">
+                    <div className="row">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <FormGroup
+                                label={translate('reservation_settings.labels.reservation_note')}
+                                error={form.errors.reservation_note}
+                                input={(id) => (
+                                    <SelectControl
+                                        className="form-control"
+                                        propKey={'value'}
+                                        propValue={'label'}
+                                        id={id}
+                                        value={form.values.reservation_note}
+                                        onChange={(reservation_note: boolean) => {
+                                            form.update({ reservation_note });
+                                        }}
+                                        options={reservationNoteOptions}
+                                    />
+                                )}
+                            />
+
+                            {form.values.reservation_note && (
+                                <FormGroup
+                                    label={translate('reservation_settings.labels.reservation_note_text')}
+                                    error={form.errors.reservation_note_text}
+                                    input={() => (
+                                        <textarea
+                                            className="form-control r-n"
+                                            placeholder={translate('reservation_settings.labels.reservation_note_text')}
+                                            value={form.values.reservation_note_text || ''}
+                                            onChange={(e) => form.update({ reservation_note_text: e.target.value })}
+                                        />
+                                    )}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
