@@ -1,0 +1,206 @@
+.block.block-fund-request-conversations {
+    width: 100%;
+    padding: 0 0 20px;
+
+    .conversation-item {
+        padding: 15px 15px 10px 50px;
+        position: relative;
+
+        .conversation-item-number {
+            display: flex;
+            width: 25px;
+            height: 25px;
+            flex-direction: column;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #fff;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: calc(var(--border-radius) / 2);
+            border: 1px solid var(--color-primary);
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-family: var(--base-font), serif;
+        }
+
+        .conversation-item-body {
+            border-radius: var(--border-radius);
+            border: 1px solid #848484;
+            background: #fff;
+            overflow: hidden;
+
+            .conversation-item-section {
+                display: flex;
+                flex-direction: column;
+                padding: 15px 15px;
+                gap: 8px;
+                border-bottom: 1px solid var(--border-color);
+
+                .conversation-item-section-header {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 8px;
+
+                    .conversation-item-section-header-label {
+                        display: flex;
+                        align-items: center;
+                        background: #282b39;
+                        padding: 4px 7px 4px 4px;
+                        border-radius: var(--border-radius);
+                        font: 600 13px/17px var(--base-font);
+                        color: #fff;
+                        gap: 4px;
+
+                        .mdi {
+                            font-size: 14px;
+                            height: 17px;
+                            line-height: 17px;
+                            display: flex;
+                        }
+                    }
+
+                    .conversation-item-section-header-date {
+                        display: flex;
+                        flex: 1 1 auto;
+                        color: #595959;
+                        gap: 3px;
+                        font: 500 13px/18px var(--base-font);
+
+                        strong {
+                            font-weight: 700;
+                        }
+                    }
+
+                    .conversation-item-section-header-status {
+                        font: 600 13px/18px var(--base-font);
+                        gap: 4px;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row;
+
+                        .mdi {
+                            display: flex;
+                            height: 18pxpx;
+                            line-height: 18px;
+                            font-size: 14px;
+                        }
+
+                        .conversation-item-section-header-status-dot {
+                            display: flex;
+                            width: 6px;
+                            height: 6px;
+                            background: #f21010;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                .conversation-item-section-body {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    .conversation-item-section-body-label {
+                        display: flex;
+                        color: #595959;
+                        font: 600 12px/18px var(--base-font);
+                    }
+
+                    .conversation-item-section-body-bubble {
+                        border-radius: 2px 8px 8px 8px;
+                        border: 1px solid var(--border-color);
+                        overflow: hidden;
+
+                        .conversation-item-section-body-bubble-content {
+                            display: flex;
+                            padding: 12px;
+                            font: 500 13px/18px var(--base-font);
+                            background: #fff;
+                            flex-direction: column;
+                            border-bottom: 1px solid var(--border-color);
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+                        }
+
+                        .conversation-item-section-body-bubble-files {
+                            padding: 12px;
+                            background: #fbfbfb;
+                        }
+                    }
+                }
+
+                .conversation-item-section-info {
+                    font: 600 12px/18px var(--base-font);
+                    color: #353535;
+
+                    strong {
+                        font-weight: 700;
+                    }
+                }
+
+                &.conversation-item-section-question {
+                    background: #f4f5f7;
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            &.conversation-item-body-responded {
+                border-color: var(--border-color);
+            }
+        }
+
+        &.conversation-item-new {
+            .conversation-item-number {
+                background: var(--color-primary);
+                color: #fff;
+            }
+        }
+
+        &:before {
+            content: '';
+            height: 100%;
+            border-right: 1px solid #d4d9dd;
+            position: absolute;
+            left: 27.5px;
+            top: 0;
+        }
+
+        &:last-child {
+            padding: 15px 15px 0 50px;
+
+            &:before {
+                height: 20px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .conversation-item {
+            .conversation-item-body {
+                .conversation-item-section {
+                    .conversation-item-section-header {
+                        flex-wrap: wrap;
+
+                        .conversation-item-section-header-date {
+                            order: 3;
+                            width: 100%;
+                        }
+
+                        .conversation-item-section-header-status {
+                            flex: 1 1 auto;
+                            justify-content: flex-end;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

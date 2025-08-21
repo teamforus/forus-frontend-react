@@ -7,11 +7,15 @@
         background-color: #fff;
         border-radius: var(--border-radius);
         margin-bottom: 15px;
-        box-shadow: var(--box-shadow);
         position: relative;
-        transition: color .4s, background-color .4s;
+        transition:
+            color 0.4s,
+            background-color 0.4s;
         min-height: 135px;
         cursor: default;
+        overflow: hidden;
+        border: var(--showcase-item-border);
+        box-shadow: var(--showcase-item-shadow);
 
         .fund-request-image {
             display: flex;
@@ -48,24 +52,24 @@
                     flex-grow: 1;
                     overflow: hidden;
                     word-wrap: break-word;
-        
+
                     .fund-request-name {
                         font: 700 18px/27px var(--heading-font-family);
                         margin: 0 0 5px;
                         color: #282b39;
                     }
-        
+
                     .fund-request-subtitle {
                         font: 400 13px/18px var(--base-font);
                         color: #222222;
                         margin-bottom: 10px;
-        
+
                         span {
                             font-weight: 600;
                         }
                     }
                 }
-    
+
                 .fund-request-overview {
                     display: flex;
                     flex-direction: column;
@@ -146,16 +150,16 @@
 
                 .fund-request-section {
                     flex-direction: column-reverse;
-    
+
                     .fund-request-details {
                         .fund-request-name {
                             font: 700 14px/20px var(--heading-font-family);
                             margin: 0 0 5px;
                         }
-            
+
                         .fund-request-subtitle {
                             font-size: 11px;
-                            margin: 0
+                            margin: 0;
                         }
                     }
                 }
