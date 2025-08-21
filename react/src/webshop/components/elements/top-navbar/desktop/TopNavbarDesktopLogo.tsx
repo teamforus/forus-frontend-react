@@ -14,10 +14,21 @@ export const TopNavbarDesktopLogo = () => {
 
     return (
         <StateNavLink name={'home'} className="navbar-desktop-logo" disabled={route?.state?.name === 'home'}>
+            {/* Creates alt: Go to home page of name.municipality.nl*/}
             <img
                 src={assetUrl(`/assets/img/logo-normal.svg`)}
-                alt={translate(`logo_alt_text.${envData.client_key}`, {}, envData.client_key)}
-                title={translate(`logo_title`, { host: window.location.host })}
+                alt={translate(
+                    `logo_title`,
+                    {
+                        implementation_name: translate(
+                            `implementation_name.${envData.client_key}`,
+                            {},
+                            envData.client_key,
+                        ),
+                        host: envData.client_key,
+                    },
+                    `logo_alt_text.home`,
+                )}
             />
         </StateNavLink>
     );
