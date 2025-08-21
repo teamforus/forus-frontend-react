@@ -13,6 +13,7 @@ export default function Modal({
     className,
     footer,
     onSubmit,
+    dusk = null,
 }: {
     modal: ModalState;
     title?: string | ReactNode;
@@ -24,6 +25,7 @@ export default function Modal({
     footer?: ReactNode | ReactNode[];
     onSubmit?: () => void;
     className?: string;
+    dusk?: string;
 }) {
     const ModalWindow = useCallback(
         ({ children, onSubmit }: { children: ReactNode | ReactNode[]; onSubmit?: () => void }) => {
@@ -49,7 +51,8 @@ export default function Modal({
                 size === 'lg' && 'modal-lg',
                 modal.loading && 'modal-loading',
                 className,
-            )}>
+            )}
+            data-dusk={dusk}>
             <div className="modal-backdrop" onClick={modal.close} />
 
             <ModalWindow onSubmit={onSubmit}>

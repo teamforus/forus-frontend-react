@@ -9,7 +9,6 @@ import useAppConfigs from '../../../hooks/useAppConfigs';
 import Section from '../sections/Section';
 
 export default function BlockProducts({
-    type = 'budget',
     display = 'grid',
     filters = {},
     products = null,
@@ -17,7 +16,6 @@ export default function BlockProducts({
     showLoadMore = true,
     showCustomDescription = false,
 }: {
-    type: 'budget' | 'subsidies';
     display?: 'grid' | 'list';
     filters?: object;
     products?: Array<Product>;
@@ -33,8 +31,8 @@ export default function BlockProducts({
         <Section type="products" id="products">
             {products?.length > 0 && (
                 <h2 className={'section-title'}>
-                    <StateNavLink name={type == 'budget' ? 'products' : 'actions'} params={filters}>
-                        {cmsBlock?.title || translate(`block_products.header.title_${type}`)}
+                    <StateNavLink name={'products'} params={filters}>
+                        {cmsBlock?.title || translate(`block_products.header.title_budget`)}
                     </StateNavLink>
                 </h2>
             )}
@@ -42,7 +40,7 @@ export default function BlockProducts({
             {cmsBlock && <CmsBlocks page={cmsBlock} />}
 
             {products?.length > 0 ? (
-                <ProductsList type={type} display={display} products={products} setProducts={setProducts} />
+                <ProductsList display={display} products={products} setProducts={setProducts} />
             ) : (
                 <EmptyBlock
                     title={translate(`block_products.labels.title`)}
@@ -54,10 +52,7 @@ export default function BlockProducts({
 
             {showLoadMore && (
                 <div className="block block-show-more">
-                    <StateNavLink
-                        className="button button-primary show-more-button"
-                        name={type == 'budget' ? 'products' : 'actions'}
-                        params={filters}>
+                    <StateNavLink className="button button-primary show-more-button" name={'products'} params={filters}>
                         {translate(`block_products.buttons.more`)}
                         <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                     </StateNavLink>

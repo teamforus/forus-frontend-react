@@ -98,11 +98,8 @@ export class FundRequestValidatorService<T = FundRequest> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/fund-requests/${id}/records/${record_id}`, data);
     }
 
-    public requestRecordClarification(organizationId: number, id: number, record_id: number, question: string) {
-        return this.apiRequest.post(`${this.prefix}/${organizationId}/fund-requests/${id}/clarifications`, {
-            fund_request_record_id: record_id,
-            question: question,
-        });
+    public requestRecordClarification(organizationId: number, id: number, data: object) {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/fund-requests/${id}/clarifications`, data);
     }
 
     public recordClarifications(organizationId: number, id: number, record_id: number) {
@@ -147,6 +144,34 @@ export class FundRequestValidatorService<T = FundRequest> {
                 key: key,
                 title: `validation_requests.labels.${key}`,
                 description: `validation_requests.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getRecordsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['type', 'value', 'date'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `validation_requests.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `validation_requests.labels.${key}`,
+                description: `validation_requests.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getRecordChangesColumns(): Array<ConfigurableTableColumn> {
+        const list = ['new_value', 'old_value', 'employee', 'date_changed'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `validation_request_details.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `validation_request_details.labels.${key}`,
+                description: `validation_request_details.tooltips.${key}`,
             },
         }));
     }

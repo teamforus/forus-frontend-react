@@ -28,13 +28,13 @@ export default {
     title_email_preferences: 'E-mail notificaties',
     title_push_preferences: 'Push notificaties via app',
     subscribe_desc_formal:
-        'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
+        'Met dit e-mailadres "{{email}}" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u meldingen wilt ontvangen, kunt u dit hieronder per notificatie instellen.',
     subscribe_desc_informal:
-        'Met dit e-mailadres "{{email}}" ben je momenteel voor alle notificaties uitgeschreven. Wanneer je notificaties wilt ontvangen, kun je dit hieronder per notificatie instellen.',
+        'Met dit e-mailadres "{{email}}" ben je momenteel voor alle notificaties uitgeschreven. Wanneer je meldingen wilt ontvangen, kun je dit hieronder per notificatie instellen.',
 
-    no_email_title: 'You currently have no email associated with your account',
-    no_email_description: 'Please add en email address to receive email notifications.',
-    no_email_button: 'Add email',
+    no_email_title: 'U heeft nog geen e-mailadres gekoppeld aan uw account',
+    no_email_description: 'Voeg een e-mailadres toe om meldingen te ontvangen.',
+    no_email_button: 'E-mailadres toevoegen',
 
     unsubscribe: 'Uitschrijven voor alle e-mail notificaties',
     unsubscribe_desc: 'Ik wil me uitschrijven van alle e-mail notificaties.',
@@ -116,16 +116,16 @@ export default {
         vouchers: {
             payment_success: {
                 title: 'Betaling gelukt',
-                description: 'Ontvang een e-mail notificatie wanneer een betaling is gelukt.',
+                description: 'Ontvang een e-mailmelding wanneer een betaling is gelukt.',
             },
             send_voucher: {
                 title: 'Stuur een tegoed naar uzelf',
-                description: 'Ontvang een e-mail notificatie wanneer u een tegoed naar uzelf verstuurt.',
+                description: 'Ontvang een e-mailmelding wanneer u een tegoed naar uzelf verstuurt.',
             },
             share_product: {
                 title: 'Reservering aanbieding gedeeld',
                 description:
-                    'Ontvang een e-mail notificatie wanneer er een reservering voor een aanbieding met u is gedeeld.',
+                    'Ontvang een e-mailmelding wanneer er een reservering voor een aanbieding met u is gedeeld.',
             },
         },
         voucher: {

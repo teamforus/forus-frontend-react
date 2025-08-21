@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ModalButton } from './elements/ModalButton';
 import classNames from 'classnames';
@@ -20,7 +20,7 @@ export default function ModalDangerZone({
     className?: string;
     description?: string | Array<string>;
     description_title?: string;
-    description_text?: string | Array<string>;
+    description_text?: string | Array<string> | ReactNode;
     confirmation?: string;
     buttonCancel?: ModalButton;
     buttonSubmit?: ModalButton;
@@ -55,8 +55,8 @@ export default function ModalDangerZone({
 
                         {description_title && <div className="modal-heading">{description_title}</div>}
 
-                        {description_text && (
-                            <div className={'modal-text'}>
+                        {typeof description_text === 'string' || Array.isArray(description_text) ? (
+                            <div className="modal-text">
                                 {(Array.isArray(description_text)
                                     ? description_text
                                     : description_text.split('\n')
@@ -64,6 +64,8 @@ export default function ModalDangerZone({
                                     value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
                                 )}
                             </div>
+                        ) : (
+                            <div className="modal-text">{description_text}</div>
                         )}
 
                         {confirmation && (

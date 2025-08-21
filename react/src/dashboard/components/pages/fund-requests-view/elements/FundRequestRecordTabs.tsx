@@ -21,12 +21,13 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
     const [shownType, setShownType] = useState(contentMap.filter((value) => value)[0] || null);
 
     return (
-        <div className="block">
+        <div className="block" data-dusk={`fundRequestRecordTabs${fundRequestRecord.id}`}>
             {hasMultiple && (
                 <div className="block block-label-tabs">
                     {fundRequestRecord.files.length > 0 && (
                         <div
                             className={`label-tab ${shownType == 'files' ? 'active' : ''}`}
+                            data-dusk={`fundRequestRecordFilesTab`}
                             onClick={() => setShownType('files')}>
                             {translate('validation_request_details.labels.files', {
                                 count: fundRequestRecord.files.length,
@@ -37,7 +38,8 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
                     {fundRequestRecord.clarifications.length > 0 && (
                         <div
                             className={`label-tab ${shownType == 'clarifications' ? 'active' : ''}`}
-                            onClick={() => setShownType('clarifications')}>
+                            onClick={() => setShownType('clarifications')}
+                            data-dusk={`fundRequestRecordClarificationsTab`}>
                             {translate('validation_request_details.labels.clarification_requests', {
                                 count: fundRequestRecord.clarifications.length,
                             })}
@@ -47,13 +49,18 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
                     {fundRequestRecord.history.length > 0 && (
                         <div
                             className={`label-tab ${shownType == 'history' ? 'active' : ''}`}
-                            onClick={() => setShownType('history')}>
+                            onClick={() => setShownType('history')}
+                            data-dusk={`fundRequestRecordHistoryTab`}>
                             {translate('validation_request_details.labels.history', {
                                 count: fundRequestRecord.history.length,
                             })}
                         </div>
                     )}
                 </div>
+            )}
+
+            {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
+                <FundRequestRecordClarificationsTab fundRequestRecord={fundRequestRecord} />
             )}
 
             {shownType == 'history' && fundRequestRecord.history.length > 0 && (
@@ -67,10 +74,6 @@ export default function FundRequestRecordTabs({ fundRequestRecord }: { fundReque
                         date: fundRequestRecord.created_at_locale,
                     }))}
                 />
-            )}
-
-            {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
-                <FundRequestRecordClarificationsTab fundRequestRecord={fundRequestRecord} />
             )}
         </div>
     );

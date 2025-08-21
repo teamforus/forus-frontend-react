@@ -6,6 +6,7 @@ import Product from '../../../../props/models/Product';
 import useTranslate from '../../../../hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
+import FormPane from '../../../elements/forms/elements/FormPane';
 
 export default function ProductDetailsBlockProperties({
     showName,
@@ -21,59 +22,67 @@ export default function ProductDetailsBlockProperties({
     const translate = useTranslate();
 
     return (
-        <div className="card-block card-block-keyvalue card-block-keyvalue-md">
-            {viewType === 'provider' && showName && (
-                <KeyValueItem label={translate('product.labels.name')}>
-                    <StateNavLink
-                        name={'products-show'}
-                        params={{
-                            organizationId: product?.organization_id,
-                            id: product?.id,
-                        }}
-                        className={classNames(
-                            'text-primary text-semibold text-inherit',
-                            product?.deleted ? 'text-line-through' : 'text-decoration-link',
-                        )}>
-                        {product?.name}
-                    </StateNavLink>
-                </KeyValueItem>
-            )}
+        <div className={'form'}>
+            <FormPane title={translate('product.labels.details')} large={true}>
+                <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
+                    {viewType === 'provider' && showName && (
+                        <KeyValueItem label={translate('product.labels.name')}>
+                            <StateNavLink
+                                name={'products-show'}
+                                params={{
+                                    organizationId: product?.organization_id,
+                                    id: product?.id,
+                                }}
+                                className={classNames(
+                                    'text-primary text-semibold text-inherit',
+                                    product?.deleted ? 'text-line-through' : 'text-decoration-link',
+                                )}>
+                                {product?.name}
+                            </StateNavLink>
+                        </KeyValueItem>
+                    )}
 
-            {viewType === 'sponsor' && (
-                <KeyValueItem label={translate('product.labels.provider')}>{product.organization.name}</KeyValueItem>
-            )}
+                    {viewType === 'sponsor' && (
+                        <KeyValueItem label={translate('product.labels.provider')}>
+                            {product.organization.name}
+                        </KeyValueItem>
+                    )}
 
-            <KeyValueItem label={translate('product.labels.expire')}>
-                {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
-            </KeyValueItem>
+                    <KeyValueItem label={translate('product.labels.expire')}>
+                        {product.expire_at ? product.expire_at_locale : 'Onbeperkt'}
+                    </KeyValueItem>
 
-            {showStockAndReservations && (
-                <Fragment>
-                    <KeyValueItem label={translate('product.labels.sold')}>{product.sold_amount}</KeyValueItem>
+                    {showStockAndReservations && (
+                        <Fragment>
+                            <KeyValueItem label={translate('product.labels.sold')}>{product.sold_amount}</KeyValueItem>
 
-                    <KeyValueItem label={translate('product.labels.reserved')}>{product.reserved_amount}</KeyValueItem>
-                </Fragment>
-            )}
+                            <KeyValueItem label={translate('product.labels.reserved')}>
+                                {product.reserved_amount}
+                            </KeyValueItem>
+                        </Fragment>
+                    )}
 
-            {viewType === 'provider' && (
-                <KeyValueItem label={translate('product.labels.available_offers')}>
-                    {product.unlimited_stock ? translate('product.labels.unlimited') : product.stock_amount}
-                </KeyValueItem>
-            )}
+                    {viewType === 'provider' && (
+                        <KeyValueItem label={translate('product.labels.available_offers')}>
+                            {product.unlimited_stock ? translate('product.labels.unlimited') : product.stock_amount}
+                        </KeyValueItem>
+                    )}
 
-            <KeyValueItem
-                label={translate('product.labels.ean')}
-                infoBlock={<TranslateHtml i18n={'product.tooltips.ean'} />}>
-                {product.ean}
-            </KeyValueItem>
+                    <KeyValueItem
+                        label={translate('product.labels.ean')}
+                        infoBlock={<TranslateHtml i18n={'product.tooltips.ean'} />}>
+                        {product.ean}
+                    </KeyValueItem>
 
-            {viewType === 'provider' && (
-                <KeyValueItem
-                    label={translate('product.labels.sku')}
-                    infoBlock={<TranslateHtml i18n={'product.tooltips.sku'} />}>
-                    {product.sku}
-                </KeyValueItem>
-            )}
+                    {viewType === 'provider' && (
+                        <KeyValueItem
+                            label={translate('product.labels.sku')}
+                            infoBlock={<TranslateHtml i18n={'product.tooltips.sku'} />}>
+                            {product.sku}
+                        </KeyValueItem>
+                    )}
+                </div>
+            </FormPane>
         </div>
     );
 }

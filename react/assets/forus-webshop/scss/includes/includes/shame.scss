@@ -19,12 +19,28 @@ html {
 }
 
 .sr-only {
-    position: absolute;
-    left: -10000px;
-    top: auto;
-    width: 1px;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
     height: 1px;
+    margin: -1px;
     overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+
+    &.sr-only-focusable {
+        &.active, &:focus {
+            clip: auto;
+            height: auto;
+            margin: 0;
+            overflow: visible;
+            width: auto;
+
+            @media screen and (max-width: 767px) {
+                position: static;
+            }
+        }
+    }
 }
 
 .section-product {
@@ -53,8 +69,6 @@ html {
     }
 }
 
-[ng-click],
-[ui-sref],
 .clickable,
 .state-nav-link {
     cursor: pointer;

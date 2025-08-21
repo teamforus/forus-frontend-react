@@ -20,14 +20,16 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushDanger from '../../../hooks/usePushDanger';
 import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
-import VoucherRecords from './elements/VoucherRecords';
-import VoucherTransactions from './elements/VoucherTransactions';
+import VoucherRecordsCard from './elements/VoucherRecordsCard';
+import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
 import useFilter from '../../../hooks/useFilter';
 import EventLogsTable from '../../elements/tables/EventLogsTable';
 import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
 import useTranslate from '../../../hooks/useTranslate';
 import useShowVoucherQrCode from '../vouchers/hooks/useShowVoucherQrCode';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
+import VoucherReservationsCard from './elements/VoucherReservationsCard';
 
 export default function VouchersViewComponent() {
     const { id } = useParams();
@@ -47,26 +49,19 @@ export default function VouchersViewComponent() {
 
     const eventLogsBlock = useRef<() => void>();
     const transactionsBlock = useRef<() => void>();
-    const reservationTransactionsBlock = useRef<() => void>();
+    const reservationsBlock = useRef<() => void>();
 
     const [fund, setFund] = useState<Fund>(null);
     const [voucher, setVoucher] = useState<SponsorVoucher>(null);
 
     const physicalCardsAvailable = useMemo(() => {
-        return (
-            voucher &&
-            voucher.fund.allow_physical_cards &&
-            voucher.fund.type === 'subsidies' &&
-            voucher.state !== 'deactivated' &&
-            !voucher.is_external
-        );
+        return voucher && voucher.fund.allow_physical_cards && voucher.state !== 'deactivated' && !voucher.external;
     }, [voucher]);
 
     const showMakeTransactionButton = useMemo(() => {
         return (
             voucher &&
             hasPermission(activeOrganization, 'make_direct_payments') &&
-            voucher.fund.type === 'budget' &&
             voucher.state === 'active' &&
             fund?.state != 'closed' &&
             !voucher.product &&
@@ -79,13 +74,6 @@ export default function VouchersViewComponent() {
         order_by: 'created_at',
         order_dir: 'desc',
         voucher_id: parseInt(id),
-    });
-
-    const reservationTransactionsFilters = useFilter({
-        per_page: 20,
-        order_by: 'created_at',
-        order_dir: 'desc',
-        reservation_voucher_id: parseInt(id),
     });
 
     const fetchVoucher = useCallback(() => {
@@ -287,7 +275,7 @@ export default function VouchersViewComponent() {
     useEffect(() => {
         eventLogsBlock.current?.();
         transactionsBlock.current?.();
-        reservationTransactionsBlock.current?.();
+        reservationsBlock.current?.();
     }, [voucher]);
 
     if (!voucher || !fund) {
@@ -310,30 +298,18 @@ export default function VouchersViewComponent() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex flex-grow card-title">
-                        <div className="flex flex-vertical flex-center">
-                            <div className="flex flex-vertical flex-center">#{voucher.number}</div>
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {!voucher.expired && voucher.state == 'active' && (
-                                <div className="tag tag-success tag-sm">{voucher.state_locale}</div>
-                            )}
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {!voucher.expired && voucher.state == 'pending' && (
-                                <div className="tag tag-default tag-sm">{voucher.state_locale}</div>
-                            )}
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {!voucher.expired && voucher.state == 'deactivated' && (
-                                <div className="tag tag-danger tag-sm">{voucher.state_locale}</div>
-                            )}
-                        </div>
-                        <div className="flex flex-vertical flex-center">
-                            {voucher.expired && (
-                                <div className="tag tag-warning tag-sm">{translate('vouchers.labels.expired')}</div>
-                            )}
-                        </div>
+                    <div className="flex flex-grow card-title flex-align-items-center flex-gap">
+                        <span>#{voucher.number}</span>
+                        {!voucher.expired && voucher.state == 'active' && (
+                            <Label type="success">{voucher.state_locale}</Label>
+                        )}
+                        {!voucher.expired && voucher.state == 'pending' && (
+                            <Label type="default">{voucher.state_locale}</Label>
+                        )}
+                        {!voucher.expired && voucher.state == 'deactivated' && (
+                            <Label type="danger">{voucher.state_locale}</Label>
+                        )}
+                        {voucher.expired && <Label type="warning">{translate('vouchers.labels.expired')}</Label>}
                     </div>
                     {hasPermission(activeOrganization, 'manage_vouchers') && (
                         <div className="card-header-filters">
@@ -359,7 +335,7 @@ export default function VouchersViewComponent() {
                                     </div>
                                 )}
 
-                                {!voucher.expired && voucher.state === 'deactivated' && !voucher.is_external && (
+                                {!voucher.expired && voucher.state === 'deactivated' && !voucher.external && (
                                     <div className="button button-danger button-sm" onClick={activateVoucher}>
                                         <em className="mdi mdi-alert-outline icon-start" />
                                         Activeren
@@ -388,19 +364,19 @@ export default function VouchersViewComponent() {
                                 )}
 
                                 {!voucher.expired &&
-                                    !voucher.is_granted &&
+                                    !voucher.granted &&
                                     voucher.state === 'pending' &&
-                                    !voucher.is_external && (
+                                    !voucher.external && (
                                         <div className="button button-primary button-sm" onClick={onOpenAction}>
                                             <em className="mdi mdi-clipboard-account icon-start " />
                                             {translate('vouchers.buttons.activate')}
                                         </div>
                                     )}
 
-                                {!voucher.is_granted &&
+                                {!voucher.granted &&
                                     !voucher.expired &&
                                     voucher.state === 'active' &&
-                                    !voucher.is_external && (
+                                    !voucher.external && (
                                         <div className="button button-primary button-sm" onClick={onOpenAction}>
                                             <em className="mdi mdi-qrcode icon-start " />
                                             {translate('vouchers.labels.qr_code')}
@@ -418,12 +394,10 @@ export default function VouchersViewComponent() {
                             <div className="keyvalue-value text-black">#{voucher.number}</div>
                         </div>
 
-                        {voucher.fund.type == 'budget' && (
-                            <div className="keyvalue-item">
-                                <div className="keyvalue-key">{translate('vouchers.labels.amount')}</div>
-                                <div className="keyvalue-value text-black">{voucher.amount_total_locale}</div>
-                            </div>
-                        )}
+                        <div className="keyvalue-item">
+                            <div className="keyvalue-key">{translate('vouchers.labels.amount')}</div>
+                            <div className="keyvalue-value text-black">{voucher.amount_total_locale}</div>
+                        </div>
 
                         <div className="keyvalue-item">
                             <div className="keyvalue-key">{translate('vouchers.labels.fund')}</div>
@@ -467,7 +441,7 @@ export default function VouchersViewComponent() {
                             </div>
                         )}
 
-                        {voucher.fund.type == 'subsidies' && (
+                        {voucher.fund.show_requester_limits && (
                             <div className="keyvalue-item">
                                 <div className="keyvalue-key">{translate('vouchers.labels.limit_multiplier')}</div>
                                 {hasPermission(activeOrganization, 'manage_vouchers') ? (
@@ -562,7 +536,7 @@ export default function VouchersViewComponent() {
                 </div>
             </div>
 
-            {!voucher.product && voucher.fund.type != 'subsidies' && (
+            {!voucher.product && (
                 <div className="card">
                     <div className="card-header">
                         <div className="flex flex-grow card-title">Financiële details</div>
@@ -621,7 +595,7 @@ export default function VouchersViewComponent() {
             )}
 
             {voucher.fund.allow_voucher_records && (
-                <VoucherRecords voucher={voucher} organization={activeOrganization} />
+                <VoucherRecordsCard voucher={voucher} organization={activeOrganization} />
             )}
 
             <EventLogsTable
@@ -648,18 +622,17 @@ export default function VouchersViewComponent() {
 
             {hasPermission(activeOrganization, 'manage_vouchers') && (
                 <Fragment>
-                    <VoucherTransactions
+                    <VoucherTransactionsCard
                         organization={activeOrganization}
                         blockTitle={'Betaalopdrachten'}
                         filterValues={transactionsFilters.activeValues}
                         fetchTransactionsRef={transactionsBlock}
                     />
 
-                    <VoucherTransactions
+                    <VoucherReservationsCard
+                        voucher={voucher}
                         organization={activeOrganization}
-                        blockTitle={'Reserveringen'}
-                        filterValues={reservationTransactionsFilters.activeValues}
-                        fetchTransactionsRef={reservationTransactionsBlock}
+                        fetchReservationsRef={reservationsBlock}
                     />
                 </Fragment>
             )}

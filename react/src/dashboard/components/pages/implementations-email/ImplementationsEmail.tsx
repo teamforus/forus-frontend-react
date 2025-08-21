@@ -13,6 +13,7 @@ import Implementation from '../../../props/models/Implementation';
 import { getStateRouteUrl, useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import InfoBox from '../../elements/info-box/InfoBox';
 
 export default function ImplementationsEmail() {
     const { id } = useParams();
@@ -113,8 +114,8 @@ export default function ImplementationsEmail() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="email_from_address">
                                         Afzender emailadres
                                     </label>
@@ -128,7 +129,7 @@ export default function ImplementationsEmail() {
                                     />
                                     <FormError error={form.errors.email_from_address} />
                                 </div>
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label" htmlFor="email_from_name">
                                         Afzender naam
                                     </label>
@@ -148,16 +149,11 @@ export default function ImplementationsEmail() {
 
                     <div className="card-section card-section-primary">
                         <div className="row">
-                            <div className="col col-lg-9">
-                                <div className="form-group form-group-inline">
-                                    <label className="form-label">
-                                        <em className="mdi mdi-information" style={{ fontSize: '18px' }} />
-                                    </label>
-                                    <span>
-                                        Forus zal uw e-mailadres verifieren en uw systeembeheer vragen om Forus zijn
-                                        mailservice als veilige afzender toe te voegen aan uw domein.
-                                    </span>
-                                </div>
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <InfoBox>
+                                    Forus zal uw e-mailadres verifieren en uw systeembeheer vragen om Forus zijn
+                                    mailservice als veilige afzender toe te voegen aan uw domein.
+                                </InfoBox>
                             </div>
                         </div>
                     </div>

@@ -75,6 +75,10 @@ export class ProductReservationService<T = Reservation> {
         );
     }
 
+    public listSponsor(organization_id: number, data: object): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/product-reservations`, data);
+    }
+
     public sampleCsvProductReservations = (product_id = '') => {
         const headers = ['number', 'product_id'];
         const values = ['000000000000', product_id];
@@ -82,15 +86,18 @@ export class ProductReservationService<T = Reservation> {
         return Papa.unparse([headers, values]);
     };
 
-    public getColumns(showExtraPayments: boolean): Array<ConfigurableTableColumn> {
+    public getColumns(showExtraPayments: boolean, isSponsor: boolean): Array<ConfigurableTableColumn> {
         const list = [
-            'number',
+            'code',
             'product',
+            isSponsor ? 'provider' : null,
             'price',
             showExtraPayments ? 'amount_extra' : null,
             'customer',
-            'reserved_at',
-            'status',
+            'created_at',
+            'state',
+            isSponsor ? 'transaction_id' : null,
+            isSponsor ? 'transaction_state' : null,
         ].filter((item) => item);
 
         return list.map((key) => ({
@@ -100,6 +107,20 @@ export class ProductReservationService<T = Reservation> {
                 key: key,
                 title: `reservations.labels.${key}`,
                 description: `reservations.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getExtraPaymentRefundsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['refund_date', 'refund_amount', 'status'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `reservation.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `reservation.labels.${key}`,
+                description: `reservation.tooltips.${key}`,
             },
         }));
     }

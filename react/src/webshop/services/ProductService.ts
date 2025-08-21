@@ -25,8 +25,8 @@ export class ProductService<T = Product> {
         return this.apiRequest.get(`${this.prefix}`, data);
     }
 
-    public sample(fund_type: 'budget' | 'subsidies', per_page = 6): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}/sample`, { fund_type, per_page });
+    public sample(per_page = 6): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(`${this.prefix}/sample`, { per_page });
     }
 
     public read(id: number): Promise<ApiResponseSingle<T>> {
@@ -75,7 +75,7 @@ export class ProductService<T = Product> {
         });
 
         const funds = [...product.funds].map((fund) => {
-            const { reservations_enabled, reservation_extra_payments_enabled } = fund;
+            const { feature_reservations_enabled, feature_reservation_extra_payments_enabled } = fund;
 
             const applicableVouchers = regularActiveVouchers.filter((voucher) => voucher.fund.id == fund.id);
             const reservableVouchers = applicableVouchers.filter(
@@ -83,8 +83,9 @@ export class ProductService<T = Product> {
             );
 
             const isReservable = reservableVouchers.length > 0;
-            const isReservationAvailable = isReservable && productAvailable && reservations_enabled;
-            const isReservationExtraPaymentAvailable = isReservationAvailable && reservation_extra_payments_enabled;
+            const isReservationAvailable = isReservable && productAvailable && feature_reservations_enabled;
+            const isReservationExtraPaymentAvailable =
+                isReservationAvailable && feature_reservation_extra_payments_enabled;
 
             const voucherDates = applicableVouchers
                 .map((voucher) =>
@@ -120,7 +121,7 @@ export class ProductService<T = Product> {
     public getSortOptions(translate: (key: string) => string): Array<{
         id: number;
         label: string;
-        value: { order_by: 'created_at' | 'price' | 'most_popular' | 'name'; order_dir: 'asc' | 'desc' };
+        value: { order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized'; order_dir: 'asc' | 'desc' };
     }> {
         return [
             {
@@ -142,6 +143,11 @@ export class ProductService<T = Product> {
             },
             { id: 6, label: translate('products.sort.name_asc'), value: { order_by: 'name', order_dir: 'asc' } },
             { id: 7, label: translate('products.sort.name_desc'), value: { order_by: 'name', order_dir: 'desc' } },
+            {
+                id: 8,
+                label: translate('products.sort.randomized'),
+                value: { order_by: 'randomized', order_dir: 'desc' },
+            },
         ];
     }
 

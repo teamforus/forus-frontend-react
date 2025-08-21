@@ -119,8 +119,7 @@ export type AppConfigProp = {
             };
         };
     };
-    has_budget_funds: boolean;
-    has_subsidy_funds: boolean;
+    has_internal_funds: boolean;
     has_reimbursements: boolean;
     has_payouts: boolean;
     announcements: Array<Announcement>;
@@ -213,6 +212,7 @@ export type AppConfigProp = {
     show_terms_checkbox?: boolean;
     show_privacy_checkbox?: boolean;
     languages: Array<Language>;
+    products_default_sorting?: string;
 };
 
 export class ConfigService<T = AppConfigProp> {

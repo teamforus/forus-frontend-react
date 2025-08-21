@@ -8,8 +8,10 @@ import ReadSpeakerButton from '../../../modules/read_speaker/ReadSpeakerButton';
 import useIsMobile from '../../../hooks/useIsMobile';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
+import { useNavbarHeaderHeight } from '../../../hooks/useNavbarHeaderHeight';
 
 export default function BlockShowcasePage({
+    dusk = null,
     aside = null,
     children = null,
     contentStyles = null,
@@ -17,6 +19,7 @@ export default function BlockShowcasePage({
     showCaseClassName = null,
     countFiltersApplied = null,
 }: {
+    dusk?: string;
     aside?: React.ReactElement | Array<React.ReactElement>;
     children?: React.ReactElement | Array<React.ReactElement>;
     contentStyles?: CSSProperties;
@@ -26,6 +29,7 @@ export default function BlockShowcasePage({
 }) {
     const isMobile = useIsMobile(1000);
     const translate = useTranslate();
+    const navbarHeaderHeight = useNavbarHeaderHeight();
 
     const [showModalFilters, setShowModalFilters] = useState(false);
 
@@ -40,10 +44,11 @@ export default function BlockShowcasePage({
     const toggleMobileMenu = useCallback(() => {
         return showModalFilters ? hideMobileMenu() : showMobileMenu();
     }, [showMobileMenu, showModalFilters]);
-
     return (
         <BlockShowcase className={showCaseClassName} breadcrumbItems={[]}>
-            <div className="showcase-wrapper">
+            <div
+                className="showcase-wrapper"
+                style={{ '--top-navbar-height': `${navbarHeaderHeight}px` } as CSSProperties}>
                 <div className={classNames('showcase-mobile-filters', 'rs_skip', countFiltersApplied && 'active')}>
                     <div className="mobile-filters-count">
                         <div className="mobile-filters-count-value">{countFiltersApplied}</div>
@@ -62,16 +67,16 @@ export default function BlockShowcasePage({
                     </div>
                 </div>
 
-                <div className="hide-sm">
-                    {breadcrumbItems?.length > 0 && (
+                {breadcrumbItems?.length > 0 && (
+                    <div className="hide-sm">
                         <BlockBreadcrumbs
                             items={breadcrumbItems}
                             after={
                                 <ReadSpeakerButton className={'breadcrumb-read-speaker'} targetId={'main-content'} />
                             }
                         />
-                    )}
-                </div>
+                    </div>
+                )}
 
                 <ErrorBoundaryHandler>
                     <div className="showcase-layout">
@@ -85,7 +90,7 @@ export default function BlockShowcasePage({
                             {aside || <BlockLoader />}
                         </div>
 
-                        <div className="showcase-content" style={contentStyles}>
+                        <div className="showcase-content" style={contentStyles} data-dusk={dusk}>
                             <div className="show-sm">
                                 {breadcrumbItems?.length > 0 && (
                                     <BlockBreadcrumbs

@@ -13,7 +13,6 @@ import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';
 import Transaction from '../../../props/models/Transaction';
 import useShowRejectInfoExtraPaid from '../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
-import useConfirmReservationRejection from '../../../services/helpers/reservations/useConfirmReservationRejection';
 import TransactionDetails from '../transactions-view/elements/TransactionDetails';
 import ReservationExtraPaymentRefunds from './elements/ReservationExtraPaymentRefunds';
 import ReservationExtraPaymentDetails from './elements/ReservationExtraPaymentDetails';
@@ -23,7 +22,9 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import { strLimit } from '../../../helpers/string';
 import BlockInlineCopy from '../../elements/block-inline-copy/BlockInlineCopy';
 import ProductDetailsBlockProperties from '../products-view/elements/ProductDetailsBlockProperties';
-import ReservationLabel from '../reservations/elements/ReservationLabel';
+import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
+import ModalReservationReject from '../../modals/ModalReservationReject';
+import useOpenModal from '../../../hooks/useOpenModal';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -31,6 +32,7 @@ export default function ReservationsView() {
     const envData = useEnvData();
     const activeOrganization = useActiveOrganization();
 
+    const openModal = useOpenModal();
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
@@ -44,7 +46,6 @@ export default function ReservationsView() {
 
     const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
     const confirmReservationApproval = useConfirmReservationApproval();
-    const confirmReservationRejection = useConfirmReservationRejection();
 
     const fetchTransaction = useCallback(
         (transaction_address: string) => {
@@ -109,26 +110,18 @@ export default function ReservationsView() {
                 return showRejectInfoExtraPaid();
             }
 
-            confirmReservationRejection([reservation], () => {
-                productReservationService
-                    .reject(activeOrganization.id, reservation.id)
-                    .then((res) => {
-                        pushSuccess('Opgeslagen!');
-                        setReservation(res.data.data);
-                    })
-                    .catch(pushApiError)
-                    .then(() => setProgress(100));
+            openModal((modal) => {
+                return (
+                    <ModalReservationReject
+                        modal={modal}
+                        organization={activeOrganization}
+                        reservations={[reservation]}
+                        onDone={() => fetchReservation(reservation.id)}
+                    />
+                );
             });
         },
-        [
-            activeOrganization.id,
-            confirmReservationRejection,
-            productReservationService,
-            pushApiError,
-            pushSuccess,
-            setProgress,
-            showRejectInfoExtraPaid,
-        ],
+        [activeOrganization, fetchReservation, openModal, showRejectInfoExtraPaid],
     );
 
     const onTransactionUpdate = useCallback(() => {
@@ -182,7 +175,7 @@ export default function ReservationsView() {
                                     </div>
                                     <div className="flex flex-vertical flex-center">
                                         <div className="flex flex-horizontal">
-                                            <ReservationLabel reservation={reservation} />
+                                            <ReservationStateLabel reservation={reservation} />
                                         </div>
                                     </div>
                                 </div>
@@ -231,7 +224,7 @@ export default function ReservationsView() {
                                                 {translate('reservation.labels.price')}
                                             </strong>
                                             <br />
-                                            <strong className="text-black">{reservation.price_locale}</strong>
+                                            <strong className="text-black">{reservation.amount_locale}</strong>
                                         </td>
                                         <td>
                                             <strong className="text-strong text-md text-primary">
@@ -296,6 +289,32 @@ export default function ReservationsView() {
                                             )}
                                         </td>
                                     </tr>
+                                    {reservation.canceled_at &&
+                                        reservation.state === 'canceled' &&
+                                        reservation.cancellation_note && (
+                                            <tr>
+                                                <td className="card-section card-section-warning" colSpan={4}>
+                                                    <strong className="text-strong text-md text-primary">
+                                                        {translate('reservation.labels.cancellation_note')}
+                                                    </strong>
+                                                    <br />
+                                                    <strong className="text-black">
+                                                        {reservation.cancellation_note}
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    {reservation.rejected_at && reservation.rejection_note && (
+                                        <tr className="card-section-warning">
+                                            <td className="card-section card-section-warning" colSpan={4}>
+                                                <strong className="text-strong text-md text-primary">
+                                                    {translate('reservation.labels.rejection_note')}
+                                                </strong>
+                                                <br />
+                                                <strong className="text-black">{reservation.rejection_note}</strong>
+                                            </td>
+                                        </tr>
+                                    )}
                                 </tbody>
                             </table>
                         </div>

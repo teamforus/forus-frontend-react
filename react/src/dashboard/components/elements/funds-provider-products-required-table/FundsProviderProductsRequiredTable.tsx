@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Fund from '../../../props/models/Fund';
-import useTranslate from '../../../hooks/useTranslate';
 import { strLimit } from '../../../helpers/string';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
+import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../tables/TableTopScroller';
+import useProviderFundService from '../../../services/ProviderFundService';
 
 export default function FundsProviderProductsRequiredTable({
     collapsed = true,
@@ -11,7 +13,9 @@ export default function FundsProviderProductsRequiredTable({
     collapsed?: boolean;
     funds: Fund[];
 }) {
-    const translate = useTranslate();
+    const providerFundService = useProviderFundService();
+
+    const { headElement, configsElement } = useConfigurableTable(providerFundService.getProductsRequiredColumns());
 
     const [showFunds, setShowFunds] = useState(!collapsed);
 
@@ -27,27 +31,26 @@ export default function FundsProviderProductsRequiredTable({
             {showFunds && (
                 <div className="card-section">
                     <div className="card-block card-block-table">
-                        <div className="table-wrapper">
+                        {configsElement}
+
+                        <TableTopScroller>
                             <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>{translate('components.organization_funds.labels.name')}</th>
-                                        <th>{translate('components.organization_funds.labels.type')}</th>
-                                        <th>{translate('components.organization_funds.labels.implementation')}</th>
-                                    </tr>
-                                </thead>
+                                {headElement}
 
                                 <tbody>
                                     {funds.map((fund) => (
                                         <tr key={fund.id}>
                                             <td title={fund.name || '-'}>{strLimit(fund.name, 50)}</td>
-                                            <td>{fund.type_locale}</td>
+                                            <td>{fund.external ? 'External' : 'Regular'}</td>
                                             <td>{fund.implementation?.name || <TableEmptyValue />}</td>
+                                            <td className={'table-td-actions text-right'}>
+                                                <TableEmptyValue />
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
+                        </TableTopScroller>
                     </div>
                 </div>
             )}

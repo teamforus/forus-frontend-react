@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import Organization from '../../props/models/Organization';
 import Employee from '../../props/models/Employee';
@@ -14,6 +14,7 @@ import SelectControl from '../elements/select-control/SelectControl';
 import useOfficeService from '../../services/OfficeService';
 import classNames from 'classnames';
 import useIsProviderPanel from '../../hooks/useIsProviderPanel';
+import useEnvData from '../../hooks/useEnvData';
 
 export default function ModalEmployeeEdit({
     modal,
@@ -30,6 +31,7 @@ export default function ModalEmployeeEdit({
     cancelButton?: ModalButton;
     organization: Organization;
 }) {
+    const envData = useEnvData();
     const isProviderPanel = useIsProviderPanel();
 
     const roleService = useRoleService();
@@ -37,6 +39,44 @@ export default function ModalEmployeeEdit({
     const officeService = useOfficeService();
 
     const [roles, setRoles] = useState<Array<Role>>([]);
+
+    const excludedRoles = useMemo(() => {
+        switch (envData.client_type) {
+            case 'sponsor':
+                return ['operation_officer'];
+            case 'provider':
+                return [
+                    'finance',
+                    'validation',
+                    'policy_officer',
+                    'voucher_officer',
+                    'implementation_communication_manager',
+                    'bank_manager',
+                    'supervisor_validator',
+                    'finance_reader',
+                    'voucher_reader',
+                    'payouts_manager',
+                    'view_identities',
+                    'manage_identities',
+                ];
+            case 'validator':
+                return [
+                    'operation_officer',
+                    'finance',
+                    'implementation_communication_manager',
+                    'bank_manager',
+                    'finance_reader',
+                    'voucher_reader',
+                    'payouts_manager',
+                    'view_identities',
+                    'manage_identities',
+                    'policy_officer',
+                    'voucher_officer',
+                ];
+            default:
+                return [];
+        }
+    }, [envData.client_type]);
 
     const form = useFormBuilder(
         {
@@ -90,8 +130,10 @@ export default function ModalEmployeeEdit({
     }, [fetchOffices]);
 
     useEffect(() => {
-        roleService.list().then((res) => setRoles(res.data.data));
-    }, [roleService]);
+        roleService.list().then((res) => {
+            setRoles(res.data.data.filter((role) => !excludedRoles.includes(role.key)));
+        });
+    }, [roleService, excludedRoles]);
 
     return (
         <div

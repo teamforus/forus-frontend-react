@@ -175,11 +175,11 @@
         },
         "file_uploader": {
             "attachments": "Ekler",
-            "max_files": "Maks. {[ count ]} dosyalar",
             "max_size": "maks. boyut 8Mb",
             "or": "veya",
             "title": "Bir belge yükleyin",
-            "upload_button": "Bir belge yükleyin"
+            "upload_button": "Bir belge yükleyin",
+            "max_files": "Maks. {{ count }} dosyalar"
         },
         "info_box": {
             "2fa_description": "2FA hakkında daha fazla bilgi için bizi ziyaret edin:",
@@ -437,7 +437,8 @@
             "name_asc": "İsim (artan)",
             "name_desc": "İsim (azalan)",
             "price_asc": "Fiyat (artan)",
-            "price_desc": "Fiyat (azalan)"
+            "price_desc": "Fiyat (azalan)",
+            "randomized": "Rastgele"
         },
         "title": "Teklif",
         "view": {
@@ -663,7 +664,6 @@
             "providers": "Sağlayıcılar",
             "records": "Kişisel bilgilerim",
             "reimbursements": "Maliyet geri kazanımı",
-            "subsidies": "Teklif",
             "vergoedingen": {
                 "activate": "Ücretler",
                 "login": "Oturum açma / kayıt olma"
@@ -721,7 +721,6 @@
             },
             "search": "Arama",
             "signup": "Açıklama sağlayıcıları",
-            "subsidies": "Teklif",
             "vergoedingen": {
                 "funds": "Ücretler"
             },
@@ -865,9 +864,7 @@
         "details": {
             "created_at": "Gönderilme tarihi:",
             "fund_name": "Fon adı:",
-            "id": "KIMLIK:",
-            "number_of_records": "Kişisel veri sayısı:",
-            "title": "Başvuru durumu"
+            "status": "Durum Talebi:"
         },
         "digid_expired": {
             "description": "DigiD ile tekrar oturum açın ve uygulamayı tekrar başlatın.",
@@ -885,15 +882,18 @@
         },
         "record": {
             "answer": "Cevaplandı",
-            "answer_btn": "Yanıtla",
             "cancel_btn": "İptal",
             "new": "yeni mesaj",
             "new_message": "Yeni istek",
             "send_btn": "Gönder",
-            "view": "Görünüm"
-        },
-        "records": {
-            "title": "Benim bilgilerim"
+            "view": "Görünüm",
+            "add_document_label": "Belge ekleme",
+            "answer_btn": "Bu soruya cevap verin",
+            "answer_btn_info": "Ek bilgileri göndermek için<strong>\"Bu soruyu yanıt</strong>la\" düğmesine tıklayın. Bilgiler başvuruya eklenecektir.",
+            "answer_question_label": "Soruyu cevaplayın",
+            "my_answer": "Benim cevabım",
+            "my_message": "Benim mesajım",
+            "optional_label": "(isteğe bağlı)"
         },
         "sign_up": {
             "app": {
@@ -925,6 +925,9 @@
                     "declined": "Başvuru reddedildi",
                     "disregarded": "Başvuru reddedildi",
                     "pending": "Başvuru beklemede"
+                },
+                "heading": {
+                    "pending": "Başvuru sırasında cevaplanan sorular:"
                 }
             },
             "header": {
@@ -1011,7 +1014,27 @@
             "step": "Adım {{step}}",
             "step_out_of": "Adım {{step}}"
         },
-        "title": "İstek #{{ id }}"
+        "title": "İstek #{{ id }}",
+        "clarifications": {
+            "info_requested": "Ek soru soruldu",
+            "provide_info": "Soruyu cevaplayın",
+            "subtitle": "Başvuru henüz tamamlanmamıştır. Ek bilgiye ihtiyaç vardır. Lütfen aşağıdaki soruyu inceleyin ve yanıtlamak için düğmeye tıklayın.",
+            "title": "Açık sorular ({{ count }})",
+            "info_responded_count": "{{count}} mesaj"
+        },
+        "labels": {
+            "date": "Tarih:",
+            "question": "Soru",
+            "question_from": "Bir soru {{ name }}"
+        },
+        "records": {
+            "subtitle": "Bu blok, fon başvuru talebi sırasında sağladığınız kişisel bilgileri içerir.",
+            "title": "Bilgilerim ({{ count }})"
+        },
+        "subtitle": "Bu sayfa başvuru hakkında bilgi içerir. Durum, tamamlanan veriler ve ek sorular buradan görüntülenebilir.",
+        "modal": {
+            "title": "Ek soru"
+        }
     },
     "fund": {
         "breadcrumbs": {
@@ -1774,8 +1797,7 @@
         "breadcrumbs": {
             "back": "Geri",
             "home": "Ev",
-            "products": "Teklif",
-            "subsidies": "Teklif"
+            "products": "Teklif"
         },
         "buttons": {
             "buy": "Rezervasyon",
@@ -1812,12 +1834,10 @@
             "pay_from_voucher": "Krediden ödeme yaparsınız:",
             "price": "Fiyat:",
             "payment_option_ideal": "Online ödeme (iDEAL)",
-            "payment_option_ideal_aria_label": "Online ödeme (iDEAL): daha fazla bilgi için tıklayın",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
-            "payment_option_qr_aria_label": "QR kodunu sağlayıcıda göster: daha fazla bilgi için tıklayın",
             "payment_option_reservation": "Online rezervasyon",
-            "payment_option_reservation_aria_label": "Online rezervasyon: daha fazla bilgi için tıklayın",
-            "payment_options": "Ödeme seçenekleri"
+            "payment_options": "Ödeme seçenekleri",
+            "payment_option_link": "Ödeme seçenekleri hakkında daha fazla bilgi edinin"
         },
         "low_amount": "Yeterli bakiyeye sahip krediniz yok.",
         "map": {
@@ -2540,6 +2560,12 @@
             "house_composition": "Aile yapısı",
             "living_arrangement": "Yaşayan form",
             "title": "Hane halkı"
+        },
+        "address": {
+            "cancel": "İptal",
+            "edit": "Düzenle",
+            "save": "Kaydet",
+            "title": "Adres bilgileri"
         }
     },
     "reimbursements": {
@@ -2641,7 +2667,9 @@
                 "fund_name": "Fon adı",
                 "id": "KIMLIK",
                 "price": "Miktar",
-                "title": "Başlık"
+                "title": "Başlık",
+                "cancellation_note": "Sağlayıcı mesajı:",
+                "rejection_note": "Sağlayıcı mesajı:"
             },
             "loading": "Yükleniyor",
             "title": "Rezervasyon detayları"
@@ -3075,11 +3103,12 @@
                 "house_nr": "Ev numarası",
                 "house_nr_addition": "Ev numarası ekleme",
                 "last_name": "Soyadı",
-                "notes": "Not (isteğe bağlı)",
                 "phone": "Telefon numarası",
                 "phone_optional": "Telefon numarası (isteğe bağlı)",
                 "postal_code": "Posta kodu",
-                "street": "Sokak"
+                "street": "Sokak",
+                "notes": "Yorum",
+                "notes_optional": "Not (isteğe bağlı)"
             },
             "max_characters": "Maks. 400 karakter",
             "placeholders": {
@@ -3319,8 +3348,7 @@
             "more": "Daha fazla görüntüle"
         },
         "header": {
-            "title_budget": "Teklif",
-            "title_subsidies": "Teklif"
+            "title_budget": "Teklif"
         },
         "input": {
             "placeholder": "Ürün veya hizmet arama"
@@ -3520,7 +3548,22 @@
         "sessions": {
             "terminated": "Sonlandırıldı!"
         },
-        "success": "Başarılı!"
+        "success": "Başarılı!",
+        "email_verification_auth_error": {
+            "description": "Kimliğiniz doğrulanmadı, lütfen önce e-posta adresinizi onaylamak için giriş yapın.",
+            "title": "Kimlik doğrulama gerekli!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Bilinmeyen hata."
+        },
+        "email_verification_success": {
+            "description": "E-posta onaylanmıştır.",
+            "title": "E-posta onaylandı!"
+        },
+        "session_expired": {
+            "description": "Tekrar giriş yapın ve tekrar deneyin.",
+            "title": "Oturum süresi doldu!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Okumak için",

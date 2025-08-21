@@ -85,13 +85,13 @@ export default function MollieConnectionForm({
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-lg-9 col-lg-12">
-                            <div className="form-group form-group-inline">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
                                 <label className="form-label">&nbsp;</label>
                                 <div className="form-title">{translate('mollie_connection.titles.address')}</div>
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('mollie_connection.labels.country')}
                                 </label>
@@ -106,7 +106,7 @@ export default function MollieConnectionForm({
                                 <FormError error={form.errors.country_code} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label">{translate('mollie_connection.labels.city')}</label>
                                 <input
                                     className="form-control"
@@ -118,7 +118,7 @@ export default function MollieConnectionForm({
                                 <FormError error={form.errors.city} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label">{translate('mollie_connection.labels.street')}</label>
                                 <input
                                     className="form-control"
@@ -130,7 +130,7 @@ export default function MollieConnectionForm({
                                 <FormError error={form.errors.street} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label">{translate('mollie_connection.labels.postcode')}</label>
                                 <input
                                     className="form-control"
@@ -147,15 +147,15 @@ export default function MollieConnectionForm({
 
                 <div className="card-section card-section-primary">
                     <div className="row">
-                        <div className="col col-lg-9 col-lg-12">
-                            <div className="form-group form-group-inline">
+                        <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                            <div className="form-group">
                                 <label className="form-label">&nbsp;</label>
                                 <div className="form-title">
                                     {translate('mollie_connection.titles.contact_information')}
                                 </div>
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('mollie_connection.labels.organization_name')}
                                 </label>
@@ -169,7 +169,7 @@ export default function MollieConnectionForm({
                                 <FormError error={form.errors.name} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('mollie_connection.labels.first_name')}
                                 </label>
@@ -183,7 +183,7 @@ export default function MollieConnectionForm({
                                 <FormError error={form.errors.first_name} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('mollie_connection.labels.last_name')}
                                 </label>
@@ -197,7 +197,7 @@ export default function MollieConnectionForm({
                                 <FormError error={form.errors.last_name} />
                             </div>
 
-                            <div className="form-group form-group-inline">
+                            <div className="form-group">
                                 <label className="form-label form-label-required">
                                     {translate('mollie_connection.labels.email')}
                                 </label>
@@ -217,15 +217,15 @@ export default function MollieConnectionForm({
                 <div className="card-section card-section-primary">
                     <div className="form-group">
                         <div className="row">
-                            <div className="col col-lg-9 col-lg-12">
-                                <div className="form-group form-group-inline">
+                            <div className="col col-md-8 col-md-offset-2 col-xs-12">
+                                <div className="form-group">
                                     <label className="form-label">&nbsp;</label>
                                     <div className="form-title">
                                         {translate('mollie_connection.titles.profile_information')}
                                     </div>
                                 </div>
 
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label form-label-required">
                                         {translate('mollie_connection.labels.profile_name')}
                                     </label>
@@ -239,7 +239,7 @@ export default function MollieConnectionForm({
                                     <FormError error={form.errors.profile_name} />
                                 </div>
 
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label form-label-required">
                                         {translate('mollie_connection.labels.phone')}
                                     </label>
@@ -253,7 +253,7 @@ export default function MollieConnectionForm({
                                     <FormError error={form.errors.phone} />
                                 </div>
 
-                                <div className="form-group form-group-inline">
+                                <div className="form-group">
                                     <label className="form-label form-label-required">
                                         {translate('mollie_connection.labels.website')}
                                     </label>
@@ -270,9 +270,7 @@ export default function MollieConnectionForm({
                         </div>
                     </div>
 
-                    <InfoBox iconPosition={'top'} iconColor={'primary'}>
-                        <p>{translate('mollie_connection.create_form.info_content')}</p>
-                    </InfoBox>
+                    <InfoBox>{translate('mollie_connection.create_form.info_content')}</InfoBox>
                 </div>
 
                 <div className="card-section">

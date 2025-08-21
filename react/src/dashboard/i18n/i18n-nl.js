@@ -329,6 +329,8 @@ export default {
         },
         buttons: {
             choose: 'Kies een ander fonds',
+            create: 'Activatiecode aanmaken',
+            upload: 'Upload .csv bestand',
         },
     },
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
@@ -385,6 +387,20 @@ export default {
             total_percentage: 'Totaal percentage',
             total_count: 'Totaal aantal',
             product_vouchers: 'Aanbiedingsvouchers',
+            payout_vouchers: 'Uitbetalingen',
+        },
+        tooltips: {
+            fund_name: 'Naam van de regeling.',
+            total_budget: 'Totaal gestort bedrag in de periode.',
+            current_budget: 'Beschikbaar saldo (gestort - uitgegeven).',
+            used_budget: 'Totaal uitgegeven bedrag.',
+            transaction_costs: 'Gemaakte transactiekosten.',
+            total: 'Totaal uitgegeven tegoeden.',
+            active: 'Totaal actieve tegoeden.',
+            inactive: 'Totaal inactieve tegoeden.',
+            deactivated: 'Totaal gedeactiveerde tegoeden.',
+            used: 'Totaal besteed van tegoeden.',
+            left: 'Nog beschikbaar van tegoeden.',
         },
         buttons: {
             export: 'Exporteren',
@@ -488,26 +504,6 @@ export default {
         },
     },
 
-    implementation_config: {
-        pages: {
-            home: 'Homepagina instellingen',
-            providers: 'Aanbieders instellingen',
-            provider: 'Aanbieder instellingen',
-            office: 'Vestiging instellingen',
-            voucher: 'Tegoeden instellingen',
-            product: 'Aanbod instellingen',
-        },
-        blocks: {
-            show_home_map: 'Tonen van de map (Homepagina)',
-            show_home_products: 'Tonen van het aanbod (Homepagina)',
-            show_providers_map: 'Tonen van de map (Aanbieders pagina)',
-            show_provider_map: 'Tonen van de map (Aanbieder pagina)',
-            show_office_map: 'Tonen van de map (Aanbieder vestiging pagina)',
-            show_voucher_map: 'Tonen van de map (Tegoeden pagina)',
-            show_product_map: 'Tonen van de map (Aanbod pagina)',
-        },
-    },
-
     // EDIT FUNDS = funds-edit.pug
     funds_edit: {
         header: {
@@ -591,13 +587,19 @@ export default {
                 from: 'Created from',
                 to: 'Created to',
             },
-            columns: {
+            labels: {
                 fund: 'Fund',
                 code: 'Used code',
                 iban: 'IBAN',
                 top_up_id: 'Fund top-up ID',
                 amount: 'Amount',
-                date: 'Date',
+                created_at: 'Date',
+            },
+            tooltips: {
+                code: 'Code gebruikt bij het toevoegen van budget.',
+                iban: 'Bankrekeningnummer waarmee is gestort.',
+                amount: 'Bedrag dat is toegevoegd aan het fonds.',
+                created_at: 'Datum waarop de storting is gedaan.',
             },
         },
         implementations_table: {
@@ -702,6 +704,14 @@ export default {
                 rejected: 'Geweigerd',
             },
         },
+        tooltips: {
+            organization_name: 'Naam van de organisatie van de aanbieder die zich heeft aangemeld voor een fonds.',
+            product_count: 'Het totaal aantal producten dat de aanbieder heeft aangemaakt.',
+            last_active:
+                'Geeft aan wanneer er voor het laatst activiteiten hebben plaatsgevonden bij deze aanbieder.' +
+                ' Voorbeelden zijn inloggen op de beheeromgeving door een medewerker of het toevoegen van aanbod aan de organisatie.',
+            funds_count: 'Het totaal aantal fondsen waar de aanbieder zich voor heeft aangemeld.',
+        },
         buttons: {
             view: 'Bekijken',
         },
@@ -726,6 +736,11 @@ export default {
             type: 'Type',
             used: 'Gebruikt',
             cost: 'Kosten',
+        },
+        tooltips: {
+            type: 'Het type content dat op de webshop is vertaald.',
+            used: 'Het aantal symbolen dat is vertaald voor het type in de geselecteerde periode.',
+            cost: 'De gemaakte kosten voor het type in de geselecteerde periode.',
         },
     },
 
@@ -846,6 +861,18 @@ export default {
             expire_at: 'Verloopdatum',
             actions: 'Actie',
         },
+        tooltips: {
+            id: 'Het unieke ID-nummer van het aanbod binnen het Forus platform. Dit nummer wordt automatisch gegenereerd.',
+            name: 'De naam van het aanbod dat de aanbieder heeft aangemaakt.',
+            photo: 'Afbeelding',
+            stock_amount:
+                'Het totaal aantal hoevaak het aanbod nog gebruikt kan worden. Indien er een onbeperkte voorraad is ingesteld voor het aanbod, staat hier ‘Onbeperkt’.',
+            price: 'Het bedrag dat is gekoppeld aan het aanbod.',
+            expired_at: 'De status of het aanbod is verlopen (Ja/Nee).',
+            expire_at:
+                'De verloopdatum van het aanbod dat is ingesteld door de aanbieder. Indien er geen verloopdatum is ingesteld, staat hier ‘Geen’.',
+            actions: 'Actie',
+        },
         cannot_delete:
             'Let op! Wanneer uw product of dienst geplaatst is moet u dit aanbod kunnen leveren. Bedenk dus goed hoeveel aanbod en daarmee reserveringen u wilt uitgeven. U kunt uw aanbod altijd ophogen maar niet meer verlagen.',
         confirm_delete: {
@@ -879,6 +906,21 @@ export default {
             date_type: 'Pas toe op',
             from: 'Vanaf',
             to: 'Tot en met',
+        },
+        tooltips: {
+            name: 'Het naam van het aanbod van de aanbieder.',
+            last_updated:
+                'De datum en het tijdstip waarop de laatste wijziging is doorgevoerd op het aanbod door de aanbieder.',
+            nr_funds: 'Het aantal fondsen waarvoor het aanbod is aangemeld door de aanbieder.',
+            price: 'De prijs die door de aanbieder is ingesteld voor het aanbod.',
+            stock_amount:
+                'De voorrraad die door de aanbieder is ingesteld voor het aanbod. Indien er geen voorraad is ingesteld, staat deze op ‘Onbeperkt’.',
+            category: 'De categorie van het aanbod dat door de aanbieder is ingesteld.',
+            created_at: 'De datum en het tijdstip waarop de aanbieder het aanbod heeft aangemeld voor het fonds.',
+            updated_fields: 'De velden die door de aanbieder zijn aangepast van het aanbod.',
+            date: 'De datum en het tijdstip waarop er een wijziging in het aanbod heeft plaatsgevonden.',
+            nr_changes: 'Het aantal wijzigingen dat de aanbieder heeft gemaakt in het aanbod.',
+            fund: 'Het aantal fondsen waarvoor het aanbod is aangemeld door de aanbieder.',
         },
         fields: {
             name: 'Titel',
@@ -1440,6 +1482,17 @@ export default {
             actions: 'Actie',
             auth_2fa: '2FA',
             owner: 'Eigenaar',
+            created_at: 'Aangemaakt op',
+            last_activity: 'Laatste handeling',
+        },
+        tooltips: {
+            email: 'Het e-mailadres van de medewerker.',
+            branch_name_id:
+                'Een naam en een unieke ID die door de organisatie aan een vestiging wordt toegewezen voor interne administratieve doeleinden.',
+            branch_number: 'Uniek 12-cijferig nummer toegekend door de KvK. Verschilt van het KVK-nummer.',
+            auth_2fa: 'De status of tweefactorauthenticatie is ingesteld (Ja/Nee).',
+            created_at: 'Aangemaakt op',
+            last_activity: 'Laatste handeling',
         },
         buttons: {
             adjust: 'Aanpassen',
@@ -1460,8 +1513,8 @@ export default {
         },
         tooltips: {
             image: 'Afbeelding',
-            name: 'Naam',
-            state: 'Status',
+            name: 'Naam van de gekoppelde regeling.',
+            state: 'Status van de regeling op de webshop.',
         },
     },
 
@@ -1498,9 +1551,9 @@ export default {
             id: 'ID',
             requests: 'Openstaande aanvragen ({{ count }})',
             bsn: 'BSN: ',
-            type: 'Type',
+            type: 'Gegeven',
             requester_email: 'Aanvrager',
-            value: 'Eigenschap',
+            value: 'Waarde',
             date: 'Datum, tijd',
             results: '{{ count }} resultaten',
             state: 'Status',
@@ -1532,6 +1585,17 @@ export default {
             assignee_email: 'Toegewezen aan',
             assignee_state: 'Toegewezen staat',
             assigned_to_employee: 'Beoordelaar',
+        },
+        tooltips: {
+            id: 'Uniek ID van de aanvraag.',
+            requester_email: 'E-mailadres en BSN van aanvrager.',
+            fund_name: 'Regeling waarvoor is aangevraagd.',
+            created_at: 'Datum en tijdstip van binnenkomst.',
+            assignee_email: 'Medewerker gekoppeld aan aanvraag.',
+            state: 'Status van de aanvraag.',
+            type: 'Type gegeven (bijv. aantal kinderen).',
+            value: 'Opgegeven waarde door inwoner.',
+            date: 'Datum en tijdstip van indiening.',
         },
         tabs: {
             all: 'Alles',
@@ -1597,6 +1661,12 @@ export default {
             employee: 'Medewerker',
             date_changed: 'Datum gewijzigd',
         },
+        tooltips: {
+            old_value: 'De oude waarde van de eigenschap die door de medewerker is aangepast.',
+            new_value: 'De nieuwe waarde van de eigenschap die aan de aanvraag is toegevoegd.',
+            employee: 'Het e-mailadres van de medewerker die de eigenschap heeft aangepast.',
+            date_changed: 'De datum en het tijdstip dat de eigenschap is gewijzigd.',
+        },
     },
 
     // DIRECTIVES
@@ -1605,7 +1675,6 @@ export default {
         header: {
             title: 'Notities',
         },
-
         labels: {
             id: 'ID',
             created_at: 'Aangemaakt op',
@@ -1613,7 +1682,12 @@ export default {
             note: 'Notitie',
             actions: 'Acties',
         },
-
+        tooltips: {
+            id: 'Uniek ID van de notitie.',
+            created_at: 'Tijdstip van creatie.',
+            created_by: 'Medewerker die notitie heeft gemaakt.',
+            note: 'Inhoud van de notitie.',
+        },
         buttons: {
             add_new: 'Nieuwe aanmaken',
         },
@@ -1655,10 +1729,18 @@ export default {
             hold: 'Wachten',
         },
         labels: {
+            provider_name: 'Aanbieder',
             price: 'Bedrag',
             product_name: 'Aanbod naam',
             date: 'Datum',
             status: 'Status',
+        },
+        tooltips: {
+            provider_name: 'Naam van de aanbieder.',
+            price: 'De waarde van de transactie.',
+            product_name: 'Het naam van het aanbod van de aanbieder.',
+            date: 'De datum en het tijdstip van de transactie.',
+            status: 'De status van de transactie.',
         },
     },
 
@@ -1752,10 +1834,11 @@ export default {
     // PRE VALIDATED TABLE = prevalidated_table.pug
     prevalidated_table: {
         header: {
-            title: 'Gegevens van aanvragers',
+            title: 'Klaarzetten',
         },
         labels: {
             code: 'Code',
+            fund: 'Fonds',
             employee: 'Medewerker',
             search: 'Zoeken',
             exported: 'Geëxporteerd',
@@ -1765,10 +1848,19 @@ export default {
             filter: 'Filter',
             actions: 'Opties',
         },
+        tooltips: {
+            code: 'Activatiecode die gebruikt kan worden door de inwoner.',
+            fund: 'Naam van de regeling waarvoor de gegevens zijn klaargezet.',
+            employee: 'Het e-mailadres van de medewerker die de gegevens heeft klaargezet.',
+            records: 'Gegevens die zijn klaargezet om voor de inwoner te laten activeren.',
+            exported: 'Zijn de gegevens geëxporteerd door de medewerker vanuit de beheeromgeving (Ja/Nee).',
+            active: 'Is de activatiecode of zijn de gegevens gebruikt door de inwoner (Ja/Nee).',
+        },
         buttons: {
             export_selected: 'Exporteer selectie',
             export_csv: 'Exporteer als .CSV',
             export_xls: 'Exporteer als .XLS',
+            add_new: 'Exporteer als .XLS',
         },
     },
 

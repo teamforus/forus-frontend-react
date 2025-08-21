@@ -63,9 +63,15 @@ export default function useFilterNext<T = FilterModel>(
 
     const [stateValues, setValues] = useState<Partial<T & FilterModel>>({ ...initialValues, ...initialQueryValues });
 
-    const [activeValues, setActiveValues] = useState<Partial<T & FilterModel>>({
+    const [combinedInitialValues] = useState({
         ...initialValues,
         ...(backendTypeQuery ? initialQueryValues : {}),
+    });
+
+    const [activeValues, setActiveValues] = useState<Partial<T & FilterModel>>({
+        ...Object.keys(combinedInitialValues)
+            .filter((key) => !filterParams || !filterParams.includes(key as keyof T))
+            .reduce((obj, key) => ({ ...obj, [key]: combinedInitialValues[key] }), {}),
     });
 
     const values = useMemo<T & FilterModel>(() => {
@@ -117,19 +123,21 @@ export default function useFilterNext<T = FilterModel>(
                     : { ...filters, ...appendPrefix(values, queryParamsPrefix) };
             };
 
-            if (typeof values == 'function') {
-                if (backendTypeQuery) {
+            if (!backendTypeQuery) {
+                if (typeof values == 'function') {
+                    return setValues(callbackSetter);
+                }
+
+                return setValues(valueSetter);
+            }
+
+            setTimeout(() => {
+                if (typeof values == 'function') {
                     return setValuesQuery(callbackSetter, throttled ? 'replaceIn' : 'pushIn');
                 }
 
-                return setValues(callbackSetter);
-            }
-
-            if (backendTypeQuery) {
-                return setValuesQuery(valueSetter, throttled ? 'replaceIn' : 'pushIn');
-            }
-
-            setValues(valueSetter);
+                setValuesQuery(valueSetter, throttled ? 'replaceIn' : 'pushIn');
+            });
         },
         [backendTypeQuery, initialValues, setValuesQuery, throttledValues, queryParamsPrefix],
     );

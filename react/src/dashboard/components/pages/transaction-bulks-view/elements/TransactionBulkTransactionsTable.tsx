@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ThSortable from '../../../elements/tables/ThSortable';
 import { strLimit } from '../../../../helpers/string';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Paginator from '../../../../modules/paginator/components/Paginator';
@@ -16,6 +15,9 @@ import useEnvData from '../../../../hooks/useEnvData';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import Label from '../../../elements/image_cropper/Label';
+import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../elements/tables/TableTopScroller';
 
 export default function TransactionBulkTransactionsTable({
     organization,
@@ -42,6 +44,11 @@ export default function TransactionBulkTransactionsTable({
         per_page: paginationService.getPerPage(perPageKey),
         order_by: 'created_at',
         order_dir: 'desc',
+    });
+
+    const { headElement, configsElement } = useConfigurableTable(transactionService.getBulkTransactionsColumns(), {
+        filter,
+        sortable: true,
     });
 
     const exportTransactions = useCallback(() => {
@@ -95,65 +102,12 @@ export default function TransactionBulkTransactionsTable({
             </div>
             <div className="card-section">
                 <div className="card-block card-block-table">
-                    <div className="table-wrapper">
+                    {configsElement}
+
+                    <TableTopScroller>
                         <table className="table">
-                            <thead>
-                                <tr>
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.id')}
-                                        value="id"
-                                    />
+                            {headElement}
 
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.uid')}
-                                        value="uid"
-                                    />
-
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.amount')}
-                                        value="amount"
-                                    />
-
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.created_at')}
-                                        value="created_at"
-                                    />
-
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.fund_name')}
-                                        value="fund_name"
-                                    />
-
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.provider_name')}
-                                        value="provider_name"
-                                    />
-
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.product_name')}
-                                        value="product_name"
-                                    />
-
-                                    <ThSortable
-                                        filter={filter}
-                                        label={translate('transactions.labels.state')}
-                                        value="status"
-                                    />
-
-                                    <ThSortable
-                                        className={'th-narrow text-right'}
-                                        filter={filter}
-                                        label={translate('transactions.labels.action')}
-                                    />
-                                </tr>
-                            </thead>
                             <tbody>
                                 {transactions?.data.map((transaction) => (
                                     <tr key={transaction.id}>
@@ -191,14 +145,9 @@ export default function TransactionBulkTransactionsTable({
                                         <td>{strLimit(transaction.product?.name || '-', 25) || '-'}</td>
 
                                         <td>
-                                            <div
-                                                className={
-                                                    transaction.state == 'success'
-                                                        ? 'label label-success'
-                                                        : 'label label-default'
-                                                }>
+                                            <Label type={transaction.state == 'success' ? 'success' : 'default'}>
                                                 {transaction.state_locale}
-                                            </div>
+                                            </Label>
                                         </td>
                                         <td>
                                             <StateNavLink
@@ -215,7 +164,7 @@ export default function TransactionBulkTransactionsTable({
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </TableTopScroller>
                 </div>
             </div>
 

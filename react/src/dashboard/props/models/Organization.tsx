@@ -50,7 +50,10 @@ export default interface Organization {
     description_html?: string;
     reservation_phone: 'required' | 'optional' | 'no';
     reservation_address: 'required' | 'optional' | 'no';
+    reservation_user_note: 'required' | 'optional' | 'no';
     reservation_birth_date: 'required' | 'optional' | 'no';
+    reservation_note?: boolean;
+    reservation_note_text?: string;
     reservation_allow_extra_payments: boolean;
     reservation_fields: Array<ReservationField>;
     email?: string;
@@ -67,14 +70,12 @@ export default interface Organization {
     reservations_auto_accept: boolean;
     allow_custom_fund_notifications: boolean;
     validator_auto_accept_funds: boolean;
-    reservations_budget_enabled: boolean;
-    reservations_subsidy_enabled: boolean;
+    reservations_enabled: boolean;
     is_sponsor: boolean;
     is_provider: boolean;
     is_validator: boolean;
     bsn_enabled: boolean;
     allow_batch_reservations: boolean;
-    allow_budget_fund_limits: boolean;
     allow_manual_bulk_processing: boolean;
     allow_fund_request_record_edit: boolean;
     allow_bi_connection: boolean;

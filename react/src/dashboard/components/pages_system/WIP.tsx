@@ -1,7 +1,7 @@
 import React from 'react';
 import useFilterNext from '../../modules/filter_next/useFilterNext';
 import { StringParam } from 'use-query-params';
-import FormGroup from '../elements/forms/controls/FormGroup';
+import FormGroup from '../elements/forms/elements/FormGroup';
 
 export default function WIP({
     title = 'Work in progress',

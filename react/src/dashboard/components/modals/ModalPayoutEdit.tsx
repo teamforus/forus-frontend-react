@@ -8,7 +8,7 @@ import Organization from '../../props/models/Organization';
 import { ResponseError } from '../../props/ApiResponses';
 import useSetProgress from '../../hooks/useSetProgress';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
-import FormGroup from '../elements/forms/controls/FormGroup';
+import FormGroup from '../elements/forms/elements/FormGroup';
 import usePushApiError from '../../hooks/usePushApiError';
 import usePayoutTransactionService from '../../services/PayoutTransactionService';
 import PayoutTransaction from '../../props/models/PayoutTransaction';
@@ -151,8 +151,6 @@ export default function ModalPayoutEdit({
                 <div className="modal-body">
                     <div className="modal-section">
                         <FormGroup
-                            inline={true}
-                            className={'form-group-inline-lg'}
                             required={true}
                             label={translate('modals.modal_payout_create.labels.fund')}
                             input={(id) => (
@@ -174,8 +172,6 @@ export default function ModalPayoutEdit({
                         />
 
                         <FormGroup
-                            inline={true}
-                            className={'form-group-inline-lg'}
                             required={true}
                             label={translate('modals.modal_payout_create.labels.allocate_by')}
                             input={(id) => (
@@ -193,8 +189,6 @@ export default function ModalPayoutEdit({
                         />
 
                         <FormGroup
-                            inline={true}
-                            className={'form-group-inline-lg'}
                             required={true}
                             label={translate('modals.modal_payout_create.labels.amount')}
                             input={(id) =>
@@ -233,8 +227,6 @@ export default function ModalPayoutEdit({
 
                         {assignTypes.length > 0 && (
                             <FormGroup
-                                inline={true}
-                                className={'form-group-inline-lg'}
                                 required={true}
                                 label={translate('modals.modal_payout_create.labels.assign_by_type')}
                                 input={() => (
@@ -251,8 +243,6 @@ export default function ModalPayoutEdit({
 
                         {assignType?.hasInput && (
                             <FormGroup
-                                inline={true}
-                                className={'form-group-inline-lg'}
                                 required={true}
                                 label={assignType.inputLabel}
                                 input={() => (
@@ -268,8 +258,6 @@ export default function ModalPayoutEdit({
                         )}
 
                         <FormGroup
-                            inline={true}
-                            className={'form-group-inline-lg'}
                             required={true}
                             label={translate('modals.modal_payout_create.labels.iban')}
                             input={(id) => (
@@ -285,8 +273,6 @@ export default function ModalPayoutEdit({
                         />
 
                         <FormGroup
-                            inline={true}
-                            className={'form-group-inline-lg'}
                             required={true}
                             label={translate('modals.modal_payout_create.labels.iban_name')}
                             input={(id) => (
@@ -302,8 +288,6 @@ export default function ModalPayoutEdit({
                         />
 
                         <FormGroup
-                            inline={true}
-                            className={'form-group-inline-lg'}
                             label={translate('modals.modal_payout_create.labels.description')}
                             input={(id) => (
                                 <textarea

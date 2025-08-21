@@ -27,6 +27,7 @@ import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
+import classNames from 'classnames';
 
 export default function Providers() {
     const translate = useTranslate();
@@ -59,6 +60,10 @@ export default function Providers() {
 
     const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
     const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
+
+    const showProviderSignUp = useMemo(() => {
+        return funds?.filter((fund) => fund.allow_provider_sign_up).length > 0;
+    }, [funds]);
 
     const distances = useMemo(() => {
         return [
@@ -250,13 +255,16 @@ export default function Providers() {
 
     return (
         <BlockShowcasePage
+            dusk="listProvidersContent"
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
             countFiltersApplied={countFiltersApplied}
-            breadcrumbItems={[
-                { name: translate('providers.breadcrumbs.home'), state: 'home' },
-                { name: translate('providers.breadcrumbs.providers') },
-            ]}
+            breadcrumbItems={
+                !filterValues.show_map && [
+                    { name: translate('providers.breadcrumbs.home'), state: 'home' },
+                    { name: translate('providers.breadcrumbs.providers') },
+                ]
+            }
             aside={
                 funds &&
                 appConfigs &&
@@ -275,6 +283,7 @@ export default function Providers() {
                                     value={filterValues.q}
                                     onChangeValue={(q) => filterUpdate({ q })}
                                     ariaLabel={translate('providers.filters.search')}
+                                    dataDusk="listProvidersSearch"
                                 />
                                 <FormError error={errors?.q} />
                             </div>
@@ -290,6 +299,7 @@ export default function Providers() {
                                     id="business_type_id"
                                     multiline={true}
                                     allowSearch={false}
+                                    dusk="selectControlBusinessTypes"
                                 />
                                 <FormError error={errors?.business_type_id} />
                             </div>
@@ -307,6 +317,7 @@ export default function Providers() {
                                     value={filterValues.product_category_id}
                                     onChange={(id: number) => filterUpdate({ product_category_id: id })}
                                     options={productCategories || []}
+                                    dusk="selectControlCategories"
                                 />
                             </div>
 
@@ -324,6 +335,7 @@ export default function Providers() {
                                         multiline={true}
                                         allowSearch={true}
                                         options={productSubCategories || []}
+                                        dusk="selectControlSubCategories"
                                     />
                                 </div>
                             )}
@@ -341,6 +353,7 @@ export default function Providers() {
                                         allowSearch={true}
                                         onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                         options={funds || []}
+                                        dusk="selectControlFunds"
                                     />
                                 )}
                             </div>
@@ -357,6 +370,7 @@ export default function Providers() {
                                             onChange={(e) => filterUpdate({ postcode: e.target.value })}
                                             type="text"
                                             aria-label="Postcode"
+                                            data-dusk="inputPostcode"
                                         />
                                         <FormError error={errors?.postcode} />
                                     </div>
@@ -368,13 +382,14 @@ export default function Providers() {
                                         </label>
 
                                         <SelectControl
-                                            id={'select_fund'}
+                                            id={'distance'}
                                             propKey={'id'}
                                             value={filterValues.distance}
                                             multiline={true}
                                             allowSearch={true}
                                             onChange={(distance: number) => filterUpdate({ distance })}
                                             options={distances || []}
+                                            dusk="selectControlDistances"
                                         />
                                         <FormError error={errors?.distance} />
                                     </div>
@@ -391,8 +406,11 @@ export default function Providers() {
                             )}
                         </div>
 
-                        {!filterValues.show_map && appConfigs.pages.provider && (
-                            <StateNavLink name={'sign-up'} className="button button-primary hide-sm">
+                        {!filterValues.show_map && appConfigs.pages.provider && showProviderSignUp && (
+                            <StateNavLink
+                                name={'sign-up'}
+                                className="button button-primary hide-sm"
+                                dataDusk="providerSignUpLink">
                                 <em className="mdi mdi-store-outline" aria-hidden="true" />
                                 {translate('profile_menu.buttons.provider_sign_up')}
                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -412,39 +430,45 @@ export default function Providers() {
                         </h1>
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
-                                <div className={`showcase-filters-item ${filterValues.show_map ? 'hide-sm' : ''}`}>
-                                    <label className="form-label">{translate('providers.filters.sort')}</label>
-                                    <SelectControl
-                                        id={'sort_by'}
-                                        allowSearch={false}
-                                        propKey={'id'}
-                                        propValue={'label'}
-                                        options={sortByOptions}
-                                        value={
-                                            sortByOptions.find(
-                                                (option) =>
-                                                    option.value.order_by == filterValues.order_by &&
-                                                    option.value.order_dir == filterValues.order_dir,
-                                            )?.id
-                                        }
-                                        onChange={(id: number) => {
-                                            filterUpdate(
-                                                sortByOptions.find((option) => {
-                                                    return option.id == id;
-                                                })?.value || {},
-                                            );
-                                        }}
-                                    />
-                                </div>
+                                {!filterValues.show_map && (
+                                    <div className={classNames('showcase-filters-item')}>
+                                        <label className="form-label">{translate('providers.filters.sort')}</label>
+                                        <SelectControl
+                                            id={'sort_by'}
+                                            allowSearch={false}
+                                            propKey={'id'}
+                                            propValue={'label'}
+                                            options={sortByOptions}
+                                            value={
+                                                sortByOptions.find(
+                                                    (option) =>
+                                                        option.value.order_by == filterValues.order_by &&
+                                                        option.value.order_dir == filterValues.order_dir,
+                                                )?.id
+                                            }
+                                            onChange={(id: number) => {
+                                                filterUpdate(
+                                                    sortByOptions.find((option) => option.id == id)?.value || {},
+                                                );
+                                            }}
+                                            dusk="selectControlOrderBy"
+                                        />
+                                    </div>
+                                )}
                                 {appConfigs?.show_providers_map && (
                                     <div
-                                        className={`block block-label-tabs pull-right ${
-                                            filterValues.show_map ? 'block-label-tabs-sm' : ''
-                                        }`}>
+                                        className={classNames(
+                                            'block',
+                                            'block-label-tabs',
+                                            'pull-right',
+                                            filterValues.show_map && 'block-label-tabs-sm',
+                                        )}>
                                         <button
-                                            className={`label-tab label-tab-sm ${
-                                                filterValues.show_map ? '' : 'active'
-                                            }`}
+                                            className={classNames(
+                                                'label-tab',
+                                                'label-tab-sm',
+                                                !filterValues.show_map && 'active',
+                                            )}
                                             onClick={() => filterUpdate({ show_map: false })}
                                             onKeyDown={clickOnKeyEnter}
                                             tabIndex={0}
@@ -453,9 +477,11 @@ export default function Providers() {
                                             {translate('providers.view.list')}
                                         </button>
                                         <button
-                                            className={`label-tab label-tab-sm ${
-                                                filterValues.show_map ? 'active' : ''
-                                            }`}
+                                            className={classNames(
+                                                'label-tab',
+                                                'label-tab-sm',
+                                                filterValues.show_map && 'active',
+                                            )}
                                             onClick={() => filterUpdate({ show_map: true })}
                                             onKeyDown={clickOnKeyEnter}
                                             tabIndex={0}

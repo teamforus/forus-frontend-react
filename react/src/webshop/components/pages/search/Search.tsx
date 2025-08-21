@@ -186,7 +186,7 @@ export default function Search() {
         setProgress(0);
 
         organizationService
-            .list({ type: 'provider', per_page: 500, fund_type: 'budget' })
+            .list({ type: 'provider', per_page: 500, order_by: 'name' })
             .then((res) =>
                 setOrganizations([{ id: null, name: translate('search.filters.all_providers') }, ...res.data.data]),
             )
@@ -267,6 +267,7 @@ export default function Search() {
                 { name: translate('search.breadcrumbs.home'), state: 'home' },
                 { name: translate('search.breadcrumbs.search') },
             ]}
+            dusk="searchListContent"
             aside={
                 funds &&
                 organizations &&
@@ -284,7 +285,10 @@ export default function Search() {
                                         checked={filterValues?.[itemType.key]}
                                         onChange={() => filterUpdate({ [itemType.key]: !filterValues?.[itemType.key] })}
                                     />
-                                    <label className="checkbox-label" htmlFor={`type_${itemType.key}`}>
+                                    <label
+                                        className="checkbox-label"
+                                        htmlFor={`type_${itemType.key}`}
+                                        data-dusk={`searchType_${itemType.key}`}>
                                         <div className="checkbox-box" tabIndex={0} onKeyDown={clickOnKeyEnterOrSpace}>
                                             <em className="mdi mdi-check" />
                                         </div>
@@ -307,6 +311,7 @@ export default function Search() {
                                     value={filterValues.product_category_id}
                                     onChange={(id?: number) => filterUpdate({ product_category_id: id })}
                                     options={productCategories}
+                                    dusk="selectControlCategories"
                                 />
                             </div>
                         )}
@@ -324,6 +329,7 @@ export default function Search() {
                                     value={filterValues.fund_id}
                                     onChange={(id?: number) => filterUpdate({ fund_id: id })}
                                     options={funds}
+                                    dusk="selectControlFunds"
                                 />
                             </div>
                         )}
@@ -341,6 +347,7 @@ export default function Search() {
                                     value={filterValues.organization_id}
                                     onChange={(id?: number) => filterUpdate({ organization_id: id })}
                                     options={organizations}
+                                    dusk="selectControlOrganizations"
                                 />
                             </div>
                         )}
@@ -381,6 +388,7 @@ export default function Search() {
                                         onChange={(id: number) => {
                                             filterUpdate(sortByOptions.find((option) => option.id == id)?.value || {});
                                         }}
+                                        dusk="selectControlOrderBy"
                                     />
                                 </div>
 

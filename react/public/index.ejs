@@ -35,8 +35,8 @@
     <script>const env_data = JSON.parse('<%= JSON.stringify(env_data) %>');</script>
     <% if (env_data?.client_type !== 'website') { %>
         <script type="module">
-            import * as pdfjsDist from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.2.67';
-            pdfjsDist.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
+            import * as pdfjsDist from '<%= webPath(`/assets/dist/js/pdf.${timestamp}.min.js`) %>';
+            pdfjsDist.GlobalWorkerOptions.workerSrc = '<%= webPath(`/assets/dist/js/pdf.worker.${timestamp}.min.js`) %>';
             window.pdfjsDist = pdfjsDist;
         </script>
     <% } %>

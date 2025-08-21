@@ -25,12 +25,12 @@ export default function BookmarkedProducts() {
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         page: number;
         display_type: 'list' | 'grid';
-        order_by: 'created_at' | 'price' | 'most_popular' | 'name';
+        order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
         order_dir: 'asc' | 'desc';
     }>(
         {
             page: 1,
-            display_type: 'list',
+            display_type: 'grid',
             order_by: sortByOptions[0]?.value.order_by,
             order_dir: sortByOptions[0]?.value.order_dir,
         },
@@ -92,16 +92,6 @@ export default function BookmarkedProducts() {
                             <div className="label-tab-set">
                                 <div
                                     className={`label-tab label-tab-sm ${
-                                        filterValues.display_type == 'list' ? 'active' : ''
-                                    }`}
-                                    onClick={() => filterUpdate({ display_type: 'list' })}
-                                    aria-pressed={filterValues.display_type == 'list'}
-                                    role="button">
-                                    <em className="mdi mdi-format-list-text icon-start" />
-                                    {translate('bookmarked_products.view_list')}
-                                </div>
-                                <div
-                                    className={`label-tab label-tab-sm ${
                                         filterValues.display_type == 'grid' ? 'active' : ''
                                     }`}
                                     onClick={() => filterUpdate({ display_type: 'grid' })}
@@ -109,6 +99,16 @@ export default function BookmarkedProducts() {
                                     role="button">
                                     <em className="mdi mdi-view-grid-outline icon-start" />
                                     {translate('bookmarked_products.view_grid')}
+                                </div>
+                                <div
+                                    className={`label-tab label-tab-sm ${
+                                        filterValues.display_type == 'list' ? 'active' : ''
+                                    }`}
+                                    onClick={() => filterUpdate({ display_type: 'list' })}
+                                    aria-pressed={filterValues.display_type == 'list'}
+                                    role="button">
+                                    <em className="mdi mdi-format-list-text icon-start" />
+                                    {translate('bookmarked_products.view_list')}
                                 </div>
                             </div>
                         </div>

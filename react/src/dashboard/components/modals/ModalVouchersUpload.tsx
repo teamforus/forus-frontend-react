@@ -149,9 +149,7 @@ export default function ModalVouchersUpload({
         if (type == 'fund_voucher') {
             fileService.downloadFile(
                 'budget_voucher_upload_sample.csv',
-                fund?.type === 'budget'
-                    ? voucherService.sampleCSVBudgetVoucher(fund.end_date)
-                    : voucherService.sampleCSVSubsidiesVoucher(fund.end_date),
+                voucherService.sampleCSVBudgetVoucher(fund.end_date),
             );
         } else {
             fileService.downloadFile(
@@ -159,7 +157,7 @@ export default function ModalVouchersUpload({
                 voucherService.sampleCSVProductVoucher(productsIds[0] || null, fund.end_date),
             );
         }
-    }, [fileService, fund?.end_date, fund?.type, productsIds, type, voucherService]);
+    }, [fileService, fund.end_date, productsIds, type, voucherService]);
 
     const setLoadingBarProgress = useCallback((progress, status = null) => {
         setProgressBar(progress);
@@ -214,8 +212,8 @@ export default function ModalVouchersUpload({
     );
 
     const getFundsById = useCallback(
-        (fundIds: Array<number>, type: 'budget' | 'subsidies') => {
-            return funds.filter((fund) => fundIds.indexOf(fund.id) != -1 && fund.type == type);
+        (fundIds: Array<number>) => {
+            return funds.filter((fund) => fundIds.includes(fund.id));
         },
         [funds],
     );
@@ -229,9 +227,9 @@ export default function ModalVouchersUpload({
             );
 
             const csvFundIds = data.map((row) => parseInt(row?.fund_id?.toString()));
-            const csvBudgetFunds = getFundsById(csvFundIds, 'budget');
+            const csvBudgetFunds = getFundsById(csvFundIds);
 
-            if (fund.type === 'budget' || csvBudgetFunds.length > 0) {
+            if (csvBudgetFunds.length > 0) {
                 csvErrors.csvAmountMissing = data.filter((row: RowDataProp) => !row.amount).length > 0;
 
                 // csv total amount should be withing fund budget
@@ -253,7 +251,7 @@ export default function ModalVouchersUpload({
                 !csvErrors.invalidPerVoucherAmount
             );
         },
-        [csvErrors, fund.limit_per_voucher, fund.limit_sum_vouchers, fund.type, getFundsById],
+        [csvErrors, fund.limit_per_voucher, fund.limit_sum_vouchers, getFundsById],
     );
 
     const validateCsvDataProduct = useCallback(
@@ -1001,40 +999,38 @@ export default function ModalVouchersUpload({
                     )}>
                     {step == STEP_SET_UP && (
                         <div className="modal-section form">
-                            <div className="form-group form-group-inline form-group-inline-lg">
+                            <div className="form-group">
                                 <div className="form-label">{translate('modals.modal_voucher_create.labels.fund')}</div>
-                                <div className="form-offset">
-                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.funds'} />}>
-                                        <SelectControl
-                                            className="flex-grow"
-                                            value={fund.id}
-                                            propKey={'id'}
-                                            onChange={(fund_id: number) => {
-                                                setFund(funds.find((fund) => fund.id === fund_id));
-                                            }}
-                                            options={funds}
-                                            allowSearch={false}
-                                            optionsComponent={SelectControlOptionsFund}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
+
+                                <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.funds'} />}>
+                                    <SelectControl
+                                        className="flex-grow"
+                                        value={fund.id}
+                                        propKey={'id'}
+                                        onChange={(fund_id: number) => {
+                                            setFund(funds.find((fund) => fund.id === fund_id));
+                                        }}
+                                        options={funds}
+                                        allowSearch={false}
+                                        optionsComponent={SelectControlOptionsFund}
+                                    />
+                                </FormGroupInfo>
                             </div>
 
-                            <div className="form-group form-group-inline form-group-inline-lg">
+                            <div className="form-group">
                                 <div className="form-label">
                                     {translate('modals.modal_voucher_create.labels.credit_type')}
                                 </div>
-                                <div className="form-offset">
-                                    <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.type'} />}>
-                                        <SelectControl
-                                            value={type}
-                                            propKey={'key'}
-                                            onChange={(type: 'fund_voucher' | 'product_voucher') => setType(type)}
-                                            options={types}
-                                            allowSearch={false}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
+
+                                <FormGroupInfo info={<TranslateHtml i18n={'csv_upload.tooltips.type'} />}>
+                                    <SelectControl
+                                        value={type}
+                                        propKey={'key'}
+                                        onChange={(type: 'fund_voucher' | 'product_voucher') => setType(type)}
+                                        options={types}
+                                        allowSearch={false}
+                                    />
+                                </FormGroupInfo>
                             </div>
                         </div>
                     )}

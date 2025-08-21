@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Organization from '../../../../props/models/Organization';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import Paginator from '../../../../modules/paginator/components/Paginator';
@@ -13,6 +13,8 @@ import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard
 import { useReimbursementsService } from '../../../../services/ReimbursementService';
 import Reimbursement from '../../../../props/models/Reimbursement';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
+import ReimbursementStateLabel from '../../../elements/resource-states/ReimbursementStateLabel';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function ReimbursementsTable({
     loading,
@@ -30,12 +32,6 @@ export default function ReimbursementsTable({
     filterUpdate: FilterSetter;
 }) {
     const reimbursementService = useReimbursementsService();
-
-    const [stateLabels] = useState({
-        pending: 'label-default',
-        approved: 'label-success',
-        declined: 'label-danger',
-    });
 
     const { headElement, configsElement } = useConfigurableTable(reimbursementService.getColumns());
 
@@ -112,36 +108,35 @@ export default function ReimbursementsTable({
                                         </td>
 
                                         <td>
-                                            <span
-                                                className={`label ${stateLabels[reimbursement.state] || ''}`}
-                                                data-dusk={`reimbursementState${reimbursement.id}`}>
-                                                {reimbursement.state_locale}
-                                            </span>
+                                            <ReimbursementStateLabel
+                                                reimbursement={reimbursement}
+                                                dusk={'reimbursementState' + reimbursement.id}
+                                            />
                                         </td>
 
                                         <td>
                                             {reimbursement.voucher_transaction?.state == 'pending' && (
-                                                <span className="label label-default">
+                                                <Label type="default">
                                                     {reimbursement.voucher_transaction.state_locale}
-                                                </span>
+                                                </Label>
                                             )}
 
                                             {reimbursement.voucher_transaction?.state == 'success' && (
-                                                <span className="label label-success">
+                                                <Label type="success">
                                                     {reimbursement.voucher_transaction.state_locale}
-                                                </span>
+                                                </Label>
                                             )}
 
                                             {reimbursement.voucher_transaction?.state == 'canceled' && (
-                                                <span className="label label-danger">
+                                                <Label type="danger">
                                                     {reimbursement.voucher_transaction.state_locale}
-                                                </span>
+                                                </Label>
                                             )}
 
                                             {!reimbursement.voucher_transaction && <TableEmptyValue />}
                                         </td>
 
-                                        <td className={'table-td-actions'}>
+                                        <td className={'table-td-actions text-right'}>
                                             <TableRowActions
                                                 content={() => (
                                                     <div className="dropdown dropdown-actions">

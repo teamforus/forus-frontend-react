@@ -187,8 +187,7 @@
             "more": "Zobacz więcej"
         },
         "header": {
-            "title_budget": "Oferta",
-            "title_subsidies": "Oferta"
+            "title_budget": "Oferta"
         },
         "input": {
             "placeholder": "Wyszukiwanie produktów lub usług"
@@ -479,9 +478,7 @@
         "details": {
             "created_at": "Zgłoszono dnia:",
             "fund_name": "Nazwa funduszu:",
-            "id": "ID:",
-            "number_of_records": "Liczba danych osobowych:",
-            "title": "Status aplikacji"
+            "status": "Wniosek o status:"
         },
         "digid_expired": {
             "description": "Zaloguj się ponownie w DigiD i ponownie uruchom aplikację.",
@@ -499,15 +496,18 @@
         },
         "record": {
             "answer": "Odpowiedź",
-            "answer_btn": "Odpowiedź",
             "cancel_btn": "Anuluj",
             "new": "nowa wiadomość",
             "new_message": "Nowe żądanie",
             "send_btn": "Wyślij",
-            "view": "Widok"
-        },
-        "records": {
-            "title": "Moje dane"
+            "view": "Widok",
+            "add_document_label": "Dodaj dokument",
+            "answer_btn": "Odpowiedz na to pytanie",
+            "answer_btn_info": "Kliknij przycisk<strong>\"Odpowiedz na to pytanie</strong>\", aby przesłać dodatkowe informacje. Informacje te zostaną dodane do wniosku.",
+            "answer_question_label": "Odpowiedz na pytanie",
+            "my_answer": "Moja odpowiedź",
+            "my_message": "Moja wiadomość",
+            "optional_label": "(opcjonalnie)"
         },
         "sign_up": {
             "app": {
@@ -539,6 +539,9 @@
                     "declined": "Wniosek został odrzucony",
                     "disregarded": "Wniosek został odrzucony",
                     "pending": "Wniosek oczekuje na rozpatrzenie"
+                },
+                "heading": {
+                    "pending": "Pytania, na które udzielono odpowiedzi podczas aplikacji:"
                 }
             },
             "header": {
@@ -625,7 +628,27 @@
             "step": "Krok {{step}}",
             "step_out_of": "Krok {{step}}"
         },
-        "title": "Żądanie #{{ id }}"
+        "title": "Żądanie #{{ id }}",
+        "clarifications": {
+            "info_requested": "Dodatkowe pytanie",
+            "provide_info": "Odpowiedz na pytanie",
+            "subtitle": "Aplikacja nie jest jeszcze kompletna. Potrzebne są dodatkowe informacje. Zapoznaj się z poniższym pytaniem i kliknij przycisk, aby odpowiedzieć.",
+            "title": "Pytania otwarte ({{ count }})",
+            "info_responded_count": "{{count}} wiadomość"
+        },
+        "labels": {
+            "date": "Data:",
+            "question": "Pytanie",
+            "question_from": "Pytanie od {{ name }}"
+        },
+        "records": {
+            "subtitle": "Ten blok zawiera dane osobowe podane podczas składania wniosku o fundusz.",
+            "title": "Moje dane ({{ count }})"
+        },
+        "subtitle": "Ta strona zawiera informacje o aplikacji. Można tu sprawdzić status, wypełnione dane i wszelkie dodatkowe pytania.",
+        "modal": {
+            "title": "Pytanie dodatkowe"
+        }
     },
     "fund_requests": {
         "breadcrumbs": {
@@ -833,11 +856,11 @@
         },
         "file_uploader": {
             "attachments": "Załączniki",
-            "max_files": "Maks. plików {[ count ]}",
             "max_size": "maks. rozmiar 8 MB",
             "or": "lub",
             "title": "Prześlij dokument",
-            "upload_button": "Prześlij dokument"
+            "upload_button": "Prześlij dokument",
+            "max_files": "Maks. {{ count }} plików"
         },
         "info_box": {
             "2fa_description": "Aby uzyskać więcej informacji na temat 2FA, odwiedź naszą stronę:",
@@ -1658,11 +1681,12 @@
                 "house_nr": "Numer domu",
                 "house_nr_addition": "Dodanie numeru domu",
                 "last_name": "Nazwisko",
-                "notes": "Uwaga (opcjonalnie)",
                 "phone": "Numer telefonu",
                 "phone_optional": "Numer telefonu (opcjonalnie)",
                 "postal_code": "Kod pocztowy",
-                "street": "ul."
+                "street": "ul.",
+                "notes": "Komentarz",
+                "notes_optional": "Uwaga (opcjonalnie)"
             },
             "max_characters": "Maks. 400 znaków",
             "placeholders": {
@@ -2204,8 +2228,7 @@
         "breadcrumbs": {
             "back": "Powrót",
             "home": "Strona główna",
-            "products": "Oferta",
-            "subsidies": "Oferta"
+            "products": "Oferta"
         },
         "buttons": {
             "buy": "Rezerwacja",
@@ -2242,12 +2265,10 @@
             "pay_from_voucher": "Płacisz z kredytu:",
             "price": "Cena:",
             "payment_option_ideal": "Płatność online (iDEAL)",
-            "payment_option_ideal_aria_label": "Płatność online (iDEAL): kliknij, aby uzyskać więcej informacji",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
-            "payment_option_qr_aria_label": "Pokaż kod QR u dostawcy: kliknij, aby uzyskać więcej informacji",
             "payment_option_reservation": "Zarezerwuj online",
-            "payment_option_reservation_aria_label": "Rezerwacja online: kliknij, aby uzyskać więcej informacji",
-            "payment_options": "Opcje płatności"
+            "payment_options": "Opcje płatności",
+            "payment_option_link": "Więcej informacji o opcjach płatności"
         },
         "low_amount": "Nie masz kredytu z wystarczającym saldem.",
         "map": {
@@ -2311,7 +2332,8 @@
             "name_asc": "Nazwa (rosnąco)",
             "name_desc": "Nazwa (malejąco)",
             "price_asc": "Cena (rosnąco)",
-            "price_desc": "Cena (malejąco)"
+            "price_desc": "Cena (malejąco)",
+            "randomized": "Losowo"
         },
         "title": "Oferta",
         "view": {
@@ -2390,6 +2412,12 @@
             "house_composition": "Skład rodziny",
             "living_arrangement": "Żywa forma",
             "title": "Gospodarstwo domowe"
+        },
+        "address": {
+            "cancel": "Anuluj",
+            "edit": "Edytuj",
+            "save": "Zapisz",
+            "title": "Dane adresowe"
         }
     },
     "provider_sign_up": {
@@ -2678,7 +2706,9 @@
                 "fund_name": "Nazwa funduszu",
                 "id": "ID",
                 "price": "Kwota",
-                "title": "Tytuł"
+                "title": "Tytuł",
+                "cancellation_note": "Wiadomość od dostawcy:",
+                "rejection_note": "Wiadomość od dostawcy:"
             },
             "loading": "Ładowanie",
             "title": "Szczegóły rezerwacji"
@@ -3087,7 +3117,6 @@
             "providers": "Dostawcy",
             "records": "Moje dane osobowe",
             "reimbursements": "Zwrot kosztów",
-            "subsidies": "Oferta",
             "vergoedingen": {
                 "activate": "Opłaty",
                 "login": "Logowanie / rejestracja"
@@ -3145,7 +3174,6 @@
             },
             "search": "Wyszukiwanie",
             "signup": "Wyjaśnienie dostawców",
-            "subsidies": "Oferta",
             "vergoedingen": {
                 "funds": "Opłaty"
             },
@@ -3520,7 +3548,22 @@
         "sessions": {
             "terminated": "Zakończone!"
         },
-        "success": "Sukces!"
+        "success": "Sukces!",
+        "email_verification_auth_error": {
+            "description": "Nie jesteś uwierzytelniony, zaloguj się najpierw, aby potwierdzić swój adres e-mail.",
+            "title": "Wymagane uwierzytelnienie!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Nieznany błąd."
+        },
+        "email_verification_success": {
+            "description": "Wiadomość e-mail została potwierdzona.",
+            "title": "E-mail potwierdzony!"
+        },
+        "session_expired": {
+            "description": "Zaloguj się ponownie i spróbuj ponownie.",
+            "title": "Sesja wygasła!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Czytaj za",

@@ -15,6 +15,10 @@ import { hasPermission } from '../../../../../helpers/utils';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import Implementation from '../../../../../props/models/Implementation';
+import Label from '../../../../elements/image_cropper/Label';
+import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../../../elements/tables/TableTopScroller';
+import { useFundService } from '../../../../../services/FundService';
 
 export default function OrganizationsFundsShowImplementationsCard({
     fund,
@@ -32,6 +36,7 @@ export default function OrganizationsFundsShowImplementationsCard({
     const activeOrganization = useActiveOrganization();
 
     const paginatorService = usePaginatorService();
+    const fundService = useFundService();
 
     const [paginationPerPageKey] = useState('fund_implementation_per_page');
     const [lastQueryImplementations, setLastQueryImplementations] = useState<string>('');
@@ -41,6 +46,8 @@ export default function OrganizationsFundsShowImplementationsCard({
         q: '',
         per_page: paginatorService.getPerPage(paginationPerPageKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(fundService.getImplementationsColumns());
 
     const transformImplementations = useCallback(() => {
         const { q = '', per_page } = filter.activeValues;
@@ -166,16 +173,11 @@ export default function OrganizationsFundsShowImplementationsCard({
                 <Fragment>
                     {implementations?.meta?.total > 0 ? (
                         <div className="card-section card-section-padless">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
-                                    <thead>
-                                        <tr>
-                                            <th className="td-narrow">Afbeelding</th>
-                                            <th>Naam</th>
-                                            <th>Status</th>
-                                            <th>Acties</th>
-                                        </tr>
-                                    </thead>
+                                    {headElement}
 
                                     <tbody>
                                         {implementations?.data?.map((implementation) => (
@@ -191,12 +193,12 @@ export default function OrganizationsFundsShowImplementationsCard({
                                                 <td>{implementation?.name}</td>
                                                 {fund.state == 'active' && (
                                                     <td>
-                                                        <div className="label label-success">Zichtbaar</div>
+                                                        <Label type="success">Zichtbaar</Label>
                                                     </td>
                                                 )}
                                                 {fund.state != 'active' && (
                                                     <td>
-                                                        <div className="label label-success">Onzichtbaar</div>
+                                                        <Label type="default">Onzichtbaar</Label>
                                                     </td>
                                                 )}
 
@@ -238,7 +240,7 @@ export default function OrganizationsFundsShowImplementationsCard({
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     ) : (
                         <EmptyCard

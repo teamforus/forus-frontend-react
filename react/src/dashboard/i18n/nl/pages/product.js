@@ -31,7 +31,8 @@ export default {
         delete: 'Verwijderen',
         edit: 'Bewerken',
         view: 'Bekijken',
-        subsidy_edit: 'Start subsidie',
-        subsidy_active: 'Subsidie actief',
+        approve_product: 'Aanbod goedkeuren',
+        stop_product: 'Aanbod stopzetten',
+        edit_product: 'Aanpassen',
     },
 };

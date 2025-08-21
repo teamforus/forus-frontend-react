@@ -4,6 +4,7 @@ import ProductCategory from '../../../../props/models/ProductCategory';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import useProductCategoryService from '../../../../services/ProductCategoryService';
 import useTranslate from '../../../../hooks/useTranslate';
+import FormPane from '../../../elements/forms/elements/FormPane';
 
 export default function ProductCategoriesControl({
     value,
@@ -113,31 +114,28 @@ export default function ProductCategoriesControl({
         }
     }, [changeCategory, loadProductCategories, value, ready]);
     return (
-        <div className="col col-lg-9 col-lg-12">
+        <FormPane title={'Categorieën'}>
             {[...categoriesHierarchy.keys()].map((index) => (
-                <div className="form-group form-group-inline" key={categoriesHierarchy.length + '-' + index}>
+                <div className="form-group" key={categoriesHierarchy.length + '-' + index}>
                     {index == 0 ? (
                         <label className="form-label form-label-required">
                             {translate('product_edit.labels.category')}
                         </label>
-                    ) : (
-                        <label className="form-label">&nbsp;</label>
-                    )}
+                    ) : null}
 
-                    <div className="form-offset">
-                        <SelectControl
-                            className="form-control"
-                            propKey="id"
-                            options={categoriesHierarchy[index]}
-                            value={categoriesValues[index]}
-                            onChange={(value?: number) => changeCategory(index, value)}
-                            disabled={disabled}
-                            placeholder="Selecteer categorie..."
-                        />
-                    </div>
+                    <SelectControl
+                        className="form-control"
+                        propKey="id"
+                        options={categoriesHierarchy[index]}
+                        value={categoriesValues[index]}
+                        onChange={(value?: number) => changeCategory(index, value)}
+                        disabled={disabled}
+                        placeholder="Selecteer categorie..."
+                    />
+
                     {index == categoriesHierarchy.length - 1 && <FormError error={errors} />}
                 </div>
             ))}
-        </div>
+        </FormPane>
     );
 }

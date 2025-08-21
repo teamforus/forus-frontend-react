@@ -25,19 +25,23 @@ export class IdentityEmailService<T = IdentityEmail> {
     }
 
     public show(id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.get('/identity/emails/' + id);
+        return this.apiRequest.get(`${this.prefix}/${id}`);
     }
 
     public delete(id: number): Promise<ApiResponseSingle<null>> {
-        return this.apiRequest.delete('/identity/emails/' + id);
+        return this.apiRequest.delete(`${this.prefix}/${id}`);
     }
 
     public resendVerification(id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.post('/identity/emails/' + id + '/resend');
+        return this.apiRequest.post(`${this.prefix}/${id}/resend`);
     }
 
     public makePrimary(id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.patch('/identity/emails/' + id + '/primary');
+        return this.apiRequest.patch(`${this.prefix}/${id}/primary`);
+    }
+
+    public confirmVerification(token: string): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${token}/verify`);
     }
 }
 

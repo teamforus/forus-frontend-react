@@ -1,20 +1,4 @@
 .form {
-    datepicker,
-    .datepicker {
-        border: none;
-        outline: none;
-        position: relative;
-
-        .form-control {
-            position: absolute;
-            left: -1px;
-            top: -1px;
-            right: -1px;
-            bottom: -1px;
-            width: calc(100% + 2px) !important;
-        }
-    }
-
     .form-label {
         display: block;
         cursor: default;
@@ -37,6 +21,65 @@
         font: 500 13px/26px var(--base-font);
         padding: 5px 0;
         color: var(--text-color);
+    }
+
+    .form-pane {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        .form-pane-title {
+            font: 600 11px/20px var(--base-font);
+            padding: 0 0;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+
+            &:before,
+            &:after {
+                content: '';
+                margin-top: 10px;
+                height: 10px;
+            }
+
+            &:before {
+                display: flex;
+                flex: 0 0 10px;
+                border-top: 1px solid var(--border-color);
+                border-left: 1px solid var(--border-color);
+                border-top-left-radius: var(--border-radius);
+            }
+
+            &:after {
+                display: flex;
+                flex: 1 1 auto;
+                border-top: 1px solid var(--border-color);
+                border-right: 1px solid var(--border-color);
+                border-top-right-radius: var(--border-radius);
+            }
+        }
+
+        .form-pane-content {
+            border: 1px solid var(--border-color);
+            border-top: none;
+            padding: 5px 15px 15px;
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+
+        &.form-pane-lg {
+            .form-pane-title {
+                font: 600 13px/20px var(--base-font);
+            }
+        }
     }
 
     .form-numeric {
@@ -223,8 +266,10 @@
         min-height: 36px;
         color: var(--text-color);
         font: 500 13px/24px var(--base-font);
-        transition: background-color 0.4s ease, border 0.4s ease;
-        border-radius: 3px;
+        transition:
+            background-color 0.4s ease,
+            border 0.4s ease;
+        border-radius: var(--border-radius);
         appearance: none;
 
         &[disabled] {
@@ -387,7 +432,7 @@
         height: 36px;
         color: var(--text-color);
         font: 600 16px/24px var(--base-font);
-        border-radius: 3px;
+        border-radius: var(--border-radius);
 
         &.form-value-placeholder-sm {
             padding: 0 0;
@@ -467,132 +512,6 @@
             }
         }
 
-        &.form-group-inline {
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            position: relative;
-
-            .block-form_tooltip {
-                position: absolute;
-                top: 20px;
-                right: -45px;
-                transform: translate(0, -50%);
-                z-index: 5;
-            }
-
-            & > .form-label {
-                width: 200px;
-                padding-top: 8px;
-                padding-bottom: 8px;
-                margin: 0;
-                text-align: right;
-                padding-right: 10px;
-                float: left;
-                color: black;
-
-                &.form-label-required {
-                    &:before {
-                        content: '*';
-                        padding-right: 2px;
-                        display: inline-block;
-                        margin-left: -8px;
-                        width: 8px;
-                    }
-
-                    &:after {
-                        display: none;
-                    }
-                }
-            }
-
-            & > .form-offset,
-            & > .form-control,
-            & > .react-datepicker-wrapper {
-                width: calc(100% - 200px);
-                float: left;
-
-                .form-toggle {
-                    padding: 8px 0;
-                }
-            }
-
-            & > .form-error {
-                margin-left: 200px;
-                width: calc(100% - 200px);
-                float: left;
-            }
-
-            & > .form-title {
-                padding: 8px 0;
-                width: calc(100% - 200px);
-                float: left;
-            }
-
-            &.form-group-inline-xl {
-                & > .form-label {
-                    width: 250px;
-                }
-
-                & > .form-offset,
-                & > .form-control {
-                    width: calc(100% - 250px);
-                }
-
-                & > .form-error {
-                    margin-left: 250px;
-                    width: calc(100% - 250px);
-                }
-            }
-
-            &.form-group-inline-lg {
-                & > .form-label {
-                    width: 145px;
-                }
-
-                & > .form-offset,
-                & > .form-control {
-                    width: calc(100% - 145px);
-                }
-
-                & > .form-error {
-                    margin-left: 145px;
-                    width: calc(100% - 145px);
-                }
-            }
-
-            &.form-group-inline-md {
-                & > .form-label {
-                    width: 125px;
-                }
-
-                & > .form-offset,
-                & > .form-control {
-                    width: calc(100% - 125px);
-                }
-
-                & > .form-error {
-                    margin-left: 125px;
-                    width: calc(100% - 125px);
-                }
-            }
-
-            &.form-group-inline-sm {
-                & > .form-label {
-                    width: 80px;
-                }
-
-                & > .form-offset,
-                & > .form-control {
-                    width: calc(100% - 80px);
-                }
-
-                & > .form-error {
-                    margin-left: 80px;
-                    width: calc(100% - 80px);
-                }
-            }
-        }
-
         &:last-child,
         &.form-group-last {
             margin-bottom: 0 !important;
@@ -601,7 +520,7 @@
 
     .control-frame {
         border: 1px solid #eef1f5;
-        border-radius: 5px;
+        border-radius: var(--border-radius);
         padding: 10px 15px 10px;
         margin: 5px 0 10px;
         font: 400 14px var(--base-font);
@@ -707,7 +626,9 @@
                 color: rgba(var(--text-color), 0.75);
                 border-bottom: 1px solid whitesmoke;
                 cursor: pointer;
-                transition: background-color .4s, color .4s;
+                transition:
+                    background-color 0.4s,
+                    color 0.4s;
                 height: var(--option-height);
                 @include ellipsis();
 
@@ -899,6 +820,7 @@
         .select-control {
             width: var(--selector-width);
             position: absolute;
+            z-index: 2;
 
             .select-control-input {
                 .form-control:not([type='radio']):not([type='checkbox']) {
@@ -959,7 +881,7 @@
             margin-right: 5px;
             margin-left: -25px;
             float: left;
-            border-radius: 3px;
+            border-radius: var(--border-radius);
 
             .mdi {
                 color: #262626;
@@ -998,6 +920,11 @@
                     opacity: 1;
                 }
             }
+        }
+
+        &.checkbox-flat {
+            padding-top: 0px;
+            padding-bottom: 0px;
         }
 
         &.checkbox-narrow {
@@ -1125,7 +1052,7 @@
                 color: #9ca6af;
                 background: #f6f9fc;
                 border: 1px dashed #d4d9dd;
-                border-radius: 3px;
+                border-radius: var(--border-radius);
                 word-wrap: break-word;
                 white-space: pre-wrap;
             }
@@ -1135,25 +1062,5 @@
     .form-title {
         font: 600 14px/20px var(--base-font);
         color: #151b26;
-    }
-
-    @media screen and (max-width: 600px) {
-        .form-group {
-            &.form-group-inline {
-                .form-label {
-                    width: auto !important;
-                    padding: 3px 0 !important;
-
-                    &.form-label-required {
-                        padding-left: 5px !important;
-                    }
-                }
-
-                .form-offset,
-                .form-control {
-                    width: 100% !important;
-                }
-            }
-        }
     }
 }

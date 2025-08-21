@@ -474,24 +474,23 @@ export default function ModalPayoutsUpload({
                     )}>
                     {step == STEP_SET_UP && (
                         <div className="modal-section form">
-                            <div className="form-group form-group-inline form-group-inline-lg">
+                            <div className="form-group">
                                 <div className="form-label">{translate('modals.modal_voucher_create.labels.fund')}</div>
-                                <div className="form-offset">
-                                    <FormGroupInfo
-                                        info={'Selecteer het fonds waaruit de uitbetalingen moeten plaatsvinden.'}>
-                                        <SelectControl
-                                            className="flex-grow"
-                                            value={fund.id}
-                                            propKey={'id'}
-                                            onChange={(fund_id: number) => {
-                                                setFund(funds.find((fund) => fund.id === fund_id));
-                                            }}
-                                            options={funds}
-                                            allowSearch={false}
-                                            optionsComponent={SelectControlOptionsFund}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
+
+                                <FormGroupInfo
+                                    info={'Selecteer het fonds waaruit de uitbetalingen moeten plaatsvinden.'}>
+                                    <SelectControl
+                                        className="flex-grow"
+                                        value={fund.id}
+                                        propKey={'id'}
+                                        onChange={(fund_id: number) => {
+                                            setFund(funds.find((fund) => fund.id === fund_id));
+                                        }}
+                                        options={funds}
+                                        allowSearch={false}
+                                        optionsComponent={SelectControlOptionsFund}
+                                    />
+                                </FormGroupInfo>
                             </div>
                         </div>
                     )}

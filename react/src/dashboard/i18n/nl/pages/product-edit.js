@@ -25,6 +25,8 @@ export default {
         ean_placeholder: 'Voeg een Europees artikelnummer toe',
         sku: 'SKU (Stock-Keeping unit)',
         sku_placeholder: 'Voeg een voorraadbeheereenheidnummer toe',
+        reservation_note: 'Aankoopnotitie',
+        custom_reservation_note_text: 'Aangepaste aankoopnotitie',
     },
     tooltips: {
         product_type: [
@@ -33,6 +35,7 @@ export default {
             '2. Korting €: € 20,- korting op een fiets.',
             '3. Korting %: 20% korting op een fiets.',
             '4. Gratis: gratis toegang voor een film.',
+            '5. Informatief: Schoolartikelen (bekijk het aanbod in de winkel).',
         ].join('\n'),
         reservation_fields: [
             'Vraag de klant om aanvullende informatie op te geven bij het maken van een reservering.',
@@ -67,10 +70,5 @@ export default {
         title: 'Een aanbod toevoegen.',
         description:
             'U staat op het punt een aanbod op de webshop toe te voegen. Uw aanbod wordt van de webshop verwijderd als de vervaldatum bereikt is.',
-    },
-    confirm_price_change: {
-        title: 'Er is een lopende actie',
-        description:
-            'Er is een actie gemaakt van deze aanbieding. Een wijziging heeft invloed op deze actie en de prijs. De aanbieding dient daarom opnieuw te worden goedgekeurd voordat de actie weer op de website zichtbaar is.',
     },
 };

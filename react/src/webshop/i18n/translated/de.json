@@ -187,8 +187,7 @@
             "more": "Mehr sehen"
         },
         "header": {
-            "title_budget": "Angebot",
-            "title_subsidies": "Angebot"
+            "title_budget": "Angebot"
         },
         "input": {
             "placeholder": "Suche nach Produkten oder Dienstleistungen"
@@ -479,9 +478,7 @@
         "details": {
             "created_at": "Eingereicht am:",
             "fund_name": "Name des Fonds:",
-            "id": "ID:",
-            "number_of_records": "Anzahl der personenbezogenen Daten:",
-            "title": "Status der Bewerbung"
+            "status": "Statusanfrage:"
         },
         "digid_expired": {
             "description": "Melden Sie sich erneut bei DigiD an und starten Sie die Anwendung erneut.",
@@ -499,15 +496,18 @@
         },
         "record": {
             "answer": "Antwortet",
-            "answer_btn": "Antwort",
             "cancel_btn": "Abbrechen",
             "new": "neue Nachricht",
             "new_message": "Neue Anfrage",
             "send_btn": "Senden Sie",
-            "view": "Siehe"
-        },
-        "records": {
-            "title": "Meine Angaben"
+            "view": "Siehe",
+            "add_document_label": "Ein Dokument hinzufügen",
+            "answer_btn": "Beantworten Sie diese Frage",
+            "answer_btn_info": "Klicken Sie auf die Schaltfläche<strong>\"Diese Frage beantworten</strong>\", um die zusätzlichen Informationen zu übermitteln. Die Informationen werden dem Antrag hinzugefügt.",
+            "answer_question_label": "Beantworten Sie die Frage",
+            "my_answer": "Meine Antwort",
+            "my_message": "Meine Nachricht",
+            "optional_label": "(fakultativ)"
         },
         "sign_up": {
             "app": {
@@ -539,6 +539,9 @@
                     "declined": "Der Antrag wurde abgelehnt.",
                     "disregarded": "Der Antrag wurde abgelehnt.",
                     "pending": "Der Antrag ist anhängig"
+                },
+                "heading": {
+                    "pending": "Die während der Bewerbung beantworteten Fragen:"
                 }
             },
             "header": {
@@ -625,7 +628,27 @@
             "step": "Schritt {{step}}",
             "step_out_of": "Schritt {{step}}"
         },
-        "title": "Anfrage #{{ id }}"
+        "title": "Anfrage #{{ id }}",
+        "clarifications": {
+            "info_requested": "Zusätzlich gestellte Frage",
+            "provide_info": "Beantworten Sie die Frage",
+            "subtitle": "Der Antrag ist noch nicht vollständig. Es werden zusätzliche Informationen benötigt. Bitte lesen Sie die nachstehende Frage und klicken Sie auf die Schaltfläche, um zu antworten.",
+            "title": "Offene Fragen ({{ count }})",
+            "info_responded_count": "{{count}} Nachricht"
+        },
+        "labels": {
+            "date": "Datum:",
+            "question": "Frage",
+            "question_from": "Frage von {{ name }}"
+        },
+        "records": {
+            "subtitle": "Dieser Block enthält die persönlichen Daten, die Sie bei der Beantragung des Fonds angegeben haben.",
+            "title": "Meine Daten ({{ count }})"
+        },
+        "subtitle": "Diese Seite enthält Informationen über die Bewerbung. Der Status, die ausgefüllten Daten und eventuelle Zusatzfragen können hier eingesehen werden.",
+        "modal": {
+            "title": "Zusätzliche Frage"
+        }
     },
     "fund_requests": {
         "breadcrumbs": {
@@ -833,11 +856,11 @@
         },
         "file_uploader": {
             "attachments": "Anhänge",
-            "max_files": "Max. {Dateien",
             "max_size": "max. Größe 8Mb",
             "or": "oder",
             "title": "Ein Dokument hochladen",
-            "upload_button": "Ein Dokument hochladen"
+            "upload_button": "Ein Dokument hochladen",
+            "max_files": "Max. {{ count }} Dateien"
         },
         "info_box": {
             "2fa_description": "Weitere Informationen über 2FA finden Sie bei uns:",
@@ -1658,11 +1681,12 @@
                 "house_nr": "Hausnummer",
                 "house_nr_addition": "Hausnummer Zusatz",
                 "last_name": "Nachname",
-                "notes": "Anmerkung (fakultativ)",
                 "phone": "Rufnummer",
                 "phone_optional": "Telefonnummer (fakultativ)",
                 "postal_code": "Postleitzahl",
-                "street": "Straße"
+                "street": "Straße",
+                "notes": "Kommentar",
+                "notes_optional": "Anmerkung (fakultativ)"
             },
             "max_characters": "Max. 400 Zeichen",
             "placeholders": {
@@ -2204,8 +2228,7 @@
         "breadcrumbs": {
             "back": "Zurück",
             "home": "Startseite",
-            "products": "Angebot",
-            "subsidies": "Angebot"
+            "products": "Angebot"
         },
         "buttons": {
             "buy": "Buchung",
@@ -2242,12 +2265,10 @@
             "pay_from_voucher": "Sie zahlen aus dem Guthaben:",
             "price": "Preis:",
             "payment_option_ideal": "Online bezahlen (iDEAL)",
-            "payment_option_ideal_aria_label": "Online-Zahlung (iDEAL): Klicken Sie für weitere Informationen",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
-            "payment_option_qr_aria_label": "QR-Code beim Anbieter anzeigen: Klicken Sie für weitere Informationen",
             "payment_option_reservation": "Online buchen",
-            "payment_option_reservation_aria_label": "Online-Reservierung: Klicken Sie für weitere Informationen",
-            "payment_options": "Zahlungsmöglichkeiten"
+            "payment_options": "Zahlungsmöglichkeiten",
+            "payment_option_link": "Lesen Sie mehr über Zahlungsmöglichkeiten"
         },
         "low_amount": "Sie haben keinen Kredit mit ausreichendem Guthaben.",
         "map": {
@@ -2311,7 +2332,8 @@
             "name_asc": "Name (aufsteigend)",
             "name_desc": "Name (absteigend)",
             "price_asc": "Preis (aufsteigend)",
-            "price_desc": "Preis (absteigend)"
+            "price_desc": "Preis (absteigend)",
+            "randomized": "Zufällig"
         },
         "title": "Angebot",
         "view": {
@@ -2390,6 +2412,12 @@
             "house_composition": "Zusammensetzung der Familie",
             "living_arrangement": "Lebendige Form",
             "title": "Haushalt"
+        },
+        "address": {
+            "cancel": "Abbrechen",
+            "edit": "bearbeiten",
+            "save": "Speichern Sie",
+            "title": "Angaben zur Adresse"
         }
     },
     "provider_sign_up": {
@@ -2678,7 +2706,9 @@
                 "fund_name": "Name des Fonds",
                 "id": "ID",
                 "price": "Betrag",
-                "title": "Titel"
+                "title": "Titel",
+                "cancellation_note": "Nachricht des Anbieters:",
+                "rejection_note": "Nachricht des Anbieters:"
             },
             "loading": "Laden",
             "title": "Details zur Buchung"
@@ -3087,7 +3117,6 @@
             "providers": "Anbieter",
             "records": "Meine persönlichen Daten",
             "reimbursements": "Kostendeckung",
-            "subsidies": "Angebot",
             "vergoedingen": {
                 "activate": "Gebühren",
                 "login": "Anmelden/Registrieren"
@@ -3145,7 +3174,6 @@
             },
             "search": "Suche",
             "signup": "Erläuterung Anbieter",
-            "subsidies": "Angebot",
             "vergoedingen": {
                 "funds": "Gebühren"
             },
@@ -3520,7 +3548,22 @@
         "sessions": {
             "terminated": "Beendet!"
         },
-        "success": "Erfolgreich!"
+        "success": "Erfolgreich!",
+        "email_verification_auth_error": {
+            "description": "Sie sind nicht authentifiziert, bitte melden Sie sich zuerst an, um Ihre E-Mail-Adresse zu bestätigen.",
+            "title": "Authentifizierung erforderlich!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "Unbekannter Fehler."
+        },
+        "email_verification_success": {
+            "description": "Die E-Mail wurde bestätigt.",
+            "title": "E-Mail bestätigt!"
+        },
+        "session_expired": {
+            "description": "Loggen Sie sich wieder ein und versuchen Sie es erneut.",
+            "title": "Die Sitzung ist abgelaufen!"
+        }
     },
     "read_speaker": {
         "read_aloud": "Lesen für",

@@ -421,14 +421,12 @@ export default function PreCheck() {
                             )}
 
                             <InfoBox>
-                                <p>
-                                    De Regelingencheck begint standaard met één stap waarin alle voorwaarden van de
-                                    regelingen worden geplaatst. U kunt zelf extra stappen toevoegen om de voorwaarden
-                                    logisch te groeperen. Dit helpt om de Regelingencheck overzichtelijker te maken,
-                                    zodat niet alle vragen in één lange lijst worden getoond. Voorwaarden kunnen
-                                    eenvoudig worden verplaatst naar een andere stap door erop te klikken en deze naar
-                                    de gewenste stap te slepen.
-                                </p>
+                                De Regelingencheck begint standaard met één stap waarin alle voorwaarden van de
+                                regelingen worden geplaatst. U kunt zelf extra stappen toevoegen om de voorwaarden
+                                logisch te groeperen. Dit helpt om de Regelingencheck overzichtelijker te maken, zodat
+                                niet alle vragen in één lange lijst worden getoond. Voorwaarden kunnen eenvoudig worden
+                                verplaatst naar een andere stap door erop te klikken en deze naar de gewenste stap te
+                                slepen.
                             </InfoBox>
                         </div>
                     </div>
@@ -465,81 +463,69 @@ export default function PreCheck() {
                 </div>
 
                 <div className="card-section card-section-primary">
-                    <div className="form-group">
-                        <div className="form-offset">
-                            <PhotoSelector
-                                type={'pre_check_banner'}
-                                thumbnail={thumbnailMedia?.sizes.thumbnail}
-                                selectPhoto={selectPhoto}
-                            />
-                        </div>
-                    </div>
+                    <PhotoSelector
+                        type={'pre_check_banner'}
+                        thumbnail={thumbnailMedia?.sizes.thumbnail}
+                        selectPhoto={selectPhoto}
+                    />
 
                     <div className="form-group">
                         <div className="form-label">Actieve banner</div>
-                        <div className="form-offset">
-                            <SelectControl
-                                className={'form-control'}
-                                propKey={'value'}
-                                allowSearch={false}
-                                options={bannerStates}
-                                value={bannerForm.values.pre_check_banner_state}
-                                onChange={(pre_check_banner_state: string) => {
-                                    bannerForm.update({ pre_check_banner_state });
-                                }}
-                            />
-                            <FormError error={bannerForm.errors?.pre_check_banner_state} />
-                        </div>
+
+                        <SelectControl
+                            className={'form-control'}
+                            propKey={'value'}
+                            allowSearch={false}
+                            options={bannerStates}
+                            value={bannerForm.values.pre_check_banner_state}
+                            onChange={(pre_check_banner_state: string) => {
+                                bannerForm.update({ pre_check_banner_state });
+                            }}
+                        />
+                        <FormError error={bannerForm.errors?.pre_check_banner_state} />
                     </div>
 
                     <div className="form-group">
                         <div className="form-label form-label-required">
                             {translate('funds_pre_check.labels.title')}
                         </div>
-                        <div className="form-offset">
-                            <input
-                                className={'form-control r-n'}
-                                placeholder={translate('funds_pre_check.labels.title')}
-                                value={bannerForm.values.pre_check_banner_title || ''}
-                                onChange={(e) => bannerForm.update({ pre_check_banner_title: e.target.value })}
-                            />
-                            <FormError error={bannerForm.errors?.pre_check_banner_title} />
-                        </div>
+                        <input
+                            className={'form-control r-n'}
+                            placeholder={translate('funds_pre_check.labels.title')}
+                            value={bannerForm.values.pre_check_banner_title || ''}
+                            onChange={(e) => bannerForm.update({ pre_check_banner_title: e.target.value })}
+                        />
+                        <FormError error={bannerForm.errors?.pre_check_banner_title} />
                     </div>
 
                     <div className="form-group">
                         <div className="form-label form-label-required">
                             {translate('funds_pre_check.labels.description')}
                         </div>
-                        <div className="form-offset">
-                            <textarea
-                                className={'form-control r-n'}
-                                placeholder={translate('funds_pre_check.labels.description')}
-                                value={bannerForm.values.pre_check_banner_description || ''}
-                                onChange={(e) => bannerForm.update({ pre_check_banner_description: e.target.value })}
-                            />
-                            <FormError error={bannerForm.errors?.pre_check_banner_description} />
-                        </div>
+                        <textarea
+                            className={'form-control r-n'}
+                            placeholder={translate('funds_pre_check.labels.description')}
+                            value={bannerForm.values.pre_check_banner_description || ''}
+                            onChange={(e) => bannerForm.update({ pre_check_banner_description: e.target.value })}
+                        />
+                        <FormError error={bannerForm.errors?.pre_check_banner_description} />
                     </div>
 
                     <div className="form-group">
                         <div className="form-label">{translate('funds_pre_check.labels.label')}</div>
-                        <div className="form-offset">
-                            <input
-                                className={'form-control r-n'}
-                                placeholder={translate('funds_pre_check.labels.label')}
-                                value={bannerForm.values.pre_check_banner_label || ''}
-                                onChange={(e) => bannerForm.update({ pre_check_banner_label: e.target.value })}
-                            />
-                            <FormError error={bannerForm.errors?.pre_check_banner_label} />
-                        </div>
+
+                        <input
+                            className={'form-control r-n'}
+                            placeholder={translate('funds_pre_check.labels.label')}
+                            value={bannerForm.values.pre_check_banner_label || ''}
+                            onChange={(e) => bannerForm.update({ pre_check_banner_label: e.target.value })}
+                        />
+                        <FormError error={bannerForm.errors?.pre_check_banner_label} />
                     </div>
 
                     <InfoBox>
-                        <p>
-                            U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de startpagina
-                            van de webshop wordt weergegeven.
-                        </p>
+                        U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de startpagina van
+                        de webshop wordt weergegeven.
                     </InfoBox>
                 </div>
 

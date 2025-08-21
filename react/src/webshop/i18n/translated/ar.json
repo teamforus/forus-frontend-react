@@ -175,11 +175,11 @@
         },
         "file_uploader": {
             "attachments": "المرفقات",
-            "max_files": "الحد الأقصى. {[ العدد ]} الملفات",
             "max_size": "الحد الأقصى للحجم 8 ميغابايت",
             "or": "أو",
             "title": "تحميل مستند",
-            "upload_button": "تحميل مستند"
+            "upload_button": "تحميل مستند",
+            "max_files": "الحد الأقصى {{ count }} الملفات"
         },
         "info_box": {
             "2fa_description": "لمزيد من المعلومات حول المصادقة الثنائية (2FA)، تفضل بزيارتنا:",
@@ -437,7 +437,8 @@
             "name_asc": "الاسم (تصاعدي)",
             "name_desc": "الاسم (تنازلياً)",
             "price_asc": "السعر (تصاعدي)",
-            "price_desc": "السعر (تنازلياً)"
+            "price_desc": "السعر (تنازلياً)",
+            "randomized": "عشوائي"
         },
         "title": "العرض",
         "view": {
@@ -663,7 +664,6 @@
             "providers": "المزودون",
             "records": "بياناتي الشخصية",
             "reimbursements": "استرداد التكاليف",
-            "subsidies": "العرض",
             "vergoedingen": {
                 "activate": "الرسوم",
                 "login": "تسجيل الدخول/التسجيل"
@@ -721,7 +721,6 @@
             },
             "search": "بحث",
             "signup": "مقدمو الشرح",
-            "subsidies": "العرض",
             "vergoedingen": {
                 "funds": "الرسوم"
             },
@@ -886,9 +885,7 @@
         "details": {
             "created_at": "تم التقديم في:",
             "fund_name": "اسم الصندوق:",
-            "id": "بطاقة الهوية:",
-            "number_of_records": "عدد البيانات الشخصية:",
-            "title": "حالة الطلب"
+            "status": "طلب الحالة:"
         },
         "digid_expired": {
             "description": "سجّل الدخول مرة أخرى باستخدام DigiD وابدأ تشغيل التطبيق مرة أخرى.",
@@ -906,15 +903,18 @@
         },
         "record": {
             "answer": "تمت الإجابة",
-            "answer_btn": "الرد",
             "cancel_btn": "إلغاء",
             "new": "رسالة جديدة",
             "new_message": "طلب جديد",
             "send_btn": "إرسال",
-            "view": "عرض"
-        },
-        "records": {
-            "title": "التفاصيل الخاصة بي"
+            "view": "عرض",
+            "add_document_label": "إضافة مستند",
+            "answer_btn": "أجب عن هذا السؤال",
+            "answer_btn_info": "انقر على زر<strong>\"أجب عن هذا السؤال</strong>\" لإرسال المعلومات الإضافية. ستتم إضافة المعلومات إلى الطلب.",
+            "answer_question_label": "أجب عن السؤال",
+            "my_answer": "إجابتي",
+            "my_message": "رسالتي",
+            "optional_label": "(اختياري)"
         },
         "sign_up": {
             "app": {
@@ -946,6 +946,9 @@
                     "declined": "تم رفض الطلب",
                     "disregarded": "تم رفض الطلب",
                     "pending": "الطلب قيد الانتظار"
+                },
+                "heading": {
+                    "pending": "الأسئلة التي تمت الإجابة عليها أثناء تقديم الطلب:"
                 }
             },
             "header": {
@@ -1032,7 +1035,27 @@
             "step": "الخطوة {{step}}",
             "step_out_of": "الخطوة {{step}}"
         },
-        "title": "طلب # طلب{{ id }}"
+        "title": "طلب # طلب{{ id }}",
+        "clarifications": {
+            "info_requested": "سؤال إضافي تم طرحه",
+            "provide_info": "أجب عن السؤال",
+            "subtitle": "لم يكتمل الطلب بعد. هناك حاجة إلى معلومات إضافية. يرجى مراجعة السؤال أدناه والنقر على الزر للرد.",
+            "title": "الأسئلة المفتوحة ({{ count }})",
+            "info_responded_count": "{{count}} الرسالة"
+        },
+        "labels": {
+            "date": "التاريخ:",
+            "question": "سؤال",
+            "question_from": "سؤال من {{ name }}"
+        },
+        "records": {
+            "subtitle": "تحتوي هذه الخانة على المعلومات الشخصية التي قدمتها أثناء تقديم طلب التمويل.",
+            "title": "بياناتي ({{ count }})"
+        },
+        "subtitle": "تحتوي هذه الصفحة على معلومات حول الطلب. يمكن الاطلاع على الحالة والبيانات المكتملة وأي أسئلة إضافية هنا.",
+        "modal": {
+            "title": "سؤال إضافي"
+        }
     },
     "fund_requests": {
         "breadcrumbs": {
@@ -1774,8 +1797,7 @@
         "breadcrumbs": {
             "back": "رجوع",
             "home": "الصفحة الرئيسية",
-            "products": "العرض",
-            "subsidies": "العرض"
+            "products": "العرض"
         },
         "buttons": {
             "buy": "الحجز",
@@ -1812,12 +1834,10 @@
             "pay_from_voucher": "أنت تدفع من الرصيد",
             "price": "السعر:",
             "payment_option_ideal": "الدفع عبر الإنترنت (iDEAL)",
-            "payment_option_ideal_aria_label": "الدفع عبر الإنترنت (iDEAL): انقر للحصول على مزيد من المعلومات",
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
-            "payment_option_qr_aria_label": "إظهار رمز الاستجابة السريعة لدى مقدم الخدمة: انقر للحصول على مزيد من المعلومات",
             "payment_option_reservation": "احجز عبر الإنترنت",
-            "payment_option_reservation_aria_label": "الحجز عبر الإنترنت: انقر للحصول على مزيد من المعلومات",
-            "payment_options": "خيارات الدفع"
+            "payment_options": "خيارات الدفع",
+            "payment_option_link": "اقرأ المزيد عن خيارات الدفع"
         },
         "low_amount": "ليس لديك رصيد ائتماني كافٍ.",
         "map": {
@@ -2540,6 +2560,12 @@
             "house_composition": "تكوين الأسرة",
             "living_arrangement": "الشكل الحي",
             "title": "الأسرة المعيشية"
+        },
+        "address": {
+            "cancel": "إلغاء",
+            "edit": "تحرير",
+            "save": "الحفظ",
+            "title": "تفاصيل العنوان"
         }
     },
     "reimbursements": {
@@ -2641,7 +2667,9 @@
                 "fund_name": "اسم الصندوق",
                 "id": "بطاقة الهوية",
                 "price": "المبلغ",
-                "title": "العنوان"
+                "title": "العنوان",
+                "cancellation_note": "رسالة الموفر:",
+                "rejection_note": "رسالة الموفر:"
             },
             "loading": "التحميل",
             "title": "تفاصيل الحجز"
@@ -3075,11 +3103,12 @@
                 "house_nr": "رقم المنزل",
                 "house_nr_addition": "إضافة رقم المنزل",
                 "last_name": "اللقب",
-                "notes": "ملاحظة (اختياري)",
                 "phone": "رقم الهاتف",
                 "phone_optional": "رقم الهاتف (اختياري)",
                 "postal_code": "الرمز البريدي",
-                "street": "الشارع"
+                "street": "الشارع",
+                "notes": "تعليق",
+                "notes_optional": "ملاحظة (اختياري)"
             },
             "max_characters": "كحد أقصى. 400 حرف",
             "placeholders": {
@@ -3319,8 +3348,7 @@
             "more": "عرض المزيد"
         },
         "header": {
-            "title_budget": "العرض",
-            "title_subsidies": "العرض"
+            "title_budget": "العرض"
         },
         "input": {
             "placeholder": "البحث عن المنتجات أو الخدمات"
@@ -3520,7 +3548,22 @@
         "sessions": {
             "terminated": "تم الإنهاء"
         },
-        "success": "نجحت!"
+        "success": "نجحت!",
+        "email_verification_auth_error": {
+            "description": "لم تتم مصادقتك، يرجى تسجيل الدخول أولاً لتأكيد عنوان بريدك الإلكتروني.",
+            "title": "المصادقة مطلوبة!"
+        },
+        "email_verification_auth_unknown_error": {
+            "description": "خطأ غير معروف."
+        },
+        "email_verification_success": {
+            "description": "تم تأكيد البريد الإلكتروني",
+            "title": "تم تأكيد البريد الإلكتروني!"
+        },
+        "session_expired": {
+            "description": "قم بتسجيل الدخول مرة أخرى وحاول مرة أخرى.",
+            "title": "انتهت صلاحية الجلسة"
+        }
     },
     "read_speaker": {
         "read_aloud": "اقرأ لـ",

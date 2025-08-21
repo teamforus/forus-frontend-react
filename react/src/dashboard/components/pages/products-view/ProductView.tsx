@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import useTranslate from '../../../hooks/useTranslate';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
-import useAssetUrl from '../../../hooks/useAssetUrl';
 import useProductService from '../../../services/ProductService';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useProductChatService from '../../../services/ProductChatService';
@@ -22,6 +21,12 @@ import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import Paginator from '../../../modules/paginator/components/Paginator';
 import ProductFund from '../../../props/models/ProductFund';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
+import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
+import classNames from 'classnames';
 
 type ProductFundLocal = ProductFund & {
     chat?: FundProviderChat;
@@ -32,7 +37,6 @@ export default function ProductView() {
 
     const translate = useTranslate();
     const activeOrganization = useActiveOrganization();
-    const assetUrl = useAssetUrl();
 
     const productService = useProductService();
     const paginatorService = usePaginatorService();
@@ -53,6 +57,8 @@ export default function ProductView() {
         q: '',
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const { headElement, configsElement } = useConfigurableTable(productService.getFundsColumns(product));
 
     const deleteProduct = useCallback(
         (product: Product) => {
@@ -231,45 +237,30 @@ export default function ProductView() {
                 {funds?.meta.total > 0 ? (
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
+                                    {headElement}
+
                                     <tbody>
-                                        <tr>
-                                            <th className="th-narrow">Afbeelding</th>
-                                            <th>Naam</th>
-                                            <th>Geaccepteerd</th>
-                                            {!product.sponsor_organization && <th>Beschikbaar</th>}
-                                            <th className="th-narrow">Berichten</th>
-                                            <th className="th-narrow" />
-                                        </tr>
                                         {funds?.data?.map((fund) => (
                                             <tr key={fund.id}>
                                                 <td>
-                                                    <img
-                                                        className="td-media"
-                                                        alt={fund.name}
-                                                        src={
-                                                            fund.logo?.sizes?.thumbnail ||
-                                                            assetUrl('/assets/img/placeholders/product-thumbnail.png')
-                                                        }
+                                                    <TableEntityMain
+                                                        title={fund.name}
+                                                        subtitle={fund.organization.name}
+                                                        media={fund.logo}
+                                                        mediaRound={false}
+                                                        mediaSize={'md'}
+                                                        mediaPlaceholder={'fund'}
                                                     />
                                                 </td>
                                                 <td>
-                                                    <div className="td-title">
-                                                        {fund.name}
-                                                        <div className="td-title-icon td-title-icon-suffix">
-                                                            {fund.provider_excluded && (
-                                                                <em className="mdi mdi-eye-off-outline" />
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                    <div>{fund.organization.name}</div>
-                                                </td>
-                                                <td>
                                                     {fund.approved ? (
-                                                        <div className="label label-success">Geaccepteerd</div>
+                                                        <Label type="success">Geaccepteerd</Label>
                                                     ) : (
-                                                        <div className="label label-default">Wachtend</div>
+                                                        <Label type="default">Wachtend</Label>
                                                     )}
                                                 </td>
                                                 {!product.sponsor_organization && fundToggles && (
@@ -313,27 +304,35 @@ export default function ProductView() {
                                                         </span>
                                                     )}
                                                 </td>
-                                                <td className="nowrap">
-                                                    <a
-                                                        className={`button button-default ${
-                                                            !fund.approved || fund.provider_excluded
-                                                                ? 'button-disabled'
-                                                                : ''
-                                                        }`}
-                                                        href={`${fund.implementation.url_webshop}products/${product.id}`}
-                                                        target="_blank"
-                                                        rel="noreferrer">
-                                                        <em className="mdi mdi-eye-outline icon-start"> </em>
-                                                        {fund.provider_excluded
-                                                            ? 'Verborgen op webshop'
-                                                            : 'Bekijk op webshop'}
-                                                    </a>
+                                                <td className={'table-td-actions text-right'}>
+                                                    <TableRowActions
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <a
+                                                                    className={classNames(
+                                                                        'dropdown-item',
+                                                                        (!fund.approved || fund.provider_excluded) &&
+                                                                            'disabled',
+                                                                    )}
+                                                                    href={`${fund.implementation.url_webshop}products/${product.id}`}
+                                                                    target="_blank"
+                                                                    rel="noreferrer">
+                                                                    <em className="mdi mdi-eye-outline icon-start">
+                                                                        {' '}
+                                                                    </em>
+                                                                    {fund.provider_excluded
+                                                                        ? 'Verborgen op webshop'
+                                                                        : 'Bekijk op webshop'}
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                    />
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
                 ) : (

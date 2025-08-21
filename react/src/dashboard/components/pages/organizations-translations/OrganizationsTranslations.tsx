@@ -10,7 +10,7 @@ import { mainContext } from '../../../contexts/MainContext';
 import useSetProgress from '../../../hooks/useSetProgress';
 import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import InfoBox from '../../elements/info-box/InfoBox';
-import FormGroup from '../../elements/forms/controls/FormGroup';
+import FormGroup from '../../elements/forms/elements/FormGroup';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import { currencyFormat, numberFormat } from '../../../helpers/string';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -200,8 +200,6 @@ export default function OrganizationsTranslations() {
                         <div className="row">
                             <div className="col col-lg-9 col-xs-12">
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Vertalingen inschakelen'}
                                     error={form.errors?.translations_enabled}
                                     input={(id) => (
@@ -215,14 +213,12 @@ export default function OrganizationsTranslations() {
                                                 }
                                                 title={'Automatische vertaalfunctie inschakelen voor uw organisatie'}
                                             />
-                                            <InfoBox iconPosition={'top'} type={'primary'}>
-                                                <p>
-                                                    Door dit vakje aan te vinken, staat u automatische vertalingen toe
-                                                    voor de webshops van uw organisatie. Nadat u deze optie heeft
-                                                    ingeschakeld, gaat u naar de configuratiepagina van elke webshop om
-                                                    de vertaalfunctionaliteit in te schakelen en de talen te selecteren
-                                                    die u wilt ondersteunen.
-                                                </p>
+                                            <InfoBox type={'primary'}>
+                                                Door dit vakje aan te vinken, staat u automatische vertalingen toe voor
+                                                de webshops van uw organisatie. Nadat u deze optie heeft ingeschakeld,
+                                                gaat u naar de configuratiepagina van elke webshop om de
+                                                vertaalfunctionaliteit in te schakelen en de talen te selecteren die u
+                                                wilt ondersteunen.
                                             </InfoBox>
                                         </Fragment>
                                     )}
@@ -234,8 +230,6 @@ export default function OrganizationsTranslations() {
                         <div className="row">
                             <div className="col col-lg-9 col-xs-12">
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Daglimiet'}
                                     error={form.errors?.translations_daily_limit}
                                     input={(id) => (
@@ -261,8 +255,6 @@ export default function OrganizationsTranslations() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Weeklimiet'}
                                     error={form.errors?.translations_weekly_limit}
                                     input={(id) => (
@@ -290,8 +282,6 @@ export default function OrganizationsTranslations() {
                                     )}
                                 />
                                 <FormGroup
-                                    inline={true}
-                                    inlineSize={'lg'}
                                     label={'Maandlimiet'}
                                     error={form.errors?.translations_monthly_limit}
                                     input={(id) => (
@@ -324,7 +314,7 @@ export default function OrganizationsTranslations() {
                     </div>
 
                     <div className="card-section card-section-primary">
-                        <InfoBox iconPosition={'top'} type={'primary'}>
+                        <InfoBox type={'primary'}>
                             <p>
                                 <strong>Belangrijke opmerking over vertaalquota en kosten</strong>
                             </p>
@@ -463,15 +453,7 @@ export default function OrganizationsTranslations() {
                             <div className="card-title">{translate('translation_stats.header.title')}</div>
                         </div>
                         <div className="card-body">
-                            {!stats ? (
-                                <LoadingCard type={'card-section'} />
-                            ) : (
-                                <div className="card-section">
-                                    <div className="card-block card-block-table">
-                                        <TranslationStatsTable stats={stats} />
-                                    </div>
-                                </div>
-                            )}
+                            {!stats ? <LoadingCard type={'card-section'} /> : <TranslationStatsTable stats={stats} />}
                         </div>
                     </div>
                 </div>

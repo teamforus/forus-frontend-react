@@ -6,6 +6,7 @@ import Markdown from '../../../../../webshop/components/elements/markdown/Markdo
 import InfoBox from '../../../elements/info-box/InfoBox';
 import HtmlDiffBlock from '../../../elements/html-diff/HtmlDiffBlock';
 import useTranslate from '../../../../hooks/useTranslate';
+import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function ProductMonitoredHistoryCardItem({
     item,
@@ -33,14 +34,17 @@ export default function ProductMonitoredHistoryCardItem({
                 <td>
                     <TableEntityMain title={'Velden bijwerken'} subtitle={fieldsList} collapsed={!shownHistory} />
                 </td>
-                <td className={'text-right'}>
+                <td>
                     <TableDateTime value={item.created_at_locale} />
+                </td>
+                <td className={'table-td-actions text-right'}>
+                    <TableEmptyValue />
                 </td>
             </tr>
 
             {shownHistory && (
                 <tr>
-                    <td className={'td-paddless'} colSpan={2}>
+                    <td className={'td-paddless'} colSpan={3}>
                         <table className={'table table-fixed table-align-top'}>
                             <thead>
                                 <tr>
@@ -83,10 +87,7 @@ export default function ProductMonitoredHistoryCardItem({
                                                 {fieldKey === 'description' ? (
                                                     <div className={'flex flex-vertical flex-gap'}>
                                                         {historyView === 'diff' && (
-                                                            <InfoBox
-                                                                type={'warning'}
-                                                                iconColor={'warning'}
-                                                                iconPosition={'top'}>
+                                                            <InfoBox type={'warning'} iconColor={'warning'}>
                                                                 <div>
                                                                     <strong>Let op</strong>
                                                                 </div>

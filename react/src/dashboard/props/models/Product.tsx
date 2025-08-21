@@ -5,6 +5,8 @@ import ProductCategory from './ProductCategory';
 import Fund from './Fund';
 import Voucher from './Voucher';
 
+export type ProductPriceType = 'regular' | 'discount_fixed' | 'discount_percentage' | 'free' | 'informational';
+
 export default interface Product {
     id: number;
     name: string;
@@ -13,6 +15,7 @@ export default interface Product {
     product_category_id: number;
     sold_out: boolean;
     organization_id: number;
+    qr_enabled: boolean;
     reservation_enabled: boolean;
     reservation_policy: 'global';
     alternative_text?: string;
@@ -39,16 +42,22 @@ export default interface Product {
             };
             end_at: string;
             end_at_locale: string;
-            scanning_enabled: boolean;
-            reservations_enabled: boolean;
-            reservation_extra_payments_enabled: boolean;
+            feature_scanning_enabled: boolean;
+            feature_reservations_enabled: boolean;
+            feature_reservation_extra_payments_enabled: boolean;
             fund_id?: number;
             limit_total?: number;
             limit_available?: number;
             limit_per_identity?: number;
-            limit_total_unlimited: boolean;
+            limit_total_unlimited?: boolean;
             price?: string;
             price_locale?: string;
+            amount?: string;
+            amount_locale?: string;
+            payment_type?: 'subsidy' | 'budget';
+            payment_type_locale?: string;
+            user_price?: string;
+            user_price_locale?: string;
             vouchers?: Array<Voucher>;
             fund_providers?: Array<Organization>;
         }
@@ -56,7 +65,7 @@ export default interface Product {
     offices: Array<Office>;
     product_category: ProductCategory;
     bookmarked: boolean;
-    price_type: 'regular' | 'discount_fixed' | 'discount_percentage' | 'free';
+    price_type: ProductPriceType;
     price_discount: string;
     price_discount_locale: string;
     price_min?: string;
@@ -69,6 +78,8 @@ export default interface Product {
     reservation_phone: 'global' | 'no' | 'optional' | 'required';
     reservation_address: 'global' | 'no' | 'optional' | 'required';
     reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
+    reservation_note: 'global' | 'no' | 'custom';
+    reservation_note_text: string;
     reservation_extra_payments: 'global' | 'no' | 'yes';
     sponsor_organization_id?: number;
     sponsor_organization?: {

@@ -273,7 +273,7 @@ export default function ModalVoucherTransaction({
                     <div className="modal-body modal-body-visible">
                         <div className="modal-section modal-section-pad">
                             {targets.length > 1 && form.values.target !== 'top_up' && (
-                                <div className="form-group form-group-inline form-group-inline-md">
+                                <div className="form-group">
                                     <div className="form-label form-label-required">
                                         {translate('modals.modal_voucher_transaction.labels.target')}
                                     </div>
@@ -292,7 +292,7 @@ export default function ModalVoucherTransaction({
                             )}
 
                             {form.values.target === 'provider' && (
-                                <div className="form-group form-group-inline form-group-inline-md">
+                                <div className="form-group">
                                     <div className="form-label form-label-required">
                                         {translate('modals.modal_voucher_transaction.labels.provider')}
                                     </div>
@@ -310,7 +310,7 @@ export default function ModalVoucherTransaction({
                             )}
 
                             {ibanSources && canUseReimbursements && form.values.target === 'iban' && (
-                                <div className="form-group form-group-inline form-group-inline-md">
+                                <div className="form-group">
                                     <div className="form-label form-label-required">
                                         {translate('modals.modal_voucher_transaction.labels.iban_source')}
                                     </div>
@@ -331,7 +331,7 @@ export default function ModalVoucherTransaction({
                             {ibanSources &&
                                 form.values.iban_source === 'reimbursement' &&
                                 form.values.target === 'iban' && (
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group">
                                         <div className="form-label form-label-required">
                                             {translate('modals.modal_voucher_transaction.labels.reimbursement')}
                                         </div>
@@ -348,135 +348,131 @@ export default function ModalVoucherTransaction({
 
                             {form.values.target === 'iban' &&
                                 (form.values.iban_source === 'manual' || reimbursement?.id) && (
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group">
                                         <div className="form-label form-label-required">
                                             {translate('modals.modal_voucher_transaction.labels.target_iban')}
                                         </div>
-                                        <div className="form-offset">
-                                            {form.values.iban_source === 'manual' ? (
-                                                <input
-                                                    type={'text'}
-                                                    className="form-control"
-                                                    defaultValue={form.values.target_iban || ''}
-                                                    placeholder="IBAN-nummer"
-                                                    onChange={(e) => form.update({ target_iban: e.target.value })}
-                                                />
-                                            ) : (
-                                                <input
-                                                    type={'text'}
-                                                    className="form-control"
-                                                    value={reimbursement.iban || ''}
-                                                    disabled={true}
-                                                />
-                                            )}
 
-                                            <FormError error={form.errors?.target_iban} />
-                                        </div>
+                                        {form.values.iban_source === 'manual' ? (
+                                            <input
+                                                type={'text'}
+                                                className="form-control"
+                                                defaultValue={form.values.target_iban || ''}
+                                                placeholder="IBAN-nummer"
+                                                onChange={(e) => form.update({ target_iban: e.target.value })}
+                                            />
+                                        ) : (
+                                            <input
+                                                type={'text'}
+                                                className="form-control"
+                                                value={reimbursement.iban || ''}
+                                                disabled={true}
+                                            />
+                                        )}
+
+                                        <FormError error={form.errors?.target_iban} />
                                     </div>
                                 )}
 
                             {form.values.target === 'iban' &&
                                 (form.values.iban_source === 'manual' || reimbursement?.id) && (
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group">
                                         <div className="form-label form-label-required">
                                             {translate('modals.modal_voucher_transaction.labels.target_name')}
                                         </div>
-                                        <div className="form-offset">
-                                            {form.values.iban_source === 'manual' ? (
-                                                <input
-                                                    type={'text'}
-                                                    className="form-control"
-                                                    defaultValue={form.values.target_name || ''}
-                                                    placeholder="IBAN-naam"
-                                                    onChange={(e) => form.update({ target_name: e.target.value })}
-                                                />
-                                            ) : (
-                                                <input
-                                                    type={'text'}
-                                                    className="form-control"
-                                                    value={reimbursement.iban_name || ''}
-                                                    disabled={true}
-                                                />
-                                            )}
 
-                                            <FormError error={form.errors?.target_name} />
-                                        </div>
+                                        {form.values.iban_source === 'manual' ? (
+                                            <input
+                                                type={'text'}
+                                                className="form-control"
+                                                defaultValue={form.values.target_name || ''}
+                                                placeholder="IBAN-naam"
+                                                onChange={(e) => form.update({ target_name: e.target.value })}
+                                            />
+                                        ) : (
+                                            <input
+                                                type={'text'}
+                                                className="form-control"
+                                                value={reimbursement.iban_name || ''}
+                                                disabled={true}
+                                            />
+                                        )}
+
+                                        <FormError error={form.errors?.target_name} />
                                     </div>
                                 )}
 
-                            <div className="form-group form-group-inline form-group-inline-md">
+                            <div className="form-group">
                                 <div className="form-label form-label-required">
                                     {translate('modals.modal_voucher_transaction.labels.amount')}
                                 </div>
-                                <div className="form-offset">
-                                    <input
-                                        className="form-control"
-                                        type="number"
-                                        value={form.values.amount || ''}
-                                        step=".01"
-                                        min=".02"
-                                        max={amountLimit}
-                                        placeholder={translate('modals.modal_voucher_transaction.labels.amount')}
-                                        onChange={(e) => form.update({ amount: e.target.value })}
-                                    />
-                                    {!form.errors?.amount ? (
-                                        <div className="form-hint">
-                                            Limiet {currencyFormat(parseFloat(amountLimit?.toString()))}
-                                        </div>
-                                    ) : (
-                                        <FormError error={form.errors?.amount} />
-                                    )}
-                                </div>
+
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    value={form.values.amount || ''}
+                                    step=".01"
+                                    min=".02"
+                                    max={amountLimit}
+                                    placeholder={translate('modals.modal_voucher_transaction.labels.amount')}
+                                    onChange={(e) => form.update({ amount: e.target.value })}
+                                />
+                                {!form.errors?.amount ? (
+                                    <div className="form-hint">
+                                        Limiet {currencyFormat(parseFloat(amountLimit?.toString()))}
+                                    </div>
+                                ) : (
+                                    <FormError error={form.errors?.amount} />
+                                )}
+
                                 <FormError error={form.errors?.amount} />
                             </div>
 
-                            <div className="form-group form-group-inline form-group-inline-md">
+                            <div className="form-group">
                                 <div className="form-label">
                                     {translate('modals.modal_voucher_transaction.labels.note')}
                                 </div>
-                                <div className="form-offset">
-                                    <textarea
-                                        className="form-control r-n"
-                                        value={form.values.note}
-                                        placeholder={translate('modals.modal_voucher_transaction.labels.note')}
-                                        onChange={(e) => form.update({ note: e.target.value })}
-                                    />
-                                    {!form.errors?.note ? (
-                                        <div className="form-hint">Max. 255 tekens</div>
-                                    ) : (
-                                        <FormError error={form.errors?.note} />
-                                    )}
-                                </div>
+
+                                <textarea
+                                    className="form-control r-n"
+                                    value={form.values.note}
+                                    placeholder={translate('modals.modal_voucher_transaction.labels.note')}
+                                    onChange={(e) => form.update({ note: e.target.value })}
+                                />
+                                {!form.errors?.note ? (
+                                    <div className="form-hint">Max. 255 tekens</div>
+                                ) : (
+                                    <FormError error={form.errors?.note} />
+                                )}
+
                                 <FormError error={form.errors?.note} />
                             </div>
 
                             {form.values.target === 'provider' && (
                                 <Fragment>
-                                    <div className="form-group form-group-inline form-group-inline-md">
+                                    <div className="form-group">
                                         <div className="form-label" />
-                                        <div className="form-offset">
-                                            <label className="checkbox">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={form.values.note_shared}
-                                                    onChange={(e) => form.update({ note_shared: e.target.checked })}
-                                                />
-                                                <div className="checkbox-label">
-                                                    <div className="checkbox-box">
-                                                        <div className="mdi mdi-check" />
-                                                    </div>
-                                                    {translate('modals.modal_voucher_transaction.labels.note_shared')}
+
+                                        <label className="checkbox">
+                                            <input
+                                                type="checkbox"
+                                                checked={form.values.note_shared}
+                                                onChange={(e) => form.update({ note_shared: e.target.checked })}
+                                            />
+                                            <div className="checkbox-label">
+                                                <div className="checkbox-box">
+                                                    <div className="mdi mdi-check" />
                                                 </div>
-                                            </label>
-                                        </div>
+                                                {translate('modals.modal_voucher_transaction.labels.note_shared')}
+                                            </div>
+                                        </label>
+
                                         <FormError error={form.errors?.note_shared} />
                                     </div>
 
-                                    <InfoBox iconPosition={'top'} type={'default'} iconColor={'primary'}>
-                                        <p>
-                                            Controleer de gegevens. Na het aanmaken kan de transactie niet worden
-                                            verwijderd.
-                                        </p>
+                                    <InfoBox type={'default'}>
+                                        Controleer de gegevens. Na het aanmaken kan de transactie niet worden
+                                        verwijderd.
                                     </InfoBox>
                                 </Fragment>
                             )}

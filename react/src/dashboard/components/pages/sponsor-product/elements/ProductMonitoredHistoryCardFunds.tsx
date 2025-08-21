@@ -9,6 +9,7 @@ import { useFundService } from '../../../../services/FundService';
 import Organization from '../../../../props/models/Organization';
 import classNames from 'classnames';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import Label from '../../../elements/image_cropper/Label';
 
 export default function ProductMonitoredHistoryCardFunds({
     type = 'card',
@@ -21,7 +22,7 @@ export default function ProductMonitoredHistoryCardFunds({
 }) {
     const fundService = useFundService();
     const { headElement, configsElement } = useConfigurableTable(fundService.getColumnsProductFunds(), {
-        hasTooltips: type === 'table' ? false : undefined,
+        hasTooltips: type !== 'table',
     });
 
     const tableElement = (
@@ -78,19 +79,11 @@ export default function ProductMonitoredHistoryCardFunds({
                                 )}
                             </td>
                             <td>
-                                {fund.state === 'approved' && (
-                                    <span className="label label-success">{fund.state_locale}</span>
-                                )}
-
-                                {fund.state === 'pending' && (
-                                    <span className="label label-default">{fund.state_locale}</span>
-                                )}
-
-                                {fund.state === 'not_applied' && (
-                                    <span className="label label-warning">{fund.state_locale}</span>
-                                )}
+                                {fund.state === 'approved' && <Label type="success">{fund.state_locale}</Label>}
+                                {fund.state === 'pending' && <Label type="default">{fund.state_locale}</Label>}
+                                {fund.state === 'not_applied' && <Label type="warning">{fund.state_locale}</Label>}
                             </td>
-                            <td className="table-td-actions">
+                            <td className={'table-td-actions text-right'}>
                                 <TableRowActions
                                     disabled={
                                         !fund.fund_provider_id && !(fund.state === 'approved' && fund.url_product)

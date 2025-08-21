@@ -21,6 +21,7 @@ import Bank from '../../../props/models/Bank';
 import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
 
 export default function TransactionBulksView() {
     const envData = useEnvData();
@@ -70,6 +71,13 @@ export default function TransactionBulksView() {
                     modal={modal}
                     title={title}
                     description_text={description}
+                    buttonCancel={{
+                        text: onSubmit ? 'Annuleren' : 'Sluiten',
+                        onClick: () => {
+                            onCancel?.();
+                            modal.close();
+                        },
+                    }}
                     buttonSubmit={
                         onSubmit && {
                             text: 'Bevestigen',
@@ -79,13 +87,6 @@ export default function TransactionBulksView() {
                             },
                         }
                     }
-                    buttonCancel={{
-                        text: onSubmit ? 'Annuleren' : 'Sluiten',
-                        onClick: () => {
-                            onCancel?.();
-                            modal.close();
-                        },
-                    }}
                 />
             ));
         },
@@ -453,19 +454,19 @@ export default function TransactionBulksView() {
                                 <KeyValueItem label={translate('financial_dashboard_transaction.labels.status')}>
                                     <Fragment>
                                         {transactionBulk.state == 'rejected' && (
-                                            <span className="label label-danger">{transactionBulk.state_locale}</span>
+                                            <Label type="danger">{transactionBulk.state_locale}</Label>
                                         )}
                                         {transactionBulk.state == 'error' && (
-                                            <span className="label label-danger">{transactionBulk.state_locale}</span>
+                                            <Label type="danger">{transactionBulk.state_locale}</Label>
                                         )}
                                         {transactionBulk.state == 'draft' && (
-                                            <span className="label label-default">{transactionBulk.state_locale}</span>
+                                            <Label type="default">{transactionBulk.state_locale}</Label>
                                         )}
                                         {transactionBulk.state == 'accepted' && (
-                                            <span className="label label-success">{transactionBulk.state_locale}</span>
+                                            <Label type="success">{transactionBulk.state_locale}</Label>
                                         )}
                                         {transactionBulk.state == 'pending' && (
-                                            <span className="label label-default">{transactionBulk.state_locale}</span>
+                                            <Label type="default">{transactionBulk.state_locale}</Label>
                                         )}
                                         {transactionBulk.state == 'pending' && (
                                             <Tooltip text="De status van bulkbetaling wordt om het uur gecontroleerd." />

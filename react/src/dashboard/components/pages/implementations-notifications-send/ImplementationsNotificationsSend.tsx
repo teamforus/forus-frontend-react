@@ -11,7 +11,6 @@ import Implementation from '../../../props/models/Implementation';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
 import SelectControl from '../../elements/select-control/SelectControl';
-import ThSortable from '../../elements/tables/ThSortable';
 import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -27,6 +26,9 @@ import useFundIdentitiesExporter from '../../../services/exporters/useFundIdenti
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 
 export default function ImplementationsNotificationsSend() {
     const { id } = useParams();
@@ -118,6 +120,14 @@ export default function ImplementationsNotificationsSend() {
         order_by: 'created_at',
         order_dir: 'desc',
     });
+
+    const { headElement, configsElement } = useConfigurableTable(
+        implementationNotificationsService.getIdentitiesColumns(),
+        {
+            sortable: true,
+            filter: identitiesFilters,
+        },
+    );
 
     const exportIdentities = useCallback(() => {
         fundIdentitiesExporter.exportData(activeOrganization.id, fund.id, identitiesFilters.activeValues);
@@ -441,50 +451,47 @@ export default function ImplementationsNotificationsSend() {
                     <div className="card-section">
                         <div className="form-group">
                             <label className="form-label">Kies een fonds</label>
-                            <div className="form-offset">
-                                <SelectControl
-                                    className="form-control"
-                                    allowSearch={false}
-                                    value={fund}
-                                    onChange={(value: Fund) => setFund(value)}
-                                    options={funds}
-                                />
-                            </div>
+
+                            <SelectControl
+                                className="form-control"
+                                allowSearch={false}
+                                value={fund}
+                                onChange={(value: Fund) => setFund(value)}
+                                options={funds}
+                            />
                         </div>
 
                         {targetGroup == 'identities' && (
                             <div className="form-group">
                                 <label className="form-label">Verstuur naar</label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        className="form-control"
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        value={identitiesFilters.values.target}
-                                        onChange={(value: string) => {
-                                            identitiesFilters.update({ target: value });
-                                        }}
-                                        options={identityTargets}
-                                    />
-                                </div>
+
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'value'}
+                                    allowSearch={false}
+                                    value={identitiesFilters.values.target}
+                                    onChange={(value: string) => {
+                                        identitiesFilters.update({ target: value });
+                                    }}
+                                    options={identityTargets}
+                                />
                             </div>
                         )}
 
                         {targetGroup == 'providers' && (
                             <div className="form-group">
                                 <label className="form-label">Verstuur naar</label>
-                                <div className="form-offset">
-                                    <SelectControl
-                                        className="form-control"
-                                        propKey={'value'}
-                                        allowSearch={false}
-                                        value={providersFilters.values.target}
-                                        onChange={(value: string) => {
-                                            providersFilters.update({ target: value });
-                                        }}
-                                        options={providerTargets}
-                                    />
-                                </div>
+
+                                <SelectControl
+                                    className="form-control"
+                                    propKey={'value'}
+                                    allowSearch={false}
+                                    value={providersFilters.values.target}
+                                    onChange={(value: string) => {
+                                        providersFilters.update({ target: value });
+                                    }}
+                                    options={providerTargets}
+                                />
                             </div>
                         )}
                     </div>
@@ -528,33 +535,13 @@ export default function ImplementationsNotificationsSend() {
                             {showIdentities && identities.meta.total > 0 && (
                                 <div className="card-section">
                                     <div className="card-block card-block-table">
-                                        <div className="table-wrapper">
-                                            <table className="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <ThSortable filter={identitiesFilters} label="ID" value="id" />
-                                                        <ThSortable
-                                                            filter={identitiesFilters}
-                                                            label="E-mail"
-                                                            value="email"
-                                                        />
-                                                        <ThSortable
-                                                            filter={identitiesFilters}
-                                                            label="Aantal tegoeden"
-                                                            value="count_vouchers"
-                                                        />
-                                                        <ThSortable
-                                                            filter={identitiesFilters}
-                                                            label="Actieve tegoeden"
-                                                            value="count_vouchers_active"
-                                                        />
-                                                        <ThSortable
-                                                            filter={identitiesFilters}
-                                                            label="Actieve tegoeden met een restant budget"
-                                                            value="count_vouchers_active_with_balance"
-                                                        />
-                                                    </tr>
+                                        {configsElement}
 
+                                        <TableTopScroller>
+                                            <table className="table">
+                                                {headElement}
+
+                                                <tbody>
                                                     {identities.data.map((identity) => (
                                                         <tr key={identity.id}>
                                                             <td>{identity.id}</td>
@@ -562,11 +549,14 @@ export default function ImplementationsNotificationsSend() {
                                                             <td>{identity.count_vouchers}</td>
                                                             <td>{identity.count_vouchers_active}</td>
                                                             <td>{identity.count_vouchers_active_with_balance}</td>
+                                                            <td className={'table-td-actions text-right'}>
+                                                                <TableEmptyValue />
+                                                            </td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </TableTopScroller>
                                     </div>
                                 </div>
                             )}

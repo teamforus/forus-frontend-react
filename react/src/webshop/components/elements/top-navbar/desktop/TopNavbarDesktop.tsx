@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext, useEffect } from 'react';
+import React, { Fragment, useCallback, useContext, useEffect, useRef } from 'react';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 import Announcements from '../../announcements/Announcements';
 import classNames from 'classnames';
@@ -11,6 +11,8 @@ import { TopNavbarDesktopUser } from './TopNavbarDesktopUser';
 import useEnvData from '../../../../hooks/useEnvData';
 import { mainContext } from '../../../../contexts/MainContext';
 import { TopNavbarDesktopSearchButton } from './TopNavbarDesktopSearchButton';
+import { layoutContext } from '../../../../contexts/LayoutContext';
+import { useElementSize } from '../../../../hooks/useElementSize';
 
 export const TopNavbarDesktop = ({
     hideOnScroll = false,
@@ -22,6 +24,9 @@ export const TopNavbarDesktop = ({
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const { showSearchBox } = useContext(mainContext);
+    const { setNavbarHeaderHeight } = useContext(layoutContext);
+    const navbarDesktopRef = useRef<HTMLElement>(null);
+    const { height: navbarDesktopHeight } = useElementSize(navbarDesktopRef);
 
     const [visible, setVisible] = React.useState(false);
     const [prevOffsetY, setPrevOffsetY] = React.useState(0);
@@ -37,8 +42,13 @@ export const TopNavbarDesktop = ({
         window.addEventListener('scroll', updateScrolled);
     }, [updateScrolled]);
 
+    useEffect(() => {
+        setNavbarHeaderHeight(navbarDesktopHeight);
+    }, [setNavbarHeaderHeight, navbarDesktopHeight]);
+
     return (
         <nav
+            ref={navbarDesktopRef}
             className={classNames(
                 'block block-navbar-desktop',
                 className,

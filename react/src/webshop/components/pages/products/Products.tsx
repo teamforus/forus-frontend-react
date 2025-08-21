@@ -25,10 +25,11 @@ import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import RangeControl from '../../elements/forms/RangeControl';
-import useShowProductPaymentOptionsInfoModal from '../../../hooks/useShowProductPaymentOptionsInfoModal';
-import ProductsFilterOptions from './elements/ProductsFilterOptions';
+import ProductsFilterReservationOptions from './elements/ProductsFilterReservationOptions';
+import classNames from 'classnames';
+import ProductsFilterPriceTypeOptions from './elements/ProductsFilterPriceTypeOptions';
 
-export default function Products({ fundType = 'budget' }: { fundType: 'budget' | 'subsidies' }) {
+export default function Products() {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
 
@@ -40,7 +41,6 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
-    const showProductIconsInfoModal = useShowProductPaymentOptionsInfoModal();
 
     const [sortByOptions] = useState(productService.getSortOptions(translate));
 
@@ -65,6 +65,15 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
         ];
     }, [translate]);
 
+    const defaultSortOption = useMemo(() => {
+        return sortByOptions?.find((option) => {
+            return (
+                `${option.value.order_by}_${option.value.order_dir}` === appConfigs.products_default_sorting ||
+                `${option.value.order_by}` === appConfigs.products_default_sorting
+            );
+        });
+    }, [appConfigs?.products_default_sorting, sortByOptions]);
+
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
         page: number;
@@ -81,8 +90,13 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
         extra_payment?: boolean;
         bookmarked: boolean;
         display_type: 'list' | 'grid';
-        order_by: 'created_at' | 'price' | 'most_popular' | 'name';
+        order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
         order_dir: 'asc' | 'desc';
+        regular?: boolean;
+        discount_fixed?: boolean;
+        discount_percentage?: boolean;
+        free?: boolean;
+        informational?: boolean;
     }>(
         {
             q: '',
@@ -99,9 +113,14 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
             reservation: false,
             extra_payment: false,
             bookmarked: false,
-            display_type: 'list',
-            order_by: sortByOptions[0]?.value.order_by,
-            order_dir: sortByOptions[0]?.value.order_dir,
+            regular: false,
+            discount_fixed: false,
+            discount_percentage: false,
+            free: false,
+            informational: false,
+            display_type: 'grid',
+            order_by: (defaultSortOption || sortByOptions[0])?.value.order_by,
+            order_dir: (defaultSortOption || sortByOptions[0])?.value.order_dir,
         },
         {
             throttledValues: ['q', 'from', 'to', 'qr', 'reservation', 'extra_payment'],
@@ -123,6 +142,11 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 display_type: StringParam,
                 order_by: StringParam,
                 order_dir: StringParam,
+                regular: BooleanParam,
+                discount_fixed: BooleanParam,
+                discount_percentage: BooleanParam,
+                free: BooleanParam,
+                informational: BooleanParam,
             },
             filterParams: ['display_type'],
         },
@@ -160,13 +184,24 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 qr: boolean;
                 reservation: boolean;
                 extra_payment: boolean;
-                display_type: 'list' | 'grid';
-                order_by: 'created_at' | 'price' | 'most_popular' | 'name';
+                regular: boolean;
+                discount_fixed: boolean;
+                discount_percentage: boolean;
+                free: boolean;
+                informational: boolean;
+                order_by: 'created_at' | 'price' | 'most_popular' | 'name' | 'randomized';
                 order_dir: 'asc' | 'desc';
             }>,
         ) => {
-            const isSortingByPrice = values.order_by === 'price';
-            const hasFilters = values.qr || values.extra_payment || values.reservation;
+            const hasFilters =
+                values.qr ||
+                values.extra_payment ||
+                values.reservation ||
+                values.regular ||
+                values.discount_fixed ||
+                values.discount_percentage ||
+                values.free ||
+                values.informational;
 
             return {
                 q: values.q,
@@ -174,7 +209,6 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 fund_id: values.fund_id,
                 organization_id: values.organization_id,
                 product_category_id: values.product_sub_category_id || values.product_category_id,
-                fund_type: fundType,
                 postcode: values.postcode || '',
                 distance: values.distance || null,
                 from: values.from || null,
@@ -182,12 +216,17 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 qr: hasFilters ? (values.qr ? 1 : 0) : 0,
                 reservation: hasFilters ? (values.reservation ? 1 : 0) : 0,
                 extra_payment: hasFilters ? (values.extra_payment ? 1 : 0) : 0,
+                regular: hasFilters ? (values.regular ? 1 : 0) : 0,
+                discount_fixed: hasFilters ? (values.discount_fixed ? 1 : 0) : 0,
+                discount_percentage: hasFilters ? (values.discount_percentage ? 1 : 0) : 0,
+                free: hasFilters ? (values.free ? 1 : 0) : 0,
+                informational: hasFilters ? (values.informational ? 1 : 0) : 0,
                 bookmarked: values.bookmarked ? 1 : 0,
-                order_by: isSortingByPrice ? (fundType === 'budget' ? 'price' : 'price_min') : values.order_by,
+                order_by: values.order_by,
                 order_dir: values.order_dir,
             };
         },
-        [fundType],
+        [],
     );
 
     const fetchProducts = useCallback(
@@ -196,7 +235,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
             setProgress(0);
 
             productService
-                .list({ fund_type: fundType, ...query })
+                .list({ ...query })
                 .then((res) => {
                     setProducts(res.data);
                     setToMax((max) => Math.max(res.data?.meta?.price_max, max));
@@ -204,33 +243,33 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                 .catch((e: ResponseError) => setErrors(e.data?.errors))
                 .finally(() => setProgress(100));
         },
-        [fundType, productService, setProgress],
+        [productService, setProgress],
     );
 
     const fetchFunds = useCallback(() => {
         fundService
-            .list(fundType === 'budget' ? { has_products: 1 } : { has_subsidies: 1 })
+            .list({ has_products: 1 })
             .then((res) => setFunds([{ id: null, name: translate('products.filters.all_funds') }, ...res.data.data]));
-    }, [fundService, fundType, translate]);
+    }, [fundService, translate]);
 
     const fetchOrganizations = useCallback(() => {
         organizationService
-            .list({ type: 'provider', per_page: 300, fund_type: fundType })
+            .list({ type: 'provider', per_page: 300, order_by: 'name' })
             .then((res) =>
                 setOrganizations([{ id: null, name: translate('products.filters.all_providers') }, ...res.data.data]),
             );
-    }, [organizationService, fundType, translate]);
+    }, [organizationService, translate]);
 
     const fetchProductCategories = useCallback(() => {
         productCategoryService
-            .list({ per_page: 1000, used: 1, used_type: fundType, parent_id: 'null' })
+            .list({ per_page: 1000, used: 1, parent_id: 'null' })
             .then((res) =>
                 setProductCategories([
                     { id: null, name: translate('products.filters.all_categories') },
                     ...res.data.data,
                 ]),
             );
-    }, [productCategoryService, fundType, translate]);
+    }, [productCategoryService, translate]);
 
     useEffect(() => {
         fetchFunds();
@@ -249,7 +288,6 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                     parent_id: filterValues.product_category_id,
                     per_page: 1000,
                     used: 1,
-                    used_type: fundType,
                 })
                 .then((res) => {
                     filterUpdate((values) => {
@@ -270,7 +308,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
             filterUpdate({ product_sub_category_id: null });
             setProductSubCategories(null);
         }
-    }, [filterUpdate, fundType, filterValues.product_category_id, productCategoryService, translate]);
+    }, [filterUpdate, filterValues.product_category_id, productCategoryService, translate]);
 
     useEffect(() => {
         setTitle(translate('page_state_titles.products', { fund_name: fundFiltered ? ` ${fundFiltered.name}` : '' }));
@@ -278,6 +316,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
 
     return (
         <BlockShowcasePage
+            dusk="listProductsContent"
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
                 { name: translate('products.breadcrumbs.home'), state: 'home' },
@@ -328,6 +367,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                 onChangeValue={(q: string) => filterUpdate({ q })}
                                 ariaLabel={translate('products.filters.search')}
                                 id="products_search"
+                                dataDusk="listProductsSearch"
                             />
                         </div>
                         <div className="form-group">
@@ -342,6 +382,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                 allowSearch={true}
                                 onChange={(organization_id: number) => filterUpdate({ organization_id })}
                                 options={organizations || []}
+                                dusk="selectControlOrganizations"
                             />
                         </div>
 
@@ -358,6 +399,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                 value={filterValues.product_category_id}
                                 onChange={(id: number) => filterUpdate({ product_category_id: id })}
                                 options={productCategories || []}
+                                dusk="selectControlCategories"
                             />
                         </div>
 
@@ -375,6 +417,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     multiline={true}
                                     allowSearch={true}
                                     options={productSubCategories || []}
+                                    dusk="selectControlSubCategories"
                                 />
                             </div>
                         )}
@@ -392,6 +435,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                     allowSearch={true}
                                     onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                     options={funds || []}
+                                    dusk="selectControlFunds"
                                 />
                             )}
                         </div>
@@ -408,6 +452,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         onChange={(e) => filterUpdate({ postcode: e.target.value })}
                                         type="text"
                                         aria-label={translate('products.filters.postcode')}
+                                        data-dusk="inputPostcode"
                                     />
                                     <FormError error={errors?.postcode} />
                                 </div>
@@ -425,6 +470,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         allowSearch={true}
                                         onChange={(distance: number) => filterUpdate({ distance })}
                                         options={distances || []}
+                                        dusk="selectControlDistances"
                                     />
                                     <FormError error={errors?.distance} />
                                 </div>
@@ -452,6 +498,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         }
                                         type="number"
                                         aria-label={translate('products.filters.price_from')}
+                                        data-dusk="inputPriceFrom"
                                     />
                                     <FormError error={errors?.from} />
                                 </div>
@@ -476,6 +523,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         }
                                         type="number"
                                         aria-label={translate('products.filters.price_to')}
+                                        data-dusk="inputPriceTo"
                                     />
                                     <FormError error={errors?.to} />
                                 </div>
@@ -494,27 +542,15 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                             />
                         </div>
 
-                        <div className="showcase-aside-block-separator" />
-                        <div className="showcase-aside-block-title">
-                            {translate('products.filters.payment_options')}
-                        </div>
-                        <div className="showcase-aside-block-info">
-                            <a
-                                className="showcase-aside-block-info-link"
-                                role="button"
-                                tabIndex={0}
-                                aria-label={translate('products.filters.payment_options_info')}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    showProductIconsInfoModal();
-                                }}
-                                onKeyDown={(e) => clickOnKeyEnter(e, true)}>
-                                <em className="mdi mdi-information-outline" aria-hidden="true" />
-                                {translate('products.filters.payment_options_info')}
-                            </a>
-                        </div>
+                        <ProductsFilterReservationOptions
+                            value={filterValues}
+                            setValue={(value) => filterUpdate(value)}
+                        />
 
-                        <ProductsFilterOptions value={filterValues} setValue={(value) => filterUpdate(value)} />
+                        <ProductsFilterPriceTypeOptions
+                            value={filterValues}
+                            setValue={(value) => filterUpdate(value)}
+                        />
                     </div>
                 )
             }>
@@ -556,26 +592,16 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                                 })?.value || {},
                                             );
                                         }}
+                                        dusk="selectControlOrderBy"
                                     />
                                 </div>
                                 <div className="label-tab-set">
                                     <div
-                                        className={`label-tab label-tab-sm ${
-                                            filterValues.display_type == 'list' ? 'active' : ''
-                                        }`}
-                                        onClick={() => filterUpdate({ display_type: 'list' })}
-                                        onKeyDown={clickOnKeyEnter}
-                                        tabIndex={0}
-                                        aria-pressed={filterValues.display_type == 'list'}
-                                        role="button">
-                                        <em className="mdi mdi-format-list-text icon-start" />
-
-                                        {translate('products.view.list')}
-                                    </div>
-                                    <div
-                                        className={`label-tab label-tab-sm ${
-                                            filterValues.display_type == 'grid' ? 'active' : ''
-                                        }`}
+                                        className={classNames(
+                                            'label-tab',
+                                            'label-tab-sm',
+                                            filterValues.display_type == 'grid' && 'active',
+                                        )}
                                         onClick={() => filterUpdate({ display_type: 'grid' })}
                                         onKeyDown={clickOnKeyEnter}
                                         tabIndex={0}
@@ -583,6 +609,20 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                                         role="button">
                                         <em className="mdi mdi-view-grid-outline icon-start" />
                                         {translate('products.view.grid')}
+                                    </div>
+                                    <div
+                                        className={classNames(
+                                            'label-tab',
+                                            'label-tab-sm',
+                                            filterValues.display_type == 'list' && 'active',
+                                        )}
+                                        onClick={() => filterUpdate({ display_type: 'list' })}
+                                        onKeyDown={clickOnKeyEnter}
+                                        tabIndex={0}
+                                        aria-pressed={filterValues.display_type == 'list'}
+                                        role="button">
+                                        <em className="mdi mdi-format-list-text icon-start" />
+                                        {translate('products.view.list')}
                                     </div>
                                 </div>
                             </div>
@@ -592,7 +632,7 @@ export default function Products({ fundType = 'budget' }: { fundType: 'budget' |
                     {appConfigs.pages.products && <CmsBlocks page={appConfigs.pages.products} />}
 
                     {products?.meta?.total > 0 && (
-                        <ProductsList type={fundType} display={filterValues.display_type} products={products.data} />
+                        <ProductsList display={filterValues.display_type} products={products.data} />
                     )}
 
                     {products?.meta?.total == 0 && (

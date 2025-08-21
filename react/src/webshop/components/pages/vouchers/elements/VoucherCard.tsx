@@ -56,7 +56,8 @@ export default function VoucherCard({
             name={'voucher'}
             params={{ number: voucher.number }}
             className="voucher-item"
-            dataDusk="voucherItem">
+            dataDusk={`listVouchersRow${voucher.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             <div className="voucher-image">
                 <img src={voucherCard.thumbnail} alt="" />
             </div>
@@ -75,9 +76,7 @@ export default function VoucherCard({
                     <span>{voucherCard.subtitle}</span>
                 </div>
 
-                {!voucherCard.is_external && voucherCard.fund.type == 'budget' && voucherCard.type == 'regular' && (
-                    <div className="voucher-value">{voucherCard.amount_locale}</div>
-                )}
+                {voucherCard.type === 'regular' && <div className="voucher-value">{voucherCard.amount_locale}</div>}
 
                 {!voucher.deactivated && (
                     <div className="voucher-status-label">

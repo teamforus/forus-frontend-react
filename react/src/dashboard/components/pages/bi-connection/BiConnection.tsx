@@ -275,327 +275,325 @@ export default function BiConnection() {
 
                     {filterValues.view_type === 'settings' && (
                         <div className="card-section card-section-primary">
-                            <div className="form-group form-group-inline">
-                                <div className="form-label">{translate('bi_connection.labels.enabled')}</div>
+                            <div className="row">
+                                <div className="col col-md-10 col-md-offset-2 col-xs-12">
+                                    <div className="form-group">
+                                        <div className="form-label">{translate('bi_connection.labels.enabled')}</div>
 
-                                <div className="form-offset">
-                                    <FormGroupInfo
-                                        error={form.errors?.enabled}
-                                        info={
-                                            <Fragment>
-                                                <h4>Kies de juiste instelling</h4>
-                                                <p>
-                                                    Vul bij de header bovenstaande naam en sleutelcode in. Voor het
-                                                    instellen van de token zijn er twee opties:
-                                                </p>
-                                                <ul></ul>
-                                                <ul>
-                                                    <li>
-                                                        URL-parameter: Kies deze optie als uw BI-tool token ondersteunt.
-                                                        Voeg de token toe als een parameter in de URL
-                                                    </li>
-                                                    <li>
-                                                        Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg
-                                                        de token toe in de header
-                                                    </li>
-                                                </ul>
-                                            </Fragment>
-                                        }>
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey={'value'}
-                                            value={form.values.enabled}
-                                            options={authTypes}
-                                            allowSearch={false}
-                                            onChange={(enabled: 0 | 1) => form.update({ enabled })}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
-                            </div>
-
-                            {form && !!form.values.enabled && (
-                                <Fragment>
-                                    <div className="form-group form-group-inline">
-                                        <div className="form-label">{translate('bi_connection.labels.url')}</div>
-
-                                        <div className="form-offset">
-                                            <FormGroupInfo
-                                                dashed={true}
-                                                copyShow={true}
-                                                copyValue={activeOrganization.bi_connection_url}
-                                                copyDisable={!connection?.access_token}
-                                                info={
+                                        <FormGroupInfo
+                                            error={form.errors?.enabled}
+                                            info={
+                                                <Fragment>
+                                                    <h4>Kies de juiste instelling</h4>
                                                     <p>
-                                                        Dit is de URL voor het exporteren van gegevens. Kopieer deze
-                                                        naar de BI-tool.
+                                                        Vul bij de header bovenstaande naam en sleutelcode in. Voor het
+                                                        instellen van de token zijn er twee opties:
                                                     </p>
-                                                }>
-                                                <input
-                                                    type={'text'}
-                                                    className="form-control form-control-dashed"
-                                                    disabled={!connection?.access_token}
-                                                    defaultValue={activeOrganization.bi_connection_url}
-                                                    readOnly={true}
-                                                />
-                                            </FormGroupInfo>
-                                        </div>
+                                                    <ul></ul>
+                                                    <ul>
+                                                        <li>
+                                                            URL-parameter: Kies deze optie als uw BI-tool token
+                                                            ondersteunt. Voeg de token toe als een parameter in de URL
+                                                        </li>
+                                                        <li>
+                                                            Header: Kies deze optie als uw BI-tool header ondersteunt.
+                                                            Voeg de token toe in de header
+                                                        </li>
+                                                    </ul>
+                                                </Fragment>
+                                            }>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                value={form.values.enabled}
+                                                options={authTypes}
+                                                allowSearch={false}
+                                                onChange={(enabled: 0 | 1) => form.update({ enabled })}
+                                            />
+                                        </FormGroupInfo>
                                     </div>
 
-                                    <div className="form-group form-group-inline">
-                                        <div className="form-label">{translate('bi_connection.labels.data_types')}</div>
-                                        <div className="form-offset">
-                                            <div className="checkbox-container-compact">
-                                                {availableDataTypes?.map((types, index: number) => (
-                                                    <div className="row" key={index}>
-                                                        {types.map((type, index: number) => (
-                                                            <div className="col col-xs-12 col-lg-6" key={index}>
-                                                                <CheckboxControl
-                                                                    id={`data_type_name_${type.key}`}
-                                                                    className="checkbox-compact"
-                                                                    title={type.name}
-                                                                    checked={!!dataTypes[type.key]}
-                                                                    onChange={(e) => {
-                                                                        dataTypes[type.key] = e.target.checked;
-                                                                        setDataTypes({ ...dataTypes });
-                                                                    }}
-                                                                />
+                                    {form && !!form.values.enabled && (
+                                        <Fragment>
+                                            <div className="form-group">
+                                                <div className="form-label">
+                                                    {translate('bi_connection.labels.url')}
+                                                </div>
+
+                                                <FormGroupInfo
+                                                    dashed={true}
+                                                    copyShow={true}
+                                                    copyValue={activeOrganization.bi_connection_url}
+                                                    copyDisable={!connection?.access_token}
+                                                    info={
+                                                        <p>
+                                                            Dit is de URL voor het exporteren van gegevens. Kopieer deze
+                                                            naar de BI-tool.
+                                                        </p>
+                                                    }>
+                                                    <input
+                                                        type={'text'}
+                                                        className="form-control form-control-dashed"
+                                                        disabled={!connection?.access_token}
+                                                        defaultValue={activeOrganization.bi_connection_url}
+                                                        readOnly={true}
+                                                    />
+                                                </FormGroupInfo>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <div className="form-label">
+                                                    {translate('bi_connection.labels.data_types')}
+                                                </div>
+
+                                                <div className="checkbox-container-compact">
+                                                    {availableDataTypes?.map((types, index: number) => (
+                                                        <div className="row" key={index}>
+                                                            {types.map((type, index: number) => (
+                                                                <div className="col col-xs-12 col-lg-6" key={index}>
+                                                                    <CheckboxControl
+                                                                        id={`data_type_name_${type.key}`}
+                                                                        className="checkbox-compact"
+                                                                        title={type.name}
+                                                                        checked={!!dataTypes[type.key]}
+                                                                        onChange={(e) => {
+                                                                            dataTypes[type.key] = e.target.checked;
+                                                                            setDataTypes({ ...dataTypes });
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ))}
+                                                    <FormError error={form.errors?.data_types} />
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <div className="form-label">
+                                                    {translate('bi_connection.labels.header_name')}
+                                                </div>
+
+                                                <FormGroupInfo
+                                                    dashed={true}
+                                                    copyShow={true}
+                                                    copyValue={headerKey}
+                                                    info={
+                                                        <p>
+                                                            Dit is de naam van de key die wordt gebruikt voor de
+                                                            verificatie van verzoeken. Kopieer en plak deze waarde in de{' '}
+                                                            {'"key"'} waarde van de header {'"X-API-KEY"'} in de
+                                                            BI-tool.
+                                                        </p>
+                                                    }>
+                                                    <input
+                                                        type={'text'}
+                                                        className="form-control form-control-dashed"
+                                                        defaultValue={headerKey}
+                                                        readOnly={true}
+                                                    />
+                                                </FormGroupInfo>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <div className="form-label">
+                                                    {translate('bi_connection.labels.header_key')}
+                                                </div>
+
+                                                <FormGroupInfo
+                                                    dashed={true}
+                                                    copyShow={true}
+                                                    copyValue={connection?.access_token}
+                                                    copyDisable={!connection?.access_token}
+                                                    info={
+                                                        <p>
+                                                            Dit is de waarde van de X-API-KEY key header, die wordt
+                                                            gebruikt als token voor verificatie van verzoeken. Het is
+                                                            mogelijk om het handmatig te regenereren en de vervalperiode
+                                                            in te stellen op het tabblad {'"Beveilging"'}. Kopieer deze
+                                                            waarde en plak het in het veld {'"value"'} van de header{' '}
+                                                            {'"X-API-KEY"'} in de BI-tool.
+                                                        </p>
+                                                    }>
+                                                    <input
+                                                        type={'text'}
+                                                        className="form-control form-control-dashed"
+                                                        disabled={!connection?.access_token}
+                                                        value={connection?.access_token || ''}
+                                                        placeholder={translate(
+                                                            'bi_connection.labels.token_placeholder',
+                                                        )}
+                                                        readOnly={true}
+                                                    />
+                                                </FormGroupInfo>
+                                            </div>
+
+                                            {connection?.id && (
+                                                <div className="form-group">
+                                                    <div className="form-label" />
+                                                    <button
+                                                        type="button"
+                                                        className="button button-default button-sm"
+                                                        onClick={() => resetToken()}>
+                                                        <em className="mdi mdi-refresh icon-start" />
+                                                        {translate('bi_connection.buttons.generate_new_key')}
+                                                    </button>
+
+                                                    {!connection?.expired && (
+                                                        <div className="expiration-value">
+                                                            {`Verloopt ${connection?.expire_after_locale}`}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {connection?.expired && (
+                                                <div className="form-group">
+                                                    <div className="form-label">&nbsp;</div>
+
+                                                    <div className="block block-info-box block-warning-box block-info-box-dashed">
+                                                        <em className="info-box-icon mdi mdi-alert-outline" />
+
+                                                        <div className="info-box-content">
+                                                            <div className="block block-markdown">
+                                                                <p>Token verlopen. Genereer een nieuwe.</p>
                                                             </div>
-                                                        ))}
-                                                    </div>
-                                                ))}
-                                                <FormError error={form.errors?.data_types} />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="form-group form-group-inline">
-                                        <div className="form-label">
-                                            {translate('bi_connection.labels.header_name')}
-                                        </div>
-
-                                        <div className="form-offset">
-                                            <FormGroupInfo
-                                                dashed={true}
-                                                copyShow={true}
-                                                copyValue={headerKey}
-                                                info={
-                                                    <p>
-                                                        Dit is de naam van de key die wordt gebruikt voor de verificatie
-                                                        van verzoeken. Kopieer en plak deze waarde in de {'"key"'}{' '}
-                                                        waarde van de header {'"X-API-KEY"'} in de BI-tool.
-                                                    </p>
-                                                }>
-                                                <input
-                                                    type={'text'}
-                                                    className="form-control form-control-dashed"
-                                                    defaultValue={headerKey}
-                                                    readOnly={true}
-                                                />
-                                            </FormGroupInfo>
-                                        </div>
-                                    </div>
-
-                                    <div className="form-group form-group-inline">
-                                        <div className="form-label">{translate('bi_connection.labels.header_key')}</div>
-
-                                        <div className="form-offset">
-                                            <FormGroupInfo
-                                                dashed={true}
-                                                copyShow={true}
-                                                copyValue={connection?.access_token}
-                                                copyDisable={!connection?.access_token}
-                                                info={
-                                                    <p>
-                                                        Dit is de waarde van de X-API-KEY key header, die wordt gebruikt
-                                                        als token voor verificatie van verzoeken. Het is mogelijk om het
-                                                        handmatig te regenereren en de vervalperiode in te stellen op
-                                                        het tabblad {'"Beveilging"'}. Kopieer deze waarde en plak het in
-                                                        het veld {'"value"'} van de header {'"X-API-KEY"'} in de
-                                                        BI-tool.
-                                                    </p>
-                                                }>
-                                                <input
-                                                    type={'text'}
-                                                    className="form-control form-control-dashed"
-                                                    disabled={!connection?.access_token}
-                                                    value={connection?.access_token || ''}
-                                                    placeholder={translate('bi_connection.labels.token_placeholder')}
-                                                    readOnly={true}
-                                                />
-                                            </FormGroupInfo>
-                                        </div>
-                                    </div>
-
-                                    {connection?.id && (
-                                        <div className="form-group form-group-inline">
-                                            <div className="form-label" />
-                                            <div className="form-offset flex">
-                                                <button
-                                                    type="button"
-                                                    className="button button-default button-sm"
-                                                    onClick={() => resetToken()}>
-                                                    <em className="mdi mdi-refresh icon-start" />
-                                                    {translate('bi_connection.buttons.generate_new_key')}
-                                                </button>
-
-                                                {!connection?.expired && (
-                                                    <div className="expiration-value">
-                                                        {`Verloopt ${connection?.expire_after_locale}`}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {connection?.expired && (
-                                        <div className="form-group form-group-inline">
-                                            <div className="form-label">&nbsp;</div>
-
-                                            <div className="form-offset">
-                                                <div className="block block-info-box block-warning-box block-info-box-dashed">
-                                                    <em className="info-box-icon mdi mdi-alert-outline" />
-
-                                                    <div className="info-box-content">
-                                                        <div className="block block-markdown">
-                                                            <p>Token verlopen. Genereer een nieuwe.</p>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            )}
+
+                                            <div className="form-group">
+                                                <div className="form-label">&nbsp;</div>
+
+                                                <InfoBox>
+                                                    <h4>Gegevens exporteren naar de BI-tool</h4>
+                                                    <ul>
+                                                        <li>Open de BI-tool en ga naar instellingen.</li>
+                                                        <li>
+                                                            Voeg een nieuwe gegevensbron of verbinding toe en selecteer
+                                                            de optie om verbinding te maken met een externe URL.
+                                                        </li>
+                                                        <li>Voer de bovenstaande URL in.</li>
+                                                        <li>Vul bij de header bovenstaande naam en sleutelcode in.</li>
+                                                    </ul>
+                                                </InfoBox>
                                             </div>
-                                        </div>
+                                        </Fragment>
                                     )}
-
-                                    <div className="form-group form-group-inline">
-                                        <div className="form-label">&nbsp;</div>
-
-                                        <div className="form-offset">
-                                            <InfoBox iconPosition={'top'}>
-                                                <h4>Gegevens exporteren naar de BI-tool</h4>
-                                                <ul>
-                                                    <li>Open de BI-tool en ga naar instellingen.</li>
-                                                    <li>
-                                                        Voeg een nieuwe gegevensbron of verbinding toe en selecteer de
-                                                        optie om verbinding te maken met een externe URL.
-                                                    </li>
-                                                    <li>Voer de bovenstaande URL in.</li>
-                                                    <li>Vul bij de header bovenstaande naam en sleutelcode in.</li>
-                                                </ul>
-                                            </InfoBox>
-                                        </div>
-                                    </div>
-                                </Fragment>
-                            )}
+                                </div>
+                            </div>
                         </div>
                     )}
 
                     {filterValues.view_type === 'security' && (
                         <div className="card-section card-section-primary">
-                            <div className="form-group form-group-inline">
-                                <div className="form-label">{translate('bi_connection.labels.expiration_period')}</div>
-
-                                <div className="form-offset">
-                                    <FormGroupInfo
-                                        error={form.errors?.expiration_period}
-                                        info={
-                                            <p>
-                                                Kies een vervalperiode voor het authenticatietoken. Nadat het token is
-                                                verlopen, moet het opnieuw worden gegenereerd door te klikken op{' '}
-                                                {'"Vernieuwen"'}.
-                                            </p>
-                                        }>
-                                        <SelectControl
-                                            className="form-control"
-                                            propKey={'value'}
-                                            value={form.values.expiration_period}
-                                            options={expirationPeriods}
-                                            allowSearch={false}
-                                            onChange={(expiration_period: number) => {
-                                                form.update({ expiration_period });
-                                            }}
-                                        />
-                                    </FormGroupInfo>
-                                </div>
-                            </div>
-
-                            <div className="form-group form-group-inline">
-                                <div className="form-label">IP-adressen op de witte lijst</div>
-
-                                <div className="form-offset">
-                                    {ips?.map((ipItem, index: number) => (
-                                        <div className="form-group" key={index}>
-                                            <div className="form-group-info">
-                                                <div className="form-group-info-control">
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        value={ipItem.value}
-                                                        placeholder={`${translate('bi_connection.labels.ip')} ${
-                                                            index + 1
-                                                        }`}
-                                                        onChange={(e) => {
-                                                            setIps((ips) => {
-                                                                ips[index].value = e.target.value;
-                                                                return [...ips];
-                                                            });
-                                                        }}
-                                                    />
-                                                </div>
-
-                                                <div className="form-group-info-button">
-                                                    <div
-                                                        className="button button-default button-icon pull-left"
-                                                        onClick={() => removeIp(index)}>
-                                                        <em className="mdi mdi-trash-can-outline" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <FormError error={form.errors?.[`ips.${index}`]} />
-
-                                            {index == ips?.length - 1 && (
-                                                <div className="flex-row">
-                                                    <div className="flex-col">
-                                                        <div className="form-group-divider" />
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    ))}
-
+                            <div className="row">
+                                <div className="col col-md-10 col-md-offset-2 col-xs-12">
                                     <div className="form-group">
-                                        <div className="flex-row">
-                                            <div className="flex-col flex-grow">
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    value={ip}
-                                                    onChange={(e) => setIp(e.target.value)}
-                                                    placeholder={`${translate('bi_connection.labels.ip')} ${
-                                                        ips?.length + 1
-                                                    }`}
-                                                />
-                                            </div>
-                                            <div className="flex-col">
-                                                <div className="button button-primary nowrap" onClick={addIp}>
-                                                    IP-adres toevoegen
-                                                </div>
-                                            </div>
+                                        <div className="form-label">
+                                            {translate('bi_connection.labels.expiration_period')}
                                         </div>
-                                        <FormError error={ipError} />
-                                        <FormError error={form.errors?.ips} />
+
+                                        <FormGroupInfo
+                                            error={form.errors?.expiration_period}
+                                            info={
+                                                <p>
+                                                    Kies een vervalperiode voor het authenticatietoken. Nadat het token
+                                                    is verlopen, moet het opnieuw worden gegenereerd door te klikken op{' '}
+                                                    {'"Vernieuwen"'}.
+                                                </p>
+                                            }>
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                value={form.values.expiration_period}
+                                                options={expirationPeriods}
+                                                allowSearch={false}
+                                                onChange={(expiration_period: number) => {
+                                                    form.update({ expiration_period });
+                                                }}
+                                            />
+                                        </FormGroupInfo>
                                     </div>
 
                                     <div className="form-group">
-                                        <InfoBox iconPosition={'top'} iconColor={'primary'}>
-                                            <p>
+                                        <div className="form-label">IP-adressen op de witte lijst</div>
+
+                                        {ips?.map((ipItem, index: number) => (
+                                            <div className="form-group" key={index}>
+                                                <div className="form-group-info">
+                                                    <div className="form-group-info-control">
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={ipItem.value}
+                                                            placeholder={`${translate('bi_connection.labels.ip')} ${
+                                                                index + 1
+                                                            }`}
+                                                            onChange={(e) => {
+                                                                setIps((ips) => {
+                                                                    ips[index].value = e.target.value;
+                                                                    return [...ips];
+                                                                });
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div className="form-group-info-button">
+                                                        <div
+                                                            className="button button-default button-icon pull-left"
+                                                            onClick={() => removeIp(index)}>
+                                                            <em className="mdi mdi-trash-can-outline" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <FormError error={form.errors?.[`ips.${index}`]} />
+
+                                                {index == ips?.length - 1 && (
+                                                    <div className="flex-row">
+                                                        <div className="flex-col">
+                                                            <div className="form-group-divider" />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+
+                                        <div className="form-group">
+                                            <div className="flex-row">
+                                                <div className="flex-col flex-grow">
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={ip}
+                                                        onChange={(e) => setIp(e.target.value)}
+                                                        placeholder={`${translate('bi_connection.labels.ip')} ${
+                                                            ips?.length + 1
+                                                        }`}
+                                                    />
+                                                </div>
+                                                <div className="flex-col">
+                                                    <div className="button button-primary nowrap" onClick={addIp}>
+                                                        IP-adres toevoegen
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <FormError error={ipError} />
+                                            <FormError error={form.errors?.ips} />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <InfoBox>
                                                 Het whitelisten van IP-adressen is een veiligheidsmaatregel om de lijst
                                                 van gebruikers te beperken die gegevens van het account kunnen
                                                 downloaden. Bij het gebruik van een zelf gehoste BI-tool of handmatige
                                                 gegevensexport, vraag dan de IT-afdeling om het IP-adres. Bij het
                                                 gebruik van een BI-tool als SaaS-product is het whitelisten van
                                                 IP-adressen niet van toepassing.
-                                            </p>
-                                        </InfoBox>
+                                            </InfoBox>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

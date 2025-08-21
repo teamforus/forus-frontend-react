@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { ErrorResponse, useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import useAssetUrl from '../../../hooks/useAssetUrl';
@@ -20,6 +20,7 @@ import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import BlockLoader from '../../elements/block-loader/BlockLoader';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import Section from '../../elements/sections/Section';
+import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 
 export default function ProvidersShow() {
     const { id } = useParams();
@@ -27,6 +28,7 @@ export default function ProvidersShow() {
     const assetUrl = useAssetUrl();
     const setTitle = useSetTitle();
     const translate = useTranslate();
+    const pushDanger = usePushDanger();
     const setProgress = useSetProgress();
 
     const appConfigs = useAppConfigs();
@@ -35,7 +37,6 @@ export default function ProvidersShow() {
 
     const [provider, setProvider] = useState<Provider>(null);
     const [products, setProducts] = useState<PaginationData<Product>>(null);
-    const [subsidies, setSubsidies] = useState<PaginationData<Product>>(null);
 
     const { showBack } = useStateParams<{ showBack: boolean }>();
 
@@ -45,29 +46,26 @@ export default function ProvidersShow() {
         providerService
             .read(parseInt(id))
             .then((res) => setProvider(res.data.data))
+            .catch((err: ErrorResponse) => pushDanger(translate('push.error'), err.data.message))
             .finally(() => setProgress(100));
-    }, [id, setProgress, providerService]);
+    }, [setProgress, providerService, id, pushDanger, translate]);
 
-    const fetchProducts = useCallback(async () => {
+    const fetchProducts = useCallback(() => {
         if (!provider) {
             return;
         }
 
         setProgress(0);
 
-        await productService
-            .list({ fund_type: 'budget', per_page: 3, organization_id: provider?.id })
-            .then((res) => setProducts(res.data));
-
-        await productService
-            .list({ fund_type: 'subsidies', per_page: 3, organization_id: provider?.id })
-            .then((res) => setSubsidies(res.data));
-
-        setProgress(100);
-    }, [provider, productService, setProgress]);
+        productService
+            .list({ per_page: 3, organization_id: provider?.id })
+            .then((res) => setProducts(res.data))
+            .catch((err: ErrorResponse) => pushDanger(translate('push.error'), err.data.message))
+            .finally(() => setProgress(100));
+    }, [provider, setProgress, productService, pushDanger, translate]);
 
     useEffect(() => {
-        fetchProducts().then();
+        fetchProducts();
     }, [fetchProducts]);
 
     useEffect(() => {
@@ -264,21 +262,7 @@ export default function ProvidersShow() {
             )}
 
             {products?.data?.length > 0 && (
-                <BlockProducts
-                    type={'budget'}
-                    display={'grid'}
-                    products={products.data}
-                    filters={{ organization_id: provider.id }}
-                />
-            )}
-
-            {subsidies?.data?.length > 0 && (
-                <BlockProducts
-                    type={'subsidies'}
-                    display={'grid'}
-                    products={subsidies.data}
-                    filters={{ organization_id: provider.id }}
-                />
+                <BlockProducts display={'grid'} products={products.data} filters={{ organization_id: provider.id }} />
             )}
         </BlockShowcase>
     );

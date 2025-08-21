@@ -32,7 +32,8 @@ export default function ReservationCard({
             name={'reservation-show'}
             params={{ id: reservation.id }}
             className="reservation-item"
-            dataDusk={`reservationItem${reservation.id}`}>
+            dataDusk={`listReservationsRow${reservation.id}`}
+            dataAttributes={{ 'data-search-item': 1 }}>
             <div className="reservation-item-body">
                 <div className="reservation-image">
                     <img
@@ -82,7 +83,7 @@ export default function ReservationCard({
                                         <div className="label label-default-outline nowrap">
                                             <span className="label-blink label-blink-primary" aria-hidden="true" />
                                             <span className="label-text">
-                                                {translate('reservations.remaining_minutes', {
+                                                {translate('reservations.card.remaining_minutes', {
                                                     minutes: stateData.expiresIn,
                                                 })}
                                             </span>
@@ -113,7 +114,7 @@ export default function ReservationCard({
                                     <div className="reservation-value-title">
                                         {translate('reservations.card.value.product_price')}
                                     </div>
-                                    <div className="reservation-value">{reservation.price_locale}</div>
+                                    <div className="reservation-value">{reservation.price_voucher_locale}</div>
                                 </div>
 
                                 {reservation.amount_extra > 0 && (
@@ -380,7 +381,9 @@ export default function ReservationCard({
                                         <div className="reservation-details-item-label">
                                             {translate('reservations.card.details.total_product_price')}
                                         </div>
-                                        <div className="reservation-details-item-value">{reservation.price_locale}</div>
+                                        <div className="reservation-details-item-value">
+                                            {reservation.price_voucher_locale}
+                                        </div>
                                     </li>
                                 </ul>
                                 <StateNavLink

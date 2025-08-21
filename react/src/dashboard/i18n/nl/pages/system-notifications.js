@@ -31,11 +31,6 @@ export default {
             title: 'Reservering geannuleerd door aanvrager',
             description: 'Aanbieders ontvangen dit bericht wanneer hun reservering door de aanvrager is geannuleerd.',
         },
-        'notifications_fund_providers.revoked_budget': {
-            title: 'Aanbieder geweigerd voor het scannen van een financieel-tegoed',
-            description:
-                'Aanbieders ontvangen dit bericht wanneer de sponsor ze weigert voor het scannen van een financieel-tegoed.',
-        },
         'notifications_fund_providers.revoked_products': {
             title: 'Aanbieder geweigerd voor het aanbieden van alle aanbiedingen',
             description: 'Aanbieders ontvangen dit bericht wanneer de sponsor al hun aanbod weigert.',
@@ -157,11 +152,6 @@ export default {
             title: 'Bericht van aanbieder ontvangen',
             description: 'Sponsors ontvangen dit bericht wanneer een aanbieder een bericht stuurt over een aanbod.',
         },
-        'notifications_funds.product_subsidy_removed': {
-            title: 'Subsidie stopgezet door aanbieder',
-            description:
-                'Sponsors ontvangen dit bericht wanneer de aanbieder de prijs veranderd en daardoor de subsidie wordt stop gezet.',
-        },
         'notifications_funds.balance_low': {
             title: 'Fonds heeft aanvulgrens bereikt',
             description:
@@ -199,6 +189,11 @@ export default {
             title: 'Aanbod gereserveerd',
             description: 'Aanbieders ontvangen dit bericht wanneer hun aanbod door de aanvrager is gereserveerd.',
         },
+        'notifications_products.reserved_by_sponsor': {
+            title: 'Aanbod-tegoed is aangemaakt door de sponsor',
+            description:
+                'Aanbieders ontvangen dit bericht wanneer de sponsor een aanbod-tegoed heeft aangemaakt voor de inwoner namens de aanbieder',
+        },
         'notifications_products.revoked': {
             title: 'Aanbod geweigerd',
             description: 'Aanbieders ontvangen dit bericht wanneer hun aanbod door de sponsor is geweigerd.',
@@ -217,10 +212,6 @@ export default {
             description:
                 'Deelnemers ontvangen dit bericht wanneer zij een financieel-tegoed toegekend krijgen door de sponsor.',
         },
-        'notifications_identities.identity_voucher_assigned_subsidy': {
-            title: 'Actie-tegoed is toegekend',
-            description: 'Deelnemers ontvangen dit bericht wanneer een actie-tegoed is toegekend door de sponsor.',
-        },
         'notifications_identities.identity_voucher_assigned_product': {
             title: 'Aanbod-tegoed toegekend',
             description: 'Deelnemers ontvangen dit bericht wanneer een aanbod-tegoed is toegekend door de sponsor..',
@@ -233,10 +224,6 @@ export default {
             title: 'Aanbod-tegoed is geactiveerd door een reservering',
             description:
                 'Deelnemers ontvangen dit bericht wanneer ze een aanbod-tegoed reserveren en daardoor ook activeren.',
-        },
-        'notifications_identities.voucher_added_subsidy': {
-            title: 'Actie-tegoed is geactiveerd',
-            description: 'Deelnemers ontvangen dit bericht wanneer ze een actie-tegoed zelf activeren.',
         },
         'notifications_identities.voucher_added_budget': {
             title: 'Financieel-tegoed is geactiveerd',
@@ -274,11 +261,6 @@ export default {
             title: 'Transactie van financieel-tegoed',
             description:
                 'Deelnemers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun financieel-tegoed.',
-        },
-        'notifications_identities.voucher_subsidy_transaction': {
-            title: 'Transactie van actie-tegoed',
-            description:
-                'Deelnemers ontvangen dit bericht wanneer de aanbieder een transactie heeft geïnitieerd van hun actie-tegoed.',
         },
         'notifications_identities.product_voucher_transaction': {
             title: 'Transactie van aanbod-tegoed',

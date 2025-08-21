@@ -44,7 +44,6 @@ export default {
             title: 'Title',
             content: 'Content',
             urgency: 'Urgency',
-            contact: 'Contact',
             use_customer_email: 'I would like to be notified by email about this feedback',
         },
         buttons: {

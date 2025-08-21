@@ -30,13 +30,13 @@ export default function FundFormCriteriaCard({
             fundService
                 .updateCriteria(fund.organization_id, fund.id, criteria)
                 .then((res) => {
-                    fund.criteria = Object.assign(fund.criteria, res.data.data.criteria);
+                    setFund({ ...fund, criteria: res.data.data.criteria });
                     pushSuccess('Opgeslagen!');
                 })
                 .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [fund, fundService, pushApiError, pushSuccess, setProgress],
+        [fund, fundService, pushApiError, pushSuccess, setFund, setProgress],
     );
 
     return (
@@ -50,10 +50,8 @@ export default function FundFormCriteriaCard({
                     fund={fund}
                     organization={fund.organization}
                     criteria={fund.criteria}
-                    isEditable={fund.criteria_editable}
                     recordTypes={recordTypes}
                     setCriteria={(criteria) => setFund({ ...fund, criteria })}
-                    saveButton={true}
                     onSaveCriteria={saveCriteria}
                     bodyClassName={'collapsable-body'}
                     footerClassName={'collapsable-footer'}

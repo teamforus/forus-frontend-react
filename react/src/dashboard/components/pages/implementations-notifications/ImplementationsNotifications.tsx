@@ -12,6 +12,10 @@ import SystemNotification from '../../../props/models/SystemNotification';
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import Label from '../../elements/image_cropper/Label';
+import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
+import TableTopScroller from '../../elements/tables/TableTopScroller';
+import TableRowActions from '../../elements/tables/TableRowActions';
 
 export default function ImplementationsNotifications() {
     const activeOrganization = useActiveOrganization();
@@ -59,6 +63,8 @@ export default function ImplementationsNotifications() {
             .map((item) => ({ ...item, notifications: item.notifications.sort((a, b) => a.order - b.order) }))
             .sort((a, b) => groupOrder.indexOf(a.group) - groupOrder.indexOf(b.group));
     }, [translate, groupLabels, notifications, implementationNotificationsService]);
+
+    const { headElement, configsElement } = useConfigurableTable(implementationNotificationsService.getColumns());
 
     const notificationIconColor = useCallback(
         (notification: SystemNotification, type: 'database' | 'mail' | 'push') => {
@@ -236,15 +242,13 @@ export default function ImplementationsNotifications() {
                     </div>
                     <div className="card-section">
                         <div className="card-block card-block-table">
-                            <div className="table-wrapper">
+                            {configsElement}
+
+                            <TableTopScroller>
                                 <table className="table">
+                                    {headElement}
+
                                     <tbody>
-                                        <tr>
-                                            <th>Omschrijving</th>
-                                            <th className="nowrap">Kanalen</th>
-                                            <th className="nowrap">Status</th>
-                                            <th className="nowrap text-right">Bekijken</th>
-                                        </tr>
                                         {notificationGroup.notifications.map((notification) => (
                                             <tr key={notification.id}>
                                                 <td className="td-grow">
@@ -293,38 +297,49 @@ export default function ImplementationsNotifications() {
                                                 </td>
 
                                                 <td className="nowrap">
-                                                    <div
-                                                        className={`label label-round nowrap ${
-                                                            {
-                                                                active: 'label-success',
-                                                                inactive: 'label-danger',
-                                                                active_partly: 'label-warning',
-                                                            }[notification.state.state]
-                                                        }`}>
-                                                        {notification.state.stateLabel}
-                                                    </div>
+                                                    {notification.state?.state === 'active' && (
+                                                        <Label type={'success'}>{notification.state.stateLabel}</Label>
+                                                    )}
+
+                                                    {notification.state?.state === 'inactive' && (
+                                                        <Label type={'danger'}>{notification.state.stateLabel}</Label>
+                                                    )}
+
+                                                    {notification.state?.state === 'active_partly' && (
+                                                        <Label type={'warning'}>{notification.state.stateLabel}</Label>
+                                                    )}
+
+                                                    {!['active', 'inactive', 'active_partly'].includes(
+                                                        notification.state?.state,
+                                                    ) && (
+                                                        <Label type={'default'}>{notification.state.stateLabel}</Label>
+                                                    )}
                                                 </td>
 
-                                                <td className="nowrap">
-                                                    <div className="button-group flex-end">
-                                                        <StateNavLink
-                                                            name={'implementation-notifications-edit'}
-                                                            params={{
-                                                                organizationId: activeOrganization.id,
-                                                                implementationId: implementation.id,
-                                                                id: notification.id,
-                                                            }}
-                                                            className="button button-default">
-                                                            <em className="mdi mdi-eye-outline icon-start" />
-                                                            Bekijken
-                                                        </StateNavLink>
-                                                    </div>
+                                                <td className={'td-narrow text-right'}>
+                                                    <TableRowActions
+                                                        content={() => (
+                                                            <div className="dropdown dropdown-actions">
+                                                                <StateNavLink
+                                                                    name={'implementation-notifications-edit'}
+                                                                    params={{
+                                                                        organizationId: activeOrganization.id,
+                                                                        implementationId: implementation.id,
+                                                                        id: notification.id,
+                                                                    }}
+                                                                    className="dropdown-item">
+                                                                    <em className="mdi mdi-eye-outline icon-start" />
+                                                                    Bekijken
+                                                                </StateNavLink>
+                                                            </div>
+                                                        )}
+                                                    />
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                            </TableTopScroller>
                         </div>
                     </div>
                 </div>
