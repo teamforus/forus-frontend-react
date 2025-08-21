@@ -181,15 +181,15 @@ export default function FundsShow() {
                                 )}
 
                                 {!fund.hide_meta && (
-                                    <dl className={"fund-details-items"}>
-                                        <dt className={"fund-details-item"}>
+                                    <dl className={'fund-details-items'}>
+                                        <dt className={'fund-details-item'}>
                                             <div className="fund-details-item-label">
                                                 {translate('fund.details.by')}
                                             </div>
                                             <div className="fund-details-item-value">{fund.organization?.name}</div>
                                         </dt>
                                         {formulaList.multiply?.map((formula, index) => (
-                                            <dt className={"fund-details-item"}>
+                                            <dt key={index} className={'fund-details-item'}>
                                                 <div className="fund-details-item-label">
                                                     {translate('fund.criterias.multiplied_amount')}
                                                 </div>
@@ -197,7 +197,7 @@ export default function FundsShow() {
                                             </dt>
                                         ))}
                                         {fund.key != 'IIT' && (
-                                            <dt className={"fund-details-item"}>
+                                            <dt className={'fund-details-item'}>
                                                 <div className="fund-details-item-label">
                                                     {translate('fund.details.start_date')}
                                                 </div>
@@ -205,14 +205,13 @@ export default function FundsShow() {
                                             </dt>
                                         )}
                                         {fund.key != 'IIT' && (
-                                            <dt className={"fund-details-item"}>
+                                            <dt className={'fund-details-item'}>
                                                 <div className="fund-details-item-label">
                                                     {translate('fund.details.end_date')}
                                                 </div>
                                                 <div className="fund-details-item-value">{fund.end_date_locale}</div>
                                             </dt>
                                         )}
-
                                     </dl>
                                 )}
                             </div>
