@@ -4,4 +4,8 @@ export default {
     placeholders: {
         select_option: 'Selecteer optie',
     },
+    range_control: {
+        min: 'minimum waarde {{min}}',
+        max: 'maximum waarde {{max}}',
+    },
 };

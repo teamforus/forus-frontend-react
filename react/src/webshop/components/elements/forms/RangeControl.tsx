@@ -1,6 +1,7 @@
 import React from 'react';
 import 'react-range-slider-input/dist/style.css';
 import ReactSlider from 'react-slider';
+import useTranslate from '../../../../dashboard/hooks/useTranslate';
 
 export default function RangeControl({
     from,
@@ -19,6 +20,8 @@ export default function RangeControl({
     max?: number;
     prefix?: string;
 }) {
+    const translate = useTranslate();
+
     return (
         <div className="range-control">
             <ReactSlider
@@ -33,7 +36,9 @@ export default function RangeControl({
                 thumbClassName="horizontal-slider-thumb"
                 trackClassName="horizontal-slider-track"
                 ariaLabelledby={['first-slider-label', 'second-slider-label']}
-                ariaValuetext={(state) => `Value ${state.valueNow}`}
+                ariaValuetext={(state) =>
+                    `Value ${prefix}${state.valueNow}, ${translate(`form.range_control.min`, { min: min }, min.toString())} ${translate(`form.range_control.max`, { max: max }, max.toString())}`
+                }
                 renderThumb={(props, state) => (
                     <div {...props}>
                         <div className="horizontal-slider-thumb-text">{`${prefix}${state.valueNow}`}</div>
