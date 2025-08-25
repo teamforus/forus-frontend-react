@@ -643,7 +643,8 @@ export default function ModalPrevalidationsUpload({
                 isDragOver && 'is-dragover',
                 className,
             )}
-            key={`step_${step}`}>
+            key={`step_${step}`}
+            data-dusk="modalPrevalidationUpload">
             <div className="modal-backdrop" onClick={closeModal} />
             <div className="modal-window">
                 <a className="mdi mdi-close modal-close" onClick={closeModal} role="button" />
