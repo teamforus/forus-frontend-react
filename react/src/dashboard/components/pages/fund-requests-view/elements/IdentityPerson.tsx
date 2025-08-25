@@ -88,14 +88,14 @@ export default function IdentityPerson({
             buttons={[
                 person.bsn_expanded
                     ? {
-                          text: 'Hide personal details',
+                          text: 'Sluiten',
                           icon: 'close',
                           disabled: fetchingPerson,
                           onClick: closePerson,
                       }
                     : {
                           type: 'primary',
-                          text: 'View personal details',
+                          text: 'Bekijken',
                           icon: 'format-list-bulleted',
                           disabled: fetchingPerson,
                           onClick: () => fetchPerson(person),
@@ -166,8 +166,8 @@ export default function IdentityPerson({
                 </Fragment>
             ) : (
                 <EmptyCard
-                    title="Persoonlijke gegevens"
-                    description="Pellentesque bibendum sodales nec maecenas etiam aliquet justo orci elementum diam quis id felis luctus."
+                    title="Basisregistratie personen (BRP) gegevens"
+                    description="Op basis van het BSN kunnen BRP-gegevens worden getoond van de persoon, inclusief gegevens van de partner, ouders en kinderen."
                     type={'card-section'}
                 />
             )}
