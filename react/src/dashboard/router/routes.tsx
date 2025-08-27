@@ -96,6 +96,7 @@ import OrganizationsTranslations from '../components/pages/organizations-transla
 import ImplementationsTranslations from '../components/pages/implementations-cookies/ImplementationsTranslations';
 import FundForms from '../components/pages/fund-forms/FundForms';
 import FundFormsView from '../components/pages/fund-forms-view/FundFormsView';
+import WIP from '../components/pages_system/WIP';
 
 const router = new RouterBuilder();
 
@@ -641,6 +642,11 @@ router.state('not-found', <NotFound />, {
 
 router.state('throw', <ThrowError />, {
     path: `/throw`,
+    protected: false,
+});
+
+router.state('wip', <WIP />, {
+    path: `/wip`,
     protected: false,
 });
 
