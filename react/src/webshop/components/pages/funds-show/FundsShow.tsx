@@ -174,7 +174,7 @@ export default function FundsShow() {
 
                                 {fund?.description_short && (
                                     <div className="fund-description">
-                                        <div className="block block-markdown">
+                                        <div className="block block-markdown block-markdown-large">
                                             <p>{fund.description_short}</p>
                                         </div>
                                     </div>
@@ -313,7 +313,7 @@ export default function FundsShow() {
                         <Fragment>
                             {fund.description_html && (
                                 <Section type={'cms'}>
-                                    <Markdown content={fund.description_html} />
+                                    <Markdown content={fund.description_html} className={'block-markdown-large'} />
                                 </Section>
                             )}
 
@@ -326,7 +326,7 @@ export default function FundsShow() {
 
                             {fund.description_html && (
                                 <Section type={'cms'}>
-                                    <Markdown content={fund.description_html} />
+                                    <Markdown content={fund.description_html} className={'block-markdown-large'} />
                                 </Section>
                             )}
 

@@ -23,7 +23,7 @@ import ModalFundRequestDisregardUndo from '../../modals/ModalFundRequestDisregar
 import ModalFundRequestAssignValidator from '../../modals/ModalFundRequestAssignValidator';
 import useEnvData from '../../../hooks/useEnvData';
 import FundRequestRecordTabs from './elements/FundRequestRecordTabs';
-import FundRequestPerson from './elements/FundRequestPerson';
+import IdentityPerson from './elements/IdentityPerson';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
@@ -684,6 +684,10 @@ export default function FundRequestsView() {
                 )}
             </div>
 
+            {activeOrganization.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
+                <IdentityPerson organization={activeOrganization} identityId={fundRequestMeta.identity_id} />
+            )}
+
             {fundRequestMeta.note && (
                 <div className="card">
                     <div className="card-header">
@@ -774,23 +778,29 @@ export default function FundRequestsView() {
                                                 {fundRequestMeta.is_assigned ? (
                                                     <TableRowActions
                                                         dataDusk={`fundRequestRecordMenuBtn${record.id}`}
-                                                        content={() => (
+                                                        content={(e) => (
                                                             <div className="dropdown dropdown-actions">
+                                                                <div
+                                                                    className="dropdown-item"
+                                                                    onClick={() => {
+                                                                        e.close();
+                                                                        clarifyRecord(record);
+                                                                    }}>
+                                                                    <em className="mdi mdi-message-text icon-start" />
+                                                                    Aanvullingsverzoek
+                                                                </div>
                                                                 {activeOrganization.allow_fund_request_record_edit && (
                                                                     <div
                                                                         className="dropdown-item"
-                                                                        onClick={() => editRecord(record)}
+                                                                        onClick={() => {
+                                                                            e.close();
+                                                                            editRecord(record);
+                                                                        }}
                                                                         data-dusk="fundRequestRecordEditBtn">
                                                                         <em className="mdi mdi-pencil icon-start" />
                                                                         Bewerking
                                                                     </div>
                                                                 )}
-                                                                <div
-                                                                    className="dropdown-item"
-                                                                    onClick={() => clarifyRecord(record)}>
-                                                                    <em className="mdi mdi-message-text icon-start" />
-                                                                    Aanvullingsverzoek
-                                                                </div>
                                                             </div>
                                                         )}
                                                     />
@@ -812,10 +822,6 @@ export default function FundRequestsView() {
                         </TableTopScroller>
                     </div>
                 </div>
-
-                {fundRequestMeta.fund.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
-                    <FundRequestPerson organization={activeOrganization} request={fundRequestMeta} />
-                )}
             </div>
 
             <BlockCardNotes

@@ -1,7 +1,6 @@
 import Fund from './Fund';
 import FundRequestRecord from './FundRequestRecord';
 import Employee from './Employee';
-import FundRequestApiPerson from './FundRequestApiPerson';
 import FundCriterion from './FundCriterion';
 import Voucher from './Voucher';
 import PayoutTransaction from './PayoutTransaction';
@@ -30,8 +29,9 @@ export default interface FundRequest {
     bsn?: string | null;
     email?: string | null;
     fund: Fund & {
-        has_person_bsn_api?: boolean;
         criteria: Array<FundCriterion>;
+        organization_id?: string;
+        organization_name?: string;
     };
     fund_id: number;
     lead_time_days: number;
@@ -51,11 +51,9 @@ export default interface FundRequest {
     created_at_locale?: string | null;
     resolved_at?: string | null;
     resolved_at_locale?: string | null;
-    person?: FundRequestApiPerson;
-    person_relative?: FundRequestApiPerson;
-    person_breadcrumbs?: Array<FundRequestApiPerson>;
     payouts?: Array<PayoutTransaction>;
     vouchers?: Array<Voucher>;
     current_period?: boolean;
     active_vouchers?: Array<Voucher>;
+    identity_id?: number;
 }
