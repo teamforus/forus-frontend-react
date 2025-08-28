@@ -52,6 +52,8 @@ export default interface Organization {
     reservation_address: 'required' | 'optional' | 'no';
     reservation_user_note: 'required' | 'optional' | 'no';
     reservation_birth_date: 'required' | 'optional' | 'no';
+    reservation_note?: boolean;
+    reservation_note_text?: string;
     reservation_allow_extra_payments: boolean;
     reservation_fields: Array<ReservationField>;
     email?: string;
@@ -134,4 +136,5 @@ export default interface Organization {
         bank_note?: boolean;
         bank_separator?: string;
     };
+    has_person_bsn_api?: boolean;
 }

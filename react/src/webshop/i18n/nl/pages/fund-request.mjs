@@ -1,16 +1,25 @@
 export default {
     title: 'Aanvraag #{{ id }}',
+    subtitle:
+        'Op deze pagina staat informatie over de aanvraag. De status, de ingevulde gegevens en eventuele extra vragen zijn hier te bekijken.',
     breadcrumbs: {
         home: 'Home',
         fund_request: 'Aanvraag #{{ id }}',
     },
 
     details: {
-        title: 'Status aanvraag',
-        id: 'ID:',
+        status: 'Status Aanvraag:',
         created_at: 'Ingediend op:',
         fund_name: 'Naam van het fonds:',
-        number_of_records: 'Aantal persoonsgegevens:',
+    },
+
+    clarifications: {
+        title: 'Openstaande vragen ({{ count }})',
+        subtitle:
+            'De aanvraag is nog niet compleet. Er is extra informatie nodig. Bekijk de vraag hieronder en klik op de knop om te antwoorden.',
+        info_requested: 'Extra vraag gesteld',
+        info_responded_count: '{{count}} bericht',
+        provide_info: 'Beantwoord de vraag',
     },
 
     received: {
@@ -18,7 +27,8 @@ export default {
     },
 
     records: {
-        title: 'Mijn gegevens',
+        title: 'Mijn gegevens ({{ count }})',
+        subtitle: 'Bekijk hieronder de persoonlijke gegevens die zijn ingevuld bij de aanvraag.',
     },
 
     record: {
@@ -26,14 +36,31 @@ export default {
         new: 'nieuw bericht',
         new_message: 'Nieuw verzoek',
         answer: 'Beantwoord',
-        answer_btn: 'Antwoord',
+        my_answer: 'Mijn antwoord',
+        my_message: 'Mijn bericht',
+        answer_btn: 'Beantwoord deze vraag',
+        answer_btn_info:
+            'Klik op de button ”<strong>Beantwoord deze vraag</strong>” om de extra informatie te versturen. De informatie wordt toegevoegd aan de aanvraag.',
         cancel_btn: 'Annuleer',
         send_btn: 'Verzend',
+        answer_question_label: 'Beantwoord de vraag',
+        add_document_label: 'Voeg een document toe',
+        optional_label: '(optioneel)',
+    },
+
+    modal: {
+        title: 'Extra vraag',
+    },
+
+    labels: {
+        question: 'Gestelde vraag',
+        question_from: 'Vraag van {{ name }}',
+        date: 'Datum:',
     },
 
     declined: {
         title: 'Reden van weigeren',
-        no_note: 'No note',
+        no_note: 'Geen notitie',
     },
 
     digid_expired: {
@@ -149,6 +176,9 @@ export default {
                 declined: 'De aanvraag is afgewezen op {{ date }}',
                 disregarded: 'De aanvraag is afgewezen op {{ date }}',
                 approved_partly: 'De aanvraag is deels goedgekeurd op {{ date }}',
+            },
+            heading: {
+                pending: 'De vragen die zijn beantwoord tijdens de aanvraag:',
             },
             information: [
                 'De aanvraag wordt zo snel mogelijk beoordeeld, dit kan enkele weken duren. ',

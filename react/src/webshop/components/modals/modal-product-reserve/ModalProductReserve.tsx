@@ -909,10 +909,10 @@ export default function ModalProductReserve({
 
                         if (addressFilled(address) || product.reservation.address !== 'optional') {
                             validateAddress(address)
-                                ?.then(() => setStep((step) => step + 1))
+                                ?.then(() => next())
                                 ?.catch((err: ResponseError) => onError(err, true));
                         } else {
-                            setStep((step) => step + 1);
+                            next();
                         }
                     }}
                     data-dusk="productReserveAddress">
@@ -978,7 +978,7 @@ export default function ModalProductReserve({
                                     data-dusk="btnSkip"
                                     onClick={() => {
                                         setSkipAddress(true);
-                                        setStep((step) => step + 1);
+                                        next();
                                     }}>
                                     {translate('modal_reserve_product.buttons.skip')}
                                 </button>

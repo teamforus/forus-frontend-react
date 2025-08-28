@@ -74,6 +74,7 @@ import modal_pin_code from './nl/modals/modal_pin_code.mjs';
 import modal_logout from './nl/modals/modal_logout.mjs';
 import modal_deactivate_voucher from './nl/modals/modal_deactivate_voucher.mjs';
 import modal_product_payment_options_info from './nl/modals/modal_product_payment_options_info.mjs';
+import modal_product_price_type_options_info from './nl/modals/modal_product_price_type_options_info.mjs';
 
 import app_footer from './nl/directives/app-footer.mjs';
 import block_products from './nl/directives/block-products.mjs';
@@ -311,7 +312,7 @@ export default {
             or: 'of',
             upload_button: 'Upload een document',
             max_size: 'max. grootte 8Mb',
-            max_files: 'Max. {[ count ]} files',
+            max_files: 'Max. {{ count }} files',
             attachments: 'Attachments',
         },
         file_item: {
@@ -485,6 +486,7 @@ export default {
     modal_logout: modal_logout,
     modal_deactivate_voucher: modal_deactivate_voucher,
     modal_product_payment_options_info: modal_product_payment_options_info,
+    modal_product_price_type_options_info: modal_product_price_type_options_info,
 
     // DIRECTIVES
     app_footer: app_footer,

@@ -49,7 +49,9 @@ export default function FundProviderProducts({
 
     const filter = useFilter({ q: '', per_page: 15, type: source });
 
-    const { headElement, configsElement } = useConfigurableTable(fundService.getProviderProductColumns(fund, false));
+    const { headElement, configsElement } = useConfigurableTable(
+        fundService.getProviderProductColumns(fund, null, false),
+    );
 
     const fetchProducts = useCallback(() => {
         setProgress(0);
