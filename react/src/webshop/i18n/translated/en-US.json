@@ -81,7 +81,8 @@
         "vergoedingen": "logo Municipality of Nijmegen",
         "waalwijk": "Pass Wiser",
         "westerkwartier": "Municipality of Westerkwartier",
-        "winterswijk": "Municipality of Winterswijk"
+        "winterswijk": "Municipality of Winterswijk",
+        "home": "To home page"
     },
     "page_state_loading_titles": {
         "actions": "Offer{{pageTitleSuffix}}",
@@ -456,14 +457,21 @@
             "search": "Search offer",
             "sort": "Sort",
             "sub_category": "Subcategory",
-            "payment_option_ideal": "Online additional payment with iDeal",
             "payment_option_qr": "Show QR code at the provider",
             "payment_option_reservation": "Online booking",
             "payment_options": "Payment options",
             "payment_options_info": "Learn more about payment options",
             "price": "Price (€)",
             "price_from": "From",
-            "price_to": "To"
+            "price_to": "To",
+            "payment_option_extra_payment": "Online additional payment with iDeal",
+            "price_type_option_discount_fixed": "Discount in euro",
+            "price_type_option_discount_percentage": "Discount in percent",
+            "price_type_option_free": "Free",
+            "price_type_option_informational": "In store only",
+            "price_type_option_regular": "Price",
+            "price_type_options": "Type of offer",
+            "price_type_options_info": "Read more about the types of offerings"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -634,8 +642,8 @@
             "send": "Shipping"
         },
         "declined": {
-            "no_note": "No note",
-            "title": "Reason for refusal"
+            "title": "Reason for refusal",
+            "no_note": "No note"
         },
         "details": {
             "created_at": "Submitted on:",
@@ -667,9 +675,9 @@
             "answer_btn": "Answer this question",
             "answer_btn_info": "Click the \"<strong>Answer this question</strong>\" button to submit the additional information. The information will be added to the application.",
             "answer_question_label": "Answer the question",
-            "my_answer": "My answer",
-            "my_message": "My message",
-            "optional_label": "(optional)"
+            "optional_label": "(optional)",
+            "my_answer": "My response",
+            "my_message": "My message"
         },
         "sign_up": {
             "app": {
@@ -799,13 +807,13 @@
             "info_responded_count": "{{count}} message"
         },
         "labels": {
+            "question_from": "Question from {{ name }}",
             "date": "Date:",
-            "question": "Question",
-            "question_from": "Question from {{ name }}"
+            "question": "Question asked"
         },
         "records": {
-            "subtitle": "This block contains the personal information that you provided during the fund application request.",
-            "title": "My information ({{ count }})"
+            "title": "My information ({{ count }})",
+            "subtitle": "Please review the personal information entered on the application below."
         },
         "subtitle": "This page contains information about the application. The status, completed data and any additional questions can be viewed here.",
         "modal": {
@@ -1554,7 +1562,8 @@
         },
         "tooltip": "How often you can still take advantage of this offer",
         "price": {
-            "free": "Free"
+            "free": "Free",
+            "informational": "In store only"
         }
     },
     "records_create": {
@@ -2047,9 +2056,6 @@
             "not_found": "This token is invalid",
             "not-pending": "The notification settings have already been adjusted via this link"
         },
-        "no_email_button": "Add email",
-        "no_email_description": "Please add and email address to receive email notifications.",
-        "no_email_title": "You currently have no email associated with your account",
         "popups": {
             "auto_close_info": "Enable automatic closing of notifications to adjust the display time of notifications.",
             "times": {
@@ -2075,8 +2081,6 @@
             "title": "Settings for display time of notifications"
         },
         "subscribe": "Yes, I want to receive notifications.",
-        "subscribe_desc_formal": "With this email address \"{{email}}\" you are currently unsubscribed from all notifications. If you wish to receive notifications, you can set this up per notification below.",
-        "subscribe_desc_informal": "With this email address \"{{email}}\" you are currently unsubscribed from all notifications. If you wish to receive notifications, you can set this up per notification below.",
         "title": "Notification preferences",
         "title_email_preferences": "E-mail notifications",
         "title_emails_turned_of": "Unsubscribe from all emails",
@@ -2157,16 +2161,16 @@
             },
             "vouchers": {
                 "payment_success": {
-                    "description": "Receive an email notification when a payment is successful.",
-                    "title": "Payment successful"
+                    "title": "Payment successful",
+                    "description": "Receive an email notification when a payment is successful."
                 },
                 "send_voucher": {
-                    "description": "Receive an email notification when you send a credit to yourself.",
-                    "title": "Send a credit to yourself"
+                    "title": "Send a credit to yourself",
+                    "description": "Receive an email notification when you send a credit to yourself."
                 },
                 "share_product": {
-                    "description": "Receive an email notification when an offer reservation has been shared with you.",
-                    "title": "Reservation offer shared"
+                    "title": "Reservation offer shared",
+                    "description": "Receive an email notification when an offer reservation has been shared with you."
                 }
             }
         },
@@ -2178,7 +2182,12 @@
         "auto_close_enabled": "Auto-close is enabled",
         "auto_close_enabled_description": "Automatically closing pop-up notifications is enabled.",
         "new_time_enabled": "New time is enabled",
-        "auto_close_after": "Pop-up notifications automatically close after {{value}} seconds."
+        "auto_close_after": "Pop-up notifications automatically close after {{value}} seconds.",
+        "no_email_button": "Add email address",
+        "no_email_description": "Add an email address to receive notifications.",
+        "no_email_title": "You do not have an email address associated with your account yet",
+        "subscribe_desc_formal": "With this email address \"{{email}}\" you are currently unsubscribed from all notifications. If you wish to receive notifications, you can set this up per notification below.",
+        "subscribe_desc_informal": "With this email address \"{{email}}\" you are currently unsubscribed from all notifications. If you wish to receive notifications, you can set this up per notification below."
     },
     "privacy": {
         "breadcrumbs": {
@@ -3516,7 +3525,6 @@
         "title": "This website uses cookies",
         "view": "View the "
     },
-    "logo_title": "To the homepage of :host",
     "push": {
         "deleted": "Deleted!",
         "error": "Failed!",
@@ -3574,6 +3582,9 @@
         "required": "Mandatory",
         "placeholders": {
             "select_option": "Select option"
+        },
+        "range_control": {
+            "aria_value": "Value {{prefix}}{{value}} , minimum value {{prefix}}{{min}} , maximum value {{prefix}}{{max}}"
         }
     },
     "modal_deactivate_voucher": {
@@ -3608,6 +3619,23 @@
         "info_option_qr_title": "QR code",
         "info_option_reservation_description": "Pay through this website by ordering an offer. To do so, click on the reserve button and enter the requested information. The amount will be deducted directly from the available credit. The provider will receive the reservation and contact you if necessary.",
         "info_option_reservation_title": "Reservation",
+        "title": "Payment options"
+    },
+    "logo_title": "To the home page of {{host}}",
+    "modal_product_price_type_options_info": {
+        "confirm": "Close",
+        "description": "Products in the web shop can be offered in different ways. Below is what the different types of offers mean.",
+        "header": "Types of offerings",
+        "info_option_discount_fixed_description": "A fixed amount is deducted from the price, for example, €5 off.",
+        "info_option_discount_fixed_title": "Discount in euro",
+        "info_option_discount_percentage_description": "Part of the price is taken off, for example 20% off.",
+        "info_option_discount_percentage_title": "Discount in percent",
+        "info_option_free_description": "The product costs nothing. No payment is required.",
+        "info_option_free_title": "Free",
+        "info_option_informational_description": "This offer is not for sale online. It is only available at the provider's store or location.",
+        "info_option_informational_title": "In store only",
+        "info_option_regular_description": "The product has a fixed price. This is the amount to be paid, for example €10 euros.",
+        "info_option_regular_title": "Price",
         "title": "Payment options"
     }
 }

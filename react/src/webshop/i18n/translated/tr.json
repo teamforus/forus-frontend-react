@@ -306,7 +306,8 @@
         "vergoedingen": "logo Nijmegen Belediyesi",
         "waalwijk": "Geçiş Noktası",
         "westerkwartier": "Westerkwartier Belediyesi",
-        "winterswijk": "Winterswijk Belediyesi"
+        "winterswijk": "Winterswijk Belediyesi",
+        "home": "Ana sayfaya"
     },
     "notifications": {
         "breadcrumbs": {
@@ -421,14 +422,21 @@
             "search": "Arama teklifi",
             "sort": "Sırala",
             "sub_category": "Alt Kategori",
-            "payment_option_ideal": "iDeal ile çevrimiçi ödeme",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
             "payment_option_reservation": "Online rezervasyon",
             "payment_options": "Ödeme seçenekleri",
             "payment_options_info": "Ödeme seçenekleri hakkında daha fazla bilgi edinin",
             "price": "Fiyat (€)",
             "price_from": "Kimden",
-            "price_to": "için"
+            "price_to": "için",
+            "payment_option_extra_payment": "iDeal ile çevrimiçi ödeme",
+            "price_type_option_discount_fixed": "Euro cinsinden indirim",
+            "price_type_option_discount_percentage": "Yüzde olarak indirim",
+            "price_type_option_free": "Ücretsiz",
+            "price_type_option_informational": "Sadece mağazada",
+            "price_type_option_regular": "Fiyat",
+            "price_type_options": "Teklif türü",
+            "price_type_options_info": "Teklif türleri hakkında daha fazla bilgi edinin"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -858,8 +866,8 @@
             "send": "Nakliye"
         },
         "declined": {
-            "no_note": "Not yok",
-            "title": "Reddetme nedeni"
+            "title": "Reddetme nedeni",
+            "no_note": "Not yok"
         },
         "details": {
             "created_at": "Gönderilme tarihi:",
@@ -891,9 +899,9 @@
             "answer_btn": "Bu soruya cevap verin",
             "answer_btn_info": "Ek bilgileri göndermek için<strong>\"Bu soruyu yanıt</strong>la\" düğmesine tıklayın. Bilgiler başvuruya eklenecektir.",
             "answer_question_label": "Soruyu cevaplayın",
+            "optional_label": "(isteğe bağlı)",
             "my_answer": "Benim cevabım",
-            "my_message": "Benim mesajım",
-            "optional_label": "(isteğe bağlı)"
+            "my_message": "Benim mesajım"
         },
         "sign_up": {
             "app": {
@@ -1023,13 +1031,13 @@
             "info_responded_count": "{{count}} mesaj"
         },
         "labels": {
+            "question_from": "Bir soru {{ name }}",
             "date": "Tarih:",
-            "question": "Soru",
-            "question_from": "Bir soru {{ name }}"
+            "question": "Soru soruldu"
         },
         "records": {
-            "subtitle": "Bu blok, fon başvuru talebi sırasında sağladığınız kişisel bilgileri içerir.",
-            "title": "Bilgilerim ({{ count }})"
+            "title": "Bilgilerim ({{ count }})",
+            "subtitle": "Başvuru sırasında doldurulan kişisel bilgileri aşağıda görebilirsiniz."
         },
         "subtitle": "Bu sayfa başvuru hakkında bilgi içerir. Durum, tamamlanan veriler ve ek sorular buradan görüntülenebilir.",
         "modal": {
@@ -1852,7 +1860,8 @@
         },
         "tooltip": "Bu tekliften daha kaç kez yararlanabilirsiniz",
         "price": {
-            "free": "Ücretsiz"
+            "free": "Ücretsiz",
+            "informational": "Sadece mağazada"
         }
     },
     "records_create": {
@@ -2350,9 +2359,6 @@
             "not-pending": "Bildirim ayarları bu bağlantı üzerinden zaten ayarlanmıştır"
         },
         "new_time_enabled": "Yeni saat etkinleştirildi",
-        "no_email_button": "E-posta ekle",
-        "no_email_description": "E-posta bildirimleri almak için lütfen e-posta adresinizi ekleyin.",
-        "no_email_title": "Şu anda hesabınızla ilişkili bir e-postanız yok",
         "popups": {
             "auto_close_info": "Bildirimlerin görüntülenme süresini ayarlamak için bildirimlerin otomatik kapanmasını etkinleştirin.",
             "times": {
@@ -2378,8 +2384,6 @@
             "title": "Bildirimlerin görüntülenme zamanı için ayarlar"
         },
         "subscribe": "Evet, bildirim almak istiyorum.",
-        "subscribe_desc_formal": "{{email}}Bu e-posta adresi \" \" ile şu anda tüm bildirimlere aboneliğiniz bulunmamaktadır. Bildirim almak istiyorsanız, bunu aşağıdaki bildirim başına ayarlayabilirsiniz.",
-        "subscribe_desc_informal": "{{email}}Bu e-posta adresi \" \" ile şu anda tüm bildirimlere aboneliğiniz bulunmamaktadır. Bildirim almak istiyorsanız, bunu aşağıdaki bildirim başına ayarlayabilirsiniz.",
         "title": "Bildirim tercihleri",
         "title_email_preferences": "E-posta bildirimleri",
         "title_emails_turned_of": "Tüm e-posta aboneliklerinden çıkın",
@@ -2460,23 +2464,28 @@
             },
             "vouchers": {
                 "payment_success": {
-                    "description": "Ödeme başarılı olduğunda bir e-posta bildirimi alın.",
-                    "title": "Ödeme başarılı"
+                    "title": "Ödeme başarılı",
+                    "description": "Bir ödeme başarılı olduğunda bir e-posta bildirimi alın."
                 },
                 "send_voucher": {
-                    "description": "Kendinize bir kredi gönderdiğinizde bir e-posta bildirimi alın.",
-                    "title": "Kendinize bir kredi gönderin"
+                    "title": "Kendinize bir kredi gönderin",
+                    "description": "Kendinize bir kredi gönderdiğinizde bir e-posta bildirimi alın."
                 },
                 "share_product": {
-                    "description": "Bir teklif rezervasyonu sizinle paylaşıldığında bir e-posta bildirimi alın.",
-                    "title": "Rezervasyon teklifi paylaşıldı"
+                    "title": "Rezervasyon teklifi paylaşıldı",
+                    "description": "Sizinle bir teklif rezervasyonu paylaşıldığında bir e-posta bildirimi alın."
                 }
             }
         },
         "unsubscribe": "Tüm e-posta bildirimleri aboneliğinden çıkın",
         "unsubscribe_button": "Abonelikten çık",
         "unsubscribe_desc": "Tüm e-posta bildirimleri aboneliğinden çıkmak istiyorum.",
-        "auto_close_after": "Açılır bildirimler {{value}} saniye sonra otomatik olarak kapanır."
+        "auto_close_after": "Açılır bildirimler {{value}} saniye sonra otomatik olarak kapanır.",
+        "no_email_button": "E-posta adresi ekle",
+        "no_email_description": "Bildirimleri almak için bir e-posta adresi ekleyin.",
+        "no_email_title": "Henüz hesabınızla ilişkilendirilmiş bir e-posta adresiniz yok",
+        "subscribe_desc_formal": "Bu e-posta adresi \"{{email}}\" ile şu anda tüm bildirimlere aboneliğiniz bulunmamaktadır. Bildirim almak istiyorsanız, bunu bildirim başına aşağıda ayarlayabilirsiniz.",
+        "subscribe_desc_informal": "Bu e-posta adresi \"{{email}}\" ile şu anda tüm bildirimlere aboneliğiniz bulunmamaktadır. Bildirim almak istiyorsanız, bunu aşağıdaki bildirim başına ayarlayabilirsiniz."
     },
     "privacy": {
         "breadcrumbs": {
@@ -3516,7 +3525,6 @@
         "title": "Bu web sitesi çerezleri kullanır",
         "view": "Görüntüle "
     },
-    "logo_title": "Ana sayfasına :host",
     "push": {
         "deleted": "Silindi!",
         "error": "Başarısız!",
@@ -3574,6 +3582,9 @@
         "required": "Zorunlu",
         "placeholders": {
             "select_option": "Seçeneği seçin"
+        },
+        "range_control": {
+            "aria_value": "Değer {{prefix}}{{value}} , minimum değer {{prefix}}{{min}} , maksimum değer {{prefix}}{{max}}"
         }
     },
     "modal_deactivate_voucher": {
@@ -3608,6 +3619,23 @@
         "info_option_qr_title": "QR kodu",
         "info_option_reservation_description": "Bir teklif sipariş ederek bu web sitesi üzerinden ödeme yapın. Bunun için rezerve et butonuna tıklayın ve istenen bilgileri doldurun. Tutar doğrudan mevcut krediden düşülecektir. Sağlayıcı rezervasyonu alacak ve gerekirse sizinle iletişime geçecektir.",
         "info_option_reservation_title": "Rezervasyon",
+        "title": "Ödeme seçenekleri"
+    },
+    "logo_title": "Ana sayfasına {{host}}",
+    "modal_product_price_type_options_info": {
+        "confirm": "Kapat",
+        "description": "Web mağazasındaki ürünler farklı şekillerde sunulabilir. Aşağıda farklı teklif türlerinin ne anlama geldiği açıklanmaktadır.",
+        "header": "Teklif türleri",
+        "info_option_discount_fixed_description": "Fiyattan sabit bir miktar düşülecektir, örneğin 5 € indirim.",
+        "info_option_discount_fixed_title": "Euro cinsinden indirim",
+        "info_option_discount_percentage_description": "Fiyatın bir kısmı indirilir, örneğin %20 indirim.",
+        "info_option_discount_percentage_title": "Yüzde olarak indirim",
+        "info_option_free_description": "Ürünün hiçbir maliyeti yoktur. Hiçbir ödeme gerekmez.",
+        "info_option_free_title": "Ücretsiz",
+        "info_option_informational_description": "Bu teklif çevrimiçi satış için değildir. Yalnızca sağlayıcının mağazasında veya konumunda mevcuttur.",
+        "info_option_informational_title": "Sadece mağazada",
+        "info_option_regular_description": "Ürünün sabit bir fiyatı vardır. Bu ödenecek miktardır, örneğin 10 Euro.",
+        "info_option_regular_title": "Fiyat",
         "title": "Ödeme seçenekleri"
     }
 }

@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400");
 
 /*==========  Style Sheet - Vars  ==========*/
-$primaryColor: #24a1a1;
-$primaryColorLight: #24a1a1;
+$primaryColor: #1c7878;
+$primaryColorLight: #1c7878;
 
 :root {
     --zoom: 100%;
@@ -16,8 +16,8 @@ $primaryColorLight: #24a1a1;
     --color-primary: #{$primaryColor};
     --color-primary-light: #{$primaryColorLight};
 
-    --color-default: #24a1a1;
-    --color-default-light: #24a1a1;
+    --color-default: #1c7878;
+    --color-default-light: #1c7878;
 
     --color-danger: #e63b3b;
 
@@ -26,7 +26,7 @@ $primaryColorLight: #24a1a1;
 
     --navbar-menu-gap: 22px;
     --navbar-menu-order: 1;
-    --navbar-menu-background: #5d646f;
+    --navbar-menu-background: #3C424A;
 
     --navbar-search-gap: 20px;
     --navbar-search-order: 2;
@@ -62,17 +62,17 @@ $primaryColorLight: #24a1a1;
     --focus-box-shadow: 0 0 0 3px white;
 
     // navbar (auth) (default button)
-    --tc-auth-menu: #24a1a1;
+    --tc-auth-menu: #1c7878;
     --tc-auth-btn: #fff;
-    --btn-auth-bg: #24a1a1;
-    --btn-auth-border: #24a1a1;
+    --btn-auth-bg: #1c7878;
+    --btn-auth-border: #1c7878;
     --auth-avater-bg: #305dfb;
     --auth-avater-svg: #fff;
 
     // navbar (start modal primary)
     --tc-start-btn: #fff;
-    --btn-start-bg: #24a1a1;
-    --btn-start-btn: #24a1a1;
+    --btn-start-bg: #1c7878;
+    --btn-start-btn: #1c7878;
     --btn-start-border: transparent;
 
     // header background
@@ -102,7 +102,7 @@ $primaryColorLight: #24a1a1;
     --heading-pane-font: 700 22px/30px var(--heading-font-family);
 
     // base color
-    --bc: #24a1a1;
+    --bc: #1c7878;
 
     // background color
     --body-background: none;
@@ -120,7 +120,7 @@ $primaryColorLight: #24a1a1;
 
     --footer-copyright-color: var(--footer_color_link);
     --footer-copyright-font: 400 14px/30px var(--base-font);
-    --footer-copyright-background: #24a1a1;
+    --footer-copyright-background: #1c7878;
     --footer-copyright-border-color: var(--border-color);
     --footer-copyright-padding: 40px;
 
@@ -236,14 +236,14 @@ $primaryColorLight: #24a1a1;
     --button-primary-outline-hover-decoration: none;
     --button-primary-outline-hover-background: var(--color-primary);
 
-    --button-read_more-color: #24a1a1;
-    --button-read_more-border: 2px solid #24a1a1;
+    --button-read_more-color: #1c7878;
+    --button-read_more-border: 2px solid #1c7878;
     --button-read_more-decoration: null;
     --button-read_more-background: #fff;
     --button-read_more-hover-color: #ffffff;
-    --button-read_more-hover-border: 2px solid #24a1a1;
+    --button-read_more-hover-border: 2px solid #1c7878;
     --button-read_more-hover-decoration: null;
-    --button-read_more-hover-background: #24a1a1;
+    --button-read_more-hover-background: #1c7878;
 
     // Sign up
     --sign_up_accent_color: #282b39;
@@ -347,7 +347,7 @@ $primaryColorLight: #24a1a1;
     --section-faq-padding: 30px 0;
     --section-faq-background: var(--section-background);
     --section-footer-padding: 35px 0;
-    --section-footer-background: #24a1a1;
+    --section-footer-background: #1c7878;
     --section-pre-check-padding: 0 0 30px;
     --section-pre-check-background: var(--section-background);
     --section-profile-padding: var(--section-padding);
