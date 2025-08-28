@@ -12,16 +12,9 @@ export const TopNavbarDesktopLogo = () => {
 
     return (
         <StateNavLink name={'home'} className="navbar-desktop-logo" disabled={route?.state?.name === 'home'}>
-            {/* Creates alt: Go to home page of name.municipality.nl*/}
             <img
                 src={assetUrl(`/assets/img/logo-normal.svg`)}
-                alt={translate(
-                    `logo_title`,
-                    {
-                        host: window.location.host,
-                    },
-                    `logo_alt_text.home`,
-                )}
+                alt={translate(`logo_title`, { host: window.location.host }, `logo_alt_text.home`)}
             />
         </StateNavLink>
     );

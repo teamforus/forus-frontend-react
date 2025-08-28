@@ -194,7 +194,7 @@ export default function FundRequest() {
             return {
                 contact_information: contactInformation,
                 records: criteria.map((criterion) => {
-                    const { id, value, operator, input_value = '', files_uid = [], record_type_key = '' } = criterion;
+                    const { id, value, operator, input_value = '', files_uid = [] } = criterion;
 
                     const makeValue =
                         {
@@ -207,18 +207,8 @@ export default function FundRequest() {
                         }[operator] || null;
 
                     return fund?.auto_validation
-                        ? {
-                              files: [],
-                              value: makeValue ? makeValue() : null,
-                              fund_criterion_id: id,
-                              record_type_key: record_type_key,
-                          }
-                        : {
-                              files: files_uid,
-                              value: input_value,
-                              fund_criterion_id: id,
-                              record_type_key: record_type_key,
-                          };
+                        ? { files: [], value: makeValue ? makeValue() : null, fund_criterion_id: id }
+                        : { files: files_uid, value: input_value, fund_criterion_id: id };
                 }),
             };
         },

@@ -5,7 +5,6 @@ export default {
         select_option: 'Selecteer optie',
     },
     range_control: {
-        min: 'minimum waarde {{min}}',
-        max: 'maximum waarde {{max}}',
+        aria_value: 'Value {{prefix}}{{value}}, minimum waarde {{prefix}}{{min}}, maximum waarde {{prefix}}{{max}}',
     },
 };

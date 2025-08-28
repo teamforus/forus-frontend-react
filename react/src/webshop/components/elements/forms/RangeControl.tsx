@@ -36,9 +36,14 @@ export default function RangeControl({
                 thumbClassName="horizontal-slider-thumb"
                 trackClassName="horizontal-slider-track"
                 ariaLabelledby={['first-slider-label', 'second-slider-label']}
-                ariaValuetext={(state) =>
-                    `Value ${prefix}${state.valueNow}, ${translate(`form.range_control.min`, { min: min }, min.toString())} ${translate(`form.range_control.max`, { max: max }, max.toString())}`
-                }
+                ariaValuetext={(state) => {
+                    return translate('form.range_control.aria_value', {
+                        prefix: prefix?.trim(),
+                        value: state.valueNow,
+                        min,
+                        max,
+                    });
+                }}
                 renderThumb={(props, state) => (
                     <div {...props}>
                         <div className="horizontal-slider-thumb-text">{`${prefix}${state.valueNow}`}</div>
