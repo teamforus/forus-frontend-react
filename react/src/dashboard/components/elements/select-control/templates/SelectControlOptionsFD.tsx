@@ -26,6 +26,7 @@ export default function SelectControlOptionsFD<T>({
     searchInputChanged,
     onOptionsScroll,
     disabled,
+    ariaLabelledby,
     multiline = { selected: false, options: true },
 }: SelectControlOptionsProp<T>) {
     const [controlId] = useState('select_control_' + uniqueId());
@@ -59,7 +60,7 @@ export default function SelectControlOptionsFD<T>({
             data-dusk={dusk}
             aria-haspopup="listbox"
             aria-expanded={showOptions}
-            aria-labelledby={controlId}
+            aria-labelledby={ariaLabelledby || controlId}
             aria-controls={`${controlId}_options`}
             ref={selectorRef}
             onKeyDown={(e) => (disabled ? null : onKeyDown(e))}
