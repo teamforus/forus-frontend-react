@@ -180,30 +180,34 @@ export default function Funds() {
                             />
                         </div>
                         <div className="form-group">
-                            <label className="form-label" htmlFor="select_organization">
+                            <label className="form-label" id="select_organization_label" htmlFor="select_organization">
                                 {translate('funds.labels.organization')}
                             </label>
                             <SelectControl
+                                id="select_organization"
                                 propKey={'id'}
                                 value={filter.values.organization_id}
                                 allowSearch={true}
                                 onChange={(organization_id: number) => filter.update({ organization_id })}
                                 options={organizations || []}
                                 multiline={true}
+                                ariaLabelledby="select_organization_label"
                                 dusk="selectControlOrganizations"
                             />
                         </div>
                         <div className="form-group">
-                            <label className="form-label" htmlFor="select_category">
+                            <label className="form-label" id="select_category_label" htmlFor="select_category">
                                 {translate('funds.labels.category')}
                             </label>
                             <SelectControl
+                                id="select_category"
                                 propKey={'id'}
                                 value={filter.values.tag_id}
                                 allowSearch={true}
                                 onChange={(tag_id: number) => filter.update({ tag_id })}
                                 options={tags || []}
                                 multiline={true}
+                                ariaLabelledby="select_category_label"
                                 dusk="selectControlTags"
                             />
                         </div>

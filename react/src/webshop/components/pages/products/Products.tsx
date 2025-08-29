@@ -577,7 +577,7 @@ export default function Products() {
                                         propKey={'id'}
                                         propValue={'label'}
                                         options={sortByOptions}
-                                        aria-labelledby="sort_by_label"
+                                        ariaLabelledby="sort_by_label"
                                         value={
                                             sortByOptions.find(
                                                 (option) =>

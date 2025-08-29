@@ -371,13 +371,16 @@ export default function Search() {
                         <div className="showcase-filters-block">
                             <div className="block block-label-tabs form">
                                 <div className="showcase-filters-item">
-                                    <label className="form-label">{translate('search.filters.sort')}</label>
+                                    <label className="form-label" id={'sort_by_label'}>
+                                        {translate('search.filters.sort')}
+                                    </label>
                                     <SelectControl
                                         id="sort_by"
                                         propKey={'id'}
                                         propValue={'label'}
                                         allowSearch={false}
                                         options={sortByOptions}
+                                        ariaLabelledby="sort_by_label"
                                         value={
                                             sortByOptions.find(
                                                 (option) =>

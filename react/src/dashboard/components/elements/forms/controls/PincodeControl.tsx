@@ -1,5 +1,6 @@
 import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { chunk } from 'lodash';
+import useTranslate from '../../../../hooks/useTranslate';
 
 export default function PincodeControl({
     id,
@@ -11,6 +12,7 @@ export default function PincodeControl({
     blockCount = 1,
     cantDeleteSize = 0,
     ariaLabel = null,
+    ariaLabelledbyText = null,
     className,
 }: {
     id?: string;
@@ -22,8 +24,11 @@ export default function PincodeControl({
     blockCount?: number;
     cantDeleteSize?: number;
     ariaLabel?: string;
+    ariaLabelledbyText?: string;
     className?: string;
 }) {
+    const translate = useTranslate();
+
     const totalSize = blockSize * blockCount;
     const immutableSize = Math.min(cantDeleteSize, value.length);
 
@@ -90,7 +95,16 @@ export default function PincodeControl({
             className={`block block-pincode ${className || ''}`}
             onClick={() => inputRefs[cursor].current?.focus()}>
             <div className="flex flex-vertical">
-                <div className="flex">
+                <div className="flex" role="group" aria-labelledby="pincode-label">
+                    <span id="pincode-label" className="sr-only">
+                        {ariaLabelledbyText ||
+                            translate(
+                                valueType === 'num'
+                                    ? 'pincode_control.aria_labelledby_num'
+                                    : 'pincode_control.aria_labelledby_text',
+                                { total: totalSize },
+                            )}
+                    </span>
                     {charChunks.map((charChunk, nthChunk) => (
                         <div key={nthChunk} className={'flex'}>
                             <div>
@@ -104,7 +118,18 @@ export default function PincodeControl({
                                         autoComplete="off"
                                         autoCapitalize="off"
                                         spellCheck="false"
-                                        aria-label={ariaLabel}
+                                        aria-label={
+                                            ariaLabel ||
+                                            translate(
+                                                valueType === 'num'
+                                                    ? 'pincode_control.aria_label_num'
+                                                    : 'pincode_control.aria_label_text',
+                                                {
+                                                    current: (nthChunk + 1) * (nth + 1),
+                                                    total: totalSize,
+                                                },
+                                            )
+                                        }
                                         disabled={chars.indexOf(char) < immutableSize}
                                         ref={inputRefs[chars.indexOf(char)]}
                                         value={char.val}

@@ -432,13 +432,16 @@ export default function Providers() {
                             <div className="block block-label-tabs form">
                                 {!filterValues.show_map && (
                                     <div className={classNames('showcase-filters-item')}>
-                                        <label className="form-label">{translate('providers.filters.sort')}</label>
+                                        <label className="form-label" id={'sort_by_label'}>
+                                            {translate('providers.filters.sort')}
+                                        </label>
                                         <SelectControl
                                             id={'sort_by'}
                                             allowSearch={false}
                                             propKey={'id'}
                                             propValue={'label'}
                                             options={sortByOptions}
+                                            ariaLabelledby="sort_by_label"
                                             value={
                                                 sortByOptions.find(
                                                     (option) =>

@@ -201,9 +201,6 @@ export default function ModalPhysicalCardType({
                                     blockCount={3}
                                     valueType={'num'}
                                     cantDeleteSize={3}
-                                    ariaLabel={translate(
-                                        'modal_physical_card.modal_section.link_card.enter_physical_card_number',
-                                    )}
                                 />
 
                                 <FormError className={'text-center'} error={activateCodeForm.errors.code} />

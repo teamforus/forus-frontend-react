@@ -531,7 +531,6 @@ export default function Modal2FASetup({
                                         valueType={'num'}
                                         className={'block-pincode-compact'}
                                         onChange={(code) => setConfirmationCode(code)}
-                                        ariaLabel={translate('modal_2fa_setup.enter_2fa_code')}
                                     />
 
                                     <FormError error={activateAuthErrors} />
@@ -629,7 +628,6 @@ export default function Modal2FASetup({
                                             valueType={'num'}
                                             className={'block-pincode-compact'}
                                             onChange={(code) => setConfirmationCode(code)}
-                                            ariaLabel={translate('modal_2fa_setup.enter_2fa_code')}
                                         />
                                         <FormError error={verifyAuthErrors} />
                                     </div>

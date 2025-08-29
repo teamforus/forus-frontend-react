@@ -214,7 +214,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                         )}
                     </div>
                     {dropdown && (
-                        <div className="search-result" role={'menu'}>
+                        <div className="search-result" role={'tablist'}>
                             <div className="search-result-sidebar">
                                 {groupKeyList.map((itemGroupKey) => (
                                     <h2
@@ -224,9 +224,11 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                             'state-nav-link',
                                             groupKey == itemGroupKey && 'active',
                                         )}
+                                        id={`tab-${itemGroupKey}`}
+                                        role={'tab'}
                                         aria-selected={groupKey === itemGroupKey}
                                         aria-expanded={groupKey === itemGroupKey}
-                                        role={'button'}
+                                        aria-controls={`panel-${itemGroupKey}`}
                                         tabIndex={0}
                                         onKeyDown={clickOnKeyEnter}
                                         onClick={() => setGroupKey(itemGroupKey)}>
@@ -266,7 +268,11 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                     </h2>
                                 ))}
                             </div>
-                            <div className="search-result-content">
+                            <div
+                                className="search-result-content"
+                                role="tabpanel"
+                                id={`panel-${groupKey}`}
+                                aria-labelledby={`tab-${groupKey}`}>
                                 {groupKeyList
                                     .filter((itemKey) => {
                                         return (

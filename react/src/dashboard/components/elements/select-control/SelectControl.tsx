@@ -31,6 +31,7 @@ type SelectControlProps<T> = {
     optionsComponent?: FunctionComponent<SelectControlOptionsProp<T>>;
     multiline?: boolean | { selected: boolean; options: boolean };
     searchAutoComplete?: HTMLInputAutoCompleteAttribute;
+    ariaLabelledby?: string;
 };
 
 export interface OptionType<T> {
@@ -66,6 +67,7 @@ export type SelectControlOptionsProp<T> = {
     rawValue?: unknown;
     propKey?: string | null;
     propValue?: string | null;
+    ariaLabelledby?: string;
     multiline?: boolean | { selected: boolean; options: boolean };
 };
 
@@ -88,6 +90,7 @@ export default function SelectControl<T>({
     searchAutoComplete = 'off',
     dusk = null,
     multiline,
+    ariaLabelledby = null,
 }: SelectControlProps<T>) {
     const [query, setQuery] = useState('');
     const [modelValue, setModelValue] = useState(null);
@@ -264,5 +267,6 @@ export default function SelectControl<T>({
         propValue,
         multiline,
         searchAutoComplete,
+        ariaLabelledby,
     });
 }
