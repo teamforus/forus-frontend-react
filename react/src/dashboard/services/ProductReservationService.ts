@@ -69,9 +69,14 @@ export class ProductReservationService<T = Reservation> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/product-reservations/${id}/extra-payments/fetch`);
     }
 
-    public refundReservationExtraPayment(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.get(
+    public refundReservationExtraPayment(
+        organization_id: number,
+        id: number,
+        data: object = {},
+    ): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(
             `${this.prefix}/${organization_id}/product-reservations/${id}/extra-payments/refund`,
+            data,
         );
     }
 

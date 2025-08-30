@@ -15,6 +15,7 @@ import modal_markdown_custom_link from './modals/modal-markdown-custom-link';
 import modal_voucher_transaction from './modals/modal-voucher-transaction';
 import modal_feature_contact from './modals/modal-feature-contact';
 import modal_2fa_setup from './modals/modal-2fa-setup';
+import modal_extra_payment_refund from './modals/modal-extra-payment-refund';
 
 export default {
     modal_payout_create,
@@ -34,4 +35,5 @@ export default {
     modal_voucher_transaction,
     modal_feature_contact,
     modal_2fa_setup,
+    modal_extra_payment_refund,
 };
