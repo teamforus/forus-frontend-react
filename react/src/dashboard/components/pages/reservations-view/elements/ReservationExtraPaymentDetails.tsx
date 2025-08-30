@@ -6,12 +6,12 @@ import KeyValueItem from '../../../elements/key-value/KeyValueItem';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useProductReservationService from '../../../../services/ProductReservationService';
-import ModalDangerZone from '../../../modals/ModalDangerZone';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import useEnvData from '../../../../hooks/useEnvData';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
+import ModalReservationExtraPaymentRefund from '../../../modals/ModalReservationExtraPaymentRefund';
 
 export default function ReservationExtraPaymentDetails({
     payment,
@@ -50,47 +50,18 @@ export default function ReservationExtraPaymentDetails({
 
     const refundExtraPayment = useCallback(
         function () {
-            openModal((modal) => (
-                <ModalDangerZone
-                    modal={modal}
-                    title={translate('modals.danger_zone.confirm_extra_payment_refund.title')}
-                    description={translate('modals.danger_zone.confirm_extra_payment_refund.description')}
-                    buttonCancel={{
-                        onClick: modal.close,
-                        text: translate('modals.danger_zone.confirm_extra_payment_refund.buttons.cancel'),
-                    }}
-                    buttonSubmit={{
-                        onClick: () => {
-                            setProgress(0);
-
-                            productReservationService
-                                .refundReservationExtraPayment(organization.id, reservation.id)
-                                .then((res) => {
-                                    onUpdate(res.data.data);
-                                    pushSuccess('Refund created!');
-                                })
-                                .catch(pushApiError)
-                                .finally(() => {
-                                    setProgress(100);
-                                    modal.close();
-                                });
-                        },
-                        text: translate('modals.danger_zone.confirm_extra_payment_refund.buttons.confirm'),
-                    }}
-                />
-            ));
+            openModal((modal) => {
+                return (
+                    <ModalReservationExtraPaymentRefund
+                        modal={modal}
+                        organization={organization}
+                        reservation={reservation}
+                        onDone={(reservation) => onUpdate(reservation)}
+                    />
+                );
+            });
         },
-        [
-            translate,
-            onUpdate,
-            openModal,
-            setProgress,
-            pushSuccess,
-            pushApiError,
-            reservation.id,
-            organization.id,
-            productReservationService,
-        ],
+        [onUpdate, openModal, reservation, organization],
     );
 
     return (
