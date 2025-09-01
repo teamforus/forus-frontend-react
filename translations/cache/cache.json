@@ -3780,10 +3780,6 @@
         "Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in."
     ],
     [
-        "modal_2fa_deactivate.enter_2fa_code_deactivation",
-        "Voer de tweefactorauthenticatiecode in voor deactivering"
-    ],
-    [
         "modal_2fa_deactivate.enter_app_code",
         "Voer de 6-cijferige code in vanuit de app"
     ],
@@ -4200,10 +4196,6 @@
         "Op je pasje staat een QR-code, hieronder staat je persoonlijke code.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.<br/>Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00."
     ],
     [
-        "modal_physical_card.modal_section.link_card.enter_physical_card_number",
-        "Voer het nummer van de fysieke pas in"
-    ],
-    [
         "modal_physical_card.modal_section.link_card.no_old_card",
         "Geen oude pas?"
     ],
@@ -4342,10 +4334,6 @@
     [
         "modal_pin_code.download",
         "Download"
-    ],
-    [
-        "modal_pin_code.enter_code",
-        "Voer de koppelcode van de Me-app in"
     ],
     [
         "modal_pin_code.link",
@@ -5366,6 +5354,22 @@
     [
         "pdf_preview.header.title",
         "PDF-voorbeeld"
+    ],
+    [
+        "pincode_control.aria_label_num",
+        "Cijfer {{current}} van de {{total}}"
+    ],
+    [
+        "pincode_control.aria_label_text",
+        "Teken {{current}} van de {{total}}"
+    ],
+    [
+        "pincode_control.aria_labelledby_num",
+        "Typ de code van {{total}} cijfers in"
+    ],
+    [
+        "pincode_control.aria_labelledby_text",
+        "Typ de code van {{total}} tekens in"
     ],
     [
         "popup_auth.buttons.cancel",

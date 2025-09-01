@@ -23,7 +23,6 @@ export default {
             ].join('<br/>'),
             no_old_card: 'Geen oude pas?',
             order_card: 'Bestel een pas',
-            enter_physical_card_number: 'Voer het nummer van de fysieke pas in',
             alt_text: 'Fysieke pas: {{ fund_name }}',
         },
         request_new_card: {
