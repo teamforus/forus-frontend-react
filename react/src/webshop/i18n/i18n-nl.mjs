@@ -198,8 +198,9 @@ export default {
     email_service_switch: {
         confirm: 'Breng me naar mijn e-mail',
     },
-    logo_title: `Naar de homepage van :host`,
+    logo_title: `Naar de homepagina van {{host}}`,
     logo_alt_text: {
+        home: 'Naar de homepagina',
         general: 'Forus',
         berkelland: 'Gemeente Berkelland',
         ede: 'Ede',
