@@ -48,21 +48,16 @@ export default function ReservationExtraPaymentDetails({
             .finally(() => setProgress(100));
     }, [setProgress, productReservationService, organization.id, reservation.id, onUpdate, pushSuccess, pushApiError]);
 
-    const refundExtraPayment = useCallback(
-        function () {
-            openModal((modal) => {
-                return (
-                    <ModalReservationExtraPaymentRefund
-                        modal={modal}
-                        organization={organization}
-                        reservation={reservation}
-                        onDone={(reservation) => onUpdate(reservation)}
-                    />
-                );
-            });
-        },
-        [onUpdate, openModal, reservation, organization],
-    );
+    const refundExtraPayment = useCallback(() => {
+        openModal((modal) => (
+            <ModalReservationExtraPaymentRefund
+                modal={modal}
+                organization={organization}
+                reservation={reservation}
+                onDone={(reservation) => onUpdate(reservation)}
+            />
+        ));
+    }, [onUpdate, openModal, reservation, organization]);
 
     return (
         <div className="card">

@@ -12,6 +12,7 @@ import usePushApiError from '../../hooks/usePushApiError';
 import { ResponseError } from '../../props/ApiResponses';
 import useTranslate from '../../hooks/useTranslate';
 import useSetProgress from '../../hooks/useSetProgress';
+import CheckboxControl from '../elements/forms/controls/CheckboxControl';
 
 export default function ModalReservationExtraPaymentRefund({
     modal,
@@ -25,9 +26,9 @@ export default function ModalReservationExtraPaymentRefund({
     reservation: Reservation;
 }) {
     const translate = useTranslate();
+    const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
-    const setProgress = useSetProgress();
 
     const productReservationService = useProductReservationService();
 
@@ -90,21 +91,14 @@ export default function ModalReservationExtraPaymentRefund({
 
                         <FormGroup
                             error={form.errors.share_note_by_email}
-                            input={() => (
-                                <label className="checkbox checkbox-narrow">
-                                    <input
-                                        type="checkbox"
-                                        checked={form.values.share_note_by_email}
-                                        onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
-                                        hidden={true}
-                                    />
-                                    <div className="checkbox-label">
-                                        <div className="checkbox-box">
-                                            <div className="mdi mdi-check" />
-                                        </div>
-                                        <span>Verstuur een bericht naar de inwoner</span>
-                                    </div>
-                                </label>
+                            input={(id) => (
+                                <CheckboxControl
+                                    id={id}
+                                    title={'Verstuur een bericht naar de inwoner'}
+                                    narrow={true}
+                                    checked={form.values.share_note_by_email}
+                                    onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
+                                />
                             )}
                         />
                     </div>
