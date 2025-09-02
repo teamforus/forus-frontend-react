@@ -988,6 +988,10 @@
         "Selecteer optie"
     ],
     [
+        "form.range_control.aria_value",
+        "Value {{prefix}}{{value}}, minimum waarde {{prefix}}{{min}}, maximum waarde {{prefix}}{{max}}"
+    ],
+    [
         "form.required",
         "Verplicht"
     ],
@@ -1253,7 +1257,7 @@
     ],
     [
         "fund_request.declined.no_note",
-        "No note"
+        "Geen notitie"
     ],
     [
         "fund_request.declined.title",
@@ -1297,11 +1301,11 @@
     ],
     [
         "fund_request.labels.date",
-        "Date:"
+        "Datum:"
     ],
     [
         "fund_request.labels.question",
-        "Vraag"
+        "Gestelde vraag"
     ],
     [
         "fund_request.labels.question_from",
@@ -1345,11 +1349,11 @@
     ],
     [
         "fund_request.record.my_answer",
-        "My answer"
+        "Mijn antwoord"
     ],
     [
         "fund_request.record.my_message",
-        "My message"
+        "Mijn bericht"
     ],
     [
         "fund_request.record.new",
@@ -1373,7 +1377,7 @@
     ],
     [
         "fund_request.records.subtitle",
-        "This block contains the personal information that you provided during the fund application request."
+        "Bekijk hieronder de persoonlijke gegevens die zijn ingevuld bij de aanvraag."
     ],
     [
         "fund_request.records.title",
@@ -3564,6 +3568,10 @@
         "Gemeente Heumen"
     ],
     [
+        "logo_alt_text.home",
+        "Naar de homepagina"
+    ],
+    [
         "logo_alt_text.kerstpakket",
         "Kerstpakket"
     ],
@@ -3601,7 +3609,7 @@
     ],
     [
         "logo_title",
-        "Naar de homepage van :host"
+        "Naar de homepagina van {{host}}"
     ],
     [
         "maps.cancel",
@@ -3770,10 +3778,6 @@
     [
         "modal_2fa_deactivate.enter_2fa_code",
         "Om door te gaan, voer de tweefactorauthenticatie beveiligingscode in."
-    ],
-    [
-        "modal_2fa_deactivate.enter_2fa_code_deactivation",
-        "Voer de tweefactorauthenticatiecode in voor deactivering"
     ],
     [
         "modal_2fa_deactivate.enter_app_code",
@@ -4192,10 +4196,6 @@
         "Op je pasje staat een QR-code, hieronder staat je persoonlijke code.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.<br/>Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00."
     ],
     [
-        "modal_physical_card.modal_section.link_card.enter_physical_card_number",
-        "Voer het nummer van de fysieke pas in"
-    ],
-    [
         "modal_physical_card.modal_section.link_card.no_old_card",
         "Geen oude pas?"
     ],
@@ -4336,10 +4336,6 @@
         "Download"
     ],
     [
-        "modal_pin_code.enter_code",
-        "Voer de koppelcode van de Me-app in"
-    ],
-    [
         "modal_pin_code.link",
         "Koppelen"
     ],
@@ -4405,6 +4401,62 @@
     ],
     [
         "modal_product_payment_options_info.title",
+        "Betaalopties"
+    ],
+    [
+        "modal_product_price_type_options_info.confirm",
+        "Sluiten"
+    ],
+    [
+        "modal_product_price_type_options_info.description",
+        "Producten in de webshop kunnen op verschillende manieren worden aangeboden. Hieronder staat wat de verschillende soorten aanbiedingen betekenen."
+    ],
+    [
+        "modal_product_price_type_options_info.header",
+        "Soorten aanbod"
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_discount_fixed_description",
+        "Er gaat een vast bedrag van de prijs af, bijvoorbeeld €5 korting."
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_discount_fixed_title",
+        "Korting in euro"
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_discount_percentage_description",
+        "Een deel van de prijs wordt eraf gehaald, bijvoorbeeld 20% korting."
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_discount_percentage_title",
+        "Korting in procenten"
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_free_description",
+        "Het product kost niets. Er hoeft niet betaald te worden."
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_free_title",
+        "Gratis"
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_informational_description",
+        "Dit aanbod is niet online te koop. Het is alleen verkrijgbaar in de winkel of op locatie van de aanbieder."
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_informational_title",
+        "Alleen in winkel"
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_regular_description",
+        "Het product heeft een vaste prijs. Dit is het bedrag dat betaald moet worden, bijvoorbeeld €10 euro."
+    ],
+    [
+        "modal_product_price_type_options_info.info_option_regular_title",
+        "Prijs"
+    ],
+    [
+        "modal_product_price_type_options_info.title",
         "Betaalopties"
     ],
     [
@@ -5304,6 +5356,22 @@
         "PDF-voorbeeld"
     ],
     [
+        "pincode_control.aria_label_num",
+        "Cijfer {{current}} van de {{total}}"
+    ],
+    [
+        "pincode_control.aria_label_text",
+        "Teken {{current}} van de {{total}}"
+    ],
+    [
+        "pincode_control.aria_labelledby_num",
+        "Typ de code van {{total}} cijfers in"
+    ],
+    [
+        "pincode_control.aria_labelledby_text",
+        "Typ de code van {{total}} tekens in"
+    ],
+    [
         "popup_auth.buttons.cancel",
         "Annuleren"
     ],
@@ -5741,15 +5809,15 @@
     ],
     [
         "preferences_notifications.no_email_button",
-        "Add email"
+        "E-mailadres toevoegen"
     ],
     [
         "preferences_notifications.no_email_description",
-        "Please add en email address to receive email notifications."
+        "Voeg een e-mailadres toe om meldingen te ontvangen."
     ],
     [
         "preferences_notifications.no_email_title",
-        "You currently have no email associated with your account"
+        "U heeft nog geen e-mailadres gekoppeld aan uw account"
     ],
     [
         "preferences_notifications.popups.auto_close_info",
@@ -5805,11 +5873,11 @@
     ],
     [
         "preferences_notifications.subscribe_desc_formal",
-        "Met dit e-mailadres \"{{email}}\" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u notificaties wilt ontvangen, kunt u dit hieronder per notificatie instellen."
+        "Met dit e-mailadres \"{{email}}\" bent u momenteel voor alle notificaties uitgeschreven. Wanneer u meldingen wilt ontvangen, kunt u dit hieronder per notificatie instellen."
     ],
     [
         "preferences_notifications.subscribe_desc_informal",
-        "Met dit e-mailadres \"{{email}}\" ben je momenteel voor alle notificaties uitgeschreven. Wanneer je notificaties wilt ontvangen, kun je dit hieronder per notificatie instellen."
+        "Met dit e-mailadres \"{{email}}\" ben je momenteel voor alle notificaties uitgeschreven. Wanneer je meldingen wilt ontvangen, kun je dit hieronder per notificatie instellen."
     ],
     [
         "preferences_notifications.title",
@@ -5961,7 +6029,7 @@
     ],
     [
         "preferences_notifications.types.vouchers.payment_success.description",
-        "Ontvang een e-mail notificatie wanneer een betaling is gelukt."
+        "Ontvang een e-mailmelding wanneer een betaling is gelukt."
     ],
     [
         "preferences_notifications.types.vouchers.payment_success.title",
@@ -5969,7 +6037,7 @@
     ],
     [
         "preferences_notifications.types.vouchers.send_voucher.description",
-        "Ontvang een e-mail notificatie wanneer u een tegoed naar uzelf verstuurt."
+        "Ontvang een e-mailmelding wanneer u een tegoed naar uzelf verstuurt."
     ],
     [
         "preferences_notifications.types.vouchers.send_voucher.title",
@@ -5977,7 +6045,7 @@
     ],
     [
         "preferences_notifications.types.vouchers.share_product.description",
-        "Ontvang een e-mail notificatie wanneer er een reservering voor een aanbieding met u is gedeeld."
+        "Ontvang een e-mailmelding wanneer er een reservering voor een aanbieding met u is gedeeld."
     ],
     [
         "preferences_notifications.types.vouchers.share_product.title",
@@ -6292,6 +6360,10 @@
         "Gratis"
     ],
     [
+        "product.price.informational",
+        "Alleen in winkel"
+    ],
+    [
         "product.status.active",
         "Actief"
     ],
@@ -6388,7 +6460,7 @@
         "Tegoeden"
     ],
     [
-        "products.filters.payment_option_ideal",
+        "products.filters.payment_option_extra_payment",
         "Online bijbetalen met iDeal"
     ],
     [
@@ -6422,6 +6494,34 @@
     [
         "products.filters.price_to",
         "Naar"
+    ],
+    [
+        "products.filters.price_type_option_discount_fixed",
+        "Korting in euro"
+    ],
+    [
+        "products.filters.price_type_option_discount_percentage",
+        "Korting in procenten"
+    ],
+    [
+        "products.filters.price_type_option_free",
+        "Gratis"
+    ],
+    [
+        "products.filters.price_type_option_informational",
+        "Alleen in winkel"
+    ],
+    [
+        "products.filters.price_type_option_regular",
+        "Prijs"
+    ],
+    [
+        "products.filters.price_type_options",
+        "Soort aanbod"
+    ],
+    [
+        "products.filters.price_type_options_info",
+        "Lees meer over de soorten aanbod"
     ],
     [
         "products.filters.providers",

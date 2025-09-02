@@ -192,7 +192,6 @@ export default function Modal2FADeactivate({
                                     valueType={'num'}
                                     blockSize={3}
                                     blockCount={2}
-                                    ariaLabel={translate('modal_2fa_deactivate.enter_2fa_code_deactivation')}
                                 />
 
                                 <FormError error={errorCode} />
