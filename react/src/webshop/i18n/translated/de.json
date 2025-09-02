@@ -1390,7 +1390,6 @@
         "confirm": "Bestätigen Sie",
         "disable_2fa": "Deaktivieren der Zwei-Faktor-Authentifizierung",
         "enter_2fa_code": "Um fortzufahren, geben Sie den Sicherheitscode für die Zwei-Faktor-Authentifizierung ein.",
-        "enter_2fa_code_deactivation": "Code für die Zwei-Faktor-Authentifizierung zur Deaktivierung eingeben",
         "enter_app_code": "Geben Sie den 6-stelligen Code in der App ein",
         "enter_sms_code": "Geben Sie den 6-stelligen SMS-Code ein",
         "error_404": "Es ist ein Fehler aufgetreten. Bitte aktualisieren Sie die Seite.",
@@ -1517,7 +1516,6 @@
                 "subtitle": "Geben Sie Ihren persönlichen Kundencode ein",
                 "title": "Aktivieren Sie Ihren alten Pass",
                 "alt_text": "Körperlicher Pass: {{ fund_name }}",
-                "enter_physical_card_number": "Geben Sie die Nummer der physischen Karte ein",
                 "no_old_card": "Kein alter Pass?",
                 "order_card": "Bestellung eines Passes"
             },
@@ -1565,7 +1563,6 @@
         "choose": "Wählen Sie",
         "close": "Schließen Sie",
         "download": "Herunterladen",
-        "enter_code": "Geben Sie den Me-App-Kopplungscode ein",
         "link": "Link",
         "login": "Bei der App anmelden",
         "step1_image_alt": "Me-App Anmeldebildschirm Screenshot",
@@ -3637,5 +3634,11 @@
         "info_option_regular_description": "Das Produkt hat einen Festpreis. Das ist der zu zahlende Betrag, zum Beispiel 10 Euro.",
         "info_option_regular_title": "Preis",
         "title": "Zahlungsmöglichkeiten"
+    },
+    "pincode_control": {
+        "aria_label_num": "Abbildung {{current}} der {{total}}",
+        "aria_label_text": "Zeichen {{current}} der {{total}}",
+        "aria_labelledby_num": "Geben Sie den Code von {{total}} ein.",
+        "aria_labelledby_text": "Geben Sie den Code von {{total}} ein."
     }
 }
