@@ -35,7 +35,7 @@ export default function Accessibility() {
                         className={`flex flex-vertical ${
                             page.description_position == 'after' ? 'flex-vertical-reverse' : ''
                         }`}>
-                        {page && <CmsBlocks page={page} />}
+                        {page && <CmsBlocks page={page} largeMarkdown={true} />}
 
                         {(!page.description_html || page.description_position !== 'replace') && (
                             <Fragment>

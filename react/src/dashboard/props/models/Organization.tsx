@@ -136,4 +136,5 @@ export default interface Organization {
         bank_note?: boolean;
         bank_separator?: string;
     };
+    has_person_bsn_api?: boolean;
 }

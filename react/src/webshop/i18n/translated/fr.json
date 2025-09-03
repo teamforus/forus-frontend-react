@@ -472,8 +472,8 @@
             "send": "Expédition"
         },
         "declined": {
-            "no_note": "Pas de note",
-            "title": "Motif du refus"
+            "title": "Motif du refus",
+            "no_note": "Pas de note"
         },
         "details": {
             "created_at": "Soumis le :",
@@ -505,9 +505,9 @@
             "answer_btn": "Répondre à cette question",
             "answer_btn_info": "Cliquez sur le bouton<strong>\"Répondre à cette question</strong>\" pour soumettre les informations supplémentaires. Les informations seront ajoutées à la demande.",
             "answer_question_label": "Répondre à la question",
+            "optional_label": "(facultatif)",
             "my_answer": "Ma réponse",
-            "my_message": "Mon message",
-            "optional_label": "(facultatif)"
+            "my_message": "Mon message"
         },
         "sign_up": {
             "app": {
@@ -637,13 +637,13 @@
             "info_responded_count": "{{count}} message"
         },
         "labels": {
+            "question_from": "Question de {{ name }}",
             "date": "Date :",
-            "question": "Question",
-            "question_from": "Question de {{ name }}"
+            "question": "Question posée"
         },
         "records": {
-            "subtitle": "Ce bloc contient les informations personnelles que vous avez fournies lors de la demande de fonds.",
-            "title": "Mes coordonnées ({{ count }})"
+            "title": "Mes coordonnées ({{ count }})",
+            "subtitle": "Voir ci-dessous les données personnelles renseignées lors de la candidature."
         },
         "subtitle": "Cette page contient des informations sur la demande. L'état d'avancement, les données complétées et les éventuelles questions complémentaires peuvent être consultés ici.",
         "modal": {
@@ -1320,7 +1320,8 @@
         "vergoedingen": "logo Municipalité de Nijmegen",
         "waalwijk": "Point de passage",
         "westerkwartier": "Municipalité de Westerkwartier",
-        "winterswijk": "Commune de Winterswijk"
+        "winterswijk": "Commune de Winterswijk",
+        "home": "Vers la page d'accueil"
     },
     "maps": {
         "cancel": "Annuler",
@@ -1389,7 +1390,6 @@
         "confirm": "Confirmer",
         "disable_2fa": "Désactiver l'authentification à deux facteurs",
         "enter_2fa_code": "Pour continuer, saisissez le code de sécurité de l'authentification à deux facteurs.",
-        "enter_2fa_code_deactivation": "Saisir le code d'authentification à deux facteurs pour la désactivation",
         "enter_app_code": "Saisir le code à 6 chiffres à partir de l'application",
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "error_404": "Une erreur s'est produite. Veuillez actualiser la page.",
@@ -1516,7 +1516,6 @@
                 "subtitle": "Entrez votre code client personnel",
                 "title": "Activez votre ancien pass",
                 "alt_text": "Passe physique : {{ fund_name }}",
-                "enter_physical_card_number": "Saisir le numéro de la carte physique",
                 "no_old_card": "Pas d'ancien laissez-passer ?",
                 "order_card": "Commander un laissez-passer"
             },
@@ -1564,7 +1563,6 @@
         "choose": "Sélectionner",
         "close": "Fermer",
         "download": "Télécharger",
-        "enter_code": "Saisir le code de couplage de l'application Me",
         "link": "Lien",
         "login": "Se connecter à l'application",
         "step1_image_alt": "Capture d'écran de l'écran de connexion de Me-app",
@@ -2051,9 +2049,6 @@
             "not-pending": "Les paramètres de notification ont déjà été ajustés via ce lien"
         },
         "new_time_enabled": "La nouvelle heure est activée",
-        "no_email_button": "Ajouter un courriel",
-        "no_email_description": "Veuillez ajouter une adresse électronique pour recevoir des notifications par courrier électronique.",
-        "no_email_title": "Vous n'avez pas d'email associé à votre compte",
         "popups": {
             "auto_close_info": "Activer la fermeture automatique des notifications pour ajuster le temps d'affichage des notifications.",
             "times": {
@@ -2079,8 +2074,6 @@
             "title": "Paramètres pour l'heure d'affichage des notifications"
         },
         "subscribe": "Oui, je souhaite recevoir des notifications.",
-        "subscribe_desc_formal": "{{email}}Avec cette adresse e-mail \" \", vous êtes actuellement désabonné de toutes les notifications. Si vous souhaitez recevoir des notifications, vous pouvez le faire par notification ci-dessous.",
-        "subscribe_desc_informal": "{{email}}Avec cette adresse e-mail \" \", vous êtes actuellement désabonné de toutes les notifications. Si vous souhaitez recevoir des notifications, vous pouvez le faire par notification ci-dessous.",
         "title": "Préférences de notification",
         "title_email_preferences": "Notifications par courrier électronique",
         "title_emails_turned_of": "Se désabonner de tous les e-mails",
@@ -2161,23 +2154,28 @@
             },
             "vouchers": {
                 "payment_success": {
-                    "description": "Recevoir une notification par e-mail lorsqu'un paiement est effectué.",
-                    "title": "Paiement réussi"
+                    "title": "Paiement réussi",
+                    "description": "Recevoir une notification par e-mail lorsqu'un paiement a été effectué."
                 },
                 "send_voucher": {
-                    "description": "Recevez une notification par e-mail lorsque vous vous envoyez un crédit.",
-                    "title": "Envoyer un crédit à soi-même"
+                    "title": "Envoyer un crédit à soi-même",
+                    "description": "Recevez une notification par e-mail lorsque vous vous envoyez un crédit."
                 },
                 "share_product": {
-                    "description": "Recevez une notification par e-mail lorsqu'une offre de réservation a été partagée avec vous.",
-                    "title": "Offre de réservation partagée"
+                    "title": "Offre de réservation partagée",
+                    "description": "Recevez une notification par courriel lorsqu'une offre de réservation a été partagée avec vous."
                 }
             }
         },
         "unsubscribe": "Se désabonner de toutes les notifications par courrier électronique",
         "unsubscribe_button": "Se désinscrire",
         "unsubscribe_desc": "Je souhaite me désinscrire de toutes les notifications par e-mail.",
-        "auto_close_after": "Les notifications pop-up se ferment automatiquement après {{value}} secondes."
+        "auto_close_after": "Les notifications pop-up se ferment automatiquement après {{value}} secondes.",
+        "no_email_button": "Ajouter une adresse électronique",
+        "no_email_description": "Ajouter une adresse e-mail pour recevoir des notifications.",
+        "no_email_title": "Vous n'avez pas encore d'adresse e-mail associée à votre compte",
+        "subscribe_desc_formal": "Avec l'adresse e-mail \"{{email}}\", vous êtes actuellement désabonné de toutes les notifications. Si vous souhaitez recevoir des notifications, vous pouvez régler ce paramètre ci-dessous par notification.",
+        "subscribe_desc_informal": "Avec l'adresse e-mail \"{{email}}\", vous êtes actuellement désabonné de toutes les notifications. Si vous souhaitez recevoir des notifications, vous pouvez le faire par notification ci-dessous."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2283,7 +2281,8 @@
         },
         "tooltip": "Combien de fois encore pouvez-vous profiter de cette offre ?",
         "price": {
-            "free": "Gratuit"
+            "free": "Gratuit",
+            "informational": "En magasin uniquement"
         }
     },
     "products": {
@@ -2316,14 +2315,21 @@
             "search": "Offre de recherche",
             "sort": "Trier",
             "sub_category": "Sous-catégorie",
-            "payment_option_ideal": "Payer en ligne avec iDeal",
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_option_reservation": "Réserver en ligne",
             "payment_options": "Options de paiement",
             "payment_options_info": "En savoir plus sur les options de paiement",
             "price": "Prix (€)",
             "price_from": "De",
-            "price_to": "Pour"
+            "price_to": "Pour",
+            "payment_option_extra_payment": "Payer en ligne avec iDeal",
+            "price_type_option_discount_fixed": "Remise en euros",
+            "price_type_option_discount_percentage": "Remise en pourcentage",
+            "price_type_option_free": "Gratuit",
+            "price_type_option_informational": "En magasin uniquement",
+            "price_type_option_regular": "Prix",
+            "price_type_options": "Type d'offre",
+            "price_type_options_info": "En savoir plus sur les types d'offres"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -3516,7 +3522,6 @@
         "title": "Ce site web utilise des cookies",
         "view": "Voir le "
     },
-    "logo_title": "Vers la page d'accueil de :host",
     "push": {
         "deleted": "Supprimé !",
         "error": "Échec !",
@@ -3574,6 +3579,9 @@
         "required": "Obligatoire",
         "placeholders": {
             "select_option": "Sélectionner une option"
+        },
+        "range_control": {
+            "aria_value": "Valeur {{prefix}}{{value}} , valeur minimale {{prefix}}{{min}} , valeur maximale {{prefix}}{{max}}"
         }
     },
     "modal_deactivate_voucher": {
@@ -3609,5 +3617,28 @@
         "info_option_reservation_description": "Payez via ce site web en commandant une offre. Pour ce faire, cliquez sur le bouton de réservation et remplissez les données demandées. Le montant sera directement déduit du crédit disponible. Le fournisseur recevra la réservation et vous contactera si nécessaire.",
         "info_option_reservation_title": "Réservation",
         "title": "Options de paiement"
+    },
+    "logo_title": "Vers la page d'accueil de {{host}}",
+    "modal_product_price_type_options_info": {
+        "confirm": "Fermer",
+        "description": "Les produits de la boutique en ligne peuvent être proposés de différentes manières. Vous trouverez ci-dessous la signification des différents types d'offres.",
+        "header": "Types d'offres",
+        "info_option_discount_fixed_description": "Un montant fixe sera déduit du prix, par exemple 5 euros de réduction.",
+        "info_option_discount_fixed_title": "Remise en euros",
+        "info_option_discount_percentage_description": "Une partie du prix est enlevée, par exemple 20 % de réduction.",
+        "info_option_discount_percentage_title": "Remise en pourcentage",
+        "info_option_free_description": "Le produit ne coûte rien. Aucun paiement n'est requis.",
+        "info_option_free_title": "Gratuit",
+        "info_option_informational_description": "Cette offre n'est pas vendue en ligne. Elle n'est disponible que dans le magasin ou l'établissement du fournisseur.",
+        "info_option_informational_title": "En magasin uniquement",
+        "info_option_regular_description": "Le produit a un prix fixe. Il s'agit du montant à payer, par exemple 10 euros.",
+        "info_option_regular_title": "Prix",
+        "title": "Options de paiement"
+    },
+    "pincode_control": {
+        "aria_label_num": "Figure {{current}} de la {{total}}",
+        "aria_label_text": "Signe {{current}} de la {{total}}",
+        "aria_labelledby_num": "Tapez le code de {{total}} chiffres",
+        "aria_labelledby_text": "Tapez le code de {{total}} caractères"
     }
 }

@@ -11,6 +11,7 @@ export default function SelectControlOptionItem<T>({
 }) {
     return (
         <div
+            id={'option_' + option.id}
             className={'select-control-option'}
             onClick={(e) => {
                 e.stopPropagation();

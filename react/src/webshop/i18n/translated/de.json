@@ -472,8 +472,8 @@
             "send": "Versand"
         },
         "declined": {
-            "no_note": "Keine Notiz",
-            "title": "Grund für die Ablehnung"
+            "title": "Grund für die Ablehnung",
+            "no_note": "Keine Notiz"
         },
         "details": {
             "created_at": "Eingereicht am:",
@@ -505,9 +505,9 @@
             "answer_btn": "Beantworten Sie diese Frage",
             "answer_btn_info": "Klicken Sie auf die Schaltfläche<strong>\"Diese Frage beantworten</strong>\", um die zusätzlichen Informationen zu übermitteln. Die Informationen werden dem Antrag hinzugefügt.",
             "answer_question_label": "Beantworten Sie die Frage",
+            "optional_label": "(fakultativ)",
             "my_answer": "Meine Antwort",
-            "my_message": "Meine Nachricht",
-            "optional_label": "(fakultativ)"
+            "my_message": "Meine Nachricht"
         },
         "sign_up": {
             "app": {
@@ -637,13 +637,13 @@
             "info_responded_count": "{{count}} Nachricht"
         },
         "labels": {
+            "question_from": "Frage von {{ name }}",
             "date": "Datum:",
-            "question": "Frage",
-            "question_from": "Frage von {{ name }}"
+            "question": "Frage gestellt"
         },
         "records": {
-            "subtitle": "Dieser Block enthält die persönlichen Daten, die Sie bei der Beantragung des Fonds angegeben haben.",
-            "title": "Meine Daten ({{ count }})"
+            "title": "Meine Daten ({{ count }})",
+            "subtitle": "Nachstehend finden Sie die Angaben zur Person, die Sie bei Ihrer Bewerbung gemacht haben."
         },
         "subtitle": "Diese Seite enthält Informationen über die Bewerbung. Der Status, die ausgefüllten Daten und eventuelle Zusatzfragen können hier eingesehen werden.",
         "modal": {
@@ -1320,7 +1320,8 @@
         "vergoedingen": "Logo Stadtverwaltung Nijmegen",
         "waalwijk": "Passpunkt",
         "westerkwartier": "Gemeinde Westerkwartier",
-        "winterswijk": "Gemeinde Winterswijk"
+        "winterswijk": "Gemeinde Winterswijk",
+        "home": "Zur Homepage"
     },
     "maps": {
         "cancel": "Abbrechen",
@@ -1389,7 +1390,6 @@
         "confirm": "Bestätigen Sie",
         "disable_2fa": "Deaktivieren der Zwei-Faktor-Authentifizierung",
         "enter_2fa_code": "Um fortzufahren, geben Sie den Sicherheitscode für die Zwei-Faktor-Authentifizierung ein.",
-        "enter_2fa_code_deactivation": "Code für die Zwei-Faktor-Authentifizierung zur Deaktivierung eingeben",
         "enter_app_code": "Geben Sie den 6-stelligen Code in der App ein",
         "enter_sms_code": "Geben Sie den 6-stelligen SMS-Code ein",
         "error_404": "Es ist ein Fehler aufgetreten. Bitte aktualisieren Sie die Seite.",
@@ -1516,7 +1516,6 @@
                 "subtitle": "Geben Sie Ihren persönlichen Kundencode ein",
                 "title": "Aktivieren Sie Ihren alten Pass",
                 "alt_text": "Körperlicher Pass: {{ fund_name }}",
-                "enter_physical_card_number": "Geben Sie die Nummer der physischen Karte ein",
                 "no_old_card": "Kein alter Pass?",
                 "order_card": "Bestellung eines Passes"
             },
@@ -1564,7 +1563,6 @@
         "choose": "Wählen Sie",
         "close": "Schließen Sie",
         "download": "Herunterladen",
-        "enter_code": "Geben Sie den Me-App-Kopplungscode ein",
         "link": "Link",
         "login": "Bei der App anmelden",
         "step1_image_alt": "Me-App Anmeldebildschirm Screenshot",
@@ -2051,9 +2049,6 @@
             "not-pending": "Die Benachrichtigungseinstellungen sind bereits über diesen Link angepasst worden"
         },
         "new_time_enabled": "Neue Zeit ist aktiviert",
-        "no_email_button": "E-Mail hinzufügen",
-        "no_email_description": "Bitte fügen Sie eine E-Mail-Adresse hinzu, um E-Mail-Benachrichtigungen zu erhalten.",
-        "no_email_title": "Sie haben derzeit keine mit Ihrem Konto verknüpfte E-Mail",
         "popups": {
             "auto_close_info": "Aktivieren Sie das automatische Schließen von Benachrichtigungen, um die Anzeigezeit von Benachrichtigungen anzupassen.",
             "times": {
@@ -2079,8 +2074,6 @@
             "title": "Einstellungen für die Anzeigezeit von Benachrichtigungen"
         },
         "subscribe": "Ja, ich möchte Benachrichtigungen erhalten.",
-        "subscribe_desc_formal": "{{email}}Mit dieser E-Mail Adresse \" \" sind Sie derzeit von allen Benachrichtigungen abgemeldet. Wenn Sie Benachrichtigungen erhalten möchten, können Sie dies unten per Benachrichtigung einrichten.",
-        "subscribe_desc_informal": "{{email}}Mit dieser E-Mail Adresse \" \" sind Sie derzeit von allen Benachrichtigungen abgemeldet. Wenn Sie Benachrichtigungen erhalten möchten, können Sie dies unten pro Benachrichtigung einrichten.",
         "title": "Einstellungen für Benachrichtigungen",
         "title_email_preferences": "E-Mail-Benachrichtigungen",
         "title_emails_turned_of": "Alle E-Mails abbestellen",
@@ -2161,23 +2154,28 @@
             },
             "vouchers": {
                 "payment_success": {
-                    "description": "Sie erhalten eine E-Mail-Benachrichtigung, wenn eine Zahlung erfolgreich war.",
-                    "title": "Zahlung erfolgreich"
+                    "title": "Zahlung erfolgreich",
+                    "description": "Sie erhalten eine E-Mail-Benachrichtigung, wenn eine Zahlung erfolgt ist."
                 },
                 "send_voucher": {
-                    "description": "Sie erhalten eine E-Mail-Benachrichtigung, wenn Sie eine Gutschrift an sich selbst senden.",
-                    "title": "Schicken Sie sich selbst eine Gutschrift"
+                    "title": "Schicken Sie sich selbst eine Gutschrift",
+                    "description": "Sie erhalten eine E-Mail-Benachrichtigung, wenn Sie eine Gutschrift an sich selbst senden."
                 },
                 "share_product": {
-                    "description": "Sie erhalten eine E-Mail-Benachrichtigung, wenn Ihnen eine Angebotsreservierung mitgeteilt wurde.",
-                    "title": "Gemeinsames Buchungsangebot"
+                    "title": "Gemeinsames Buchungsangebot",
+                    "description": "Sie erhalten eine E-Mail-Benachrichtigung, wenn ein Angebot für Sie reserviert wurde."
                 }
             }
         },
         "unsubscribe": "Alle E-Mail-Benachrichtigungen abbestellen",
         "unsubscribe_button": "Abbestellen",
         "unsubscribe_desc": "Ich möchte mich von allen E-Mail-Benachrichtigungen abmelden.",
-        "auto_close_after": "Pop-up-Benachrichtigungen werden automatisch nach {{value}} Sekunden geschlossen."
+        "auto_close_after": "Pop-up-Benachrichtigungen werden automatisch nach {{value}} Sekunden geschlossen.",
+        "no_email_button": "E-Mail Adresse hinzufügen",
+        "no_email_description": "Fügen Sie eine E-Mail-Adresse hinzu, um Benachrichtigungen zu erhalten.",
+        "no_email_title": "Sie haben noch keine mit Ihrem Konto verknüpfte E-Mail-Adresse",
+        "subscribe_desc_formal": "Mit dieser E-Mail Adresse \"{{email}}\" sind Sie derzeit von allen Benachrichtigungen abgemeldet. Wenn Sie Benachrichtigungen erhalten möchten, können Sie dies unten pro Benachrichtigung einstellen.",
+        "subscribe_desc_informal": "Mit dieser E-Mail Adresse \"{{email}}\" sind Sie derzeit von allen Benachrichtigungen abgemeldet. Wenn Sie Benachrichtigungen erhalten möchten, können Sie dies unten per Benachrichtigung einrichten."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2283,7 +2281,8 @@
         },
         "tooltip": "Wie oft Sie dieses Angebot noch in Anspruch nehmen können",
         "price": {
-            "free": "Kostenlos"
+            "free": "Kostenlos",
+            "informational": "Nur im Geschäft"
         }
     },
     "products": {
@@ -2316,14 +2315,21 @@
             "search": "Angebot suchen",
             "sort": "Sortieren",
             "sub_category": "Unterkategorie",
-            "payment_option_ideal": "Online-Bezahlung mit iDeal",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
             "payment_option_reservation": "Online buchen",
             "payment_options": "Zahlungsmöglichkeiten",
             "payment_options_info": "Lesen Sie mehr über Zahlungsmöglichkeiten",
             "price": "Preis (€)",
             "price_from": "Von",
-            "price_to": "An"
+            "price_to": "An",
+            "payment_option_extra_payment": "Online-Bezahlung mit iDeal",
+            "price_type_option_discount_fixed": "Rabatt in Euro",
+            "price_type_option_discount_percentage": "Rabatt in Prozent",
+            "price_type_option_free": "Kostenlos",
+            "price_type_option_informational": "Nur im Geschäft",
+            "price_type_option_regular": "Preis",
+            "price_type_options": "Art des Angebots",
+            "price_type_options_info": "Lesen Sie mehr über die Arten von Angeboten"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -3516,7 +3522,6 @@
         "title": "Diese Website verwendet Cookies",
         "view": "Ansicht der "
     },
-    "logo_title": "Zur Homepage von :host",
     "push": {
         "deleted": "Gelöscht!",
         "error": "Durchgefallen!",
@@ -3574,6 +3579,9 @@
         "required": "Obligatorisch",
         "placeholders": {
             "select_option": "Option auswählen"
+        },
+        "range_control": {
+            "aria_value": "Wert {{prefix}}{{value}} , Mindestwert {{prefix}}{{min}} , Höchstwert {{prefix}}{{max}}"
         }
     },
     "modal_deactivate_voucher": {
@@ -3609,5 +3617,28 @@
         "info_option_reservation_description": "Bezahlen Sie über diese Website, indem Sie ein Angebot bestellen. Klicken Sie dazu auf die Schaltfläche \"Reservieren\" und geben Sie die erforderlichen Daten ein. Der Betrag wird direkt von Ihrem Guthaben abgezogen. Der Anbieter wird die Reservierung erhalten und Sie gegebenenfalls kontaktieren.",
         "info_option_reservation_title": "Buchung",
         "title": "Zahlungsmöglichkeiten"
+    },
+    "logo_title": "Zur Homepage von {{host}}",
+    "modal_product_price_type_options_info": {
+        "confirm": "Schließen Sie",
+        "description": "Die Produkte im Webshop können auf unterschiedliche Weise angeboten werden. Im Folgenden wird erläutert, was die verschiedenen Arten von Angeboten bedeuten.",
+        "header": "Arten von Angeboten",
+        "info_option_discount_fixed_description": "Ein fester Betrag wird vom Preis abgezogen, z. B. 5 €.",
+        "info_option_discount_fixed_title": "Rabatt in Euro",
+        "info_option_discount_percentage_description": "Ein Teil des Preises wird abgezogen, z.B. 20%.",
+        "info_option_discount_percentage_title": "Rabatt in Prozent",
+        "info_option_free_description": "Das Produkt kostet nichts. Es ist keine Zahlung erforderlich.",
+        "info_option_free_title": "Kostenlos",
+        "info_option_informational_description": "Dieses Angebot ist nicht online erhältlich. Es ist nur im Geschäft oder am Standort des Anbieters erhältlich.",
+        "info_option_informational_title": "Nur im Geschäft",
+        "info_option_regular_description": "Das Produkt hat einen Festpreis. Das ist der zu zahlende Betrag, zum Beispiel 10 Euro.",
+        "info_option_regular_title": "Preis",
+        "title": "Zahlungsmöglichkeiten"
+    },
+    "pincode_control": {
+        "aria_label_num": "Abbildung {{current}} der {{total}}",
+        "aria_label_text": "Zeichen {{current}} der {{total}}",
+        "aria_labelledby_num": "Geben Sie den Code von {{total}} ein.",
+        "aria_labelledby_text": "Geben Sie den Code von {{total}} ein."
     }
 }
