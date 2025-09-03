@@ -472,8 +472,8 @@
             "send": "Wysyłka"
         },
         "declined": {
-            "no_note": "Brak notatki",
-            "title": "Powód odmowy"
+            "title": "Powód odmowy",
+            "no_note": "Brak notatki"
         },
         "details": {
             "created_at": "Zgłoszono dnia:",
@@ -505,9 +505,9 @@
             "answer_btn": "Odpowiedz na to pytanie",
             "answer_btn_info": "Kliknij przycisk<strong>\"Odpowiedz na to pytanie</strong>\", aby przesłać dodatkowe informacje. Informacje te zostaną dodane do wniosku.",
             "answer_question_label": "Odpowiedz na pytanie",
+            "optional_label": "(opcjonalnie)",
             "my_answer": "Moja odpowiedź",
-            "my_message": "Moja wiadomość",
-            "optional_label": "(opcjonalnie)"
+            "my_message": "Moja wiadomość"
         },
         "sign_up": {
             "app": {
@@ -637,13 +637,13 @@
             "info_responded_count": "{{count}} wiadomość"
         },
         "labels": {
+            "question_from": "Pytanie od {{ name }}",
             "date": "Data:",
-            "question": "Pytanie",
-            "question_from": "Pytanie od {{ name }}"
+            "question": "Zadane pytanie"
         },
         "records": {
-            "subtitle": "Ten blok zawiera dane osobowe podane podczas składania wniosku o fundusz.",
-            "title": "Moje dane ({{ count }})"
+            "title": "Moje dane ({{ count }})",
+            "subtitle": "Poniżej znajdują się dane osobowe podane podczas składania wniosku."
         },
         "subtitle": "Ta strona zawiera informacje o aplikacji. Można tu sprawdzić status, wypełnione dane i wszelkie dodatkowe pytania.",
         "modal": {
@@ -1320,7 +1320,8 @@
         "vergoedingen": "logo Gmina Nijmegen",
         "waalwijk": "Pass Wise",
         "westerkwartier": "Gmina Westerkwartier",
-        "winterswijk": "Gmina Winterswijk"
+        "winterswijk": "Gmina Winterswijk",
+        "home": "Do strony głównej"
     },
     "maps": {
         "cancel": "Anuluj",
@@ -1389,7 +1390,6 @@
         "confirm": "Potwierdzenie",
         "disable_2fa": "Wyłączanie uwierzytelniania dwuskładnikowego",
         "enter_2fa_code": "Aby kontynuować, wprowadź kod bezpieczeństwa uwierzytelniania dwuskładnikowego.",
-        "enter_2fa_code_deactivation": "Wprowadź kod uwierzytelniania dwuskładnikowego w celu dezaktywacji.",
         "enter_app_code": "Wprowadź 6-cyfrowy kod z poziomu aplikacji.",
         "enter_sms_code": "Wprowadź 6-cyfrowy kod SMS",
         "error_404": "Wystąpił błąd. Odśwież stronę.",
@@ -1516,7 +1516,6 @@
                 "subtitle": "Wprowadź swój osobisty kod klienta",
                 "title": "Aktywacja starej przepustki",
                 "alt_text": "Fizyczna przepustka: {{ fund_name }}",
-                "enter_physical_card_number": "Wprowadź numer karty fizycznej",
                 "no_old_card": "Brak starej przepustki?",
                 "order_card": "Zamów karnet"
             },
@@ -1564,7 +1563,6 @@
         "choose": "Wybierz",
         "close": "Zamknij",
         "download": "Pobierz",
-        "enter_code": "Wprowadź kod parowania aplikacji Me",
         "link": "Link",
         "login": "Zaloguj się do aplikacji",
         "step1_image_alt": "Zrzut ekranu logowania do aplikacji Me",
@@ -2051,9 +2049,6 @@
             "not-pending": "Ustawienia powiadomień zostały już dostosowane za pośrednictwem tego linku"
         },
         "new_time_enabled": "Nowy czas jest włączony",
-        "no_email_button": "Dodaj e-mail",
-        "no_email_description": "Dodaj adres e-mail, aby otrzymywać powiadomienia pocztą elektroniczną.",
-        "no_email_title": "Obecnie z kontem nie jest powiązany żaden adres e-mail",
         "popups": {
             "auto_close_info": "Włącz automatyczne zamykanie powiadomień, aby dostosować czas ich wyświetlania.",
             "times": {
@@ -2079,8 +2074,6 @@
             "title": "Ustawienia czasu wyświetlania powiadomień"
         },
         "subscribe": "Tak, chcę otrzymywać powiadomienia.",
-        "subscribe_desc_formal": "{{email}}Podając adres e-mail \" \", użytkownik nie otrzymuje obecnie żadnych powiadomień. Jeśli chcesz otrzymywać powiadomienia, możesz skonfigurować to dla każdego powiadomienia poniżej.",
-        "subscribe_desc_informal": "{{email}}Używając tego adresu e-mail \" \", nie subskrybujesz obecnie wszystkich powiadomień. Jeśli chcesz otrzymywać powiadomienia, możesz skonfigurować to dla każdego powiadomienia poniżej.",
         "title": "Preferencje powiadomień",
         "title_email_preferences": "Powiadomienia e-mail",
         "title_emails_turned_of": "Rezygnacja z subskrypcji wszystkich wiadomości e-mail",
@@ -2161,23 +2154,28 @@
             },
             "vouchers": {
                 "payment_success": {
-                    "description": "Otrzymuj powiadomienia e-mail, gdy płatność się powiedzie.",
-                    "title": "Płatność powiodła się"
+                    "title": "Płatność powiodła się",
+                    "description": "Otrzymuj powiadomienia e-mail, gdy płatność się powiedzie."
                 },
                 "send_voucher": {
-                    "description": "Otrzymuj powiadomienia e-mail, gdy wyślesz kredyt do siebie.",
-                    "title": "Wyślij kredyt do siebie"
+                    "title": "Wyślij kredyt do siebie",
+                    "description": "Otrzymuj powiadomienia e-mail, gdy wyślesz kredyt do siebie."
                 },
                 "share_product": {
-                    "description": "Otrzymuj powiadomienia e-mail o udostępnieniu rezerwacji oferty.",
-                    "title": "Wspólna oferta rezerwacji"
+                    "title": "Wspólna oferta rezerwacji",
+                    "description": "Otrzymuj powiadomienia e-mail o udostępnieniu rezerwacji oferty."
                 }
             }
         },
         "unsubscribe": "Rezygnacja z subskrypcji wszystkich powiadomień e-mail",
         "unsubscribe_button": "Zrezygnuj z subskrypcji",
         "unsubscribe_desc": "Chcę zrezygnować z subskrypcji wszystkich powiadomień e-mail.",
-        "auto_close_after": "Powiadomienia wyskakujące zamykają się automatycznie po {{value}} sekundach."
+        "auto_close_after": "Powiadomienia wyskakujące zamykają się automatycznie po {{value}} sekundach.",
+        "no_email_button": "Dodaj adres e-mail",
+        "no_email_description": "Dodaj adres e-mail, aby otrzymywać powiadomienia.",
+        "no_email_title": "Nie masz jeszcze adresu e-mail powiązanego z Twoim kontem.",
+        "subscribe_desc_formal": "Podając adres e-mail \"{{email}}\", użytkownik nie otrzymuje obecnie żadnych powiadomień. Jeśli chcesz otrzymywać powiadomienia, możesz ustawić to poniżej dla każdego powiadomienia.",
+        "subscribe_desc_informal": "Za pomocą tego adresu e-mail \"{{email}}\" jesteś obecnie wypisany ze wszystkich powiadomień. Jeśli chcesz otrzymywać powiadomienia, możesz skonfigurować to dla każdego powiadomienia poniżej."
     },
     "privacy": {
         "breadcrumbs": {
@@ -2283,7 +2281,8 @@
         },
         "tooltip": "Ile razy jeszcze możesz skorzystać z tej oferty?",
         "price": {
-            "free": "Darmowy"
+            "free": "Darmowy",
+            "informational": "Tylko w sklepie"
         }
     },
     "products": {
@@ -2316,14 +2315,21 @@
             "search": "Oferta wyszukiwania",
             "sort": "Sortuj",
             "sub_category": "Podkategoria",
-            "payment_option_ideal": "Płatność online za pomocą iDeal",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
             "payment_option_reservation": "Zarezerwuj online",
             "payment_options": "Opcje płatności",
             "payment_options_info": "Więcej informacji o opcjach płatności",
             "price": "Cena (€)",
             "price_from": "Od",
-            "price_to": "Do"
+            "price_to": "Do",
+            "payment_option_extra_payment": "Płatność online za pomocą iDeal",
+            "price_type_option_discount_fixed": "Rabat w euro",
+            "price_type_option_discount_percentage": "Rabat w procentach",
+            "price_type_option_free": "Darmowy",
+            "price_type_option_informational": "Tylko w sklepie",
+            "price_type_option_regular": "Cena",
+            "price_type_options": "Rodzaj oferty",
+            "price_type_options_info": "Dowiedz się więcej o rodzajach ofert"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -3516,7 +3522,6 @@
         "title": "Ta strona używa plików cookie",
         "view": "Wyświetl "
     },
-    "logo_title": "Do strony głównej :host",
     "push": {
         "deleted": "Usunięty!",
         "error": "Nie udało się!",
@@ -3574,6 +3579,9 @@
         "required": "Obowiązkowe",
         "placeholders": {
             "select_option": "Wybierz opcję"
+        },
+        "range_control": {
+            "aria_value": "Wartość {{prefix}}{{value}} , wartość minimalna {{prefix}}{{min}} , wartość maksymalna {{prefix}}{{max}}"
         }
     },
     "modal_deactivate_voucher": {
@@ -3609,5 +3617,28 @@
         "info_option_reservation_description": "Zapłać za pośrednictwem tej strony, zamawiając ofertę. W tym celu należy kliknąć przycisk rezerwacji i podać wymagane dane. Kwota zostanie potrącona bezpośrednio z dostępnego kredytu. Dostawca otrzyma rezerwację i w razie potrzeby skontaktuje się z Tobą.",
         "info_option_reservation_title": "Rezerwacja",
         "title": "Opcje płatności"
+    },
+    "logo_title": "Do strony głównej {{host}}",
+    "modal_product_price_type_options_info": {
+        "confirm": "Zamknij",
+        "description": "Produkty w sklepie internetowym mogą być oferowane na różne sposoby. Poniżej przedstawiamy, co oznaczają różne rodzaje ofert.",
+        "header": "Rodzaje ofert",
+        "info_option_discount_fixed_description": "Od ceny zostanie odjęta stała kwota, np. 5 € zniżki.",
+        "info_option_discount_fixed_title": "Rabat w euro",
+        "info_option_discount_percentage_description": "Część ceny jest obniżana, np. o 20%.",
+        "info_option_discount_percentage_title": "Rabat w procentach",
+        "info_option_free_description": "Produkt nic nie kosztuje. Nie jest wymagana żadna płatność.",
+        "info_option_free_title": "Darmowy",
+        "info_option_informational_description": "Ta oferta nie jest dostępna w sprzedaży online. Jest dostępna wyłącznie w sklepie lub punkcie dostawcy.",
+        "info_option_informational_title": "Tylko w sklepie",
+        "info_option_regular_description": "Produkt ma stałą cenę. Jest to kwota do zapłaty, na przykład 10 euro.",
+        "info_option_regular_title": "Cena",
+        "title": "Opcje płatności"
+    },
+    "pincode_control": {
+        "aria_label_num": "Rysunek {{current}} z {{total}}",
+        "aria_label_text": "Znak {{current}} z {{total}}",
+        "aria_labelledby_num": "Wpisz kod składający się z {{total}} cyfr",
+        "aria_labelledby_text": "Wpisz kod {{total}} znaków"
     }
 }

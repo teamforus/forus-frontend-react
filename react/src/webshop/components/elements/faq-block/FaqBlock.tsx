@@ -21,15 +21,16 @@ export default function FaqBlock({ title, items }: { title: string; items?: Arra
                     <div
                         key={index}
                         className={classNames('faq-item', visibleFaq?.[item.id] && 'active')}
-                        onClick={() => {
-                            setVisibleFaq((list) => ({ ...list, [item.id]: !list?.[item.id] }));
-                        }}
-                        onKeyDown={clickOnKeyEnter}
-                        role="button"
                         aria-expanded={!!visibleFaq?.[item.id]}
-                        aria-controls={`faq_item_${item.id}`}
-                        tabIndex={0}>
-                        <div className="faq-item-header">
+                        aria-controls={`faq_item_${item.id}`}>
+                        <div
+                            className="faq-item-header"
+                            onClick={() => {
+                                setVisibleFaq((list) => ({ ...list, [item.id]: !list?.[item.id] }));
+                            }}
+                            onKeyDown={clickOnKeyEnter}
+                            role="button"
+                            tabIndex={0}>
                             <h2 className="faq-item-title">{item.title}</h2>
                             <div className="faq-item-chevron">
                                 <em
