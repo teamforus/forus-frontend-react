@@ -1390,7 +1390,6 @@
         "confirm": "Potwierdzenie",
         "disable_2fa": "Wyłączanie uwierzytelniania dwuskładnikowego",
         "enter_2fa_code": "Aby kontynuować, wprowadź kod bezpieczeństwa uwierzytelniania dwuskładnikowego.",
-        "enter_2fa_code_deactivation": "Wprowadź kod uwierzytelniania dwuskładnikowego w celu dezaktywacji.",
         "enter_app_code": "Wprowadź 6-cyfrowy kod z poziomu aplikacji.",
         "enter_sms_code": "Wprowadź 6-cyfrowy kod SMS",
         "error_404": "Wystąpił błąd. Odśwież stronę.",
@@ -1517,7 +1516,6 @@
                 "subtitle": "Wprowadź swój osobisty kod klienta",
                 "title": "Aktywacja starej przepustki",
                 "alt_text": "Fizyczna przepustka: {{ fund_name }}",
-                "enter_physical_card_number": "Wprowadź numer karty fizycznej",
                 "no_old_card": "Brak starej przepustki?",
                 "order_card": "Zamów karnet"
             },
@@ -1565,7 +1563,6 @@
         "choose": "Wybierz",
         "close": "Zamknij",
         "download": "Pobierz",
-        "enter_code": "Wprowadź kod parowania aplikacji Me",
         "link": "Link",
         "login": "Zaloguj się do aplikacji",
         "step1_image_alt": "Zrzut ekranu logowania do aplikacji Me",
@@ -3637,5 +3634,11 @@
         "info_option_regular_description": "Produkt ma stałą cenę. Jest to kwota do zapłaty, na przykład 10 euro.",
         "info_option_regular_title": "Cena",
         "title": "Opcje płatności"
+    },
+    "pincode_control": {
+        "aria_label_num": "Rysunek {{current}} z {{total}}",
+        "aria_label_text": "Znak {{current}} z {{total}}",
+        "aria_labelledby_num": "Wpisz kod składający się z {{total}} cyfr",
+        "aria_labelledby_text": "Wpisz kod {{total}} znaków"
     }
 }

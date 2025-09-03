@@ -2820,7 +2820,6 @@
         "confirm": "Onaylayın",
         "disable_2fa": "İki faktörlü kimlik doğrulamayı devre dışı bırakma",
         "enter_2fa_code": "Devam etmek için iki faktörlü kimlik doğrulama güvenlik kodunu girin.",
-        "enter_2fa_code_deactivation": "Devre dışı bırakmak için iki faktörlü kimlik doğrulama kodunu girin",
         "enter_app_code": "Uygulama içinden 6 haneli kodu girin",
         "enter_sms_code": "6 haneli SMS kodunu girin",
         "error_404": "Bir hata meydana geldi. Lütfen sayfayı yenileyin.",
@@ -2947,7 +2946,6 @@
                 "subtitle": "Kişisel müşteri kodunuzu girin",
                 "title": "Eski geçiş kartınızı etkinleştirin",
                 "alt_text": "Fiziksel geçiş: {{ fund_name }}",
-                "enter_physical_card_number": "Fiziksel kartın numarasını girin",
                 "no_old_card": "Eski kart yok mu?",
                 "order_card": "Geçiş kartı sipariş edin"
             },
@@ -2995,7 +2993,6 @@
         "choose": "Seçiniz",
         "close": "Kapat",
         "download": "İndir",
-        "enter_code": "Me uygulaması eşleştirme kodunu girin",
         "link": "Bağlantı",
         "login": "Uygulamaya giriş yapın",
         "step1_image_alt": "Me-app giriş ekranı ekran görüntüsü",
@@ -3637,5 +3634,11 @@
         "info_option_regular_description": "Ürünün sabit bir fiyatı vardır. Bu ödenecek miktardır, örneğin 10 Euro.",
         "info_option_regular_title": "Fiyat",
         "title": "Ödeme seçenekleri"
+    },
+    "pincode_control": {
+        "aria_label_num": "Şekil {{current}} of {{total}}",
+        "aria_label_text": "{{current}} adresini imzalayın. {{total}}",
+        "aria_labelledby_num": "{{total}} rakamlarının kodunu yazın",
+        "aria_labelledby_text": "{{total}} karakterlerinin kodunu yazın"
     }
 }

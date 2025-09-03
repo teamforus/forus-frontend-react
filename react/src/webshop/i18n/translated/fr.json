@@ -1390,7 +1390,6 @@
         "confirm": "Confirmer",
         "disable_2fa": "Désactiver l'authentification à deux facteurs",
         "enter_2fa_code": "Pour continuer, saisissez le code de sécurité de l'authentification à deux facteurs.",
-        "enter_2fa_code_deactivation": "Saisir le code d'authentification à deux facteurs pour la désactivation",
         "enter_app_code": "Saisir le code à 6 chiffres à partir de l'application",
         "enter_sms_code": "Saisir le code SMS à 6 chiffres",
         "error_404": "Une erreur s'est produite. Veuillez actualiser la page.",
@@ -1517,7 +1516,6 @@
                 "subtitle": "Entrez votre code client personnel",
                 "title": "Activez votre ancien pass",
                 "alt_text": "Passe physique : {{ fund_name }}",
-                "enter_physical_card_number": "Saisir le numéro de la carte physique",
                 "no_old_card": "Pas d'ancien laissez-passer ?",
                 "order_card": "Commander un laissez-passer"
             },
@@ -1565,7 +1563,6 @@
         "choose": "Sélectionner",
         "close": "Fermer",
         "download": "Télécharger",
-        "enter_code": "Saisir le code de couplage de l'application Me",
         "link": "Lien",
         "login": "Se connecter à l'application",
         "step1_image_alt": "Capture d'écran de l'écran de connexion de Me-app",
@@ -3637,5 +3634,11 @@
         "info_option_regular_description": "Le produit a un prix fixe. Il s'agit du montant à payer, par exemple 10 euros.",
         "info_option_regular_title": "Prix",
         "title": "Options de paiement"
+    },
+    "pincode_control": {
+        "aria_label_num": "Figure {{current}} de la {{total}}",
+        "aria_label_text": "Signe {{current}} de la {{total}}",
+        "aria_labelledby_num": "Tapez le code de {{total}} chiffres",
+        "aria_labelledby_text": "Tapez le code de {{total}} caractères"
     }
 }

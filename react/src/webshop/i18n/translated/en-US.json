@@ -3173,7 +3173,6 @@
         "confirm": "Confirm",
         "disable_2fa": "Disable two-factor authentication",
         "enter_2fa_code": "To continue, enter the two-factor authentication security code.",
-        "enter_2fa_code_deactivation": "Enter two-factor authentication code for deactivation",
         "enter_app_code": "Enter the 6-digit code from within the app",
         "enter_sms_code": "Enter the 6-digit SMS code",
         "resend_code": "Resend code",
@@ -3248,7 +3247,6 @@
                 "subtitle": "Enter your personal customer code",
                 "title": "Activate your old pass",
                 "alt_text": "Physical Pass: {{ fund_name }}",
-                "enter_physical_card_number": "Enter the number of the physical pass",
                 "no_old_card": "No old pass?",
                 "order_card": "Order a pass"
             },
@@ -3296,7 +3294,6 @@
         "choose": "Select",
         "close": "Close",
         "download": "Download",
-        "enter_code": "Enter the pairing code from the Me app",
         "link": "Link",
         "login": "Log in to the app",
         "step1_image_alt": "Me-app login screen screenshot",
@@ -3637,5 +3634,11 @@
         "info_option_regular_description": "The product has a fixed price. This is the amount to be paid, for example €10 euros.",
         "info_option_regular_title": "Price",
         "title": "Payment options"
+    },
+    "pincode_control": {
+        "aria_label_num": "Figure {{current}} of the {{total}}",
+        "aria_label_text": "Sign {{current}} of the {{total}}",
+        "aria_labelledby_num": "Type in the code of {{total}} digits",
+        "aria_labelledby_text": "Type in the code of {{total}} characters"
     }
 }
