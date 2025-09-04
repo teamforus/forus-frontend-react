@@ -463,7 +463,14 @@ export default function FundRequest() {
     }, [authIdentity, fund, fundRequestService, setProgress]);
 
     const checkPersonBsnApiRecords = useCallback(() => {
-        if (!bsnIsKnown || !fund || !authIdentity || !fund.organization.has_person_bsn_api || personApiRecordsFetch) {
+        if (
+            !bsnIsKnown ||
+            !fund ||
+            !authIdentity ||
+            !fund.allow_fund_request_prefill ||
+            !fund.organization.has_person_bsn_api ||
+            personApiRecordsFetch
+        ) {
             return;
         }
 
