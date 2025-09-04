@@ -17,10 +17,9 @@ export class PrecheckService<T = unknown> {
     public prefix = '/platform/pre-checks';
 
     // Initializes a new session
-    public async start(): Promise<{ sessionId?: string }> {
-        const sessionId = crypto.randomUUID();
-        await this.apiRequest.get(`${this.prefix}/start`);
-        return { sessionId: sessionId };
+    public async start(): Promise<void> {
+        const resp = await this.apiRequest.post<ResponseSimple<{ session_id: string }>>(`${this.prefix}/sessions`);
+        sessionStorage.setItem('session_id', resp.data.session_id);
     }
 
     // starts the chat
@@ -31,6 +30,7 @@ export class PrecheckService<T = unknown> {
         onError?: (err: { status: number }) => void,
         forceRestart = false,
     ): { stop: () => void } {
+        const sessionId = sessionStorage.getItem('session_id');
         if (currentStream && forceRestart) {
             currentStream.close();
             currentStream = null;
@@ -44,7 +44,7 @@ export class PrecheckService<T = unknown> {
             };
         }
 
-        const stream = new EventSource(`${this.prefix}/chat/stream`, { withCredentials: true });
+        const stream = new EventSource(`${this.prefix}/sessions/${sessionId}/events`, { withCredentials: true });
 
         currentStream = stream;
 
@@ -158,28 +158,38 @@ export class PrecheckService<T = unknown> {
 
     // Simulates sending user input to the backend and returns a conditional bot response
     public async send(userInput: string | boolean | number | object): Promise<'resume' | undefined> {
-        const resp = await this.apiRequest.post<ResponseSimple<{ status?: string }>>(`${this.prefix}/chat/answer`, {
-            response: userInput,
-        });
-        if (resp.status === 202 && resp.data?.status === 'resume_required') {
-            return 'resume';
-        }
+        const sessionId = sessionStorage.getItem('session_id');
+        const key = crypto?.randomUUID?.() ?? String(Date.now()) + Math.random();
+        const resp = await this.apiRequest.post<ResponseSimple<{ status?: string }>>(
+            `${this.prefix}/sessions/${sessionId}/messages`,
+            { response: userInput },
+            { headers: { 'Idempotency-Key': key } },
+        );
+        if (resp.status === 202 && resp.data?.status === 'resume_required') return 'resume';
     }
 
     public async end(): Promise<void> {
-        await this.apiRequest.post(`${this.prefix}/end`, {});
+        const sessionId = sessionStorage.getItem('session_id');
+        await this.apiRequest.delete(`${this.prefix}/sessions/${sessionId}`, {});
     }
 
     public async history(): Promise<Message[]> {
-        const resp = await this.apiRequest.post<ResponseSimple<{ messages: Message[] }>>(
-            `${this.prefix}/chat/history`,
+        const sessionId = sessionStorage.getItem('session_id');
+
+        const resp = await this.apiRequest.get<ResponseSimple<{ messages: Message[] }>>(
+            `${this.prefix}/sessions/${sessionId}/messages`,
             {},
         );
         return resp.data?.messages ?? [];
     }
 
     public async advice(): Promise<Advice[]> {
-        const resp = await this.apiRequest.post<ResponseSimple<{ advice: Advice[] }>>(`${this.prefix}/advice`, {});
+        const sessionId = sessionStorage.getItem('session_id');
+
+        const resp = await this.apiRequest.get<ResponseSimple<{ advice: Advice[] }>>(
+            `${this.prefix}/sessions/${sessionId}/advice`,
+            {},
+        );
         return resp.data?.advice ?? [];
     }
 }
