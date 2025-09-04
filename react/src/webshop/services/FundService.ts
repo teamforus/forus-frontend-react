@@ -58,8 +58,8 @@ export class FundService<T = Fund> {
         return this.apiRequest.post(`${this.prefix}/redeem`, { code });
     }
 
-    public getPersonRecords(id: number): Promise<ResponseSimple<Array<{ record_type_key: string; value: string }>>> {
-        return this.apiRequest.get(`${this.prefix}/${id}/person/records`);
+    public getPersonPrefills(id: number): Promise<ResponseSimple<Array<{ record_type_key: string; value: string }>>> {
+        return this.apiRequest.get(`${this.prefix}/${id}/prefills`);
     }
 
     public getCriterionControlType(record_type: RecordType, operator = null) {

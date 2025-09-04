@@ -469,7 +469,7 @@ export default function FundRequest() {
 
         setPersonApiRecordsFetch(true);
 
-        fundService.getPersonRecords(fund.id).then((res) => {
+        fundService.getPersonPrefills(fund.id).then((res) => {
             setPendingCriteria((criteria) => {
                 return [
                     ...criteria.map((criterion) => {
