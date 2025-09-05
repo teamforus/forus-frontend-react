@@ -58,6 +58,10 @@ export class FundService<T = Fund> {
         return this.apiRequest.post(`${this.prefix}/redeem`, { code });
     }
 
+    public getPersonPrefills(id: number): Promise<ResponseSimple<Array<{ record_type_key: string; value: string }>>> {
+        return this.apiRequest.get(`${this.prefix}/${id}/prefills`);
+    }
+
     public getCriterionControlType(record_type: RecordType, operator = null) {
         const control_type =
             record_type.control_type === 'select' ? 'select_control' : `ui_control_${record_type.control_type}`;
