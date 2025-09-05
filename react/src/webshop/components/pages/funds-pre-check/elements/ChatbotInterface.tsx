@@ -1,0 +1,86 @@
+// ChatbotInterface.tsx
+// UI wrapper for the chatbot interaction.
+// Includes the message list, input field, progress bar, and reset button.
+// Designed to be scrollable and responsive across screen sizes.
+
+import MessageList from './MessageList';
+import ResetButton from './ResetButton';
+import ProgressBar from './ProgressBar';
+// import { bottomContainer } from '../../styles/classnames.tsx';
+import { useNavigate, useLocation } from 'react-router';
+import type { NavigationState } from '../../../../props/types/PrecheckChatbotTypes';
+import Overlay from '../../../elements/overlay/Overlay';
+import { useEffect, useState } from 'react';
+import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
+import type { NavigateOptions } from 'react-router';
+import React from 'react';
+
+export default function ChatbotInterface() {
+    const { resetChat, messages, setShouldStart } = useChatbotProvider();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const state = location.state as NavigationState | null;
+
+    const from = state?.from;
+    const [showOverlay, setShowOverlay] = useState(false);
+
+    useEffect(() => {
+        if (from === '/regelingencheck' && messages.length > 0) {
+            setShowOverlay(true);
+        } else {
+            const options: NavigateOptions = { replace: true };
+            navigate(location.pathname, options);
+            setShouldStart(true);
+        }
+    }, [from, location, messages, navigate, setShouldStart]);
+
+    const handleReset = async () => {
+        setShowOverlay(false);
+        resetChat();
+        const options: NavigateOptions = { replace: true };
+        navigate(location.pathname, options);
+        setShouldStart(true);
+    };
+
+    const handleContinue = (): void => {
+        const options: NavigateOptions = { replace: true };
+        navigate(location.pathname, options);
+        setShowOverlay(false);
+        setShouldStart(true);
+    };
+
+    return (
+        <div className={``}>
+            {/* ${bottomContainer}*/}
+            {/* Top section: progress bar and reset button aligned horizontally */}
+            <div className="flex flex-row items-center">
+                <ProgressBar percentage={40} className={'mr-4'} />
+                <ResetButton shouldRedirect={false} />
+            </div>
+
+            {/* Chat content area with scrollable message list and input field */}
+            <div className="flex flex-col h-full min-h-0 w-full p-2 sm:p-4 shadow-md rounded-xl bg-stone-50 border border-stone-100">
+                <div className="flex-1 overflow-y-auto">
+                    <MessageList />
+                </div>
+            </div>
+            {/* Starting overlay content */}
+            <Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>
+                <h2 className="text-xl font-bold mb-2">De huidige regelcheck is nog bezig</h2>
+                <p className="font-semibold">
+                    Wil je verdergaan waar je was gebleven of de check weer opnieuw opstarten?
+                </p>
+                <button
+                    className="mt-4 bg-lime-700 text-white px-3 p-1 m-2 rounded hover:bg-lime-900"
+                    onClick={handleReset}>
+                    Opnieuw opstarten
+                </button>
+                <button
+                    className="mt-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-800"
+                    onClick={handleContinue}>
+                    Verdergaan
+                </button>
+            </Overlay>
+        </div>
+    );
+}
