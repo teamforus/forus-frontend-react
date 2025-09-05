@@ -8,11 +8,16 @@ import type { BotResponse, Message } from '../props/types/PrecheckChatbotTypes';
 import type { Advice } from '../props/types/PrecheckAdviceTypes';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
 import { ResponseSimple } from '../../dashboard/props/ApiResponses';
+import { useState } from 'react';
+import EventStreamService from './EventStreamService';
 
 let currentStream: EventSource | null = null;
 
-export class PrecheckService<T = unknown> {
-    public constructor(protected apiRequest: ApiRequestService<T> = new ApiRequestService<T>()) {}
+export class PrecheckChatbotService<T = unknown> {
+    public constructor(
+        protected apiRequest: ApiRequestService<T> = new ApiRequestService<T>(),
+        protected eventStream: EventStreamService = new EventStreamService(),
+    ) {}
 
     public prefix = '/platform/pre-checks';
 
@@ -44,7 +49,7 @@ export class PrecheckService<T = unknown> {
             };
         }
 
-        const stream = new EventSource(`${this.prefix}/sessions/${sessionId}/events`, { withCredentials: true });
+        const stream = this.eventStream.open(`${this.prefix}/sessions/${sessionId}/events`, true);
 
         currentStream = stream;
 
@@ -192,4 +197,8 @@ export class PrecheckService<T = unknown> {
         );
         return resp.data?.advice ?? [];
     }
+}
+
+export function usePrecheckChatbotService(): PrecheckChatbotService {
+    return useState(new PrecheckChatbotService())[0];
 }

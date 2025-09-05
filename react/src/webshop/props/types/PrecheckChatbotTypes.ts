@@ -83,7 +83,7 @@ export type Message = {
 
 export type AnswerOption = {
     label: string;
-    value: string | number | boolean | Array<never>;
+    value: string | number | boolean | Array<unknown>;
 };
 
 export type NavigationState = { from?: string };

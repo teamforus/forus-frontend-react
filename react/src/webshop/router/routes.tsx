@@ -43,7 +43,7 @@ import Search from '../components/pages/search/Search';
 import AuthLink from '../components/pages/auth/AuthLink';
 import FundRequest from '../components/pages/funds-request/FundRequest';
 import FundActivate from '../components/pages/funds-activate/FundActivate';
-import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
+import FundsPrecheckPage from '../components/pages/funds-pre-check/FundsPrecheckPage';
 import ThrowError from '../components/pages_system/ThrowError';
 import Payouts from '../components/pages/payouts/Payouts';
 import Profile from '../components/pages/profile/Profile';
@@ -263,7 +263,7 @@ router.state('bookmarked-products', <BookmarkedProducts />, {
     protected: true,
 });
 
-router.state('fund-pre-check', <FundsPreCheck />, {
+router.state('fund-pre-check', <FundsPrecheckPage />, {
     path: `/regelingencheck`,
     altPath: `/fund-pre-check`,
     protected: false,
