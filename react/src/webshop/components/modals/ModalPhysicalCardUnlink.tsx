@@ -75,7 +75,7 @@ export default function ModalPhysicalCardUnlink({
                             </div>
                             <div className="modal-section-description">
                                 {translate('modal_physical_card_unlink.body.block_card', {
-                                    cardNumber: voucher.physical_card.code,
+                                    cardNumber: voucher.physical_card.code_locale,
                                 })}
                             </div>
                         </div>
@@ -114,7 +114,7 @@ export default function ModalPhysicalCardUnlink({
                             </div>
                             <div className="modal-section-description">
                                 {translate('modal_physical_card_unlink.body.card_blocked', {
-                                    cardNumber: voucher.physical_card.code,
+                                    cardNumber: voucher.physical_card.code_locale,
                                 })}
                             </div>
                         </div>

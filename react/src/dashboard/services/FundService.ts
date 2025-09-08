@@ -45,7 +45,11 @@ export class FundService<T = Fund> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}`, data);
     }
 
-    public update(company_id: number, fund_id: number, data: Partial<T> = {}): Promise<ApiResponseSingle<T>> {
+    public update(
+        company_id: number,
+        fund_id: number,
+        data: Partial<T & { enable_physical_card_types?: number[]; disable_physical_card_types?: number[] }> = {},
+    ): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.patch(`${this.prefix}/${company_id}/funds/${fund_id}`, data);
     }
 

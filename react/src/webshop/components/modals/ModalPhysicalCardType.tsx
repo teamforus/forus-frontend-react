@@ -6,7 +6,6 @@ import useFormBuilder from '../../../dashboard/hooks/useFormBuilder';
 import { usePhysicalCardsService } from '../../services/PhysicalCardsService';
 import { ResponseError } from '../../../dashboard/props/ApiResponses';
 import { usePhysicalCardsRequestService } from '../../services/PhysicalCardsRequestService';
-import useAssetUrl from '../../hooks/useAssetUrl';
 import FormError from '../../../dashboard/components/elements/forms/errors/FormError';
 import PincodeControl from '../../../dashboard/components/elements/forms/controls/PincodeControl';
 import TranslateHtml from '../../../dashboard/components/elements/translate-html/TranslateHtml';
@@ -14,10 +13,13 @@ import EmailProviderLink from '../../../dashboard/components/pages/auth/elements
 import useAuthIdentity from '../../hooks/useAuthIdentity';
 import useEnvData from '../../hooks/useEnvData';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import PhysicalCardType from '../../../dashboard/props/models/PhysicalCardType';
+import useAssetUrl from '../../hooks/useAssetUrl';
 
 export default function ModalPhysicalCardType({
     modal,
     voucher = null,
+    typeCard,
     initialState = 'select_type',
     onSendVoucherEmail = null,
     onOpenInMeModal = null,
@@ -26,6 +28,7 @@ export default function ModalPhysicalCardType({
 }: {
     modal: ModalState;
     voucher: Voucher;
+    typeCard: PhysicalCardType;
     initialState: 'select_type' | 'card_code';
     onSendVoucherEmail?: (voucher: Voucher) => void;
     onOpenInMeModal?: () => void;
@@ -62,7 +65,8 @@ export default function ModalPhysicalCardType({
 
     const activateCodeForm = useFormBuilder(
         {
-            code: '100',
+            code: typeCard?.code_prefix,
+            physical_card_type_id: typeCard?.id,
         },
         (values) => {
             physicalCardsService
@@ -89,6 +93,7 @@ export default function ModalPhysicalCardType({
             house_addition: '',
             postcode: '',
             city: '',
+            physical_card_type_id: typeCard?.id,
         },
         (values) => {
             physicalCardsRequestService
@@ -176,16 +181,28 @@ export default function ModalPhysicalCardType({
                         </div>
                         <div className="modal-body">
                             <div className="modal-section">
+                                <div className="modal-section-icon">
+                                    <img
+                                        src={
+                                            typeCard?.photo?.sizes?.thumbnail ||
+                                            assetUrl('/assets/img/placeholders/physical-card-type.svg')
+                                        }
+                                        style={{ maxWidth: '120px', maxHeight: '120px', objectFit: 'contain' }}
+                                        alt={translate('modal_physical_card.modal_section.link_card.alt_text', {
+                                            fund_name: voucher.fund.name,
+                                        })}
+                                    />
+                                </div>
                                 <div className="modal-section-title" id="physicalCardTypeDialogSubtitle">
                                     {translate('modal_physical_card.modal_section.link_card.subtitle')}
                                 </div>
-                                <div className="modal-section-space" />
-                                <div className="modal-section-space" />
                                 <div className="modal-section-description">
                                     <TranslateHtml
                                         i18n={translate('modal_physical_card.modal_section.link_card.description')}
                                     />
                                 </div>
+                                <div className="modal-section-space" />
+
                                 <div className="modal-section-description">
                                     {translate('modal_physical_card.modal_section.link_card.no_old_card')}{' '}
                                     <strong className={'clickable'} onClick={() => requestPhysicalCard()}>
@@ -193,37 +210,31 @@ export default function ModalPhysicalCardType({
                                     </strong>
                                 </div>
 
+                                <div className="modal-section-space" />
+
                                 <PincodeControl
                                     className="block-pincode-phone"
                                     value={activateCodeForm.values.code}
                                     onChange={(code) => activateCodeForm.update({ code: code.trim() })}
-                                    blockSize={4}
-                                    blockCount={3}
+                                    blockSize={typeCard?.code_block_size}
+                                    blockCount={typeCard?.code_blocks}
                                     valueType={'num'}
-                                    cantDeleteSize={3}
+                                    cantDeleteSize={typeCard?.code_prefix?.length || 0}
                                     ariaLabel={translate(
                                         'modal_physical_card.modal_section.link_card.enter_physical_card_number',
                                     )}
                                 />
 
                                 <FormError className={'text-center'} error={activateCodeForm.errors.code} />
-
-                                <div className="modal-section-icon">
-                                    <img
-                                        src={assetUrl(
-                                            '/assets/img/icon-physical-cards/icon-physical-cards-preview.svg',
-                                        )}
-                                        alt={translate('modal_physical_card.modal_section.link_card.alt_text', {
-                                            fund_name: voucher.fund.name,
-                                        })}
-                                    />
-                                </div>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button
                                 className="button button-sm button-primary"
-                                disabled={activateCodeForm.values.code.length != 12}
+                                disabled={
+                                    activateCodeForm.values.code.length !=
+                                    typeCard?.code_block_size * typeCard?.code_blocks
+                                }
                                 onClick={() => activateCodeForm.submit()}
                                 type="button">
                                 {translate('modal_physical_card.buttons.link_card.submit_code')}
@@ -359,9 +370,11 @@ export default function ModalPhysicalCardType({
                             <div className="modal-section">
                                 <div className="modal-section-icon">
                                     <img
-                                        src={assetUrl(
-                                            '/assets/img/icon-physical-cards/icon-physical-cards-preview-variant.png',
-                                        )}
+                                        src={
+                                            typeCard?.photo?.sizes?.thumbnail ||
+                                            assetUrl('/assets/img/placeholders/physical-card-type.svg')
+                                        }
+                                        style={{ maxWidth: '120px', maxHeight: '120px', objectFit: 'contain' }}
                                         alt={translate('modal_physical_card.modal_section.link_card.alt_text', {
                                             fund_name: voucher.fund.name,
                                         })}

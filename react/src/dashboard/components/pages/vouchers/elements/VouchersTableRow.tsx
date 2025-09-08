@@ -61,11 +61,11 @@ export default function VouchersTableRow({
 
                     {(voucher.client_uid ||
                         (!voucher.identity_email && voucher.activation_code) ||
-                        (!voucher.identity_bsn && !voucher.relation_bsn && voucher.physical_card.code)) && (
+                        (!voucher.identity_bsn && !voucher.relation_bsn && voucher.physical_card.code_locale)) && (
                         <span>
                             NR:&nbsp;
                             <span className="text-muted-dark">
-                                {voucher.client_uid || voucher.physical_card.code || 'Nee'}
+                                {voucher.client_uid || voucher.physical_card.code_locale || 'Nee'}
                             </span>
                             &nbsp;
                         </span>

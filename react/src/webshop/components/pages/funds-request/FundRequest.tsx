@@ -41,6 +41,7 @@ import useShouldRequestRecord from './hooks/useShouldRequestRecord';
 import FundCriterion from '../../../../dashboard/props/models/FundCriterion';
 import { orderBy, sortBy } from 'lodash';
 import FundRequestHelpBlock from './elements/FundRequestHelpBlock';
+import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequestStepPhysicalCardRequestAddress';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -93,6 +94,17 @@ export default function FundRequest() {
 
     const [contactInformation, setContactInformation] = useState('');
     const [contactInformationError, setContactInformationError] = useState(null);
+
+    const [address, setAddress] = useState<{
+        street?: string;
+        house_nr?: string;
+        house_nr_addition?: string;
+        postal_code?: string;
+        city?: string;
+    }>({});
+
+    const [addressError, setAddressError] = useState(null);
+
     const [steps, setSteps] = useState([]);
 
     const [criteriaStepKeys, setCriteriaStepKeys] = useState([]);
@@ -193,6 +205,7 @@ export default function FundRequest() {
         (criteria: Array<LocalCriterion>): object => {
             return {
                 contact_information: contactInformation,
+                ...(address && Object.keys(address).length > 0 ? { physical_card_request_address: address } : {}),
                 records: criteria.map((criterion) => {
                     const { id, value, operator, input_value = '', files_uid = [] } = criterion;
 
@@ -212,7 +225,7 @@ export default function FundRequest() {
                 }),
             };
         },
-        [contactInformation, fund?.auto_validation],
+        [contactInformation, fund?.auto_validation, address],
     );
 
     const applyFund = useCallback(
@@ -365,6 +378,9 @@ export default function FundRequest() {
             fund.auto_validation ? 'confirm_criteria' : null,
             ...(fund.auto_validation ? [] : criteriaStepsList),
             shouldAddContactInfo ? 'contact_information' : null,
+            fund.fund_request_physical_card_enable && fund.fund_request_physical_card_type_id
+                ? 'physical_card_request_address'
+                : null,
             hideOverview ? null : 'application_overview',
         ].filter((step) => step);
 
@@ -605,6 +621,10 @@ export default function FundRequest() {
         }
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
 
+    useEffect(() => {
+        console.log('steps', steps);
+    }, [steps]);
+
     if (!fund || !vouchers || !fundRequests || (steps[step] == 'confirm_criteria' && autoSubmit)) {
         return <BlockShowcase />;
     }
@@ -713,9 +733,52 @@ export default function FundRequest() {
                             />
                         )}
 
+                        {steps[step] == 'physical_card_request_address' && (
+                            <FundRequestStepPhysicalCardRequestAddress
+                                address={address}
+                                setAddress={(data) => setAddress({ ...address, ...data })}
+                                errors={addressError}
+                                fund={fund}
+                                onSubmit={() => {
+                                    setProgress(0);
+
+                                    fundRequestService
+                                        .storeValidate(fund.id, { physical_card_request_address: address })
+                                        .then(() => {
+                                            nextStep();
+                                        })
+                                        .catch((err: ResponseError) => {
+                                            const keys = Object.keys(err.data.errors).filter((key) =>
+                                                key.startsWith('physical_card_request_address'),
+                                            );
+
+                                            // only address errors
+                                            const errors = keys.reduce((errors, key) => {
+                                                errors[key] = err.data.errors[key];
+                                                return errors;
+                                            }, {});
+
+                                            if (Object.keys(errors).length > 0) {
+                                                setAddressError(errors);
+                                            } else {
+                                                setAddressError({});
+                                                nextStep();
+                                            }
+                                        })
+                                        .finally(() => setProgress(100));
+                                }}
+                                onPrevStep={prevStep}
+                                progress={
+                                    <FundRequestProgress step={step} steps={steps} criteriaSteps={criteriaStepKeys} />
+                                }
+                                bsnWarning={<FundRequestBsnWarning fund={fund} setDigidExpired={setDigidExpired} />}
+                            />
+                        )}
+
                         {steps[step] == 'application_overview' && (
                             <FundRequestValuesOverview
                                 fund={fund}
+                                address={address}
                                 onSubmitRequest={submitRequest}
                                 criteriaSteps={criteriaSteps}
                                 contactInformation={contactInformation}

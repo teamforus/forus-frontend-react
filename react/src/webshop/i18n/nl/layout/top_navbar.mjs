@@ -187,6 +187,7 @@ export default {
         authorize: 'Me app koppelen',
         bookmarks: 'Mijn verlanglijstje',
         reservations: 'Reserveringen',
+        physical_cards: 'Fysieke pas',
         reimbursements: 'Kosten terugvragen',
         fund_requests: 'Aanvragen',
         payouts: 'Uitbetalingen',

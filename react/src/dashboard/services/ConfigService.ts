@@ -121,6 +121,7 @@ export type AppConfigProp = {
     };
     has_internal_funds: boolean;
     has_reimbursements: boolean;
+    has_physical_cards: boolean;
     has_payouts: boolean;
     announcements: Array<Announcement>;
     digid: boolean;

@@ -5,6 +5,7 @@ import Tag from './Tag';
 import Faq from './Faq';
 import FundFormula from '../../../webshop/props/models/FundFormula';
 import FundCriterion from './FundCriterion';
+import PhysicalCardType from './PhysicalCardType';
 
 interface FundVoucherStatistics {
     active_vouchers_amount?: string;
@@ -120,6 +121,10 @@ export default interface Fund {
     faq_title?: string;
     allow_reimbursements?: boolean;
     allow_physical_cards?: boolean;
+    allow_physical_card_requests?: boolean;
+    allow_physical_card_linking?: boolean;
+    allow_physical_card_deactivation?: boolean;
+    allow_physical_cards_on_application?: boolean;
     allow_blocking_vouchers?: boolean;
     allow_custom_amounts?: boolean;
     allow_preset_amounts?: boolean;
@@ -147,4 +152,7 @@ export default interface Fund {
     help_enabled?: boolean;
     allow_provider_sign_up?: boolean;
     outcome_type?: 'voucher' | 'payout';
+    fund_request_physical_card_enable?: boolean;
+    fund_request_physical_card_type_id?: number;
+    physical_card_types?: Array<PhysicalCardType>;
 }

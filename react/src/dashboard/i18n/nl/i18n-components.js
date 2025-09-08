@@ -214,4 +214,25 @@ export default {
             email: 'De e-mailadressen van alle medewerkers die medewerker zijn van de aanbieder organisatie.',
         },
     },
+    physical_cards: {
+        labels: {
+            id: 'ID',
+            code: 'Code',
+            type: 'Type',
+            voucher: 'Tegoeden',
+            fund_name: 'Fonds',
+        },
+        tooltips: {},
+    },
+    physical_card_types: {
+        labels: {
+            id: 'ID',
+            name: 'Naam',
+            cards_count: 'Aantal fonds',
+            funds_count: 'Aantal passen',
+            code_blocks: 'Code block size',
+            code_block_size: 'Code blocks',
+        },
+        tooltips: {},
+    },
 };

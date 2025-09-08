@@ -8,6 +8,8 @@ import { usePhysicalCardsRequestService } from '../../services/PhysicalCardsRequ
 import useTranslate from '../../hooks/useTranslate';
 import { ResponseError } from '../../props/ApiResponses';
 import usePushApiError from '../../hooks/usePushApiError';
+import FormGroup from '../elements/forms/elements/FormGroup';
+import SelectControl from '../elements/select-control/SelectControl';
 
 export default function ModalOrderPhysicalCard({
     modal,
@@ -35,6 +37,7 @@ export default function ModalOrderPhysicalCard({
         house_addition: string;
         postcode: string;
         city: string;
+        physical_card_type_id?: number;
     }>(
         {
             address: '',
@@ -42,6 +45,7 @@ export default function ModalOrderPhysicalCard({
             house_addition: '',
             postcode: '',
             city: '',
+            physical_card_type_id: voucher?.fund?.physical_card_types?.[0]?.id,
         },
         async (values) => {
             setProgress(0);
@@ -113,6 +117,22 @@ export default function ModalOrderPhysicalCard({
                                     'modals.modal_physical_card_order.modal_section.request_new_card.description',
                                 )}
                             </div>
+                            <FormGroup
+                                label={'Card type'}
+                                error={form.errors?.physical_card_type_id}
+                                input={(id) => (
+                                    <SelectControl
+                                        id={id}
+                                        propKey={'id'}
+                                        className={'form-control'}
+                                        value={form.values.physical_card_type_id}
+                                        options={voucher?.fund?.physical_card_types ?? []}
+                                        onChange={(physical_card_type_id?: number) => {
+                                            form.update({ physical_card_type_id });
+                                        }}
+                                    />
+                                )}
+                            />
 
                             <div className="form-group">
                                 <label
