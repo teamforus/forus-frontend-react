@@ -26,6 +26,8 @@ export default function SelectControlOptionsFD<T>({
     searchInputChanged,
     onOptionsScroll,
     disabled,
+    modelValue,
+    ariaLabelledby,
     multiline = { selected: false, options: true },
 }: SelectControlOptionsProp<T>) {
     const [controlId] = useState('select_control_' + uniqueId());
@@ -55,12 +57,13 @@ export default function SelectControlOptionsFD<T>({
             id={id}
             className={classNames('form-control', 'select-control', disabled && 'disabled', className)}
             tabIndex={disabled ? -1 : 0}
-            role="button"
+            role="combobox"
             data-dusk={dusk}
             aria-haspopup="listbox"
             aria-expanded={showOptions}
-            aria-labelledby={controlId}
+            aria-labelledby={ariaLabelledby || controlId}
             aria-controls={`${controlId}_options`}
+            aria-activedescendant={modelValue ? `option_${modelValue.id}` : null}
             ref={selectorRef}
             onKeyDown={(e) => (disabled ? null : onKeyDown(e))}
             onBlur={onBlur}>
@@ -116,8 +119,7 @@ export default function SelectControlOptionsFD<T>({
                         multilineSelected && 'multiline-selected',
                     )}>
                     {/* Placeholder */}
-                    <label
-                        htmlFor={controlId}
+                    <span
                         role="presentation"
                         ref={placeholderRef}
                         className="select-control-search form-control"
@@ -128,7 +130,7 @@ export default function SelectControlOptionsFD<T>({
                         <span className={'select-control-icon'}>
                             <em className={showOptions ? 'mdi mdi-chevron-up' : 'mdi mdi-chevron-down'} />
                         </span>
-                    </label>
+                    </span>
 
                     {allowSearch && (
                         <div className="select-control-search-container">

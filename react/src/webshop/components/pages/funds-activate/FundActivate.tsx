@@ -703,7 +703,6 @@ export default function FundActivate() {
                                                 blockCount={2}
                                                 blockSize={4}
                                                 valueType={'alphaNum'}
-                                                ariaLabel={translate('fund_activate.cards.code.pincode_aria_label')}
                                             />
                                             <FormError error={codeForm.errors.code} />
                                         </div>

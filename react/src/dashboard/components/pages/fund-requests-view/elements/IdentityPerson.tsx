@@ -1,41 +1,47 @@
 import Organization from '../../../../props/models/Organization';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import React, { useCallback, useState } from 'react';
-import { useFundRequestValidatorService } from '../../../../services/FundRequestValidatorService';
-import FundRequest from '../../../../props/models/FundRequest';
+import React, { Fragment, useCallback, useState } from 'react';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import IdentitiesApiPerson from '../../../../props/models/IdentitiesApiPerson';
+import Card from '../../../elements/card/Card';
+import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
+import EmptyCard from '../../../elements/empty-card/EmptyCard';
 
-type FundRequestLocal = FundRequest & { bsn_expanded?: boolean };
+type Person = {
+    bsn_expanded?: boolean;
+    person?: IdentitiesApiPerson;
+    person_relative?: IdentitiesApiPerson;
+    person_breadcrumbs?: Array<IdentitiesApiPerson>;
+};
 
-export default function FundRequestPerson({
-    request,
+export default function IdentityPerson({
+    identityId,
     organization,
 }: {
-    request: FundRequest;
+    identityId: number;
     organization: Organization;
 }) {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const [fundRequest, setFundRequest] = useState<FundRequestLocal>(request);
+    const [person, setPerson] = useState<Person>({});
     const [fetchingPerson, setFetchingPerson] = useState(null);
-    const fundRequestService = useFundRequestValidatorService();
+    const identitiesService = useSponsorIdentitiesService();
 
     const closePerson = useCallback(() => {
-        setFundRequest((fundRequest) => ({ ...fundRequest, bsn_expanded: false }));
+        setPerson((person) => ({ ...person, bsn_expanded: false }));
     }, []);
 
-    const setBreadcrumbs = (fundRequest: FundRequestLocal) => {
-        fundRequest.person_breadcrumbs = [
-            fundRequest.person,
-            fundRequest.person_relative ? fundRequest.person_relative : null,
-        ].filter((item) => item);
+    const setBreadcrumbs = (person: Person) => {
+        person.person_breadcrumbs = [person.person, person.person_relative ? person.person_relative : null].filter(
+            (item) => item,
+        );
     };
 
     const fetchPerson = useCallback(
-        (fundRequest: FundRequestLocal, scope?: string, scope_id?: number) => {
+        (person: Person, scope?: string, scope_id?: number) => {
             const fetchingRelative = scope && scope_id;
             const data = fetchingRelative ? { scope, scope_id } : {};
 
@@ -43,29 +49,29 @@ export default function FundRequestPerson({
                 return;
             }
 
-            if (!fetchingRelative && fundRequest.person) {
-                setFundRequest(() => ({
-                    ...fundRequest,
+            if (!fetchingRelative && person.person) {
+                setPerson(() => ({
+                    ...person,
                     bsn_expanded: true,
                     person_relative: null,
                 }));
-                return setBreadcrumbs(fundRequest);
+                return setBreadcrumbs(person);
             }
 
             setFetchingPerson(true);
             setProgress(0);
 
-            fundRequestService
-                .getPersonBsn(organization.id, fundRequest.id, data)
+            identitiesService
+                .getPersonBsn(organization.id, identityId, data)
                 .then((res) => {
                     if (fetchingRelative) {
-                        fundRequest.person_relative = res.data.data;
+                        person.person_relative = res.data.data;
                     } else {
-                        fundRequest.person = res.data.data;
+                        person.person = res.data.data;
                     }
 
-                    fundRequest.bsn_expanded = true;
-                    setBreadcrumbs(fundRequest);
+                    person.bsn_expanded = true;
+                    setBreadcrumbs(person);
                 })
                 .catch(pushApiError)
                 .finally(() => {
@@ -73,53 +79,38 @@ export default function FundRequestPerson({
                     setProgress(100);
                 });
         },
-        [fetchingPerson, fundRequestService, organization.id, pushApiError, setProgress],
+        [fetchingPerson, setProgress, identitiesService, organization.id, identityId, pushApiError],
     );
 
     return (
-        <div>
-            <div className="card-header">
-                <div className="flex flex-grow card-title">Persoonlijke gegevens &nbsp;</div>
-
-                <div className="card-header-filters">
-                    <div className="block block-inline-filters">
-                        {fundRequest.bsn_expanded ? (
-                            <button
-                                className="button button-default button-sm"
-                                disabled={fetchingPerson}
-                                onClick={closePerson}>
-                                <div className="mdi mdi-close icon-start" />
-                                Close
-                            </button>
-                        ) : (
-                            <button
-                                className="button button-primary button-sm"
-                                disabled={fetchingPerson}
-                                onClick={() => fetchPerson(fundRequest)}>
-                                {fetchingPerson ? (
-                                    <div className="mdi mdi-reload mdi-spin icon-start" />
-                                ) : (
-                                    <div className="mdi mdi-eye icon-start" />
-                                )}
-                                Bekijken
-                            </button>
-                        )}
-                    </div>
-                </div>
-            </div>
-            {fundRequest.person && fundRequest.bsn_expanded && (
-                <div className="card-section">
-                    <div className="arrow-box border bg-dim">
-                        <div className="arrow" />
-                    </div>
+        <Card
+            title={'Persoonlijke gegevens'}
+            buttons={[
+                person.bsn_expanded
+                    ? {
+                          text: 'Sluiten',
+                          icon: 'close',
+                          disabled: fetchingPerson,
+                          onClick: closePerson,
+                      }
+                    : {
+                          type: 'primary',
+                          text: 'Bekijken',
+                          icon: 'format-list-bulleted',
+                          disabled: fetchingPerson,
+                          onClick: () => fetchPerson(person),
+                      },
+            ]}>
+            {person.person && person.bsn_expanded ? (
+                <Fragment>
                     <div className="block block-breadcrumbs">
-                        {fundRequest.person_breadcrumbs.map((breadcrumb, index) => (
+                        {person.person_breadcrumbs.map((breadcrumb, index) => (
                             <div
                                 key={index}
                                 className={`breadcrumb-item ${
-                                    index == fundRequest.person_breadcrumbs.length - 1 ? 'active' : ''
+                                    index == person.person_breadcrumbs.length - 1 ? 'active' : ''
                                 }`}
-                                onClick={(e) => (index == 0 ? fetchPerson(fundRequest) : e.preventDefault())}>
+                                onClick={(e) => (index == 0 ? fetchPerson(person) : e.preventDefault())}>
                                 {breadcrumb.name}
                             </div>
                         ))}
@@ -127,7 +118,7 @@ export default function FundRequestPerson({
                     <div className="row">
                         <div className="col col-lg-6 col-sm-12">
                             <div className="card-block card-block-keyvalue">
-                                {(fundRequest?.person_relative || fundRequest.person).fields.map((field, index) => (
+                                {(person?.person_relative || person.person).fields.map((field, index) => (
                                     <div key={index} className="keyvalue-item">
                                         <div className="keyvalue-key">{field.label}</div>
                                         <div
@@ -141,11 +132,11 @@ export default function FundRequestPerson({
                             </div>
                         </div>
                         <div className="col col-lg-6 col-sm-12">
-                            {!fundRequest.person_relative &&
-                                Object.keys(fundRequest.person?.relations).map(
+                            {!person.person_relative &&
+                                Object.keys(person.person?.relations).map(
                                     (relationsListKey: 'parents' | 'partners' | 'children') => (
                                         <div key={relationsListKey} className="card-block card-block-keyvalue">
-                                            {fundRequest.person?.relations[relationsListKey].map(
+                                            {person.person?.relations[relationsListKey].map(
                                                 (relation, index: number) => (
                                                     <div key={index} className="keyvalue-item">
                                                         <div className="keyvalue-key">
@@ -160,11 +151,7 @@ export default function FundRequestPerson({
                                                             className="keyvalue-value card-text-link"
                                                             onClick={(e) => {
                                                                 e?.preventDefault();
-                                                                fetchPerson(
-                                                                    fundRequest,
-                                                                    relationsListKey,
-                                                                    relation.index,
-                                                                );
+                                                                fetchPerson(person, relationsListKey, relation.index);
                                                             }}>
                                                             {relation.name}
                                                         </a>
@@ -176,8 +163,14 @@ export default function FundRequestPerson({
                                 )}
                         </div>
                     </div>
-                </div>
+                </Fragment>
+            ) : (
+                <EmptyCard
+                    title="Basisregistratie personen (BRP) gegevens"
+                    description="Op basis van het BSN kunnen BRP-gegevens worden getoond van de persoon, inclusief gegevens van de partner, ouders en kinderen."
+                    type={'card-section'}
+                />
             )}
-        </div>
+        </Card>
     );
 }
