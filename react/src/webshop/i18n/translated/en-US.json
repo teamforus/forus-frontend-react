@@ -337,7 +337,8 @@
             "security_sessions": "Sessions",
             "aria_label": "User menu",
             "title": "Personal",
-            "profile": "Data"
+            "profile": "Data",
+            "physical_cards": "Physical pass"
         },
         "main_menu": "Main menu",
         "open_home": "Back to main page",
@@ -792,6 +793,18 @@
                 "reason": "Reason:",
                 "sent": "Sent!",
                 "sign_up": "Sign up"
+            },
+            "fund_request_physical_card_request": {
+                "description": "We will send your physical card to the address you provide as soon as it is ready for use.",
+                "heading": "Enter your address",
+                "labels": {
+                    "city": "Location",
+                    "house_nr": "House number",
+                    "house_nr_addition": "House number addition",
+                    "postal_code": "Postal code",
+                    "street": "Street"
+                },
+                "title": "Address details"
             }
         },
         "steps": {
@@ -2757,7 +2770,8 @@
             "share": "Share",
             "vouchers": "Credit",
             "me_app": "Me-app",
-            "provider_sign_up": "Register as a provider"
+            "provider_sign_up": "Register as a provider",
+            "physical_cards": "Physical pass"
         },
         "header": {
             "subtitle": "Have your personal QR code scanned by a reviewer.",
@@ -3640,5 +3654,21 @@
         "aria_label_text": "Sign {{current}} of the {{total}}",
         "aria_labelledby_num": "Type in the code of {{total}} digits",
         "aria_labelledby_text": "Type in the code of {{total}} characters"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Home",
+            "vouchers": "Physical pass"
+        },
+        "empty": {
+            "button": "Activate or request a physical pass",
+            "subtitle": "Currently you do not have a physical pass",
+            "title": "No physical pass"
+        },
+        "filters": {
+            "active": "Active",
+            "archive": "Archive"
+        },
+        "title": "Physical Pass"
     }
 }

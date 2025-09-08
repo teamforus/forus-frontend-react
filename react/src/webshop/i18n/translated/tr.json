@@ -760,7 +760,8 @@
             "security_sessions": "Oturumlar",
             "aria_label": "Kullanıcı menüsü",
             "title": "Kişisel",
-            "profile": "Veri"
+            "profile": "Veri",
+            "physical_cards": "Fiziksel geçiş"
         },
         "main_menu": "Ana menü",
         "open_home": "Ana sayfaya geri dön",
@@ -1016,6 +1017,18 @@
                 "reason": "Sebep:",
                 "sent": "Gönderdim!",
                 "sign_up": "Kaydolun"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Fiziksel kartınızı kullanıma hazır olur olmaz verdiğiniz adrese göndereceğiz.",
+                "heading": "Adresinizi girin",
+                "labels": {
+                    "city": "Konum",
+                    "house_nr": "Ev numarası",
+                    "house_nr_addition": "Ev numarası ekleme",
+                    "postal_code": "Posta kodu",
+                    "street": "Sokak"
+                },
+                "title": "Adres bilgileri"
             }
         },
         "steps": {
@@ -3438,7 +3451,8 @@
             "share": "Paylaş",
             "vouchers": "Kredi",
             "me_app": "Me-app",
-            "provider_sign_up": "Sağlayıcı olarak kaydolun"
+            "provider_sign_up": "Sağlayıcı olarak kaydolun",
+            "physical_cards": "Fiziksel geçiş"
         },
         "header": {
             "subtitle": "Kişisel QR kodunuzun bir hakem tarafından taranmasını sağlayın.",
@@ -3640,5 +3654,21 @@
         "aria_label_text": "{{current}} adresini imzalayın. {{total}}",
         "aria_labelledby_num": "{{total}} rakamlarının kodunu yazın",
         "aria_labelledby_text": "{{total}} karakterlerinin kodunu yazın"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "vouchers": "Fiziksel geçiş"
+        },
+        "empty": {
+            "button": "Fiziksel geçişi etkinleştirin veya talep edin",
+            "subtitle": "Şu anda fiziksel bir geçiş kartınız yok",
+            "title": "Fiziksel geçiş yok"
+        },
+        "filters": {
+            "active": "Aktif",
+            "archive": "Arşiv"
+        },
+        "title": "Fiziksel geçiş"
     }
 }
