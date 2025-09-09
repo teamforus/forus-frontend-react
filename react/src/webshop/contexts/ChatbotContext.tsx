@@ -62,16 +62,20 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
         setHasAnswerOptions(false);
         setHasInputType(false);
         setIsThinking(true);
-
-        let result;
-        if (isAnswerOption(message)) {
-            result = await precheckChatbotService.send(message);
-        } else {
-            result = await precheckChatbotService.send(message);
-        }
-        if (result === 'resume') {
-            console.warn('Resume stream requested by backend');
-            await start(true);
+        try {
+            await precheckChatbotService.send(message);
+        } catch (e) {
+            console.error('send failed: ', e);
+            setIsThinking(false);
+            setMessages((prev) => [
+                ...prev,
+                {
+                    type: 'ai',
+                    text: 'Er is een server fout opgetreden. Probeer het later opnieuw.',
+                    sender: 'Eva',
+                    error: true,
+                },
+            ]);
         }
     };
 
@@ -99,9 +103,14 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
      */
     const start = useCallback(
         async (restart: boolean = false) => {
-            if (streamStarted.current) {
+            if (!restart && streamStarted.current) {
                 console.log('Stream has already started');
                 return;
+            }
+
+            if (restart) {
+                stopStream?.();
+                streamStarted.current = false;
             }
 
             setIsLoadingStream(true);
@@ -132,6 +141,10 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
                     setIncomingQueue((prev) => [...prev, response]);
                     setIsThinking(false);
                     setIsLoadingStream(false);
+                    streamStarted.current = true;
+                },
+                () => {
+                    console.log('received answer -- waiting');
                 },
                 () => {
                     setIsThinking(true);
@@ -139,6 +152,7 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
                 },
                 () => {
                     setIsClosed(true);
+                    streamStarted.current = false;
                 },
                 (error) => {
                     if (error.status === 204) {
@@ -149,12 +163,14 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
                         console.error('Stream error:', error);
                     }
                     setIsLoadingStream(false);
+                    streamStarted.current = true;
+                    stopStream();
                 },
                 restart,
             );
             setStopStream(() => stop);
         },
-        [precheckChatbotService],
+        [precheckChatbotService, stopStream],
     );
 
     useEffect(() => {

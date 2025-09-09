@@ -23,19 +23,25 @@ export class PrecheckChatbotService<T = unknown> {
 
     // Initializes a new session
     public async start(): Promise<void> {
-        const resp = await this.apiRequest.post<ResponseSimple<{ session_id: string }>>(`${this.prefix}/sessions`);
+        const resp = await this.apiRequest.post<ResponseSimple<{ session_id: string; session_token: string }>>(
+            `${this.prefix}/sessions`,
+        );
         sessionStorage.setItem('session_id', resp.data.session_id);
+        sessionStorage.setItem('session_token', resp.data.session_token);
     }
 
     // starts the chat
     public stream(
         onMessage: (response: BotResponse) => void,
+        onWaiting: () => void,
         onTyping: () => void,
         onClose: () => void,
         onError?: (err: { status: number }) => void,
         forceRestart = false,
     ): { stop: () => void } {
         const sessionId = sessionStorage.getItem('session_id');
+        const sessionToken = sessionStorage.getItem('session_token');
+
         if (currentStream && forceRestart) {
             currentStream.close();
             currentStream = null;
@@ -49,7 +55,7 @@ export class PrecheckChatbotService<T = unknown> {
             };
         }
 
-        const stream = this.eventStream.open(`${this.prefix}/sessions/${sessionId}/events`, true);
+        const stream = this.eventStream.open(`${this.prefix}/sessions/${sessionId}/events?token=${sessionToken}`, true);
 
         currentStream = stream;
 
@@ -67,12 +73,7 @@ export class PrecheckChatbotService<T = unknown> {
             onClose();
         });
 
-        stream.addEventListener('paused', () => {
-            console.info('Stream paused – waiting for user input.');
-            stream.close();
-            if (currentStream === stream) currentStream = null;
-            onClose();
-        });
+        stream.addEventListener('paused', onWaiting);
 
         stream.onmessage = (event) => {
             try {
@@ -162,38 +163,54 @@ export class PrecheckChatbotService<T = unknown> {
     }
 
     // Simulates sending user input to the backend and returns a conditional bot response
-    public async send(userInput: string | boolean | number | object): Promise<'resume' | undefined> {
+    public async send(userInput: string | boolean | number | object): Promise<void> {
         const sessionId = sessionStorage.getItem('session_id');
+        const sessionToken = sessionStorage.getItem('session_token');
         const key = crypto?.randomUUID?.() ?? String(Date.now()) + Math.random();
-        const resp = await this.apiRequest.post<ResponseSimple<{ status?: string }>>(
-            `${this.prefix}/sessions/${sessionId}/messages`,
-            { response: userInput },
-            { headers: { 'Idempotency-Key': key } },
-        );
-        if (resp.status === 202 && resp.data?.status === 'resume_required') return 'resume';
+        try {
+            await this.apiRequest.post<ResponseSimple<{ status?: string }>>(
+                `${this.prefix}/sessions/${sessionId}/messages`,
+                { response: userInput },
+                { headers: { 'Idempotency-Key': key, Authorization: `Bearer ${sessionToken}` } },
+            );
+        } catch (e) {
+            const status = e?.response?.status ?? e?.status;
+            if (status === 202) return;
+            throw e;
+        }
     }
+    // if (resp.status === 202 && resp.data?.status === 'resume_required') return 'resume';
 
     public async end(): Promise<void> {
         const sessionId = sessionStorage.getItem('session_id');
-        await this.apiRequest.delete(`${this.prefix}/sessions/${sessionId}`, {});
+        const sessionToken = sessionStorage.getItem('session_token');
+        await this.apiRequest.delete(
+            `${this.prefix}/sessions/${sessionId}`,
+            {},
+            { headers: { Authorization: `Bearer ${sessionToken}` } },
+        );
     }
 
     public async history(): Promise<Message[]> {
         const sessionId = sessionStorage.getItem('session_id');
+        const sessionToken = sessionStorage.getItem('session_token');
 
         const resp = await this.apiRequest.get<ResponseSimple<{ messages: Message[] }>>(
             `${this.prefix}/sessions/${sessionId}/messages`,
             {},
+            { headers: { Authorization: `Bearer ${sessionToken}` } },
         );
         return resp.data?.messages ?? [];
     }
 
     public async advice(): Promise<Advice[]> {
         const sessionId = sessionStorage.getItem('session_id');
+        const sessionToken = sessionStorage.getItem('session_token');
 
         const resp = await this.apiRequest.get<ResponseSimple<{ advice: Advice[] }>>(
             `${this.prefix}/sessions/${sessionId}/advice`,
             {},
+            { headers: { Authorization: `Bearer ${sessionToken}` } },
         );
         return resp.data?.advice ?? [];
     }
