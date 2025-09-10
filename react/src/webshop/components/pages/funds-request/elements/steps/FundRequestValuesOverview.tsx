@@ -9,6 +9,7 @@ import Fund from '../../../../../props/models/Fund';
 
 export default function FundRequestValuesOverview({
     fund,
+    address,
     onSubmitRequest,
     contactInformation,
     emailSetupShow,
@@ -18,6 +19,13 @@ export default function FundRequestValuesOverview({
     bsnWarning,
 }: {
     fund: Fund;
+    address: {
+        street?: string;
+        house_nr?: string;
+        house_nr_addition?: string;
+        postal_code?: string;
+        city?: string;
+    };
     onSubmitRequest: () => void;
     contactInformation: string;
     emailSetupShow: boolean;
@@ -110,6 +118,30 @@ export default function FundRequestValuesOverview({
                                 </div>
                             </div>
                         ))}
+
+                        {address && Object.keys(address).length > 0 && (
+                            <div className="preview-item">
+                                <div className="preview-item-info">
+                                    <div className="preview-item-title">Adresgegevens</div>
+                                </div>
+                                <div className="preview-item-panel">
+                                    <div className="preview-item-values">
+                                        {Object.keys(address).map((key) => (
+                                            <div className="preview-item-values-item" key={key}>
+                                                <div className="preview-item-values-item-label">
+                                                    {translate(
+                                                        `fund_request.sign_up.fund_request_physical_card_request.labels.${key}`,
+                                                    )}
+                                                </div>
+                                                <div className="preview-item-values-item-value">
+                                                    {address[key] || '-'}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 

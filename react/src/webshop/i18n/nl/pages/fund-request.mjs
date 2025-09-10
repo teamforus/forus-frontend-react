@@ -148,6 +148,18 @@ export default {
         fund_request_contact_info: {
             title: 'Contactgegevens',
         },
+        fund_request_physical_card_request: {
+            title: 'Adresgegevens',
+            heading: 'Voer uw adres in',
+            description: 'We sturen uw fysieke kaart naar het door u opgegeven adres zodra deze klaar is voor gebruik.',
+            labels: {
+                street: 'Straat',
+                house_nr: 'Huisnummer',
+                house_nr_addition: 'Huisnummertoevoeging',
+                postal_code: 'Postcode',
+                city: 'Plaats',
+            },
+        },
         fund_request_confirm_criteria: {
             confirm_income: 'Bevestig uw inkomen',
             declare_conditions:

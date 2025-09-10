@@ -141,6 +141,18 @@ export const TopNavbarDesktopMenuUser = () => {
                                 {translate('top_navbar.user_menu.reservations')}
                             </StateNavLink>
 
+                            {appConfigs.has_physical_cards && (
+                                <StateNavLink
+                                    id="physical_cards"
+                                    name={'physical-cards'}
+                                    className="auth-user-menu-item"
+                                    dataDusk="btnPhysicalCards"
+                                    tabIndex={0}>
+                                    <em className="mdi mdi-credit-card-multiple-outline" />
+                                    {translate('top_navbar.user_menu.physical_cards')}
+                                </StateNavLink>
+                            )}
+
                             {appConfigs.has_reimbursements && (
                                 <StateNavLink
                                     id="reimbursements"

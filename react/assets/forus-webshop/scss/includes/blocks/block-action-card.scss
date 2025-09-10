@@ -30,15 +30,14 @@
 
     .block-card-logo {
         margin: 0 25px 0 0;
+        width: 100px;
+        height: 100px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         
         img {
             display: block;
-            max-width: 230px;
-            margin-left: -20px;
-            margin-bottom: -10px;
         }
 
         svg {

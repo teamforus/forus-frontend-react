@@ -6,10 +6,9 @@ import { useFundFormService } from '../../../services/FundFormService';
 import FundForm from '../../../props/models/FundForm';
 import { useRecordTypeService } from '../../../services/RecordTypeService';
 import RecordType from '../../../props/models/RecordType';
-import FundFormCriteriaCard from './elements/FundFormCriteriaCard';
-import FundFormConfigsCard from './elements/FundFormConfigsCard';
 import { useParams } from 'react-router';
 import OrganizationFundsShowOverviewCard from '../organizations-funds-show/elements/OrganizationFundsShowOverviewCard';
+import FundFormViewDetailsCard from './elements/FundFormViewDetailsCard';
 
 export default function FundFormsView() {
     const { id } = useParams();
@@ -56,21 +55,14 @@ export default function FundFormsView() {
         <Fragment>
             <OrganizationFundsShowOverviewCard fund={fundForm.fund} compact={true} />
 
-            <FundFormCriteriaCard
+            <FundFormViewDetailsCard
                 fund={fundForm.fund}
                 setFund={(fund) => {
                     setFundForm({ ...fundForm, fund: { ...fundForm.fund, ...fund } });
                     fetchFundForm();
                 }}
                 recordTypes={recordTypes}
-            />
-
-            <FundFormConfigsCard
-                fund={fundForm.fund}
-                setFund={(fund) => {
-                    setFundForm({ ...fundForm, fund: { ...fundForm.fund, ...fund } });
-                    fetchFundForm();
-                }}
+                organization={activeOrganization}
             />
         </Fragment>
     );

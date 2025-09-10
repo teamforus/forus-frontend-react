@@ -194,6 +194,20 @@ export default function TopNavbarMobileMenu() {
                         </StateNavLink>
                     )}
 
+                    {appConfigs.has_physical_cards && (
+                        <StateNavLink
+                            className="mobile-menu-item"
+                            name="physical-cards"
+                            onClick={hideMobileMenu}
+                            aria-current={route.state?.name == 'physical-cards' ? 'true' : undefined}
+                            onKeyDown={clickOnKeyEnter}
+                            tabIndex={0}
+                            role="link">
+                            <em className="mobile-menu-item-icon mdi mdi-credit-card-multiple-outline" />
+                            {translate('top_navbar.buttons.mobile.dropdown.physical_cards')}
+                        </StateNavLink>
+                    )}
+
                     {authIdentity && appConfigs.has_reimbursements && (
                         <StateNavLink
                             className="mobile-menu-item"

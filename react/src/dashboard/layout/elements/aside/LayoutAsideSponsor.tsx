@@ -174,6 +174,15 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show: organization.allow_payouts && hasPermission(organization, 'manage_payouts'),
                     },
+                    {
+                        id: 'physical_cards',
+                        name: 'Fysieke passen',
+                        state: 'physical-cards',
+                        stateParams: { organizationId: organization?.id },
+                        show:
+                            hasPermission(organization, ['manage_vouchers', 'view_vouchers']) &&
+                            organization.allow_physical_cards,
+                    },
                 ]}
             />
 

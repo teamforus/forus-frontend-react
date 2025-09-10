@@ -6,7 +6,6 @@ import FundRequest from '../../../props/models/FundRequest';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
 import { useEmployeeService } from '../../../services/EmployeeService';
-import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
@@ -22,6 +21,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import FundRequestsTable from './elements/FundRequestsTable';
 import { NumberParam, StringParam } from 'use-query-params';
 import useFundRequestExporter from '../../../services/exporters/useFundRequestExporter';
+import CardHeaderFilterNext from '../../elements/tables/elements/CardHeaderFilterNext';
 
 export default function FundRequests() {
     const appConfigs = useAppConfigs();
@@ -190,105 +190,76 @@ export default function FundRequests() {
                         </div>
                     </div>
 
-                    <div className="block block-inline-filters">
-                        {filter.show && (
-                            <button
-                                className="button button-text"
-                                onClick={() => {
-                                    filter.resetFilters();
-                                    filter.setShow(false);
-                                }}>
-                                <em className="mdi mdi-close icon-start" />
-                                {translate('validation_requests.buttons.clear_filter')}
-                            </button>
-                        )}
-
-                        {!filter.show && (
-                            <div className="form">
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        data-dusk="tableFundRequestSearch"
-                                        value={filter.values.q}
-                                        onChange={(e) => filterUpdate({ q: e.target.value })}
-                                        placeholder={translate('validation_requests.labels.search')}
-                                    />
-                                </div>
-                            </div>
-                        )}
-
-                        <CardHeaderFilter filter={filter}>
-                            <FilterItemToggle show={true} label={translate('validation_requests.labels.search')}>
-                                <input
-                                    type="text"
-                                    value={filter.values?.q}
-                                    onChange={(e) => filterUpdate({ q: e.target.value })}
-                                    placeholder={translate('validation_requests.labels.search')}
-                                    className="form-control"
-                                />
-                            </FilterItemToggle>
-                            <FilterItemToggle label={translate('validation_requests.labels.state')}>
+                    <CardHeaderFilterNext filter={filter} searchDusk={'tableFundRequestSearch'}>
+                        <FilterItemToggle show={true} label={translate('validation_requests.labels.search')}>
+                            <input
+                                type="text"
+                                value={filter.values?.q}
+                                onChange={(e) => filterUpdate({ q: e.target.value })}
+                                placeholder={translate('validation_requests.labels.search')}
+                                className="form-control"
+                            />
+                        </FilterItemToggle>
+                        <FilterItemToggle label={translate('validation_requests.labels.state')}>
+                            <SelectControl
+                                className={'form-control'}
+                                options={states}
+                                propKey={'key'}
+                                allowSearch={false}
+                                onChange={(state: string) => filterUpdate({ state })}
+                            />
+                        </FilterItemToggle>
+                        <FilterItemToggle label={translate('validation_requests.labels.assignee_state')}>
+                            <SelectControl
+                                className={'form-control'}
+                                options={assignedOptions}
+                                propKey={'key'}
+                                allowSearch={false}
+                                onChange={(assigned: number | null) => filterUpdate({ assigned })}
+                            />
+                        </FilterItemToggle>
+                        <FilterItemToggle label={translate('validation_requests.labels.assigned_to')}>
+                            {employees && (
                                 <SelectControl
                                     className={'form-control'}
-                                    options={states}
-                                    propKey={'key'}
+                                    options={employees.data}
+                                    propKey={'id'}
+                                    propValue={'email'}
                                     allowSearch={false}
-                                    onChange={(state: string) => filterUpdate({ state })}
+                                    onChange={(employee_id: number | null) => filterUpdate({ employee_id })}
                                 />
-                            </FilterItemToggle>
-                            <FilterItemToggle label={translate('validation_requests.labels.assignee_state')}>
-                                <SelectControl
-                                    className={'form-control'}
-                                    options={assignedOptions}
-                                    propKey={'key'}
-                                    allowSearch={false}
-                                    onChange={(assigned: number | null) => filterUpdate({ assigned })}
-                                />
-                            </FilterItemToggle>
-                            <FilterItemToggle label={translate('validation_requests.labels.assigned_to')}>
-                                {employees && (
-                                    <SelectControl
-                                        className={'form-control'}
-                                        options={employees.data}
-                                        propKey={'id'}
-                                        propValue={'email'}
-                                        allowSearch={false}
-                                        onChange={(employee_id: number | null) => filterUpdate({ employee_id })}
-                                    />
-                                )}
-                            </FilterItemToggle>
-                            <FilterItemToggle label={translate('validation_requests.labels.from')}>
-                                <DatePickerControl
-                                    placeholder={'yyyy-MM-dd'}
-                                    value={dateParse(filter.values.from?.toString())}
-                                    onChange={(date) => filterUpdate({ from: dateFormat(date) })}
-                                />
-                            </FilterItemToggle>
+                            )}
+                        </FilterItemToggle>
+                        <FilterItemToggle label={translate('validation_requests.labels.from')}>
+                            <DatePickerControl
+                                placeholder={'yyyy-MM-dd'}
+                                value={dateParse(filter.values.from?.toString())}
+                                onChange={(date) => filterUpdate({ from: dateFormat(date) })}
+                            />
+                        </FilterItemToggle>
 
-                            <FilterItemToggle label={translate('validation_requests.labels.to')}>
-                                <DatePickerControl
-                                    placeholder={'yyyy-MM-dd'}
-                                    value={dateParse(filter.values.to)}
-                                    onChange={(date: Date) => filterUpdate({ to: dateFormat(date) })}
-                                />
-                            </FilterItemToggle>
-                            <div className="form-actions">
-                                {fundRequests && (
-                                    <button
-                                        className="button button-primary button-wide"
-                                        disabled={fundRequests.meta.total == 0}
-                                        data-dusk="export"
-                                        onClick={() => exportRequests()}>
-                                        <em className="mdi mdi-download icon-start" />
-                                        {translate('components.dropdown.export', {
-                                            total: fundRequests.meta.total,
-                                        })}
-                                    </button>
-                                )}
-                            </div>
-                        </CardHeaderFilter>
-                    </div>
+                        <FilterItemToggle label={translate('validation_requests.labels.to')}>
+                            <DatePickerControl
+                                placeholder={'yyyy-MM-dd'}
+                                value={dateParse(filter.values.to)}
+                                onChange={(date: Date) => filterUpdate({ to: dateFormat(date) })}
+                            />
+                        </FilterItemToggle>
+                        <div className="form-actions">
+                            {fundRequests && (
+                                <button
+                                    className="button button-primary button-wide"
+                                    disabled={fundRequests.meta.total == 0}
+                                    data-dusk="export"
+                                    onClick={() => exportRequests()}>
+                                    <em className="mdi mdi-download icon-start" />
+                                    {translate('components.dropdown.export', {
+                                        total: fundRequests.meta.total,
+                                    })}
+                                </button>
+                            )}
+                        </div>
+                    </CardHeaderFilterNext>
                 </div>
             </div>
 

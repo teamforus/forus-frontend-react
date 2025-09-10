@@ -6,17 +6,20 @@ import { ResponseError } from '../../../dashboard/props/ApiResponses';
 import { usePhysicalCardsService } from '../../services/PhysicalCardsService';
 import usePushDanger from '../../../dashboard/hooks/usePushDanger';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
+import { InlineFundPhysicalCardType } from '../../../dashboard/props/models/Fund';
 
 export default function ModalPhysicalCardUnlink({
     modal,
     voucher,
     onPhysicalCardUnlinked,
     onClose,
+    cardType,
 }: {
     modal: ModalState;
     voucher?: Voucher;
     onPhysicalCardUnlinked?: () => void;
     onClose?: (requestNew?: boolean) => void;
+    cardType?: InlineFundPhysicalCardType;
 }) {
     const translate = useTranslate();
     const pushDanger = usePushDanger();
@@ -75,7 +78,7 @@ export default function ModalPhysicalCardUnlink({
                             </div>
                             <div className="modal-section-description">
                                 {translate('modal_physical_card_unlink.body.block_card', {
-                                    cardNumber: voucher.physical_card.code,
+                                    cardNumber: voucher.physical_card.code_locale,
                                 })}
                             </div>
                         </div>
@@ -114,7 +117,7 @@ export default function ModalPhysicalCardUnlink({
                             </div>
                             <div className="modal-section-description">
                                 {translate('modal_physical_card_unlink.body.card_blocked', {
-                                    cardNumber: voucher.physical_card.code,
+                                    cardNumber: voucher.physical_card.code_locale,
                                 })}
                             </div>
                         </div>
@@ -123,9 +126,11 @@ export default function ModalPhysicalCardUnlink({
                         <button className="button button-sm button-light" type="button" onClick={closeModal}>
                             {translate('modal_physical_card_unlink.buttons.close')}
                         </button>
-                        <button className="button button-sm button-dark" type="button" onClick={requestNewCard}>
-                            {translate('modal_physical_card_unlink.buttons.request_new')}
-                        </button>
+                        {cardType?.allow_physical_card_requests && (
+                            <button className="button button-sm button-dark" type="button" onClick={requestNewCard}>
+                                {translate('modal_physical_card_unlink.buttons.request_new')}
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
