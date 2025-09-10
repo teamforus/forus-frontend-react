@@ -70,10 +70,13 @@ export default function ModalPhysicalCardType({
         onPrintQrCode?.(voucher);
     }, [modal, onPrintQrCode, voucher]);
 
-    const activateCodeForm = useFormBuilder(
+    const activateCodeForm = useFormBuilder<{
+        code?: string;
+        fund_physical_card_type_id?: number;
+    }>(
         {
             code: typeCard?.code_prefix,
-            physical_card_type_id: typeCard?.id,
+            fund_physical_card_type_id: fundCardType?.id,
         },
         (values) => {
             physicalCardsService
@@ -93,14 +96,21 @@ export default function ModalPhysicalCardType({
         },
     );
 
-    const requestPhysicalCardForm = useFormBuilder(
+    const requestPhysicalCardForm = useFormBuilder<{
+        address?: string;
+        house?: string;
+        house_addition?: string;
+        postcode?: string;
+        city?: string;
+        fund_physical_card_type_id?: number;
+    }>(
         {
             address: '',
             house: '',
             house_addition: '',
             postcode: '',
             city: '',
-            physical_card_type_id: typeCard?.id,
+            fund_physical_card_type_id: fundCardType?.id,
         },
         (values) => {
             physicalCardsRequestService
@@ -249,7 +259,7 @@ export default function ModalPhysicalCardType({
                                 />
                             )}
 
-                            <FormError className={'text-center'} error={activateCodeForm.errors.code} />
+                            <FormError className={'text-center'} error={activateCodeForm.errors?.code} />
                         </div>
                     </div>
                     <div className="modal-footer">

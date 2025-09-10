@@ -38,13 +38,20 @@ export default function ModalAddPhysicalCard({
     const [code, setCode] = useState('');
     const [state, setState] = useState<'type' | 'form' | 'success'>('type');
 
+    const types = useMemo(() => {
+        return voucher?.fund?.fund_physical_card_types.map((type) => ({
+            ...type,
+            name: type.physical_card_type?.name,
+        }));
+    }, [voucher?.fund?.fund_physical_card_types]);
+
     const form = useFormBuilder<{
         code: string;
-        physical_card_type_id?: number;
+        fund_physical_card_type_id?: number;
     }>(
         {
             code: '',
-            physical_card_type_id: voucher?.fund?.fund_physical_card_types?.[0].id ?? null,
+            fund_physical_card_type_id: voucher?.fund?.fund_physical_card_types?.[0].id ?? null,
         },
         (values) => {
             setProgress(0);
@@ -74,9 +81,9 @@ export default function ModalAddPhysicalCard({
 
     const physicalCardType = useMemo(() => {
         return voucher?.fund?.fund_physical_card_types?.find((type) => {
-            return type.id === form.values.physical_card_type_id;
+            return type.id === form.values.fund_physical_card_type_id;
         })?.physical_card_type;
-    }, [form.values.physical_card_type_id, voucher?.fund?.fund_physical_card_types]);
+    }, [form.values.fund_physical_card_type_id, voucher?.fund?.fund_physical_card_types]);
 
     useEffect(() => {
         formUpdate({ code: physicalCardType?.code_prefix });
@@ -109,16 +116,17 @@ export default function ModalAddPhysicalCard({
                         <div className="modal-section">
                             <FormGroup
                                 label={'Card type'}
-                                error={form.errors?.physical_card_type_id}
+                                error={form.errors?.fund_physical_card_type_id}
                                 input={(id) => (
                                     <SelectControl
                                         id={id}
                                         propKey={'id'}
+                                        propValue={'name'}
                                         className={'form-control'}
-                                        value={form.values.physical_card_type_id}
-                                        options={voucher?.fund?.fund_physical_card_types ?? []}
-                                        onChange={(physical_card_type_id?: number) => {
-                                            form.update({ physical_card_type_id });
+                                        value={form.values.fund_physical_card_type_id}
+                                        options={types ?? []}
+                                        onChange={(fund_physical_card_type_id?: number) => {
+                                            form.update({ fund_physical_card_type_id });
                                         }}
                                     />
                                 )}
@@ -130,7 +138,7 @@ export default function ModalAddPhysicalCard({
                     <div className="modal-footer text-center">
                         <button
                             type="submit"
-                            disabled={!form.values.physical_card_type_id}
+                            disabled={!form.values.fund_physical_card_type_id}
                             className="button button-primary">
                             {translate('modals.modal_voucher_physical_card.buttons.submit')}
                         </button>
@@ -181,7 +189,7 @@ export default function ModalAddPhysicalCard({
                             disabled={
                                 form.values.code?.length !=
                                     physicalCardType?.code_block_size * physicalCardType?.code_blocks ||
-                                !form.values.physical_card_type_id
+                                !form.values.fund_physical_card_type_id
                             }
                             className="button button-primary">
                             {translate('modals.modal_voucher_physical_card.buttons.submit')}

@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useState } from 'react';
+import React, { FormEvent, useCallback, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import useSetProgress from '../../hooks/useSetProgress';
@@ -31,13 +31,20 @@ export default function ModalOrderPhysicalCard({
     const [state, setState] = useState<'form' | 'confirmation' | 'success'>('form');
     const [addressPreview, setAddressPreview] = useState<string[]>([]);
 
+    const types = useMemo(() => {
+        return voucher?.fund?.fund_physical_card_types.map((type) => ({
+            ...type,
+            name: type.physical_card_type?.name,
+        }));
+    }, [voucher?.fund?.fund_physical_card_types]);
+
     const form = useFormBuilder<{
         address: string;
         house: string;
         house_addition: string;
         postcode: string;
         city: string;
-        physical_card_type_id?: number;
+        fund_physical_card_type_id?: number;
     }>(
         {
             address: '',
@@ -45,7 +52,7 @@ export default function ModalOrderPhysicalCard({
             house_addition: '',
             postcode: '',
             city: '',
-            physical_card_type_id: voucher?.fund?.fund_physical_card_types?.[0]?.id,
+            fund_physical_card_type_id: voucher?.fund?.fund_physical_card_types?.[0]?.id,
         },
         async (values) => {
             setProgress(0);
@@ -124,11 +131,12 @@ export default function ModalOrderPhysicalCard({
                                     <SelectControl
                                         id={id}
                                         propKey={'id'}
+                                        propValue={'name'}
                                         className={'form-control'}
-                                        value={form.values.physical_card_type_id}
-                                        options={voucher?.fund?.fund_physical_card_types ?? []}
-                                        onChange={(physical_card_type_id?: number) => {
-                                            form.update({ physical_card_type_id });
+                                        value={form.values.fund_physical_card_type_id}
+                                        options={types}
+                                        onChange={(fund_physical_card_type_id?: number) => {
+                                            form.update({ fund_physical_card_type_id });
                                         }}
                                     />
                                 )}

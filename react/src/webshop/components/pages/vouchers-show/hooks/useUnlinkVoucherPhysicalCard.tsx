@@ -21,6 +21,7 @@ export default function useUnlinkVoucherPhysicalCard() {
                     modal={modal}
                     voucher={voucher}
                     onPhysicalCardUnlinked={() => fetchVoucher()}
+                    cardType={cardType}
                     onClose={(requestNew) => {
                         voucherService.get(voucher.number).then((res) => {
                             setVoucher(res.data.data);

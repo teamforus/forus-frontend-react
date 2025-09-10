@@ -621,10 +621,6 @@ export default function FundRequest() {
         }
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
 
-    useEffect(() => {
-        console.log('steps', steps);
-    }, [steps]);
-
     if (!fund || !vouchers || !fundRequests || (steps[step] == 'confirm_criteria' && autoSubmit)) {
         return <BlockShowcase />;
     }
