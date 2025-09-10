@@ -122,6 +122,7 @@ export default {
             dropdown: {
                 vouchers: 'Mijn tegoeden',
                 reservations: 'Reserveringen',
+                physical_cards: 'Fysieke pas',
                 reimbursements: 'Kosten terugvragen',
                 fund_requests: 'Aanvragen',
                 payouts: 'Uitbetalingen',

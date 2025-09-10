@@ -228,7 +228,8 @@
                     "winterswijk": {
                         "funds": "Activate"
                     },
-                    "profile": "Data"
+                    "profile": "Data",
+                    "physical_cards": "Physical Pass"
                 },
                 "groningen": {
                     "voucher": "My City Pass"

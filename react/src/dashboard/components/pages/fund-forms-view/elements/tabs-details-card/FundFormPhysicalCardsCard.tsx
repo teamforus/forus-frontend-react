@@ -46,15 +46,10 @@ export default function FundFormPhysicalCardsCard({
         fund_request_physical_card_enable: boolean;
         fund_request_physical_card_type_id?: number;
     }>(
-        fund.allow_physical_cards_on_application
-            ? {
-                  fund_request_physical_card_enable: fund.fund_request_physical_card_enable,
-                  fund_request_physical_card_type_id: fund.fund_request_physical_card_type_id,
-              }
-            : {
-                  fund_request_physical_card_enable: false,
-                  fund_request_physical_card_type_id: null,
-              },
+        {
+            fund_request_physical_card_enable: fund.fund_request_physical_card_enable,
+            fund_request_physical_card_type_id: fund.fund_request_physical_card_type_id,
+        },
         (values) => {
             setProgress(0);
 
@@ -96,7 +91,7 @@ export default function FundFormPhysicalCardsCard({
                                         propKey={'value'}
                                         className={'form-control'}
                                         value={form.values.fund_request_physical_card_enable}
-                                        disabled={!fund.allow_physical_cards_on_application}
+                                        disabled={!fund.allow_physical_cards}
                                         options={options}
                                         onChange={(fund_request_physical_card_enable: boolean) => {
                                             form.update({ fund_request_physical_card_enable });

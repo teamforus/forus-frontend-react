@@ -30,8 +30,8 @@ export default function ModalAddPhysicalCard({
     organization: Organization;
 }) {
     const translate = useTranslate();
-    const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
+    const pushApiError = usePushApiError();
 
     const physicalCardService = usePhysicalCardService();
 
@@ -44,7 +44,7 @@ export default function ModalAddPhysicalCard({
     }>(
         {
             code: '',
-            physical_card_type_id: voucher?.fund?.physical_card_types?.[0].id ?? null,
+            physical_card_type_id: voucher?.fund?.fund_physical_card_types?.[0].id ?? null,
         },
         (values) => {
             setProgress(0);
@@ -73,10 +73,10 @@ export default function ModalAddPhysicalCard({
     const { update: formUpdate } = form;
 
     const physicalCardType = useMemo(() => {
-        return voucher?.fund?.physical_card_types?.find((type) => {
+        return voucher?.fund?.fund_physical_card_types?.find((type) => {
             return type.id === form.values.physical_card_type_id;
-        });
-    }, [form.values.physical_card_type_id, voucher?.fund?.physical_card_types]);
+        })?.physical_card_type;
+    }, [form.values.physical_card_type_id, voucher?.fund?.fund_physical_card_types]);
 
     useEffect(() => {
         formUpdate({ code: physicalCardType?.code_prefix });
@@ -116,7 +116,7 @@ export default function ModalAddPhysicalCard({
                                         propKey={'id'}
                                         className={'form-control'}
                                         value={form.values.physical_card_type_id}
-                                        options={voucher?.fund?.physical_card_types ?? []}
+                                        options={voucher?.fund?.fund_physical_card_types ?? []}
                                         onChange={(physical_card_type_id?: number) => {
                                             form.update({ physical_card_type_id });
                                         }}

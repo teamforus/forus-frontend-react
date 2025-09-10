@@ -235,4 +235,16 @@ export default {
         },
         tooltips: {},
     },
+    fund_physical_card_types: {
+        labels: {
+            id: 'ID',
+            name: 'Naam',
+            cards_count: 'Aantal passen',
+            funds_count: 'Aantal fondsen',
+            allow_physical_card_linking: 'Koppelen fysieke pas',
+            allow_physical_card_requests: 'Aanvragen fysieke pas',
+            allow_physical_card_deactivation: 'Deactiveren fysieke pas',
+        },
+        tooltips: {},
+    },
 };

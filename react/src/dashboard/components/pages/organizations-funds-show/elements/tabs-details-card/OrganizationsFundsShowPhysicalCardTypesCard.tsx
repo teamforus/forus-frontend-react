@@ -6,10 +6,8 @@ import KeyValueList from '../../../../elements/key-value/KeyValueList';
 import useOpenModal from '../../../../../hooks/useOpenModal';
 import ModalFundEditPhysicalCardSettings from '../../../../modals/ModalFundEditPhysicalCardSettings';
 import Organization from '../../../../../props/models/Organization';
-import PhysicalCardTypesTable from '../../../physical-cards/elements/PhysicalCardTypesTable';
-import { useAssignPhysicalCardTypeToFund } from '../../hooks/useAssignPhysicalCardTypeToFund';
-import classNames from 'classnames';
-import { useRemovePhysicalCardTypeFromFund } from '../../hooks/useRemovePhysicalCardTypeFromFund';
+import StateNavLink from '../../../../../modules/state_router/StateNavLink';
+import FundPhysicalCardTypesTable from './tables/FundPhysicalCardTypesTable';
 
 export default function OrganizationsFundsShowPhysicalCardTypesCard({
     fund,
@@ -21,8 +19,6 @@ export default function OrganizationsFundsShowPhysicalCardTypesCard({
     organization: Organization;
 }) {
     const openModal = useOpenModal();
-    const assignPhysicalCardTypeToFund = useAssignPhysicalCardTypeToFund();
-    const removePhysicalCardTypeFromFund = useRemovePhysicalCardTypeFromFund();
 
     const edit = useCallback(() => {
         openModal((modal) => <ModalFundEditPhysicalCardSettings modal={modal} fund={fund} setFund={setFund} />);
@@ -37,68 +33,35 @@ export default function OrganizationsFundsShowPhysicalCardTypesCard({
                             <KeyValueItem label={'Enable physical cards'}>
                                 {fund.allow_physical_cards ? 'Ja' : 'Nee'}
                             </KeyValueItem>
-                            {fund.allow_physical_cards && (
-                                <Fragment>
-                                    <KeyValueItem label={'Allow request physical cards'}>
-                                        {fund.allow_physical_card_requests ? 'Ja' : 'Nee'}
-                                    </KeyValueItem>
-                                    <KeyValueItem label={'Allow link physical card'}>
-                                        {fund.allow_physical_card_linking ? 'Ja' : 'Nee'}
-                                    </KeyValueItem>
-                                    <KeyValueItem label={'Allow deactivate physical physical card'}>
-                                        {fund.allow_physical_card_deactivation ? 'Ja' : 'Nee'}
-                                    </KeyValueItem>
-                                    <KeyValueItem label={'Allow request on application'}>
-                                        {fund.allow_physical_cards_on_application ? 'Ja' : 'Nee'}
-                                    </KeyValueItem>
-                                </Fragment>
-                            )}
                         </KeyValueList>
                     </FormPane>
 
-                    <button className="button button-default" onClick={edit}>
-                        <em className="mdi mdi-cog-outline" />
-                        Manage physical card settings
-                    </button>
+                    <div className="button-group">
+                        <button className="button button-default" onClick={edit}>
+                            <em className="mdi mdi-pencil-outline" />
+                            Manage physical card settings
+                        </button>
+                        {fund.allow_physical_cards && (
+                            <StateNavLink
+                                className="button button-text"
+                                name={'fund-form'}
+                                params={{
+                                    organizationId: fund.organization_id,
+                                    id: fund.fund_form_id,
+                                }}
+                                query={{
+                                    view: 'physical_cards',
+                                }}>
+                                Manage physical cards on fund application
+                            </StateNavLink>
+                        )}
+                    </div>
                 </div>
             </div>
 
             {fund.allow_physical_cards && (
                 <div className="card-section card-section-primary card-section-sm">
-                    <PhysicalCardTypesTable
-                        tab={'physical_card_types'}
-                        tabs={[]}
-                        funds={null}
-                        setTab={() => null}
-                        organization={organization}
-                        filterUseQueryParams={false}
-                        fundId={fund.id}
-                        cardButtons={({ physicalCardTypes, fetchPhysicalCardTypes }) => (
-                            <button
-                                onClick={() =>
-                                    assignPhysicalCardTypeToFund(
-                                        fund,
-                                        physicalCardTypes.data.map((type) => type.id),
-                                        fetchPhysicalCardTypes,
-                                    )
-                                }
-                                className="button button-primary button-sm">
-                                <em className="mdi mdi-plus-circle icon-start" />
-                                Assign card type
-                            </button>
-                        )}
-                        actionButtons={({ fetchPhysicalCardTypes, physicalCardType, closeMenu }) => (
-                            <div
-                                className={classNames('dropdown-item')}
-                                onClick={() => {
-                                    closeMenu();
-                                    removePhysicalCardTypeFromFund(fund, physicalCardType, fetchPhysicalCardTypes);
-                                }}>
-                                <em className="mdi mdi-close icon-start icon-start" />
-                                Verwijderen
-                            </div>
-                        )}
-                    />
+                    <FundPhysicalCardTypesTable fund={fund} organization={organization} />
                 </div>
             )}
         </Fragment>

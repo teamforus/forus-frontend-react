@@ -134,6 +134,7 @@ export default function PhysicalCardTypesShow() {
                 funds={funds}
                 setTab={() => null}
                 organization={activeOrganization}
+                physicalCardType={physicalCardType}
             />
 
             <PhysicalCardTypeFundsTable physicalCardType={physicalCardType} />

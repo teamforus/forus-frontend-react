@@ -53,6 +53,27 @@ export class FundService<T = Fund> {
         return this.apiRequest.patch(`${this.prefix}/${company_id}/funds/${fund_id}`, data);
     }
 
+    public enablePhysicalCardType(
+        company_id: number,
+        fund_id: number,
+        data: Partial<{
+            physical_card_type_id: number;
+            allow_physical_card_linking: boolean;
+            allow_physical_card_requests: boolean;
+            allow_physical_card_deactivation: boolean;
+        }> = {},
+    ): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(`${this.prefix}/${company_id}/funds/${fund_id}/enable-physical-card-type`, data);
+    }
+
+    public disablePhysicalCardType(
+        company_id: number,
+        fund_id: number,
+        data: Partial<{ physical_card_type_id: number }> = {},
+    ): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(`${this.prefix}/${company_id}/funds/${fund_id}/disable-physical-card-type`, data);
+    }
+
     public store(company_id: number, data: object = {}): Promise<null> {
         return this.apiRequest.post(`${this.prefix}/${company_id}/funds`, data);
     }

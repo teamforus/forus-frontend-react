@@ -12,8 +12,8 @@ export default function useUnlinkVoucherPhysicalCard() {
 
     return useCallback(
         (voucher: Voucher, fetchVoucher: () => void, setVoucher: React.Dispatch<React.SetStateAction<Voucher>>) => {
-            const cardType = voucher?.fund?.physical_card_types?.find(
-                (type) => type.id === voucher.physical_card?.physical_card_type_id,
+            const cardType = voucher?.fund?.fund_physical_card_types?.find(
+                (type) => type.physical_card_type_id === voucher.physical_card?.physical_card_type_id,
             );
 
             openModal((modal) => (

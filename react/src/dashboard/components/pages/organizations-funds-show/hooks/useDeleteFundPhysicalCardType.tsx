@@ -2,46 +2,47 @@ import { useCallback } from 'react';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import React from 'react';
 import Fund from '../../../../props/models/Fund';
-import PhysicalCardType from '../../../../props/models/PhysicalCardType';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
-import { useFundService } from '../../../../services/FundService';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import FundPhysicalCardType from '../../../../props/models/FundPhysicalCardType';
+import { useFundPhysicalCardTypeService } from '../../../../services/FundPhysicalCardTypeService';
 
-export const useRemovePhysicalCardTypeFromFund = () => {
+export const useDeleteFundPhysicalCardType = () => {
     const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
-    const fundService = useFundService();
+    const fundPhysicalCardTypeService = useFundPhysicalCardTypeService();
 
     return useCallback(
-        (fund: Fund, physicalCardType: PhysicalCardType, onDone?: () => void) => {
+        (fund: Fund, fundPhysicalCardType: FundPhysicalCardType, onDone?: () => void) => {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
                     title={'Verwijderen'}
                     description={'Weet u zeker dat u deze type van de fysieke kaart wilt verwijderen?'}
                     buttonSubmit={{
-                        onClick: () => {
+                        onClick: (_, setDisabledByClick) => {
                             setProgress(0);
 
-                            fundService
-                                .update(fund.organization_id, fund.id, {
-                                    disable_physical_card_types: [physicalCardType.id],
-                                })
+                            fundPhysicalCardTypeService
+                                .delete(fund.organization_id, fundPhysicalCardType.id)
                                 .then(() => {
                                     modal.close();
                                     onDone?.();
                                 })
                                 .catch(pushApiError)
-                                .finally(() => setProgress(100));
+                                .finally(() => {
+                                    setProgress(100);
+                                    setDisabledByClick(false);
+                                });
                         },
                     }}
                     buttonCancel={{ onClick: modal.close }}
                 />
             ));
         },
-        [fundService, openModal, pushApiError, setProgress],
+        [fundPhysicalCardTypeService, openModal, pushApiError, setProgress],
     );
 };

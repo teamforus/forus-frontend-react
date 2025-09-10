@@ -18,9 +18,9 @@ export default function ModalFundEditPhysicalCardSettings({
     setFund,
     className,
 }: {
+    fund: Fund;
     modal: ModalState;
     className?: string;
-    fund: Fund;
     setFund: React.Dispatch<React.SetStateAction<Fund>>;
 }) {
     const setProgress = useSetProgress();
@@ -36,17 +36,9 @@ export default function ModalFundEditPhysicalCardSettings({
 
     const form = useFormBuilder<{
         allow_physical_cards: boolean;
-        allow_physical_card_requests: boolean;
-        allow_physical_card_linking: boolean;
-        allow_physical_card_deactivation: boolean;
-        allow_physical_cards_on_application: boolean;
     }>(
         {
             allow_physical_cards: fund.allow_physical_cards,
-            allow_physical_card_requests: fund.allow_physical_card_requests,
-            allow_physical_card_linking: fund.allow_physical_card_linking,
-            allow_physical_card_deactivation: fund.allow_physical_card_deactivation,
-            allow_physical_cards_on_application: fund.allow_physical_cards_on_application,
         },
         (values) => {
             setProgress(0);
@@ -105,90 +97,7 @@ export default function ModalFundEditPhysicalCardSettings({
                             />
                         )}
                     />
-                    {form.values.allow_physical_cards && (
-                        <FormPane title={'Physical cards'}>
-                            <div className="row">
-                                <div className="col col-xs-12 col-sm-6">
-                                    <FormGroup
-                                        label={'Allow request physical cards'}
-                                        error={form.errors?.allow_physical_card_requests}
-                                        info={'lorem ipsum'}
-                                        input={(id) => (
-                                            <SelectControl
-                                                id={id}
-                                                propKey={'value'}
-                                                className={'form-control'}
-                                                value={form.values.allow_physical_card_requests}
-                                                options={options}
-                                                onChange={(allow_physical_card_requests: boolean) => {
-                                                    form.update({ allow_physical_card_requests });
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                                <div className="col col-xs-12 col-sm-6">
-                                    <FormGroup
-                                        label={'Allow link physical card'}
-                                        error={form.errors?.allow_physical_card_linking}
-                                        info={'lorem ipsum'}
-                                        input={(id) => (
-                                            <SelectControl
-                                                id={id}
-                                                propKey={'value'}
-                                                className={'form-control'}
-                                                value={form.values.allow_physical_card_linking}
-                                                options={options}
-                                                onChange={(allow_physical_card_linking: boolean) => {
-                                                    form.update({ allow_physical_card_linking });
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col col-xs-12 col-sm-6">
-                                    <FormGroup
-                                        label={'Allow deactivate physical physical card'}
-                                        error={form.errors?.allow_physical_card_deactivation}
-                                        info={'lorem ipsum'}
-                                        input={(id) => (
-                                            <SelectControl
-                                                id={id}
-                                                propKey={'value'}
-                                                className={'form-control'}
-                                                value={form.values.allow_physical_card_deactivation}
-                                                options={options}
-                                                onChange={(allow_physical_card_deactivation: boolean) => {
-                                                    form.update({ allow_physical_card_deactivation });
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                                <div className="col col-xs-12 col-sm-6">
-                                    <FormGroup
-                                        label={'Allow fund application physical cards'}
-                                        error={form.errors?.allow_physical_cards_on_application}
-                                        info={'lorem ipsum'}
-                                        input={(id) => (
-                                            <SelectControl
-                                                id={id}
-                                                propKey={'value'}
-                                                className={'form-control'}
-                                                value={form.values.allow_physical_cards_on_application}
-                                                options={options}
-                                                onChange={(allow_physical_cards_on_application: boolean) => {
-                                                    form.update({ allow_physical_cards_on_application });
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                            </div>
-                        </FormPane>
-                    )}
+                    {form.values.allow_physical_cards && <Fragment></Fragment>}
                 </FormPane>
             </div>
         </Modal>

@@ -3115,7 +3115,8 @@
                     "winterswijk": {
                         "funds": "Activer"
                     },
-                    "profile": "Données"
+                    "profile": "Données",
+                    "physical_cards": "Passe physique"
                 },
                 "groningen": {
                     "voucher": "Ma carte de ville"

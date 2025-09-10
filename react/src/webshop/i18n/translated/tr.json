@@ -651,7 +651,8 @@
                     "winterswijk": {
                         "funds": "Etkinleştir"
                     },
-                    "profile": "Veri"
+                    "profile": "Veri",
+                    "physical_cards": "Fiziksel geçiş"
                 },
                 "groningen": {
                     "voucher": "Şehir Kartım"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
 import useVoucherData from '../../../../services/helpers/useVoucherData';
@@ -25,6 +25,16 @@ export default function VoucherPhysicalCards({
     const linkVoucherPhysicalCard = useLinkVoucherPhysicalCard();
     const unlinkVoucherPhysicalCard = useUnlinkVoucherPhysicalCard();
 
+    const fundPhysicalCardTypes = useMemo(() => {
+        return voucher?.fund?.fund_physical_card_types;
+    }, [voucher.fund.fund_physical_card_types]);
+
+    const fundPhysicalCardType = useMemo(() => {
+        return fundPhysicalCardTypes.find(
+            (type) => type.physical_card_type_id === voucher?.physical_card?.physical_card_type_id,
+        );
+    }, [voucher, fundPhysicalCardTypes]);
+
     if (!showPhysicalCardsOption) {
         return null;
     }
@@ -35,7 +45,7 @@ export default function VoucherPhysicalCards({
                 <div className="block-card-logo">
                     <img
                         src={
-                            voucherCard?.physical_card?.photo?.sizes?.thumbnail ||
+                            voucher?.physical_card?.photo?.sizes?.thumbnail ||
                             assetUrl('/assets/img/placeholders/physical-card-type.svg')
                         }
                         alt={translate('voucher.physical_card.alt', {
@@ -48,7 +58,7 @@ export default function VoucherPhysicalCards({
                         {translate('voucher.physical_card.card_number')}: {voucher.physical_card.code_locale}
                     </div>
                 </div>
-                {voucher.fund.allow_physical_card_deactivation && (
+                {fundPhysicalCardType.allow_physical_card_deactivation && (
                     <div className="block-card-actions">
                         <div
                             className="button button-primary-outline"
@@ -61,12 +71,13 @@ export default function VoucherPhysicalCards({
         );
     }
 
-    return voucher?.fund?.physical_card_types?.map((typeCard) => (
+    return voucher?.fund?.fund_physical_card_types?.map((typeCard) => (
         <div className="block block-action-card" key={typeCard.id}>
             <div className="block-card-logo">
                 <img
                     src={
-                        typeCard?.photo?.sizes?.thumbnail || assetUrl('/assets/img/placeholders/physical-card-type.svg')
+                        typeCard?.physical_card_type?.photo?.sizes?.thumbnail ||
+                        assetUrl('/assets/img/placeholders/physical-card-type.svg')
                     }
                     alt={`Fysieke pas: '${voucherCard.title}'`}
                 />
@@ -74,14 +85,16 @@ export default function VoucherPhysicalCards({
             <div className="block-card-details">
                 <h3 className="block-card-title">{translate('voucher.physical_card.title')}</h3>
             </div>
-            {voucher.fund.allow_physical_card_linking && (
+            {typeCard.allow_physical_card_linking && (
                 <div className="block-card-actions">
                     <div
                         role="button"
                         tabIndex={0}
                         onKeyDown={clickOnKeyEnter}
                         className="button button-primary"
-                        onClick={() => linkVoucherPhysicalCard(voucher, typeCard, 'card_code', fetchVoucher)}>
+                        onClick={() => {
+                            linkVoucherPhysicalCard(voucher, typeCard, 'card_code', fetchVoucher);
+                        }}>
                         {translate('voucher.physical_card.buttons.reactivate')}
                     </div>
                 </div>

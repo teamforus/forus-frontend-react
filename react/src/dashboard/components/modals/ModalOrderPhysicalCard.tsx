@@ -45,7 +45,7 @@ export default function ModalOrderPhysicalCard({
             house_addition: '',
             postcode: '',
             city: '',
-            physical_card_type_id: voucher?.fund?.physical_card_types?.[0]?.id,
+            physical_card_type_id: voucher?.fund?.fund_physical_card_types?.[0]?.id,
         },
         async (values) => {
             setProgress(0);
@@ -126,7 +126,7 @@ export default function ModalOrderPhysicalCard({
                                         propKey={'id'}
                                         className={'form-control'}
                                         value={form.values.physical_card_type_id}
-                                        options={voucher?.fund?.physical_card_types ?? []}
+                                        options={voucher?.fund?.fund_physical_card_types ?? []}
                                         onChange={(physical_card_type_id?: number) => {
                                             form.update({ physical_card_type_id });
                                         }}

@@ -651,7 +651,8 @@
                     "winterswijk": {
                         "funds": "تفعيل"
                     },
-                    "profile": "البيانات"
+                    "profile": "البيانات",
+                    "physical_cards": "البطاقة البدنية"
                 },
                 "groningen": {
                     "voucher": "بطاقة مدينتي"

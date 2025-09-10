@@ -3115,7 +3115,8 @@
                     "winterswijk": {
                         "funds": "Aktivieren Sie"
                     },
-                    "profile": "Daten"
+                    "profile": "Daten",
+                    "physical_cards": "Körperlicher Pass"
                 },
                 "groningen": {
                     "voucher": "Meine Stadtkarte"

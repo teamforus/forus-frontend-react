@@ -4,13 +4,11 @@ import PhysicalCardsTable from './elements/PhysicalCardsTable';
 import { BooleanParam, useQueryParam, withDefault } from 'use-query-params';
 import PhysicalCardTypesTable from './elements/PhysicalCardTypesTable';
 import useVoucherTableOptions from '../vouchers/hooks/useVoucherTableOptions';
-import { useEditPhysicalCardType } from './hooks/useEditPhysicalCardType';
 
 export default function PhysicalCards() {
     const activeOrganization = useActiveOrganization();
 
     const { funds } = useVoucherTableOptions(activeOrganization);
-    const editPhysicalCardType = useEditPhysicalCardType();
 
     const [showTypes, setShowTypes] = useQueryParam('type', withDefault(BooleanParam, false), {
         removeDefaultsFromUrl: true,
@@ -40,14 +38,6 @@ export default function PhysicalCards() {
             tabs={tabs}
             funds={funds}
             setTab={(type) => setShowTypes(type === 'physical_card_types')}
-            cardButtons={({ fetchPhysicalCardTypes }) => (
-                <button
-                    onClick={() => editPhysicalCardType(activeOrganization, null, fetchPhysicalCardTypes)}
-                    className="button button-primary button-sm">
-                    <em className="mdi mdi-plus-circle icon-start" />
-                    Aanmaken
-                </button>
-            )}
         />
     );
 }

@@ -3115,7 +3115,8 @@
                     "winterswijk": {
                         "funds": "Активувати"
                     },
-                    "profile": "Дані"
+                    "profile": "Дані",
+                    "physical_cards": "Фізична перепустка"
                 },
                 "groningen": {
                     "voucher": "Моя міська картка"

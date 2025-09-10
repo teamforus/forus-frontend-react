@@ -1,5 +1,5 @@
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import useSendVoucherEmail from '../hooks/useSendVoucherEmail';
 import useOpenVoucherInMeModal from '../hooks/useOpenVoucherInMeModal';
 import usePrintVoucherQrCodeModal from '../hooks/usePrintVoucherQrCodeModal';
@@ -28,7 +28,6 @@ export default function VoucherActions({
 }) {
     const envData = useEnvData();
     const voucherCard = useVoucherData(voucher);
-    const showPhysicalCardsOption = useShowPhysicalCardsOption(voucher);
 
     const translate = useTranslate();
     const openModal = useOpenModal();
@@ -41,6 +40,42 @@ export default function VoucherActions({
     const printVoucherQrCodeModal = usePrintVoucherQrCodeModal();
     const linkVoucherPhysicalCard = useLinkVoucherPhysicalCard();
     const unlinkVoucherPhysicalCard = useUnlinkVoucherPhysicalCard();
+
+    const showPhysicalCardsOption = useShowPhysicalCardsOption(voucher);
+
+    const fundPhysicalCardTypes = useMemo(() => {
+        return voucher?.fund?.fund_physical_card_types;
+    }, [voucher.fund.fund_physical_card_types]);
+
+    const fundPhysicalCardType = useMemo(() => {
+        return fundPhysicalCardTypes.find(
+            (type) => type.physical_card_type_id === voucher?.physical_card?.physical_card_type_id,
+        );
+    }, [voucher, fundPhysicalCardTypes]);
+
+    const showPhysicalCardLink = useMemo(() => {
+        return (
+            showPhysicalCardsOption &&
+            !voucher?.physical_card &&
+            fundPhysicalCardTypes?.length === 1 &&
+            fundPhysicalCardTypes?.[0]?.allow_physical_card_linking
+        );
+    }, [voucher, fundPhysicalCardTypes, showPhysicalCardsOption]);
+
+    const showPhysicalCardRequest = useMemo(() => {
+        return (
+            showPhysicalCardsOption &&
+            !voucher?.physical_card &&
+            fundPhysicalCardTypes?.length === 1 &&
+            fundPhysicalCardTypes?.[0]?.allow_physical_card_requests
+        );
+    }, [voucher, fundPhysicalCardTypes, showPhysicalCardsOption]);
+
+    const showPhysicalCardUnlink = useMemo(() => {
+        return (
+            showPhysicalCardsOption && voucher.physical_card && fundPhysicalCardType?.allow_physical_card_deactivation
+        );
+    }, [voucher, fundPhysicalCardType, showPhysicalCardsOption]);
 
     const shareVoucher = useCallback(
         (voucher: Voucher) => {
@@ -132,36 +167,7 @@ export default function VoucherActions({
                 </div>
             )}
 
-            {voucher.fund.allow_physical_cards &&
-                voucher.fund.allow_physical_card_requests &&
-                voucher?.fund?.physical_card_types?.length === 1 &&
-                voucher.type === 'regular' &&
-                !voucher.physical_card && (
-                    <div className="action-col">
-                        <div
-                            role={'button'}
-                            tabIndex={0}
-                            onKeyDown={clickOnKeyEnter}
-                            className="action-item"
-                            onClick={() =>
-                                linkVoucherPhysicalCard(
-                                    voucher,
-                                    voucher?.fund?.physical_card_types[0],
-                                    'card_code',
-                                    fetchVoucher,
-                                )
-                            }>
-                            <div className="action-item-icon">
-                                <em className="mdi mdi-card-bulleted-outline" />
-                            </div>
-                            <div className="action-item-name">
-                                {translate('modal_physical_card.modal_section.type_selection.card_new.title')}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-            {showPhysicalCardsOption && voucher?.fund?.physical_card_types?.length === 1 && (
+            {showPhysicalCardRequest && (
                 <div className="action-col">
                     <div
                         role={'button'}
@@ -171,7 +177,32 @@ export default function VoucherActions({
                         onClick={() =>
                             linkVoucherPhysicalCard(
                                 voucher,
-                                voucher?.fund?.physical_card_types[0],
+                                voucher?.fund?.fund_physical_card_types?.[0],
+                                'select_type',
+                                fetchVoucher,
+                            )
+                        }>
+                        <div className="action-item-icon">
+                            <em className="mdi mdi-card-bulleted-outline" />
+                        </div>
+                        <div className="action-item-name">
+                            {translate('modal_physical_card.modal_section.type_selection.card_new.title')}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showPhysicalCardLink && (
+                <div className="action-col">
+                    <div
+                        role={'button'}
+                        tabIndex={0}
+                        onKeyDown={clickOnKeyEnter}
+                        className="action-item"
+                        onClick={() =>
+                            linkVoucherPhysicalCard(
+                                voucher,
+                                voucher?.fund?.fund_physical_card_types?.[0],
                                 'card_code',
                                 fetchVoucher,
                             )
@@ -184,7 +215,7 @@ export default function VoucherActions({
                 </div>
             )}
 
-            {voucher.physical_card && voucher.fund.allow_physical_card_deactivation && (
+            {showPhysicalCardUnlink && (
                 <div className="action-col">
                     <div
                         role={'button'}
