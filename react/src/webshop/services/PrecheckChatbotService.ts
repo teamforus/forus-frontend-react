@@ -27,7 +27,6 @@ export class PrecheckChatbotService<T = unknown> {
             `${this.prefix}/sessions`,
         );
         sessionStorage.setItem('session_id', resp.data.session_id);
-        sessionStorage.setItem('session_token', resp.data.session_token);
     }
 
     // starts the chat
@@ -40,7 +39,6 @@ export class PrecheckChatbotService<T = unknown> {
         forceRestart = false,
     ): { stop: () => void } {
         const sessionId = sessionStorage.getItem('session_id');
-        const sessionToken = sessionStorage.getItem('session_token');
 
         if (currentStream && forceRestart) {
             currentStream.close();
@@ -55,7 +53,7 @@ export class PrecheckChatbotService<T = unknown> {
             };
         }
 
-        const stream = this.eventStream.open(`${this.prefix}/sessions/${sessionId}/events?token=${sessionToken}`, true);
+        const stream = this.eventStream.open(`${this.prefix}/sessions/${sessionId}/events`, false);
 
         currentStream = stream;
 
@@ -165,13 +163,12 @@ export class PrecheckChatbotService<T = unknown> {
     // Simulates sending user input to the backend and returns a conditional bot response
     public async send(userInput: string | boolean | number | object): Promise<void> {
         const sessionId = sessionStorage.getItem('session_id');
-        const sessionToken = sessionStorage.getItem('session_token');
         const key = crypto?.randomUUID?.() ?? String(Date.now()) + Math.random();
         try {
             await this.apiRequest.post<ResponseSimple<{ status?: string }>>(
                 `${this.prefix}/sessions/${sessionId}/messages`,
                 { response: userInput },
-                { headers: { 'Idempotency-Key': key, Authorization: `Bearer ${sessionToken}` } },
+                { headers: { 'Idempotency-Key': key } },
             );
         } catch (e) {
             const status = e?.response?.status ?? e?.status;
@@ -183,34 +180,25 @@ export class PrecheckChatbotService<T = unknown> {
 
     public async end(): Promise<void> {
         const sessionId = sessionStorage.getItem('session_id');
-        const sessionToken = sessionStorage.getItem('session_token');
-        await this.apiRequest.delete(
-            `${this.prefix}/sessions/${sessionId}`,
-            {},
-            { headers: { Authorization: `Bearer ${sessionToken}` } },
-        );
+        await this.apiRequest.delete(`${this.prefix}/sessions/${sessionId}`, {});
     }
 
     public async history(): Promise<Message[]> {
         const sessionId = sessionStorage.getItem('session_id');
-        const sessionToken = sessionStorage.getItem('session_token');
 
         const resp = await this.apiRequest.get<ResponseSimple<{ messages: Message[] }>>(
             `${this.prefix}/sessions/${sessionId}/messages`,
             {},
-            { headers: { Authorization: `Bearer ${sessionToken}` } },
         );
         return resp.data?.messages ?? [];
     }
 
     public async advice(): Promise<Advice[]> {
         const sessionId = sessionStorage.getItem('session_id');
-        const sessionToken = sessionStorage.getItem('session_token');
 
         const resp = await this.apiRequest.get<ResponseSimple<{ advice: Advice[] }>>(
             `${this.prefix}/sessions/${sessionId}/advice`,
             {},
-            { headers: { Authorization: `Bearer ${sessionToken}` } },
         );
         return resp.data?.advice ?? [];
     }
