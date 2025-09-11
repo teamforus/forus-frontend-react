@@ -58,7 +58,7 @@ export default function ProvidersShow() {
         setProgress(0);
 
         productService
-            .list({ per_page: 3, organization_id: provider?.id })
+            .list({ per_page: 6, organization_id: provider?.id })
             .then((res) => setProducts(res.data))
             .catch((err: ErrorResponse) => pushDanger(translate('push.error'), err.data.message))
             .finally(() => setProgress(100));
