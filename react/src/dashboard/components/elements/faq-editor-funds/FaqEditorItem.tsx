@@ -41,18 +41,35 @@ export default function FaqEditorItem({
             <div className="question-header">
                 <em className="mdi mdi-dots-vertical question-drag" {...attributes} {...listeners}></em>
 
-                <div
-                    className={`question-icon ${
-                        isCollapsed && (!faqItem.title || !faqItem.description) ? 'text-danger' : ''
-                    }`}>
-                    <em className="mdi mdi-frequently-asked-questions" />
-                </div>
+                {faqItem.type === 'question' ? (
+                    <div
+                        className={`question-icon ${
+                            isCollapsed && (!faqItem.title || !faqItem.description) ? 'text-danger' : ''
+                        }`}>
+                        <em className="mdi mdi-frequently-asked-questions" />
+                    </div>
+                ) : (
+                    <div
+                        className={`question-icon ${
+                            isCollapsed && (!faqItem.title || !faqItem.subtitle) ? 'text-danger' : ''
+                        }`}>
+                        <em className="mdi mdi-format-title" />
+                    </div>
+                )}
 
                 <div className="question-title">
                     {!isCollapsed ? (
-                        <span>{!faqItem.id ? 'Nieuwe vraag' : 'Vraag aanpassen'}</span>
+                        <span>
+                            {!faqItem.id
+                                ? faqItem.type === 'question'
+                                    ? 'Nieuwe vraag'
+                                    : 'Nieuwe titel'
+                                : faqItem.type === 'question'
+                                  ? 'Vraag aanpassen'
+                                  : 'Titel aanpassen'}
+                        </span>
                     ) : (
-                        <span>{faqItem.title || 'Geen vraag'}</span>
+                        <span>{faqItem.title || (faqItem.type === 'question' ? 'Geen vraag' : 'Geen titel')}</span>
                     )}
                 </div>
 
@@ -96,17 +113,31 @@ export default function FaqEditorItem({
                             <FormError error={errors?.[`faq.${index}.title`]} />
                         </div>
 
-                        <div className="form-group">
-                            <label className="form-label form-label-required">Antwoord</label>
-                            <MarkdownEditor
-                                value={faqItem.description_html}
-                                onChange={(description) => onChange({ description: description })}
-                                extendedOptions={true}
-                                placeholder={translate('organization_edit.labels.description')}
-                            />
-                            <div className="form-hint">Max. 5000 tekens</div>
-                            <FormError error={errors?.[`faq.${index}.description`]} />
-                        </div>
+                        {faqItem.type === 'question' ? (
+                            <div className="form-group">
+                                <label className="form-label form-label-required">Antwoord</label>
+                                <MarkdownEditor
+                                    value={faqItem.description_html}
+                                    onChange={(description) => onChange({ description: description })}
+                                    extendedOptions={true}
+                                    placeholder={translate('organization_edit.labels.description')}
+                                />
+                                <div className="form-hint">Max. 5000 tekens</div>
+                                <FormError error={errors?.[`faq.${index}.description`]} />
+                            </div>
+                        ) : (
+                            <div className="form-group">
+                                <label className="form-label form-label-required">Subtitel</label>
+                                <textarea
+                                    className="r-n form-control"
+                                    placeholder="Subtitel"
+                                    value={faqItem.subtitle}
+                                    onChange={(e) => onChange({ subtitle: e.target.value })}
+                                />
+                                <div className="form-hint">Max. 500 tekens</div>
+                                <FormError error={errors?.[`faq.${index}.subtitle`]} />
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
