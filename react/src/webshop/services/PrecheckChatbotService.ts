@@ -23,10 +23,11 @@ export class PrecheckChatbotService<T = unknown> {
 
     // Initializes a new session
     public async start(): Promise<void> {
-        const resp = await this.apiRequest.post<ResponseSimple<{ session_id: string; session_token: string }>>(
+        const resp = await this.apiRequest.post<ResponseSimple<{ session_id: string; stream_token: string }>>(
             `${this.prefix}/sessions`,
         );
         sessionStorage.setItem('session_id', resp.data.session_id);
+        sessionStorage.setItem('session_token', resp.data.stream_token);
     }
 
     // starts the chat
@@ -39,6 +40,7 @@ export class PrecheckChatbotService<T = unknown> {
         forceRestart = false,
     ): { stop: () => void } {
         const sessionId = sessionStorage.getItem('session_id');
+        const sessionToken = sessionStorage.getItem('session_token');
 
         if (currentStream && forceRestart) {
             currentStream.close();
@@ -53,7 +55,10 @@ export class PrecheckChatbotService<T = unknown> {
             };
         }
 
-        const stream = this.eventStream.open(`${this.prefix}/sessions/${sessionId}/events`, false);
+        const stream = this.eventStream.open(
+            `${this.prefix}/sessions/${sessionId}/events?token=${sessionToken}`,
+            false,
+        );
 
         currentStream = stream;
 
