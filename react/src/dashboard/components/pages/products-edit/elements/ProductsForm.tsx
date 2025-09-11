@@ -939,7 +939,7 @@ export default function ProductsForm({
                                                     { value: false, label: 'Stel een verloopdatum in' },
                                                 ]}
                                                 value={nonExpiring}
-                                                onChange={(nonExpiring: boolean) => setNonExpiring(!nonExpiring)}
+                                                onChange={(value: boolean) => setNonExpiring(value)}
                                             />
                                         )}
                                     />
