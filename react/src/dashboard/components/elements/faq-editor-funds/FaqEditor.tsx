@@ -7,7 +7,15 @@ import {
 } from '@dnd-kit/sortable';
 import { uniq, uniqueId } from 'lodash';
 import { ResponseError, ResponseErrorData } from '../../../props/ApiResponses';
-import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+    closestCenter,
+    DndContext,
+    DragEndEvent,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core';
 import Faq from '../../../props/models/Faq';
 import FaqEditorItem from './FaqEditorItem';
 import { useFaqService } from '../../../services/FaqService';
@@ -53,13 +61,13 @@ export default function FaqEditor({
     );
 
     const handleDragEnd = useCallback(
-        (event) => {
+        (event: DragEndEvent) => {
             const { active, over } = event;
 
             if (active.id !== over.id) {
                 const items = faq.map((preCheck) => preCheck.uid);
-                const oldIndex = items.indexOf(active.id);
-                const newIndex = items.indexOf(over.id);
+                const oldIndex = items.indexOf(active.id.toString());
+                const newIndex = items.indexOf(over.id.toString());
 
                 setFaq(arrayMove(faq, oldIndex, newIndex));
             }
@@ -68,7 +76,7 @@ export default function FaqEditor({
     );
 
     const askConfirmation = useCallback(
-        (onConfirm): void => {
+        (onConfirm: () => void): void => {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
