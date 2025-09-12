@@ -137,6 +137,7 @@ export default {
         buttons: {
             save: 'Bevestigen',
             add_question: 'Vraag toevoegen',
+            add_title: 'Voeg titel toe',
         },
         item: {
             buttons: {

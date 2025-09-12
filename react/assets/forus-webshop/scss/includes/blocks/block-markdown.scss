@@ -239,5 +239,9 @@
             font: 500 1.3em var(--heading-font-family);
             margin-bottom: 1em;
         }
+
+        &.block-markdown-large {
+            padding-right: 0;
+        }
     }
 }
