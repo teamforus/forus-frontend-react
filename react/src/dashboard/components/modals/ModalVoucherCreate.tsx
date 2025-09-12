@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import Fund from '../../props/models/Fund';
@@ -52,6 +52,7 @@ export default function ModalVoucherCreate({
     const productService = useProductService();
 
     const [dateMinLimit] = useState(new Date());
+    const [expireAsFund, setExpireAsFund] = useState<boolean>(true);
     const [products, setProducts] = useState<Array<Partial<Product>>>(null);
     const [showRecordFields, setShowRecordFields] = useState<boolean>(false);
     const [showGeneralFields, setShowGeneralFields] = useState<boolean>(true);
@@ -344,6 +345,12 @@ export default function ModalVoucherCreate({
         }
     }, [fetchProducts, form.values.type]);
 
+    useEffect(() => {
+        if (expireAsFund) {
+            formUpdate({ expire_at: fund.end_date });
+        }
+    }, [formUpdate, fund, expireAsFund]);
+
     return (
         <div
             className={classNames(
@@ -572,21 +579,68 @@ export default function ModalVoucherCreate({
                                             <FormError error={form.errors?.client_uid} />
                                         </div>
 
-                                        <div className="form-group">
-                                            <div className="form-label">
-                                                {translate('modals.modal_voucher_create.labels.expire_at')}
+                                        <div className="row">
+                                            <div className="col col-xs-12 col-sm-6">
+                                                <FormGroup
+                                                    label={'Instelling voor geldigheid'}
+                                                    info={
+                                                        <Fragment>
+                                                            Kies of het tegoed een specifieke einddatum heeft of dat het
+                                                            tegoed een verloopdatum heeft die gelijk staat aan de
+                                                            einddatum van de regeling.
+                                                        </Fragment>
+                                                    }
+                                                    input={(id) => (
+                                                        <SelectControl
+                                                            id={id}
+                                                            propKey={'value'}
+                                                            propValue={'label'}
+                                                            options={[
+                                                                {
+                                                                    value: true,
+                                                                    label: 'Gebruik de standaard verloopdatum',
+                                                                },
+                                                                { value: false, label: 'Stel een verloopdatum in' },
+                                                            ]}
+                                                            value={expireAsFund}
+                                                            onChange={(value: boolean) => setExpireAsFund(value)}
+                                                        />
+                                                    )}
+                                                />
                                             </div>
-
-                                            <DatePickerControl
-                                                value={dateParse(form.values.expire_at)}
-                                                dateMin={dateMinLimit}
-                                                dateMax={dateParse(fund.end_date)}
-                                                placeholder={translate('dd-MM-yyyy')}
-                                                onChange={(expire_at: Date) => {
-                                                    form.update({ expire_at: dateFormat(expire_at) });
-                                                }}
-                                            />
-                                            <FormError error={form.errors?.expire_at} />
+                                            <div className="col col-xs-12 col-sm-6">
+                                                <FormGroup
+                                                    label={translate('modals.modal_voucher_create.labels.expire_at')}
+                                                    error={form.errors.expire_at}
+                                                    info={
+                                                        <Fragment>
+                                                            De laatste dag waarop het tegoed geldig is. Daarna verloopt
+                                                            het tegoed en kan deze niet meer worden gebruikt.
+                                                        </Fragment>
+                                                    }
+                                                    input={(id) =>
+                                                        expireAsFund ? (
+                                                            <input
+                                                                id={id}
+                                                                className="form-control"
+                                                                value={form.values.expire_at}
+                                                                disabled={true}
+                                                            />
+                                                        ) : (
+                                                            <DatePickerControl
+                                                                id={id}
+                                                                value={dateParse(form.values.expire_at)}
+                                                                dateMin={dateMinLimit}
+                                                                dateMax={dateParse(fund.end_date)}
+                                                                placeholder={translate('dd-MM-yyyy')}
+                                                                onChange={(expire_at: Date) => {
+                                                                    form.update({ expire_at: dateFormat(expire_at) });
+                                                                }}
+                                                            />
+                                                        )
+                                                    }
+                                                />
+                                            </div>
                                         </div>
 
                                         {fund?.show_requester_limits && (
