@@ -26,9 +26,12 @@ export class PrecheckChatbotService<T = unknown> {
         const resp = await this.apiRequest.post<ResponseSimple<{ session_id: string; stream_token: string }>>(
             `${this.prefix}/sessions`,
         );
+        const id = resp.headers['x-request-id'];
+        console.log(id);
         sessionStorage.setItem('session_id', resp.data.session_id);
         sessionStorage.setItem('session_token', resp.data.stream_token);
     }
+    //TODO: if stream fails or needs new token, fetch new token from laravel
 
     // starts the chat
     public stream(
