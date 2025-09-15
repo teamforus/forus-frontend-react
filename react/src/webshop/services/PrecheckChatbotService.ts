@@ -8,7 +8,7 @@ import type { BotResponse, Message } from '../props/types/PrecheckChatbotTypes';
 import type { Advice } from '../props/types/PrecheckAdviceTypes';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
 import { ResponseSimple } from '../../dashboard/props/ApiResponses';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import EventStreamService from './EventStreamService';
 
 let currentStream: EventSource | null = null;
@@ -20,6 +20,8 @@ export class PrecheckChatbotService<T = unknown> {
     ) {}
 
     public prefix = '/platform/pre-checks';
+    public attemptsRef = useRef(0);
+    public maxAttempts = 5;
 
     // Initializes a new session
     public async start(): Promise<void> {
@@ -63,6 +65,25 @@ export class PrecheckChatbotService<T = unknown> {
             false,
         );
 
+        stream.onopen = () => {
+            console.log('✅ SSE connected');
+            this.attemptsRef.current = 0; // reset attempts
+        };
+
+        let lastHeartbeat = Date.now();
+
+        const heartbeatInterval = setInterval(() => {
+            const diff = Date.now() - lastHeartbeat;
+            if (diff > 60000) {
+                console.warn('SSE idle >30s, close stream');
+                stream.close();
+                onClose();
+                currentStream = null;
+                clearInterval(heartbeatInterval);
+                onError?.({ status: 408 });
+            }
+        }, 10000);
+
         currentStream = stream;
 
         stream.addEventListener('typing', onTyping);
@@ -82,10 +103,14 @@ export class PrecheckChatbotService<T = unknown> {
         stream.addEventListener('paused', onWaiting);
 
         stream.onmessage = (event) => {
+            if (!event.data) {
+                lastHeartbeat = Date.now();
+            }
             try {
                 const data = JSON.parse(event.data);
                 if (data.question && data.step) {
                     onMessage({
+                        seq: data.seq,
                         text: data.question,
                         sender: 'Eva',
                         options: data.answer_options,
@@ -94,6 +119,7 @@ export class PrecheckChatbotService<T = unknown> {
                     });
                 } else if (data.question) {
                     onMessage({
+                        seq: data.seq,
                         text: data.question,
                         sender: 'Eva',
                         options: data.answer_options,
@@ -102,12 +128,14 @@ export class PrecheckChatbotService<T = unknown> {
                 }
                 if (data.advice && data.message) {
                     onMessage({
+                        seq: data.seq,
                         text: data.message,
                         step: 'advice',
                         sender: 'Eva',
                     });
                 } else if (data.message) {
                     onMessage({
+                        seq: data.seq,
                         text: data.message,
                         sender: 'Eva',
                     });
@@ -118,57 +146,43 @@ export class PrecheckChatbotService<T = unknown> {
         };
 
         stream.addEventListener('error', (event) => {
+            this.attemptsRef.current += 1;
+            console.warn(`SSE error (attempt ${this.attemptsRef.current})`);
+
+            if (this.attemptsRef.current > this.maxAttempts) {
+                console.error('Max reconnect attempts reached');
+                stream.close();
+                if (currentStream === stream) currentStream = null;
+                onClose();
+                return;
+            }
+
+            let text = 'Er ging iets mis. Probeer het later opnieuw of herstart de check.';
             try {
                 const raw = (event as MessageEvent).data;
                 const parsed = JSON.parse(raw);
-                onMessage({
-                    text:
-                        parsed.message ??
-                        raw ??
-                        'Er is een fout opgetreden, probeer het later opnieuw of herstart de check.',
-                    sender: 'Eva',
-                    error: true,
-                });
+                text = parsed.message ?? raw ?? text;
             } catch {
-                onMessage({
-                    text: 'Er is een fout opgetreden. Controleer je verbinding of probeer het later opnieuw.',
-                    sender: 'Eva',
-                    error: true,
-                });
+                // fallback tekst hierboven
+                console.log('Could not parse error');
             }
 
-            if (currentStream) {
-                currentStream.close();
-                onClose();
-                currentStream = null;
-            }
-            onError?.({ status: 500 });
-        });
-
-        stream.onerror = (err) => {
-            console.error('SSE stream error:', err);
             onMessage({
-                text: 'Er ging iets mis. Probeer het later opnieuw of herstart de check.',
+                text,
                 sender: 'Eva',
                 error: true,
             });
-            if (currentStream) {
-                currentStream.close();
-                onClose();
-                currentStream = null;
-            }
-            onError?.({ status: 204 });
-        };
+        });
 
         return {
             stop: () => {
                 stream.close();
+                clearInterval(heartbeatInterval);
                 if (currentStream === stream) currentStream = null;
             },
         };
     }
 
-    // Simulates sending user input to the backend and returns a conditional bot response
     public async send(userInput: string | boolean | number | object): Promise<void> {
         const sessionId = sessionStorage.getItem('session_id');
         const key = crypto?.randomUUID?.() ?? String(Date.now()) + Math.random();
@@ -184,7 +198,6 @@ export class PrecheckChatbotService<T = unknown> {
             throw e;
         }
     }
-    // if (resp.status === 202 && resp.data?.status === 'resume_required') return 'resume';
 
     public async end(): Promise<void> {
         const sessionId = sessionStorage.getItem('session_id');
