@@ -42,6 +42,7 @@ export type AnswerInputFieldProps = {
 };
 
 export interface BotResponse {
+    seq?: number;
     text: string;
     options?: AnswerOption[];
     inputType?: string;

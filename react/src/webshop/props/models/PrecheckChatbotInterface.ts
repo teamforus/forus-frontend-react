@@ -1,6 +1,7 @@
 import { AnswerOption, SlotSummaryItem } from '../types/PrecheckChatbotTypes';
 
 export default interface ApiMessage {
+    seq?: number;
     type: 'user' | 'ai';
     text: string;
     sender?: string;
