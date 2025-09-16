@@ -37,6 +37,7 @@ export function useChatHistory(
             })
             .catch(() => setMessages([error_message]))
             .finally(() => setLoadingHistory(false));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
     return { loadingHistory };
