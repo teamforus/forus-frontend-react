@@ -10,6 +10,7 @@ import ApiRequestService from '../../dashboard/services/ApiRequestService';
 import { ResponseSimple } from '../../dashboard/props/ApiResponses';
 import { useRef, useState } from 'react';
 import EventStreamService from './EventStreamService';
+import { ProblemJson } from '../hooks/useParseProblemJson';
 
 let currentStream: EventSource | null = null;
 
@@ -38,7 +39,6 @@ export class PrecheckChatbotService<T = unknown> {
             sessionStorage.setItem('session_token_exp', String(claims.exp));
         }
     }
-    //TODO: if stream fails or needs new token, fetch new token from laravel
 
     // starts the chat
     public async stream(
@@ -46,7 +46,7 @@ export class PrecheckChatbotService<T = unknown> {
         onWaiting: () => void,
         onTyping: () => void,
         onClose: () => void,
-        onError?: (err: { status: number }) => void,
+        onError?: (err: ProblemJson) => void,
         forceRestart = false,
         lastEventId: number = 0,
     ): Promise<{ stop: () => void }> {
@@ -157,31 +157,42 @@ export class PrecheckChatbotService<T = unknown> {
         };
 
         stream.addEventListener('error', (event) => {
+            let text = 'Er ging iets mis. Probeer het later opnieuw of herstart de check.';
+            onMessage({
+                text,
+                sender: 'Eva',
+                error: true,
+            });
+
             this.attemptsRef.current += 1;
             console.warn(`SSE error (attempt ${this.attemptsRef.current})`);
-
             if (this.attemptsRef.current > this.maxAttempts) {
                 console.error('Max reconnect attempts reached');
                 stream.close();
                 if (currentStream === stream) currentStream = null;
                 onClose();
+                onError?.({
+                    title: 'Verbinding verbroken',
+                    detail: 'Maximaal aantal pogingen om opnieuw te verbinden bereikt.',
+                    status: 500,
+                });
                 return;
             }
-
-            let text = 'Er ging iets mis. Probeer het later opnieuw of herstart de check.';
+            let status = 500;
             try {
                 const raw = (event as MessageEvent).data;
                 const parsed = JSON.parse(raw);
-                text = parsed.message ?? raw ?? text;
+                text = parsed.message ?? parsed.content ?? raw ?? text;
+                status = parsed.status ?? 500;
             } catch {
                 // fallback tekst hierboven
                 console.log('Could not parse error');
             }
 
-            onMessage({
-                text,
-                sender: 'Eva',
-                error: true,
+            onError?.({
+                title: 'Streamfout',
+                detail: text,
+                status: status,
             });
         });
 
