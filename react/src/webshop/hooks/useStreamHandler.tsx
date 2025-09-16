@@ -17,12 +17,11 @@ export function useStreamHandler(
 
     const startStream = useCallback(
         async (restart: boolean = false) => {
-            if (!restart && streamStarted.current) return;
-
             if (restart) {
                 stopStreamRef.current?.();
                 streamStarted.current = false;
             }
+            if (streamStarted.current) return;
 
             setIsLoadingStream(true);
 
@@ -37,10 +36,12 @@ export function useStreamHandler(
                 }
             }
 
-            const { stop } = precheckChatbotService.stream(
+            const { stop } = await precheckChatbotService.stream(
                 (response) => {
-                    console.log('Stream response: ', response);
-                    if (response.seq != null && response.seq === lastSeenSeqRef.current) return;
+                    if (!response.seq) return;
+
+                    if (response.seq <= lastSeenSeqRef.current) return;
+
                     lastSeenSeqRef.current = response.seq;
                     setIncomingQueue((prev) => [...prev, response]);
                     onResponse?.(response);
@@ -56,14 +57,22 @@ export function useStreamHandler(
                 },
                 (error) => {
                     const problem = parseProblemJson(error);
+                    if (problem.status === 401) {
+                        try {
+                            precheckChatbotService.refreshToken();
+                            console.log('Token refreshed after 401');
+                        } catch (e) {
+                            console.error('Token refresh failed', e);
+                        }
+                    }
                     onError?.(problem);
                     setIsLoadingStream(false);
                     streamStarted.current = true;
                     stopStreamRef.current?.();
                 },
                 restart,
+                lastSeenSeqRef.current ?? 0,
             );
-
             stopStreamRef.current = stop;
         },
         [], // eslint-disable-line react-hooks/exhaustive-deps

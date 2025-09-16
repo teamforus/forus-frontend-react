@@ -43,7 +43,7 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
     const { startStream, stopStream, isLoadingStream, isClosed, incomingQueue, setIncomingQueue, resetStream } =
         useStreamHandler(precheckChatbotService, lastSeenSeq, {
             onResponse: () => setIsThinking(false),
-            onWaiting: () => console.log('Waiting...'),
+            onWaiting: () => console.log('Waiting on user input...'),
             onTyping: () => setIsThinking(true),
             onClosed: () => console.log('Closed...'),
             onError: (problem: ProblemJson) => {
@@ -140,7 +140,11 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
         setHasInputType(false);
         setIsThinking(true);
         try {
-            await precheckChatbotService.send(message);
+            const res = await precheckChatbotService.send(message);
+            if (res === 'resume') {
+                console.log('Continue stream');
+                await startStream(true);
+            }
         } catch (e) {
             const problem = parseProblemJson(e);
             console.error('send failed: ', e);
