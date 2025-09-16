@@ -8,18 +8,40 @@ export type ProblemJson = {
 export function parseProblemJson(err: unknown): ProblemJson {
     if (!err) return { title: 'Onbekende fout', detail: '', status: 500 };
 
-    if (typeof err === 'object' && 'response' in err) {
-        const resp = (err as any).response;
-        if (resp?.data && typeof resp.data === 'object') {
+    if (typeof err === 'object') {
+        const e = err as any;
+
+        if ('title' in e && 'status' in e) {
             return {
-                type: resp.data.type,
-                title: resp.data.title,
-                detail: resp.data.detail,
-                status: resp.data.status ?? resp.status,
+                type: e.type,
+                title: e.title,
+                detail: e.detail ?? '',
+                status: e.status,
             };
         }
-        return { title: resp.statusText, detail: '', status: resp.status };
-    }
+        if ('response' in e) {
+            const resp = e.response;
 
-    return { title: 'Onbekende fout', detail: String(err), status: 500 };
+            if (resp?.data && typeof resp.data === 'object') {
+                return {
+                    type: resp.data.type,
+                    title: resp.data.title ?? 'Onbekende fout',
+                    detail: resp.data.detail ?? '',
+                    status: resp.data.status ?? resp.status,
+                };
+            }
+
+            return {
+                title: resp.statusText ?? 'Onbekende fout',
+                detail: '',
+                status: resp.status ?? 500,
+            };
+        }
+    }
+    // 👉 Fallback: toon err als string
+    return {
+        title: 'Onbekende fout',
+        detail: typeof err === 'string' ? err : JSON.stringify(err),
+        status: 500,
+    };
 }
