@@ -190,7 +190,7 @@ export class PrecheckChatbotService<T = unknown> {
         };
     }
 
-    public async send(userInput: string | boolean | number | object): Promise<void> {
+    public async send(userInput: string | boolean | number | object): Promise<'resume' | undefined> {
         const sessionId = sessionStorage.getItem('session_id');
         const key = crypto?.randomUUID?.() ?? String(Date.now()) + Math.random();
         try {
@@ -201,7 +201,10 @@ export class PrecheckChatbotService<T = unknown> {
             );
         } catch (e) {
             const status = e?.response?.status ?? e?.status;
-            if (status === 202) return;
+            const data = e?.response?.data ?? e?.data;
+            if (status === 202 && data?.status === 'resume_required') {
+                return 'resume';
+            }
             throw e;
         }
     }
