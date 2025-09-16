@@ -80,21 +80,6 @@ export class PrecheckChatbotService<T = unknown> {
             console.log('✅ SSE connected');
             this.attemptsRef.current = 0; // reset attempts
         };
-
-        let lastHeartbeat = Date.now();
-
-        const heartbeatInterval = setInterval(() => {
-            const diff = Date.now() - lastHeartbeat;
-            if (diff > 60000) {
-                console.warn('SSE idle >30s, close stream');
-                stream.close();
-                onClose();
-                currentStream = null;
-                clearInterval(heartbeatInterval);
-                onError?.({ status: 408 });
-            }
-        }, 10000);
-
         currentStream = stream;
 
         stream.addEventListener('typing', onTyping);
@@ -115,7 +100,8 @@ export class PrecheckChatbotService<T = unknown> {
 
         stream.onmessage = (event) => {
             if (!event.data) {
-                lastHeartbeat = Date.now();
+                console.debug('🔄 keep-alive');
+                return;
             }
             try {
                 const data = JSON.parse(event.data);
@@ -199,7 +185,6 @@ export class PrecheckChatbotService<T = unknown> {
         return {
             stop: () => {
                 stream.close();
-                clearInterval(heartbeatInterval);
                 if (currentStream === stream) currentStream = null;
             },
         };
