@@ -1645,6 +1645,7 @@ export default function SignUpProvider() {
                                                             }}
                                                             options={businessTypes}
                                                             placeholder={'Selecteer organisatie type...'}
+                                                            allowSearch={true}
                                                         />
                                                     )}
 
