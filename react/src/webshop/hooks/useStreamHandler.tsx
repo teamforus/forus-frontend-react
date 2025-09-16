@@ -66,7 +66,7 @@ export function useStreamHandler(
 
             stopStreamRef.current = stop;
         },
-        [precheckChatbotService],
+        [], // eslint-disable-line react-hooks/exhaustive-deps
     );
 
     const resetStream = useCallback(() => {

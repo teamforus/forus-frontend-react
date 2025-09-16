@@ -75,7 +75,7 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
 
     useEffect(() => {
         if (shouldStart) startStream();
-    }, [shouldStart]);
+    }, [shouldStart, startStream]);
 
     useEffect(() => {
         return () => stopStream();
@@ -92,7 +92,7 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
             setHasInputType(last.inputType != null);
             last.answered = false;
         }
-    }, [messages, incomingQueue]);
+    }, [messages, incomingQueue, loadingHistory]);
 
     /**
      * Resets the entire chat session and starts a new one.
