@@ -13,6 +13,7 @@ export function useChatHistory(
     const location = useLocation();
 
     useEffect(() => {
+        if (loadingHistory) return;
         const storedSessionId = sessionStorage.getItem('session_id');
         if (!storedSessionId || location.pathname !== '/regelingencheck') return;
 

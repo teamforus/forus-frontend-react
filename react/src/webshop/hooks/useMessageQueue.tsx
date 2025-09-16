@@ -15,9 +15,9 @@ export function useMessageQueue(
     setHasInputType: Dispatch<SetStateAction<boolean>>,
 ) {
     useEffect(() => {
-        console.log(incomingQueue);
         if (loadingHistory) return;
         if (incomingQueue.length === 0) return;
+        if (messages.some((m) => m.inProgress)) return;
 
         const next = incomingQueue[0];
         const rest = incomingQueue.slice(1);
@@ -28,10 +28,9 @@ export function useMessageQueue(
 
         setIncomingQueue(rest);
 
-        next.options ? setHasAnswerOptions(true) : setHasAnswerOptions(false);
-        next.inputType ? setHasInputType(true) : setHasInputType(false);
+        setHasAnswerOptions(!!next.options);
+        setHasInputType(!!next.inputType);
 
-        console.log('Adding AI message from queue', next);
         setMessages((prev) => [
             ...prev,
             {
@@ -49,10 +48,10 @@ export function useMessageQueue(
 
         const words = next.text.split(' ');
         let index = 0;
-
+        setIsThinking(false);
         const interval = setInterval(() => {
             setIsTyping(true);
-            setMessages((prev: Message[]) => {
+            setMessages((prev) => {
                 const updated = [...prev];
                 const lastIndex = updated.length - 1;
                 if (lastIndex < 0) return updated;
@@ -66,8 +65,8 @@ export function useMessageQueue(
 
             index++;
             if (index >= words.length) {
-                clearInterval(interval);
                 setIsTyping(false);
+                clearInterval(interval);
                 setMessages((prev: Message[]) => {
                     const updated = [...prev];
                     const lastIndex = updated.length - 1;
