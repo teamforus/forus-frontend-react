@@ -32,20 +32,26 @@ export class PrecheckChatbotService<T = unknown> {
         console.log(id);
         sessionStorage.setItem('session_id', resp.data.session_id);
         sessionStorage.setItem('session_token', resp.data.stream_token);
+
+        const claims = this.parseJwt(resp.data.stream_token);
+        if (claims.exp) {
+            sessionStorage.setItem('session_token_exp', String(claims.exp));
+        }
     }
     //TODO: if stream fails or needs new token, fetch new token from laravel
 
     // starts the chat
-    public stream(
+    public async stream(
         onMessage: (response: BotResponse) => void,
         onWaiting: () => void,
         onTyping: () => void,
         onClose: () => void,
         onError?: (err: { status: number }) => void,
         forceRestart = false,
-    ): { stop: () => void } {
+        lastEventId: number = 0,
+    ): Promise<{ stop: () => void }> {
         const sessionId = sessionStorage.getItem('session_id');
-        const sessionToken = sessionStorage.getItem('session_token');
+        let sessionToken = sessionStorage.getItem('session_token');
 
         if (currentStream && forceRestart) {
             currentStream.close();
@@ -60,8 +66,13 @@ export class PrecheckChatbotService<T = unknown> {
             };
         }
 
+        if (!sessionToken || this.isTokenExpired()) {
+            console.log('stream token expired');
+            sessionToken = await this.refreshToken();
+        }
+
         const stream = this.eventStream.open(
-            `${this.prefix}/sessions/${sessionId}/events?token=${sessionToken}`,
+            `${this.prefix}/sessions/${sessionId}/events?token=${sessionToken}&lastEventId=${lastEventId}`,
             false,
         );
 
@@ -222,6 +233,40 @@ export class PrecheckChatbotService<T = unknown> {
             {},
         );
         return resp.data?.advice ?? [];
+    }
+
+    public async refreshToken(): Promise<string> {
+        const sessionId = sessionStorage.getItem('session_id');
+        if (!sessionId) throw new Error('No session');
+
+        const resp = await this.apiRequest.post<ResponseSimple<{ stream_token: string }>>(
+            `${this.prefix}/sessions/${sessionId}/token`,
+        );
+
+        const token = resp.data.stream_token;
+        sessionStorage.setItem('session_token', token);
+
+        const claims = this.parseJwt(token);
+        if (claims.exp) {
+            sessionStorage.setItem('session_token_exp', String(claims.exp));
+        }
+        return token;
+    }
+
+    private parseJwt(token: string): { exp?: number } {
+        try {
+            const base64 = token.split('.')[1];
+            return JSON.parse(atob(base64));
+        } catch {
+            return {};
+        }
+    }
+
+    private isTokenExpired(): boolean {
+        const exp = Number(sessionStorage.getItem('session_token_exp'));
+        if (!exp) return true;
+        const now = Math.floor(Date.now() / 1000); // seconden
+        return now >= exp;
     }
 }
 
