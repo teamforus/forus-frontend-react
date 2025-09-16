@@ -98,6 +98,11 @@ export class PrecheckChatbotService<T = unknown> {
 
         stream.addEventListener('paused', onWaiting);
 
+        stream.addEventListener('onhold', (event) => {
+            console.log(event.data);
+            stream.close();
+        });
+
         stream.onmessage = (event) => {
             if (!event.data) {
                 console.debug('🔄 keep-alive');
