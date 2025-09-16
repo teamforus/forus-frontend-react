@@ -52,7 +52,7 @@ export default function BlockProducts({
 
             {showLoadMore && (
                 <div className="block block-show-more">
-                    <StateNavLink className="button button-primary show-more-button" name={'products'} params={filters}>
+                    <StateNavLink className="button button-primary show-more-button" name={'products'} query={filters}>
                         {translate(`block_products.buttons.more`)}
                         <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
                     </StateNavLink>
