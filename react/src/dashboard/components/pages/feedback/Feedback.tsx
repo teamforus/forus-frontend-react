@@ -164,6 +164,7 @@ export default function Feedback() {
                                                 name="customer_email"
                                                 value={form.values.customer_email || ''}
                                                 onChange={(e) => form.update({ customer_email: e.target.value })}
+                                                autoComplete="email"
                                             />
                                             <FormError error={form.errors?.customer_email} />
                                         </div>

@@ -390,6 +390,7 @@ export default function ModalPhysicalCardType({
                                                 onChange={(e) => {
                                                     requestPhysicalCardForm.update({ address: e.target.value });
                                                 }}
+                                                autoComplete="address-line1"
                                             />
                                             <FormError error={requestPhysicalCardForm.errors?.address} />
                                         </div>
@@ -408,6 +409,7 @@ export default function ModalPhysicalCardType({
                                                 onChange={(e) => {
                                                     requestPhysicalCardForm.update({ house: e.target.value });
                                                 }}
+                                                autoComplete="address-line2"
                                             />
                                             <FormError error={requestPhysicalCardForm.errors?.house} />
                                         </div>
@@ -426,6 +428,7 @@ export default function ModalPhysicalCardType({
                                                 onChange={(e) => {
                                                     requestPhysicalCardForm.update({ house_addition: e.target.value });
                                                 }}
+                                                autoComplete="address-line3"
                                             />
                                             <FormError error={requestPhysicalCardForm.errors?.house_addition} />
                                         </div>
@@ -446,6 +449,7 @@ export default function ModalPhysicalCardType({
                                                 onChange={(e) => {
                                                     requestPhysicalCardForm.update({ postcode: e.target.value });
                                                 }}
+                                                autoComplete="postal-code"
                                             />
                                             <FormError error={requestPhysicalCardForm.errors?.postcode} />
                                         </div>
@@ -462,6 +466,7 @@ export default function ModalPhysicalCardType({
                                                 onChange={(e) => {
                                                     requestPhysicalCardForm.update({ city: e.target.value });
                                                 }}
+                                                autoComplete="address-level2"
                                             />
                                             <FormError error={requestPhysicalCardForm.errors?.city} />
                                         </div>

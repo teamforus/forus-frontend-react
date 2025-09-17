@@ -94,6 +94,7 @@ export default function SignIn() {
                                             }
                                             autoFocus={true}
                                             className="form-control"
+                                            autoComplete="email"
                                         />
                                         <FormError error={signInForm?.errors?.email} />
                                     </div>
