@@ -84,7 +84,13 @@ export default function IdentityContactInformationCard({
                     <div className="col col-sm-12 col-lg-8 col-md-10">
                         <div className="form-group">
                             <label className="form-label">{translate('profile.contacts.primary_email')}</label>
-                            <input className="form-control" disabled={true} value={profile.email} />
+                            <input
+                                className="form-control"
+                                disabled={true}
+                                value={profile.email}
+                                autoComplete="email"
+                                aria-label={translate('profile.contacts.primary_email')}
+                            />
                         </div>
 
                         {profile?.email_verified?.map((email, index) => (
@@ -92,7 +98,13 @@ export default function IdentityContactInformationCard({
                                 <label className="form-label">
                                     {translate('profile.contacts.extra_email', { number: index + 1 })}
                                 </label>
-                                <input className="form-control" disabled={true} value={email} />
+                                <input
+                                    className="form-control"
+                                    disabled={true}
+                                    value={email}
+                                    autoComplete="email"
+                                    aria-label={translate('profile.contacts.extra_email')}
+                                />
                             </div>
                         ))}
 
@@ -112,6 +124,7 @@ export default function IdentityContactInformationCard({
                                     className="form-control"
                                     value={form?.values?.[field] || ''}
                                     onChange={(e) => form.update({ [field]: e.target.value })}
+                                    autoComplete="tel"
                                 />
                                 <FormError error={form.errors?.[field]} />
                             </div>

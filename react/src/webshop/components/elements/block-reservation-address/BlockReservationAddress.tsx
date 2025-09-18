@@ -147,6 +147,8 @@ export default function BlockReservationAddress({
                                 value={form.values.street || ''}
                                 onChange={(e) => form.update({ street: e.target.value })}
                                 data-dusk="productReserveFormStreet"
+                                autoComplete="address-line1"
+                                aria-label={translate('modal_reserve_product.fill_notes.labels.street')}
                             />
                             <FormError error={form.errors?.street} />
                         </div>
@@ -163,6 +165,8 @@ export default function BlockReservationAddress({
                                         value={form.values.house_nr || ''}
                                         onChange={(e) => form.update({ house_nr: e.target.value })}
                                         data-dusk="productReserveFormHouseNumber"
+                                        autoComplete="address-line2"
+                                        aria-label={translate('modal_reserve_product.fill_notes.labels.house_nr')}
                                     />
                                     <FormError error={form.errors?.house_nr} />
                                 </div>
@@ -177,6 +181,10 @@ export default function BlockReservationAddress({
                                         value={form.values.house_nr_addition || ''}
                                         onChange={(e) => form.update({ house_nr_addition: e.target.value })}
                                         data-dusk="productReserveFormHouseNumberAddition"
+                                        autoComplete="address-line3"
+                                        aria-label={translate(
+                                            'modal_reserve_product.fill_notes.labels.house_nr_addition',
+                                        )}
                                     />
                                     <FormError error={form.errors?.house_nr_addition} />
                                 </div>
@@ -195,6 +203,8 @@ export default function BlockReservationAddress({
                                 value={form.values.postal_code || ''}
                                 onChange={(e) => form.update({ postal_code: e.target.value })}
                                 data-dusk="productReserveFormPostalCode"
+                                autoComplete="postal_code"
+                                aria-label={translate('modal_reserve_product.fill_notes.labels.postal_code')}
                             />
                             <FormError error={form.errors?.postal_code} />
                         </div>
@@ -210,6 +220,8 @@ export default function BlockReservationAddress({
                                 value={form.values.city || ''}
                                 onChange={(e) => form.update({ city: e.target.value })}
                                 data-dusk="productReserveFormCity"
+                                autoComplete="address-level2"
+                                aria-label={translate('modal_reserve_product.fill_notes.labels.city')}
                             />
                             <FormError error={form.errors?.city} />
                         </div>

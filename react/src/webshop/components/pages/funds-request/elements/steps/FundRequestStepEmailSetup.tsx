@@ -139,6 +139,7 @@ export default function FundRequestStepEmailSetup({
                                                 emailForm.update({ email });
                                             }}
                                             tabIndex={0}
+                                            autoComplete={'email'}
                                         />
                                         <FormError error={emailForm.errors.email} />
                                     </div>

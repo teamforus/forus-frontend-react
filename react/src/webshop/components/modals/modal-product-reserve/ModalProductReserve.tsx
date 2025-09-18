@@ -724,6 +724,8 @@ export default function ModalProductReserve({
                                         value={form.values.first_name ?? ''}
                                         onChange={(e) => form.update({ first_name: e.target.value })}
                                         data-dusk="productReserveFormFirstName"
+                                        autoComplete="given-name"
+                                        aria-label={translate('modal_reserve_product.fill_notes.first_name')}
                                     />
                                     <FormError error={form.errors.first_name} />
                                 </div>
@@ -738,6 +740,8 @@ export default function ModalProductReserve({
                                         value={form.values.last_name ?? ''}
                                         onChange={(e) => form.update({ last_name: e.target.value })}
                                         data-dusk="productReserveFormLastName"
+                                        autoComplete="family-name"
+                                        aria-label={translate('modal_reserve_product.fill_notes.last_name')}
                                     />
                                     <FormError error={form.errors.last_name} />
                                 </div>

@@ -371,6 +371,7 @@ export default function Providers() {
                                             type="text"
                                             aria-label="Postcode"
                                             data-dusk="inputPostcode"
+                                            autoComplete="postal-code"
                                         />
                                         <FormError error={errors?.postcode} />
                                     </div>

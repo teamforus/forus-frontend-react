@@ -165,6 +165,7 @@ export default function ModalEmployeeEdit({
                                     data-dusk="formEmployeeEmail"
                                     className="form-control"
                                     onChange={(e) => form.update({ email: e.target.value })}
+                                    autoComplete="email"
                                 />
                                 <FormError error={form.errors['email']} />
                             </div>
