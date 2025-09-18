@@ -262,7 +262,7 @@ export default function FundRequestStepCriteria({
                                     dataDusk="controlStep"
                                 />
                             )}
-                            {/*TODO: add autoComplete*/}
+
                             {criterion.control_type == 'ui_control_date' && (
                                 <UIControlDate
                                     value={
@@ -280,7 +280,7 @@ export default function FundRequestStepCriteria({
                                     dataDusk="controlDate"
                                 />
                             )}
-                            {/*TODO: add autoComplete*/}
+
                             {criterion.control_type == 'ui_control_number' && (
                                 <UIControlNumber
                                     type={'number'}
@@ -293,7 +293,7 @@ export default function FundRequestStepCriteria({
                                     }}
                                 />
                             )}
-                            {/*TODO: add autoComplete*/}
+
                             {criterion.control_type == 'ui_control_text' && (
                                 <UIControlText
                                     type={'text'}
