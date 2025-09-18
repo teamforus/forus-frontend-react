@@ -727,6 +727,18 @@ export default function VouchersShow() {
                                                             om uw bon in te sturen.{' '}
                                                         </span>
                                                     )}
+                                                    {voucherCard.fund.key == 'barneveld_sportaccesoires' && (
+                                                        <span>
+                                                            U kunt de status van de betaling inzien onder het menu
+                                                            Uitbetalingen.
+                                                        </span>
+                                                    )}
+                                                    {voucherCard.fund.key == 'barneveld_schoolkosten' && (
+                                                        <span>
+                                                            U kunt de status van de betaling inzien onder het menu
+                                                            Uitbetalingen.
+                                                        </span>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
