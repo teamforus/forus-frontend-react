@@ -2,9 +2,11 @@
     width: 100%;
     padding: 32px;
     background: #fff;
-    box-shadow: var(--box-shadow);
     margin-bottom: 40px;
-    border-radius: var(--border-radius);
+    background: var(--showcase-item-background);
+    border-radius: var(--showcase-item-border-radius);
+    box-shadow: var(--showcase-item-shadow);
+    border: var(--showcase-item-border);
 
     .block-accessibility-header {
         font: 400 18px/27px var(--base-font);
@@ -37,6 +39,10 @@
                 color: #315efd;
                 text-decoration: underline;
             }
+        }
+
+        &:first-child {
+            padding-top: 0;
         }
 
         &:last-child {

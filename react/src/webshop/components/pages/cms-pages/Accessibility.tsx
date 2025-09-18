@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useEnvData from '../../../hooks/useEnvData';
 import useCmsPage from './hooks/useCmsPage';
@@ -38,7 +38,7 @@ export default function Accessibility() {
                         {page && <CmsBlocks page={page} largeMarkdown={true} />}
 
                         {(!page.description_html || page.description_position !== 'replace') && (
-                            <Fragment>
+                            <div className={'wrapper'}>
                                 <div className="section-title text-left">{translate('accessibility.title')}</div>
                                 <div className="block block-accessibility">
                                     <div className="block-text">
@@ -270,7 +270,7 @@ export default function Accessibility() {
                                         </div>
                                     </div>
                                 </div>
-                            </Fragment>
+                            </div>
                         )}
                     </div>
                 </div>

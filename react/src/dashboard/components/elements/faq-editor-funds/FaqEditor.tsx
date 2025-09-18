@@ -7,7 +7,15 @@ import {
 } from '@dnd-kit/sortable';
 import { uniq, uniqueId } from 'lodash';
 import { ResponseError, ResponseErrorData } from '../../../props/ApiResponses';
-import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+    closestCenter,
+    DndContext,
+    DragEndEvent,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core';
 import Faq from '../../../props/models/Faq';
 import FaqEditorItem from './FaqEditorItem';
 import { useFaqService } from '../../../services/FaqService';
@@ -42,21 +50,24 @@ export default function FaqEditor({
         useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
     );
 
-    const addQuestion = useCallback(() => {
-        const uid = uniqueId();
+    const addQuestion = useCallback(
+        (type: 'question' | 'title') => {
+            const uid = uniqueId();
 
-        setFaq([...faq, { uid, title: '', description: '' }]);
-        setUnCollapsedList((list) => [...list, uid]);
-    }, [faq, setFaq]);
+            setFaq([...faq, { uid, title: '', subtitle: '', description: '', type }]);
+            setUnCollapsedList((list) => [...list, uid]);
+        },
+        [faq, setFaq],
+    );
 
     const handleDragEnd = useCallback(
-        (event) => {
+        (event: DragEndEvent) => {
             const { active, over } = event;
 
             if (active.id !== over.id) {
                 const items = faq.map((preCheck) => preCheck.uid);
-                const oldIndex = items.indexOf(active.id);
-                const newIndex = items.indexOf(over.id);
+                const oldIndex = items.indexOf(active.id.toString());
+                const newIndex = items.indexOf(over.id.toString());
 
                 setFaq(arrayMove(faq, oldIndex, newIndex));
             }
@@ -65,7 +76,7 @@ export default function FaqEditor({
     );
 
     const askConfirmation = useCallback(
-        (onConfirm): void => {
+        (onConfirm: () => void): void => {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
@@ -149,9 +160,14 @@ export default function FaqEditor({
             </DndContext>
 
             <div className="faq-editor-actions">
-                <div className="button button-primary" onClick={addQuestion}>
+                <div className="button button-primary" onClick={() => addQuestion('question')}>
                     <em className="mdi mdi-plus-circle icon-start" />
                     {translate('components.faq_editor.buttons.add_question')}
+                </div>
+
+                <div className="button button-default" onClick={() => addQuestion('title')}>
+                    <em className="mdi mdi-plus-circle icon-start" />
+                    {translate('components.faq_editor.buttons.add_title')}
                 </div>
             </div>
         </div>

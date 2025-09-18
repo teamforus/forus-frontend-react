@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
 export default function Section({
@@ -22,7 +22,7 @@ export default function Section({
         | 'pre-check'
         | 'footer';
     wrapper?: boolean;
-    children: ReactElement | ReactElement[];
+    children: ReactNode | ReactNode[];
 }) {
     return (
         <section
