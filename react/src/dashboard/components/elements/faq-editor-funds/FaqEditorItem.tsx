@@ -49,10 +49,7 @@ export default function FaqEditorItem({
                         <em className="mdi mdi-frequently-asked-questions" />
                     </div>
                 ) : (
-                    <div
-                        className={`question-icon ${
-                            isCollapsed && (!faqItem.title || !faqItem.subtitle) ? 'text-danger' : ''
-                        }`}>
+                    <div className={`question-icon ${isCollapsed && !faqItem.title ? 'text-danger' : ''}`}>
                         <em className="mdi mdi-format-title" />
                     </div>
                 )}
@@ -127,7 +124,7 @@ export default function FaqEditorItem({
                             </div>
                         ) : (
                             <div className="form-group">
-                                <label className="form-label form-label-required">Subtitel</label>
+                                <label className="form-label">Subtitel</label>
                                 <textarea
                                     className="r-n form-control"
                                     placeholder="Subtitel"
