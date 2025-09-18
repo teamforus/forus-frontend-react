@@ -310,7 +310,7 @@ export default function VouchersShow() {
                                                     </div>
                                                 )}
 
-                                                {voucherCard.type === 'regular' && (
+                                                {!voucherCard.external && voucherCard.type === 'regular' && (
                                                     <div>
                                                         <div className="card-value euro">
                                                             {voucherCard.amount_locale}
