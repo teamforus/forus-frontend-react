@@ -95,6 +95,7 @@ export default function SignIn() {
                                             autoFocus={true}
                                             className="form-control"
                                             autoComplete="email"
+                                            aria-label={translate('popup_auth.input.mail')}
                                         />
                                         <FormError error={signInForm?.errors?.email} />
                                     </div>

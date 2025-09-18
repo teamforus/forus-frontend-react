@@ -107,6 +107,7 @@ export default function Feedback() {
                                             value={form.values?.title || ''}
                                             onChange={(e) => form.update({ title: e.target.value })}
                                             placeholder={translate('components.feedback.labels.title')}
+                                            aria-label={translate('components.feedback.labels.title')}
                                         />
                                         <FormError error={form.errors?.title} />
                                     </div>
@@ -165,6 +166,7 @@ export default function Feedback() {
                                                 value={form.values.customer_email || ''}
                                                 onChange={(e) => form.update({ customer_email: e.target.value })}
                                                 autoComplete="email"
+                                                aria-label={translate('components.feedback.labels.email')}
                                             />
                                             <FormError error={form.errors?.customer_email} />
                                         </div>

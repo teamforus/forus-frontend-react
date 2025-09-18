@@ -140,6 +140,7 @@ export default function Products() {
                         />
                         <div className="form">
                             <div className="form-group">
+                                {/*TODO: add arialabel*/}
                                 <input
                                     className="form-control"
                                     type="text"
