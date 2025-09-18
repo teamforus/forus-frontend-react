@@ -19,6 +19,7 @@ import EmptyCard from '../empty-card/EmptyCard';
 import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
 import TableTopScroller from './TableTopScroller';
 import TableEmptyValue from '../table-empty-value/TableEmptyValue';
+import useEventLogsExporter from '../../../services/exporters/useEventLogsExporter';
 
 export default function EventLogsTable({
     organization,
@@ -48,6 +49,7 @@ export default function EventLogsTable({
 
     const eventLogService = useEventLogService();
     const paginatorService = usePaginatorService();
+    const eventLogsExporter = useEventLogsExporter();
 
     const [logs, setLogs] = useState<PaginationData<EventLog>>(null);
     const [noteTooltip, setNoteTooltip] = useState(null);
@@ -100,6 +102,10 @@ export default function EventLogsTable({
         [filter],
     );
 
+    const exportLogs = useCallback(() => {
+        eventLogsExporter.exportData(organization.id, filter.activeValues);
+    }, [organization.id, filter.activeValues, eventLogsExporter]);
+
     const fetchLogs = useCallback(() => {
         setProgress(0);
 
@@ -134,7 +140,7 @@ export default function EventLogsTable({
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="tableEventLogsContent">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {title || 'Activiteitenlogboek'} ({logs.meta.total})
@@ -155,6 +161,7 @@ export default function EventLogsTable({
                                             type="search"
                                             className="form-control"
                                             value={filter.values.q}
+                                            data-dusk="tableEventLogsSearch"
                                             onChange={(e) => filter.update({ q: e.target.value })}
                                             placeholder={translate('event_logs.labels.search')}
                                         />
@@ -197,6 +204,19 @@ export default function EventLogsTable({
                                             </div>
                                         ))}
                                     </FilterItemToggle>
+
+                                    <div className="form-actions">
+                                        <button
+                                            className="button button-primary button-wide"
+                                            onClick={() => exportLogs()}
+                                            data-dusk="export"
+                                            disabled={logs.meta.total == 0}>
+                                            <em className="mdi mdi-download icon-start"> </em>
+                                            {translate('components.dropdown.export', {
+                                                total: logs.meta.total,
+                                            })}
+                                        </button>
+                                    </div>
                                 </CardHeaderFilter>
                             )}
                         </div>
@@ -215,7 +235,7 @@ export default function EventLogsTable({
 
                                 <tbody>
                                     {logs.data.map((log) => (
-                                        <tr key={log.id}>
+                                        <tr key={log.id} data-dusk={`tableEventLogsRow${log.id}`}>
                                             <td>
                                                 <div className="text-semibold text-primary nowrap">
                                                     {log.created_at_locale.split(' - ')[0]}

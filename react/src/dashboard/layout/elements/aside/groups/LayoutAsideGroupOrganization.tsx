@@ -47,7 +47,7 @@ export default function LayoutAsideGroupOrganization({
                     state: 'organization-logs',
                     stateParams: { organizationId: organization?.id },
                     show: envData.client_type == 'sponsor',
-                    dusk: 'employeesPage',
+                    dusk: 'eventLogsPage',
                 },
                 {
                     id: 'offices',
