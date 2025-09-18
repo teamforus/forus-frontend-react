@@ -25,6 +25,9 @@ import ProductDetailsBlockProperties from '../products-view/elements/ProductDeta
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
 import ModalReservationReject from '../../modals/ModalReservationReject';
 import useOpenModal from '../../../hooks/useOpenModal';
+import ReservationAdditionalDetails from './elements/ReservationAdditionalDetails';
+import KeyValueItem from '../../elements/key-value/KeyValueItem';
+import FormPane from '../../elements/forms/elements/FormPane';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -165,28 +168,9 @@ export default function ReservationsView() {
 
             <div className="card">
                 <div className="card-header">
-                    <div className="flex flex-grow">
-                        <div className="flex flex-vertical">
-                            <div className="card-title">
-                                <div className="flex flex-gap-sm">
-                                    <div className="flex flex-horizontal">
-                                        <span className="text-muted">Reservering:&nbsp;</span>
-                                        {`#${reservation.code}`}
-                                    </div>
-                                    <div className="flex flex-vertical flex-center">
-                                        <div className="flex flex-horizontal">
-                                            <ReservationStateLabel reservation={reservation} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-subtitle">
-                                <div className="flex">
-                                    <div className="mdi mdi-clock-outline" />
-                                    {reservation.created_at_locale}
-                                </div>
-                            </div>
-                        </div>
+                    <div className="flex flex-grow card-title flex-align-items-center flex-gap">
+                        <span>{`#${reservation.code}`}</span>
+                        <ReservationStateLabel reservation={reservation} />
                     </div>
 
                     <div className="card-header-filters flex-self-start">
@@ -214,110 +198,44 @@ export default function ReservationsView() {
                     </div>
                 </div>
                 <div className="card-section">
-                    <div className="card-block card-block-table">
-                        <div className="table-wrapper">
-                            <table className="table table-fixed table-align-top">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.price')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">{reservation.amount_locale}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.fund')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">{reservation.fund.name}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.sponsor_organization')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">{reservation.fund.organization.name}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.product')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">
-                                                {strLimit(reservation.product.name, 32)}
-                                            </strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.created_at')}
-                                            </strong>
-
-                                            <br />
-                                            <strong className="text-black">{reservation.created_at_locale}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.expire_at')}
-                                            </strong>
-                                            <br />
-                                            <strong className="text-black">{reservation.expire_at_locale}</strong>
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.accepted_at')}
-                                            </strong>
-                                            <br />
-                                            {reservation.accepted_at ? (
-                                                <strong className="text-black">{reservation.accepted_at_locale}</strong>
-                                            ) : (
-                                                <TableEmptyValue />
-                                            )}
-                                        </td>
-                                        <td>
-                                            <strong className="text-strong text-md text-primary">
-                                                {translate('reservation.labels.rejected_at')}
-                                            </strong>
-                                            <br />
-                                            {reservation.rejected_at ? (
-                                                <strong className="text-black">{reservation.rejected_at_locale}</strong>
-                                            ) : (
-                                                <TableEmptyValue />
-                                            )}
-                                        </td>
-                                    </tr>
-                                    {reservation.canceled_at &&
-                                        reservation.state === 'canceled' &&
-                                        reservation.cancellation_note && (
-                                            <tr>
-                                                <td className="card-section card-section-warning" colSpan={4}>
-                                                    <strong className="text-strong text-md text-primary">
-                                                        {translate('reservation.labels.cancellation_note')}
-                                                    </strong>
-                                                    <br />
-                                                    <strong className="text-black">
-                                                        {reservation.cancellation_note}
-                                                    </strong>
-                                                </td>
-                                            </tr>
-                                        )}
-                                    {reservation.rejected_at && reservation.rejection_note && (
-                                        <tr className="card-section-warning">
-                                            <td className="card-section card-section-warning" colSpan={4}>
-                                                <strong className="text-strong text-md text-primary">
-                                                    {translate('reservation.labels.rejection_note')}
-                                                </strong>
-                                                <br />
-                                                <strong className="text-black">{reservation.rejection_note}</strong>
-                                            </td>
-                                        </tr>
+                    <div className="form">
+                        <FormPane title={translate('product.labels.details')} large={true}>
+                            <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
+                                <KeyValueItem label={translate('reservation.labels.price')}>
+                                    {reservation.amount_locale}
+                                </KeyValueItem>
+                                <KeyValueItem label={translate('reservation.labels.fund')}>
+                                    {reservation.fund.name}
+                                </KeyValueItem>
+                                <KeyValueItem label={translate('reservation.labels.sponsor_organization')}>
+                                    {reservation.fund.organization.name}
+                                </KeyValueItem>
+                                <KeyValueItem label={translate('reservation.labels.created_at')}>
+                                    {reservation.created_at_locale}
+                                </KeyValueItem>
+                                <KeyValueItem label={translate('reservation.labels.expire_at')}>
+                                    {reservation.expire_at_locale}
+                                </KeyValueItem>
+                                <KeyValueItem label={translate('reservation.labels.accepted_at')}>
+                                    {reservation.accepted_at ? reservation.accepted_at_locale : <TableEmptyValue />}
+                                </KeyValueItem>
+                                <KeyValueItem label={translate('reservation.labels.rejected_at')}>
+                                    {reservation.rejected_at ? reservation.rejected_at_locale : <TableEmptyValue />}
+                                </KeyValueItem>
+                                {reservation.canceled_at &&
+                                    reservation.state === 'canceled' &&
+                                    reservation.cancellation_note && (
+                                        <KeyValueItem label={translate('reservation.labels.cancellation_note')}>
+                                            {reservation.cancellation_note}
+                                        </KeyValueItem>
                                     )}
-                                </tbody>
-                            </table>
-                        </div>
+                                {reservation.rejected_at && reservation.rejection_note && (
+                                    <KeyValueItem label={translate('reservation.labels.rejection_note')}>
+                                        {reservation.rejection_note}
+                                    </KeyValueItem>
+                                )}
+                            </div>
+                        </FormPane>
                     </div>
                 </div>
             </div>
@@ -341,58 +259,68 @@ export default function ReservationsView() {
                     <div className="card-title">Gegevens</div>
                 </div>
                 <div className="card-section">
-                    <div className="card-block card-block-keyvalue">
-                        <div className="keyvalue-item">
-                            <div className="keyvalue-key">{translate('reservation.labels.email')}</div>
-                            <div className="keyvalue-value">
-                                <BlockInlineCopy
-                                    className={'text-strong text-primary'}
-                                    value={reservation.identity_email}>
-                                    {strLimit(reservation.identity_email, 27)}
-                                </BlockInlineCopy>
+                    <div className="form">
+                        <FormPane title={translate('product.labels.details')} large={true}>
+                            <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
+                                <div className="keyvalue-item">
+                                    <div className="keyvalue-key">{translate('reservation.labels.email')}</div>
+                                    <div className="keyvalue-value">
+                                        <BlockInlineCopy
+                                            className={'text-strong text-primary'}
+                                            value={reservation.identity_email}>
+                                            {strLimit(reservation.identity_email, 27)}
+                                        </BlockInlineCopy>
+                                    </div>
+                                </div>
+                                <div className="keyvalue-item">
+                                    <div className="keyvalue-key">{translate('reservation.labels.first_name')}</div>
+                                    <div className="keyvalue-value">{reservation.first_name}</div>
+                                </div>
+                                <div className="keyvalue-item">
+                                    <div className="keyvalue-key">{translate('reservation.labels.last_name')}</div>
+                                    <div className="keyvalue-value">{reservation.last_name}</div>
+                                </div>
+                                {reservation.phone && (
+                                    <div className="keyvalue-item">
+                                        <div className="keyvalue-key">{translate('reservation.labels.phone')}</div>
+                                        <div className="keyvalue-value">{reservation.phone}</div>
+                                    </div>
+                                )}
+                                {reservation.address && (
+                                    <div className="keyvalue-item">
+                                        <div className="keyvalue-key">{translate('reservation.labels.address')}</div>
+                                        <div className="keyvalue-value">{reservation.address}</div>
+                                    </div>
+                                )}
+                                {reservation.birth_date && (
+                                    <div className="keyvalue-item">
+                                        <div className="keyvalue-key">{translate('reservation.labels.birth_date')}</div>
+                                        <div className="keyvalue-value">{reservation.birth_date_locale}</div>
+                                    </div>
+                                )}
+                                {reservation.custom_fields?.map((field, index) => (
+                                    <div className="keyvalue-item" key={index}>
+                                        <div className="keyvalue-key">{field.label}</div>
+                                        <div className="keyvalue-value">{field.value}</div>
+                                    </div>
+                                ))}
+                                {reservation.user_note && (
+                                    <div className="keyvalue-item">
+                                        <div className="keyvalue-key">{translate('reservation.labels.user_note')}</div>
+                                        <div className="keyvalue-value">{reservation.user_note}</div>
+                                    </div>
+                                )}
                             </div>
-                        </div>
-                        <div className="keyvalue-item">
-                            <div className="keyvalue-key">{translate('reservation.labels.first_name')}</div>
-                            <div className="keyvalue-value">{reservation.first_name}</div>
-                        </div>
-                        <div className="keyvalue-item">
-                            <div className="keyvalue-key">{translate('reservation.labels.last_name')}</div>
-                            <div className="keyvalue-value">{reservation.last_name}</div>
-                        </div>
-                        {reservation.phone && (
-                            <div className="keyvalue-item">
-                                <div className="keyvalue-key">{translate('reservation.labels.phone')}</div>
-                                <div className="keyvalue-value">{reservation.phone}</div>
-                            </div>
-                        )}
-                        {reservation.address && (
-                            <div className="keyvalue-item">
-                                <div className="keyvalue-key">{translate('reservation.labels.address')}</div>
-                                <div className="keyvalue-value">{reservation.address}</div>
-                            </div>
-                        )}
-                        {reservation.birth_date && (
-                            <div className="keyvalue-item">
-                                <div className="keyvalue-key">{translate('reservation.labels.birth_date')}</div>
-                                <div className="keyvalue-value">{reservation.birth_date_locale}</div>
-                            </div>
-                        )}
-                        {reservation.custom_fields?.map((field, index) => (
-                            <div className="keyvalue-item" key={index}>
-                                <div className="keyvalue-key">{field.label}</div>
-                                <div className="keyvalue-value">{field.value}</div>
-                            </div>
-                        ))}
-                        {reservation.user_note && (
-                            <div className="keyvalue-item">
-                                <div className="keyvalue-key">{translate('reservation.labels.user_note')}</div>
-                                <div className="keyvalue-value">{reservation.user_note}</div>
-                            </div>
-                        )}
+                        </FormPane>
                     </div>
                 </div>
             </div>
+
+            <ReservationAdditionalDetails
+                organization={activeOrganization}
+                reservation={reservation}
+                onUpdate={setReservation}
+            />
 
             {transaction && hasPermission(activeOrganization, 'view_finances') && (
                 <TransactionDetails
