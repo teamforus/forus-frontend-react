@@ -25,11 +25,9 @@ export default function ResetButton({ shouldRedirect }: { shouldRedirect: boolea
     };
 
     return (
-        <div className="place-self-end ">
+        <div className="reset-button">
             {/* Trigger confirmation on click */}
-            <button
-                className={`text-base sm:text-lg w-fit button mb-2 bg-red-200 shadow-md hover:bg-red-300`}
-                onClick={() => setShowOverlay(true)}>
+            <button className="button button-primary" onClick={() => setShowOverlay(true)}>
                 Herstart de regelingencheck
             </button>
 
