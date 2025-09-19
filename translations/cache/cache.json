@@ -1836,6 +1836,10 @@
         "Activeer"
     ],
     [
+        "funds.buttons.open_payouts",
+        "Bekijk"
+    ],
+    [
         "funds.buttons.is_pending",
         "In behandeling"
     ],
