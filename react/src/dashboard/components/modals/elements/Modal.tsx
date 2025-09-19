@@ -68,7 +68,7 @@ export default function Modal({
                     body
                 ) : (
                     <div className={classNames('modal-body', bodyOverflowVisible && 'modal-body-visible')}>
-                        <div className={classNames('modal-section', onSubmit && 'modal-section-pad')}>{children}</div>
+                        <div className={classNames('modal-section')}>{children}</div>
                     </div>
                 )}
 

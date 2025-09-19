@@ -26,6 +26,7 @@ import ReimbursementsShow from '../components/pages/reimbursements-show/Reimburs
 import ReimbursementsEdit from '../components/pages/reimbursements-edit/ReimbursementsEdit';
 import Reservations from '../components/pages/reservations/Reservations';
 import ReservationsShow from '../components/pages/reservations-show/ReservationsShow';
+import PhysicalCards from '../components/pages/physical_cards/PhysicalCards';
 import BookmarkedProducts from '../components/pages/bookmarked-products/BookmarkedProducts';
 import Vouchers from '../components/pages/vouchers/Vouchers';
 import VouchersShow from '../components/pages/vouchers-show/VouchersShow';
@@ -209,6 +210,12 @@ router.state('reservations', <Reservations />, {
 router.state('reservation-show', <ReservationsShow />, {
     path: `/reserveringen/:id`,
     altPath: `/reservations/:id`,
+    protected: true,
+});
+
+router.state('physical-cards', <PhysicalCards />, {
+    path: `/fysieke-pas`,
+    altPath: `/physical-cards`,
     protected: true,
 });
 

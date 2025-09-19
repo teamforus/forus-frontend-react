@@ -88,12 +88,16 @@ export default function FundRequestStepCriteria({
 
             validateCriteria(criteria)
                 .then((errors) => {
-                    if (!errors) {
+                    const indexes = uniq(
+                        Object.keys(errors || {})
+                            .filter((err) => err.startsWith('records.'))
+                            .map((errorKey) => parseInt(errorKey.split('.')[1])),
+                    );
+
+                    if (indexes.length === 0) {
                         criteria.forEach((item) => setCriterion(item.id, { errors: {} }));
                         return onNextStep();
                     }
-
-                    const indexes = uniq(Object.keys(errors).map((errorKey) => parseInt(errorKey.split('.')[1])));
 
                     const errorsList: Array<{ id: number; errors: { [key: string]: string | string[] } }> =
                         indexes.reduce((list, index) => {

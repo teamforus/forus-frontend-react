@@ -6,7 +6,6 @@ import { hasPermission } from '../../../helpers/utils';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { useFundService } from '../../../services/FundService';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
-import useFilter from '../../../hooks/useFilter';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSetProgress from '../../../hooks/useSetProgress';
 import ClickOutside from '../../elements/click-outside/ClickOutside';
@@ -21,7 +20,6 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import { StringParam, useQueryParams, withDefault } from 'use-query-params';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import ModalFundTopUp from '../../modals/ModalFundTopUp';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
@@ -31,6 +29,8 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -44,7 +44,6 @@ export default function OrganizationFunds() {
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
 
-    const [loading, setLoading] = useState(false);
     const [paginatorKey] = useState<string>('organization_funds');
     const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
     const [funds, setFunds] =
@@ -68,33 +67,52 @@ export default function OrganizationFunds() {
         fundService.getColumns(activeOrganization, funds_type),
     );
 
-    const filter = useFilter({
-        q: '',
-        state: null,
-        funds_type: null,
-        implementation_id: null,
-        per_page: paginatorService.getPerPage(paginatorKey),
-    });
+    const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        page: number;
+        state: string;
+        per_page: number;
+        funds_type: string;
+        implementation_id: string;
+        physical_card_type_id?: number;
+    }>(
+        {
+            q: '',
+            page: 1,
+            state: null,
+            per_page: paginatorService.getPerPage(paginatorKey),
+            funds_type: null,
+            implementation_id: null,
+            physical_card_type_id: null,
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                state: StringParam,
+                funds_type: StringParam,
+                implementation_id: StringParam,
+                page: StringParam,
+                per_page: StringParam,
+            },
+        },
+    );
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
-        setLoading(true);
 
         fundService
             .list(activeOrganization.id, {
-                ...filter.activeValues,
+                ...filterActiveValues,
                 with_archived: 1,
                 with_external: 1,
                 stats: 'min',
                 archived: funds_type == 'archived' ? 1 : 0,
-                per_page: filter.activeValues.per_page,
+                per_page: filterActiveValues.per_page,
             })
             .then((res) => setFunds(res.data))
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [activeOrganization.id, filter.activeValues, fundService, funds_type, setProgress]);
+            .catch(pushApiError)
+            .finally(() => setProgress(100));
+    }, [activeOrganization.id, filterActiveValues, fundService, funds_type, pushApiError, setProgress]);
 
     const fetchImplementations = useCallback(() => {
         setProgress(0);
@@ -288,8 +306,8 @@ export default function OrganizationFunds() {
                                                     label={translate('components.organization_funds.filters.search')}>
                                                     <input
                                                         className="form-control"
-                                                        value={filter.values.q}
-                                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                                        value={filterValues.q}
+                                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                                         placeholder={translate(
                                                             'components.organization_funds.filters.search',
                                                         )}
@@ -302,9 +320,9 @@ export default function OrganizationFunds() {
                                                         className="form-control"
                                                         propKey={'key'}
                                                         allowSearch={false}
-                                                        value={filter.values.state}
+                                                        value={filterValues.state}
                                                         options={statesOptions}
-                                                        onChange={(state: string) => filter.update({ state })}
+                                                        onChange={(state: string) => filterUpdate({ state })}
                                                     />
                                                 </FilterItemToggle>
 
@@ -316,10 +334,10 @@ export default function OrganizationFunds() {
                                                         className="form-control"
                                                         propKey={'id'}
                                                         allowSearch={false}
-                                                        value={filter.values.implementation_id}
+                                                        value={filterValues.implementation_id}
                                                         options={implementations}
                                                         onChange={(implementation_id: string) =>
-                                                            filter.update({ implementation_id })
+                                                            filterUpdate({ implementation_id })
                                                         }
                                                     />
                                                 </FilterItemToggle>
@@ -339,7 +357,11 @@ export default function OrganizationFunds() {
                 </div>
             </div>
 
-            {!loading && funds.meta.total > 0 && (
+            <LoaderTableCard
+                loading={!funds?.meta}
+                empty={funds?.meta?.total === 0}
+                emptyTitle={'Geen fondsen'}
+                emptyDescription={'Geen fondsen gevonden.'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         {configsElement}
@@ -489,22 +511,18 @@ export default function OrganizationFunds() {
                         </TableTopScroller>
                     </div>
                 </div>
-            )}
 
-            {!loading && funds.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen fondsen gevonden'} />}
-
-            {loading && <LoadingCard type={'card-section'} />}
-
-            {!loading && funds.meta.total > 0 && (
-                <div className="card-section">
-                    <Paginator
-                        meta={funds.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                {funds?.meta.total > 0 && (
+                    <div className="card-section">
+                        <Paginator
+                            meta={funds.meta}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
+                            perPageKey={paginatorKey}
+                        />
+                    </div>
+                )}
+            </LoaderTableCard>
         </div>
     );
 }
