@@ -14,7 +14,7 @@ export default function MessageList() {
     useAutoScrollToBottom(bottomRef, messages);
 
     return (
-        <div className="h-full px-1 sm:px-2">
+        <div className="message-list">
             {isLoadingStream && <div>Loading...</div>}
 
             {/* Render each message using MessageItem component */}
