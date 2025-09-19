@@ -1,0 +1,188 @@
+.block.block-fund-pre-check-chatbot {
+  --spacing: 4px;
+  height: 75vh;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  .block-title {
+    font: 500 36px/36px var(--base-font);
+    margin: 0 0 10px;
+    text-align: center;
+    color: #191A1C;
+  }
+
+  .chatbot-header {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: calc(var(--spacing) * 4); // gebruik gap in plaats van margin
+    margin-bottom: calc(var(--spacing) * 4);
+
+    .reset-button {
+
+    }
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: calc(var(--spacing) * 6);
+    background: var(--progress-bar-background);
+    border-radius: calc(infinity * 1px);
+    overflow: hidden;
+    flex: 1;
+
+    .inner-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background: var(--progress-bar-inner-background);
+      transition-duration: 300ms;
+      border-radius: calc(infinity * 1px);
+      color: var(--progress-bar-color);
+      font: var(--base-font);
+      font-size: 18px;
+    }
+  }
+
+  .chatbot-messages,
+  .message-list {
+    overflow-x: hidden;
+  }
+
+  .chatbot-messages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0; // zorgt dat flex-children goed shrinken
+    padding: calc(var(--spacing) * 2);
+
+    background: var(--messages-background, #fafafa);
+    border: 1px solid var(--messages-border, #eee);
+    border-radius: var(--border-radius-lg, 12px);
+    box-shadow: var(--box-shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+
+    .message-list {
+      flex: 1;
+      overflow-y: auto;
+      height: 100%;
+      padding-inline: calc(var(--spacing) * 1);
+
+      .thinking {
+        display: flex;
+        justify-content: start;
+        font-size: 12px;
+      }
+
+      .message-wrapper {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: calc(var(--spacing) * 2);
+
+        .message-avatar {
+          margin-right: calc(var(--spacing) * 2);
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+          height: fit-content;
+          border-radius : calc(infinity * 1px);
+          align-items: center;
+          justify-content: center;
+          color: black;
+          font-weight: bold;
+
+          .avatar-icon {
+            font-size: 1.75rem;
+          }
+
+          .avatar-name {
+            font-size: 0.875rem;
+            font: var(--base-font);
+          }
+        }
+
+        .message-content {
+          flex: 1;
+          justify-items: start;
+          width: 100%;
+
+          .message-item {
+            padding: calc(var(--spacing) * 2);
+            border-top-left-radius: var(--border-radius, 8px);
+            border-top-right-radius: var(--border-radius, 8px);
+
+            width: fit-content;
+            max-width: 100%;
+            margin-bottom: calc(var(--spacing) * 2);
+            margin-right: calc(var(--spacing) * 2);
+
+            white-space: pre-line;
+            word-wrap: break-word;
+            font: var(--base-font);
+            font-size: 14px;
+
+            @media (min-width: 640px) {
+              max-width: 80%;
+              margin-bottom: var(--spacing);
+              margin-right: 0;
+              font-size: 16px;
+              font-weight: 600;
+            }
+
+            @media (min-width: 1024px) {
+              max-width: 60%;
+            }
+
+            &--error {
+              background: color-mix(in srgb, var(--color-danger) 50%, white) !important;
+              border: 2px solid color-mix(in srgb, var(--color-danger) 50%, black);
+              color: color-mix(in srgb, var(--color-danger) 50%, black);
+            }
+
+            &--user {
+              background: var(--user-message-background, #ddd6fe);
+              margin-left: auto;
+              text-align: right;
+              border-bottom-left-radius: var(--border-radius-lg, 8px);
+            }
+
+            &--bot {
+              background: var(--bot-message-background, #c7d2fe);
+              text-align: left;
+              border-bottom-right-radius: var(--border-radius-lg, 8px);
+            }
+
+            &--in-progress {
+              font-style: italic;
+              color: #6b7280;
+            }
+          }
+
+          .message-slots {
+            margin-top: var(--spacing);
+            list-style: disc;
+            padding-left: calc(var(--spacing) * 4);
+          }
+
+          .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing);
+
+            @media (min-width: 1024px) {
+              flex-direction: row;
+            }
+          }
+
+          .advice-button {
+            margin-top: calc(var(--spacing) * 2);
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+}

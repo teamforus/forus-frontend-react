@@ -10,7 +10,7 @@ import ProgressBar from './ProgressBar';
 import { useNavigate, useLocation } from 'react-router';
 import type { NavigationState } from '../../../../props/types/PrecheckChatbotTypes';
 import Overlay from '../../../elements/overlay/Overlay';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 import type { NavigateOptions } from 'react-router';
 import React from 'react';
@@ -50,19 +50,21 @@ export default function ChatbotInterface() {
     };
 
     return (
-        <div className={``}>
+        <Fragment>
+            {/*<div className={``}>*/}
+
             {/* ${bottomContainer}*/}
             {/* Top section: progress bar and reset button aligned horizontally */}
-            <div className="flex flex-row items-center">
-                <ProgressBar percentage={40} className={'mr-4'} />
+            <div className="chatbot-header">
+                <ProgressBar percentage={40} />
                 <ResetButton shouldRedirect={false} />
             </div>
 
             {/* Chat content area with scrollable message list and input field */}
-            <div className="flex flex-col h-full min-h-0 w-full p-2 sm:p-4 shadow-md rounded-xl bg-stone-50 border border-stone-100">
-                <div className="flex-1 overflow-y-auto">
-                    <MessageList />
-                </div>
+            <div className="chatbot-messages">
+                {/*<div className="message-list">*/}
+                <MessageList />
+                {/*</div>*/}
             </div>
             {/* Starting overlay content */}
             <Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>
@@ -81,6 +83,7 @@ export default function ChatbotInterface() {
                     Verdergaan
                 </button>
             </Overlay>
-        </div>
+            {/*</div>*/}
+        </Fragment>
     );
 }
