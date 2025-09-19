@@ -34,7 +34,7 @@ export default function MessageItem({ message }: MessageProps) {
                 </div>
                 <div className="message-content ">
                     <div
-                        className={`message-item message-item--bot 
+                        className={`message-item message-item--bot text
                             ${message.error ? 'message-item--error' : ''}
                             ${message.inProgress ? 'message-item--in-progress' : ''}
                     `}>
@@ -42,7 +42,7 @@ export default function MessageItem({ message }: MessageProps) {
                     </div>
                     {message.slots && (
                         <div
-                            className={`message-item message-item--bot 
+                            className={`message-item message-item--bot text
                                 ${message.inProgress ? 'message-item--in-progress' : ''}
                         `}>
                             {/* Show slots when it's the 'confirm_data' step */}
@@ -94,5 +94,5 @@ export default function MessageItem({ message }: MessageProps) {
         );
     }
     // For user messages: simple right-aligned bubble
-    return <div className="message-item message-item--user">{message.text}</div>;
+    return <div className="message-item message-item--user text">{message.text}</div>;
 }
