@@ -89,7 +89,7 @@ export default function FundRequestValuesOverview({
                                         .reduce((list, item) => [...list, ...item.files], []).length > 0 && (
                                         <div className="preview-item-files">
                                             <div className="preview-item-files-title">
-                                                Attachments
+                                                {translate('global.file_uploader.attachments')}
                                                 <div className="preview-item-files-title-count">
                                                     {
                                                         step.criteria

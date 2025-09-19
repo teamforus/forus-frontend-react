@@ -315,7 +315,7 @@ export default {
             upload_button: 'Upload een document',
             max_size: 'max. grootte 8Mb',
             max_files: 'Max. {{ count }} files',
-            attachments: 'Attachments',
+            attachments: 'Bijlagen',
         },
         file_item: {
             view_file: 'Bestand bekijken',
