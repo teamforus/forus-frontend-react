@@ -825,7 +825,7 @@ export default function FundRequestsView() {
             </div>
 
             <BlockCardNotes
-                isAssigned={fundRequestMeta.is_assigned}
+                showCreate={fundRequestMeta.is_assigned}
                 fetchNotes={fetchNotes}
                 deleteNote={deleteNote}
                 storeNote={storeNote}

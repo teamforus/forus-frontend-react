@@ -223,7 +223,7 @@ export default function IdentitiesShow() {
                 <IdentityPerson organization={activeOrganization} identityId={identity.id} />
             )}
 
-            <BlockCardNotes isAssigned={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
+            <BlockCardNotes showCreate={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
 
             <Card
                 title={'Huishouden'}
