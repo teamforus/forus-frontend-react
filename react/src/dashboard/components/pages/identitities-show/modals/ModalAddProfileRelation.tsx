@@ -157,7 +157,7 @@ export default function ModalAddProfileRelation({
                                                 label: recordTypesByKey?.given_name?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.given_name}
+                                                        records={relatedIdentity.records.given_name}
                                                     />
                                                 ),
                                             },
@@ -165,7 +165,7 @@ export default function ModalAddProfileRelation({
                                                 label: recordTypesByKey?.family_name?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.family_name}
+                                                        records={relatedIdentity.records.family_name}
                                                     />
                                                 ),
                                             },
@@ -173,7 +173,7 @@ export default function ModalAddProfileRelation({
                                                 label: recordTypesByKey?.birth_date?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.birth_date}
+                                                        records={relatedIdentity.records.birth_date}
                                                     />
                                                 ),
                                             },
@@ -181,7 +181,7 @@ export default function ModalAddProfileRelation({
                                                 label: recordTypesByKey?.gender?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.gender}
+                                                        records={relatedIdentity.records.gender}
                                                     />
                                                 ),
                                             },
@@ -189,22 +189,22 @@ export default function ModalAddProfileRelation({
                                                 label: recordTypesByKey?.marital_status?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.marital_status}
+                                                        records={relatedIdentity.records.marital_status}
                                                     />
                                                 ),
                                             },
                                             ...(organization.bsn_enabled
-                                                ? [{ label: 'BSN', value: identity?.bsn }]
+                                                ? [{ label: 'BSN', value: relatedIdentity?.bsn }]
                                                 : []),
                                             {
                                                 label: recordTypesByKey?.client_number?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.client_number}
+                                                        records={relatedIdentity.records.client_number}
                                                     />
                                                 ),
                                             },
-                                            { label: 'Hoofd e-mailadres', value: identity.email },
+                                            { label: 'Hoofd e-mailadres', value: relatedIdentity.email },
                                             ...otherEmails.map((email, index) => ({
                                                 label: `Extra e-mailadres ${index + 1}`,
                                                 value: email,
@@ -213,7 +213,7 @@ export default function ModalAddProfileRelation({
                                                 label: recordTypesByKey?.telephone?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.telephone}
+                                                        records={relatedIdentity.records.telephone}
                                                     />
                                                 ),
                                             },
@@ -221,7 +221,7 @@ export default function ModalAddProfileRelation({
                                                 label: recordTypesByKey?.mobile?.name,
                                                 value: (
                                                     <IdentityRecordKeyValueWithHistory
-                                                        records={identity.records.mobile}
+                                                        records={relatedIdentity.records.mobile}
                                                     />
                                                 ),
                                             },

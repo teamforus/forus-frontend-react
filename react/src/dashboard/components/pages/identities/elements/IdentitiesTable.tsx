@@ -27,6 +27,8 @@ import RecordType from '../../../../props/models/RecordType';
 import { useRecordTypeService } from '../../../../services/RecordTypeService';
 import useEditProfileRecords from '../../identitities-show/hooks/useEditProfileRecords';
 import TableRowActionItem from '../../../elements/tables/TableRowActionItem';
+import { hasPermission } from '../../../../helpers/utils';
+import { Permission } from '../../../../props/models/Organization';
 
 export default function IdentitiesTable() {
     const translate = useTranslate();
@@ -122,14 +124,17 @@ export default function IdentitiesTable() {
 
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
-                        <button
-                            type="button"
-                            className="button button-primary button-sm"
-                            onClick={() => createProfile(fetchIdentities)}
-                            data-dusk="uploadTransactionsBatchButton">
-                            <em className="mdi mdi-plus-circle" />
-                            Aanmaken
-                        </button>
+                        {activeOrganization?.allow_profiles_create &&
+                            hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && (
+                                <button
+                                    type="button"
+                                    className="button button-primary button-sm"
+                                    onClick={() => createProfile(fetchIdentities)}
+                                    data-dusk="uploadTransactionsBatchButton">
+                                    <em className="mdi mdi-plus-circle" />
+                                    Aanmaken
+                                </button>
+                            )}
 
                         <div className="form">
                             <div className="form-group">

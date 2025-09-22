@@ -138,17 +138,16 @@ export default function Households() {
                 </div>
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
-                        {activeOrganization?.allow_profiles_create &&
-                            hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && (
-                                <button
-                                    type="button"
-                                    className="button button-primary button-sm"
-                                    onClick={() => editHousehold(null, fetchHouseholds)}
-                                    data-dusk="uploadTransactionsBatchButton">
-                                    <em className="mdi mdi-plus-circle" />
-                                    Aanmaken
-                                </button>
-                            )}
+                        {hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && (
+                            <button
+                                type="button"
+                                className="button button-primary button-sm"
+                                onClick={() => editHousehold(null, fetchHouseholds)}
+                                data-dusk="uploadTransactionsBatchButton">
+                                <em className="mdi mdi-plus-circle" />
+                                Aanmaken
+                            </button>
+                        )}
 
                         <div className="form">
                             <div className="form-group">

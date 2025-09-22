@@ -155,43 +155,45 @@ export default function ModalSelectOrMakeSponsorIdentity({
                 <div className={'modal-body'}>
                     <div className="modal-section">
                         <div className="flex flex-gap flex-vertical">
-                            <FormPane title={'Find or Create person'}>
-                                <div className="block block-export-options">
-                                    <div className="export-section">
-                                        <div className="export-options">
-                                            {[
-                                                { label: 'Find a person', value: 'find' },
-                                                { label: 'Add new person', value: 'create' },
-                                            ].map((field, index) => (
-                                                <label
-                                                    key={index}
-                                                    className="export-option"
-                                                    htmlFor={`radio_action_${index}`}>
-                                                    <input
-                                                        type="radio"
-                                                        id={`radio_action_${index}`}
-                                                        checked={field.value === action}
-                                                        value={field.value}
-                                                        onChange={(e) => {
-                                                            setAction(e.target.value as 'find' | 'create');
-                                                        }}
-                                                    />
-                                                    <div className="export-option-label">
-                                                        {field.value === 'find' && (
-                                                            <em className="export-option-icon mdi mdi-magnify" />
-                                                        )}
-                                                        {field.value === 'create' && (
-                                                            <em className="export-option-icon mdi mdi-plus-circle" />
-                                                        )}
-                                                        <span>{field.label}</span>
-                                                        <div className="export-option-circle" />
-                                                    </div>
-                                                </label>
-                                            ))}
+                            {organization?.allow_profiles_create && (
+                                <FormPane title={'Find or Create person'}>
+                                    <div className="block block-export-options">
+                                        <div className="export-section">
+                                            <div className="export-options">
+                                                {[
+                                                    { label: 'Find a person', value: 'find' },
+                                                    { label: 'Add new person', value: 'create' },
+                                                ].map((field, index) => (
+                                                    <label
+                                                        key={index}
+                                                        className="export-option"
+                                                        htmlFor={`radio_action_${index}`}>
+                                                        <input
+                                                            type="radio"
+                                                            id={`radio_action_${index}`}
+                                                            checked={field.value === action}
+                                                            value={field.value}
+                                                            onChange={(e) => {
+                                                                setAction(e.target.value as 'find' | 'create');
+                                                            }}
+                                                        />
+                                                        <div className="export-option-label">
+                                                            {field.value === 'find' && (
+                                                                <em className="export-option-icon mdi mdi-magnify" />
+                                                            )}
+                                                            {field.value === 'create' && (
+                                                                <em className="export-option-icon mdi mdi-plus-circle" />
+                                                            )}
+                                                            <span>{field.label}</span>
+                                                            <div className="export-option-circle" />
+                                                        </div>
+                                                    </label>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </FormPane>
+                                </FormPane>
+                            )}
 
                             {action === 'find' ? (
                                 <FormPane title={'Search person'}>
