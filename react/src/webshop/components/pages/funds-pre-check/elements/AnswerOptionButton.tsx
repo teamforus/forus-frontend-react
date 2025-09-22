@@ -46,6 +46,7 @@ export default function AnswerOptionButton({
             });
         }
     };
+    // TODO: fix css
     // Base styles + conditional styling based on state
     let className = `button text-sm sm:text-base w-fit rounded-full font-semibold `;
     className += disabled && !isSelected ? 'bg-gray-200' : 'bg-blue-200';
