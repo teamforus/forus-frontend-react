@@ -15,7 +15,13 @@ export default function MessageList() {
 
     return (
         <div className="message-list">
-            {isLoadingStream && <div>Loading...</div>}
+            {/*TODO: add css*/}
+            {/*TODO: use translations*/}
+            {isLoadingStream && (
+                <div>
+                    <p>Loading...</p>
+                </div>
+            )}
 
             {/* Render each message using MessageItem component */}
             {messages.map((m, k) => (
@@ -23,7 +29,13 @@ export default function MessageList() {
             ))}
 
             {/* Typing indicator shown while bot is responding */}
-            {isThinking && <div className="flex justify-start text-sm text-gray-500">🤖 Aan het denken...</div>}
+            {/*TODO: fix css*/}
+            {/*TODO: use translations*/}
+            {isThinking && (
+                <div className="flex justify-start text-sm text-gray-500">
+                    <p>🤖 Aan het denken...</p>
+                </div>
+            )}
 
             {/* Invisible anchor for auto-scrolling */}
             <div ref={bottomRef} />

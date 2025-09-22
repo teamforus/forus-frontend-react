@@ -32,17 +32,17 @@ export default function MessageItem({ message }: MessageProps) {
                 <div className="message-avatar">
                     <Avatar name={message.sender} />
                 </div>
-                <div className="message-content ">
+                <div className="message-content">
                     <div
-                        className={`message-item message-item--bot text
+                        className={`message-item message-item--bot
                             ${message.error ? 'message-item--error' : ''}
                             ${message.inProgress ? 'message-item--in-progress' : ''}
                     `}>
-                        {message.text}
+                        <p>{message.text}</p>
                     </div>
                     {message.slots && (
                         <div
-                            className={`message-item message-item--bot text
+                            className={`message-item message-item--bot
                                 ${message.inProgress ? 'message-item--in-progress' : ''}
                         `}>
                             {/* Show slots when it's the 'confirm_data' step */}
@@ -84,7 +84,8 @@ export default function MessageItem({ message }: MessageProps) {
                                 className="advice-button" //${buttonNav} ${button}
                                 disabled={isLoadingAdvice}>
                                 {' '}
-                                {/* onClick={referToAdvice} */}{' '}
+                                {/* onClick={referToAdvice} */}
+                                {/*TODO: use translations*/}
                                 {isLoadingAdvice ? 'Bezig met laden...' : 'Bekijk je advies'}
                             </button>
                         )}
@@ -94,5 +95,9 @@ export default function MessageItem({ message }: MessageProps) {
         );
     }
     // For user messages: simple right-aligned bubble
-    return <div className="message-item message-item--user text">{message.text}</div>;
+    return (
+        <div className="message-item message-item--user ">
+            <p>{message.text}</p>
+        </div>
+    );
 }

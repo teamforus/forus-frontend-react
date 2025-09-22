@@ -5,14 +5,8 @@
   display: flex;
   flex-direction: column;
 
-  //TODO: fix font style
-
-  .text {
-    font: 400 13px/20px var(--base-font);
-  }
-
   .block-title {
-    font: 500 36px/36px var(--base-font);
+    font: 500 36px/36px var(--base-font), sans-serif;
     margin: 0 0 10px;
     text-align: center;
     color: #191A1C;
@@ -77,6 +71,11 @@
       height: 100%;
       padding-inline: calc(var(--spacing) * 1);
 
+      p {
+        margin-bottom: 0;
+        font-weight: 600;
+      }
+
       .thinking {
         display: flex;
         justify-content: start;
@@ -106,7 +105,7 @@
 
           .avatar-name {
             font-size: 0.875rem;
-            font: var(--base-font);
+            font-family: var(--base-font), sans-serif;
           }
         }
 
@@ -135,6 +134,22 @@
             margin-top: calc(var(--spacing) * 2);
             margin-left: 0;
           }
+
+          .answer-input-wrapper {
+            display: flex;
+            justify-items: start;
+            align-items: center;
+            border-radius: calc(var(--spacing) * 1.5);
+            border-width: 3px;
+            border-color: var(--answer-input-wrapper-border-color,  #c7d2fe);
+            background: var(--answer-input-wrapper-background,  #c7d2fe);
+            margin-top: calc(var(--spacing) * 2);
+
+            .answer-input {
+              width: 100%;
+              text-align: center;
+            }
+          }
         }
       }
       .message-item {
@@ -149,8 +164,6 @@
 
         white-space: pre-line;
         word-wrap: break-word;
-        font: var(--base-font);
-        font-size: 14px;
 
         @media (min-width: 640px) {
           max-width: 80%;

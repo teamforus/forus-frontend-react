@@ -7,9 +7,10 @@ import React from 'react';
 export default function AnswerInputField(answerInput: AnswerInputFieldProps) {
     const { sendMessage } = useChatbotProvider();
     const [input, setInput] = useState('');
-    const divClass =
-        'flex w-2/3 justify-items-start items-center text-sm sm:text-base rounded-md border-3 border-gray-400 bg-gray-100';
-    const inputClass = 'w-full focus:outline-none text-center';
+    // TODO: fix css
+    // const divClass =
+    // 'flex w-2/3 justify-items-start items-center text-sm sm:text-base rounded-md border-3 border-gray-400 bg-gray-100';
+    // const inputClass = 'w-full focus:outline-none text-center';
 
     const handleSend = async () => {
         await sendMessage(input);
@@ -18,9 +19,9 @@ export default function AnswerInputField(answerInput: AnswerInputFieldProps) {
     const sendButtonClass = 'hover:text-gray-600 text-gray-400';
 
     return (
-        <div className={`sm:mb-1 sm:p-1 mt-2 ${divClass}`}>
+        <div className="answer-input-wrapper font">
             <input
-                className={inputClass}
+                className="form form-control answer-input"
                 placeholder="Typ hier..."
                 type={answerInput.inputType}
                 min={answerInput.inputType === 'number' ? '0' : undefined}

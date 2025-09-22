@@ -68,6 +68,7 @@ export default function ChatbotInterface() {
 
             {/* Starting overlay content */}
             {/*TODO: fix css */}
+            {/*TODO: use translations*/}
             <Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>
                 <h2 className="text-xl font-bold mb-2">De huidige regelcheck is nog bezig</h2>
                 <p className="font-semibold">
