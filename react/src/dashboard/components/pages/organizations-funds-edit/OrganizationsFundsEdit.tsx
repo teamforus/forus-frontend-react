@@ -43,6 +43,7 @@ import FaqEditor from '../../elements/faq-editor-funds/FaqEditor';
 import FormGroupInfo from '../../elements/forms/elements/FormGroupInfo';
 import usePushApiError from '../../../hooks/usePushApiError';
 import FormGroup from '../../elements/forms/elements/FormGroup';
+import { Permission } from '../../../props/models/Organization';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -274,7 +275,7 @@ export default function OrganizationsFundsEdit() {
     const hasFundFormula = useMemo(() => {
         return (
             appConfigs?.organizations?.funds?.formula_products &&
-            hasPermission(activeOrganization, 'manage_funds') &&
+            hasPermission(activeOrganization, Permission.MANAGE_FUNDS) &&
             !form.values.external_page
         );
     }, [activeOrganization, appConfigs.organizations.funds.formula_products, form.values.external_page]);
@@ -732,7 +733,7 @@ export default function OrganizationsFundsEdit() {
                                         options={applicationMethods}
                                         disabled={
                                             (fund && fund.state != 'waiting') ||
-                                            !hasPermission(activeOrganization, 'manage_funds')
+                                            !hasPermission(activeOrganization, Permission.MANAGE_FUNDS)
                                         }
                                         onChange={(application_method: string) => {
                                             form.update({ application_method });
@@ -776,7 +777,7 @@ export default function OrganizationsFundsEdit() {
                                             allowSearch={false}
                                             value={form.values.criteria_label_requirement_show}
                                             options={shownCriteriaLabelDetails}
-                                            disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                            disabled={!hasPermission(activeOrganization, Permission.MANAGE_FUNDS)}
                                             onChange={(criteria_label_requirement_show: string) => {
                                                 form.update({ criteria_label_requirement_show });
                                             }}
@@ -945,7 +946,7 @@ export default function OrganizationsFundsEdit() {
                                     placeholder={translate('dd-MM-yyyy')}
                                     disabled={
                                         form.values.state != 'waiting' ||
-                                        !hasPermission(activeOrganization, 'manage_funds')
+                                        !hasPermission(activeOrganization, Permission.MANAGE_FUNDS)
                                     }
                                     onChange={(start_date: Date) => {
                                         form.update({ start_date: dateFormat(start_date) });
@@ -965,7 +966,7 @@ export default function OrganizationsFundsEdit() {
                                     placeholder={translate('dd-MM-yyyy')}
                                     disabled={
                                         form.values.state != 'waiting' ||
-                                        !hasPermission(activeOrganization, 'manage_funds')
+                                        !hasPermission(activeOrganization, Permission.MANAGE_FUNDS)
                                     }
                                     onChange={(end_date: Date) => {
                                         form.update({ end_date: dateFormat(end_date) });
@@ -997,7 +998,10 @@ export default function OrganizationsFundsEdit() {
                                                             placeholder="Selecteer aanbieding..."
                                                             options={productOptions?.[index] || []}
                                                             disabled={
-                                                                !hasPermission(activeOrganization, 'manage_funds')
+                                                                !hasPermission(
+                                                                    activeOrganization,
+                                                                    Permission.MANAGE_FUNDS,
+                                                                )
                                                             }
                                                             onChange={(product_id: number) => {
                                                                 updateFormFormulaProduct(
@@ -1020,7 +1024,10 @@ export default function OrganizationsFundsEdit() {
                                                             placeholder="Selecteer aanbieding..."
                                                             options={recordTypesMultiplier}
                                                             disabled={
-                                                                !hasPermission(activeOrganization, 'manage_funds')
+                                                                !hasPermission(
+                                                                    activeOrganization,
+                                                                    Permission.MANAGE_FUNDS,
+                                                                )
                                                             }
                                                             onChange={(record_type_key_multiplier: string) => {
                                                                 updateFormFormulaProduct(
@@ -1085,7 +1092,7 @@ export default function OrganizationsFundsEdit() {
                                     allowSearch={false}
                                     value={form.values.default_validator_employee_id}
                                     options={validators}
-                                    disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                    disabled={!hasPermission(activeOrganization, Permission.MANAGE_FUNDS)}
                                     onChange={(default_validator_employee_id: number) => {
                                         form.update({ default_validator_employee_id });
                                     }}
@@ -1099,7 +1106,7 @@ export default function OrganizationsFundsEdit() {
                                     <label className="form-label">Aanmeldingen</label>
                                     <CheckboxControl
                                         title={'Automatisch goedkeuren wanneer er een BSN-nummer vast staat.'}
-                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                        disabled={!hasPermission(activeOrganization, Permission.MANAGE_FUNDS)}
                                         checked={form.values.auto_requests_validation}
                                         onChange={(e) => {
                                             form.update({ auto_requests_validation: e.target.checked });
@@ -1122,7 +1129,7 @@ export default function OrganizationsFundsEdit() {
                                     <FundConfigContactInfoEditor
                                         value={form.values}
                                         onChange={form.update}
-                                        disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                        disabled={!hasPermission(activeOrganization, Permission.MANAGE_FUNDS)}
                                     />
                                 </div>
                             </div>
@@ -1155,7 +1162,7 @@ export default function OrganizationsFundsEdit() {
                                             onChange={(e) => {
                                                 form.update({ notification_amount: e.target.value });
                                             }}
-                                            disabled={!hasPermission(activeOrganization, 'manage_funds')}
+                                            disabled={!hasPermission(activeOrganization, Permission.MANAGE_FUNDS)}
                                             placeholder={translate('funds_edit.labels.notification_amount')}
                                         />
                                     </FormGroupInfo>

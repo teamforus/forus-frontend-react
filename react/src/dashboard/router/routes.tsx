@@ -79,7 +79,10 @@ import OrganizationFunds from '../components/pages/organizations-funds/Organizat
 import OrganizationsFundsShow from '../components/pages/organizations-funds-show/OrganizationsFundsShow';
 import OrganizationsFundsEdit from '../components/pages/organizations-funds-edit/OrganizationsFundsEdit';
 import OrganizationsFundsSecurity from '../components/pages/organizations-funds-security/OrganizationsFundsSecurity';
+import Identities from '../components/pages/identities/Identities';
 import IdentitiesShow from '../components/pages/identitities-show/IdentitiesShow';
+import Households from '../components/pages/households/Households';
+import HouseholdsShow from '../components/pages/households/HouseholdsShow';
 import PreCheck from '../components/pages/pre-check/PreCheck';
 import BiConnection from '../components/pages/bi-connection/BiConnection';
 import ThrowError from '../components/pages_system/ThrowError';
@@ -91,7 +94,6 @@ import PayoutsView from '../components/pages/payouts-view/PayoutsView';
 import Products from '../components/pages/products/Products';
 import SponsorProducts from '../components/pages/sponsor-products/SponsorProducts';
 import SponsorProductView from '../components/pages/sponsor-product/SponsorProductView';
-import Identities from '../components/pages/identities/Identities';
 import OrganizationsTranslations from '../components/pages/organizations-translations/OrganizationsTranslations';
 import ImplementationsTranslations from '../components/pages/implementations-cookies/ImplementationsTranslations';
 import FundForms from '../components/pages/fund-forms/FundForms';
@@ -228,6 +230,17 @@ router.state('identities', <Identities />, {
 router.state('identities-show', <IdentitiesShow />, {
     path: `/organisaties/:organizationId/identiteiten/:id`,
     altPath: `/organizations/:organizationId/identities/:id`,
+    fallbackState: 'organizations',
+});
+
+router.state('households', <Households />, {
+    path: `/organisaties/:organizationId/huishoudens`,
+    altPath: `/organizations/:organizationId/households`,
+});
+
+router.state('households-show', <HouseholdsShow />, {
+    path: `/organisaties/:organizationId/huishoudens/:id`,
+    altPath: `/organizations/:organizationId/households/:id`,
     fallbackState: 'organizations',
 });
 

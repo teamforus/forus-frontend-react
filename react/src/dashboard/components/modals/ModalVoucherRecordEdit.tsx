@@ -15,6 +15,7 @@ import { dateFormat, dateParse } from '../../helpers/dates';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import usePushApiError from '../../hooks/usePushApiError';
 import { ResponseError } from '../../props/ApiResponses';
+import { ProfileRecordType } from '../../props/models/Sponsor/SponsorIdentity';
 
 export default function ModalVoucherRecordEdit({
     modal,
@@ -138,7 +139,7 @@ export default function ModalVoucherRecordEdit({
                                         options={recordTypes}
                                         allowSearch={false}
                                         disabled={!!record || (recordTypes.length == 1 && recordTypes[0].key == null)}
-                                        onChange={(record_type_key: string) => {
+                                        onChange={(record_type_key: ProfileRecordType) => {
                                             form.update({ record_type_key: record_type_key });
                                         }}
                                     />

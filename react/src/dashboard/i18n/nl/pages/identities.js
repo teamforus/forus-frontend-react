@@ -4,6 +4,7 @@ export default {
     },
     labels: {
         id: 'ID',
+        type: 'Type',
         given_name: 'Voornaam',
         family_name: 'Achternaam',
         email: 'E-mail adres',
@@ -23,6 +24,11 @@ export default {
         street: 'Straatnaam',
         created_at: 'Gemaakt op',
         actions: 'Acties',
+
+        // relations
+        relation_type: 'Relatietype',
+        relation_subtype: 'Relatietype Specificatie',
+        relation_living_together: 'Samenwonend',
     },
     tooltips: {
         id: 'Dit is een unieke identificatiecode die automatisch wordt gegenereerd voor elke persoon in het systeem. Het helpt om elke persoon individueel te identificeren.',
@@ -88,7 +94,7 @@ export default {
             'De officiële codering van TNT Post voor een Nederlands postadres, bestaande uit een numeriek deel en een alfabetisch deel.',
         telephone: 'Het telefoonnummer waaronder de persoon bereikbaar is.',
         mobile: 'Het mobiele telefoonnummer waaronder de persoon bereikbaar is.',
-        city: '"De naam van een door het bevoegde gemeentelijke orgaan als zodanig aangewezen gedeelte van het gemeentelijk grondgebied.',
+        city: 'De naam van een door het bevoegde gemeentelijke orgaan als zodanig aangewezen gedeelte van het gemeentelijk grondgebied.',
         house_number: 'De numerieke aanduiding zoals deze door de gemeente aan het object is toegekend.',
         house_number_addition: 'De huisnummertoevoeging zoals deze door de gemeente aan het object is toegekend.',
         street: 'De officiële door de gemeente vastgestelde naam van een straat waar de persoon woonachtig is.',

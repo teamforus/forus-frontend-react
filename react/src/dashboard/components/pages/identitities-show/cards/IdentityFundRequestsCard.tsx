@@ -31,7 +31,6 @@ export default function IdentityFundRequestsCard({
         order_by: 'created_at',
         order_dir: 'desc',
         per_page: 10,
-        identity_id: identity.id,
     });
 
     const fetchFundRequests = useCallback(() => {
@@ -39,14 +38,14 @@ export default function IdentityFundRequestsCard({
         setLoading(true);
 
         fundRequestService
-            .index(organization.id, filterValuesActive)
+            .index(organization.id, { ...filterValuesActive, identity_id: identity.id })
             .then((res) => setFundRequests(res.data))
             .catch(pushApiError)
             .finally(() => {
                 setProgress(100);
                 setLoading(false);
             });
-    }, [setProgress, fundRequestService, organization.id, filterValuesActive, pushApiError]);
+    }, [setProgress, fundRequestService, organization.id, filterValuesActive, pushApiError, identity.id]);
 
     useEffect(() => {
         fetchFundRequests();
