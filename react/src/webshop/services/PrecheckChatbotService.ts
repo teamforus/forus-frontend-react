@@ -79,6 +79,7 @@ export class PrecheckChatbotService<T = unknown> {
         stream.onopen = () => {
             console.log('✅ SSE connected');
             this.attemptsRef.current = 0; // reset attempts
+            onMessage?.({ text: 'Connected', sender: 'system' } as BotResponse);
         };
         currentStream = stream;
 
