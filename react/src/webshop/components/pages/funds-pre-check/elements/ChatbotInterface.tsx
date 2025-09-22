@@ -20,12 +20,11 @@ export default function ChatbotInterface() {
     const navigate = useNavigate();
     const location = useLocation();
     const state = location.state as NavigationState | null;
-
     const from = state?.from;
     const [showOverlay, setShowOverlay] = useState(false);
 
     useEffect(() => {
-        if (from === '/regelingencheck' && messages.length > 0) {
+        if (from === '/home' && messages.length > 0) {
             setShowOverlay(true);
         } else {
             const options: NavigateOptions = { replace: true };
@@ -36,7 +35,7 @@ export default function ChatbotInterface() {
 
     const handleReset = async () => {
         setShowOverlay(false);
-        resetChat();
+        await resetChat();
         const options: NavigateOptions = { replace: true };
         navigate(location.pathname, options);
         setShouldStart(true);
@@ -66,7 +65,9 @@ export default function ChatbotInterface() {
                 <MessageList />
                 {/*</div>*/}
             </div>
+
             {/* Starting overlay content */}
+            {/*TODO: fix css */}
             <Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>
                 <h2 className="text-xl font-bold mb-2">De huidige regelcheck is nog bezig</h2>
                 <p className="font-semibold">

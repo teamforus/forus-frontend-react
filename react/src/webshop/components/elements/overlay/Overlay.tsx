@@ -20,6 +20,7 @@ export default function Overlay({ show, onClose, children }: OverlayProps) {
     if (!show) return null;
 
     return (
+        // TODO: fix css
         <div className="fixed inset-0 bg-gray-500/50 z-50 flex items-center justify-center" onClick={onClose}>
             <div
                 className="bg-white rounded-lg w-[90%] max-w-md sm:max-w-lg p-4 shadow-lg"

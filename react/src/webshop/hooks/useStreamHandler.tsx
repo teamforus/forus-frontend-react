@@ -17,10 +17,6 @@ export function useStreamHandler(
 
     const startStream = useCallback(
         async (restart: boolean = false) => {
-            if (restart) {
-                stopStreamRef.current?.();
-                streamStarted.current = false;
-            }
             if (streamStarted.current) return;
 
             setIsLoadingStream(true);
@@ -28,6 +24,7 @@ export function useStreamHandler(
             const storedSessionId = sessionStorage.getItem('session_id');
             if (!storedSessionId) {
                 try {
+                    lastSeenSeqRef.current = 0;
                     await precheckChatbotService.start();
                 } catch (e) {
                     onError?.(e);
@@ -38,6 +35,10 @@ export function useStreamHandler(
 
             const { stop } = await precheckChatbotService.stream(
                 (response) => {
+                    if (response.sender === 'system') {
+                        setIsLoadingStream(false);
+                    }
+
                     if (!response.seq) return;
 
                     if (response.seq <= lastSeenSeqRef.current) return;
@@ -45,13 +46,14 @@ export function useStreamHandler(
                     lastSeenSeqRef.current = response.seq;
                     setIncomingQueue((prev) => [...prev, response]);
                     onResponse?.(response);
-                    setIsLoadingStream(false);
+                    // setIsLoadingStream(false);
                     streamStarted.current = true;
                 },
                 () => onWaiting?.(),
                 () => onTyping?.(),
                 () => {
                     setIsClosed(true);
+                    setIsLoadingStream(false);
                     streamStarted.current = false;
                     onClosed?.();
                 },
@@ -66,8 +68,6 @@ export function useStreamHandler(
                         }
                     }
                     onError?.(problem);
-                    setIsLoadingStream(false);
-                    streamStarted.current = true;
                     stopStreamRef.current?.();
                 },
                 restart,
@@ -79,9 +79,9 @@ export function useStreamHandler(
     );
 
     const resetStream = useCallback(() => {
-        streamStarted.current = false;
-        setIsClosed(false);
         sessionStorage.removeItem('session_id');
+        sessionStorage.removeItem('session_token');
+        sessionStorage.removeItem('session_token_exp');
         sessionStorage.removeItem('advice');
     }, []);
 
@@ -98,6 +98,6 @@ export function useStreamHandler(
         isClosed,
         incomingQueue,
         setIncomingQueue,
-        resetStream, // geef door zodat provider of queuehook hem kan legen
+        resetStream,
     };
 }

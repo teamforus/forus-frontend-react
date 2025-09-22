@@ -75,7 +75,7 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
 
     useEffect(() => {
         if (shouldStart) startStream();
-    }, [shouldStart, startStream]);
+    }, [shouldStart]);
 
     useEffect(() => {
         return () => stopStream();
@@ -103,6 +103,7 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
         setHasInputType(false);
         setAdvice([]);
         setMessages([]);
+        setIncomingQueue([]);
         await precheckChatbotService.end();
         resetStream();
         await startStream(true);
