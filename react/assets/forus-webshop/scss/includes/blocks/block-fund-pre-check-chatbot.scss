@@ -141,13 +141,27 @@
             align-items: center;
             border-radius: calc(var(--spacing) * 1.5);
             border-width: 3px;
-            border-color: var(--answer-input-wrapper-border-color,  #c7d2fe);
-            background: var(--answer-input-wrapper-background,  #c7d2fe);
+            border-color: var(--answer-input-wrapper-border-color,  gray);
+            border-style: solid;
+            background: var(--answer-input-wrapper-background,  transparent);
             margin-top: calc(var(--spacing) * 2);
+            width: calc(2/3 * 100%);
 
             .answer-input {
               width: 100%;
               text-align: center;
+              border: none;
+              border-radius: calc(var(--spacing) * 1.5);
+            }
+
+            .button-icon {
+              color: var(--answer-input-wrapper-color, gray);
+              padding: 5px;
+              margin-right: 2px;
+              width: fit-content;
+            }
+            .button-icon:hover {
+              color: var(--answer-button-hover, black)
             }
           }
         }
