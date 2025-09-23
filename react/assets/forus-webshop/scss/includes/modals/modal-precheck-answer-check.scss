@@ -1,0 +1,14 @@
+.modal.modal-precheck-answer-check {
+  .modal-window {
+    .modal.header.answer-check-header {
+      font: 700 18px/25px var(--base-font) !important;
+    }
+    .modal-body {
+      .modal-section {
+        .modal-section-description.answer-check-description {
+          font: 500 16px/20px var(--base-font) !important;
+        }
+      }
+    }
+  }
+}

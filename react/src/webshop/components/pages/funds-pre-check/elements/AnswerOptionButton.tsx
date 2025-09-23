@@ -9,6 +9,7 @@ import Overlay from '../../../elements/overlay/Overlay';
 import { useState } from 'react';
 import type { SlotSummaryItem } from '../../../../props/types/PrecheckChatbotTypes';
 import React from 'react';
+import ModalPrecheckAnswerCheck from '../../../modals/ModalPrecheckAnswerCheck';
 
 /**
  * Props:
@@ -58,41 +59,19 @@ export default function AnswerOptionButton({
                 <button type={'button'} className={className} onClick={() => setShowOverlay(true)} disabled={disabled}>
                     {option.label}
                 </button>
-                {/* Confirmation overlay content: title, message, and two buttons */}
-                <Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>
-                    <h2 className="text-xl font-bold mb-2">Check je gegevens</h2>
-                    <p className="font-semibold">Klik alle gegevens aan die je wil wijzigen.</p>
-                    <div className="mt-4">
-                        {slots &&
-                            slots.map((item) => (
-                                <label key={item.slot} className="block mb-2">
-                                    <input
-                                        type="checkbox"
-                                        value={item.slot}
-                                        checked={selectedSlots.includes(item)}
-                                        onChange={(e) => {
-                                            const updated = e.target.checked
-                                                ? [...selectedSlots, item]
-                                                : selectedSlots.filter((k) => k.slot !== item.slot);
-                                            setSelectedSlots(updated);
-                                        }}
-                                        className="mr-2"
-                                    />
-                                    {item.message_slot}
-                                </label>
-                            ))}
-                    </div>
-                    <button
-                        className="mt-4 bg-lime-700 text-white px-3 p-1 m-2 rounded hover:bg-lime-900"
-                        onClick={handleConfirm}>
-                        Wijzigen
-                    </button>
-                    <button
-                        className="mt-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-800"
-                        onClick={() => setShowOverlay(false)}>
-                        Sluiten
-                    </button>
-                </Overlay>
+                <ModalPrecheckAnswerCheck
+                    show={showOverlay}
+                    slots={slots}
+                    selectedSlots={selectedSlots}
+                    onToggleSlot={(slot, checked) => {
+                        const updated = checked
+                            ? [...selectedSlots, slot]
+                            : selectedSlots.filter((s) => s.slot !== slot.slot);
+                        setSelectedSlots(updated);
+                    }}
+                    onClose={() => setShowOverlay(false)}
+                    onConfirm={handleConfirm}
+                />
             </div>
         );
     }
