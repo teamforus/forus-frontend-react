@@ -50,9 +50,6 @@ export default function ChatbotInterface() {
 
     return (
         <Fragment>
-            {/*<div className={``}>*/}
-
-            {/* ${bottomContainer}*/}
             {/* Top section: progress bar and reset button aligned horizontally */}
             <div className="chatbot-header">
                 <ProgressBar percentage={40} />
@@ -61,9 +58,7 @@ export default function ChatbotInterface() {
 
             {/* Chat content area with scrollable message list and input field */}
             <div className="chatbot-messages">
-                {/*<div className="message-list">*/}
                 <MessageList />
-                {/*</div>*/}
             </div>
 
             {/* Starting overlay content */}
@@ -85,7 +80,6 @@ export default function ChatbotInterface() {
                     Verdergaan
                 </button>
             </Overlay>
-            {/*</div>*/}
         </Fragment>
     );
 }
