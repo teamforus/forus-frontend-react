@@ -19,16 +19,16 @@ export default function useIdentityRelationDelete(organization: Organization) {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
-                    title={'Delete relation'}
-                    description={'Are you sure you want to delete this relation?'}
+                    title={'Verwijder relatie'}
+                    description={'Weet u zeker dat u de relatie wilt verwijderen?'}
                     buttonCancel={{
-                        text: 'Cancel',
+                        text: 'Annuleren',
                         onClick: () => {
                             modal.close();
                         },
                     }}
                     buttonSubmit={{
-                        text: 'Delete',
+                        text: 'Verwijder',
                         onClick: () => {
                             modal.close();
                             setProgress(0);

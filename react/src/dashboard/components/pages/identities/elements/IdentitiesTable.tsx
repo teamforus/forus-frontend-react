@@ -85,7 +85,7 @@ export default function IdentitiesTable() {
 
     const createProfile = useCallback(
         (fetchProfiles: () => void) => {
-            editProfileRecords(null, 'Add new person', 'personal', fetchProfiles);
+            editProfileRecords(null, 'Voeg een nieuw persoon toe', 'personal', fetchProfiles);
         },
         [editProfileRecords],
     );

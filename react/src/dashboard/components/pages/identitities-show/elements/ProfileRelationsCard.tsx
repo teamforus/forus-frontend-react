@@ -90,7 +90,7 @@ export default function ProfileRelationsCard({
     return (
         <div className="card">
             <div className="card-header">
-                <div className="card-title flex flex-grow">{`Relations (${relations?.meta?.total || 0})`}</div>
+                <div className="card-title flex flex-grow">{`Relaties (${relations?.meta?.total || 0})`}</div>
 
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
@@ -136,7 +136,7 @@ export default function ProfileRelationsCard({
                 </div>
             </div>
 
-            <LoaderTableCard loading={loading} empty={relations.meta.total == 0} emptyTitle={'Geen relations gevonden'}>
+            <LoaderTableCard loading={loading} empty={relations.meta.total == 0} emptyTitle={'Geen relaties gevonden'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         {configsElement}

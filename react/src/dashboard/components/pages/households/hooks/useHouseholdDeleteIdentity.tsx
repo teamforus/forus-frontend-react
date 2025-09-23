@@ -19,14 +19,14 @@ export default function useHouseholdDeleteIdentity(organization: Organization) {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
-                    title={'Delete household member'}
-                    description={'Are you sure you want to delete this member?'}
+                    title={'Verwijder huishouden persoon'}
+                    description={'Weet u het zeker dat u de persoon uit het huishouden wilt verwijderen?'}
                     buttonCancel={{
-                        text: 'Cancel',
+                        text: 'Annuleren',
                         onClick: () => modal.close(),
                     }}
                     buttonSubmit={{
-                        text: 'Delete',
+                        text: 'Verwijder',
                         onClick: () => {
                             modal.close();
                             setProgress(0);

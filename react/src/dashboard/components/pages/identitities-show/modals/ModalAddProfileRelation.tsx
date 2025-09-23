@@ -127,7 +127,7 @@ export default function ModalAddProfileRelation({
 
     return (
         <Modal
-            title={identityRelation ? 'Edit relationship' : 'Add relationship'}
+            title={identityRelation ? 'Bewerk relatie' : 'Voeg relatie toe'}
             className={className}
             dusk="modalHouseholds"
             size={'lg'}
@@ -149,7 +149,7 @@ export default function ModalAddProfileRelation({
                     <div className="modal-section">
                         <div className="flex flex-gap flex-vertical">
                             {!identityRelation && (
-                                <FormPane title={'Selected person details'}>
+                                <FormPane title={'Gegevens van geselecteerde persoon'}>
                                     <CardBlockKeyValue
                                         size={'md'}
                                         items={[
@@ -230,11 +230,11 @@ export default function ModalAddProfileRelation({
                                 </FormPane>
                             )}
 
-                            <FormPane title={'Relationtype'}>
+                            <FormPane title={'Relatie'}>
                                 <FormGroup
-                                    label={'Relationtype'}
+                                    label={'Relatie type'}
                                     error={form.errors?.type}
-                                    info={<Fragment>Selecteer de relatie tussen de twee personen.</Fragment>}
+                                    info={<Fragment>Selecteer het type relatie tussen de twee personen.</Fragment>}
                                     input={(id) => (
                                         <SelectControl
                                             id={id}
@@ -252,9 +252,9 @@ export default function ModalAddProfileRelation({
 
                                 {subTypes[form.values.type]?.length > 0 && (
                                     <FormGroup
-                                        label={'Subrelationtype'}
+                                        label={'Relatie type specificatie'}
                                         error={form.errors?.subtype}
-                                        info={<Fragment>Selecteer de subrelatie tussen de twee personen.</Fragment>}
+                                        info={<Fragment>Selecteer de specificatie van de relatie.</Fragment>}
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
@@ -269,9 +269,9 @@ export default function ModalAddProfileRelation({
                                     />
                                 )}
                                 <FormGroup
-                                    label={'Living together'}
+                                    label={'Samenwonend'}
                                     error={form.errors?.living_together}
-                                    info={<Fragment>Selecteer of de twee personen leven samen.</Fragment>}
+                                    info={<Fragment>Selecteer of de twee personen samenwonend zijn.</Fragment>}
                                     input={(id) => (
                                         <SelectControl
                                             id={id}

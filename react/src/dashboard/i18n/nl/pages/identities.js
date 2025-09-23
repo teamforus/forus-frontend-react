@@ -32,6 +32,7 @@ export default {
     },
     tooltips: {
         id: 'Dit is een unieke identificatiecode die automatisch wordt gegenereerd voor elke persoon in het systeem. Het helpt om elke persoon individueel te identificeren.',
+        type: 'Het type persoon geeft weer hoe de persoon is aangemaakt. Gaat het om een standaard persoon, dan is de persoon via het reguliere proces in het systeem gekomen. Gaat het om een handmatig aangemaakt persoon, dan is de persoon door een medewerker in het systeem gezet.',
         given_name:
             'Dit veld bevat de voornaam van de persoon. Het is belangrijk voor persoonlijke communicatie en identificatie.',
         family_name:

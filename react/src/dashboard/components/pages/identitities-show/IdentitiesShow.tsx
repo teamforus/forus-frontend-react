@@ -173,8 +173,8 @@ export default function IdentitiesShow() {
                     items={[
                         { label: 'Accountnummer', value: identity?.id },
                         identity?.type_locale ? { label: 'Account type', value: identity?.type_locale } : null,
-                        identity?.employee_email ? { label: 'Created by', value: identity?.employee_email } : null,
-                        { label: 'Created at', value: identity?.created_at_locale },
+                        identity?.employee_email ? { label: 'Aangemaakt door', value: identity?.employee_email } : null,
+                        { label: 'Aangemaakt op', value: identity?.created_at_locale },
                         { label: 'Laatste inlog', value: identity?.last_login_at_locale },
                         { label: 'Laatste handeling', value: identity?.last_activity_at_locale },
                     ].filter((item) => item !== null)}

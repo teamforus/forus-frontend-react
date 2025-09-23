@@ -60,7 +60,7 @@ export default function HouseholdsShow() {
             </div>
 
             <Card
-                title={'Household'}
+                title={'Huishouden'}
                 buttons={[
                     hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && {
                         text: 'Bewerken',
@@ -69,14 +69,14 @@ export default function HouseholdsShow() {
                     },
                 ]}
                 className={'form'}>
-                <FormPane title={'Household'}>
+                <FormPane title={'Huishouden'}>
                     <CardBlockKeyValue
                         size={'md'}
                         items={[
-                            { label: 'Household ID', value: household?.uid },
-                            { label: 'Number of Members', value: household.count_people },
-                            { label: 'Number of Underaged children', value: household.count_minors },
-                            { label: 'Number of Adults', value: household.count_adults },
+                            { label: 'Huishouden ID', value: household?.uid },
+                            { label: 'Aantal leden', value: household.count_people },
+                            { label: 'Aantal kinderen', value: household.count_minors },
+                            { label: 'Aantal ouders', value: household.count_adults },
                         ]}
                     />
                 </FormPane>

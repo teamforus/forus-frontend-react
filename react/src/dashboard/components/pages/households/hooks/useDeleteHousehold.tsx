@@ -17,16 +17,16 @@ export default function useDeleteHousehold() {
             openModal((modal) => (
                 <ModalDangerZone
                     modal={modal}
-                    title={'Delete'}
-                    description={'Are you sure you want to delete this household?'}
+                    title={'Verwijderen'}
+                    description={'Weet u zeker dat u het huishouden wilt verwijderen?'}
                     buttonCancel={{
-                        text: 'Cancel',
+                        text: 'Annuleren',
                         onClick: () => {
                             modal.close();
                         },
                     }}
                     buttonSubmit={{
-                        text: 'Delete',
+                        text: 'Verwijder',
                         onClick: () => {
                             modal.close();
                             setProgress(0);

@@ -131,7 +131,7 @@ export default function ModalSelectOrMakeSponsorIdentity({
 
     return (
         <Modal
-            title="Search persons"
+            title="Zoek voor personen"
             className={className}
             dusk="modalHouseholds"
             size={'lg'}
@@ -156,13 +156,13 @@ export default function ModalSelectOrMakeSponsorIdentity({
                     <div className="modal-section">
                         <div className="flex flex-gap flex-vertical">
                             {organization?.allow_profiles_create && (
-                                <FormPane title={'Find or Create person'}>
+                                <FormPane title={'Zoek of voeg een persoon toe'}>
                                     <div className="block block-export-options">
                                         <div className="export-section">
                                             <div className="export-options">
                                                 {[
-                                                    { label: 'Find a person', value: 'find' },
-                                                    { label: 'Add new person', value: 'create' },
+                                                    { label: 'Zoek een persoon', value: 'find' },
+                                                    { label: 'Voeg een nieuw persoon toe', value: 'create' },
                                                 ].map((field, index) => (
                                                     <label
                                                         key={index}
@@ -196,16 +196,16 @@ export default function ModalSelectOrMakeSponsorIdentity({
                             )}
 
                             {action === 'find' ? (
-                                <FormPane title={'Search person'}>
+                                <FormPane title={'Zoek een persoon'}>
                                     <FormGroup
-                                        label={'Search'}
-                                        info={'Search for a person in the system.'}
+                                        label={'Zoek'}
+                                        info={'Zoek voor een persoon in het systeem.'}
                                         input={(id) => (
                                             <input
                                                 id={id}
                                                 type="text"
                                                 className={'form-control'}
-                                                placeholder={'Search'}
+                                                placeholder={'Zoek'}
                                                 value={filterValues.q}
                                                 autoComplete={'off'}
                                                 onChange={(e) => filterUpdate({ q: e.target.value })}
@@ -232,7 +232,7 @@ export default function ModalSelectOrMakeSponsorIdentity({
                     {action === 'find' && identities && (
                         <Fragment>
                             <div className="modal-header modal-header-compact">
-                                <div className="modal-header-title">Matches ({identities?.meta?.total})</div>
+                                <div className="modal-header-title">Resultaten ({identities?.meta?.total})</div>
                             </div>
                             <div className="modal-section modal-section-collapse modal-section-light">
                                 <div className="table-wrapper">

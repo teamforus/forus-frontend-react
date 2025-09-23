@@ -16,33 +16,33 @@ export default function HouseholdMembers({
     >;
 }) {
     return (
-        <FormPane title={'Residents'}>
+        <FormPane title={'Bewoners'}>
             <FormGroup
-                label={'Household ID'}
+                label={'Huishouden ID'}
                 required={true}
-                info={'The household ID is used to identify the household in the system.'}
+                info={'Het ID nummer wordt als uniek nummer gebruikt om het huishouden te identificeren.'}
                 error={form.errors?.uid}
                 input={(id) => (
                     <input
                         id={id}
                         type="text"
                         className={'form-control'}
-                        placeholder={'Household ID'}
+                        placeholder={'Huishouden ID'}
                         value={form.values.uid ?? ''}
                         onChange={(e) => form.update({ uid: e.target.value })}
                     />
                 )}
             />
             <FormGroup
-                label={'Number of Members'}
+                label={'Aantal leden'}
                 error={form.errors?.count_people}
-                info={'The number of members in the household.'}
+                info={'Het aantal leden dat het huishouden heeft.'}
                 input={(id) => (
                     <input
                         id={id}
                         type="number"
                         className={'form-control'}
-                        placeholder={'Number of people'}
+                        placeholder={'Aantal leden'}
                         value={form.values.count_people ?? ''}
                         onChange={(e) => form.update({ count_people: parseInt(e.target.value) })}
                     />
@@ -50,15 +50,15 @@ export default function HouseholdMembers({
             />
 
             <FormGroup
-                label={'Number of Minors'}
+                label={'Aantal kinderen'}
                 error={form.errors?.count_minors}
-                info={'The number of minors in the household.'}
+                info={'Het aantal kinderen dat het huishouden heeft.'}
                 input={(id) => (
                     <input
                         id={id}
                         type="number"
                         className={'form-control'}
-                        placeholder={'Number of minors'}
+                        placeholder={'Aantal kinderen'}
                         value={form.values.count_minors ?? ''}
                         onChange={(e) => form.update({ count_minors: parseInt(e.target.value) })}
                     />
@@ -66,15 +66,15 @@ export default function HouseholdMembers({
             />
 
             <FormGroup
-                label={'Number of Adults'}
+                label={'Aantal ouders'}
                 error={form.errors?.count_adults}
-                info={'The number of adults in the household.'}
+                info={'Het aantal ouders dat het huishouden heeft.'}
                 input={(id) => (
                     <input
                         id={id}
                         type="number"
                         className={'form-control'}
-                        placeholder={'Number of adults'}
+                        placeholder={'Aantal ouders'}
                         value={form.values.count_adults ?? ''}
                         onChange={(e) => form.update({ count_adults: parseInt(e.target.value) })}
                     />

@@ -40,7 +40,7 @@ export default function useHouseholdAddIdentity(organization: Organization) {
                         Promise.all(profilesPromise)
                             .then(() => {
                                 onChange?.();
-                                pushSuccess('Gelukt!', 'Person succesvol toegevoegd.');
+                                pushSuccess('Gelukt!', 'Persoon succesvol toegevoegd.');
                             })
                             .catch(pushApiError)
                             .finally(() => setProgress(100));
