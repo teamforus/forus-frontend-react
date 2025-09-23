@@ -46,12 +46,11 @@ export default function AnswerOptionButton({
             });
         }
     };
-    // TODO: fix css
+
     // Base styles + conditional styling based on state
-    let className = `button text-sm sm:text-base w-fit rounded-full font-semibold `;
-    className += disabled && !isSelected ? 'bg-gray-200' : 'bg-blue-200';
-    className += disabled && isSelected ? ' bg-gray-500 text-white' : '';
-    className += disabled ? ' cursor-not-allowed ' : ' cursor-pointer hover:bg-blue-300';
+    let className = `button button-sm answer-button `;
+    className += disabled && !isSelected ? 'button-disabled' : '';
+    className += disabled && isSelected ? 'answer-button--is-selected' : '';
 
     if (step === 'confirm_data' && option.label === 'Wijzigen') {
         return (

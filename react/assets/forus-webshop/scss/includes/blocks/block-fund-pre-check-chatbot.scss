@@ -128,6 +128,25 @@
             @media (min-width: 1024px) {
               flex-direction: row;
             }
+
+            .answer-button {
+              background: var(--answer-button-background, blue);
+
+              //&.disabled {
+              //  cursor: not-allowed;
+              //  background: var(--button-disabled-background, gray);
+              //}
+
+              &--is-selected {
+                background: var(--button-disabled-selected-background, purple) !important;
+                color: var(--button-disabled-selected-text, white) !important;
+              }
+
+              &:hover {
+                background: var(--answer-button-hover-background, red);
+              }
+
+            }
           }
 
           .advice-button {
@@ -152,6 +171,10 @@
               text-align: center;
               border: none;
               border-radius: calc(var(--spacing) * 1.5);
+              font: 400 16px/1.5em var(--base-font);
+            }
+            .answer-input::placeholder {
+              font: 300 14px/1.5em var(--base-font);
             }
 
             .button-icon {
