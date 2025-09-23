@@ -6,18 +6,18 @@
 import React from 'react';
 import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 // import {useGoToPage} from "../../hooks/useGoToPage.tsx";
-import Overlay from './../../../elements/overlay/Overlay';
 import { useState } from 'react';
+import ModalPrecheckRestart from '../../../modals/ModalPrecheckRestart';
 // import {button} from "../../styles/classnames.tsx";
 
 export default function ResetButton({ shouldRedirect }: { shouldRedirect: boolean }) {
     const { resetChat } = useChatbotProvider();
-    const [showOverlay, setShowOverlay] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     // const goToPage = useGoToPage('precheck')
     // TODO: refactor goToPage to StateNavLink
     // Resets the session and optionally redirects to /precheck
     const handleReset = (): void => {
-        setShowOverlay(false);
+        setShowModal(false);
         resetChat();
         if (shouldRedirect) {
             // goToPage();
@@ -27,27 +27,12 @@ export default function ResetButton({ shouldRedirect }: { shouldRedirect: boolea
     return (
         <div className="reset-button">
             {/* Trigger confirmation on click */}
-            <button className="button button-primary" onClick={() => setShowOverlay(true)}>
+            <button className="button button-primary" onClick={() => setShowModal(true)}>
                 Herstart de regelingencheck
             </button>
 
             {/* Confirmation overlay content: title, message, and two buttons */}
-            <Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>
-                <h2 className="text-xl font-bold mb-2">Herstarten regelingencheck</h2>
-                <p className="font-semibold">
-                    Weet je zeker dat je wil herstarten? Alle berichten en advies worden dan verwijderd.
-                </p>
-                <button
-                    className="mt-4 bg-lime-700 text-white px-3 p-1 m-2 rounded hover:bg-lime-900"
-                    onClick={handleReset}>
-                    Ja
-                </button>
-                <button
-                    className="mt-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-800"
-                    onClick={() => setShowOverlay(false)}>
-                    Sluiten
-                </button>
-            </Overlay>
+            <ModalPrecheckRestart show={showModal} onClose={() => setShowModal(false)} onRestart={handleReset} />
         </div>
     );
 }
