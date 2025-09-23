@@ -7,8 +7,8 @@ import useEnvData from '../../../hooks/useEnvData';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { useParams } from 'react-router';
-import TransactionDetails from './elements/TransactionDetails';
-import ReservationExtraPaymentDetails from '../reservations-view/elements/ReservationExtraPaymentDetails';
+import TransactionDetailCards from './elements/TransactionDetailCards';
+import ReservationExtraPaymentDetailsCard from '../reservations-view/elements/ReservationExtraPaymentDetailsCard';
 import useTranslate from '../../../hooks/useTranslate';
 
 export default function TransactionsView() {
@@ -65,7 +65,7 @@ export default function TransactionsView() {
                 <div className="breadcrumb-item active">{'#' + transaction.id}</div>
             </div>
 
-            <TransactionDetails
+            <TransactionDetailCards
                 transaction={transaction}
                 setTransaction={setTransaction}
                 showReservationPageButton={true}
@@ -73,7 +73,7 @@ export default function TransactionsView() {
             />
 
             {transaction?.reservation?.extra_payment && (
-                <ReservationExtraPaymentDetails
+                <ReservationExtraPaymentDetailsCard
                     organization={activeOrganization}
                     reservation={transaction.reservation}
                     payment={transaction.reservation.extra_payment}

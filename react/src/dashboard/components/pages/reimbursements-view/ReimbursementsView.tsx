@@ -10,7 +10,7 @@ import Reimbursement from '../../../props/models/Reimbursement';
 import File from '../../../props/models/File';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import TransactionDetails from '../transactions-view/elements/TransactionDetails';
+import TransactionDetailCards from '../transactions-view/elements/TransactionDetailCards';
 import { hasPermission } from '../../../helpers/utils';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
@@ -577,7 +577,7 @@ export default function ReimbursementsView() {
             )}
 
             {reimbursement.voucher_transaction && hasPermission(activeOrganization, 'view_finances') && (
-                <TransactionDetails
+                <TransactionDetailCards
                     transaction={reimbursement.voucher_transaction}
                     setTransaction={setTransaction}
                     showReservationPageButton={true}
