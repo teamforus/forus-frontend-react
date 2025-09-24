@@ -156,33 +156,41 @@
 
           .answer-input-wrapper {
             display: flex;
-            justify-items: start;
+            justify-content: space-between;
+            position: relative;
             align-items: center;
-            border-radius: calc(var(--spacing) * 1.5);
-            border-width: 3px;
-            border-color: var(--answer-input-wrapper-border-color,  gray);
-            border-style: solid;
-            background: var(--answer-input-wrapper-background,  transparent);
-            margin-top: calc(var(--spacing) * 2);
-            width: calc(2/3 * 100%);
+            width: calc(3/4 * 100%);
 
             .answer-input {
               width: 100%;
               text-align: center;
-              border: none;
-              border-radius: calc(var(--spacing) * 1.5);
+              border: 3px solid var(--answer-input-border-color,  gray);
+              padding-inline: 3px;
+              border-radius: calc(var(--spacing) * 2);
               font: 400 16px/1.5em var(--base-font);
+              background: var(--answer-input-background, transparant);
             }
             .answer-input::placeholder {
-              font: 300 14px/1.5em var(--base-font);
+              font: 300 16px/1.5em var(--base-font);
             }
 
-            .button-icon {
-              color: var(--answer-input-wrapper-color, gray);
-              padding: 5px;
-              margin-right: 2px;
-              width: fit-content;
+            .answer-input-icon {
+              //position: absolute;
+              cursor: pointer;
+              font-size: 1.5rem;
+              line-height: 1;
+              background: transparent;
+              //right: 8px;
+              color: var(--answer-icon-color, gray);
+              padding: 0 2px 0 2px;
+              margin-inline: 6px 3px;
+              margin-top: 2px;
+              width: auto;
             }
+            .answer-send-button-icon.mdi {
+              float: none;
+            }
+
             .button-icon:hover {
               color: var(--answer-button-hover, black)
             }

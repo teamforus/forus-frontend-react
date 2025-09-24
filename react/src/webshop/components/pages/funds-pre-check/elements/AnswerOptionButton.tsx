@@ -5,7 +5,6 @@
 
 import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 import type { AnswerOptionButtonProps } from '../../../../props/types/PrecheckChatbotTypes';
-import Overlay from '../../../elements/overlay/Overlay';
 import { useState } from 'react';
 import type { SlotSummaryItem } from '../../../../props/types/PrecheckChatbotTypes';
 import React from 'react';

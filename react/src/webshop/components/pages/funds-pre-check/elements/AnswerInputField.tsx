@@ -14,7 +14,7 @@ export default function AnswerInputField(answerInput: AnswerInputFieldProps) {
     return (
         <div className="answer-input-wrapper">
             <input
-                className="form form-input answer-input"
+                className="form form-control answer-input"
                 placeholder="Typ hier..."
                 type={answerInput.inputType}
                 min={answerInput.inputType === 'number' ? '0' : undefined}
@@ -25,8 +25,8 @@ export default function AnswerInputField(answerInput: AnswerInputFieldProps) {
                     }
                 }}
             />
-            <button onClick={handleSend} className="button-icon button button-text" aria-label={'stuur bericht'}>
-                <em className={'mdi mdi-chevron-right-circle-outline'}></em>
+            <button onClick={handleSend} className="button button-icon answer-input-icon" aria-label={'stuur bericht'}>
+                <em className={'mdi mdi-send-circle icon-right'}></em>
             </button>
         </div>
     );
