@@ -95,7 +95,7 @@ export default function HouseholdIdentitiesCard({ household }: { household: Hous
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {`Household members (${householdMembers?.meta?.total || 0})`}
+                    {`Personen binnen dit huishouden (${householdMembers?.meta?.total || 0})`}
                 </div>
 
                 <div className={'card-header-filters'}>
