@@ -6,6 +6,7 @@ import SponsorIdentity, { ProfileBankAccount } from '../props/models/Sponsor/Spo
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import Organization from '../props/models/Organization';
 import IdentitiesApiPerson from '../props/models/IdentitiesApiPerson';
+import Note from '../props/models/Note';
 
 export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccount> {
     /**
@@ -90,6 +91,18 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
 
     public exportFields(organization_id: number): Promise<ApiResponseSingle<Array<ExportFieldProp>>> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/identities/export-fields`);
+    }
+
+    public notes(organizationId: number, id: number, data: object): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${id}/notes`, data);
+    }
+
+    public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {
+        return this.apiRequest.delete(`${this.prefix}/${organizationId}/sponsor/identities/${id}/notes/${note_id}`);
+    }
+
+    public storeNote(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<Note>> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/identities/${id}/notes`, data);
     }
 
     public getColumns(organization: Organization): Array<ConfigurableTableColumn> {

@@ -28,6 +28,8 @@ import { dateParse } from '../../../helpers/dates';
 import BlockCardEmails from '../../elements/block-card-emails/BlockCardEmails';
 import useEmailLogService from '../../../services/EmailLogService';
 import IdentityPerson from '../fund-requests-view/elements/IdentityPerson';
+import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
+import Note from '../../../props/models/Note';
 
 export default function IdentitiesShow() {
     const openModal = useOpenModal();
@@ -117,6 +119,27 @@ export default function IdentitiesShow() {
         [activeOrganization?.id, identity?.id, emailLogService],
     );
 
+    const fetchNotes = useCallback(
+        (query = {}) => {
+            return sponsorIdentitiesService.notes(activeOrganization.id, identity?.id, query);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
+    const deleteNote = useCallback(
+        (note: Note) => {
+            return sponsorIdentitiesService.noteDestroy(activeOrganization.id, identity?.id, note.id);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
+    const storeNote = useCallback(
+        (data: { description: string }) => {
+            return sponsorIdentitiesService.storeNote(activeOrganization.id, identity?.id, data);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
     useEffect(() => {
         fetchIdentity();
     }, [fetchIdentity]);
@@ -199,6 +222,8 @@ export default function IdentitiesShow() {
             {activeOrganization.has_person_bsn_api && identity?.bsn && (
                 <IdentityPerson organization={activeOrganization} identityId={identity.id} />
             )}
+
+            <BlockCardNotes showCreate={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
 
             <Card
                 title={'Huishouden'}
