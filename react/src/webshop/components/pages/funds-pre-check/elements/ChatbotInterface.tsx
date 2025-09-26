@@ -6,14 +6,13 @@
 import MessageList from './MessageList';
 import ResetButton from './ResetButton';
 import ProgressBar from './ProgressBar';
-// import { bottomContainer } from '../../styles/classnames.tsx';
 import { useNavigate, useLocation } from 'react-router';
 import type { NavigationState } from '../../../../props/types/PrecheckChatbotTypes';
-import Overlay from '../../../elements/overlay/Overlay';
 import { Fragment, useEffect, useState } from 'react';
 import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 import type { NavigateOptions } from 'react-router';
 import React from 'react';
+import ModalPrecheckResumeFromHome from '../../../modals/ModalPrecheckResumeFromHome';
 
 export default function ChatbotInterface() {
     const { resetChat, messages, setShouldStart } = useChatbotProvider();
@@ -64,22 +63,28 @@ export default function ChatbotInterface() {
             {/* Starting overlay content */}
             {/*TODO: fix css */}
             {/*TODO: use translations*/}
-            <Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>
-                <h2 className="text-xl font-bold mb-2">De huidige regelcheck is nog bezig</h2>
-                <p className="font-semibold">
-                    Wil je verdergaan waar je was gebleven of de check weer opnieuw opstarten?
-                </p>
-                <button
-                    className="mt-4 bg-lime-700 text-white px-3 p-1 m-2 rounded hover:bg-lime-900"
-                    onClick={handleReset}>
-                    Opnieuw opstarten
-                </button>
-                <button
-                    className="mt-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-800"
-                    onClick={handleContinue}>
-                    Verdergaan
-                </button>
-            </Overlay>
+            <ModalPrecheckResumeFromHome
+                show={showOverlay}
+                onClose={() => setShowOverlay(false)}
+                onRestart={handleReset}
+                onContinue={handleContinue}
+            />
+            {/*<Overlay show={showOverlay} onClose={() => setShowOverlay(false)}>*/}
+            {/*    <h2 className="text-xl font-bold mb-2">De huidige regelcheck is nog bezig</h2>*/}
+            {/*    <p className="font-semibold">*/}
+            {/*        Wil je verdergaan waar je was gebleven of de check weer opnieuw opstarten?*/}
+            {/*    </p>*/}
+            {/*    <button*/}
+            {/*        className="mt-4 bg-lime-700 text-white px-3 p-1 m-2 rounded hover:bg-lime-900"*/}
+            {/*        onClick={handleReset}>*/}
+            {/*        Opnieuw opstarten*/}
+            {/*    </button>*/}
+            {/*    <button*/}
+            {/*        className="mt-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-800"*/}
+            {/*        onClick={handleContinue}>*/}
+            {/*        Verdergaan*/}
+            {/*    </button>*/}
+            {/*</Overlay>*/}
         </Fragment>
     );
 }
