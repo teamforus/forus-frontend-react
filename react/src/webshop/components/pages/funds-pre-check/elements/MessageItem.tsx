@@ -11,6 +11,7 @@ import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 import type { AnswerOption } from '../../../../props/types/PrecheckChatbotTypes';
 import AnswerInputField from './AnswerInputField';
 import React from 'react';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function MessageItem({ message }: MessageProps) {
     // const goToPage = useGoToPage('advies');
@@ -25,6 +26,7 @@ export default function MessageItem({ message }: MessageProps) {
     const selectOption = (option: AnswerOption) => {
         message.selectedAnswer = option;
     };
+    const translate = useTranslate();
 
     if (message.type === 'ai') {
         return (
@@ -85,8 +87,9 @@ export default function MessageItem({ message }: MessageProps) {
                                 disabled={isLoadingAdvice}>
                                 {' '}
                                 {/* onClick={referToAdvice} */}
-                                {/*TODO: use translations*/}
-                                {isLoadingAdvice ? 'Bezig met laden...' : 'Bekijk je advies'}
+                                {isLoadingAdvice
+                                    ? translate('precheck_chatbot.advice.loading', {}, 'Bezig met laden...')
+                                    : translate('precheck_chatbot.advice.done', {}, 'Bekijk je advies')}
                             </button>
                         )}
                     </div>

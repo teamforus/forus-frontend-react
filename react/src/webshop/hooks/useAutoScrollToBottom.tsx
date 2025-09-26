@@ -11,8 +11,8 @@ import { type RefObject, useEffect } from 'react';
  * @param ref - A RefObject pointing to the element to scroll into view
  * @param deps - Dependency array that triggers scrolling when changed
  */
-export function useAutoScrollToBottom(ref: RefObject<HTMLDivElement | null>, deps: unknown[]) {
+export function useAutoScrollToBottom(ref: RefObject<HTMLDivElement>, deps: unknown[]) {
     useEffect(() => {
-        ref.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [deps, ref]);
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }, [deps]); // eslint-disable-line react-hooks/exhaustive-deps
 }
