@@ -47,11 +47,11 @@ export default function MessageItem({ message }: MessageProps) {
                         `}>
                             {/* Show slots when it's the 'confirm_data' step */}
                             {message.step === 'confirm_data' && message.slots && !message.inProgress && (
-                                <div>
+                                <ul>
                                     {message.slots.map((item) => (
                                         <li key={item.slot}>{item.message_slot}</li>
                                     ))}
-                                </div>
+                                </ul>
                             )}
                         </div>
                     )}
