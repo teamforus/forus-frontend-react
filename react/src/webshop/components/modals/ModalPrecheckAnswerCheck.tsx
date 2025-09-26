@@ -1,5 +1,5 @@
 // ModalPrecheckRestart.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import type { SlotSummaryItem } from '../../props/types/PrecheckChatbotTypes';
@@ -50,7 +50,7 @@ export default function ModalPrecheckAnswerCheck({
                 />
 
                 {/* Header */}
-                <div className="modal-header answer-check-header">
+                <div className="modal-header modal-answer-check-header">
                     <h2 className="modal-header-title ">
                         {translate('modal_precheck_answer_check.title', {}, 'Check je gegevens')}
                     </h2>
@@ -58,8 +58,8 @@ export default function ModalPrecheckAnswerCheck({
 
                 {/* Body */}
                 <div className="modal-body">
-                    <div className="modal-section">
-                        <p className="modal-section-description answer-check-description">
+                    <div className="modal-section modal-precheck-answer-check-section">
+                        <p className="modal-section-description modal-answer-check-description">
                             {translate(
                                 'modal_precheck_answer_check.description',
                                 {},
@@ -67,7 +67,7 @@ export default function ModalPrecheckAnswerCheck({
                             )}
                         </p>
                         {/* Checkboxes */}
-                        <div className="modal-section">
+                        <div className="modal-answer-check-list">
                             {slots.map((item) => (
                                 <UIControlCheckbox
                                     key={item.slot}
@@ -77,16 +77,6 @@ export default function ModalPrecheckAnswerCheck({
                                     checked={selectedSlots.some((s) => s.slot === item.slot)}
                                     onChangeValue={(checked) => onToggleSlot(item, checked)}
                                 />
-                                // <label key={item.slot} className="block mb-2">
-                                //     <input
-                                //         type="checkbox"
-                                //         value={item.slot}
-                                //         checked={selectedSlots.some((s) => s.slot === item.slot)}
-                                //         onChange={(e) => onToggleSlot(item, e.target.checked)}
-                                //         className="mr-2"
-                                //     />
-                                //     {item.message_slot}
-                                // </label>
                             ))}
                         </div>
                     </div>

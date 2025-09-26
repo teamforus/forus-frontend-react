@@ -1,0 +1,17 @@
+.modal.modal-precheck-resume-home {
+  .modal-window {
+    .modal-header.modal-resume-home-header {
+      font: 700 18px/25px var(--base-font);
+    }
+
+    .modal-body {
+      .modal-section.modal-precheck-resume-home-section {
+        .modal-resume-home-description {
+          font: 500 16px/20px var(--base-font);
+          padding-inline: 20px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
