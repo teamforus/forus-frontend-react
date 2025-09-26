@@ -222,6 +222,11 @@
           max-width: 60%;
         }
 
+        ul {
+          list-style-type: disc;
+          list-style-position: inside;
+        }
+
         &--error {
           background: color-mix(in srgb, var(--color-danger) 50%, white) !important;
           border: 2px solid color-mix(in srgb, var(--color-danger) 50%, black);
