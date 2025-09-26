@@ -7,19 +7,20 @@ import MessageItem from './MessageItem';
 import { useRef } from 'react';
 import { useAutoScrollToBottom } from '../../../../hooks/useAutoScrollToBottom';
 import React from 'react';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function MessageList() {
     const { messages, isThinking, isLoadingStream } = useChatbotProvider();
+    const translate = useTranslate();
+
     const bottomRef = useRef<HTMLDivElement>(null);
     useAutoScrollToBottom(bottomRef, messages);
 
     return (
         <div className="message-list">
-            {/*TODO: add css*/}
-            {/*TODO: use translations*/}
             {isLoadingStream && (
                 <div>
-                    <p>Loading...</p>
+                    <p>{translate('precheck_chatbot.loading', {}, 'Aan het laden')}</p>
                 </div>
             )}
 
@@ -29,11 +30,9 @@ export default function MessageList() {
             ))}
 
             {/* Typing indicator shown while bot is responding */}
-            {/*TODO: fix css*/}
-            {/*TODO: use translations*/}
             {isThinking && (
-                <div className="flex justify-start text-sm text-gray-500">
-                    <p>🤖 Aan het denken...</p>
+                <div>
+                    <p>{translate('precheck_chatbot.thinking', {}, 'Aan het denken...')}</p>
                 </div>
             )}
 
