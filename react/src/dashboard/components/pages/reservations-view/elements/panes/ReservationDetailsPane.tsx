@@ -4,6 +4,7 @@ import FormPane from '../../../../elements/forms/elements/FormPane';
 import Reservation from '../../../../../props/models/Reservation';
 import BlockInlineCopy from '../../../../elements/block-inline-copy/BlockInlineCopy';
 import { strLimit } from '../../../../../helpers/string';
+import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
 
 export default function ReservationDetailsPane({ reservation }: { reservation: Reservation }) {
     const translate = useTranslate();
@@ -11,51 +12,33 @@ export default function ReservationDetailsPane({ reservation }: { reservation: R
     return (
         <FormPane title={'Gegevens'} large={true}>
             <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
-                <div className="keyvalue-item">
-                    <div className="keyvalue-key">{translate('reservation.labels.email')}</div>
-                    <div className="keyvalue-value">
-                        <BlockInlineCopy className={'text-strong text-primary'} value={reservation.identity_email}>
-                            {strLimit(reservation.identity_email, 27)}
-                        </BlockInlineCopy>
-                    </div>
-                </div>
-                <div className="keyvalue-item">
-                    <div className="keyvalue-key">{translate('reservation.labels.first_name')}</div>
-                    <div className="keyvalue-value">{reservation.first_name}</div>
-                </div>
-                <div className="keyvalue-item">
-                    <div className="keyvalue-key">{translate('reservation.labels.last_name')}</div>
-                    <div className="keyvalue-value">{reservation.last_name}</div>
-                </div>
+                <KeyValueItem label={translate('reservation.labels.email')}>
+                    <BlockInlineCopy className={'text-strong text-primary'} value={reservation.identity_email}>
+                        {strLimit(reservation.identity_email, 27)}
+                    </BlockInlineCopy>
+                </KeyValueItem>
+                <KeyValueItem label={translate('reservation.labels.first_name')}>{reservation.first_name}</KeyValueItem>
+                <KeyValueItem label={translate('reservation.labels.last_name')}>{reservation.last_name}</KeyValueItem>
                 {reservation.phone && (
-                    <div className="keyvalue-item">
-                        <div className="keyvalue-key">{translate('reservation.labels.phone')}</div>
-                        <div className="keyvalue-value">{reservation.phone}</div>
-                    </div>
+                    <KeyValueItem label={translate('reservation.labels.phone')}>{reservation.phone}</KeyValueItem>
                 )}
                 {reservation.address && (
-                    <div className="keyvalue-item">
-                        <div className="keyvalue-key">{translate('reservation.labels.address')}</div>
-                        <div className="keyvalue-value">{reservation.address}</div>
-                    </div>
+                    <KeyValueItem label={translate('reservation.labels.address')}>{reservation.address}</KeyValueItem>
                 )}
                 {reservation.birth_date && (
-                    <div className="keyvalue-item">
-                        <div className="keyvalue-key">{translate('reservation.labels.birth_date')}</div>
-                        <div className="keyvalue-value">{reservation.birth_date_locale}</div>
-                    </div>
+                    <KeyValueItem label={translate('reservation.labels.birth_date')}>
+                        {reservation.birth_date_locale}
+                    </KeyValueItem>
                 )}
                 {reservation.custom_fields?.map((field, index) => (
-                    <div className="keyvalue-item" key={index}>
-                        <div className="keyvalue-key">{field.label}</div>
-                        <div className="keyvalue-value">{field.value}</div>
-                    </div>
+                    <KeyValueItem key={index} label={field.label}>
+                        {field.value}
+                    </KeyValueItem>
                 ))}
                 {reservation.user_note && (
-                    <div className="keyvalue-item">
-                        <div className="keyvalue-key">{translate('reservation.labels.user_note')}</div>
-                        <div className="keyvalue-value">{reservation.user_note}</div>
-                    </div>
+                    <KeyValueItem label={translate('reservation.labels.user_note')}>
+                        {reservation.user_note}
+                    </KeyValueItem>
                 )}
             </div>
         </FormPane>

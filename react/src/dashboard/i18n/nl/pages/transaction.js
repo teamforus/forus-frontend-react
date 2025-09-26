@@ -2,7 +2,7 @@ export default {
     labels: {
         amount: 'Bedrag',
         payment: 'Transactie',
-        details: 'Details',
+        details: 'Transactie',
         id: 'ID',
         fund: 'Fonds',
         bunq_id: 'ID bunq',
@@ -23,6 +23,12 @@ export default {
         date_non_cancelable: 'Definitieve transactie',
         note: 'Omschrijving',
         description: 'Omschrijving',
+        iban_from: 'IBAN (van)',
+        iban_to: 'IBAN (naar)',
+        iban_to_name: 'IBAN naam (naar)',
+        amount_extra_cash: 'Gevraagde bijbetaling',
+        reservation: 'Reservering',
+        voucher: 'Tegoed',
     },
     tooltips: {
         pending_iban_from:
