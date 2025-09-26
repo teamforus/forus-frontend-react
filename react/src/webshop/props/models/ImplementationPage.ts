@@ -1,6 +1,6 @@
-import Media from '../../../dashboard/props/models/Media';
+import ImplementationPageBlock from './ImplementationPageBlock';
 
-type ImplementationPage = {
+export default interface ImplementationPage {
     page_type?: string;
     external: boolean;
     title?: string;
@@ -9,25 +9,11 @@ type ImplementationPage = {
     blocks_per_row: number;
     description_html: string;
     external_url: string;
-    blocks: Array<{
-        id: number;
-        label: string;
-        title: string;
-        description: string;
-        description_html: string;
-        button_text: string;
-        button_link: string;
-        button_target_blank: boolean;
-        button_enabled: boolean;
-        button_link_label: string;
-        media: Media;
-    }>;
+    blocks: Array<ImplementationPageBlock>;
     faq: Array<{
         id: number;
         title: string;
         description: string;
         description_html: string;
     }>;
-};
-
-export default ImplementationPage;
+}
