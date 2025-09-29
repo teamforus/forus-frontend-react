@@ -8,10 +8,10 @@ import { useParams } from 'react-router';
 import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';
 import Transaction from '../../../props/models/Transaction';
-import TransactionDetails from '../transactions-view/elements/TransactionDetails';
+import TransactionDetailCards from '../transactions-view/elements/TransactionDetailCards';
 import useExtraPaymentService from '../../../services/ExtraPaymentService';
 import ExtraPayment from '../../../props/models/ExtraPayment';
-import ReservationExtraPaymentDetails from '../reservations-view/elements/ReservationExtraPaymentDetails';
+import ReservationExtraPaymentDetailsCard from '../reservations-view/elements/ReservationExtraPaymentDetailsCard';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../hooks/usePushApiError';
@@ -203,7 +203,7 @@ export default function ExtraPaymentsView() {
             </div>
 
             {transaction && hasPermission(activeOrganization, 'view_finances') && (
-                <TransactionDetails
+                <TransactionDetailCards
                     transaction={transaction}
                     setTransaction={setTransaction}
                     showDetailsPageButton={true}
@@ -211,7 +211,7 @@ export default function ExtraPaymentsView() {
                 />
             )}
 
-            <ReservationExtraPaymentDetails
+            <ReservationExtraPaymentDetailsCard
                 organization={activeOrganization}
                 reservation={extraPayment.reservation}
                 payment={extraPayment}

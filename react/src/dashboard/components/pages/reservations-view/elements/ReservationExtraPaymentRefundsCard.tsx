@@ -7,7 +7,7 @@ import useProductReservationService from '../../../../services/ProductReservatio
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 
-export default function ReservationExtraPaymentRefunds({ refunds }: { refunds: Array<ExtraPaymentRefund> }) {
+export default function ReservationExtraPaymentRefundsCard({ refunds }: { refunds: Array<ExtraPaymentRefund> }) {
     const translate = useTranslate();
 
     const productReservationService = useProductReservationService();

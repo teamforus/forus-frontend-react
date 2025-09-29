@@ -18,7 +18,7 @@ import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
 import usePushApiError from '../../../../hooks/usePushApiError';
 
-export default function TransactionDetails({
+export default function TransactionDetailCards({
     transaction,
     setTransaction,
     showDetailsPageButton = false,
@@ -151,6 +151,7 @@ export default function TransactionDetails({
                     )}
                 </div>
             )}
+
             <div className="card card-wrapped">
                 <div className="card-header">
                     <div className="flex flex-grow card-title">

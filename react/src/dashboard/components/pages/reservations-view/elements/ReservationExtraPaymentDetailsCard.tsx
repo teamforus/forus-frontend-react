@@ -13,7 +13,7 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
 import ModalReservationExtraPaymentRefund from '../../../modals/ModalReservationExtraPaymentRefund';
 
-export default function ReservationExtraPaymentDetails({
+export default function ReservationExtraPaymentDetailsCard({
     payment,
     onUpdate,
     reservation,
