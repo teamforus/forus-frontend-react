@@ -449,14 +449,12 @@
             "all_providers": "Select provider...",
             "all_sub_categories": "Select subcategory...",
             "bookmarked": "My wish list",
-            "category": "Category",
             "distance": "Distance",
             "fund": "Credit",
             "postcode": "Postal code",
             "providers": "Providers",
             "search": "Search offer",
             "sort": "Sort",
-            "sub_category": "Subcategory",
             "payment_option_qr": "Show QR code at the provider",
             "payment_option_reservation": "Online booking",
             "payment_options": "Payment options",
@@ -471,7 +469,8 @@
             "price_type_option_informational": "In store only",
             "price_type_option_regular": "Price",
             "price_type_options": "Type of offer",
-            "price_type_options_info": "Read more about the types of offerings"
+            "price_type_options_info": "Read more about the types of offerings",
+            "category": "Categories"
         },
         "sort": {
             "created_at_asc": "Oldest first",
@@ -1339,35 +1338,13 @@
             "home": "Home",
             "providers": "Providers"
         },
-        "distances": {
-            "3": "< 3 km",
-            "5": "< 5 km",
-            "10": "< 10 km",
-            "15": "< 15 km",
-            "25": "< 25 km",
-            "50": "< 50 km",
-            "75": "< 75 km",
-            "everywhere": "Everywhere"
-        },
         "filters": {
-            "all_categories": "Select category...",
-            "all_funds": "All credits...",
-            "all_products": "Full offer",
-            "all_providers": "Select provider...",
-            "all_sub_categories": "Select subcategory...",
             "all_types": "All types...",
-            "bookmarked": "My wish list",
-            "category": "Category",
-            "distance": "Distance",
-            "fund": "Credit",
             "map_title": "Select a provider for more information",
-            "postcode": "Postal code",
             "provider_type": "Type of provider",
-            "providers": "Providers",
             "result": "There are <div class=\"showcase-result-count\">{{ total }}</div> providers found.",
             "search": "Search",
-            "sort": "Sort",
-            "sub_category": "Subcategory"
+            "sort": "Sort"
         },
         "items": {
             "labels": {
