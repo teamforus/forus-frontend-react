@@ -24,6 +24,8 @@ import { Permission } from '../../../props/models/Organization';
 import useProfileRecordTypes from './hooks/useProfileRecordTypes';
 import IdentityPerson from '../fund-requests-view/elements/IdentityPerson';
 import ProfileRelationsCard from './elements/ProfileRelationsCard';
+import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
+import Note from '../../../props/models/Note';
 
 export default function IdentitiesShow() {
     const setProgress = useSetProgress();
@@ -64,6 +66,27 @@ export default function IdentitiesShow() {
                 ...query,
             }),
         [activeOrganization?.id, identity?.id, emailLogService],
+    );
+
+    const fetchNotes = useCallback(
+        (query = {}) => {
+            return sponsorIdentitiesService.notes(activeOrganization.id, identity?.id, query);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
+    const deleteNote = useCallback(
+        (note: Note) => {
+            return sponsorIdentitiesService.noteDestroy(activeOrganization.id, identity?.id, note.id);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
+    const storeNote = useCallback(
+        (data: { description: string }) => {
+            return sponsorIdentitiesService.storeNote(activeOrganization.id, identity?.id, data);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
     );
 
     useEffect(() => {
@@ -138,6 +161,8 @@ export default function IdentitiesShow() {
             {activeOrganization.has_person_bsn_api && identity?.bsn && (
                 <IdentityPerson organization={activeOrganization} identityId={identity.id} />
             )}
+
+            <BlockCardNotes showCreate={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
 
             <Card
                 title={'Huishouden'}

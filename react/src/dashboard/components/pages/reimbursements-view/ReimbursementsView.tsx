@@ -586,7 +586,7 @@ export default function ReimbursementsView() {
             )}
 
             <BlockCardNotes
-                isAssigned={reimbursement.employee?.identity_address === authIdentity.address}
+                showCreate={reimbursement.employee?.identity_address === authIdentity.address}
                 fetchNotes={fetchNotes}
                 deleteNote={deleteNote}
                 storeNote={storeNote}
