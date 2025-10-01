@@ -17,6 +17,7 @@ import classNames from 'classnames';
 import FormGroup from '../elements/forms/elements/FormGroup';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import useTranslate from '../../hooks/useTranslate';
+import { ProfileRecordType } from '../../props/models/Sponsor/SponsorIdentity';
 
 export default function ModalCreatePrevalidation({
     modal,
@@ -364,7 +365,7 @@ export default function ModalCreatePrevalidation({
                                                         propKey={'key'}
                                                         value={formNewRecord.values.record_type_key}
                                                         options={recordTypesAvailable}
-                                                        onChange={(record_type_key: string) => {
+                                                        onChange={(record_type_key: ProfileRecordType) => {
                                                             formNewRecord.update({ record_type_key });
                                                         }}
                                                     />

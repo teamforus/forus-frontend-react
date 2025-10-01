@@ -4,6 +4,7 @@ import system_notifications from './pages/system-notifications';
 import event_logs from './pages/event-logs';
 import reimbursements from './pages/reimbursements';
 import identities from './pages/identities';
+import households from './pages/households';
 import transactions from './pages/transactions';
 import payouts from './pages/payouts';
 import voucher_records from './pages/voucher-records';
@@ -46,6 +47,7 @@ export default {
     event_logs,
     reimbursements,
     identities,
+    households,
     transactions,
     payouts,
     voucher_records,

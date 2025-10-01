@@ -16,6 +16,7 @@ import useSetProgress from '../../../../../hooks/useSetProgress';
 import { useFundService } from '../../../../../services/FundService';
 import useFundIdentitiesExporter from '../../../../../services/exporters/useFundIdentitiesExporter';
 import { hasPermission } from '../../../../../helpers/utils';
+import { Permission } from '../../../../../props/models/Organization';
 import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../../elements/tables/TableRowActions';
@@ -210,7 +211,10 @@ export default function OrganizationsFundsShowIdentitiesCard({
                                                         disabled={
                                                             !hasPermission(
                                                                 activeOrganization,
-                                                                ['view_identities', 'manage_identities'],
+                                                                [
+                                                                    Permission.VIEW_IDENTITIES,
+                                                                    Permission.MANAGE_IDENTITIES,
+                                                                ],
                                                                 false,
                                                             )
                                                         }

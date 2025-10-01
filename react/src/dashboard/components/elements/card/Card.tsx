@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Button, ButtonType } from '../button/Button';
+import classNames from 'classnames';
 
 export default function Card({
     title,
@@ -9,6 +10,7 @@ export default function Card({
     footer,
     footerHidden = false,
     dusk = null,
+    className = '',
 }: {
     title: string;
     section?: boolean;
@@ -17,9 +19,10 @@ export default function Card({
     footer?: ReactNode | ReactNode[];
     footerHidden?: boolean;
     dusk?: string;
+    className?: string;
 }) {
     return (
-        <div className={'card'} data-dusk={dusk}>
+        <div className={classNames('card', className)} data-dusk={dusk}>
             <div className="card-header">
                 <div className="card-title flex flex-grow">{title}</div>
                 <div className="card-header-actions">

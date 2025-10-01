@@ -22,6 +22,7 @@ import { useFileService } from '../../../services/FileService';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ReimbursementStateLabel from '../../elements/resource-states/ReimbursementStateLabel';
+import { Permission } from '../../../props/models/Organization';
 
 export default function ReimbursementsView() {
     const { id } = useParams();
@@ -576,7 +577,7 @@ export default function ReimbursementsView() {
                 </div>
             )}
 
-            {reimbursement.voucher_transaction && hasPermission(activeOrganization, 'view_finances') && (
+            {reimbursement.voucher_transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                 <TransactionDetails
                     transaction={reimbursement.voucher_transaction}
                     setTransaction={setTransaction}
@@ -585,7 +586,7 @@ export default function ReimbursementsView() {
             )}
 
             <BlockCardNotes
-                isAssigned={reimbursement.employee?.identity_address === authIdentity.address}
+                showCreate={reimbursement.employee?.identity_address === authIdentity.address}
                 fetchNotes={fetchNotes}
                 deleteNote={deleteNote}
                 storeNote={storeNote}

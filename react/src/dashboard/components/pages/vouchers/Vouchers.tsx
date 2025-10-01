@@ -21,6 +21,7 @@ import Fund from '../../../props/models/Fund';
 import ModalVoucherCreate from '../../modals/ModalVoucherCreate';
 import ModalVouchersUpload from '../../modals/ModalVouchersUpload';
 import VouchersTable from './elements/VouchersTable';
+import { Permission } from '../../../props/models/Organization';
 
 export default function Vouchers() {
     const activeOrganization = useActiveOrganization();
@@ -179,7 +180,7 @@ export default function Vouchers() {
                 </div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
-                        {hasPermission(activeOrganization, 'manage_vouchers') && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) && (
                             <Fragment>
                                 <button
                                     id="create_voucher"

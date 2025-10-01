@@ -587,6 +587,13 @@
                 }
             }
 
+            &.tr-collapsed {
+                td {
+                    padding-top: 0px;
+                    padding-bottom: 0px;
+                }
+            }
+
             &.light {
                 background: #fff;
             }

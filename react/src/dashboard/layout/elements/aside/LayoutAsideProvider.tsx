@@ -1,14 +1,14 @@
 import React from 'react';
 import LayoutAsideNavGroup from './elements/LayoutAsideNavGroup';
-import Organization from '../../../props/models/Organization';
+import Organization, { Permission } from '../../../props/models/Organization';
 import { hasPermission } from '../../../helpers/utils';
 import {
+    IconFinancial,
+    IconFinancialActive,
     IconOverview,
     IconOverviewActive,
     IconSales,
     IconSalesActive,
-    IconFinancial,
-    IconFinancialActive,
 } from './icons/LayoutAsideIcons';
 import LayoutAsideGroupOrganization from './groups/LayoutAsideGroupOrganization';
 import LayoutAsideGroupPersonal from './groups/LayoutAsideGroupPersonal';
@@ -26,7 +26,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                 name="Overzicht"
                 state="provider-overview"
                 stateParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, 'manage_employees')}
+                show={hasPermission(organization, Permission.MANAGE_EMPLOYEES)}
                 icon={<IconOverview />}
                 iconActive={<IconOverviewActive />}
                 pinnedGroups={pinnedGroups}
@@ -48,14 +48,14 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                         name: 'Aanbod',
                         state: 'products',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'manage_products'),
+                        show: hasPermission(organization, Permission.MANAGE_PRODUCTS),
                     },
                     {
                         id: 'reservations',
                         name: 'Reserveringen',
                         state: 'reservations',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'scan_vouchers'),
+                        show: hasPermission(organization, Permission.SCAN_VOUCHERS),
                         dusk: 'reservationsPage',
                     },
                     {
@@ -63,7 +63,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                         name: 'Fondsen',
                         state: 'provider-funds',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'manage_provider_funds'),
+                        show: hasPermission(organization, Permission.MANAGE_PROVIDER_FUNDS),
                         dusk: 'fundsPage',
                     },
                 ]}
@@ -84,7 +84,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                         name: 'Transacties',
                         state: 'transactions',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'view_finances'),
+                        show: hasPermission(organization, Permission.VIEW_FINANCES),
                         dusk: 'transactionsPage',
                     },
                     {
@@ -94,7 +94,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                         stateParams: { organizationId: organization?.id },
                         show:
                             organization?.can_view_provider_extra_payments &&
-                            hasPermission(organization, 'manage_payment_methods'),
+                            hasPermission(organization, Permission.MANAGE_PAYMENT_METHODS),
                     },
                 ]}
             />
