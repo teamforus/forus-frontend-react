@@ -20,7 +20,7 @@ export default function CardBlockKeyValue({
             {items?.map((item, index) => (
                 <div className="keyvalue-item" key={index}>
                     <div className="keyvalue-key">{item.label}</div>
-                    <div className="keyvalue-value text-black">{item.value || <TableEmptyValue />}</div>
+                    <div className="keyvalue-value text-black">{item.value ?? <TableEmptyValue />}</div>
                 </div>
             ))}
         </div>

@@ -3,7 +3,7 @@ import { ModalState } from '../../../modules/modals/context/ModalContext';
 import { hasPermission } from '../../../helpers/utils';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import SponsorVoucher from '../../../props/models/Sponsor/SponsorVoucher';
-import Organization from '../../../props/models/Organization';
+import Organization, { Permission } from '../../../props/models/Organization';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import { useOrganizationService } from '../../../services/OrganizationService';
@@ -85,7 +85,7 @@ export default function ModalVoucherTransaction({
         return (
             fund?.allow_reimbursements &&
             fund?.allow_direct_payments &&
-            hasPermission(organization, 'manage_reimbursements')
+            hasPermission(organization, Permission.MANAGE_REIMBURSEMENTS)
         );
     }, [fund?.allow_direct_payments, fund?.allow_reimbursements, organization]);
 

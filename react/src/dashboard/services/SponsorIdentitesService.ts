@@ -6,9 +6,10 @@ import SponsorIdentity, { ProfileBankAccount } from '../props/models/Sponsor/Spo
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import Organization from '../props/models/Organization';
 import IdentitiesApiPerson from '../props/models/IdentitiesApiPerson';
+import SponsorProfileRelation from '../props/models/Sponsor/SponsorProfileRelation';
 import Note from '../props/models/Note';
 
-export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccount> {
+export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccount, R = SponsorProfileRelation> {
     /**
      * @param apiRequest
      */
@@ -21,9 +22,10 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
      */
     public prefix = '/platform/organizations';
 
-    /**
-     * Fetch list
-     */
+    public store(organizationId: number, data: object = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/identities`, data);
+    }
+
     public list(organizationId: number, query: object = {}): Promise<ApiResponse<T>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities`, query);
     }
@@ -83,6 +85,63 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
         return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${id}/person`, data);
     }
 
+    /**
+     * List relations
+     * @param organizationId
+     * @param identityId
+     * @param query
+     */
+    public listRelations(organizationId: number, identityId: number, query: object = {}): Promise<ApiResponse<R>> {
+        return this.apiRequest.get(
+            `${this.prefix}/${organizationId}/sponsor/identities/${identityId}/relations`,
+            query,
+        );
+    }
+
+    /**
+     * Store relation
+     * @param organizationId
+     * @param identityId
+     * @param data
+     */
+    public storeRelation(organizationId: number, identityId: number, data: object): Promise<ApiResponseSingle<R>> {
+        return this.apiRequest.post(
+            `${this.prefix}/${organizationId}/sponsor/identities/${identityId}/relations`,
+            data,
+        );
+    }
+
+    /**
+     * Update relation
+     * @param organizationId
+     * @param identityId
+     * @param id
+     * @param data
+     */
+    public updateRelation(
+        organizationId: number,
+        identityId: number,
+        id: number,
+        data: object,
+    ): Promise<ApiResponseSingle<R>> {
+        return this.apiRequest.patch(
+            `${this.prefix}/${organizationId}/sponsor/identities/${identityId}/relations/${id}`,
+            data,
+        );
+    }
+
+    /**
+     * Delete relation
+     * @param organizationId
+     * @param identityId
+     * @param id
+     */
+    public deleteRelation(organizationId: number, identityId: number, id: number): Promise<ApiResponseSingle<null>> {
+        return this.apiRequest.delete(
+            `${this.prefix}/${organizationId}/sponsor/identities/${identityId}/relations/${id}`,
+        );
+    }
+
     public export(organization_id: number, filters = {}): Promise<ResponseSimple<ArrayBuffer>> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/identities/export`, filters, {
             responseType: 'arraybuffer',
@@ -108,6 +167,7 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
     public getColumns(organization: Organization): Array<ConfigurableTableColumn> {
         const list = [
             'id',
+            'type',
             'given_name',
             'family_name',
             'email',
@@ -123,6 +183,29 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
             'postal_code',
             'municipality_name',
             'neighborhood_name',
+        ].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `identities.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `identities.labels.${key}`,
+                description: `identities.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getColumnsRelations(organization: Organization): Array<ConfigurableTableColumn> {
+        const list = [
+            'id',
+            'relation_type',
+            'relation_subtype',
+            'relation_living_together',
+            'given_name',
+            'family_name',
+            'email',
+            organization.bsn_enabled ? 'bsn' : null,
         ].filter((item) => item);
 
         return list.map((key) => ({

@@ -22,6 +22,7 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import { Permission } from '../../../props/models/Organization';
 
 export default function PaymentMethods() {
     const activeOrganization = useActiveOrganization();
@@ -270,7 +271,9 @@ export default function PaymentMethods() {
                                                         {translate('mollie_connection.buttons.fetch')}
                                                     </button>
 
-                                                    {hasPermission(activeOrganization, ['manage_payment_methods']) && (
+                                                    {hasPermission(activeOrganization, [
+                                                        Permission.MANAGE_PAYMENT_METHODS,
+                                                    ]) && (
                                                         <button
                                                             className="button button-danger button-sm"
                                                             disabled={fetchingMollieAccount}

@@ -12,6 +12,7 @@ import Implementation from '../../../props/models/Implementation';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { Permission } from '../../../props/models/Organization';
 
 export default function Implementations() {
     const assetUrl = useAssetUrl();
@@ -106,7 +107,7 @@ export default function Implementations() {
 
                     <div className="card-section-actions">
                         {activeOrganization.allow_translations &&
-                            hasPermission(activeOrganization, 'manage_implementation') && (
+                            hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                                 <StateNavLink
                                     name={'implementations-translations'}
                                     params={{ id: implementation.id, organizationId: implementation.organization_id }}
@@ -116,7 +117,7 @@ export default function Implementations() {
                                 </StateNavLink>
                             )}
 
-                        {hasPermission(activeOrganization, 'manage_implementation') && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
                                 name={'implementations-email'}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
@@ -126,7 +127,7 @@ export default function Implementations() {
                             </StateNavLink>
                         )}
 
-                        {hasPermission(activeOrganization, 'manage_implementation') && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
                                 name={'implementations-digid'}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}
@@ -136,7 +137,7 @@ export default function Implementations() {
                             </StateNavLink>
                         )}
 
-                        {hasPermission(activeOrganization, ['manage_implementation_cms']) && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS) && (
                             <StateNavLink
                                 name={'implementations-cms'}
                                 params={{ id: implementation.id, organizationId: activeOrganization.id }}

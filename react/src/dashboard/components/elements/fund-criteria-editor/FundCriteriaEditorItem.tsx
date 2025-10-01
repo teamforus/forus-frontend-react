@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import Organization from '../../../props/models/Organization';
+import Organization, { Permission } from '../../../props/models/Organization';
 import RecordType from '../../../props/models/RecordType';
 import { hasPermission } from '../../../helpers/utils';
 import SelectControl from '../select-control/SelectControl';
@@ -74,7 +74,7 @@ export default function FundCriteriaEditorItem({
     const [optional, setOptional] = useState(criterion.optional);
 
     const disabled = useMemo<boolean>(() => {
-        return !isEditable || !hasPermission(organization, 'manage_funds');
+        return !isEditable || !hasPermission(organization, Permission.MANAGE_FUNDS);
     }, [isEditable, organization]);
 
     const hasBooleanLabel = useMemo(() => {
