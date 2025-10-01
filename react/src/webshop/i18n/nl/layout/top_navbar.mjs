@@ -8,6 +8,7 @@ export default {
         hartvanwestbrabant: 'Start aanvraag',
         midden_drenthe: 'Tegoed activeren',
         berg_en_dal: 'Tegoed activeren',
+        barneveld: 'Start aanvraag',
     },
     language: {
         prefix: 'Uw taal:',
@@ -67,6 +68,9 @@ export default {
             funds: 'Regelingen',
         },
         wadenheuvel: {
+            funds: 'Regelingen',
+        },
+        barneveld: {
             funds: 'Regelingen',
         },
     },
@@ -174,6 +178,9 @@ export default {
                     funds: 'Regelingen',
                 },
                 ede: {
+                    funds: 'Regelingen',
+                },
+                barneveld: {
                     funds: 'Regelingen',
                 },
             },

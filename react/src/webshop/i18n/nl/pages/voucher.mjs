@@ -91,6 +91,16 @@ export default {
                     'Heeft u kosten gemaakt die binnen deze regeling vallen? Vraag uw kosten terug door een bon in te sturen. Na goedkeuring ontvangt u het bedrag op uw persoonlijke bankrekening.',
                 redirect_to: 'Kosten terugvragen?',
             },
+            barneveld_sportaccesoires: {
+                how_it_works:
+                    'Voor attributen zoals sportkleding of een instrument is voor u een budget beschikbaar gesteld. Het bedrag ontvangt u op de bankrekening wanneer dit is uitbetaald door de gemeente.',
+                redirect_to: 'Wat is de status van de betaling?',
+            },
+            barneveld_schoolkosten: {
+                how_it_works:
+                    'Schoolgaande kinderen kosten geld. Denk aan de vrijwillige ouderbijdrage, een fiets, een schoolreis(je), huur van boeken, huur of aanschaf van een computer etc. U heeft zelf de keuze hoe u de ondersteuning passend inzetten. Daarom maken we geld over naar uw bankrekening. Het bedrag ontvangt u wanneer dit is uitbetaald door de gemeente',
+                redirect_to: 'Wat is de status van de betaling?',
+            },
         },
     },
     physical_card: {

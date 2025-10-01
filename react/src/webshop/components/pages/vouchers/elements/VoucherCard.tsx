@@ -76,7 +76,9 @@ export default function VoucherCard({
                     <span>{voucherCard.subtitle}</span>
                 </div>
 
-                {voucherCard.type === 'regular' && <div className="voucher-value">{voucherCard.amount_locale}</div>}
+                {!voucherCard.external && voucherCard.type == 'regular' && (
+                    <div className="voucher-value">{voucherCard.amount_locale}</div>
+                )}
 
                 {!voucher.deactivated && (
                     <div className="voucher-status-label">

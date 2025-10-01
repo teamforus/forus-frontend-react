@@ -310,7 +310,7 @@ export default function VouchersShow() {
                                                     </div>
                                                 )}
 
-                                                {voucherCard.type === 'regular' && (
+                                                {!voucherCard.external && voucherCard.type === 'regular' && (
                                                     <div>
                                                         <div className="card-value euro">
                                                             {voucherCard.amount_locale}
@@ -659,7 +659,7 @@ export default function VouchersShow() {
                                                     </div>
                                                 )}
 
-                                                {voucherCard.type === 'regular' && (
+                                                {!voucherCard.external && voucherCard.type === 'regular' && (
                                                     <div>
                                                         <div className="card-value euro">
                                                             {voucherCard.amount_locale}
@@ -725,6 +725,18 @@ export default function VouchersShow() {
                                                                 hier
                                                             </StateNavLink>{' '}
                                                             om uw bon in te sturen.{' '}
+                                                        </span>
+                                                    )}
+                                                    {voucherCard.fund.key == 'barneveld_sportaccesoires' && (
+                                                        <span>
+                                                            U kunt de status van de betaling inzien onder het menu
+                                                            Uitbetalingen.
+                                                        </span>
+                                                    )}
+                                                    {voucherCard.fund.key == 'barneveld_schoolkosten' && (
+                                                        <span>
+                                                            U kunt de status van de betaling inzien onder het menu
+                                                            Uitbetalingen.
                                                         </span>
                                                     )}
                                                 </div>
