@@ -11,6 +11,7 @@ import TransactionDetailsPane from './elements/panes/TransactionDetailsPane';
 import ReservationExtraPaymentDetailsPane from '../reservations-view/elements/panes/ReservationExtraPaymentDetailsPane';
 import useTranslate from '../../../hooks/useTranslate';
 import useAssetUrl from '../../../hooks/useAssetUrl';
+import TransactionStateLabel from '../../elements/resource-states/TransactionStateLabel';
 
 export default function TransactionsView() {
     const { address } = useParams();
@@ -69,14 +70,13 @@ export default function TransactionsView() {
 
             <div className="block block-transaction-details">
                 <div className="card card-wrapped">
-                    <div className="card-section">
-                        <div className="card-title">
-                            <strong>{transaction.amount_locale}</strong>
-                            &nbsp;&nbsp;
-                            <strong className="text-primary">Bedrag</strong>
-                            <div className="flex flex-grow" />
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title flex-align-items-center flex-gap">
+                            <span>{`#${transaction.id}`}</span>
+                            <TransactionStateLabel transaction={transaction} />
                         </div>
                     </div>
+
                     {transaction.notes && transaction.notes.length != 0 && (
                         <div className="card-section">
                             <div className="card-block card-block-notes">
@@ -110,7 +110,6 @@ export default function TransactionsView() {
                                 transaction={transaction}
                                 setTransaction={setTransaction}
                                 showReservationPageButton={true}
-                                showAmount={true}
                             />
 
                             {transaction?.reservation?.extra_payment && (

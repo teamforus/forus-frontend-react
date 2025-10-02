@@ -116,7 +116,6 @@ export default function ExtraPaymentsView() {
                                 transaction={transaction}
                                 setTransaction={setTransaction}
                                 showDetailsPageButton={true}
-                                showAmount={false}
                             />
                         )}
 

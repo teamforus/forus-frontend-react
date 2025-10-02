@@ -18,20 +18,21 @@ import TransactionStateLabel from '../../../../elements/resource-states/Transact
 import usePushApiError from '../../../../../hooks/usePushApiError';
 import FormPane from '../../../../elements/forms/elements/FormPane';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
+import EmptyValue from '../../../../elements/empty-value/EmptyValue';
 
 export default function TransactionDetailsPane({
     transaction,
     setTransaction,
     showDetailsPageButton = false,
     showReservationPageButton = false,
-    showAmount = false,
+    showState = false,
     onUpdate,
 }: {
     transaction: Transaction;
     setTransaction: React.Dispatch<Transaction>;
     showDetailsPageButton?: boolean;
     showReservationPageButton?: boolean;
-    showAmount?: boolean;
+    showState?: boolean;
     onUpdate?: () => void;
 }) {
     const envData = useEnvData();
@@ -112,7 +113,7 @@ export default function TransactionDetailsPane({
     }
 
     return (
-        <FormPane title={'Transactie details'} large={true}>
+        <FormPane title={'Overview'} large={true}>
             <div className="flex">
                 <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
                     <KeyValueItem label={translate('financial_dashboard_transaction.labels.id')}>
@@ -131,11 +132,9 @@ export default function TransactionDetailsPane({
                         )}
                     </KeyValueItem>
 
-                    {!showAmount && (
-                        <KeyValueItem label={translate('financial_dashboard_transaction.labels.amount')}>
-                            {transaction.amount_locale}
-                        </KeyValueItem>
-                    )}
+                    <KeyValueItem label={translate('financial_dashboard_transaction.labels.amount')}>
+                        {transaction.amount_locale}
+                    </KeyValueItem>
 
                     {isSponsor && transaction.payment_id && (
                         <KeyValueItem label={translate('financial_dashboard_transaction.labels.bunq_id')}>
@@ -202,16 +201,21 @@ export default function TransactionDetailsPane({
                         </KeyValueItem>
                     )}
 
-                    <KeyValueItem label={translate('financial_dashboard_transaction.labels.status')}>
-                        <div className="flex flex-vertical">
+                    {showState && (
+                        <KeyValueItem label={translate('financial_dashboard_transaction.labels.status')}>
                             <TransactionStateLabel transaction={transaction} />
-                            {transaction.transfer_in > 0 && transaction.state == 'pending' && (
-                                <div className="text-sm text-muted-dark">
-                                    <em className="mdi mdi-clock-outline"> </em>
-                                    {transaction.transfer_in} dagen resterend
-                                </div>
-                            )}
-                        </div>
+                        </KeyValueItem>
+                    )}
+
+                    <KeyValueItem label={translate('financial_dashboard_transaction.labels.transfer_in')}>
+                        {transaction.transfer_in > 0 && transaction.state == 'pending' ? (
+                            <div className="text-muted-dark">
+                                <em className="mdi mdi-clock-outline"> </em>
+                                {transaction.transfer_in} dagen resterend
+                            </div>
+                        ) : (
+                            <EmptyValue />
+                        )}
                     </KeyValueItem>
 
                     {transaction.iban_from && (
@@ -302,16 +306,20 @@ export default function TransactionDetailsPane({
                 </div>
             </div>
 
-            <div className="button-group">
-                {transaction.cancelable && transaction.reservation && (
-                    <button
-                        className="button button-default button-sm"
-                        onClick={() => cancelTransaction(transaction.reservation)}>
-                        <em className="mdi mdi-cash-refund icon-start" />
-                        Betaling annuleren
-                    </button>
-                )}
-            </div>
+            {transaction.cancelable && transaction.reservation && (
+                <Fragment>
+                    <div className="form-pane-separator" />
+
+                    <div className="button-group">
+                        <button
+                            className="button button-danger button-sm"
+                            onClick={() => cancelTransaction(transaction.reservation)}>
+                            <em className="mdi mdi-cash-refund icon-start" />
+                            Betaling annuleren
+                        </button>
+                    </div>
+                </Fragment>
+            )}
         </FormPane>
     );
 }

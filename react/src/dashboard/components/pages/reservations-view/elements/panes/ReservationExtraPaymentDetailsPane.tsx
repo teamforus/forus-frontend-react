@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 import Organization from '../../../../../props/models/Organization';
 import Reservation from '../../../../../props/models/Reservation';
 import ExtraPayment from '../../../../../props/models/ExtraPayment';
@@ -100,25 +100,29 @@ export default function ReservationExtraPaymentDetailsPane({
                 </div>
             </div>
 
-            {isProvider && (
-                <div className="button-group">
-                    {!reservation.canceled && (
-                        <button className="button button-primary button-sm" onClick={() => fetchExtraPayment()}>
-                            <em className="mdi mdi-autorenew icon-start"></em>
-                            Gegevens ophalen
-                        </button>
-                    )}
+            {isProvider && (!reservation.canceled || (!payment.is_fully_refunded && payment.is_paid)) && (
+                <Fragment>
+                    <div className="form-pane-separator" />
 
-                    {!payment.is_fully_refunded && payment.is_paid && (
-                        <button
-                            className="button button-danger button-sm"
-                            disabled={!payment.is_refundable}
-                            onClick={() => refundExtraPayment()}>
-                            <em className="mdi mdi-undo-variant icon-start"></em>
-                            Bijbetaling terugbetalen
-                        </button>
-                    )}
-                </div>
+                    <div className="button-group">
+                        {!reservation.canceled && (
+                            <button className="button button-primary button-sm" onClick={() => fetchExtraPayment()}>
+                                <em className="mdi mdi-autorenew icon-start"></em>
+                                Gegevens ophalen
+                            </button>
+                        )}
+
+                        {!payment.is_fully_refunded && payment.is_paid && (
+                            <button
+                                className="button button-danger button-sm"
+                                disabled={!payment.is_refundable}
+                                onClick={() => refundExtraPayment()}>
+                                <em className="mdi mdi-undo-variant icon-start"></em>
+                                Bijbetaling terugbetalen
+                            </button>
+                        )}
+                    </div>
+                </Fragment>
             )}
         </FormPane>
     );

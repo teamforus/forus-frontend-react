@@ -29,6 +29,7 @@ export default {
         amount_extra_cash: 'Gevraagde bijbetaling',
         reservation: 'Reservering',
         voucher: 'Tegoed',
+        transfer_in: 'Transactie in afwachting',
     },
     tooltips: {
         pending_iban_from:

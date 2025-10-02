@@ -230,7 +230,7 @@ export default function ReservationsView() {
                                     transaction={transaction}
                                     setTransaction={setTransaction}
                                     showDetailsPageButton={true}
-                                    showAmount={false}
+                                    showState={true}
                                     onUpdate={onTransactionUpdate}
                                 />
                             )}
