@@ -6,7 +6,7 @@ import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import Product, { ProductPriceType } from '../../../../props/models/Product';
@@ -159,7 +159,9 @@ export default function ProductsForm({
     const [products, setProducts] = useState<Product[]>(null);
 
     const allowsExtraPayments = useMemo(() => {
-        return organization?.can_receive_extra_payments && hasPermission(organization, 'manage_payment_methods');
+        return (
+            organization?.can_receive_extra_payments && hasPermission(organization, Permission.MANAGE_PAYMENT_METHODS)
+        );
     }, [organization]);
 
     const goToFundProvider = useCallback(
@@ -1057,6 +1059,43 @@ export default function ProductsForm({
                                     />
 
                                     <FormGroup
+                                        label={translate('product_edit.labels.reservation_note')}
+                                        error={form.errors.reservation_note}
+                                        input={(id) => (
+                                            <SelectControl
+                                                className="form-control"
+                                                propKey={'value'}
+                                                propValue={'label'}
+                                                id={id}
+                                                value={form.values.reservation_note}
+                                                onChange={(reservation_note: string) => {
+                                                    form.update({ reservation_note });
+                                                }}
+                                                options={reservationNoteOptions}
+                                            />
+                                        )}
+                                    />
+
+                                    {form.values.reservation_note === 'custom' && (
+                                        <FormGroup
+                                            label={translate('product_edit.labels.custom_reservation_note_text')}
+                                            error={form.errors.reservation_note_text}
+                                            input={() => (
+                                                <textarea
+                                                    className="form-control r-n"
+                                                    placeholder={translate(
+                                                        'product_edit.labels.custom_reservation_note_text',
+                                                    )}
+                                                    value={form.values.reservation_note_text || ''}
+                                                    onChange={(e) =>
+                                                        form.update({ reservation_note_text: e.target.value })
+                                                    }
+                                                />
+                                            )}
+                                        />
+                                    )}
+
+                                    <FormGroup
                                         label={'Klantgegevens uitvragen'}
                                         error={form.errors.reservation_fields}
                                         info={translate('product_edit.tooltips.reservation_fields')}
@@ -1139,45 +1178,6 @@ export default function ProductsForm({
                                                     />
                                                 )}
                                             />
-
-                                            <FormGroup
-                                                label={translate('product_edit.labels.reservation_note')}
-                                                error={form.errors.reservation_note}
-                                                input={(id) => (
-                                                    <SelectControl
-                                                        className="form-control"
-                                                        propKey={'value'}
-                                                        propValue={'label'}
-                                                        id={id}
-                                                        value={form.values.reservation_note}
-                                                        onChange={(reservation_note: string) => {
-                                                            form.update({ reservation_note });
-                                                        }}
-                                                        options={reservationNoteOptions}
-                                                    />
-                                                )}
-                                            />
-
-                                            {form.values.reservation_note === 'custom' && (
-                                                <FormGroup
-                                                    label={translate(
-                                                        'product_edit.labels.custom_reservation_note_text',
-                                                    )}
-                                                    error={form.errors.reservation_note_text}
-                                                    input={() => (
-                                                        <textarea
-                                                            className="form-control r-n"
-                                                            placeholder={translate(
-                                                                'product_edit.labels.custom_reservation_note_text',
-                                                            )}
-                                                            value={form.values.reservation_note_text || ''}
-                                                            onChange={(e) =>
-                                                                form.update({ reservation_note_text: e.target.value })
-                                                            }
-                                                        />
-                                                    )}
-                                                />
-                                            )}
                                         </FormPane>
                                     )}
                                 </FormPane>

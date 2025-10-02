@@ -14,6 +14,7 @@ import { uniqueId } from 'lodash';
 import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { Permission } from '../../../props/models/Organization';
 import FormGroup from '../../elements/forms/elements/FormGroup';
 
 export default function ReservationsSettings() {
@@ -248,7 +249,7 @@ export default function ReservationsSettings() {
                 </div>
 
                 {activeOrganization.can_receive_extra_payments &&
-                    hasPermission(activeOrganization, 'manage_payment_methods') && (
+                    hasPermission(activeOrganization, Permission.MANAGE_PAYMENT_METHODS) && (
                         <div className="card-section card-section-primary card-section-settings">
                             <div className="row">
                                 <div className="col col-md-10 col-md-offset-2 col-xs-12">

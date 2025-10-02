@@ -31,6 +31,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
+import { Permission } from '../../../props/models/Organization';
 
 export default function OrganizationFunds() {
     const translate = useTranslate();
@@ -204,7 +205,7 @@ export default function OrganizationFunds() {
 
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
-                        {hasPermission(activeOrganization, 'manage_funds') && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
                             <StateNavLink
                                 name={'funds-create'}
                                 params={{ organizationId: activeOrganization.id }}
@@ -215,7 +216,7 @@ export default function OrganizationFunds() {
                         )}
 
                         {activeOrganization.allow_2fa_restrictions &&
-                            hasPermission(activeOrganization, 'manage_organization') && (
+                            hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <StateNavLink
                                     name={'organization-security'}
                                     query={{ view_type: 'funds' }}
@@ -371,7 +372,7 @@ export default function OrganizationFunds() {
 
                                             {funds_type == 'active' && (
                                                 <Fragment>
-                                                    {hasPermission(activeOrganization, 'view_finances') && (
+                                                    {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                                                         <td>{fund.budget?.left_locale}</td>
                                                     )}
 
@@ -402,7 +403,10 @@ export default function OrganizationFunds() {
 
                                                                 {hasPermission(
                                                                     activeOrganization,
-                                                                    ['manage_funds', 'manage_fund_texts'],
+                                                                    [
+                                                                        Permission.MANAGE_FUNDS,
+                                                                        Permission.MANAGE_FUND_TEXTS,
+                                                                    ],
                                                                     false,
                                                                 ) && (
                                                                     <StateNavLink
@@ -420,7 +424,7 @@ export default function OrganizationFunds() {
                                                                 {activeOrganization.allow_2fa_restrictions &&
                                                                     hasPermission(
                                                                         activeOrganization,
-                                                                        'manage_funds',
+                                                                        Permission.MANAGE_FUNDS,
                                                                     ) && (
                                                                         <StateNavLink
                                                                             className="dropdown-item"
@@ -434,7 +438,10 @@ export default function OrganizationFunds() {
                                                                         </StateNavLink>
                                                                     )}
 
-                                                                {hasPermission(activeOrganization, 'view_finances') &&
+                                                                {hasPermission(
+                                                                    activeOrganization,
+                                                                    Permission.VIEW_FINANCES,
+                                                                ) &&
                                                                     fund.key &&
                                                                     fund.state != 'closed' && (
                                                                         <a
@@ -452,7 +459,10 @@ export default function OrganizationFunds() {
                                                                         </a>
                                                                     )}
 
-                                                                {hasPermission(activeOrganization, 'manage_funds') && (
+                                                                {hasPermission(
+                                                                    activeOrganization,
+                                                                    Permission.MANAGE_FUNDS,
+                                                                ) && (
                                                                     <a
                                                                         className={classNames(
                                                                             'dropdown-item',
@@ -472,7 +482,7 @@ export default function OrganizationFunds() {
                                                         )}
                                                     />
                                                 ) : (
-                                                    hasPermission(activeOrganization, 'manage_funds') && (
+                                                    hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && (
                                                         <button
                                                             className="button button-primary"
                                                             onClick={(e) => restoreFund(e, fund)}>

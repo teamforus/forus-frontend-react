@@ -23,13 +23,13 @@ import { useOrganizationService } from '../../../services/OrganizationService';
 import TableTopScroller from '../tables/TableTopScroller';
 
 export default function BlockCardNotes({
-    isAssigned,
+    showCreate,
     fetchNotes,
     deleteNote,
     storeNote,
     fetchNotesRef,
 }: {
-    isAssigned: boolean;
+    showCreate: boolean;
     fetchNotes: (value: FilterModel) => Promise<ApiResponse<Note>>;
     deleteNote: (note: Note) => Promise<ApiResponseSingle<null>>;
     storeNote: (values: FormValuesModel) => Promise<ApiResponseSingle<Note>>;
@@ -131,7 +131,7 @@ export default function BlockCardNotes({
                     {translate('notes.header.title')}({notes.meta.total})
                 </div>
                 <div className="button-group">
-                    {isAssigned && (
+                    {showCreate && (
                         <div className="button button-sm button-primary" onClick={onAddNote} data-dusk="addNoteBtn">
                             <em className="mdi mdi-plus icon-start" />
                             {translate('notes.buttons.add_new')}
@@ -146,7 +146,7 @@ export default function BlockCardNotes({
                         {configsElement}
 
                         <TableTopScroller>
-                            <table className="table table-align-top">
+                            <table className="table">
                                 {headElement}
 
                                 <tbody>
@@ -167,11 +167,14 @@ export default function BlockCardNotes({
                                                 {note.employee.identity_address === identity.address && (
                                                     <TableRowActions
                                                         dataDusk={`noteMenuBtn${note.id}`}
-                                                        content={() => (
+                                                        content={(e) => (
                                                             <div className="dropdown dropdown-actions">
                                                                 <div
                                                                     className="dropdown-item"
-                                                                    onClick={() => onDeleteNote(note)}
+                                                                    onClick={() => {
+                                                                        e?.close();
+                                                                        onDeleteNote(note);
+                                                                    }}
                                                                     data-dusk="deleteNoteBtn">
                                                                     <em className="mdi mdi-delete-outline icon-start" />
                                                                     Verwijderen

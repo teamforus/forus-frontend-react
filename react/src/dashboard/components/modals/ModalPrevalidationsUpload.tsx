@@ -23,6 +23,7 @@ import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
 import SelectControl from '../elements/select-control/SelectControl';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
+import { ProfileRecordType } from '../../props/models/Sponsor/SponsorIdentity';
 
 type CSVErrorProp = {
     emptyHeader?: string | string[];
@@ -272,7 +273,7 @@ export default function ModalPrevalidationsUpload({
                 body.forEach((row) => row.unshift(fundRecordKeyValue));
             }
 
-            const invalidRecordTypes = header.filter((recordTypeKey) => {
+            const invalidRecordTypes = header.filter((recordTypeKey: ProfileRecordType) => {
                 return criteriaRecordTypeKeys.indexOf(recordTypeKey) == -1;
             });
 

@@ -7,7 +7,7 @@ import { strLimit } from '../../../../helpers/string';
 import BlockInlineCopy from '../../../elements/block-inline-copy/BlockInlineCopy';
 import ReservationStateLabel from '../../../elements/resource-states/ReservationStateLabel';
 import TableRowActions from '../../../elements/tables/TableRowActions';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import Reservation from '../../../../props/models/Reservation';
 import useReservationsTableActions from '../hooks/useReservationsTableActions';
 
@@ -61,7 +61,7 @@ export default function ReservationsTableRowProvider({
             <td>
                 <StateNavLink
                     name={'products-show'}
-                    disabled={!hasPermission(organization, 'manage_products')}
+                    disabled={!hasPermission(organization, Permission.MANAGE_PRODUCTS)}
                     params={{
                         organizationId: reservation.product.organization_id,
                         id: reservation.product.id,

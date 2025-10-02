@@ -1,5 +1,5 @@
 import React from 'react';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import LayoutAsideNavGroup from '../elements/LayoutAsideNavGroup';
 import { IconOrganization, IconOrganizationActive } from '../icons/LayoutAsideIcons';
 import { hasPermission } from '../../../../helpers/utils';
@@ -31,7 +31,7 @@ export default function LayoutAsideGroupOrganization({
                     name: 'Medewerkers',
                     state: 'employees',
                     stateParams: { organizationId: organization?.id },
-                    show: hasPermission(organization, 'manage_employees'),
+                    show: hasPermission(organization, Permission.MANAGE_EMPLOYEES),
                     dusk: 'employeesPage',
                 },
                 {
@@ -39,7 +39,9 @@ export default function LayoutAsideGroupOrganization({
                     name: 'Beveiliging',
                     state: 'organization-security',
                     stateParams: { organizationId: organization?.id },
-                    show: organization.allow_2fa_restrictions && hasPermission(organization, 'manage_organization'),
+                    show:
+                        organization.allow_2fa_restrictions &&
+                        hasPermission(organization, Permission.MANAGE_ORGANIZATION),
                 },
                 {
                     id: 'organization-logs',
@@ -47,21 +49,21 @@ export default function LayoutAsideGroupOrganization({
                     state: 'organization-logs',
                     stateParams: { organizationId: organization?.id },
                     show: envData.client_type == 'sponsor',
-                    dusk: 'employeesPage',
+                    dusk: 'eventLogsPage',
                 },
                 {
                     id: 'offices',
                     name: 'Vestigingen',
                     state: 'offices',
                     stateParams: { organizationId: organization?.id },
-                    show: envData.client_type == 'provider' && hasPermission(organization, 'manage_offices'),
+                    show: envData.client_type == 'provider' && hasPermission(organization, Permission.MANAGE_OFFICES),
                 },
                 {
                     id: 'organization_settings',
                     name: 'Instellingen',
                     state: 'organizations-edit',
                     stateParams: { organizationId: organization?.id },
-                    show: hasPermission(organization, 'manage_organization'),
+                    show: hasPermission(organization, Permission.MANAGE_ORGANIZATION),
                 },
                 {
                     name: 'Marketplace',

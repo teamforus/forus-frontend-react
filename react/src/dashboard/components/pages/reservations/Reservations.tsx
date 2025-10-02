@@ -26,6 +26,7 @@ import ReservationsTable from './elements/ReservationsTable';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReservationsTableFilters, { ReservationsTableFiltersProps } from './elements/ReservationsTableFilters';
+import { Permission } from '../../../props/models/Organization';
 
 export default function Reservations() {
     const identity = useAuthIdentity();
@@ -293,7 +294,7 @@ export default function Reservations() {
                                     </div>
                                 )}
 
-                                {hasPermission(activeOrganization, 'manage_organization') && (
+                                {hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                     <StateNavLink
                                         name="reservations-settings"
                                         params={{ organizationId: activeOrganization.id }}

@@ -94,6 +94,7 @@ export default function SignUpOfficeEdit({
                                     placeholder="Adres"
                                     inputRef={addressInputRef}
                                     onChangeValue={(address) => form.update({ address })}
+                                    autoComplete={'street-address'}
                                 />
                             </Autocomplete>
                             <FormError error={form.errors.address} />
@@ -105,6 +106,7 @@ export default function SignUpOfficeEdit({
                                 id="office_phone"
                                 placeholder="Telefoonnummer"
                                 onChangeValue={(phone) => form.update({ phone })}
+                                autoComplete={'tel'}
                             />
                             <FormError error={form.errors.phone} />
                         </div>
