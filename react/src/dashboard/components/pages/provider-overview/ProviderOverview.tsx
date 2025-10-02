@@ -12,6 +12,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { hasPermission } from '../../../helpers/utils';
 import ProductsRequiredNotification from './elements/ProductsRequiredNotification';
+import { Permission } from '../../../props/models/Organization';
 
 export default function ProviderOverview() {
     const envData = useEnvData();
@@ -86,7 +87,7 @@ export default function ProviderOverview() {
             <div className="provider-overview" data-dusk="providerOverview">
                 <div className="block block-charts" data-dusk="fundsTitle">
                     <div className="chart-row">
-                        {hasPermission(activeOrganization, ['manage_products']) && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_PRODUCTS) && (
                             <div className="card">
                                 <div className="card-section">
                                     <div className="chart-control chart-control-provider_overview">
@@ -116,7 +117,7 @@ export default function ProviderOverview() {
                             </div>
                         )}
 
-                        {hasPermission(activeOrganization, ['manage_provider_funds']) && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_PROVIDER_FUNDS) && (
                             <div className="card">
                                 <div className="card-section">
                                     <div className="chart-control chart-control-provider_overview">
@@ -139,7 +140,7 @@ export default function ProviderOverview() {
                             </div>
                         )}
 
-                        {hasPermission(activeOrganization, ['view_finances']) && (
+                        {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                             <div className="card">
                                 <div className="card-section">
                                     <div className="chart-control chart-control-provider_overview">
@@ -162,7 +163,7 @@ export default function ProviderOverview() {
                             </div>
                         )}
 
-                        {hasPermission(activeOrganization, ['manage_employees']) && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_EMPLOYEES) && (
                             <div className="card">
                                 <div className="card-section">
                                     <div className="chart-control chart-control-provider_overview">

@@ -127,6 +127,7 @@ export default function Paginator({
 
             <div className="table-pagination-navigation">
                 <button
+                    type="button"
                     onClick={() => setPage(1)}
                     onKeyDown={clickOnKeyEnter}
                     tabIndex={meta.current_page === 1 ? undefined : 0}
@@ -137,6 +138,7 @@ export default function Paginator({
                 {pages.map((page) => (
                     <button
                         key={page}
+                        type="button"
                         tabIndex={0}
                         onClick={() => setPage(page)}
                         disabled={loading && meta.current_page !== page && loadingPage !== page}
@@ -151,6 +153,7 @@ export default function Paginator({
                     </button>
                 ))}
                 <button
+                    type="button"
                     onClick={() => setPage(meta.last_page)}
                     onKeyDown={clickOnKeyEnter}
                     disabled={loading || meta.current_page === meta.last_page}

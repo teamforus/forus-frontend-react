@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { ModalState } from '../../../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import Organization from '../../../../props/models/Organization';
@@ -6,22 +6,25 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import { ResponseError } from '../../../../props/ApiResponses';
-import SponsorIdentity, { ProfileRecordTypes } from '../../../../props/models/Sponsor/SponsorIdentity';
+import SponsorIdentity, { ProfileRecord, ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
 import Modal from '../../../modals/elements/Modal';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
 import RecordType from '../../../../props/models/RecordType';
-import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
-import { dateFormat, dateParse } from '../../../../helpers/dates';
 import useTranslate from '../../../../hooks/useTranslate';
-import SelectControl from '../../../elements/select-control/SelectControl';
-import { differenceInYears } from 'date-fns';
+import FormPane from '../../../elements/forms/elements/FormPane';
+import ProfileRecordsPersonal from './elements/ProfileRecordsPersonal';
+import ProfileRecordsHouse from './elements/ProfileRecordsHouse';
+import ProfileRecordsContacts from './elements/ProfileRecordsContacts';
+import ProfileRecordsAddress from './elements/ProfileRecordsAddress';
+
+export type GroupType = 'personal' | 'house' | 'contacts' | 'address';
 
 export default function ModalEditProfileRecords({
     modal,
     title,
     onDone,
-    values,
+    group,
     identity,
     recordTypes,
     organization,
@@ -31,9 +34,9 @@ export default function ModalEditProfileRecords({
     modal: ModalState;
     title: string;
     onDone: () => void;
-    values: { [key in ProfileRecordTypes]: string };
-    identity: SponsorIdentity;
-    recordTypes: Array<RecordType & { key: ProfileRecordTypes }>;
+    group: GroupType;
+    identity?: SponsorIdentity;
+    recordTypes: Array<RecordType & { key: ProfileRecordType }>;
     organization: Organization;
     disabledFields?: Array<{ label: string; value: string; key: string }>;
     bodyOverflowVisible?: boolean;
@@ -41,21 +44,86 @@ export default function ModalEditProfileRecords({
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
-    const types = recordTypes.map((type) => type.key.toString());
 
     const pushApiError = usePushApiError();
 
-    const form = useFormBuilder<{ [key in ProfileRecordTypes]: string }>(
-        Object.keys(values).reduce((list, key) => {
-            if (types.includes(key)) {
-                return { ...list, [key]: values[key] };
+    const recordsByKey = useMemo(() => {
+        return Object.keys(identity?.records || {})?.reduce((map, key) => {
+            const record: ProfileRecord[] = identity?.records[key];
+
+            return { ...map, [key]: record[0]?.value };
+        }, {}) as { [key in ProfileRecordType]: string };
+    }, [identity]);
+
+    const recordKeysByGroup = useMemo((): ProfileRecordType[] => {
+        if (group === 'personal') {
+            return ['given_name', 'family_name', 'birth_date', 'gender', 'marital_status', 'client_number'];
+        }
+
+        if (group === 'house') {
+            return ['house_composition', 'living_arrangement'];
+        }
+
+        if (group == 'contacts') {
+            return ['telephone', 'mobile'];
+        }
+
+        if (group == 'address') {
+            return [
+                'city',
+                'street',
+                'house_number',
+                'house_number_addition',
+                'postal_code',
+                'neighborhood_name',
+                'municipality_name',
+            ];
+        }
+
+        return [];
+    }, [group]);
+
+    const recordsByGroup = useMemo(() => {
+        return recordKeysByGroup?.map((filter) => {
+            return recordTypes?.find((item) => filter === item.key);
+        });
+    }, [recordKeysByGroup, recordTypes]);
+
+    const recordsByGroupByKey = useMemo(() => {
+        return recordsByGroup.reduce((map, record) => {
+            return { ...map, [record.key]: record };
+        }, {});
+    }, [recordsByGroup]);
+
+    const form = useFormBuilder<{ [key in ProfileRecordType]: string }>(
+        Object.keys(recordsByKey).reduce((list, key: ProfileRecordType) => {
+            if (recordKeysByGroup.includes(key)) {
+                return { ...list, [key]: recordsByKey[key] };
             }
 
             return list;
         }, {}) as {
-            [key in ProfileRecordTypes]: string;
+            [key in ProfileRecordType]: string;
         },
         (values) => {
+            if (!identity) {
+                sponsorIdentitiesService
+                    .store(organization?.id, values)
+                    .then(() => {
+                        onDone?.();
+                        modal.close();
+                    })
+                    .catch((res: ResponseError) => {
+                        form.setErrors(res.data.errors);
+                        pushApiError(res);
+                    })
+                    .finally(() => {
+                        setProgress(100);
+                        form.setIsLocked(false);
+                    });
+                return;
+            }
+
             sponsorIdentitiesService
                 .update(organization.id, identity.id, values)
                 .then(() => {
@@ -72,10 +140,6 @@ export default function ModalEditProfileRecords({
                 });
         },
     );
-
-    const calculatedAge = useCallback((value: string) => {
-        return value ? Math.max(differenceInYears(new Date(), dateParse(value)), 0) : null;
-    }, []);
 
     const { submit: formSubmit } = form;
 
@@ -95,94 +159,36 @@ export default function ModalEditProfileRecords({
                     </button>
                 </Fragment>
             }>
-            {disabledFields?.map((field, index) => {
-                return (
-                    <FormGroup
-                        key={index}
-                        label={field.label}
-                        input={(id) => (
-                            <FormGroupInfo info={translate('identities.record_info.' + field.key)}>
-                                <input
-                                    id={id}
-                                    type={'text'}
-                                    className="form-control"
-                                    disabled={true}
-                                    value={field.value || '---'}
-                                />
-                            </FormGroupInfo>
-                        )}
-                    />
-                );
-            })}
-            {recordTypes?.map((recordType) => {
-                return (
-                    <Fragment key={recordType.key}>
-                        <FormGroup
-                            label={recordType.name}
-                            error={form.errors?.[recordType.key]}
-                            input={(id) => (
-                                <FormGroupInfo info={translate('identities.record_info.' + recordType.key)}>
-                                    {recordType.key === 'birth_date' ? (
-                                        <DatePickerControl
-                                            value={dateParse(form.values[recordType.key] || '')}
-                                            placeholder={recordType.name}
-                                            onChange={(date) => form.update({ [recordType.key]: dateFormat(date) })}
-                                        />
-                                    ) : (
-                                        <Fragment>
-                                            {recordType?.type === 'select' ? (
-                                                <SelectControl
-                                                    id={id}
-                                                    value={form.values[recordType.key] || ''}
-                                                    propKey={'value'}
-                                                    propValue={'name'}
-                                                    options={[
-                                                        { value: '', name: 'Selecteer...' },
-                                                        ...recordType.options,
-                                                    ]}
-                                                    multiline={true}
-                                                    placeholder={recordType.name}
-                                                    onChange={(value: string) =>
-                                                        form.update({ [recordType.key]: value })
-                                                    }
-                                                />
-                                            ) : (
-                                                <input
-                                                    id={id}
-                                                    type={'text'}
-                                                    className="form-control"
-                                                    value={form.values[recordType.key] || ''}
-                                                    placeholder={recordType.name}
-                                                    onChange={(e) => form.update({ [recordType.key]: e.target.value })}
-                                                />
-                                            )}
-                                        </Fragment>
-                                    )}
-                                </FormGroupInfo>
-                            )}
-                        />
+            <div className="flex flex-vertical flex-gap">
+                {group === 'personal' && <ProfileRecordsPersonal form={form} recordTypes={recordsByGroupByKey} />}
+                {group === 'house' && <ProfileRecordsHouse form={form} recordTypes={recordsByGroupByKey} />}
+                {group === 'contacts' && <ProfileRecordsContacts form={form} recordTypes={recordsByGroupByKey} />}
+                {group === 'address' && <ProfileRecordsAddress form={form} recordTypes={recordsByGroupByKey} />}
 
-                        {recordType?.key === 'birth_date' && (
-                            <FormGroup
-                                label={'Leeftijd'}
-                                input={(id) => (
-                                    <FormGroupInfo info={translate('identities.record_info.age')}>
-                                        <input
-                                            id={id}
-                                            disabled={true}
-                                            type={'text'}
-                                            className="form-control"
-                                            value={calculatedAge(form.values.birth_date)?.toString() || ''}
-                                            placeholder={recordType.name}
-                                            onChange={(e) => form.update({ [recordType.key]: e.target.value })}
-                                        />
-                                    </FormGroupInfo>
-                                )}
-                            />
-                        )}
-                    </Fragment>
-                );
-            })}
+                {disabledFields?.length > 0 && (
+                    <FormPane title={'Non editable'}>
+                        {disabledFields?.map((field, index) => {
+                            return (
+                                <FormGroup
+                                    key={index}
+                                    label={field.label}
+                                    input={(id) => (
+                                        <FormGroupInfo info={translate('identities.record_info.' + field.key)}>
+                                            <input
+                                                id={id}
+                                                type={'text'}
+                                                className="form-control"
+                                                disabled={true}
+                                                value={field.value || '---'}
+                                            />
+                                        </FormGroupInfo>
+                                    )}
+                                />
+                            );
+                        })}
+                    </FormPane>
+                )}
+            </div>
         </Modal>
     );
 }

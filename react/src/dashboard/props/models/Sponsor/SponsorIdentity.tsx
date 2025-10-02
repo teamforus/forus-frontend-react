@@ -35,7 +35,7 @@ export type ProfileRecord = {
     created_at_locale: string;
 };
 
-export type ProfileRecordTypes =
+export type ProfileRecordType =
     | 'given_name'
     | 'family_name'
     | 'telephone'
@@ -45,25 +45,40 @@ export type ProfileRecordTypes =
     | 'street'
     | 'house_number'
     | 'house_number_addition'
-    | 'client_number'
     | 'postal_code'
     | 'house_composition'
-    | 'gender'
+    | 'municipality_name'
     | 'neighborhood_name'
+    | 'client_number'
+    | 'gender'
     | 'living_arrangement'
     | 'marital_status'
-    | 'municipality_name';
+    | 'net_worth'
+    | 'adults_nth'
+    | 'primary_email'
+    // address field (not record type)
+    | 'house_nr'
+    | 'house_nr_addition';
 
-export type ProfileRecords = { [key in ProfileRecordTypes]: RecordType };
-export type ProfileRecordValues = { [key in ProfileRecordTypes]: string };
+export type ProfileRecords = { [key in ProfileRecordType]: RecordType };
+export type ProfileRecordValues = { [key in ProfileRecordType]: string };
 
 export default interface SponsorIdentity {
     id: number;
     bsn?: string;
+    type?: 'profile' | 'voucher' | 'employee';
+    type_locale?: string;
     email?: string;
     email_verified?: Array<string>;
+    employee_id?: number;
+    employee_email?: string;
     address?: string;
-    records?: { [key in ProfileRecordTypes]: Array<ProfileRecord> };
+    records?: { [key in ProfileRecordType]: Array<ProfileRecord> };
+    profile?: {
+        id: number;
+        identity_id: number;
+        organization_id: number;
+    };
     bank_accounts?: Array<ProfileBankAccount>;
     count_vouchers: number;
     count_vouchers_active: number;

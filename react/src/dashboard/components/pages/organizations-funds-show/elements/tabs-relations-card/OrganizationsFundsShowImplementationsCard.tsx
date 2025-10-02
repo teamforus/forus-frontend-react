@@ -16,6 +16,7 @@ import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import Implementation from '../../../../../props/models/Implementation';
 import Label from '../../../../elements/image_cropper/Label';
+import { Permission } from '../../../../../props/models/Organization';
 import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import { useFundService } from '../../../../../services/FundService';
@@ -219,7 +220,7 @@ export default function OrganizationsFundsShowImplementationsCard({
 
                                                                 {hasPermission(
                                                                     activeOrganization,
-                                                                    'manage_implementation_cms',
+                                                                    Permission.MANAGE_IMPLEMENTATION_CMS,
                                                                 ) && (
                                                                     <StateNavLink
                                                                         name={'implementations-view'}

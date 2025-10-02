@@ -157,6 +157,8 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                                 placeholder={translate('offices_edit.labels.address')}
                                 value={form.values?.address || ''}
                                 onChange={(e) => form.update({ address: e.target.value })}
+                                autoComplete="street-address"
+                                aria-label={translate('offices_edit.labels.address')}
                             />
                             <FormError error={form.errors?.address} />
                         </div>
@@ -169,6 +171,8 @@ export default function OfficesForm({ organization, id }: { organization: Organi
                                 placeholder={translate('offices_edit.labels.phone')}
                                 value={form.values?.phone || ''}
                                 onChange={(e) => form.update({ phone: e.target.value })}
+                                autoComplete="tel"
+                                aria-label={translate('offices_edit.labels.phone')}
                             />
                             <FormError error={form.errors?.address} />
                         </div>

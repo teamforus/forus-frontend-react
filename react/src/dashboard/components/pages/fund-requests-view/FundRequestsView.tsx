@@ -35,6 +35,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import Icon from '../../../../../assets/forus-platform/resources/_platform-common/assets/img/fund-request-icon.svg';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import useEmailLogService from '../../../services/EmailLogService';
+import { Permission } from '../../../props/models/Organization';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 
@@ -72,7 +73,7 @@ export default function FundRequestsView() {
     }, [envData, activeOrganization, fund]);
 
     const isValidatorsSupervisor = useMemo(
-        () => activeOrganization?.permissions.includes('manage_validators'),
+        () => activeOrganization?.permissions.includes(Permission.MANAGE_VALIDATORS),
         [activeOrganization],
     );
 
@@ -825,7 +826,7 @@ export default function FundRequestsView() {
             </div>
 
             <BlockCardNotes
-                isAssigned={fundRequestMeta.is_assigned}
+                showCreate={fundRequestMeta.is_assigned}
                 fetchNotes={fetchNotes}
                 deleteNote={deleteNote}
                 storeNote={storeNote}

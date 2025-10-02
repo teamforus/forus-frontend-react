@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import React, { HTMLAttributes, ReactElement } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 import { getStateRouteUrl, useNavigateState } from './Router';
 import classNames from 'classnames';
 
@@ -26,7 +26,7 @@ export default function StateNavLink({
     params?: object;
     query?: object;
     state?: object;
-    children: ReactElement | Array<ReactElement | string> | string;
+    children: ReactNode | Array<ReactNode>;
     disabled?: boolean;
     target?: string;
     activeClass?: string;

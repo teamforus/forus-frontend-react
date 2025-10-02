@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import { hasPermission } from '../../../../helpers/utils';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import ClickOutside from '../../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
@@ -317,7 +317,7 @@ export default function VouchersTableFilters({
                                     />
                                 </FilterItemToggle>
 
-                                {hasPermission(organization, 'manage_vouchers') && (
+                                {hasPermission(organization, Permission.MANAGE_VOUCHERS) && (
                                     <div className="form-actions">
                                         <button
                                             className="button button-primary button-wide"

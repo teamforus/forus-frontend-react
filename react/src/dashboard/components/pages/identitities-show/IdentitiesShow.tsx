@@ -3,19 +3,11 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import SponsorIdentity, {
-    ProfileRecord,
-    ProfileRecords,
-    ProfileRecordTypes,
-} from '../../../props/models/Sponsor/SponsorIdentity';
+import SponsorIdentity from '../../../props/models/Sponsor/SponsorIdentity';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useSponsorIdentitiesService from '../../../services/SponsorIdentitesService';
 import Card from '../../elements/card/Card';
 import CardBlockKeyValue from '../../elements/card/blocks/CardBlockKeyValue';
-import useOpenModal from '../../../hooks/useOpenModal';
-import ModalEditProfileRecords from './modals/ModalEditProfileRecords';
-import { useRecordTypeService } from '../../../services/RecordTypeService';
-import RecordType from '../../../props/models/RecordType';
 import { hasPermission } from '../../../helpers/utils';
 import IdentityReimbursementsCard from './cards/IdentityReimbursementsCard';
 import IdentityFundRequestsCard from './cards/IdentityFundRequestsCard';
@@ -27,34 +19,24 @@ import { differenceInYears } from 'date-fns';
 import { dateParse } from '../../../helpers/dates';
 import BlockCardEmails from '../../elements/block-card-emails/BlockCardEmails';
 import useEmailLogService from '../../../services/EmailLogService';
+import useEditProfileRecords from './hooks/useEditProfileRecords';
+import { Permission } from '../../../props/models/Organization';
+import useProfileRecordTypes from './hooks/useProfileRecordTypes';
 import IdentityPerson from '../fund-requests-view/elements/IdentityPerson';
+import ProfileRelationsCard from './elements/ProfileRelationsCard';
+import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
+import Note from '../../../props/models/Note';
 
 export default function IdentitiesShow() {
-    const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
 
     const emailLogService = useEmailLogService();
-    const recordTypeService = useRecordTypeService();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
+    const { recordTypes, recordTypesByKey } = useProfileRecordTypes();
 
     const identityId = parseInt(useParams().id);
     const [identity, setIdentity] = useState<SponsorIdentity>(null);
-    const [recordTypes, setRecordTypes] = useState<Array<RecordType & { key: ProfileRecordTypes }>>(null);
-
-    const recordTypesByKey = useMemo(() => {
-        return recordTypes?.reduce((map, recordType) => {
-            return { ...map, [recordType.key]: recordType };
-        }, {}) as ProfileRecords;
-    }, [recordTypes]);
-
-    const recordsByKey = useMemo(() => {
-        return Object.keys(identity?.records || {})?.reduce((map, key) => {
-            const record: ProfileRecord[] = identity?.records[key];
-
-            return { ...map, [key]: record[0]?.value };
-        }, {}) as { [key in ProfileRecordTypes]: string };
-    }, [identity]);
 
     const otherEmails = useMemo(() => {
         return identity?.email_verified ? identity?.email_verified : [];
@@ -75,38 +57,7 @@ export default function IdentitiesShow() {
             .finally(() => setProgress(100));
     }, [activeOrganization.id, identityId, setProgress, sponsorIdentitiesService]);
 
-    const fetchRecordTypes = useCallback(() => {
-        setProgress(0);
-
-        recordTypeService
-            .list<RecordType & { key: ProfileRecordTypes }>()
-            .then((res) => setRecordTypes(res.data))
-            .finally(() => setProgress(100));
-    }, [recordTypeService, setProgress]);
-
-    const editProfileRecords = useCallback(
-        (
-            title: string,
-            recordTypeKyes: ProfileRecordTypes[],
-            disabledFields: Array<{ label: string; value: string; key: string }> = [],
-            bodyOverflowVisible: boolean = false,
-        ) => {
-            openModal((modal) => (
-                <ModalEditProfileRecords
-                    modal={modal}
-                    title={title}
-                    disabledFields={disabledFields}
-                    onDone={fetchIdentity}
-                    identity={identity}
-                    recordTypes={recordTypeKyes?.map((filter) => recordTypes?.find((item) => filter === item.key))}
-                    values={recordsByKey}
-                    organization={activeOrganization}
-                    bodyOverflowVisible={bodyOverflowVisible}
-                />
-            ));
-        },
-        [openModal, fetchIdentity, identity, recordTypes, recordsByKey, activeOrganization],
-    );
+    const editProfileRecords = useEditProfileRecords(activeOrganization, recordTypes);
 
     const fetchEmailLogs = useCallback(
         (query = {}) =>
@@ -117,15 +68,32 @@ export default function IdentitiesShow() {
         [activeOrganization?.id, identity?.id, emailLogService],
     );
 
+    const fetchNotes = useCallback(
+        (query = {}) => {
+            return sponsorIdentitiesService.notes(activeOrganization.id, identity?.id, query);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
+    const deleteNote = useCallback(
+        (note: Note) => {
+            return sponsorIdentitiesService.noteDestroy(activeOrganization.id, identity?.id, note.id);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
+    const storeNote = useCallback(
+        (data: { description: string }) => {
+            return sponsorIdentitiesService.storeNote(activeOrganization.id, identity?.id, data);
+        },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
     useEffect(() => {
         fetchIdentity();
     }, [fetchIdentity]);
 
-    useEffect(() => {
-        fetchRecordTypes();
-    }, [fetchRecordTypes]);
-
-    if (!identity || !recordTypes) {
+    if (!identity || identity?.id !== identityId || !recordTypes) {
         return <LoadingCard />;
     }
 
@@ -146,18 +114,12 @@ export default function IdentitiesShow() {
             <Card
                 title={'Persoonsgegevens'}
                 buttons={[
-                    hasPermission(activeOrganization, 'manage_identities') && {
+                    hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && {
                         text: 'Bewerken',
                         icon: 'pencil-outline',
-                        onClick: () =>
-                            editProfileRecords('Wijzig persoonsgegevens', [
-                                'given_name',
-                                'family_name',
-                                'birth_date',
-                                'gender',
-                                'marital_status',
-                                'client_number',
-                            ]),
+                        onClick: () => {
+                            editProfileRecords(identity, 'Wijzig persoonsgegevens', 'personal', fetchIdentity);
+                        },
                     },
                 ]}>
                 <CardBlockKeyValue
@@ -200,19 +162,15 @@ export default function IdentitiesShow() {
                 <IdentityPerson organization={activeOrganization} identityId={identity.id} />
             )}
 
+            <BlockCardNotes showCreate={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
+
             <Card
                 title={'Huishouden'}
                 buttons={[
-                    hasPermission(activeOrganization, 'manage_identities') && {
+                    hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && {
                         text: 'Bewerken',
                         icon: 'pencil-outline',
-                        onClick: () =>
-                            editProfileRecords(
-                                'Wijzig huishouden',
-                                ['house_composition', 'living_arrangement'],
-                                [],
-                                true,
-                            ),
+                        onClick: () => editProfileRecords(identity, 'Wijzig huishouden', 'house', fetchIdentity),
                     },
                 ]}>
                 <CardBlockKeyValue
@@ -230,37 +188,39 @@ export default function IdentitiesShow() {
                 />
             </Card>
 
+            {activeOrganization?.allow_profiles_relations && (
+                <ProfileRelationsCard organization={activeOrganization} identity={identity} />
+            )}
+
             <Card title={'Accountgegevens'}>
                 <CardBlockKeyValue
                     size={'md'}
                     items={[
                         { label: 'Accountnummer', value: identity?.id },
-                        { label: 'Actief sinds', value: identity?.created_at_locale },
+                        identity?.type_locale ? { label: 'Account type', value: identity?.type_locale } : null,
+                        identity?.employee_email ? { label: 'Aangemaakt door', value: identity?.employee_email } : null,
+                        { label: 'Aangemaakt op', value: identity?.created_at_locale },
                         { label: 'Laatste inlog', value: identity?.last_login_at_locale },
                         { label: 'Laatste handeling', value: identity?.last_activity_at_locale },
-                    ]}
+                    ].filter((item) => item !== null)}
                 />
             </Card>
 
             <Card
                 title={'Contactgegevens'}
                 buttons={[
-                    hasPermission(activeOrganization, 'manage_identities') && {
+                    hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && {
                         text: 'Bewerken',
                         icon: 'pencil-outline',
                         onClick: () => {
-                            editProfileRecords(
-                                'Wijzig contactgegevens',
-                                ['telephone', 'mobile'],
-                                [
-                                    { label: 'Hoofd e-mailadres', value: identity.email, key: 'email' },
-                                    ...otherEmails.map((email, index) => ({
-                                        label: `Extra e-mailadres ${index + 1}`,
-                                        value: email,
-                                        key: `emails_verified_${index}`,
-                                    })),
-                                ],
-                            );
+                            editProfileRecords(identity, 'Wijzig contactgegevens', 'contacts', fetchIdentity, [
+                                { label: 'Hoofd e-mailadres', value: identity.email, key: 'email' },
+                                ...otherEmails.map((email, index) => ({
+                                    label: `Extra e-mailadres ${index + 1}`,
+                                    value: email,
+                                    key: `emails_verified_${index}`,
+                                })),
+                            ]);
                         },
                     },
                 ]}>
@@ -287,19 +247,11 @@ export default function IdentitiesShow() {
             <Card
                 title={'Adresgegevens'}
                 buttons={[
-                    hasPermission(activeOrganization, 'manage_identities') && {
+                    hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && {
                         text: 'Bewerken',
                         icon: 'pencil-outline',
                         onClick: () => {
-                            editProfileRecords('Wijzig adresgegevens', [
-                                'city',
-                                'street',
-                                'house_number',
-                                'house_number_addition',
-                                'postal_code',
-                                'neighborhood_name',
-                                'municipality_name',
-                            ]);
+                            editProfileRecords(identity, 'Wijzig adresgegevens', 'address', fetchIdentity);
                         },
                     },
                 ]}>
@@ -346,19 +298,19 @@ export default function IdentitiesShow() {
                 fetchIdentity={fetchIdentity}
             />
 
-            {hasPermission(activeOrganization, ['manage_vouchers', 'view_vouchers']) && (
+            {hasPermission(activeOrganization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]) && (
                 <IdentityVouchersCard organization={activeOrganization} identity={identity} />
             )}
 
-            {activeOrganization?.allow_payouts && hasPermission(activeOrganization, 'manage_payouts') && (
+            {activeOrganization?.allow_payouts && hasPermission(activeOrganization, Permission.MANAGE_PAYOUTS) && (
                 <IdentityPayoutsCard organization={activeOrganization} identity={identity} />
             )}
 
-            {hasPermission(activeOrganization, 'manage_reimbursements') && (
+            {hasPermission(activeOrganization, Permission.MANAGE_REIMBURSEMENTS) && (
                 <IdentityReimbursementsCard organization={activeOrganization} identity={identity} />
             )}
 
-            {hasPermission(activeOrganization, ['validate_records', 'manage_validators'], false) && (
+            {hasPermission(activeOrganization, [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS], false) && (
                 <IdentityFundRequestsCard organization={activeOrganization} identity={identity} />
             )}
 

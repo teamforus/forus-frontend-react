@@ -4,7 +4,7 @@ import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcasePro
 import BlockKeyValueList from '../../elements/block-key-value-list/BlockKeyValueList';
 import RecordType from '../../../../dashboard/props/models/RecordType';
 import ProfileModel from '../../../../dashboard/props/models/Profile';
-import { ProfileRecords, ProfileRecordTypes } from '../../../../dashboard/props/models/Sponsor/SponsorIdentity';
+import { ProfileRecords, ProfileRecordType } from '../../../../dashboard/props/models/Sponsor/SponsorIdentity';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { useRecordTypeService } from '../../../../dashboard/services/RecordTypeService';
 import IdentityRecordKeyValueListHistory from './elements/IdentityRecordKeyValueListHistory';
@@ -44,7 +44,7 @@ export default function Profile() {
         setProgress(0);
 
         recordTypeService
-            .list<RecordType & { key: ProfileRecordTypes }>()
+            .list<RecordType & { key: ProfileRecordType }>()
             .then((res) => setRecordTypes(res.data))
             .finally(() => setProgress(100));
     }, [recordTypeService, setProgress]);
