@@ -912,13 +912,7 @@ export default function Transactions() {
                                                     {transaction.transfer_in > 0 &&
                                                     transaction.state == 'pending' &&
                                                     transaction.attempts < 3 ? (
-                                                        <div>
-                                                            <div>In afwachting</div>
-                                                            <div className="text-sm text-muted-dark">
-                                                                <em className="mdi mdi-clock-outline"> </em>
-                                                                {transaction.transfer_in} dagen resterend
-                                                            </div>
-                                                        </div>
+                                                        <div>In afwachting</div>
                                                     ) : (
                                                         <TableEmptyValue />
                                                     )}
@@ -945,6 +939,16 @@ export default function Transactions() {
                                             )}
                                             <td data-dusk="transactionState">
                                                 <TransactionStateLabel transaction={transaction} />
+                                            </td>
+                                            <td>
+                                                {transaction.transfer_in > 0 && transaction.state == 'pending' ? (
+                                                    <div className="text-muted-dark">
+                                                        <em className="mdi mdi-clock-outline"> </em>
+                                                        {transaction.transfer_in} dagen resterend
+                                                    </div>
+                                                ) : (
+                                                    <TableEmptyValue />
+                                                )}
                                             </td>
                                             <td className={'table-td-actions text-right'}>
                                                 <TableRowActions
