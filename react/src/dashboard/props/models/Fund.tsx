@@ -5,6 +5,7 @@ import Tag from './Tag';
 import Faq from './Faq';
 import FundFormula from '../../../webshop/props/models/FundFormula';
 import FundCriterion from './FundCriterion';
+import PhysicalCardType from './PhysicalCardType';
 
 interface FundVoucherStatistics {
     active_vouchers_amount?: string;
@@ -20,6 +21,16 @@ interface FundVoucherStatistics {
     inactive_vouchers_count?: number;
     deactivated_vouchers_count?: number;
     children_count?: number;
+}
+
+export interface InlineFundPhysicalCardType {
+    id: number;
+    fund_id: number;
+    physical_card_type_id: number;
+    allow_physical_card_linking: boolean;
+    allow_physical_card_requests: boolean;
+    allow_physical_card_deactivation: boolean;
+    physical_card_type: PhysicalCardType;
 }
 
 export default interface Fund {
@@ -148,4 +159,7 @@ export default interface Fund {
     help_enabled?: boolean;
     allow_provider_sign_up?: boolean;
     outcome_type?: 'voucher' | 'payout';
+    fund_request_physical_card_enable?: boolean;
+    fund_request_physical_card_type_id?: number;
+    fund_physical_card_types?: Array<InlineFundPhysicalCardType>;
 }

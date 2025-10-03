@@ -196,7 +196,7 @@ export default function VouchersViewComponent() {
             <ModalDangerZone
                 modal={modal}
                 title={translate('modals.modal_voucher_physical_card.delete_card.title', {
-                    code: voucher.physical_card.code,
+                    code: voucher.physical_card.code_locale,
                 })}
                 description={translate('modals.modal_voucher_physical_card.delete_card.description')}
                 buttonCancel={{
@@ -208,7 +208,7 @@ export default function VouchersViewComponent() {
                         modal.close();
 
                         physicalCardService
-                            .delete(activeOrganization.id, voucher.id, voucher.physical_card.id)
+                            .deleteVoucher(activeOrganization.id, voucher.id, voucher.physical_card.id)
                             .then(() => fetchVoucher());
                     },
                     text: translate('modals.modal_voucher_physical_card.delete_card.confirmButton'),
@@ -222,7 +222,7 @@ export default function VouchersViewComponent() {
         physicalCardService,
         translate,
         voucher?.id,
-        voucher?.physical_card.code,
+        voucher?.physical_card.code_locale,
         voucher?.physical_card.id,
     ]);
 
@@ -422,7 +422,7 @@ export default function VouchersViewComponent() {
                         {voucher.physical_card && (
                             <div className="keyvalue-item">
                                 <div className="keyvalue-key">{translate('vouchers.labels.physical_card')}</div>
-                                <div className="keyvalue-value">{voucher.physical_card.code}</div>
+                                <div className="keyvalue-value">{voucher.physical_card.code_locale}</div>
                             </div>
                         )}
 

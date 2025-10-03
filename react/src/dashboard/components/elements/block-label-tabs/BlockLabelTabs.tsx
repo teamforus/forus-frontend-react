@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export default function BlockLabelTabs({
+export default function BlockLabelTabs<t = string>({
     value,
     setValue,
     tabs,
 }: {
-    value: string;
-    setValue: (state: string) => void;
-    tabs: Array<{ value: string; label: string }>;
+    value: t;
+    setValue: (state: t) => void;
+    tabs: Array<{ value: t; label: string }>;
 }) {
     return (
         <div className="block block-label-tabs">

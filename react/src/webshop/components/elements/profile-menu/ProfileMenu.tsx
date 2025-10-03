@@ -42,6 +42,16 @@ export default function ProfileMenu({ className }: { className?: string }) {
                 <em className="mdi mdi-arrow-right" aria-hidden="true" />
             </StateNavLink>
 
+            {appConfigs.has_physical_cards && (
+                <StateNavLink
+                    className="profile-menu-item"
+                    name="physical-cards"
+                    aria-current={navigateState?.name == 'physical-cards' ? 'page' : null}>
+                    {translate('profile_menu.buttons.physical_cards')}
+                    <em className="mdi mdi-arrow-right" aria-hidden="true" />
+                </StateNavLink>
+            )}
+
             {appConfigs.has_reimbursements && (
                 <StateNavLink
                     className="profile-menu-item"
