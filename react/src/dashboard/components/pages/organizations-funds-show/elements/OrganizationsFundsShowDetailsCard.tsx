@@ -35,7 +35,7 @@ export default function OrganizationsFundsShowDetailsCard({
     }, [organization]);
 
     const canManagePhysicalCards = useMemo(() => {
-        return hasPermission(organization, 'manage_funds') && organization.allow_physical_cards;
+        return hasPermission(organization, Permission.MANAGE_FUNDS) && organization.allow_physical_cards;
     }, [organization]);
 
     const tabs = useMemo(() => {

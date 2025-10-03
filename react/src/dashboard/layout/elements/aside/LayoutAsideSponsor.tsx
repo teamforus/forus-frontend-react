@@ -212,7 +212,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         state: 'physical-cards',
                         stateParams: { organizationId: organization?.id },
                         show:
-                            hasPermission(organization, ['manage_vouchers', 'view_vouchers']) &&
+                            hasPermission(organization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]) &&
                             organization.allow_physical_cards,
                     },
                 ]}

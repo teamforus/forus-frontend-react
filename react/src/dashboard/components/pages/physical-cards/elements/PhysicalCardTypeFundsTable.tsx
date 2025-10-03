@@ -24,6 +24,7 @@ import { hasPermission } from '../../../../helpers/utils';
 import ClickOutside from '../../../elements/click-outside/ClickOutside';
 import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
 import TableRowActions from '../../../elements/tables/TableRowActions';
+import { Permission } from '../../../../props/models/Organization';
 
 export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physicalCardType: PhysicalCardType }) {
     const translate = useTranslate();
@@ -217,7 +218,7 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
 
                                             {filterActiveValues?.funds_type == 'active' && (
                                                 <Fragment>
-                                                    {hasPermission(activeOrganization, 'view_finances') && (
+                                                    {hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                                                         <td>{fund.budget?.left_locale}</td>
                                                     )}
 

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { createEnumParam, useQueryParam, withDefault } from 'use-query-params';
 import { hasPermission } from '../../../../helpers/utils';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import Fund from '../../../../props/models/Fund';
 import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 import FundFormConfigsCard from './tabs-details-card/FundFormConfigsCard';
@@ -22,7 +22,7 @@ export default function FundFormViewDetailsCard({
 }) {
     const canManagePhysicalCards = useMemo(() => {
         return (
-            hasPermission(organization, 'manage_funds') &&
+            hasPermission(organization, Permission.MANAGE_FUNDS) &&
             organization.allow_physical_cards &&
             fund.allow_physical_cards
         );
