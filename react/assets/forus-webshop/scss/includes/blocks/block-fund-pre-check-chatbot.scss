@@ -131,6 +131,7 @@
 
             .answer-button {
               background: var(--answer-button-background, blue);
+              color: var(--answer-button-text, white);
 
               //&.disabled {
               //  cursor: not-allowed;

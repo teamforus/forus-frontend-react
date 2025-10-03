@@ -9,7 +9,7 @@ export function parseProblemJson(err: unknown): ProblemJson {
     if (!err) return { title: 'Onbekende fout', detail: '', status: 500 };
 
     if (typeof err === 'object') {
-        const e = err as any;
+        const e = err as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
         if ('title' in e && 'status' in e) {
             return {
@@ -38,7 +38,7 @@ export function parseProblemJson(err: unknown): ProblemJson {
             };
         }
     }
-    // 👉 Fallback: toon err als string
+    // Fallback: show err as string
     return {
         title: 'Onbekende fout',
         detail: typeof err === 'string' ? err : JSON.stringify(err),
