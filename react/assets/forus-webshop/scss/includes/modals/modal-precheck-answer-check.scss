@@ -1,0 +1,28 @@
+.modal.modal-precheck-answer-check {
+  .modal-window {
+
+    .modal-header.modal-answer-check-header {
+      font: 700 18px/25px var(--base-font);
+    }
+
+    .modal-body {
+      .modal-section.modal-precheck-answer-check-section {
+        width: max-content;
+        align-self: center;
+
+        .modal-answer-check-description {
+          font: 500 16px/20px var(--base-font);
+          padding-inline: 20px;
+          text-align: left;
+        }
+
+        .modal-answer-check-list {
+          display: flex;
+          flex-direction: column;
+          padding-block: 10px;
+          padding-inline: 20px;
+        }
+      }
+    }
+  }
+}

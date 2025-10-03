@@ -35,6 +35,8 @@ import { isValidLocaleString } from '../dashboard/helpers/url';
 import { FrameDirectorProvider } from '../dashboard/modules/frame_director/context/FrameDirectorContext';
 import { LayoutProvider } from './contexts/LayoutContext';
 import { ReactRouter7Adapter } from '../dashboard/modules/state_router/ReactRouter7Adapter';
+import { ChatbotProvider } from './contexts/ChatbotContext';
+import EventStreamService from './services/EventStreamService';
 
 const locale = localStorage.getItem('locale');
 
@@ -113,6 +115,7 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
     };
 
     ApiRequestService.setHost(envData.config.api_url);
+    EventStreamService.setHost(envData.config.api_url);
     ApiRequestService.setEnvData(envData as unknown as EnvDataProp);
 
     const [allowOptionalCookies, setAllowOptionalCookies] = useState<boolean>(null);
@@ -142,8 +145,10 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                                             <TitleProvider>
                                                 <AuthProvider>
                                                     <QueryParamProvider adapter={ReactRouter7Adapter}>
-                                                        <StateHashPrefixRedirect />
-                                                        <RouterLayout envData={envData} />
+                                                        <ChatbotProvider>
+                                                            <StateHashPrefixRedirect />
+                                                            <RouterLayout envData={envData} />
+                                                        </ChatbotProvider>
                                                     </QueryParamProvider>
                                                 </AuthProvider>
                                             </TitleProvider>
