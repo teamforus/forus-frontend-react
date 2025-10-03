@@ -97,6 +97,7 @@ export default function FundRequest() {
 
     const [criteriaStepKeys, setCriteriaStepKeys] = useState([]);
     const [pendingCriteria, setPendingCriteria] = useState<Array<LocalCriterion>>([]);
+    const [personPrefills, setPersonPrefills] = useState<Array<{ record_type_key: string; value: string }>>(null);
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
@@ -477,6 +478,8 @@ export default function FundRequest() {
         setPersonApiRecordsFetch(true);
 
         fundService.getPersonPrefills(fund.id).then((res) => {
+            setPersonPrefills(res.data);
+
             setPendingCriteria((criteria) => {
                 return [
                     ...criteria.map((criterion) => {
@@ -535,8 +538,10 @@ export default function FundRequest() {
         // The user has to sign-in first
         const voucher = getFirstActiveFundVoucher(fund, vouchers);
         const pendingRequests = fundRequests.filter((request) => request.state === 'pending');
-        const pendingCriteria = fund.criteria.filter((criterion) => !criterion.is_valid || !criterion.has_record);
         const invalidCriteria = fund.criteria.filter((criterion) => !criterion.is_valid);
+        const pendingCriteria = fund.criteria
+            .filter((criterion) => !criterion.is_valid || !criterion.has_record)
+            .map((criterion) => ({ ...criterion, requested: true }));
 
         // Voucher already received, go to the voucher
         if (voucher) {
@@ -595,10 +600,19 @@ export default function FundRequest() {
 
     useEffect(() => {
         const removedData = {};
+        const addedData = [];
 
         const criteria = pendingCriteria
             .map((item) => {
                 const defaultValue = fundService.getCriterionControlDefaultValue(item.record_type, item.operator);
+
+                if (shouldRequestRecord(item) && !item.requested && personPrefills) {
+                    addedData.push(item.record_type_key);
+
+                    item.input_value =
+                        personPrefills.filter((prefill) => prefill.record_type_key === item.record_type_key)[0]
+                            ?.value || item.input_value;
+                }
 
                 if (!shouldRequestRecord(item) && item.input_value != defaultValue) {
                     removedData[item.record_type_key] = {
@@ -616,6 +630,8 @@ export default function FundRequest() {
                     delete item.is_checked;
                 }
 
+                item.requested = shouldRequestRecord(item);
+
                 return { ...item };
             })
             .map((item) => {
@@ -626,10 +642,10 @@ export default function FundRequest() {
                 return { ...item };
             });
 
-        if (Object.keys(removedData).length > 0) {
+        if (Object.keys(removedData).length > 0 || addedData.length > 0) {
             setPendingCriteria([...criteria]);
         }
-    }, [fundService, pendingCriteria, shouldRequestRecord]);
+    }, [fundService, pendingCriteria, personPrefills, shouldRequestRecord]);
 
     useEffect(() => {
         if (autoSubmit && steps?.[step] == 'confirm_criteria' && !autoSubmitted) {
