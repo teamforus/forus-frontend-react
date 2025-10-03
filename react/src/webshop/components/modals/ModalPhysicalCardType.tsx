@@ -437,6 +437,10 @@ export default function ModalPhysicalCardType({
                                             onChange={(e) => {
                                                 requestPhysicalCardForm.update({ address: e.target.value });
                                             }}
+                                            autoComplete="address-line1"
+                                            aria-label={translate(
+                                                'modal_physical_card.modal_section.request_new_card.address',
+                                            )}
                                         />
                                         <FormError error={requestPhysicalCardForm.errors?.address} />
                                     </div>
@@ -455,6 +459,10 @@ export default function ModalPhysicalCardType({
                                             onChange={(e) => {
                                                 requestPhysicalCardForm.update({ house: e.target.value });
                                             }}
+                                            autoComplete="address-line2"
+                                            aria-label={translate(
+                                                'modal_physical_card.modal_section.request_new_card.house',
+                                            )}
                                         />
                                         <FormError error={requestPhysicalCardForm.errors?.house} />
                                     </div>
@@ -473,6 +481,10 @@ export default function ModalPhysicalCardType({
                                             onChange={(e) => {
                                                 requestPhysicalCardForm.update({ house_addition: e.target.value });
                                             }}
+                                            autoComplete="address-line3"
+                                            aria-label={translate(
+                                                'modal_physical_card.modal_section.request_new_card.house_addition',
+                                            )}
                                         />
                                         <FormError error={requestPhysicalCardForm.errors?.house_addition} />
                                     </div>
@@ -491,6 +503,10 @@ export default function ModalPhysicalCardType({
                                             onChange={(e) => {
                                                 requestPhysicalCardForm.update({ postcode: e.target.value });
                                             }}
+                                            autoComplete="postal-code"
+                                            aria-label={translate(
+                                                'modal_physical_card.modal_section.request_new_card.postcode',
+                                            )}
                                         />
                                         <FormError error={requestPhysicalCardForm.errors?.postcode} />
                                     </div>
@@ -507,6 +523,10 @@ export default function ModalPhysicalCardType({
                                             onChange={(e) => {
                                                 requestPhysicalCardForm.update({ city: e.target.value });
                                             }}
+                                            autoComplete="address-level2"
+                                            aria-label={translate(
+                                                'modal_physical_card.modal_section.request_new_card.city',
+                                            )}
                                         />
                                         <FormError error={requestPhysicalCardForm.errors?.city} />
                                     </div>

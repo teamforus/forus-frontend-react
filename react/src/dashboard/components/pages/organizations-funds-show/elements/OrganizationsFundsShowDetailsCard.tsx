@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import { createEnumParam, useQueryParam, withDefault } from 'use-query-params';
 import useTranslate from '../../../../hooks/useTranslate';
 import { hasPermission } from '../../../../helpers/utils';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import Fund from '../../../../props/models/Fund';
 import classNames from 'classnames';
 import OrganizationsFundsShowConfigsCard from './tabs-details-card/OrganizationsFundsShowConfigsCard';
@@ -23,15 +23,15 @@ export default function OrganizationsFundsShowDetailsCard({
     const translate = useTranslate();
 
     const canManageFunds = useMemo(() => {
-        return hasPermission(organization, 'manage_funds');
+        return hasPermission(organization, Permission.MANAGE_FUNDS);
     }, [organization]);
 
     const canManagePayouts = useMemo(() => {
-        return organization.allow_payouts && hasPermission(organization, 'manage_payouts');
+        return organization.allow_payouts && hasPermission(organization, Permission.MANAGE_PAYOUTS);
     }, [organization]);
 
     const canViewFinances = useMemo(() => {
-        return hasPermission(organization, 'view_finances');
+        return hasPermission(organization, Permission.VIEW_FINANCES);
     }, [organization]);
 
     const canManagePhysicalCards = useMemo(() => {

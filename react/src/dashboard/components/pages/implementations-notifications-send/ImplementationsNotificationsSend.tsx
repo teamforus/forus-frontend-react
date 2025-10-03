@@ -26,6 +26,7 @@ import useFundIdentitiesExporter from '../../../services/exporters/useFundIdenti
 import useTranslate from '../../../hooks/useTranslate';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { Permission } from '../../../props/models/Organization';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
@@ -418,7 +419,7 @@ export default function ImplementationsNotificationsSend() {
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
                                 {targetGroup == 'identities' &&
-                                    hasPermission(activeOrganization, 'manage_vouchers') && (
+                                    hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) && (
                                         <div
                                             className="button button-primary button-sm"
                                             onClick={() => setShowIdentities(!showIdentities)}>

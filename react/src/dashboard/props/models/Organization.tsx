@@ -5,6 +5,37 @@ import ReservationField from './ReservationField';
 import Office from './Office';
 import Employee from './Employee';
 
+export enum Permission {
+    MANAGE_ORGANIZATION = 'manage_organization',
+    MANAGE_FUNDS = 'manage_funds',
+    MANAGE_FUND_TEXTS = 'manage_fund_texts',
+    MANAGE_PROVIDERS = 'manage_providers',
+    MANAGE_PROVIDER_FUNDS = 'manage_provider_funds',
+    MANAGE_PRODUCTS = 'manage_products',
+    MANAGE_OFFICES = 'manage_offices',
+    MANAGE_VALIDATORS = 'manage_validators',
+    MANAGE_EMPLOYEES = 'manage_employees',
+    MANAGE_VOUCHERS = 'manage_vouchers',
+    VIEW_VOUCHERS = 'view_vouchers',
+    MANAGE_IMPLEMENTATION = 'manage_implementation',
+    MANAGE_IMPLEMENTATION_CMS = 'manage_implementation_cms',
+    MANAGE_IMPLEMENTATION_NOTIFICATIONS = 'manage_implementation_notifications',
+    MANAGE_BANK_CONNECTIONS = 'manage_bank_connections',
+    MANAGE_TRANSACTION_BULKS = 'manage_transaction_bulks',
+    MANAGE_REIMBURSEMENTS = 'manage_reimbursements',
+    VIEW_FINANCES = 'view_finances',
+    VALIDATE_RECORDS = 'validate_records',
+    SCAN_VOUCHERS = 'scan_vouchers',
+    VIEW_FUNDS = 'view_funds',
+    MAKE_DIRECT_PAYMENTS = 'make_direct_payments',
+    MANAGE_BI_CONNECTION = 'manage_bi_connection',
+    MANAGE_PAYMENT_METHODS = 'manage_payment_methods',
+    VIEW_FUNDS_EXTRA_PAYMENTS = 'view_funds_extra_payments',
+    MANAGE_PAYOUTS = 'manage_payouts',
+    VIEW_IDENTITIES = 'view_identities',
+    MANAGE_IDENTITIES = 'manage_identities',
+}
+
 export interface SponsorProviderOrganization extends Organization {
     funds: Array<{
         id: number;
@@ -86,6 +117,9 @@ export default interface Organization {
     allow_pre_checks?: boolean;
     allow_payouts?: boolean;
     allow_profiles?: boolean;
+    allow_profiles_create?: boolean;
+    allow_profiles_relations?: boolean;
+    allow_profiles_households?: boolean;
     allow_2fa_restrictions?: boolean;
     allow_reservation_custom_fields: boolean;
     auth_2fa_funds_policy: 'optional' | 'required' | 'restrict_features';
@@ -97,7 +131,7 @@ export default interface Organization {
     tags: Array<Tag>;
     logo?: Media;
     business_type: BusinessType;
-    permissions?: Array<string>;
+    permissions?: Array<Permission>;
     offices_count: number;
     offices: Array<Office>;
     can_view_provider_extra_payments?: boolean;

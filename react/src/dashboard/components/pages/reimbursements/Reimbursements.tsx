@@ -25,6 +25,7 @@ import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import ReimbursementsTable from './elements/ReimbursementsTable';
+import { Permission } from '../../../props/models/Organization';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
@@ -375,7 +376,7 @@ export default function Reimbursements() {
 
             {funds?.length == 0 && (
                 <Fragment>
-                    {hasPermission(activeOrganization, 'manage_funds') ? (
+                    {hasPermission(activeOrganization, Permission.MANAGE_FUNDS) ? (
                         <EmptyCard
                             description={'Je hebt momenteel geen fondsen.'}
                             button={{

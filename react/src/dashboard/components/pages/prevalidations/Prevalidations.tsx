@@ -37,6 +37,7 @@ import { NumberParam, StringParam } from 'use-query-params';
 import EmptyCard from '../../elements/empty-card/EmptyCard';
 import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
 import Label from '../../elements/image_cropper/Label';
+import { Permission } from '../../../props/models/Organization';
 import { uniq } from 'lodash';
 
 export default function Prevalidations() {
@@ -181,7 +182,7 @@ export default function Prevalidations() {
         fundService
             .list(activeOrganization?.id, { state: 'active_paused_and_closed', per_page: 100 })
             .then((res) => {
-                setFunds(res.data.data.filter((fund) => hasPermission(fund.organization, 'validate_records')));
+                setFunds(res.data.data.filter((fund) => hasPermission(fund.organization, Permission.VALIDATE_RECORDS)));
             })
             .finally(() => setProgress(100));
     }, [setProgress, fundService, activeOrganization?.id]);

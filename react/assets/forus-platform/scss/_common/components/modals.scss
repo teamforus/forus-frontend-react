@@ -67,11 +67,15 @@
 
         .modal-header {
             background: #fff;
-            padding: 20px 25px;
+            padding: 15px 25px;
             font: 600 16px/25px var(--base-font);
             border-bottom: 1px solid #d4d9dd;
             position: relative;
             border-radius: 3px 3px 0 0;
+
+            &.modal-header-compact {
+                padding: 10px 25px;
+            }
         }
 
         .modal-body {
@@ -171,6 +175,10 @@
                         margin: -20px 0;
                         float: left;
                     }
+                }
+
+                &.modal-section-compact {
+                    padding: 10px 20px;
                 }
 
                 &.modal-section-collapse {

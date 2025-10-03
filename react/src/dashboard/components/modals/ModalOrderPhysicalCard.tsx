@@ -159,6 +159,7 @@ export default function ModalOrderPhysicalCard({
                                         'modals.modal_physical_card_order.modal_section.request_new_card.address_placeholder',
                                     )}
                                     onChange={(e) => form.update({ address: e.target.value })}
+                                    autoComplete="address-line1"
                                 />
 
                                 <FormError error={form.errors?.address} />
@@ -179,6 +180,7 @@ export default function ModalOrderPhysicalCard({
                                         'modals.modal_physical_card_order.modal_section.request_new_card.house_placeholder',
                                     )}
                                     onChange={(e) => form.update({ house: e.target.value })}
+                                    autoComplete="address-line2"
                                 />
 
                                 <FormError error={form.errors?.house} />
@@ -201,6 +203,7 @@ export default function ModalOrderPhysicalCard({
                                         'modals.modal_physical_card_order.modal_section.request_new_card.house_addition_placeholder',
                                     )}
                                     onChange={(e) => form.update({ house_addition: e.target.value })}
+                                    autoComplete="address-line3"
                                 />
 
                                 <FormError error={form.errors?.house_addition} />
@@ -223,6 +226,7 @@ export default function ModalOrderPhysicalCard({
                                         'modals.modal_physical_card_order.modal_section.request_new_card.postcode_placeholder',
                                     )}
                                     onChange={(e) => form.update({ postcode: e.target.value })}
+                                    autoComplete="postal-code"
                                 />
 
                                 <FormError error={form.errors?.postcode} />
@@ -243,6 +247,7 @@ export default function ModalOrderPhysicalCard({
                                         'modals.modal_physical_card_order.modal_section.request_new_card.city_placeholder',
                                     )}
                                     onChange={(e) => form.update({ city: e.target.value })}
+                                    autoComplete="address-level2"
                                 />
 
                                 <FormError error={form.errors?.city} />

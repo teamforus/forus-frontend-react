@@ -9,12 +9,12 @@ import SponsorIdentity, { SponsorIdentityCounts } from '../props/models/Sponsor/
 import Papa from 'papaparse';
 import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import {
-    ProviderFinancialStatistics,
     FinancialOverview,
+    ProviderFinancialStatistics,
 } from '../components/pages/financial-dashboard/types/FinancialStatisticTypes';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import { hasPermission } from '../helpers/utils';
-import Organization from '../props/models/Organization';
+import Organization, { Permission } from '../props/models/Organization';
 import Product from '../props/models/Product';
 
 export class FundService<T = Fund> {
@@ -29,10 +29,9 @@ export class FundService<T = Fund> {
      * @param data
      */
     public prefix = '/platform/organizations';
-    public prefix_public = '/platform/funds';
 
     /**
-     * Fetch list
+     * Fetch a list
      */
     public list(
         company_id: number,
@@ -126,15 +125,6 @@ export class FundService<T = Fund> {
         data: object = {},
     ): Promise<ApiResponse<FundTopUpTransaction>> {
         return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/top-up-transactions`, data);
-    }
-
-    public readIdentity(
-        company_id: number,
-        fund_id: number,
-        id: number,
-        data: object = {},
-    ): Promise<ApiResponseSingle<SponsorIdentity>> {
-        return this.apiRequest.get(`${this.prefix}/${company_id}/funds/${fund_id}/identities/${id}`, data);
     }
 
     public listIdentities(
@@ -283,7 +273,7 @@ export class FundService<T = Fund> {
         const list = [
             'name',
             'implementation',
-            funds_type == 'active' && hasPermission(organization, 'view_finances') ? 'remaining' : null,
+            funds_type == 'active' && hasPermission(organization, Permission.VIEW_FINANCES) ? 'remaining' : null,
             funds_type == 'active' ? 'requester_count' : null,
             'status',
         ].filter((item) => item);

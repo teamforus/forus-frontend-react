@@ -108,6 +108,7 @@ export default interface Fund {
         auth_2fa_restrict_bi_connections?: boolean;
     };
     allow_fund_requests?: boolean;
+    allow_fund_request_prefill?: boolean;
     allow_prevalidations?: boolean;
     tags: Array<Tag>;
     faq?: Array<Faq>;

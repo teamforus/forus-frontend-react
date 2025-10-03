@@ -18,6 +18,7 @@ import StateNavLink from '../../../modules/state_router/StateNavLink';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { Permission } from '../../../props/models/Organization';
 
 interface OfficeLocal extends Office {
     scheduleByDay: { [key: string]: OfficeSchedule };
@@ -63,7 +64,7 @@ export default function Offices() {
     }, [setProgress, officeService, organization.id, filter.activeValues]);
 
     const confirmDelete = useCallback(
-        (office) => {
+        (office: Office) => {
             openModal((modal) => (
                 <ModalNotification
                     modal={modal}
@@ -136,7 +137,7 @@ export default function Offices() {
             <div className="card">
                 <div className="card-section">
                     <div className="card-section-actions">
-                        {hasPermission(organization, 'manage_organization') && (
+                        {hasPermission(organization, Permission.MANAGE_ORGANIZATION) && (
                             <NavLink
                                 id="edit_office"
                                 to={getStateRouteUrl('organizations-edit', { organizationId: organization.id })}

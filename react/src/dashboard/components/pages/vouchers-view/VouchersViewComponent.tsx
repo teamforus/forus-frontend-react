@@ -29,6 +29,7 @@ import useTranslate from '../../../hooks/useTranslate';
 import useShowVoucherQrCode from '../vouchers/hooks/useShowVoucherQrCode';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import { Permission } from '../../../props/models/Organization';
 import VoucherReservationsCard from './elements/VoucherReservationsCard';
 
 export default function VouchersViewComponent() {
@@ -61,7 +62,7 @@ export default function VouchersViewComponent() {
     const showMakeTransactionButton = useMemo(() => {
         return (
             voucher &&
-            hasPermission(activeOrganization, 'make_direct_payments') &&
+            hasPermission(activeOrganization, Permission.MAKE_DIRECT_PAYMENTS) &&
             voucher.state === 'active' &&
             fund?.state != 'closed' &&
             !voucher.product &&
@@ -311,7 +312,7 @@ export default function VouchersViewComponent() {
                         )}
                         {voucher.expired && <Label type="warning">{translate('vouchers.labels.expired')}</Label>}
                     </div>
-                    {hasPermission(activeOrganization, 'manage_vouchers') && (
+                    {hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) && (
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
                                 {showMakeTransactionButton && fund?.allow_voucher_top_ups && (
@@ -444,7 +445,7 @@ export default function VouchersViewComponent() {
                         {voucher.fund.show_requester_limits && (
                             <div className="keyvalue-item">
                                 <div className="keyvalue-key">{translate('vouchers.labels.limit_multiplier')}</div>
-                                {hasPermission(activeOrganization, 'manage_vouchers') ? (
+                                {hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) ? (
                                     <div className="keyvalue-value">
                                         <div className="form">
                                             <NumericControl
@@ -620,7 +621,7 @@ export default function VouchersViewComponent() {
                 </div>
             )}
 
-            {hasPermission(activeOrganization, 'manage_vouchers') && (
+            {hasPermission(activeOrganization, Permission.MANAGE_VOUCHERS) && (
                 <Fragment>
                     <VoucherTransactionsCard
                         organization={activeOrganization}

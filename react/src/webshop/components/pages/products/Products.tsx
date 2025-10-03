@@ -453,6 +453,7 @@ export default function Products() {
                                         type="text"
                                         aria-label={translate('products.filters.postcode')}
                                         data-dusk="inputPostcode"
+                                        autoComplete="postal-code"
                                     />
                                     <FormError error={errors?.postcode} />
                                 </div>

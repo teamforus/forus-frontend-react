@@ -114,6 +114,7 @@ export default function FundRequest() {
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
     const [fundRequests, setFundRequests] = useState<Array<FundRequest>>(null);
+    const [personApiRecordsFetch, setPersonApiRecordsFetch] = useState(false);
 
     const bsnIsKnown = useMemo(() => !!authIdentity?.bsn, [authIdentity]);
     const emailSetupShow = useMemo(() => !authIdentity?.email, [authIdentity]);
@@ -477,6 +478,35 @@ export default function FundRequest() {
             .finally(() => setProgress(100));
     }, [authIdentity, fund, fundRequestService, setProgress]);
 
+    const checkPersonBsnApiRecords = useCallback(() => {
+        if (
+            !bsnIsKnown ||
+            !fund ||
+            !authIdentity ||
+            !fund.allow_fund_request_prefill ||
+            !fund.organization.has_person_bsn_api ||
+            personApiRecordsFetch
+        ) {
+            return;
+        }
+
+        setPersonApiRecordsFetch(true);
+
+        fundService.getPersonPrefills(fund.id).then((res) => {
+            setPendingCriteria((criteria) => {
+                return [
+                    ...criteria.map((criterion) => {
+                        criterion.input_value =
+                            res.data.filter((item) => item.record_type_key === criterion.record_type_key)[0]?.value ||
+                            criterion.input_value;
+
+                        return criterion;
+                    }),
+                ];
+            });
+        });
+    }, [bsnIsKnown, fund, fundService, authIdentity, personApiRecordsFetch]);
+
     useEffect(() => {
         fetchFund();
     }, [fetchFund]);
@@ -556,6 +586,8 @@ export default function FundRequest() {
 
         setPendingCriteria(pendingCriteria.map((criterion) => transformInvalidCriteria(criterion)));
 
+        checkPersonBsnApiRecords();
+
         setAutoSubmit(
             digidAvailable &&
                 fund.auto_validation &&
@@ -574,6 +606,7 @@ export default function FundRequest() {
         goToActivationComponent,
         navigateState,
         vouchers,
+        checkPersonBsnApiRecords,
     ]);
 
     useEffect(() => {

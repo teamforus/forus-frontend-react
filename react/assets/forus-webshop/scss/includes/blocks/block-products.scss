@@ -35,11 +35,10 @@
             min-width: 0;
             flex-direction: column;
             background: #ffffff;
-            @include cf();
 
             .product-photo {
                 display: flex;
-                flex: 1 1 100%;
+                flex: 0 1 auto;
                 border-bottom: 1px solid var(--border-color);
 
                 img {
@@ -63,20 +62,24 @@
                     flex: 0 1 auto;
                     margin: 0 0;
                     word-wrap: break-word;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
                     color: var(--products-text-color);
                 }
 
+                .product-subtitle,
+                .product-price {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
                 .product-title {
-                    font: 700 17px/24px var(--base-font);
+                    font: 700 16px/24px var(--base-font);
                     color: var(--products-title-color);
                     transition: 0.4s color;
                 }
 
                 .product-subtitle {
-                    font: 400 14px/20px var(--base-font);
+                    font: 400 13px/20px var(--base-font);
                 }
             }
 
