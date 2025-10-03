@@ -1,6 +1,6 @@
 import { ModalsProvider } from '../dashboard/modules/modals/context/ModalContext';
 import { AuthProvider } from './contexts/AuthContext';
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, { Fragment, ReactNode, useContext, useEffect, useState } from 'react';
 import { Layout } from './layout/Layout';
 import { HashRouter, Route, Routes, BrowserRouter } from 'react-router';
 import EnvDataProp from '../props/EnvData';
@@ -138,16 +138,18 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                             <LoadingBarProvider>
                                 <PrintableProvider>
                                     <ModalsProvider>
-                                        <MainProvider cookiesAccepted={allowOptionalCookies}>
-                                            <TitleProvider>
-                                                <AuthProvider>
-                                                    <QueryParamProvider adapter={ReactRouter7Adapter}>
-                                                        <StateHashPrefixRedirect />
-                                                        <RouterLayout envData={envData} />
-                                                    </QueryParamProvider>
-                                                </AuthProvider>
-                                            </TitleProvider>
-                                        </MainProvider>
+                                        <QueryParamProvider adapter={ReactRouter7Adapter}>
+                                            <MainProvider cookiesAccepted={allowOptionalCookies}>
+                                                <TitleProvider>
+                                                    <AuthProvider>
+                                                        <Fragment>
+                                                            <StateHashPrefixRedirect />
+                                                            <RouterLayout envData={envData} />
+                                                        </Fragment>
+                                                    </AuthProvider>
+                                                </TitleProvider>
+                                            </MainProvider>
+                                        </QueryParamProvider>
                                     </ModalsProvider>
                                 </PrintableProvider>
                             </LoadingBarProvider>

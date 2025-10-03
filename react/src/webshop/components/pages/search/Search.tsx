@@ -37,12 +37,12 @@ export default function Search() {
     const productCategoryService = useProductCategoryService();
     const payoutTransactionService = usePayoutTransactionService();
 
-    const { searchFilter } = useContext(mainContext);
+    const { searchFilterValues, searchFilterUpdate } = useContext(mainContext);
 
     const [displayType, setDisplayType] = useState<'list' | 'grid'>('list');
     const [searchItems, setSearchItems] = useState<PaginationData<SearchItem & { stateParams?: object }>>(null);
 
-    const globalQuery = useMemo(() => searchFilter?.values?.q, [searchFilter?.values?.q]);
+    const globalQuery = useMemo(() => searchFilterValues?.q, [searchFilterValues?.q]);
     const [globalInitialized, setGlobalInitialized] = useState(false);
 
     // Search direction
@@ -252,12 +252,12 @@ export default function Search() {
         setGlobalInitialized(true);
 
         if (!globalInitialized && filterValues?.q) {
-            setTimeout(() => searchFilter.update({ q: filterValues.q }), 150);
+            setTimeout(() => searchFilterUpdate({ q: filterValues.q }), 150);
         }
-    }, [filterValues.q, globalInitialized, searchFilter]);
+    }, [filterValues.q, globalInitialized, searchFilterUpdate]);
 
     useEffect(() => {
-        filterUpdate({ q: globalQuery });
+        setTimeout(() => filterUpdate({ q: globalQuery }));
     }, [filterUpdate, globalQuery]);
 
     return (

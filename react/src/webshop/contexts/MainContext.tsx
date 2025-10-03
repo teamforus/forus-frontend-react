@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContext } from 'react';
 import { AppConfigProp, useConfigService } from '../../dashboard/services/ConfigService';
 import EnvDataWebshopProp from '../../props/EnvDataWebshopProp';
-import useFilter from '../../dashboard/hooks/useFilter';
-import FilterScope from '../../dashboard/types/FilterScope';
 import { useStateRoutes } from '../modules/state_router/Router';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import Language from '../../dashboard/props/models/Language';
+import useFilterNext from '../../dashboard/modules/filter_next/useFilterNext';
+import { FilterModel, FilterScope, FilterSetter } from '../../dashboard/modules/filter_next/types/FilterParams';
 
 interface AuthMemoProps {
     envData?: EnvDataWebshopProp;
@@ -23,7 +23,9 @@ interface AuthMemoProps {
     searchQuery?: string;
     cookiesAccepted?: boolean;
     setSearchQuery?: React.Dispatch<React.SetStateAction<string>>;
-    searchFilter?: FilterScope<{ q: string }>;
+    searchFilterValues?: FilterModel;
+    searchFilterUpdate?: FilterSetter;
+    searchFilter?: FilterScope<FilterModel>;
     language?: string;
     setLanguage?: React.Dispatch<React.SetStateAction<string>>;
     changeLanguage?: (locale: string) => void;
@@ -51,11 +53,9 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
         return appConfigs?.languages;
     }, [appConfigs?.languages]);
 
-    const searchFilter = useFilter({
+    const [searchFilterValues, , searchFilterUpdate, searchFilter] = useFilterNext<{ q: string }>({
         q: '',
     });
-
-    const { update: searchFilterUpdate } = searchFilter;
 
     const changeLanguage = useCallback(
         (lang: string) => {
@@ -99,7 +99,9 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
                 setMobileMenuOpened,
                 userMenuOpened,
                 setUserMenuOpened,
+                searchFilterValues,
                 searchFilter,
+                searchFilterUpdate,
                 cookiesAccepted,
                 language,
                 setLanguage,

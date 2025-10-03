@@ -1,7 +1,6 @@
 import React from 'react';
 import ClickOutside from '../../click-outside/ClickOutside';
-import FilterScope from '../../../../types/FilterScope';
-import FilterModel from '../../../../types/FilterModel';
+import { FilterModel, FilterScope } from '../../../../modules/filter_next/types/FilterParams';
 
 export default function CardHeaderFilter({
     filter,
