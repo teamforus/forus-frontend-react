@@ -48,7 +48,7 @@ type CSVErrorProp = {
 type RowDataProp = {
     _uid?: string;
     amount?: number;
-    expires_at?: string;
+    expire_at?: string;
     note?: string;
     bsn?: string;
     email?: string;
