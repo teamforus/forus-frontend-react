@@ -8,7 +8,6 @@ import useVoucherRecordService from '../../../../services/VoucherRecordService';
 import { PaginationData } from '../../../../props/ApiResponses';
 import VoucherRecord from '../../../../props/models/VoucherRecord';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
-import useFilter from '../../../../hooks/useFilter';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
@@ -21,6 +20,7 @@ import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 
 export default function VoucherRecordsCard({
     voucher,
@@ -42,11 +42,16 @@ export default function VoucherRecordsCard({
     const [paginatorKey] = useState('voucher-records');
     const [records, setRecords] = useState<PaginationData<VoucherRecord>>(null);
 
-    const filter = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        per_page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>({
         q: '',
+        per_page: paginatorService.getPerPage(paginatorKey),
         order_by: 'created_at',
         order_dir: 'asc',
-        per_page: paginatorService.getPerPage(paginatorKey, 10),
     });
 
     const { headElement, configsElement } = useConfigurableTable(voucherRecordService.getColumns(), {
@@ -58,11 +63,11 @@ export default function VoucherRecordsCard({
         setProgress(0);
 
         voucherRecordService
-            .list(organization.id, voucher.id, filter.activeValues)
+            .list(organization.id, voucher.id, filterValuesActive)
             .then((res) => setRecords(res.data))
             .catch(pushApiError)
             .finally(() => setProgress(100));
-    }, [filter.activeValues, organization.id, setProgress, voucher.id, voucherRecordService, pushApiError]);
+    }, [filterValuesActive, organization.id, setProgress, voucher.id, voucherRecordService, pushApiError]);
 
     const editRecord = useCallback(
         (record: VoucherRecord = null) => {
@@ -127,9 +132,9 @@ export default function VoucherRecordsCard({
                             <input
                                 className="form-control"
                                 type="search"
-                                value={filter.values.q}
+                                value={filterValues.q}
                                 placeholder={translate('voucher_records.labels.search')}
-                                onChange={(e) => filter.update({ q: e.target.value })}
+                                onChange={(e) => filterUpdate({ q: e.target.value })}
                             />
                         </div>
                         {hasPermission(organization, Permission.MANAGE_VOUCHERS) && (
@@ -201,9 +206,9 @@ export default function VoucherRecordsCard({
                 <div className="card-section">
                     <Paginator
                         meta={records.meta}
-                        filters={filter.values}
+                        filters={filterValues}
                         perPageKey={paginatorKey}
-                        updateFilters={filter.update}
+                        updateFilters={filterUpdate}
                     />
                 </div>
             )}

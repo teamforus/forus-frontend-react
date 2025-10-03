@@ -4,11 +4,11 @@ import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { useNotificationService } from '../../../../dashboard/services/NotificationService';
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import Notification from '../../../../dashboard/props/models/Notification';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import classNames from 'classnames';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 
 export default function Notifications() {
     const translate = useTranslate();
@@ -19,23 +19,21 @@ export default function Notifications() {
     const [notifications, setNotifications] = useState<PaginationData<Notification, { total_unseen: number }>>(null);
     const [timeoutThreshold] = useState(2500);
 
-    const filter = useFilter({
-        per_page: 10,
-    });
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ per_page?: number }>({ per_page: 10 });
 
     const fetchNotifications = useCallback(
         (mark_read = false) => {
             setProgress(0);
 
             notificationsService
-                .list({ ...filter.activeValues, mark_read: mark_read ? 1 : 0 })
+                .list({ ...filterValuesActive, mark_read: mark_read ? 1 : 0 })
                 .then((res) => {
                     res.data.data = res.data.data.map((item) => ({ ...item, seen: item.seen || mark_read }));
                     setNotifications(res.data);
                 })
                 .finally(() => setProgress(100));
         },
-        [notificationsService, filter?.activeValues, setProgress],
+        [notificationsService, filterValuesActive, setProgress],
     );
 
     useEffect(() => {
@@ -124,11 +122,7 @@ export default function Notifications() {
 
                     <div className="card" hidden={notifications?.meta?.last_page < 2}>
                         <div className="card-section">
-                            <Paginator
-                                meta={notifications.meta}
-                                filters={filter.values}
-                                updateFilters={filter.update}
-                            />
+                            <Paginator meta={notifications.meta} filters={filterValues} updateFilters={filterUpdate} />
                         </div>
                     </div>
                 </Fragment>

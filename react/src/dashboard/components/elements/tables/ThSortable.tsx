@@ -1,7 +1,6 @@
 import React, { CSSProperties, MouseEventHandler, useCallback } from 'react';
-import FilterScope from '../../../types/FilterScope';
-import FilterModel from '../../../types/FilterModel';
 import classNames from 'classnames';
+import { FilterModel, FilterScope } from '../../../modules/filter_next/types/FilterParams';
 
 enum OrderDir {
     asc = 'asc',

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { PaginationData } from '../../../props/ApiResponses';
 import ReimbursementCategory from '../../../props/models/ReimbursementCategory';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
@@ -19,6 +18,7 @@ import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTabl
 import TableTopScroller from '../tables/TableTopScroller';
 import TableRowActions from '../tables/TableRowActions';
 import classNames from 'classnames';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function BlockReimbursementCategories({
     compact = false,
@@ -44,8 +44,7 @@ export default function BlockReimbursementCategories({
     const [categories, setCategories] = useState<PaginationData<ReimbursementCategory>>(null);
     const [paginatorKey] = useState('reimbursement_categories');
 
-    const filter = useFilter({
-        q: '',
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
@@ -56,14 +55,14 @@ export default function BlockReimbursementCategories({
         setProgress(0);
 
         reimbursementCategoryService
-            .list(activeOrganization.id, filter.activeValues)
+            .list(activeOrganization.id, filterValuesActive)
             .then((res) => setCategories(res.data))
             .catch(pushApiError)
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [setProgress, activeOrganization.id, filter.activeValues, pushApiError, reimbursementCategoryService]);
+    }, [setProgress, activeOrganization.id, filterValuesActive, pushApiError, reimbursementCategoryService]);
 
     const editReimbursementCategory = useCallback(
         async (category: ReimbursementCategory = null): Promise<boolean> => {
@@ -209,8 +208,8 @@ export default function BlockReimbursementCategories({
                     <div className={`card-section ${compact ? 'card-section-narrow' : ''}`}>
                         <Paginator
                             meta={categories.meta}
-                            filters={filter.values}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginatorKey}
                         />
                     </div>

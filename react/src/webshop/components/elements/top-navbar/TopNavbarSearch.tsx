@@ -10,7 +10,6 @@ import {
     useSearchService,
 } from '../../../services/SearchService';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import IconSearchAll from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-search/all.svg';
 import IconSearchFunds from '../../../../../assets/forus-webshop/resources/_webshop-common/assets/img/icon-search/funds.svg';
@@ -21,6 +20,7 @@ import TopNavbarSearchResultItem from './TopNavbarSearchResultItem';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import classNames from 'classnames';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 
 export type SearchResultGroupLocal = SearchResultGroup & {
     shown?: boolean;
@@ -35,7 +35,7 @@ export type SearchResultLocal = {
 export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boolean }) {
     const appConfigs = useAppConfigs();
     const { route } = useStateRoutes();
-    const { setShowSearchBox, searchFilter } = useContext(mainContext);
+    const { setShowSearchBox, searchFilterValues, searchFilterUpdate } = useContext(mainContext);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const translate = useTranslate();
@@ -55,14 +55,13 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
 
     const [lastQuery, setLastQuery] = useState('');
 
-    const filters = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{ q: string }>({
         q: '',
     });
 
-    const { resetFilters, update: filterUpdate } = filters;
-    const { update: updateSearchFilters } = searchFilter;
+    const { resetFilters } = filter;
 
-    const globalQuery = useMemo(() => searchFilter?.values?.q, [searchFilter?.values?.q]);
+    const globalQuery = useMemo(() => searchFilterValues?.q, [searchFilterValues?.q]);
 
     const isSearchResultPage = useMemo(() => {
         return route.state.name === 'search-result';
@@ -121,32 +120,32 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
     }, [setShowSearchBox, hideDropDown]);
 
     useEffect(() => {
-        setLastQuery(filters.activeValues.q);
+        setLastQuery(filterValuesActive.q);
 
         if (isSearchResultPage) {
             return;
         }
 
-        if (!filters.activeValues.q || filters.activeValues.q?.length == 0) {
+        if (!filterValuesActive.q || filterValuesActive.q?.length == 0) {
             return clearSearch();
         }
         setProgress(0);
 
         searchService
-            .searchWithOverview({ q: filters.activeValues.q, with_external: 1, take: 9 })
+            .searchWithOverview({ q: filterValuesActive.q, with_external: 1, take: 9 })
             .then((res) => updateResults(res.data.data))
             .finally(() => setProgress(100));
-    }, [filters.activeValues.q, isSearchResultPage, searchService, clearSearch, updateResults, setProgress]);
+    }, [filterValuesActive.q, isSearchResultPage, searchService, clearSearch, updateResults, setProgress]);
 
     useEffect(() => {
         let timer: number;
 
         if (isSearchResultPage) {
-            timer = window.setTimeout(() => updateSearchFilters({ q: filters.values.q }));
+            timer = window.setTimeout(() => searchFilterUpdate({ q: filterValues.q }));
         }
 
         return () => window.clearTimeout(timer);
-    }, [filters.values.q, isSearchResultPage, updateSearchFilters]);
+    }, [filterValues.q, isSearchResultPage, searchFilterUpdate]);
 
     useEffect(() => {
         filterUpdate({ q: globalQuery });
@@ -162,7 +161,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                     hideSearchBox();
 
                     if (!isSearchResultPage) {
-                        navigateState('search-result', {}, { q: filters.values.q });
+                        navigateState('search-result', {}, { q: filterValues.q });
                     }
                 }}
                 className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
@@ -188,19 +187,19 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                             )}
                             autoFocus={autoFocus}
                             autoComplete={'off'}
-                            value={filters.values.q}
-                            onChange={(e) => filters.update({ q: e.target.value })}
+                            value={filterValues.q}
+                            onChange={(e) => filterUpdate({ q: e.target.value })}
                             onKeyDown={cancelSearch}
                             aria-labelledby="search-label"
                             aria-haspopup={true}
                             data-dusk="searchListSearch"
                         />
-                        {filters.values.q && (
+                        {filterValues.q && (
                             <div
                                 className="search-reset"
                                 onClick={(e) => {
                                     e?.stopPropagation();
-                                    filters.update({ q: '' });
+                                    filterUpdate({ q: '' });
                                     inputRef?.current?.focus();
                                 }}
                                 onKeyDown={(e) => {
@@ -342,7 +341,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                                                                 params={{ id: value.id }}
                                                                 className="search-result-item">
                                                                 <TopNavbarSearchResultItem
-                                                                    q={filters.activeValues.q}
+                                                                    q={filterValuesActive.q}
                                                                     name={value.name}
                                                                 />
                                                                 <em className="mdi mdi-chevron-right show-sm" />

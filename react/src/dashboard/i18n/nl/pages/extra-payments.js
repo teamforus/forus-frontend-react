@@ -13,7 +13,7 @@ export default {
     },
     labels: {
         id: 'ID',
-        fund_name: 'Fonds',
+        fund: 'Fonds',
         product_name: 'Aanbod',
         provider_name: 'Aanbieder',
         price: 'Bedrag',

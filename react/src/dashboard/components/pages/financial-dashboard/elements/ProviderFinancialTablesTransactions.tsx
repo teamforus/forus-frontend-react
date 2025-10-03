@@ -5,7 +5,6 @@ import { PaginationData } from '../../../../props/ApiResponses';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import useEnvData from '../../../../hooks/useEnvData';
-import useFilter from '../../../../hooks/useFilter';
 import usePaginatorService from '../../../../modules/paginator/services/usePaginatorService';
 import Organization from '../../../../props/models/Organization';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
@@ -16,6 +15,7 @@ import TableTopScroller from '../../../elements/tables/TableTopScroller';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import useConfigurableTable from '../../vouchers/hooks/useConfigurableTable';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 
 export default function ProviderFinancialTablesTransactions({
     provider,
@@ -41,8 +41,7 @@ export default function ProviderFinancialTablesTransactions({
     const [paginatorKey] = useState('provider_finances_transactions');
     const [transactions, setTransactions] = useState<PaginationData<Transaction>>(null);
 
-    const filter = useFilter({
-        page: 1,
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         provider_ids: [provider.id],
         per_page: paginatorService.getPerPage(paginatorKey),
     });
@@ -67,7 +66,7 @@ export default function ProviderFinancialTablesTransactions({
         setProgress(0);
 
         transactionService
-            .list(panelType, organization.id, { ...externalFilters, ...filter.activeValues })
+            .list(panelType, organization.id, { ...externalFilters, ...filterValuesActive })
             .then((res) => setTransactions(res.data))
             .catch(pushApiError)
             .finally(() => setProgress(100));
@@ -76,7 +75,7 @@ export default function ProviderFinancialTablesTransactions({
         transactionService,
         panelType,
         organization.id,
-        filter?.activeValues,
+        filterValuesActive,
         externalFilters,
         pushApiError,
     ]);
@@ -131,8 +130,8 @@ export default function ProviderFinancialTablesTransactions({
                                     {transactions?.meta && (
                                         <Paginator
                                             meta={transactions.meta}
-                                            filters={filter.values}
-                                            updateFilters={filter.update}
+                                            filters={filterValues}
+                                            updateFilters={filterUpdate}
                                             perPageKey={paginatorKey}
                                         />
                                     )}
