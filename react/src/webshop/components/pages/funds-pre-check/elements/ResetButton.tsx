@@ -8,7 +8,6 @@ import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 // import {useGoToPage} from "../../hooks/useGoToPage.tsx";
 import { useState } from 'react';
 import ModalPrecheckRestart from '../../../modals/ModalPrecheckRestart';
-// import {button} from "../../styles/classnames.tsx";
 
 export default function ResetButton({ shouldRedirect }: { shouldRedirect: boolean }) {
     const { resetChat } = useChatbotProvider();
