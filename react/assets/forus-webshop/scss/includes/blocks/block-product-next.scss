@@ -1,0 +1,563 @@
+.block.block-product-next {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: #fff;
+    border-radius: min(calc(var(--border-radius) * 4), 24px);
+    gap: 40px;
+    margin: 0 0 40px;
+
+    .product-overview {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+        min-width: 0;
+
+        .product-overview-media {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 calc(50% - 20px);
+            min-width: 0;
+            gap: 20px;
+
+            .product-overview-media-preview {
+                display: flex;
+                justify-content: center;
+
+                .product-overview-media-img {
+                    display: flex;
+                    width: 100%;
+                    max-width: 100%;
+                    border-radius: var(--border-radius);
+                }
+            }
+
+            .product-overview-media-list {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .product-overview-media-items {
+                    display: flex;
+                    flex: 1 1 auto;
+                    flex-direction: row;
+                    justify-content: center;
+                    min-width: 0;
+
+                    .product-overview-media-items-list {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        gap: 8px;
+                        min-width: 0;
+                        @include webkit_scrollbar_horizontal();
+                    }
+
+                    .product-overview-media-item {
+                        display: flex;
+                        flex: 0 0 65px;
+                        padding: 2px;
+                        border: 2px solid transparent;
+                        border-radius: min(var(--border-radius), 4px);
+                        cursor: pointer;
+
+                        img {
+                            display: block;
+                            max-width: 100%;
+                            border-radius: min(var(--border-radius), 4px);
+                            opacity: 0.85;
+                            transition: opacity 0.2s;
+                        }
+
+                        &:focus-visible {
+                            outline: 2px solid var(--color-primary);
+                            outline-offset: 2px;
+                        }
+
+                        &.active {
+                            border-color: var(--color-primary);
+
+                            img {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+
+                .product-overview-media-prev,
+                .product-overview-media-next {
+                    appearance: none;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+
+                    .mdi {
+                        font-size: 32px;
+                        color: var(--text-color);
+                    }
+
+                    &[disabled] {
+                        opacity: 0.5;
+                        cursor: default;
+                        pointer-events: none;
+                    }
+
+                    &:not([disabled]):hover {
+                        .mdi {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-overview-details {
+            display: flex;
+            flex-direction: column;
+            flex: 0 0 calc(50% - 20px);
+            min-width: 0;
+            gap: 15px;
+
+            .product-overview-provider {
+                display: inline-flex;
+                flex-direction: row;
+                font: 600 14px/20px var(--base-font);
+                gap: 4px;
+
+                .product-overview-provider-name {
+                    display: flex;
+                    flex: 1 1 auto;
+                }
+
+                & > .mdi {
+                    font-size: 20px;
+                    line-height: 20px;
+                    height: 20px;
+                    display: flex;
+                }
+            }
+
+            .product-overview-price {
+                white-space: nowrap;
+                flex-direction: column;
+
+                .product-overview-price-label {
+                    font: 600 12px/20px var(--base-font);
+                }
+
+                .product-overview-price-value {
+                    font: 700 24px/32px var(--base-font);
+                }
+            }
+
+            .product-overview-name {
+                font: 700 30px/42px var(--base-font);
+                margin: 0;
+                display: block;
+            }
+
+            .product-prop-item-category {
+                display: inline-flex;
+                border: 1px solid var(--border-color);
+                padding: 5px 10px;
+                border-radius: 5px;
+                gap: 8px;
+                font: 600 14px/24px var(--base-font);
+                align-items: center;
+                color: #282b39;
+                width: fit-content;
+
+                .mdi {
+                    flex: 0 0 16px;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: inherit;
+                }
+            }
+
+            .product-overview-apply {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                font: 400 14px/20px var(--base-font);
+                gap: 4px;
+
+                .product-overview-apply-link {
+                    display: inline-flex;
+                    color: var(--tc-link);
+                    font: inherit;
+                    font-weight: 600;
+                    gap: 2px;
+                    cursor: pointer;
+                    appearance: none;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    margin: 0;
+                    line-height: inherit;
+                    text-align: left;
+
+                    .mdi {
+                        font-size: 15px;
+                        line-height: 20px;
+                        color: #dbdcdb;
+                    }
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .product-props {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 30px 40px;
+        padding: 40px 40px;
+        border-radius: min(calc(var(--border-radius) * 3), 16px);
+        background: #f5f5f5;
+
+        .product-prop-item {
+            display: flex;
+            flex: 0 0 calc(50% - 25px);
+            flex-direction: row;
+            gap: 8px;
+            align-items: flex-start;
+
+            .product-prop-item-icon {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                flex: 0 0 25px;
+
+                .mdi {
+                    font-size: 24px;
+                    line-height: 28px;
+                    color: #222222;
+                }
+            }
+
+            .product-prop-item-details {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                .product-prop-item-title {
+                    font: 700 16px/24px var(--base-font);
+                    color: #222222;
+                    margin: 0;
+                    display: block;
+                }
+
+                .product-prop-item-description {
+                    font: 500 16px/22px var(--base-font);
+                    color: #353535;
+                    margin: 0;
+
+                    .product-prop-item-payment-options {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 15px;
+                        align-items: center;
+
+                        .product-prop-item-payment-option {
+                            flex: 0 0 24px;
+
+                            .mdi {
+                                font-size: 24px;
+                                line-height: 24px;
+                            }
+
+                            img {
+                                display: flex;
+                                width: 24px;
+                            }
+                        }
+                    }
+
+                    .product-prop-item-payment-info {
+                        appearance: none;
+                        background: transparent;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        font: 600 14px/20px var(--base-font);
+                        color: var(--tc-link);
+                        text-align: left;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .product-funds-list {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        cursor: default;
+
+        .product-funds-item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid var(--border-color);
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px 0;
+
+            .product-funds-item-media {
+                display: flex;
+                border: 1px solid var(--border-color);
+                border-radius: min(var(--border-radius), 8px);
+                flex-direction: column;
+                align-items: flex-start;
+                overflow: hidden;
+                flex: 0 0 44px;
+
+                .product-funds-item-media-img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+
+            .product-funds-item-content {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 15px;
+                flex: 1 1 auto;
+
+                .product-funds-item-details {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1 1 auto;
+                    margin: -2px 0;
+                    gap: 4px;
+
+                    .product-funds-item-details-name {
+                        font: 700 20px / 24px var(--base-font);
+                        margin: 0;
+                    }
+
+                    .product-funds-item-details-props {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 14px;
+
+                        .product-funds-item-details-prop-separator {
+                            background: #e5e5e5;
+                            width: 1px;
+                            height: 10px;
+                            border-radius: 1px;
+                        }
+
+                        .product-funds-item-details-prop {
+                            font: 400 14px / 18px var(--base-font);
+                            white-space: nowrap;
+                            display: flex;
+                            align-items: center;
+                            color: #353535;
+                            gap: 5px;
+
+                            .mdi {
+                                display: flex;
+                                line-height: 18px;
+                                font-size: 14px;
+                                color: #595959;
+                            }
+
+                            &.product-funds-item-details-prop-price {
+                                font: 700 16px/18px var(--base-font);
+                            }
+                        }
+                    }
+                }
+
+                .product-funds-item-actions {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    flex: 0 0 auto;
+                }
+            }
+
+            &:first-child {
+                padding-top: 0;
+            }
+
+            &:last-child {
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+        }
+    }
+
+    .product-map-container {
+        display: flex;
+        width: 100%;
+        height: 360px;
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 0;
+        gap: 20px;
+        margin: 0 0 20px;
+
+        .product-overview {
+            flex-direction: column;
+            gap: 20px;
+
+            .product-overview-media,
+            .product-overview-details {
+                flex: 1 1 100%;
+            }
+
+            .product-overview-media {
+                gap: 15px;
+
+                .product-overview-media-list {
+                    .product-overview-media-items {
+                        .product-overview-media-items-list {
+                            gap: 4px;
+                        }
+
+                        .product-overview-media-item {
+                            flex: 0 0 50px;
+                        }
+                    }
+                }
+            }
+
+            .product-overview-details {
+                gap: 10px;
+
+                .product-overview-provider {
+                    .block-bookmark-toggle-compact {
+                        width: 24px;
+                        height: 24px;
+                        line-height: 24px;
+                        font-size: 16px;
+
+                        .mdi {
+                            font-size: 24px;
+                        }
+                    }
+                }
+
+                .product-overview-name {
+                    font: 700 22px/32px var(--base-font);
+                }
+
+                .product-overview-price-value {
+                    font: 700 20px/28px var(--base-font);
+                }
+
+                .product-prop-item-category {
+                    font: 600 13px/20px var(--base-font);
+                    padding: 4px 8px;
+                }
+            }
+        }
+
+        .product-props {
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+
+            .product-prop-item {
+                flex: 1 1 100%;
+                gap: 10px;
+
+                .product-prop-item-icon .mdi {
+                    font-size: 20px;
+                }
+
+                .product-prop-item-details {
+                    .product-prop-item-title {
+                        font: 700 15px/22px var(--base-font);
+                    }
+
+                    .product-prop-item-description {
+                        font: 500 14px/20px var(--base-font);
+                    }
+                }
+            }
+        }
+
+        .product-funds-list {
+            .product-funds-item {
+                gap: 15px;
+                padding: 15px 0;
+
+                .product-funds-item-media {
+                    flex: 0 0 auto;
+                    width: 44px;
+                }
+
+                .product-funds-item-content {
+                    flex: 1 1 auto;
+                    display: flex;
+                    flex-direction: column;
+
+                    .product-funds-item-details {
+                        gap: 10px;
+
+                        .product-funds-item-details-name {
+                            font: 700 16px/20px var(--base-font);
+                        }
+
+                        .product-funds-item-details-props {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 5px;
+
+                            .product-funds-item-details-prop-separator {
+                                display: none;
+                            }
+
+                            .product-funds-item-details-prop {
+                                font: 600 13px/18px var(--base-font);
+
+                                &.product-funds-item-details-prop-price {
+                                    font: 700 16px/20px var(--base-font);
+                                    padding-bottom: 5px;
+                                }
+                            }
+                        }
+                    }
+
+                    .product-funds-item-actions {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        width: 100%;
+
+                        .button {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-map-container {
+            height: 240px;
+        }
+    }
+}

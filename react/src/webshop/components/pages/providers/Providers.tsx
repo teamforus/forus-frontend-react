@@ -21,7 +21,7 @@ import ProvidersListItem from '../../elements/lists/providers-list/ProvidersList
 import { GoogleMap } from '../../../../dashboard/components/elements/google-map/GoogleMap';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import Provider from '../../../props/models/Provider';
-import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
+import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
@@ -254,7 +254,7 @@ export default function Providers() {
     }, [filterActiveValues, fetchProvidersMap, fetchProviders, buildQuery, filterValues?.show_map]);
 
     return (
-        <BlockShowcasePage
+        <BlockShowcaseList
             dusk="listProvidersContent"
             contentStyles={filterValues?.show_map ? { background: '#fff' } : undefined}
             showCaseClassName={filterValues.show_map ? 'block-showcase-fullscreen' : ''}
@@ -545,6 +545,6 @@ export default function Providers() {
                     )}
                 </Fragment>
             )}
-        </BlockShowcasePage>
+        </BlockShowcaseList>
     );
 }

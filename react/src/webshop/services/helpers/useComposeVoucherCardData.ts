@@ -76,8 +76,8 @@ export default function useComposeVoucherCardData() {
                 }
             }
 
-            if (voucher.type == 'product' && voucher.product.photo) {
-                return voucher.product?.photo?.sizes?.thumbnail;
+            if (voucher.type == 'product' && voucher.product.photos[0]) {
+                return voucher.product?.photos[0]?.sizes?.thumbnail;
             }
 
             return assetUrl('/assets/img/placeholders/product-thumbnail.png');

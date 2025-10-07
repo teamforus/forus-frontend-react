@@ -10,7 +10,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import { useNavbarHeaderHeight } from '../../../hooks/useNavbarHeaderHeight';
 
-export default function BlockShowcasePage({
+export default function BlockShowcaseList({
     dusk = null,
     aside = null,
     children = null,

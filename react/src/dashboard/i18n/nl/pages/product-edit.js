@@ -27,6 +27,12 @@ export default {
         sku_placeholder: 'Voeg een voorraadbeheereenheidnummer toe',
         reservation_note: 'Aankoopnotitie',
         custom_reservation_note_text: 'Aangepaste aankoopnotitie',
+        additional_information: 'Aanvullende informatie',
+        info_duration: 'Duur van de aanbieding',
+        info_when: 'Wanneer',
+        info_where: 'Waar',
+        info_more_info: 'Meer informatie',
+        info_attention: 'Let op!',
     },
     tooltips: {
         product_type: [

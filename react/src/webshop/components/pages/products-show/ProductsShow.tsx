@@ -180,7 +180,7 @@ export default function ProductsShow() {
                             <div className="product-photo">
                                 <img
                                     src={
-                                        product.photo?.sizes?.large ||
+                                        product.photos[0]?.sizes?.large ||
                                         assetUrl('/assets/img/placeholders/product-large.png')
                                     }
                                     alt={productService.transformProductAlternativeText(product)}

@@ -6268,20 +6268,60 @@
         "Tegoeden"
     ],
     [
+        "product.labels.add_to_favorites",
+        "Toevoegen aan favorieten"
+    ],
+    [
+        "product.labels.attention",
+        "Let op!"
+    ],
+    [
+        "product.labels.buy_now",
+        "Koop nu!"
+    ],
+    [
         "product.labels.category",
         "Categorie:"
+    ],
+    [
+        "product.labels.choose_credit",
+        "Kies het tegoed"
+    ],
+    [
+        "product.labels.collapse_section",
+        "Sectie samenvouwen"
     ],
     [
         "product.labels.description",
         "Omschrijving:"
     ],
     [
+        "product.labels.description_card",
+        "Omschrijving"
+    ],
+    [
         "product.labels.discount",
         "Korting:"
     ],
     [
+        "product.labels.dont_have_voucher",
+        "Nog geen tegoed?"
+    ],
+    [
+        "product.labels.duration_of_promotion",
+        "Duur van de promotie"
+    ],
+    [
+        "product.labels.expand_section",
+        "Sectie uitklappen"
+    ],
+    [
         "product.labels.expire",
         "Geldig tot en met:"
+    ],
+    [
+        "product.labels.expire_by_date",
+        "Geldig t/m {{date}}"
     ],
     [
         "product.labels.expire_prefix",
@@ -6308,12 +6348,36 @@
         "Informatie over tegoeden"
     ],
     [
+        "product.labels.how_can_i_pay",
+        "Hoe kan ik betalen?"
+    ],
+    [
+        "product.labels.ideal_logo_alt",
+        "iDEAL logo"
+    ],
+    [
         "product.labels.limit",
         "Resterend tegoed:"
     ],
     [
+        "product.labels.locations_on_map",
+        "Locaties op kaart"
+    ],
+    [
+        "product.labels.login_to_order",
+        "Log in om nu te bestellen"
+    ],
+    [
         "product.labels.max_limit",
         "Maximaal per persoon:"
+    ],
+    [
+        "product.labels.more_info",
+        "Meer informatie"
+    ],
+    [
+        "product.labels.next_image",
+        "Volgende afbeelding"
     ],
     [
         "product.labels.pay_from_voucher",
@@ -6329,7 +6393,7 @@
     ],
     [
         "product.labels.payment_option_qr",
-        "QR‑code tonen bij aanbieder"
+        "QR-code tonen bij aanbieder"
     ],
     [
         "product.labels.payment_option_reservation",
@@ -6340,8 +6404,52 @@
         "Betaalopties"
     ],
     [
+        "product.labels.payment_options_title",
+        "Betaalopties"
+    ],
+    [
+        "product.labels.previous_image",
+        "Vorige afbeelding"
+    ],
+    [
         "product.labels.price",
         "Prijs:"
+    ],
+    [
+        "product.labels.price_from",
+        "Vanaf"
+    ],
+    [
+        "product.labels.product_images",
+        "Productafbeeldingen"
+    ],
+    [
+        "product.labels.provider",
+        "Aanbieder"
+    ],
+    [
+        "product.labels.quantity_limit",
+        "Max. {{limit}} p.p."
+    ],
+    [
+        "product.labels.remove_from_favorites",
+        "Verwijder uit favorieten"
+    ],
+    [
+        "product.labels.request_one_now",
+        "Vraag er nu een aan!"
+    ],
+    [
+        "product.labels.show_image_of_total",
+        "Toon afbeelding {{current}} van {{total}}"
+    ],
+    [
+        "product.labels.when",
+        "Wanneer"
+    ],
+    [
+        "product.labels.where",
+        "Waar"
     ],
     [
         "product.low_amount",

@@ -1,9 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import Product from '../../../../props/models/Product';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import Markdown from '../../../../../webshop/components/elements/markdown/Markdown';
 import ProductDetailsBlockProperties from './ProductDetailsBlockProperties';
+import classNames from 'classnames';
 
 export default function ProductDetailsBlock({
     product,
@@ -17,14 +18,64 @@ export default function ProductDetailsBlock({
     children?: ReactNode | ReactNode[];
 }) {
     const assetUrl = useAssetUrl();
+    const media = product?.photos || [];
+    const [mediaIndex, setMediaIndex] = useState(0);
+
+    const handlePrev = () => {
+        setMediaIndex((prev) => (prev === 0 ? media.length - 1 : prev - 1));
+    };
+
+    const handleNext = () => {
+        setMediaIndex((prev) => (prev === media.length - 1 ? 0 : prev + 1));
+    };
+
+    const handleDotClick = (index: number) => {
+        setMediaIndex(index);
+    };
 
     return (
         <div className="block block-product">
             <div className="block-product-media">
                 <img
-                    src={product.photo?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
+                    src={media[mediaIndex]?.sizes?.small || assetUrl('/assets/img/placeholders/product-small.png')}
                     alt={product.name}
                 />
+
+                {media?.length > 1 && (
+                    <div className="block-product-media-list">
+                        <button
+                            type="button"
+                            className="block-product-media-list-prev"
+                            onClick={handlePrev}
+                            aria-label="Previous image">
+                            <em className="mdi mdi-chevron-left" aria-hidden="true" />
+                        </button>
+
+                        <div className="block-product-media-list-dots" role="tablist" aria-label="Product images">
+                            {media?.map((item, index) => (
+                                <button
+                                    type="button"
+                                    className={classNames(
+                                        'block-product-media-list-dot',
+                                        mediaIndex === index && 'block-product-media-list-dot-active',
+                                    )}
+                                    key={item.uid}
+                                    onClick={() => handleDotClick(index)}
+                                    aria-label={`Show image ${index + 1}`}
+                                    aria-current={mediaIndex === index}
+                                />
+                            ))}
+                        </div>
+
+                        <button
+                            type="button"
+                            className="block-product-media-list-next"
+                            onClick={handleNext}
+                            aria-label="Next image">
+                            <em className="mdi mdi-chevron-right" aria-hidden="true" />
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div className="block-product-content flex-grow">
