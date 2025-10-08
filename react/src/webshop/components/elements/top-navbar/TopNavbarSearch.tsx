@@ -1,5 +1,5 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigateState, useStateRoutes } from '../../../modules/state_router/Router';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useNavigateState } from '../../../modules/state_router/Router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { mainContext } from '../../../contexts/MainContext';
 import ClickOutside from '../../../../dashboard/components/elements/click-outside/ClickOutside';
@@ -34,8 +34,7 @@ export type SearchResultLocal = {
 
 export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boolean }) {
     const appConfigs = useAppConfigs();
-    const { route } = useStateRoutes();
-    const { setShowSearchBox, searchFilter } = useContext(mainContext);
+    const { setShowSearchBox } = useContext(mainContext);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const translate = useTranslate();
@@ -59,14 +58,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
         q: '',
     });
 
-    const { resetFilters, update: filterUpdate } = filters;
-    const { update: updateSearchFilters } = searchFilter;
-
-    const globalQuery = useMemo(() => searchFilter?.values?.q, [searchFilter?.values?.q]);
-
-    const isSearchResultPage = useMemo(() => {
-        return route.state.name === 'search-result';
-    }, [route?.state?.name]);
+    const { resetFilters } = filters;
 
     const hideDropDown = useCallback(() => {
         setDropdown(false);
@@ -123,10 +115,6 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
     useEffect(() => {
         setLastQuery(filters.activeValues.q);
 
-        if (isSearchResultPage) {
-            return;
-        }
-
         if (!filters.activeValues.q || filters.activeValues.q?.length == 0) {
             return clearSearch();
         }
@@ -136,21 +124,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
             .searchWithOverview({ q: filters.activeValues.q, with_external: 1, take: 9 })
             .then((res) => updateResults(res.data.data))
             .finally(() => setProgress(100));
-    }, [filters.activeValues.q, isSearchResultPage, searchService, clearSearch, updateResults, setProgress]);
-
-    useEffect(() => {
-        let timer: number;
-
-        if (isSearchResultPage) {
-            timer = window.setTimeout(() => updateSearchFilters({ q: filters.values.q }));
-        }
-
-        return () => window.clearTimeout(timer);
-    }, [filters.values.q, isSearchResultPage, updateSearchFilters]);
-
-    useEffect(() => {
-        filterUpdate({ q: globalQuery });
-    }, [filterUpdate, globalQuery]);
+    }, [filters.activeValues.q, searchService, clearSearch, updateResults, setProgress]);
 
     return (
         <div className={classNames(`block block-navbar-search`, dropdown && 'block-navbar-search-results')}>
@@ -160,10 +134,7 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                     e?.stopPropagation();
 
                     hideSearchBox();
-
-                    if (!isSearchResultPage) {
-                        navigateState('search-result', {}, { q: filters.values.q });
-                    }
+                    navigateState('search-result', {}, { q: filters.values.q });
                 }}
                 className={`search-form form ${resultsAll?.length > 0 ? 'search-form-found' : ''}`}>
                 <ClickOutside onClickOutside={hideSearchBox}>

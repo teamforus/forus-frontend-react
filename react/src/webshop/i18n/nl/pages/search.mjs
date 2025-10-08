@@ -5,6 +5,7 @@ export default {
         search: 'Zoekresultaten',
     },
     filters: {
+        search: 'Zoek',
         highlighted: 'Uitgelicht',
         category: 'Categorie',
         funds: 'Tegoeden',
