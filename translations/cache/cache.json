@@ -7865,7 +7865,7 @@
     ],
     [
         "search.filters.found_for",
-        "gevonden voor \"{{ query }}\""
+        "Zoekresultaten gevonden voor \"{{ query }}\""
     ],
     [
         "search.filters.funds",

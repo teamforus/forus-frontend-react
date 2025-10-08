@@ -2825,11 +2825,11 @@
             "all_providers": "Sélectionnez le fournisseur...",
             "all_sub_categories": "Sélectionnez une sous-catégorie...",
             "category": "Catégorie",
-            "found_for": "{{ query }}trouvé pour \" \"",
             "funds": "Crédit",
             "highlighted": "En vedette",
             "providers": "Fournisseurs",
-            "sort": "Trier"
+            "sort": "Trier",
+            "found_for": "Résultats de la recherche pour \"{{ query }}\""
         },
         "sort_by": {
             "created_at_asc": "Le plus vieux d'abord",

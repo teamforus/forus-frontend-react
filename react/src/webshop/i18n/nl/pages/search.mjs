@@ -9,7 +9,7 @@ export default {
         category: 'Categorie',
         funds: 'Tegoeden',
         providers: 'Aanbieders',
-        found_for: 'gevonden voor "{{ query }}"',
+        found_for: 'Zoekresultaten gevonden voor "{{ query }}"',
         sort: 'Sorteer',
         all_funds: 'Selecteer tegoeden...',
         all_providers: 'Selecteer aanbieder...',

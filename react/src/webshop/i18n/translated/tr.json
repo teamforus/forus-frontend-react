@@ -1669,11 +1669,11 @@
             "all_providers": "Sağlayıcı seçin...",
             "all_sub_categories": "Alt kategori seçin...",
             "category": "Kategori",
-            "found_for": "{{ query }}\" \" için bulundu",
             "funds": "Kredi",
             "highlighted": "Öne Çıkanlar",
             "providers": "Sağlayıcılar",
-            "sort": "Sırala"
+            "sort": "Sırala",
+            "found_for": "\"{{ query }}\" için arama sonuçları bulundu"
         },
         "sort_by": {
             "created_at_asc": "Önce en yaşlı",

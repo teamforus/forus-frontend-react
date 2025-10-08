@@ -358,10 +358,9 @@ export default function Search() {
                 <Fragment>
                     <div className="showcase-content-header">
                         <div className="showcase-filters-title">
-                            {translate('search.title')}
                             {filterValuesActive.q && (
                                 <Fragment>
-                                    {' ' + translate('search.filters.found_for', { query: filterValuesActive.q })}
+                                    {translate('search.filters.found_for', { query: filterValuesActive.q })}
                                 </Fragment>
                             )}
                             <div className="showcase-filters-title-count" data-nosnippet="true">
