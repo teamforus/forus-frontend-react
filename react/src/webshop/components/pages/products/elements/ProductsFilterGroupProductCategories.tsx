@@ -99,7 +99,7 @@ export default function ProductsFilterGroupProductCategories({
                                             'showcase-aside-block-option',
                                             isActive && 'showcase-aside-block-option-active',
                                         )}
-                                        data-dusk={'productFilterFundItem' + category.id}>
+                                        data-dusk={'productCategoryFilterOption' + category.id}>
                                         <div className="showcase-aside-block-option-check">
                                             <em className="mdi mdi-check" aria-hidden="true" />
                                         </div>
