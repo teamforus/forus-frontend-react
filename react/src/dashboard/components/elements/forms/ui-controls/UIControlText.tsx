@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { HTMLInputAutoCompleteAttribute, useCallback, useRef, useState } from 'react';
 import useCustomInputValidationMessage, {
     InputValidationTexts,
 } from '../../../../hooks/useCustomInputValidationMessage';
@@ -23,6 +23,7 @@ export default function UIControlText({
     rows = 5,
     validationMessages = null,
     required = false,
+    autoComplete = null,
 }: {
     id?: string;
     name?: string;
@@ -41,6 +42,7 @@ export default function UIControlText({
     rows?: number;
     validationMessages?: InputValidationTexts;
     required?: boolean;
+    autoComplete?: HTMLInputAutoCompleteAttribute;
 }) {
     const innerInputRef = useRef<HTMLInputElement>(null);
     const customInputValidationMessage = useCustomInputValidationMessage();
@@ -86,6 +88,7 @@ export default function UIControlText({
                 rows: rows,
                 required: required,
                 'data-dusk': dataDusk,
+                autoComplete: autoComplete,
             })}
 
             {(inputRef || innerInputRef).current?.value !== '' && type !== 'textarea' && (

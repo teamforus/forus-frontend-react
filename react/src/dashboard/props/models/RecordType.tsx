@@ -1,9 +1,10 @@
 import RecordTypeOption from './RecordTypeOption';
 import RecordTypeOperator from './RecordTypeOperator';
+import { ProfileRecordType } from './Sponsor/SponsorIdentity';
 
 export default interface RecordType {
     id: number;
-    key: string;
+    key: ProfileRecordType;
     type: 'number' | 'string' | 'select' | 'bool' | 'date' | 'iban' | 'email' | 'select_number';
     control_type: 'text' | 'select' | 'checkbox' | 'date' | 'number' | 'step' | 'currency';
     system: boolean;

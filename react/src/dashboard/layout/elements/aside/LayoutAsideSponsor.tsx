@@ -1,27 +1,27 @@
 import React from 'react';
 import { hasPermission } from '../../../helpers/utils';
-import Organization from '../../../props/models/Organization';
+import Organization, { Permission } from '../../../props/models/Organization';
 import LayoutAsideNavGroup from './elements/LayoutAsideNavGroup';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import {
+    IconConnections,
+    IconConnectionsActive,
+    IconFinancial,
+    IconFinancialActive,
+    IconFundRequests,
+    IconFundRequestsActive,
     IconFunds,
     IconFundsActive,
+    IconParticipants,
+    IconParticipantsActive,
     IconReports,
     IconReportsActive,
+    IconSponsorProviders,
+    IconSponsorProvidersActive,
     IconVouchers,
     IconVouchersActive,
     IconWebshops,
     IconWebshopsActive,
-    IconFinancial,
-    IconFinancialActive,
-    IconConnections,
-    IconConnectionsActive,
-    IconParticipants,
-    IconParticipantsActive,
-    IconFundRequests,
-    IconFundRequestsActive,
-    IconSponsorProviders,
-    IconSponsorProvidersActive,
 } from './icons/LayoutAsideIcons';
 import LayoutAsideGroupOrganization from './groups/LayoutAsideGroupOrganization';
 import LayoutAsideGroupPersonal from './groups/LayoutAsideGroupPersonal';
@@ -43,7 +43,11 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                 name={'Fondsen'}
                 state={'organization-funds'}
                 stateParams={{ organizationId: organization?.id }}
-                show={hasPermission(organization, ['manage_funds', 'view_finances', 'view_funds'], false)}
+                show={hasPermission(
+                    organization,
+                    [Permission.MANAGE_FUNDS, Permission.VIEW_FINANCES, Permission.VIEW_FUNDS],
+                    false,
+                )}
                 icon={<IconFunds />}
                 iconActive={<IconFundsActive />}
                 pinnedGroups={pinnedGroups}
@@ -66,7 +70,11 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         state: 'csv-validation',
                         dusk: 'csvValidationPage',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, ['validate_records', 'manage_validators'], false),
+                        show: hasPermission(
+                            organization,
+                            [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS],
+                            false,
+                        ),
                     },
                     {
                         id: 'fund_requests',
@@ -76,7 +84,11 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show:
                             appConfigs?.organizations?.funds?.fund_requests &&
-                            hasPermission(organization, ['validate_records', 'manage_validators'], false),
+                            hasPermission(
+                                organization,
+                                [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS],
+                                false,
+                            ),
                     },
                     {
                         id: 'fund_forms',
@@ -85,7 +97,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show:
                             appConfigs?.organizations?.funds?.fund_requests &&
-                            hasPermission(organization, ['manage_funds'], false),
+                            hasPermission(organization, [Permission.MANAGE_FUNDS], false),
                     },
                 ]}
             />
@@ -105,7 +117,9 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Aanbod',
                         state: 'sponsor-products',
                         stateParams: { organizationId: organization?.id },
-                        show: organization.allow_product_updates && hasPermission(organization, 'manage_providers'),
+                        show:
+                            organization.allow_product_updates &&
+                            hasPermission(organization, Permission.MANAGE_PROVIDERS),
                     },
                     {
                         id: 'providers',
@@ -113,7 +127,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         state: 'sponsor-provider-organizations',
                         dusk: 'providersPage',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'manage_providers'),
+                        show: hasPermission(organization, Permission.MANAGE_PROVIDERS),
                     },
                 ]}
             />
@@ -136,7 +150,25 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         dusk: 'identitiesPage',
                         show:
                             organization.allow_profiles &&
-                            hasPermission(organization, ['view_identities', 'manage_identities'], false),
+                            hasPermission(
+                                organization,
+                                [Permission.VIEW_IDENTITIES, Permission.MANAGE_IDENTITIES],
+                                false,
+                            ),
+                    },
+                    {
+                        id: 'households',
+                        name: 'Huishoudens',
+                        state: 'households',
+                        stateParams: { organizationId: organization?.id },
+                        dusk: 'householdsPage',
+                        show:
+                            organization.allow_profiles_households &&
+                            hasPermission(
+                                organization,
+                                [Permission.VIEW_IDENTITIES, Permission.MANAGE_IDENTITIES],
+                                false,
+                            ),
                     },
                 ]}
             />
@@ -156,7 +188,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Tegoeden',
                         state: 'vouchers',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, ['manage_vouchers', 'view_vouchers']),
+                        show: hasPermission(organization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]),
                         dusk: 'vouchersPage',
                     },
                     {
@@ -164,7 +196,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Declaraties',
                         state: 'reimbursements',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'manage_reimbursements'),
+                        show: hasPermission(organization, Permission.MANAGE_REIMBURSEMENTS),
                         dusk: 'reimbursementsPage',
                     },
                     {
@@ -172,7 +204,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Uitbetalingen',
                         state: 'payouts',
                         stateParams: { organizationId: organization?.id },
-                        show: organization.allow_payouts && hasPermission(organization, 'manage_payouts'),
+                        show: organization.allow_payouts && hasPermission(organization, Permission.MANAGE_PAYOUTS),
                     },
                 ]}
             />
@@ -192,14 +224,14 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Betaalopdrachten',
                         state: 'transactions',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'view_finances'),
+                        show: hasPermission(organization, Permission.VIEW_FINANCES),
                         dusk: 'transactionsPage',
                     },
                     {
                         id: 'extra-payments',
                         name: 'Bijbetalingen',
                         state: 'extra-payments',
-                        show: hasPermission(organization, 'view_funds_extra_payments'),
+                        show: hasPermission(organization, Permission.VIEW_FUNDS_EXTRA_PAYMENTS),
                         stateParams: { organizationId: organization?.id },
                         dusk: 'extraPaymentsPage',
                     },
@@ -221,14 +253,14 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Statistieken',
                         state: 'financial-dashboard',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'view_finances'),
+                        show: hasPermission(organization, Permission.VIEW_FINANCES),
                         dusk: 'financialDashboardPage',
                     },
                     {
                         id: 'financial_dashboard_overview',
                         name: 'Financieel overzicht',
                         state: 'financial-dashboard-overview',
-                        show: hasPermission(organization, 'view_finances'),
+                        show: hasPermission(organization, Permission.VIEW_FINANCES),
                         stateParams: { organizationId: organization?.id },
                         dusk: 'financialDashboardOverviewPage',
                     },
@@ -250,7 +282,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(
                             organization,
-                            ['manage_implementation', 'manage_implementation_cms'],
+                            [Permission.MANAGE_IMPLEMENTATION, Permission.MANAGE_IMPLEMENTATION_CMS],
                             false,
                         ),
                     },
@@ -261,19 +293,21 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         show:
                             isSponsorPanel &&
                             organization.allow_translations &&
-                            hasPermission(organization, 'manage_implementation'),
+                            hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
                     },
                     {
                         name: 'Regelingencheck',
                         state: 'pre-check',
                         stateParams: { organizationId: organization?.id },
-                        show: organization.allow_pre_checks && hasPermission(organization, 'manage_implementation'),
+                        show:
+                            organization.allow_pre_checks &&
+                            hasPermission(organization, Permission.MANAGE_IMPLEMENTATION),
                     },
                     {
                         name: 'Systeemberichten',
                         state: 'implementation-notifications',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'manage_implementation_notifications'),
+                        show: hasPermission(organization, Permission.MANAGE_IMPLEMENTATION_NOTIFICATIONS),
                     },
                 ]}
             />
@@ -291,13 +325,15 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         name: 'Bank',
                         state: 'bank-connections',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, 'manage_bank_connections'),
+                        show: hasPermission(organization, Permission.MANAGE_BANK_CONNECTIONS),
                     },
                     {
                         name: 'BI-tool',
                         state: 'bi-connection',
                         stateParams: { organizationId: organization?.id },
-                        show: organization.allow_bi_connection && hasPermission(organization, 'manage_bi_connection'),
+                        show:
+                            organization.allow_bi_connection &&
+                            hasPermission(organization, Permission.MANAGE_BI_CONNECTION),
                     },
                 ]}
             />

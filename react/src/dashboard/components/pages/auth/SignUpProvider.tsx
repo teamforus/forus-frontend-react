@@ -1134,6 +1134,7 @@ export default function SignUpProvider() {
                                                                                 })
                                                                             }
                                                                             placeholder="EMAILADRES"
+                                                                            autoComplete="email"
                                                                         />
                                                                     </div>
                                                                     <div className="app_download-form_group-button">
@@ -1304,6 +1305,7 @@ export default function SignUpProvider() {
                                                         onChange={(e) => signUpForm.update({ email: e.target.value })}
                                                         className={'large'}
                                                         placeholder={'e-mail@e-mail.nl'}
+                                                        autoComplete={'email'}
                                                     />
                                                     <FormError error={signUpForm.errors?.email} />
                                                 </div>
@@ -1479,6 +1481,7 @@ export default function SignUpProvider() {
                                                     value={formOrganization.values.name}
                                                     onChange={(e) => formOrganization.update({ name: e.target.value })}
                                                     placeholder={'Bedrijfsnaam'}
+                                                    autoComplete={'organization'}
                                                 />
                                                 <FormError error={formOrganization.errors.name} />
                                             </div>
@@ -1542,6 +1545,7 @@ export default function SignUpProvider() {
                                                                 formOrganization.update({ email: e.target.value })
                                                             }
                                                             placeholder={'Voorbeeld: info@bedrijfsnaam.nl'}
+                                                            autoComplete={'email'}
                                                         />
                                                     </div>
                                                     <div className="col col-md-4 col-xs-12">
@@ -1574,6 +1578,7 @@ export default function SignUpProvider() {
                                                                 formOrganization.update({ phone: e.target.value })
                                                             }
                                                             placeholder={'Voorbeeld: 06 123 45 678'}
+                                                            autoComplete={'tel'}
                                                         />
                                                     </div>
                                                     <div className="col col-md-4 col-xs-12">
@@ -1605,6 +1610,7 @@ export default function SignUpProvider() {
                                                                 formOrganization.update({ website: e.target.value })
                                                             }
                                                             placeholder={'Voorbeeld: https://bedrijfsnaam.nl'}
+                                                            autoComplete={'url'}
                                                         />
                                                     </div>
                                                     <div className="col col-md-4 col-xs-12">
@@ -1903,6 +1909,7 @@ export default function SignUpProvider() {
                                                     value={employeeForm.values.email}
                                                     onChange={(e) => employeeForm.update({ email: e.target.value })}
                                                     placeholder={'Voorbeeld: e-mail@e-mail.nl'}
+                                                    autoComplete={'email'}
                                                 />
                                                 <FormError error={employeeForm.errors.email} />
                                             </div>

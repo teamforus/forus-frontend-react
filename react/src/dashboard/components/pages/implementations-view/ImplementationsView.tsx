@@ -19,6 +19,7 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { Permission } from '../../../props/models/Organization';
 
 export default function ImplementationsView() {
     const { id } = useParams();
@@ -113,7 +114,7 @@ export default function ImplementationsView() {
 
                     <div className="card-section-actions">
                         {activeOrganization.allow_translations &&
-                            hasPermission(activeOrganization, 'manage_implementation') && (
+                            hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                                 <StateNavLink
                                     name={'implementations-translations'}
                                     params={{ id: implementation.id, organizationId: implementation.organization_id }}
@@ -123,7 +124,7 @@ export default function ImplementationsView() {
                                 </StateNavLink>
                             )}
 
-                        {hasPermission(activeOrganization, 'manage_implementation') && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
                                 name={'implementations-cookies'}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
@@ -133,7 +134,7 @@ export default function ImplementationsView() {
                             </StateNavLink>
                         )}
 
-                        {hasPermission(activeOrganization, 'manage_implementation') && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
                                 name={'implementations-email'}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
@@ -143,7 +144,7 @@ export default function ImplementationsView() {
                             </StateNavLink>
                         )}
 
-                        {hasPermission(activeOrganization, 'manage_implementation') && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION) && (
                             <StateNavLink
                                 name={'implementations-digid'}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
@@ -153,7 +154,7 @@ export default function ImplementationsView() {
                             </StateNavLink>
                         )}
 
-                        {hasPermission(activeOrganization, ['manage_implementation_cms']) && (
+                        {hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS) && (
                             <StateNavLink
                                 name={'implementations-cms'}
                                 params={{ id: implementation.id, organizationId: implementation.organization_id }}
@@ -240,7 +241,7 @@ export default function ImplementationsView() {
 
                                                                     {hasPermission(
                                                                         activeOrganization,
-                                                                        'manage_funds',
+                                                                        Permission.MANAGE_FUNDS,
                                                                     ) &&
                                                                         fund.key && (
                                                                             <StateNavLink

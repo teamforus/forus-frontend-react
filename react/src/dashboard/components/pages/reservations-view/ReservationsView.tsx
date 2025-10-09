@@ -24,6 +24,7 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import ReservationExtraInformationPane from './elements/panes/ReservationExtraInformationPane';
 import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
 import ReservationDetailsPane from './elements/panes/ReservationDetailsPane';
+import { Permission } from '../../../props/models/Organization';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -214,7 +215,7 @@ export default function ReservationsView() {
                 </div>
             </div>
 
-            {transaction && hasPermission(activeOrganization, 'view_finances') && (
+            {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                 <TransactionDetailCards
                     transaction={transaction}
                     setTransaction={setTransaction}
