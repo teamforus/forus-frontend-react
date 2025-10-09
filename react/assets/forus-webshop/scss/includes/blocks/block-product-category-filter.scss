@@ -38,7 +38,12 @@
         .category-filter-item-name {
             display: inline-block;
             font: 600 13px/20px var(--base-font);
+            padding: 5px 0;
             color: #535561;
+
+            &:first-child {
+                padding: 5px 5px;
+            }
         }
 
         &:hover,

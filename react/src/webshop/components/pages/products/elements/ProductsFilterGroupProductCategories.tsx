@@ -5,6 +5,7 @@ import ProductCategory from '../../../../../dashboard/props/models/ProductCatego
 import useProductCategoryService from '../../../../../dashboard/services/ProductCategoryService';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
+import useAppConfigs from '../../../../hooks/useAppConfigs';
 
 export default function ProductsFilterGroupProductCategories({
     value,
@@ -17,6 +18,7 @@ export default function ProductsFilterGroupProductCategories({
 }) {
     const translate = useTranslate();
     const setProgress = useSetProgress();
+    const appConfig = useAppConfigs();
     const [productCategories, setProductCategories] = useState<Array<ProductCategory>>(null);
 
     const productCategoryService = useProductCategoryService();
@@ -46,10 +48,14 @@ export default function ProductsFilterGroupProductCategories({
         setProgress(0);
 
         productCategoryService
-            .list({ parent_id: 'null', used: 1, per_page: 1000 })
+            .list({
+                parent_id: appConfig?.implementation?.root_product_category_id ?? 'null',
+                per_page: 1000,
+                used: 1,
+            })
             .then((res) => setProductCategories(res.data.data))
             .finally(() => setProgress(100));
-    }, [productCategoryService, setProgress]);
+    }, [appConfig?.implementation?.root_product_category_id, productCategoryService, setProgress]);
 
     useEffect(() => {
         fetchProductCategories();
@@ -79,6 +85,7 @@ export default function ProductsFilterGroupProductCategories({
                                     className={classNames(
                                         'category-filter-item',
                                         isActive && 'category-filter-item-active',
+                                        !iconMap[category.key] && 'category-filter-item-no-icon',
                                     )}
                                     data-dusk={'productCategoryFilterOption' + category.id}
                                     aria-pressed={isActive}
@@ -90,9 +97,11 @@ export default function ProductsFilterGroupProductCategories({
                                                 : [...value, category.id],
                                         )
                                     }>
-                                    <span aria-hidden="true" className="category-filter-item-icon">
-                                        {iconMap[category.key]}
-                                    </span>
+                                    {iconMap[category.key] && (
+                                        <span aria-hidden="true" className="category-filter-item-icon">
+                                            {iconMap[category.key]}
+                                        </span>
+                                    )}
                                     <span className="category-filter-item-name">{category.name}</span>
                                 </button>
                             );
