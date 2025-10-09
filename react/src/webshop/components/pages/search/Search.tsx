@@ -262,6 +262,7 @@ export default function Search() {
                             </label>
                             <UIControlText
                                 value={filterValues.q}
+                                autoFocus={true}
                                 onChangeValue={(q: string) => filterUpdate({ q })}
                                 ariaLabel={translate('search.filters.search')}
                                 id="main_search"

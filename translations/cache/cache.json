@@ -7880,6 +7880,10 @@
         "Aanbieders"
     ],
     [
+        "search.filters.search",
+        "Zoek"
+    ],
+    [
         "search.filters.sort",
         "Sorteer"
     ],

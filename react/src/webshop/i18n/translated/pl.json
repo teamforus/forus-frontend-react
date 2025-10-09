@@ -2829,7 +2829,8 @@
             "highlighted": "Polecane",
             "providers": "Dostawcy",
             "sort": "Sortuj",
-            "found_for": "Wyniki wyszukiwania dla \"{{ query }}\""
+            "found_for": "Wyniki wyszukiwania dla \"{{ query }}\"",
+            "search": "Wyszukiwanie"
         },
         "sort_by": {
             "created_at_asc": "Najstarszy pierwszy",

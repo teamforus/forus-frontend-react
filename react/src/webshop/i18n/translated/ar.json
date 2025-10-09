@@ -1673,7 +1673,8 @@
             "highlighted": "مميز",
             "providers": "المزودون",
             "sort": "فرز",
-            "found_for": "تم العثور على نتائج البحث عن \"{{ query }}\""
+            "found_for": "تم العثور على نتائج البحث عن \"{{ query }}\"",
+            "search": "بحث"
         },
         "sort_by": {
             "created_at_asc": "الأقدم أولاً",

@@ -2829,7 +2829,8 @@
             "highlighted": "Featured",
             "providers": "Провайдеры",
             "sort": "Сортировать",
-            "found_for": "Результаты поиска, найденные для \"{{ query }}\""
+            "found_for": "Результаты поиска, найденные для \"{{ query }}\"",
+            "search": "Поиск"
         },
         "sort_by": {
             "created_at_asc": "Самый старый первый",

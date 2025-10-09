@@ -2829,7 +2829,8 @@
             "highlighted": "Ausgewählt",
             "providers": "Anbieter",
             "sort": "Sortieren",
-            "found_for": "Suchergebnisse gefunden für \"{{ query }}\""
+            "found_for": "Suchergebnisse gefunden für \"{{ query }}\"",
+            "search": "Suche"
         },
         "sort_by": {
             "created_at_asc": "Älteste zuerst",

@@ -1673,7 +1673,8 @@
             "highlighted": "Öne Çıkanlar",
             "providers": "Sağlayıcılar",
             "sort": "Sırala",
-            "found_for": "\"{{ query }}\" için arama sonuçları bulundu"
+            "found_for": "\"{{ query }}\" için arama sonuçları bulundu",
+            "search": "Arama"
         },
         "sort_by": {
             "created_at_asc": "Önce en yaşlı",
