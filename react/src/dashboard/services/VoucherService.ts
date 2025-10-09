@@ -128,16 +128,16 @@ export class VoucherService<T = SponsorVoucher> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/transactions`, data);
     }
 
-    public sampleCSVBudgetVoucher(expires_at = '2020-02-20'): string {
-        const headers = ['amount', 'expires_at', 'note', 'email', 'activate', 'activation_code', 'client_uid'];
-        const values = [10, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0, ''];
+    public sampleCSVBudgetVoucher(expire_at = '2020-02-20'): string {
+        const headers = ['amount', 'expire_at', 'note', 'email', 'activate', 'activation_code', 'client_uid'];
+        const values = [10, expire_at, 'voorbeeld notitie', 'test@example.com', 0, 0, ''];
 
         return Papa.unparse([headers, values]);
     }
 
-    public sampleCSVProductVoucher(product_id = null, expires_at = '2020-02-20'): string {
-        const headers = ['product_id', 'expires_at', 'note', 'email', 'activate', 'activation_code', 'client_uid'];
-        const values = [product_id, expires_at, 'voorbeeld notitie', 'test@example.com', 0, 0, ''];
+    public sampleCSVProductVoucher(product_id = null, expire_at = '2020-02-20'): string {
+        const headers = ['product_id', 'expire_at', 'note', 'email', 'activate', 'activation_code', 'client_uid'];
+        const values = [product_id, expire_at, 'voorbeeld notitie', 'test@example.com', 0, 0, ''];
 
         return Papa.unparse([headers, values]);
     }
