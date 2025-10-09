@@ -204,7 +204,6 @@ export default function TopNavbarSearch({ autoFocus = false }: { autoFocus?: boo
                             onKeyDown={cancelSearch}
                             aria-labelledby="search-label"
                             aria-haspopup={true}
-                            data-dusk="searchListSearch"
                         />
                         {filters.values.q && (
                             <div
