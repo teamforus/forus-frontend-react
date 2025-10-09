@@ -2,12 +2,9 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContext } from 'react';
 import { AppConfigProp, useConfigService } from '../../dashboard/services/ConfigService';
 import EnvDataWebshopProp from '../../props/EnvDataWebshopProp';
-import { useStateRoutes } from '../modules/state_router/Router';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import Language from '../../dashboard/props/models/Language';
-import useFilterNext from '../../dashboard/modules/filter_next/useFilterNext';
-import { FilterModel, FilterScope, FilterSetter } from '../../dashboard/modules/filter_next/types/FilterParams';
 
 interface AuthMemoProps {
     envData?: EnvDataWebshopProp;
@@ -20,12 +17,7 @@ interface AuthMemoProps {
     setMobileMenuOpened?: React.Dispatch<React.SetStateAction<boolean>>;
     userMenuOpened?: boolean;
     setUserMenuOpened?: React.Dispatch<React.SetStateAction<boolean>>;
-    searchQuery?: string;
     cookiesAccepted?: boolean;
-    setSearchQuery?: React.Dispatch<React.SetStateAction<string>>;
-    searchFilterValues?: FilterModel;
-    searchFilterUpdate?: FilterSetter;
-    searchFilter?: FilterScope<FilterModel>;
     language?: string;
     setLanguage?: React.Dispatch<React.SetStateAction<string>>;
     changeLanguage?: (locale: string) => void;
@@ -45,17 +37,12 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
     const [showSearchBox, setShowSearchBox] = useState(false);
     const [mobileMenuOpened, setMobileMenuOpened] = useState(false);
     const [userMenuOpened, setUserMenuOpened] = useState(false);
-    const { route } = useStateRoutes();
     const { i18n } = useTranslation();
     const [language, setLanguage] = useState(i18n.language);
 
     const languages = useMemo(() => {
         return appConfigs?.languages;
     }, [appConfigs?.languages]);
-
-    const [searchFilterValues, , searchFilterUpdate, searchFilter] = useFilterNext<{ q: string }>({
-        q: '',
-    });
 
     const changeLanguage = useCallback(
         (lang: string) => {
@@ -82,10 +69,6 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
         });
     }, [configService, envData?.type]);
 
-    useEffect(() => {
-        searchFilterUpdate({ q: '' });
-    }, [route.pathname, route?.state?.name, searchFilterUpdate]);
-
     return (
         <Provider
             value={{
@@ -99,9 +82,6 @@ const MainProvider = ({ children, cookiesAccepted }: { children: React.ReactElem
                 setMobileMenuOpened,
                 userMenuOpened,
                 setUserMenuOpened,
-                searchFilterValues,
-                searchFilter,
-                searchFilterUpdate,
                 cookiesAccepted,
                 language,
                 setLanguage,
