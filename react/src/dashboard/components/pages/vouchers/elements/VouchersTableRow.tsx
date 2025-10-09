@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback } from 'react';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import { currencyFormat, strLimit } from '../../../../helpers/string';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import VouchersTableRowStatus from './VouchersTableRowStatus';
@@ -183,7 +183,7 @@ export default function VouchersTableRow({
                                 Bekijken
                             </StateNavLink>
 
-                            {hasPermission(organization, 'manage_vouchers') &&
+                            {hasPermission(organization, Permission.MANAGE_VOUCHERS) &&
                                 !voucher.granted &&
                                 !voucher.expired &&
                                 voucher.state != 'deactivated' && (

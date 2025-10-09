@@ -14,6 +14,7 @@ import ExtraPayment from '../../../props/models/ExtraPayment';
 import ReservationExtraPaymentDetailsPane from '../reservations-view/elements/panes/ReservationExtraPaymentDetailsPane';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { Permission } from '../../../props/models/Organization';
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
 import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
 
@@ -111,7 +112,7 @@ export default function ExtraPaymentsView() {
                 </div>
                 <div className="card-section form">
                     <div className="flex flex-gap flex-vertical form">
-                        {transaction && hasPermission(activeOrganization, 'view_finances') && (
+                        {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                             <TransactionDetailsPane
                                 transaction={transaction}
                                 setTransaction={setTransaction}

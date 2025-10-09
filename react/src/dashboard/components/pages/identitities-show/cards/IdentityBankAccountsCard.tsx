@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import Card from '../../../elements/card/Card';
 import CardTable from '../../../elements/card-table/CardTable';
@@ -98,7 +98,7 @@ export default function IdentityBankAccountsCard({
         <Card
             title={`Bankrekeningen (${identity.bank_accounts?.length || 0})`}
             buttons={[
-                hasPermission(organization, 'manage_identities') && {
+                hasPermission(organization, Permission.MANAGE_IDENTITIES) && {
                     text: 'Aanmaken',
                     type: 'primary',
                     icon: 'plus-circle',
@@ -117,9 +117,8 @@ export default function IdentityBankAccountsCard({
                                 <TableDateTime value={bank_account.updated_at_locale} />
                             </td>
                             <td>{bank_account.created_by_locale}</td>
-
-                            <td className={'table-td-actions text-right'}>
-                                {bank_account?.id && hasPermission(organization, 'manage_identities') ? (
+                            <td className="table-td-actions text-right">
+                                {bank_account?.id && hasPermission(organization, Permission.MANAGE_IDENTITIES) ? (
                                     <TableRowActions
                                         content={(e) => (
                                             <div className="dropdown dropdown-actions">

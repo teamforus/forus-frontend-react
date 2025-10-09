@@ -1,6 +1,6 @@
 import React from 'react';
 import LayoutAsideNavGroup from './elements/LayoutAsideNavGroup';
-import Organization from '../../../props/models/Organization';
+import Organization, { Permission } from '../../../props/models/Organization';
 import { hasPermission } from '../../../helpers/utils';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { IconManagement, IconManagementActive } from './icons/LayoutAsideIcons';
@@ -33,7 +33,11 @@ export default function LayoutAsideValidator({ organization }: { organization: O
                         stateParams: { organizationId: organization?.id },
                         show:
                             appConfigs?.organizations?.funds?.fund_requests &&
-                            hasPermission(organization, ['validate_records', 'manage_validators'], false),
+                            hasPermission(
+                                organization,
+                                [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS],
+                                false,
+                            ),
                         dusk: 'fundRequestsPage',
                     },
                     {
@@ -41,7 +45,11 @@ export default function LayoutAsideValidator({ organization }: { organization: O
                         name: 'Klaarzetten',
                         state: 'csv-validation',
                         stateParams: { organizationId: organization?.id },
-                        show: hasPermission(organization, ['validate_records', 'manage_validators'], false),
+                        show: hasPermission(
+                            organization,
+                            [Permission.VALIDATE_RECORDS, Permission.MANAGE_VALIDATORS],
+                            false,
+                        ),
                     },
                 ]}
             />

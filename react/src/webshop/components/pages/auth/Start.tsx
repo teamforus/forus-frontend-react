@@ -322,6 +322,7 @@ export default function Start() {
                                     tabIndex={1}
                                     autoFocus={true}
                                     dataDusk={'authEmailFormEmail'}
+                                    autoComplete={'email'}
                                 />
                                 <FormError error={authForm.errors.email} />
                             </div>

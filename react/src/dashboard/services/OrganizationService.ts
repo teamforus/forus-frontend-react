@@ -1,7 +1,7 @@
 import ApiResponse, { ApiResponseSingle, ResponseSimple } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import Organization, { SponsorProviderOrganization, TranslationStats } from '../props/models/Organization';
+import Organization, { Permission, SponsorProviderOrganization, TranslationStats } from '../props/models/Organization';
 import { hasPermission } from '../helpers/utils';
 import OrganizationFeatureStatuses from './types/OrganizationFeatureStatuses';
 import FundProvider from '../props/models/FundProvider';
@@ -194,20 +194,23 @@ export class OrganizationService<T = Organization> {
     public getRoutePermissionsMap(type = 'sponsor') {
         return {
             sponsor: [
-                { permissions: ['manage_funds', 'view_finances', 'view_funds'], name: 'organization-funds' },
-                { permissions: ['manage_vouchers', 'view_vouchers'], name: 'vouchers' },
-                { permissions: ['view_finances'], name: 'transactions' },
-                { permissions: ['manage_payouts'], name: 'payouts' },
-                { permissions: ['validate_records'], name: 'csv-validation' },
-                { permissions: ['view_identities', 'manage_identities'], name: 'identities' },
+                {
+                    permissions: [Permission.MANAGE_FUNDS, Permission.VIEW_FINANCES, Permission.VIEW_FUNDS],
+                    name: 'organization-funds',
+                },
+                { permissions: [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS], name: 'vouchers' },
+                { permissions: [Permission.VIEW_FINANCES], name: 'transactions' },
+                { permissions: [Permission.MANAGE_PAYOUTS], name: 'payouts' },
+                { permissions: [Permission.VALIDATE_RECORDS], name: 'csv-validation' },
+                { permissions: [Permission.VIEW_IDENTITIES, Permission.MANAGE_IDENTITIES], name: 'identities' },
             ],
             provider: [
-                { permissions: ['manage_employees'], name: 'provider-overview' },
-                { permissions: ['manage_offices'], name: 'offices' },
-                { permissions: ['manage_products'], name: 'products' },
-                { permissions: ['view_finances'], name: 'transactions' },
-                { permissions: ['validate_records'], name: 'csv-validation' },
-                { permissions: ['scan_vouchers'], name: 'reservations' },
+                { permissions: [Permission.MANAGE_EMPLOYEES], name: 'provider-overview' },
+                { permissions: [Permission.MANAGE_OFFICES], name: 'offices' },
+                { permissions: [Permission.MANAGE_PRODUCTS], name: 'products' },
+                { permissions: [Permission.VIEW_FINANCES], name: 'transactions' },
+                { permissions: [Permission.VALIDATE_RECORDS], name: 'csv-validation' },
+                { permissions: [Permission.SCAN_VOUCHERS], name: 'reservations' },
             ],
             validator: [{ permissions: ['validate_records', 'manage_validators'], name: 'fund-requests' }],
         }[type];

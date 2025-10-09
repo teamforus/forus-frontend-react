@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-export default function useTableToggles() {
-    const [selected, setSelected] = useState([]);
+export default function useTableToggles<T = number>(multiselect: boolean = true) {
+    const [selected, setSelected] = useState<T[]>([]);
 
     const toggleAll = useCallback(
-        (e, items: Array<{ id: number }>) => {
+        (e: React.MouseEvent, items: Array<{ id: T }>) => {
             e?.stopPropagation();
 
             setSelected(() => {
@@ -14,19 +14,26 @@ export default function useTableToggles() {
         [selected],
     );
 
-    const toggle = useCallback((e, item: { id: number }) => {
-        e?.stopPropagation();
+    const toggle = useCallback(
+        (e, item: { id: T }) => {
+            e?.stopPropagation();
 
-        setSelected((selected) => {
-            if (selected.includes(item.id)) {
-                selected.splice(selected.indexOf(item.id), 1);
-            } else {
-                selected.push(item.id);
-            }
+            setSelected((selected) => {
+                if (!multiselect) {
+                    return [item.id];
+                }
 
-            return [...selected];
-        });
-    }, []);
+                if (selected.includes(item.id)) {
+                    selected.splice(selected.indexOf(item.id), 1);
+                } else {
+                    selected.push(item.id);
+                }
+
+                return [...selected];
+            });
+        },
+        [multiselect],
+    );
 
     return {
         selected,

@@ -2825,11 +2825,12 @@
             "all_providers": "Выберите поставщика...",
             "all_sub_categories": "Выберите подкатегорию...",
             "category": "Категория",
-            "found_for": "{{ query }}найдено для \" \"",
             "funds": "Кредит",
             "highlighted": "Featured",
             "providers": "Провайдеры",
-            "sort": "Сортировать"
+            "sort": "Сортировать",
+            "found_for": "Результаты поиска, найденные для \"{{ query }}\"",
+            "search": "Поиск"
         },
         "sort_by": {
             "created_at_asc": "Самый старый первый",

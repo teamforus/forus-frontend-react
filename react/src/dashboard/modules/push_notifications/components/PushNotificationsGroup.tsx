@@ -122,6 +122,7 @@ export default function PushNotificationsGroup({
                             tabIndex={0}
                             onKeyDown={clickOnKeyEnter}
                             onClick={() => popNotification(notification.id)}
+                            aria-label={translate('buttons.close')}
                         />
                     </div>
                 ))}

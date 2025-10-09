@@ -6,7 +6,7 @@ import { useMediaService } from '../../../../services/MediaService';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import useSetProgress from '../../../../hooks/useSetProgress';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
 import Product, { ProductPriceType } from '../../../../props/models/Product';
@@ -159,7 +159,9 @@ export default function ProductsForm({
     const [products, setProducts] = useState<Product[]>(null);
 
     const allowsExtraPayments = useMemo(() => {
-        return organization?.can_receive_extra_payments && hasPermission(organization, 'manage_payment_methods');
+        return (
+            organization?.can_receive_extra_payments && hasPermission(organization, Permission.MANAGE_PAYMENT_METHODS)
+        );
     }, [organization]);
 
     const goToFundProvider = useCallback(

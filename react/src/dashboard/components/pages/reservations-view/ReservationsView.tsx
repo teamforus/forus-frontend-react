@@ -25,6 +25,7 @@ import ReservationExtraInformationPane from './elements/panes/ReservationExtraIn
 import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
 import ReservationDetailsPane from './elements/panes/ReservationDetailsPane';
 import useTranslate from '../../../hooks/useTranslate';
+import { Permission } from '../../../props/models/Organization';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -216,7 +217,8 @@ export default function ReservationsView() {
                 </div>
             </div>
 
-            {((transaction && hasPermission(activeOrganization, 'view_finances')) || reservation.extra_payment) && (
+            {((transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES)) ||
+                reservation.extra_payment) && (
                 <div className="card card-wrapped">
                     <div className="card-header">
                         <div className="flex flex-grow card-title">
@@ -225,7 +227,7 @@ export default function ReservationsView() {
                     </div>
                     <div className="card-section form">
                         <div className="flex flex-gap flex-vertical form">
-                            {transaction && hasPermission(activeOrganization, 'view_finances') && (
+                            {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                                 <TransactionDetailsPane
                                     transaction={transaction}
                                     setTransaction={setTransaction}

@@ -39,6 +39,7 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
 import useConfirmDangerAction from '../../../hooks/useConfirmDangerAction';
+import { Permission } from '../../../props/models/Organization';
 import TransactionBulksCard from './elements/TransactionBulksCard';
 
 export default function Transactions() {
@@ -357,13 +358,14 @@ export default function Transactions() {
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
                         {hasDirectPayments && (
-                            <div
+                            <button
+                                type="button"
                                 className="button button-primary button-sm"
                                 onClick={() => uploadTransactions()}
                                 data-dusk="uploadTransactionsBatchButton">
                                 <em className="mdi mdi-upload icon-start" />
                                 Upload bulkbestand
-                            </div>
+                            </button>
                         )}
 
                         {isSponsor && (
@@ -994,7 +996,7 @@ export default function Transactions() {
 
             {isSponsor &&
                 pendingBulkingMeta?.total > 0 &&
-                hasPermission(activeOrganization, 'manage_transaction_bulks') && (
+                hasPermission(activeOrganization, Permission.MANAGE_TRANSACTION_BULKS) && (
                     <div className="card-section" hidden={viewType.key !== 'transactions'}>
                         <div className="flex flex-vertical">
                             <div className="card-text" data-dusk="pendingBulkingMetaText">
