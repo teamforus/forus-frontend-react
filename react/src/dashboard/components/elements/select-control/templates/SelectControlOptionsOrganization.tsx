@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useState } from 'react';
 import ClickOutside from '../../click-outside/ClickOutside';
 import { uniqueId } from 'lodash';
 import { SelectControlOptionsProp } from '../SelectControl';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import useThumbnailUrl from '../../../../hooks/useThumbnailUrl';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useTranslate from '../../../../hooks/useTranslate';
@@ -175,7 +175,7 @@ export default function SelectControlOptionsOrganization<T>({
                         </div>
 
                         <div className="select-control-options-actions">
-                            {isSponsorPanel && hasPermission(activeOrganization, 'manage_organization') && (
+                            {isSponsorPanel && hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <StateNavLink
                                     name={'organizations-contacts'}
                                     params={{ organizationId: (modelValue?.raw as Organization)?.id }}
@@ -191,7 +191,7 @@ export default function SelectControlOptionsOrganization<T>({
                             )}
 
                             {isSponsorPanel &&
-                                hasPermission(activeOrganization, 'manage_organization') &&
+                                hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) &&
                                 activeOrganization.allow_translations && (
                                     <StateNavLink
                                         name={'organizations-translations'}
@@ -207,7 +207,7 @@ export default function SelectControlOptionsOrganization<T>({
                                     </StateNavLink>
                                 )}
 
-                            {hasPermission(activeOrganization, 'manage_organization') && (
+                            {hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <StateNavLink
                                     name={'organizations-edit'}
                                     params={{ organizationId: (modelValue?.raw as Organization)?.id }}

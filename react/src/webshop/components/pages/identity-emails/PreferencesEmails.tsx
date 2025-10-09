@@ -306,6 +306,7 @@ export default function PreferencesEmails() {
                                                         }}
                                                         data-dusk="identityNewEmailFormEmail"
                                                         aria-label="Vul uw e-mailadres in"
+                                                        autoComplete="email"
                                                     />
                                                     <FormError error={form.errors.email} />
                                                 </div>

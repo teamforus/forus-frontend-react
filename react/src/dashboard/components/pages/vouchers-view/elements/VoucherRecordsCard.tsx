@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import ModalVoucherRecordEdit from '../../../modals/ModalVoucherRecordEdit';
@@ -132,7 +132,7 @@ export default function VoucherRecordsCard({
                                 onChange={(e) => filter.update({ q: e.target.value })}
                             />
                         </div>
-                        {hasPermission(organization, 'manage_vouchers') && (
+                        {hasPermission(organization, Permission.MANAGE_VOUCHERS) && (
                             <div className="button button-primary button-sm" onClick={() => editRecord()}>
                                 <em className="mdi mdi-plus-circle icon-start" />
                                 {translate('voucher_records.buttons.add_record')}
@@ -163,7 +163,7 @@ export default function VoucherRecordsCard({
                                             </td>
 
                                             <td className={'table-td-actions text-right'}>
-                                                {hasPermission(organization, 'manage_vouchers') ? (
+                                                {hasPermission(organization, Permission.MANAGE_VOUCHERS) ? (
                                                     <TableRowActions
                                                         content={() => (
                                                             <div className="dropdown dropdown-actions">

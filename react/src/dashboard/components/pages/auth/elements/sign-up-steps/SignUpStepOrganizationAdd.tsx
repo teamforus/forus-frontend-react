@@ -136,6 +136,7 @@ export default function SignUpStepOrganizationAdd({
                                     value={formOrganization.values.name}
                                     onChange={(e) => formOrganization.update({ name: e.target.value })}
                                     placeholder={'Bedrijfsnaam'}
+                                    autoComplete={'organization'}
                                 />
                                 <FormError error={formOrganization.errors.name} />
                             </div>
@@ -189,6 +190,7 @@ export default function SignUpStepOrganizationAdd({
                                             value={formOrganization.values.email}
                                             onChange={(e) => formOrganization.update({ email: e.target.value })}
                                             placeholder={'E-mailadres'}
+                                            autoComplete={'email'}
                                         />
                                     </div>
                                     <div className="col col-md-4 col-xs-12">
@@ -217,6 +219,7 @@ export default function SignUpStepOrganizationAdd({
                                             value={formOrganization.values.phone}
                                             onChange={(e) => formOrganization.update({ phone: e.target.value })}
                                             placeholder={'Telefoonnummer'}
+                                            autoComplete={'tel'}
                                         />
                                     </div>
                                     <div className="col col-md-4 col-xs-12">
@@ -244,6 +247,7 @@ export default function SignUpStepOrganizationAdd({
                                             value={formOrganization.values.website}
                                             onChange={(e) => formOrganization.update({ website: e.target.value })}
                                             placeholder={'Website'}
+                                            autoComplete={'url'}
                                         />
                                     </div>
                                     <div className="col col-md-4 col-xs-12">

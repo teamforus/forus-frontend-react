@@ -1,6 +1,6 @@
 import React, { createRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Fund from '../../../props/models/Fund';
-import Organization from '../../../props/models/Organization';
+import Organization, { Permission } from '../../../props/models/Organization';
 import RecordType from '../../../props/models/RecordType';
 import { hasPermission } from '../../../helpers/utils';
 import FundCriteriaEditorItem from './FundCriteriaEditorItem';
@@ -178,7 +178,7 @@ export default function FundCriteriaEditor({
                 ))}
             </div>
 
-            {hasPermission(organization, 'manage_funds') &&
+            {hasPermission(organization, Permission.MANAGE_FUNDS) &&
                 (fund.criteria_editable || modified || deletedItemsCount > 0) && (
                     <div className={classNames('criteria-editor-actions', footerClassName)}>
                         {fund.criteria_editable && (

@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import { createEnumParam, useQueryParam, withDefault } from 'use-query-params';
 import { hasPermission } from '../../../../helpers/utils';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import Fund from '../../../../props/models/Fund';
 import OrganizationsFundsShowTopUpsCard from './tabs-relations-card/OrganizationsFundsShowTopUpsCard';
 import OrganizationsFundsShowImplementationsCard from './tabs-relations-card/OrganizationsFundsShowImplementationsCard';
@@ -18,19 +18,19 @@ export default function OrganizationsFundsShowRelationsCard({
     organization: Organization;
 }) {
     const canViewFinances = useMemo(() => {
-        return hasPermission(organization, 'view_finances');
+        return hasPermission(organization, Permission.VIEW_FINANCES);
     }, [organization]);
 
     const canViewIdentities = useMemo(() => {
         return hasPermission(
             organization,
-            ['view_identities', 'manage_identities', 'manage_implementation_notifications'],
+            [Permission.VIEW_IDENTITIES, Permission.MANAGE_IDENTITIES, Permission.MANAGE_IMPLEMENTATION_NOTIFICATIONS],
             false,
         );
     }, [organization]);
 
     const canViewImplementation = useMemo(() => {
-        return hasPermission(organization, 'manage_implementation');
+        return hasPermission(organization, Permission.MANAGE_IMPLEMENTATION);
     }, [organization]);
 
     const availableViewTables = useMemo(() => {

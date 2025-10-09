@@ -10,6 +10,7 @@ import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import useTranslate from '../../../../hooks/useTranslate';
 import { useFundService } from '../../../../services/FundService';
 import classNames from 'classnames';
+import { Permission } from '../../../../props/models/Organization';
 
 export default function OrganizationFundsShowOverviewCard({
     fund,
@@ -27,7 +28,7 @@ export default function OrganizationFundsShowOverviewCard({
     const fundService = useFundService();
 
     const canManageFunds = useMemo(() => {
-        return hasPermission(activeOrganization, 'manage_funds');
+        return hasPermission(activeOrganization, Permission.MANAGE_FUNDS);
     }, [activeOrganization]);
 
     const deleteFund = useCallback(
@@ -118,7 +119,10 @@ export default function OrganizationFundsShowOverviewCard({
                                     </button>
                                 )}
 
-                                {hasPermission(fund.organization, ['manage_funds', 'manage_fund_texts']) && (
+                                {hasPermission(fund.organization, [
+                                    Permission.MANAGE_FUNDS,
+                                    Permission.MANAGE_FUND_TEXTS,
+                                ]) && (
                                     <StateNavLink
                                         className="button button-default"
                                         name="funds-edit"
