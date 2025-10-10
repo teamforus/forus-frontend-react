@@ -4,7 +4,7 @@ import EmptyCard from '../../../../elements/empty-card/EmptyCard';
 import { useNavigateState } from '../../../../../modules/state_router/Router';
 import ModalFundInviteProviders from '../../../../modals/ModalFundInviteProviders';
 import { hasPermission } from '../../../../../helpers/utils';
-import Organization from '../../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../../props/models/Organization';
 import useTranslate from '../../../../../hooks/useTranslate';
 import useOpenModal from '../../../../../hooks/useOpenModal';
 import usePushSuccess from '../../../../../hooks/usePushSuccess';
@@ -22,7 +22,7 @@ export default function OrganizationsFundsShowStatisticsCard({
     const navigateState = useNavigateState();
 
     const canInviteProviders = useMemo(() => {
-        return hasPermission(organization, 'manage_funds') && fund?.state != 'closed';
+        return hasPermission(organization, Permission.MANAGE_FUNDS) && fund?.state != 'closed';
     }, [organization, fund?.state]);
 
     const providersDescription = useMemo(() => {

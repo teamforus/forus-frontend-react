@@ -1669,11 +1669,12 @@
             "all_providers": "حدد المزود...",
             "all_sub_categories": "اختر الفئة الفرعية...",
             "category": "الفئة",
-            "found_for": "{{ query }}وجدت لـ \"\"",
             "funds": "الائتمان",
             "highlighted": "مميز",
             "providers": "المزودون",
-            "sort": "فرز"
+            "sort": "فرز",
+            "found_for": "تم العثور على نتائج البحث عن \"{{ query }}\"",
+            "search": "بحث"
         },
         "sort_by": {
             "created_at_asc": "الأقدم أولاً",

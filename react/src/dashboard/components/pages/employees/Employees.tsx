@@ -29,6 +29,7 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import TableRowActions from '../../elements/tables/TableRowActions';
 import useEmployeeExporter from '../../../services/exporters/useEmployeeExporter';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
+import { Permission } from '../../../props/models/Organization';
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -208,7 +209,7 @@ export default function Employees() {
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
                         {activeOrganization.allow_2fa_restrictions &&
-                            hasPermission(activeOrganization, 'manage_organization') && (
+                            hasPermission(activeOrganization, Permission.MANAGE_ORGANIZATION) && (
                                 <NavLink
                                     className={'button button-default button-sm'}
                                     to={getStateRouteUrl('organization-security', {

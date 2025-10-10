@@ -1,6 +1,6 @@
-import Organization from '../props/models/Organization';
+import Organization, { Permission } from '../props/models/Organization';
 
-export const hasPermission = (organization: Organization, permissions: string | Array<string>, all = false) => {
+export const hasPermission = (organization: Organization, permissions: Permission | Array<Permission>, all = false) => {
     if (!organization || !organization.permissions) {
         return false;
     }
@@ -11,15 +11,15 @@ export const hasPermission = (organization: Organization, permissions: string | 
 
     if (all) {
         return (
-            permissions.filter((permissionItem) => {
-                return organization.permissions.indexOf(permissionItem) !== -1;
+            permissions.filter((permission) => {
+                return organization.permissions.includes(permission);
             }).length == permissions.length
         );
     }
 
     return (
-        permissions.filter((permissionItem) => {
-            return organization.permissions.indexOf(permissionItem) !== -1;
+        permissions.filter((permission) => {
+            return organization.permissions.includes(permission);
         }).length > 0
     );
 };

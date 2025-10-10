@@ -22,6 +22,7 @@ import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import { Permission } from '../../../props/models/Organization';
 
 export default function TransactionBulksView() {
     const envData = useEnvData();
@@ -60,7 +61,7 @@ export default function TransactionBulksView() {
     }, [activeOrganization.id, setProgress, transactionBulkService, bulkId]);
 
     const canManageBulks = useMemo(
-        () => hasPermission(activeOrganization, 'manage_transaction_bulks'),
+        () => hasPermission(activeOrganization, Permission.MANAGE_TRANSACTION_BULKS),
         [activeOrganization],
     );
 

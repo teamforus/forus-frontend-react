@@ -260,7 +260,7 @@ export default function BiConnection() {
             </div>
 
             <div className="card">
-                <form className="form">
+                <form className="form" onSubmit={form.submit}>
                     <div className="card-header">
                         <div className="card-title flex flex-grow">{translate('bi_connection.title')}</div>
                         <BlockLabelTabs
@@ -606,7 +606,7 @@ export default function BiConnection() {
                                 {translate('bi_connection.buttons.cancel')}
                             </StateNavLink>
 
-                            <button type="submit" onClick={() => form.submit()} className="button button-primary">
+                            <button type="submit" className="button button-primary">
                                 {translate('bi_connection.buttons.submit')}
                             </button>
                         </div>

@@ -27,7 +27,7 @@ export default function Privacy() {
                         {page && <CmsBlocks page={page} largeMarkdown={true} />}
 
                         {(!page.description_html || page.description_position !== 'replace') && (
-                            <Fragment>
+                            <div className={'wrapper'}>
                                 <div className="section-title text-left">
                                     {translate(`privacy.${envData.client_key}.title`, null, 'privacy.title')}
                                 </div>
@@ -134,7 +134,7 @@ export default function Privacy() {
                                         </Fragment>
                                     )}
                                 </div>
-                            </Fragment>
+                            </div>
                         )}
                     </div>
                 </div>

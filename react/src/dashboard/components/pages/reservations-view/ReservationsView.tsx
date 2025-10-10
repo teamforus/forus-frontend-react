@@ -25,6 +25,7 @@ import ProductDetailsBlockProperties from '../products-view/elements/ProductDeta
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
 import ModalReservationReject from '../../modals/ModalReservationReject';
 import useOpenModal from '../../../hooks/useOpenModal';
+import { Permission } from '../../../props/models/Organization';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -394,7 +395,7 @@ export default function ReservationsView() {
                 </div>
             </div>
 
-            {transaction && hasPermission(activeOrganization, 'view_finances') && (
+            {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                 <TransactionDetails
                     transaction={transaction}
                     setTransaction={setTransaction}

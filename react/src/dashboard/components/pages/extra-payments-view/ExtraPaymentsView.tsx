@@ -15,6 +15,7 @@ import ReservationExtraPaymentDetails from '../reservations-view/elements/Reserv
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../hooks/usePushApiError';
+import { Permission } from '../../../props/models/Organization';
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
 
 export default function ExtraPaymentsView() {
@@ -202,7 +203,7 @@ export default function ExtraPaymentsView() {
                 </div>
             </div>
 
-            {transaction && hasPermission(activeOrganization, 'view_finances') && (
+            {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
                 <TransactionDetails
                     transaction={transaction}
                     setTransaction={setTransaction}
