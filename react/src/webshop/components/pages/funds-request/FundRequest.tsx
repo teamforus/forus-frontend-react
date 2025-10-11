@@ -131,6 +131,16 @@ export default function FundRequest() {
         }, {});
     }, [pendingCriteria]);
 
+    const hasPersonBsnApi = useMemo(
+        () =>
+            bsnIsKnown &&
+            fund &&
+            authIdentity &&
+            fund.allow_fund_request_prefill &&
+            fund.organization.has_person_bsn_api,
+        [authIdentity, bsnIsKnown, fund],
+    );
+
     const shouldRequestRecord = useShouldRequestRecord(recordTypesByKey, recordValuesByType);
 
     const criteriaSteps = useMemo<Array<FundCriteriaStepLocal>>(() => {
@@ -464,14 +474,7 @@ export default function FundRequest() {
     }, [authIdentity, fund, fundRequestService, setProgress]);
 
     const checkPersonBsnApiRecords = useCallback(() => {
-        if (
-            !bsnIsKnown ||
-            !fund ||
-            !authIdentity ||
-            !fund.allow_fund_request_prefill ||
-            !fund.organization.has_person_bsn_api ||
-            personApiRecordsFetch
-        ) {
+        if (!hasPersonBsnApi || personApiRecordsFetch) {
             return;
         }
 
@@ -492,7 +495,7 @@ export default function FundRequest() {
                 ];
             });
         });
-    }, [bsnIsKnown, fund, fundService, authIdentity, personApiRecordsFetch]);
+    }, [hasPersonBsnApi, personApiRecordsFetch, fundService, fund]);
 
     useEffect(() => {
         fetchFund();
@@ -654,7 +657,13 @@ export default function FundRequest() {
         }
     }, [autoSubmit, autoSubmitted, step, steps, submitConfirmCriteria]);
 
-    if (!fund || !vouchers || !fundRequests || (steps[step] == 'confirm_criteria' && autoSubmit)) {
+    if (
+        !fund ||
+        !vouchers ||
+        !fundRequests ||
+        (steps[step] == 'confirm_criteria' && autoSubmit) ||
+        (hasPersonBsnApi && !personPrefills)
+    ) {
         return <BlockShowcase />;
     }
 
