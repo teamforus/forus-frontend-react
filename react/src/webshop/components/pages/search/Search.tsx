@@ -266,6 +266,7 @@ export default function Search() {
                                 onChangeValue={(q: string) => filterUpdate({ q })}
                                 ariaLabel={translate('search.filters.search')}
                                 id="main_search"
+                                dataDusk="searchListSearch"
                             />
                         </div>
 
