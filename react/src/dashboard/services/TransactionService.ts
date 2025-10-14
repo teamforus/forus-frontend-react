@@ -89,15 +89,20 @@ export class TransactionService<T = Transaction> {
             isSponsor ? 'bulk_id' : null,
             isSponsor ? 'bulk_state' : null,
             'state',
+            'transfer_in',
         ].filter((item) => item);
+
+        const customLabels = {
+            transfer_in: isSponsor ? 'sponsor_transfer_in' : 'provider_transfer_in',
+        };
 
         return list.map((key) => ({
             key,
-            label: `transactions.labels.${key}`,
+            label: `transactions.labels.${customLabels[key] || key}`,
             tooltip: {
                 key: key,
-                title: `transactions.labels.${key}`,
-                description: `transactions.tooltips.${key}`,
+                title: `transactions.labels.${customLabels[key] || key}`,
+                description: `transactions.tooltips.${customLabels[key] || key}`,
             },
         }));
     }

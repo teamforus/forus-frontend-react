@@ -2319,14 +2319,12 @@
             "all_providers": "Виберіть провайдера...",
             "all_sub_categories": "Виберіть підкатегорію...",
             "bookmarked": "Мій список бажань",
-            "category": "Категорія",
             "distance": "Відстань",
             "fund": "Кредит",
             "postcode": "Поштовий індекс",
             "providers": "Провайдери",
             "search": "Пропозиція пошуку",
             "sort": "Сортування",
-            "sub_category": "Підкатегорія",
             "payment_option_qr": "Показати QR-код у постачальника",
             "payment_option_reservation": "Бронюйте онлайн",
             "payment_options": "Варіанти оплати",
@@ -2341,7 +2339,8 @@
             "price_type_option_informational": "Тільки в магазині",
             "price_type_option_regular": "Ціна",
             "price_type_options": "Тип пропозиції",
-            "price_type_options_info": "Дізнайтеся більше про типи пропозицій"
+            "price_type_options_info": "Дізнайтеся більше про типи пропозицій",
+            "category": "Категорії"
         },
         "sort": {
             "created_at_asc": "Найстарший перший",
@@ -2507,35 +2506,13 @@
             "home": "Головна",
             "providers": "Провайдери"
         },
-        "distances": {
-            "3": "< 3 км",
-            "5": "< 5 км",
-            "10": "< 10 км",
-            "15": "< 15 км",
-            "25": "< 25 км",
-            "50": "< 50 км",
-            "75": "< 75 км",
-            "everywhere": "Скрізь"
-        },
         "filters": {
-            "all_categories": "Виберіть категорію...",
-            "all_funds": "Всі титри...",
-            "all_products": "Повна пропозиція",
-            "all_providers": "Виберіть провайдера...",
-            "all_sub_categories": "Виберіть підкатегорію...",
             "all_types": "Всі види...",
-            "bookmarked": "Мій список бажань",
-            "category": "Категорія",
-            "distance": "Відстань",
-            "fund": "Кредит",
             "map_title": "Виберіть постачальника для отримання додаткової інформації",
-            "postcode": "Поштовий індекс",
             "provider_type": "Тип постачальника",
-            "providers": "Провайдери",
             "result": "Є <div class=\"showcase-result-count\">{{ total }}</div> провайдерів знайдено.",
             "search": "Пошук",
-            "sort": "Сортування",
-            "sub_category": "Підкатегорія"
+            "sort": "Сортування"
         },
         "items": {
             "labels": {
@@ -2838,11 +2815,12 @@
             "all_providers": "Виберіть провайдера...",
             "all_sub_categories": "Виберіть підкатегорію...",
             "category": "Категорія",
-            "found_for": "{{ query }}знайдено для \" \"",
             "funds": "Кредит",
             "highlighted": "Особливості",
             "providers": "Провайдери",
-            "sort": "Сортування"
+            "sort": "Сортування",
+            "found_for": "Результати пошуку, знайдені для \"{{ query }}\"",
+            "search": "Пошук"
         },
         "sort_by": {
             "created_at_asc": "Найстарший перший",

@@ -1,7 +1,6 @@
-import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
-import { mainContext } from '../../../contexts/MainContext';
 import { SearchItem, useSearchService } from '../../../services/SearchService';
 import { useFundService } from '../../../services/FundService';
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
@@ -23,6 +22,7 @@ import { clickOnKeyEnter, clickOnKeyEnterOrSpace } from '../../../../dashboard/h
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
+import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 
 export default function Search() {
     const authIdentity = useAuthIdentity();
@@ -37,13 +37,8 @@ export default function Search() {
     const productCategoryService = useProductCategoryService();
     const payoutTransactionService = usePayoutTransactionService();
 
-    const { searchFilter } = useContext(mainContext);
-
     const [displayType, setDisplayType] = useState<'list' | 'grid'>('list');
     const [searchItems, setSearchItems] = useState<PaginationData<SearchItem & { stateParams?: object }>>(null);
-
-    const globalQuery = useMemo(() => searchFilter?.values?.q, [searchFilter?.values?.q]);
-    const [globalInitialized, setGlobalInitialized] = useState(false);
 
     // Search direction
     const [sortByOptions] = useState<
@@ -248,18 +243,6 @@ export default function Search() {
         );
     }, [doSearch, filterValuesActive, sortByOptions]);
 
-    useEffect(() => {
-        setGlobalInitialized(true);
-
-        if (!globalInitialized && filterValues?.q) {
-            setTimeout(() => searchFilter.update({ q: filterValues.q }), 150);
-        }
-    }, [filterValues.q, globalInitialized, searchFilter]);
-
-    useEffect(() => {
-        filterUpdate({ q: globalQuery });
-    }, [filterUpdate, globalQuery]);
-
     return (
         <BlockShowcasePage
             countFiltersApplied={countFiltersApplied}
@@ -273,6 +256,20 @@ export default function Search() {
                 organizations &&
                 productCategories && (
                     <div className="showcase-aside-block">
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="main_search">
+                                {translate('search.filters.search')}
+                            </label>
+                            <UIControlText
+                                value={filterValues.q}
+                                autoFocus={true}
+                                onChangeValue={(q: string) => filterUpdate({ q })}
+                                ariaLabel={translate('search.filters.search')}
+                                id="main_search"
+                                dataDusk="searchListSearch"
+                            />
+                        </div>
+
                         <div className="form-label">{translate('search.filters.highlighted')}</div>
                         {searchItemTypes?.map((itemType) => (
                             <div key={itemType.key} className="form-group">
@@ -358,10 +355,9 @@ export default function Search() {
                 <Fragment>
                     <div className="showcase-content-header">
                         <div className="showcase-filters-title">
-                            {translate('search.title')}
                             {filterValuesActive.q && (
                                 <Fragment>
-                                    {' ' + translate('search.filters.found_for', { query: filterValuesActive.q })}
+                                    {translate('search.filters.found_for', { query: filterValuesActive.q })}
                                 </Fragment>
                             )}
                             <div className="showcase-filters-title-count" data-nosnippet="true">

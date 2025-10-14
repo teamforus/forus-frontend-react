@@ -6513,7 +6513,7 @@
     ],
     [
         "products.filters.category",
-        "Categorie"
+        "Categorieën"
     ],
     [
         "products.filters.distance",
@@ -6598,10 +6598,6 @@
     [
         "products.filters.sort",
         "Sorteer"
-    ],
-    [
-        "products.filters.sub_category",
-        "Subcategorie"
     ],
     [
         "products.sort.created_at_asc",
@@ -7012,92 +7008,16 @@
         "Aanbieders"
     ],
     [
-        "providers.distances.10",
-        "< 10 km"
-    ],
-    [
-        "providers.distances.15",
-        "< 15 km"
-    ],
-    [
-        "providers.distances.25",
-        "< 25 km"
-    ],
-    [
-        "providers.distances.3",
-        "< 3 km"
-    ],
-    [
-        "providers.distances.5",
-        "< 5 km"
-    ],
-    [
-        "providers.distances.50",
-        "< 50 km"
-    ],
-    [
-        "providers.distances.75",
-        "< 75 km"
-    ],
-    [
-        "providers.distances.everywhere",
-        "Overal"
-    ],
-    [
-        "providers.filters.all_categories",
-        "Selecteer categorie..."
-    ],
-    [
-        "providers.filters.all_funds",
-        "Alle tegoeden..."
-    ],
-    [
-        "providers.filters.all_products",
-        "Volledig aanbod"
-    ],
-    [
-        "providers.filters.all_providers",
-        "Selecteer aanbieder..."
-    ],
-    [
-        "providers.filters.all_sub_categories",
-        "Selecteer subcategorie..."
-    ],
-    [
         "providers.filters.all_types",
         "Alle typen..."
-    ],
-    [
-        "providers.filters.bookmarked",
-        "Mijn verlanglijstje"
-    ],
-    [
-        "providers.filters.category",
-        "Categorie"
-    ],
-    [
-        "providers.filters.distance",
-        "Afstand"
-    ],
-    [
-        "providers.filters.fund",
-        "Tegoeden"
     ],
     [
         "providers.filters.map_title",
         "Selecteer een aanbieder voor meer informatie"
     ],
     [
-        "providers.filters.postcode",
-        "Postcode"
-    ],
-    [
         "providers.filters.provider_type",
         "Type aanbieder"
-    ],
-    [
-        "providers.filters.providers",
-        "Aanbieders"
     ],
     [
         "providers.filters.result",
@@ -7110,10 +7030,6 @@
     [
         "providers.filters.sort",
         "Sorteer"
-    ],
-    [
-        "providers.filters.sub_category",
-        "Subcategorie"
     ],
     [
         "providers.items.labels.open_provider",
@@ -7933,7 +7849,7 @@
     ],
     [
         "search.filters.found_for",
-        "gevonden voor \"{{ query }}\""
+        "Zoekresultaten gevonden voor \"{{ query }}\""
     ],
     [
         "search.filters.funds",
@@ -7946,6 +7862,10 @@
     [
         "search.filters.providers",
         "Aanbieders"
+    ],
+    [
+        "search.filters.search",
+        "Zoek"
     ],
     [
         "search.filters.sort",
