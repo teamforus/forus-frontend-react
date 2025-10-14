@@ -1,19 +1,21 @@
-import KeyValueItem from '../../../elements/key-value/KeyValueItem';
-import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
+import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
+import TranslateHtml from '../../../../elements/translate-html/TranslateHtml';
 import React, { Fragment } from 'react';
-import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
-import Product from '../../../../props/models/Product';
-import useTranslate from '../../../../hooks/useTranslate';
-import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import SponsorProduct from '../../../../../props/models/Sponsor/SponsorProduct';
+import Product from '../../../../../props/models/Product';
+import useTranslate from '../../../../../hooks/useTranslate';
+import StateNavLink from '../../../../../modules/state_router/StateNavLink';
 import classNames from 'classnames';
-import FormPane from '../../../elements/forms/elements/FormPane';
+import FormPane from '../../../../elements/forms/elements/FormPane';
 
-export default function ProductDetailsBlockProperties({
+export default function ProductDetailsBlockPropertiesPane({
+    title = null,
     showName,
     product,
     viewType,
     showStockAndReservations = true,
 }: {
+    title?: string;
     showName: boolean;
     product: SponsorProduct | Product;
     viewType: 'sponsor' | 'provider';
@@ -23,7 +25,7 @@ export default function ProductDetailsBlockProperties({
 
     return (
         <div className={'form'}>
-            <FormPane title={translate('product.labels.details')} large={true}>
+            <FormPane title={title || translate('product.labels.details')} large={true}>
                 <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
                     {viewType === 'provider' && showName && (
                         <KeyValueItem label={translate('product.labels.name')}>

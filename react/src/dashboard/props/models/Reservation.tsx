@@ -61,4 +61,5 @@ export default interface Reservation {
     };
     cancellation_note?: string;
     rejection_note?: string;
+    invoice_number?: string;
 }

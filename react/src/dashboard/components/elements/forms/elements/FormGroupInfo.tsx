@@ -30,32 +30,37 @@ export default function FormGroupInfo({
                 <div className={classNames('form-group-info-button', dashed && 'form-group-info-button-dashed')}>
                     {copyShow && (
                         <button
+                            type="button"
+                            aria-label="Copy to clipboard"
                             className={classNames(
                                 'button button-default button-icon pull-left',
                                 dashed && 'button-dashed',
                             )}
                             disabled={copyDisable}
                             onClick={() => copyToClipboard(copyValue)}>
-                            <em className="mdi mdi-content-copy" />
+                            <em className="mdi mdi-content-copy" aria-hidden="true" />
                         </button>
                     )}
-                    <div
+                    <button
+                        type="button"
+                        aria-label={showInfo ? 'Hide information' : 'Show information'}
+                        aria-expanded={showInfo}
                         onClick={() => setShowInfo(!showInfo)}
                         className={classNames(
                             'button button-default button-icon pull-left',
                             dashed && 'button-dashed',
                             showInfo && 'active',
                         )}>
-                        <em className="mdi mdi-information" />
-                    </div>
+                        <em className="mdi mdi-information" aria-hidden="true" />
+                    </button>
                 </div>
             </div>
 
             <FormError error={error} />
 
             {showInfo && (
-                <div className="block block-info-box block-info-box-primary">
-                    <div className="info-box-icon mdi mdi-information" />
+                <div className="block block-info-box block-info-box-primary" role="region" aria-label="Information">
+                    <div className="info-box-icon mdi mdi-information" aria-hidden="true" />
                     <div className="info-box-content">
                         <div className="block block-markdown">
                             {typeof info === 'string'
