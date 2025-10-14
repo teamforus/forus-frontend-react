@@ -113,7 +113,7 @@ export default function TransactionDetailsPane({
     }
 
     return (
-        <FormPane title={'Overview'} large={true}>
+        <FormPane title={'Transactie details'} large={true}>
             <div className="flex">
                 <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
                     <KeyValueItem label={translate('financial_dashboard_transaction.labels.id')}>

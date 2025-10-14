@@ -376,7 +376,7 @@ export default function TransactionSettings() {
                                                 </li>
 
                                                 <li className="block-info-list-item">
-                                                    Invoice number:
+                                                    Factuurnummer:
                                                     <span className="block-info-list-item-value">
                                                         {testData.bank_reservation_invoice_number} • 3-30 karakters
                                                     </span>

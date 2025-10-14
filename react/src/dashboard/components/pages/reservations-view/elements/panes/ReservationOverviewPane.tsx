@@ -9,7 +9,7 @@ export default function ReservationOverviewPane({ reservation }: { reservation: 
     const translate = useTranslate();
 
     return (
-        <FormPane title={'Overview'} large={true}>
+        <FormPane title={'Reservering details'} large={true}>
             <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
                 <KeyValueItem label={translate('reservation.labels.price')}>{reservation.amount_locale}</KeyValueItem>
                 <KeyValueItem label={translate('reservation.labels.fund')}>{reservation.fund.name}</KeyValueItem>

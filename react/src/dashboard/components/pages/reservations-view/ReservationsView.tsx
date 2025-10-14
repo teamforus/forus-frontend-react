@@ -200,7 +200,7 @@ export default function ReservationsView() {
                         <ReservationOverviewPane reservation={reservation} />
 
                         <ProductDetailsBlockPropertiesPane
-                            title={'Product details'}
+                            title={'Aanbod details'}
                             product={reservation.product}
                             viewType={'provider'}
                             showName={true}
