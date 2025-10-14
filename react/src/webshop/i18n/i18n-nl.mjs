@@ -122,7 +122,7 @@ export default {
         portfolio: 'Portfolio{{pageTitleSuffix}}',
         kindpakket: 'Portfolio - Kindpakket{{pageTitleSuffix}}',
         product: 'Aanbod - {{product_name}} van {{organization_name}}{{pageTitleSuffix}}',
-        products: 'Aanbod{{fund_name}}{{pageTitleSuffix}}',
+        products: 'Aanbod{{pageTitleSuffix}}',
         actions: 'Aanbod{{fund_name}}{{pageTitleSuffix}}',
         providers: 'Aanbieders{{pageTitleSuffix}}',
         'products-show': 'Aanbieding{{pageTitleSuffix}}',
