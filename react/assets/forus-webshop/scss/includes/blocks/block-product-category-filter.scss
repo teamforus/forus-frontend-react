@@ -32,13 +32,13 @@
             gap: 5px;
             align-items: center;
             justify-content: center;
-            color: #535561;
+            color: var(--tc);
         }
 
         .category-filter-item-name {
             display: inline-block;
             font: 600 13px/20px var(--base-font);
-            color: #535561;
+            color: var(--tc);
         }
 
         &:hover,
