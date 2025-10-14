@@ -13,9 +13,9 @@ import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';
 import Transaction from '../../../props/models/Transaction';
 import useShowRejectInfoExtraPaid from '../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
-import TransactionDetailCards from '../transactions-view/elements/TransactionDetailCards';
+import TransactionDetailsPane from '../transactions-view/elements/panes/TransactionDetailsPane';
 import ReservationExtraPaymentRefundsCard from './elements/ReservationExtraPaymentRefundsCard';
-import ReservationExtraPaymentDetailsCard from './elements/ReservationExtraPaymentDetailsCard';
+import ReservationExtraPaymentDetailsPane from './elements/panes/ReservationExtraPaymentDetailsPane';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ProductDetailsBlockPropertiesPane from '../products-view/elements/panes/ProductDetailsBlockPropertiesPane';
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
@@ -24,6 +24,7 @@ import useOpenModal from '../../../hooks/useOpenModal';
 import ReservationExtraInformationPane from './elements/panes/ReservationExtraInformationPane';
 import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
 import ReservationDetailsPane from './elements/panes/ReservationDetailsPane';
+import useTranslate from '../../../hooks/useTranslate';
 import { Permission } from '../../../props/models/Organization';
 
 export default function ReservationsView() {
@@ -32,6 +33,7 @@ export default function ReservationsView() {
     const envData = useEnvData();
     const activeOrganization = useActiveOrganization();
 
+    const translate = useTranslate();
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
@@ -215,23 +217,37 @@ export default function ReservationsView() {
                 </div>
             </div>
 
-            {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
-                <TransactionDetailCards
-                    transaction={transaction}
-                    setTransaction={setTransaction}
-                    showDetailsPageButton={true}
-                    showAmount={false}
-                    onUpdate={onTransactionUpdate}
-                />
-            )}
+            {((transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES)) ||
+                reservation.extra_payment) && (
+                <div className="card card-wrapped">
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title">
+                            {translate('financial_dashboard_transaction.labels.details')}
+                        </div>
+                    </div>
+                    <div className="card-section form">
+                        <div className="flex flex-gap flex-vertical form">
+                            {transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
+                                <TransactionDetailsPane
+                                    transaction={transaction}
+                                    setTransaction={setTransaction}
+                                    showDetailsPageButton={true}
+                                    showState={true}
+                                    onUpdate={onTransactionUpdate}
+                                />
+                            )}
 
-            {reservation.extra_payment && (
-                <ReservationExtraPaymentDetailsCard
-                    organization={activeOrganization}
-                    reservation={reservation}
-                    payment={reservation.extra_payment}
-                    onUpdate={onExtraPaymentUpdate}
-                />
+                            {reservation.extra_payment && (
+                                <ReservationExtraPaymentDetailsPane
+                                    organization={activeOrganization}
+                                    reservation={reservation}
+                                    payment={reservation.extra_payment}
+                                    onUpdate={onExtraPaymentUpdate}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </div>
             )}
 
             {reservation.extra_payment && reservation.extra_payment.refunds.length > 0 && (

@@ -10,7 +10,7 @@ import Reimbursement from '../../../props/models/Reimbursement';
 import File from '../../../props/models/File';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
-import TransactionDetailCards from '../transactions-view/elements/TransactionDetailCards';
+import TransactionDetailsPane from '../transactions-view/elements/panes/TransactionDetailsPane';
 import { hasPermission } from '../../../helpers/utils';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
@@ -578,11 +578,22 @@ export default function ReimbursementsView() {
             )}
 
             {reimbursement.voucher_transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
-                <TransactionDetailCards
-                    transaction={reimbursement.voucher_transaction}
-                    setTransaction={setTransaction}
-                    showReservationPageButton={true}
-                />
+                <div className="card card-wrapped">
+                    <div className="card-header">
+                        <div className="flex flex-grow card-title">
+                            {translate('financial_dashboard_transaction.labels.details')}
+                        </div>
+                    </div>
+                    <div className="card-section form">
+                        <div className="flex flex-gap flex-vertical form">
+                            <TransactionDetailsPane
+                                transaction={reimbursement.voucher_transaction}
+                                setTransaction={setTransaction}
+                                showReservationPageButton={true}
+                            />
+                        </div>
+                    </div>
+                </div>
             )}
 
             <BlockCardNotes

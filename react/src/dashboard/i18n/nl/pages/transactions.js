@@ -54,6 +54,8 @@ export default {
         branch_number: 'Vestigingsnummer',
         bulk_state: 'Bulk status',
         payment_type: 'Soort',
+        sponsor_transfer_in: 'Transactie in afwachting',
+        provider_transfer_in: 'Transactie in afwachting',
     },
     tooltips: {
         id: 'Het unieke ID-nummer van de transactie binnen het Forus platform. Dit nummer wordt automatisch gegenereerd.',
@@ -78,6 +80,10 @@ export default {
         state: 'De status van de individuele transactie.',
         target: 'Geeft aan naar wie de transactie zal worden uitbetaald. Dit kan een aanbieder zijn of rechtstreeks naar de bankrekening van de inwoner.',
         execution_date: 'De datum wanneer de uitbetaling is verricht door de sponsor.',
+        sponsor_transfer_in:
+            'Wanneer de transactie een reservering betreft, is annuleren door de aanbieder of deelnemer nog mogelijk binnen 14 dagen nadat de reservering is geaccepteerd. Deze kolom geeft weer hoeveel dagen er nog resterend zijn voordat de tranactie wordt vrijgegeven en kan worden uitbetaald.',
+        provider_transfer_in:
+            'Wanneer de transactie een reservering betreft, is annuleren nog mogelijk binnen 14 dagen nadat de reservering is geaccepteerd. Deze kolom geeft weer hoeveel dagen er nog resterend zijn voordat de tranactie wordt vrijgegeven.',
     },
     bulks: {
         labels: {
