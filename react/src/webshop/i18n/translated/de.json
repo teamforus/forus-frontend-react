@@ -2802,11 +2802,12 @@
             "all_providers": "Anbieter auswählen...",
             "all_sub_categories": "Unterkategorie auswählen...",
             "category": "Kategorie",
-            "found_for": "{{ query }}gefunden für \" \"",
             "funds": "Kredit",
             "highlighted": "Ausgewählt",
             "providers": "Anbieter",
-            "sort": "Sortieren"
+            "sort": "Sortieren",
+            "found_for": "Suchergebnisse gefunden für \"{{ query }}\"",
+            "search": "Suche"
         },
         "sort_by": {
             "created_at_asc": "Älteste zuerst",

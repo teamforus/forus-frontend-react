@@ -2921,7 +2921,8 @@
             "providers": "Providers",
             "sort": "Sort",
             "all_funds": "Select credits...",
-            "found_for": "found for \"{{ query }}\""
+            "found_for": "Search results found for \"{{ query }}\"",
+            "search": "Search"
         },
         "title": "Search Results",
         "view": {

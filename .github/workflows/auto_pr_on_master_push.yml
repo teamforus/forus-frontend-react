@@ -10,6 +10,9 @@ on:
 jobs:
   create_pr:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v4
