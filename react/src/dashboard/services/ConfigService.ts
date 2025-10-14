@@ -170,6 +170,7 @@ export type AppConfigProp = {
     banner?: Media;
     implementation?: {
         name?: string;
+        root_product_category_id?: number;
     };
     products_hard_limit?: number;
     products_soft_limit?: number;
