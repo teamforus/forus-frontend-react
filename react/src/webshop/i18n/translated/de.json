@@ -2334,14 +2334,12 @@
             "all_providers": "Anbieter auswählen...",
             "all_sub_categories": "Unterkategorie auswählen...",
             "bookmarked": "Mein Wunschzettel",
-            "category": "Kategorie",
             "distance": "Entfernung",
             "fund": "Kredit",
             "postcode": "Postleitzahl",
             "providers": "Anbieter",
             "search": "Angebot suchen",
             "sort": "Sortieren",
-            "sub_category": "Unterkategorie",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
             "payment_option_reservation": "Online buchen",
             "payment_options": "Zahlungsmöglichkeiten",
@@ -2356,7 +2354,8 @@
             "price_type_option_informational": "Nur im Geschäft",
             "price_type_option_regular": "Preis",
             "price_type_options": "Art des Angebots",
-            "price_type_options_info": "Lesen Sie mehr über die Arten von Angeboten"
+            "price_type_options_info": "Lesen Sie mehr über die Arten von Angeboten",
+            "category": "Kategorien"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -2521,35 +2520,13 @@
             "home": "Startseite",
             "providers": "Anbieter"
         },
-        "distances": {
-            "3": "< 3 km",
-            "5": "< 5 km",
-            "10": "< 10 km",
-            "15": "< 15 km",
-            "25": "< 25 km",
-            "50": "< 50 km",
-            "75": "< 75 km",
-            "everywhere": "Überall"
-        },
         "filters": {
-            "all_categories": "Kategorie auswählen...",
-            "all_funds": "Alle Credits...",
-            "all_products": "Vollständiges Angebot",
-            "all_providers": "Anbieter auswählen...",
-            "all_sub_categories": "Unterkategorie auswählen...",
             "all_types": "Alle Arten...",
-            "bookmarked": "Mein Wunschzettel",
-            "category": "Kategorie",
-            "distance": "Entfernung",
-            "fund": "Kredit",
             "map_title": "Wählen Sie einen Anbieter für weitere Informationen",
-            "postcode": "Postleitzahl",
             "provider_type": "Typ des Anbieters",
-            "providers": "Anbieter",
             "result": "Es sind <div class=\"showcase-result-count\">{{ total }}</div> Anbieter gefunden.",
             "search": "Suche",
-            "sort": "Sortieren",
-            "sub_category": "Unterkategorie"
+            "sort": "Sortieren"
         },
         "items": {
             "labels": {
@@ -2852,11 +2829,12 @@
             "all_providers": "Anbieter auswählen...",
             "all_sub_categories": "Unterkategorie auswählen...",
             "category": "Kategorie",
-            "found_for": "{{ query }}gefunden für \" \"",
             "funds": "Kredit",
             "highlighted": "Ausgewählt",
             "providers": "Anbieter",
-            "sort": "Sortieren"
+            "sort": "Sortieren",
+            "found_for": "Suchergebnisse gefunden für \"{{ query }}\"",
+            "search": "Suche"
         },
         "sort_by": {
             "created_at_asc": "Älteste zuerst",

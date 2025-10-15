@@ -3,8 +3,8 @@ import SponsorProduct from '../../../../props/models/Sponsor/SponsorProduct';
 import Product from '../../../../props/models/Product';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import Markdown from '../../../../../webshop/components/elements/markdown/Markdown';
-import ProductDetailsBlockProperties from './ProductDetailsBlockProperties';
 import classNames from 'classnames';
+import ProductDetailsBlockPropertiesPane from './panes/ProductDetailsBlockPropertiesPane';
 
 export default function ProductDetailsBlock({
     product,
@@ -90,7 +90,7 @@ export default function ProductDetailsBlock({
 
                 <div className="block-product-separator" />
 
-                <ProductDetailsBlockProperties
+                <ProductDetailsBlockPropertiesPane
                     product={product}
                     viewType={viewType}
                     showStockAndReservations={showStockAndReservations}

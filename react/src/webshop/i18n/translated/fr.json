@@ -2334,14 +2334,12 @@
             "all_providers": "Sélectionnez le fournisseur...",
             "all_sub_categories": "Sélectionnez une sous-catégorie...",
             "bookmarked": "Ma liste de souhaits",
-            "category": "Catégorie",
             "distance": "Distance",
             "fund": "Crédit",
             "postcode": "Code postal",
             "providers": "Prestataires",
             "search": "Offre de recherche",
             "sort": "Trier",
-            "sub_category": "Sous-catégorie",
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_option_reservation": "Réserver en ligne",
             "payment_options": "Options de paiement",
@@ -2356,7 +2354,8 @@
             "price_type_option_informational": "En magasin uniquement",
             "price_type_option_regular": "Prix",
             "price_type_options": "Type d'offre",
-            "price_type_options_info": "En savoir plus sur les types d'offres"
+            "price_type_options_info": "En savoir plus sur les types d'offres",
+            "category": "Catégories"
         },
         "sort": {
             "created_at_asc": "Le plus vieux d'abord",
@@ -2521,35 +2520,13 @@
             "home": "Accueil",
             "providers": "Prestataires"
         },
-        "distances": {
-            "3": "< 3 km",
-            "5": "< 5 km",
-            "10": "< 10 km",
-            "15": "< 15 km",
-            "25": "< 25 km",
-            "50": "< 50 km",
-            "75": "< 75 km",
-            "everywhere": "Partout"
-        },
         "filters": {
-            "all_categories": "Sélectionner une catégorie...",
-            "all_funds": "Tous les crédits...",
-            "all_products": "Offre complète",
-            "all_providers": "Sélectionnez le fournisseur...",
-            "all_sub_categories": "Sélectionnez une sous-catégorie...",
             "all_types": "Tous les types...",
-            "bookmarked": "Ma liste de souhaits",
-            "category": "Catégorie",
-            "distance": "Distance",
-            "fund": "Crédit",
             "map_title": "Sélectionnez un fournisseur pour plus d'informations",
-            "postcode": "Code postal",
             "provider_type": "Type de prestataire",
-            "providers": "Prestataires",
             "result": "Il existe des <div class=\"showcase-result-count\">{{ total }}</div> fournisseurs trouvés.",
             "search": "Recherche",
-            "sort": "Trier",
-            "sub_category": "Sous-catégorie"
+            "sort": "Trier"
         },
         "items": {
             "labels": {
@@ -2852,11 +2829,12 @@
             "all_providers": "Sélectionnez le fournisseur...",
             "all_sub_categories": "Sélectionnez une sous-catégorie...",
             "category": "Catégorie",
-            "found_for": "{{ query }}trouvé pour \" \"",
             "funds": "Crédit",
             "highlighted": "En vedette",
             "providers": "Fournisseurs",
-            "sort": "Trier"
+            "sort": "Trier",
+            "found_for": "Résultats de la recherche pour \"{{ query }}\"",
+            "search": "Recherche"
         },
         "sort_by": {
             "created_at_asc": "Le plus vieux d'abord",

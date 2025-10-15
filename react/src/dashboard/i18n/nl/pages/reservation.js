@@ -3,6 +3,9 @@ export default {
         refunds: {
             title: 'Bijbetalingen die zijn terugbetaald',
         },
+        extra_details: {
+            title: 'Extra informatie',
+        },
     },
     labels: {
         number: 'Nummer',
@@ -33,10 +36,14 @@ export default {
         refund_amount: 'Terugbetaald',
         cancellation_note: 'Notitie',
         rejection_note: 'Notitie',
+        invoice_number: 'Factuurnummer',
     },
     tooltips: {
         refund_date: 'De datum dat de bijbetaling is terugbetaald door de aanbieder.',
         refund_amount: 'Het bedrag dat is terugbetaald door de aanbieder.',
         status: 'De status van de terugbetaling.',
+    },
+    buttons: {
+        edit_invoice_number: 'Bewerk',
     },
 };
