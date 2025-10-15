@@ -248,7 +248,7 @@ $primaryColorLight: #4D5971;
     --sign_up_accent_color: #282b39;
     --sign_up_accent_color_light: #bdcbff;
     --sign_up_link_color: #e60003;
-    --sign_up_step_btns_color: #305dfb;
+    --sign_up_step_btns_color: var(--color-primary-light);
     --sign_up_digid_btn_bkg: #e1e7ff;
     --sign_up_digid_btn_text: #4b71ff;
     --sign_up_digid_btn_border: none;
