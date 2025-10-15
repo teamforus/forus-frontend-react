@@ -13,7 +13,7 @@ import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 import type { NavigateOptions } from 'react-router';
 import React from 'react';
 import ModalPrecheckResumeFromHome from '../../../modals/ModalPrecheckResumeFromHome';
-
+// TODO: refactor name to Window
 export default function ChatbotInterface() {
     const { resetChat, messages, setShouldStart } = useChatbotProvider();
     const navigate = useNavigate();
@@ -23,6 +23,7 @@ export default function ChatbotInterface() {
     const [showOverlay, setShowOverlay] = useState(false);
 
     useEffect(() => {
+        // TODO: refactor from any location
         if (from === '/home' && messages.length > 0) {
             setShowOverlay(true);
         } else {
@@ -61,6 +62,7 @@ export default function ChatbotInterface() {
             </div>
 
             {/* Starting overlay content */}
+            {/*TODO: refactor to use openModal and NotificationModal*/}
             <ModalPrecheckResumeFromHome
                 show={showOverlay}
                 onClose={() => setShowOverlay(false)}

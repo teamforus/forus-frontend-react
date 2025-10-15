@@ -77,6 +77,7 @@ export function useMessageQueue(
                 });
             }
         }, TYPING_DELAY);
+        //     TODO: try to find solution so disable is not necessary
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [incomingQueue, messages]);
 }

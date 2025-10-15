@@ -76,6 +76,7 @@ export const ChatbotProvider = ({ children }: PropsWithChildren) => {
     useEffect(() => {
         if (shouldStart) startStream();
     }, [shouldStart]); // eslint-disable-line react-hooks/exhaustive-deps
+    //     TODO: try to find solution so disable is not necessary
 
     useEffect(() => {
         return () => stopStream();

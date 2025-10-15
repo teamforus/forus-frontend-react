@@ -76,6 +76,7 @@ export function useStreamHandler(
             stopStreamRef.current = stop;
         },
         [], // eslint-disable-line react-hooks/exhaustive-deps
+        //     TODO: try to find solution so disable is not necessary
     );
 
     const resetStream = useCallback(() => {

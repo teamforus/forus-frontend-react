@@ -38,6 +38,7 @@ export function useChatHistory(
             })
             .catch(() => setMessages([error_message]))
             .finally(() => setLoadingHistory(false));
+        //     TODO: try to find solution so disable is not necessary
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
