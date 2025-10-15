@@ -17,8 +17,8 @@ export const useDeletePhysicalCardType = () => {
         (physicalCardType: PhysicalCardType, onDone: () => void) => {
             openModal((modal) => (
                 <ModalDangerZone
-                    title="Delete Physical Card Type"
-                    description="This action cannot be undone. This will permanently delete the physical card type and remove all associated data."
+                    title="Verwijder fysieke pas"
+                    description="Deze actie kan niet ongedaan worden gemaakt. Wanneer u de fysieke pas verwijderd wordt hiermee ook alle gerelateerde data verwijderd."
                     buttonSubmit={{
                         onClick: () => {
                             modal.close();

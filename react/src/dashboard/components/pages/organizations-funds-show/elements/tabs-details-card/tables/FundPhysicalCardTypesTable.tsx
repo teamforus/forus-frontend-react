@@ -78,7 +78,7 @@ export default function FundPhysicalCardTypesTable({ fund, organization }: { fun
                             }
                             className="button button-primary button-sm">
                             <em className="mdi mdi-plus-circle icon-start" />
-                            Add card type
+                            Voeg pas toe
                         </button>
 
                         <CardHeaderFilterNext filter={filter}>

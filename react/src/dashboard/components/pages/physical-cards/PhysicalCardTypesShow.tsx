@@ -87,12 +87,14 @@ export default function PhysicalCardTypesShow() {
                                         {physicalCardType.description}
                                     </div>
                                 </div>
-                                <FormPane title={'Statistische gegevens'}>
+                                <FormPane title={'Statistieken'}>
                                     <div className="card-block card-block-keyvalue card-block-keyvalue-md card-block-keyvalue-text-sm">
-                                        <KeyValueItem label={'Total cards'}>
+                                        <KeyValueItem label={'Aantal passen'}>
                                             {physicalCardType.physical_cards_count}
                                         </KeyValueItem>
-                                        <KeyValueItem label={'Funds'}>{physicalCardType.funds_count}</KeyValueItem>
+                                        <KeyValueItem label={'Aantal aangesloten fondsen'}>
+                                            {physicalCardType.funds_count}
+                                        </KeyValueItem>
                                     </div>
                                 </FormPane>
                             </div>
@@ -121,7 +123,7 @@ export default function PhysicalCardTypesShow() {
                                     );
                                 }}>
                                 <em className="mdi mdi-trash-can-outline" />
-                                Delete
+                                Verwijderen
                             </button>
                         </div>
                     </div>

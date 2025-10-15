@@ -80,10 +80,17 @@ export default function FundFormPhysicalCardsCard({
             <div className="card-body">
                 <div className="card-section card-section-primary">
                     <div className={'flex flex-vertical flex-gap'}>
-                        <FormPane title={'Physical cards settings'}>
+                        <FormPane title={'Instellingen'}>
                             <FormGroup
-                                label={'Enable in fund application process and generate physical card for applications'}
-                                info={<Fragment>lorem ipsum</Fragment>}
+                                label={
+                                    'De aanvraag van een fysieke kaart in het aanvraagproces van het fonds integreren'
+                                }
+                                info={
+                                    <Fragment>
+                                        Met deze optie kunt u instellen of de deelnemer de mogelijkheid om tijdes de
+                                        aanvraag van het fonds ook direct een fysieke pas te bestellen.
+                                    </Fragment>
+                                }
                                 error={form.errors?.fund_request_physical_card_enable}
                                 input={(id) => (
                                     <SelectControl
@@ -101,8 +108,13 @@ export default function FundFormPhysicalCardsCard({
                             />
                             {form.values.fund_request_physical_card_enable && (
                                 <FormGroup
-                                    label={'Select physical card type'}
-                                    info={<Fragment>lorem ipsum</Fragment>}
+                                    label={'Kies een fysieke pas'}
+                                    info={
+                                        <Fragment>
+                                            Met deze optie kunt u aangeven welke pas kan worden aangevraagd door de
+                                            deelnemer in het aanvraagproces van het fonds.
+                                        </Fragment>
+                                    }
                                     error={form.errors?.fund_request_physical_card_type_id}
                                     input={(id) => (
                                         <SelectControl

@@ -109,13 +109,13 @@ export default function ModalAddPhysicalCard({
                     }}>
                     <a className="mdi mdi-close modal-close" />
                     <div className="modal-header">
-                        <div className="modal-title">Select physical card type</div>
+                        <div className="modal-title">Selecteer een fysieke pas</div>
                     </div>
 
                     <div className="modal-body">
                         <div className="modal-section">
                             <FormGroup
-                                label={'Card type'}
+                                label={'Kies een fysieke pas'}
                                 error={form.errors?.fund_physical_card_type_id}
                                 input={(id) => (
                                     <SelectControl

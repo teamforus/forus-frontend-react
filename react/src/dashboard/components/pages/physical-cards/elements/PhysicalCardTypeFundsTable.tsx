@@ -108,7 +108,7 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
                             params={{ organizationId: activeOrganization.id }}
                             className="button button-primary button-sm">
                             <em className="mdi mdi-view-list icon-start" />
-                            Show all funds
+                            Toon fondsen
                         </StateNavLink>
 
                         <div className="flex">

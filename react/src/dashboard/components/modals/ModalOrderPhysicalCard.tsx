@@ -125,7 +125,7 @@ export default function ModalOrderPhysicalCard({
                                 )}
                             </div>
                             <FormGroup
-                                label={'Card type'}
+                                label={'Kies een fysieke pas'}
                                 error={form.errors?.physical_card_type_id}
                                 input={(id) => (
                                     <SelectControl

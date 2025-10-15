@@ -65,7 +65,7 @@ export default function ModalFundEditPhysicalCardSettings({
     return (
         <Modal
             modal={modal}
-            title={'Physical cards settings'}
+            title={'Fysieke pas instellingen'}
             className={className}
             onSubmit={form.submit}
             footer={
@@ -79,11 +79,13 @@ export default function ModalFundEditPhysicalCardSettings({
                 </Fragment>
             }>
             <div className="flex flex-vertical flex-gap">
-                <FormPane title={'Physical cards settings'}>
+                <FormPane title={'Instellingen'}>
                     <FormGroup
-                        label={'Enable physical cards'}
+                        label={'Kies een fysieke pas'}
                         error={form.errors?.allow_physical_cards}
-                        info={'lorem ipsum'}
+                        info={
+                            'Met deze optie kan een fysieke pas aan een fonds worden gekoppeld. De fysieke pas kunt u instellen onder het menu Fysieke passen'
+                        }
                         input={(id) => (
                             <SelectControl
                                 id={id}

@@ -28,9 +28,9 @@ export default function OrganizationsFundsShowPhysicalCardTypesCard({
         <Fragment>
             <div className="card-section form">
                 <div className="flex flex-gap flex-vertical">
-                    <FormPane title={'Physical cards settings'}>
+                    <FormPane title={'Fysieke pas instellingen'}>
                         <KeyValueList>
-                            <KeyValueItem label={'Enable physical cards'}>
+                            <KeyValueItem label={'Fysieke pas functionaliteit ingeschakeld'}>
                                 {fund.allow_physical_cards ? 'Ja' : 'Nee'}
                             </KeyValueItem>
                         </KeyValueList>
@@ -39,7 +39,7 @@ export default function OrganizationsFundsShowPhysicalCardTypesCard({
                     <div className="button-group">
                         <button className="button button-default" onClick={edit}>
                             <em className="mdi mdi-pencil-outline" />
-                            Manage physical card settings
+                            Fysieke pas instellingen wijzigen
                         </button>
                         {fund.allow_physical_cards && (
                             <StateNavLink
@@ -52,7 +52,7 @@ export default function OrganizationsFundsShowPhysicalCardTypesCard({
                                 query={{
                                     view: 'physical_cards',
                                 }}>
-                                Manage physical cards on fund application
+                                Fysieke pas instellingen wijzigen voor de aanvraag van een fonds
                             </StateNavLink>
                         )}
                     </div>

@@ -117,38 +117,40 @@ export default function ModalMakePhysicalCardTypeEdit({
                 </Fragment>
             }>
             <div className="flex flex-vertical flex-gap">
-                <FormPane title={'Card preview'}>
+                <FormPane title={'Voorbeeld van de fysieke pas'}>
                     <PhotoSelector
                         type={'physical_card_type_photo'}
                         thumbnail={physicalCardType?.photo?.sizes?.thumbnail}
                         selectPhoto={setMediaFile}
                     />
                 </FormPane>
-                <FormPane title={'Card details'}>
+                <FormPane title={'Gegevens'}>
                     <FormGroup
-                        label={'Card name'}
-                        info={'Add a name for the card'}
+                        label={'Naam van de fysieke pas'}
+                        info={'Voeg een naam toe voor de fysieke pas. Bijvoorbeeld Stadjerspas.'}
                         error={form.errors?.name}
                         input={(id) => (
                             <input
                                 id={id}
                                 className={'form-control'}
                                 value={form.values.name}
-                                placeholder={'Add card name'}
+                                placeholder={'Voeg een naam toe'}
                                 onChange={(e) => form.update({ name: e.target.value })}
                             />
                         )}
                     />
                     <FormGroup
-                        label={'Additional information on the card'}
-                        info={'Add additional information on the card'}
+                        label={'Aanvullende beschrijving'}
+                        info={
+                            'Voeg een aanvullende beschrijving toe om intern te registeren waar de fysieke pas voor is bedoeld. Bijvoorbeeld fysieke pas voor mantelzorgers.'
+                        }
                         error={form.errors?.description}
                         input={(id) => (
                             <textarea
                                 id={id}
                                 className={'form-control'}
                                 defaultValue={form.values.description}
-                                placeholder={'Add additional information on the card'}
+                                placeholder={'Voeg een beschrijving toe'}
                                 rows={3}
                                 style={{ resize: 'vertical' }}
                                 onChange={(e) => form.update({ description: e.target.value })}
@@ -159,9 +161,11 @@ export default function ModalMakePhysicalCardTypeEdit({
                     <div className="row">
                         <div className="col col-sm-6 col-xs-12">
                             <FormGroup
-                                label={'The number of numeric blocks in the code'}
+                                label={'Aantal blokken voor het pasnummer'}
                                 error={form.errors?.code_blocks}
-                                info={'The number of numeric blocks in the code'}
+                                info={
+                                    'Kies uit hoeveel blokken het pasnummer zou moeten bestaan. Bijvoorbeeld voor twee blokken zal dit 1234 - 5678 zijn. Wordt er gekozen voor drie blokken, dan zal het pasnummer eruit zien als 1234 - 5678 - 9012.'
+                                }
                                 input={(id) => (
                                     <input
                                         id={id}
@@ -180,9 +184,11 @@ export default function ModalMakePhysicalCardTypeEdit({
                         </div>
                         <div className="col col-sm-6 col-xs-12">
                             <FormGroup
-                                label={'The size of the numeric block in the code'}
+                                label={'Aantal cijfers per blok voor het pasnummer'}
                                 error={form.errors?.code_block_size}
-                                info={'The size of the numeric block in the code'}
+                                info={
+                                    'Kies uit hoeveel cijfers per blok zou moeten bestaan. Heeft u gekozen voor drie blokken en stelt u vier cijfers per blok, dan zal het pasnummer er als het volgt uitzien 1234 - 5678 - 9012. Kiest u voor twee cijfers per blok, dan zal het pasnummer 12 - 34 - 56 zijn.'
+                                }
                                 input={(id) => (
                                     <input
                                         id={id}

@@ -99,7 +99,7 @@ export default function ModalAssignPhysicalCardToFund({
             .list(fund.organization_id)
             .then((res) =>
                 setPhysicalCardTypes([
-                    { id: null, name: 'Select a card type' },
+                    { id: null, name: 'Selecteer een fysieke pas' },
                     ...res.data.data.filter((type) => !exclude?.includes(type.id)),
                 ]),
             )
@@ -114,7 +114,7 @@ export default function ModalAssignPhysicalCardToFund({
     return (
         <Modal
             modal={modal}
-            title={'Assign physical card'}
+            title={'Koppel de fysieke pas aan het fonds'}
             className={className}
             onSubmit={form.submit}
             footer={
@@ -131,11 +131,13 @@ export default function ModalAssignPhysicalCardToFund({
                 </Fragment>
             }>
             <div className="flex flex-vertical flex-gap">
-                <FormPane title={'Select a card type'}>
+                <FormPane title={'Selecteer een fysieke pas'}>
                     <FormGroup
-                        label={'Enable physical cards'}
+                        label={'Kies een fysieke pas'}
                         error={form.errors?.physical_card_type_id}
-                        info={'lorem ipsum'}
+                        info={
+                            'Met deze optie kan een fysieke pas aan een fonds worden gekoppeld. De fysieke pas kunt u instellen onder het menu Fysieke passen'
+                        }
                         input={(id) => (
                             <SelectControl
                                 id={id}
@@ -152,13 +154,15 @@ export default function ModalAssignPhysicalCardToFund({
                         )}
                     />
                     {form.values.physical_card_type_id && (
-                        <FormPane title={'Settings'}>
+                        <FormPane title={'Instellingen'}>
                             <div className="row">
                                 <div className="col col-xs-12 col-sm-6">
                                     <FormGroup
-                                        label={'Allow link physical card'}
+                                        label={'Koppelen van de fysieke pas'}
                                         error={form.errors?.allow_physical_card_linking}
-                                        info={'lorem ipsum'}
+                                        info={
+                                            'Wanneer deze optie is ingeschakeld, kan de inwoner zelf de fysieke pas koppelen aan zijn/haar tegoed.'
+                                        }
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
@@ -175,9 +179,11 @@ export default function ModalAssignPhysicalCardToFund({
                                 </div>
                                 <div className="col col-xs-12 col-sm-6">
                                     <FormGroup
-                                        label={'Allow deactivate physical physical card'}
+                                        label={'Deactiveren van de fysieke pas'}
                                         error={form.errors?.allow_physical_card_deactivation}
-                                        info={'lorem ipsum'}
+                                        info={
+                                            'Wanneer deze optie is ingeschakeld, kan de inwoner zelf de fysieke pas deactiveren wanneer deze bijvoorbeeld kwijt is.'
+                                        }
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
@@ -196,9 +202,11 @@ export default function ModalAssignPhysicalCardToFund({
                             <div className="row">
                                 <div className="col col-xs-12 col-sm-12">
                                     <FormGroup
-                                        label={'Allow users to request a physical card'}
+                                        label={'Aanvragen van de fysieke pas'}
                                         error={form.errors?.allow_physical_card_requests}
-                                        info={'lorem ipsum'}
+                                        info={
+                                            'Wanneer deze optie is ingeschakeld, kan de inwoner zelf de fysieke pas aanvragen op de webshop.'
+                                        }
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}

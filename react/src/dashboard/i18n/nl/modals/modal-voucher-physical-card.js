@@ -4,7 +4,7 @@ export default {
     },
     content: {
         title: 'Voer het pasnummer in',
-        subtitle: 'Op het pasje staat een QR-code, hieronder staat de persoonlijke code.',
+        subtitle: 'Op het pasje staat een persoonlijke code. Vul deze hieronder in.',
     },
     buttons: {
         submit: 'Bevestigen',

@@ -21,7 +21,7 @@ export const useDeleteFundPhysicalCardType = () => {
                 <ModalDangerZone
                     modal={modal}
                     title={'Verwijderen'}
-                    description={'Weet u zeker dat u deze type van de fysieke kaart wilt verwijderen?'}
+                    description={'Weet u zeker dat u deze fysieke pas wilt verwijderen?'}
                     buttonSubmit={{
                         onClick: (_, setDisabledByClick) => {
                             setProgress(0);
