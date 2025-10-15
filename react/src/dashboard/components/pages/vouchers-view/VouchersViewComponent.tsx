@@ -343,19 +343,23 @@ export default function VouchersViewComponent() {
                                     </div>
                                 )}
 
-                                {physicalCardsAvailable && !voucher.expired && (
-                                    <div className="button button-default button-sm" onClick={orderPhysicalCard}>
-                                        <em className="mdi mdi-card-text-outline icon-start" />
-                                        Plastic pas bestellen
-                                    </div>
-                                )}
+                                {physicalCardsAvailable &&
+                                    !voucher.expired &&
+                                    voucher?.fund?.fund_physical_card_types?.length > 0 && (
+                                        <div className="button button-default button-sm" onClick={orderPhysicalCard}>
+                                            <em className="mdi mdi-card-text-outline icon-start" />
+                                            Plastic pas bestellen
+                                        </div>
+                                    )}
 
-                                {physicalCardsAvailable && !voucher.physical_card && (
-                                    <div className="button button-default button-sm" onClick={addPhysicalCard}>
-                                        <em className="mdi mdi-ticket-account icon-start" />
-                                        {translate('vouchers.buttons.physical_card_add')}
-                                    </div>
-                                )}
+                                {physicalCardsAvailable &&
+                                    !voucher.physical_card &&
+                                    voucher?.fund?.fund_physical_card_types?.length > 0 && (
+                                        <div className="button button-default button-sm" onClick={addPhysicalCard}>
+                                            <em className="mdi mdi-ticket-account icon-start" />
+                                            {translate('vouchers.buttons.physical_card_add')}
+                                        </div>
+                                    )}
 
                                 {physicalCardsAvailable && voucher.physical_card && (
                                     <div className="button button-default button-sm" onClick={deletePhysicalCard}>
