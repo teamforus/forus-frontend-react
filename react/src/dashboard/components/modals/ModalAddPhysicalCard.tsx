@@ -107,7 +107,8 @@ export default function ModalAddPhysicalCard({
                         e?.stopPropagation();
                         setState('form');
                     }}>
-                    <a className="mdi mdi-close modal-close" />
+                    <a className="mdi mdi-close modal-close" onClick={modal.close} />
+
                     <div className="modal-header">
                         <div className="modal-title">Select physical card type</div>
                     </div>
