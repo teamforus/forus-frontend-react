@@ -9,6 +9,7 @@ import { useState } from 'react';
 import type { SlotSummaryItem } from '../../../../props/types/PrecheckChatbotTypes';
 import React from 'react';
 import ModalPrecheckAnswerCheck from '../../../modals/ModalPrecheckAnswerCheck';
+import classNames from 'classnames';
 
 /**
  * Props:
@@ -48,9 +49,16 @@ export default function AnswerOptionButton({
     };
     // TODO: refactor to use classNames()
     // Base styles + conditional styling based on state
-    let className = `button button-sm answer-button `;
-    className += disabled && !isSelected ? 'button-disabled' : '';
-    className += disabled && isSelected ? 'answer-button--is-selected' : '';
+    const className = classNames(
+        'button',
+        'button-sm',
+        'answer-button',
+        { 'button-disabled': disabled && !isSelected },
+        { 'answer-button--is-selected': disabled && isSelected },
+    );
+    // let className = `button button-sm answer-button `;
+    // className += disabled && !isSelected ? 'button-disabled' : '';
+    // className += disabled && isSelected ? 'answer-button--is-selected' : '';
 
     if (step === 'confirm_data' && option.label === 'Wijzigen') {
         return (
