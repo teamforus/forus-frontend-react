@@ -16,7 +16,7 @@ export default {
         send_message: 'stuur bericht',
     },
 
-    place_holder: {
+    placeholder: {
         type: 'Typ hier...',
     },
 };
