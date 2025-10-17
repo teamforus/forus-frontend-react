@@ -12,6 +12,7 @@ export default {
         vouchers: 'Tegoeden',
         bookmarks: 'Mijn verlanglijstje',
         reservations: 'Reserveringen',
+        physical_cards: 'Fysieke pas',
         reimbursements: 'Kosten terugvragen',
         records: 'Persoonsgegevens',
         funds: 'Aanvragen',

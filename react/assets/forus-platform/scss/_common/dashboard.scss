@@ -116,7 +116,6 @@
 
 .modal {
     @import 'modals/modal-photo-upload.scss';
-    @import 'modals/modal-physical-cards.scss';
     @import 'modals/modal-voucher-transaction.scss';
     @import 'modals/modal-pin-code.scss';
     @import 'modals/modal-provider-products-required.scss';
@@ -938,6 +937,10 @@ body {
         flex-direction: row;
         align-items: center;
 
+        .card-title {
+            margin: 0 0 !important;
+        }
+
         .card-header-filters {
             display: flex;
             flex-direction: row;
@@ -1717,6 +1720,18 @@ body {
 
                 .keyvalue-value {
                     width: calc(100% - 240px);
+                }
+            }
+        }
+
+        &.card-block-keyvalue-lg {
+            .keyvalue-item {
+                .keyvalue-key {
+                    width: 280px;
+                }
+
+                .keyvalue-value {
+                    width: calc(100% - 280px);
                 }
             }
         }

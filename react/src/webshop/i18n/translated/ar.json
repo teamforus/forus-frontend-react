@@ -650,7 +650,8 @@
                     "winterswijk": {
                         "funds": "تفعيل"
                     },
-                    "profile": "البيانات"
+                    "profile": "البيانات",
+                    "physical_cards": "البطاقة البدنية"
                 },
                 "groningen": {
                     "voucher": "بطاقة مدينتي"
@@ -759,7 +760,8 @@
             "security_sessions": "الجلسات",
             "aria_label": "قائمة المستخدم",
             "title": "شخصي",
-            "profile": "البيانات"
+            "profile": "البيانات",
+            "physical_cards": "البطاقة البدنية"
         },
         "main_menu": "القائمة الرئيسية",
         "open_home": "العودة إلى الصفحة الرئيسية",
@@ -1036,6 +1038,18 @@
                 "reason": "السبب:",
                 "sent": "تم الإرسال",
                 "sign_up": "التسجيل"
+            },
+            "fund_request_physical_card_request": {
+                "description": "سنقوم بإرسال بطاقتك الفعلية إلى العنوان الذي قدمته بمجرد أن تصبح جاهزة للاستخدام.",
+                "heading": "أدخل عنوانك",
+                "labels": {
+                    "city": "الموقع",
+                    "house_nr": "رقم المنزل",
+                    "house_nr_addition": "إضافة رقم المنزل",
+                    "postal_code": "الرمز البريدي",
+                    "street": "الشارع"
+                },
+                "title": "تفاصيل العنوان"
             }
         },
         "steps": {
@@ -3443,7 +3457,8 @@
             "share": "شارك",
             "vouchers": "الائتمان",
             "me_app": "أنا-التطبيق",
-            "provider_sign_up": "التسجيل كمقدم خدمات"
+            "provider_sign_up": "التسجيل كمقدم خدمات",
+            "physical_cards": "البطاقة البدنية"
         },
         "header": {
             "subtitle": "قم بمسح رمز الاستجابة السريعة الشخصي الخاص بك بواسطة أحد المراجعين.",
@@ -3645,5 +3660,21 @@
         "aria_label_text": "التوقيع {{current}} من {{total}}",
         "aria_labelledby_num": "اكتب الرمز {{total}} الأرقام",
         "aria_labelledby_text": "اكتب الرمز {{total}} الأحرف"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "vouchers": "البطاقة البدنية"
+        },
+        "empty": {
+            "button": "تفعيل أو طلب تصريح مرور مادي",
+            "subtitle": "ليس لديك حالياً تصريح مرور مادي",
+            "title": "لا يوجد تصريح مادي"
+        },
+        "filters": {
+            "active": "نشط",
+            "archive": "الأرشيف"
+        },
+        "title": "البطاقة البدنية"
     }
 }

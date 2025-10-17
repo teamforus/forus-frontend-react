@@ -622,6 +622,18 @@
                 "reason": "Raison :",
                 "sent": "Envoyé !",
                 "sign_up": "S'inscrire"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Nous enverrons votre carte physique à l'adresse que vous avez indiquée dès qu'elle sera prête à être utilisée.",
+                "heading": "Entrez votre adresse",
+                "labels": {
+                    "city": "Localisation",
+                    "house_nr": "Numéro de maison",
+                    "house_nr_addition": "Ajout d'un numéro de maison",
+                    "postal_code": "Code postal",
+                    "street": "Rue"
+                },
+                "title": "Coordonnées"
             }
         },
         "steps": {
@@ -2392,7 +2404,8 @@
             "share": "Partager",
             "vouchers": "Crédit",
             "me_app": "Me-app",
-            "provider_sign_up": "S'inscrire en tant que fournisseur"
+            "provider_sign_up": "S'inscrire en tant que fournisseur",
+            "physical_cards": "Passe physique"
         },
         "header": {
             "subtitle": "Faites scanner votre code QR personnel par un évaluateur.",
@@ -3107,7 +3120,8 @@
                     "winterswijk": {
                         "funds": "Activer"
                     },
-                    "profile": "Données"
+                    "profile": "Données",
+                    "physical_cards": "Passe physique"
                 },
                 "groningen": {
                     "voucher": "Ma carte de ville"
@@ -3216,7 +3230,8 @@
             "security_sessions": "Sessions",
             "aria_label": "Menu utilisateur",
             "title": "Personnel",
-            "profile": "Données"
+            "profile": "Données",
+            "physical_cards": "Passe physique"
         },
         "main_menu": "Menu principal",
         "open_home": "Retour à la page principale",
@@ -3645,5 +3660,21 @@
         "aria_label_text": "Signe {{current}} de la {{total}}",
         "aria_labelledby_num": "Tapez le code de {{total}} chiffres",
         "aria_labelledby_text": "Tapez le code de {{total}} caractères"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Accueil",
+            "vouchers": "Passe physique"
+        },
+        "empty": {
+            "button": "Activer ou demander un laissez-passer physique",
+            "subtitle": "Actuellement, vous ne disposez pas d'un laissez-passer physique",
+            "title": "Pas de laissez-passer physique"
+        },
+        "filters": {
+            "active": "Actif",
+            "archive": "Archives"
+        },
+        "title": "Passe physique"
     }
 }

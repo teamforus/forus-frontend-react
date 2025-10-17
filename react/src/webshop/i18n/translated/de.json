@@ -622,6 +622,18 @@
                 "reason": "Der Grund:",
                 "sent": "Gesendet!",
                 "sign_up": "Registrieren Sie sich"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Wir senden Ihnen Ihre physische Karte an die von Ihnen angegebene Adresse, sobald sie einsatzbereit ist.",
+                "heading": "Geben Sie Ihre Adresse ein",
+                "labels": {
+                    "city": "Standort",
+                    "house_nr": "Hausnummer",
+                    "house_nr_addition": "Hausnummer Zusatz",
+                    "postal_code": "Postleitzahl",
+                    "street": "Straße"
+                },
+                "title": "Angaben zur Adresse"
             }
         },
         "steps": {
@@ -2392,7 +2404,8 @@
             "share": "Teilen Sie",
             "vouchers": "Kredit",
             "me_app": "Me-app",
-            "provider_sign_up": "Als Anbieter registrieren"
+            "provider_sign_up": "Als Anbieter registrieren",
+            "physical_cards": "Körperlicher Pass"
         },
         "header": {
             "subtitle": "Lassen Sie Ihren persönlichen QR-Code von einem Prüfer scannen.",
@@ -3107,7 +3120,8 @@
                     "winterswijk": {
                         "funds": "Aktivieren Sie"
                     },
-                    "profile": "Daten"
+                    "profile": "Daten",
+                    "physical_cards": "Körperlicher Pass"
                 },
                 "groningen": {
                     "voucher": "Meine Stadtkarte"
@@ -3216,7 +3230,8 @@
             "security_sessions": "Sitzungen",
             "aria_label": "Benutzermenü",
             "title": "Persönlich",
-            "profile": "Daten"
+            "profile": "Daten",
+            "physical_cards": "Körperlicher Pass"
         },
         "main_menu": "Hauptmenü",
         "open_home": "Zurück zur Hauptseite",
@@ -3645,5 +3660,21 @@
         "aria_label_text": "Zeichen {{current}} der {{total}}",
         "aria_labelledby_num": "Geben Sie den Code von {{total}} ein.",
         "aria_labelledby_text": "Geben Sie den Code von {{total}} ein."
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Startseite",
+            "vouchers": "Körperlicher Pass"
+        },
+        "empty": {
+            "button": "Aktivieren oder Anfordern eines physischen Ausweises",
+            "subtitle": "Sie haben derzeit keinen physischen Ausweis",
+            "title": "Kein physischer Pass"
+        },
+        "filters": {
+            "active": "Aktiv",
+            "archive": "Archiv"
+        },
+        "title": "Körperlicher Pass"
     }
 }
