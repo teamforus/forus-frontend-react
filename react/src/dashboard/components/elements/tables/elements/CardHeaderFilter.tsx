@@ -8,7 +8,7 @@ export default function CardHeaderFilter({
     children,
 }: {
     filter: FilterScope<FilterModel>;
-    children: React.ReactElement | Array<React.ReactElement>;
+    children: React.ReactNode | Array<React.ReactNode>;
 }) {
     return (
         <div className="form inline-filters-dropdown pull-right">
