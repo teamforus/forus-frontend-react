@@ -10,7 +10,7 @@ import ModalNotification from '../../../modals/ModalNotification';
 import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
-export function ResetButton({ shouldRedirect }: { shouldRedirect: boolean }) {
+export default function ResetButton({ shouldRedirect }: { shouldRedirect: boolean }) {
     const { resetChat } = useChatbotProvider();
     const openModal = useOpenModal();
     const translate = useTranslate();
