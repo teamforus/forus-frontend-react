@@ -135,13 +135,14 @@ export class ProductService<T = Product> {
             reservation_enabled: apiResource.reservation_enabled,
             reservation_policy: apiResource.reservation_policy,
 
-            reservation_fields: apiResource.reservation_fields,
+            reservation_fields_enabled: apiResource.reservation_fields_enabled,
             reservation_phone: apiResource.reservation_phone,
             reservation_address: apiResource.reservation_address,
             reservation_birth_date: apiResource.reservation_birth_date,
             reservation_note: apiResource.reservation_note,
             reservation_note_text: apiResource.reservation_note_text,
             reservation_extra_payments: apiResource.reservation_extra_payments,
+            reservation_fields_config: apiResource.reservation_fields_config,
         };
     }
 

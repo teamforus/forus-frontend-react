@@ -85,13 +85,14 @@ export default interface SponsorProduct {
     price_type: ProductPriceType;
     price_discount: string;
     price_discount_locale: string;
-    reservation_fields: boolean;
+    reservation_fields_enabled?: boolean;
     reservation_phone: 'global' | 'no' | 'optional' | 'required';
     reservation_address: 'global' | 'no' | 'optional' | 'required';
     reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
     reservation_note: 'global' | 'no' | 'custom';
     reservation_note_text: string;
     reservation_extra_payments: 'global' | 'no' | 'yes';
+    reservation_fields_config?: 'global' | 'no' | 'yes';
     sponsor_organization_id?: number;
     sponsor_organization?: {
         id: number;
