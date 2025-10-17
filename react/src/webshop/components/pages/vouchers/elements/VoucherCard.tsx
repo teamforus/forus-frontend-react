@@ -1,28 +1,29 @@
-import React, { Fragment, useCallback, useMemo } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { useVoucherService } from '../../../../services/VoucherService';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
 import ModalNotification from '../../../modals/ModalNotification';
-import useComposeVoucherCardData from '../../../../services/helpers/useComposeVoucherCardData';
+import useVoucherData from '../../../../services/helpers/useVoucherData';
+import useAssetUrl from '../../../../hooks/useAssetUrl';
 
 export default function VoucherCard({
+    type = 'voucher',
     voucher,
     onVoucherDestroyed,
 }: {
+    type?: 'voucher' | 'physical_card';
     voucher: Voucher;
     onVoucherDestroyed: () => void;
 }) {
-    const translate = useTranslate();
+    const assetUrl = useAssetUrl();
     const openModal = useOpenModal();
-    const composeVoucherCardData = useComposeVoucherCardData();
+    const translate = useTranslate();
 
     const voucherService = useVoucherService();
 
-    const voucherCard = useMemo(() => {
-        return composeVoucherCardData(voucher);
-    }, [voucher, composeVoucherCardData]);
+    const voucherCard = useVoucherData(voucher);
 
     const destroyVoucher = useCallback(
         (e: React.MouseEvent, voucher: Voucher) => {
@@ -59,7 +60,17 @@ export default function VoucherCard({
             dataDusk={`listVouchersRow${voucher.id}`}
             dataAttributes={{ 'data-search-item': 1 }}>
             <div className="voucher-image">
-                <img src={voucherCard.thumbnail} alt="" />
+                {type === 'voucher' ? (
+                    <img src={voucherCard.thumbnail} alt="" />
+                ) : (
+                    <img
+                        src={
+                            voucherCard.physical_card?.photo?.sizes?.small ||
+                            assetUrl('/assets/img/placeholders/physical-card-type.svg')
+                        }
+                        alt=""
+                    />
+                )}
             </div>
             <div className="voucher-details">
                 <h2 className="voucher-name" data-dusk="voucherName">
@@ -73,7 +84,7 @@ export default function VoucherCard({
                             <span className="text-separator" />
                         </Fragment>
                     )}
-                    <span>{voucherCard.subtitle}</span>
+                    <span>{type === 'voucher' ? voucherCard.subtitle : voucherCard.physical_card?.code_locale}</span>
                 </div>
 
                 {voucherCard.type === 'regular' && <div className="voucher-value">{voucherCard.amount_locale}</div>}

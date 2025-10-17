@@ -1548,6 +1548,38 @@
         "Vraag aan."
     ],
     [
+        "fund_request.sign_up.fund_request_physical_card_request.description",
+        "We sturen uw fysieke kaart naar het door u opgegeven adres zodra deze klaar is voor gebruik."
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.heading",
+        "Voer uw adres in"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.city",
+        "Plaats"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.house_nr",
+        "Huisnummer"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.house_nr_addition",
+        "Huisnummertoevoeging"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.postal_code",
+        "Postcode"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.street",
+        "Straat"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.title",
+        "Adresgegevens"
+    ],
+    [
         "fund_request.sign_up.fund_request_step_criteria.make_a_choice",
         "Maak een keuze"
     ],
@@ -5356,6 +5388,38 @@
         "PDF-voorbeeld"
     ],
     [
+        "physical_cards.breadcrumbs.home",
+        "Home"
+    ],
+    [
+        "physical_cards.breadcrumbs.vouchers",
+        "Fysieke pas"
+    ],
+    [
+        "physical_cards.empty.button",
+        "Activeer of vraag een fysieke pas"
+    ],
+    [
+        "physical_cards.empty.subtitle",
+        "Momenteel heeft u geen fysieke pas"
+    ],
+    [
+        "physical_cards.empty.title",
+        "Geen fysieke pas"
+    ],
+    [
+        "physical_cards.filters.active",
+        "Actief"
+    ],
+    [
+        "physical_cards.filters.archive",
+        "Archief"
+    ],
+    [
+        "physical_cards.title",
+        "Fysieke pas"
+    ],
+    [
         "pincode_control.aria_label_num",
         "Cijfer {{current}} van de {{total}}"
     ],
@@ -6614,6 +6678,10 @@
     [
         "profile_menu.buttons.payouts",
         "Uitbetalingen"
+    ],
+    [
+        "profile_menu.buttons.physical_cards",
+        "Fysieke pas"
     ],
     [
         "profile_menu.buttons.profile",
@@ -8328,6 +8396,10 @@
         "Uitbetalingen"
     ],
     [
+        "top_navbar.buttons.mobile.dropdown.physical_cards",
+        "Fysieke pas"
+    ],
+    [
         "top_navbar.buttons.mobile.dropdown.potjeswijzer.funds",
         "Potjes"
     ],
@@ -8626,6 +8698,10 @@
     [
         "top_navbar.user_menu.payouts",
         "Uitbetalingen"
+    ],
+    [
+        "top_navbar.user_menu.physical_cards",
+        "Fysieke pas"
     ],
     [
         "top_navbar.user_menu.preferences_emails",
