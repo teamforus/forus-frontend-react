@@ -55,7 +55,7 @@ import not_found from './nl/pages/not_found.mjs';
 import wip from './nl/pages/wip.mjs';
 import me from './nl/pages/me.mjs';
 import pre_check from './nl/pages/pre_check.mjs';
-import precheck_chatbot from './nl/pages/precheck_chatbot.js';
+import precheck_chatbot from './nl/pages/precheck_chatbot.mjs';
 
 import popup_auth from './nl/modals/modal-auth.mjs';
 import open_in_me from './nl/modals/modal-open-in-me.mjs';
