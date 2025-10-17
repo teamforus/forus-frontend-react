@@ -37,7 +37,7 @@ export default function ResetButton({ shouldRedirect }: { shouldRedirect: boolea
                     type={'confirm'}
                     onConfirm={handleReset}
                     title={translate('modal_precheck.restart.title')}
-                    description={translate('modal_precheck_restart.description')}
+                    description={translate('modal_precheck.restart.description')}
                     closeBtnText={translate('modal.cancel')}
                     confirmBtnText={translate('modal_precheck.restart.confirm')}
                 />
