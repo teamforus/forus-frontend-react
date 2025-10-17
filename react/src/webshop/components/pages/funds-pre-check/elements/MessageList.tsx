@@ -20,7 +20,7 @@ export default function MessageList() {
         <div className="message-list">
             {isLoadingStream && (
                 <div>
-                    <p>{translate('precheck_chatbot.loading', {}, 'Aan het laden')}</p>
+                    <p>{translate('precheck_chatbot.stream.loading')}</p>
                 </div>
             )}
 
@@ -32,7 +32,7 @@ export default function MessageList() {
             {/* Typing indicator shown while bot is responding */}
             {isThinking && (
                 <div>
-                    <p>{translate('precheck_chatbot.thinking', {}, 'Aan het denken...')}</p>
+                    <p>{translate('precheck_chatbot.stream.thinking')}</p>
                 </div>
             )}
 

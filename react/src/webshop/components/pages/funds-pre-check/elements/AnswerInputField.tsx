@@ -2,10 +2,12 @@ import type { AnswerInputFieldProps } from '../../../../props/types/PrecheckChat
 import { useChatbotProvider } from '../../../../contexts/ChatbotContext';
 import { useState } from 'react';
 import React from 'react';
+import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 
 export default function AnswerInputField(answerInput: AnswerInputFieldProps) {
     const { sendMessage } = useChatbotProvider();
     const [input, setInput] = useState('');
+    const translate = useTranslate();
 
     const handleSend = async () => {
         await sendMessage(input);
@@ -15,7 +17,7 @@ export default function AnswerInputField(answerInput: AnswerInputFieldProps) {
         <div className="answer-input-wrapper">
             <input
                 className="form form-control answer-input"
-                placeholder="Typ hier..."
+                placeholder={translate('precheck_chatbot.placeholder.type')}
                 type={answerInput.inputType}
                 min={answerInput.inputType === 'number' ? '0' : undefined}
                 onChange={(e) => setInput(e.currentTarget.value)}
@@ -25,7 +27,10 @@ export default function AnswerInputField(answerInput: AnswerInputFieldProps) {
                     }
                 }}
             />
-            <button onClick={handleSend} className="button button-icon answer-input-icon" aria-label={'stuur bericht'}>
+            <button
+                onClick={handleSend}
+                className="button button-icon answer-input-icon"
+                aria-label={translate('precheck_chatbot.aria_label.send_message')}>
                 <em className={'mdi mdi-send-circle icon-right'}></em>
             </button>
         </div>

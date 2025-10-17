@@ -76,6 +76,7 @@ import modal_logout from './nl/modals/modal_logout.mjs';
 import modal_deactivate_voucher from './nl/modals/modal_deactivate_voucher.mjs';
 import modal_product_payment_options_info from './nl/modals/modal_product_payment_options_info.mjs';
 import modal_product_price_type_options_info from './nl/modals/modal_product_price_type_options_info.mjs';
+import modal_precheckout from './nl/modals/modal_precheckout.mjs';
 
 import app_footer from './nl/directives/app-footer.mjs';
 import block_products from './nl/directives/block-products.mjs';
@@ -91,6 +92,8 @@ import paginator from './nl/directives/paginator.mjs';
 
 // blocks
 import block_exception from './nl/blocks/block-exception.mjs';
+import modal_precheck from './nl/modals/modal_precheck.js';
+import precheck_chatbot from './nl/pages/precheck_chatbot.js';
 
 export default {
     test: '{{name}} {{foo}}',
@@ -445,6 +448,7 @@ export default {
     wip: wip,
     not_found: not_found,
     pre_check: pre_check,
+    precheck_chatbot: precheck_chatbot,
 
     meapp_index: meapp_index,
     product: product,
@@ -489,6 +493,7 @@ export default {
     modal_deactivate_voucher: modal_deactivate_voucher,
     modal_product_payment_options_info: modal_product_payment_options_info,
     modal_product_price_type_options_info: modal_product_price_type_options_info,
+    modal_precheck: modal_precheck,
 
     // DIRECTIVES
     app_footer: app_footer,

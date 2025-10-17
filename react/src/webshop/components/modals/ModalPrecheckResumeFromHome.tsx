@@ -1,4 +1,3 @@
-// ModalPrecheckRestart.tsx
 import React from 'react';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
@@ -23,7 +22,7 @@ export default function ModalPrecheckResumeFromHome({
     if (!show) return null;
 
     return (
-        <div className={`modal modal-precheck-resume-home modal-animated ${loading ? '' : 'modal-loaded'}`}>
+        <div className={`modal modal-animated ${loading ? '' : 'modal-loaded'}`}>
             {/* Backdrop */}
             <div
                 className="modal-backdrop"

@@ -82,14 +82,12 @@ export default function MessageItem({ message }: MessageProps) {
                         )}
                         {/* Show CTA button when it's the 'advice' step */}
                         {message.step === 'advice' && (
-                            <button
-                                className="advice-button" //${buttonNav} ${button}
-                                disabled={isLoadingAdvice}>
+                            <button className="advice-button" disabled={isLoadingAdvice}>
                                 {' '}
                                 {/* onClick={referToAdvice} */}
                                 {isLoadingAdvice
-                                    ? translate('precheck_chatbot.advice.loading', {}, 'Bezig met laden...')
-                                    : translate('precheck_chatbot.advice.done', {}, 'Bekijk je advies')}
+                                    ? translate('precheck_chatbot.advice_button.loading')
+                                    : translate('precheck_chatbot.advice_button.done')}
                             </button>
                         )}
                     </div>

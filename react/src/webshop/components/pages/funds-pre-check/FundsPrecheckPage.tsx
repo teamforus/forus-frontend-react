@@ -16,7 +16,7 @@ export default function FundsPrecheckPage() {
             breadcrumbItems={[{ name: translate('products.breadcrumbs.home'), state: 'home' }, { name: 'Chatbot' }]}>
             <Section type={`pre-check`}>
                 <div className="block block-fund-pre-check-chatbot">
-                    <h1 className="block-title">Regelingencheck</h1>
+                    <h1 className="block-title">{translate('precheck_chatbot.title')}</h1>
                     <ChatbotInterface />
                 </div>
             </Section>
