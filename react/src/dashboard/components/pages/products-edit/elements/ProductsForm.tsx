@@ -31,6 +31,10 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import FormPane from '../../../elements/forms/elements/FormPane';
 import FormContainer from '../../../elements/forms/elements/FormContainer';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
+import ReservationFieldsEditor from '../../reservations/elements/ReservationFieldsEditor';
+import { uniqueId } from 'lodash';
+import ReservationField from '../../../../props/models/ReservationField';
+import useEnvData from '../../../../hooks/useEnvData';
 
 export default function ProductsForm({
     organization,
@@ -43,6 +47,7 @@ export default function ProductsForm({
     sourceId?: number;
     id?: number;
 }) {
+    const envData = useEnvData();
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
@@ -78,6 +83,12 @@ export default function ProductsForm({
     const [reservationNoteOptionText] = useState(() => [
         { value: 'no', label: 'Geen' },
         { value: 'custom', label: 'Aangepaste aankoopnotitie' },
+    ]);
+
+    const [reservationFieldsConfigOptions] = useState(() => [
+        { value: 'global', label: 'Gebruik standaard instelling' },
+        { value: 'no', label: 'Nee' },
+        { value: 'yes', label: 'Ja' },
     ]);
 
     const [reservationFieldOptions] = useState(() => [
@@ -157,6 +168,8 @@ export default function ProductsForm({
     const [product, setProduct] = useState<Product | SponsorProduct>(null);
     const [sourceProduct, setSourceProduct] = useState<Product | SponsorProduct>(null);
     const [products, setProducts] = useState<Product[]>(null);
+    const [fields, setFields] = useState<Array<ReservationField>>([]);
+    const isProvider = useMemo(() => envData.client_type == 'provider', [envData.client_type]);
 
     const allowsExtraPayments = useMemo(() => {
         return (
@@ -216,7 +229,10 @@ export default function ProductsForm({
             } else {
                 productService
                     .read(organization.id, id)
-                    .then((res) => setProduct(res.data.data))
+                    .then((res) => {
+                        setProduct(res.data.data);
+                        setFields(res.data.data.reservation_fields.map((item) => ({ ...item, uid: uniqueId() })));
+                    })
                     .catch(() => navigateState('products', { organizationId: organization.id }))
                     .finally(() => setProgress(100));
             }
@@ -270,6 +286,7 @@ export default function ProductsForm({
         reservation_policy?: 'global' | 'accept' | 'review';
         reservation_note?: 'global' | 'no' | 'custom';
         reservation_note_text?: string;
+        reservation_fields_config?: 'global' | 'yes' | 'no';
     }>(null, (values) => {
         if (product && !product.unlimited_stock && form.values.stock_amount < 0) {
             form.setIsLocked(false);
@@ -282,7 +299,7 @@ export default function ProductsForm({
         uploadMedia().then((media_uid: string) => {
             setProgress(0);
             let promise: Promise<ApiResponseSingle<Product | SponsorProduct>>;
-            const valueData = { ...values, media_uid };
+            const valueData = { ...values, media_uid, fields };
 
             if (nonExpiring) {
                 valueData.expire_at = null;
@@ -426,7 +443,7 @@ export default function ProductsForm({
                       alternative_text: '',
                       qr_enabled: true,
                       reservation_enabled: false,
-                      reservation_fields: false,
+                      reservation_fields_enabled: false,
                       product_category_id: null,
                       reservation_phone: 'global',
                       reservation_address: 'global',
@@ -435,6 +452,7 @@ export default function ProductsForm({
                       reservation_policy: 'global',
                       reservation_note: 'global',
                       reservation_note_text: '',
+                      reservation_fields_config: 'global',
                   },
         );
     }, [product, sourceProduct, updateForm, productService, id, sourceId, organization]);
@@ -1095,90 +1113,125 @@ export default function ProductsForm({
                                         />
                                     )}
 
-                                    <FormGroup
-                                        label={'Klantgegevens uitvragen'}
-                                        error={form.errors.reservation_fields}
-                                        info={translate('product_edit.tooltips.reservation_fields')}
-                                        input={(id) => (
-                                            <SelectControl
-                                                id={id}
-                                                disabled={!isEditable}
-                                                propKey={'value'}
-                                                propValue={'label'}
-                                                value={form.values.reservation_fields}
-                                                options={[
-                                                    {
-                                                        value: true,
-                                                        label: 'Aanvullende klantgegevens nodig',
-                                                    },
-                                                    {
-                                                        value: false,
-                                                        label: 'Geen aanvullende klantgegevens nodig',
-                                                    },
-                                                ]}
-                                                onChange={(value: boolean) => {
-                                                    form.update({ reservation_fields: value });
-                                                }}
-                                            />
-                                        )}
-                                    />
-
-                                    {form.values.reservation_fields && (
-                                        <FormPane title={'Klantgegevens'}>
+                                    {isProvider && (
+                                        <Fragment>
                                             <FormGroup
-                                                label={'Telefoonnummer klant'}
-                                                error={form.errors.reservation_phone}
+                                                label={'Klantgegevens uitvragen'}
+                                                error={form.errors.reservation_fields_enabled}
+                                                info={translate('product_edit.tooltips.reservation_fields_enabled')}
                                                 input={(id) => (
                                                     <SelectControl
                                                         id={id}
-                                                        className="form-control"
+                                                        disabled={!isEditable}
                                                         propKey={'value'}
                                                         propValue={'label'}
-                                                        value={form.values.reservation_phone}
-                                                        onChange={(reservation_phone: string) => {
-                                                            form.update({ reservation_phone });
+                                                        value={form.values.reservation_fields_enabled}
+                                                        options={[
+                                                            {
+                                                                value: true,
+                                                                label: 'Aanvullende klantgegevens nodig',
+                                                            },
+                                                            {
+                                                                value: false,
+                                                                label: 'Geen aanvullende klantgegevens nodig',
+                                                            },
+                                                        ]}
+                                                        onChange={(value: boolean) => {
+                                                            form.update({ reservation_fields_enabled: value });
                                                         }}
-                                                        options={reservationPhoneOptions}
                                                     />
                                                 )}
                                             />
 
-                                            <FormGroup
-                                                label={'Adres klant'}
-                                                error={form.errors.reservation_address}
-                                                input={(id) => (
-                                                    <SelectControl
-                                                        id={id}
-                                                        className="form-control"
-                                                        propKey={'value'}
-                                                        propValue={'label'}
-                                                        value={form.values.reservation_address}
-                                                        onChange={(reservation_address: string) => {
-                                                            form.update({ reservation_address });
-                                                        }}
-                                                        options={reservationAddressOptions}
+                                            {form.values.reservation_fields_enabled && (
+                                                <FormPane title={'Klantgegevens'}>
+                                                    <FormGroup
+                                                        label={'Telefoonnummer klant'}
+                                                        error={form.errors.reservation_phone}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_phone}
+                                                                onChange={(reservation_phone: string) => {
+                                                                    form.update({ reservation_phone });
+                                                                }}
+                                                                options={reservationPhoneOptions}
+                                                            />
+                                                        )}
                                                     />
-                                                )}
-                                            />
 
-                                            <FormGroup
-                                                label={'Geboortedatum klant'}
-                                                error={form.errors.reservation_birth_date}
-                                                input={(id) => (
-                                                    <SelectControl
-                                                        id={id}
-                                                        className="form-control"
-                                                        propKey={'value'}
-                                                        propValue={'label'}
-                                                        value={form.values.reservation_birth_date}
-                                                        onChange={(reservation_birth_date: string) => {
-                                                            form.update({ reservation_birth_date });
-                                                        }}
-                                                        options={reservationBirthDateOptions}
+                                                    <FormGroup
+                                                        label={'Adres klant'}
+                                                        error={form.errors.reservation_address}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_address}
+                                                                onChange={(reservation_address: string) => {
+                                                                    form.update({ reservation_address });
+                                                                }}
+                                                                options={reservationAddressOptions}
+                                                            />
+                                                        )}
                                                     />
-                                                )}
-                                            />
-                                        </FormPane>
+
+                                                    <FormGroup
+                                                        label={'Geboortedatum klant'}
+                                                        error={form.errors.reservation_birth_date}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_birth_date}
+                                                                onChange={(reservation_birth_date: string) => {
+                                                                    form.update({ reservation_birth_date });
+                                                                }}
+                                                                options={reservationBirthDateOptions}
+                                                            />
+                                                        )}
+                                                    />
+
+                                                    <FormGroup
+                                                        label={'Aangepaste velden'}
+                                                        error={form.errors.reservation_fields_config}
+                                                        input={(id) => (
+                                                            <SelectControl
+                                                                id={id}
+                                                                className="form-control"
+                                                                propKey={'value'}
+                                                                propValue={'label'}
+                                                                value={form.values.reservation_fields_config}
+                                                                onChange={(reservation_fields_config: string) => {
+                                                                    form.update({ reservation_fields_config });
+                                                                }}
+                                                                options={reservationFieldsConfigOptions}
+                                                            />
+                                                        )}
+                                                    />
+
+                                                    {form.values.reservation_fields_config === 'yes' && (
+                                                        <FormGroup
+                                                            label={translate('reservation_settings.labels.fields')}
+                                                            input={() => (
+                                                                <ReservationFieldsEditor
+                                                                    fields={fields}
+                                                                    onChange={setFields}
+                                                                    errors={form.errors}
+                                                                />
+                                                            )}
+                                                        />
+                                                    )}
+                                                </FormPane>
+                                            )}
+                                        </Fragment>
                                     )}
                                 </FormPane>
                             )}

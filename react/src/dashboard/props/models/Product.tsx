@@ -4,6 +4,7 @@ import Media from './Media';
 import ProductCategory from './ProductCategory';
 import Fund from './Fund';
 import Voucher from './Voucher';
+import ReservationField from './ReservationField';
 
 export type ProductPriceType = 'regular' | 'discount_fixed' | 'discount_percentage' | 'free' | 'informational';
 
@@ -74,7 +75,7 @@ export default interface Product {
     price_max_locale?: string;
     lowest_price?: string;
     lowest_price_locale?: string;
-    reservation_fields: boolean;
+    reservation_fields_enabled: boolean;
     reservation_phone: 'global' | 'no' | 'optional' | 'required';
     reservation_address: 'global' | 'no' | 'optional' | 'required';
     reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
@@ -100,4 +101,6 @@ export default interface Product {
     updated_at_locale?: string;
     created_at?: string;
     created_at_locale?: string;
+    reservation_fields_config: 'global' | 'no' | 'yes';
+    reservation_fields: Array<ReservationField>;
 }
