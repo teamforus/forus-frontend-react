@@ -622,6 +622,18 @@
                 "reason": "Причина:",
                 "sent": "Отправлено!",
                 "sign_up": "Зарегистрироваться"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Мы отправим вашу физическую карту по указанному вами адресу, как только она будет готова к использованию.",
+                "heading": "Введите ваш адрес",
+                "labels": {
+                    "city": "Расположение",
+                    "house_nr": "Номер дома",
+                    "house_nr_addition": "Добавление номера дома",
+                    "postal_code": "Почтовый индекс",
+                    "street": "Улица"
+                },
+                "title": "Адресная информация"
             }
         },
         "steps": {
@@ -2307,14 +2319,12 @@
             "all_providers": "Выберите поставщика...",
             "all_sub_categories": "Выберите подкатегорию...",
             "bookmarked": "Мой список желаний",
-            "category": "Категория",
             "distance": "Расстояние",
             "fund": "Кредит",
             "postcode": "Почтовый индекс",
             "providers": "Провайдеры",
             "search": "Поисковое предложение",
             "sort": "Сортировать",
-            "sub_category": "Подкатегория",
             "payment_option_qr": "Показать QR-код у провайдера",
             "payment_option_reservation": "Забронировать онлайн",
             "payment_options": "Варианты оплаты",
@@ -2329,7 +2339,8 @@
             "price_type_option_informational": "Только в магазине",
             "price_type_option_regular": "Цена",
             "price_type_options": "Тип предложения",
-            "price_type_options_info": "Подробнее о типах предложений"
+            "price_type_options_info": "Подробнее о типах предложений",
+            "category": "Категории"
         },
         "sort": {
             "created_at_asc": "Самый старый первый",
@@ -2366,7 +2377,8 @@
             "share": "Поделиться",
             "vouchers": "Кредит",
             "me_app": "Me-app",
-            "provider_sign_up": "Зарегистрируйтесь в качестве провайдера"
+            "provider_sign_up": "Зарегистрируйтесь в качестве провайдера",
+            "physical_cards": "Физический пропуск"
         },
         "header": {
             "subtitle": "Попросите рецензента отсканировать ваш персональный QR-код.",
@@ -2494,35 +2506,13 @@
             "home": "Главная",
             "providers": "Провайдеры"
         },
-        "distances": {
-            "3": "< 3 км",
-            "5": "< 5 км",
-            "10": "< 10 км",
-            "15": "< 15 км",
-            "25": "< 25 км",
-            "50": "< 50 км",
-            "75": "< 75 км",
-            "everywhere": "Везде"
-        },
         "filters": {
-            "all_categories": "Выберите категорию...",
-            "all_funds": "Все кредиты...",
-            "all_products": "Полное предложение",
-            "all_providers": "Выберите поставщика...",
-            "all_sub_categories": "Выберите подкатегорию...",
             "all_types": "Все типы...",
-            "bookmarked": "Мой список желаний",
-            "category": "Категория",
-            "distance": "Расстояние",
-            "fund": "Кредит",
             "map_title": "Выберите поставщика для получения дополнительной информации",
-            "postcode": "Почтовый индекс",
             "provider_type": "Тип поставщика услуг",
-            "providers": "Провайдеры",
             "result": "Есть <div class=\"showcase-result-count\">{{ total }}</div> найдено поставщиков.",
             "search": "Поиск",
-            "sort": "Сортировать",
-            "sub_category": "Подкатегория"
+            "sort": "Сортировать"
         },
         "items": {
             "labels": {
@@ -3103,7 +3093,8 @@
                     "winterswijk": {
                         "funds": "Активируйте"
                     },
-                    "profile": "Данные"
+                    "profile": "Данные",
+                    "physical_cards": "Физический пропуск"
                 },
                 "groningen": {
                     "voucher": "Карта моего города"
@@ -3212,7 +3203,8 @@
             "security_sessions": "Сессии",
             "aria_label": "Меню пользователя",
             "title": "Личный",
-            "profile": "Данные"
+            "profile": "Данные",
+            "physical_cards": "Физический пропуск"
         },
         "main_menu": "Главное меню",
         "open_home": "Назад к главной странице",
@@ -3641,5 +3633,21 @@
         "aria_label_text": "Подпишитесь {{current}} из {{total}}",
         "aria_labelledby_num": "Введите код из {{total}} цифр.",
         "aria_labelledby_text": "Введите код из символов {{total}}."
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Главная",
+            "vouchers": "Физический пропуск"
+        },
+        "empty": {
+            "button": "Активируйте или запросите физический пропуск",
+            "subtitle": "В настоящее время у вас нет физического пропуска",
+            "title": "Нет физического пропуска"
+        },
+        "filters": {
+            "active": "Активный",
+            "archive": "Архив"
+        },
+        "title": "Физический пропуск"
     }
 }

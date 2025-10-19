@@ -573,6 +573,7 @@ export default {
                     statistics: 'Statistieken',
                     criteria: 'Voorwaarden',
                     configs: 'Uitbetalingsinstellingen',
+                    physical_cards: 'Fysieke passen',
                 },
             },
             details_card: {

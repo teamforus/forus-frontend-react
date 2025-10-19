@@ -3,15 +3,8 @@ import { useProductService } from '../../../services/ProductService';
 import { PaginationData, ResponseError } from '../../../../dashboard/props/ApiResponses';
 import Product from '../../../props/models/Product';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
-import { useFundService } from '../../../services/FundService';
-import Fund from '../../../props/models/Fund';
-import ProductCategory from '../../../../dashboard/props/models/ProductCategory';
-import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
-import useProductCategoryService from '../../../../dashboard/services/ProductCategoryService';
-import Organization from '../../../../dashboard/props/models/Organization';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
-import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
@@ -20,23 +13,25 @@ import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import BlockShowcasePage from '../../elements/block-showcase/BlockShowcasePage';
 import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
-import { BooleanParam, NumberParam, StringParam } from 'use-query-params';
+import { BooleanParam, NumberParam, StringParam, NumericArrayParam } from 'use-query-params';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import useSetTitle from '../../../hooks/useSetTitle';
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
-import RangeControl from '../../elements/forms/RangeControl';
-import ProductsFilterReservationOptions from './elements/ProductsFilterReservationOptions';
+import ProductsFilterGroupReservationOptions from './elements/ProductsFilterGroupReservationOptions';
 import classNames from 'classnames';
-import ProductsFilterPriceTypeOptions from './elements/ProductsFilterPriceTypeOptions';
+import ProductsFilterGroupPriceType from './elements/ProductsFilterGroupPriceType';
+import FormGroup from '../../elements/forms/FormGroup';
+import ProductsFilterGroupProductCategories from './elements/ProductsFilterGroupProductCategories';
+import ProductsFilterGroupDistance from './elements/ProductsFilterGroupDistance';
+import ProductsFilterGroupPrice from './elements/ProductsFilterGroupPrice';
+import ProductsFilterGroupFunds from './elements/ProductsFilterGroupFunds';
+import ProductsFilterGroupProviders from './elements/ProductsFilterGroupProviders';
 
 export default function Products() {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
 
-    const fundService = useFundService();
     const productService = useProductService();
-    const organizationService = useOrganizationService();
-    const productCategoryService = useProductCategoryService();
 
     const setTitle = useSetTitle();
     const translate = useTranslate();
@@ -46,24 +41,7 @@ export default function Products() {
 
     const [errors, setErrors] = useState<{ [key: string]: string | Array<string> }>({});
 
-    const [funds, setFunds] = useState<Array<Partial<Fund>>>(null);
     const [toMax, setToMax] = useState(0);
-    const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
-    const [productCategories, setProductCategories] = useState<Array<Partial<ProductCategory>>>(null);
-    const [productSubCategories, setProductSubCategories] = useState<Array<Partial<ProductCategory>>>(null);
-
-    const distances = useMemo(() => {
-        return [
-            { id: null, name: translate('products.distances.everywhere') },
-            { id: 3, name: translate('products.distances.3') },
-            { id: 5, name: translate('products.distances.5') },
-            { id: 10, name: translate('products.distances.10') },
-            { id: 15, name: translate('products.distances.15') },
-            { id: 25, name: translate('products.distances.25') },
-            { id: 50, name: translate('products.distances.50') },
-            { id: 75, name: translate('products.distances.75') },
-        ];
-    }, [translate]);
 
     const defaultSortOption = useMemo(() => {
         return sortByOptions?.find((option) => {
@@ -77,10 +55,9 @@ export default function Products() {
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
         page: number;
-        fund_id: number;
+        fund_ids: number[];
         organization_id: number;
-        product_category_id: number;
-        product_sub_category_id: number;
+        product_category_ids: number[];
         postcode: string;
         distance: number;
         from: number;
@@ -101,10 +78,9 @@ export default function Products() {
         {
             q: '',
             page: 1,
-            fund_id: null,
+            fund_ids: [],
             organization_id: null,
-            product_category_id: null,
-            product_sub_category_id: null,
+            product_category_ids: [],
             postcode: '',
             distance: null,
             from: 0,
@@ -127,10 +103,9 @@ export default function Products() {
             queryParams: {
                 q: StringParam,
                 page: NumberParam,
-                fund_id: NumberParam,
+                fund_ids: NumericArrayParam,
                 organization_id: NumberParam,
-                product_category_id: NumberParam,
-                product_sub_category_id: NumberParam,
+                product_category_ids: NumericArrayParam,
                 postcode: StringParam,
                 distance: NumberParam,
                 from: NumberParam,
@@ -161,10 +136,6 @@ export default function Products() {
         ].filter((value) => value).length;
     }, [filterValues]);
 
-    const fundFiltered = useMemo(() => {
-        return filterValuesActive?.fund_id && funds?.find((item) => item.id === filterValuesActive?.fund_id);
-    }, [filterValuesActive?.fund_id, funds]);
-
     const [products, setProducts] = useState<PaginationData<Product, { price_max: number }>>(null);
 
     const buildQuery = useCallback(
@@ -172,10 +143,10 @@ export default function Products() {
             values: Partial<{
                 q: string;
                 page: number;
-                fund_id: number;
+                fund_ids: number[];
                 organization_id: number;
                 product_category_id: number;
-                product_sub_category_id: number;
+                product_category_ids: number[];
                 postcode: string;
                 distance: number;
                 from: number;
@@ -206,9 +177,9 @@ export default function Products() {
             return {
                 q: values.q,
                 page: values.page,
-                fund_id: values.fund_id,
+                fund_ids: values.fund_ids?.length > 0 ? values.fund_ids : null,
                 organization_id: values.organization_id,
-                product_category_id: values.product_sub_category_id || values.product_category_id,
+                product_category_ids: values.product_category_ids?.length > 0 ? values.product_category_ids : null,
                 postcode: values.postcode || '',
                 distance: values.distance || null,
                 from: values.from || null,
@@ -246,73 +217,13 @@ export default function Products() {
         [productService, setProgress],
     );
 
-    const fetchFunds = useCallback(() => {
-        fundService
-            .list({ has_products: 1 })
-            .then((res) => setFunds([{ id: null, name: translate('products.filters.all_funds') }, ...res.data.data]));
-    }, [fundService, translate]);
-
-    const fetchOrganizations = useCallback(() => {
-        organizationService
-            .list({ type: 'provider', per_page: 300, order_by: 'name' })
-            .then((res) =>
-                setOrganizations([{ id: null, name: translate('products.filters.all_providers') }, ...res.data.data]),
-            );
-    }, [organizationService, translate]);
-
-    const fetchProductCategories = useCallback(() => {
-        productCategoryService
-            .list({ per_page: 1000, used: 1, parent_id: 'null' })
-            .then((res) =>
-                setProductCategories([
-                    { id: null, name: translate('products.filters.all_categories') },
-                    ...res.data.data,
-                ]),
-            );
-    }, [productCategoryService, translate]);
-
-    useEffect(() => {
-        fetchFunds();
-        fetchOrganizations();
-        fetchProductCategories();
-    }, [fetchFunds, fetchOrganizations, fetchProductCategories]);
-
     useEffect(() => {
         fetchProducts(buildQuery(filterValuesActive));
     }, [fetchProducts, buildQuery, filterValuesActive]);
 
     useEffect(() => {
-        if (filterValues.product_category_id) {
-            productCategoryService
-                .list({
-                    parent_id: filterValues.product_category_id,
-                    per_page: 1000,
-                    used: 1,
-                })
-                .then((res) => {
-                    filterUpdate((values) => {
-                        if (!res.data.data?.map((item) => item.id).includes(values.product_sub_category_id)) {
-                            return { ...values, product_sub_category_id: null };
-                        }
-
-                        return values;
-                    });
-
-                    setProductSubCategories(
-                        res.data.meta.total
-                            ? [{ name: translate('products.filters.all_sub_categories'), id: null }, ...res.data.data]
-                            : null,
-                    );
-                });
-        } else {
-            filterUpdate({ product_sub_category_id: null });
-            setProductSubCategories(null);
-        }
-    }, [filterUpdate, filterValues.product_category_id, productCategoryService, translate]);
-
-    useEffect(() => {
-        setTitle(translate('page_state_titles.products', { fund_name: fundFiltered ? ` ${fundFiltered.name}` : '' }));
-    }, [fundFiltered, setTitle, translate]);
+        setTitle(translate('page_state_titles.products'));
+    }, [setTitle, translate]);
 
     return (
         <BlockShowcasePage
@@ -323,237 +234,80 @@ export default function Products() {
                 { name: translate('products.breadcrumbs.products') },
             ]}
             aside={
-                organizations &&
-                productCategories &&
-                funds &&
-                distances && (
-                    <div className="showcase-aside-block">
-                        {authIdentity && (
-                            <div className="showcase-aside-tabs">
-                                <div
-                                    className={`showcase-aside-tab clickable ${
-                                        !filterValues?.bookmarked ? 'active' : ''
-                                    }`}
-                                    onClick={() => filterUpdate({ bookmarked: false })}
-                                    onKeyDown={clickOnKeyEnter}
-                                    tabIndex={0}
-                                    aria-pressed={!filterValues.bookmarked}
-                                    role="button">
-                                    <em className="mdi mdi-tag-multiple-outline" />
-                                    {translate('products.filters.all_products')}
-                                </div>
-                                <div
-                                    className={`showcase-aside-tab clickable ${
-                                        filterValues?.bookmarked ? 'active' : ''
-                                    }`}
-                                    onClick={() => filterUpdate({ bookmarked: true })}
-                                    onKeyDown={clickOnKeyEnter}
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-label={translate('product.buttons.bookmark')}
-                                    aria-pressed={!!filterValues.bookmarked}>
-                                    <em className="mdi mdi-cards-heart-outline" />
-
-                                    {translate('products.filters.bookmarked')}
-                                </div>
+                <div className="showcase-aside-block">
+                    {authIdentity && (
+                        <div className="showcase-aside-tabs">
+                            <div
+                                className={`showcase-aside-tab clickable ${!filterValues?.bookmarked ? 'active' : ''}`}
+                                onClick={() => filterUpdate({ bookmarked: false })}
+                                onKeyDown={clickOnKeyEnter}
+                                tabIndex={0}
+                                aria-pressed={!filterValues.bookmarked}
+                                role="button">
+                                <em className="mdi mdi-tag-multiple-outline" />
+                                {translate('products.filters.all_products')}
                             </div>
-                        )}
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="products_search">
-                                {translate('products.filters.search')}
-                            </label>
+                            <div
+                                className={`showcase-aside-tab clickable ${filterValues?.bookmarked ? 'active' : ''}`}
+                                onClick={() => filterUpdate({ bookmarked: true })}
+                                onKeyDown={clickOnKeyEnter}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={translate('product.buttons.bookmark')}
+                                aria-pressed={!!filterValues.bookmarked}>
+                                <em className="mdi mdi-cards-heart-outline" />
+
+                                {translate('products.filters.bookmarked')}
+                            </div>
+                        </div>
+                    )}
+
+                    <FormGroup
+                        id={'products_search'}
+                        label={translate('products.filters.search')}
+                        error={errors?.q}
+                        input={(id) => (
                             <UIControlText
                                 value={filterValues.q}
                                 onChangeValue={(q: string) => filterUpdate({ q })}
                                 ariaLabel={translate('products.filters.search')}
-                                id="products_search"
+                                id={id}
                                 dataDusk="listProductsSearch"
                             />
-                        </div>
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="select_provider">
-                                {translate('products.filters.providers')}
-                            </label>
-                            <SelectControl
-                                id={'select_provider'}
-                                value={filterValues.organization_id}
-                                propKey={'id'}
-                                multiline={true}
-                                allowSearch={true}
-                                onChange={(organization_id: number) => filterUpdate({ organization_id })}
-                                options={organizations || []}
-                                dusk="selectControlOrganizations"
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="select_category">
-                                {translate('products.filters.category')}
-                            </label>
-
-                            <SelectControl
-                                id={'select_category'}
-                                propKey={'id'}
-                                multiline={true}
-                                allowSearch={true}
-                                value={filterValues.product_category_id}
-                                onChange={(id: number) => filterUpdate({ product_category_id: id })}
-                                options={productCategories || []}
-                                dusk="selectControlCategories"
-                            />
-                        </div>
-
-                        {productSubCategories?.length > 1 && (
-                            <div className="form-group">
-                                <label className="form-label" htmlFor="select_sub_category">
-                                    {translate('products.filters.sub_category')}
-                                </label>
-
-                                <SelectControl
-                                    id={'select_sub_category'}
-                                    propKey={'id'}
-                                    value={filterValues.product_sub_category_id}
-                                    onChange={(id: number) => filterUpdate({ product_sub_category_id: id })}
-                                    multiline={true}
-                                    allowSearch={true}
-                                    options={productSubCategories || []}
-                                    dusk="selectControlSubCategories"
-                                />
-                            </div>
                         )}
+                    />
 
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="select_fund">
-                                {translate('products.filters.fund')}
-                            </label>
-                            {funds && (
-                                <SelectControl
-                                    id={'select_fund'}
-                                    propKey={'id'}
-                                    value={filterValues.fund_id}
-                                    multiline={true}
-                                    allowSearch={true}
-                                    onChange={(fund_id: number) => filterUpdate({ fund_id })}
-                                    options={funds || []}
-                                    dusk="selectControlFunds"
-                                />
-                            )}
-                        </div>
-                        <div className="row">
-                            <div className="col col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label" htmlFor="postcode">
-                                        {translate('products.filters.postcode')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="postcode"
-                                        value={filterValues.postcode}
-                                        onChange={(e) => filterUpdate({ postcode: e.target.value })}
-                                        type="text"
-                                        aria-label={translate('products.filters.postcode')}
-                                        data-dusk="inputPostcode"
-                                        autoComplete="postal-code"
-                                    />
-                                    <FormError error={errors?.postcode} />
-                                </div>
-                            </div>
-                            <div className="col col-md-6">
-                                <div className="form-group">
-                                    <label className="form-label" htmlFor="distance">
-                                        {translate('products.filters.distance')}
-                                    </label>
-                                    <SelectControl
-                                        id={'distance'}
-                                        propKey={'id'}
-                                        value={filterValues.distance}
-                                        multiline={true}
-                                        allowSearch={true}
-                                        onChange={(distance: number) => filterUpdate({ distance })}
-                                        options={distances || []}
-                                        dusk="selectControlDistances"
-                                    />
-                                    <FormError error={errors?.distance} />
-                                </div>
-                            </div>
-                        </div>
+                    <ProductsFilterGroupProductCategories
+                        value={filterValues?.product_category_ids}
+                        setValue={(product_category_ids) => filterUpdate({ product_category_ids })}
+                        openByDefault={true}
+                    />
 
-                        <div className="showcase-aside-block-separator" />
-                        <div className="showcase-aside-block-title">{translate('products.filters.price')}</div>
-                        <div className="row">
-                            <div className="col col-md-5">
-                                <div className="form-group">
-                                    <label className="form-label" htmlFor="from">
-                                        {translate('products.filters.price_from')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="from"
-                                        min={0}
-                                        max={toMax}
-                                        value={filterValues.from || ''}
-                                        onChange={(e) =>
-                                            filterUpdate({
-                                                from: Math.min(Math.max(parseFloat(e.target.value) || 0, 0), toMax),
-                                            })
-                                        }
-                                        type="number"
-                                        aria-label={translate('products.filters.price_from')}
-                                        data-dusk="inputPriceFrom"
-                                    />
-                                    <FormError error={errors?.from} />
-                                </div>
-                            </div>
-                            <div className="col col-md-2" />
-                            <div className="col col-md-5">
-                                <div className="form-group">
-                                    <label className="form-label" htmlFor="to">
-                                        {translate('products.filters.price_to')}
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        id="to"
-                                        min={0}
-                                        max={toMax}
-                                        value={filterValues.to || toMax}
-                                        placeholder={translate('products.filters.price_to')}
-                                        onChange={(e) =>
-                                            filterUpdate({
-                                                to: Math.min(Math.max(parseFloat(e.target.value) || toMax, 0), toMax),
-                                            })
-                                        }
-                                        type="number"
-                                        aria-label={translate('products.filters.price_to')}
-                                        data-dusk="inputPriceTo"
-                                    />
-                                    <FormError error={errors?.to} />
-                                </div>
-                            </div>
-                        </div>
+                    <ProductsFilterGroupFunds
+                        value={filterValues?.fund_ids}
+                        setValue={(fund_ids) => filterUpdate({ fund_ids })}
+                        openByDefault={true}
+                        error={errors?.fund_ids}
+                    />
 
-                        <div className="form-group">
-                            <RangeControl
-                                min={0}
-                                max={toMax}
-                                from={filterValues.from || 0}
-                                to={filterValues.to || toMax}
-                                setFrom={(from) => filterUpdate({ from })}
-                                setTo={(to) => filterUpdate({ to })}
-                                prefix={'€ '}
-                            />
-                        </div>
+                    <ProductsFilterGroupPrice
+                        filterValues={filterValues}
+                        filterUpdate={filterUpdate}
+                        errors={errors}
+                        toMax={toMax}
+                        openByDefault={true}
+                    />
 
-                        <ProductsFilterReservationOptions
-                            value={filterValues}
-                            setValue={(value) => filterUpdate(value)}
-                        />
+                    <ProductsFilterGroupProviders
+                        filterValues={filterValues}
+                        filterUpdate={filterUpdate}
+                        errors={errors}
+                    />
 
-                        <ProductsFilterPriceTypeOptions
-                            value={filterValues}
-                            setValue={(value) => filterUpdate(value)}
-                        />
-                    </div>
-                )
+                    <ProductsFilterGroupDistance values={filterValues} setValues={filterUpdate} errors={errors} />
+                    <ProductsFilterGroupReservationOptions value={filterValues} setValue={filterUpdate} />
+                    <ProductsFilterGroupPriceType value={filterValues} setValue={filterUpdate} />
+                </div>
             }>
             {appConfigs && products && (
                 <Fragment>

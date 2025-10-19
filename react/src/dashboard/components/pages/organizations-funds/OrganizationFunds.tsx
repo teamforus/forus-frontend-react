@@ -19,7 +19,6 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useOpenModal from '../../../hooks/useOpenModal';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
 import ModalFundTopUp from '../../modals/ModalFundTopUp';
 import useTranslate from '../../../hooks/useTranslate';
 import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
@@ -29,8 +28,9 @@ import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableEntityMain from '../../elements/tables/elements/TableEntityMain';
 import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
-import { Permission } from '../../../props/models/Organization';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { Permission } from '../../../props/models/Organization';
 import CardHeaderFilter from '../../elements/tables/elements/CardHeaderFilter';
 
 export default function OrganizationFunds() {
@@ -45,7 +45,6 @@ export default function OrganizationFunds() {
     const paginatorService = usePaginatorService();
     const implementationService = useImplementationService();
 
-    const [loading, setLoading] = useState(false);
     const [paginatorKey] = useState<string>('organization_funds');
     const [implementations, setImplementations] = useState<Array<Partial<Implementation>>>(null);
     const [funds, setFunds] =
@@ -62,27 +61,30 @@ export default function OrganizationFunds() {
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
+        page: number;
         state: string;
-        funds_type?: string;
-        implementation_id?: number;
-        per_page?: number;
-        page?: number;
+        per_page: number;
+        funds_type: string;
+        implementation_id: number;
+        physical_card_type_id?: number;
     }>(
         {
             q: '',
+            page: 1,
             state: null,
+            per_page: paginatorService.getPerPage(paginatorKey),
             funds_type: 'active',
             implementation_id: null,
-            per_page: paginatorService.getPerPage(paginatorKey),
+            physical_card_type_id: null,
         },
         {
             queryParams: {
                 q: StringParam,
+                page: NumberParam,
+                per_page: NumberParam,
                 state: createEnumParam(['active', 'paused', 'closed']),
                 funds_type: createEnumParam(['active', 'archived']),
                 implementation_id: NumberParam,
-                per_page: NumberParam,
-                page: NumberParam,
             },
         },
     );
@@ -95,7 +97,6 @@ export default function OrganizationFunds() {
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
-        setLoading(true);
 
         fundService
             .list(activeOrganization.id, {
@@ -107,11 +108,9 @@ export default function OrganizationFunds() {
                 per_page: filterValuesActive.per_page,
             })
             .then((res) => setFunds(res.data))
-            .finally(() => {
-                setProgress(100);
-                setLoading(false);
-            });
-    }, [activeOrganization.id, filterValuesActive, fundService, setProgress]);
+            .catch(pushApiError)
+            .finally(() => setProgress(100));
+    }, [activeOrganization.id, filterValuesActive, fundService, pushApiError, setProgress]);
 
     const fetchImplementations = useCallback(() => {
         setProgress(0);
@@ -331,7 +330,11 @@ export default function OrganizationFunds() {
                 </div>
             </div>
 
-            {!loading && funds.meta.total > 0 && (
+            <LoaderTableCard
+                loading={!funds?.meta}
+                empty={funds?.meta?.total === 0}
+                emptyTitle={'Geen fondsen'}
+                emptyDescription={'Geen fondsen gevonden.'}>
                 <div className="card-section">
                     <div className="card-block card-block-table">
                         {configsElement}
@@ -490,22 +493,18 @@ export default function OrganizationFunds() {
                         </TableTopScroller>
                     </div>
                 </div>
-            )}
 
-            {!loading && funds.meta.total == 0 && <EmptyCard type={'card-section'} title={'Geen fondsen gevonden'} />}
-
-            {loading && <LoadingCard type={'card-section'} />}
-
-            {!loading && funds.meta.total > 0 && (
-                <div className="card-section">
-                    <Paginator
-                        meta={funds.meta}
-                        filters={filterValues}
-                        updateFilters={filterUpdate}
-                        perPageKey={paginatorKey}
-                    />
-                </div>
-            )}
+                {funds?.meta.total > 0 && (
+                    <div className="card-section">
+                        <Paginator
+                            meta={funds.meta}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
+                            perPageKey={paginatorKey}
+                        />
+                    </div>
+                )}
+            </LoaderTableCard>
         </div>
     );
 }
