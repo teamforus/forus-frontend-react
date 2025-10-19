@@ -9,7 +9,6 @@ import { useBankService } from '../../../services/BankService';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import useOpenModal from '../../../hooks/useOpenModal';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import useFilter from '../../../hooks/useFilter';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import BankConnection from '../../../props/models/BankConnection';
 import ModalSwitchBankConnectionAccount from '../../modals/ModalSwitchBankConnectionAccount';
@@ -23,6 +22,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import Label from '../../elements/image_cropper/Label';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function BankConnections() {
     const activeOrganization = useActiveOrganization();
@@ -54,8 +54,7 @@ export default function BankConnections() {
         error: StringParam,
     });
 
-    const filter = useFilter({
-        q: '',
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
@@ -83,11 +82,11 @@ export default function BankConnections() {
     const fetchBankConnections = useCallback(
         (query: object = {}) => {
             bankConnectionService
-                .list(activeOrganization.id, { ...query, ...filter.activeValues })
+                .list(activeOrganization.id, { ...query, ...filterValuesActive })
                 .then((res) => setBankConnections(res.data))
                 .catch(onRequestError);
         },
-        [activeOrganization.id, bankConnectionService, filter.activeValues, onRequestError],
+        [activeOrganization.id, bankConnectionService, filterValuesActive, onRequestError],
     );
 
     const fetchActiveBankConnection = useCallback(
@@ -379,8 +378,8 @@ export default function BankConnections() {
                     {bankConnections.meta && (
                         <div className="card-section">
                             <Paginator
-                                filters={filter.values}
-                                updateFilters={filter.update}
+                                filters={filterValues}
+                                updateFilters={filterUpdate}
                                 meta={bankConnections.meta}
                                 perPageKey={paginatorKey}
                             />

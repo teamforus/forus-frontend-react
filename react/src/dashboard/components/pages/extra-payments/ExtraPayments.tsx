@@ -5,7 +5,6 @@ import useSetProgress from '../../../hooks/useSetProgress';
 import useExtraPaymentService from '../../../services/ExtraPaymentService';
 import ExtraPayment from '../../../props/models/ExtraPayment';
 import { PaginationData } from '../../../props/ApiResponses';
-import useFilter from '../../../hooks/useFilter';
 import { strLimit } from '../../../helpers/string';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import Paginator from '../../../modules/paginator/components/Paginator';
@@ -21,6 +20,8 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import TableTopScroller from '../../elements/tables/TableTopScroller';
 import useConfigurableTable from '../vouchers/hooks/useConfigurableTable';
 import SelectControlOptionsFund from '../../elements/select-control/templates/SelectControlOptionsFund';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 export default function ExtraPayments() {
     const activeOrganization = useActiveOrganization();
@@ -39,13 +40,32 @@ export default function ExtraPayments() {
     const [funds, setFunds] = useState(null);
     const [extraPayments, setExtraPayments] = useState<PaginationData<ExtraPayment>>(null);
 
-    const filter = useFilter({
-        q: '',
-        fund_id: null,
-        per_page: paginatorService.getPerPage(paginatorKey),
-        order_by: 'paid_at',
-        order_dir: 'desc',
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        fund_id?: number;
+        per_page?: number;
+        page?: number;
+        order_by?: string;
+        order_dir?: string;
+    }>(
+        {
+            q: '',
+            fund_id: null,
+            per_page: paginatorService.getPerPage(paginatorKey),
+            order_by: 'paid_at',
+            order_dir: 'desc',
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                fund_id: NumberParam,
+                per_page: NumberParam,
+                page: NumberParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+            },
+        },
+    );
 
     const { headElement, configsElement } = useConfigurableTable(extraPaymentService.getColumns(), {
         sortable: true,
@@ -57,14 +77,14 @@ export default function ExtraPayments() {
         setLoading(true);
 
         extraPaymentService
-            .list(activeOrganization.id, filter.activeValues)
+            .list(activeOrganization.id, filterValuesActive)
             .then((res) => setExtraPayments(res.data))
             .catch(pushApiError)
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [extraPaymentService, activeOrganization.id, setProgress, filter?.activeValues, pushApiError]);
+    }, [extraPaymentService, activeOrganization.id, setProgress, filterValuesActive, pushApiError]);
 
     const fetchFunds = useCallback(
         async (query: object): Promise<Array<Fund>> => {
@@ -119,10 +139,10 @@ export default function ExtraPayments() {
                                             className="form-control inline-filter-control"
                                             propKey={'id'}
                                             options={funds}
-                                            value={filter.activeValues.fund_id}
+                                            value={filterValues.fund_id}
                                             placeholder={translate('vouchers.labels.fund')}
                                             allowSearch={false}
-                                            onChange={(fund_id: number) => filter.update({ fund_id })}
+                                            onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                             optionsComponent={SelectControlOptionsFund}
                                         />
                                     </div>
@@ -132,8 +152,8 @@ export default function ExtraPayments() {
                                         <input
                                             type="text"
                                             className="form-control"
-                                            value={filter.values.q}
-                                            onChange={(e) => filter.update({ q: e.target.value })}
+                                            value={filterValues.q}
+                                            onChange={(e) => filterUpdate({ q: e.target.value })}
                                             placeholder={translate('extra_payments.labels.search')}
                                         />
                                     </div>
@@ -145,8 +165,8 @@ export default function ExtraPayments() {
                             <FilterItemToggle show={true} label={translate('extra_payments.labels.search')}>
                                 <input
                                     type="text"
-                                    value={filter.values?.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder={translate('extra_payments.labels.search')}
                                     className="form-control"
                                 />
@@ -157,7 +177,8 @@ export default function ExtraPayments() {
                                     options={funds}
                                     propKey={'id'}
                                     allowSearch={false}
-                                    onChange={(fund_id: string) => filter.update({ fund_id })}
+                                    value={filterValues.fund_id}
+                                    onChange={(fund_id: number) => filterUpdate({ fund_id })}
                                 />
                             </FilterItemToggle>
                         </CardHeaderFilter>
@@ -230,8 +251,8 @@ export default function ExtraPayments() {
                 <div className="card-section">
                     <Paginator
                         meta={extraPayments.meta}
-                        filters={filter.values}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorKey}
                     />
                 </div>

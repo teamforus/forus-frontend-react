@@ -21,6 +21,7 @@ import usePayoutTransactionService from '../../../services/PayoutTransactionServ
 import PayoutTransaction from '../../../props/models/PayoutTransaction';
 import usePushApiError from '../../../hooks/usePushApiError';
 import PayoutsTable from './elements/PayoutsTable';
+import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 
 export default function Payouts() {
     const openModal = useOpenModal();
@@ -70,6 +71,7 @@ export default function Payouts() {
         per_page?: number;
         order_by?: string;
         order_dir?: string;
+        page?: number;
     }>(
         {
             q: '',
@@ -87,6 +89,22 @@ export default function Payouts() {
             order_dir: 'desc',
         },
         {
+            queryParams: {
+                q: StringParam,
+                to: StringParam,
+                from: StringParam,
+                state: createEnumParam(['pending', 'success']),
+                fund_id: NumberParam,
+                fund_state: createEnumParam(['closed', 'active']),
+                amount_min: NumberParam,
+                amount_max: NumberParam,
+                non_cancelable_from: StringParam,
+                non_cancelable_to: StringParam,
+                order_by: StringParam,
+                order_dir: StringParam,
+                per_page: NumberParam,
+                page: NumberParam,
+            },
             throttledValues: ['q', 'amount_min', 'amount_max'],
         },
     );

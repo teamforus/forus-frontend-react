@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
-import useFilter from '../../../../hooks/useFilter';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useSetProgress from '../../../../hooks/useSetProgress';
@@ -27,6 +26,8 @@ import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Label from '../../../elements/image_cropper/Label';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { NumberParam, StringParam } from 'use-query-params';
 
 type FundProviderUnsubscribeLocal = FundProviderUnsubscribe & {
     showTooltip?: boolean;
@@ -60,13 +61,34 @@ export default function ProviderFundUnsubscriptionsTable({
         { key: 'canceled', label: 'Geannuleerd' },
     ]);
 
-    const filter = useFilter({
-        q: '',
-        state: null,
-        per_page: paginatorService.getPerPage(paginatorKey),
-        from: '',
-        to: '',
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        state?: string;
+        from?: string;
+        to?: string;
+        page?: number;
+        per_page?: number;
+    }>(
+        {
+            q: '',
+            state: null,
+            from: '',
+            to: '',
+            per_page: paginatorService.getPerPage(paginatorKey),
+        },
+        {
+            queryParams: {
+                q: StringParam,
+                state: StringParam,
+                from: StringParam,
+                to: StringParam,
+                page: NumberParam,
+                per_page: NumberParam,
+            },
+        },
+    );
+
+    const { resetFilters: resetFilters } = filter;
 
     const [fundUnsubscriptions, setFundUnsubscriptions] = useState<PaginationData<FundProviderUnsubscribeLocal>>(null);
 
@@ -84,7 +106,7 @@ export default function ProviderFundUnsubscriptionsTable({
     const { headElement, configsElement } = useConfigurableTable(fundUnsubscribeService.getColumns(), {
         trPrepend: (
             <Fragment>
-                {[null, 'pending'].includes(filter.values.state) && (
+                {[null, 'pending'].includes(filterValues.state) && (
                     <th className="th-narrow">
                         <TableCheckboxControl
                             checked={selected.length == fundUnsubscriptions?.data?.length}
@@ -95,6 +117,21 @@ export default function ProviderFundUnsubscriptionsTable({
             </Fragment>
         ),
     });
+
+    const fetchUnsubscriptions = useCallback(() => {
+        setSelected([]);
+        setLoading(true);
+        setProgress(0);
+
+        fundUnsubscribeService
+            .listProvider(organization.id, filterValuesActive)
+            .then((res) => setFundUnsubscriptions(res.data))
+            .catch(pushApiError)
+            .finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
+    }, [setSelected, setProgress, fundUnsubscribeService, organization.id, filterValuesActive, pushApiError]);
 
     const cancelUnsubscriptions = useCallback(
         (unsubscriptions: Array<FundProviderUnsubscribe>) => {
@@ -114,7 +151,7 @@ export default function ProviderFundUnsubscriptionsTable({
                                 .then(() => pushSuccess('Opgeslagen!'))
                                 .catch(pushApiError)
                                 .finally(() => {
-                                    filter.touch();
+                                    fetchUnsubscriptions();
                                     modal.close();
                                     onChange?.();
                                 });
@@ -127,29 +164,27 @@ export default function ProviderFundUnsubscriptionsTable({
                 />
             ));
         },
-        [filter, fundUnsubscribeService, onChange, openModal, organization.id, pushApiError, pushSuccess, translate],
-    );
-
-    const fetchUnsubscriptions = useCallback(
-        async (filters: object) => {
-            setLoading(true);
-            setProgress(0);
-
-            return fundUnsubscribeService.listProvider(organization.id, filters).finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-        },
-        [organization.id, fundUnsubscribeService, setProgress],
+        [
+            fetchUnsubscriptions,
+            fundUnsubscribeService,
+            onChange,
+            openModal,
+            organization.id,
+            pushApiError,
+            pushSuccess,
+            translate,
+        ],
     );
 
     useEffect(() => {
-        setSelected([]);
+        fetchUnsubscriptions();
+    }, [fetchUnsubscriptions]);
 
-        fetchUnsubscriptions(filter.activeValues)
-            .then((res) => setFundUnsubscriptions(res.data))
-            .catch(pushApiError);
-    }, [fetchUnsubscriptions, filter.activeValues, pushApiError, setSelected]);
+    useEffect(() => {
+        return () => {
+            resetFilters();
+        };
+    }, [resetFilters]);
 
     return (
         <div className="card">
@@ -180,9 +215,9 @@ export default function ProviderFundUnsubscriptionsTable({
                                         <div
                                             key={state.key}
                                             className={`label-tab label-tab-sm ${
-                                                filter.values.state == state.key ? 'active' : ''
+                                                filterValues.state == state.key ? 'active' : ''
                                             }`}
-                                            onClick={() => filter.update({ state: state.key })}>
+                                            onClick={() => filterUpdate({ state: state.key })}>
                                             {state.label}
                                         </div>
                                     ))}
@@ -191,7 +226,7 @@ export default function ProviderFundUnsubscriptionsTable({
                         </div>
 
                         {filter.show && (
-                            <div className="button button-text" onClick={filter.resetFilters}>
+                            <div className="button button-text" onClick={resetFilters}>
                                 <em className="mdi mdi-close icon-start" />
                                 Wis filters
                             </div>
@@ -202,8 +237,8 @@ export default function ProviderFundUnsubscriptionsTable({
                                 <div className="form-group">
                                     <input
                                         className="form-control"
-                                        value={filter.values.q}
-                                        onChange={(e) => filter.update({ q: e.target.value })}
+                                        value={filterValues.q}
+                                        onChange={(e) => filterUpdate({ q: e.target.value })}
                                         placeholder="Zoeken"
                                     />
                                 </div>
@@ -213,28 +248,28 @@ export default function ProviderFundUnsubscriptionsTable({
                             <FilterItemToggle label={translate('provider_funds.filters.labels.search')} show={true}>
                                 <input
                                     className="form-control"
-                                    value={filter.values.q}
-                                    onChange={(e) => filter.update({ q: e.target.value })}
+                                    value={filterValues.q}
+                                    onChange={(e) => filterUpdate({ q: e.target.value })}
                                     placeholder="Zoeken"
                                 />
                             </FilterItemToggle>
 
                             <FilterItemToggle label={translate('transactions.labels.from')}>
                                 <DatePickerControl
-                                    value={dateParse(filter.values.from)}
+                                    value={dateParse(filterValues.from)}
                                     placeholder={translate('jjjj-MM-dd')}
                                     onChange={(from: Date) => {
-                                        filter.update({ from: dateFormat(from) });
+                                        filterUpdate({ from: dateFormat(from) });
                                     }}
                                 />
                             </FilterItemToggle>
 
                             <FilterItemToggle label={translate('transactions.labels.to')}>
                                 <DatePickerControl
-                                    value={dateParse(filter.values.to)}
+                                    value={dateParse(filterValues.to)}
                                     placeholder={translate('jjjj-MM-dd')}
                                     onChange={(to: Date) => {
-                                        filter.update({ to: dateFormat(to) });
+                                        filterUpdate({ to: dateFormat(to) });
                                     }}
                                 />
                             </FilterItemToggle>
@@ -256,7 +291,7 @@ export default function ProviderFundUnsubscriptionsTable({
                                         <tr
                                             key={unsubscription.id}
                                             className={selected.includes(unsubscription.id) ? 'selected' : ''}>
-                                            {[null, 'pending'].includes(filter.values.state) && (
+                                            {[null, 'pending'].includes(filterValues.state) && (
                                                 <td className="td-narrow">
                                                     <TableCheckboxControl
                                                         checked={selected.includes(unsubscription.id)}
@@ -386,8 +421,8 @@ export default function ProviderFundUnsubscriptionsTable({
                 <div className="card-section">
                     <Paginator
                         meta={fundUnsubscriptions.meta}
-                        filters={filter.activeValues}
-                        updateFilters={filter.update}
+                        filters={filterValues}
+                        updateFilters={filterUpdate}
                         perPageKey={paginatorKey}
                     />
                 </div>

@@ -1,4 +1,3 @@
-import FilterModel from '../../../types/FilterModel';
 import { useCallback, useEffect, useState } from 'react';
 import React from 'react';
 import useOpenModal from '../../../hooks/useOpenModal';
@@ -23,6 +22,7 @@ import { useFileService } from '../../../services/FileService';
 import Organization from '../../../props/models/Organization';
 import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../tables/TableTopScroller';
+import { FilterModel } from '../../../modules/filter_next/types/FilterParams';
 
 export default function BlockCardEmails({
     organization,

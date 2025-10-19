@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import Fund from '../../../../../props/models/Fund';
-import ClickOutside from '../../../../elements/click-outside/ClickOutside';
 import FilterItemToggle from '../../../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../../helpers/dates';
@@ -13,11 +12,12 @@ import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
 import { useFundService } from '../../../../../services/FundService';
 import usePaginatorService from '../../../../../modules/paginator/services/usePaginatorService';
 import { PaginationData } from '../../../../../props/ApiResponses';
-import useFilter from '../../../../../hooks/useFilter';
 import LoadingCard from '../../../../elements/loading-card/LoadingCard';
 import useConfigurableTable from '../../../vouchers/hooks/useConfigurableTable';
 import TableTopScroller from '../../../../elements/tables/TableTopScroller';
 import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
+import useFilterNext from '../../../../../modules/filter_next/useFilterNext';
+import CardHeaderFilter from '../../../../elements/tables/elements/CardHeaderFilter';
 
 export default function OrganizationsFundsShowTopUpsCard({
     fund,
@@ -42,14 +42,28 @@ export default function OrganizationsFundsShowTopUpsCard({
 
     const [paginationPerPageKey] = useState('fund_top_up_per_page');
 
-    const filter = useFilter({
-        q: '',
-        amount_min: null,
-        amount_max: null,
-        from: null,
-        to: null,
-        per_page: paginatorService.getPerPage(paginationPerPageKey),
-    });
+    const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
+        q: string;
+        per_page?: number;
+        amount_min?: string;
+        amount_max?: string;
+        from?: string;
+        to?: string;
+    }>(
+        {
+            q: '',
+            amount_min: null,
+            amount_max: null,
+            from: null,
+            to: null,
+            per_page: paginatorService.getPerPage(paginationPerPageKey),
+        },
+        {
+            throttledValues: ['q', 'amount_min', 'amount_max'],
+        },
+    );
+
+    const { resetFilters: resetFilters } = filter;
 
     const { headElement, configsElement } = useConfigurableTable(fundService.getTopUpColumns(), {
         filter,
@@ -58,20 +72,20 @@ export default function OrganizationsFundsShowTopUpsCard({
 
     const fetchTopUps = useCallback(() => {
         if (!fund?.is_configured) {
-            setLastQueryTopUpTransactions(filter.activeValues.q);
+            setLastQueryTopUpTransactions(filterValuesActive.q);
             return;
         }
 
         setProgress(0);
 
         fundService
-            .listTopUpTransactions(activeOrganization.id, fund.id, filter.activeValues)
+            .listTopUpTransactions(activeOrganization.id, fund.id, filterValuesActive)
             .then((res) => {
                 setTopUpTransactions(res.data);
-                setLastQueryTopUpTransactions(filter.activeValues.q);
+                setLastQueryTopUpTransactions(filterValuesActive.q);
             })
             .finally(() => setProgress(100));
-    }, [fund?.is_configured, setProgress, fundService, activeOrganization.id, fund.id, filter.activeValues]);
+    }, [fund?.is_configured, setProgress, fundService, activeOrganization.id, fund.id, filterValuesActive]);
 
     useEffect(() => {
         fetchTopUps();
@@ -105,7 +119,7 @@ export default function OrganizationsFundsShowTopUpsCard({
 
                         <div className="block block-inline-filters">
                             {filter.show && (
-                                <div className="button button-text" onClick={() => filter.resetFilters()}>
+                                <div className="button button-text" onClick={() => resetFilters()}>
                                     <em className="mdi mdi-close icon-start" />
                                     Wis filters
                                 </div>
@@ -117,10 +131,10 @@ export default function OrganizationsFundsShowTopUpsCard({
                                         <input
                                             type="text"
                                             className="form-control"
-                                            defaultValue={filter.values.q}
+                                            defaultValue={filterValues.q}
                                             placeholder="Zoeken"
                                             onChange={(e) =>
-                                                filter.update({
+                                                filterUpdate({
                                                     q: e.target.value,
                                                 })
                                             }
@@ -129,107 +143,80 @@ export default function OrganizationsFundsShowTopUpsCard({
                                 </div>
                             )}
 
-                            <ClickOutside className="form" onClickOutside={() => filter.setShow(false)}>
-                                <div className="inline-filters-dropdown pull-right">
-                                    {filter.show && (
-                                        <div className="inline-filters-dropdown-content">
-                                            <div className="arrow-box bg-dim">
-                                                <div className="arrow" />
-                                            </div>
+                            <CardHeaderFilter filter={filter}>
+                                <FilterItemToggle
+                                    show={true}
+                                    label={translate('funds_show.top_up_table.filters.search')}>
+                                    <input
+                                        className="form-control"
+                                        defaultValue={filterValues.q}
+                                        onChange={(e) =>
+                                            filterUpdate({
+                                                q: e.target.value,
+                                            })
+                                        }
+                                        placeholder={translate('funds_show.top_up_table.filters.search')}
+                                    />
+                                </FilterItemToggle>
 
-                                            <div className="form">
-                                                <FilterItemToggle
-                                                    show={true}
-                                                    label={translate('funds_show.top_up_table.filters.search')}>
-                                                    <input
-                                                        className="form-control"
-                                                        defaultValue={filter.values.q}
-                                                        onChange={(e) =>
-                                                            filter.update({
-                                                                q: e.target.value,
-                                                            })
-                                                        }
-                                                        placeholder={translate(
-                                                            'funds_show.top_up_table.filters.search',
-                                                        )}
-                                                    />
-                                                </FilterItemToggle>
-
-                                                <FilterItemToggle
-                                                    label={translate('funds_show.top_up_table.filters.amount')}>
-                                                    <div className="row">
-                                                        <div className="col col-lg-6">
-                                                            <input
-                                                                className="form-control"
-                                                                min={0}
-                                                                type="number"
-                                                                defaultValue={filter.values.amount_min || ''}
-                                                                onChange={(e) =>
-                                                                    filter.update({
-                                                                        amount_min: e.target.value,
-                                                                    })
-                                                                }
-                                                                placeholder={translate(
-                                                                    'funds_show.top_up_table.filters.amount_min',
-                                                                )}
-                                                            />
-                                                        </div>
-
-                                                        <div className="col col-lg-6">
-                                                            <input
-                                                                className="form-control"
-                                                                min={0}
-                                                                type="number"
-                                                                defaultValue={filter.values.amount_max || ''}
-                                                                onChange={(e) =>
-                                                                    filter.update({
-                                                                        amount_max: e.target.value,
-                                                                    })
-                                                                }
-                                                                placeholder={translate(
-                                                                    'transactions.labels.amount_max',
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </FilterItemToggle>
-
-                                                <FilterItemToggle
-                                                    label={translate('funds_show.top_up_table.filters.from')}>
-                                                    <DatePickerControl
-                                                        value={dateParse(filter.values.from)}
-                                                        placeholder={translate('dd-MM-yyyy')}
-                                                        onChange={(from: Date) => {
-                                                            filter.update({
-                                                                from: dateFormat(from),
-                                                            });
-                                                        }}
-                                                    />
-                                                </FilterItemToggle>
-
-                                                <FilterItemToggle
-                                                    label={translate('funds_show.top_up_table.filters.to')}>
-                                                    <DatePickerControl
-                                                        value={dateParse(filter.values.to)}
-                                                        placeholder={translate('dd-MM-yyyy')}
-                                                        onChange={(to: Date) => {
-                                                            filter.update({
-                                                                to: dateFormat(to),
-                                                            });
-                                                        }}
-                                                    />
-                                                </FilterItemToggle>
-                                            </div>
+                                <FilterItemToggle label={translate('funds_show.top_up_table.filters.amount')}>
+                                    <div className="row">
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                defaultValue={filterValues.amount_min || ''}
+                                                onChange={(e) =>
+                                                    filterUpdate({
+                                                        amount_min: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('funds_show.top_up_table.filters.amount_min')}
+                                            />
                                         </div>
-                                    )}
 
-                                    <div
-                                        className="button button-default button-icon"
-                                        onClick={() => filter.setShow(!filter.show)}>
-                                        <em className="mdi mdi-filter-outline" />
+                                        <div className="col col-lg-6">
+                                            <input
+                                                className="form-control"
+                                                min={0}
+                                                type="number"
+                                                defaultValue={filterValues.amount_max || ''}
+                                                onChange={(e) =>
+                                                    filterUpdate({
+                                                        amount_max: e.target.value,
+                                                    })
+                                                }
+                                                placeholder={translate('transactions.labels.amount_max')}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </ClickOutside>
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('funds_show.top_up_table.filters.from')}>
+                                    <DatePickerControl
+                                        value={dateParse(filterValues.from)}
+                                        placeholder={translate('dd-MM-yyyy')}
+                                        onChange={(from: Date) => {
+                                            filterUpdate({
+                                                from: dateFormat(from),
+                                            });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+
+                                <FilterItemToggle label={translate('funds_show.top_up_table.filters.to')}>
+                                    <DatePickerControl
+                                        value={dateParse(filterValues.to)}
+                                        placeholder={translate('dd-MM-yyyy')}
+                                        onChange={(to: Date) => {
+                                            filterUpdate({
+                                                to: dateFormat(to),
+                                            });
+                                        }}
+                                    />
+                                </FilterItemToggle>
+                            </CardHeaderFilter>
                         </div>
                     </div>
                 </div>
@@ -278,8 +265,8 @@ export default function OrganizationsFundsShowTopUpsCard({
                     <div className={'card-section card-section-narrow'} hidden={topUpTransactions?.meta?.total < 2}>
                         <Paginator
                             meta={topUpTransactions.meta}
-                            filters={filter.activeValues}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginationPerPageKey}
                         />
                     </div>

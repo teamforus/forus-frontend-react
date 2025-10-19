@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Organization from '../../../../props/models/Organization';
 import Paginator from '../../../../modules/paginator/components/Paginator';
-import useFilter from '../../../../hooks/useFilter';
 import Fund from '../../../../props/models/Fund';
 import useProviderFundService from '../../../../services/ProviderFundService';
 import useSetProgress from '../../../../hooks/useSetProgress';
@@ -11,6 +10,8 @@ import useAssetUrl from '../../../../hooks/useAssetUrl';
 import UIControlCheckbox from '../../../elements/forms/ui-controls/UIControlCheckbox';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import useTranslate from '../../../../hooks/useTranslate';
+import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import { FilterModel } from '../../../../modules/filter_next/types/FilterParams';
 
 type FundLocal = Fund & { applied?: boolean };
 
@@ -20,7 +21,7 @@ export default function SignUpAvailableFunds({
     onApply,
 }: {
     organization: Organization;
-    externalFilters?: { fund_id?: number; organization_id?: number; tag?: string };
+    externalFilters?: FilterModel;
     onApply: () => void;
 }) {
     const translate = useTranslate();
@@ -35,7 +36,7 @@ export default function SignUpAvailableFunds({
     const providerFundService = useProviderFundService();
     const assetUrl = useAssetUrl();
 
-    const filter = useFilter<{
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q?: string;
         page?: number;
         tag?: string;
@@ -64,7 +65,7 @@ export default function SignUpAvailableFunds({
     };
 
     const fetchAvailableFunds = useCallback(
-        (organization, query) => {
+        (organization: Organization, query: object) => {
             if (!organization) {
                 return;
             }
@@ -95,7 +96,7 @@ export default function SignUpAvailableFunds({
     useEffect(() => {
         setProgress(0);
 
-        fetchAvailableFunds(organization, filter.activeValues)
+        fetchAvailableFunds(organization, filterValuesActive)
             ?.then((res) => {
                 setFunds(res.data);
 
@@ -116,7 +117,7 @@ export default function SignUpAvailableFunds({
                 });
             })
             .finally(() => setProgress(100));
-    }, [fetchAvailableFunds, filter.activeValues, organization, setProgress, translate]);
+    }, [fetchAvailableFunds, filterValuesActive, organization, setProgress, translate]);
 
     return (
         <div className="sign_up-funds-card">
@@ -130,9 +131,9 @@ export default function SignUpAvailableFunds({
                                 </label>
                                 <select
                                     className="form-control"
-                                    value={filter.values.organization_id || ''}
+                                    value={filterValues.organization_id || ''}
                                     onChange={(e) => {
-                                        filter.update({ organization_id: parseInt(e.target.value) || null });
+                                        filterUpdate({ organization_id: parseInt(e.target.value) || null });
                                     }}>
                                     {organizations.map((organization) => (
                                         <option key={organization.id} value={organization.id}>
@@ -147,9 +148,9 @@ export default function SignUpAvailableFunds({
                                 </label>
                                 <select
                                     className="form-control"
-                                    value={filter.values.tag || ''}
+                                    value={filterValues.tag || ''}
                                     onChange={(e) => {
-                                        filter.update({ tag: e.target.value === 'all' ? null : e.target.value });
+                                        filterUpdate({ tag: e.target.value === 'all' ? null : e.target.value });
                                     }}>
                                     {tags.map((tag) => (
                                         <option key={tag.key || 'all'} value={tag.key || 'all'}>
@@ -259,7 +260,7 @@ export default function SignUpAvailableFunds({
 
                 {funds?.meta && (
                     <div className="card-section" hidden={funds?.meta?.last_page == 1}>
-                        <Paginator meta={funds.meta} filters={filter.activeValues} updateFilters={filter.update} />
+                        <Paginator meta={funds.meta} filters={filterValues} updateFilters={filterUpdate} />
                     </div>
                 )}
 

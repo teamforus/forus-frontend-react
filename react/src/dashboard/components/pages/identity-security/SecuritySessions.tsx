@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 import { useSessionService } from '../../../services/SessionService';
-import useFilter from '../../../hooks/useFilter';
 import { PaginationData } from '../../../props/ApiResponses';
 import Session from '../../../props/models/Session';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
@@ -17,6 +16,7 @@ import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import usePushApiError from '../../../hooks/usePushApiError';
 import Label from '../../elements/image_cropper/Label';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
 
 export default function SecuritySessions() {
     const openModal = useOpenModal();
@@ -29,7 +29,7 @@ export default function SecuritySessions() {
     const { signOut } = useContext(authContext);
     const { clearAll } = useContext(mainContext);
 
-    const filter = useFilter({ per_page: 100 });
+    const [filterValuesActive] = useFilterNext({ per_page: 100 });
     const sessionService = useSessionService();
     const [sessions, setSessions] = useState<PaginationData<Session>>(null);
     const [shownLocations, setShownLocations] = useState({});
@@ -51,10 +51,10 @@ export default function SecuritySessions() {
         setProgress(0);
 
         sessionService
-            .list(filter?.activeValues)
+            .list(filterValuesActive)
             .then((res) => setSessions(res.data))
             .finally(() => setProgress(100));
-    }, [setProgress, sessionService, filter?.activeValues]);
+    }, [setProgress, sessionService, filterValuesActive]);
 
     const findIcon = useCallback((session: Session) => {
         const device = session.last_request.device?.device;

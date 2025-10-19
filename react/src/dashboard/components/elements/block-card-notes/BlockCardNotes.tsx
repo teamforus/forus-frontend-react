@@ -1,9 +1,7 @@
-import FilterModel from '../../../types/FilterModel';
 import FormValuesModel from '../../../types/FormValuesModel';
 import { useCallback, useEffect, useState } from 'react';
 import { ApiResponse, ApiResponseSingle, PaginationData } from '../../../props/ApiResponses';
 import Paginator from '../../../modules/paginator/components/Paginator';
-import useFilter from '../../../hooks/useFilter';
 import React from 'react';
 import useOpenModal from '../../../hooks/useOpenModal';
 import ModalDangerZone from '../../modals/ModalDangerZone';
@@ -21,6 +19,8 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useConfigurableTable from '../../pages/vouchers/hooks/useConfigurableTable';
 import { useOrganizationService } from '../../../services/OrganizationService';
 import TableTopScroller from '../tables/TableTopScroller';
+import useFilterNext from '../../../modules/filter_next/useFilterNext';
+import { FilterModel } from '../../../modules/filter_next/types/FilterParams';
 
 export default function BlockCardNotes({
     showCreate,
@@ -49,8 +49,7 @@ export default function BlockCardNotes({
     const [notes, setNotes] = useState<PaginationData<Note>>(null);
     const [paginatorKey] = useState('fund_request_notes');
 
-    const filter = useFilter({
-        q: '',
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
@@ -59,10 +58,10 @@ export default function BlockCardNotes({
     const updateNotes = useCallback(() => {
         setProgress(0);
 
-        fetchNotes(filter.activeValues)
+        fetchNotes(filterValuesActive)
             .then((res) => setNotes(res.data))
             .finally(() => setProgress(100));
-    }, [fetchNotes, filter.activeValues, setProgress]);
+    }, [fetchNotes, filterValuesActive, setProgress]);
 
     const onDeleteNote = useCallback(
         (note: Note) => {
@@ -82,7 +81,7 @@ export default function BlockCardNotes({
 
                             deleteNote(note)
                                 .then(() => {
-                                    filter.touch();
+                                    updateNotes();
                                     pushSuccess('Gelukt!', 'Notitie verwijderd.');
                                 })
                                 .catch(pushApiError)
@@ -93,7 +92,7 @@ export default function BlockCardNotes({
                 />
             ));
         },
-        [deleteNote, filter, openModal, pushApiError, pushSuccess, setProgress, translate],
+        [deleteNote, openModal, pushApiError, pushSuccess, setProgress, translate, updateNotes],
     );
 
     const onAddNote = useCallback(() => {
@@ -103,12 +102,12 @@ export default function BlockCardNotes({
                 storeNote={storeNote}
                 description={'De notitie is alleen zichtbaar voor medewerkers met dezelfde rechten.'}
                 onCreated={() => {
-                    filter.touch();
+                    updateNotes();
                     pushSuccess('Gelukt!', 'Note created.');
                 }}
             />
         ));
-    }, [filter, openModal, pushSuccess, storeNote]);
+    }, [openModal, pushSuccess, storeNote, updateNotes]);
 
     useEffect(() => {
         updateNotes();
@@ -196,8 +195,8 @@ export default function BlockCardNotes({
                     <div className="card-section">
                         <Paginator
                             meta={notes.meta}
-                            filters={filter.values}
-                            updateFilters={filter.update}
+                            filters={filterValues}
+                            updateFilters={filterUpdate}
                             perPageKey={paginatorKey}
                         />
                     </div>

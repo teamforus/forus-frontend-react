@@ -27,9 +27,9 @@ import UIControlNumber from '../../../../dashboard/components/elements/forms/ui-
 import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import FundsListItemPreCheck from '../../elements/lists/funds-list/templates/FundsListItemPreCheck';
-import useFilter from '../../../../dashboard/hooks/useFilter';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import classNames from 'classnames';
+import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
 
 type PreCheckLocal = PreCheck<{
     label?: string;
@@ -70,7 +70,11 @@ export default function FundsPreCheck() {
         return recordTypes?.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});
     }, [recordTypes]);
 
-    const filter = useFilter({
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
+        q: string;
+        tag_id?: number;
+        organization_id?: number;
+    }>({
         q: '',
         tag_id: null,
         organization_id: null,
@@ -138,11 +142,11 @@ export default function FundsPreCheck() {
         setProgress(0);
 
         preCheckService
-            .calculateTotals({ ...filter.activeValues, records })
+            .calculateTotals({ ...filterValuesActive, records })
             .then((res) => setTotals(res.data))
             .catch((res) => pushDanger(translate('push.error'), res.data.message))
             .finally(() => setProgress(100));
-    }, [setProgress, filter.activeValues, preCheckService, preChecks, pushDanger, translate]);
+    }, [setProgress, filterValuesActive, preCheckService, preChecks, pushDanger, translate]);
 
     const changeAnswers = useCallback(() => {
         setTotals(null);
@@ -155,7 +159,7 @@ export default function FundsPreCheck() {
         setProgress(0);
 
         preCheckService
-            .downloadPDF({ ...filter.values, records })
+            .downloadPDF({ ...filterValuesActive, records })
             .then((res) => {
                 pushSuccess(translate('push.success'), translate('push.pre_check.downloaded'));
 
@@ -167,7 +171,7 @@ export default function FundsPreCheck() {
             })
             .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message))
             .finally(() => setProgress(100));
-    }, [fileService, filter.values, preCheckService, preChecks, pushDanger, pushSuccess, setProgress, translate]);
+    }, [fileService, filterValuesActive, preCheckService, preChecks, pushDanger, pushSuccess, setProgress, translate]);
 
     const prev = useCallback(() => {
         setActiveStepIndex(Math.max(activeStepIndex - 1, 0));
@@ -441,8 +445,8 @@ export default function FundsPreCheck() {
                                                     {translate('funds.labels.search')}
                                                 </label>
                                                 <UIControlText
-                                                    value={filter.values.q}
-                                                    onChangeValue={(q) => filter.update({ q })}
+                                                    value={filterValues.q}
+                                                    onChangeValue={(q) => filterUpdate({ q })}
                                                     ariaLabel={translate('pre_check.search')}
                                                     dataDusk="listFundsPreCheckSearch"
                                                 />
@@ -455,10 +459,10 @@ export default function FundsPreCheck() {
                                                 <SelectControl
                                                     id="select_organization"
                                                     propKey="id"
-                                                    value={filter.values.organization_id}
+                                                    value={filterValues.organization_id}
                                                     options={organizations}
                                                     onChange={(organization_id: number) =>
-                                                        filter.update({ organization_id })
+                                                        filterUpdate({ organization_id })
                                                     }
                                                     multiline={true}
                                                     dusk="selectControlOrganizations"
@@ -472,8 +476,8 @@ export default function FundsPreCheck() {
                                                 <SelectControl
                                                     id="select_category"
                                                     propKey="id"
-                                                    value={filter.values.tag_id}
-                                                    onChange={(tag_id: number) => filter.update({ tag_id })}
+                                                    value={filterValues.tag_id}
+                                                    onChange={(tag_id: number) => filterUpdate({ tag_id })}
                                                     options={tags}
                                                     multiline={true}
                                                     dusk="selectControlTags"
