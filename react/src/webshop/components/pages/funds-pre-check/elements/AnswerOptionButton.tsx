@@ -47,8 +47,7 @@ export default function AnswerOptionButton({
             });
         }
     };
-    // TODO: refactor to use classNames()
-    // Base styles + conditional styling based on state
+
     const className = classNames(
         'button',
         'button-sm',
@@ -56,9 +55,6 @@ export default function AnswerOptionButton({
         { 'button-disabled': disabled && !isSelected },
         { 'answer-button--is-selected': disabled && isSelected },
     );
-    // let className = `button button-sm answer-button `;
-    // className += disabled && !isSelected ? 'button-disabled' : '';
-    // className += disabled && isSelected ? 'answer-button--is-selected' : '';
 
     if (step === 'confirm_data' && option.label === 'Wijzigen') {
         return (

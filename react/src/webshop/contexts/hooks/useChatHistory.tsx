@@ -11,7 +11,7 @@ export function useChatHistory(
 ) {
     const [loadingHistory, setLoadingHistory] = useState(false);
     const location = useLocation();
-
+    // TODO: fix this because it stopped working
     useEffect(() => {
         if (loadingHistory) return;
         const storedSessionId = sessionStorage.getItem('session_id');

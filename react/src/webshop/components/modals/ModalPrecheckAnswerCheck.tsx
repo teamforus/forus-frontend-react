@@ -27,6 +27,7 @@ export default function ModalPrecheckAnswerCheck({
     const translate = useTranslate();
 
     if (!show) return null;
+    // TODO: rewrite to use ModalNotification
 
     return (
         <div className={`modal modal-precheck-answer-check modal-animated ${loading ? '' : 'modal-loaded'}`}>
