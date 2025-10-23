@@ -1524,12 +1524,12 @@
                 "title": "Blockieren Sie Ihren Pass"
             },
             "link_card": {
-                "description": "<br/><br/>Auf Ihrem Pass befindet sich ein QR-Code, darunter Ihr persönlicher Code. Wenn Sie den alten Pass reaktivieren, können Sie ihn weiter benutzen. Brauchen Sie Hilfe?  Rufen Sie 14 050 an, Montag bis Freitag von 9.00 bis 12.00 Uhr.",
                 "subtitle": "Geben Sie Ihren persönlichen Kundencode ein",
                 "title": "Aktivieren Sie Ihren alten Pass",
                 "alt_text": "Körperlicher Pass: {{ fund_name }}",
                 "no_old_card": "Kein alter Pass?",
-                "order_card": "Bestellung eines Passes"
+                "order_card": "Bestellung eines Passes",
+                "description": "Auf Ihrem Pass befindet sich ein persönlicher Code. Geben Sie ihn unten ein.<br/>Wenn Sie den alten Pass reaktivieren, können Sie ihn weiter benutzen."
             },
             "request_card_success": {
                 "description": "Sie haben eine E-Mail mit der Bestätigung Ihrer Bestellung erhalten.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Einstellungen für Benachrichtigungen{{pageTitleSuffix}}",
         "privacy": "Erklärung zum Datenschutz{{pageTitleSuffix}}",
         "product": "{{product_name}} Angebot - von {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Angebot{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Angebot kaufen{{pageTitleSuffix}}",
         "products-show": "Angebot{{pageTitleSuffix}}",
         "provider": "Anbieter - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Anmeldung starten{{pageTitleSuffix}}",
         "terms_and_conditions": "Allgemeine Bedingungen und Konditionen{{pageTitleSuffix}}",
         "voucher": "Ihr Kredit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mein Kredit{{pageTitleSuffix}}"
+        "vouchers": "Mein Kredit{{pageTitleSuffix}}",
+        "products": "Angebot{{pageTitleSuffix}}"
     },
     "page_title": "Forus-Plattform",
     "paginator": {
@@ -2295,7 +2295,6 @@
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
             "payment_options_title": "Zahlungsmöglichkeiten",
             "previous_image": "Vorheriges Bild",
-            "price_from": "Von",
             "product_images": "Produktbilder",
             "provider": "Anbieter",
             "quantity_limit": "Max {{limit}} p.p.",
@@ -2322,7 +2321,8 @@
         "price": {
             "free": "Kostenlos",
             "informational": "Nur im Geschäft"
-        }
+        },
+        "other_products": "Das könnte Sie auch interessieren?"
     },
     "products": {
         "breadcrumbs": {

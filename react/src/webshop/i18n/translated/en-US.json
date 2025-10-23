@@ -123,7 +123,6 @@
         "preferences-notifications": "Notification preferences{{pageTitleSuffix}}",
         "privacy": "Privacy Statement{{pageTitleSuffix}}",
         "product": "Offer - {{product_name}} of {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Offer{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Buy Offer{{pageTitleSuffix}}",
         "products-show": "Offer{{pageTitleSuffix}}",
         "provider": "Provider - {{provider_name}}{{pageTitleSuffix}}",
@@ -148,7 +147,8 @@
         "start": "Start sign in{{pageTitleSuffix}}",
         "terms_and_conditions": "General conditions{{pageTitleSuffix}}",
         "voucher": "Your credit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "My credit{{pageTitleSuffix}}"
+        "vouchers": "My credit{{pageTitleSuffix}}",
+        "products": "Offer{{pageTitleSuffix}}"
     },
     "page_title": "Forus platform",
     "test": "{{name}} {{foo}}",
@@ -1555,7 +1555,6 @@
             "payment_option_qr": "Show QR code at provider",
             "payment_options_title": "Payment options",
             "previous_image": "Previous image",
-            "price_from": "From",
             "product_images": "Product Images",
             "provider": "Provider",
             "quantity_limit": "Max. {{limit}} p.p.",
@@ -1582,7 +1581,8 @@
         "price": {
             "free": "Free",
             "informational": "In store only"
-        }
+        },
+        "other_products": "You might also like this?"
     },
     "records_create": {
         "buttons": {
@@ -3263,12 +3263,12 @@
                 "title": "Block your pass"
             },
             "link_card": {
-                "description": "On your pass is a QR code, below is your personal code.<br/>If you reactivate the old pass you can continue to use it.<br/>Need help?  Call 14 050 Monday through Friday 9 a.m. to noon.",
                 "subtitle": "Enter your personal customer code",
                 "title": "Activate your old pass",
                 "alt_text": "Physical Pass: {{ fund_name }}",
                 "no_old_card": "No old pass?",
-                "order_card": "Order a pass"
+                "order_card": "Order a pass",
+                "description": "There is a personal code on your pass. Enter it below.<br/>If you reactivate the old pass you can continue to use it."
             },
             "request_card_success": {
                 "description": "You have received an email confirming your order.",

@@ -13,6 +13,14 @@
             flex-direction: row;
             gap: 8px;
             align-items: center;
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            cursor: pointer;
+            outline-offset: -2px !important;
 
             .panel-header-icon {
                 line-height: 28px;
@@ -33,29 +41,16 @@
                 margin: 0 0;
             }
 
-            .panel-header-toggle {
-                display: flex;
+            .mdi {
+                background-color: #eceff0;
+                font-size: 26px;
+                height: 32px;
+                width: 32px;
+                border-radius: 16px;
+                line-height: 32px;
+                text-align: center;
+                color: #282b39;
                 flex: 0 0 auto;
-                flex-direction: row;
-                justify-content: flex-end;
-                background: none;
-                border: none;
-                padding: 0;
-                margin: 0;
-                font: inherit;
-                color: inherit;
-                cursor: pointer;
-
-                .mdi {
-                    background-color: #eceff0;
-                    font-size: 26px;
-                    height: 32px;
-                    width: 32px;
-                    border-radius: 16px;
-                    line-height: 32px;
-                    text-align: center;
-                    color: #282b39;
-                }
             }
         }
 
@@ -89,13 +84,11 @@
                     font: 700 18px/24px var(--base-font);
                 }
 
-                .panel-header-toggle {
-                    .mdi {
-                        font-size: 22px;
-                        height: 28px;
-                        width: 28px;
-                        line-height: 28px;
-                    }
+                .mdi {
+                    font-size: 22px;
+                    height: 28px;
+                    width: 28px;
+                    line-height: 28px;
                 }
             }
 
@@ -123,13 +116,11 @@
                     font: 700 16px/22px var(--base-font);
                 }
 
-                .panel-header-toggle {
-                    .mdi {
-                        font-size: 20px;
-                        height: 26px;
-                        width: 26px;
-                        line-height: 26px;
-                    }
+                .mdi {
+                    font-size: 20px;
+                    height: 26px;
+                    width: 26px;
+                    line-height: 26px;
                 }
             }
         }

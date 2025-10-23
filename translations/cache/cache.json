@@ -4225,7 +4225,7 @@
     ],
     [
         "modal_physical_card.modal_section.link_card.description",
-        "Op je pasje staat een QR-code, hieronder staat je persoonlijke code.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.<br/>Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00."
+        "Op je pasje staat een persoonlijke code. Vul deze hieronder in.<br/>Als je de oude pas opnieuw activeert kun je deze blijven gebruiken."
     ],
     [
         "modal_physical_card.modal_section.link_card.no_old_card",
@@ -5205,7 +5205,7 @@
     ],
     [
         "page_state_titles.products",
-        "Aanbod{{fund_name}}{{pageTitleSuffix}}"
+        "Aanbod{{pageTitleSuffix}}"
     ],
     [
         "page_state_titles.products-apply",
@@ -6480,10 +6480,6 @@
         "Prijs:"
     ],
     [
-        "product.labels.price_from",
-        "Vanaf"
-    ],
-    [
         "product.labels.product_images",
         "Productafbeeldingen"
     ],
@@ -6526,6 +6522,10 @@
     [
         "product.no_vouchers",
         "U heeft geen tegoed om dit aanbod mee te reserveren"
+    ],
+    [
+        "product.other_products",
+        "Misschien vind je dit ook leuk?"
     ],
     [
         "product.price.free",

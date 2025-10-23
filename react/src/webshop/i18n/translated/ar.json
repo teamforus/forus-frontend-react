@@ -359,7 +359,6 @@
         "preferences-notifications": "تفضيلات الإخطار{{pageTitleSuffix}}",
         "privacy": "بيان الخصوصية{{pageTitleSuffix}}",
         "product": "{{product_name}} العرض - من {{organization_name}}{{pageTitleSuffix}}",
-        "products": "العرض{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "عرض الشراء{{pageTitleSuffix}}",
         "products-show": "العرض{{pageTitleSuffix}}",
         "provider": "الموفر - {{provider_name}}{{pageTitleSuffix}}",
@@ -384,7 +383,8 @@
         "start": "ابدأ تسجيل الدخول{{pageTitleSuffix}}",
         "terms_and_conditions": "الشروط والأحكام العامة{{pageTitleSuffix}}",
         "voucher": "ائتمانك - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "رصيدي{{pageTitleSuffix}}"
+        "vouchers": "رصيدي{{pageTitleSuffix}}",
+        "products": "العرض{{pageTitleSuffix}}"
     },
     "page_title": "منصة فورس",
     "product_bookmark_push": {
@@ -1854,7 +1854,6 @@
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
             "payment_options_title": "خيارات الدفع",
             "previous_image": "الصورة السابقة",
-            "price_from": "من",
             "product_images": "صور المنتج",
             "provider": "المزود",
             "quantity_limit": "ماكس {{limit}} ",
@@ -1881,7 +1880,8 @@
         "price": {
             "free": "مجاناً",
             "informational": "في المتجر فقط"
-        }
+        },
+        "other_products": "قد يعجبك هذا أيضاً؟"
     },
     "records_create": {
         "buttons": {
@@ -2961,12 +2961,12 @@
                 "title": "منع المرور"
             },
             "link_card": {
-                "description": "<br/><br/>يوجد على بطاقتك رمز QR، يوجد أدناه رمزك الشخصي. إذا قمت بإعادة تفعيل البطاقة القديمة يمكنك الاستمرار في استخدامها. هل تحتاج إلى مساعدة؟  اتصل بالرقم 14 050 من الاثنين إلى الجمعة من الساعة 9:00 إلى الساعة 12:00.",
                 "subtitle": "أدخل رمز العميل الشخصي",
                 "title": "تفعيل بطاقتك القديمة",
                 "alt_text": "تمريرة جسدية: {{ fund_name }}",
                 "no_old_card": "لا يوجد تصريح مرور قديم؟",
-                "order_card": "اطلب تصريح مرور"
+                "order_card": "اطلب تصريح مرور",
+                "description": "يوجد رمز شخصي على بطاقتك. أدخله أدناه.<br/>إذا قمت بإعادة تفعيل البطاقة القديمة، يمكنك الاستمرار في استخدامها."
             },
             "request_card_success": {
                 "description": "لقد تلقيت رسالة بريد إلكتروني تؤكد طلبك.",

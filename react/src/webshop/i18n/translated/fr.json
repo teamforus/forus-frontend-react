@@ -1524,12 +1524,12 @@
                 "title": "Bloquez votre passage"
             },
             "link_card": {
-                "description": "<br/><br/>Un code QR figure sur votre carte, en dessous se trouve votre code personnel. Si vous réactivez l'ancienne carte, vous pouvez continuer à l'utiliser. Besoin d'aide ?  Appelez le 14 050 du lundi au vendredi de 9h00 à 12h00.",
                 "subtitle": "Entrez votre code client personnel",
                 "title": "Activez votre ancien pass",
                 "alt_text": "Passe physique : {{ fund_name }}",
                 "no_old_card": "Pas d'ancien laissez-passer ?",
-                "order_card": "Commander un laissez-passer"
+                "order_card": "Commander un laissez-passer",
+                "description": "Un code personnel figure sur votre carte. Saisissez-le ci-dessous.<br/>Si vous réactivez l'ancien pass, vous pouvez continuer à l'utiliser."
             },
             "request_card_success": {
                 "description": "Vous avez reçu un e-mail confirmant votre commande.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Préférences de notification{{pageTitleSuffix}}",
         "privacy": "Déclaration de confidentialité{{pageTitleSuffix}}",
         "product": "{{product_name}} Offre - de {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Offre{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Offre d'achat{{pageTitleSuffix}}",
         "products-show": "Offre{{pageTitleSuffix}}",
         "provider": "Fournisseur - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Démarrer la connexion{{pageTitleSuffix}}",
         "terms_and_conditions": "Conditions générales d'utilisation{{pageTitleSuffix}}",
         "voucher": "Votre crédit - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Mon crédit{{pageTitleSuffix}}"
+        "vouchers": "Mon crédit{{pageTitleSuffix}}",
+        "products": "Offre{{pageTitleSuffix}}"
     },
     "page_title": "Plate-forme Forus",
     "paginator": {
@@ -2295,7 +2295,6 @@
             "payment_option_qr": "Afficher le code QR au fournisseur",
             "payment_options_title": "Options de paiement",
             "previous_image": "Image précédente",
-            "price_from": "De",
             "product_images": "Images du produit",
             "provider": "Fournisseur",
             "quantity_limit": "Max {{limit}} p.p.",
@@ -2322,7 +2321,8 @@
         "price": {
             "free": "Gratuit",
             "informational": "En magasin uniquement"
-        }
+        },
+        "other_products": "Vous aimerez peut-être aussi ceci ?"
     },
     "products": {
         "breadcrumbs": {

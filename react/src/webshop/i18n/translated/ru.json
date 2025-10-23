@@ -1524,12 +1524,12 @@
                 "title": "Заблокируйте свой проход"
             },
             "link_card": {
-                "description": "<br/><br/>На вашем пропуске есть QR-код, ниже - ваш персональный код. Если вы активируете старый пропуск, вы сможете продолжать им пользоваться. Нужна помощь?  Позвоните по телефону 14 050 с понедельника по пятницу с 9.00 до 12.00.",
                 "subtitle": "Введите персональный код клиента",
                 "title": "Активируйте свой старый пропуск",
                 "alt_text": "Физический проход: {{ fund_name }}",
                 "no_old_card": "Нет старого пропуска?",
-                "order_card": "Заказать пропуск"
+                "order_card": "Заказать пропуск",
+                "description": "На вашем пропуске есть персональный код. Введите его ниже.<br/>Если вы повторно активируете старый пропуск, вы сможете продолжать им пользоваться."
             },
             "request_card_success": {
                 "description": "Вы получили электронное письмо с подтверждением заказа.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Параметры уведомлений{{pageTitleSuffix}}",
         "privacy": "Заявление о конфиденциальности{{pageTitleSuffix}}",
         "product": "{{product_name}} Предложение - из {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Предложение{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Купить предложение{{pageTitleSuffix}}",
         "products-show": "Предложение{{pageTitleSuffix}}",
         "provider": "Провайдер - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Начните вход в систему{{pageTitleSuffix}}",
         "terms_and_conditions": "Общие положения и условия{{pageTitleSuffix}}",
         "voucher": "Ваш кредит - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Мой кредит{{pageTitleSuffix}}"
+        "vouchers": "Мой кредит{{pageTitleSuffix}}",
+        "products": "Предложение{{pageTitleSuffix}}"
     },
     "page_title": "Платформа Forus",
     "paginator": {
@@ -2295,7 +2295,6 @@
             "payment_option_qr": "Показать QR-код у провайдера",
             "payment_options_title": "Варианты оплаты",
             "previous_image": "Предыдущее изображение",
-            "price_from": "С сайта",
             "product_images": "Изображения продуктов",
             "provider": "Поставщик",
             "quantity_limit": "Макс {{limit}} p.p.",
@@ -2322,7 +2321,8 @@
         "price": {
             "free": "Бесплатно",
             "informational": "Только в магазине"
-        }
+        },
+        "other_products": "Вам также может понравиться это?"
     },
     "products": {
         "breadcrumbs": {

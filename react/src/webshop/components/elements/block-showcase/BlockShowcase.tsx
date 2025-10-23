@@ -41,7 +41,7 @@ export default function BlockShowcase({
 
     return (
         <div className={classNames('block', 'block-showcase', narrow && 'block-showcase-narrow', className)}>
-            {narrow && (
+            {children && narrow && (
                 <div className="showcase-splash">
                     <div className="showcase-splash-shape" />
                 </div>
