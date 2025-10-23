@@ -414,14 +414,12 @@
             "all_providers": "Sağlayıcı seçin...",
             "all_sub_categories": "Alt kategori seçin...",
             "bookmarked": "Dilek listem",
-            "category": "Kategori",
             "distance": "Mesafe",
             "fund": "Kredi",
             "postcode": "Posta kodu",
             "providers": "Sağlayıcılar",
             "search": "Arama teklifi",
             "sort": "Sırala",
-            "sub_category": "Alt Kategori",
             "payment_option_qr": "QR kodunu sağlayıcıda göster",
             "payment_option_reservation": "Online rezervasyon",
             "payment_options": "Ödeme seçenekleri",
@@ -436,7 +434,8 @@
             "price_type_option_informational": "Sadece mağazada",
             "price_type_option_regular": "Fiyat",
             "price_type_options": "Teklif türü",
-            "price_type_options_info": "Teklif türleri hakkında daha fazla bilgi edinin"
+            "price_type_options_info": "Teklif türleri hakkında daha fazla bilgi edinin",
+            "category": "Kategoriler"
         },
         "sort": {
             "created_at_asc": "Önce en yaşlı",
@@ -651,7 +650,8 @@
                     "winterswijk": {
                         "funds": "Etkinleştir"
                     },
-                    "profile": "Veri"
+                    "profile": "Veri",
+                    "physical_cards": "Fiziksel geçiş"
                 },
                 "groningen": {
                     "voucher": "Şehir Kartım"
@@ -760,7 +760,8 @@
             "security_sessions": "Oturumlar",
             "aria_label": "Kullanıcı menüsü",
             "title": "Kişisel",
-            "profile": "Veri"
+            "profile": "Veri",
+            "physical_cards": "Fiziksel geçiş"
         },
         "main_menu": "Ana menü",
         "open_home": "Ana sayfaya geri dön",
@@ -1016,6 +1017,18 @@
                 "reason": "Sebep:",
                 "sent": "Gönderdim!",
                 "sign_up": "Kaydolun"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Fiziksel kartınızı kullanıma hazır olur olmaz verdiğiniz adrese göndereceğiz.",
+                "heading": "Adresinizi girin",
+                "labels": {
+                    "city": "Konum",
+                    "house_nr": "Ev numarası",
+                    "house_nr_addition": "Ev numarası ekleme",
+                    "postal_code": "Posta kodu",
+                    "street": "Sokak"
+                },
+                "title": "Adres bilgileri"
             }
         },
         "steps": {
@@ -1607,35 +1620,13 @@
             "home": "Ev",
             "providers": "Sağlayıcılar"
         },
-        "distances": {
-            "3": "< 3 km",
-            "5": "< 5 km",
-            "10": "< 10 km",
-            "15": "< 15 km",
-            "25": "< 25 km",
-            "50": "< 50 km",
-            "75": "< 75 km",
-            "everywhere": "Her yerde"
-        },
         "filters": {
-            "all_categories": "Kategori seçin...",
-            "all_funds": "Tüm krediler...",
-            "all_products": "Tam teklif",
-            "all_providers": "Sağlayıcı seçin...",
-            "all_sub_categories": "Alt kategori seçin...",
             "all_types": "Her türlü...",
-            "bookmarked": "Dilek listem",
-            "category": "Kategori",
-            "distance": "Mesafe",
-            "fund": "Kredi",
             "map_title": "Daha fazla bilgi için bir sağlayıcı seçin",
-            "postcode": "Posta kodu",
             "provider_type": "Sağlayıcı türü",
-            "providers": "Sağlayıcılar",
             "result": "Şunlar var <div class=\"showcase-result-count\">{{ total }}</div> sağlayıcılar bulundu.",
             "search": "Arama",
-            "sort": "Sırala",
-            "sub_category": "Alt Kategori"
+            "sort": "Sırala"
         },
         "items": {
             "labels": {
@@ -3439,7 +3430,8 @@
             "share": "Paylaş",
             "vouchers": "Kredi",
             "me_app": "Me-app",
-            "provider_sign_up": "Sağlayıcı olarak kaydolun"
+            "provider_sign_up": "Sağlayıcı olarak kaydolun",
+            "physical_cards": "Fiziksel geçiş"
         },
         "header": {
             "subtitle": "Kişisel QR kodunuzun bir hakem tarafından taranmasını sağlayın.",
@@ -3641,5 +3633,21 @@
         "aria_label_text": "{{current}} adresini imzalayın. {{total}}",
         "aria_labelledby_num": "{{total}} rakamlarının kodunu yazın",
         "aria_labelledby_text": "{{total}} karakterlerinin kodunu yazın"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Ev",
+            "vouchers": "Fiziksel geçiş"
+        },
+        "empty": {
+            "button": "Fiziksel geçişi etkinleştirin veya talep edin",
+            "subtitle": "Şu anda fiziksel bir geçiş kartınız yok",
+            "title": "Fiziksel geçiş yok"
+        },
+        "filters": {
+            "active": "Aktif",
+            "archive": "Arşiv"
+        },
+        "title": "Fiziksel geçiş"
     }
 }

@@ -6,6 +6,7 @@ export default function Card({
     title,
     section = true,
     buttons,
+    filters,
     children,
     footer,
     footerHidden = false,
@@ -15,6 +16,7 @@ export default function Card({
     title: string;
     section?: boolean;
     buttons?: Array<ButtonType>;
+    filters?: ReactNode | ReactNode[];
     children: ReactNode | ReactNode[];
     footer?: ReactNode | ReactNode[];
     footerHidden?: boolean;
@@ -34,6 +36,7 @@ export default function Card({
                         </div>
                     )}
                 </div>
+                <div className="block block-inline-filters">{filters}</div>
             </div>
 
             <div className="card-body">{section ? <div className={'card-section'}>{children}</div> : children}</div>

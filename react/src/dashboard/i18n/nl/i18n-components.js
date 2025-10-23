@@ -215,4 +215,63 @@ export default {
             email: 'De e-mailadressen van alle medewerkers die medewerker zijn van de aanbieder organisatie.',
         },
     },
+    physical_cards: {
+        labels: {
+            id: 'ID',
+            code: 'Code',
+            type: 'Type pas',
+            voucher: 'Tegoeden',
+            fund_name: 'Fonds',
+        },
+        tooltips: {
+            id: 'Unieke ID nummer dat in het systeem staat gekoppeld aan de pas.',
+            code: 'De unieke persoonlijke code die aan de pas is gekoppeld.',
+            type: 'Naam van het type pas dat is aangemaakt door de sponsor.',
+            voucher: 'Het nummer van het tegoed dat is gekoppeld aan de pas.',
+            fund_name: 'Naam van het gekoppelde fonds.',
+        },
+    },
+    physical_card_types: {
+        labels: {
+            id: 'ID',
+            name: 'Naam',
+            cards_count: 'Aantal fondsen',
+            funds_count: 'Aantal passen',
+            code_blocks: 'Aantal blokken op de fysieke pas',
+            code_block_size: 'Aantal cijfers per blok',
+        },
+        tooltips: {
+            id: 'Unieke ID nummer dat in het systeem staat gekoppeld aan de type pas.',
+            name: 'Naam van het type pas dat is aangemaakt door de sponsor.',
+            cards_count: 'Aantal fondsen gekoppeld aan het fysieke pas type.',
+            funds_count: 'Aantal passen gekoppeld aan het fysieke pas type.',
+            code_blocks:
+                'Laat zien uit hoeveel blokken het pasnummer zou moeten bestaan. Bijvoorbeeld voor twee blokken zal dit 1234 - 5678 zijn. Is er gekozen voor drie blokken, dan zal het pasnummer eruit zien als 1234 - 5678 - 9012.',
+            code_block_size:
+                'Laat zien uit hoeveel cijfers per blok het pasnummer zou moeten bestaan. Is er gekozen voor drie blokken en stelt u vier cijfers per blok, dan zal het pasnummer er als het volgt uitzien 1234 - 5678 - 9012. Kiest u voor twee cijfers per blok, dan zal het pasnummer 12 - 34 - 56 zijn.',
+        },
+    },
+    fund_physical_card_types: {
+        labels: {
+            id: 'ID',
+            name: 'Naam',
+            cards_count: 'Aantal passen',
+            funds_count: 'Aantal fondsen',
+            allow_physical_card_linking: 'Koppelen fysieke pas',
+            allow_physical_card_requests: 'Aanvragen fysieke pas',
+            allow_physical_card_deactivation: 'Deactiveren fysieke pas',
+        },
+        tooltips: {
+            id: 'Unieke ID nummer dat in het systeem staat gekoppeld aan de pas.',
+            name: 'Naam van het type pas dat is aangemaakt door de sponsor.',
+            cards_count: 'Aantal passen gekoppeld aan het fysieke pas type.',
+            funds_count: 'Aantal fondsen gekoppeld aan het fysieke pas type.',
+            allow_physical_card_linking:
+                'Wanneer deze optie is ingeschakeld, kan de inwoner zelf de fysieke pas koppelen aan zijn/haar tegoed.',
+            allow_physical_card_requests:
+                'Wanneer deze optie is ingeschakeld, kan de inwoner zelf de fysieke pas aanvragen op de webshop.',
+            allow_physical_card_deactivation:
+                'Wanneer deze optie is ingeschakeld, kan de inwoner zelf de fysieke pas deactiveren wanneer deze bijvoorbeeld kwijt is.',
+        },
+    },
 };

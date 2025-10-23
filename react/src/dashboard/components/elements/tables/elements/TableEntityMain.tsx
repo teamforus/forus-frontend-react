@@ -22,7 +22,7 @@ export default function TableEntityMain({
     mediaSize?: 'sm' | 'md';
     mediaRound?: boolean;
     mediaBorder?: boolean;
-    mediaPlaceholder?: 'fund' | 'organization' | 'product' | 'form';
+    mediaPlaceholder?: 'fund' | 'organization' | 'product' | 'form' | 'physical_card_type';
     title: string;
     titleLimit?: number;
     subtitle?: string;
@@ -39,6 +39,7 @@ export default function TableEntityMain({
             fund: assetUrl('/assets/img/placeholders/fund-thumbnail.png'),
             product: assetUrl('/assets/img/placeholders/product-thumbnail.png'),
             organization: assetUrl('/assets/img/placeholders/organization-thumbnail.png'),
+            physical_card_type: assetUrl('/assets/img/placeholders/physical-card-type.svg'),
         };
 
         return thumbnails[mediaPlaceholder] || null;

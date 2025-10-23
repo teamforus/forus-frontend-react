@@ -622,6 +622,18 @@
                 "reason": "Powód:",
                 "sent": "Wysłane!",
                 "sign_up": "Zarejestruj się"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Wyślemy fizyczną kartę na podany adres, gdy tylko będzie ona gotowa do użycia.",
+                "heading": "Wprowadź swój adres",
+                "labels": {
+                    "city": "Lokalizacja",
+                    "house_nr": "Numer domu",
+                    "house_nr_addition": "Dodanie numeru domu",
+                    "postal_code": "Kod pocztowy",
+                    "street": "ul."
+                },
+                "title": "Dane adresowe"
             }
         },
         "steps": {
@@ -2307,14 +2319,12 @@
             "all_providers": "Wybierz dostawcę...",
             "all_sub_categories": "Wybierz podkategorię...",
             "bookmarked": "Moja lista życzeń",
-            "category": "Kategoria",
             "distance": "Odległość",
             "fund": "Kredyt",
             "postcode": "Kod pocztowy",
             "providers": "Dostawcy",
             "search": "Oferta wyszukiwania",
             "sort": "Sortuj",
-            "sub_category": "Podkategoria",
             "payment_option_qr": "Pokaż kod QR u dostawcy",
             "payment_option_reservation": "Zarezerwuj online",
             "payment_options": "Opcje płatności",
@@ -2329,7 +2339,8 @@
             "price_type_option_informational": "Tylko w sklepie",
             "price_type_option_regular": "Cena",
             "price_type_options": "Rodzaj oferty",
-            "price_type_options_info": "Dowiedz się więcej o rodzajach ofert"
+            "price_type_options_info": "Dowiedz się więcej o rodzajach ofert",
+            "category": "Kategorie"
         },
         "sort": {
             "created_at_asc": "Najstarszy pierwszy",
@@ -2366,7 +2377,8 @@
             "share": "Udział",
             "vouchers": "Kredyt",
             "me_app": "Me-app",
-            "provider_sign_up": "Zarejestruj się jako dostawca"
+            "provider_sign_up": "Zarejestruj się jako dostawca",
+            "physical_cards": "Przepustka fizyczna"
         },
         "header": {
             "subtitle": "Twój osobisty kod QR powinien zostać zeskanowany przez recenzenta.",
@@ -2494,35 +2506,13 @@
             "home": "Strona główna",
             "providers": "Dostawcy"
         },
-        "distances": {
-            "3": "< 3 km",
-            "5": "< 5 km",
-            "10": "< 10 km",
-            "15": "< 15 km",
-            "25": "< 25 km",
-            "50": "< 50 km",
-            "75": "< 75 km",
-            "everywhere": "Wszędzie"
-        },
         "filters": {
-            "all_categories": "Wybierz kategorię...",
-            "all_funds": "Wszystkie kredyty...",
-            "all_products": "Pełna oferta",
-            "all_providers": "Wybierz dostawcę...",
-            "all_sub_categories": "Wybierz podkategorię...",
             "all_types": "Wszystkie rodzaje...",
-            "bookmarked": "Moja lista życzeń",
-            "category": "Kategoria",
-            "distance": "Odległość",
-            "fund": "Kredyt",
             "map_title": "Wybierz dostawcę, aby uzyskać więcej informacji",
-            "postcode": "Kod pocztowy",
             "provider_type": "Typ dostawcy",
-            "providers": "Dostawcy",
             "result": "Są <div class=\"showcase-result-count\">{{ total }}</div> dostawców.",
             "search": "Wyszukiwanie",
-            "sort": "Sortuj",
-            "sub_category": "Podkategoria"
+            "sort": "Sortuj"
         },
         "items": {
             "labels": {
@@ -3103,7 +3093,8 @@
                     "winterswijk": {
                         "funds": "Aktywuj"
                     },
-                    "profile": "Dane"
+                    "profile": "Dane",
+                    "physical_cards": "Przepustka fizyczna"
                 },
                 "groningen": {
                     "voucher": "Moja karta miejska"
@@ -3212,7 +3203,8 @@
             "security_sessions": "Sesje",
             "aria_label": "Menu użytkownika",
             "title": "Osobiste",
-            "profile": "Dane"
+            "profile": "Dane",
+            "physical_cards": "Przepustka fizyczna"
         },
         "main_menu": "Menu główne",
         "open_home": "Powrót do strony głównej",
@@ -3641,5 +3633,21 @@
         "aria_label_text": "Znak {{current}} z {{total}}",
         "aria_labelledby_num": "Wpisz kod składający się z {{total}} cyfr",
         "aria_labelledby_text": "Wpisz kod {{total}} znaków"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Strona główna",
+            "vouchers": "Przepustka fizyczna"
+        },
+        "empty": {
+            "button": "Aktywuj lub zamów przepustkę fizyczną",
+            "subtitle": "Obecnie nie posiadasz przepustki fizycznej",
+            "title": "Brak fizycznej przepustki"
+        },
+        "filters": {
+            "active": "Aktywny",
+            "archive": "Archiwum"
+        },
+        "title": "Przepustka fizyczna"
     }
 }

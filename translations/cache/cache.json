@@ -1548,6 +1548,38 @@
         "Vraag aan."
     ],
     [
+        "fund_request.sign_up.fund_request_physical_card_request.description",
+        "We sturen uw fysieke kaart naar het door u opgegeven adres zodra deze klaar is voor gebruik."
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.heading",
+        "Voer uw adres in"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.city",
+        "Plaats"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.house_nr",
+        "Huisnummer"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.house_nr_addition",
+        "Huisnummertoevoeging"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.postal_code",
+        "Postcode"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.labels.street",
+        "Straat"
+    ],
+    [
+        "fund_request.sign_up.fund_request_physical_card_request.title",
+        "Adresgegevens"
+    ],
+    [
         "fund_request.sign_up.fund_request_step_criteria.make_a_choice",
         "Maak een keuze"
     ],
@@ -5356,6 +5388,38 @@
         "PDF-voorbeeld"
     ],
     [
+        "physical_cards.breadcrumbs.home",
+        "Home"
+    ],
+    [
+        "physical_cards.breadcrumbs.vouchers",
+        "Fysieke pas"
+    ],
+    [
+        "physical_cards.empty.button",
+        "Activeer of vraag een fysieke pas"
+    ],
+    [
+        "physical_cards.empty.subtitle",
+        "Momenteel heeft u geen fysieke pas"
+    ],
+    [
+        "physical_cards.empty.title",
+        "Geen fysieke pas"
+    ],
+    [
+        "physical_cards.filters.active",
+        "Actief"
+    ],
+    [
+        "physical_cards.filters.archive",
+        "Archief"
+    ],
+    [
+        "physical_cards.title",
+        "Fysieke pas"
+    ],
+    [
         "pincode_control.aria_label_num",
         "Cijfer {{current}} van de {{total}}"
     ],
@@ -6449,7 +6513,7 @@
     ],
     [
         "products.filters.category",
-        "Categorie"
+        "Categorieën"
     ],
     [
         "products.filters.distance",
@@ -6536,10 +6600,6 @@
         "Sorteer"
     ],
     [
-        "products.filters.sub_category",
-        "Subcategorie"
-    ],
-    [
         "products.sort.created_at_asc",
         "Oudste eerst"
     ],
@@ -6618,6 +6678,10 @@
     [
         "profile_menu.buttons.payouts",
         "Uitbetalingen"
+    ],
+    [
+        "profile_menu.buttons.physical_cards",
+        "Fysieke pas"
     ],
     [
         "profile_menu.buttons.profile",
@@ -6944,92 +7008,16 @@
         "Aanbieders"
     ],
     [
-        "providers.distances.10",
-        "< 10 km"
-    ],
-    [
-        "providers.distances.15",
-        "< 15 km"
-    ],
-    [
-        "providers.distances.25",
-        "< 25 km"
-    ],
-    [
-        "providers.distances.3",
-        "< 3 km"
-    ],
-    [
-        "providers.distances.5",
-        "< 5 km"
-    ],
-    [
-        "providers.distances.50",
-        "< 50 km"
-    ],
-    [
-        "providers.distances.75",
-        "< 75 km"
-    ],
-    [
-        "providers.distances.everywhere",
-        "Overal"
-    ],
-    [
-        "providers.filters.all_categories",
-        "Selecteer categorie..."
-    ],
-    [
-        "providers.filters.all_funds",
-        "Alle tegoeden..."
-    ],
-    [
-        "providers.filters.all_products",
-        "Volledig aanbod"
-    ],
-    [
-        "providers.filters.all_providers",
-        "Selecteer aanbieder..."
-    ],
-    [
-        "providers.filters.all_sub_categories",
-        "Selecteer subcategorie..."
-    ],
-    [
         "providers.filters.all_types",
         "Alle typen..."
-    ],
-    [
-        "providers.filters.bookmarked",
-        "Mijn verlanglijstje"
-    ],
-    [
-        "providers.filters.category",
-        "Categorie"
-    ],
-    [
-        "providers.filters.distance",
-        "Afstand"
-    ],
-    [
-        "providers.filters.fund",
-        "Tegoeden"
     ],
     [
         "providers.filters.map_title",
         "Selecteer een aanbieder voor meer informatie"
     ],
     [
-        "providers.filters.postcode",
-        "Postcode"
-    ],
-    [
         "providers.filters.provider_type",
         "Type aanbieder"
-    ],
-    [
-        "providers.filters.providers",
-        "Aanbieders"
     ],
     [
         "providers.filters.result",
@@ -7042,10 +7030,6 @@
     [
         "providers.filters.sort",
         "Sorteer"
-    ],
-    [
-        "providers.filters.sub_category",
-        "Subcategorie"
     ],
     [
         "providers.items.labels.open_provider",
@@ -8412,6 +8396,10 @@
         "Uitbetalingen"
     ],
     [
+        "top_navbar.buttons.mobile.dropdown.physical_cards",
+        "Fysieke pas"
+    ],
+    [
         "top_navbar.buttons.mobile.dropdown.potjeswijzer.funds",
         "Potjes"
     ],
@@ -8710,6 +8698,10 @@
     [
         "top_navbar.user_menu.payouts",
         "Uitbetalingen"
+    ],
+    [
+        "top_navbar.user_menu.physical_cards",
+        "Fysieke pas"
     ],
     [
         "top_navbar.user_menu.preferences_emails",

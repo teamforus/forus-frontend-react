@@ -622,6 +622,18 @@
                 "reason": "Der Grund:",
                 "sent": "Gesendet!",
                 "sign_up": "Registrieren Sie sich"
+            },
+            "fund_request_physical_card_request": {
+                "description": "Wir senden Ihnen Ihre physische Karte an die von Ihnen angegebene Adresse, sobald sie einsatzbereit ist.",
+                "heading": "Geben Sie Ihre Adresse ein",
+                "labels": {
+                    "city": "Standort",
+                    "house_nr": "Hausnummer",
+                    "house_nr_addition": "Hausnummer Zusatz",
+                    "postal_code": "Postleitzahl",
+                    "street": "Straße"
+                },
+                "title": "Angaben zur Adresse"
             }
         },
         "steps": {
@@ -2307,14 +2319,12 @@
             "all_providers": "Anbieter auswählen...",
             "all_sub_categories": "Unterkategorie auswählen...",
             "bookmarked": "Mein Wunschzettel",
-            "category": "Kategorie",
             "distance": "Entfernung",
             "fund": "Kredit",
             "postcode": "Postleitzahl",
             "providers": "Anbieter",
             "search": "Angebot suchen",
             "sort": "Sortieren",
-            "sub_category": "Unterkategorie",
             "payment_option_qr": "QR-Code beim Anbieter anzeigen",
             "payment_option_reservation": "Online buchen",
             "payment_options": "Zahlungsmöglichkeiten",
@@ -2329,7 +2339,8 @@
             "price_type_option_informational": "Nur im Geschäft",
             "price_type_option_regular": "Preis",
             "price_type_options": "Art des Angebots",
-            "price_type_options_info": "Lesen Sie mehr über die Arten von Angeboten"
+            "price_type_options_info": "Lesen Sie mehr über die Arten von Angeboten",
+            "category": "Kategorien"
         },
         "sort": {
             "created_at_asc": "Älteste zuerst",
@@ -2366,7 +2377,8 @@
             "share": "Teilen Sie",
             "vouchers": "Kredit",
             "me_app": "Me-app",
-            "provider_sign_up": "Als Anbieter registrieren"
+            "provider_sign_up": "Als Anbieter registrieren",
+            "physical_cards": "Körperlicher Pass"
         },
         "header": {
             "subtitle": "Lassen Sie Ihren persönlichen QR-Code von einem Prüfer scannen.",
@@ -2494,35 +2506,13 @@
             "home": "Startseite",
             "providers": "Anbieter"
         },
-        "distances": {
-            "3": "< 3 km",
-            "5": "< 5 km",
-            "10": "< 10 km",
-            "15": "< 15 km",
-            "25": "< 25 km",
-            "50": "< 50 km",
-            "75": "< 75 km",
-            "everywhere": "Überall"
-        },
         "filters": {
-            "all_categories": "Kategorie auswählen...",
-            "all_funds": "Alle Credits...",
-            "all_products": "Vollständiges Angebot",
-            "all_providers": "Anbieter auswählen...",
-            "all_sub_categories": "Unterkategorie auswählen...",
             "all_types": "Alle Arten...",
-            "bookmarked": "Mein Wunschzettel",
-            "category": "Kategorie",
-            "distance": "Entfernung",
-            "fund": "Kredit",
             "map_title": "Wählen Sie einen Anbieter für weitere Informationen",
-            "postcode": "Postleitzahl",
             "provider_type": "Typ des Anbieters",
-            "providers": "Anbieter",
             "result": "Es sind <div class=\"showcase-result-count\">{{ total }}</div> Anbieter gefunden.",
             "search": "Suche",
-            "sort": "Sortieren",
-            "sub_category": "Unterkategorie"
+            "sort": "Sortieren"
         },
         "items": {
             "labels": {
@@ -3103,7 +3093,8 @@
                     "winterswijk": {
                         "funds": "Aktivieren Sie"
                     },
-                    "profile": "Daten"
+                    "profile": "Daten",
+                    "physical_cards": "Körperlicher Pass"
                 },
                 "groningen": {
                     "voucher": "Meine Stadtkarte"
@@ -3212,7 +3203,8 @@
             "security_sessions": "Sitzungen",
             "aria_label": "Benutzermenü",
             "title": "Persönlich",
-            "profile": "Daten"
+            "profile": "Daten",
+            "physical_cards": "Körperlicher Pass"
         },
         "main_menu": "Hauptmenü",
         "open_home": "Zurück zur Hauptseite",
@@ -3641,5 +3633,21 @@
         "aria_label_text": "Zeichen {{current}} der {{total}}",
         "aria_labelledby_num": "Geben Sie den Code von {{total}} ein.",
         "aria_labelledby_text": "Geben Sie den Code von {{total}} ein."
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "Startseite",
+            "vouchers": "Körperlicher Pass"
+        },
+        "empty": {
+            "button": "Aktivieren oder Anfordern eines physischen Ausweises",
+            "subtitle": "Sie haben derzeit keinen physischen Ausweis",
+            "title": "Kein physischer Pass"
+        },
+        "filters": {
+            "active": "Aktiv",
+            "archive": "Archiv"
+        },
+        "title": "Körperlicher Pass"
     }
 }

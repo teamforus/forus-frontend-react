@@ -110,6 +110,7 @@ export default interface Organization {
     allow_manual_bulk_processing: boolean;
     allow_fund_request_record_edit: boolean;
     allow_bi_connection: boolean;
+    allow_physical_cards: boolean;
     allow_product_updates: boolean;
     auth_2fa_policy: 'optional' | 'required' | 'restrict_features';
     auth_2fa_remember_ip?: boolean;
@@ -163,6 +164,7 @@ export default interface Organization {
         bank_reservation_number?: boolean;
         bank_reservation_first_name?: boolean;
         bank_reservation_last_name?: boolean;
+        bank_reservation_invoice_number?: boolean;
         bank_branch_number?: boolean;
         bank_branch_id?: boolean;
         bank_branch_name?: boolean;
