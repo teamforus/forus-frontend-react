@@ -17,9 +17,8 @@ export default {
             title: 'Activeer je oude pas',
             subtitle: 'Voer je persoonlijke klantcode in',
             description: [
-                'Op je pasje staat een QR-code, hieronder staat je persoonlijke code.',
+                'Op je pasje staat een persoonlijke code. Vul deze hieronder in.',
                 'Als je de oude pas opnieuw activeert kun je deze blijven gebruiken.',
-                'Hulp nodig?  Bel 14 050 maandag t/m vrijdag 9.00 tot 12.00.',
             ].join('<br/>'),
             no_old_card: 'Geen oude pas?',
             order_card: 'Bestel een pas',

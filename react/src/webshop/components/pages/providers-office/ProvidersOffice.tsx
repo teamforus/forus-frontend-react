@@ -17,7 +17,6 @@ import BlockLoader from '../../elements/block-loader/BlockLoader';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
-import usePushApiError from '../../../../dashboard/hooks/usePushApiError';
 
 export default function ProvidersOffice() {
     const { organization_id, id } = useParams();
@@ -25,7 +24,6 @@ export default function ProvidersOffice() {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const setProgress = useSetProgress();
-    const pushApiError = usePushApiError();
 
     const appConfigs = useAppConfigs();
     const officeService = useOfficeService();
@@ -73,9 +71,9 @@ export default function ProvidersOffice() {
         productService
             .list({ per_page: 3, organization_id: provider?.id })
             .then((res) => setProducts(res.data))
-            .catch(pushApiError)
+            .catch(console.error)
             .finally(() => setProgress(100));
-    }, [provider, productService, setProgress, pushApiError]);
+    }, [provider, productService, setProgress]);
 
     useEffect(() => {
         fetchOffice();

@@ -414,14 +414,12 @@
             "all_providers": "حدد المزود...",
             "all_sub_categories": "اختر الفئة الفرعية...",
             "bookmarked": "قائمة أمنياتي",
-            "category": "الفئة",
             "distance": "المسافة",
             "fund": "الائتمان",
             "postcode": "الرمز البريدي",
             "providers": "المزودون",
             "search": "عرض البحث",
             "sort": "فرز",
-            "sub_category": "الفئة الفرعية",
             "payment_option_qr": "إظهار رمز الاستجابة السريعة لدى المزود",
             "payment_option_reservation": "احجز عبر الإنترنت",
             "payment_options": "خيارات الدفع",
@@ -436,7 +434,8 @@
             "price_type_option_informational": "في المتجر فقط",
             "price_type_option_regular": "السعر",
             "price_type_options": "نوع العرض",
-            "price_type_options_info": "اقرأ المزيد عن أنواع العروض"
+            "price_type_options_info": "اقرأ المزيد عن أنواع العروض",
+            "category": "الفئات"
         },
         "sort": {
             "created_at_asc": "الأقدم أولاً",
@@ -651,7 +650,8 @@
                     "winterswijk": {
                         "funds": "تفعيل"
                     },
-                    "profile": "البيانات"
+                    "profile": "البيانات",
+                    "physical_cards": "البطاقة البدنية"
                 },
                 "groningen": {
                     "voucher": "بطاقة مدينتي"
@@ -760,7 +760,8 @@
             "security_sessions": "الجلسات",
             "aria_label": "قائمة المستخدم",
             "title": "شخصي",
-            "profile": "البيانات"
+            "profile": "البيانات",
+            "physical_cards": "البطاقة البدنية"
         },
         "main_menu": "القائمة الرئيسية",
         "open_home": "العودة إلى الصفحة الرئيسية",
@@ -1037,6 +1038,18 @@
                 "reason": "السبب:",
                 "sent": "تم الإرسال",
                 "sign_up": "التسجيل"
+            },
+            "fund_request_physical_card_request": {
+                "description": "سنقوم بإرسال بطاقتك الفعلية إلى العنوان الذي قدمته بمجرد أن تصبح جاهزة للاستخدام.",
+                "heading": "أدخل عنوانك",
+                "labels": {
+                    "city": "الموقع",
+                    "house_nr": "رقم المنزل",
+                    "house_nr_addition": "إضافة رقم المنزل",
+                    "postal_code": "الرمز البريدي",
+                    "street": "الشارع"
+                },
+                "title": "تفاصيل العنوان"
             }
         },
         "steps": {
@@ -1607,35 +1620,13 @@
             "home": "الصفحة الرئيسية",
             "providers": "المزودون"
         },
-        "distances": {
-            "3": "< أقل من 3 كم",
-            "5": "< أقل من 5 كم",
-            "10": "< أقل من 10 كم",
-            "15": "< أقل من 15 كم",
-            "25": "< 25 كم",
-            "50": "< أقل من 50 كم",
-            "75": "< 75 كم",
-            "everywhere": "في كل مكان"
-        },
         "filters": {
-            "all_categories": "اختر الفئة...",
-            "all_funds": "جميع الائتمانات...",
-            "all_products": "العرض الكامل",
-            "all_providers": "حدد المزود...",
-            "all_sub_categories": "اختر الفئة الفرعية...",
             "all_types": "جميع الأنواع...",
-            "bookmarked": "قائمة أمنياتي",
-            "category": "الفئة",
-            "distance": "المسافة",
-            "fund": "الائتمان",
             "map_title": "اختر مزوداً لمزيد من المعلومات",
-            "postcode": "الرمز البريدي",
             "provider_type": "نوع مقدم الخدمة",
-            "providers": "المزودون",
             "result": "يوجد <div class=\"showcase-result-count\">{{ total }}</div> مزودين موجودين.",
             "search": "بحث",
-            "sort": "فرز",
-            "sub_category": "الفئة الفرعية"
+            "sort": "فرز"
         },
         "items": {
             "labels": {
@@ -3439,7 +3430,8 @@
             "share": "شارك",
             "vouchers": "الائتمان",
             "me_app": "أنا-التطبيق",
-            "provider_sign_up": "التسجيل كمقدم خدمات"
+            "provider_sign_up": "التسجيل كمقدم خدمات",
+            "physical_cards": "البطاقة البدنية"
         },
         "header": {
             "subtitle": "قم بمسح رمز الاستجابة السريعة الشخصي الخاص بك بواسطة أحد المراجعين.",
@@ -3641,5 +3633,21 @@
         "aria_label_text": "التوقيع {{current}} من {{total}}",
         "aria_labelledby_num": "اكتب الرمز {{total}} الأرقام",
         "aria_labelledby_text": "اكتب الرمز {{total}} الأحرف"
+    },
+    "physical_cards": {
+        "breadcrumbs": {
+            "home": "الصفحة الرئيسية",
+            "vouchers": "البطاقة البدنية"
+        },
+        "empty": {
+            "button": "تفعيل أو طلب تصريح مرور مادي",
+            "subtitle": "ليس لديك حالياً تصريح مرور مادي",
+            "title": "لا يوجد تصريح مادي"
+        },
+        "filters": {
+            "active": "نشط",
+            "archive": "الأرشيف"
+        },
+        "title": "البطاقة البدنية"
     }
 }

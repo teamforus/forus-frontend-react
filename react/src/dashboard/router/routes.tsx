@@ -98,6 +98,8 @@ import OrganizationsTranslations from '../components/pages/organizations-transla
 import ImplementationsTranslations from '../components/pages/implementations-cookies/ImplementationsTranslations';
 import FundForms from '../components/pages/fund-forms/FundForms';
 import FundFormsView from '../components/pages/fund-forms-view/FundFormsView';
+import PhysicalCards from '../components/pages/physical-cards/PhysicalCards';
+import PhysicalCardTypesShow from '../components/pages/physical-cards/PhysicalCardTypesShow';
 
 const router = new RouterBuilder();
 
@@ -315,6 +317,16 @@ router.state('vouchers-show', <VouchersViewComponent />, {
     path: `/organisaties/:organizationId/tegoeden/:id`,
     altPath: `/organizations/:organizationId/vouchers/:id`,
     fallbackState: 'organizations',
+});
+
+router.state('physical-cards', <PhysicalCards />, {
+    path: `/organisaties/:organizationId/fysieke-passen`,
+    altPath: `/organizations/:organizationId/physical-cards`,
+});
+
+router.state('physical-card-types-show', <PhysicalCardTypesShow />, {
+    path: `/organisaties/:organizationId/fysieke-passen-types/:id`,
+    altPath: `/organizations/:organizationId/physical-cards-types/:id`,
 });
 
 router.state('reimbursements', <Reimbursements />, {

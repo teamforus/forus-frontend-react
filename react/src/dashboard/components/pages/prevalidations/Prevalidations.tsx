@@ -499,6 +499,7 @@ export default function Prevalidations() {
                                                                         deletePrevalidation(row);
                                                                         e.close();
                                                                     }}>
+                                                                    <em className="mdi mdi-close icon-start icon-start" />
                                                                     Verwijderen
                                                                 </a>
                                                             </div>
