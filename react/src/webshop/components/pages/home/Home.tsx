@@ -201,7 +201,7 @@ export default function Home() {
 
             {appConfigs.pages.home && <CmsBlocks page={appConfigs.pages.home} />}
 
-            {appConfigs.show_home_products && <RandomProductsBlock count={6} />}
+            {appConfigs.show_home_products && <RandomProductsBlock count={6} showCustomDescription={true} />}
 
             {appConfigs.show_home_map && (
                 <Section type={'map'} id="map_block">

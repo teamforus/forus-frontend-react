@@ -1,5 +1,5 @@
 import React from 'react';
-import RouterBuilder from '../../dashboard/modules/state_router/RouterBuilder';
+import RouterBuilder from '../modules/state_router/RouterBuilder';
 import NotFound from '../components/pages_system/NotFound';
 import Home from '../components/pages/home/Home';
 import Funds from '../components/pages/funds/Funds';
@@ -10,7 +10,6 @@ import IdentityRestore from '../components/pages/auth/IdentityRestore';
 import Products from '../components/pages/products/Products';
 import Providers from '../components/pages/providers/Providers';
 import ProvidersShow from '../components/pages/providers-show/ProvidersShow';
-import ProductsShow from '../components/pages/products-show/ProductsShow';
 import Explanation from '../components/pages/cms-pages/Explanation';
 import PreferencesEmails from '../components/pages/identity-emails/PreferencesEmails';
 import Redirect from '../components/pages/redirect/Redirect';
@@ -48,7 +47,7 @@ import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
 import ThrowError from '../components/pages_system/ThrowError';
 import Payouts from '../components/pages/payouts/Payouts';
 import Profile from '../components/pages/profile/Profile';
-import ProductsShowNext from '../components/pages/products-show/ProductsShowNext';
+import ProductsShow from '../components/pages/products-show/ProductsShow';
 
 const router = new RouterBuilder();
 
@@ -135,15 +134,9 @@ router.state('products', <Products />, {
     protected: false,
 });
 
-router.state('product', <ProductsShowNext />, {
+router.state('product', <ProductsShow />, {
     path: `/aanbod/:id`,
     altPath: `/products/:id`,
-    protected: false,
-});
-
-router.state('product', <ProductsShow />, {
-    path: `/aanbod/:id/old`,
-    altPath: `/products/:id/old`,
     protected: false,
 });
 

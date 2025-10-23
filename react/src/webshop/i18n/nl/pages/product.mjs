@@ -65,12 +65,6 @@ export default {
         add_to_favorites: 'Toevoegen aan favorieten',
         ideal_logo_alt: 'iDEAL logo',
     },
-    status: {
-        active: 'Actief',
-        out_of_stock: 'Geen voorraad meer',
-        no_data: 'Geen data',
-        free: 'Gratis',
-    },
     price: {
         free: 'Gratis',
         informational: 'Alleen in winkel',

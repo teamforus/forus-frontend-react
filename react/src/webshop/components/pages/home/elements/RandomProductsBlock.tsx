@@ -5,7 +5,15 @@ import Product from '../../../../../dashboard/props/models/Product';
 import { useProductService } from '../../../../services/ProductService';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 
-export default function RandomProductsBlock({ count, title }: { count: number; title?: string }) {
+export default function RandomProductsBlock({
+    count,
+    title,
+    showCustomDescription = false,
+}: {
+    count: number;
+    title?: string;
+    showCustomDescription?: boolean;
+}) {
     const setProgress = useSetProgress();
     const productService = useProductService();
 
@@ -31,7 +39,7 @@ export default function RandomProductsBlock({ count, title }: { count: number; t
             products={products.data}
             setProducts={(list) => setProducts({ ...products, data: list })}
             display="grid"
-            showCustomDescription={true}
+            showCustomDescription={showCustomDescription}
         />
     ) : null;
 }

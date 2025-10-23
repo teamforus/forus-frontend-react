@@ -19,7 +19,7 @@ import useFundMetaBuilder from '../../../../hooks/meta/useFundMetaBuilder';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
 import classNames from 'classnames';
 
-export default function ProductNextFunds({
+export default function ProductFunds({
     product,
     funds,
     payouts = [],
@@ -137,7 +137,7 @@ export default function ProductNextFunds({
                                             {(product.price_type === 'regular' || product.price_type === 'free') && (
                                                 <div className="product-funds-item-details-prop-value">
                                                     {fund.user_price === '0.00'
-                                                        ? translate('product.status.free')
+                                                        ? translate('product.price.free')
                                                         : fund.user_price_locale}
                                                 </div>
                                             )}
