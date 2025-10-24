@@ -274,8 +274,8 @@ export default function Transactions() {
                         setViewType(viewTypes.find((viewType) => viewType.key == 'bulks'));
 
                         pushSuccess(
-                            'Succes!',
-                            `${bulks.length} bulk betaalopdrachten aangemaakt. Accepteer de transactie in uw mobiele app van bunq.`,
+                            'Gelukt!',
+                            `${bulks.length} bulk betaalopdrachten aangemaakt. Accepteer de transactie in uw bankomgeving.`,
                         );
                     } else if (bulks.length == 1) {
                         navigateState('transaction-bulk', {
@@ -283,7 +283,7 @@ export default function Transactions() {
                             id: bulks[0].id,
                         });
 
-                        pushSuccess(`Succes!`, `Accepteer de transactie in uw mobiele app van bunq.`);
+                        pushSuccess(`Gelukt!`, `Accepteer de transactie in uw bankomgeving.`);
                     }
                 })
                 .catch(pushApiError)

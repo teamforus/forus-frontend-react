@@ -1524,12 +1524,12 @@
                 "title": "Заблокуйте свій пропуск"
             },
             "link_card": {
-                "description": "<br/><br/>На перепустці є QR-код, нижче - ваш особистий код. Якщо ви активуєте стару перепустку, ви можете продовжувати нею користуватися. Потрібна допомога?  Телефонуйте за номером 14 050 з понеділка по п'ятницю з 9.00 до 12.00.",
                 "subtitle": "Введіть свій персональний код клієнта",
                 "title": "Активуйте стару перепустку",
                 "alt_text": "Фізичний пропуск: {{ fund_name }}",
                 "no_old_card": "Старої перепустки немає?",
-                "order_card": "Замовити перепустку"
+                "order_card": "Замовити перепустку",
+                "description": "На вашій перепустці є персональний код. Введіть його нижче.<br/>Якщо ви повторно активуєте стару перепустку, ви зможете продовжувати нею користуватися."
             },
             "request_card_success": {
                 "description": "Ви отримали електронний лист з підтвердженням вашого замовлення.",
@@ -1849,7 +1849,6 @@
         "preferences-notifications": "Налаштування сповіщень{{pageTitleSuffix}}",
         "privacy": "Заява про конфіденційність{{pageTitleSuffix}}",
         "product": "{{product_name}} Пропозиція - від {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Пропозиція{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Пропозиція купівлі{{pageTitleSuffix}}",
         "products-show": "Пропозиція{{pageTitleSuffix}}",
         "provider": "Провайдер - {{provider_name}}{{pageTitleSuffix}}",
@@ -1874,7 +1873,8 @@
         "start": "Почніть входити в систему{{pageTitleSuffix}}",
         "terms_and_conditions": "Загальні положення та умови{{pageTitleSuffix}}",
         "voucher": "Твоя заслуга - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Моя заслуга{{pageTitleSuffix}}"
+        "vouchers": "Моя заслуга{{pageTitleSuffix}}",
+        "products": "Пропозиція{{pageTitleSuffix}}"
     },
     "page_title": "Платформа Forus",
     "paginator": {
@@ -2511,8 +2511,8 @@
             "map_title": "Виберіть постачальника для отримання додаткової інформації",
             "provider_type": "Тип постачальника",
             "result": "Є <div class=\"showcase-result-count\">{{ total }}</div> провайдерів знайдено.",
-            "search": "Пошук",
-            "sort": "Сортування"
+            "sort": "Сортування",
+            "search": "Знайти постачальника"
         },
         "items": {
             "labels": {
