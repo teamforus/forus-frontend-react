@@ -2,33 +2,43 @@
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 400;
-    src: url('./assets/fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
+    src:
+        url('./assets/fonts/open-sans/OpenSans-Regular.woff2') format('woff2'),
+        url('./assets/fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Open Sans';
     font-style: italic;
     font-weight: 400;
-    src: url('./assets/fonts/open-sans/OpenSans-Italic.ttf') format('truetype');
+    src:
+        url('./assets/fonts/open-sans/OpenSans-Italic.woff2') format('woff2'),
+        url('./assets/fonts/open-sans/OpenSans-Italic.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 500;
-    src: url('./assets/fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
+    src:
+        url('./assets/fonts/open-sans/OpenSans-Medium.woff2') format('woff2'),
+        url('./assets/fonts/open-sans/OpenSans-Medium.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 600;
-    src: url('./assets/fonts/open-sans/OpenSans-SemiBold.ttf') format('truetype');
+    src:
+        url('./assets/fonts/open-sans/OpenSans-SemiBold.woff2') format('woff2'),
+        url('./assets/fonts/open-sans/OpenSans-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 700;
-    src: url('./assets/fonts/open-sans/OpenSans-Bold.ttf') format('truetype');
+    src:
+        url('./assets/fonts/open-sans/OpenSans-Bold.woff2') format('woff2'),
+        url('./assets/fonts/open-sans/OpenSans-Bold.ttf') format('truetype');
 }
