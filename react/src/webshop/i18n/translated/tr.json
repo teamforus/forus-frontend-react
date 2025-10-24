@@ -359,7 +359,6 @@
         "preferences-notifications": "Bildirim tercihleri{{pageTitleSuffix}}",
         "privacy": "Gizlilik beyanı{{pageTitleSuffix}}",
         "product": "{{product_name}} Teklif - of {{organization_name}}{{pageTitleSuffix}}",
-        "products": "Teklif{{fund_name}}{{pageTitleSuffix}}",
         "products-apply": "Teklif Satın Al{{pageTitleSuffix}}",
         "products-show": "Teklif{{pageTitleSuffix}}",
         "provider": "Sağlayıcı - {{provider_name}}{{pageTitleSuffix}}",
@@ -384,7 +383,8 @@
         "start": "Oturum açmayı başlat{{pageTitleSuffix}}",
         "terms_and_conditions": "Genel hüküm ve koşullar{{pageTitleSuffix}}",
         "voucher": "Krediniz - {{fund_name}}{{pageTitleSuffix}}",
-        "vouchers": "Kredim{{pageTitleSuffix}}"
+        "vouchers": "Kredim{{pageTitleSuffix}}",
+        "products": "Teklif{{pageTitleSuffix}}"
     },
     "page_title": "Forus platformu",
     "product_bookmark_push": {
@@ -1625,8 +1625,8 @@
             "map_title": "Daha fazla bilgi için bir sağlayıcı seçin",
             "provider_type": "Sağlayıcı türü",
             "result": "Şunlar var <div class=\"showcase-result-count\">{{ total }}</div> sağlayıcılar bulundu.",
-            "search": "Arama",
-            "sort": "Sırala"
+            "sort": "Sırala",
+            "search": "Tedarikçi bulun"
         },
         "items": {
             "labels": {
@@ -2934,12 +2934,12 @@
                 "title": "Pasınızı engelleyin"
             },
             "link_card": {
-                "description": "<br/><br/>Geçiş kartınızın üzerinde bir QR kodu bulunmaktadır, aşağıda kişisel kodunuz yer almaktadır. Eski geçiş kartınızı yeniden etkinleştirirseniz kullanmaya devam edebilirsiniz. Yardıma mı ihtiyacınız var?  Pazartesi - Cuma 9.00 - 12.00 arası 14 050'yi arayın.",
                 "subtitle": "Kişisel müşteri kodunuzu girin",
                 "title": "Eski geçiş kartınızı etkinleştirin",
                 "alt_text": "Fiziksel geçiş: {{ fund_name }}",
                 "no_old_card": "Eski kart yok mu?",
-                "order_card": "Geçiş kartı sipariş edin"
+                "order_card": "Geçiş kartı sipariş edin",
+                "description": "Geçiş kartınızın üzerinde kişisel bir kod bulunmaktadır. Aşağıya girin.<br/>Eski geçiş kartınızı yeniden etkinleştirirseniz, kullanmaya devam edebilirsiniz."
             },
             "request_card_success": {
                 "description": "Siparişinizi onaylayan bir e-posta aldınız.",
