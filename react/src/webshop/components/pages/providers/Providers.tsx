@@ -176,7 +176,7 @@ export default function Providers() {
 
                         <FormGroup
                             id={'providers_search'}
-                            label={translate('products.filters.search')}
+                            label={translate('providers.filters.search')}
                             error={errors?.q}
                             input={(id) => (
                                 <UIControlText
