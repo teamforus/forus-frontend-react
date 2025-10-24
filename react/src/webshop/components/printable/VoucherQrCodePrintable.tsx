@@ -5,6 +5,7 @@ import useTranslate from '../../../dashboard/hooks/useTranslate';
 import QrCode from '../../../dashboard/components/elements/qr-code/QrCode';
 import Fund from '../../../dashboard/props/models/Fund';
 import OrganizationBasic from '../../../dashboard/props/models/OrganizationBasic';
+import { makeQrCodeContent } from '../../../dashboard/helpers/utils';
 
 export default function VoucherQrCodePrintable({
     fund,
@@ -48,7 +49,7 @@ export default function VoucherQrCodePrintable({
                 <div className="printable-logo">
                     <img src={assetUrl('/assets/img/implementation-logo.png')} alt={''} />
                 </div>
-                <QrCode value={JSON.stringify({ type: 'voucher', value: voucher.address })} />
+                <QrCode value={makeQrCodeContent('voucher', voucher.address)} />
                 <div className="printable-title">{printableTitle}</div>
                 <div className="printable-description">
                     {translate(`voucher_printable.${voucherType}_voucher.labels.description`, { printableTitle })}

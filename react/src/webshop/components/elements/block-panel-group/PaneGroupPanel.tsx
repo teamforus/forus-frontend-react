@@ -7,7 +7,7 @@ type PaneGroupIcon =
     | 'store-outline'
     | 'store-marker-outline';
 
-export default function PaneGroup({
+export default function PaneGroupPanel({
     elRef,
     icon,
     title,

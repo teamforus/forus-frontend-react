@@ -49,3 +49,7 @@ export async function runSequentially<T>(tasks: Array<() => Promise<T>>): Promis
 
     return results;
 }
+
+export function makeQrCodeContent(type: 'voucher' | 'auth_token' | 'demo_voucher', value: string) {
+    return JSON.stringify({ type, value });
+}

@@ -7,6 +7,7 @@ import QrCode from '../../../../../dashboard/components/elements/qr-code/QrCode'
 import TranslateHtml from '../../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import VoucherActions from '../elements/VoucherActions';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
+import { makeQrCodeContent } from '../../../../../dashboard/helpers/utils';
 
 export default function VoucherDetailsInternalCard({
     voucher,
@@ -56,10 +57,7 @@ export default function VoucherDetailsInternalCard({
                                         <QrCode
                                             padding={5}
                                             className={'card-qr_code-element'}
-                                            value={JSON.stringify({
-                                                type: 'voucher',
-                                                value: voucher.address,
-                                            })}
+                                            value={makeQrCodeContent('voucher', voucher.address)}
                                         />
                                     )}
 
@@ -69,12 +67,7 @@ export default function VoucherDetailsInternalCard({
                                 </div>
                                 <div className="card-qr_code hide-sm">
                                     {voucher.address && (
-                                        <QrCode
-                                            value={JSON.stringify({
-                                                type: 'voucher',
-                                                value: voucher.address,
-                                            })}
-                                        />
+                                        <QrCode value={makeQrCodeContent('voucher', voucher.address)} />
                                     )}
 
                                     {!voucherCard.used && (

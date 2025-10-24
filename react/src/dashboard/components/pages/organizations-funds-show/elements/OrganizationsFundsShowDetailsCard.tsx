@@ -1,4 +1,4 @@
-import OrganizationsFundsShowDescriptionCard from './tabs-details-card/OrganizationsFundsShowDescriptionCard';
+import OrganizationsFundsShowMarkdownCard from './tabs-details-card/OrganizationsFundsShowMarkdownCard';
 import OrganizationsFundsShowFormulasCard from './tabs-details-card/OrganizationsFundsShowFormulasCard';
 import OrganizationsFundsShowStatisticsCard from './tabs-details-card/OrganizationsFundsShowStatisticsCard';
 import React, { useMemo } from 'react';
@@ -41,6 +41,7 @@ export default function OrganizationsFundsShowDetailsCard({
     const tabs = useMemo(() => {
         return [
             'description',
+            'how_it_works',
             canViewFinances ? 'statistics' : null,
             canManageFunds ? 'formulas' : null,
             canManagePayouts ? 'configs' : null,
@@ -77,7 +78,8 @@ export default function OrganizationsFundsShowDetailsCard({
                 </div>
             </div>
 
-            {viewType == 'description' && <OrganizationsFundsShowDescriptionCard fund={fund} />}
+            {viewType == 'description' && <OrganizationsFundsShowMarkdownCard html={fund.description_html} />}
+            {viewType == 'how_it_works' && <OrganizationsFundsShowMarkdownCard html={fund.how_it_works_html} />}
             {viewType == 'statistics' && (
                 <OrganizationsFundsShowStatisticsCard fund={fund} organization={organization} />
             )}

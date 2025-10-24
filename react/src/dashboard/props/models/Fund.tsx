@@ -39,8 +39,10 @@ export default interface Fund {
     name?: string;
     logo?: Media;
     description?: string;
-    description_short?: string;
     description_html: string;
+    description_short?: string;
+    how_it_works?: string;
+    how_it_works_html?: string;
     organization_id: number;
     organization?: Organization;
     products_count_all?: number;

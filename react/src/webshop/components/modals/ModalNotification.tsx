@@ -103,9 +103,11 @@ export default function ModalNotification({
 
                 <div className="modal-body">
                     <div className="modal-section">
-                        <div className={`modal-section-icon modal-section-icon-${mdiIconType}`}>
-                            {mdiIconType && mdiIconClass && <div className={`mdi mdi-${mdiIconClass}`} />}
-                        </div>
+                        {mdiIconClass && (
+                            <div className={`modal-section-icon modal-section-icon-${mdiIconType}`}>
+                                {mdiIconType && mdiIconClass && <div className={`mdi mdi-${mdiIconClass}`} />}
+                            </div>
+                        )}
 
                         {header && <div className="modal-section-title">{translate(header)}</div>}
 

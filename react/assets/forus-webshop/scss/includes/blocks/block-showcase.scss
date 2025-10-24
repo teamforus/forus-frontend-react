@@ -647,7 +647,8 @@
     }
 
     &.block-showcase-narrow {
-        .section-product {
+        .section-product,
+        .section-voucher-details {
             .wrapper {
                 width: calc(1020px + 50px);
             }
