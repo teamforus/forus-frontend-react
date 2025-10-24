@@ -40,6 +40,11 @@ export default function VouchersShow() {
 
     const voucherCard = useVoucherCard(voucher);
 
+    const showHistory = useMemo(
+        () => voucher?.history.filter((history) => !history.event.startsWith('created_')).length > 0,
+        [voucher?.history],
+    );
+
     const showTransactions = useMemo(() => {
         return !voucher?.external && !voucherCard?.product && voucherCard?.transactionsList?.length > 0;
     }, [voucher?.external, voucherCard?.product, voucherCard?.transactionsList?.length]);
@@ -222,9 +227,11 @@ export default function VouchersShow() {
                             )}
 
                             <PaneGroup>
-                                <PaneGroupPanel title={translate('voucher.history.title')}>
-                                    <VoucherNextHistoryCard voucher={voucher} />
-                                </PaneGroupPanel>
+                                {showHistory && (
+                                    <PaneGroupPanel title={translate('voucher.history.title')}>
+                                        <VoucherNextHistoryCard voucher={voucher} />
+                                    </PaneGroupPanel>
+                                )}
 
                                 {showTransactions && (
                                     <PaneGroupPanel title={translate('voucher.transactions.title')}>
